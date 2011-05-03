@@ -1,0 +1,495 @@
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+article, aside, dialog, figure, footer, header, hgroup, nav, section { display: block; }
+body { line-height: 1.5; }
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+}
+table, td, th { vertical-align: middle; }
+blockquote:before { content: ""; }
+blockquote:after { content: ""; }
+q:before { content: ""; }
+q:after { content: ""; }
+blockquote, q { quotes: "" ""; }
+a img { border: none; }
+body {
+  width: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: 0.9em;
+}
+a { color: #000000; }
+header {
+  position: relative;
+  padding: 5px 20px;
+  border-bottom: 1px solid #aaaaaa;
+}
+header h1 {
+  background: transparent url(/images/cypress_logo.png) top left no-repeat;
+  text-indent: -9999pt;
+  width: 169px;
+  height: 40px;
+}
+header nav {
+  position: absolute;
+  top: 17px;
+  right: 20px;
+}
+header a {
+  text-decoration: underline;
+  margin-left: 10px;
+}
+#container {
+  width: 1000px;
+  margin: 20px auto 20px auto;
+  border: 1px solid #aaaaaa;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 2px 2px 8px #aaaaaa;
+  -moz-box-shadow: 2px 2px 8px #aaaaaa;
+  box-shadow: 2px 2px 8px #aaaaaa;
+}
+#container > div { padding: 20px; }
+nav.breadcrumb {
+  font-size: 80%;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+nav.breadcrumb a {
+  text-decoration: none;
+  margin: 0 5px;
+}
+nav.breadcrumb a:hover { text-decoration: underline; }
+nav.breadcrumb a:first-child { margin-left: 0; }
+nav.breadcrumb span { margin-left: 5px; }
+.bordered {
+  border: 1px solid #aaaaaa;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  behavior: url(./PIE.htc);
+}
+section.records {
+  border-bottom: 1px solid #aaaaaa;
+  line-height: 2em;
+}
+section.candidate {
+  padding: 10px;
+  position: relative;
+  vertical-align: top;
+}
+section.candidate dl {
+  font-size: 90%;
+  width: 305px;
+  display: table-cell;
+  padding-right: 10px;
+}
+section.candidate dl.wide dt { width: 120px; }
+section.candidate dt {
+  color: #666666;
+  width: 90px;
+  clear: both;
+  display: inline-block;
+  text-align: right;
+  margin-right: 5px;
+  vertical-align: top;
+}
+section.candidate dd {
+  width: 155px;
+  display: inline-block;
+}
+section.candidate dd address span { display: block; }
+section.candidate dt.vendor {
+  line-height: 150%;
+  vertical-align: baseline;
+}
+section.candidate dd.vendor { font-size: 150%; }
+section.records {
+  padding: 10px;
+  position: relative;
+  vertical-align: top;
+}
+section.records dl {
+  font-size: 90%;
+  width: 305px;
+  display: table-cell;
+  padding-right: 10px;
+}
+section.records dl.wide dt { width: 120px; }
+section.records dt {
+  color: #666666;
+  width: 90px;
+  clear: both;
+  display: inline-block;
+  text-align: right;
+  margin-right: 5px;
+  vertical-align: top;
+}
+section.records dd {
+  width: 155px;
+  display: inline-block;
+}
+section.records dd address span { display: block; }
+section.records dt.vendor {
+  line-height: 150%;
+  vertical-align: baseline;
+}
+section.records dd.vendor { font-size: 150%; }
+section.ctb_records {
+  padding: 10px;
+  position: relative;
+  vertical-align: top;
+}
+section.ctb_records dl {
+  font-size: 90%;
+  width: 305px;
+  display: table-cell;
+  padding-right: 10px;
+}
+section.ctb_records dl.wide dt { width: 120px; }
+section.ctb_records dt {
+  color: #666666;
+  width: 90px;
+  clear: both;
+  display: inline-block;
+  text-align: right;
+  margin-right: 5px;
+  vertical-align: top;
+}
+section.ctb_records dd {
+  width: 155px;
+  display: inline-block;
+}
+section.ctb_records dd address span { display: block; }
+section.ctb_records dt.vendor {
+  line-height: 150%;
+  vertical-align: baseline;
+}
+section.ctb_records dd.vendor { font-size: 150%; }
+section a.advance {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  padding: 5px 0;
+  background: url(/images/advance.png) 100% 50% no-repeat;
+  padding-right: 20px;
+}
+section.candidate, section.measure, section.patient, section.ctb_records {
+  border: 1px solid #aaaaaa;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  behavior: url(./PIE.htc);
+  padding: 10px 10px 20px;
+  position: relative;
+}
+section.legend {
+  padding: 10px;
+  font-size: 90%;
+  border-bottom: 1px solid #aaaaaa;
+  line-height: 2em;
+  margin-bottom: 10px;
+}
+section.legend dt {
+  color: #666666;
+  display: inline-block;
+}
+section.legend dd {
+  color: #666666;
+  display: inline-block;
+  margin-left: 25px;
+  padding-left: 20px;
+}
+section.legend dd.na { background: url(/images/insufficient.png) 0% 50% no-repeat; }
+section.legend dd.pass { background: url(/images/pass.png) 0 50% no-repeat; }
+section.legend dd.q1 { background: url(/images/q1.png) 0 50% no-repeat; }
+section.legend dd.q2 { background: url(/images/q2.png) 0 50% no-repeat; }
+section.legend dd.q3 { background: url(/images/q3.png) 0 50% no-repeat; }
+section.legend dd.q4 { background: url(/images/q4.png) 0 50% no-repeat; }
+section table { width: 100%; }
+section table thead { font-size: 90%; }
+section table thead tr:first-child th {
+  text-align: center;
+  text-transform: uppercase;
+  border-bottom: 1px solid #cccccc;
+}
+section table th {
+  padding: 2px 4px;
+  vertical-align: top;
+}
+section table td {
+  padding: 2px 4px;
+  vertical-align: top;
+}
+section table th { color: #999999; }
+section table tr:nth-child(2) th { font-size: 90%; }
+section table tr td a { text-decoration: none; }
+section table td div.na {
+  background: url(/images/insufficient.png) 0 50% no-repeat;
+  text-indent: -9999pt;
+  width: 16px;
+}
+section table td div.q1 {
+  background: url(/images/q1.png) 0 50% no-repeat;
+  text-indent: -9999pt;
+  width: 16px;
+}
+section table td div.q2 {
+  background: url(/images/q2.png) 0 50% no-repeat;
+  text-indent: -9999pt;
+  width: 16px;
+}
+section table td div.q3 {
+  background: url(/images/q3.png) 0 50% no-repeat;
+  text-indent: -9999pt;
+  width: 16px;
+}
+section table td div.q4 {
+  background: url(/images/q4.png) 0 50% no-repeat;
+  text-indent: -9999pt;
+  width: 16px;
+}
+section table td div.pass {
+  background: url(/images/pass.png) 0 50% no-repeat;
+  text-indent: -9999pt;
+  width: 16px;
+}
+section table td.r { font-weight: bold; }
+section table tr.fail td:nth-child(2) a { color: red; }
+section table tr.pass td:nth-child(2) a { color: green; }
+section table td.q1 { color: red; }
+section table td.q2 { color: red; }
+section table td.q3 { color: red; }
+section table td.q4 { color: red; }
+section table tr.fail td.na { color: #cccccc; }
+section table td:nth-child(9) {
+  font-size: 90%;
+  color: #666666;
+}
+section#quality_measures { margin-bottom: 40px; }
+section#quality_measures table thead tr:nth-child(2) th:nth-child(2n+2) { text-align: right; }
+section#quality_measures table thead tr:first-child th:nth-child(2) { text-align: left; }
+section#quality_measures table thead tr:first-child th:nth-child(6) { text-align: left; }
+section#quality_measures td:nth-child(2n+3) { text-align: right; }
+section#quality_measures td:nth-child(9) { text-align: left; }
+section.measure {
+  margin-top: 10px;
+  position: relative;
+}
+section.measure dl {
+  font-size: 90%;
+  margin-bottom: 20px;
+}
+section.measure dt {
+  color: #666666;
+  width: 120px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 5px;
+  vertical-align: top;
+}
+section.measure dt.measure_title {
+  line-height: 150%;
+  vertical-align: baseline;
+}
+section.measure dd.measure_title { font-size: 150%; }
+section.measure dd.measure_desc { margin-left: 130px; }
+section.measure dd {
+  width: 655px;
+  display: inline-block;
+}
+section.measure dd span { display: block; }
+section.measure table {
+  width: 500px;
+  float: left;
+}
+section.measure table thead tr:nth-child(2) th:nth-child(2n+2) { text-align: right; }
+section.measure table thead tr:first-child th:first-child {
+  text-align: left;
+  text-transform: none;
+}
+section.measure table thead tr:first-child th:nth-child(2) { text-align: center; }
+section.measure table td:nth-child(2n+3) { text-align: right; }
+section.measure table td.fail { color: red; }
+section.measure figure {
+  font-size: 90%;
+  margin-left: 520px;
+  width: 380px;
+  padding-bottom: 20px;
+}
+section.measure figcaption { color: #666666; }
+section#vendor_patients {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+section#vendor_patients #patient_controls {
+  border: 1px solid #aaaaaa;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  behavior: url(./PIE.htc);
+  border: 1px solid green;
+  width: 140px;
+  text-align: center;
+  padding: 0 10px;
+  float: left;
+}
+section#vendor_patients #patient_controls input { display: none; }
+section#vendor_patients #patient_controls label {
+  text-transform: uppercase;
+  display: block;
+  padding: 5px;
+  margin: 10px 0;
+  background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+section#vendor_patients #patient_controls label.selected {
+  background-color: #cde6bc;
+  border: 1px solid #cde6bc;
+}
+section#vendor_patients #patient_controls label:hover { border-color: green; }
+section#vendor_patients div.tabs {
+  border-bottom: 1px solid #dddddd;
+  margin-left: 170px;
+  padding-left: 5px;
+}
+section#vendor_patients div.tabs a {
+  min-width: 60px;
+  text-align: center;
+  display: inline-block;
+  margin: 0 2px;
+  position: relative;
+  top: 1px;
+  text-decoration: none;
+  border: 1px solid #dddddd;
+  background-color: #f0f0f0;
+  padding: 3px 10px;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+section#vendor_patients div.tabs a.selected {
+  background-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+section#vendor_patients div.tabs a:hover {
+  border-color: #999999;
+  border-bottom-color: #dddddd;
+}
+section#vendor_patients div.tabs a.selected:hover {
+  border-color: #dddddd;
+  border-bottom-color: #ffffff;
+}
+section#vendor_patients table {
+  width: 790px;
+  margin-left: 170px;
+}
+section#vendor_patients table thead th { text-align: left; }
+section#vendor_patients table tbody tr:nth-child(2n-1) td { background-color: #f0f0f0; }
+section.patient { margin-bottom: 20px; }
+section.patient div {
+  position: relative;
+  height: 131px;
+  width: 550px;
+}
+section.patient dl {
+  position: absolute;
+  bottom: 0;
+  left: 120px;
+}
+section.patient dt {
+  display: inline-block;
+  float: left;
+  clear: left;
+  text-transform: uppercase;
+}
+section.patient dd {
+  margin-left: 10px;
+  display: inline-block;
+  font-weight: bold;
+  float: left;
+}
+section#patient_nqf {
+  display: inline-block;
+  vertical-align: top;
+}
+section#patient_nqf table {
+  border-collapse: collapse;
+  width: 220px;
+}
+section#patient_nqf table thead tr th { text-align: center; }
+section#patient_nqf table thead tr th:first-child { text-align: left; }
+section#patient_nqf table tr td {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+section#patient_nqf table tr td:first-child {
+  padding: 0 0 0 4px;
+  text-align: left;
+}
+section#patient_nqf table img { margin-top: 3px; }
+section#patient_nqf table tr:nth-child(2n-1) td { background-color: #f0f0f0; }
+section#patient_characteristics {
+  margin-left: 20px;
+  display: inline-block;
+  width: 715px;
+  vertical-align: top;
+  margin-bottom: 40px;
+}
+section#patient_characteristics table { width: 100%; }
+section#patient_characteristics table tr th {
+  background-color: #f0f0f0;
+  color: #333333;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 85%;
+}
+section#patient_characteristics table tr td:nth-child(6) { text-align: right; }
+section#patient_characteristics table td .na { color: #999999; }
+section.ctb_records dl { line-height: 2.54em; }
+section caption {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+section#ehr_results { margin-bottom: 40px; }
+section#ehr_results table thead tr th { text-align: left; }
+section#ehr_results table tr:first-child th {
+  text-transform: uppercase;
+  border-bottom: 0;
+}
+section#ehr_results table tr:nth-child(2) th {
+  text-transform: uppercase;
+  border-bottom: 1px solid #cccccc;
+}
+section#ehr_results table thead tr th:nth-child(3) { text-align: center; }
+section#ehr_results table thead tr th:nth-child(4) { text-align: center; }
+section#ehr_results table tr td:nth-child(3) { text-align: center; }
+section#ehr_results table tr td:nth-child(4) { text-align: center; }
+section#ehr_results th.failing {
+  color: red;
+  font-weight: bold;
+  padding: 10px 0;
+}
+section#ehr_results th.passing {
+  color: green;
+  font-weight: bold;
+  padding: 20px 0 10px;
+}
