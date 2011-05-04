@@ -8,11 +8,11 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: cypress_development
+  database: pophealth-development
 
 test:
   <<: *defaults
-  database: cypress_test
+  database: pophealth-test
 
 # set these environment variables on your prod server
 production:
