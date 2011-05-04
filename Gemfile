@@ -4,6 +4,7 @@ gem 'rails', '3.0.7'
 
 gem 'quality-measure-engine', :git => 'http://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
 gem 'bson_ext', :platforms => :mri
+gem "mongoid", "~> 2.0"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
