@@ -13,7 +13,7 @@ class PatientsController < ApplicationController
   def show
     patient_id = BSON::ObjectId.from_string(params[:id])
     @patient = Record.find(params[:id])
-    @results = mongo['patient_cache'].find({'value.patient_id' => patient_id}, 
-      :sort => [['value.measure_id', :asc], ['value.sub_id', :asc]]).to_a
+    @results = Result.all(:conditions => {'value.patient_id' => patient_id}, 
+      :sort => [['value.measure_id', :asc], ['value.sub_id', :asc]])
   end
 end

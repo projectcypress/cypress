@@ -42,12 +42,12 @@
 				<tbody>
 				  <% @results.each do |result| %>
 					<tr>
-						<td><%= "#{result['value']['measure_id']}#{result['value']['sub_id']}" %></td>
-						<td><%= raw result_to_markup(!result['value']['population']) %></td>
-						<td><%= raw result_to_markup(result['value']['population']) %></td>
-						<td><%= raw result_to_markup(result['value']['denominator']) %></td>
-						<td><%= raw result_to_markup(result['value']['numerator']) %></td>
-						<td><%= raw result_to_markup(result['value']['exclusions']) %></td>
+						<td><%= "#{result.value.measure_id}#{result.value.sub_id}" %></td>
+						<td><%= raw result_to_markup(!result.value.population?) %></td>
+						<td><%= raw result_to_markup(result.value.population?) %></td>
+						<td><%= raw result_to_markup(result.value.denominator?) %></td>
+						<td><%= raw result_to_markup(result.value.numerator?) %></td>
+						<td><%= raw result_to_markup(result.value.exclusions?) %></td>
 					</tr>
 				  <% end %>
 				</tbody>
