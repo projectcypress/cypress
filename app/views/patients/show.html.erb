@@ -18,10 +18,10 @@
 		<section class="patient">
 			<div>
 			<img src="/images/patient_photo.png" width="100" height="130" style="position:absolute;top:0;left:0">
-			<span style="margin-left:120px;position:relative;top:0"><strong>Balestra</strong>, Francesco Giovanni</span>
+			<span style="margin-left:120px;position:relative;top:0"><strong><%= @patient['last'] %></strong>, <%= @patient['first'] %></span>
 			<dl>
-				<dt>Gender</dt><dd>M</dd>
-				<dt>DOB</dt><dd>08/10/45</dd>
+				<dt>Gender</dt><dd><%= @patient['gender'] %></dd>
+				<dt>DOB</dt><dd><%= Time.at(@patient['birthdate']).strftime('%m/%d/%Y') %></dd>
 			</dl>
 			</div>
 			<a href="next_vendor.html" class="advance">next patient</a>
@@ -40,246 +40,16 @@
 					</tr>
 				</thead>
 				<tbody>
+				  <% @results.each do |result| %>
 					<tr>
-						<td>0421</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
+						<td><%= "#{result['value']['measure_id']}#{result['value']['sub_id']}" %></td>
+						<td><%= raw result_to_markup(!result['value']['population']) %></td>
+						<td><%= raw result_to_markup(result['value']['population']) %></td>
+						<td><%= raw result_to_markup(result['value']['denominator']) %></td>
+						<td><%= raw result_to_markup(result['value']['numerator']) %></td>
+						<td><%= raw result_to_markup(result['value']['exclusions']) %></td>
 					</tr>
-					<tr>
-						<td>0013</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0028</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/fail.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0038</td>
-						<td><img src="/images/fail.png"/></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0041</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0024</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0059</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0575</td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0064</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0061</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0088</td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0134</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0275</td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0389</td>
-						<td></td>
-						<td><img src="/images/fail.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0047</td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0088</td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0134</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0275</td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0013</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0028</td>
-						<td></td>
-						<td></td>
-						<td><img src="/images/fail.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0038</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><img src="/images/fail.png"/></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0041</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0024</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0059</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0575</td>
-						<td></td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0064</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0061</td>
-						<td></td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0088</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0134</td>
-						<td></td>
-						<td><img src="/images/pass.png"/></td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>0275</td>
-						<td><img src="/images/pass.png"/></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+				  <% end %>
 				</tbody>
 			</table>
 		</section>

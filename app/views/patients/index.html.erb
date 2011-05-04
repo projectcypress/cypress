@@ -1,0 +1,14 @@
+<h1>Patients</h1>
+
+<table>
+  <tr>
+    <th>First</th>
+    <th>Last</th>
+  </tr>
+  <% @patients.each do |patient| %>
+  <tr>
+    <td><a href="<%= patient_url(patient['_id'].to_s) %>"><%= patient['first'] %></td>
+    <td><a href="<%= patient_url(patient['_id'].to_s) %>"><%= patient['last'] %></td>
+  </tr>
+  <% end %>
+</table>
