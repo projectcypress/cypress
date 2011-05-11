@@ -189,30 +189,16 @@
 				<tr>
 					<th colspan="6">Encounters</th>
 				</tr>
+				<% @patient.encounters.each do |encounter| -%>
 				<tr>
-					<td>Q_c68
-					<td>outpatient
-					<td>
-					<td>
-					<td>
-					<td><time datetime="2010-12-23">12/23/2010
+					<td><%= code_display(encounter.codes)%></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><time><%= encounter.time %></time></td>
 				</tr>
-				<tr>
-					<td>
-					<td>
-					<td>
-					<td>
-					<td>
-					<td><time datetime="2010-08-03" class="na">08/03/2010
-				</tr>
-				<tr>
-					<td>0036
-					<td>acute inpatient
-					<td>
-					<td>
-					<td>
-					<td><time datetime="2009-02-18" class="na">02/18/2009
-				</tr>
+				<% end -%>
 				</tbody>
 				<tbody>
 				<tr>
