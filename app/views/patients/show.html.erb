@@ -21,7 +21,7 @@
       <span style="margin-left:120px;position:relative;top:0"><strong><%= @patient.last %></strong>, <%= @patient.first %></span>
       <dl>
         <dt>Gender</dt><dd><%= @patient.gender %></dd>
-        <dt>DOB</dt><dd><%= Time.at(@patient.birthdate).strftime('%m/%d/%Y') %></dd>
+        <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>
       </dl>
       </div>
       <a href="next_vendor.html" class="advance">next patient</a>
@@ -196,7 +196,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td><time><%= encounter.time %></time></td>
+          <td><time><%= display_time(encounter.time) %></time></td>
         </tr>
         <% end -%>
         </tbody>
