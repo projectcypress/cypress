@@ -1,11 +1,15 @@
 Cypress::Application.routes.draw do
 
+  devise_for :users
+
   match 'vendors/:vendor_id/tests/:id', :to => 'tests#show', :via=> :get
   match 'vendors/:vendor_id/patients/:id', :to => 'patients#show', :via=> :get
   match 'vendors/:vendor_id', :to => 'vendors#show', :via=> :get
   match 'vendors', :to => 'vendors#index', :via=> :get
   match 'patients/:id', :to => 'patients#show',  :as => :patient, :via=> :get
   match 'patients', :to => 'patients#index', :via=> :get
+  
+  root :to => "patients#index"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
