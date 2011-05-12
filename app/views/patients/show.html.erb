@@ -57,227 +57,51 @@
       <table>
         <tbody>
           <tr>
-            <th colspan="6">Patient Characteristics</th>
+            <th colspan="6">Allergies</th>
           </tr>
-          <tr>
-            <td>tobacco user
-            <td><strong>NO</strong>
-          </tr>
+          <%= render :partial => 'entry', :collection => @patient.allergies %>
         </tbody>
         <tbody>
           <tr>
             <th colspan="6">Care Goal</th>
           </tr>
-          <tr>
-            <td>V65.3
-            <td>follow up BMI management plan
-            <td>
-            <td>
-            <td>
-            <td><time datetime="2010-12-23">12/23/2010</time>
-          </tr>
+          <%= render :partial => 'entry', :collection => @patient.care_goals %>
         </tbody>
         <tbody>
           <tr>
-            <th colspan="6">Physical Exam Findings
+            <th colspan="6">Vital Signs</th>
           </tr>
-          <tr>
-            <td>22517007
-            <td>BMI
-            <td>
-            <td><strong>28</strong>
-            <td>
-            <td><time datetime="2010-12-23">12/23/2010
-          </tr>
-          <tr>
-            <td>364075005
-            <td>heart rate
-            <td>
-            <td><strong>72</strong>
-            <td>bpm
-            <td><time datetime="2010-12-23">12/23/2010
-          </tr>   
-          <tr>
-            <td>
-            <td>
-            <td>
-            <td><span class="na">86</span>
-            <td><span class="na">bpm</span>
-            <td><time datetime="2010-08-03" class="na">08/03/2010
-          </tr>   
-          <tr>
-            <td>12929001
-            <td>systolic bp
-            <td>
-            <td><strong>134</strong>
-            <td>mmHg
-            <td><time datetime="2010-12-23">12/23/2010
-          </tr>   
-          <tr>
-            <td>
-            <td>
-            <td>
-            <td><span class="na">119</span>
-            <td><span class="na">mmHg</span>
-            <td><time datetime="2010-08-03" class="na">08/03/2010
-          </tr>   
-          <tr>
-            <td>163031004
-            <td>diastolic bp
-            <td>
-            <td><strong>86</strong>
-            <td>mmHg
-            <td><time datetime="2010-12-23">12/23/2010
-          </tr>   
-          <tr>
-            <td>
-            <td>
-            <td>
-            <td><span class="na">75</span>
-            <td><span class="na">mmHg</span>
-            <td><time datetime="2010-08-03" class="na">08/03/2010
-          </tr>
+          <%= render :partial => 'entry', :collection => @patient.vital_signs %>
         </tbody>
         <tbody>
         <tr>
           <th colspan="6">Laboratory test
         </tr>
-        <tr>
-          <td>12773-8
-          <td>LDL cholesterol
-          <td>
-          <td><strong>140</strong>
-          <td>mg/dL
-          <td><time datetime="2010-12-23">12/23/2010
-        </tr>
-        </tbody>
-        <tbody>
-        <tr>
-          <td>
-          <td>
-          <td>
-          <td><span class="na">155</span>
-          <td><span class="na">mmHg</span>
-          <td><time datetime="2010-08-03" class="na">08/03/2010
-        </tr>
-        <tr>
-          <th colspan="6">Diagnostic study</th>
-        </tr>
-        <tr>
-          <td>78300
-          <td>bone scan
-          <td>
-          <td>
-          <td>
-          <td><time datetime="2001-06-02">06/02/2001</time>
-        </tr>
-        </tbody>
-        <tbody>
-        <tr>
-          <th colspan="6">Communication</th>
-        </tr>
-        <tr>
-          <td>103699006
-          <td>dietary consultation
-          <td>
-          <td>
-          <td>
-          <td><time datetime="2010-12-23">12/23/2010
-        </tr>
+        <%= render :partial => 'entry', :collection => @patient.results %>
         </tbody>
         <tbody>
         <tr>
           <th colspan="6">Encounters</th>
         </tr>
-        <% @patient.encounters.each do |encounter| -%>
-        <tr>
-          <td><%= code_display(encounter.codes)%></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><time><%= display_time(encounter.time) %></time></td>
-        </tr>
-        <% end -%>
+        <%= render :partial => 'entry', :collection => @patient.encounters %>
         </tbody>
         <tbody>
         <tr>
-          <th colspan="6">Diagnosis</th>
+          <th colspan="6">Conditions</th>
         </tr>
-        <tr>
-          <td>410.0
-          <td>hypertension
-          <td>
-          <td>
-          <td>
-          <td><time datetime="2008-05-06">05/06/2008
-        </tr>
-        <tr>
-          <td>A_c118
-          <td><span class="na">myocardial infarction</span> <span class="status">Resolved</span>
-          <td>
-          <td>
-          <td>
-          <td><time datetime="209-02-18">02/18/2009
-        </tr>
+        <%= render :partial => 'entry', :collection => @patient.conditions %>
         </tbody>
         <tbody>
         <tr>
           <th colspan="6">Procedure</th>
         </tr>
-        <tr>
-          <td>33140
-          <td>cardiac surgery
-          <td>
-          <td>
-          <td>
-          <td><time datetime="2009-02-19">02/19/2009
-        </tr>
+        <%= render :partial => 'entry', :collection => @patient.procedures %>
         </tbody>
         <tbody>
         <tr>
           <th colspan="6">Medications</th>
         </tr>
-        <tr>
-          <td>104302
-          <td>beta blocker therapy
-          <td>metoprolol 25mg po qd
-          <td>
-          <td>
-          <td><time datetime="2009-02-25">02/25/2009
-        </tr>
-        <tr>
-          <td>104301
-          <td>lipid lowering therapy
-          <td>lipitor 10mg po qa
-          <td>
-          <td>
-          <td><time datetime="2010-08-30">08/20/2010
-        </tr>
-        <tr>
-          <td>N_c1087
-          <td>pneumococcal vaccine
-          <td>
-          <td>
-          <td>
-          <td><time datetime="2010-12-23">12/23/2010
-        </tr>
-        <tr>
-          <td>
-          <td>
-          <td>
-          <td>
-          <td>
-          <td><time datetime="2009-12-20" class="na">12/20/2009
-        </tr>
-        <tr>
-          <td>857924
-          <td>influenza vaccine
-          <td>
-          <td>
-          <td>
-          <td><time datetime="2010-12-23">12/23/2010
-        </tr>
+        <%= render :partial => 'entry', :collection => @patient.medications %>
         </tbody>
       </table>
     </section>
