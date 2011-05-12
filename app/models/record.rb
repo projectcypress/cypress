@@ -6,5 +6,8 @@ class Record
   field :gender, type: String
   field :birthdate, type: Integer
   
-  embeds_many :encounters, as: :entry_list, class_name: "Entry"
+  [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
+   :medications, :procedures, :results, :social_history, :vital_signs].each do |section|
+    embeds_many section, as: :entry_list, class_name: "Entry"
+  end
 end
