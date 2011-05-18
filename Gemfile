@@ -6,6 +6,7 @@ gem 'quality-measure-engine', :git => 'http://github.com/pophealth/quality-measu
 gem 'bson_ext', :platforms => :mri
 gem "mongoid", "~> 2.0"
 gem 'devise'
+gem 'simple_form'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

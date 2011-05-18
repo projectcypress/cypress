@@ -3,16 +3,17 @@ class PatientsController < ApplicationController
   before_filter :authenticate_user!
 
   before_filter do
-    if params[:vendor_id]
-      @vendor = {}
-    end
+    @test_id = nil
     if params[:test_id]
-      @test = {}
+      @test_id = nil # use the param once we have patient generation working
+    elsif params[:vendor_id]
+      # find the most recent test_id for the vendor
     end
   end
   
   def index
-    @patients = Record.all(:limit => 50)
+    @patients = Record.all(:conditions => {'test_id' => @test_id},
+      :limit => 50)
   end
   
   def show

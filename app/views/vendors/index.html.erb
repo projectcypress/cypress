@@ -2,6 +2,7 @@
 	<header>
 		<h1>cypress</h1>
 		<nav>
+			<a href="<%= url_for :controller => 'vendors', :action => 'new' %>">new</a>
 			<a href="account.html">account</a>
 			<a href="about.html">about</a>
 			<a href="feedback.html">feedback</a>
@@ -53,42 +54,17 @@
 					</tr>
 				</thead>
 				<tbody>
+				<% @vendors.each do |vendor| %>
 					<tr>
 						<td><div title="14%" class="q1">14%</div></td>
-						<td><a href="/vendors/vendor1">Med-E Health</a></td>
+						<td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
 						<td>17</td>
 						<td>1</td>
-						<td><a href="poc.html">Anna Ruiz</a></td>
-						<td><span class="phone">(415) 329-8642</span></td>
-						<td><a href="proctor.html">Gemma Watson</a></td>
+						<td><%= vendor.poc %></td>
+						<td><span class="phone"><%= vendor.tel %></span></td>
+						<td><%= vendor.proctor %></td>
 					</tr>
-					<tr>
-						<td><div title="44%" class="q2">44%</div></td>
-						<td><a href="/vendors/vendor1">MedioHealth Data</a></td>
-						<td>14</td>
-						<td>2</td>
-						<td><a href="poc.html">David Evans</a></td>
-						<td><span class="phone">(312) 506-1200 x534</span></td>
-						<td><a href="proctor.html">Paul Hewson</a></td>
-					</tr>
-					<tr>
-						<td><div title="Insufficient info" class="na">n/a</div></td>
-						<td><a href="/vendors/vendor1">Aliquam Systems</a></td>
-						<td>23</td>
-						<td>6</td>
-						<td><a href="poc.html">Estafana Fuller</a></td>
-						<td><span class="phone">(206) 740-0952</span></td>
-						<td><a href="proctor.html">Paul Hewson</a></td>
-					</tr>
-					<tr>
-						<td><div title="Insufficient info" class="na">n/a</div></td>
-						<td><a href="/vendors/vendor1">Libero Data Systems</a></td>
-						<td>12</td>
-						<td>1</td>
-						<td><a href="poc.html">William Lee</a></td>
-						<td><span class="phone">(415) 339-8652</span></td>
-						<td><a href="proctor.html">Gemma Watson</a></td>
-					</tr>
+				<% end %>
 				</tbody>
 
 				<thead>
