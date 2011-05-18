@@ -6,6 +6,9 @@ class PatientsController < ApplicationController
     if params[:vendor_id]
       @vendor = {}
     end
+    if params[:test_id]
+      @test = {}
+    end
   end
   
   def index
