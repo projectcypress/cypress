@@ -40,9 +40,10 @@
 		</section>
 		<section id="ehr_results">
 			<table>
+			  <% if @incomplete_vendors.length>0 %>
 				<thead>
 					<tr>
-						<th colspan="7" class="failing">Failing</th>
+						<th colspan="7" class="failing">Incomplete</th>
 					</tr>
 					<tr>
 						<th></th>
@@ -54,7 +55,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<% @vendors.each do |vendor| %>
+				<% @incomplete_vendors.each do |vendor| %>
 					<tr>
 						<td><div title="14%" class="q1">14%</div></td>
 						<td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
@@ -66,7 +67,9 @@
 					</tr>
 				<% end %>
 				</tbody>
+				<% end %>
 
+			  <% if @complete_vendors.length>0 %>
 				<thead>
 					<tr><th colspan="7" class="passing">Passing</th></tr>
 					<tr>
@@ -79,70 +82,19 @@
 					</tr>
 				</thead>
 				<tbody>
+				<% @complete_vendors.each do |vendor| %>
 					<tr>
-						<td><div title="94%" class="pass">94%</div></td>
-						<td><a href="/vendors/vendor1">Metus Clinic Works</a></td>
-						<td>44</td>
-						<td>4</td>
-						<td><a href="poc.html">Cecilia Griffin</a></td>
-						<td><span class="phone">(949) 703-1200</span></td>
-						<td><a href="proctor.html">Gemma Watson</a></td>
-					</tr>
-					<tr>
-						<td><div title="98%" class="pass">98%</div></td>
-						<td><a href="/vendors/vendor1">Erat Records</a></td>
-						<td>9</td>
-						<td>0</td>
-						<td><a href="poc.html">Edouard North</a></td>
-						<td><span class="phone">(973) 901-1114</span></td>
-						<td><a href="proctor.html">Gemma Watson</a></td>
-					</tr>
-					<tr>
-						<td><div title="98%" class="pass">98%</div></td>
-						<td><a href="/vendors/vendor1">Tellus Data</a></td>
-						<td>32</td>
-						<td>3</td>
-						<td><a href="poc.html">Jesse McCaskill</a></td>
-						<td><span class="phone">(312) 506-2450</span></td>
-						<td><a href="proctor.html">Paul Hewson</a></td>
-					</tr>
-					<tr>
-						<td><div title="98%" class="pass">98%</div></td>
-						<td><a href="/vendors/vendor1">Massa Care</a></td>
-						<td>27</td>
-						<td>2</td>
-						<td><a href="poc.html">Robert Walsh</a></td>
-						<td><span class="phone">(775) 856-1717 x102</span></td>
-						<td><a href="proctor.html">Gemma Watson</a></td>
-					</tr>
-					<tr>
-						<td><div title="98%" class="pass">98%</div></td>
-						<td><a href="/vendors/vendor1">Sodales EHR</a></td>
+						<td><div title="100%" class="pass">100%</div></td>
+						<td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
 						<td>17</td>
 						<td>1</td>
-						<td><a href="poc.html">Sean Rasmussen</a></td>
-						<td><span class="phone">(715) 781-1200</span></td>
-						<td><a href="proctor.html">Paul Hewson</a></td>
+						<td><%= vendor.poc %></td>
+						<td><span class="phone"><%= vendor.tel %></span></td>
+						<td><%= vendor.proctor %></td>
 					</tr>
-					<tr>
-						<td><div title="98%" class="pass">98%</div></td>
-						<td><a href="/vendors/vendor1">Lorem Data</a></td>
-						<td>13</td>
-						<td>3</td>
-						<td><a href="poc.html">John Glasgow</a></td>
-						<td><span class="phone">(267) 761-8233</span></td>
-						<td><a href="proctor.html">Paul Hewson</a></td>
-					</tr>
-					<tr>
-						<td><div title="98%" class="pass">98%</div></td>
-						<td><a href="/vendors/vendor1">Eee Aitch Are</a></td>
-						<td>19</td>
-						<td>2</td>
-						<td><a href="poc.html">Candace Martinelli</a></td>
-						<td><span class="phone">(630) 905-5870</span></td>
-						<td><a href="proctor.html">Paul Hewson</a></td>
-					</tr>
+				<% end %>
 				</tbody>
+				<% end %>
 			</table>
 		</section>
 	</div>

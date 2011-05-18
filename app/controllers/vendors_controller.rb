@@ -1,7 +1,8 @@
 class VendorsController < ApplicationController
 
   def index
-    @vendors = Vendor.all()
+    @incomplete_vendors = Vendor.all(:conditions => {'passed'=>{'$in'=>[nil,false]}})
+    @complete_vendors = Vendor.all(:conditions => {'passed'=>true})
   end
   
   def new
