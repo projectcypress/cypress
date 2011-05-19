@@ -1,101 +1,101 @@
-	<div id="container">
-	<header>
-		<h1>cypress</h1>
-		<nav>
-			<a href="<%= url_for :controller => 'vendors', :action => 'new' %>">new</a>
-			<a href="account.html">account</a>
-			<a href="about.html">about</a>
-			<a href="feedback.html">feedback</a>
-			<a href="help.html">help</a>
-			<a href="logout.html">logout</a>
-		</nav>
-	</header>
-	<div>
-		<nav class="breadcrumb">
-			<a href="home.html">Home</a> &raquo;
-			<span>Certification Test Bed</span>
-		</nav>
-		<section class="ctb_records">
-			<form>
-			<dl class="wide">
-				<dt>Total # of Records:</dt> <dd><select><option>1,000</option></select>
-				<dt>Error Threshold:</dt> <dd><input type="text" size="2"><span>%</span>
-			</dl>
-			<dl>
-				<dt>Test Mode:</dt> <dd><select><option>Production</option></select>
-				<dt>Record Type:</dt> <dd><select><option>C32/CCD</option></select>
-			</dl>
-			</form>
-		</section>
-		<section class="legend">
-			<dl>
-				<dt>Error Report Indicators:</dt>
-				<dd class="pass">passing
-				<dd class="na">insufficient info
-				<dd class="q1">0-25% error
-				<dd class="q2">25-50% error
-				<dd class="q3">50-75% error
-				<dd class="q4">75-100% error
-			</dl>
-		</section>
-		<section id="ehr_results">
-			<table>
-			  <% if @incomplete_vendors.length>0 %>
-				<thead>
-					<tr>
-						<th colspan="7" class="failing">Incomplete</th>
-					</tr>
-					<tr>
-						<th></th>
-						<th>EHR</th>
-						<th>Tests</th>
-						<th>Disputes</th>
-						<th colspan="2">POC</th>
-						<th>Proctor</th>
-					</tr>
-				</thead>
-				<tbody>
-				<% @incomplete_vendors.each do |vendor| %>
-					<tr>
-						<td><div title="14%" class="q1">14%</div></td>
-						<td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-						<td>17</td>
-						<td>1</td>
-						<td><%= vendor.poc %></td>
-						<td><span class="phone"><%= vendor.tel %></span></td>
-						<td><%= vendor.proctor %></td>
-					</tr>
-				<% end %>
-				</tbody>
-				<% end %>
+    <div id="container">
+    <header>
+        <h1>cypress</h1>
+        <nav>
+            <a href="<%= url_for :controller => 'vendors', :action => 'new' %>">new</a>
+            <a href="account.html">account</a>
+            <a href="about.html">about</a>
+            <a href="feedback.html">feedback</a>
+            <a href="help.html">help</a>
+            <a href="logout.html">logout</a>
+        </nav>
+    </header>
+    <div>
+        <nav class="breadcrumb">
+            <a href="home.html">Home</a> &raquo;
+            <span>Certification Test Bed</span>
+        </nav>
+        <section class="ctb_records">
+            <form>
+            <dl class="wide">
+                <dt>Total # of Records:</dt> <dd><select><option>1,000</option></select>
+                <dt>Error Threshold:</dt> <dd><input type="text" size="2"><span>%</span>
+            </dl>
+            <dl>
+                <dt>Test Mode:</dt> <dd><select><option>Production</option></select>
+                <dt>Record Type:</dt> <dd><select><option>C32/CCD</option></select>
+            </dl>
+            </form>
+        </section>
+        <section class="legend">
+            <dl>
+                <dt>Error Report Indicators:</dt>
+                <dd class="pass">passing
+                <dd class="na">insufficient info
+                <dd class="q1">0-25% error
+                <dd class="q2">25-50% error
+                <dd class="q3">50-75% error
+                <dd class="q4">75-100% error
+            </dl>
+        </section>
+        <section id="ehr_results">
+            <table>
+              <% if @incomplete_vendors.length>0 %>
+                <thead>
+                    <tr>
+                        <th colspan="7" class="failing">Incomplete</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>EHR</th>
+                        <th>Tests</th>
+                        <th>Disputes</th>
+                        <th colspan="2">POC</th>
+                        <th>Proctor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% @incomplete_vendors.each do |vendor| %>
+                    <tr>
+                        <td><div title="14%" class="q1">14%</div></td>
+                        <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
+                        <td>17</td>
+                        <td>1</td>
+                        <td><%= vendor.poc %></td>
+                        <td><span class="phone"><%= vendor.tel %></span></td>
+                        <td><%= vendor.proctor %></td>
+                    </tr>
+                <% end %>
+                </tbody>
+                <% end %>
 
-			  <% if @complete_vendors.length>0 %>
-				<thead>
-					<tr><th colspan="7" class="passing">Passing</th></tr>
-					<tr>
-						<th></th>
-						<th>EHR</th>
-						<th>Tests</th>
-						<th>Disputes</th>
-						<th colspan="2">POC</th>
-						<th>Proctor</th>
-					</tr>
-				</thead>
-				<tbody>
-				<% @complete_vendors.each do |vendor| %>
-					<tr>
-						<td><div title="100%" class="pass">100%</div></td>
-						<td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-						<td>17</td>
-						<td>1</td>
-						<td><%= vendor.poc %></td>
-						<td><span class="phone"><%= vendor.tel %></span></td>
-						<td><%= vendor.proctor %></td>
-					</tr>
-				<% end %>
-				</tbody>
-				<% end %>
-			</table>
-		</section>
-	</div>
-	</div><!-- end #container -->			
+              <% if @complete_vendors.length>0 %>
+                <thead>
+                    <tr><th colspan="7" class="passing">Passing</th></tr>
+                    <tr>
+                        <th></th>
+                        <th>EHR</th>
+                        <th>Tests</th>
+                        <th>Disputes</th>
+                        <th colspan="2">POC</th>
+                        <th>Proctor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% @complete_vendors.each do |vendor| %>
+                    <tr>
+                        <td><div title="100%" class="pass">100%</div></td>
+                        <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
+                        <td>17</td>
+                        <td>1</td>
+                        <td><%= vendor.poc %></td>
+                        <td><span class="phone"><%= vendor.tel %></span></td>
+                        <td><%= vendor.proctor %></td>
+                    </tr>
+                <% end %>
+                </tbody>
+                <% end %>
+            </table>
+        </section>
+    </div>
+    </div><!-- end #container -->           

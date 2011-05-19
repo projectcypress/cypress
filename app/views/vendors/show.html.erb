@@ -1,254 +1,246 @@
-	<div id="container">
-	<header>
-		<h1>cypress</h1>
-		<nav>
-			<a href="account.html">account</a>
-			<a href="about.html">about</a>
-			<a href="feedback.html">feedback</a>
-			<a href="help.html">help</a>
-			<a href="logout.html">logout</a>
-		</nav>
-	</header>
-	<div>
-		<nav class="breadcrumb">
-			<a href="home.html">Home</a> &raquo;
-			<a href="ctb.html">Certification Test Bed</a> &raquo;
-			<span>Med-E Health</span>
-		</nav>
-		<section class="candidate">
-			
-			<dl class="wide">
-				<dt class="vendor">Candidate EHR:</dt> <dd class="vendor">Med-E Health</dd>
-				<dt>url:</dt> <dd><a href="http://www.medehealth.com">www.medehealth.com</a></dd>
-				<dt>Tests:</dt> <dd>14</dd>
-				<dt>Disputes:</dt> <dd>2</dd>
-			</dl>
-			
-			<dl>
-				<dt>EHR POC:</dt>	<dd>David Evans
-				<dt>E-mail:</dt>	<dd>devans@medehealth.com
-				<dt>Address:</dt>	<dd>
-										<address>
-											<span>222 Savoire Plaza</span>
-											<span>Suite 1969</span>
-											<span>Atlanta, GA 30346</span>
-										</address>
-									
-				<dt>Phone:</dt>		<dd>(404) 123-1200
-			</dl>
-
-			<dl>
-				<dt>Proctor:</dt>	<dd>Paul Hewson</dd>
-				<dt>E-mail:</dt>	<dd>phewson@cchit.org</dd>
-				<dt>Phone:</dt>		<dd>(708) 430-2500</dd>
-			</dl>
-			
-			<a href="next_vendor.html" class="advance">next candidate</a>
-		</section>
-		<section class="records">
-			<dl class="wide">
-				<dt>Total # of Records:</dt> <dd>1,000
-				<dt>Error Threshold:</dt> <dd>20%
-			</dl>
-			<dl>
-				<dt>Test Mode:</dt> <dd>Production
-				<dt>Record Type:</dt> <dd> C32/CCD
-			</dl>
-		</section>
-		<section class="legend">
-			<dl>
-				<dt>Error Reporting Indicators:</dt>
-				<dd class="pass">passing</dd>
-				<dd class="na">insufficient info</dd>
-				<dd class="q1">0-25% error</dd>
-				<dd class="q2">25-50% error</dd>
-				<dd class="q3">50-75% error</dd>
-				<dd class="q4">75-100% error</dd>
-			</dl>
-		</section>
-		<section id="quality_measures">
-			<table>
-				<thead>
-					<tr>
-						<th></th>
-						<th>Quality Measure</th>
-						<th colspan="2">Numerator</th>
-						<th colspan="2">Denominator</th>
-						<th colspan="2">Exclusions</th>
-						<th style="width:25%">Notes</th>
-					</tr>
-					<tr>
-						<th colspan="2"></th>
-						<th>expect</th>
-						<th>report</th>
-						<th>expect</th>
-						<th>report</th>
-						<th>expect</th>
-						<th>report</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="fail">
-						<td><div title="14%" class="q1">14%</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Cervical Cancer Screening</a></td>
-						<td>61</td>
-						<td class="r q1">55</td>
-						<td>187</td>
-						<td class="r na">--</td>
-						<td>9</td>
-						<td class="r na">--</td>
-						<td>Notes go here...</td>
-					</tr>
-					<tr class="fail">
-						<td><div title="24%" class="q2">24%</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Low Back Pain Use of Imaging</a></td>
-						<td>314</td>
-						<td class="r q2">275</td>
-						<td>523</td>
-						<td class="r">523</td>
-						<td>10</td>
-						<td class="r">10</td>
-						<td></td>
-					</tr>
-					<tr class="fail">
-						<td><div title="Insufficient info" class="na">n/a</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Asthama Assessment</a></td>
-						<td>234</td>
-						<td class="r na">--</td>
-						<td>314</td>
-						<td class="r">314</td>
-						<td>34</td>
-						<td class="r">34</td>
-						<td></td>
-					</tr>
-					<tr class="fail">
-						<td><div title="Insufficient info" class="na">n/a</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Childhood Immunization</a></td>
-						<td>185</td>
-						<td class="r na">--</td>
-						<td>277</td>
-						<td class="r na">--</td>
-						<td>22</td>
-						<td class="r na">--</td>
-						<td></td>
-					</tr>
-					<tr class="fail">
-						<td><div title="Insufficient info" class="na">n/a</div>
-						</td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Diabetes Blood Pressure Management</a></td>
-						<td>183</td>
-						<td class="r na">--</td>
-						<td>388</td>
-						<td class="r">388</td>
-						<td>102</td>
-						<td class="r">102</td>
-						<td></td>
-					</tr>
-					<tr class="fail">
-						<td><div title="Insufficient info" class="na">n/a</div>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Diabetes Eye Exam</a></td>
-						<td>225</td>
-						<td class="r na">--</td>
-						<td>298</td>
-						<td class="r">298</td>
-						<td>42</td>
-						<td class="r">42</td>
-						<td></td>
-					</tr>
-					<tr class="fail">
-						<td><div title="Insufficient info" class="na">n/a</div>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Diabetes Foot Exam</a></td>
-						<td>93</td>
-						<td class="r na">--</td>
-						<td>277</td>
-						<td class="r">277</td>
-						<td>22</td>
-						<td class="r">22</td>
-						<td></td>
-					</tr>
-					<tr class="fail">
-						<td><div title="Insufficient info" class="na">n/a</div>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Diabetes HbA1c Under Control</a></td>
-						<td>340</td>
-						<td class="r na">--</td>
-						<td>277</td>
-						<td class="r na">--</td>
-						<td>23</td>
-						<td class="r na">--</td>
-						<td></td>
-					</tr>
-					<tr class="pass">
-						<td><div title="Pass" class="pass">Pass</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Breast Cancer Screening</a></td>
-						<td>303</td>
-						<td class="r">303</td>
-						<td>388</td>
-						<td class="r">388</td>
-						<td>11</td>
-						<td class="r">11</td>
-						<td>Vivamus vestibulum lacus sed urna convallis pulvinar.</td>
-					</tr>
-					<tr class="pass">
-						<td><div title="Pass" class="pass">Pass</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Chlamydia Screening for Women</a></td>
-						<td>297</td>
-						<td class="r">297</td>
-						<td>298</td>
-						<td class="r">298</td>
-						<td>30</td>
-						<td class="r">30</td>
-						<td></td>
-					</tr>
-					<tr class="pass">
-						<td><div title="Pass" class="pass">Pass</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Colorectal Cancer Screening</a></td>
-						<td>350</td>
-						<td class="r">350</td>
-						<td>277</td>
-						<td class="r">277</td>
-						<td>36</td>
-						<td class="r">36</td>
-						<td></td>
-					</tr>
-					<tr class="pass">
-						<td><div title="Pass" class="pass">Pass</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Coronary Artery Disease</a></td>
-						<td>414</td>
-						<td class="r">414</td>
-						<td>388</td>
-						<td class="r">388</td>
-						<td>20</td>
-						<td class="r">20</td>
-						<td></td>
-					</tr>
-					<tr class="pass">
-						<td><div title="Pass" class="pass">Pass</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Hypertension Blood Pressure Management</a></td>
-						<td>57</td>
-						<td class="r">57</td>
-						<td>298</td>
-						<td class="r">298</td>
-						<td>8</td>
-						<td class="r">8</td>
-						<td></td>
-					</tr>
-					<tr class="pass">
-						<td><div title="Pass" class="pass">Pass</div></td>
-						<td><a href="/vendors/vendor1/tests/test1/measures/measure1">Prenatal Care Use of Anti-D Immunization</a></td>
-						<td>240</td>
-						<td class="r">240</td>
-						<td>277</td>
-						<td class="r">277</td>
-						<td>0</td>
-						<td class="r">0</td>
-						<td></td>
-					</tr>
-									
-									
-				</tbody>
-			</table>
-		</section>
-		
-	</div>
-	</div><!-- end #container -->	
+  <div id="container">
+  <header>
+    <h1>cypress</h1>
+    <nav>
+      <a href="account.html">account</a>
+      <a href="http://projectcypress.org/">about</a>
+      <a href="feedback.html">feedback</a>
+      <a href="http://projectcypress.org/faq.html">help</a>
+      <a href="logout.html">logout</a>
+    </nav>
+  </header>
+  <div>
+    <nav class="breadcrumb">
+        <a href="home.html">Home</a> &raquo;
+        <a href="ctb.html">Certification Test Bed</a> &raquo;
+        <span>Med-E Health</span>
+    </nav>
+    <section class="candidate">
+        <dl class="wide">
+            <dt class="vendor">Candidate EHR:</dt> <dd class="vendor">Med-E Health</dd>
+            <dt>url:</dt> <dd><a href="http://www.medehealth.com">www.medehealth.com</a></dd>
+            <dt>Tests:</dt> <dd>14</dd>
+            <dt>Disputes:</dt> <dd>2</dd>
+        </dl>
+        <dl>
+            <dt>EHR POC:</dt>   <dd>David Evans
+            <dt>E-mail:</dt>    <dd>devans@medehealth.com
+            <dt>Address:</dt>   <dd>
+                                    <address>
+                                        <span>222 Savoire Plaza</span>
+                                        <span>Suite 1969</span>
+                                        <span>Atlanta, GA 30346</span>
+                                    </address>
+            <dt>Phone:</dt>     <dd>(404) 123-1200
+        </dl>
+        <dl>
+            <dt>Proctor:</dt>   <dd>Paul Hewson</dd>
+            <dt>E-mail:</dt>    <dd>phewson@cchit.org</dd>
+            <dt>Phone:</dt>     <dd>(708) 430-2500</dd>
+        </dl>
+        <a href="next_vendor.html" class="advance">next candidate</a>
+    </section>
+    <section class="records">
+        <dl class="wide">
+            <dt>Total # of Records:</dt> <dd>1,000
+            <dt>Error Threshold:</dt> <dd>20%
+        </dl>
+        <dl>
+            <dt>Test Mode:</dt> <dd>Production
+            <dt>Record Type:</dt> <dd> C32/CCD
+        </dl>
+    </section>
+    <section class="legend">
+        <dl>
+            <dt>Error Reporting Indicators:</dt>
+            <dd class="pass">passing</dd>
+            <dd class="na">insufficient info</dd>
+            <dd class="q1">0-25% error</dd>
+            <dd class="q2">25-50% error</dd>
+            <dd class="q3">50-75% error</dd>
+            <dd class="q4">75-100% error</dd>
+        </dl>
+    </section>
+    <section id="quality_measures">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Quality Measure</th>
+                    <th colspan="2">Numerator</th>
+                    <th colspan="2">Denominator</th>
+                    <th colspan="2">Exclusions</th>
+                    <th style="width:25%">Notes</th>
+                </tr>
+                <tr>
+                    <th colspan="2"></th>
+                    <th>expect</th>
+                    <th>report</th>
+                    <th>expect</th>
+                    <th>report</th>
+                    <th>expect</th>
+                    <th>report</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="fail">
+                    <td><div title="14%" class="q1">14%</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Cervical Cancer Screening</a></td>
+                    <td>61</td>
+                    <td class="r q1">55</td>
+                    <td>187</td>
+                    <td class="r na">--</td>
+                    <td>9</td>
+                    <td class="r na">--</td>
+                    <td>Notes go here...</td>
+                </tr>
+                <tr class="fail">
+                    <td><div title="24%" class="q2">24%</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Low Back Pain Use of Imaging</a></td>
+                    <td>314</td>
+                    <td class="r q2">275</td>
+                    <td>523</td>
+                    <td class="r">523</td>
+                    <td>10</td>
+                    <td class="r">10</td>
+                    <td></td>
+                </tr>
+                <tr class="fail">
+                    <td><div title="Insufficient info" class="na">n/a</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Asthama Assessment</a></td>
+                    <td>234</td>
+                    <td class="r na">--</td>
+                    <td>314</td>
+                    <td class="r">314</td>
+                    <td>34</td>
+                    <td class="r">34</td>
+                    <td></td>
+                </tr>
+                <tr class="fail">
+                    <td><div title="Insufficient info" class="na">n/a</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Childhood Immunization</a></td>
+                    <td>185</td>
+                    <td class="r na">--</td>
+                    <td>277</td>
+                    <td class="r na">--</td>
+                    <td>22</td>
+                    <td class="r na">--</td>
+                    <td></td>
+                </tr>
+                <tr class="fail">
+                    <td><div title="Insufficient info" class="na">n/a</div>
+                    </td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Diabetes Blood Pressure Management</a></td>
+                    <td>183</td>
+                    <td class="r na">--</td>
+                    <td>388</td>
+                    <td class="r">388</td>
+                    <td>102</td>
+                    <td class="r">102</td>
+                    <td></td>
+                </tr>
+                <tr class="fail">
+                    <td><div title="Insufficient info" class="na">n/a</div>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Diabetes Eye Exam</a></td>
+                    <td>225</td>
+                    <td class="r na">--</td>
+                    <td>298</td>
+                    <td class="r">298</td>
+                    <td>42</td>
+                    <td class="r">42</td>
+                    <td></td>
+                </tr>
+                <tr class="fail">
+                    <td><div title="Insufficient info" class="na">n/a</div>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Diabetes Foot Exam</a></td>
+                    <td>93</td>
+                    <td class="r na">--</td>
+                    <td>277</td>
+                    <td class="r">277</td>
+                    <td>22</td>
+                    <td class="r">22</td>
+                    <td></td>
+                </tr>
+                <tr class="fail">
+                    <td><div title="Insufficient info" class="na">n/a</div>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Diabetes HbA1c Under Control</a></td>
+                    <td>340</td>
+                    <td class="r na">--</td>
+                    <td>277</td>
+                    <td class="r na">--</td>
+                    <td>23</td>
+                    <td class="r na">--</td>
+                    <td></td>
+                </tr>
+                <tr class="pass">
+                    <td><div title="Pass" class="pass">Pass</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Breast Cancer Screening</a></td>
+                    <td>303</td>
+                    <td class="r">303</td>
+                    <td>388</td>
+                    <td class="r">388</td>
+                    <td>11</td>
+                    <td class="r">11</td>
+                    <td>Vivamus vestibulum lacus sed urna convallis pulvinar.</td>
+                </tr>
+                <tr class="pass">
+                    <td><div title="Pass" class="pass">Pass</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Chlamydia Screening for Women</a></td>
+                    <td>297</td>
+                    <td class="r">297</td>
+                    <td>298</td>
+                    <td class="r">298</td>
+                    <td>30</td>
+                    <td class="r">30</td>
+                    <td></td>
+                </tr>
+                <tr class="pass">
+                    <td><div title="Pass" class="pass">Pass</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Colorectal Cancer Screening</a></td>
+                    <td>350</td>
+                    <td class="r">350</td>
+                    <td>277</td>
+                    <td class="r">277</td>
+                    <td>36</td>
+                    <td class="r">36</td>
+                    <td></td>
+                </tr>
+                <tr class="pass">
+                    <td><div title="Pass" class="pass">Pass</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Coronary Artery Disease</a></td>
+                    <td>414</td>
+                    <td class="r">414</td>
+                    <td>388</td>
+                    <td class="r">388</td>
+                    <td>20</td>
+                    <td class="r">20</td>
+                    <td></td>
+                </tr>
+                <tr class="pass">
+                    <td><div title="Pass" class="pass">Pass</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Hypertension Blood Pressure Management</a></td>
+                    <td>57</td>
+                    <td class="r">57</td>
+                    <td>298</td>
+                    <td class="r">298</td>
+                    <td>8</td>
+                    <td class="r">8</td>
+                    <td></td>
+                </tr>
+                <tr class="pass">
+                    <td><div title="Pass" class="pass">Pass</div></td>
+                    <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Prenatal Care Use of Anti-D Immunization</a></td>
+                    <td>240</td>
+                    <td class="r">240</td>
+                    <td>277</td>
+                    <td class="r">277</td>
+                    <td>0</td>
+                    <td class="r">0</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+  </div>
+  </div><!-- end #container -->   
