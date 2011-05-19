@@ -1,0 +1,150 @@
+{
+  "description": "Asthmatic 18-45 year old, possibly immunized for flu (0041)",
+  <% sex=gender %>
+  "first": "<%= forename(sex) %>",
+  "last": "<%= surname %>",
+  "gender": "<%= sex %>",
+  "birthdate": <%= between(Time.gm(1970, 1, 1), Time.gm(2005, 12, 31)) %>,
+  "events": {
+    "encounters": [
+      {
+        "description": "Outpatient encounter",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "99201",
+        "code_set": "CPT"
+      }
+      <% if percent(60) %>
+      ,{
+        "description": "Outpatient encounter",
+        "time": <%= between(Time.gm(2010, 7, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "99201",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% if percent(60) %>
+      ,{
+        "description": "Preventative encounter",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "99385",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% if percent(30) %>
+      ,{
+        "description": "Acute inpatient encounter",
+        "time": <%= between(Time.gm(2010, 7, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "99221",
+        "code_set": "CPT"
+      }
+      <% end %>
+    ],
+    "conditions": [
+      "dummy"
+      <% if sex=='F' && percent(30) %>
+      ,{
+        "description": "Pregnant",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "16356006",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      ,{
+        "description": "Asthma diagnosis",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "493.00",
+        "code_set": "ICD-9-CM"
+      }
+      <% if percent(30) %>
+      ,{
+        "description": "Persistent Asthma diagnosis",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "J45.32",
+        "code_set": "ICD-10-CM"
+      }
+      <% end %>
+      <% if percent(60) %>
+      ,{
+        "description": "Daytime asthma symptoms",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "370204008",
+        "code_set": "SNOMED-CT"
+      }
+      ,{
+        "description": "Nighttime asthma symptoms",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "170631002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if percent(10) %>
+      ,{
+        "description": "Cystic Fibrosis",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "190905008",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+    ],
+    "vital_signs": [
+      "dummy"
+      <% if percent(70) %>
+      ,{
+        "description": "BMI",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "225171007",
+        "code_set": "SNOMED-CT",
+        "value": <%= between(22, 28) %>
+      }
+      <% end %>
+    ],
+    "procedures": [
+      "dummy"
+    ],
+    "results": [
+      "dummy"
+      <% if sex.eql?('F') && percent(90) %>
+      ,{
+        "description": "Cervical cancer screening",
+        "time": <%= between(Time.gm(2009, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "439958008",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if sex.eql?('F') && percent(80) %>
+      ,{
+        "description": "Chlamydia screening",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "104281002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+    ],
+    "medications": [
+      "dummy"
+      <% if percent(80) %>
+      ,{
+        "description": "Influenza Vaccine",
+        "time": <%= between(Time.gm(2010, 9, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "857924",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if percent(70) %>
+      ,{
+        "description": "Antiasthmatic",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "197639",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if percent(70) %>
+      ,{
+        "description": "Antiasthmatic",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "153892",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+    ]
+  }
+}

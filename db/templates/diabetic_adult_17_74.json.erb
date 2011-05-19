@@ -1,0 +1,263 @@
+{
+  "description": "Diabetic adult, possibly immunized for flu (0041) and pneumonia (0043)",
+  <% sex=gender %>
+  "first": "<%= forename(sex) %>",
+  "last": "<%= surname %>",
+  "gender": "<%= sex %>",
+  "birthdate": <%= between(Time.gm(1936, 1, 1), Time.gm(1993, 12, 31)) %>,
+  <% tobacco_user = percent(30) %>
+  <% known_tobacco_user = tobacco_user && percent(80) %>
+  "events": {
+    "encounters": [
+      <% latest_encounter = between(Time.gm(2010, 7, 1), Time.gm(2010, 12, 30)) %>
+      {
+        "description": "Outpatient encounter",
+        "time": <%= latest_encounter %>,
+        "code": "99201",
+        "code_set": "CPT"
+      }
+      <% if percent(60) %>
+      ,{
+        "description": "Outpatient encounter",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "99201",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% if percent(60) %>
+      ,{
+        "description": "Preventative encounter",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "99385",
+        "code_set": "CPT"
+      }
+      <% end %>
+    ],
+    "conditions": [
+      "dummy"
+      <% if percent(5) %>
+      ,{
+        "description": "Steroid Induced Diabetes - exclusion for many diabetes measures",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "190416008",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if known_tobacco_user %>
+      ,{
+        "description": "Tobacco User",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "160603005",
+        "code_set": "SNOMED-CT"
+      }
+      <% else %>
+      ,{
+        "description": "Tobacco Non-user",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "105539002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if percent(30) %>
+      <% retinopathy = true %>
+      ,{
+        "description": "Retinopathy",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "193349004",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+    ],
+    "vital_signs": [
+      "dummy"
+      <% if known_tobacco_user %>
+      ,{
+        "description": "Tobacco User",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "160603005",
+        "code_set": "SNOMED-CT"
+      }
+      <% else %>
+      ,{
+        "description": "Tobacco Non-user",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "105539002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if percent(70) %>
+      ,{
+        "description": "BMI",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "225171007",
+        "code_set": "SNOMED-CT",
+        "value": <%= between(22, 26) %>
+      }
+      <% end %>
+      <% if percent(80) %>
+      ,{
+        "description": "Diabetic Foot Exam",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "401191002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if retinopathy && percent(50) %>
+      ,{
+        "description": "severity_of_retinopathy_and_macular_edema_findings",
+        "time": <%= between(Time.gm(2010, 6, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "399872003",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if percent(90) %>
+      ,{
+        "description": "Systolic",
+        "time": <%= latest_encounter %>,
+        "code": "12929001",
+        "code_set": "SNOMED-CT",
+        "value": <%= between(120, 150) %>,
+        "unit": "mmHg"
+      }
+      ,{
+        "description": "Diastolic",
+        "time": <%= latest_encounter %>,
+        "code": "163031004",
+        "code_set": "SNOMED-CT",
+        "value": <%= between(70, 100) %>,
+        "unit": "mmHg"
+      }
+      <% end %>
+    ],
+    "procedures": [
+      "dummy"
+      <% if known_tobacco_user && percent(70) %>
+      ,{
+        "description": "Tobacco Cessation Couselling",
+        "time": <%= between(Time.gm(2010, 4, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "171055003",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if percent(80) %>
+      ,{
+        "description": "Diabetic Eye Exam",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "134395001",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if retinopathy %>
+      ,{
+        "description": "Macular or Fundus Exam",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "410455004",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if retinopathy && percent(50) %>
+      ,{
+        "description": "severity_of_retinopathy_and_macular_edema_findings",
+        "time": <%= between(Time.gm(2010, 6, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "399872003",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if sex.eql?('F') && percent(90) %>
+      ,{
+        "description": "Breast cancer screening",
+        "time": <%= between(Time.gm(2009, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "12389009",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+    ],
+    "results": [
+      "dummy"
+      <% if percent(80) %>
+      ,{
+        "description": "HbA1c Result",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "117346004",
+        "code_set": "SNOMED-CT",
+        "value": <%= between(6, 11) %>
+      }
+      <% end %>
+      <% if percent(80) %>
+      ,{
+        "description": "Urine microalbumin test",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "127355002",
+        "code_set": "SNOMED-CT",
+        "value": <%= between(7, 11) %>
+      }
+      <% end %>
+      <% if percent(80) %>
+      ,{
+        "description": "LDL test",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "113079009",
+        "code_set": "SNOMED-CT",
+        "value": <%= between(80, 110) %>
+      }
+      <% end %>
+      <% if sex.eql?('F') && percent(90) %>
+      ,{
+        "description": "Cervical cancer screening",
+        "time": <%= between(Time.gm(2009, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "439958008",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if sex.eql?('F') && percent(90) %>
+      ,{
+        "description": "Procedure indicative of sexual activity",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "86592",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% if sex.eql?('F') && percent(80) %>
+      ,{
+        "description": "Chlamydia screening",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "104281002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+    ],
+    "medications": [
+      "dummy"
+      <% if percent(70) %>
+      ,{
+        "description": "Influenza Vaccine",
+        "time": <%= between(Time.gm(2010, 9, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "857924",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if percent(30) %>
+      ,{
+        "description": "Pneumonia Vaccine",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "854931",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if known_tobacco_user && percent(70) %>
+      ,{
+        "description": "Tobacco Cessation Agent",
+        "time": <%= between(Time.gm(2010, 4, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "105075",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      ,{
+        "description": "Medication indicative of diabetes",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "602544",
+        "code_set": "RxNorm"
+      }
+    ]
+  }
+}

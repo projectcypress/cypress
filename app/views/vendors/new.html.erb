@@ -1,7 +1,1 @@
-<%= simple_form_for @vendor do |f| %>
-  <%= f.input :name, :label => 'Name' %>
-  <%= f.input :poc, :label => 'Point of contact' %>
-  <%= f.input :tel, :label => 'Telephone' %>
-  <%= f.input :proctor, :label => 'Proctor' %>
-  <%= f.button :submit %>
-<% end %>
+<%= render :partial=>"vendor_details" %>

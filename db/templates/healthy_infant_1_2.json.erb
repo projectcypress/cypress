@@ -1,0 +1,133 @@
+{
+  "description": "Healthy 2-16 year old child, possibly with weigth issues",
+  <% sex=gender %>
+  "first": "<%= forename(sex) %>",
+  "last": "<%= surname %>",
+  "gender": "<%= sex %>",
+  <% birthdate = between(Time.gm(2009, 1, 1), Time.gm(2010, 1, 1)) %>
+  <% day = 24 * 60 * 60 %>
+  "birthdate": <%= birthdate %>,
+  "events": {
+    "encounters": [
+      "dummy"
+      <% if percent(90) %>
+      ,{
+        "description": "Outpatient encounter",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "99201",
+        "code_set": "CPT"
+      }
+      <% end %>
+    ],
+    "conditions": [
+      "dummy"
+    ],
+    "results": [
+    ],
+    "vital_signs": [
+      "dummy"
+    ],
+    "procedures": [
+      "dummy"
+      <% if percent(90) %>
+      <% 4.times do %>
+      ,{
+        "description": "DTaP Vaccine",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "90698",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% end %>
+      <% if percent(90) %>
+      <% 3.times do %>
+      ,{
+        "description": "Polio (IPV) Vaccine",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "90713",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% end %>
+      <% if percent(90) %>
+      <% 2.times do %>
+      ,{
+        "description": "Influenza (HiB) Vaccine",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "90645",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% end %>
+      <% if percent(90) %>
+      <% 2.times do %>
+      ,{
+        "description": "Influenza (Inf) Vaccine",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "90655",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% end %>
+    ],
+    "medications": [
+      "dummy"
+      <% if percent(80) %>
+      ,{
+        "description": "MMR Vaccine",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "804186",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if percent(90) %>
+      <% 3.times do %>
+      ,{
+        "description": "HepB Vaccine",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "310752",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% end %>
+      <% if percent(80) %>
+      ,{
+        "description": "Chicken Pox Vaccine (VZV)",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "759605",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if percent(90) %>
+      <% 4.times do %>
+      ,{
+        "description": "Pneumococcal Conjugate (PCV) Vaccine",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "854931",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% end %>
+      <% if percent(90) %>
+      <% 2.times do %>
+      ,{
+        "description": "HepA Vaccine",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "798364",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% end %>
+      <% if percent(90) %>
+      <% 2.times do %>
+      ,{
+        "description": "Rotavirus Vaccine",
+        "time": <%= between(birthdate+42*day, birthdate+365*2*day) %>,
+        "code": "798297",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% end %>
+    ]
+  }
+}

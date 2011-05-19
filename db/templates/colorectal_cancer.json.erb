@@ -1,0 +1,171 @@
+{
+  "description": "Colorectal cancer 50-80 year old",
+  <% sex=gender %>
+  "first": "<%= forename(sex) %>",
+  "last": "<%= surname %>",
+  "gender": "<%= sex %>",
+  "birthdate": <%= between(Time.gm(1930, 1, 1), Time.gm(1970, 12, 31)) %>,
+  <% tobacco_user = percent(30) %>
+  <% asked_about_tobacco = percent(80) %>
+  "events": {
+    "encounters": [
+      {
+        "description": "Outpatient encounter",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "99201",
+        "code_set": "CPT"
+      }
+      ,{
+        "description": "Outpatient encounter",
+        "time": <%= between(Time.gm(2010, 7, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "99201",
+        "code_set": "CPT"
+      }
+    ],
+    "conditions": [
+      "dummy"
+      <% if asked_about_tobacco %>
+      <% if tobacco_user %>
+      ,{
+        "description": "Tobacco User",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "160603005",
+        "code_set": "SNOMED-CT"
+      }
+      <% else %>
+      ,{
+        "description": "Tobacco Non-user",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "105539002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% end %>
+      ,{
+        "description": "Colorectal Cancer",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "109838007",
+        "code_set": "SNOMED-CT"
+      }
+      <% if percent(10) %>
+      ,{
+        "description": "Metastatic sites",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "94222008",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+    ],
+    "vital_signs": [
+      "dummy"
+      <% if asked_about_tobacco %>
+      <% if tobacco_user %>
+      ,{
+        "description": "Tobacco User",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "160603005",
+        "code_set": "SNOMED-CT"
+      }
+      <% else %>
+      ,{
+        "description": "Tobacco Non-user",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "105539002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% end %>
+      <% if percent(70) %>
+      ,{
+        "description": "BMI",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "225171007",
+        "code_set": "SNOMED-CT",
+        "value": <%= between(22, 26) %>
+      }
+      <% end %>
+    ],
+    "procedures": [
+      "dummy"
+      <% if asked_about_tobacco && tobacco_user && percent(70) %>
+      ,{
+        "description": "Tobacco Cessation Couselling",
+        "time": <%= between(Time.gm(2010, 4, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "171055003",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if sex.eql?('F') && percent(90) %>
+      ,{
+        "description": "Breast cancer screening",
+        "time": <%= between(Time.gm(2009, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "12389009",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if percent(30) %>
+      <% stage_three_cancer = true %>
+      ,{
+        "description": "Stage 3 Colorectal Cancer",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "261654001",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if percent(30) %>
+      ,{
+        "description": "Colonscopy",
+        "time": <%= between(Time.gm(2000, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "44388",
+        "code_set": "CPT"
+      }
+      <% end %>
+    ],
+    "results": [
+      "dummy"
+      <% if sex.eql?('F') && percent(90) %>
+      ,{
+        "description": "Cervical cancer screening",
+        "time": <%= between(Time.gm(2009, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "439958008",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+    ],
+    "medications": [
+      "dummy"
+      <% if percent(70) %>
+      ,{
+        "description": "Influenza Vaccine",
+        "time": <%= between(Time.gm(2010, 9, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "857924",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if percent(30) %>
+      ,{
+        "description": "Pneumonia Vaccine",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "854931",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if asked_about_tobacco && tobacco_user && percent(70) %>
+      ,{
+        "description": "Tobacco Cessation Agent",
+        "time": <%= between(Time.gm(2010, 4, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "105075",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if stage_three_cancer && percent(80) %>
+      ,{
+        "description": "Chemotherapy",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "105583",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+    ]
+  }
+}
