@@ -58,7 +58,7 @@
         <% @incomplete_vendors.each do |vendor| %>
           <tr>
             <td><div title="14%" class="q1">14%</div></td>
-            <td><a href="&lt;%= vendor_path vendor._id %&gt;"><%= vendor.name %></a></td>
+            <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
             <td><%= vendor.tests.last.measure_ids.size %></td>
             <td>?</td>
             <td><%= vendor.poc %></td>
@@ -85,7 +85,7 @@
         <% @complete_vendors.each do |vendor| %>
           <tr>
             <td><div title="100%" class="pass">100%</div></td>
-            <td><a href="&lt;%= vendor_path vendor._id %&gt;"><%= vendor.name %></a></td>
+            <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
             <td>17</td>
             <td>1</td>
             <td><%= vendor.poc %></td>

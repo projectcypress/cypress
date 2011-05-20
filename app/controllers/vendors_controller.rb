@@ -39,12 +39,7 @@ class VendorsController < ApplicationController
     @vendor = Vendor.find(params[:id])
     @test = @vendor.tests.last
     @measures = measure_defs(@test.measure_ids)
-    @results = @measures.collect do |measure|
-      report = QME::QualityReport.new(measure['id'], measure.sub_id, 
-        {'effective_date'=>@test.effective_date, 'test_id'=>@test.id})
-      result = report.result
-      result !=nil ? result : {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
-    end
+    @results = measure_results(@measures, @test)
   end
   
   def edit
@@ -58,6 +53,15 @@ class VendorsController < ApplicationController
   end
   
   private
+  
+  def measure_results(measures, test)
+    measures.collect do |measure|
+      report = QME::QualityReport.new(measure['id'], measure.sub_id, 
+        {'effective_date'=>test.effective_date, 'test_id'=>test.id})
+      result = report.result
+      result !=nil ? result : {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
+    end
+  end
   
   def measure_defs(measure_ids)
     measure_ids.collect do |measure_id|
@@ -90,4 +94,5 @@ class VendorsController < ApplicationController
       patient_record.save!
     end    
   end
+  
 end
