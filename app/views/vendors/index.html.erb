@@ -59,7 +59,7 @@
 					<tr>
 						<td><div title="14%" class="q1">14%</div></td>
 						<td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-						<td>?</td>
+						<td><%= vendor.tests.last.measure_ids.size %></td>
 						<td>?</td>
 						<td><%= vendor.poc %></td>
 						<td><span class="phone"><%= vendor.tel %></span></td>

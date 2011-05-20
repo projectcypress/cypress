@@ -11,8 +11,8 @@
 	</header>
 	<div>
 		<nav class="breadcrumb">
-			<a href="home.html">Home</a> &raquo;
-			<a href="ctb.html">Certification Test Bed</a> &raquo;
+			<a href="<%= vendors_path %>">Home</a> &raquo;
+			<a href="<%= vendors_path %>">Certification Test Bed</a> &raquo;
 			<span><%= @vendor.name %></span>
 		</nav>
 		<section class="candidate">
@@ -89,19 +89,19 @@
 					</tr>
 				</thead>
 				<tbody>
-				  <% @measures.each do |measure| %>
+				  <% @measures.each_with_index do |measure, i| %>
 					<tr class="fail">
-						<td><div title="14%" class="q1">14%</div></td>
-						<td><a href="<% vendor_test_measure_path(@vendor, @test, measure) %>">
+						<td><div title="0%" class="na">0%</div></td>
+						<td><a href="<%= vendor_test_measure_path(@vendor, @test, measure) %>">
 						  <%= "NQF#{measure['id']}#{measure.sub_id} " %>
 						  <%= measure.name %>
 						  <%= " - #{measure.subtitle}" if measure.sub_id %></a>
 						</td>
-						<td>61</td>
-						<td class="r q1">55</td>
-						<td>187</td>
+						<td><%= @results[i]['numerator'] %></td>
 						<td class="r na">--</td>
-						<td>9</td>
+						<td><%= @results[i]['denominator'] %></td>
+						<td class="r na">--</td>
+						<td><%= @results[i]['exclusions'] %></td>
 						<td class="r na">--</td>
 						<td>Notes go here...</td>
 					</tr>

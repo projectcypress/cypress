@@ -11,11 +11,25 @@ class VendorsController < ApplicationController
   
   def create
     vendor = Vendor.new(params[:vendor])
-    test = Test.new(:effective_date=>Time.gm(2010,12,31).to_i)
-    test.measure_ids = ['0001', '0002']
+    test = Run.new(:effective_date=>Time.gm(2010,12,31).to_i)
+    test.measure_ids = ['0001', '0002', '0013']
     vendor.tests << test
     vendor.save!
-    randomized_records(100, vendor.tests[0])
+    test_run = vendor.tests.last
+    
+    # Generate random records for this test run
+    randomized_records(100, test_run)
+    
+    # Start background calculation job for this test run
+    measures = measure_defs(test_run.measure_ids)
+    measures.each do |measure_def|
+      QME::MapReduce::MeasureCalculationJob.create(
+        :measure_id => measure_def['id'], 
+        :sub_id => measure_def['sub_id'], 
+        :effective_date => test_run.effective_date, 
+        :test_id => test_run._id)
+    end
+
     redirect_to :action => 'index'
   end
   
@@ -23,6 +37,12 @@ class VendorsController < ApplicationController
     @vendor = Vendor.find(params[:id])
     @test = @vendor.tests.last
     @measures = measure_defs(@test.measure_ids)
+    @results = @measures.collect do |measure|
+      report = QME::QualityReport.new(measure['id'], measure.sub_id, 
+        {'effective_date'=>@test.effective_date, 'test_id'=>@test.id})
+      result = report.result
+      result !=nil ? result : {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
+    end
   end
   
   def edit

@@ -13,43 +13,43 @@
 		<nav class="breadcrumb">
 			<a href="home.html">Home</a> &raquo;
 			<a href="ctb.html">Certification Test Bed</a> &raquo;
-			<a href="vendor.html">Med-E Health</a> &raquo;
+			<a href="vendor.html"><%= @vendor.name %></a> &raquo;
 			<span>Cervical Cancer Screening</span>
 		</nav>
 		<section class="candidate">
 			
 			<dl>
-				<dt class="vendor">Candidate EHR:</dt><dd class="vendor">Med-E Health</dd>
-				<dt>url:</dt><dd><a href="http://www.medehealth.com">www.medehealth.com</a></dd>
-				<dt>Tests:</dt><dd>14</dd>
-				<dt>Disputes:</dt><dd>2</dd>
+				<dt class="vendor">Candidate EHR:</dt><dd class="vendor"><%= @vendor.name %></dd>
+				<dt>url:</dt><dd><a href=""></a></dd>
+				<dt>Tests:</dt><dd></dd>
+				<dt>Disputes:</dt><dd></dd>
 			</dl>
 			
 			<dl>
-				<dt>EHR POC:</dt>	<dd>David Evans</dd>
-				<dt>E-mail:</dt>	<dd>devans@medehealth.com</dd>
+				<dt>EHR POC:</dt>	<dd><%= @vendor.poc %></dd>
+				<dt>E-mail:</dt>	<dd></dd>
 				<dt>Address:</dt>	<dd>
 										<address>
-											<span>222 Savoire Plaza</span>
-											<span>Suite 1969</span>
-											<span>Atlanta, GA 30346</span>
-										</address>
+											<span></span>
+											<span></span>
+											<span></span>
+										</address></dd>
 									
-				<dt>Phone:</dt>		<dd>(404) 123-1200
+				<dt>Phone:</dt>		<dd><%= @vendor.tel %></dd>
 			</dl>
 
 			<dl>
-				<dt>Proctor:</dt>	<dd>Paul Hewson</dd>
-				<dt>E-mail:</dt>	<dd>phewson@cchit.org</dd>
-				<dt>Phone:</dt>		<dd>(708) 430-2500</dd>
+				<dt>Proctor:</dt>	<dd><%= @vendor.proctor %></dd>
+				<dt>E-mail:</dt>	<dd></dd>
+				<dt>Phone:</dt>		<dd></dd>
 			</dl>
 			<a href="/vendors/next_vendor" class="advance">next candidate</a>
 		</section>
 		<section class="measure">
 			<dl>
 			<dt class="measure_title">Quality Measure:</dt>
-				<dd class="measure_title">Cervical Cancer Screening
-				<dd class="measure_desc">Women from 21-64 yrs old who received one or more pap tests.
+				<dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
+				<dd class="measure_desc"><%= @measure.description %></dd>
 			</dl>
 			<table>
 				<thead>
