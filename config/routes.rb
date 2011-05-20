@@ -1,17 +1,17 @@
 Cypress::Application.routes.draw do
 
   devise_for :users
-  
+
   resources :vendors do
     resources :tests do
       resources :patients, :measures
     end
   end
-  
+
   resources :patients
 
-  root :to => "patients#index"
-  
+  root :to => "vendors#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

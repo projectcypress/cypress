@@ -3,9 +3,9 @@
     <h1>cypress</h1>
     <nav>
       <a href="account.html">account</a>
-      <a href="about.html">about</a>
+      <a href="http://projectcypress.org/">about</a>
       <a href="feedback.html">feedback</a>
-      <a href="help.html">help</a>
+      <a href="http://projectcypress.org/faq.html">help</a>
       <%= link_to('Logout', destroy_user_session_path) %>
     </nav>
   </header>
@@ -22,11 +22,15 @@
       <dl>
         <dt>Gender</dt><dd><%= @patient.gender %></dd>
         <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>
+        <dt>Race</dt><dd>ASDF</dd>
+        <dt>Ethnicity</dt><dd>ASDF</dd>
+        <dt>Language</dt><dd>ASDF</dd>
       </dl>
       </div>
       <a href="next_vendor.html" class="advance">next patient</a>
+      <a href="<%= patient_url(@patient.id.to_s) %>.ccr" class="ccr_export">Export CCR</a>
+      <a href="<%= patient_url(@patient.id.to_s) %>.c32" class="c32_export">Export C32</a>
     </section>
-
     <section id="patient_nqf">
       <table>
         <thead>

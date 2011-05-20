@@ -1,5 +1,7 @@
 class VendorsController < ApplicationController
 
+  before_filter :authenticate_user!
+
   def index
     @incomplete_vendors = Vendor.all(:conditions => {'passed'=>{'$in'=>[nil,false]}})
     @complete_vendors = Vendor.all(:conditions => {'passed'=>true})

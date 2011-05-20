@@ -1,4 +1,4 @@
-	<div id="container">
+<div id="container">
 	<header>
 		<h1>cypress</h1>
 		<nav>
@@ -69,33 +69,33 @@
 				</tbody>
 				<% end %>
 
-			  <% if @complete_vendors.length>0 %>
-				<thead>
-					<tr><th colspan="7" class="passing">Passing</th></tr>
-					<tr>
-						<th></th>
-						<th>EHR</th>
-						<th>Tests</th>
-						<th>Disputes</th>
-						<th colspan="2">POC</th>
-						<th>Proctor</th>
-					</tr>
-				</thead>
-				<tbody>
-				<% @complete_vendors.each do |vendor| %>
-					<tr>
-						<td><div title="100%" class="pass">100%</div></td>
-						<td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-						<td>17</td>
-						<td>1</td>
-						<td><%= vendor.poc %></td>
-						<td><span class="phone"><%= vendor.tel %></span></td>
-						<td><%= vendor.proctor %></td>
-					</tr>
-				<% end %>
-				</tbody>
-				<% end %>
-			</table>
-		</section>
-	</div>
-	</div><!-- end #container -->			
+        <% if @complete_vendors.length>0 %>
+          <thead>
+              <tr><th colspan="7" class="passing">Passing</th></tr>
+              <tr>
+                  <th></th>
+                  <th>EHR</th>
+                  <th>Tests</th>
+                  <th>Disputes</th>
+                  <th colspan="2">POC</th>
+                  <th>Proctor</th>
+              </tr>
+          </thead>
+          <tbody>
+          <% @complete_vendors.each do |vendor| %>
+              <tr>
+                  <td><div title="100%" class="pass">100%</div></td>
+                  <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
+                  <td>17</td>
+                  <td>1</td>
+                  <td><%= vendor.poc %></td>
+                  <td><span class="phone"><%= vendor.tel %></span></td>
+                  <td><%= vendor.proctor %></td>
+              </tr>
+          <% end %>
+          </tbody>
+          <% end %>
+        </table>
+    </section>
+</div>
+</div><!-- end #container -->           
