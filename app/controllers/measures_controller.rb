@@ -14,5 +14,10 @@ class MeasuresController < ApplicationController
     elsif patient_gen_status.completed?
       report.calculate
     end
+    
+    respond_to do |format|
+      format.json { render :json => @result }
+      format.html { render :action => "show" }
+    end
   end
 end

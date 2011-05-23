@@ -26,16 +26,6 @@ class VendorsController < ApplicationController
       :test_id => test_run._id)
     vendor.save!
     
-    # Start background calculation job for this test run
-    measures = measure_defs(test_run.measure_ids)
-    measures.each do |measure_def|
-      QME::MapReduce::MeasureCalculationJob.create(
-        :measure_id => measure_def['id'], 
-        :sub_id => measure_def['sub_id'], 
-        :effective_date => test_run.effective_date, 
-        :test_id => test_run._id)
-    end
-
     redirect_to :action => 'index'
   end
   

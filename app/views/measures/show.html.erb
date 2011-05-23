@@ -1,3 +1,12 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      <% if @result['numerator']=='?' %>
+        $.cypress.addPoll("<%= @measure.id %>", "<%= vendor_test_measure_path(@vendor, @test, @measure) %>")
+      <% end %>
+    });
+  </script>
+<% end %>
   <div id="container">
   <header>
     <h1>cypress</h1>
@@ -70,14 +79,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr id='<%= "#{@measure.id}" %>'>
             <td><div title="28%" class="q1">28%</div></td>
             <td class="na">FAIL</td>
-            <td><%= @result['numerator'] %></td>
+            <td><span class="num"><%= @result['numerator'] %></span></td>
             <td class="r na">--</td>
-            <td><%= @result['denominator'] %></td>
+            <td><span class="den"><%= @result['denominator'] %></span></td>
             <td class="r na">--</td>
-            <td><%= @result['exclusions'] %></td>
+            <td><span class="exc"><%= @result['exclusions'] %></span></td>
             <td class="r na">--</td>
           </tr>
         </tbody>
