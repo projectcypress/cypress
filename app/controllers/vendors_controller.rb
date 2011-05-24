@@ -34,6 +34,11 @@ class VendorsController < ApplicationController
     @test = @vendor.tests.last
     @measures = measure_defs(@test.measure_ids)
     @results = measure_results(@measures, @test)
+
+    respond_to do |format|
+      format.json { render :json => {'vendor' => @vendor, 'test' => @test, 'results'=>@results }}
+      format.html { render :action => "show" }
+    end
   end
   
   def edit
@@ -59,6 +64,7 @@ class VendorsController < ApplicationController
       elsif patient_gen_status.completed?
         report.calculate
       end
+      result['measure_id'] = measure.id.to_s
       result
     end
   end

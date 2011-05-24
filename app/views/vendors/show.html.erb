@@ -1,10 +1,14 @@
 <% content_for :head do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      <% @measures.each_with_index do |measure, i| %>
-        <% if @results[i]['numerator']=='?' %>
-          $.cypress.addPoll("<%= measure.id %>", "<%= vendor_test_measure_path(@vendor, @test, measure) %>")
-        <% end %>
+      <% poll_for_updates = false %>
+      <% @results.each do |result| %>
+      <%   if result['numerator']=='?' %>
+      <%     poll_for_updates = true %>
+      <%   end %>
+      <% end %>
+      <% if poll_for_updates %>
+        $.cypress.addPoll("<%= vendor_path(@vendor) %>")
       <% end %>
     });
   </script>

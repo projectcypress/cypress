@@ -2,7 +2,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
       <% if @result['numerator']=='?' %>
-        $.cypress.addPoll("<%= @measure.id %>", "<%= vendor_test_measure_path(@vendor, @test, @measure) %>")
+        $.cypress.addPoll("<%= vendor_test_measure_path(@vendor, @test, @measure) %>")
       <% end %>
     });
   </script>

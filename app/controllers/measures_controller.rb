@@ -14,6 +14,7 @@ class MeasuresController < ApplicationController
     elsif patient_gen_status.completed?
       report.calculate
     end
+    @result['measure_id'] = @measure.id.to_s
     
     respond_to do |format|
       format.json { render :json => @result }
