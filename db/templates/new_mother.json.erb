@@ -1,0 +1,220 @@
+{
+  "description": "Healthy 18-40 year old new mother",
+  <% sex='F' %>
+  "first": "<%= forename(sex) %>",
+  "last": "<%= surname %>",
+  "gender": "<%= sex %>",
+  "birthdate": <%= between(Time.gm(1970, 1, 1), Time.gm(1992, 12, 31)) %>,
+  <% tobacco_user = percent(30) %>
+  <% known_tobacco_user = tobacco_user && percent(80) %>
+  <% month = 30*24*60*60 %>
+  <% week = 7*24*60*60 %>
+  <% date_of_baby_birth = between(Time.gm(2010, 7, 1), Time.gm(2010, 12, 31)) %>
+  <% date_of_conception = date_of_baby_birth - 9*month %>
+  "events": {
+    "encounters": [
+      {
+        "description": "Outpatient encounter",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "99201",
+        "code_set": "CPT"
+      }
+      <% if percent(60) %>
+      ,{
+        "description": "Outpatient encounter",
+        "time": <%= between(Time.gm(2010, 7, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "99201",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% if percent(60) %>
+      ,{
+        "description": "Preventative encounter",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 6, 30)) %>,
+        "code": "99385",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% prenatal_visit_date = between(date_of_conception, date_of_conception+5*month) %>
+      ,{
+        "description": "Prenatal visit 1",
+        "time": <%= prenatal_visit_date %>,
+        "code": "424441002",
+        "code_set": "SNOMED-CT"
+      }
+      ,{
+        "description": "Prenatal visit 2",
+        "time": <%= between(date_of_conception+5*month, date_of_baby_birth) %>,
+        "code": "424441002",
+        "code_set": "SNOMED-CT"
+      }
+    ],
+    "conditions": [
+      "dummy"
+      <% if known_tobacco_user %>
+      ,{
+        "description": "Tobacco User",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "160603005",
+        "code_set": "SNOMED-CT"
+      }
+      <% else %>
+      ,{
+        "description": "Tobacco Non-user",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "105539002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      ,{
+        "description": "Pregnant",
+        "time": <%= between(date_of_conception, date_of_baby_birth) %>,
+        "code": "16356006",
+        "code_set": "SNOMED-CT"
+      }
+      ,{
+        "description": "Estimated date of conception",
+        "time": <%= date_of_conception %>,
+        "code": "248986005",
+        "code_set": "SNOMED-CT"
+      }
+      ,{
+        "description": "Live birth",
+        "time": <%= date_of_baby_birth %>,
+        "code": "102500002",
+        "code_set": "SNOMED-CT"
+      }
+      <% if percent(5) %>
+      ,{
+        "description": "HIV",
+        "time": <%= between(prenatal_visit_date-5*month,prenatal_visit_date) %>,
+        "code": "111880001",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if percent(20) %>
+      <% rh_neg = true %>
+      ,{
+        "description": "drh negative",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "165746003",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if rh_neg && percent(50) %>
+      ,{
+        "description": "primigravidia",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "127364007",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+    ],
+    "vital_signs": [
+      "dummy"
+      <% if known_tobacco_user %>
+      ,{
+        "description": "Tobacco User",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "160603005",
+        "code_set": "SNOMED-CT"
+      }
+      <% else %>
+      ,{
+        "description": "Tobacco Non-user",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 3, 31)) %>,
+        "code": "105539002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+    ],
+    "procedures": [
+      "dummy"
+      <% if known_tobacco_user && percent(70) %>
+      ,{
+        "description": "Tobacco Cessation Couselling",
+        "time": <%= between(Time.gm(2010, 4, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "171055003",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      ,{
+        "description": "Live birth",
+        "time": <%= date_of_baby_birth %>,
+        "code": "59400",
+        "code_set": "CPT"
+      }
+    ],
+    "results": [
+      "dummy"
+      <% if sex.eql?('F') && percent(90) %>
+      ,{
+        "description": "Cervical cancer screening",
+        "time": <%= between(Time.gm(2009, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "439958008",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if sex.eql?('F') && percent(90) %>
+      ,{
+        "description": "Procedure indicative of sexual activity",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "86592",
+        "code_set": "CPT"
+      }
+      <% end %>
+      <% if sex.eql?('F') && percent(80) %>
+      ,{
+        "description": "Chlamydia screening",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "104281002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if percent(70) %>
+      ,{
+        "description": "HIV screening",
+        "time": <%= between(prenatal_visit_date, prenatal_visit_date+month) %>,
+        "code": "104332002",
+        "code_set": "SNOMED-CT"
+      }
+      <% end %>
+      <% if rh_neg && percent(50) %>
+      <% active_rh = true %>
+      ,{
+        "description": "active_rh_neg",
+        "time": <%= between(Time.gm(2010, 1, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "10331-7",
+        "code_set": "LOINC"
+      }
+      <% end %>
+    ],
+    "medications": [
+      "dummy"
+      <% if percent(30) %>
+      ,{
+        "description": "Influenza Vaccine",
+        "time": <%= between(Time.gm(2010, 9, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "857924",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if known_tobacco_user && percent(70) %>
+      ,{
+        "description": "Tobacco Cessation Agent",
+        "time": <%= between(Time.gm(2010, 4, 1), Time.gm(2010, 12, 31)) %>,
+        "code": "105075",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+      <% if active_rh && percent(90) %>
+      ,{
+        "description": "Anti-D Immune Globlin",
+        "time": <%= between(date_of_conception+26*week, date_of_conception+30*week) %>,
+        "code": "205066",
+        "code_set": "RxNorm"
+      }
+      <% end %>
+    ]
+  }
+}
