@@ -27,8 +27,7 @@ class Record
       xml.Version("V1.0")
       xml.DateTime do
         #TODO: Need to fix this and not be a hard-coded value
-        xml.ExactDateTime("2010-02-01T15:52:04Z")
-        xml.ExactDateTime("2010-02-01T15:52:04Z")
+        xml.ExactDateTime(convert_to_ccr_time_string(Time.now))
       end
       xml.Patient do 
         xml.ActorID(id)
@@ -65,7 +64,7 @@ class Record
                          "xmlns" => "urn:hl7-org:v3",
                          "xmlns:sdtc" => "urn:hl7-org:sdtc",
                          "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance") do
-      xml.realmCode( "code" => "US" ) #C32 2.4
+      xml.realmCode( "code" => "US" )
       xml.typeId("root" => "2.16.840.1.113883.1.3", "extension" => "POCD_HD000040")
       xml.templateId("root" => "2.16.840.1.113883.3.27.1776", "assigningAuthorityName" => "CDA/R2")
       xml.templateId("root" => "2.16.840.1.113883.10.20.1", "assigningAuthorityName" => "CCD")
@@ -109,7 +108,7 @@ class Record
                 xml.Text("Start date")
               end
               #time
-              xml.ExactDateTime("1990-08-07T06:00:00Z")
+              xml.ExactDateTime(convert_to_ccr_time_string(condition.time))
             end
             xml.Type do
               #TODO: Need to fix this and not be a hard-coded value
@@ -159,7 +158,7 @@ class Record
                 xml.Text("Start date")
               end
               #time
-              xml.ExactDateTime("1990-08-07T06:00:00Z")
+              xml.ExactDateTime(convert_to_ccr_time_string(vital_sign.time))
             end
             xml.Description do
               xml.Text(vital_sign.description)
@@ -199,7 +198,7 @@ class Record
           end
         end
         xml.DateOfBirth do
-          xml.ExactDateTime("1960-08-19T06:00:00Z")
+          xml.ExactDateTime(convert_to_ccr_time_string(birthdate))
             if (gender)
             xml.Gender do
               if (gender.upcase == "M")
@@ -238,6 +237,11 @@ class Record
         end
       end
     end
+  end
+
+  def convert_to_ccr_time_string(time)
+    converted_time = Time.at(time)
+    converted_time.strftime("%Y-%m-%dT%H:%M:%SZ")
   end
 
 end
