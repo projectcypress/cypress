@@ -28,6 +28,7 @@ class Record
       xml.DateTime do
         #TODO: Need to fix this and not be a hard-coded value
         xml.ExactDateTime("2010-02-01T15:52:04Z")
+        xml.ExactDateTime("2010-02-01T15:52:04Z")
       end
       xml.Patient do 
         xml.ActorID(id)

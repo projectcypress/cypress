@@ -1,6 +1,8 @@
 class Vendor
 
-  embeds_many :tests, class_name: "Test", inverse_of: :vendor
+  include Mongoid::Document
+
+  embeds_many :tests, class_name: "Run", inverse_of: :vendor
 
   field :name, type: String
   field :poc, type: String
