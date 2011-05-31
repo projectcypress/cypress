@@ -1,4 +1,4 @@
-  <div id="container">
+<div id="container">
   <%= render :partial=>"shared/header" %>
 
   <div>
@@ -11,26 +11,25 @@
       </nav>
     </section>
     <section id="patient_nqf">
-    
-      <table>
-    
-        <colgroup  class="nqf">
+
+    <table>
+      <colgroup  class="nqf">
         <col />
         <col />
         <col />
         <col />
-        </colgroup>
-        <thead style="position:relative;">
-          <tr class="rot">
-            <th><div>NQF #</div></th>
-            <th><div>DEN</div></th>
-            <th><div>NUM</div></th>
-            <th><div>EX</div></th>
-            <th><div>N/A</div></th>
-          </tr>
-          </thead>
-        <tbody>
-          <% @results.each do |result| %>
+      </colgroup>
+      <thead style="position:relative;">
+        <tr class="rot">
+          <th><div>NQF #</div></th>
+          <th><div>DEN</div></th>
+          <th><div>NUM</div></th>
+          <th><div>EX</div></th>
+          <th><div>N/A</div></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @results.each do |result| %>
           <tr>
             <td><%= "#{result.value.measure_id}#{result.value.sub_id}" %></td>
             <td <%= raw result_to_class(result.value.denominator?) %>></td>
@@ -118,5 +117,4 @@
       <span>image attribution: <a href="http://www.flickr.com/photos/jgarber/125495217/">http://www.flickr.com/photos/jgarber/125495217/</a></span> <img src="/images/cc.png"> <span><a href="http://creativecommons.org/licenses/by/3.0/">http://creativecommons.org/licenses/by/3.0/</a></span>
     </footer>
   </div>
-</div><!-- end #container -->     
-</body>
+</div><!-- end #container -->

@@ -33,8 +33,8 @@
         <tbody>
   <% @patients.each do |patient| %>
   <tr>
-    <td><a href="<%= patient_url(patient.id.to_s) %>"><%= patient.first %></td>
     <td><a href="<%= patient_url(patient.id.to_s) %>"><%= patient.last %></td>
+    <td><a href="<%= patient_url(patient.id.to_s) %>"><%= patient.first %></td>
     <td><%= display_time(patient.birthdate) %></td>
     <td><%= patient.gender %></td>
   </tr>

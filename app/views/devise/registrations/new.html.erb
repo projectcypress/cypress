@@ -1,47 +1,40 @@
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:name=>"register_form"}) do |f| %>
 
+  <div class="accountError">
+    <%= devise_error_messages! %>
+  </div>
+  <ul class="register">
+    <li>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </li>
+    <li>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+      <p>Must be at least 5 characters long.</p>
+    </li>
+    <li>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </li>
+  </ul>
 
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:name=>"register_form"}) do |f| %>
+  <%#  render :partial => "devise/shared/links" %>
 
-      <div class="accountError">
-        <%= devise_error_messages! %>
-      </div>
-      <ul class="register">
-        <li>
-          <%= f.label :email %>
-          <%= f.email_field :email %>
-        </li>
-      
-        <li>
-          <%= f.label :password %>
-          <%= f.password_field :password %>
-          <p>Must be at least 5 characters long.</p>
-        </li>
-      
-        <li>
-          <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation %>
-        </li>
+  <p>Terms and conditions for use of Cypress. [insert legal text here]</p>
+  <div id="regcheckbox">
+      <%= check_box_tag :agree_license %>
+      <label for="agree_license">I agree to the above Terms and Conditions of use</label>
+  </div>
 
-      </ul>
-
-      <%#  render :partial => "devise/shared/links" %>
-      
-      <p>Terms and conditions for use of Cypress. [insert legal text here]</p>
-      <div id="regcheckbox">
-          <%= check_box_tag :agree_license %>
-          <label for="agree_license">I agree to the above Terms and Conditions of use</label>
-      </div>
-      
-      <div class="actions">
-          <a class="whitebutton" href="/"><span>Cancel</span></a>
-        <%= 
-          content_tag(:a,  {:href=>"#", :class=>"bluebutton", :onclick=>"submitRegisterform()"} ) do
-            content_tag(:span,"Create")
-          end %>
-      </div>
-      <div class="links info">
-          cypress v0.9<br>
-      </div>
-      
-
+  <div class="actions">
+    <a class="whitebutton" href="/"><span>Cancel</span></a>
+    <%= 
+      content_tag(:a,  {:href=>"#", :class=>"bluebutton", :onclick=>"submitRegisterform()"} ) do
+        content_tag(:span,"Create")
+      end %>
+  </div>
+  <div class="links info">
+      cypress v0.9<br>
+  </div>
 <% end -%>
