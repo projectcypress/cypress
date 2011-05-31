@@ -1,7 +1,6 @@
 <tr>
   <td><%= code_display(entry.codes)%></td>
   <td><%= entry.description %></td>
-  <td></td>
   <td>
   <% if entry.value.present? -%>
     <strong><%= entry.value['scalar']%></strong>
@@ -12,5 +11,5 @@
     <%= entry.value['units'] %>
   <% end -%>
   </td>
-  <td><time><%= display_time(entry.time) %></time></td>
+  <td><time datetime="<%= display_time(entry.time) %>"><%= display_time(entry.time) %></time></td>
 </tr>

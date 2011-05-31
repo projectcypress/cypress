@@ -29,8 +29,16 @@ body {
   width: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial;
   font-size: 0.9em;
+  font-weight: 300;
 }
 a { color: #000000; }
+.bordered {
+  border: 1px solid #aaaaaa;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  behavior: url(/stylesheets/PIE.htc);
+}
 header {
   position: relative;
   padding: 5px 20px;
@@ -55,18 +63,36 @@ header a {
   width: 1000px;
   margin: 20px auto 20px auto;
   border: 1px solid #aaaaaa;
+  background-color: #ffffff;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   -webkit-box-shadow: 2px 2px 8px #aaaaaa;
   -moz-box-shadow: 2px 2px 8px #aaaaaa;
   box-shadow: 2px 2px 8px #aaaaaa;
+  behavior: url(/stylesheets/PIE.htc);
 }
-#container > div { padding: 20px; }
+#container > div { padding: 10px 20px 20px 20px; }
+#container > div.split { border-top: 1px solid #cccccc; }
+a.cmd {
+  padding: 5px 10px;
+  float: right;
+  margin-left: 15px;
+  text-decoration: none;
+  background-color: #c9ebac;
+  border: 2px solid green;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 80%;
+  behavior: url(/stylesheets/PIE.htc);
+}
 nav.breadcrumb {
   font-size: 80%;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  padding-top: 0.6em;
 }
 nav.breadcrumb a {
   text-decoration: none;
@@ -75,17 +101,6 @@ nav.breadcrumb a {
 nav.breadcrumb a:hover { text-decoration: underline; }
 nav.breadcrumb a:first-child { margin-left: 0; }
 nav.breadcrumb span { margin-left: 5px; }
-.bordered {
-  border: 1px solid #aaaaaa;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  behavior: url(./PIE.htc);
-}
-section.records {
-  border-bottom: 1px solid #aaaaaa;
-  line-height: 2em;
-}
 section.candidate {
   padding: 10px;
   position: relative;
@@ -93,14 +108,14 @@ section.candidate {
 }
 section.candidate dl {
   font-size: 90%;
-  width: 305px;
+  width: 315px;
   display: table-cell;
   padding-right: 10px;
+  vertical-align: top;
 }
-section.candidate dl.wide dt { width: 120px; }
 section.candidate dt {
   color: #666666;
-  width: 90px;
+  width: 120px;
   clear: both;
   display: inline-block;
   text-align: right;
@@ -124,14 +139,14 @@ section.records {
 }
 section.records dl {
   font-size: 90%;
-  width: 305px;
+  width: 315px;
   display: table-cell;
   padding-right: 10px;
+  vertical-align: top;
 }
-section.records dl.wide dt { width: 120px; }
 section.records dt {
   color: #666666;
-  width: 90px;
+  width: 120px;
   clear: both;
   display: inline-block;
   text-align: right;
@@ -155,14 +170,14 @@ section.ctb_records {
 }
 section.ctb_records dl {
   font-size: 90%;
-  width: 305px;
+  width: 315px;
   display: table-cell;
   padding-right: 10px;
+  vertical-align: top;
 }
-section.ctb_records dl.wide dt { width: 120px; }
 section.ctb_records dt {
   color: #666666;
-  width: 90px;
+  width: 120px;
   clear: both;
   display: inline-block;
   text-align: right;
@@ -179,43 +194,56 @@ section.ctb_records dt.vendor {
   vertical-align: baseline;
 }
 section.ctb_records dd.vendor { font-size: 150%; }
-section a.advance {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  padding: 5px 0;
-  background: url(/images/advance.png) 100% 50% no-repeat;
-  padding-right: 20px;
+section.records {
+  line-height: 2em;
+  padding: 10px 11px;
 }
-section a.ccr_export {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  padding: 5px 0;
-  padding-right: 20px;
+section.records dl.notes {
+  width: 930px;
+  display: block;
 }
-section a.c32_export {
-  position: absolute;
-  bottom: 40px;
-  right: 20px;
-  padding: 5px 0;
-  padding-right: 20px;
+section.records dl.notes dd {
+  vertical-align: bottom;
+  width: 600px;
 }
+section.records dl.notes dd textarea {
+  height: 2em;
+  padding: 6px;
+  border: 1px solid #cccccc;
+}
+section a.nav {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  padding: 2px;
+  text-indent: -9999pt;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #aaaaaa;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  behavior: url(/stylesheets/PIE.htc);
+}
+section a.previous {
+  background: url(/images/previous.png) 50% 50% no-repeat;
+  right: 70px;
+}
+section a.advance { background: url(/images/advance.png) 50% 50% no-repeat; }
 section.candidate, section.measure, section.patient, section.ctb_records {
   border: 1px solid #aaaaaa;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  behavior: url(./PIE.htc);
+  behavior: url(/stylesheets/PIE.htc);
   padding: 10px 10px 20px;
   position: relative;
 }
 section.legend {
-  padding: 10px;
+  padding: 10px 10px 10px 0;
   font-size: 90%;
-  border-bottom: 1px solid #aaaaaa;
+  border-top: 1px solid #aaaaaa;
   line-height: 2em;
-  margin-bottom: 10px;
 }
 section.legend dt {
   color: #666666;
@@ -229,50 +257,49 @@ section.legend dd {
 }
 section.legend dd.na { background: url(/images/insufficient.png) 0% 50% no-repeat; }
 section.legend dd.pass { background: url(/images/pass.png) 0 50% no-repeat; }
-section.legend dd.q1 { background: url(/images/q1.png) 0 50% no-repeat; }
-section.legend dd.q2 { background: url(/images/q2.png) 0 50% no-repeat; }
-section.legend dd.q3 { background: url(/images/q3.png) 0 50% no-repeat; }
-section.legend dd.q4 { background: url(/images/q4.png) 0 50% no-repeat; }
+section.legend dd.fail { background: url(/images/fail.png) 0 50% no-repeat; }
 section table { width: 100%; }
 section table thead { font-size: 90%; }
 section table thead tr:first-child th {
   text-align: center;
   text-transform: uppercase;
   border-bottom: 1px solid #cccccc;
+  padding-top: 25px;
 }
 section table th {
   padding: 2px 4px;
   vertical-align: top;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-weight: 300;
 }
 section table td {
   padding: 2px 4px;
   vertical-align: top;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-weight: 300;
 }
-section table th { color: #999999; }
-section table tr:nth-child(2) th { font-size: 90%; }
+section table th { color: #666666; }
+section table tr.na td { color: #aaaaaa; }
+section table tr:nth-child(2) th {
+  font-size: 90%;
+  color: #999999;
+}
+section table th span.fail {
+  font-weight: bold;
+  color: red;
+}
+section table th span.pass {
+  font-weight: bold;
+  color: green;
+}
 section table tr td a { text-decoration: none; }
 section table td div.na {
   background: url(/images/insufficient.png) 0 50% no-repeat;
   text-indent: -9999pt;
   width: 16px;
 }
-section table td div.q1 {
-  background: url(/images/q1.png) 0 50% no-repeat;
-  text-indent: -9999pt;
-  width: 16px;
-}
-section table td div.q2 {
-  background: url(/images/q2.png) 0 50% no-repeat;
-  text-indent: -9999pt;
-  width: 16px;
-}
-section table td div.q3 {
-  background: url(/images/q3.png) 0 50% no-repeat;
-  text-indent: -9999pt;
-  width: 16px;
-}
-section table td div.q4 {
-  background: url(/images/q4.png) 0 50% no-repeat;
+section table td div.fail {
+  background: url(/images/fail.png) 0 50% no-repeat;
   text-indent: -9999pt;
   width: 16px;
 }
@@ -282,30 +309,29 @@ section table td div.pass {
   width: 16px;
 }
 section table td.r { font-weight: bold; }
-section table tr.fail td:nth-child(2) a { color: red; }
-section table tr.pass td:nth-child(2) a { color: green; }
-section table td.q1 { color: red; }
-section table td.q2 { color: red; }
-section table td.q3 { color: red; }
-section table td.q4 { color: red; }
-section table tr.fail td.na { color: #cccccc; }
-section table td:nth-child(9) {
-  font-size: 90%;
-  color: #666666;
+section table td span.na {
+  color: #999999;
+  font-style: italic;
 }
+section table td span.q { color: #999999; }
 section#quality_measures { margin-bottom: 40px; }
-section#quality_measures table thead tr:nth-child(2) th:nth-child(2n+2) { text-align: right; }
-section#quality_measures table thead tr:first-child th:nth-child(2) { text-align: left; }
-section#quality_measures table thead tr:first-child th:nth-child(6) { text-align: left; }
-section#quality_measures td:nth-child(2n+3) { text-align: right; }
-section#quality_measures td:nth-child(9) { text-align: left; }
+section#quality_measures table thead tr th:nth-child(-n+4) { text-align: center; }
+section#quality_measures table thead tr th:first-child { text-align: left; }
+section#quality_measures table thead tr th:nth-child(5) { text-align: left; }
+section#quality_measures tbody.fail td:nth-child(2) a { color: red; }
+section#quality_measures tbody.pass td:nth-child(2) a { color: green; }
+section#quality_measures tbody.fail span.f { color: red; }
+section#quality_measures td:first-child { width: 1em; }
+section#quality_measures td:nth-child(-n+5) { text-align: center; }
+section#quality_measures td:nth-child(-n+2) { text-align: left; }
 section.measure {
   margin-top: 10px;
   position: relative;
+  padding-bottom: 0;
 }
 section.measure dl {
   font-size: 90%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 section.measure dt {
   color: #666666;
@@ -322,29 +348,34 @@ section.measure dt.measure_title {
 section.measure dd.measure_title { font-size: 150%; }
 section.measure dd.measure_desc { margin-left: 130px; }
 section.measure dd {
-  width: 655px;
+  width: 780px;
   display: inline-block;
 }
-section.measure dd span { display: block; }
-section.measure table {
-  width: 500px;
-  float: left;
+section.measure dd table { width: 600px; }
+section.measure dd table td { padding: 0 8px 0 0; }
+section.measure dd table th { padding: 0 8px 0 0; }
+section.measure dd table th {
+  font-style: italic;
+  text-align: right;
 }
-section.measure table thead tr:nth-child(2) th:nth-child(2n+2) { text-align: right; }
-section.measure table thead tr:first-child th:first-child {
-  text-align: left;
-  text-transform: none;
+section.measure dd table span.r { font-weight: bold; }
+section.measure dd table span.fail { color: red; }
+section.measure dd.pass {
+  background: url(/images/pass.png) 0 50% no-repeat;
+  padding-left: 20px;
+  color: green;
 }
-section.measure table thead tr:first-child th:nth-child(2) { text-align: center; }
-section.measure table td:nth-child(2n+3) { text-align: right; }
-section.measure table td.fail { color: red; }
-section.measure figure {
-  font-size: 90%;
-  margin-left: 520px;
-  width: 380px;
-  padding-bottom: 20px;
+section.measure dd.na {
+  background: url(/images/insufficient.png) 0 50% no-repeat;
+  padding-left: 20px;
+  color: #999999;
 }
-section.measure figcaption { color: #666666; }
+section.measure dd.fail {
+  background: url(/images/fail.png) 0 50% no-repeat;
+  padding-left: 20px;
+  color: red;
+  font-weight: bold;
+}
 section#vendor_patients {
   margin-top: 20px;
   margin-bottom: 40px;
@@ -354,7 +385,7 @@ section#vendor_patients #patient_controls {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  behavior: url(./PIE.htc);
+  behavior: url(/stylesheets/PIE.htc);
   border: 1px solid green;
   width: 140px;
   text-align: center;
@@ -380,11 +411,240 @@ section#vendor_patients #patient_controls label.selected {
 }
 section#vendor_patients #patient_controls label:hover { border-color: green; }
 section#vendor_patients div.tabs {
-  border-bottom: 1px solid #dddddd;
-  margin-left: 170px;
-  padding-left: 5px;
+  border-right: 2px solid #61a44c;
+  margin-right: 10px;
+  display: block;
+  float: left;
+  height: 100%;
 }
 section#vendor_patients div.tabs a {
+  width: 90px;
+  text-align: left;
+  vertical-align: middle;
+  display: block;
+  margin: 0 0 10px 0;
+  text-decoration: none;
+  border: 1px solid #61a44c;
+  border-right: none;
+  background-color: #ffffff;
+  padding: 1em 5px;
+  -moz-border-radius: 5px 0 0 5px;
+  -webkit-border-radius: 5px 0 0 5px;
+  border-radius: 5px 0 0 5px;
+  text-transform: uppercase;
+  behavior: url(/stylesheets/PIE.htc);
+}
+section#vendor_patients div.tabs a span { font-style: italic; }
+section#vendor_patients div.tabs a span.f { color: red; }
+section#vendor_patients div.tabs a.fail { border-color: red; }
+section#vendor_patients div.tabs a.fail span { color: red; }
+section#vendor_patients div.tabs a.selected {
+  background-color: #96bf73;
+  color: white;
+  font-weight: bold;
+}
+section#vendor_patients div.tabs a.na {
+  border-color: #aaaaaa;
+  color: #999999;
+}
+section#vendor_patients div.tabs a.all { padding: 5px; }
+section#vendor_patients div.tabs a.all span { display: block; }
+section#vendor_patients div.tabs a:hover { border-color: #999999; }
+section#vendor_patients div.tabs a.selected:hover { border-color: #dddddd; }
+section#vendor_patients table {
+  margin-left: 115px;
+  width: 845px;
+  border-collapse: collapse;
+}
+section#vendor_patients table thead tr:first-child th { padding-top: 0; }
+section#vendor_patients table tr.rot th div {
+  white-space: nowrap;
+  font-weight: 500;
+  color: #000000;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  font-size: 80%;
+  display: inline-block;
+  width: 1em;
+  behavior: url(/stylesheets/PIE.htc);
+}
+section#vendor_patients table colgroup {
+  background-color: #ffffff;
+  padding: 0;
+}
+section#vendor_patients table col { width: 18px; }
+section#vendor_patients table td:nth-child(-n+4) { background: url(/images/notincluded.png) 25% 25% no-repeat; }
+section#vendor_patients table thead tr th {
+  text-align: left;
+  border-bottom: none;
+  background-image: none;
+}
+section#vendor_patients table th:nth-child(9) { text-align: center; }
+section#vendor_patients table td:nth-child(9) { text-align: center; }
+section#vendor_patients table td:nth-child(5) {
+  width: 10px;
+  padding: 0;
+}
+section#vendor_patients table td { padding: 0 4px; }
+section#vendor_patients table td:nth-child(n+5) { border: none; }
+section#vendor_patients table tbody tr:nth-child(2n-1) td:nth-child(n+6) { background-color: #f0f0f0; }
+section#vendor_patients table td.p { background: url(/images/included.png) 25% 25% no-repeat; }
+section.patient {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  display: inline-block;
+  width: 780px;
+}
+section.patient strong {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+section.patient .patientname {
+  margin-left: 140px;
+  position: relative;
+  top: 0;
+}
+section.patient div {
+  position: relative;
+  height: 131px;
+  width: 550px;
+}
+section.patient dl {
+  position: absolute;
+  bottom: 0;
+  left: 140px;
+}
+section.patient dt {
+  display: inline-block;
+  float: left;
+  clear: left;
+}
+section.patient dd {
+  margin-left: 10px;
+  display: inline-block;
+  font-weight: bold;
+  float: left;
+}
+section.patient span.age { font-style: italic; }
+section#patient_nqf table {
+  display: block;
+  border-collapse: collapse;
+  float: left;
+  width: 150px;
+}
+section#patient_nqf table thead tr th {
+  text-align: center;
+  height: 20px;
+}
+section#patient_nqf table thead tr:first-child th { padding-top: 0; }
+section#patient_nqf table thead tr th:first-child {
+  text-align: right;
+  color: #000000;
+  border-bottom: none;
+}
+section#patient_nqf table tr.rot th + th div {
+  white-space: nowrap;
+  font-weight: 500;
+  color: #000000;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  font-size: 80%;
+  display: inline-block;
+  width: 1em;
+  behavior: url(/stylesheets/PIE.htc);
+}
+section#patient_nqf table colgroup {
+  background-color: #ffffff;
+  padding: 0;
+}
+section#patient_nqf table col { width: 18px; }
+section#patient_nqf table td:nth-child(-n+5) { background: url(/images/notincluded.png) 25% 25% no-repeat; }
+section#patient_nqf table td:first-child { background: none; }
+section#patient_nqf table thead tr th {
+  text-align: left;
+  border-bottom: none;
+}
+section#patient_nqf table td { padding: 0 4px; }
+section#patient_nqf table td.p { background: url(/images/included.png) 25% 25% no-repeat; }
+section#patient_nqf table td.f { background: url(/images/fail.png) 25% 25% no-repeat; }
+section#patient_nqf table tr td {
+  font-size: 80%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  height: 1em;
+  width: 1.4em;
+  width: 5px;
+}
+section#patient_nqf table tr td:first-child {
+  padding: 0 5px 0 0px;
+  text-align: left;
+  text-align: right;
+  width: 4em;
+}
+section#patient_nqf table img { margin-top: 3px; }
+div#effectiveDate {
+  text-align: center;
+  font-style: italic;
+  position: relative;
+  bottom: 5px;
+}
+section#patient_characteristics {
+  display: inline-block;
+  width: 800px;
+  vertical-align: top;
+  margin-bottom: 40px;
+}
+section#patient_characteristics table {
+  width: 390px;
+  float: left;
+}
+section#patient_characteristics table tr th {
+  background-color: #f0f0f0;
+  color: #333333;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 85%;
+}
+section#patient_characteristics table td {
+  padding: 0 4px;
+  text-align: right;
+}
+section#patient_characteristics table tr td:first-child {
+  width: 50%;
+  text-align: left;
+}
+section#patient_characteristics table tbody tr:last-child td { padding-bottom: 1em; }
+section#patient_characteristics table td.reason {
+  text-align: right;
+  font-style: italic;
+  font-size: 90%;
+}
+section#patient_characteristics table td.val { font-weight: bold; }
+section#patient_characteristics table td em { font-weight: bold; }
+section#patient_characteristics table tbody tr:last-child td { padding-bottom: 20px; }
+section#patient_characteristics table:last-child { margin-left: 20px; }
+section#patient_list table th { text-align: left; }
+section#patient_list div.tabs {
+  margin-top: 20px;
+  border-bottom: 1px solid #dddddd;
+  padding-left: 5px;
+  margin-right: 10px;
+  display: block;
+}
+section#patient_list div.tabs a.selected {
+  background-color: #ffffff;
+  font-weight: bold;
+  border-color: #61a44c;
+  border-bottom-color: white;
+}
+section#patient_list div.tabs a {
   min-width: 60px;
   text-align: center;
   display: inline-block;
@@ -399,104 +659,31 @@ section#vendor_patients div.tabs a {
   -webkit-border-radius: 5px 5px 0 0;
   border-radius: 5px 5px 0 0;
 }
-section#vendor_patients div.tabs a.selected {
-  background-color: #ffffff;
-  border-bottom-color: #ffffff;
-}
-section#vendor_patients div.tabs a:hover {
-  border-color: #999999;
-  border-bottom-color: #dddddd;
-}
-section#vendor_patients div.tabs a.selected:hover {
-  border-color: #dddddd;
-  border-bottom-color: #ffffff;
-}
-section#vendor_patients table {
-  width: 790px;
-  margin-left: 170px;
-}
-section#vendor_patients table thead th { text-align: left; }
-section#vendor_patients table tbody tr:nth-child(2n-1) td { background-color: #f0f0f0; }
-section.patient { margin-bottom: 20px; }
-section.patient div {
-  position: relative;
-  height: 131px;
-  width: 550px;
-}
-section.patient dl {
-  position: absolute;
-  bottom: 0;
-  left: 120px;
-}
-section.patient dt {
-  display: inline-block;
-  float: left;
-  clear: left;
-  text-transform: uppercase;
-}
-section.patient dd {
-  margin-left: 10px;
-  display: inline-block;
-  font-weight: bold;
-  float: left;
-}
-section#patient_nqf {
-  display: inline-block;
-  vertical-align: top;
-}
-section#patient_nqf table {
-  border-collapse: collapse;
-  width: 220px;
-}
-section#patient_nqf table thead tr th { text-align: center; }
-section#patient_nqf table thead tr th:first-child { text-align: left; }
-section#patient_nqf table tr td {
-  padding: 0;
-  margin: 0;
-  text-align: center;
-}
-section#patient_nqf table tr td:first-child {
-  padding: 0 0 0 4px;
-  text-align: left;
-}
-section#patient_nqf table img { margin-top: 3px; }
-section#patient_nqf table tr:nth-child(2n-1) td { background-color: #f0f0f0; }
-section#patient_characteristics {
-  margin-left: 20px;
-  display: inline-block;
-  width: 715px;
-  vertical-align: top;
-  margin-bottom: 40px;
-}
-section#patient_characteristics table { width: 100%; }
-section#patient_characteristics table tr th {
-  background-color: #f0f0f0;
-  color: #333333;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 85%;
-}
-section#patient_characteristics table tr td:nth-child(6) { text-align: right; }
-section#patient_characteristics table td .na { color: #999999; }
 section.ctb_records dl { line-height: 2.54em; }
 section caption {
   font-weight: bold;
   text-transform: uppercase;
 }
-section#ehr_results { margin-bottom: 40px; }
+section#ehr_results {
+  margin-bottom: 40px;
+  border-top: 1px solid #cccccc;
+}
 section#ehr_results table thead tr th { text-align: left; }
 section#ehr_results table tr:first-child th {
   text-transform: uppercase;
-  border-bottom: 0;
-}
-section#ehr_results table tr:nth-child(2) th {
-  text-transform: uppercase;
   border-bottom: 1px solid #cccccc;
 }
+section#ehr_results table thead tr th:nth-child(2) { text-align: center; }
 section#ehr_results table thead tr th:nth-child(3) { text-align: center; }
-section#ehr_results table thead tr th:nth-child(4) { text-align: center; }
+section#ehr_results table thead tr th:nth-child(4) { text-align: right; }
+section#ehr_results table thead tr th:nth-child(6) { text-align: right; }
 section#ehr_results table tr td:nth-child(3) { text-align: center; }
 section#ehr_results table tr td:nth-child(4) { text-align: center; }
+section#ehr_results table tr td:nth-child(5) { text-align: right; }
+section#ehr_results table tr td:nth-child(7) { text-align: right; }
+section#ehr_results table tbody.fail td:nth-child(2) a { color: red; }
+section#ehr_results table tbody.fail td span.f { color: red; }
+section#ehr_results table tbody.pass td:nth-child(2) a { color: green; }
 section#ehr_results th.failing {
   color: red;
   font-weight: bold;
@@ -506,4 +693,13 @@ section#ehr_results th.passing {
   color: green;
   font-weight: bold;
   padding: 20px 0 10px;
+}
+footer#ccattribution {
+  clear: left;
+  text-align: right;
+  font-size: 0.8em;
+}
+footer#ccattribution img {
+  margin: 0 5px 0 20px;
+  vertical-align: middle;
 }

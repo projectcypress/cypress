@@ -1,114 +1,122 @@
   <div id="container">
-  <header>
-    <h1>cypress</h1>
-    <nav>
-      <a href="account.html">account</a>
-      <a href="http://projectcypress.org/">about</a>
-      <a href="feedback.html">feedback</a>
-      <a href="http://projectcypress.org/faq.html">help</a>
-      <%= link_to('Logout', destroy_user_session_path) %>
-    </nav>
-  </header>
+  <%= render :partial=>"shared/header" %>
+
   <div>
-    <nav class="breadcrumb">
-      <a href="home.html">Home</a>  &raquo;
-      <a href="ctb.html">Certification Test Bed</a> &raquo;
-      <span>Patient information</span>
-    </nav>
-    <section class="patient">
-      <div>
-      <img src="/images/patient_photo.png" width="100" height="130" style="position:absolute;top:0;left:0">
-      <span style="margin-left:120px;position:relative;top:0"><strong><%= @patient.last %></strong>, <%= @patient.first %></span>
-      <dl>
-        <dt>Gender</dt><dd><%= @patient.gender %></dd>
-        <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>
-        <dt>Race</dt><dd>ASDF</dd>
-        <dt>Ethnicity</dt><dd>ASDF</dd>
-        <dt>Language</dt><dd>ASDF</dd>
-      </dl>
-      </div>
-      <a href="next_vendor.html" class="advance">next patient</a>
-      <a href="<%= patient_url(@patient.id.to_s) %>.ccr" class="ccr_export">Export CCR</a>
-      <a href="<%= patient_url(@patient.id.to_s) %>.c32" class="c32_export">Export C32</a>
+    <section class="tb">
+      <nav class="breadcrumb">
+        <a href="home.html">Home</a>  &raquo;
+        <a href="ctb.html">Certification Dashboard</a> &raquo;
+        <a href="vendor.html">[Vendor name]</a> &raquo;
+        <span><%= @patient.first %> <%= @patient.last %></span>
+      </nav>
     </section>
     <section id="patient_nqf">
+    
       <table>
-        <thead>
-          <tr>
-            <th>NQF #</th>
-            <th>N/A</th>
-            <th>IP</th>
-            <th>DEN</th>
-            <th>NUM</th>
-            <th>EX</th>
+    
+        <colgroup  class="nqf">
+        <col />
+        <col />
+        <col />
+        <col />
+        </colgroup>
+        <thead style="position:relative;">
+          <tr class="rot">
+            <th><div>NQF #</div></th>
+            <th><div>DEN</div></th>
+            <th><div>NUM</div></th>
+            <th><div>EX</div></th>
+            <th><div>N/A</div></th>
           </tr>
-        </thead>
+          </thead>
         <tbody>
           <% @results.each do |result| %>
           <tr>
             <td><%= "#{result.value.measure_id}#{result.value.sub_id}" %></td>
-            <td><%= raw result_to_markup(!result.value.population?) %></td>
-            <td><%= raw result_to_markup(result.value.population?) %></td>
-            <td><%= raw result_to_markup(result.value.denominator?) %></td>
-            <td><%= raw result_to_markup(result.value.numerator?) %></td>
-            <td><%= raw result_to_markup(result.value.exclusions?) %></td>
+            <td <%= raw result_to_class(result.value.denominator?) %>></td>
+            <td <%= raw result_to_class(result.value.numerator?) %>></td>
+            <td <%= raw result_to_class(result.value.exclusions?) %>></td>
+            <td><!-- n/a --></td>
           </tr>
           <% end %>
         </tbody>
       </table>
     </section>
+    <div id="effectiveDate">effective date: 03/31/11</div>
+    <section class="patient">
+      <div>
+      <img src="/images/patient_photo.jpg" width="120" height="130" style="position:absolute;top:0;left:0">
+      <span class="patientname"><strong><%= @patient.last %></strong>, <%= @patient.first %></span>
+      <dl>
+        <dt>Gender</dt><dd><%= @patient.gender %></dd>
+        <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>
+        <dt>Race</dt><dd>ASDF</dd>
+        <dt>Ethnicity</dt><dd>[ethnicity]</dd>
+        <dt>Language</dt><dd>[language]</dd>
+      </dl>
+      </div>
+      <a href="prev_patient.html" title="See the previous patient" class="nav previous">previous patient</a> <a href="next_patient.html" title="See the next patient" class="nav advance">next patient</a>
+      <a href="<%= patient_url(@patient.id.to_s) %>.ccr" class="ccr_export">Export CCR</a>
+      <a href="<%= patient_url(@patient.id.to_s) %>.c32" class="c32_export">Export C32</a>
+    </section>
+
     <section id="patient_characteristics">
       <table>
         <tbody>
           <tr>
-            <th colspan="6">Allergies</th>
+            <th colspan="5">Allergies</th>
           </tr>
           <%= render :partial => 'entry', :collection => @patient.allergies %>
         </tbody>
         <tbody>
           <tr>
-            <th colspan="6">Care Goal</th>
+            <th colspan="5">Care Goal</th>
           </tr>
           <%= render :partial => 'entry', :collection => @patient.care_goals %>
         </tbody>
         <tbody>
           <tr>
-            <th colspan="6">Vital Signs</th>
+            <th colspan="5">Vital Signs</th>
           </tr>
           <%= render :partial => 'entry', :collection => @patient.vital_signs %>
         </tbody>
         <tbody>
         <tr>
-          <th colspan="6">Laboratory test
+          <th colspan="5">Laboratory test
         </tr>
         <%= render :partial => 'entry', :collection => @patient.results %>
-        </tbody>
+       </tbody>
+      </table>
+      <table>
         <tbody>
         <tr>
-          <th colspan="6">Encounters</th>
+          <th colspan="5">Encounters</th>
         </tr>
         <%= render :partial => 'entry', :collection => @patient.encounters %>
         </tbody>
         <tbody>
         <tr>
-          <th colspan="6">Conditions</th>
+          <th colspan="5">Conditions</th>
         </tr>
         <%= render :partial => 'entry', :collection => @patient.conditions %>
         </tbody>
         <tbody>
         <tr>
-          <th colspan="6">Procedure</th>
+          <th colspan="5">Procedure</th>
         </tr>
         <%= render :partial => 'entry', :collection => @patient.procedures %>
         </tbody>
         <tbody>
         <tr>
-          <th colspan="6">Medications</th>
+          <th colspan="5">Medications</th>
         </tr>
         <%= render :partial => 'entry', :collection => @patient.medications %>
         </tbody>
       </table>
     </section>
+    <footer id="ccattribution">
+      <span>image attribution: <a href="http://www.flickr.com/photos/jgarber/125495217/">http://www.flickr.com/photos/jgarber/125495217/</a></span> <img src="/images/cc.png"> <span><a href="http://creativecommons.org/licenses/by/3.0/">http://creativecommons.org/licenses/by/3.0/</a></span>
+    </footer>
   </div>
 </div><!-- end #container -->     
 </body>

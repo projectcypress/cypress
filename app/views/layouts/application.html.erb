@@ -3,8 +3,14 @@
 <head>
   <title>Cypress: An Open Source EHR Quality Measure Testing Framework</title>
   <link rel="shortcut icon" href="/images/favicon.ico"/>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag "cypress" %>
   <%= javascript_include_tag :defaults %>
+  <!--[if (gte IE 6)&(lte IE 8)]>
+    <%= javascript_include_tag "html5.js" %>
+    <%= javascript_include_tag "selectivizr-min.js" %>
+    <%= stylesheet_link_tag "ie8.css" %>
+  <![endif]-->
+
   <%= csrf_meta_tag %>
   <%= yield :head %>
 </head>

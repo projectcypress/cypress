@@ -1,13 +1,46 @@
-<h1>Patients</h1>
-<table>
-  <tr>
-    <th>First</th>
-    <th>Last</th>
-  </tr>
+  <div id="container">
+  <%= render :partial=>"shared/header" %>
+
+  <div>
+    <section class="tb">
+      <nav class="breadcrumb">
+        <a href="home.html">Home</a> &raquo;
+        <a href="ctb.html">Certification Dashboard</a> &raquo;
+        <span>Master Patient List</span>
+      </nav>
+    </section>
+    <section class="nqf" style="display:none">
+      
+      <dl>
+        <dt class="vendor">NQF #</dt><dd class="vendor"><strong>0001</strong> : Asthma Assessment</dd>
+      </dl>
+      <a href="prev_list.html" title="See the previous patient list" class="nav previous">previous list</a> <a href="next_list.html" title="See the next patient list" class="nav advance">next list</a>
+    </section>
+    <section id="patient_list">
+      <div class="tabs" style="display:none">
+        <a href="#" class="selected">Den <span>(47)</span></a> <a href="#">Num <span>(34)</span></a> <a href="#" class="na">Ex <span>(0)</span></a> <a href="#" class="na">N/A <span>(0)</span></a>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>DOB</th>
+            <th>Gender</th>
+          </tr>
+          </thead>
+        <tbody>
   <% @patients.each do |patient| %>
   <tr>
     <td><a href="<%= patient_url(patient.id.to_s) %>"><%= patient.first %></td>
     <td><a href="<%= patient_url(patient.id.to_s) %>"><%= patient.last %></td>
+    <td><%= display_time(patient.birthdate) %></td>
+    <td><%= patient.gender %></td>
   </tr>
   <% end %>
-</table>
+  </tbody>
+      </table>
+    </section>
+  </div>
+  </div><!-- end #container -->     

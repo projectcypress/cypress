@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="refresh" content="1200" />
+  <title>Cypress: An Open Source EHR Quality Measure Testing Framework</title>
+  <link rel="shortcut icon" href="/images/favicon.ico"/>
+  <%= stylesheet_link_tag "cypress" %>
+  <%= stylesheet_link_tag "account" %>
+
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "account" %>
+  <%= csrf_meta_tag %>
+</head>
+<body class="login">
+
+<div id="login">
+  <div id="cap-top"></div>
+  <div id="cap-body">
+    <div id="branding">
+      <%= image_tag "cypress_big_logo.png", :id => 'imgLogo', :title => 'popHealth welcomes you!', :alt => 'cypress logo' %>
+    </div>
+    <div id="panelLogin" class="panel">
+    
+  <%= yield %>
+  
+      </div>
+  </div>
+  <div id="cap-bottom"></div>
+</div><!-- END #login -->
+
+</body>
+</html>

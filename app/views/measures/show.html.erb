@@ -8,16 +8,8 @@
   </script>
 <% end %>
   <div id="container">
-  <header>
-    <h1>cypress</h1>
-    <nav>
-      <a href="account.html">account</a>
-      <a href="about.html">about</a>
-      <a href="feedback.html">feedback</a>
-      <a href="help.html">help</a>
-      <a href="logout.html">logout</a>
-    </nav>
-  </header>
+  <%= render :partial=>"shared/header" %>
+
   <div>
     <nav class="breadcrumb">
       <a href="<%= vendors_path %>">Home</a> &raquo;
@@ -29,83 +21,41 @@
       
       <dl>
         <dt class="vendor">Candidate EHR:</dt><dd class="vendor"><%= @vendor.name %></dd>
-        <dt>url:</dt><dd><a href=""></a></dd>
-        <dt>Tests:</dt><dd></dd>
-        <dt>Disputes:</dt><dd></dd>
+        <dt>url:</dt><dd><a href="#">www.vendor_url.com</a></dd>
       </dl>
       
       <dl>
         <dt>EHR POC:</dt> <dd><%= @vendor.poc %></dd>
-        <dt>E-mail:</dt>  <dd></dd>
-        <dt>Address:</dt> <dd>
-                    <address>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </address></dd>
-                  
+        <dt>E-mail:</dt>  <dd><!-- vendor e-mail here --></dd>
         <dt>Phone:</dt>   <dd><%= @vendor.tel %></dd>
       </dl>
 
-      <dl>
-        <dt>Proctor:</dt> <dd><%= @vendor.proctor %></dd>
-        <dt>E-mail:</dt>  <dd></dd>
-        <dt>Phone:</dt>   <dd></dd>
-      </dl>
-      <a href="/vendors/next_vendor" class="advance">next candidate</a>
+      <a href="prev_vendor.html" title="See the previous vendor" class="nav previous">previous vendor</a> <a href="next_vendor.html" title="See the next vendor" class="nav advance">next vendor</a>
     </section>
     <section class="measure">
       <dl>
-      <dt class="measure_title">Quality Measure:</dt>
+        <dt class="measure_title">Quality Measure:</dt>
         <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
         <dd class="measure_desc"><%= @measure.description %></dd>
       </dl>
-      <table>
-        <thead>
+      <dl>
+        <dt >Measure Status:</dt>
+        <dd class="fail">FAIL</dd>
+      </dl>
+      <dl>
+        <dt>Reporting Statistics:</dt>
+        <dd><table>
           <tr>
-            <th colspan="2">Measure Status:</th>
-            <th colspan="2">Numerator</th>
-            <th colspan="2">Denominator</th>
-            <th colspan="2">Exclusions</th>
+          <td><span class="r">reported</span> / expected</td>
+          <th>DEN:</th><td> <span class="r fail">47</span> / <%= @result['denominator'] %></td>
+          <th>NUM:</th><td> <span class="r">34</span> / <%= @result['numerator'] %></td>
+          <th>EX:</th><td> <span class="r">2</span> / <%= @result['exclusions'] %></td>
+          <th>N/A:</th><td> <span class="r">0</span> / ? <!-- the number of n/a expected --></td>
           </tr>
-          <tr>
-            <th colspan="2"></th>
-            <th>expect</th>
-            <th>report</th>
-            <th>expect</th>
-            <th>report</th>
-            <th>expect</th>
-            <th>report</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr id='<%= "#{@measure.id}" %>'>
-            <td><div title="28%" class="q1">28%</div></td>
-            <td class="na">FAIL</td>
-            <td><span class="num"><%= @result['numerator'] %></span></td>
-            <td class="r na">--</td>
-            <td><span class="den"><%= @result['denominator'] %></span></td>
-            <td class="r na">--</td>
-            <td><span class="exc"><%= @result['exclusions'] %></span></td>
-            <td class="r na">--</td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <figure>
-        <figcaption>Proctor Comments:</figcaption>
-        <p>These are the comments made by the proctor evaluating the performance of this EHR vendor.</p>
-      </figure>
-      <figure>
-        <figcaption>EHR POC Comments:</figcaption>
-        <p>Bob morfil-llong yn mynd allan nifer dda o lythrennau ar gyfer 
-          amrywiol llongau, y mae eu cyflwyno i'r personau y gallant 
-          cael sylw, yn dibynnu ar y cyfle yn unig o wynebu ohonynt 
-          yn y pedair cefnforoedd. <!-- Felly, mae'r rhan fwyaf llythyrau byth yn cyrraedd eu nod; 
-          ac mae llawer yn cael eu derbyn dim ond ar ôl cyrraedd oedran o ddwy neu 
-          dair blynedd neu fwy. --></p>
-      </figure>
-      <a href="next_measure" class="advance">next measure</a>
+          </table>
+        </dd>
+      </dl>
+      <a href="prev_measure.html" title="See the previous measure" class="nav previous">previous measure</a> <a href="next_vendor.html" title="See the next measure" class="nav advance">next measure</a>
     </section>
     <section class="records">
       <dl class="wide">
@@ -116,68 +66,243 @@
         <dt>Test Mode:</dt> <dd>Production
         <dt>Record Type:</dt> <dd> C32/CCD
       </dl>
+      <dl>
+        <dt>Labs:</dt><dd>LOINC
+        <dt>Conditions:</dt><dd>SNOMED
+      </dl>
     </section>
 
     <section id="vendor_patients">
-      <div id="patient_controls">
-        <form>
-          <input type="radio" value="all" name="pop_results" id="all_expected"><label for="all_expected" class="selected">All Expected</label>
-          <input type="radio" value="false_neg" name="pop_results" id="false_negative"><label for="false_negative">False Negatives</label>
-          <input type="radio" value="false_pos" name="pop_results" id="false_positive"><label for="false_positive">False Positives</label>
-        </form>
-      </div>
       <div class="tabs">
-      <a href="#" class="selected">Numerator</a> <a href="#">Denominator</a> <a href="#">Exclusions</a> <a href="#">Initial population</a> <a href="#">n/a</a>
+       <a href="#" class="selected all">All <span>(225)</span></a> <a href="#" class="fail">Den <span>(47)</span></a> <a href="#">Num <span>(34)</span></a> <a href="#" class="na">Ex <span>(0)</span></a> <a href="#" class="na">N/A <span>(0)</span></a>
       </div>
 
       <table id="patient_subset">
-        <thead>
-          <tr>
+        <colgroup  class="nqf">
+        <col />
+        <col />
+        <col />
+        <col />
+        </colgroup>
+        <thead style="position:relative;">
+          <tr class="rot">
+            <th><div>DEN</div></th>
+            <th><div>NUM</div></th>
+            <th><div>EX</div></th>
+            <th><div>N/A</div></th>
             <th></th>
             <th>Last Name</th>
             <th>First Name</th>
             <th>DOB</th>
             <th>Gender</th>
           </tr>
-        </thead>
+          </thead>
         <tbody>
           <tr>
+            <td class="p"></td>
+            <td> </td>
             <td></td>
-            <td>Amin</td>
-            <td>Mary</td>
-            <td>03/27/1988</td>
-            <td>f</td>
-          </tr>
-          <tr>
+            <td></td>
+
             <td></td>
             <td>Aleef</td>
-            <td>Nicholas</td>
-            <td>07/01/1970</td>
-            <td>m</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>Bolton</td>
-            <td>Sandra</td>
-            <td>10/12/1981</td>
+            <td>Mary</td>
+            <td><time datetime="1988-03-27">03/27/1988</time></td>
             <td>f</td>
           </tr>
           <tr>
+            <td></td>
+            <td class="p"> </td>
+            <td></td>
+            <td></td>
+            
+            <td></td>
+            <td>Amin</td>
+            <td>Nicole</td>
+            <td><time datetime="1970-05-14">05/14/1970</time></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="p"></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td>Apris</td>
+            <td>Sandra</td>
+            <td><time datetime="1981-10-12">10/12/1981</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="p"></td>
+            <td class="p"></td>
+            <td></td>
+
+            <td></td>
+            <td>Affleck</td>
+            <td>Maureen</td>
+            <td><time datetime="1990-12-25">12/25/1990</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="p"></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td>Balen</td>
+            <td>Wendy</td>
+            <td><time datetime="2003-01-03">01/03/2003</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="p"></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td>Beferen</td>
+            <td>Michelle</td>
+            <td><time datetime="1965-02-14">02/14/1965</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="p"></td>
+            <td class="p"></td>
+            <td></td>
+
             <td></td>
             <td>Caprese</td>
-            <td>Maureen</td>
-            <td>12/25/19908</td>
+            <td>Francine</td>
+            <td><time datetime="1993-09-01">09/01/1993</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td class="p"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td>Capri</td>
+            <td>Samantha</td>
+            <td><time datetime="1983-12-02">12/02/1983</datetime></td>
             <td>f</td>
           </tr>
           <tr>
             <td></td>
-            <td>Deff</td>
-            <td>Wendy</td>
-            <td>01/03/2003</td>
+            <td class="p"></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td>Cefer</td>
+            <td>Melody</td>
+            <td><time datetime="1986-10-01">10/01/1986</datetime></td>
             <td>f</td>
           </tr>
-  
-                  
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="p"></td>
+
+            <td></td>
+            <td>Cipriani</td>
+            <td>Olivia</td>
+            <td><time datetime="1991-10-19">10/19/1991</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="p"></td>
+            <td class="p"></td>
+            <td></td>
+
+            <td></td>
+            <td>Danali</td>
+            <td>Coleen</td>
+            <td><time datetime="1962-03-15">03/15/1962</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="p"></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td>Deff</td>
+            <td>Anna</td>
+            <td><time datetime="1976-08-18">08/18/1976</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="p"></td>
+
+            <td></td>
+            <td>Domus</td>
+            <td>Fernanda</td>
+            <td><time datetime="1975-09-05">09/05/1975</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="p"></td>
+            <td class="p"></td>
+            <td></td>
+
+            <td></td>
+            <td>Eisenberg</td>
+            <td>Cheryl</td>
+            <td><time datetime="1997-11-08">11/08/1997</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td class="p"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td></td>
+            <td>Eller</td>
+            <td>Cynthia</td>
+            <td><time datetime="1983-09-21">09/21/1983</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="p"></td>
+
+            <td></td>
+            <td>Farnon</td>
+            <td>Susan</td>
+            <td><time datetime="1997-04-21">04/21/1997</datetime></td>
+            <td>f</td>
+          </tr>
+          <tr>
+            <td class="p"></td>
+            <td></td>
+            <td ></td>
+            <td></td>
+
+            <td></td>
+            <td>Felton</td>
+            <td>Nichola</td>
+            <td><time datetime="1977-11-29">11/29/1977</datetime></td>
+            <td>f</td>
+          </tr>
+
         </tbody>
       </table>
     </section>
