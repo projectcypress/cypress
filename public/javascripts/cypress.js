@@ -21,7 +21,7 @@
   $.cypress.pollResult = function(url) {
     $.getJSON(url, function(data) {
       var pollAgain = false;
-      // data can be a single resul row as returned by the measures controller
+      // data can be a single result row as returned by the measures controller
       // or a structure containing an array of results as returned by the vendor controller
       if (data.results) {
         for (i=0;i<data.results.length;i++) {

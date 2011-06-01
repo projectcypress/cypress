@@ -91,9 +91,9 @@
             if <reported> has no value, then display <span class="na">
             if <reported> == <expected> then display <span> without a class
             ====================== %>
-            <td><span class="na">--</span> <span class='q'>/ <%= @results[i]['numerator'] %></span></td>
-            <td><span class="na">--</span> <span class="q">/ <%= @results[i]['denominator'] %></span></td>
-            <td><span class="na">--</span> <span class="q">/ <%= @results[i]['exclusions'] %></span></td>
+            <td><span class="na">--</span> <span class="q den">/ <%= @results[i]['denominator'] %></span></td>
+            <td><span class="na">--</span> <span class='q num'>/ <%= @results[i]['numerator'] %></span></td>
+            <td><span class="na">--</span> <span class="q exc">/ <%= @results[i]['exclusions'] %></span></td>
           </tr>
           <% end %>
           <%# ======================

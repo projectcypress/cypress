@@ -54,8 +54,8 @@ class VendorsController < ApplicationController
   private
   
   def measure_results(measures, test)
+    patient_gen_status = Resque::Status.get(test.patient_gen_job)
     measures.collect do |measure|
-      patient_gen_status = Resque::Status.get(test.patient_gen_job)
       report = QME::QualityReport.new(measure['id'], measure.sub_id, 
         {'effective_date'=>test.effective_date, 'test_id'=>test.id})
       result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
