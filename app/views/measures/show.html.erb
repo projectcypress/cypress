@@ -40,17 +40,17 @@
       </dl>
       <dl>
         <dt >Measure Status:</dt>
-        <dd class="fail">FAIL</dd>
+        <dd class="na">N/A</dd>
       </dl>
       <dl>
         <dt>Reporting Statistics:</dt>
         <dd><table>
           <tr id='<%= "#{@measure.id}" %>'>
           <td><span class="r">reported</span> / expected</td>
-          <th>DEN:</th><td> <span class="r fail">47</span> / <span class="den"><%= @result['denominator'] %></span></td>
-          <th>NUM:</th><td> <span class="r">34</span> / <span class="num"><%= @result['numerator'] %></span></td>
-          <th>EX:</th><td> <span class="r">2</span> / <span class="exc"><%= @result['exclusions'] %></span></td>
-          <th>N/A:</th><td> <span class="r">0</span> / ? <!-- the number of n/a expected --></td>
+          <th>DEN:</th><td> <span class="r na">--</span> / <span class="den"><%= @result['denominator'] %></span></td>
+          <th>NUM:</th><td> <span class="r na">--</span> / <span class="num"><%= @result['numerator'] %></span></td>
+          <th>EX:</th><td> <span class="r na">--</span> / <span class="exc"><%= @result['exclusions'] %></span></td>
+          <th>N/A:</th><td> <span class="r na">--</span> / ? <!-- the number of n/a expected --></td>
           </tr>
           </table>
         </dd>
@@ -74,7 +74,7 @@
 
     <section id="vendor_patients">
       <div class="tabs">
-       <a href="#" class="selected all">All <span>(225)</span></a> <a href="#" class="fail">Den <span>(47)</span></a> <a href="#">Num <span>(34)</span></a> <a href="#" class="na">Ex <span>(0)</span></a> <a href="#" class="na">N/A <span>(0)</span></a>
+       <a href="#" class="selected all">All <span>(<%= @result['population'] %>)</span></a> <a href="#" class="fail">Den <span>(<%= @result['denominator'] %>)</span></a> <a href="#">Num <span>(<%= @result['numerator'] %>)</span></a> <a href="#" class="na">Ex <span>(<%= @result['exclusions'] %>)</span></a> <a href="#" class="na">N/A <span>(<%= @result['antinumerator'] %>)</span></a>
       </div>
 
       <table id="patient_subset">
@@ -98,210 +98,22 @@
           </tr>
           </thead>
         <tbody>
-          <tr>
-            <td class="p"></td>
-            <td> </td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td>Aleef</td>
-            <td>Mary</td>
-            <td><time datetime="1988-03-27">03/27/1988</time></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"> </td>
-            <td></td>
-            <td></td>
-            
-            <td></td>
-            <td>Amin</td>
-            <td>Nicole</td>
-            <td><time datetime="1970-05-14">05/14/1970</time></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td>Apris</td>
-            <td>Sandra</td>
-            <td><time datetime="1981-10-12">10/12/1981</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"></td>
-            <td class="p"></td>
-            <td></td>
-
-            <td></td>
-            <td>Affleck</td>
-            <td>Maureen</td>
-            <td><time datetime="1990-12-25">12/25/1990</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td>Balen</td>
-            <td>Wendy</td>
-            <td><time datetime="2003-01-03">01/03/2003</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td>Beferen</td>
-            <td>Michelle</td>
-            <td><time datetime="1965-02-14">02/14/1965</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"></td>
-            <td class="p"></td>
-            <td></td>
-
-            <td></td>
-            <td>Caprese</td>
-            <td>Francine</td>
-            <td><time datetime="1993-09-01">09/01/1993</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td class="p"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td>Capri</td>
-            <td>Samantha</td>
-            <td><time datetime="1983-12-02">12/02/1983</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td>Cefer</td>
-            <td>Melody</td>
-            <td><time datetime="1986-10-01">10/01/1986</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="p"></td>
-
-            <td></td>
-            <td>Cipriani</td>
-            <td>Olivia</td>
-            <td><time datetime="1991-10-19">10/19/1991</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"></td>
-            <td class="p"></td>
-            <td></td>
-
-            <td></td>
-            <td>Danali</td>
-            <td>Coleen</td>
-            <td><time datetime="1962-03-15">03/15/1962</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td>Deff</td>
-            <td>Anna</td>
-            <td><time datetime="1976-08-18">08/18/1976</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="p"></td>
-
-            <td></td>
-            <td>Domus</td>
-            <td>Fernanda</td>
-            <td><time datetime="1975-09-05">09/05/1975</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="p"></td>
-            <td class="p"></td>
-            <td></td>
-
-            <td></td>
-            <td>Eisenberg</td>
-            <td>Cheryl</td>
-            <td><time datetime="1997-11-08">11/08/1997</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td class="p"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td>Eller</td>
-            <td>Cynthia</td>
-            <td><time datetime="1983-09-21">09/21/1983</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="p"></td>
-
-            <td></td>
-            <td>Farnon</td>
-            <td>Susan</td>
-            <td><time datetime="1997-04-21">04/21/1997</datetime></td>
-            <td>f</td>
-          </tr>
-          <tr>
-            <td class="p"></td>
-            <td></td>
-            <td ></td>
-            <td></td>
-
-            <td></td>
-            <td>Felton</td>
-            <td>Nichola</td>
-            <td><time datetime="1977-11-29">11/29/1977</datetime></td>
-            <td>f</td>
-          </tr>
+          <% @patients.each do |patient| %>
+            <% if patient.value.population %>
+            <tr>
+              <td class="<%= 'p' if patient.value.denominator %>"></td>
+              <td class="<%= 'p' if patient.value.numerator %>"></td>
+              <td class="<%= 'p' if patient.value.exclusions %>"></td>
+              <td class="<%= 'p' if patient.value.antinumerator %>"></td>
+  
+              <td></td>
+              <td><%= link_to patient.value.patient.last, patient_url(patient.value.patient.id) %></td>
+              <td><%= link_to patient.value.patient.first, patient_url(patient.value.patient.id) %></td>
+              <td><time datetime="1988-03-27"><%= Time.at(patient.value.patient.birthdate).strftime('%m/%d/%Y') %></time></td>
+              <td><%= patient.value.patient.gender %></td>
+            </tr>
+            <% end %>
+          <% end %>
 
         </tbody>
       </table>
