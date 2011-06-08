@@ -1,12 +1,12 @@
 /* cypress stylesheet
  * Author: Mike Nosal (mnosal@mitre.org)
- * Version 1.0
- * Last Modified Date: 2011-04-14
+ * Version 1.0a
+ * Last Modified Date: 2011-05-25
  * 
  * This is written in LESS, an alternative CSS grammar.
  * For further information, see http://lesscss.org
  * To compile into the W3C grammar, use the less gem:
- * $ lessc pophealth.less
+ * $ lessc cypress.less
  *
  */
  
@@ -26,51 +26,85 @@ a img {border:none;}
 /* Constant declarations */
 /* Colors */
 
-body {width:100%;
+body {
+	width:100%;
 	font-family:"Helvetica Neue",Helvetica,Arial;
 	font-size:0.9em;
+	font-weight:300;
 }
 
 a {
 	color:#000;
-	}
+}
 
+.bordered {
+	border:1px solid #aaaaaa;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	behavior: url(/stylesheets/PIE.htc);
+}	
 
 header {
 	position:relative;
 	padding:5px 20px;
 	border-bottom:1px solid #aaa;
 	h1 {
-	background:transparent url(/images/cypress_logo.png) top left no-repeat;
-	text-indent:-9999pt;
-	width:169px;
-	height:40px;
+		background:transparent url(/images/cypress_logo.png) top left no-repeat;
+		text-indent:-9999pt;
+		width:169px;
+		height:40px;
 	}
-	nav {position:absolute;
-	top:17px;
-	right:20px;
+	nav {
+		position:absolute;
+		top:17px;
+		right:20px;
 	}
-	a {	text-decoration:underline;
-	margin-left:10px}
+	a {
+		text-decoration:underline;
+		margin-left:10px;
+	}
 }
+
 #container {
 	width:1000px;
 	margin:20px auto 20px auto;
 	border:1px solid #aaaaaa;
+	background-color:#fff;
 	-moz-border-radius:10px;
 	-webkit-border-radius:10px;
 	border-radius:10px;
 	-webkit-box-shadow: 2px 2px 8px #aaaaaa;
-    -moz-box-shadow: 2px 2px 8px #aaaaaa;
-    box-shadow: 2px 2px 8px #aaaaaa;
-    
+  -moz-box-shadow: 2px 2px 8px #aaaaaa;
+  box-shadow: 2px 2px 8px #aaaaaa;
+	behavior: url(/stylesheets/PIE.htc);
 }
-#container>div {padding:20px;}
+
+#container>div {padding:10px 20px 20px 20px;}
+#container>div.split {border-top:1px solid #ccc;}
+
+
+a.cmd {
+	padding:5px 10px;
+	float:right;
+	margin-left:15px;
+	text-decoration:none;
+	background-color:#a7c98a + #222;
+	border:2px solid green;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	cursor:pointer;
+	font-size:80%;
+	behavior: url(/stylesheets/PIE.htc);
+}
+
 
 nav.breadcrumb {
 	font-size:80%;
 	text-transform:uppercase;
-	margin-bottom:10px;
+	margin-bottom:15px;
+	padding-top:0.6em;
 	a {
 		text-decoration:none;
 		margin:0 5px;
@@ -80,28 +114,21 @@ nav.breadcrumb {
 	span {margin-left:5px;}
 }
 
-.bordered {
-	border:1px solid #aaaaaa;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	behavior: url(./PIE.htc);
-}	
-section.records {border-bottom:1px solid #aaa;line-height:2em;}
+
 section.candidate, section.records, section.ctb_records {
 	padding:10px;
 	position:relative;
 	vertical-align:top;
 	dl {
 		font-size:90%;
-		width:305px;
+		width:315px;
 		display:table-cell;
 		padding-right:10px;
+		vertical-align:top;
 		}
-	dl.wide dt {width:120px}
 	dt {
 		color:#666;
-		width:90px;
+		width:120px;
 		clear:both;
 		display:inline-block;
 		text-align:right;
@@ -116,13 +143,40 @@ section.candidate, section.records, section.ctb_records {
 	dt.vendor {line-height:150%;vertical-align: baseline;}
 	dd.vendor {font-size:150%}	
 }
-section a.advance {
+section.records {
+	line-height:2em;
+	padding:10px 11px;
+				dl.notes {
+					width:930px;
+					display:block;
+					dd { vertical-align:bottom;
+							width:600px;
+							textarea {
+								height:2em;
+								padding:6px;
+								border:1px solid #ccc;
+							}
+					}
+				}
+						
+		}
+
+section a.nav {
 	position:absolute;
 	bottom:10px;
 	right:20px;
-	padding:5px 0;
-	background:url(/images/advance.png) 100% 50% no-repeat;
-	padding-right:20px;
+	padding:2px;
+	text-indent:-9999pt;
+	width:30px;
+	height:30px;
+	.bordered;
+}
+section a.previous {
+	background:url(/images/previous.png) 50% 50% no-repeat;
+	right:70px;
+}
+section a.advance {
+	background:url(/images/advance.png) 50% 50% no-repeat;
 }
 
 section.candidate, section.measure, section.patient, section.ctb_records {
@@ -132,126 +186,111 @@ section.candidate, section.measure, section.patient, section.ctb_records {
 }
 
 section.legend {
-padding:10px;
-font-size:90%;
-border-bottom:1px solid #aaa;
-line-height:2em;
-margin-bottom:10px;
-dt {color:#666; display:inline-block;}
-dd {color:#666; display:inline-block; margin-left:25px; padding-left:20px}
-dd.na {background:url(/images/insufficient.png) 0% 50% no-repeat;}
-dd.pass {background:url(/images/pass.png) 0 50% no-repeat;}
-dd.q1 {background:url(/images/q1.png) 0 50% no-repeat;}
-dd.q2 {background:url(/images/q2.png) 0 50% no-repeat;}
-dd.q3 {background:url(/images/q3.png) 0 50% no-repeat;}
-dd.q4 {background:url(/images/q4.png) 0 50% no-repeat;}
+	padding:10px 10px 10px 0;
+	font-size:90%;
+	border-top:1px solid #aaa;
+	line-height:2em;
+	dt {color:#666; display:inline-block;}
+	dd {color:#666; display:inline-block; margin-left:25px; padding-left:20px}
+	dd.na {background:url(/images/insufficient.png) 0% 50% no-repeat;}
+	dd.pass {background:url(/images/pass.png) 0 50% no-repeat;}
+	dd.fail {background:url(/images/fail.png) 0 50% no-repeat;}
 }
 
 section table {
 	width:100%;
 	thead {
 		font-size:90%;
-		tr:first-child th {text-align:center;text-transform:uppercase;border-bottom:1px solid #ccc;}
-	/*	tr:first-child th:nth-child(2) {text-align:left;}
-		tr:first-child th:nth-child(6) {text-align:left;}
-*/
+		tr:first-child th {
+			text-align:center;
+			text-transform:uppercase;
+			border-bottom:1px solid #ccc;
+			padding-top:25px;
+		}
 	}
-	th, td {padding:2px 4px;vertical-align:top;}
+	th, td {
+		padding:2px 4px;
+		vertical-align:top;
+		font-family:"Helvetica Neue",Helvetica,Arial;
+		font-weight:300;
+		}
 	th {
-		color:#999;
+		color:#666;
 	}
-	tr:nth-child(2) th {font-size:90%}
-/*	tr:nth-child(2) th:nth-child(2n+2) {text-align:right;}
-	td:nth-child(2n+3) {text-align:right;}
-	td:nth-child(9) {text-align:left} */
+
+	tr.na td {color:#aaa}
+	tr:nth-child(2) th {font-size:90%;color:#999}
+	th span.fail {font-weight:bold;color:red;}
+	th span.pass {font-weight:bold;color:green;}
 	tr td a {text-decoration:none}
 	td div.na {background:url(/images/insufficient.png) 0 50% no-repeat;
 		text-indent:-9999pt;width:16px;
 	}
-	td div.q1 {background:url(/images/q1.png) 0 50% no-repeat;
+	td div.fail {background:url(/images/fail.png) 0 50% no-repeat;
 		text-indent:-9999pt;width:16px;
-	}
-	td div.q2 {background:url(/images/q2.png) 0 50% no-repeat;
-		text-indent:-9999pt;width:16px;
-	}
-	td div.q3 {background:url(/images/q3.png) 0 50% no-repeat;
-		text-indent:-9999pt;width:16px;
-	}
-	td div.q4 {background:url(/images/q4.png) 0 50% no-repeat;
-		text-indent:-9999pt;width:16px;
-	}
+	}	
 	td div.pass {background:url(/images/pass.png) 0 50% no-repeat;
 		text-indent:-9999pt;width:16px;
 	}
 	td.r {font-weight:bold}
-	tr.fail td:nth-child(2) a {color:red}
-	tr.pass td:nth-child(2) a {color:green}
-	td.q1, td.q2, td.q3, td.q4 {color:red}
-	tr.fail td.na {color:#ccc}
-	td:nth-child(9) {font-size:90%;color:#666}
+	td span.na {color:#999;font-style:italic}
+	td span.q {color:#999;}
 }
 section#quality_measures {
-margin-bottom:40px;
-table thead {
-	tr:nth-child(2) th:nth-child(2n+2) {text-align:right;}
+	margin-bottom:40px;
+	table thead {
+		tr th:nth-child(-n+4) {text-align:center;}
+		tr th:first-child {text-align:left;}
+		tr th:nth-child(5) {text-align:left;}
+	}
+	tbody.fail td:nth-child(2) a {color:red}
+	tbody.pass td:nth-child(2) a {color:green}
+	tbody.fail span.f {color:red}
+	td:first-child {width:1em;}
+	td:nth-child(-n+5) {text-align:center}
+	td:nth-child(-n+2) {text-align:left}
+}
 
-	tr:first-child th:nth-child(2) {text-align:left;}
-	tr:first-child th:nth-child(6) {text-align:left;}
-}
-	td:nth-child(2n+3) {text-align:right;}
-	td:nth-child(9) {text-align:left}
-}
 section.measure {
 	margin-top:10px;
 	position:relative;
-dl {
-	font-size:90%;
-	margin-bottom:20px;
+	padding-bottom:0;
+	dl {
+		font-size:90%;
+		margin-bottom:10px;
 	}
-dt {
-	color:#666;
-	width:120px;
-	display:inline-block;
-	text-align:right;
-	margin-right:5px;
-	vertical-align:top;
-}
-dt.measure_title {line-height:150%;vertical-align: baseline;}
-dd.measure_title {font-size:150%}
-dd.measure_desc {margin-left:130px;}
-dd {
-	width:655px;
-	display:inline-block;
-	span {display:block}
+	dt {
+		color:#666;
+		width:120px;
+		display:inline-block;
+		text-align:right;
+		margin-right:5px;
+		vertical-align:top;
 	}
-	table {
-		width:500px;
-		float:left;
-	thead {
-	tr:nth-child(2) th:nth-child(2n+2) {text-align:right;}
-	tr:first-child th:first-child {
-		text-align:left;text-transform:none;
+	dt.measure_title {line-height:150%;vertical-align: baseline;}
+	dd.measure_title {font-size:150%}
+	dd.measure_desc {margin-left:130px;}
+	dd {
+		width:780px;
+		display:inline-block;
+		table {
+			width:600px;
+			td,th {padding:0 8px 0 0;}
+			th {font-style:italic;text-align:right}
+			span.r {font-weight:bold}
+			span.fail {color:red}
+		}
 	}
-	
-	tr:first-child th:nth-child(2) {text-align:center}
-	}
-	td:nth-child(2n+3) {text-align:right;}
+	dd.pass {background:url(/images/pass.png) 0 50% no-repeat;padding-left:20px;color:green}
+	dd.na   {background:url(/images/insufficient.png) 0 50% no-repeat;padding-left:20px;color:#999}
+	dd.fail {background:url(/images/fail.png) 0 50% no-repeat;padding-left:20px;color:red;font-weight:bold}
 
-	td.fail {color:red}
-	}
-figure {
-	font-size:90%;
-	margin-left:520px;
-	width:380px;
-	padding-bottom:20px;
-	
-	}
-	figcaption {color:#666}	
 }
+
 
 section#vendor_patients {
-margin-top:20px;
-margin-bottom:40px;
+	margin-top:20px;
+	margin-bottom:40px;
 	#patient_controls {
 		.bordered;
 		border:1px solid green;
@@ -260,97 +299,196 @@ margin-bottom:40px;
 		padding:0 10px;
 		float:left;
 		input {display:none}
-		label {text-transform:uppercase;display:block;padding:5px;margin:10px 0;
+		label {
+			text-transform:uppercase;
+			display:block;
+			padding:5px;
+			margin:10px 0;
 			background-color:#f5f5f5;
 			border:1px solid #f5f5f5;
-				-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-cursor:pointer;
+			-moz-border-radius:5px;
+			-webkit-border-radius:5px;
+			border-radius:5px;
+			cursor:pointer;
 		}
-	label.selected {
-		background-color:#cde6bc;
-		border:1px solid #cde6bc;
-	}
-	label:hover {
-		border-color:green;
-	}
+		label.selected {
+			background-color:#cde6bc;
+			border:1px solid #cde6bc;
+		}
+		label:hover {
+			border-color:green;
+		}
 	}
 	div.tabs {
-		border-bottom:1px solid #ddd;
-		margin-left:170px;
-		padding-left:5px;
-		a {	min-width:60px;
-			text-align:center;
-			display:inline-block;
-			margin:0 2px;
-			position:relative;
-			top:1px;
+		border-right:2px solid #61a44c;
+		margin-right:10px;
+		display:block;
+		float:left;
+		height:100%;
+		
+		a {	
+			width:90px;
+			text-align:left;
+			vertical-align:middle;
+			display:block;
+			margin:0 0 10px 0;
 			text-decoration:none;
-			border:1px solid #ddd;
-			background-color:#f0f0f0;
-			 padding: 3px 10px;
-            -moz-border-radius: 5px 5px 0 0;
-            -webkit-border-radius:5px 5px 0 0;
-            border-radius:5px 5px 0 0;
+			border:1px solid #61a44c;
+			border-right:none;
+			background-color:#fff;
+			padding: 1em 5px;
+            -moz-border-radius: 5px 0 0 5px;
+            -webkit-border-radius:5px 0 0 5px;
+            border-radius:5px 0 0 5px;
+            text-transform:uppercase;
+            behavior: url(/stylesheets/PIE.htc);
+
+            span {font-style:italic;}
+            span.f {color:red}
+        }
+        a.fail {
+        	border-color:red;
+        	span {color:red}
         }
         a.selected {
-        	background-color:#fff;
-        	border-bottom-color:#fff;
+        	background-color:#96bf73;
+        	color:white;
+        	font-weight:bold;
+        }
+        a.na {
+        	border-color:#aaa;
+        	color:#999;
+        }
+        a.all {
+        	padding:5px;
+        	span {display:block}
         }
         a:hover {
         	border-color:#999;
-        	border-bottom-color:#ddd;
         }
         a.selected:hover {
         	border-color:#ddd;
-        	border-bottom-color:#fff;
         }
     }
 	table {
-		width:790px;
-		margin-left:170px;
-		thead {
-		th {text-align:left;}
+		margin-left:115px;
+		width:845px;
+		border-collapse:collapse;
+		thead tr:first-child th {padding-top:0}
+		tr.rot th div {
+			white-space: nowrap;
+			font-weight:500;
+			color:#000;
+			-webkit-transform: rotate(-45deg);	
+			-moz-transform: rotate(-45deg);
+			-ms-transform: rotate(-45deg);
+			-o-transform: rotate(-45deg);
+			transform: rotate(-45deg);
+			font-size:80%;
+			display:inline-block;
+			width:1em;
+			behavior: url(/stylesheets/PIE.htc);
 		}
-		tbody tr:nth-child(2n-1) td {
+
+		colgroup {background-color:#fff;padding:0}
+		col {width:18px;}
+		td:nth-child(-n+4) {background:url(/images/notincluded.png) 25% 25% no-repeat;}
+		thead {
+			tr th {
+				text-align:left;
+				border-bottom:none;
+				background-image:none;
+			}
+		}
+		th:nth-child(9), td:nth-child(9) {text-align:center}
+		td:nth-child(5) {width:10px;padding:0}
+		td {padding:0 4px;}
+		td:nth-child(n+5) {border:none}
+		tbody tr:nth-child(2n-1) td:nth-child(n+6) {
 			background-color:#f0f0f0;
 		}
+		td.p {background:url(/images/included.png) 25% 25% no-repeat;}
 	}
 }
 
 section.patient {
 	margin-bottom:20px;
-	div {position:relative;height:131px;width:550px;}
-	dl {position:absolute;bottom:0;left:120px;}
-	dt {display:inline-block;float:left;clear:left;text-transform:uppercase}
-	dd {margin-left:10px;display:inline-block;font-weight:bold;float:left;}
-}
-section#patient_nqf {
+	padding-bottom:10px;
 	display:inline-block;
-	vertical-align:top;
+	width:780px;
+	strong {font-weight:bold;text-transform:uppercase;}
+	.patientname {margin-left:140px;position:relative;top:0}
+	div {position:relative;height:131px;width:550px;}
+	dl {position:absolute;bottom:0;left:140px;}
+	dt {display:inline-block;float:left;clear:left;}
+	dd {margin-left:10px;display:inline-block;font-weight:bold;float:left;}
+	span.age {font-style:italic}
+}
+
+section#patient_nqf {
 	table {
+		display:block;
 		border-collapse:collapse;
-		width:220px;
-		thead tr th {text-align:center}
-		thead tr th:first-child {text-align:left}
-			
-		tr td {padding:0;margin:0;text-align:center;}
-		tr td:first-child {padding:0 0 0 4px;text-align:left}
-		img {margin-top:3px}
-		tr:nth-child(2n-1) td {
-			background-color:#f0f0f0;
+		float:left;
+		width:150px;
+		thead tr th {text-align:center;height:20px}
+		thead tr:first-child th {padding-top:0}
+		thead tr th:first-child {text-align:right;color:#000;border-bottom:none;}
+		tr.rot th+th div {
+			white-space: nowrap;
+			font-weight:500;
+			color:#000;
+			-webkit-transform: rotate(-45deg);	
+			-moz-transform: rotate(-45deg);
+			-ms-transform: rotate(-45deg);
+			-o-transform: rotate(-45deg);
+			transform: rotate(-45deg);
+			font-size:80%;
+			display:inline-block;
+			width:1em;
+			behavior: url(/stylesheets/PIE.htc);
+	
 		}
+		colgroup {background-color:#fff;padding:0}
+		col {width:18px;}
+		td:nth-child(-n+5) {background:url(/images/notincluded.png) 25% 25% no-repeat;}
+		td:first-child{background:none}
+		thead {
+		tr th {text-align:left;border-bottom:none;}
+		}
+		td {padding:0 4px;}
+		td.p {background:url(/images/included.png) 25% 25% no-repeat;}
+		td.f {background:url(/images/fail.png) 25% 25% no-repeat;}
+
+
+		tr td {
+			font-size:80%;
+			padding:0;
+			margin:0;
+			text-align:center;
+			height:1em;
+			width:1.4em;
+			width:5px; /* see if we can force IE to use less space */
+			}
+		tr td:first-child {padding:0 5px 0 0px;text-align:left;text-align:right;width:4em}
+		img {margin-top:3px}
+
 	}
 }
+div#effectiveDate {
+	text-align:center;
+	font-style:italic;
+	position:relative;
+	bottom:5px;
+	}
 section#patient_characteristics {
-	margin-left:20px;
 	display:inline-block;
-	width:715px;
+	width:800px;
 	vertical-align:top;
 	margin-bottom:40px;
 	table {
-		width:100%;
+		width:390px;
+		float:left;
 		tr th {
 			background-color:#f0f0f0;
 			color:#333;
@@ -358,11 +496,51 @@ section#patient_characteristics {
 			font-weight:bold;
 			font-size:85%;
 			}
-		tr td:nth-child(6) {text-align:right}
-		td .na {color:#999}
-	/* Uncomment to allow for spacing after each group of rows in the table */
-	/*	tbody tr:last-child td {padding-bottom:20px} */
+		td {padding:0 4px;text-align:right}
+		tr td:first-child {width:50%;text-align:left}
+		/* add spacing between body sections in patient table */
+		tbody tr:last-child td {padding-bottom:1em} 
+		td.reason {text-align:right;font-style:italic;font-size:90%}
+		td.val, td em { font-weight:bold}
+		tbody tr:last-child td {padding-bottom:20px} 
 	}
+	table:last-child {margin-left:20px; } 
+
+}
+
+section#patient_list {
+	table {
+		th {text-align:left}
+		}
+ div.tabs {
+	margin-top:20px;
+  border-bottom: 1px solid #dddddd;
+  padding-left: 5px;
+  margin-right: 10px;
+  display: block;
+     a.selected {
+     		background-color:#fff;
+      	font-weight:bold;
+      	border-color:#61a44c;
+      	border-bottom-color:white;
+      }
+
+ a {
+  min-width: 60px;
+  text-align: center;
+  display: inline-block;
+  margin: 0 2px;
+  position: relative;
+  top: 1px;
+	text-decoration: none;
+	border: 1px solid #dddddd;
+	background-color: #f0f0f0;
+	padding: 3px 10px;
+	-moz-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
+ }
+ }
 }
 
 section.ctb_records {
@@ -371,22 +549,40 @@ section.ctb_records {
 
 section caption {font-weight:bold;text-transform:uppercase;}
 section#ehr_results {
-margin-bottom:40px;
+	margin-bottom:40px;
+	border-top:1px solid #ccc;
 	table {
-	thead tr th {text-align:left;}
-	tr:first-child th {text-transform:uppercase;border-bottom:0;}
-	tr:nth-child(2) th {text-transform:uppercase;border-bottom:1px solid #ccc;}
-
-	thead tr th:nth-child(3) {text-align:center}
-	thead tr th:nth-child(4) {text-align:center}
-	tr td:nth-child(3) {text-align:center}
-	tr td:nth-child(4) {text-align:center}
+		thead tr th {text-align:left;}
+		tr:first-child th {text-transform:uppercase;border-bottom:1px solid #ccc;}
+		thead tr th:nth-child(2) {text-align:center}
+		thead tr th:nth-child(3) {text-align:center}
+		thead tr th:nth-child(4) {text-align:right}
+		thead tr th:nth-child(6) {text-align:right}
+		tr td:nth-child(3) {text-align:center}
+		tr td:nth-child(4) {text-align:center}
+		tr td:nth-child(5) {text-align:right}
+		tr td:nth-child(7) {text-align:right}
+		tbody.fail td:nth-child(2) a, tbody.fail td span.f {color:red}
+		tbody.pass td:nth-child(2) a{color:green}
+	}
+	th.failing {
+		color:red;
+		font-weight:bold;
+		padding:10px 0;
+	}
+	th.passing {
+		color:green;
+		font-weight:bold;
+		padding:20px 0 10px;
 	}
 
-th.failing {
-	color:red;font-weight:bold;padding:10px 0;
 }
-th.passing {color:green;font-weight:bold;padding:20px 0 10px;}
-
+footer#ccattribution {
+	clear:left;
+	text-align:right;
+	font-size:0.8em;
+	img {
+		margin:0 5px 0 20px;
+		vertical-align:middle;
+	}
 }
-

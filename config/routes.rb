@@ -4,7 +4,12 @@ Cypress::Application.routes.draw do
 
   resources :vendors do
     resources :tests do
-      resources :patients, :measures
+      resources :patients
+      resources :measures do
+        member do
+          get 'patients'
+        end
+      end
     end
   end
 

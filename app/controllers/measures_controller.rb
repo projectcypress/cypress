@@ -8,7 +8,7 @@ class MeasuresController < ApplicationController
     patient_gen_status = Resque::Status.get(@test.patient_gen_job)
     report = QME::QualityReport.new(@measure['id'], @measure.sub_id, 
       {'effective_date'=>@test.effective_date, 'test_id'=>@test._id})
-    @result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
+    @result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?', 'population' => '?', 'antinumerator' => '?'}
     if report.calculated?
       @result = report.result
     elsif patient_gen_status.completed?
@@ -20,5 +20,24 @@ class MeasuresController < ApplicationController
       format.json { render :json => @result }
       format.html { render :action => "show" }
     end
+  end
+  
+  def patients
+    @vendor = Vendor.find(params[:vendor_id])
+    @test = @vendor.tests.find(params[:test_id])
+    @measure = Measure.find(params[:id])
+    patient_gen_status = Resque::Status.get(@test.patient_gen_job)
+    report = QME::QualityReport.new(@measure['id'], @measure.sub_id, 
+      {'effective_date'=>@test.effective_date, 'test_id'=>@test._id})
+    @result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?', 'population' => '?', 'antinumerator' => '?'}
+    if report.calculated?
+      @result = report.result
+    elsif patient_gen_status.completed?
+      report.calculate
+    end
+    @result['measure_id'] = @measure.id.to_s
+    @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure['id'])
+      .where("value.sub_id" => @measure.sub_id)
+      .order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])    
   end
 end

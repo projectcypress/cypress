@@ -1,0 +1,11 @@
+  <header>
+    <h1>cypress</h1>
+    <nav>
+      <span class="username">Welcome, <%= current_user.email %></span>
+      <%= link_to "account", edit_user_registration_path %>
+      <a href="about.html">about</a>
+      <a href="feedback.html">feedback</a>
+      <a href="help.html">help</a>
+      <%= link_to "logout", destroy_user_session_path %>
+    </nav>
+  </header>

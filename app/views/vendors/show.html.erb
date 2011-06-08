@@ -14,54 +14,34 @@
   </script>
 <% end %>
 <div id="container">
-  <header>
-    <h1>cypress</h1>
-    <nav>
-      <a href="account.html">account</a>
-      <a href="about.html">about</a>
-      <a href="feedback.html">feedback</a>
-      <a href="help.html">help</a>
-      <a href="logout.html">logout</a>
-    </nav>
-  </header>
+   <%= render :partial=>"shared/header" %>
+
   <div>
-    <nav class="breadcrumb">
-      <a href="<%= vendors_path %>">Home</a> &raquo;
-      <a href="<%= vendors_path %>">Certification Test Bed</a> &raquo;
-      <span><%= @vendor.name %></span>
-    </nav>
+    <section class="tb">
+      <a href="#" class="cmd">Export Report</a>
+      <nav class="breadcrumb">
+        <a href="<%= vendors_path %>">Home</a> &raquo;
+        <a href="<%= vendors_path %>">Certification Test Bed</a> &raquo;
+        <span><%= @vendor.name %></span>
+      </nav>
+    </section>
     <section class="candidate">
       
-      <dl class="wide">
+      <dl>
         <dt class="vendor">Candidate EHR:</dt> <dd class="vendor"><%= @vendor.name %></dd>
-        <dt>url:</dt> <dd><a href=""></a></dd>
-        <dt>Tests:</dt> <dd></dd>
-        <dt>Disputes:</dt> <dd></dd>
+        <dt>url:</dt> <dd><a href="#">www.vendor_url_here.com</a></dd>
       </dl>
       
       <dl>
         <dt>EHR POC:</dt> <dd><%= @vendor.poc %></dd>
-        <dt>E-mail:</dt>  <dd></dd>
-        <dt>Address:</dt> <dd>
-                    <address>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </address></dd>
-                  
+        <dt>E-mail:</dt>  <dd>vendor_email@vendor.com</dd>
         <dt>Phone:</dt>   <dd><%= @vendor.tel %></dd>
       </dl>
-
-      <dl>
-        <dt>Proctor:</dt> <dd><%= @vendor.proctor %></dd>
-        <dt>E-mail:</dt>  <dd></dd>
-        <dt>Phone:</dt>   <dd></dd>
-      </dl>
-      
-      <a href="<%= url_for :controller=>'vendors', :action=>'edit'%>" class="advance">Edit</a>
+      <a href="prev_vendor.html" title="See the previous vendor" class="nav previous">previous vendor</a> <a href="next_vendor.html" title="See the next vendor" class="nav advance">next vendor</a>
     </section>
+
     <section class="records">
-      <dl class="wide">
+      <dl class="wide" >
         <dt>Total # of Records:</dt> <dd>1,000
         <dt>Error Threshold:</dt> <dd>20%
       </dl>
@@ -69,96 +49,100 @@
         <dt>Test Mode:</dt> <dd>Production
         <dt>Record Type:</dt> <dd> C32/CCD
       </dl>
-    </section>
-    <section class="legend">
       <dl>
-        <dt>Error Reporting Indicators:</dt>
-        <dd class="pass">passing</dd>
-        <dd class="na">insufficient info</dd>
-        <dd class="q1">0-25% error</dd>
-        <dd class="q2">25-50% error</dd>
-        <dd class="q3">50-75% error</dd>
-        <dd class="q4">75-100% error</dd>
+        <dt>Labs:</dt><dd>LOINC
+        <dt>Conditions:</dt><dd>SNOMED
+      </dl>
+      <dl class="notes">
+        <dt>Notes:</dt>
+        <dd><textarea rows="1" cols="80"></textarea><br />
+        <time datetime="2011-03-24">03/24/3011</time> This is a note from an earlier entry.
       </dl>
     </section>
     <section id="quality_measures">
       <table>
         <thead>
           <tr>
-            <th></th>
-            <th>Quality Measure</th>
-            <th colspan="2">Numerator</th>
-            <th colspan="2">Denominator</th>
-            <th colspan="2">Exclusions</th>
-            <th style="width:25%">Notes</th>
-          </tr>
-          <tr>
-            <th colspan="2"></th>
-            <th>expect</th>
-            <th>report</th>
-            <th>expect</th>
-            <th>report</th>
-            <th>expect</th>
-            <th>report</th>
-            <th></th>
+            <th colspan="2"><span class='fail'>Failing</span> Measures</th>
+            <th>Denominator</th>
+            <th>Numerator</th>
+            <th>Exclusions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="fail">
           <% @measures.each_with_index do |measure, i| %>
-          <tr class="fail" id='<%= "#{measure.id}" %>'>
-            <td><div title="0%" class="na">0%</div></td>
+          <tr id='<%= "#{measure.id}" %>'>
+
+            <%# =====================
+            If the % failure is known then display <div class="fail"
+            if the % failure is unknown then display <div class="na"
+            ====================== %>
+            <td><div title="0%" class="fail">0%</div></td>
+
             <td><a href="<%= vendor_test_measure_path(@vendor, @test, measure) %>">
               <%= "NQF#{measure['id']}#{measure.sub_id} " %>
               <%= measure.name %>
               <%= " - #{measure.subtitle}" if measure.sub_id %></a>
             </td>
-            <td><span class='num'><%= @results[i]['numerator'] %></span></td>
-            <td class="r na">--</td>
-            <td><span class='den'><%= @results[i]['denominator'] %></span></td>
-            <td class="r na">--</td>
-            <td><span class='exc'><%= @results[i]['exclusions'] %></span></td>
-            <td class="r na">--</td>
-            <td>Notes go here...</td>
+            
+            <%# =====================
+            The display format is <reported> / <expected>
+            if <reported> != <expected> then display <span class="f">
+            if <reported> has no value, then display <span class="na">
+            if <reported> == <expected> then display <span> without a class
+            ====================== %>
+            <td><span class="na">--</span> <span class="q den">/ <%= @results[i]['denominator'] %></span></td>
+            <td><span class="na">--</span> <span class='q num'>/ <%= @results[i]['numerator'] %></span></td>
+            <td><span class="na">--</span> <span class="q exc">/ <%= @results[i]['exclusions'] %></span></td>
           </tr>
           <% end %>
-<!--          <tr class="fail">
-            <td><div title="14%" class="q1">14%</div></td>
-            <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Cervical Cancer Screening</a></td>
-            <td>61</td>
-            <td class="r q1">55</td>
-            <td>187</td>
-            <td class="r na">0</td>
-            <td>9</td>
-            <td class="r na">0</td>
-            <td>Notes go here...</td>
+          <%# ======================
+          Pattern for remaining rows %>
+<!--      <tr>
+            <td><div title="24%" class="fail">24%</div></td>
+            <td><a href="quality_measure.html" title="Low Back Pain Use of Imaging">0002 Low Back Pain Use of Imaging</a></td>
+            <td><span>523</span> <span class="q">/ 523</span></td>
+            <td><span class="f">275</span> <span class="q">/ 314</span></td>
+            <td><span>10</span> <span class="q">/ 10</span></td>
           </tr>
-          <tr class="fail">
+          <tr>
             <td><div title="Insufficient info" class="na">n/a</div></td>
-            <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Asthama Assessment</a></td>
-            <td>234</td>
-            <td class="r na">0</td>
-            <td>314</td>
-            <td class="r">314</td>
-            <td>34</td>
-            <td class="r">34</td>
-            <td></td>
+            <td><a href="quality_measure.html" title="Asthama Assessment">0004(a) Asthama Assessment</a></td>
+            <td><span>314</span> <span class="q">/ 314</span></td>
+            <td><span class="na">--</span> <span class="q">/ 234</span></td>
+            <td><span>34</span> <span class="q">/ 34</span></td>
           </tr>
-          <tr class="pass">
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="2"><span class='pass'>Passing</span> Measures</th>
+            <th>Denominator</th>
+            <th>Numerator</th>
+            <th>Exclusions</th>
+          </tr>
+        </thead>
+
+          <tbody class="pass">
+          <tr>
             <td><div title="Pass" class="pass">Pass</div></td>
-            <td><a href="/vendors/vendor1/tests/test1/measures/measure1">Breast Cancer Screening</a></td>
-            <td>303</td>
-            <td class="r">303</td>
-            <td>388</td>
-            <td class="r">388</td>
-            <td>11</td>
-            <td class="r">11</td>
-            <td>Vivamus vestibulum lacus sed urna convallis pulvinar.</td>
+            <td><a href="quality_measure.html" title="Breast Cancer Screening">0024(h) Breast Cancer Screening</a></td>
+            <td><span>388</span> <span class="q">/ 303</span></td>
+            <td><span>303</span> <span class="q">/ 303</span></td>
+            <td><span>11 <span class="q">/ 11</span></td>
           </tr>
+        </tbody>
 -->
         </tbody>
       </table>
     </section>
-    
+      <section class="legend">
+      <dl>
+        <dt>Error Report Indicators:</dt>
+        <dd class="pass">passing
+        <dd class="na">insufficient info
+        <dd class="fail">failing
+      </dl>
+    </section>
   </div>
   </div><!-- end #container --> 
 

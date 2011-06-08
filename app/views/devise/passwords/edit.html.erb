@@ -1,0 +1,30 @@
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :name=>"account_form" }) do |f| %>
+      <h1>Change your password</h1>
+      <p>Just tell us the email address you used to create your cypress account, and we'll send you a link to reset your password!</p>
+      <br />
+      <div>
+        <%= f.hidden_field :reset_password_token %>
+        <%= f.label :password, "New password" %>
+        <%= f.password_field :password, :class=>"noted" %>
+        <p class="note">Must be at least 5 characters long.</p>
+
+        <%= f.label :password_confirmation, "Confirm new password" %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+
+      <div class="accountError">
+        <%= devise_error_messages! %>
+      </div>
+      
+  
+      <div class="actions">
+          <a class="whitebutton" href="/"><span>Cancel</span></a>
+        <%= content_tag(:a,  {:href=>"#", :class=>"bluebutton", :onclick=>"submitAccountForm()"} ) do
+            content_tag(:span,"Change password") end -%>
+      </div>
+      <div class="links info">
+          cypress v0.9<br>
+      </div>
+      
+<% end %>
+
