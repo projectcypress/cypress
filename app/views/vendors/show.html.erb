@@ -2,7 +2,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
       <% poll_for_updates = false %>
-      <% @results.each do |result| %>
+      <% @vendor.expected_results.each do |result| %>
       <%   if result['numerator']=='?' %>
       <%     poll_for_updates = true %>
       <%   end %>
@@ -70,7 +70,9 @@
           </tr>
         </thead>
         <tbody class="fail">
-          <% @measures.each_with_index do |measure, i| %>
+          <% @vendor.measure_defs.each do |measure| %>
+            <% expected_result = @vendor.expected_result(measure) %>
+            <% reported_result = @vendor.reported_result(measure.key) %>
           <tr id='<%= "#{measure.id}" %>'>
 
             <%# =====================
@@ -91,9 +93,18 @@
             if <reported> has no value, then display <span class="na">
             if <reported> == <expected> then display <span> without a class
             ====================== %>
-            <td><span class="na">--</span> <span class="q den">/ <%= @results[i]['denominator'] %></span></td>
-            <td><span class="na">--</span> <span class='q num'>/ <%= @results[i]['numerator'] %></span></td>
-            <td><span class="na">--</span> <span class="q exc">/ <%= @results[i]['exclusions'] %></span></td>
+            <td>
+              <span class="na"><%= reported_result['denominator'] %></span>
+              <span class="q den">/ <%= expected_result['denominator'] %></span>
+            </td>
+            <td>
+              <span class="na"><%= reported_result['numerator'] %></span>
+              <span class='q num'>/ <%= expected_result['numerator'] %></span>
+            </td>
+            <td>
+              <span class="na"><%= reported_result['exclusions'] %></span>
+              <span class="q exc">/ <%= expected_result['exclusions'] %></span>
+            </td>
           </tr>
           <% end %>
           <%# ======================

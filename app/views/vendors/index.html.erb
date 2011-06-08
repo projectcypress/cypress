@@ -27,7 +27,7 @@
           <tr>
             <td><div title="14%" class="fail">14%</div></td>
             <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-            <td><span class="f">???</span> <span class="qqq">/ <%= vendor.measure_ids.size %></span></td>
+            <td><span class="f"><%= vendor.count_passing %></span> <span class="qqq">/ <%= vendor.measure_defs.size %></span></td>
             <td><%= vendor.poc %></td>
             <td><span class="phone"><%= vendor.tel %></span></td>
             <td><%= vendor.proctor %></td>

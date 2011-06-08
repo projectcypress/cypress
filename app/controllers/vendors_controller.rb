@@ -1,10 +1,20 @@
+require 'measure_evaluator'
+
 class VendorsController < ApplicationController
 
   before_filter :authenticate_user!
 
   def index
-    @incomplete_vendors = Vendor.all(:conditions => {'passed'=>{'$in'=>[nil,false]}})
-    @complete_vendors = Vendor.all(:conditions => {'passed'=>true})
+    @incomplete_vendors = []
+    @complete_vendors = []
+    vendors = Vendor.all
+    vendors.each do |vendor|
+      if vendor.passing?
+        @complete_vendors << vendor
+      else
+        @incomplete_vendors << vendor
+      end
+    end
   end
   
   def new
@@ -29,11 +39,9 @@ class VendorsController < ApplicationController
   
   def show
     @vendor = Vendor.find(params[:id])
-    @measures = measure_defs(@vendor.measure_ids)
-    @results = measure_results(@measures, @vendor)
 
     respond_to do |format|
-      format.json { render :json => {'vendor' => @vendor, 'results'=>@results }}
+      format.json { render :json => {'vendor' => @vendor, 'results'=>@vendor.expected_results }}
       format.html { render :action => "show" }
     end
   end
@@ -48,28 +56,4 @@ class VendorsController < ApplicationController
     render :action => 'show'
   end
   
-  private
-  
-  def measure_results(measures, vendor)
-    patient_gen_status = Resque::Status.get(vendor.patient_gen_job)
-    measures.collect do |measure|
-      report = QME::QualityReport.new(measure['id'], measure.sub_id, 
-        {'effective_date'=>vendor.effective_date, 'test_id'=>vendor.id})
-      result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
-      if report.calculated?
-        result = report.result
-      elsif patient_gen_status.completed?
-        report.calculate
-      end
-      result['measure_id'] = measure.id.to_s
-      result
-    end
-  end
-  
-  def measure_defs(measure_ids)
-    measure_ids.collect do |measure_id|
-      Measure.where(id: measure_id).order_by([[:sub_id, :asc]]).all()
-    end.flatten
-  end
-    
 end
