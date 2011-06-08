@@ -17,7 +17,6 @@
           <tr>
             <th colspan="2"><span class='fail'>Failing</span> EHR</th>
             <th>Measures</th>
-            <th>Disputes</th>
             <th>POC</th>
             <th><span style="visibility:hidden">Phone</span></th>
             <th>Proctor</th>
@@ -28,8 +27,7 @@
           <tr>
             <td><div title="14%" class="fail">14%</div></td>
             <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-            <td><span class="f">???</span> <span class="qqq">/ <%= vendor.tests.last.measure_ids.size %></span></td>
-            <td><!-- number of vendor disputes -->?</td>
+            <td><span class="f">???</span> <span class="qqq">/ <%= vendor.measure_ids.size %></span></td>
             <td><%= vendor.poc %></td>
             <td><span class="phone"><%= vendor.tel %></span></td>
             <td><%= vendor.proctor %></td>

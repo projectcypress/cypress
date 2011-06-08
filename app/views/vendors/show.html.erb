@@ -79,7 +79,7 @@
             ====================== %>
             <td><div title="0%" class="fail">0%</div></td>
 
-            <td><a href="<%= vendor_test_measure_path(@vendor, @test, measure) %>">
+            <td><a href="<%= vendor_measure_path(@vendor, measure) %>">
               <%= "NQF#{measure['id']}#{measure.sub_id} " %>
               <%= measure.name %>
               <%= " - #{measure.subtitle}" if measure.sub_id %></a>

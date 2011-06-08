@@ -3,12 +3,10 @@ Cypress::Application.routes.draw do
   devise_for :users
 
   resources :vendors do
-    resources :tests do
-      resources :patients
-      resources :measures do
-        member do
-          get 'patients'
-        end
+    resources :patients
+    resources :measures do
+      member do
+        get 'patients'
       end
     end
   end
