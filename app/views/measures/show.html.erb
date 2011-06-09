@@ -53,16 +53,16 @@
           <td><span class="r">reported</span> / expected</td>
           <th>DEN:</th>
           <td>
-            <span class="r na"><%= reported_result['denominator'] %></span>
+            <span class="r <%= result_class(expected_result, reported_result, 'denominator') %>"><%= reported_result['denominator'] %></span>
             / <span class="den"><%= expected_result['denominator'] %></span>
           </td>
           <th>NUM:</th>
           <td>
-            <span class="r na"><%= reported_result['numerator'] %></span>
+            <span class="r <%= result_class(expected_result, reported_result, 'denominator') %>"><%= reported_result['numerator'] %></span>
             / <span class="num"><%= expected_result['numerator'] %></span></td>
           <th>EX:</th>
           <td> 
-            <span class="r na"><%= reported_result['exclusions'] %></span>
+            <span class="r <%= result_class(expected_result, reported_result, 'denominator') %>"><%= reported_result['exclusions'] %></span>
             / <span class="exc"><%= expected_result['exclusions'] %></span>
           </td>
           <th>N/A:</th><td> <span class="r na">--</span> / ? <!-- the number of n/a expected --></td>
