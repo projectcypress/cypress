@@ -1,8 +1,11 @@
 module VendorsHelper
-  def measure_class(expected, reported)
-    # 'fail' or 'na'
-  end
-  
   def result_class(expected, reported, component)
+    if (expected[component].class==String || reported[component].class==String)
+      'na'
+    elsif (expected[component]!=reported[component])
+      'fail'
+    else
+      ''
+    end
   end
 end

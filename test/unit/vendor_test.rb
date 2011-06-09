@@ -34,4 +34,15 @@ class VendorTest < ActiveSupport::TestCase
     assert vendor.passed?(results[0])
     assert !vendor.passed?(results[1])
   end
+
+  test "Vendor returns passing and failing measures correctly" do
+    vendor = Vendor.all.to_a[0]
+    passing = vendor.passing_measures
+    assert passing.size==1
+    assert passing[0]['id']=='0001'
+    failing = vendor.failing_measures
+    assert failing.size==1
+    assert failing[0]['id']=='0002'
+  end
+
 end

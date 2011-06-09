@@ -28,6 +28,20 @@ class Vendor
     end.flatten
   end
   
+  # Get the measure definitions for the measures that are failing
+  def failing_measures
+    measure_defs.select do |measure|
+      !passed?(expected_result(measure))
+    end
+  end
+  
+  # Get the measure definitions for the measures that are passing
+  def passing_measures
+    measure_defs.select do |measure|
+      passed?(expected_result(measure))
+    end
+  end
+
   # Get the reported result for a particular key (e.g. '0038c')
   def reported_result(key)
     default = {'numerator'=>'--', 'denominator'=>'--', 'exclusions'=>'--'}
