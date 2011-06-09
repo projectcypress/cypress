@@ -62,7 +62,7 @@ class Vendor
     passing.count
   end
   
-  # Compare the supplied expected result to the resported result and return true
+  # Compare the supplied expected result to the reported result and return true
   # if all figures match, false otherwise
   def passed?(expected_result)
     passed = true
