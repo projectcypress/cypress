@@ -9,6 +9,10 @@ Cypress::Application.routes.draw do
         get 'patients'
       end
     end
+    member do
+      get 'upload_pqri'
+      post 'process_pqri'
+    end
   end
 
   resources :patients

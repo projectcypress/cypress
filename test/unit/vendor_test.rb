@@ -15,7 +15,7 @@ class VendorTest < ActiveSupport::TestCase
     assert vendor.name=='EHRSrUS'
   end
 
-  test "Vendor gets expected results correctly" do
+  test "Vendor gets expected results" do
     vendor = Vendor.all.to_a[0]
     assert vendor.measure_ids.size==2
     results = vendor.expected_results
@@ -26,7 +26,7 @@ class VendorTest < ActiveSupport::TestCase
     assert results[1]['denominator']==2
   end
 
-  test "Vendor compares expected and reported results correctly" do
+  test "Vendor compares expected and reported results" do
     vendor = Vendor.all.to_a[0]
     assert vendor.measure_ids.size==2
     results = vendor.expected_results
@@ -35,7 +35,7 @@ class VendorTest < ActiveSupport::TestCase
     assert !vendor.passed?(results[1])
   end
 
-  test "Vendor returns passing and failing measures correctly" do
+  test "Vendor returns passing and failing measures " do
     vendor = Vendor.all.to_a[0]
     passing = vendor.passing_measures
     assert passing.size==1
