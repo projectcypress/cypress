@@ -23,6 +23,7 @@ class Vendor
   # measures this will include all sub measures so measure_defs.size may not be
   # the same as measure_ids.size
   def measure_defs
+    return [] if !measure_ids
     measure_ids.collect do |measure_id|
       Measure.where(id: measure_id).order_by([[:sub_id, :asc]]).all()
     end.flatten
@@ -87,6 +88,21 @@ class Vendor
       end
     end
     passed
+  end
+  
+  # Extract measure results from a PQRI document and add to the reported results
+  # for this vendor. Will overwrite existing results for a given measure key
+  # @param [Nokogiri::XML::Document] doc the PQRI document
+  def extract_reported_from_pqri(doc)
+    self.reported_results ||= {}
+    result_nodes = doc.xpath('/submission/measure-group/provider/pqri-measure')
+    result_nodes.each do |result_node|
+      key = result_node.at_xpath('pqri-measure-number').text
+      denominator = result_node.at_xpath('eligible-instances').text.to_i
+      numerator = result_node.at_xpath('meets-performance-instances').text.to_i
+      exclusions = result_node.at_xpath('performance-exclusion-instances').text.to_i
+      self.reported_results[key] = {'denominator'=>denominator, 'numerator'=>numerator, 'exclusions'=>exclusions}
+    end
   end
   
 end
