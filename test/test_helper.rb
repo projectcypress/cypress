@@ -13,7 +13,7 @@ class ActiveSupport::TestCase
       id_attributes.each do |attr|
         fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
       end
-      MONGO_DB[collection].save(fixture_json)
+      MONGO_DB[collection].save(fixture_json, :safe=>true)
     end
   end
 end

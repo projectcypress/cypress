@@ -1,0 +1,11 @@
+<h1>Upload PQRI</h1>
+
+<% form_for([:process_pqri, @vendor], :html => {:method => :post, :multipart => true}) do |f| %>
+  <p>
+    <%= f.label 'PQRI File', :for => :vendor_pqri %><br />
+    <%= f.file_field :pqri %>
+  </p>
+  <p>
+    <%= f.submit "Upload" %>
+  </p>
+<% end %>

@@ -56,4 +56,17 @@ class VendorsController < ApplicationController
     render :action => 'show'
   end
   
+  def upload_pqri
+    @vendor = Vendor.find(params[:id])
+  end
+  
+  def process_pqri
+    vendor = Vendor.find(params[:id])
+    vendor_data = params[:vendor]
+    pqri = vendor_data[:pqri]
+    doc = Nokogiri::XML(pqri.open)
+    vendor.extract_reported_from_pqri(doc)
+    vendor.save!
+    redirect_to :action => 'show'
+  end
 end
