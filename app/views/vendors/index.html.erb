@@ -52,7 +52,7 @@
           <tr>
             <td><div title="100%" class="pass">100%</div></td>
             <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-            <td>?? <span class="q">/ 45</span></td>
+            <td><%= vendor.count_passing %> <span class="q">/ <%= vendor.measure_defs.size %></span></td>
             <td><!-- number of vendor disputes -->?</td>
             <td><%= vendor.poc %></td>
             <td><span class="phone"><%= vendor.tel %></span></td>
