@@ -7,7 +7,7 @@ module Cypress
       result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
       if report.calculated?
         result = report.result
-      elsif Resque::Status.get(vendor.patient_gen_job).completed?
+      elsif Resque::Status.get(vendor.patient_gen_job) && Resque::Status.get(vendor.patient_gen_job).completed?
         report.calculate
       end
       result['measure_id'] = measure.id.to_s

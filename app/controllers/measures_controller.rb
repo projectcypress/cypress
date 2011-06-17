@@ -21,4 +21,5 @@ class MeasuresController < ApplicationController
       .where("value.sub_id" => @measure.sub_id)
       .order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])    
   end
+  
 end

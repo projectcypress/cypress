@@ -14,6 +14,7 @@ class PatientsController < ApplicationController
   end
 
   def index
+    @measures = Measure.installed
     @patients = Record.all(:conditions => {'test_id' => @test_id},
       :limit => 50)
   end
