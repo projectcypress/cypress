@@ -19,16 +19,16 @@
   <div>
     <section class="tb">
       <a href="#" class="cmd">Export Report</a>
-      <a href="<%= upload_pqri_vendor_path %>" class="cmd">Upload Results</a>
+      <%= link_to "Upload Results", upload_pqri_vendor_path, {:class=>"cmd"} %>
       <nav class="breadcrumb">
-        <a href="<%= vendors_path %>">Certification Dashboard</a> &raquo;
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
         <span><%= @vendor.name %></span>
       </nav>
     </section>
     <section class="candidate">
       
-      <dl>
-        <dt class="vendor">Candidate EHR:</dt> <dd class="vendor"><%= @vendor.name %></dd>
+      <dl class="vendor">
+        <dt>Candidate EHR:</dt> <dd><%= @vendor.name %></dd>
         <dt>url:</dt> <dd><a href="#">www.vendor_url_here.com</a></dd>
       </dl>
       
@@ -37,27 +37,18 @@
         <dt>E-mail:</dt>  <dd>vendor_email@vendor.com</dd>
         <dt>Phone:</dt>   <dd><%= @vendor.tel %></dd>
       </dl>
+      <dl>
+        <dt>Proctor:</dt> <dd><%= @vendor.proctor %></dd>
+        <dt>E-mail:</dt>  <dd>proctor_email@proctor.com</dd>
+        <dt>Phone:</dt>   <dd>proctor phone #</dd>
+      </dl>
       <a href="prev_vendor.html" title="See the previous vendor" class="nav previous">previous vendor</a> <a href="next_vendor.html" title="See the next vendor" class="nav advance">next vendor</a>
     </section>
 
     <section class="records">
-      <dl class="wide" >
-        <dt>Total # of Records:</dt> <dd>1,000
-        <dt>Error Threshold:</dt> <dd>20%
-      </dl>
-      <dl>
-        <dt>Test Mode:</dt> <dd>Production
-        <dt>Record Type:</dt> <dd> C32/CCD
-      </dl>
-      <dl>
-        <dt>Labs:</dt><dd>LOINC
-        <dt>Conditions:</dt><dd>SNOMED
-      </dl>
-      <dl class="notes">
-        <dt>Notes:</dt>
-        <dd><textarea rows="1" cols="80"></textarea><br />
-        <time datetime="2011-03-24">03/24/3011</time> This is a note from an earlier entry.
-      </dl>
+        <label>Notes</label>:
+        <textarea rows="1" cols="80"></textarea> <input type="button" value="add" /><br />
+        <time datetime="2011-03-24">03/24/3011</time>: Vendor needs to submit more results for measures #0004, 0012, 0013, 0014 and 0018 | <a href="#">edit</a> <a href="#">delete</a>
     </section>
     <section id="quality_measures">
       <table>

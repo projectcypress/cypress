@@ -4,35 +4,86 @@
   <div>
     <section class="tb">
       <nav class="breadcrumb">
-        <a href="home.html">Home</a> &raquo;
-        <a href="ctb.html">Certification Dashboard</a> &raquo;
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
         <span>Master Patient List</span>
       </nav>
     </section>
-    <section class="nqf" style="display:none">
-      
-      <dl>
-        <dt class="vendor">NQF #</dt><dd class="vendor"><strong>0001</strong> : Asthma Assessment</dd>
-      </dl>
-      <a href="prev_list.html" title="See the previous patient list" class="nav previous">previous list</a> <a href="next_list.html" title="See the next patient list" class="nav advance">next list</a>
+    <section class="nqf">
+      <h2>Master Patient List</h2>
     </section>
-    <section id="patient_list">
-      <div class="tabs" style="display:none">
-        <a href="#" class="selected">Den <span>(47)</span></a> <a href="#">Num <span>(34)</span></a> <a href="#" class="na">Ex <span>(0)</span></a> <a href="#" class="na">N/A <span>(0)</span></a>
+      <div class="tabs" style="display:block">
+        NQF #
+        <ul>
+        <li><a href="#" class="selected">0001</a></li>
+        <li><a href="#">0002</a></li>
+        <li><a href="#">0003</a></li>
+        <li><a href="#">0004(a)</a></li>
+        <li><a href="#">0004(b)</a></li>
+        <li><a href="#">0012</a></li>
+        <li><a href="#">0014</a></li>
+        <li><a href="#">0018</a></li>
+        <li><a href="#">0020</a></li>
+        <li><a href="#">0024(a)</a></li>
+        <li><a href="#">0024(b)</a></li>
+        <li><a href="#">0024(c)</a></li>
+        <li><a href="#">0024(d)</a></li>
+        <li><a href="#">0024(e)</a></li>
+        <li><a href="#">0024(f)</a></li>
+        </ul>
       </div>
-
-      <table>
-        <thead>
+    <section id="patient_list">
+    <section class="measure">
+      <dl>
+        <dt class="measure_title">Quality Measure:</dt>
+        <dd class="measure_title">NQF #0032: Cervical Cancer Screening</dd>
+        <dd class="measure_desc">Women from 21-64 yrs old who received one or more pap tests.</dd>
+      </dl>
+      <dl>
+        <dt>Expected Reports:</dt>
+        <dd><table>
           <tr>
+          <th>DEN:</th><td> <span id="den">77</span></td>
+          <th>NUM:</th><td> <span id="num">34</span></td>
+          <th>EXC:</th><td> <span id="exc">2</span></td>
+          <th>OUT:</th><td> <span id="out">0</span></td>
+          </tr>
+          </table>
+        </dd>
+      </dl>
+    </section>
+    
+      <input class="search" type="search" size="20" placeholder="search" maxlength="40"/>
+
+
+
+      <table id="patient_subset">
+        <colgroup  class="nqf">
+        <col />
+        <col />
+        <col />
+        <col />
+        </colgroup>
+        <thead style="position:relative;">
+          <tr class="rot">
+            <th><div>DEN</div></th>
+            <th><div>NUM</div></th>
+            <th><div>EXC</div></th>
+            <th><div>OUT</div></th>
+            <th></th>
             <th>Last Name</th>
             <th>First Name</th>
             <th>DOB</th>
             <th>Gender</th>
           </tr>
-          </thead>
+        </thead>
         <tbody>
   <% @patients.each do |patient| %>
   <tr>
+    <td class="p"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
     <td><a href="<%= patient_url(patient.id.to_s) %>"><%= patient.last %></td>
     <td><a href="<%= patient_url(patient.id.to_s) %>"><%= patient.first %></td>
     <td><%= display_time(patient.birthdate) %></td>

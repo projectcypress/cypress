@@ -4,8 +4,7 @@
   <div>
     <section class="tb">
       <nav class="breadcrumb">
-        <a href="home.html">Home</a>  &raquo;
-        <a href="ctb.html">Certification Dashboard</a> &raquo;
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
         <a href="vendor.html">[Vendor name]</a> &raquo;
         <span><%= @patient.first %> <%= @patient.last %></span>
       </nav>

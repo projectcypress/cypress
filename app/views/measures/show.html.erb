@@ -14,10 +14,9 @@
 
   <div>
     <nav class="breadcrumb">
-      <a href="<%= vendors_path %>">Home</a> &raquo;
-      <a href="<%= vendors_path %>">Certification Test Bed</a> &raquo;
-      <a href="<%= vendor_path(@vendor) %>"><%= @vendor.name %></a> &raquo;
-      <span>Cervical Cancer Screening</span>
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
+      <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
+      <span><%= @measure.name %></span>
     </nav>
     <section class="candidate">
       
@@ -31,10 +30,35 @@
         <dt>E-mail:</dt>  <dd><!-- vendor e-mail here --></dd>
         <dt>Phone:</dt>   <dd><%= @vendor.tel %></dd>
       </dl>
-
-      <a href="prev_vendor.html" title="See the previous vendor" class="nav previous">previous vendor</a> <a href="next_vendor.html" title="See the next vendor" class="nav advance">next vendor</a>
+      <dl>
+        <dt>Proctor:</dt> <dd><%= @vendor.proctor %></dd>
+        <dt>E-mail:</dt>  <dd>proctor_email@proctor.com</dd>
+        <dt>Phone:</dt>   <dd>proctor phone #</dd>
+      </dl>
     </section>
-    <section class="measure">
+      <div class="tabs" style="display:block">
+        NQF #
+        <ul>
+        <li><a href="#" class="selected">0001</a></li>
+        <li><a href="#">0002</a></li>
+        <li><a href="#">0003</a></li>
+        <li><a href="#">0004(a)</a></li>
+        <li><a href="#">0004(b)</a></li>
+        <li><a href="#">0012</a></li>
+        <li><a href="#">0014</a></li>
+        <li><a href="#">0018</a></li>
+        <li><a href="#">0020</a></li>
+        <li><a href="#">0024(a)</a></li>
+        <li><a href="#">0024(b)</a></li>
+        <li><a href="#">0024(c)</a></li>
+        <li><a href="#">0024(d)</a></li>
+        <li><a href="#">0024(e)</a></li>
+        <li><a href="#">0024(f)</a></li>
+        </ul>
+      </div>
+          <section id="patient_list">
+
+      <section class="measure">
       <dl>
         <dt class="measure_title">Quality Measure:</dt>
         <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
@@ -60,35 +84,20 @@
           <td>
             <span class="r <%= measure_result_class(expected_result, reported_result, 'numerator') %>"><%= reported_result['numerator'] %></span>
             / <span class="num"><%= expected_result['numerator'] %></span></td>
-          <th>EX:</th>
+          <th>EXC:</th>
           <td> 
             <span class="r <%= measure_result_class(expected_result, reported_result, 'exclusions') %>"><%= reported_result['exclusions'] %></span>
             / <span class="exc"><%= expected_result['exclusions'] %></span>
           </td>
-          <th>N/A:</th><td> <span class="r na">--</span> / ? <!-- the number of n/a expected --></td>
+          <th>OUT:</th><td> <span class="r na">--</span> / ? <!-- the number of n/a expected --></td>
           </tr>
           </table>
         </dd>
       </dl>
-      <a href="prev_measure.html" title="See the previous measure" class="nav previous">previous measure</a> <a href="next_vendor.html" title="See the next measure" class="nav advance">next measure</a>
     </section>
-    <section class="records">
-      <dl class="wide">
-        <dt>Total # of Records:</dt> <dd>1,000
-        <dt>Error Threshold:</dt> <dd>20%
-      </dl>
-      <dl>
-        <dt>Test Mode:</dt> <dd>Production
-        <dt>Record Type:</dt> <dd> C32/CCD
-      </dl>
-      <dl>
-        <dt>Labs:</dt><dd>LOINC
-        <dt>Conditions:</dt><dd>SNOMED
-      </dl>
-    </section>
-
     <section id="vendor_patients">
     </section>
-    
+    </section><!-- end #patient_list -->
+    <br style="clear:both" />
   </div>
   </div><!-- end #container -->     

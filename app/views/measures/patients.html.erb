@@ -1,44 +1,43 @@
-      <div class="tabs">
-       <a href="#" class="selected all">All <span>(<%= @result['population'] %>)</span></a> <a href="#" class="fail">Den <span>(<%= @result['denominator'] %>)</span></a> <a href="#">Num <span>(<%= @result['numerator'] %>)</span></a> <a href="#" class="na">Ex <span>(<%= @result['exclusions'] %>)</span></a> <a href="#" class="na">N/A <span>(<%= @result['antinumerator'] %>)</span></a>
-      </div>
 
-      <table id="patient_subset">
-        <colgroup  class="nqf">
-        <col />
-        <col />
-        <col />
-        <col />
-        </colgroup>
-        <thead style="position:relative;">
-          <tr class="rot">
-            <th><div>DEN</div></th>
-            <th><div>NUM</div></th>
-            <th><div>EX</div></th>
-            <th><div>N/A</div></th>
-            <th></th>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>DOB</th>
-            <th>Gender</th>
-          </tr>
-          </thead>
-        <tbody>
-          <% @patients.each do |patient| %>
-            <% if patient.value.population %>
-            <tr>
-              <td class="<%= 'p' if patient.value.denominator %>"></td>
-              <td class="<%= 'p' if patient.value.numerator %>"></td>
-              <td class="<%= 'p' if patient.value.exclusions %>"></td>
-              <td class="<%= 'p' if patient.value.antinumerator %>"></td>
-  
-              <td></td>
-              <td><%= link_to patient.value.patient.last, patient_url(patient.value.patient.id) %></td>
-              <td><%= link_to patient.value.patient.first, patient_url(patient.value.patient.id) %></td>
-              <td><time datetime="1988-03-27"><%= Time.at(patient.value.patient.birthdate).strftime('%m/%d/%Y') %></time></td>
-              <td><%= patient.value.patient.gender %></td>
-            </tr>
-            <% end %>
-          <% end %>
+<input class="search" type="search" size="20" placeholder="search" maxlength="40"/>
 
-        </tbody>
-      </table>
+<table id="patient_subset">
+  <colgroup  class="nqf">
+  <col />
+  <col />
+  <col />
+  <col />
+  </colgroup>
+  <thead style="position:relative;">
+    <tr class="rot">
+      <th><div>DEN</div></th>
+      <th><div>NUM</div></th>
+      <th><div>EXC</div></th>
+      <th><div>OUT</div></th>
+      <th></th>
+      <th>Last Name</th>
+      <th>First Name</th>
+      <th>DOB</th>
+      <th>Gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @patients.each do |patient| %>
+      <% if patient.value.population %>
+      <tr>
+        <td class="<%= 'p' if patient.value.denominator %>"></td>
+        <td class="<%= 'p' if patient.value.numerator %>"></td>
+        <td class="<%= 'p' if patient.value.exclusions %>"></td>
+        <td class="<%= 'p' if patient.value.antinumerator %>"></td>
+
+        <td></td>
+        <td><%= link_to patient.value.patient.last, patient_url(patient.value.patient.id) %></td>
+        <td><%= link_to patient.value.patient.first, patient_url(patient.value.patient.id) %></td>
+        <td><time datetime="1988-03-27"><%= Time.at(patient.value.patient.birthdate).strftime('%m/%d/%Y') %></time></td>
+        <td><%= patient.value.patient.gender %></td>
+      </tr>
+      <% end %>
+    <% end %>
+
+  </tbody>
+</table>
