@@ -14,84 +14,74 @@
       <div class="tabs" style="display:block">
         NQF #
         <ul>
-        <li><a href="#" class="selected">0001</a></li>
-        <li><a href="#">0002</a></li>
-        <li><a href="#">0003</a></li>
-        <li><a href="#">0004(a)</a></li>
-        <li><a href="#">0004(b)</a></li>
-        <li><a href="#">0012</a></li>
-        <li><a href="#">0014</a></li>
-        <li><a href="#">0018</a></li>
-        <li><a href="#">0020</a></li>
-        <li><a href="#">0024(a)</a></li>
-        <li><a href="#">0024(b)</a></li>
-        <li><a href="#">0024(c)</a></li>
-        <li><a href="#">0024(d)</a></li>
-        <li><a href="#">0024(e)</a></li>
-        <li><a href="#">0024(f)</a></li>
+        <% @measures.each do |measure_def| %>
+          <li><a href="<%= patients_path(:measure_id=>measure_def.id) %>" class="<%= 'selected' if @selected.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %></a></li>
+        <% end %>
         </ul>
       </div>
     <section id="patient_list">
     <section class="measure">
       <dl>
         <dt class="measure_title">Quality Measure:</dt>
-        <dd class="measure_title">NQF #0032: Cervical Cancer Screening</dd>
-        <dd class="measure_desc">Women from 21-64 yrs old who received one or more pap tests.</dd>
+        <dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
+        <dd class="measure_desc"><%= @selected.description %></dd>
       </dl>
       <dl>
         <dt>Expected Reports:</dt>
         <dd><table>
           <tr>
-          <th>DEN:</th><td> <span id="den">77</span></td>
-          <th>NUM:</th><td> <span id="num">34</span></td>
-          <th>EXC:</th><td> <span id="exc">2</span></td>
-          <th>OUT:</th><td> <span id="out">0</span></td>
+          <th>DEN:</th><td> <span id="den"><%= @result['denominator'] %></span></td>
+          <th>NUM:</th><td> <span id="num"><%= @result['numerator'] %></span></td>
+          <th>EXC:</th><td> <span id="exc"><%= @result['exclusions'] %></span></td>
+          <th>OUT:</th><td> <span id="out"><%= @result['antinumerator'] %></span></td>
           </tr>
           </table>
         </dd>
       </dl>
     </section>
     
-      <input class="search" type="search" size="20" placeholder="search" maxlength="40"/>
+    <input class="search" type="search" size="20" placeholder="search" maxlength="40"/>
 
 
 
-      <table id="patient_subset">
-        <colgroup  class="nqf">
-        <col />
-        <col />
-        <col />
-        <col />
-        </colgroup>
-        <thead style="position:relative;">
-          <tr class="rot">
-            <th><div>DEN</div></th>
-            <th><div>NUM</div></th>
-            <th><div>EXC</div></th>
-            <th><div>OUT</div></th>
-            <th></th>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>DOB</th>
-            <th>Gender</th>
-          </tr>
-        </thead>
-        <tbody>
-  <% @patients.each do |patient| %>
-  <tr>
-    <td class="p"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><a href="<%= patient_url(patient.id.to_s) %>"><%= patient.last %></td>
-    <td><a href="<%= patient_url(patient.id.to_s) %>"><%= patient.first %></td>
-    <td><%= display_time(patient.birthdate) %></td>
-    <td><%= patient.gender %></td>
-  </tr>
-  <% end %>
-  </tbody>
-      </table>
-    </section>
-  </div>
-  </div><!-- end #container -->     
+    <table id="patient_subset">
+      <colgroup  class="nqf">
+      <col />
+      <col />
+      <col />
+      <col />
+      </colgroup>
+      <thead style="position:relative;">
+        <tr class="rot">
+          <th><div>DEN</div></th>
+          <th><div>NUM</div></th>
+          <th><div>EXC</div></th>
+          <th><div>OUT</div></th>
+          <th></th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>DOB</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @patients.each do |patient| %>
+        <% if patient.value.population %>
+        <tr>
+          <td class="<%= 'p' if patient.value.denominator %>"></td>
+          <td class="<%= 'p' if patient.value.numerator %>"></td>
+          <td class="<%= 'p' if patient.value.exclusions %>"></td>
+          <td class="<%= 'p' if patient.value.antinumerator %>"></td>
+          <td></td>
+          <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.last %></td>
+          <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.first %></td>
+          <td><%= display_time(patient.value.patient.birthdate) %></td>
+          <td><%= patient.value.patient.gender %></td>
+        </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>
+</div><!-- end #container -->     

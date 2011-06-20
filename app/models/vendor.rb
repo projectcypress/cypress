@@ -1,7 +1,7 @@
 class Vendor
 
   include Mongoid::Document
-
+  
   # Vendor Details
   field :name, type: String
   field :address, tyoe: String
@@ -58,7 +58,7 @@ class Vendor
 
   # Get the reported result for a particular key (e.g. '0038c')
   def reported_result(key)
-    default = {'numerator'=>'--', 'denominator'=>'--', 'exclusions'=>'--'}
+    default = {'numerator'=>'--', 'denominator'=>'--', 'exclusions'=>'--', 'antinumerator'=>'--'}
     return default if reported_results==nil
     reported_results[key] || default
   end
@@ -114,7 +114,8 @@ class Vendor
       denominator = result_node.at_xpath('eligible-instances').text.to_i
       numerator = result_node.at_xpath('meets-performance-instances').text.to_i
       exclusions = result_node.at_xpath('performance-exclusion-instances').text.to_i
-      self.reported_results[key] = {'denominator'=>denominator, 'numerator'=>numerator, 'exclusions'=>exclusions}
+      antinumerator = result_node.at_xpath('performance-not-met-instances').text.to_i
+      self.reported_results[key] = {'denominator'=>denominator, 'numerator'=>numerator, 'exclusions'=>exclusions, 'antinumerator'=>antinumerator}
     end
   end
   
