@@ -1,11 +1,12 @@
 class Record
 
   include Mongoid::Document
-
+  
   field :first, type: String
   field :last, type: String
   field :gender, type: String
   field :birthdate, type: Integer
+  field :test_id, type: BSON::ObjectId
 
   [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
    :medications, :procedures, :results, :social_history, :vital_signs].each do |section|

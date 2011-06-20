@@ -1,7 +1,7 @@
 class Vendor
 
   include Mongoid::Document
-
+  
   # Vendor Details
   field :name, type: String
   field :address, tyoe: String

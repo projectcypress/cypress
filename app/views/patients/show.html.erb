@@ -5,7 +5,11 @@
     <section class="tb">
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
-        <a href="vendor.html">[Vendor name]</a> &raquo;
+        <% if @vendor %>
+          <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
+        <% else %>
+          <%= link_to 'Master Patient List', patients_path %> &raquo;
+        <% end %>
         <span><%= @patient.first %> <%= @patient.last %></span>
       </nav>
     </section>
@@ -55,7 +59,9 @@
         <dt>Language</dt><dd>[language]</dd>
       </dl>
       </div>
-      <a href="prev_patient.html" title="See the previous patient" class="nav previous">previous patient</a> <a href="next_patient.html" title="See the next patient" class="nav advance">next patient</a>
+      <!--
+        <a href="prev_patient.html" title="See the previous patient" class="nav previous">previous patient</a> <a href="next_patient.html" title="See the next patient" class="nav advance">next patient</a>
+      -->
       <a href="<%= patient_url(@patient.id.to_s) %>.ccr" class="ccr_export">Export CCR</a>
       <a href="<%= patient_url(@patient.id.to_s) %>.c32" class="c32_export">Export C32</a>
     </section>
