@@ -39,21 +39,9 @@
       <div class="tabs" style="display:block">
         NQF #
         <ul>
-        <li><a href="#" class="selected">0001</a></li>
-        <li><a href="#">0002</a></li>
-        <li><a href="#">0003</a></li>
-        <li><a href="#">0004(a)</a></li>
-        <li><a href="#">0004(b)</a></li>
-        <li><a href="#">0012</a></li>
-        <li><a href="#">0014</a></li>
-        <li><a href="#">0018</a></li>
-        <li><a href="#">0020</a></li>
-        <li><a href="#">0024(a)</a></li>
-        <li><a href="#">0024(b)</a></li>
-        <li><a href="#">0024(c)</a></li>
-        <li><a href="#">0024(d)</a></li>
-        <li><a href="#">0024(e)</a></li>
-        <li><a href="#">0024(f)</a></li>
+        <% @vendor.measure_defs.each do |measure_def| %>
+          <li><a href="<%= vendor_measure_path(@vendor, measure_def) %>" class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %></a></li>
+        <% end %>
         </ul>
       </div>
           <section id="patient_list">
