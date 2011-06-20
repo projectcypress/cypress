@@ -40,16 +40,22 @@
         <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
         <dd class="measure_desc"><%= @measure.description %></dd>
       </dl>
+      <% expected_result = @vendor.expected_result(@measure) %>
+      <% reported_result = @vendor.reported_result(@measure.key) %>
       <dl>
         <dt >Measure Status:</dt>
+        <% if reported_result['denominator'].class == String %>
         <dd class="na">N/A</dd>
+        <% elsif @vendor.passed?(expected_result) %>
+        <dd class="">PASS</dd>
+        <% else %>
+        <dd class="fail">Fail</dd>
+        <% end %>        
       </dl>
       <dl>
         <dt>Reporting Statistics:</dt>
         <dd><table>
           <tr id='<%= "#{@measure.id}" %>'>
-          <% expected_result = @vendor.expected_result(@measure) %>
-          <% reported_result = @vendor.reported_result(@measure.key) %>
           <td><span class="r">reported</span> / expected</td>
           <th>DEN:</th>
           <td>
