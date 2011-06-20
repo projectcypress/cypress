@@ -18,6 +18,24 @@ class PatientsController < ApplicationController
       .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
       .order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])    
   end
+  
+  def zipc32
+    t = Tempfile.new("patients-#{Time.now}")
+    patients = Record.where("test_id" => nil)
+    Cypress::PatientZipper.zip(t, patients, :c32)
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
+      :filename => 'patients_c32.zip'
+    t.close
+  end
+
+  def zipccr
+    t = Tempfile.new("patients-#{Time.now}")
+    patients = Record.where("test_id" => nil)
+    Cypress::PatientZipper.zip(t, patients, :c32)
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
+      :filename => 'patients_ccr.zip'
+    t.close
+  end
 
   def show
     @patient = Record.find(params[:id])

@@ -3,6 +3,8 @@
 
   <div>
     <section class="tb">
+      <%= link_to "Download C32s", zipc32_patients_path, {:class=>"cmd"} %>
+      <%= link_to "Download CCRs", zipccr_patients_path, {:class=>"cmd"} %>
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
         <span>Master Patient List</span>
