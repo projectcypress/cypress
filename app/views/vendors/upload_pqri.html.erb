@@ -1,4 +1,9 @@
-<h1>Upload PQRI</h1>
+
+
+<div id="container">
+   <%= render :partial=>"shared/header" %>
+     <div>
+    <h1>Upload PQRI</h1>
 
 <% form_for([:process_pqri, @vendor], :html => {:method => :post, :multipart => true}) do |f| %>
   <p>
@@ -6,6 +11,8 @@
     <%= f.file_field :pqri %>
   </p>
   <p>
-    <%= f.submit "Upload" %>
+    <%= f.submit "Upload" %> <%= link_to "Cancel", vendor_path %>
   </p>
 <% end %>
+     </div>
+</div><!-- end #container --> 

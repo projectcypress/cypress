@@ -5,7 +5,6 @@
     <section class="tb">
       <%= link_to "add EHR vendor", new_vendor_path, {:class=>"cmd"} %> <%= link_to "master patient list", patients_path, {:class=>"cmd"} %>
       <nav class="breadcrumb">
-        <%= link_to "Home", root_path %> &raquo;
         <span>Certification Dashboard</span>
       </nav>
     </section>
@@ -27,7 +26,7 @@
           <tr>
             <td><div title="14%" class="fail">14%</div></td>
             <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-            <td><span class="f"><%= vendor.count_passing %></span> <span class="qqq">/ <%= vendor.measure_defs.size %></span></td>
+            <td><span class="f"><%= vendor.count_passing %></span> <span class="q">/ <%= vendor.measure_defs.size %></span></td>
             <td><%= vendor.poc %></td>
             <td><span class="phone"><%= vendor.tel %></span></td>
             <td><%= vendor.proctor %></td>
@@ -41,7 +40,6 @@
           <tr>
             <th colspan="2"><span class="pass">Passing </span>EHR</th>
             <th>Measures</th>
-            <th>Disputes</th>
             <th>POC</th>
             <th><span style="visibility:hidden">Phone</span></th>
             <th>Proctor</th>
@@ -53,7 +51,6 @@
             <td><div title="100%" class="pass">100%</div></td>
             <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
             <td><%= vendor.count_passing %> <span class="q">/ <%= vendor.measure_defs.size %></span></td>
-            <td><!-- number of vendor disputes -->?</td>
             <td><%= vendor.poc %></td>
             <td><span class="phone"><%= vendor.tel %></span></td>
             <td><%= vendor.proctor %></td>
