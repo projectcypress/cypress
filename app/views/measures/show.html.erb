@@ -39,21 +39,9 @@
       <div class="tabs" style="display:block">
         NQF #
         <ul>
-        <li><a href="#" class="selected">0001</a></li>
-        <li><a href="#">0002</a></li>
-        <li><a href="#">0003</a></li>
-        <li><a href="#">0004(a)</a></li>
-        <li><a href="#">0004(b)</a></li>
-        <li><a href="#">0012</a></li>
-        <li><a href="#">0014</a></li>
-        <li><a href="#">0018</a></li>
-        <li><a href="#">0020</a></li>
-        <li><a href="#">0024(a)</a></li>
-        <li><a href="#">0024(b)</a></li>
-        <li><a href="#">0024(c)</a></li>
-        <li><a href="#">0024(d)</a></li>
-        <li><a href="#">0024(e)</a></li>
-        <li><a href="#">0024(f)</a></li>
+        <% @vendor.measure_defs.each do |measure_def| %>
+          <li><a href="<%= vendor_measure_path(@vendor, measure_def) %>" class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %></a></li>
+        <% end %>
         </ul>
       </div>
           <section id="patient_list">
@@ -64,16 +52,22 @@
         <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
         <dd class="measure_desc"><%= @measure.description %></dd>
       </dl>
+      <% expected_result = @vendor.expected_result(@measure) %>
+      <% reported_result = @vendor.reported_result(@measure.key) %>
       <dl>
         <dt >Measure Status:</dt>
+        <% if reported_result['denominator'].class == String %>
         <dd class="na">N/A</dd>
+        <% elsif @vendor.passed?(expected_result) %>
+        <dd class="">PASS</dd>
+        <% else %>
+        <dd class="fail">Fail</dd>
+        <% end %>        
       </dl>
       <dl>
         <dt>Reporting Statistics:</dt>
         <dd><table>
           <tr id='<%= "#{@measure.id}" %>'>
-          <% expected_result = @vendor.expected_result(@measure) %>
-          <% reported_result = @vendor.reported_result(@measure.key) %>
           <td><span class="r">reported</span> / expected</td>
           <th>DEN:</th>
           <td>

@@ -4,9 +4,22 @@ class Vendor
 
   # Vendor Details
   field :name, type: String
+  field :address, tyoe: String
+  field :state, type: String
+  field :zip, type: String
   field :poc, type: String
-  field :tel, type: String
   field :email, type: String
+  field :tel, type: String
+  field :fax, type: String
+  field :accounts_poc, type: String
+  field :accounts_email, type: String
+  field :accounts_tel, type: String
+  field :tech_poc, type: String
+  field :tech_email, type: String
+  field :tech_tel, type: String
+  field :press_poc, type: String
+  field :press_email, type: String
+  field :press_tel, type: String
   
   # Proctor Details
   field :proctor, type: String

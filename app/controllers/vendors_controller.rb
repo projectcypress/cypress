@@ -19,12 +19,13 @@ class VendorsController < ApplicationController
   
   def new
     @vendor = Vendor.new
+    @measures = Measure.top_level
   end
   
   def create
     vendor = Vendor.new(params[:vendor])
     vendor.effective_date = Time.gm(2010,12,31).to_i
-    vendor.measure_ids = ['0001', '0002', '0013']
+    vendor.measure_ids.select! {|id| id.size>0}
     vendor.save! # save here so _id is created
     
     # Generate random records for this test run
@@ -48,11 +49,14 @@ class VendorsController < ApplicationController
   
   def edit
     @vendor = Vendor.find(params[:id])
+    @measures = Measure.top_level
   end
   
   def update
     @vendor = Vendor.find(params[:id])
-    @vendor.update_attributes!(params[:vendor])
+    @vendor.update_attributes(params[:vendor])
+    @vendor.measure_ids.select! {|id| id.size>0}
+    @vendor.save!
     render :action => 'show'
   end
   
