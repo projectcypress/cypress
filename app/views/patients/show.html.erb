@@ -24,21 +24,23 @@
           <th><div>DEN</div></th>
           <th><div>NUM</div></th>
           <th><div>EX</div></th>
-          <th><div>N/A</div></th>
+          <th><div>OUT</div></th>
         </tr>
       </thead>
       <tbody>
         <% @results.each do |result| %>
+          <% if result.value.population %>
           <tr>
             <td><%= "#{result.value.measure_id}#{result.value.sub_id}" %></td>
             <td <%= raw result_to_class(result.value.denominator?) %>></td>
             <td <%= raw result_to_class(result.value.numerator?) %>></td>
             <td <%= raw result_to_class(result.value.exclusions?) %>></td>
-            <td><!-- n/a --></td>
+            <td <%= raw result_to_class(result.value.antinumerator?) %>></td>
           </tr>
           <% end %>
-        </tbody>
-      </table>
+        <% end %>
+      </tbody>
+    </table>
     </section>
     <div id="effectiveDate">effective date: 03/31/11</div>
     <section class="patient">

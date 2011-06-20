@@ -83,7 +83,11 @@
             <span class="r <%= measure_result_class(expected_result, reported_result, 'exclusions') %>"><%= reported_result['exclusions'] %></span>
             / <span class="exc"><%= expected_result['exclusions'] %></span>
           </td>
-          <th>OUT:</th><td> <span class="r na">--</span> / ? <!-- the number of n/a expected --></td>
+          <th>OUT:</th>
+          <td> 
+            <span class="r <%= measure_result_class(expected_result, reported_result, 'antinumerator') %>"><%= reported_result['antinumerator'] %></span>
+            / <span class="exc"><%= expected_result['antinumerator'] %></span>
+          </td>
           </tr>
           </table>
         </dd>
