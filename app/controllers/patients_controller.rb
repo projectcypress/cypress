@@ -14,10 +14,24 @@ class PatientsController < ApplicationController
       @selected = @measures[0]
     end
     @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected)
+      
+    respond_to do |format|
+      format.json { render :json => @result }
+      format.html
+    end
+  end
+  
+  def table
+    @measures = Measure.installed
+    if params[:measure_id]
+      @selected = Measure.find(params[:measure_id])
+    else
+      @selected = @measures[0]
+    end
     @patients = Result.where("value.test_id" => nil).where("value.measure_id" => @selected['id'])
       .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
-      .order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])    
-  end
+      .order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
+  end  
   
   def zipc32
     t = Tempfile.new("patients-#{Time.now}")

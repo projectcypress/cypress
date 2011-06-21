@@ -1,4 +1,15 @@
-  <div id="container">
+<% content_for :head do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      <% if @result['numerator']=='?' %>
+        $.cypress.addPoll("<%= patients_path(:measure_id=>@selected.id) %>", "<%= table_patients_path(:measure_id=>@selected.id) %>")
+      <% else %>
+        $.cypress.updatePatientTable("<%= table_patients_path(:measure_id=>@selected.id) %>")
+      <% end %>
+    });
+  </script>
+<% end %>
+<div id="container">
   <%= render :partial=>"shared/header" %>
 
   <div>
@@ -22,68 +33,29 @@
         </ul>
       </div>
     <section id="patient_list">
-    <section class="measure">
-      <dl>
-        <dt class="measure_title">Quality Measure:</dt>
-        <dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
-        <dd class="measure_desc"><%= @selected.description %></dd>
-      </dl>
-      <dl>
-        <dt>Expected Reports:</dt>
-        <dd><table>
-          <tr>
-          <th>DEN:</th><td> <span id="den"><%= @result['denominator'] %></span></td>
-          <th>NUM:</th><td> <span id="num"><%= @result['numerator'] %></span></td>
-          <th>EXC:</th><td> <span id="exc"><%= @result['exclusions'] %></span></td>
-          <th>OUT:</th><td> <span id="out"><%= @result['antinumerator'] %></span></td>
-          </tr>
-          </table>
-        </dd>
-      </dl>
-    </section>
+      <section class="measure">
+        <dl>
+          <dt class="measure_title">Quality Measure:</dt>
+          <dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
+          <dd class="measure_desc"><%= @selected.description %></dd>
+        </dl>
+        <dl>
+          <dt>Expected Reports:</dt>
+          <dd><table>
+            <tr id='<%= "#{@selected.id}" %>'>
+            <th>DEN:</th><td> <span class="den"><%= @result['denominator'] %></span></td>
+            <th>NUM:</th><td> <span class="num"><%= @result['numerator'] %></span></td>
+            <th>EXC:</th><td> <span class="exc"><%= @result['exclusions'] %></span></td>
+            <th>OUT:</th><td> <span class="out"><%= @result['antinumerator'] %></span></td>
+            </tr>
+            </table>
+          </dd>
+        </dl>
+      </section>
     
-    <input class="search" type="search" size="20" placeholder="search" maxlength="40"/>
+    <section id="vendor_patients">
+    </section>
 
-
-
-    <table id="patient_subset">
-      <colgroup  class="nqf">
-      <col />
-      <col />
-      <col />
-      <col />
-      </colgroup>
-      <thead style="position:relative;">
-        <tr class="rot">
-          <th><div>DEN</div></th>
-          <th><div>NUM</div></th>
-          <th><div>EXC</div></th>
-          <th><div>OUT</div></th>
-          <th></th>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>DOB</th>
-          <th>Gender</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @patients.each do |patient| %>
-        <% if patient.value.population %>
-        <tr>
-          <td class="<%= 'p' if patient.value.denominator %>"></td>
-          <td class="<%= 'p' if patient.value.numerator %>"></td>
-          <td class="<%= 'p' if patient.value.exclusions %>"></td>
-          <td class="<%= 'p' if patient.value.antinumerator %>"></td>
-          <td></td>
-          <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.last %></td>
-          <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.first %></td>
-          <td><%= display_time(patient.value.patient.birthdate) %></td>
-          <td><%= patient.value.patient.gender %></td>
-        </tr>
-        <% end %>
-      <% end %>
-      </tbody>
-    </table>
   </section>
 </div>
 </div><!-- end #container -->     

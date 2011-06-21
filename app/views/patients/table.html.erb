@@ -1,0 +1,40 @@
+    <input class="search" type="search" size="20" placeholder="search" maxlength="40"/>
+
+    <table id="patient_subset">
+      <colgroup  class="nqf">
+      <col />
+      <col />
+      <col />
+      <col />
+      </colgroup>
+      <thead style="position:relative;">
+        <tr class="rot">
+          <th><div>DEN</div></th>
+          <th><div>NUM</div></th>
+          <th><div>EXC</div></th>
+          <th><div>OUT</div></th>
+          <th></th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>DOB</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @patients.each do |patient| %>
+        <% if patient.value.population %>
+        <tr>
+          <td class="<%= 'p' if patient.value.denominator %>"></td>
+          <td class="<%= 'p' if patient.value.numerator %>"></td>
+          <td class="<%= 'p' if patient.value.exclusions %>"></td>
+          <td class="<%= 'p' if patient.value.antinumerator %>"></td>
+          <td></td>
+          <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.last %></td>
+          <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.first %></td>
+          <td><%= display_time(patient.value.patient.birthdate) %></td>
+          <td><%= patient.value.patient.gender %></td>
+        </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>

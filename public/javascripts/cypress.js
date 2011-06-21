@@ -2,9 +2,9 @@
 (function($) {
 
   $.cypress = {}
-  $.cypress.addPoll = function(url) {
+  $.cypress.addPoll = function(url, table_url) {
     setTimeout(function() {
-      $.cypress.pollResult(url);
+      $.cypress.pollResult(url, table_url);
     }, 3000);
   }
   
@@ -15,10 +15,11 @@
     resultRow.find(".num").text(result.numerator);
     resultRow.find(".den").text(result.denominator);
     resultRow.find(".exc").text(result.exclusions);
+    resultRow.find(".out").text(result.antinumerator);
     return false;
   }
     
-  $.cypress.pollResult = function(url) {
+  $.cypress.pollResult = function(url, table_url) {
     $.getJSON(url, function(data) {
       var pollAgain = false;
       // data can be a single result row as returned by the measures controller
@@ -33,12 +34,17 @@
         pollAgain |= $.cypress.updateResults(data);
         if (!pollAgain) {
           // calculation is complete so show patient list table
-          $.cypress.updatePatientTable(url+"/patients");
+          if (table_url) {
+            $.cypress.updatePatientTable(table_url);
+          }
+          else {
+            $.cypress.updatePatientTable(url+"/patients");
+          }
         }
       }
       if (pollAgain) {
         // true if any result is not yet available
-        $.cypress.addPoll(url);
+        $.cypress.addPoll(url, table_url);
       }
     });
   }
