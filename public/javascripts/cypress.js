@@ -30,15 +30,12 @@
           pollAgain |= $.cypress.updateResults(data.results[i]);
         }
       } else {
-        // Measure view page
+        // Measure view or master patient index
         pollAgain |= $.cypress.updateResults(data);
         if (!pollAgain) {
-          // calculation is complete so show patient list table
+          // calculation is complete so show patient list table if an URL was provided
           if (table_url) {
             $.cypress.updatePatientTable(table_url);
-          }
-          else {
-            $.cypress.updatePatientTable(url+"/patients");
           }
         }
       }

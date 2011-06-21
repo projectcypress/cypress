@@ -2,7 +2,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
       <% if @vendor.expected_result(@measure)['numerator']=='?' %>
-        $.cypress.addPoll("<%= vendor_measure_path(@vendor, @measure) %>")
+        $.cypress.addPoll("<%= vendor_measure_path(@vendor, @measure) %>", "<%= patients_vendor_measure_path(@vendor, @measure) %>")
       <% else %>
         $.cypress.updatePatientTable("<%= patients_vendor_measure_path(@vendor, @measure) %>")
       <% end %>
