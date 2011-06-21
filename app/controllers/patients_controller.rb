@@ -30,7 +30,14 @@ class PatientsController < ApplicationController
     end
     @patients = Result.where("value.test_id" => nil).where("value.measure_id" => @selected['id'])
       .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
-      .order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
+    if params[:search] && params[:search].size>0
+      @search_term = params[:search]
+      regex = Regexp.new('^'+params[:search], Regexp::IGNORECASE)
+      patient_ids = Record.any_of({"first" => regex}, {"last" => regex}).collect {|p| p.id}
+      @patients = @patients.any_in("value.patient_id" => patient_ids)
+    end
+    @patients = @patients.order_by([
+      ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
   end  
   
   def zipc32

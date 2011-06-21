@@ -59,4 +59,8 @@
            });
   }
   
+  $.cypress.filterPatients = function(url) {
+    $.cypress.updatePatientTable(url);
+  }
+  
 })( jQuery );
