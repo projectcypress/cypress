@@ -1,4 +1,5 @@
 require 'measure_evaluator'
+require 'patient_zipper'
 
 class VendorsController < ApplicationController
 
@@ -73,4 +74,25 @@ class VendorsController < ApplicationController
     vendor.save!
     redirect_to :action => 'show'
   end
+
+  def zipc32
+    vendor = Vendor.find(params[:id])
+    t = Tempfile.new("patients-#{Time.now}")
+    patients = Record.where("test_id" => vendor.id)
+    Cypress::PatientZipper.zip(t, patients, :c32)
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
+      :filename => 'patients_c32.zip'
+    t.close
+  end
+
+  def zipccr
+    vendor = Vendor.find(params[:id])
+    t = Tempfile.new("patients-#{Time.now}")
+    patients = Record.where("test_id" => vendor.id)
+    Cypress::PatientZipper.zip(t, patients, :ccr)
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
+      :filename => 'patients_ccr.zip'
+    t.close
+  end
+
 end
