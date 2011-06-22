@@ -1,8 +1,110 @@
 <%= simple_form_for @vendor do |f| %>
-  <%= f.input :name, :label => 'Name' %>
-  <%= f.input :poc, :label => 'Point of contact' %>
-  <%= f.input :tel, :label => 'Telephone' %>
-  <%= f.input :proctor, :label => 'Proctor' %>
-  <%= f.collection_check_boxes :measure_ids, @measures, :measure_id, :display_name %>
+  <h1>Vendor Information</h1>
+      <section id="vendorInfo">
+        <dl>
+          <dt>Vendor Name:</dt>
+          <dd><%= f.text_field :name, :size=>"20", :class=>"req" %>
+          <dt>url:</dt>
+          <dd><input type="text" size="20"/>
+          <dt>Address:</dt>
+          <dd><input type="text" size="20"/>
+          <dt>State:</dt>
+          <dd><input type="text" size="20"/>
+          <dt>ZIP:</dt>
+          <dd><input type="text" size="20"/>
+        </dl>
+        <dl>
+          <dt class="foo">EHR POC:</dt>
+          <dd><%= f.text_field :poc, :size=>"20", :class=>"req" %>
+          <dt>Email:</dt>
+          <dd><input type="text" size="20"/>
+          <dt>Phone:</dt>
+          <dd><%= f.text_field :tel, :size=>"20", :class=>"req" %>
+          <dt>Fax:</dt>
+          <dd><input type="text" size="20"/>
+        </dl>
+        <dl>
+          <dt>Proctor:</dt>
+          <dd><%= f.text_field :proctor, :size=>"20", :class=>"req" %><!-- <select><option>Paul Hewson</option></select> -->
+        </dl>
+      </section>
+      <h2>alternate POCs</h2>
+        <section id="altPOC">
+          <dl>
+            <dt>Main EHR POC:</dt>
+            <dd><input type="text" size="20"/>
+            <dt>Email:</dt>
+            <dd><input type="text" size="20"/>
+            <dt>Phone:</dt>
+            <dd><input type="text" size="20"/>
+          </dl>
+          <dl>
+            <dt>Technical POC:</dt>
+            <dd><input type="text" size="20"/>
+            <dt>Email:</dt>
+            <dd><input type="text" size="20"/>
+            <dt>Phone:</dt>
+            <dd><input type="text" size="20"/>
+          </dl>
+          <dl>
+            <dt>Press POC:</dt>
+            <dd><input type="text" size="20"/>
+            <dt>Email:</dt>
+            <dd><input type="text" size="20"/>
+            <dt>Phone:</dt>
+            <dd><input type="text" size="20"/>
+          </dl>
+        </section>
+      <h1>Test Profile</h1>
+      <section id="testProfile">
+        <dl>
+          <dt># of records</dt>
+          <dd><select><option>450</option></select>
+        </dl>
+        <dl>
+          <dt>error threshold</dt>
+          <dd><select><option>20%</option></select>
+        </dl>
+        <dl>
+          <dt>patient test mode:</dt>
+          <dd><select><option>static</option></select>
+        </dl>
+      </section>
+      <h2>test code sets</h2>
+      <section id="testCodeSets">
+        <dl>
+          <dt>Care goal:</dt>
+          <dd><select><option>code</option></select>
+          <dt>Communication:</dt>
+          <dd><select><option>code</option></select>
+          <dt>Procedure:</dt>
+          <dd><select><option>code</option></select>
+          <dt>Physical Exam:</dt>
+          <dd><select><option>code</option></select>
+        </dl>
+         <dl>
+          <dt>Diagnosis / Condition:</dt>
+          <dd><select><option>static</option></select>
+          <dt>Diagnostic Study:</dt>
+          <dd><select><option>static</option></select>
+          <dt>Substance:</dt>
+          <dd><select><option>static</option></select>
+        </dl>
+        <dl>
+          <dt>Encounter:</dt>
+          <dd><select><option>static</option></select>
+          <dt>Lab Test:</dt>
+          <dd><select><option>static</option></select>
+          <dt>Negation Rationale:</dt>
+          <dd><select><option>static</option></select>
+        </dl>
+      </section>
+      <h2>test measures</h2>
+      <section id="testMeasures">
+        <%= f.collection_check_boxes :measure_ids, @measures, :measure_id, :display_name %>
+      </section>
+      
+
   <%= f.button :submit %>
 <% end %>
+

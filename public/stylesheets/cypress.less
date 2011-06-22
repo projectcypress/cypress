@@ -147,6 +147,62 @@ section.candidate, section.records, section.ctb_records, section.nqf {
              dd:nth-child(2)  {font-size:150%}  
   }
 }
+
+section#vendor {
+  .bordered;
+  vertical-align:top;
+  
+  h1 {
+    margin-top:20px;
+    background-color:#ecf3e8;
+    padding:2px 10px;
+    text-transform:uppercase;
+  }
+  section {
+    padding:10px;
+    input {
+      padding:4px;
+      .bordered;
+      }
+    }
+  h2 {
+    margin:5px 10px;
+    padding-top:5px;
+    color:#666;
+    border-top:1px solid #eee;
+    font-style:italic;
+  }
+  dl {
+    font-size:90%;
+    width:310px;
+    display:table-cell;
+    vertical-align:top;
+    line-height:2.5em;
+    }
+  dt {
+    color:#666;
+    width:140px;
+    clear:both;
+    display:inline-block;
+    text-align:right;
+    margin-right:5px;
+    vertical-align:top;
+  }
+  dd {
+    width:160px;
+    display:inline-block;
+    address span {display:block;}
+  }
+  section#testMeasures {
+    padding-top:0;
+    span:nth-child(5n+6) {
+      margin-top:20px;
+    }
+  }
+  input#vendor_submit {margin-top:20px}
+}
+
+
 section.records {
   line-height:2em;
   padding:10px 0;
