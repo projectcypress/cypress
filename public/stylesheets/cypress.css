@@ -234,6 +234,60 @@ section.nqf dl.vendor dt {
 }
 section.nqf dl.vendor dd { width: 200px; }
 section.nqf dl.vendor dd:nth-child(2) { font-size: 150%; }
+section#vendor {
+  border: 1px solid #aaaaaa;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  behavior: url(/stylesheets/PIE.htc);
+  vertical-align: top;
+}
+section#vendor h1 {
+  margin-top: 20px;
+  background-color: #ecf3e8;
+  padding: 2px 10px;
+  text-transform: uppercase;
+}
+section#vendor section { padding: 10px; }
+section#vendor section input {
+  padding: 4px;
+  border: 1px solid #aaaaaa;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  behavior: url(/stylesheets/PIE.htc);
+}
+section#vendor h2 {
+  margin: 5px 10px;
+  padding-top: 5px;
+  color: #666666;
+  border-top: 1px solid #eeeeee;
+  font-style: italic;
+}
+section#vendor dl {
+  font-size: 90%;
+  width: 310px;
+  display: table-cell;
+  vertical-align: top;
+  line-height: 2.5em;
+}
+section#vendor dt {
+  color: #666666;
+  width: 140px;
+  clear: both;
+  display: inline-block;
+  text-align: right;
+  margin-right: 5px;
+  vertical-align: top;
+}
+section#vendor dd {
+  width: 160px;
+  display: inline-block;
+}
+section#vendor dd address span { display: block; }
+section#vendor section#testMeasures { padding-top: 0; }
+section#vendor section#testMeasures span:nth-child(5n+6) { margin-top: 20px; }
+section#vendor input#vendor_submit { margin-top: 20px; }
 section.records {
   line-height: 2em;
   padding: 10px 0;
