@@ -6,7 +6,8 @@ class Vendor
   
   # Vendor Details
   field :name, type: String
-  field :address, tyoe: String
+  field :url, type: String
+  field :address, type: String
   field :state, type: String
   field :zip, type: String
   field :poc, type: String

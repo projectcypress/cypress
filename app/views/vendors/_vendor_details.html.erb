@@ -4,55 +4,59 @@
         <dl>
           <dt>Vendor Name:</dt>
           <dd><%= f.text_field :name, :size=>"20", :class=>"req" %>
-          <dt>url:</dt>
-          <dd><input type="text" size="20"/>
+          <dt>Url:</dt>
+          <dd><%= f.text_field :url, :size=>"20", :class=>"req" %>
           <dt>Address:</dt>
-          <dd><input type="text" size="20"/>
+          <dd><%= f.text_field :address, :size=>"20", :class=>"req" %>
           <dt>State:</dt>
-          <dd><input type="text" size="20"/>
+          <dd><%= f.text_field :state, :size=>"20", :class=>"req" %>
           <dt>ZIP:</dt>
-          <dd><input type="text" size="20"/>
+          <dd><%= f.text_field :zip, :size=>"20", :class=>"req" %>
         </dl>
         <dl>
           <dt class="foo">EHR POC:</dt>
           <dd><%= f.text_field :poc, :size=>"20", :class=>"req" %>
           <dt>Email:</dt>
-          <dd><input type="text" size="20"/>
+          <dd><%= f.text_field :email, :size=>"20", :class=>"req" %>
           <dt>Phone:</dt>
           <dd><%= f.text_field :tel, :size=>"20", :class=>"req" %>
           <dt>Fax:</dt>
-          <dd><input type="text" size="20"/>
+          <dd><%= f.text_field :fax, :size=>"20", :class=>"req" %>
         </dl>
         <dl>
           <dt>Proctor:</dt>
-          <dd><%= f.text_field :proctor, :size=>"20", :class=>"req" %><!-- <select><option>Paul Hewson</option></select> -->
+          <dd><%= f.text_field :proctor, :size=>"20", :class=>"req" %>
+          <dt>Email:</dt>
+          <dd><%= f.text_field :proctor_email, :size=>"20", :class=>"req" %>
+          <dt>Phone:</dt>
+          <dd><%= f.text_field :proctor_tel, :size=>"20", :class=>"req" %>
         </dl>
       </section>
       <h2>alternate POCs</h2>
         <section id="altPOC">
           <dl>
             <dt>Main EHR POC:</dt>
-            <dd><input type="text" size="20"/>
+            <dd><%= f.text_field :accounts_poc, :size=>"20", :class=>"req" %>
             <dt>Email:</dt>
-            <dd><input type="text" size="20"/>
+            <dd><%= f.text_field :accounts_email, :size=>"20", :class=>"req" %>
             <dt>Phone:</dt>
-            <dd><input type="text" size="20"/>
+            <dd><%= f.text_field :accounts_tel, :size=>"20", :class=>"req" %>
           </dl>
           <dl>
             <dt>Technical POC:</dt>
-            <dd><input type="text" size="20"/>
+            <dd><%= f.text_field :tech_poc, :size=>"20", :class=>"req" %>
             <dt>Email:</dt>
-            <dd><input type="text" size="20"/>
+            <dd><%= f.text_field :tech_email, :size=>"20", :class=>"req" %>
             <dt>Phone:</dt>
-            <dd><input type="text" size="20"/>
+            <dd><%= f.text_field :tech_tel, :size=>"20", :class=>"req" %>
           </dl>
           <dl>
             <dt>Press POC:</dt>
-            <dd><input type="text" size="20"/>
+            <dd><%= f.text_field :press_poc, :size=>"20", :class=>"req" %>
             <dt>Email:</dt>
-            <dd><input type="text" size="20"/>
+            <dd><%= f.text_field :press_email, :size=>"20", :class=>"req" %>
             <dt>Phone:</dt>
-            <dd><input type="text" size="20"/>
+            <dd><%= f.text_field :press_tel, :size=>"20", :class=>"req" %>
           </dl>
         </section>
       <h1>Test Profile</h1>

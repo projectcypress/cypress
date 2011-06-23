@@ -18,7 +18,7 @@
 
   <div>
     <section class="tb">
-      <!--<a href="#" class="cmd">Export Report</a>-->
+      <%= link_to "Edit Profile", edit_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Upload Results", upload_pqri_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Download C32s", zipc32_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Download CCRs", zipccr_vendor_path, {:class=>"cmd"} %>
@@ -31,22 +31,19 @@
       
       <dl class="vendor">
         <dt>Candidate EHR:</dt> <dd><%= @vendor.name %></dd>
-        <dt>url:</dt> <dd><a href="#">www.vendor_url_here.com</a></dd>
+        <dt>url:</dt> <dd><%= link_to @vendor.url, @vendor.url %></dd>
       </dl>
       
       <dl>
         <dt>EHR POC:</dt> <dd><%= @vendor.poc %></dd>
-        <dt>E-mail:</dt>  <dd>vendor_email@vendor.com</dd>
+        <dt>E-mail:</dt>  <dd><%= @vendor.email %></dd>
         <dt>Phone:</dt>   <dd><%= @vendor.tel %></dd>
       </dl>
       <dl>
         <dt>Proctor:</dt> <dd><%= @vendor.proctor %></dd>
-        <dt>E-mail:</dt>  <dd>proctor_email@proctor.com</dd>
-        <dt>Phone:</dt>   <dd>proctor phone #</dd>
+        <dt>E-mail:</dt>  <dd><%= @vendor.proctor_email %></dd>
+        <dt>Phone:</dt>   <dd><%= @vendor.proctor_tel %></dd>
       </dl>
-      <!--
-        <a href="prev_vendor.html" title="See the previous vendor" class="nav previous">previous vendor</a> <a href="next_vendor.html" title="See the next vendor" class="nav advance">next vendor</a>
-      -->
     </section>
 
     <section class="records">

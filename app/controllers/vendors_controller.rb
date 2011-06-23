@@ -58,7 +58,7 @@ class VendorsController < ApplicationController
     @vendor.update_attributes(params[:vendor])
     @vendor.measure_ids.select! {|id| id.size>0}
     @vendor.save!
-    render :action => 'show'
+    redirect_to :action => 'show'
   end
   
   def delete_note
