@@ -51,8 +51,19 @@
 
     <section class="records">
         <label>Notes</label>:
-        <textarea rows="1" cols="80"></textarea> <input type="button" value="add" /><br />
-        <time datetime="2011-03-24">03/24/3011</time>: Vendor needs to submit more results for measures #0004, 0012, 0013, 0014 and 0018 | <a href="#">edit</a> <a href="#">delete</a>
+        <% note = Note.new %>
+        <%= simple_form_for note, :url => add_note_vendor_path do |f| %>
+          <%= f.input_field :text, :as => :text, :rows => 1, :columns => 80 %>
+          <%= f.button :submit, :value => 'add' %>
+        <% end %>
+        <% if @vendor.notes %>
+          <% @vendor.notes.each do |note| %>
+            <time datetime="<%= note.time.strftime('%Y-%m-%d') %>"><%= note.time.strftime('%m/%d/%Y') %></time>: 
+            <%= note.text %><!-- <a href="#">edit</a> -->
+            <%= button_to 'delete', {:action=>'delete_note', :id=>@vendor.id, "note[id]"=>note.id}, :method=>:delete, :confirm=>'Are you sure?' %>
+            <br/>
+          <% end %>
+        <% end %>
     </section>
     <section id="quality_measures">
       <table>

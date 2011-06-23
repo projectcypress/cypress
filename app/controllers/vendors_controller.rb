@@ -61,6 +61,22 @@ class VendorsController < ApplicationController
     render :action => 'show'
   end
   
+  def delete_note
+    @vendor = Vendor.find(params[:id])
+    note = @vendor.notes.find(params[:note][:id])
+    note.destroy
+    redirect_to :action => 'show'
+  end
+  
+  def add_note
+    @vendor = Vendor.find(params[:id])
+    note = Note.new(params[:note])
+    note.time = Time.now
+    @vendor.notes << note
+    @vendor.save!
+    redirect_to :action => 'show'
+  end
+  
   def upload_pqri
     @vendor = Vendor.find(params[:id])
   end

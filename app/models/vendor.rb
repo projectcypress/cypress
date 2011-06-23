@@ -2,6 +2,8 @@ class Vendor
 
   include Mongoid::Document
   
+  embeds_many :notes, inverse_of: :vendor
+  
   # Vendor Details
   field :name, type: String
   field :address, tyoe: String

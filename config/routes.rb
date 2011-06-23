@@ -14,6 +14,8 @@ Cypress::Application.routes.draw do
       get 'zipc32'
       get 'upload_pqri'
       post 'process_pqri'
+      delete 'delete_note'
+      post 'add_note'
     end
   end
 
