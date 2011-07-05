@@ -36,7 +36,7 @@ class VendorsController < ApplicationController
       :test_id => vendor._id)
     vendor.save!
     
-    redirect_to :action => 'index'
+    redirect_to :action => 'show', :id => vendor.id
   end
   
   def show
