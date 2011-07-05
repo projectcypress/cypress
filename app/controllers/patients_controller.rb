@@ -52,7 +52,7 @@ class PatientsController < ApplicationController
   def zipccr
     t = Tempfile.new("patients-#{Time.now}")
     patients = Record.where("test_id" => nil)
-    Cypress::PatientZipper.zip(t, patients, :c32)
+    Cypress::PatientZipper.zip(t, patients, :ccr)
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
       :filename => 'patients_ccr.zip'
     t.close
