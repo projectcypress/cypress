@@ -196,12 +196,12 @@ class Record
                 xml.Text("Start date")
               end
               #time
-              xml.ExactDateTime(convert_to_ccr_time_string(vital_sign.time))
+              xml.ExactDateTime(convert_to_ccr_time_string(procedure.time))
             end
             xml.Description do
-              xml.Text(vital_sign.description)
-              if (!vital_sign.codes.nil? && !vital_sign.codes.empty?)
-                vital_sign.codes.each_pair do |code_set, coded_values|
+              xml.Text(procedure.description)
+              if (!procedure.codes.nil? && !procedure.codes.empty?)
+                procedure.codes.each_pair do |code_set, coded_values|
                   xml.Code do
                     coded_values.each do |coded_value|
                       xml.Value(coded_value)
