@@ -33,6 +33,10 @@
   <component>
     <structuredBody>
       <% if @patient.allergies.present? -%>
+        <%= render :partial => 'allergies', :locals => {:entries => @patient.allergies} %>
+      <% end -%>
+      <% if @patient.encounters.present? -%>
+        <%= render :partial => 'encounters', :locals => {:entries => @patient.encounters} %>
       <% end -%>
     </structuredBody>
   </component>
