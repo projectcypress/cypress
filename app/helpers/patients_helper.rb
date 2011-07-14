@@ -13,8 +13,4 @@ module PatientsHelper
       ''
     end
   end
-  
-  def code_display(code_hash)
-    code_hash.map {|code_set, codes| "#{code_set}: #{codes.join(', ')}"}.join(' ')
-  end
 end

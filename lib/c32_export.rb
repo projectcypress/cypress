@@ -42,6 +42,72 @@ module C32Export
           end
         end
       end
+      xml.component do
+        xml.structuredBody do
+          allergies_to_c32(xml)
+        end
+      end
+    end
+  end
+
+  def allergies_to_c32(xml)
+    build_section(xml, "Allergies and Adverse Reactions", "48765-2",
+                  [{"root" => "2.16.840.1.113883.3.88.11.83.102", "assigningAuthorityName" => "HITSP/C83"},
+                   {"root" => "1.3.6.1.4.1.19376.1.5.3.1.3.13",   "assigningAuthorityName" => "IHE PCC",
+                    "root" => "2.16.840.1.113883.10.20.1.2",      "assigningAuthorityName" => "HL7 CCD"}],
+                  allergies) do |section, allergy|
+      section.act("classCode" => "ACT",  "moodCode" => "EVN") do
+        section.templateId("root" => "2.16.840.1.113883.10.20.1.18", "assigningAuthorityName" => "CCD")
+        section.templateId("root" => "2.16.840.1.113883.10.20.1.28", "assigningAuthorityName" => "CCD")
+        section.templateId("root" => "1.3.6.1.4.1.19376.1.5.3.1.4.5", "assigningAuthorityName" => "IHE PCC")
+        section.templateId("root" => "1.3.6.1.4.1.19376.1.5.3.1.4.6", "assigningAuthorityName" => "IHE PCC")
+        section.id("root" => allergy.id)
+        section.code("nullFlavor" => "NA")
+        section.statusCode("code" => "active")
+        allergy.to_effective_time(section)
+        
+
+      end
+    end
+  end
+  
+  private
+  def build_section(xml, title, code, templates, entries)
+    if entries.present?
+      xml.component do
+        xml.section do
+          templates.each do |template|
+            xml.templateId(template)
+          end
+          xml.code("code" => code, "codeSystem" => "2.16.840.1.113883.6.1", "codeSystemName" => "LOINC")
+          xml.title(title)
+          xml.text do
+            xml.table("border" => "1", "width" => "100%") do
+              xml.thead do
+                xml.tr do
+                  xml.th("Description")
+                  xml.th("Codes")
+                  xml.th("Time")
+                end
+              end
+              xml.tbody do
+                entries.each do |entry|
+                  xml.tr do
+                    xml.td(entry.description)
+                    xml.td(entry.codes_to_s)
+                    xml.td(entry.times_to_s)
+                  end
+                end
+              end
+            end
+          end
+          entries.each do |entry|
+            xml.entry("typeCode" => "DRIV") do
+              yield xml, entry
+            end
+          end
+        end
+      end
     end
   end
 end
