@@ -12,6 +12,10 @@ class Entry
   field :codes, type: Hash
   field :value, type: Hash
 
+  def single_code_value?
+    codes.size == 1 && codes.first[1].size == 1
+  end
+
   def codes_to_s
     codes.map {|code_set, codes| "#{code_set}: #{codes.join(', ')}"}.join(' ')
   end
