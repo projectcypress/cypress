@@ -3,17 +3,27 @@ Cypress::Application.routes.draw do
   devise_for :users
 
   resources :vendors do
-    resources :tests do
-      resources :patients
-      resources :measures do
-        member do
-          get 'patients'
-        end
+    resources :patients
+    resources :measures do
+      member do
+        get 'patients'
       end
+    end
+    member do
+      get 'zipccr'
+      get 'zipc32'
+      get 'upload_pqri'
+      post 'process_pqri'
+      delete 'delete_note'
+      post 'add_note'
     end
   end
 
-  resources :patients
+  resources :patients do
+    get 'zipccr', :on => :collection
+    get 'zipc32', :on => :collection
+    get 'table', :on => :collection
+  end
 
   root :to => "vendors#index"
 

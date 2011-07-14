@@ -2,7 +2,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
       <% poll_for_updates = false %>
-      <% @results.each do |result| %>
+      <% @vendor.expected_results.each do |result| %>
       <%   if result['numerator']=='?' %>
       <%     poll_for_updates = true %>
       <%   end %>
@@ -18,49 +18,53 @@
 
   <div>
     <section class="tb">
-      <a href="#" class="cmd">Export Report</a>
+      <%= link_to "Edit Profile", edit_vendor_path, {:class=>"cmd"} %>
+      <%= link_to "Upload Results", upload_pqri_vendor_path, {:class=>"cmd"} %>
+      <%= link_to "Download C32s", zipc32_vendor_path, {:class=>"cmd"} %>
+      <%= link_to "Download CCRs", zipccr_vendor_path, {:class=>"cmd"} %>
       <nav class="breadcrumb">
-        <a href="<%= vendors_path %>">Home</a> &raquo;
-        <a href="<%= vendors_path %>">Certification Test Bed</a> &raquo;
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
         <span><%= @vendor.name %></span>
       </nav>
     </section>
     <section class="candidate">
       
-      <dl>
-        <dt class="vendor">Candidate EHR:</dt> <dd class="vendor"><%= @vendor.name %></dd>
-        <dt>url:</dt> <dd><a href="#">www.vendor_url_here.com</a></dd>
+      <dl class="vendor">
+        <dt>Candidate EHR:</dt> <dd><%= @vendor.name %></dd>
+        <dt>url:</dt> <dd><%= link_to @vendor.url, @vendor.url %></dd>
       </dl>
       
       <dl>
         <dt>EHR POC:</dt> <dd><%= @vendor.poc %></dd>
-        <dt>E-mail:</dt>  <dd>vendor_email@vendor.com</dd>
+        <dt>E-mail:</dt>  <dd><%= @vendor.email %></dd>
         <dt>Phone:</dt>   <dd><%= @vendor.tel %></dd>
       </dl>
-      <a href="prev_vendor.html" title="See the previous vendor" class="nav previous">previous vendor</a> <a href="next_vendor.html" title="See the next vendor" class="nav advance">next vendor</a>
+      <dl>
+        <dt>Proctor:</dt> <dd><%= @vendor.proctor %></dd>
+        <dt>E-mail:</dt>  <dd><%= @vendor.proctor_email %></dd>
+        <dt>Phone:</dt>   <dd><%= @vendor.proctor_tel %></dd>
+      </dl>
     </section>
 
     <section class="records">
-      <dl class="wide" >
-        <dt>Total # of Records:</dt> <dd>1,000
-        <dt>Error Threshold:</dt> <dd>20%
-      </dl>
-      <dl>
-        <dt>Test Mode:</dt> <dd>Production
-        <dt>Record Type:</dt> <dd> C32/CCD
-      </dl>
-      <dl>
-        <dt>Labs:</dt><dd>LOINC
-        <dt>Conditions:</dt><dd>SNOMED
-      </dl>
-      <dl class="notes">
-        <dt>Notes:</dt>
-        <dd><textarea rows="1" cols="80"></textarea><br />
-        <time datetime="2011-03-24">03/24/3011</time> This is a note from an earlier entry.
-      </dl>
+        <label>Notes</label>:
+        <% note = Note.new %>
+        <%= simple_form_for note, :url => add_note_vendor_path do |f| %>
+          <%= f.input_field :text, :as => :text, :rows => 1, :columns => 80 %>
+          <%= f.button :submit, :value => 'add' %>
+        <% end %>
+        <% if @vendor.notes %>
+          <% @vendor.notes.each do |note| %>
+            <time datetime="<%= note.time.strftime('%Y-%m-%d') %>"><%= note.time.strftime('%m/%d/%Y') %></time>: 
+            <%= note.text %><!-- <a href="#">edit</a> -->
+            <%= button_to 'delete', {:action=>'delete_note', :id=>@vendor.id, "note[id]"=>note.id}, :method=>:delete, :confirm=>'Are you sure?' %>
+            <br/>
+          <% end %>
+        <% end %>
     </section>
     <section id="quality_measures">
       <table>
+        <% if @vendor.failing_measures.size > 0 %>
         <thead>
           <tr>
             <th colspan="2"><span class='fail'>Failing</span> Measures</th>
@@ -70,16 +74,24 @@
           </tr>
         </thead>
         <tbody class="fail">
-          <% @measures.each_with_index do |measure, i| %>
+          <% @vendor.failing_measures.each do |measure| %>
+            <% expected_result = @vendor.expected_result(measure) %>
+            <% reported_result = @vendor.reported_result(measure.key) %>
           <tr id='<%= "#{measure.id}" %>'>
 
             <%# =====================
             If the % failure is known then display <div class="fail"
             if the % failure is unknown then display <div class="na"
             ====================== %>
-            <td><div title="0%" class="fail">0%</div></td>
+            <td>
+              <% if reported_result['denominator'].class==String || expected_result['denominator'].class==String %>
+                <div title="Insufficient Info" class="na">Insufficient Info</div>
+              <% else %>
+                <div title="0%" class="fail">0%</div>
+              <% end %>
+            </td>
 
-            <td><a href="<%= vendor_test_measure_path(@vendor, @test, measure) %>">
+            <td><a href="<%= vendor_measure_path(@vendor, measure) %>">
               <%= "NQF#{measure['id']}#{measure.sub_id} " %>
               <%= measure.name %>
               <%= " - #{measure.subtitle}" if measure.sub_id %></a>
@@ -91,28 +103,24 @@
             if <reported> has no value, then display <span class="na">
             if <reported> == <expected> then display <span> without a class
             ====================== %>
-            <td><span class="na">--</span> <span class="q den">/ <%= @results[i]['denominator'] %></span></td>
-            <td><span class="na">--</span> <span class='q num'>/ <%= @results[i]['numerator'] %></span></td>
-            <td><span class="na">--</span> <span class="q exc">/ <%= @results[i]['exclusions'] %></span></td>
+            <td>
+              <span class="<%= result_class(expected_result, reported_result, 'denominator') %>"><%= reported_result['denominator'] %></span>
+              <span class="q den">/ <%= expected_result['denominator'] %></span>
+            </td>
+            <td>
+              <span class="<%= result_class(expected_result, reported_result, 'numerator') %>"><%= reported_result['numerator'] %></span>
+              <span class='q num'>/ <%= expected_result['numerator'] %></span>
+            </td>
+            <td>
+              <span class="<%= result_class(expected_result, reported_result, 'exclusions') %>"><%= reported_result['exclusions'] %></span>
+              <span class="q exc">/ <%= expected_result['exclusions'] %></span>
+            </td>
           </tr>
           <% end %>
-          <%# ======================
-          Pattern for remaining rows %>
-<!--      <tr>
-            <td><div title="24%" class="fail">24%</div></td>
-            <td><a href="quality_measure.html" title="Low Back Pain Use of Imaging">0002 Low Back Pain Use of Imaging</a></td>
-            <td><span>523</span> <span class="q">/ 523</span></td>
-            <td><span class="f">275</span> <span class="q">/ 314</span></td>
-            <td><span>10</span> <span class="q">/ 10</span></td>
-          </tr>
-          <tr>
-            <td><div title="Insufficient info" class="na">n/a</div></td>
-            <td><a href="quality_measure.html" title="Asthama Assessment">0004(a) Asthama Assessment</a></td>
-            <td><span>314</span> <span class="q">/ 314</span></td>
-            <td><span class="na">--</span> <span class="q">/ 234</span></td>
-            <td><span>34</span> <span class="q">/ 34</span></td>
-          </tr>
         </tbody>
+        <% end %>
+        
+        <% if @vendor.passing_measures.size > 0 %>
         <thead>
           <tr>
             <th colspan="2"><span class='pass'>Passing</span> Measures</th>
@@ -122,17 +130,39 @@
           </tr>
         </thead>
 
-          <tbody class="pass">
-          <tr>
-            <td><div title="Pass" class="pass">Pass</div></td>
-            <td><a href="quality_measure.html" title="Breast Cancer Screening">0024(h) Breast Cancer Screening</a></td>
-            <td><span>388</span> <span class="q">/ 303</span></td>
-            <td><span>303</span> <span class="q">/ 303</span></td>
-            <td><span>11 <span class="q">/ 11</span></td>
+        <tbody class="pass">
+          <% @vendor.passing_measures.each do |measure| %>
+            <% expected_result = @vendor.expected_result(measure) %>
+            <% reported_result = @vendor.reported_result(measure.key) %>
+          <tr id='<%= "#{measure.id}" %>'>
+
+            <td>
+              <div title="Pass" class="pass">Pass</div>
+            </td>
+
+            <td><a href="<%= vendor_measure_path(@vendor, measure) %>">
+              <%= "NQF#{measure['id']}#{measure.sub_id} " %>
+              <%= measure.name %>
+              <%= " - #{measure.subtitle}" if measure.sub_id %></a>
+            </td>
+            
+            <td>
+              <span class=""><%= reported_result['denominator'] %></span>
+              <span class="q den">/ <%= expected_result['denominator'] %></span>
+            </td>
+            <td>
+              <span class=""><%= reported_result['numerator'] %></span>
+              <span class='q num'>/ <%= expected_result['numerator'] %></span>
+            </td>
+            <td>
+              <span class=""><%= reported_result['exclusions'] %></span>
+              <span class="q exc">/ <%= expected_result['exclusions'] %></span>
+            </td>
           </tr>
+          <% end %>
         </tbody>
--->
-        </tbody>
+        <% end %>
+
       </table>
     </section>
       <section class="legend">

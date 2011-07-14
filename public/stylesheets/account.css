@@ -1,7 +1,6 @@
 a.bluebutton, a.whitebutton {
   background: transparent url('/images/blue_right.png') no-repeat scroll top right;
   color: #787878;
-  color: red;
   display: inline-block;
   font-weight: bold;
   font-size: 10px;
@@ -26,17 +25,17 @@ a.whitebutton span {
   padding: 8px 10px 8px 28px;
 }
 a.whitebutton span { background: transparent url('/images/white_left.png') no-repeat; }
-.bluebutton:active { outline: none; }
-.whitebutton.active { outline: none; }
-a.whitebutton:active {
+.bluebutton:active {
   position: relative;
   top: 1px;
   left: 1px;
+  outline: none;
 }
-a.bluebutton:active {
+.whitebutton.active {
   position: relative;
   top: 1px;
   left: 1px;
+  outline: none;
 }
 body.login { background: url(/images/fabric_1.png) 0 0 repeat; }
 div#cap-top {
