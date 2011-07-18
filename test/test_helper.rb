@@ -17,3 +17,7 @@ class ActiveSupport::TestCase
     end
   end
 end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
+end

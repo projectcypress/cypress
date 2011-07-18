@@ -1,1 +1,0 @@
-require 'c32_export'

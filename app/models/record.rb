@@ -1,7 +1,6 @@
 class Record
 
   include Mongoid::Document
-  include C32Export
   
   field :first, type: String
   field :last, type: String

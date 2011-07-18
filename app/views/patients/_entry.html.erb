@@ -1,5 +1,5 @@
 <tr>
-  <td><%= code_display(entry.codes)%></td>
+  <td><%= entry.codes_to_s %></td>
   <td><%= entry.description %></td>
   <td><%# There will be more complex logic to hilight values -%>
     <% if entry.value.present? -%>
