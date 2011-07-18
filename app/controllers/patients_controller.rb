@@ -14,13 +14,12 @@ class PatientsController < ApplicationController
       @selected = @measures[0]
     end
     @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected)
-      
     respond_to do |format|
       format.json { render :json => @result }
       format.html
     end
   end
-  
+
   def table
     @measures = Measure.installed
     if params[:measure_id]
@@ -38,8 +37,8 @@ class PatientsController < ApplicationController
     end
     @patients = @patients.order_by([
       ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
-  end  
-  
+  end
+
   def zipc32
     t = Tempfile.new("patients-#{Time.now}")
     patients = Record.where("test_id" => nil)
