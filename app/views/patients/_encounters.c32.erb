@@ -7,8 +7,8 @@
     <!--Encounters section template-->
     <code code="46240-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="History of encounters"/>
     <title>Encounters</title>
-    <%= render :partial => 'narrative_block', :locals => {:entries => entries} %>
-    <% entries.each do |entry| -%>
+    <%= render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'encouners'} %>
+    <% entries.each_with_index do |entry, i| -%>
     <entry typeCode="DRIV">
       <encounter classCode="ENC" moodCode="EVN">
         <templateId root="2.16.840.1.113883.3.88.11.83.16" assigningAuthorityName="HITSP C83"/>
@@ -17,7 +17,8 @@
         <!-- Encounter activity template -->
         <id root="2a620155-9d11-439e-92b3-5d9815ff4de8"/>
         <%= raw code_display(entry) %>
-        <text>IHE Requires reference to go here instead of originalText of code.<reference/>
+        <text>
+          <reference value="#encounters-desc-<%= i %>"/>
         </text>
         <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
       </encounter>
