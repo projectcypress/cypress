@@ -47,4 +47,10 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal({"SNOMED-CT" => ["225171007"]}, vital.codes)
     assert_equal "26", vital.value[:scalar]
   end
+  
+  test "procedures" do
+    procedure = @patient[:procedures][0]
+    assert_equal 1273150428, procedure.time
+    assert_equal({"SNOMED-CT" => ["171055003"]}, procedure.codes)
+  end
 end
