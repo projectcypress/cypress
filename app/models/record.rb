@@ -49,7 +49,7 @@ class Record
         #to_ccr_medical_equipments(xml)
         #to_ccr_social_histories(xml)
         to_ccr_procedures(xml)
-        #to_ccr_allergies(xml)
+        to_ccr_allergies(xml)
         #to_ccr_care_goals(xml)
       end
       to_ccr_actors(xml)
@@ -264,6 +264,47 @@ class Record
             end
             xml.Status do
               xml.Text("Active")
+            end
+          end
+        end
+      end
+    end
+  end
+
+  def to_ccr_allergies(xml = nil)
+    xml ||= Builder::XmlMarkup.new(:indent => 2)
+    if (!allergies.nil? && !allergies.empty?)
+      xml.Alerts do
+        allergies.each_with_index do |allergy, index|
+          xml.Alert do
+            xml.CCRDataObjectID("AL000" + (index+1).to_s)
+            xml.DateTime do
+              xml.Type do
+                xml.Text("Initial Occurrence")
+              end
+              #time
+              xml.ExactDateTime(convert_to_ccr_time_string(allergy.time))
+            end
+            xml.Type do
+              xml.Text("Allergy")
+            end
+            xml.Description do
+              xml.Text(allergy.description)
+              if (!allergy.codes.nil? && !allergy.codes.empty?)
+                allergy.codes.each_pair do |code_set, coded_values|
+                  xml.Code do
+                    coded_values.each do |coded_value|
+                      xml.Value(coded_value)
+                      xml.CodingSystem(code_set)
+                      #TODO: Need to fix this and not be a hard-coded value
+                      xml.Version("2005")
+                    end
+                  end
+                end
+              end
+            end
+            xml.Status do
+              xml.Text("Current")
             end
           end
         end

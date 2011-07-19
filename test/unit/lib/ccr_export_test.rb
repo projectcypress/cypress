@@ -60,18 +60,16 @@ class CCRExportTest < ActiveSupport::TestCase
 
     # problems
     assert_equal '160603005', doc.at_xpath('//ccr:Problems/ccr:Problem/ccr:Description/ccr:Code/ccr:Value').text
-
     # vital sign
-    assert_equal '160603005', doc.at_xpath('//ccr:VitalSigns/ccr:Result/ccr:Description/ccr:Code/ccr:Value').text
-
+    assert_equal '225171007', doc.at_xpath('//ccr:VitalSigns/ccr:Result/ccr:Description/ccr:Code/ccr:Value').text
     # lab results
     assert_equal '439958008', doc.at_xpath('//ccr:Results/ccr:Result/ccr:Description/ccr:Code/ccr:Value').text
-
     # procedure
     assert_equal '171055003', doc.at_xpath('//ccr:Procedures/ccr:Procedure/ccr:Description/ccr:Code/ccr:Value').text
-
     # encounter
     assert_equal '99201', doc.at_xpath('//ccr:Encounters/ccr:Encounter/ccr:Description/ccr:Code/ccr:Value').text
+    # allergy
+    assert_equal '70618', doc.at_xpath('//ccr:Alerts/ccr:Alert/ccr:Description/ccr:Code/ccr:Value').text
   end
 
 end
