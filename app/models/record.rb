@@ -42,8 +42,8 @@ class Record
       xml.body do
         to_ccr_problems(xml)
         to_ccr_vitals(xml)
-        #to_ccr_results(xml)
-        #to_ccr_encounters(xml)
+        to_ccr_results(xml)
+        to_ccr_encounters(xml)
         #to_ccr_medications(xml)
         #to_ccr_immunizations(xml)
         #to_ccr_medical_equipments(xml)
@@ -58,9 +58,9 @@ class Record
 
   private
 
-  # Builds the XML snippet for a problems section inside the CCR standard
+  # Builds the XML snippet for the problems section inside the CCR standard
   #
-  # @return [Builder::XmlMarkup] C32 XML representation of patient data
+  # @return [Builder::XmlMarkup] CCR XML representation of patient data
   def to_ccr_problems(xml = nil)
     xml ||= Builder::XmlMarkup.new(:indent => 2)
     if (!conditions.nil? && !conditions.empty?)
@@ -108,9 +108,55 @@ class Record
     end
   end
 
-  # Builds the XML snippet for a problems section inside the CCR standard
+  # Builds the XML snippet for the encounters section inside the CCR standard
   #
-  # @return [Builder::XmlMarkup] C32 XML representation of patient data
+  # @return [Builder::XmlMarkup] CCR XML representation of patient data
+  def to_ccr_encounters(xml = nil)
+    xml ||= Builder::XmlMarkup.new(:indent => 2)
+    if (!encounters.nil? && !encounters.empty?)
+      xml.Encounters do
+        encounters.each_with_index do |encounter, index|
+          xml.Encounter do
+            xml.CCRDataObjectID("EN000" + (index+1).to_s)
+            xml.DateTime do
+              xml.Type do
+                xml.Text("Encounter Date")
+              end
+              #time
+              xml.ExactDateTime(convert_to_ccr_time_string(encounter.time))
+            end
+            xml.Description do
+              xml.Text(encounter.description)
+              xml.Code do
+                if (!encounter.codes.nil? && !encounter.codes.empty?)
+                  encounter.codes.each_pair do |code_set, coded_values|
+                    coded_values.each do |coded_value|
+                      xml.Value(coded_value)
+                      xml.CodingSystem(code_set)
+                      #TODO: Need to fix this and not be a hard-coded value
+                      xml.Version("2005")
+                    end
+                  end
+                end
+              end
+            end
+            xml.Status do
+              xml.Text("Active")
+            end
+            xml.Source do
+              xml.Actor do
+                xml.ActorID(id)
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
+  # Builds the XML snippet for the vitals section inside the CCR standard
+  #
+  # @return [Builder::XmlMarkup] CCR XML representation of patient data
   def to_ccr_vitals(xml = nil)
     xml ||= Builder::XmlMarkup.new(:indent => 2)
     if (!vital_signs.nil? && !vital_signs.empty?)
@@ -146,27 +192,27 @@ class Record
     end
   end
 
-  # Builds the XML snippet for a procedures section inside the CCR standard
+  # Builds the XML snippet for the lab section inside the CCR standard
   #
-  # @return [Builder::XmlMarkup] C32 XML representation of patient data
-  def to_ccr_procedures(xml = nil)
+  # @return [Builder::XmlMarkup] CCR XML representation of patient data
+  def to_ccr_results(xml = nil)
     xml ||= Builder::XmlMarkup.new(:indent => 2)
-    if (!procedures.nil? && !procedures.empty?)
-      xml.VitalSigns do
-        procedures.each_with_index do |procedure, index|
+    if (!results.nil? && !results.empty?)
+      xml.Results do
+        results.each_with_index do |lab_result, index|
           xml.Result do
-            xml.CCRDataObjectID("PR000" + (index+1).to_s)
+            xml.CCRDataObjectID("LB000" + (index+1).to_s)
             xml.DateTime do
               xml.Type do
                 xml.Text("Start date")
               end
               #time
-              xml.ExactDateTime(convert_to_ccr_time_string(procedure.time))
+              xml.ExactDateTime(convert_to_ccr_time_string(lab_result.time))
             end
             xml.Description do
-              xml.Text(procedure.description)
-              if (!procedure.codes.nil? && !procedure.codes.empty?)
-                procedure.codes.each_pair do |code_set, coded_values|
+              xml.Text(lab_result.description)
+              if (!lab_result.codes.nil? && !lab_result.codes.empty?)
+                lab_result.codes.each_pair do |code_set, coded_values|
                   xml.Code do
                     coded_values.each do |coded_value|
                       xml.Value(coded_value)
@@ -184,9 +230,50 @@ class Record
     end
   end
 
+  # Builds the XML snippet for the procedures section inside the CCR standard
+  #
+  # @return [Builder::XmlMarkup] CCR XML representation of patient data
+  def to_ccr_procedures(xml = nil)
+    xml ||= Builder::XmlMarkup.new(:indent => 2)
+    if (!procedures.nil? && !procedures.empty?)
+      xml.Procedures do
+        procedures.each_with_index do |procedure, index|
+          xml.Procedure do
+            xml.CCRDataObjectID("PR000" + (index+1).to_s)
+            xml.DateTime do
+              xml.Type do
+                xml.Text("Service date")
+              end
+              #time
+              xml.ExactDateTime(convert_to_ccr_time_string(procedure.time))
+            end
+            xml.Description do
+              xml.Text(procedure.description)
+              if (!procedure.codes.nil? && !procedure.codes.empty?)
+                procedure.codes.each_pair do |code_set, coded_values|
+                  xml.Code do
+                    coded_values.each do |coded_value|
+                      xml.Value(coded_value)
+                      xml.CodingSystem(code_set)
+                      #TODO: Need to fix this and not be a hard-coded value
+                      xml.Version("2008")
+                    end
+                  end
+                end
+              end
+            end
+            xml.Status do
+              xml.Text("Active")
+            end
+          end
+        end
+      end
+    end
+  end
+
   # Builds the XML snippet for a actors section inside the CCR standard
   #
-  # @return [Builder::XmlMarkup] C32 XML representation of patient data
+  # @return [Builder::XmlMarkup] CCR XML representation of patient data
   def to_ccr_actors(xml = nil)
     xml ||= Builder::XmlMarkup.new(:indent => 2)
     xml.Actors do
@@ -220,7 +307,7 @@ class Record
 
   # Builds the XML snippet for a purpose section inside the CCR standard
   #
-  # @return [Builder::XmlMarkup] C32 XML representation of patient data
+  # @return [Builder::XmlMarkup] CCR XML representation of patient data
   def to_ccr_purpose(xml = nil)
     xml ||= Builder::XmlMarkup.new(:indent => 2)
     xml.Purpose do
