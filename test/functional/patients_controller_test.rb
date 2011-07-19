@@ -34,4 +34,16 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 1267322332, encounter.time
     assert_equal({"CPT" => ["99201"]}, encounter.codes)
   end
+  
+  test "conditions" do
+    sign_in :user, User.first(:conditions => {:email => 'bobby@tables.org'})
+    get(:show, {:id => '4dcbecdb431a5f5878000004', :format => 'c32'})
+    assert_response :success
+    doc = Nokogiri::XML(response.body)
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    patient = @pi.create_c32_hash(doc)
+    condition = patient[:conditions][0]
+    assert_equal 1269776601, condition.time
+    assert_equal({"SNOMED-CT" => ["160603005"]}, condition.codes)
+  end
 end
