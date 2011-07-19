@@ -61,6 +61,9 @@
       <% if @patient.conditions.present? -%>
         <%= render :partial => 'conditions', :locals => {:entries => @patient.conditions} %>
       <% end -%>
+      <% if @patient.vital_signs.present? -%>
+        <%= render :partial => 'vital_signs', :locals => {:entries => @patient.vital_signs} %>
+      <% end -%>
     </structuredBody>
   </component>
 </ClinicalDocument>
