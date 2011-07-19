@@ -13,13 +13,13 @@
       <act classCode="ACT" moodCode="EVN">
         <templateId root="2.16.840.1.113883.10.20.1.27"/>
         <!-- Problem act template -->
-        <id root="6a2fa88d-4174-4909-aece-db44b60a3abb"/>
+        <id root="<%= UUID.generate %>"/>
         <code nullFlavor="NA"/>
         <entryRelationship typeCode="SUBJ">
           <observation classCode="OBS" moodCode="EVN">
             <templateId root="2.16.840.1.113883.10.20.1.28" assigningAuthorityName="CCD"/>
             <!--Problem observation template - NOT episode template-->
-            <id root="d11275e7-67ae-11db-bd13-0800200c9a66"/>
+            <id root="<%= UUID.generate %>"/>
             <code code="64572001" displayName="Condition" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
             <text>
               <reference value="#conditions-desc-<%= i %>"/>

@@ -15,7 +15,7 @@
         <templateId root="2.16.840.1.113883.10.20.1.35" assigningAuthorityName="CCD"/>
         <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.13.1" assigningAuthorityName="IHE PCC"/>
         <!-- Vital signs organizer template -->
-        <id root="c6f88320-67ad-11db-bd13-0800200c9a66"/>
+        <id root="<%= UUID.generate %>"/>
         <code code="46680005" codeSystem="2.16.840.1.113883.6.96" displayName="Vital signs" codeSystemName="SNOMED CT"/>
         <statusCode code="completed"/>
         <effectiveTime value="19991114"/>
@@ -25,7 +25,7 @@
             <templateId root="2.16.840.1.113883.3.88.11.83.14" assigningAuthorityName="HITSP C83"/>
             <templateId root="2.16.840.1.113883.10.20.1.31" assigningAuthorityName="CCD"/>
             <!-- Result observation template -->
-            <id root="c6f88321-67ad-11db-bd13-0800200c9a66"/>
+            <id root="<%= UUID.generate %>"/>
             <%= raw code_display(entry) %>
             <text>
               <reference value="vitals-desc-<%= i %>"/>
