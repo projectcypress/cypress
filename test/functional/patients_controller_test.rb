@@ -53,4 +53,10 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 1273150428, procedure.time
     assert_equal({"SNOMED-CT" => ["171055003"]}, procedure.codes)
   end
+  
+  test "results" do
+    result = @patient[:results][0]
+    assert_equal 1257901150, result.time
+    assert_equal({"SNOMED-CT" => ["439958008"]}, result.codes)
+  end
 end
