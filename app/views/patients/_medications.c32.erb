@@ -1,0 +1,32 @@
+<component>
+  <!--Medications-->
+  <section>
+    <templateId root="2.16.840.1.113883.10.20.1.8" assigningAuthorityName="HL7 SDTC CCD"/>
+    <templateId root="2.16.840.1.113883.3.88.11.83.112" assigningAuthorityName="HITSP"/>
+    <templateId root="1.3.6.1.4.1.19376.1.5.3.1.3.19" assigningAuthorityName="IHE"/>
+    <code code="10160-0" displayName="History of medication use" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+    <title>Medications - Prescription and Non-Prescription</title>
+    <%= render :partial => 'narrative_block', :locals => {:entries => entries, :section => 'medications'} %>
+    <% entries.each do |entry| -%>
+    <entry>
+      <!--CCD Medication activity - Required-->
+      <substanceAdministration classCode="SBADM" moodCode="EVN">
+        <templateId root="2.16.840.1.113883.10.20.1.24" assigningAuthorityName="HL7 SDTC CCD"/>
+        <id root="<%= UUID.generate %>"/>
+        <statusCode code="<%= status_code_for(entry) %>"/>
+        <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+        <consumable>
+          <!--CCD Product - Required-->
+          <manufacturedProduct classCode="MANU">
+            <templateId root="2.16.840.1.113883.10.20.1.53" assigningAuthorityName="HL7 SDTC CCD"/>
+            <manufacturedMaterial>
+              <%= raw code_display(entry) %>
+              <name><%= entry.description %></name>
+            </manufacturedMaterial>
+          </manufacturedProduct>
+        </consumable>
+      </substanceAdministration>
+    </entry>
+    <% end -%>
+  </section>
+</component>
