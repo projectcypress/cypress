@@ -53,7 +53,7 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 1273150428, procedure.time
     assert_equal({"SNOMED-CT" => ["171055003"]}, procedure.codes)
   end
-  
+
   test "results" do
     result = @patient[:results][0]
     assert_equal 1257901150, result.time
@@ -64,5 +64,11 @@ class PatientsControllerTest < ActionController::TestCase
     immunization = @patient[:immunizations][0]
     assert_equal 1264529050, immunization.time
     assert_equal({"RxNorm" => ["854931"]}, immunization.codes)
+  end
+  
+  test "medications" do
+    medication = @patient[:medications][0]
+    assert_equal 1271810257, medication.time
+    assert_equal({"RxNorm" => ["105075"]}, medication.codes)
   end
 end
