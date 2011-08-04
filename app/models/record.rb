@@ -45,12 +45,9 @@ class Record
         to_ccr_results(xml)
         to_ccr_encounters(xml)
         to_ccr_medications(xml)
-        #to_ccr_immunizations(xml)
-        #to_ccr_medical_equipments(xml)
-        #to_ccr_social_histories(xml)
+        to_ccr_immunizations(xml)
         to_ccr_procedures(xml)
         to_ccr_allergies(xml)
-        #to_ccr_care_goals(xml)
       end
       to_ccr_actors(xml)
     end
@@ -229,6 +226,60 @@ class Record
                 xml.Code do
                   if (!medication.codes.nil? && !medication.codes.empty?)
                     medication.codes.each_pair do |code_set, coded_values|
+                      coded_values.each do |coded_value|
+                        xml.Value(coded_value)
+                        xml.CodingSystem(code_set)
+                        #TODO: Need to fix this and not be a hard-coded value
+                        xml.Version("2005")
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
+  # Builds the XML snippet for the medications section inside the CCR standard
+  #
+  # @return [Builder::XmlMarkup] CCR XML representation of patient data
+  def to_ccr_immunizations(xml = nil)
+    xml ||= Builder::XmlMarkup.new(:indent => 2)
+    if (!immunizations.nil? && !immunizations.empty?)
+      xml.Immunizations do
+        immunizations.each_with_index do |immunization, index|
+          xml.Immunization do
+            xml.CCRDataObjectID("IM000" + (index+1).to_s)
+            xml.DateTime do
+              xml.Type do
+                xml.Text("Prescription Date")
+              end
+              #time
+              xml.ExactDateTime(convert_to_ccr_time_string(immunization.time))
+            end
+            xml.Type do
+              xml.Text("Immunization")
+            end
+            xml.Status do
+              xml.Text("Active")
+            end
+            xml.Source do
+              xml.Actor do
+                xml.ActorID(id)
+              end
+            end
+            xml.Product do
+              xml.ProductName do
+                xml.Text(immunization.description)
+              end
+              xml.BrandName do
+                xml.Text(immunization.description)
+                xml.Code do
+                  if (!immunization.codes.nil? && !immunization.codes.empty?)
+                    immunization.codes.each_pair do |code_set, coded_values|
                       coded_values.each do |coded_value|
                         xml.Value(coded_value)
                         xml.CodingSystem(code_set)
