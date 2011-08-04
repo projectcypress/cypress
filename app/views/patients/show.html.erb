@@ -118,6 +118,24 @@
         </tr>
         <%= render :partial => 'entry', :collection => @patient.medications %>
         </tbody>
+        <tbody>
+        <tr>
+          <th colspan="5">Social History</th>
+        </tr>
+        <%= render :partial => 'entry', :collection => @patient.social_history %>
+        </tbody>
+        <tbody>
+        <tr>
+          <th colspan="5">Immunizations</th>
+        </tr>
+        <%= render :partial => 'entry', :collection => @patient.immunizations %>
+        </tbody>
+        <tbody>
+        <tr>
+          <th colspan="5">Medical Equipment</th>
+        </tr>
+        <%= render :partial => 'entry', :collection => @patient.medical_equipment %>
+        </tbody>
       </table>
     </section>
     <footer id="ccattribution">
