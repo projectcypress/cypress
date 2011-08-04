@@ -55,6 +55,9 @@
       <% if @patient.allergies.present? -%>
         <%= render :partial => 'allergies', :locals => {:entries => @patient.allergies} %>
       <% end -%>
+      <% if @patient.medications.present? -%>
+        <%= render :partial => 'medications', :locals => {:entries => @patient.medications} %>
+      <% end -%>
       <% if @patient.encounters.present? -%>
         <%= render :partial => 'encounters', :locals => {:entries => @patient.encounters} %>
       <% end -%>
