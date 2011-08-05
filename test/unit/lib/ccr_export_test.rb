@@ -16,16 +16,16 @@ class CCRExportTest < ActiveSupport::TestCase
     # CCR against an ASTM CCR Schema file if present
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', 'records', '*.json')).each do |json_fixture_file|
 
-      # grab each JSON fixture
+      # grab each JSON fixture...
       fixture_json = JSON.parse(File.read(json_fixture_file))
       patient_record = Record.new(fixture_json)
 
-      # load the XML associated with that fixture into Nokogiri
+      #... load the XML associated with that fixture into Nokogiri...
       xml = Builder::XmlMarkup.new(:indent => 2)
       xml.instruct!
       doc = Nokogiri::XML(patient_record.to_ccr(xml))
 
-      # if we have a CCR XSD file check if it is a valid CCR XML file
+      #... if we have a CCR XSD file check if it is a valid CCR XML file
       if (File.exists?("config/ccr.xsd"))
         #todo: Perform XML Schema validation
       else
@@ -70,6 +70,10 @@ class CCRExportTest < ActiveSupport::TestCase
     assert_equal '99201', doc.at_xpath('//ccr:Encounters/ccr:Encounter/ccr:Description/ccr:Code/ccr:Value').text
     # allergy
     assert_equal '70618', doc.at_xpath('//ccr:Alerts/ccr:Alert/ccr:Description/ccr:Code/ccr:Value').text
+    # medication
+    assert_equal '105075', doc.at_xpath('//ccr:Medications/ccr:Medication/ccr:Product/ccr:BrandName/ccr:Code/ccr:Value').text
+    # immunization
+    assert_equal '854931', doc.at_xpath('//ccr:Immunizations/ccr:Immunization/ccr:Product/ccr:BrandName/ccr:Code/ccr:Value').text
   end
 
 end
