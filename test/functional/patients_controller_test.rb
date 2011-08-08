@@ -71,4 +71,10 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 1271810257, medication.time
     assert_equal({"RxNorm" => ["105075"]}, medication.codes)
   end
+  
+  test "care goals" do
+    care_goal = @patient[:care_goals][0]
+    assert_equal 1278043200, care_goal.time
+    assert_equal({"CPT" => ["97804"]}, care_goal.codes)
+  end
 end
