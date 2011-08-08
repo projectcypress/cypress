@@ -44,5 +44,21 @@ module PatientsHelper
       '413322009'
     end
   end
+  
+  def patient_picture(patient)
+    if patient.gender == 'M'
+      if patient.over_18?
+        '/images/dad.jpg'
+      else
+        '/images/boy.jpg'
+      end
+    else
+      if patient.over_18?
+        '/images/woman.jpg'
+      else
+        '/images/girl.jpg'
+      end
+    end
+  end
 
 end
