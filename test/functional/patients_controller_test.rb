@@ -83,4 +83,10 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 1265778000, social_history.time
     assert_equal({"ICD-9-CM" => ["250"]}, social_history.codes)
   end
+  
+  test "medical equipment" do
+    medical_equipment = @patient[:medical_equipment][0]
+    assert_equal 1279252800, medical_equipment.time
+    assert_equal({"SNOMED-CT" => ["56961003"]}, medical_equipment.codes)
+  end
 end

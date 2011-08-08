@@ -82,6 +82,9 @@
       <% if @patient.social_history.present? -%>
         <%= render :partial => 'social_history', :locals => {:entries => @patient.social_history} %>
       <% end -%>
+      <% if @patient.medical_equipment.present? -%>
+        <%= render :partial => 'medical_equipment', :locals => {:entries => @patient.medical_equipment} %>
+      <% end -%>
     </structuredBody>
   </component>
 </ClinicalDocument>
