@@ -21,6 +21,7 @@
         <state>MA</state>
         <postalCode>01730</postalCode>
       </addr>
+      <telecom value="tel:+1-781-271-3000"/>
       <patient>
         <name>
           <given><%= @patient.first %></given>
@@ -50,6 +51,21 @@
       </representedOrganization>
     </assignedAuthor>
   </author>
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+        <id/>
+        <name>Cypress</name>
+        <telecom value="tel:+1-781-271-3000"/>
+        <addr>
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+        </addr>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
   <component>
     <structuredBody>
       <% if @patient.allergies.present? -%>

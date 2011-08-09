@@ -13,7 +13,7 @@
       <substanceAdministration classCode="SBADM" moodCode="EVN">
         <templateId root="2.16.840.1.113883.10.20.1.24" assigningAuthorityName="HL7 SDTC CCD"/>
         <id root="<%= UUID.generate %>"/>
-        <statusCode code="<%= status_code_for(entry) %>"/>
+        <statusCode code="55561003"/>
         <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
         <consumable>
           <!--CCD Product - Required-->

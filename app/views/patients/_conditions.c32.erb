@@ -26,7 +26,7 @@
             </text>
             <statusCode code="completed"/>
             <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
-            <%= raw code_display(entry, 'value') %>
+            <%= raw code_display(entry, 'value', 'xsi:type="CE"') %>
             <% if entry.status -%>
             <entryRelationship typeCode="REFR">
               <observation classCode="OBS" moodCode="EVN">
