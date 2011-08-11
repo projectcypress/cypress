@@ -8,6 +8,7 @@ gem 'mongoid', '~> 2.0'
 gem 'devise'
 gem 'simple_form'
 gem 'nokogiri', '~> 1.4.4' 
+gem 'systemu', '~> 2.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

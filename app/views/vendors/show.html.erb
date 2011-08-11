@@ -31,7 +31,7 @@
       
       <dl class="vendor">
         <dt>Candidate EHR:</dt> <dd><%= @vendor.name %></dd>
-        <dt>url:</dt> <dd><%= link_to @vendor.url, @vendor.url %></dd>
+        <dt>url:</dt> <dd><a href="<%= @vendor['url'] %>"><%= @vendor['url'] %></a></dd>
       </dl>
       
       <dl>
