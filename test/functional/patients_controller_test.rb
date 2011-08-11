@@ -37,7 +37,7 @@ class PatientsControllerTest < ActionController::TestCase
   
   test "conditions" do
     condition = @patient[:conditions][0]
-    assert_equal 1269776601, condition.time
+    assert_equal 1269776601, condition.as_point_in_time
     assert_equal({"SNOMED-CT" => ["160603005"]}, condition.codes)
   end
   
