@@ -3,6 +3,6 @@
   code_system_oid = QME::Importer::CodeSystemHelper.oid_for_code_system(entry.codes.first[0])
   -%>
 <code code="<%= code %>" codeSystem="<%= code_system_oid %>">
-  <originalText><reference value="#encounters-desc-<%= i %>"/></originalText>
+  <originalText><reference value="#<%= section %>-desc-<%= i %>"/></originalText>
 </code>
 <% end -%>

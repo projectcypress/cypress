@@ -68,7 +68,7 @@ class PatientsControllerTest < ActionController::TestCase
 
   test "medications" do
     medication = @patient[:medications][0]
-    assert_equal 1271810257, medication.time
+    assert_equal 1271810257, medication.start_time
     assert_equal({"RxNorm" => ["105075"]}, medication.codes)
   end
 
