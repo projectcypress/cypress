@@ -17,6 +17,14 @@
         <!-- Problem act template -->
         <id root="<%= UUID.generate %>"/>
         <code nullFlavor="NA"/>
+        <% if entry.status.eql? 'resolved' -%>
+        <statusCode code="completed"/>
+        <% else -%>
+        <statusCode code="active"/>
+        <% end -%>
+        <effectiveTime>
+          <low value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
+        </effectiveTime>
         <entryRelationship typeCode="SUBJ" inversionInd="false">
           <observation classCode="OBS" moodCode="EVN">
             <templateId root="1.3.6.1.4.1.19376.1.5.3.1.4.5" assigningAuthorityName="IHE PCC"/>
@@ -30,7 +38,6 @@
             <statusCode code="completed"/>
             <effectiveTime>
               <low value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
-              <high nullFlavor="UNK"/>
             </effectiveTime>
             <%= raw code_display(entry, 'value', 'xsi:type="CD"') %>
             <% if entry.status -%>
