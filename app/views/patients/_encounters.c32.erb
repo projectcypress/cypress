@@ -17,6 +17,9 @@
         <!-- Encounter activity template -->
         <id root="<%= UUID.generate %>"/>
         <%= render :partial => 'code_with_reference', :locals => {:entry => entry, :i => i, :section => 'encounters'} %>
+        <text>
+          <reference value="#encounters-desc-<%= i %>"/>
+        </text>
         <effectiveTime value="<%= Time.at(entry.time).utc.to_formatted_s(:number) %>"/>
       </encounter>
     </entry>
