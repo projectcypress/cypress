@@ -36,11 +36,11 @@ module PatientsHelper
   
   def status_code_for(entry)
     case entry.status
-    when :active
+    when 'active'
       '55561003'
-    when :inactive
+    when 'inactive'
       '73425007'
-    when :resolved
+    when 'resolved'
       '413322009'
     end
   end
