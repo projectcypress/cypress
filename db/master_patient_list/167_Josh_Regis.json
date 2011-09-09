@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2455e76917d3900001e",
+  "_id": "4e6a1fc44f85cf351500001e",
   "first": "Josh",
   "patient_id": "167",
   "last": "Regis",
   "gender": "M",
   "birthdate": 866520000,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -103,15 +104,15 @@
         1273032000
       ]
     },
-    "0028": {
-      "encounter_office_visit_encounter": [
-        1273032000
-      ]
-    },
     "0031": {
       "encounter_outpatient_encounter": [
         1285732800,
         1276488000,
+        1273032000
+      ]
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
         1273032000
       ]
     },
@@ -189,13 +190,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1285732800,
-        1276488000,
-        1273032000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1285732800,
         1276488000,
         1273032000
@@ -332,6 +326,13 @@
         1273032000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1285732800,
+        1276488000,
+        1273032000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1285732800,
@@ -435,6 +436,7 @@
         ]
       },
       "time": 1273032000,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -444,6 +446,7 @@
         ]
       },
       "time": 1276488000,
+      "status": "active",
       "description": "asthma"
     },
     {
@@ -514,6 +517,7 @@
         ]
       },
       "time": 1273032000,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -523,6 +527,7 @@
         ]
       },
       "time": 1276488000,
+      "status": "active",
       "description": "asthma"
     },
     {
@@ -627,6 +632,7 @@
         ]
       },
       "time": 1273032000,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -636,6 +642,7 @@
         ]
       },
       "time": 1276488000,
+      "status": "active",
       "description": "asthma"
     }
   ],

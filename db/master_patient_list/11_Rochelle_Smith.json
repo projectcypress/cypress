@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2485e76917d3900003f",
+  "_id": "4e6a1fc74f85cf351500003f",
   "first": "Rochelle",
   "patient_id": "11",
   "last": "Smith",
   "gender": "F",
   "birthdate": -629146800,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -139,16 +140,6 @@
         1264395600
       ]
     },
-    "0028": {
-      "encounter_office_visit_encounter": [
-        1290574800,
-        1273291200,
-        1264395600
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1264395600
-      ]
-    },
     "0031": {
       "breast_cancer_screening_diagnostic_study_performed": [
         1276660800
@@ -156,6 +147,16 @@
       "encounter_outpatient_encounter": [
         1290574800,
         1273291200,
+        1264395600
+      ]
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
+        1290574800,
+        1273291200,
+        1264395600
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1264395600
       ]
     },
@@ -222,13 +223,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1290574800,
-        1273291200,
-        1264395600
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1290574800,
         1273291200,
         1264395600
@@ -566,6 +560,13 @@
         1264395600
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1290574800,
+        1273291200,
+        1264395600
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1290574800,
@@ -723,6 +724,7 @@
         ]
       },
       "time": 1279252800,
+      "status": "active",
       "description": "Bradycardia"
     },
     {
@@ -732,6 +734,7 @@
         ]
       },
       "time": 1279252800,
+      "status": "active",
       "description": "Arrhythmia"
     },
     {
@@ -997,6 +1000,7 @@
         ]
       },
       "time": 1279252800,
+      "status": "active",
       "description": "Bradycardia"
     },
     {
@@ -1006,6 +1010,7 @@
         ]
       },
       "time": 1279252800,
+      "status": "active",
       "description": "Arrhythmia"
     },
     {
@@ -1126,6 +1131,7 @@
         ]
       },
       "time": 1279252800,
+      "status": "active",
       "description": "Bradycardia"
     },
     {
@@ -1135,6 +1141,7 @@
         ]
       },
       "time": 1279252800,
+      "status": "active",
       "description": "Arrhythmia"
     }
   ],

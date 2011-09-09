@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24a5e76917d3900004e",
+  "_id": "4e6a1fc94f85cf351500004e",
   "first": "Mitt",
   "patient_id": "141",
   "last": "Jacobson",
   "gender": "M",
   "birthdate": -301867200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -128,6 +129,14 @@
         1272945600
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1284868800,
+        1281499200,
+        1278820800,
+        1272945600
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1284868800,
@@ -145,14 +154,6 @@
         1272945600
       ],
       "smoking_cessation_agents_medication_order": [
-        1272945600
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1284868800,
-        1281499200,
-        1278820800,
         1272945600
       ]
     },
@@ -177,14 +178,6 @@
         1273809600
       ],
       "colorectal_cancer_diagnosis_active": [
-        1275192000,
-        1275192000
-      ],
-      "colorectal_cancer_diagnosis_inactive": [
-        1275192000,
-        1275192000
-      ],
-      "colorectal_cancer_diagnosis_resolved": [
         1275192000,
         1275192000
       ],
@@ -236,17 +229,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1284868800,
-        1281499200,
-        1278820800,
-        1272945600
-      ]
-    },
-    "0086": {
-      "encounter_domiciliary_encounter": [
-        1275192000
-      ],
-      "encounter_office_outpatient_consult_encounter": [
         1284868800,
         1281499200,
         1278820800,
@@ -496,6 +478,17 @@
         1272945600
       ]
     },
+    "0086": {
+      "encounter_domiciliary_encounter": [
+        1275192000
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1284868800,
+        1281499200,
+        1278820800,
+        1272945600
+      ]
+    },
     "0088": {
       "encounter_domiciliary_encounter": [
         1275192000
@@ -659,6 +652,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -794,6 +788,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Colon Cancer"
     }
   ],
@@ -892,6 +887,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Colon Cancer"
     }
   ],

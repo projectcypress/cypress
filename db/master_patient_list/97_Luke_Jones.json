@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2515e76917d390000a2",
+  "_id": "4e6a1fd24f85cf35150000a2",
   "first": "Luke",
   "patient_id": "97",
   "last": "Jones",
   "gender": "M",
   "birthdate": 704779200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -103,6 +104,14 @@
         1270612800
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1282190400,
+        1276660800,
+        1270612800
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291266000,
@@ -111,14 +120,6 @@
         1270612800
       ],
       "tobacco_non_user_patient_characteristic": [
-        1270612800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291266000,
-        1282190400,
-        1276660800,
         1270612800
       ]
     },
@@ -172,14 +173,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1291266000,
-        1282190400,
-        1276660800,
-        1270612800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1291266000,
         1282190400,
         1276660800,
@@ -258,27 +251,27 @@
       "hba1c_test_laboratory_test_result": [
         {
           "date": 1291266000,
-          "value": 0.086
+          "value": 8.6
         },
         {
           "date": 1282190400,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1270612800,
-          "value": 0.083
+          "value": 8.3
         },
         {
           "date": 1291266000,
-          "value": 0.086
+          "value": 8.6
         },
         {
           "date": 1282190400,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1270612800,
-          "value": 0.083
+          "value": 8.3
         }
       ],
       "medications_indicative_of_diabetes_medication_dispensed": [
@@ -527,6 +520,14 @@
         1270612800
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291266000,
+        1282190400,
+        1276660800,
+        1270612800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291266000,
@@ -597,27 +598,27 @@
       "hba1c_test_laboratory_test_result": [
         {
           "date": 1291266000,
-          "value": 0.086
+          "value": 8.6
         },
         {
           "date": 1282190400,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1270612800,
-          "value": 0.083
+          "value": 8.3
         },
         {
           "date": 1291266000,
-          "value": 0.086
+          "value": 8.6
         },
         {
           "date": 1282190400,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1270612800,
-          "value": 0.083
+          "value": 8.3
         }
       ],
       "medications_indicative_of_diabetes_medication_dispensed": [
@@ -683,6 +684,7 @@
         ]
       },
       "time": 1270612800,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -768,7 +770,7 @@
         ]
       },
       "value": {
-        "scalar": 0.086,
+        "scalar": 8.6,
         "units": null
       },
       "time": 1291266000,
@@ -781,7 +783,7 @@
         ]
       },
       "value": {
-        "scalar": 0.084,
+        "scalar": 8.4,
         "units": null
       },
       "time": 1282190400,
@@ -794,7 +796,7 @@
         ]
       },
       "value": {
-        "scalar": 0.083,
+        "scalar": 8.3,
         "units": null
       },
       "time": 1270612800,
@@ -870,6 +872,7 @@
         ]
       },
       "time": 1270612800,
+      "status": "active",
       "description": "diabetes"
     }
   ],
@@ -881,7 +884,7 @@
         ]
       },
       "value": {
-        "scalar": 0.086,
+        "scalar": 8.6,
         "units": null
       },
       "time": 1291266000,
@@ -894,7 +897,7 @@
         ]
       },
       "value": {
-        "scalar": 0.084,
+        "scalar": 8.4,
         "units": null
       },
       "time": 1282190400,
@@ -907,7 +910,7 @@
         ]
       },
       "value": {
-        "scalar": 0.083,
+        "scalar": 8.3,
         "units": null
       },
       "time": 1270612800,
@@ -1037,6 +1040,7 @@
         ]
       },
       "time": 1270612800,
+      "status": "active",
       "description": "diabetes"
     }
   ],

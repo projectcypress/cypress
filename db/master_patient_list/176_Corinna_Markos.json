@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2465e76917d3900002d",
+  "_id": "4e6a1fc64f85cf351500002d",
   "first": "Corinna",
   "patient_id": "176",
   "last": "Markos",
   "gender": "F",
   "birthdate": -806011200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -161,16 +162,16 @@
         1275192000
       ]
     },
-    "0028": {
-      "encounter_office_visit_encounter": [
+    "0031": {
+      "encounter_outpatient_encounter": [
         1289710800,
         1287288000,
         1284868800,
         1275192000
       ]
     },
-    "0031": {
-      "encounter_outpatient_encounter": [
+    "0028": {
+      "encounter_office_visit_encounter": [
         1289710800,
         1287288000,
         1284868800,
@@ -243,25 +244,6 @@
         1287288000,
         1284868800,
         1275192000
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1280030400,
-        1280030400
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1289710800,
-        1287288000,
-        1284868800,
-        1275192000
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1288411200,
-        1277611200
-      ],
-      "optic_nerve_head_evaluation_procedure_performed": [
-        1277611200
       ]
     },
     "0047": {
@@ -643,6 +625,25 @@
         1275192000
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1280030400,
+        1280030400
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1289710800,
+        1287288000,
+        1284868800,
+        1275192000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1288411200,
+        1277611200
+      ],
+      "optic_nerve_head_evaluation_procedure_performed": [
+        1277611200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1289710800,
@@ -858,6 +859,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -867,6 +869,7 @@
         ]
       },
       "time": 1280030400,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -876,6 +879,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1149,6 +1153,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -1158,6 +1163,7 @@
         ]
       },
       "time": 1280030400,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -1167,6 +1173,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1288,6 +1295,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -1297,6 +1305,7 @@
         ]
       },
       "time": 1280030400,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -1306,6 +1315,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

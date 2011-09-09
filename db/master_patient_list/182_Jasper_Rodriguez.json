@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2545e76917d390000bd",
+  "_id": "4e6a1fd54f85cf35150000bd",
   "first": "Jasper",
   "patient_id": "182",
   "last": "Rodriguez",
   "gender": "M",
   "birthdate": -775771200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -99,6 +100,12 @@
         1274328000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1284523200,
+        1274328000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1284523200,
@@ -114,12 +121,6 @@
         1274328000
       ],
       "smoking_cessation_agents_medication_order": [
-        1274328000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1284523200,
         1274328000
       ]
     },
@@ -167,12 +168,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1284523200,
-        1274328000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1284523200,
         1274328000
       ]
@@ -357,6 +352,12 @@
         1274328000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1284523200,
+        1274328000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1284523200,
@@ -457,6 +458,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -466,6 +468,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -592,6 +595,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -601,6 +605,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -686,6 +691,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -695,6 +701,7 @@
         ]
       },
       "time": 1275192000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24f5e76917d39000087",
+  "_id": "4e6a1fcf4f85cf3515000087",
   "first": "Donna",
   "patient_id": "143",
   "last": "Crocker",
   "gender": "F",
   "birthdate": -207259200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -110,6 +111,15 @@
         1270958400
       ]
     },
+    "0031": {
+      "breast_cancer_screening_diagnostic_study_performed": [
+        1286251200
+      ],
+      "encounter_outpatient_encounter": [
+        1283486400,
+        1270958400
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1283486400,
@@ -119,15 +129,6 @@
         1270958400
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
-        1270958400
-      ]
-    },
-    "0031": {
-      "breast_cancer_screening_diagnostic_study_performed": [
-        1286251200
-      ],
-      "encounter_outpatient_encounter": [
-        1283486400,
         1270958400
       ]
     },
@@ -184,12 +185,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1283486400,
-        1270958400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1283486400,
         1270958400
       ]
@@ -438,6 +433,12 @@
         1270958400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1283486400,
+        1270958400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1283486400,
@@ -539,6 +540,7 @@
         ]
       },
       "time": 1270958400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -548,6 +550,7 @@
         ]
       },
       "time": 1283486400,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -557,6 +560,7 @@
         ]
       },
       "time": 1270958400,
+      "status": "active",
       "description": "Anemias and Bleeding Disorders"
     },
     {
@@ -753,6 +757,7 @@
         ]
       },
       "time": 1270958400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -762,6 +767,7 @@
         ]
       },
       "time": 1283486400,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -771,6 +777,7 @@
         ]
       },
       "time": 1270958400,
+      "status": "active",
       "description": "Anemias and Bleeding Disorders"
     }
   ],
@@ -908,6 +915,7 @@
         ]
       },
       "time": 1270958400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -917,6 +925,7 @@
         ]
       },
       "time": 1283486400,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -926,6 +935,7 @@
         ]
       },
       "time": 1270958400,
+      "status": "active",
       "description": "Anemias and Bleeding Disorders"
     }
   ],

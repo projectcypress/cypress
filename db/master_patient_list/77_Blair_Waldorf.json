@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2495e76917d39000047",
+  "_id": "4e6a1fc84f85cf3515000047",
   "first": "Blair",
   "patient_id": "77",
   "last": "Waldorf",
   "gender": "M",
   "birthdate": 724309200,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -141,6 +142,14 @@
         1279080000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1287201600,
+        1279080000,
+        1270180800
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291266000,
@@ -151,14 +160,6 @@
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1279080000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291266000,
-        1287201600,
-        1279080000,
-        1270180800
       ]
     },
     "0032": {
@@ -256,14 +257,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1291266000,
-        1287201600,
-        1279080000,
-        1270180800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1291266000,
         1287201600,
         1279080000,
@@ -484,6 +477,14 @@
         1270180800
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291266000,
+        1287201600,
+        1279080000,
+        1270180800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291266000,
@@ -610,6 +611,7 @@
         ]
       },
       "time": 1270180800,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -619,6 +621,7 @@
         ]
       },
       "time": 1291266000,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -628,6 +631,7 @@
         ]
       },
       "time": 1275883200,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -733,6 +737,7 @@
         ]
       },
       "time": 1270180800,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -742,6 +747,7 @@
         ]
       },
       "time": 1291266000,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -751,6 +757,7 @@
         ]
       },
       "time": 1275883200,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -876,6 +883,7 @@
         ]
       },
       "time": 1270180800,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -885,6 +893,7 @@
         ]
       },
       "time": 1291266000,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -894,6 +903,7 @@
         ]
       },
       "time": 1275883200,
+      "status": "active",
       "description": "Asthma Persistent"
     }
   ],

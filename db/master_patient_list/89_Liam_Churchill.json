@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24f5e76917d3900008c",
+  "_id": "4e6a1fd04f85cf351500008c",
   "first": "Liam",
   "patient_id": "89",
   "last": "Churchill",
   "gender": "M",
   "birthdate": -450820800,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -124,6 +125,13 @@
         1282276800
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1287028800,
+        1282276800,
+        1274155200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1287028800,
@@ -134,13 +142,6 @@
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1282276800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1287028800,
-        1282276800,
-        1274155200
       ]
     },
     "0032": {
@@ -204,24 +205,6 @@
         1287028800,
         1282276800,
         1274155200
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1278734400,
-        1278734400
-      ],
-      "encounter_domiciliary_encounter": [
-        1290747600,
-        1283486400
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1287028800,
-        1282276800,
-        1274155200
-      ],
-      "optic_nerve_head_evaluation_procedure_performed": [
-        1288929600
       ]
     },
     "0047": {
@@ -619,6 +602,24 @@
         1274155200
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1278734400,
+        1278734400
+      ],
+      "encounter_domiciliary_encounter": [
+        1290747600,
+        1283486400
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1287028800,
+        1282276800,
+        1274155200
+      ],
+      "optic_nerve_head_evaluation_procedure_performed": [
+        1288929600
+      ]
+    },
     "0088": {
       "encounter_domiciliary_encounter": [
         1290747600,
@@ -799,6 +800,7 @@
         ]
       },
       "time": 1277438400,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -808,6 +810,7 @@
         ]
       },
       "time": 1278734400,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -817,6 +820,7 @@
         ]
       },
       "time": 1277438400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -982,6 +986,7 @@
         ]
       },
       "time": 1277438400,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -991,6 +996,7 @@
         ]
       },
       "time": 1278734400,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -1000,6 +1006,7 @@
         ]
       },
       "time": 1277438400,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1189,6 +1196,7 @@
         ]
       },
       "time": 1277438400,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1198,6 +1206,7 @@
         ]
       },
       "time": 1278734400,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -1207,6 +1216,7 @@
         ]
       },
       "time": 1277438400,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

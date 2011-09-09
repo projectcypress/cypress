@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24e5e76917d39000079",
+  "_id": "4e6a1fce4f85cf3515000079",
   "first": "Lance",
   "patient_id": "52",
   "last": "Feather",
   "gender": "M",
   "birthdate": -763239600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -134,6 +135,14 @@
         1253851200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1287806400,
+        1279252800,
+        1270872000,
+        1253851200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1287806400,
@@ -143,14 +152,6 @@
       ],
       "tobacco_non_user_patient_characteristic": [
         1287806400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1287806400,
-        1279252800,
-        1270872000,
-        1253851200
       ]
     },
     "0032": {
@@ -226,18 +227,6 @@
         1279252800,
         1270872000,
         1253851200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1287806400,
-        1279252800,
-        1270872000,
-        1253851200
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1295240400,
-        1281412800
       ]
     },
     "0047": {
@@ -569,6 +558,18 @@
         1253851200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1287806400,
+        1279252800,
+        1270872000,
+        1253851200
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1295240400,
+        1281412800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1287806400,
@@ -734,6 +735,7 @@
         ]
       },
       "time": 1253851200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1016,6 +1018,7 @@
         ]
       },
       "time": 1253851200,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1171,6 +1174,7 @@
         ]
       },
       "time": 1253851200,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2575e76917d390000db",
+  "_id": "4e6a1fd84f85cf35150000db",
   "first": "George",
   "patient_id": "100",
   "last": "Skeritt",
   "gender": "F",
   "birthdate": -482702400,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -149,6 +150,13 @@
         1265778000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291957200,
+        1287201600,
+        1265778000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291957200,
@@ -157,13 +165,6 @@
       ],
       "tobacco_non_user_patient_characteristic": [
         1272168000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291957200,
-        1287201600,
-        1265778000
       ]
     },
     "0032": {
@@ -231,17 +232,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1291957200,
-        1287201600,
-        1265778000
-      ]
-    },
-    "0086": {
-      "encounter_nursing_facility_encounter": [
-        1281931200,
-        1272168000
-      ],
-      "encounter_office_outpatient_consult_encounter": [
         1291957200,
         1287201600,
         1265778000
@@ -690,6 +680,17 @@
         1265778000
       ]
     },
+    "0086": {
+      "encounter_nursing_facility_encounter": [
+        1281931200,
+        1272168000
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1291957200,
+        1287201600,
+        1265778000
+      ]
+    },
     "0088": {
       "diabetic_retinopathy_diagnosis_active": [
         1272168000,
@@ -718,9 +719,6 @@
         1291957200,
         1287201600,
         1265778000
-      ],
-      "severity_of_retinopathy_and_macular_edema_findings_communication_provider_to_provider": [
-        1272168000
       ]
     },
     "0105": {
@@ -901,6 +899,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -910,6 +909,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -919,6 +919,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "Diabetic Retinopathy"
     },
     {
@@ -1188,6 +1189,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1197,6 +1199,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1206,6 +1209,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "Diabetic Retinopathy"
     }
   ],
@@ -1350,15 +1354,6 @@
     },
     {
       "codes": {
-        "SNOMED-CT": [
-          "399875001"
-        ]
-      },
-      "time": 1272168000,
-      "description": "severity of retinopathy and macular edema findings"
-    },
-    {
-      "codes": {
         "CPT": [
           "45378"
         ]
@@ -1435,6 +1430,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1444,6 +1440,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1453,6 +1450,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "Diabetic Retinopathy"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24e5e76917d3900007e",
+  "_id": "4e6a1fce4f85cf351500007e",
   "first": "John",
   "patient_id": "15",
   "last": "Note",
   "gender": "M",
   "birthdate": 8830800,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -101,17 +102,17 @@
         1286683200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1286683200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1286683200
       ],
       "tobacco_non_user_patient_characteristic": [
         1271390400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1286683200
       ]
     },
     "0032": {
@@ -155,11 +156,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1286683200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1286683200
       ]
     },
@@ -418,6 +414,11 @@
         1286683200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1286683200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1286683200
@@ -519,6 +520,7 @@
         ]
       },
       "time": 1279166400,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -528,6 +530,7 @@
         ]
       },
       "time": 1274328000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -706,6 +709,7 @@
         ]
       },
       "time": 1279166400,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -715,6 +719,7 @@
         ]
       },
       "time": 1274328000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -843,6 +848,7 @@
         ]
       },
       "time": 1279166400,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -852,6 +858,7 @@
         ]
       },
       "time": 1274328000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

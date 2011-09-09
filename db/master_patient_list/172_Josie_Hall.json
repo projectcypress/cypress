@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24e5e76917d3900007f",
+  "_id": "4e6a1fce4f85cf351500007f",
   "first": "Josie",
   "patient_id": "172",
   "last": "Hall",
   "gender": "F",
   "birthdate": 86500800,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -166,6 +167,16 @@
         1276315200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1278993600,
+        1278993600,
+        1276315200,
+        1276315200,
+        1271304000,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1278993600,
@@ -185,16 +196,6 @@
       ],
       "smoking_cessation_agents_medication_order": [
         1276488000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1278993600,
-        1278993600,
-        1276315200,
-        1276315200,
-        1271304000,
-        1270008000
       ]
     },
     "0032": {
@@ -295,16 +296,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1278993600,
-        1278993600,
-        1276315200,
-        1276315200,
-        1271304000,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1278993600,
         1278993600,
         1276315200,
@@ -656,6 +647,16 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1278993600,
+        1278993600,
+        1276315200,
+        1276315200,
+        1271304000,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1278993600,
@@ -820,6 +821,7 @@
         ]
       },
       "time": 1276315200,
+      "status": "active",
       "description": "asthma"
     },
     {
@@ -829,6 +831,7 @@
         ]
       },
       "time": 1281326400,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -838,6 +841,7 @@
         ]
       },
       "time": 1276315200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1086,6 +1090,7 @@
         ]
       },
       "time": 1276315200,
+      "status": "active",
       "description": "asthma"
     },
     {
@@ -1095,6 +1100,7 @@
         ]
       },
       "time": 1281326400,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -1104,6 +1110,7 @@
         ]
       },
       "time": 1276315200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1251,6 +1258,7 @@
         ]
       },
       "time": 1276315200,
+      "status": "active",
       "description": "asthma"
     },
     {
@@ -1260,6 +1268,7 @@
         ]
       },
       "time": 1281326400,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -1269,6 +1278,7 @@
         ]
       },
       "time": 1276315200,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

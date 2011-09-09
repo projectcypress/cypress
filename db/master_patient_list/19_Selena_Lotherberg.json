@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2575e76917d390000dc",
+  "_id": "4e6a1fd84f85cf35150000dc",
   "first": "Selena",
   "patient_id": "19",
   "last": "Lotherberg",
   "gender": "F",
   "birthdate": -143496000,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -100,21 +101,21 @@
         1270008000
       ]
     },
-    "0028": {
-      "encounter_office_visit_encounter": [
-        1291698000,
-        1270008000
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270008000
-      ]
-    },
     "0031": {
       "breast_cancer_screening_diagnostic_study_performed": [
         1285214400
       ],
       "encounter_outpatient_encounter": [
         1291698000,
+        1270008000
+      ]
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
+        1291698000,
+        1270008000
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1270008000
       ]
     },
@@ -196,16 +197,6 @@
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1291698000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291698000,
-        1270008000
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1281931200,
-        1271736000
       ]
     },
     "0047": {
@@ -510,6 +501,16 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291698000,
+        1270008000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1281931200,
+        1271736000
+      ]
+    },
     "0088": {
       "diabetic_retinopathy_diagnosis_active": [
         1271736000,
@@ -732,6 +733,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -741,6 +743,7 @@
         ]
       },
       "time": 1273982400,
+      "status": "active",
       "description": "sexually active woman"
     },
     {
@@ -750,6 +753,7 @@
         ]
       },
       "time": 1275624000,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -759,6 +763,7 @@
         ]
       },
       "time": 1271736000,
+      "status": "active",
       "description": "Diabetic Retinopathy"
     },
     {
@@ -1015,6 +1020,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1024,6 +1030,7 @@
         ]
       },
       "time": 1273982400,
+      "status": "active",
       "description": "sexually active woman"
     },
     {
@@ -1033,6 +1040,7 @@
         ]
       },
       "time": 1275624000,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -1042,6 +1050,7 @@
         ]
       },
       "time": 1271736000,
+      "status": "active",
       "description": "Diabetic Retinopathy"
     },
     {
@@ -1318,6 +1327,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1327,6 +1337,7 @@
         ]
       },
       "time": 1273982400,
+      "status": "active",
       "description": "sexually active woman"
     },
     {
@@ -1336,6 +1347,7 @@
         ]
       },
       "time": 1275624000,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -1345,6 +1357,7 @@
         ]
       },
       "time": 1271736000,
+      "status": "active",
       "description": "Diabetic Retinopathy"
     }
   ],

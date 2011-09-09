@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2425e76917d39000009",
+  "_id": "4e6a1fc14f85cf3515000009",
   "first": "June",
   "patient_id": "55",
   "last": "Slagle",
   "gender": "F",
   "birthdate": 941518800,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -144,16 +145,16 @@
         1270008000
       ]
     },
-    "0028": {
-      "encounter_office_visit_encounter": [
-        1284091200
-      ]
-    },
     "0031": {
       "encounter_outpatient_encounter": [
         1292389200,
         1284091200,
         1270008000
+      ]
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
+        1284091200
       ]
     },
     "0032": {
@@ -236,13 +237,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1292389200,
-        1284091200,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1292389200,
         1284091200,
         1270008000
@@ -460,6 +454,13 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1292389200,
+        1284091200,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1292389200,
@@ -559,6 +560,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -568,6 +570,7 @@
         ]
       },
       "time": 1284091200,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -755,6 +758,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -764,6 +768,7 @@
         ]
       },
       "time": 1284091200,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -872,6 +877,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -881,6 +887,7 @@
         ]
       },
       "time": 1284091200,
+      "status": "active",
       "description": "pharyngitis"
     }
   ],

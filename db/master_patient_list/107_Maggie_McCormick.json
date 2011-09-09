@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24f5e76917d39000088",
+  "_id": "4e6a1fcf4f85cf3515000088",
   "first": "Maggie",
   "patient_id": "107",
   "last": "McCormick",
   "gender": "F",
   "birthdate": 97995600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -107,18 +108,18 @@
         1272168000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1277697600,
+        1272168000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1277697600,
         1272168000
       ],
       "tobacco_non_user_patient_characteristic": [
-        1272168000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1277697600,
         1272168000
       ]
     },
@@ -170,12 +171,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1277697600,
-        1272168000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1277697600,
         1272168000
       ]
@@ -358,6 +353,12 @@
         1272168000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1277697600,
+        1272168000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1277697600,
@@ -466,6 +467,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -475,6 +477,7 @@
         ]
       },
       "time": 1277697600,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -623,6 +626,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -632,6 +636,7 @@
         ]
       },
       "time": 1277697600,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -699,6 +704,7 @@
         ]
       },
       "time": 1272168000,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -708,6 +714,7 @@
         ]
       },
       "time": 1277697600,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

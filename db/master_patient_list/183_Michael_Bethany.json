@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2555e76917d390000bf",
+  "_id": "4e6a1fd54f85cf35150000bf",
   "first": "Michael",
   "patient_id": "183",
   "last": "Bethany",
   "gender": "M",
   "birthdate": -935697600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -110,6 +111,13 @@
         1275710400
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1288497600,
+        1280548800,
+        1275710400
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1288497600,
@@ -117,13 +125,6 @@
         1275710400
       ],
       "tobacco_non_user_patient_characteristic": [
-        1275710400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1288497600,
-        1280548800,
         1275710400
       ]
     },
@@ -177,13 +178,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1288497600,
-        1280548800,
-        1275710400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1288497600,
         1280548800,
         1275710400
@@ -402,6 +396,13 @@
         1275710400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1288497600,
+        1280548800,
+        1275710400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1288497600,
@@ -510,6 +511,7 @@
         ]
       },
       "time": 1280548800,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -519,6 +521,7 @@
         ]
       },
       "time": 1275710400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -645,6 +648,7 @@
         ]
       },
       "time": 1280548800,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -654,6 +658,7 @@
         ]
       },
       "time": 1275710400,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -757,6 +762,7 @@
         ]
       },
       "time": 1280548800,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -766,6 +772,7 @@
         ]
       },
       "time": 1275710400,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

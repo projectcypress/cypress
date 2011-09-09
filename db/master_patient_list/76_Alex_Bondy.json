@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2495e76917d39000044",
+  "_id": "4e6a1fc84f85cf3515000044",
   "first": "Alex",
   "patient_id": "76",
   "last": "Bondy",
   "gender": "M",
   "birthdate": 399700800,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -128,17 +129,17 @@
         1270353600
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1287979200,
+        1270353600
+      ]
+    },
     "0028": {
       "tobacco_user_patient_characteristic": [
         1270353600
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
-        1270353600
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1287979200,
         1270353600
       ]
     },
@@ -163,15 +164,6 @@
     "0036": {
       "encounter_ed_encounter": [
         1276660800
-      ],
-      "mast_cell_stabilizer_medication_order": [
-        1277006400
-      ],
-      "mast_cell_stabilizer_medication_active": [
-        1277006400
-      ],
-      "mast_cell_stabilizer_medication_dispensed": [
-        1277006400
       ],
       "short_acting_beta_2_agonist_medication_active": [
         1270353600,
@@ -218,12 +210,6 @@
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1287979200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1287979200,
-        1270353600
       ]
     },
     "0047": {
@@ -429,6 +415,12 @@
         1270353600
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1287979200,
+        1270353600
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1287979200,
@@ -524,6 +516,7 @@
         ]
       },
       "time": 1270353600,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -533,6 +526,7 @@
         ]
       },
       "time": 451803600,
+      "status": "active",
       "description": "Cystic fibrosis"
     },
     {
@@ -542,6 +536,7 @@
         ]
       },
       "time": 1276660800,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -704,6 +699,7 @@
         ]
       },
       "time": 1270353600,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -713,6 +709,7 @@
         ]
       },
       "time": 451803600,
+      "status": "active",
       "description": "Cystic fibrosis"
     },
     {
@@ -722,6 +719,7 @@
         ]
       },
       "time": 1276660800,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -815,15 +813,6 @@
     {
       "codes": {
         "RxNorm": [
-          "831303"
-        ]
-      },
-      "time": 1277006400,
-      "description": "Mast Cell stabilizer"
-    },
-    {
-      "codes": {
-        "RxNorm": [
           "351136"
         ]
       },
@@ -879,6 +868,7 @@
         ]
       },
       "time": 1270353600,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -888,6 +878,7 @@
         ]
       },
       "time": 451803600,
+      "status": "active",
       "description": "Cystic fibrosis"
     },
     {
@@ -897,6 +888,7 @@
         ]
       },
       "time": 1276660800,
+      "status": "active",
       "description": "Asthma Persistent"
     }
   ],

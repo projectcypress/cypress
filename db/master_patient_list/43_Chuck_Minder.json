@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24d5e76917d39000077",
+  "_id": "4e6a1fce4f85cf3515000077",
   "first": "Chuck",
   "patient_id": "43",
   "last": "Minder",
   "gender": "M",
   "birthdate": 171345600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -136,9 +137,6 @@
         1272772800,
         1239854400
       ],
-      "counseling_for_physical_activity_communication_to_patient": [
-        1272772800
-      ],
       "encounter_outpatient_w_pcp_obgyn_encounter": [
         1285819200,
         1281844800,
@@ -156,6 +154,15 @@
         1239854400
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1285819200,
+        1281844800,
+        1277870400,
+        1272772800,
+        1239854400
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1285819200,
@@ -165,15 +172,6 @@
         1239854400
       ],
       "tobacco_non_user_patient_characteristic": [
-        1239854400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1285819200,
-        1281844800,
-        1277870400,
-        1272772800,
         1239854400
       ]
     },
@@ -245,15 +243,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1285819200,
-        1281844800,
-        1277870400,
-        1272772800,
-        1239854400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1285819200,
         1281844800,
         1277870400,
@@ -738,6 +727,15 @@
         1239854400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1285819200,
+        1281844800,
+        1277870400,
+        1272772800,
+        1239854400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1285819200,
@@ -817,9 +815,6 @@
           "date": 1239854400,
           "value": 47.43425605536333
         }
-      ],
-      "dietary_consultation_order_communication_provider_to_provider": [
-        1272772800
       ]
     },
     "0575": {
@@ -927,6 +922,7 @@
         ]
       },
       "time": 1239854400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -936,6 +932,7 @@
         ]
       },
       "time": 1239854400,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1283,6 +1280,7 @@
         ]
       },
       "time": 1239854400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1292,6 +1290,7 @@
         ]
       },
       "time": 1239854400,
+      "status": "active",
       "description": "diabetes"
     }
   ],
@@ -1469,24 +1468,6 @@
     },
     {
       "codes": {
-        "SNOMED-CT": [
-          "103699006"
-        ]
-      },
-      "time": 1272772800,
-      "description": "dietary consultation order"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1272772800,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
         "CPT": [
           "76499"
         ]
@@ -1572,6 +1553,7 @@
         ]
       },
       "time": 1239854400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1581,6 +1563,7 @@
         ]
       },
       "time": 1239854400,
+      "status": "active",
       "description": "diabetes"
     }
   ],

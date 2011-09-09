@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2415e76917d39000002",
+  "_id": "4e6a1fc14f85cf3515000002",
   "first": "Rich",
   "patient_id": "197",
   "last": "Keating",
   "gender": "M",
   "birthdate": 40539600,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -151,6 +152,14 @@
         1270267200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1288584000,
+        1279166400,
+        1275624000,
+        1270267200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1288584000,
@@ -167,14 +176,6 @@
       ],
       "smoking_cessation_agents_medication_order": [
         1279166400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1288584000,
-        1279166400,
-        1275624000,
-        1270267200
       ]
     },
     "0032": {
@@ -273,21 +274,6 @@
         1279166400,
         1275624000,
         1270267200
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1279166400,
-        1279166400
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1288584000,
-        1279166400,
-        1275624000,
-        1270267200
-      ],
-      "optic_nerve_head_evaluation_procedure_performed": [
-        1279166400
       ]
     },
     "0047": {
@@ -531,6 +517,21 @@
         1270267200
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1279166400,
+        1279166400
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1288584000,
+        1279166400,
+        1275624000,
+        1270267200
+      ],
+      "optic_nerve_head_evaluation_procedure_performed": [
+        1279166400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1288584000,
@@ -650,6 +651,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -659,6 +661,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -668,6 +671,7 @@
         ]
       },
       "time": 1279166400,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -851,6 +855,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -860,6 +865,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -869,6 +875,7 @@
         ]
       },
       "time": 1279166400,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -1000,6 +1007,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1009,6 +1017,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1018,6 +1027,7 @@
         ]
       },
       "time": 1279166400,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],

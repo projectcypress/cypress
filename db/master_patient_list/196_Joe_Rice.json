@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24d5e76917d39000072",
+  "_id": "4e6a1fcd4f85cf3515000072",
   "first": "Joe",
   "patient_id": "196",
   "last": "Rice",
   "gender": "M",
   "birthdate": 107755200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -114,6 +115,12 @@
         1285819200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1293685200,
+        1285819200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1293685200,
@@ -129,12 +136,6 @@
         1285819200
       ],
       "smoking_cessation_agents_medication_order": [
-        1285819200
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1293685200,
         1285819200
       ]
     },
@@ -179,12 +180,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1293685200,
-        1285819200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1293685200,
         1285819200
       ]
@@ -397,6 +392,12 @@
         1285819200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1293685200,
+        1285819200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1293685200,
@@ -505,6 +506,7 @@
         ]
       },
       "time": 1284350400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -514,6 +516,7 @@
         ]
       },
       "time": 1285819200,
+      "status": "active",
       "description": "Major Depression"
     },
     {
@@ -679,6 +682,7 @@
         ]
       },
       "time": 1284350400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -688,6 +692,7 @@
         ]
       },
       "time": 1285819200,
+      "status": "active",
       "description": "Major Depression"
     }
   ],
@@ -739,6 +744,7 @@
         ]
       },
       "time": 1284350400,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -748,6 +754,7 @@
         ]
       },
       "time": 1285819200,
+      "status": "active",
       "description": "Major Depression"
     }
   ],

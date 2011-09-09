@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2445e76917d39000018",
+  "_id": "4e6a1fc34f85cf3515000018",
   "first": "Neil",
   "patient_id": "42",
   "last": "Wilderman",
   "gender": "M",
   "birthdate": -275079600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -142,6 +143,13 @@
         1277956800
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291093200,
+        1286251200,
+        1277956800
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1286251200,
@@ -152,13 +160,6 @@
       ],
       "tobacco_non_user_patient_characteristic": [
         1270008000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291093200,
-        1286251200,
-        1277956800
       ]
     },
     "0032": {
@@ -218,12 +219,6 @@
     "0043": {
       "encounter_outpatient_encounter": [
         1291093200,
-        1286251200,
-        1277956800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1286251200,
         1277956800
       ]
@@ -383,10 +378,8 @@
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
         1273464000,
-        1270008000,
         1273464000,
         1273464000,
-        1270008000,
         1273464000
       ],
       "antiplatelet_therapy_medication_order": [
@@ -439,16 +432,6 @@
     },
     "0070": {
       "cardiac_surgery_procedure_performed": [
-        1273464000
-      ],
-      "coronary_artery_disease_no_mi_diagnosis_active": [
-        1270008000,
-        1270008000
-      ],
-      "myocardial_infarction_diagnosis_resolved": [
-        1273464000,
-        1273464000,
-        1273464000,
         1273464000
       ],
       "beta_blocker_therapy_medication_order": [
@@ -537,10 +520,8 @@
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
         1273464000,
-        1270008000,
         1273464000,
         1273464000,
-        1270008000,
         1273464000
       ],
       "encounter_outpatient_encounter": [
@@ -666,6 +647,12 @@
     },
     "0084": {
       "encounter_outpatient_encounter": [
+        1286251200,
+        1277956800
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
         1286251200,
         1277956800
       ]
@@ -802,6 +789,7 @@
         ]
       },
       "time": 1185076800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -811,6 +799,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "Coronary Artery Disease includes MI"
     },
     {
@@ -820,6 +809,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "inactive",
       "description": "Coronary Artery Disease No MI"
     },
     {
@@ -829,6 +819,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "acute myocardial infarction"
     },
     {
@@ -1072,6 +1063,7 @@
         ]
       },
       "time": 1185076800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1081,6 +1073,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "Coronary Artery Disease includes MI"
     },
     {
@@ -1090,6 +1083,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "inactive",
       "description": "Coronary Artery Disease No MI"
     },
     {
@@ -1099,6 +1093,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "acute myocardial infarction"
     }
   ],
@@ -1267,6 +1262,7 @@
         ]
       },
       "time": 1185076800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1276,6 +1272,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "Coronary Artery Disease includes MI"
     },
     {
@@ -1285,6 +1282,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "acute myocardial infarction"
     }
   ],
@@ -1296,6 +1294,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "inactive",
       "description": "Coronary Artery Disease No MI"
     }
   ],

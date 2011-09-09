@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2455e76917d39000020",
+  "_id": "4e6a1fc44f85cf3515000020",
   "first": "Tyson",
   "patient_id": "80",
   "last": "Beckford",
   "gender": "M",
   "birthdate": 805089600,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -143,6 +144,13 @@
         1270353600
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1283918400,
+        1281153600,
+        1270353600
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1283918400,
@@ -150,13 +158,6 @@
         1270353600
       ],
       "tobacco_non_user_patient_characteristic": [
-        1270353600
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1283918400,
-        1281153600,
         1270353600
       ]
     },
@@ -228,13 +229,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1283918400,
-        1281153600,
-        1270353600
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1283918400,
         1281153600,
         1270353600
@@ -427,6 +421,13 @@
         1270353600
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1283918400,
+        1281153600,
+        1270353600
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1283918400,
@@ -536,6 +537,7 @@
         ]
       },
       "time": 1281153600,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -545,6 +547,7 @@
         ]
       },
       "time": 1270353600,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -733,6 +736,7 @@
         ]
       },
       "time": 1281153600,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -742,6 +746,7 @@
         ]
       },
       "time": 1270353600,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -850,6 +855,7 @@
         ]
       },
       "time": 1281153600,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -859,6 +865,7 @@
         ]
       },
       "time": 1270353600,
+      "status": "active",
       "description": "Asthma"
     }
   ],

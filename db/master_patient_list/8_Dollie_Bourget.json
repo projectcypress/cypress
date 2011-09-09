@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2445e76917d3900001c",
+  "_id": "4e6a1fc44f85cf351500001c",
   "first": "Dollie",
   "patient_id": "8",
   "last": "Bourget",
   "gender": "F",
   "birthdate": -697489200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -125,16 +126,6 @@
         1276574400
       ]
     },
-    "0028": {
-      "encounter_office_visit_encounter": [
-        1291525200,
-        1284091200,
-        1276574400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270008000
-      ]
-    },
     "0031": {
       "breast_cancer_screening_diagnostic_study_performed": [
         1287115200
@@ -143,6 +134,16 @@
         1291525200,
         1284091200,
         1276574400
+      ]
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
+        1291525200,
+        1284091200,
+        1276574400
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1270008000
       ]
     },
     "0032": {
@@ -212,13 +213,6 @@
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1284091200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291525200,
-        1284091200,
-        1276574400
       ]
     },
     "0047": {
@@ -588,6 +582,13 @@
         1276574400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291525200,
+        1284091200,
+        1276574400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291525200,
@@ -721,6 +722,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -730,6 +732,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "ischemic vascular disease"
     },
     {
@@ -947,6 +950,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -956,6 +960,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "ischemic vascular disease"
     }
   ],
@@ -1116,6 +1121,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1125,6 +1131,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "ischemic vascular disease"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2485e76917d39000040",
+  "_id": "4e6a1fc74f85cf3515000040",
   "first": "Ashley",
   "patient_id": "78",
   "last": "Alexander",
   "gender": "F",
   "birthdate": 621576000,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -113,18 +114,18 @@
         1275624000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1275624000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291698000,
         1275624000
       ],
       "tobacco_non_user_patient_characteristic": [
-        1275624000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291698000,
         1275624000
       ]
     },
@@ -222,12 +223,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1291698000,
-        1275624000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1291698000,
         1275624000
       ]
@@ -425,6 +420,12 @@
         1275624000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291698000,
+        1275624000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291698000,
@@ -529,6 +530,7 @@
         ]
       },
       "time": 1275624000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -538,6 +540,7 @@
         ]
       },
       "time": 445928400,
+      "status": "active",
       "description": "Cystic fibrosis"
     },
     {
@@ -718,6 +721,7 @@
         ]
       },
       "time": 1275624000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -727,6 +731,7 @@
         ]
       },
       "time": 445928400,
+      "status": "active",
       "description": "Cystic fibrosis"
     },
     {
@@ -875,6 +880,7 @@
         ]
       },
       "time": 1275624000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -884,6 +890,7 @@
         ]
       },
       "time": 445928400,
+      "status": "active",
       "description": "Cystic fibrosis"
     }
   ],
