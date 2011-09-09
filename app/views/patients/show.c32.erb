@@ -21,6 +21,7 @@
         <state>MA</state>
         <postalCode>01730</postalCode>
       </addr>
+      <telecom value="tel:+1-781-271-3000"/>
       <patient>
         <name>
           <given><%= @patient.first %></given>
@@ -45,11 +46,23 @@
       <assignedPerson>
         <name>Auto Generated</name>
       </assignedPerson>
-      <representedOrganization>
-        <name>Cypress Testing Tool</name>
-      </representedOrganization>
     </assignedAuthor>
   </author>
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+        <id/>
+        <name>Cypress</name>
+        <telecom value="tel:+1-781-271-3000"/>
+        <addr>
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+        </addr>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
   <component>
     <structuredBody>
       <% if @patient.allergies.present? -%>
@@ -75,6 +88,15 @@
       <% end -%>
       <% if @patient.immunizations.present? -%>
         <%= render :partial => 'immunizations', :locals => {:entries => @patient.immunizations} %>
+      <% end -%>
+      <% if @patient.care_goals.present? -%>
+        <%= render :partial => 'care_goals', :locals => {:entries => @patient.care_goals} %>
+      <% end -%>
+      <% if @patient.social_history.present? -%>
+        <%= render :partial => 'social_history', :locals => {:entries => @patient.social_history} %>
+      <% end -%>
+      <% if @patient.medical_equipment.present? -%>
+        <%= render :partial => 'medical_equipment', :locals => {:entries => @patient.medical_equipment} %>
       <% end -%>
     </structuredBody>
   </component>

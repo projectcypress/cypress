@@ -15,11 +15,11 @@ module PatientsHelper
     end
   end
   
-  def code_display(entry, tag_name='code')
+  def code_display(entry, tag_name='code', extra_content=nil)
     if entry.single_code_value?
       code = entry.codes.first[1].first
       code_system_oid = QME::Importer::CodeSystemHelper.oid_for_code_system(entry.codes.first[0])
-      "<#{tag_name} code=\"#{code}\" codeSystem=\"#{code_system_oid}\"><originalText>#{entry.description}</originalText></#{tag_name}>"
+      "<#{tag_name} code=\"#{code}\" codeSystem=\"#{code_system_oid}\" #{extra_content}><originalText>#{h entry.description}</originalText></#{tag_name}>"
     else
       all_codes = []
       entry.codes.each_pair {|key, values| values.each {|v| all_codes << {:set => key, :value => v}}}
@@ -36,12 +36,28 @@ module PatientsHelper
   
   def status_code_for(entry)
     case entry.status
-    when :active
+    when 'active'
       '55561003'
-    when :inactive
+    when 'inactive'
       '73425007'
-    when :resolved
+    when 'resolved'
       '413322009'
+    end
+  end
+  
+  def patient_picture(patient)
+    if patient.gender == 'M'
+      if patient.over_18?
+        '/images/dad.jpg'
+      else
+        '/images/boy.jpg'
+      end
+    else
+      if patient.over_18?
+        '/images/woman.jpg'
+      else
+        '/images/girl.jpg'
+      end
     end
   end
 

@@ -2,12 +2,13 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 gem 'rake', '~> 0.8.7'
-gem 'quality-measure-engine', :git => 'http://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
+gem 'quality-measure-engine', '1.0.1'
 gem 'bson_ext', :platforms => :mri
 gem 'mongoid', '~> 2.0'
 gem 'devise'
 gem 'simple_form'
 gem 'nokogiri', '~> 1.4.4' 
+gem 'systemu', '~> 2.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

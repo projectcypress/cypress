@@ -10,7 +10,7 @@
     <tbody>
       <% entries.each_with_index do |entry, i| -%>
         <tr>
-          <td ID="<%= section %>-desc-<%= i %>"><%= entry.description %></td>
+          <td ID="<%= section %>-desc-<%= i %>"><%= h entry.description %></td>
           <td ID="<%= section %>-code-<%= i %>"><%= entry.codes_to_s %></td>
           <td><%= entry.times_to_s %></td>
         </tr>
