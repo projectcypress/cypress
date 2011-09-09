@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2505e76917d39000093",
+  "_id": "4e6a1fd04f85cf3515000093",
   "first": "Gary",
   "patient_id": "93",
   "last": "Vandross",
   "gender": "M",
   "birthdate": 160117200,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -143,6 +144,15 @@
         1271390400
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1292475600,
+        1289016000,
+        1283400000,
+        1279598400,
+        1271390400
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1292475600,
@@ -150,15 +160,6 @@
         1279598400
       ],
       "tobacco_non_user_patient_characteristic": [
-        1271390400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1292475600,
-        1289016000,
-        1283400000,
-        1279598400,
         1271390400
       ]
     },
@@ -254,15 +255,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1292475600,
-        1289016000,
-        1283400000,
-        1279598400,
-        1271390400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1292475600,
         1289016000,
         1283400000,
@@ -592,6 +584,15 @@
         1271390400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1292475600,
+        1289016000,
+        1283400000,
+        1279598400,
+        1271390400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1292475600,
@@ -766,6 +767,7 @@
         ]
       },
       "time": 1271390400,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -775,6 +777,7 @@
         ]
       },
       "time": 1271390400,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -958,6 +961,7 @@
         ]
       },
       "time": 1271390400,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -967,6 +971,7 @@
         ]
       },
       "time": 1271390400,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1166,6 +1171,7 @@
         ]
       },
       "time": 1271390400,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1175,6 +1181,7 @@
         ]
       },
       "time": 1271390400,
+      "status": "active",
       "description": "Asthma"
     }
   ],

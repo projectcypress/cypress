@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2575e76917d390000d6",
+  "_id": "4e6a1fd74f85cf35150000d6",
   "first": "Greta",
   "patient_id": "82",
   "last": "Spears",
   "gender": "F",
   "birthdate": -533761200,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -133,6 +134,16 @@
         1272686400
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1285214400,
+        1279080000,
+        1273118400,
+        1272686400,
+        1270353600
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1285214400,
@@ -145,16 +156,6 @@
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1272686400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1285214400,
-        1279080000,
-        1273118400,
-        1272686400,
-        1270353600
       ]
     },
     "0032": {
@@ -273,23 +274,6 @@
         1273118400,
         1272686400,
         1270353600
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1291438800,
-        1291438800
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1291438800,
-        1285214400,
-        1279080000,
-        1273118400,
-        1272686400,
-        1270353600
-      ],
-      "optic_nerve_head_evaluation_procedure_performed": [
-        1291438800
       ]
     },
     "0047": {
@@ -520,6 +504,23 @@
         1270353600
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1291438800,
+        1291438800
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1291438800,
+        1285214400,
+        1279080000,
+        1273118400,
+        1272686400,
+        1270353600
+      ],
+      "optic_nerve_head_evaluation_procedure_performed": [
+        1291438800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291438800,
@@ -672,6 +673,7 @@
         ]
       },
       "time": 1270353600,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -681,6 +683,7 @@
         ]
       },
       "time": 1291438800,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -804,6 +807,7 @@
         ]
       },
       "time": 1270353600,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -813,6 +817,7 @@
         ]
       },
       "time": 1291438800,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -908,6 +913,7 @@
         ]
       },
       "time": 1270353600,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -917,6 +923,7 @@
         ]
       },
       "time": 1291438800,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],

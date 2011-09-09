@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2485e76917d39000039",
+  "_id": "4e6a1fc74f85cf3515000039",
   "first": "Christina",
   "patient_id": "190",
   "last": "Boyes",
   "gender": "F",
   "birthdate": 612504000,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -91,6 +92,12 @@
         1273636800
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1286856000,
@@ -100,12 +107,6 @@
         1273636800
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
-        1273636800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1286856000,
         1273636800
       ]
     },
@@ -159,10 +160,6 @@
         1286856000,
         1273636800
       ],
-      "leukemia_diagnosis_active": [
-        989985600,
-        989985600
-      ],
       "vzv_vaccine_medication_allergy": [
         1273636800
       ]
@@ -183,12 +180,6 @@
         1273636800
       ]
     },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1286856000,
-        1273636800
-      ]
-    },
     "0047": {
       "encounter_office_outpatient_consult_encounter": [
         1286856000,
@@ -196,10 +187,6 @@
       ]
     },
     "0052": {
-      "cancer_diagnosis_active": [
-        989985600,
-        989985600
-      ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
         1286856000,
         1273636800
@@ -343,6 +330,12 @@
         1273636800
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1286856000,
+        1273636800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1286856000,
@@ -448,6 +441,7 @@
         ]
       },
       "time": 989985600,
+      "status": "inactive",
       "description": "leukemia"
     },
     {
@@ -457,6 +451,7 @@
         ]
       },
       "time": 1273636800,
+      "status": "active",
       "description": "Nonrheumatic mitral (valve) disease"
     },
     {
@@ -584,6 +579,7 @@
         ]
       },
       "time": 989985600,
+      "status": "inactive",
       "description": "leukemia"
     },
     {
@@ -593,6 +589,7 @@
         ]
       },
       "time": 1273636800,
+      "status": "active",
       "description": "Nonrheumatic mitral (valve) disease"
     },
     {
@@ -688,6 +685,7 @@
         ]
       },
       "time": 1273636800,
+      "status": "active",
       "description": "Nonrheumatic mitral (valve) disease"
     }
   ],
@@ -699,6 +697,7 @@
         ]
       },
       "time": 989985600,
+      "status": "inactive",
       "description": "leukemia"
     }
   ],

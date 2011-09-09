@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24a5e76917d39000055",
+  "_id": "4e6a1fca4f85cf3515000055",
   "first": "Angie",
   "patient_id": "33",
   "last": "Kriman",
   "gender": "F",
   "birthdate": -608932800,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -136,6 +137,14 @@
         1270008000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1288152000,
+        1275796800,
+        1271304000,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1288152000,
@@ -145,14 +154,6 @@
       ],
       "tobacco_non_user_patient_characteristic": [
         1275796800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1288152000,
-        1275796800,
-        1271304000,
-        1270008000
       ]
     },
     "0032": {
@@ -176,14 +177,6 @@
         1275796800
       ],
       "colorectal_cancer_diagnosis_active": [
-        1275969600,
-        1275969600
-      ],
-      "colorectal_cancer_diagnosis_inactive": [
-        1275969600,
-        1275969600
-      ],
-      "colorectal_cancer_diagnosis_resolved": [
         1275969600,
         1275969600
       ],
@@ -242,14 +235,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1288152000,
-        1275796800,
-        1271304000,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1288152000,
         1275796800,
         1271304000,
@@ -573,6 +558,14 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1288152000,
+        1275796800,
+        1271304000,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1288152000,
@@ -740,6 +733,7 @@
         ]
       },
       "time": 1275969600,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -749,6 +743,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -758,6 +753,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -767,6 +763,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -963,6 +960,7 @@
         ]
       },
       "time": 1275969600,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -972,6 +970,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -981,6 +980,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -990,6 +990,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -1198,6 +1199,7 @@
         ]
       },
       "time": 1275969600,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -1207,6 +1209,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1216,6 +1219,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1225,6 +1229,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "low back pain"
     }
   ],

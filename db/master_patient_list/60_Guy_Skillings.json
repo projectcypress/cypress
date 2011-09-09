@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24d5e76917d39000074",
+  "_id": "4e6a1fcd4f85cf3515000074",
   "first": "Guy",
   "patient_id": "60",
   "last": "Skillings",
   "gender": "M",
   "birthdate": -781732800,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -104,6 +105,14 @@
         1257829200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1292648400,
+        1283918400,
+        1276574400,
+        1257829200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1292648400,
@@ -112,14 +121,6 @@
         1257829200
       ],
       "tobacco_non_user_patient_characteristic": [
-        1257829200
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
         1257829200
       ]
     },
@@ -160,7 +161,6 @@
         1257829200
       ],
       "influenza_vaccine_medication_administered": [
-        1283918400,
         1257829200
       ]
     },
@@ -178,20 +178,11 @@
         1257829200
       ],
       "influenza_vaccine_medication_administered": [
-        1283918400,
         1257829200
       ]
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1292648400,
         1283918400,
         1276574400,
@@ -503,6 +494,14 @@
         1257829200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1292648400,
+        1283918400,
+        1276574400,
+        1257829200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1292648400,
@@ -671,6 +670,7 @@
         ]
       },
       "time": 1257829200,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -836,6 +836,7 @@
         ]
       },
       "time": 1257829200,
+      "status": "active",
       "description": "diabetes"
     }
   ],
@@ -988,15 +989,6 @@
           "857942"
         ]
       },
-      "time": 1283918400,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
       "time": 1257829200,
       "description": "Influenza Vaccine"
     }
@@ -1012,6 +1004,7 @@
         ]
       },
       "time": 1257829200,
+      "status": "active",
       "description": "diabetes"
     }
   ],

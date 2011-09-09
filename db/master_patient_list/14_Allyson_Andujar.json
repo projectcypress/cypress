@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2575e76917d390000de",
+  "_id": "4e6a1fd84f85cf35150000de",
   "first": "Allyson",
   "patient_id": "14",
   "last": "Andujar",
   "gender": "F",
   "birthdate": -829598400,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -103,18 +104,18 @@
         1270008000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1284868800,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1284868800,
         1270008000
       ],
       "tobacco_non_user_patient_characteristic": [
-        1270008000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1284868800,
         1270008000
       ]
     },
@@ -161,16 +162,6 @@
       "encounter_outpatient_encounter": [
         1284868800,
         1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1284868800,
-        1270008000
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1276747200,
-        1270094400
       ]
     },
     "0047": {
@@ -534,6 +525,16 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1284868800,
+        1270008000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1276747200,
+        1270094400
+      ]
+    },
     "0088": {
       "diabetic_retinopathy_diagnosis_active": [
         1270094400,
@@ -731,6 +732,7 @@
         ]
       },
       "time": 1244433600,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -740,6 +742,7 @@
         ]
       },
       "time": 1270094400,
+      "status": "active",
       "description": "Diabetic Retinopathy"
     },
     {
@@ -749,6 +752,7 @@
         ]
       },
       "time": 1284868800,
+      "status": "active",
       "description": "Nephropathy"
     },
     {
@@ -984,6 +988,7 @@
         ]
       },
       "time": 1244433600,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -993,6 +998,7 @@
         ]
       },
       "time": 1270094400,
+      "status": "active",
       "description": "Diabetic Retinopathy"
     },
     {
@@ -1002,6 +1008,7 @@
         ]
       },
       "time": 1284868800,
+      "status": "active",
       "description": "Nephropathy"
     }
   ],
@@ -1201,6 +1208,7 @@
         ]
       },
       "time": 1244433600,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1210,6 +1218,7 @@
         ]
       },
       "time": 1270094400,
+      "status": "active",
       "description": "Diabetic Retinopathy"
     },
     {
@@ -1219,6 +1228,7 @@
         ]
       },
       "time": 1284868800,
+      "status": "active",
       "description": "Nephropathy"
     }
   ],

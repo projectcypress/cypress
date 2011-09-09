@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2455e76917d39000025",
+  "_id": "4e6a1fc54f85cf3515000025",
   "first": "Allie",
   "patient_id": "4",
   "last": "Jeremiah",
   "gender": "F",
   "birthdate": 831355200,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -236,6 +237,19 @@
         1122350400
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1288411200,
+        1282276800,
+        1280462400,
+        1270008000,
+        1249876800,
+        1217649600,
+        1184817600,
+        1154404800,
+        1122350400
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1282276800,
@@ -248,19 +262,6 @@
       ],
       "tobacco_non_user_patient_characteristic": [
         1280462400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1288411200,
-        1282276800,
-        1280462400,
-        1270008000,
-        1249876800,
-        1217649600,
-        1184817600,
-        1154404800,
-        1122350400
       ]
     },
     "0032": {
@@ -359,19 +360,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1288411200,
-        1282276800,
-        1280462400,
-        1270008000,
-        1249876800,
-        1217649600,
-        1184817600,
-        1154404800,
-        1122350400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1288411200,
         1282276800,
         1280462400,
@@ -754,6 +742,19 @@
         1122350400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1288411200,
+        1282276800,
+        1280462400,
+        1270008000,
+        1249876800,
+        1217649600,
+        1184817600,
+        1154404800,
+        1122350400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1288411200,
@@ -979,6 +980,7 @@
         ]
       },
       "time": 1107925200,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -988,6 +990,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -1254,6 +1257,7 @@
         ]
       },
       "time": 1107925200,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1263,6 +1267,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -1398,6 +1403,7 @@
         ]
       },
       "time": 1107925200,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1407,6 +1413,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "pharyngitis"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2525e76917d390000a7",
+  "_id": "4e6a1fd24f85cf35150000a7",
   "first": "Donna",
   "patient_id": "2",
   "last": "Pineiro",
   "gender": "F",
   "birthdate": -523224000,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -165,20 +166,20 @@
         1270008000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1289016000,
+        1283400000,
+        1277870400,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1289016000,
         1277870400
       ],
       "tobacco_non_user_patient_characteristic": [
-        1270008000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1289016000,
-        1283400000,
-        1277870400,
         1270008000
       ]
     },
@@ -248,14 +249,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1289016000,
-        1283400000,
-        1277870400,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1289016000,
         1283400000,
         1277870400,
@@ -450,9 +443,7 @@
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
         1272254400,
-        1272513600,
-        1272254400,
-        1272513600
+        1272254400
       ],
       "encounter_inpatient_discharge_encounter": [
         1272513600
@@ -495,9 +486,7 @@
         1272254400
       ],
       "myocardial_infarction_diagnosis_resolved": [
-        1272254400,
         1272513600,
-        1272254400,
         1272513600
       ],
       "beta_blocker_therapy_medication_order": [
@@ -580,9 +569,7 @@
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
         1272254400,
-        1272513600,
-        1272254400,
-        1272513600
+        1272254400
       ],
       "encounter_outpatient_encounter": [
         1289016000,
@@ -756,6 +743,14 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1289016000,
+        1283400000,
+        1277870400,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1289016000,
@@ -899,6 +894,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -908,6 +904,7 @@
         ]
       },
       "time": 1272254400,
+      "status": "active",
       "description": "Coronary Artery Disease includes MI"
     },
     {
@@ -917,6 +914,7 @@
         ]
       },
       "time": 1272513600,
+      "status": "resolved",
       "description": "Myocardial Infarction"
     },
     {
@@ -926,6 +924,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -935,6 +934,7 @@
         ]
       },
       "time": 1283400000,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -1240,6 +1240,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1249,6 +1250,7 @@
         ]
       },
       "time": 1272254400,
+      "status": "active",
       "description": "Coronary Artery Disease includes MI"
     },
     {
@@ -1258,6 +1260,7 @@
         ]
       },
       "time": 1272513600,
+      "status": "resolved",
       "description": "Myocardial Infarction"
     },
     {
@@ -1267,6 +1270,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1276,6 +1280,7 @@
         ]
       },
       "time": 1283400000,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -1538,6 +1543,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1547,6 +1553,7 @@
         ]
       },
       "time": 1272254400,
+      "status": "active",
       "description": "Coronary Artery Disease includes MI"
     },
     {
@@ -1556,6 +1563,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1565,6 +1573,7 @@
         ]
       },
       "time": 1283400000,
+      "status": "active",
       "description": "Asthma Persistent"
     }
   ],
@@ -1579,6 +1588,7 @@
         ]
       },
       "time": 1272513600,
+      "status": "resolved",
       "description": "Myocardial Infarction"
     }
   ]

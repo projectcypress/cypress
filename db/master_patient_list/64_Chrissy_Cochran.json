@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2445e76917d3900001a",
+  "_id": "4e6a1fc34f85cf351500001a",
   "first": "Chrissy",
   "patient_id": "64",
   "last": "Cochran",
   "gender": "F",
   "birthdate": 572590800,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -188,21 +189,21 @@
         1270008000
       ]
     },
-    "0028": {
-      "encounter_office_visit_encounter": [
-        1281240000,
-        1270008000
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270008000
-      ]
-    },
     "0031": {
       "encounter_outpatient_encounter": [
         1288756800,
         1281240000,
         1275710400,
         1273032000,
+        1270008000
+      ]
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
+        1281240000,
+        1270008000
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1270008000
       ]
     },
@@ -321,15 +322,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1288756800,
-        1281240000,
-        1275710400,
-        1273032000,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1288756800,
         1281240000,
         1275710400,
@@ -599,6 +591,15 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1288756800,
+        1281240000,
+        1275710400,
+        1273032000,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1288756800,
@@ -804,6 +805,7 @@
         ]
       },
       "time": 1286769600,
+      "status": "active",
       "description": "Delivery Live Births-Diagnosis"
     },
     {
@@ -813,6 +815,7 @@
         ]
       },
       "time": 1283918400,
+      "status": "active",
       "description": "D(Rh) Negative"
     },
     {
@@ -822,6 +825,7 @@
         ]
       },
       "time": 1283400000,
+      "status": "active",
       "description": "Primagravida"
     },
     {
@@ -831,6 +835,7 @@
         ]
       },
       "time": 1283486400,
+      "status": "active",
       "description": "asthma"
     },
     {
@@ -981,6 +986,7 @@
         ]
       },
       "time": 1286769600,
+      "status": "active",
       "description": "Delivery Live Births-Diagnosis"
     },
     {
@@ -990,6 +996,7 @@
         ]
       },
       "time": 1283918400,
+      "status": "active",
       "description": "D(Rh) Negative"
     },
     {
@@ -999,6 +1006,7 @@
         ]
       },
       "time": 1283400000,
+      "status": "active",
       "description": "Primagravida"
     },
     {
@@ -1008,6 +1016,7 @@
         ]
       },
       "time": 1283486400,
+      "status": "active",
       "description": "asthma"
     },
     {
@@ -1152,6 +1161,7 @@
         ]
       },
       "time": 1286769600,
+      "status": "active",
       "description": "Delivery Live Births-Diagnosis"
     },
     {
@@ -1161,6 +1171,7 @@
         ]
       },
       "time": 1283918400,
+      "status": "active",
       "description": "D(Rh) Negative"
     },
     {
@@ -1170,6 +1181,7 @@
         ]
       },
       "time": 1283400000,
+      "status": "active",
       "description": "Primagravida"
     },
     {
@@ -1179,6 +1191,7 @@
         ]
       },
       "time": 1283486400,
+      "status": "active",
       "description": "asthma"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24f5e76917d3900008b",
+  "_id": "4e6a1fd04f85cf351500008b",
   "first": "William",
   "patient_id": "102",
   "last": "Churcher",
   "gender": "M",
   "birthdate": -987278400,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -126,6 +127,14 @@
         1272081600
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1290661200,
+        1288065600,
+        1275710400,
+        1272081600
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1288065600,
@@ -133,14 +142,6 @@
       ],
       "tobacco_non_user_patient_characteristic": [
         1274760000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1290661200,
-        1288065600,
-        1275710400,
-        1272081600
       ]
     },
     "0032": {
@@ -199,28 +200,6 @@
         1288065600,
         1275710400,
         1272081600
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1287028800,
-        1287028800
-      ],
-      "encounter_domiciliary_encounter": [
-        1280808000
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1290661200,
-        1288065600,
-        1275710400,
-        1272081600
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1287028800,
-        1279080000
-      ],
-      "optic_nerve_head_evaluation_procedure_performed": [
-        1287028800
       ]
     },
     "0047": {
@@ -614,6 +593,28 @@
         1272081600
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1287028800,
+        1287028800
+      ],
+      "encounter_domiciliary_encounter": [
+        1280808000
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1290661200,
+        1288065600,
+        1275710400,
+        1272081600
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1287028800,
+        1279080000
+      ],
+      "optic_nerve_head_evaluation_procedure_performed": [
+        1287028800
+      ]
+    },
     "0088": {
       "encounter_domiciliary_encounter": [
         1280808000
@@ -821,6 +822,7 @@
         ]
       },
       "time": 1272081600,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -830,6 +832,7 @@
         ]
       },
       "time": 1287028800,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -839,6 +842,7 @@
         ]
       },
       "time": 1272081600,
+      "status": "inactive",
       "description": "Hepatitis A Diagnosis"
     },
     {
@@ -1069,6 +1073,7 @@
         ]
       },
       "time": 1272081600,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1078,6 +1083,7 @@
         ]
       },
       "time": 1287028800,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -1087,6 +1093,7 @@
         ]
       },
       "time": 1272081600,
+      "status": "inactive",
       "description": "Hepatitis A Diagnosis"
     }
   ],
@@ -1294,6 +1301,7 @@
         ]
       },
       "time": 1272081600,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1303,6 +1311,7 @@
         ]
       },
       "time": 1287028800,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],
@@ -1314,6 +1323,7 @@
         ]
       },
       "time": 1272081600,
+      "status": "inactive",
       "description": "Hepatitis A Diagnosis"
     }
   ],

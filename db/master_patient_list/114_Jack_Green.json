@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24a5e76917d39000056",
+  "_id": "4e6a1fca4f85cf3515000056",
   "first": "Jack",
   "patient_id": "114",
   "last": "Green",
   "gender": "M",
   "birthdate": -460497600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -118,6 +119,14 @@
         1270008000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1288065600,
+        1281931200,
+        1274328000,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1274328000,
@@ -128,14 +137,6 @@
         1281931200
       ],
       "tobacco_non_user_patient_characteristic": [
-        1270008000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1288065600,
-        1281931200,
-        1274328000,
         1270008000
       ]
     },
@@ -160,14 +161,6 @@
         1270180800
       ],
       "colorectal_cancer_diagnosis_active": [
-        1273118400,
-        1273118400
-      ],
-      "colorectal_cancer_diagnosis_inactive": [
-        1273118400,
-        1273118400
-      ],
-      "colorectal_cancer_diagnosis_resolved": [
         1273118400,
         1273118400
       ],
@@ -223,12 +216,6 @@
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1274328000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1274328000,
-        1270008000
       ]
     },
     "0047": {
@@ -440,6 +427,12 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1274328000,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1274328000,
@@ -572,6 +565,7 @@
         ]
       },
       "time": 1273118400,
+      "status": "active",
       "description": "Colorectal Cancer"
     },
     {
@@ -581,6 +575,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -768,6 +763,7 @@
         ]
       },
       "time": 1273118400,
+      "status": "active",
       "description": "Colorectal Cancer"
     },
     {
@@ -777,6 +773,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -892,6 +889,7 @@
         ]
       },
       "time": 1273118400,
+      "status": "active",
       "description": "Colorectal Cancer"
     },
     {
@@ -901,6 +899,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

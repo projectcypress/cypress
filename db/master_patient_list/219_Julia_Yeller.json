@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24b5e76917d39000060",
+  "_id": "4e6a1fcb4f85cf3515000060",
   "first": "Julia",
   "patient_id": "219",
   "last": "Yeller",
   "gender": "F",
   "birthdate": -930513600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -142,6 +143,16 @@
         1270008000
       ]
     },
+    "0031": {
+      "breast_cancer_screening_diagnostic_study_performed": [
+        1281067200
+      ],
+      "encounter_outpatient_encounter": [
+        1292216400,
+        1281067200,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1292216400,
@@ -152,16 +163,6 @@
         1270008000
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
-        1270008000
-      ]
-    },
-    "0031": {
-      "breast_cancer_screening_diagnostic_study_performed": [
-        1281067200
-      ],
-      "encounter_outpatient_encounter": [
-        1292216400,
-        1281067200,
         1270008000
       ]
     },
@@ -220,16 +221,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1292216400,
-        1281067200,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_domiciliary_encounter": [
-        1283400000
-      ],
-      "encounter_office_outpatient_consult_encounter": [
         1292216400,
         1281067200,
         1270008000
@@ -655,6 +646,16 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_domiciliary_encounter": [
+        1283400000
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1292216400,
+        1281067200,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_domiciliary_encounter": [
         1283400000
@@ -815,6 +816,7 @@
         ]
       },
       "time": 1283400000,
+      "status": "active",
       "description": "Breast Cancer"
     },
     {
@@ -824,6 +826,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "ischemic vascular disease"
     },
     {
@@ -1150,6 +1153,7 @@
         ]
       },
       "time": 1283400000,
+      "status": "active",
       "description": "Breast Cancer"
     },
     {
@@ -1159,6 +1163,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "ischemic vascular disease"
     }
   ],
@@ -1350,6 +1355,7 @@
         ]
       },
       "time": 1283400000,
+      "status": "active",
       "description": "Breast Cancer"
     },
     {
@@ -1359,6 +1365,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "ischemic vascular disease"
     }
   ],

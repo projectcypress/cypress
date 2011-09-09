@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2465e76917d3900002a",
+  "_id": "4e6a1fc54f85cf351500002a",
   "first": "Samuel",
   "patient_id": "202",
   "last": "Gordon",
   "gender": "M",
   "birthdate": -879969600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -151,6 +152,14 @@
         1272427200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291093200,
+        1283313600,
+        1278648000,
+        1272427200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291093200,
@@ -169,14 +178,6 @@
       ],
       "smoking_cessation_agents_medication_order": [
         1278648000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291093200,
-        1283313600,
-        1278648000,
-        1272427200
       ]
     },
     "0032": {
@@ -208,10 +209,6 @@
       ]
     },
     "0036": {
-      "acute_respiratory_failure_diagnosis_active": [
-        1234760400,
-        1234760400
-      ],
       "copd_diagnosis_active": [
         1234760400,
         1234760400
@@ -266,22 +263,6 @@
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1291093200
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1277697600,
-        1277697600
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1291093200,
-        1283313600,
-        1278648000,
-        1272427200
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1323406800,
-        1309233600
       ]
     },
     "0047": {
@@ -666,6 +647,22 @@
         1272427200
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1277697600,
+        1277697600
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1291093200,
+        1283313600,
+        1278648000,
+        1272427200
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1323406800,
+        1309233600
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291093200,
@@ -805,6 +802,7 @@
         ]
       },
       "time": 1234760400,
+      "status": "inactive",
       "description": "acute respiratory failure"
     },
     {
@@ -814,6 +812,7 @@
         ]
       },
       "time": 1234760400,
+      "status": "active",
       "description": "COPD"
     },
     {
@@ -823,6 +822,7 @@
         ]
       },
       "time": 1272427200,
+      "status": "active",
       "description": "ischemic vascular disease"
     },
     {
@@ -832,6 +832,7 @@
         ]
       },
       "time": 1272427200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -841,6 +842,7 @@
         ]
       },
       "time": 1277697600,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -1080,6 +1082,7 @@
         ]
       },
       "time": 1234760400,
+      "status": "inactive",
       "description": "acute respiratory failure"
     },
     {
@@ -1089,6 +1092,7 @@
         ]
       },
       "time": 1234760400,
+      "status": "active",
       "description": "COPD"
     },
     {
@@ -1098,6 +1102,7 @@
         ]
       },
       "time": 1272427200,
+      "status": "active",
       "description": "ischemic vascular disease"
     },
     {
@@ -1107,6 +1112,7 @@
         ]
       },
       "time": 1272427200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1116,6 +1122,7 @@
         ]
       },
       "time": 1277697600,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],
@@ -1289,6 +1296,7 @@
         ]
       },
       "time": 1234760400,
+      "status": "active",
       "description": "COPD"
     },
     {
@@ -1298,6 +1306,7 @@
         ]
       },
       "time": 1272427200,
+      "status": "active",
       "description": "ischemic vascular disease"
     },
     {
@@ -1307,6 +1316,7 @@
         ]
       },
       "time": 1272427200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1316,6 +1326,7 @@
         ]
       },
       "time": 1277697600,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],
@@ -1327,6 +1338,7 @@
         ]
       },
       "time": 1234760400,
+      "status": "inactive",
       "description": "acute respiratory failure"
     }
   ],

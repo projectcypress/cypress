@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2435e76917d3900000f",
+  "_id": "4e6a1fc24f85cf351500000f",
   "first": "Bill",
   "patient_id": "135",
   "last": "Correl",
   "gender": "M",
   "birthdate": -314650800,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -134,6 +135,16 @@
         1270008000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1304222400,
+        1291179600,
+        1283313600,
+        1273896000,
+        1272686400,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1304222400,
@@ -143,16 +154,6 @@
         1270008000
       ],
       "tobacco_non_user_patient_characteristic": [
-        1270008000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1304222400,
-        1291179600,
-        1283313600,
-        1273896000,
-        1272686400,
         1270008000
       ]
     },
@@ -260,16 +261,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1304222400,
-        1291179600,
-        1283313600,
-        1273896000,
-        1272686400,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1304222400,
         1291179600,
         1283313600,
@@ -506,6 +497,16 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1304222400,
+        1291179600,
+        1283313600,
+        1273896000,
+        1272686400,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1304222400,
@@ -694,6 +695,7 @@
         ]
       },
       "time": 1272686400,
+      "status": "active",
       "description": "Major Depression"
     },
     {
@@ -703,6 +705,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -816,6 +819,7 @@
         ]
       },
       "time": 1272686400,
+      "status": "active",
       "description": "Major Depression"
     },
     {
@@ -825,6 +829,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     }
   ],
@@ -973,6 +978,7 @@
         ]
       },
       "time": 1272686400,
+      "status": "active",
       "description": "Major Depression"
     },
     {
@@ -982,6 +988,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Asthma"
     }
   ],

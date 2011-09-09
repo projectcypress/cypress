@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2565e76917d390000d3",
+  "_id": "4e6a1fd74f85cf35150000d3",
   "first": "Dorothy",
   "patient_id": "132",
   "last": "Totter",
   "gender": "F",
   "birthdate": -784929600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -113,6 +114,17 @@
         1272772800
       ]
     },
+    "0031": {
+      "breast_cancer_screening_diagnostic_study_performed": [
+        1284091200
+      ],
+      "encounter_outpatient_encounter": [
+        1284091200,
+        1276142400,
+        1272772800,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1276142400,
@@ -127,17 +139,6 @@
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1272772800
-      ]
-    },
-    "0031": {
-      "breast_cancer_screening_diagnostic_study_performed": [
-        1284091200
-      ],
-      "encounter_outpatient_encounter": [
-        1284091200,
-        1276142400,
-        1272772800,
-        1270008000
       ]
     },
     "0032": {
@@ -207,13 +208,6 @@
         1270008000
       ],
       "pneumococcal_vaccination_all_ages_procedure_performed": [
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1276142400,
-        1272772800,
         1270008000
       ]
     },
@@ -531,6 +525,13 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1276142400,
+        1272772800,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1276142400,
@@ -653,6 +654,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Atrial Fibrillation"
     },
     {
@@ -662,6 +664,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -671,6 +674,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -849,6 +853,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Atrial Fibrillation"
     },
     {
@@ -858,6 +863,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -867,6 +873,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1031,6 +1038,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Atrial Fibrillation"
     },
     {
@@ -1040,6 +1048,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -1049,6 +1058,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24b5e76917d3900005e",
+  "_id": "4e6a1fcb4f85cf351500005e",
   "first": "Anna",
   "patient_id": "146",
   "last": "Edwards",
   "gender": "F",
   "birthdate": -1254423600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -113,6 +114,17 @@
         1275796800
       ]
     },
+    "0031": {
+      "breast_cancer_screening_diagnostic_study_performed": [
+        1275796800
+      ],
+      "encounter_outpatient_encounter": [
+        1284091200,
+        1281672000,
+        1275796800,
+        1275192000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1284091200,
@@ -125,17 +137,6 @@
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1275796800
-      ]
-    },
-    "0031": {
-      "breast_cancer_screening_diagnostic_study_performed": [
-        1275796800
-      ],
-      "encounter_outpatient_encounter": [
-        1284091200,
-        1281672000,
-        1275796800,
-        1275192000
       ]
     },
     "0032": {
@@ -197,14 +198,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1284091200,
-        1281672000,
-        1275796800,
-        1275192000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1284091200,
         1281672000,
         1275796800,
@@ -405,6 +398,14 @@
         1275192000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1284091200,
+        1281672000,
+        1275796800,
+        1275192000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1284091200,
@@ -543,6 +544,7 @@
         ]
       },
       "time": 1276142400,
+      "status": "active",
       "description": "Breast Cancer"
     },
     {
@@ -687,6 +689,7 @@
         ]
       },
       "time": 1276142400,
+      "status": "active",
       "description": "Breast Cancer"
     }
   ],
@@ -817,6 +820,7 @@
         ]
       },
       "time": 1276142400,
+      "status": "active",
       "description": "Breast Cancer"
     }
   ],

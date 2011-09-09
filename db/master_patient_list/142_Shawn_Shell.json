@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24a5e76917d39000051",
+  "_id": "4e6a1fca4f85cf3515000051",
   "first": "Shawn",
   "patient_id": "142",
   "last": "Shell",
   "gender": "F",
   "birthdate": -1091131200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -107,6 +108,13 @@
         1282708800
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1288411200,
+        1283745600,
+        1282708800
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1288411200,
@@ -114,13 +122,6 @@
         1282708800
       ],
       "tobacco_non_user_patient_characteristic": [
-        1282708800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1288411200,
-        1283745600,
         1282708800
       ]
     },
@@ -143,14 +144,6 @@
         1283745600
       ],
       "colorectal_cancer_diagnosis_active": [
-        1285992000,
-        1285992000
-      ],
-      "colorectal_cancer_diagnosis_inactive": [
-        1285992000,
-        1285992000
-      ],
-      "colorectal_cancer_diagnosis_resolved": [
         1285992000,
         1285992000
       ],
@@ -189,13 +182,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1288411200,
-        1283745600,
-        1282708800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1288411200,
         1283745600,
         1282708800
@@ -395,6 +381,13 @@
         1282708800
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1288411200,
+        1283745600,
+        1282708800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1288411200,
@@ -513,6 +506,7 @@
         ]
       },
       "time": 1285992000,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -700,6 +694,7 @@
         ]
       },
       "time": 1285992000,
+      "status": "active",
       "description": "Colon Cancer"
     }
   ],
@@ -768,6 +763,7 @@
         ]
       },
       "time": 1285992000,
+      "status": "active",
       "description": "Colon Cancer"
     }
   ],

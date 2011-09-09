@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24a5e76917d39000053",
+  "_id": "4e6a1fca4f85cf3515000053",
   "first": "Jerome",
   "patient_id": "117",
   "last": "Beatle",
   "gender": "M",
   "birthdate": -830548800,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -128,6 +129,15 @@
         1273204800
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1283486400,
+        1282881600,
+        1279598400,
+        1273204800,
+        1273204800
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1283486400,
@@ -147,15 +157,6 @@
         1273204800
       ],
       "smoking_cessation_agents_medication_order": [
-        1273204800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1283486400,
-        1282881600,
-        1279598400,
-        1273204800,
         1273204800
       ]
     },
@@ -188,14 +189,6 @@
         1276142400
       ],
       "colorectal_cancer_diagnosis_active": [
-        1278734400,
-        1278734400
-      ],
-      "colorectal_cancer_diagnosis_inactive": [
-        1278734400,
-        1278734400
-      ],
-      "colorectal_cancer_diagnosis_resolved": [
         1278734400,
         1278734400
       ],
@@ -293,15 +286,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1283486400,
-        1282881600,
-        1279598400,
-        1273204800,
-        1273204800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1283486400,
         1282881600,
         1279598400,
@@ -630,6 +614,15 @@
         1273204800
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1283486400,
+        1282881600,
+        1279598400,
+        1273204800,
+        1273204800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1283486400,
@@ -823,6 +816,7 @@
         ]
       },
       "time": 1278734400,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -832,6 +826,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "COPD"
     },
     {
@@ -841,6 +836,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1015,6 +1011,7 @@
         ]
       },
       "time": 1278734400,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -1024,6 +1021,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "COPD"
     },
     {
@@ -1033,6 +1031,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1267,6 +1266,7 @@
         ]
       },
       "time": 1278734400,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -1276,6 +1276,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "COPD"
     },
     {
@@ -1285,6 +1286,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2535e76917d390000b2",
+  "_id": "4e6a1fd44f85cf35150000b2",
   "first": "Jessie",
   "patient_id": "40",
   "last": "Bustle",
   "gender": "M",
   "birthdate": -552081600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -127,6 +128,13 @@
         1270699200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1287374400,
+        1279598400,
+        1270699200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1287374400,
@@ -143,13 +151,6 @@
         1270699200
       ],
       "smoking_cessation_agents_medication_order": [
-        1270699200
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1287374400,
-        1279598400,
         1270699200
       ]
     },
@@ -216,13 +217,6 @@
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1287374400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1287374400,
-        1279598400,
-        1270699200
       ]
     },
     "0047": {
@@ -381,9 +375,7 @@
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
         1270699200,
-        1253419200,
-        1270699200,
-        1253419200
+        1270699200
       ],
       "antiplatelet_therapy_medication_order": [
         1270699200,
@@ -438,9 +430,7 @@
         1253073600
       ],
       "myocardial_infarction_diagnosis_resolved": [
-        1270699200,
         1253419200,
-        1270699200,
         1253419200
       ],
       "beta_blocker_therapy_medication_order": [
@@ -513,9 +503,7 @@
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
         1270699200,
-        1253419200,
-        1270699200,
-        1253419200
+        1270699200
       ],
       "encounter_outpatient_encounter": [
         1287374400,
@@ -670,6 +658,13 @@
         1270699200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1287374400,
+        1279598400,
+        1270699200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1287374400,
@@ -802,6 +797,7 @@
         ]
       },
       "time": 1270699200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -811,6 +807,7 @@
         ]
       },
       "time": 1270699200,
+      "status": "active",
       "description": "Coronary Artery Disease includes MI"
     },
     {
@@ -820,6 +817,7 @@
         ]
       },
       "time": 1253419200,
+      "status": "resolved",
       "description": "Myocardial Infarction"
     },
     {
@@ -1050,6 +1048,7 @@
         ]
       },
       "time": 1270699200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1059,6 +1058,7 @@
         ]
       },
       "time": 1270699200,
+      "status": "active",
       "description": "Coronary Artery Disease includes MI"
     },
     {
@@ -1068,6 +1068,7 @@
         ]
       },
       "time": 1253419200,
+      "status": "resolved",
       "description": "Myocardial Infarction"
     }
   ],
@@ -1301,6 +1302,7 @@
         ]
       },
       "time": 1270699200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1310,6 +1312,7 @@
         ]
       },
       "time": 1270699200,
+      "status": "active",
       "description": "Coronary Artery Disease includes MI"
     }
   ],
@@ -1324,6 +1327,7 @@
         ]
       },
       "time": 1253419200,
+      "status": "resolved",
       "description": "Myocardial Infarction"
     }
   ]

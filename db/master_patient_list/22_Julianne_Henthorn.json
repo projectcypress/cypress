@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2475e76917d39000036",
+  "_id": "4e6a1fc74f85cf3515000036",
   "first": "Julianne",
   "patient_id": "22",
   "last": "Henthorn",
   "gender": "F",
   "birthdate": 218091600,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -135,19 +136,19 @@
         1270008000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1289797200,
+        1282536000,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_prev_med_individual_counseling_encounter": [
         1289797200
       ],
       "tobacco_non_user_patient_characteristic": [
         1289797200
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1289797200,
-        1282536000,
-        1270008000
       ]
     },
     "0032": {
@@ -254,12 +255,6 @@
     "0043": {
       "encounter_outpatient_encounter": [
         1289797200,
-        1282536000,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1282536000,
         1270008000
       ]
@@ -472,6 +467,12 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1282536000,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1282536000,
@@ -578,6 +579,7 @@
         ]
       },
       "time": 1250308800,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -793,6 +795,7 @@
         ]
       },
       "time": 1250308800,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -959,6 +962,7 @@
         ]
       },
       "time": 1250308800,
+      "status": "active",
       "description": "Asthma"
     }
   ],

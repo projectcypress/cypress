@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24c5e76917d39000069",
+  "_id": "4e6a1fcc4f85cf3515000069",
   "first": "Jacob",
   "patient_id": "179",
   "last": "Rosen",
   "gender": "M",
   "birthdate": -1006110000,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -115,6 +116,14 @@
         1270180800
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1281067200,
+        1280289600,
+        1279166400,
+        1270180800
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1281067200,
@@ -132,14 +141,6 @@
         1270180800
       ],
       "smoking_cessation_agents_medication_order": [
-        1270180800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1281067200,
-        1280289600,
-        1279166400,
         1270180800
       ]
     },
@@ -208,21 +209,6 @@
         1280289600,
         1279166400,
         1270180800
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1260162000,
-        1260162000
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1281067200,
-        1280289600,
-        1279166400,
-        1270180800
-      ],
-      "optic_nerve_head_evaluation_procedure_performed": [
-        1279166400
       ]
     },
     "0047": {
@@ -638,6 +624,21 @@
         1270180800
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1260162000,
+        1260162000
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1281067200,
+        1280289600,
+        1279166400,
+        1270180800
+      ],
+      "optic_nerve_head_evaluation_procedure_performed": [
+        1279166400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1281067200,
@@ -851,6 +852,7 @@
         ]
       },
       "time": 1275969600,
+      "status": "active",
       "description": "Prostate Cancer"
     },
     {
@@ -860,6 +862,7 @@
         ]
       },
       "time": 1260162000,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -869,6 +872,7 @@
         ]
       },
       "time": 1260162000,
+      "status": "active",
       "description": "Coronary Artery Disease No MI"
     },
     {
@@ -878,6 +882,7 @@
         ]
       },
       "time": 1260162000,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -1130,6 +1135,7 @@
         ]
       },
       "time": 1275969600,
+      "status": "active",
       "description": "Prostate Cancer"
     },
     {
@@ -1139,6 +1145,7 @@
         ]
       },
       "time": 1260162000,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1148,6 +1155,7 @@
         ]
       },
       "time": 1260162000,
+      "status": "active",
       "description": "Coronary Artery Disease No MI"
     },
     {
@@ -1157,6 +1165,7 @@
         ]
       },
       "time": 1260162000,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],
@@ -1435,6 +1444,7 @@
         ]
       },
       "time": 1275969600,
+      "status": "active",
       "description": "Prostate Cancer"
     },
     {
@@ -1444,6 +1454,7 @@
         ]
       },
       "time": 1260162000,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1453,6 +1464,7 @@
         ]
       },
       "time": 1260162000,
+      "status": "active",
       "description": "Coronary Artery Disease No MI"
     },
     {
@@ -1462,6 +1474,7 @@
         ]
       },
       "time": 1260162000,
+      "status": "active",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2475e76917d39000031",
+  "_id": "4e6a1fc64f85cf3515000031",
   "first": "Kevin",
   "patient_id": "38",
   "last": "Krauth",
   "gender": "M",
   "birthdate": -672091200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -132,6 +133,14 @@
         1287806400
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1287806400,
+        1278561600,
+        1272168000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291438800,
@@ -150,14 +159,6 @@
         1278561600,
         1287806400,
         1287806400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1287806400,
-        1278561600,
-        1272168000
       ]
     },
     "0032": {
@@ -225,16 +226,6 @@
         1291438800,
         1287806400,
         1278561600,
-        1272168000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291438800,
-        1278561600,
-        1272168000
-      ],
-      "encounter_ophthalmological_services_encounter": [
         1272168000
       ]
     },
@@ -608,6 +599,16 @@
         1272168000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291438800,
+        1278561600,
+        1272168000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1272168000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291438800,
@@ -783,6 +784,7 @@
         ]
       },
       "time": 1278561600,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -792,6 +794,7 @@
         ]
       },
       "time": 1278561600,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1049,6 +1052,7 @@
         ]
       },
       "time": 1278561600,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1058,6 +1062,7 @@
         ]
       },
       "time": 1278561600,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1305,6 +1310,7 @@
         ]
       },
       "time": 1278561600,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1314,6 +1320,7 @@
         ]
       },
       "time": 1278561600,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

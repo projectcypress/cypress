@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2425e76917d39000004",
+  "_id": "4e6a1fc14f85cf3515000004",
   "first": "Peg",
   "patient_id": "169",
   "last": "Ryan",
   "gender": "F",
   "birthdate": 78379200,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -152,6 +153,14 @@
         1275364800
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1289797200,
+        1280635200,
+        1275364800
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1289797200,
@@ -167,14 +176,6 @@
         1275364800
       ],
       "smoking_cessation_agents_medication_order": [
-        1275364800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1292389200,
-        1289797200,
-        1280635200,
         1275364800
       ]
     },
@@ -274,14 +275,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1292389200,
-        1289797200,
-        1280635200,
-        1275364800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1292389200,
         1289797200,
         1280635200,
@@ -530,6 +523,14 @@
         1275364800
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1292389200,
+        1289797200,
+        1280635200,
+        1275364800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1292389200,
@@ -653,6 +654,7 @@
         ]
       },
       "time": 1275364800,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -662,6 +664,7 @@
         ]
       },
       "time": 1275364800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -867,6 +870,7 @@
         ]
       },
       "time": 1275364800,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -876,6 +880,7 @@
         ]
       },
       "time": 1275364800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1006,6 +1011,7 @@
         ]
       },
       "time": 1275364800,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1015,6 +1021,7 @@
         ]
       },
       "time": 1275364800,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

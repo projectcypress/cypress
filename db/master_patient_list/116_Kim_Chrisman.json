@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24a5e76917d39000054",
+  "_id": "4e6a1fca4f85cf3515000054",
   "first": "Kim",
   "patient_id": "116",
   "last": "Chrisman",
   "gender": "F",
   "birthdate": -928008000,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -124,6 +125,14 @@
         1270008000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1288152000,
+        1277438400,
+        1275796800,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1288152000,
@@ -132,14 +141,6 @@
         1270008000
       ],
       "tobacco_non_user_patient_characteristic": [
-        1270008000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1288152000,
-        1277438400,
-        1275796800,
         1270008000
       ]
     },
@@ -170,14 +171,6 @@
         1275796800
       ],
       "colorectal_cancer_diagnosis_active": [
-        1275796800,
-        1275796800
-      ],
-      "colorectal_cancer_diagnosis_inactive": [
-        1275796800,
-        1275796800
-      ],
-      "colorectal_cancer_diagnosis_resolved": [
         1275796800,
         1275796800
       ],
@@ -223,14 +216,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1288152000,
-        1277438400,
-        1275796800,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1288152000,
         1277438400,
         1275796800,
@@ -556,6 +541,14 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1288152000,
+        1277438400,
+        1275796800,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1288152000,
@@ -702,6 +695,7 @@
         ]
       },
       "time": 1275796800,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -711,6 +705,7 @@
         ]
       },
       "time": 1275969600,
+      "status": "active",
       "description": "Acute Renal Insufficiency"
     },
     {
@@ -720,6 +715,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -729,6 +725,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "low back pain"
     },
     {
@@ -912,6 +909,7 @@
         ]
       },
       "time": 1275796800,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -921,6 +919,7 @@
         ]
       },
       "time": 1275969600,
+      "status": "active",
       "description": "Acute Renal Insufficiency"
     },
     {
@@ -930,6 +929,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -939,6 +939,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "low back pain"
     }
   ],
@@ -1129,6 +1130,7 @@
         ]
       },
       "time": 1275796800,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -1138,6 +1140,7 @@
         ]
       },
       "time": 1275969600,
+      "status": "active",
       "description": "Acute Renal Insufficiency"
     },
     {
@@ -1147,6 +1150,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1156,6 +1160,7 @@
         ]
       },
       "time": 1270008000,
+      "status": "active",
       "description": "low back pain"
     }
   ],

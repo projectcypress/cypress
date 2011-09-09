@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24a5e76917d3900004c",
+  "_id": "4e6a1fc94f85cf351500004c",
   "first": "Guy",
   "patient_id": "46",
   "last": "Harriott",
   "gender": "M",
   "birthdate": 1238040000,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -79,13 +80,13 @@
         1271304000
       ]
     },
-    "0028": {
-      "encounter_office_visit_encounter": [
+    "0031": {
+      "encounter_outpatient_encounter": [
         1271304000
       ]
     },
-    "0031": {
-      "encounter_outpatient_encounter": [
+    "0028": {
+      "encounter_office_visit_encounter": [
         1271304000
       ]
     },
@@ -127,11 +128,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1271304000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1271304000
       ]
     },
@@ -217,6 +213,11 @@
     },
     "0084": {
       "encounter_outpatient_encounter": [
+        1271304000
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
         1271304000
       ]
     },
@@ -363,6 +364,7 @@
         ]
       },
       "time": 1263963600,
+      "status": "active",
       "description": "pharyngitis"
     }
   ],
@@ -467,6 +469,7 @@
         ]
       },
       "time": 1263963600,
+      "status": "active",
       "description": "pharyngitis"
     }
   ],
@@ -513,6 +516,7 @@
         ]
       },
       "time": 1263963600,
+      "status": "active",
       "description": "pharyngitis"
     }
   ],

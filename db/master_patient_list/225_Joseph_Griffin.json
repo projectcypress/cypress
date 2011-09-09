@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24c5e76917d3900006a",
+  "_id": "4e6a1fcc4f85cf351500006a",
   "first": "Joseph",
   "patient_id": "225",
   "last": "Griffin",
   "gender": "M",
   "birthdate": -785620800,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -132,6 +133,13 @@
         1275451200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1284004800,
+        1278561600,
+        1275451200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1284004800,
@@ -139,13 +147,6 @@
         1275451200
       ],
       "tobacco_non_user_patient_characteristic": [
-        1275451200
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1284004800,
-        1278561600,
         1275451200
       ]
     },
@@ -207,16 +208,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1284004800,
-        1278561600,
-        1275451200
-      ]
-    },
-    "0086": {
-      "encounter_domiciliary_encounter": [
-        1280894400
-      ],
-      "encounter_office_outpatient_consult_encounter": [
         1284004800,
         1278561600,
         1275451200
@@ -559,6 +550,16 @@
         1275451200
       ]
     },
+    "0086": {
+      "encounter_domiciliary_encounter": [
+        1280894400
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1284004800,
+        1278561600,
+        1275451200
+      ]
+    },
     "0088": {
       "encounter_domiciliary_encounter": [
         1280894400
@@ -738,6 +739,7 @@
         ]
       },
       "time": 1280894400,
+      "status": "active",
       "description": "Prostate Cancer"
     },
     {
@@ -747,6 +749,7 @@
         ]
       },
       "time": 1275451200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -999,6 +1002,7 @@
         ]
       },
       "time": 1280894400,
+      "status": "active",
       "description": "Prostate Cancer"
     },
     {
@@ -1008,6 +1012,7 @@
         ]
       },
       "time": 1275451200,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1206,6 +1211,7 @@
         ]
       },
       "time": 1280894400,
+      "status": "active",
       "description": "Prostate Cancer"
     },
     {
@@ -1215,6 +1221,7 @@
         ]
       },
       "time": 1275451200,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2545e76917d390000b9",
+  "_id": "4e6a1fd54f85cf35150000b9",
   "first": "Mukesh",
   "patient_id": "28",
   "last": "Gouda",
   "gender": "M",
   "birthdate": -962913600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -96,18 +97,18 @@
         1273032000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1276574400,
+        1273032000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1276574400,
         1273032000
       ],
       "tobacco_non_user_patient_characteristic": [
-        1273032000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1276574400,
         1273032000
       ]
     },
@@ -149,12 +150,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1276574400,
-        1273032000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1276574400,
         1273032000
       ]
@@ -216,12 +211,6 @@
       ]
     },
     "0062": {
-      "ace_inhibitors_arbs_medication_order": [
-        1276574400
-      ],
-      "ace_inhibitors_arbs_medication_dispensed": [
-        1276574400
-      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1276574400,
         1273032000
@@ -264,12 +253,6 @@
       ]
     },
     "0070": {
-      "beta_blocker_therapy_medication_order": [
-        1276401600
-      ],
-      "beta_blocker_therapy_medication_active": [
-        1276401600
-      ],
       "encounter_outpatient_encounter": [
         1276574400,
         1273032000
@@ -366,12 +349,6 @@
         1276401600,
         1276401600
       ],
-      "ace_inhibitor_or_arb_medication_active": [
-        1276574400
-      ],
-      "ace_inhibitor_or_arb_medication_order": [
-        1276574400
-      ],
       "encounter_outpatient_encounter": [
         1276574400,
         1273032000
@@ -380,12 +357,6 @@
     "0083": {
       "heart_failure_diagnosis_active": [
         1276401600,
-        1276401600
-      ],
-      "beta_blocker_therapy_medication_order": [
-        1276401600
-      ],
-      "beta_blocker_therapy_medication_active": [
         1276401600
       ],
       "encounter_outpatient_encounter": [
@@ -399,6 +370,12 @@
         1276401600
       ],
       "encounter_outpatient_encounter": [
+        1276574400,
+        1273032000
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
         1276574400,
         1273032000
       ]
@@ -492,6 +469,7 @@
         ]
       },
       "time": 1276401600,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -501,6 +479,7 @@
         ]
       },
       "time": 1273032000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -653,6 +632,7 @@
         ]
       },
       "time": 1276401600,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -662,6 +642,7 @@
         ]
       },
       "time": 1273032000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -731,24 +712,7 @@
     }
   ],
   "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1276574400,
-      "description": "ACE inhibitor or ARB"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "866924"
-        ]
-      },
-      "time": 1276401600,
-      "description": "Beta Blocker Therapy"
-    }
+
   ],
   "immunizations": [
 
@@ -764,6 +728,7 @@
         ]
       },
       "time": 1276401600,
+      "status": "active",
       "description": "Heart Failure"
     },
     {
@@ -773,6 +738,7 @@
         ]
       },
       "time": 1273032000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],

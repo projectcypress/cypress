@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2515e76917d390000a3",
+  "_id": "4e6a1fd24f85cf35150000a3",
   "first": "Caroline",
   "patient_id": "99",
   "last": "O'Connor",
   "gender": "F",
   "birthdate": -142200000,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -96,6 +97,15 @@
         1272686400
       ]
     },
+    "0031": {
+      "breast_cancer_screening_diagnostic_study_performed": [
+        1286769600
+      ],
+      "encounter_outpatient_encounter": [
+        1289102400,
+        1272686400
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1289102400,
@@ -105,15 +115,6 @@
         1272686400
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
-        1272686400
-      ]
-    },
-    "0031": {
-      "breast_cancer_screening_diagnostic_study_performed": [
-        1286769600
-      ],
-      "encounter_outpatient_encounter": [
-        1289102400,
         1272686400
       ]
     },
@@ -162,12 +163,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1289102400,
-        1272686400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1289102400,
         1272686400
       ]
@@ -496,6 +491,12 @@
         1272686400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1289102400,
+        1272686400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1289102400,
@@ -631,6 +632,7 @@
         ]
       },
       "time": 1272686400,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -818,6 +820,7 @@
         ]
       },
       "time": 1272686400,
+      "status": "active",
       "description": "diabetes"
     }
   ],
@@ -990,6 +993,7 @@
         ]
       },
       "time": 1272686400,
+      "status": "active",
       "description": "diabetes"
     }
   ],

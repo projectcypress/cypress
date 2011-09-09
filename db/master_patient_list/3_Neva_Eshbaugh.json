@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2525e76917d390000a5",
+  "_id": "4e6a1fd24f85cf35150000a5",
   "first": "Neva",
   "patient_id": "3",
   "last": "Eshbaugh",
   "gender": "F",
   "birthdate": -830894400,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -125,6 +126,12 @@
         1270008000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1281240000,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1281240000,
@@ -141,12 +148,6 @@
       ],
       "smoking_cessation_agents_medication_order": [
         1281240000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1281240000,
-        1270008000
       ]
     },
     "0032": {
@@ -193,12 +194,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1281240000,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1281240000,
         1270008000
       ]
@@ -364,9 +359,7 @@
         1277006400
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1277179200,
         1241668800,
-        1277179200,
         1241668800
       ],
       "antiplatelet_therapy_medication_allergy": [
@@ -501,9 +494,7 @@
         1277006400
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1277179200,
         1241668800,
-        1277179200,
         1241668800
       ],
       "encounter_outpatient_encounter": [
@@ -687,6 +678,12 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1281240000,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1281240000,
@@ -836,6 +833,7 @@
         ]
       },
       "time": 1277179200,
+      "status": "resolved",
       "description": "Myocardial Infarction"
     },
     {
@@ -845,6 +843,7 @@
         ]
       },
       "time": 1241668800,
+      "status": "active",
       "description": "Coronary Artery Disease No MI"
     },
     {
@@ -854,6 +853,7 @@
         ]
       },
       "time": 1241668800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1084,6 +1084,7 @@
         ]
       },
       "time": 1277179200,
+      "status": "resolved",
       "description": "Myocardial Infarction"
     },
     {
@@ -1093,6 +1094,7 @@
         ]
       },
       "time": 1241668800,
+      "status": "active",
       "description": "Coronary Artery Disease No MI"
     },
     {
@@ -1102,6 +1104,7 @@
         ]
       },
       "time": 1241668800,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1345,6 +1348,7 @@
         ]
       },
       "time": 1241668800,
+      "status": "active",
       "description": "Coronary Artery Disease No MI"
     },
     {
@@ -1354,6 +1358,7 @@
         ]
       },
       "time": 1241668800,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -1368,6 +1373,7 @@
         ]
       },
       "time": 1277179200,
+      "status": "resolved",
       "description": "Myocardial Infarction"
     }
   ]

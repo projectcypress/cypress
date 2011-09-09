@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2425e76917d39000003",
+  "_id": "4e6a1fc14f85cf3515000003",
   "first": "Joseph",
   "patient_id": "168",
   "last": "Rios",
   "gender": "M",
   "birthdate": 103698000,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -198,6 +199,16 @@
         1278043200
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1290574800,
+        1287633600,
+        1284091200,
+        1281844800,
+        1278043200,
+        1272859200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1290574800,
@@ -217,16 +228,6 @@
       ],
       "smoking_cessation_agents_medication_order": [
         1281844800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1290574800,
-        1287633600,
-        1284091200,
-        1281844800,
-        1278043200,
-        1272859200
       ]
     },
     "0032": {
@@ -360,16 +361,6 @@
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1290574800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1290574800,
-        1287633600,
-        1284091200,
-        1281844800,
-        1278043200,
-        1272859200
       ]
     },
     "0047": {
@@ -692,6 +683,16 @@
         1272859200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1290574800,
+        1287633600,
+        1284091200,
+        1281844800,
+        1278043200,
+        1272859200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1290574800,
@@ -861,6 +862,7 @@
         ]
       },
       "time": 1272859200,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -870,6 +872,7 @@
         ]
       },
       "time": 1272859200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -879,6 +882,7 @@
         ]
       },
       "time": 1284091200,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -1171,6 +1175,7 @@
         ]
       },
       "time": 1272859200,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1180,6 +1185,7 @@
         ]
       },
       "time": 1272859200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1189,6 +1195,7 @@
         ]
       },
       "time": 1284091200,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -1373,6 +1380,7 @@
         ]
       },
       "time": 1272859200,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1382,6 +1390,7 @@
         ]
       },
       "time": 1272859200,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1391,6 +1400,7 @@
         ]
       },
       "time": 1284091200,
+      "status": "active",
       "description": "Asthma Persistent"
     }
   ],

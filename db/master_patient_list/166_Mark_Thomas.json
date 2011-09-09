@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2455e76917d39000023",
+  "_id": "4e6a1fc44f85cf3515000023",
   "first": "Mark",
   "patient_id": "166",
   "last": "Thomas",
   "gender": "M",
   "birthdate": 754808400,
+  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -150,18 +151,18 @@
         1273464000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1289192400,
+        1277179200,
+        1273464000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1277179200
       ],
       "tobacco_non_user_patient_characteristic": [
-        1273464000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1289192400,
-        1277179200,
         1273464000
       ]
     },
@@ -239,13 +240,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1289192400,
-        1277179200,
-        1273464000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1289192400,
         1277179200,
         1273464000
@@ -515,6 +509,13 @@
         1273464000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1289192400,
+        1277179200,
+        1273464000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1289192400,
@@ -637,6 +638,7 @@
         ]
       },
       "time": 1277179200,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -646,6 +648,7 @@
         ]
       },
       "time": 1286942400,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -655,6 +658,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -890,6 +894,7 @@
         ]
       },
       "time": 1277179200,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -899,6 +904,7 @@
         ]
       },
       "time": 1286942400,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -908,6 +914,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "Asthma"
     },
     {
@@ -1008,6 +1015,7 @@
         ]
       },
       "time": 1277179200,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -1017,6 +1025,7 @@
         ]
       },
       "time": 1286942400,
+      "status": "active",
       "description": "Asthma Persistent"
     },
     {
@@ -1026,6 +1035,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "Asthma"
     }
   ],

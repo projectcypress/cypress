@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24d5e76917d39000075",
+  "_id": "4e6a1fcd4f85cf3515000075",
   "first": "Marcie",
   "patient_id": "12",
   "last": "Budniewski",
   "gender": "F",
   "birthdate": 580276800,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -205,18 +206,18 @@
         1270008000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1274328000,
+        1270008000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1274328000,
         1270008000
       ],
       "tobacco_non_user_patient_characteristic": [
-        1270008000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1274328000,
         1270008000
       ]
     },
@@ -260,15 +261,12 @@
         1270008000
       ],
       "contraceptives_medication_dispensed": [
-        1278561600,
         1270008000
       ],
       "contraceptives_medication_order": [
-        1278561600,
         1270008000
       ],
       "contraceptives_medication_active": [
-        1278561600,
         1270008000
       ],
       "iud_use_device_allergy": [
@@ -312,12 +310,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1274328000,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1274328000,
         1270008000
       ]
@@ -615,6 +607,12 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1274328000,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1274328000,
@@ -831,6 +829,7 @@
         ]
       },
       "time": 1293253200,
+      "status": "active",
       "description": "Delivery Live Births-Diagnosis"
     },
     {
@@ -840,6 +839,7 @@
         ]
       },
       "time": 1284091200,
+      "status": "active",
       "description": "D(Rh) Negative"
     },
     {
@@ -849,6 +849,7 @@
         ]
       },
       "time": 1274328000,
+      "status": "active",
       "description": "Pregnancy"
     },
     {
@@ -1262,6 +1263,7 @@
         ]
       },
       "time": 1293253200,
+      "status": "active",
       "description": "Delivery Live Births-Diagnosis"
     },
     {
@@ -1271,6 +1273,7 @@
         ]
       },
       "time": 1284091200,
+      "status": "active",
       "description": "D(Rh) Negative"
     },
     {
@@ -1280,6 +1283,7 @@
         ]
       },
       "time": 1274328000,
+      "status": "active",
       "description": "Pregnancy"
     },
     {
@@ -1369,15 +1373,6 @@
           "314146"
         ]
       },
-      "time": 1278561600,
-      "description": "contraceptives"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314146"
-        ]
-      },
       "time": 1270008000,
       "description": "contraceptives"
     },
@@ -1405,6 +1400,7 @@
         ]
       },
       "time": 1293253200,
+      "status": "active",
       "description": "Delivery Live Births-Diagnosis"
     },
     {
@@ -1414,6 +1410,7 @@
         ]
       },
       "time": 1284091200,
+      "status": "active",
       "description": "D(Rh) Negative"
     },
     {
@@ -1423,6 +1420,7 @@
         ]
       },
       "time": 1274328000,
+      "status": "active",
       "description": "Pregnancy"
     }
   ],

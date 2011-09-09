@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2485e76917d3900003c",
+  "_id": "4e6a1fc74f85cf351500003c",
   "first": "Allie",
   "patient_id": "23",
   "last": "Little",
   "gender": "F",
   "birthdate": 628578000,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -135,6 +136,14 @@
         1234760400
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291525200,
+        1282449600,
+        1271649600,
+        1234760400
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291525200,
@@ -144,14 +153,6 @@
       ],
       "tobacco_non_user_patient_characteristic": [
         1271649600
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291525200,
-        1282449600,
-        1271649600,
-        1234760400
       ]
     },
     "0032": {
@@ -230,14 +231,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1291525200,
-        1282449600,
-        1271649600,
-        1234760400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1291525200,
         1282449600,
         1271649600,
@@ -455,6 +448,14 @@
         1234760400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291525200,
+        1282449600,
+        1271649600,
+        1234760400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291525200,
@@ -592,6 +593,7 @@
         ]
       },
       "time": 1282449600,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -601,6 +603,7 @@
         ]
       },
       "time": 1271649600,
+      "status": "active",
       "description": "sexually active woman"
     },
     {
@@ -823,6 +826,7 @@
         ]
       },
       "time": 1282449600,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -832,6 +836,7 @@
         ]
       },
       "time": 1271649600,
+      "status": "active",
       "description": "sexually active woman"
     }
   ],
@@ -922,6 +927,7 @@
         ]
       },
       "time": 1282449600,
+      "status": "active",
       "description": "pharyngitis"
     },
     {
@@ -931,6 +937,7 @@
         ]
       },
       "time": 1271649600,
+      "status": "active",
       "description": "sexually active woman"
     }
   ],

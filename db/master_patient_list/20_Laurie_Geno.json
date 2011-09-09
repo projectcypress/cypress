@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2475e76917d39000032",
+  "_id": "4e6a1fc64f85cf3515000032",
   "first": "Laurie",
   "patient_id": "20",
   "last": "Geno",
   "gender": "F",
   "birthdate": -848347200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -130,6 +131,17 @@
         1273464000
       ]
     },
+    "0031": {
+      "breast_cancer_screening_diagnostic_study_performed": [
+        1290229200
+      ],
+      "encounter_outpatient_encounter": [
+        1290661200,
+        1290229200,
+        1285905600,
+        1273464000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1290661200,
@@ -140,17 +152,6 @@
       "tobacco_user_patient_characteristic": [
         1282795200,
         1290661200
-      ]
-    },
-    "0031": {
-      "breast_cancer_screening_diagnostic_study_performed": [
-        1290229200
-      ],
-      "encounter_outpatient_encounter": [
-        1290661200,
-        1290229200,
-        1285905600,
-        1273464000
       ]
     },
     "0032": {
@@ -192,9 +193,6 @@
         1290229200,
         1285905600,
         1273464000
-      ],
-      "influenza_vaccine_medication_administered": [
-        1285905600
       ]
     },
     "0041": {
@@ -209,21 +207,10 @@
         1290229200,
         1285905600,
         1273464000
-      ],
-      "influenza_vaccine_medication_administered": [
-        1285905600
       ]
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1290661200,
-        1290229200,
-        1285905600,
-        1273464000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1290661200,
         1290229200,
         1285905600,
@@ -239,10 +226,6 @@
       ]
     },
     "0052": {
-      "cancer_diagnosis_active": [
-        1179115200,
-        1179115200
-      ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
         1290661200,
         1290229200,
@@ -484,6 +467,14 @@
         1273464000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1290661200,
+        1290229200,
+        1285905600,
+        1273464000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1290661200,
@@ -627,6 +618,7 @@
         ]
       },
       "time": 1179115200,
+      "status": "inactive",
       "description": "Breast Cancer History"
     },
     {
@@ -636,6 +628,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -797,6 +790,7 @@
         ]
       },
       "time": 1179115200,
+      "status": "inactive",
       "description": "Breast Cancer History"
     },
     {
@@ -806,6 +800,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -883,15 +878,7 @@
     }
   ],
   "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1285905600,
-      "description": "Influenza Vaccine"
-    }
+
   ],
   "care_goals": [
     {
@@ -912,6 +899,7 @@
         ]
       },
       "time": 1273464000,
+      "status": "active",
       "description": "Hypertension"
     }
   ],
@@ -923,6 +911,7 @@
         ]
       },
       "time": 1179115200,
+      "status": "inactive",
       "description": "Breast Cancer History"
     }
   ],

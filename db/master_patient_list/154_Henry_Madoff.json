@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2505e76917d39000097",
+  "_id": "4e6a1fd14f85cf3515000097",
   "first": "Henry",
   "patient_id": "154",
   "last": "Madoff",
   "gender": "M",
   "birthdate": -63399600,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -106,6 +107,13 @@
         1271390400
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291179600,
+        1281931200,
+        1271390400
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291179600,
@@ -113,13 +121,6 @@
         1271390400
       ],
       "tobacco_non_user_patient_characteristic": [
-        1271390400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291179600,
-        1281931200,
         1271390400
       ]
     },
@@ -167,13 +168,6 @@
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1291179600,
-        1281931200,
-        1271390400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
         1291179600,
         1281931200,
         1271390400
@@ -246,7 +240,7 @@
       "hba1c_test_laboratory_test_result": [
         {
           "date": 1291179600,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1281931200,
@@ -258,7 +252,7 @@
         },
         {
           "date": 1291179600,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1281931200,
@@ -515,6 +509,13 @@
         1271390400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291179600,
+        1281931200,
+        1271390400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291179600,
@@ -582,7 +583,7 @@
       "hba1c_test_laboratory_test_result": [
         {
           "date": 1291179600,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1281931200,
@@ -594,7 +595,7 @@
         },
         {
           "date": 1291179600,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1281931200,
@@ -659,6 +660,7 @@
         ]
       },
       "time": 1271390400,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -783,7 +785,7 @@
         ]
       },
       "value": {
-        "scalar": 0.084,
+        "scalar": 8.4,
         "units": null
       },
       "time": 1291179600,
@@ -876,6 +878,7 @@
         ]
       },
       "time": 1271390400,
+      "status": "active",
       "description": "diabetes"
     }
   ],
@@ -887,7 +890,7 @@
         ]
       },
       "value": {
-        "scalar": 0.084,
+        "scalar": 8.4,
         "units": null
       },
       "time": 1291179600,
@@ -1047,6 +1050,7 @@
         ]
       },
       "time": 1271390400,
+      "status": "active",
       "description": "diabetes"
     }
   ],

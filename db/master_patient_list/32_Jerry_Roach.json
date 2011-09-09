@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e24a5e76917d3900004f",
+  "_id": "4e6a1fc94f85cf351500004f",
   "first": "Jerry",
   "patient_id": "32",
   "last": "Roach",
   "gender": "M",
   "birthdate": -322171200,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -117,6 +118,14 @@
         1273204800
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1273204800,
+        1273464000,
+        1273896000,
+        1277611200
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1273204800,
@@ -136,14 +145,6 @@
       ],
       "smoking_cessation_agents_medication_order": [
         1273204800
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1273204800,
-        1273464000,
-        1273896000,
-        1277611200
       ]
     },
     "0032": {
@@ -175,14 +176,6 @@
         1273464000
       ],
       "colorectal_cancer_diagnosis_active": [
-        1273896000,
-        1273896000
-      ],
-      "colorectal_cancer_diagnosis_inactive": [
-        1273896000,
-        1273896000
-      ],
-      "colorectal_cancer_diagnosis_resolved": [
         1273896000,
         1273896000
       ],
@@ -243,14 +236,6 @@
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1273291200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1273204800,
-        1273464000,
-        1273896000,
-        1277611200
       ]
     },
     "0047": {
@@ -610,6 +595,14 @@
         1277611200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1273204800,
+        1273464000,
+        1273896000,
+        1277611200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1273204800,
@@ -802,6 +795,7 @@
         ]
       },
       "time": 1273896000,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -811,6 +805,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -820,6 +815,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "COPD"
     },
     {
@@ -829,6 +825,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -838,6 +835,7 @@
         ]
       },
       "time": 1273896000,
+      "status": "active",
       "description": "Metastatic Sites Common to Colon Cancer"
     },
     {
@@ -1025,6 +1023,7 @@
         ]
       },
       "time": 1273896000,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -1034,6 +1033,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1043,6 +1043,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "COPD"
     },
     {
@@ -1052,6 +1053,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1061,6 +1063,7 @@
         ]
       },
       "time": 1273896000,
+      "status": "active",
       "description": "Metastatic Sites Common to Colon Cancer"
     }
   ],
@@ -1303,6 +1306,7 @@
         ]
       },
       "time": 1273896000,
+      "status": "active",
       "description": "Colon Cancer"
     },
     {
@@ -1312,6 +1316,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1321,6 +1326,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "COPD"
     },
     {
@@ -1330,6 +1336,7 @@
         ]
       },
       "time": 1273204800,
+      "status": "active",
       "description": "Hypertension"
     },
     {
@@ -1339,6 +1346,7 @@
         ]
       },
       "time": 1273896000,
+      "status": "active",
       "description": "Metastatic Sites Common to Colon Cancer"
     }
   ],

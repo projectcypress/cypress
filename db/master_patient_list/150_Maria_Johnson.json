@@ -1,10 +1,11 @@
 {
-  "_id": "4e42e2515e76917d390000a0",
+  "_id": "4e6a1fd14f85cf35150000a0",
   "first": "Maria",
   "patient_id": "150",
   "last": "Johnson",
   "gender": "F",
   "birthdate": -560718000,
+  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -124,6 +125,14 @@
         1020312000
       ]
     },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1286164800,
+        1283572800,
+        1275364800,
+        1020312000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1286164800,
@@ -134,14 +143,6 @@
         1272772800
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
-        1020312000
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1286164800,
-        1283572800,
-        1275364800,
         1020312000
       ]
     },
@@ -215,17 +216,6 @@
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1286164800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1286164800,
-        1283572800,
-        1275364800,
-        1020312000
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1278129600
       ]
     },
     "0047": {
@@ -606,6 +596,17 @@
         1020312000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1286164800,
+        1283572800,
+        1275364800,
+        1020312000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1278129600
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1286164800,
@@ -770,6 +771,7 @@
         ]
       },
       "time": 1272772800,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -779,6 +781,7 @@
         ]
       },
       "time": 1272772800,
+      "status": "active",
       "description": "Nephropathy"
     },
     {
@@ -788,6 +791,7 @@
         ]
       },
       "time": 1283572800,
+      "status": "active",
       "description": "Acute Renal Insufficiency"
     },
     {
@@ -1018,6 +1022,7 @@
         ]
       },
       "time": 1272772800,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1027,6 +1032,7 @@
         ]
       },
       "time": 1272772800,
+      "status": "active",
       "description": "Nephropathy"
     },
     {
@@ -1036,6 +1042,7 @@
         ]
       },
       "time": 1283572800,
+      "status": "active",
       "description": "Acute Renal Insufficiency"
     }
   ],
@@ -1277,6 +1284,7 @@
         ]
       },
       "time": 1272772800,
+      "status": "active",
       "description": "diabetes"
     },
     {
@@ -1286,6 +1294,7 @@
         ]
       },
       "time": 1272772800,
+      "status": "active",
       "description": "Nephropathy"
     },
     {
@@ -1295,6 +1304,7 @@
         ]
       },
       "time": 1283572800,
+      "status": "active",
       "description": "Acute Renal Insufficiency"
     }
   ],
