@@ -4,386 +4,237 @@
   "gender": "M",
   "birthdate": <%= between(491284800, 492494400) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1284264000,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1278648000,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1270526400,
+        "code_set": "CPT",
+        "code": "99241"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Asthma Persistent",
+        "time": 1270526400,
+        "code_set": "ICD-10-CM",
+        "code": "J45.42",
+        "status": "active"
+      },
+      {
+        "description": "Asthma",
+        "time": 804052800,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270526400,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270526400,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1284264000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1284264000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
+        "time": 1270526400,
+        "code_set": "RxNorm",
+        "code": "351136"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1270526400,
+        "code_set": "RxNorm",
+        "code": "630208"
+      },
+      {
+        "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
+        "time": 1284264000,
+        "code_set": "RxNorm",
+        "code": "351136"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1284264000,
+        "code_set": "RxNorm",
+        "code": "630208"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Asthma Persistent",
+        "time": 1270526400,
+        "code_set": "ICD-10-CM",
+        "code": "J45.42",
+        "status": "active"
       },
-      "time": 1284264000,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Asthma",
+        "time": 804052800,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1278648000,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1270526400,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
       },
-      "time": 1270526400,
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270526400,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1270526400,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270526400,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
       },
-      "time": 804052800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1284264000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1270526400,
-      "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1284264000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1284264000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 110.0
       },
-      "time": 1270526400,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1284264000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 64.0
       },
-      "time": 1270526400,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1278648000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 104.0
       },
-      "time": 1284264000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1278648000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 62.0
       },
-      "time": 1284264000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270526400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 106.0
       },
-      "value": {
-        "scalar": 110.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270526400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 64.0
       },
-      "time": 1284264000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1284264000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.39189189189189
       },
-      "value": {
-        "scalar": 64.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1278648000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.135135135135133
       },
-      "time": 1284264000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 104.0,
-        "units": null
-      },
-      "time": 1278648000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 62.0,
-        "units": null
-      },
-      "time": 1278648000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 106.0,
-        "units": null
-      },
-      "time": 1270526400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 64.0,
-        "units": null
-      },
-      "time": 1270526400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.39189189189189,
-        "units": null
-      },
-      "time": 1284264000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.135135135135133,
-        "units": null
-      },
-      "time": 1278648000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.263513513513512,
-        "units": null
-      },
-      "time": 1270526400,
-      "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
-      },
-      "time": 1270526400,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 804052800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270526400,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270526400,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1284264000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1284264000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "results": [
+      {
+        "description": "BMI",
+        "time": 1270526400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.263513513513512
+      }
+    ],
+    "results": [
 
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
+    ],
+    "procedures": [
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1270526400,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1284264000,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1270526400,
-      "description": "Asthma Symptom Assessment Tool"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "351136"
-        ]
-      },
-      "time": 1270526400,
-      "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1270526400,
-      "description": "Short acting beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "351136"
-        ]
-      },
-      "time": 1284264000,
-      "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1284264000,
-      "description": "Short acting beta 2 agonist"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1284264000,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1284264000,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1284264000,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
-      },
-      "time": 1270526400,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 804052800,
-      "status": "active",
-      "description": "Asthma"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

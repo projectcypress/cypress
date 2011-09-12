@@ -4,418 +4,248 @@
   "gender": "F",
   "birthdate": <%= between(627973200, 629182800) %>,
   "addresses": null,
-  "allergies": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1291525200,
+        "code_set": "CPT",
+        "code": "99213"
       },
-      "time": 1263531600,
-      "description": "IUD use"
-    }
-  ],
-  "medical_equipment": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1282449600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1271649600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1234760400,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "pharyngitis",
+        "time": 1282449600,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
+      },
+      {
+        "description": "sexually active woman",
+        "time": 1271649600,
+        "code_set": "ICD-9-CM",
+        "code": "099.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Third generation cephalosporins",
+        "time": 1282449600,
+        "code_set": "RxNorm",
+        "code": "309078"
+      },
+      {
+        "description": "contraceptives",
+        "time": 1271649600,
+        "code_set": "RxNorm",
+        "code": "314146"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "allergies": [
+      {
+        "description": "IUD use",
+        "time": 1263531600,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "social_history": [
+      {
+        "description": "pharyngitis",
+        "time": 1282449600,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
       },
-      "time": 1291525200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "sexually active woman",
+        "time": 1271649600,
+        "code_set": "ICD-9-CM",
+        "code": "099.9",
+        "status": "active"
       },
-      "time": 1282449600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1271649600,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1291525200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 106.0
       },
-      "time": 1271649600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1291525200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 68.0
       },
-      "time": 1234760400,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1291525200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 68.0
       },
-      "time": 1282449600,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1282449600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 100.0
       },
-      "time": 1271649600,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1282449600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 60.0
       },
-      "time": 1271649600,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1282449600,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 62.0
       },
-      "value": {
-        "scalar": 106.0,
-        "units": null
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1271649600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 102.0
       },
-      "time": 1291525200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1271649600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 62.0
       },
-      "value": {
-        "scalar": 68.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1271649600,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 60.0
       },
-      "time": 1291525200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "BMI",
+        "time": 1291525200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 19.575629316106035
       },
-      "value": {
-        "scalar": 68.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1282449600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 19.419024281577187
       },
-      "time": 1291525200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1271649600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 19.732234350634883
       },
-      "value": {
-        "scalar": 100.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1171602000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 19.26241924704834
       },
-      "time": 1282449600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1291525200,
+        "code_set": "CPT",
+        "code": "87430"
       },
-      "value": {
-        "scalar": 60.0,
-        "units": null
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1282449600,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
       },
-      "time": 1282449600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1271649600,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "results": [
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1291525200,
+        "code_set": "CPT",
+        "code": "87430"
       },
-      "value": {
-        "scalar": 62.0,
-        "units": null
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1282449600,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
       },
-      "time": 1282449600,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1271649600,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "contraceptive use education",
+        "time": 1271649600,
+        "code_set": "SNOMED-CT",
+        "code": "44651004"
       },
-      "value": {
-        "scalar": 102.0,
-        "units": null
-      },
-      "time": 1271649600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 62.0,
-        "units": null
-      },
-      "time": 1271649600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 60.0,
-        "units": null
-      },
-      "time": 1271649600,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 19.575629316106035,
-        "units": null
-      },
-      "time": 1291525200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 19.419024281577187,
-        "units": null
-      },
-      "time": 1282449600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 19.732234350634883,
-        "units": null
-      },
-      "time": 1271649600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 19.26241924704834,
-        "units": null
-      },
-      "time": 1171602000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "time": 1291525200,
-      "description": "Group A Streptococcus Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1282449600,
-      "description": "Group A Streptococcus Test"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1271649600,
-      "description": "Pap Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1282449600,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1271649600,
-      "status": "active",
-      "description": "sexually active woman"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "time": 1291525200,
-      "description": "Group A Streptococcus Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1282449600,
-      "description": "Group A Streptococcus Test"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1271649600,
-      "description": "Pap Test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "44651004"
-        ]
-      },
-      "time": 1271649600,
-      "description": "contraceptive use education"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "88235"
-        ]
-      },
-      "time": 1271649600,
-      "description": "procedures indicative of sexually active woman"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "309078"
-        ]
-      },
-      "time": 1282449600,
-      "description": "Third generation cephalosporins"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314146"
-        ]
-      },
-      "time": 1271649600,
-      "description": "contraceptives"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "procedures indicative of sexually active woman",
+        "time": 1271649600,
+        "code_set": "CPT",
+        "code": "88235"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1282449600,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1271649600,
-      "status": "active",
-      "description": "sexually active woman"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

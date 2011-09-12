@@ -4,597 +4,346 @@
   "gender": "M",
   "birthdate": <%= between(-1143226800, -1142017200) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Office Visit",
+        "time": 1289365200,
+        "code_set": "CPT",
+        "code": "99212"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1284523200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Inpatient Discharge",
+        "time": 1283572800,
+        "code_set": "CPT",
+        "code": "99238"
+      },
+      {
+        "description": "encounter acute inpt",
+        "time": 1283227200,
+        "code_set": "CPT",
+        "code": "99251"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1281412800,
+        "code_set": "CPT",
+        "code": "99212"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Hypertension",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Heart Failure",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
+      },
+      {
+        "description": "Atrial Fibrillation",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "427.31",
+        "status": "active"
+      },
+      {
+        "description": "Prostate Cancer",
+        "time": 1283227200,
+        "code_set": "ICD-9-CM",
+        "code": "185",
+        "status": "active"
+      },
+      {
+        "description": "Pain Related to Prostate Cancer",
+        "time": 1284523200,
+        "code_set": "SNOMED-CT",
+        "code": "282743009",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "ACE inhibitor or ARB",
+        "time": 1279166400,
+        "code_set": "RxNorm",
+        "code": "314076"
+      },
+      {
+        "description": "Beta Blocker Therapy",
+        "time": 1279166400,
+        "code_set": "RxNorm",
+        "code": "866924"
+      },
+      {
+        "description": "Warfarin Therapy",
+        "time": 1279166400,
+        "code_set": "RxNorm",
+        "code": "855326"
+      },
+      {
+        "description": "Smoking Cessation Agents",
+        "time": 1289365200,
+        "code_set": "RxNorm",
+        "code": "105075"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1289365200,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1284523200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
-      },
-      "time": 1283572800,
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
-      },
-      "time": 1283227200,
-      "description": "encounter acute inpt"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1281412800,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1283227200,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "282743009"
-        ]
-      },
-      "time": 1284523200,
-      "status": "active",
-      "description": "Pain Related to Prostate Cancer"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 126.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 74.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.594123048668507,
-        "units": null
-      },
-      "time": 1285819200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 23.239669421487605,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84153"
-        ]
-      },
-      "value": {
-        "scalar": "2.5 ng/dL",
-        "units": null
-      },
-      "time": 1278302400,
-      "description": "Prostate Specific Antigen Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369776000"
-        ]
-      },
-      "value": {
-        "scalar": 5.0,
-        "units": null
-      },
-      "time": 1278302400,
-      "description": "Gleason Score <=6"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": "80 mg/dL",
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": "150 mg/dL",
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": "175 mg/dL",
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Triglycerides"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": "40 mg/dL",
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1283227200,
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1283227200,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "282743009"
-        ]
-      },
-      "time": 1284523200,
-      "status": "active",
-      "description": "Pain Related to Prostate Cancer"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "84153"
-        ]
-      },
-      "value": {
-        "scalar": "2.5 ng/dL",
-        "units": null
-      },
-      "time": 1278302400,
-      "description": "Prostate Specific Antigen Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369776000"
-        ]
-      },
-      "value": {
-        "scalar": 5.0,
-        "units": null
-      },
-      "time": 1278302400,
-      "description": "Gleason Score <=6"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": "80 mg/dL",
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": "150 mg/dL",
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": "175 mg/dL",
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Triglycerides"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": "40 mg/dL",
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1283227200,
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1279166400,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1279166400,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1279166400,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "55810"
-        ]
-      },
-      "time": 1283227200,
-      "description": "Prostate Cancer Treatment"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1283227200,
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "70822001"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Ejection Fraction"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1279166400,
-      "description": "ACE inhibitor or ARB"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "866924"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Beta Blocker Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "855326"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Warfarin Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1289365200,
-      "description": "Smoking Cessation Agents"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1284523200,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "854969"
-        ]
-      },
-      "time": 1284523200,
-      "description": "Pneumococcal Vaccine"
-    }
-  ],
-  "care_goals": [
+    ],
+    "social_history": [
+      {
+        "description": "Hypertension",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Heart Failure",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
+      },
+      {
+        "description": "Atrial Fibrillation",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "427.31",
+        "status": "active"
+      },
+      {
+        "description": "Prostate Cancer",
+        "time": 1283227200,
+        "code_set": "ICD-9-CM",
+        "code": "185",
+        "status": "active"
+      },
+      {
+        "description": "Pain Related to Prostate Cancer",
+        "time": 1284523200,
+        "code_set": "SNOMED-CT",
+        "code": "282743009",
+        "status": "active"
+      },
+      {
+        "description": "Tobacco User",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 126.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
+      },
+      {
+        "description": "Heart Rate",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 84.0
+      },
+      {
+        "description": "BMI",
+        "time": 1285819200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.594123048668507
+      },
+      {
+        "description": "BMI",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 23.239669421487605
+      },
+      {
+        "description": "Prostate Specific Antigen Test",
+        "time": 1278302400,
+        "code_set": "CPT",
+        "code": "84153",
+        "value": "2.5 ng/dL"
+      },
+      {
+        "description": "Gleason Score <=6",
+        "time": 1278302400,
+        "code_set": "SNOMED-CT",
+        "code": "369776000",
+        "value": 5.0
+      },
+      {
+        "description": "LDL",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": "80 mg/dL"
+      },
+      {
+        "description": "Total Cholesterol",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": "150 mg/dL"
+      },
+      {
+        "description": "Triglycerides",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": "175 mg/dL"
+      },
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": "40 mg/dL"
+      },
+      {
+        "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+        "time": 1283227200,
+        "code_set": "SNOMED-CT",
+        "code": "261650005"
+      }
+    ],
+    "results": [
+      {
+        "description": "Prostate Specific Antigen Test",
+        "time": 1278302400,
+        "code_set": "CPT",
+        "code": "84153",
+        "value": "2.5 ng/dL"
+      },
+      {
+        "description": "Gleason Score <=6",
+        "time": 1278302400,
+        "code_set": "SNOMED-CT",
+        "code": "369776000",
+        "value": 5.0
+      },
+      {
+        "description": "LDL",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": "80 mg/dL"
+      },
+      {
+        "description": "Total Cholesterol",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": "150 mg/dL"
+      },
+      {
+        "description": "Triglycerides",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": "175 mg/dL"
+      },
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": "40 mg/dL"
+      },
+      {
+        "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+        "time": 1283227200,
+        "code_set": "SNOMED-CT",
+        "code": "261650005"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
+      },
+      {
+        "description": "counseling for nutrition",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "97802"
+      },
+      {
+        "description": "counseling for physical activity",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
+      },
+      {
+        "description": "Prostate Cancer Treatment",
+        "time": 1283227200,
+        "code_set": "CPT",
+        "code": "55810"
+      },
+      {
+        "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+        "time": 1283227200,
+        "code_set": "SNOMED-CT",
+        "code": "261650005"
+      },
+      {
+        "description": "Ejection Fraction",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "70822001"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1284523200,
+        "code_set": "RxNorm",
+        "code": "857942"
+      },
+      {
+        "description": "Pneumococcal Vaccine",
+        "time": 1284523200,
+        "code_set": "RxNorm",
+        "code": "854969"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1283227200,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "282743009"
-        ]
-      },
-      "time": 1284523200,
-      "status": "active",
-      "description": "Pain Related to Prostate Cancer"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

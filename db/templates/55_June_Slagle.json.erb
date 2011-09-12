@@ -4,384 +4,229 @@
   "gender": "F",
   "birthdate": <%= between(940914000, 942123600) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1292389200,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1284091200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "99241"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Asthma",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "pharyngitis",
+        "time": 1284091200,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Tetracycline",
+        "time": 1284091200,
+        "code_set": "RxNorm",
+        "code": "406524"
+      },
+      {
+        "description": "Long acting inhaled beta 2 agonist",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "896239"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "630208"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Asthma",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1292389200,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "pharyngitis",
+        "time": 1284091200,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
       },
-      "time": 1284091200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1270008000,
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 126.0
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "time": 1284091200,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 80.0
       },
-      "time": 1270008000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1284091200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 124.0
       },
-      "time": 1270008000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1284091200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 76.0
       },
-      "value": {
-        "scalar": 126.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1284091200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 80.0
       },
-      "time": 1292389200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 128.0
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 80.0
       },
-      "time": 1292389200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 82.0
       },
-      "value": {
-        "scalar": 80.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 16.899038461538463
       },
-      "time": 1292389200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 16.75740099961553
       },
-      "value": {
-        "scalar": 124.0,
-        "units": null
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1284091200,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
+      }
+    ],
+    "results": [
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1284091200,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
+      }
+    ],
+    "procedures": [
+      {
+        "description": "counseling for nutrition",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "97802"
       },
-      "time": 1284091200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "counseling for physical activity",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 128.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 82.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 16.899038461538463,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 16.75740099961553,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Group A Streptococcus Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1284091200,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Group A Streptococcus Test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1270008000,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1270008000,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Asthma Symptom Assessment Tool"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "406524"
-        ]
-      },
-      "time": 1284091200,
-      "description": "Tetracycline"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "896239"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Long acting inhaled beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Short acting beta 2 agonist"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1284091200,
-      "status": "active",
-      "description": "pharyngitis"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

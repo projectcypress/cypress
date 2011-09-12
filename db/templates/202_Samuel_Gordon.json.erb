@@ -4,617 +4,355 @@
   "gender": "M",
   "birthdate": <%= between(-880574400, -879364800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1323406800,
+        "code_set": "CPT",
+        "code": "92012"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1291093200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1283313600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1278648000,
+        "code_set": "CPT",
+        "code": "99212"
+      },
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1309233600,
+        "code_set": "CPT",
+        "code": "92012"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1272427200,
+        "code_set": "CPT",
+        "code": "99212"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "acute respiratory failure",
+        "time": 1234760400,
+        "code_set": "ICD-9-CM",
+        "code": "518.81",
+        "status": "inactive"
+      },
+      {
+        "description": "COPD",
+        "time": 1234760400,
+        "code_set": "ICD-9-CM",
+        "code": "493.2",
+        "status": "active"
+      },
+      {
+        "description": "ischemic vascular disease",
+        "time": 1272427200,
+        "code_set": "ICD-9-CM",
+        "code": "411.89",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1272427200,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1277697600,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antiplatelet Therapy",
+        "time": 1278648000,
+        "code_set": "RxNorm",
+        "code": "243670"
+      },
+      {
+        "description": "Smoking Cessation Agents",
+        "time": 1278648000,
+        "code_set": "RxNorm",
+        "code": "105075"
+      },
+      {
+        "description": "Angiotension II inhibitors",
+        "time": 1278648000,
+        "code_set": "RxNorm",
+        "code": "199850"
+      },
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1272427200,
+        "code_set": "RxNorm",
+        "code": "858828"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1234760400,
+        "code_set": "RxNorm",
+        "code": "630208"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1272427200,
+        "code_set": "RxNorm",
+        "code": "630208"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1323406800,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1291093200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1283313600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1278648000,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1309233600,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1272427200,
-      "description": "Encounter Office Visit"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "518.81"
-        ]
-      },
-      "time": 1234760400,
-      "status": "inactive",
-      "description": "acute respiratory failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.2"
-        ]
-      },
-      "time": 1234760400,
-      "status": "active",
-      "description": "COPD"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ]
-      },
-      "time": 1272427200,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1272427200,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1277697600,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1240891200,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 146.0,
-        "units": null
-      },
-      "time": 1323406800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 92.0,
-        "units": null
-      },
-      "time": 1323406800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 144.0,
-        "units": null
-      },
-      "time": 1322629200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1291093200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 138.0,
-        "units": null
-      },
-      "time": 1283313600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 88.0,
-        "units": null
-      },
-      "time": 1283313600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 136.0,
-        "units": null
-      },
-      "time": 1278648000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 86.0,
-        "units": null
-      },
-      "time": 1278648000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 142.0,
-        "units": null
-      },
-      "time": 1309233600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 92.0,
-        "units": null
-      },
-      "time": 1277697600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 140.0,
-        "units": null
-      },
-      "time": 1272427200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1272427200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1283313600,
-      "description": "FOBT"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 82.0,
-        "units": null
-      },
-      "time": 1272513600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 56.0,
-        "units": null
-      },
-      "time": 1272513600,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 180.0,
-        "units": null
-      },
-      "time": 1272513600,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 210.0,
-        "units": null
-      },
-      "time": 1272513600,
-      "description": "Triglycerides"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "518.81"
-        ]
-      },
-      "time": 1234760400,
-      "status": "inactive",
-      "description": "acute respiratory failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.2"
-        ]
-      },
-      "time": 1234760400,
-      "status": "active",
-      "description": "COPD"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ]
-      },
-      "time": 1272427200,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1272427200,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1277697600,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1283313600,
-      "description": "FOBT"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 82.0,
-        "units": null
-      },
-      "time": 1272513600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 56.0,
-        "units": null
-      },
-      "time": 1272513600,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 180.0,
-        "units": null
-      },
-      "time": 1272513600,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 210.0,
-        "units": null
-      },
-      "time": 1272513600,
-      "description": "Triglycerides"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1272427200,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ]
-      },
-      "time": 1277697600,
-      "description": "eye exam"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "243670"
-        ]
-      },
-      "time": 1278648000,
-      "description": "Antiplatelet Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1278648000,
-      "description": "Smoking Cessation Agents"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "199850"
-        ]
-      },
-      "time": 1278648000,
-      "description": "Angiotension II inhibitors"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1272427200,
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1234760400,
-      "description": "Short acting beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1272427200,
-      "description": "Short acting beta 2 agonist"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1291093200,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "854981"
-        ]
-      },
-      "time": 1291093200,
-      "description": "Pneumococcal Vaccine ages 2 and older"
-    }
-  ],
-  "care_goals": [
+    ],
+    "social_history": [
+      {
+        "description": "acute respiratory failure",
+        "time": 1234760400,
+        "code_set": "ICD-9-CM",
+        "code": "518.81",
+        "status": "inactive"
+      },
+      {
+        "description": "COPD",
+        "time": 1234760400,
+        "code_set": "ICD-9-CM",
+        "code": "493.2",
+        "status": "active"
+      },
+      {
+        "description": "ischemic vascular disease",
+        "time": 1272427200,
+        "code_set": "ICD-9-CM",
+        "code": "411.89",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1272427200,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1277697600,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
+      },
+      {
+        "description": "Tobacco User",
+        "time": 1240891200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1323406800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 146.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1323406800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 92.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1322629200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 144.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1291093200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 90.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1283313600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 138.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1283313600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 88.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1278648000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 136.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1278648000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 86.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1309233600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 142.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1277697600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 92.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1272427200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 140.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1272427200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 90.0
+      },
+      {
+        "description": "FOBT",
+        "time": 1283313600,
+        "code_set": "CPT",
+        "code": "82274"
+      },
+      {
+        "description": "LDL",
+        "time": 1272513600,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 82.0
+      },
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1272513600,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": 56.0
+      },
+      {
+        "description": "Total Cholesterol",
+        "time": 1272513600,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": 180.0
+      },
+      {
+        "description": "Triglycerides",
+        "time": 1272513600,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": 210.0
+      }
+    ],
+    "results": [
+      {
+        "description": "FOBT",
+        "time": 1283313600,
+        "code_set": "CPT",
+        "code": "82274"
+      },
+      {
+        "description": "LDL",
+        "time": 1272513600,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 82.0
+      },
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1272513600,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": 56.0
+      },
+      {
+        "description": "Total Cholesterol",
+        "time": 1272513600,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": 180.0
+      },
+      {
+        "description": "Triglycerides",
+        "time": 1272513600,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": 210.0
+      }
+    ],
+    "procedures": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1272427200,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
+      },
+      {
+        "description": "eye exam",
+        "time": 1277697600,
+        "code_set": "HCPCS",
+        "code": "S0621"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1291093200,
+        "code_set": "RxNorm",
+        "code": "857942"
+      },
+      {
+        "description": "Pneumococcal Vaccine ages 2 and older",
+        "time": 1291093200,
+        "code_set": "RxNorm",
+        "code": "854981"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.2"
-        ]
-      },
-      "time": 1234760400,
-      "status": "active",
-      "description": "COPD"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ]
-      },
-      "time": 1272427200,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1272427200,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1277697600,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    }
-  ],
-  "inactive": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "518.81"
-        ]
-      },
-      "time": 1234760400,
-      "status": "inactive",
-      "description": "acute respiratory failure"
-    }
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

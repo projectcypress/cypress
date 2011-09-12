@@ -4,367 +4,223 @@
   "gender": "M",
   "birthdate": <%= between(723704400, 724914000) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1291266000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1287201600,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279080000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "encounter ED",
+        "time": 1275883200,
+        "code_set": "CPT",
+        "code": "99281"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1270180800,
+        "code_set": "CPT",
+        "code": "99241"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Asthma",
+        "time": 1270180800,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "pharyngitis",
+        "time": 1291266000,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Persistent",
+        "time": 1275883200,
+        "code_set": "ICD-10-CM",
+        "code": "J45.42",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "373899003"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "395022009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Quinolones",
+        "time": 1291266000,
+        "code_set": "RxNorm",
+        "code": "309309"
+      },
+      {
+        "description": "Long acting inhaled beta 2 agonist",
+        "time": 1270267200,
+        "code_set": "RxNorm",
+        "code": "896239"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1270267200,
+        "code_set": "RxNorm",
+        "code": "630208"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Asthma",
+        "time": 1270180800,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1291266000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "pharyngitis",
+        "time": 1291266000,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
       },
-      "time": 1287201600,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Asthma Persistent",
+        "time": 1275883200,
+        "code_set": "ICD-10-CM",
+        "code": "J45.42",
+        "status": "active"
       },
-      "time": 1279080000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
       },
-      "time": 1275883200,
-      "description": "encounter ED"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "373899003"
       },
-      "time": 1270180800,
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "395022009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 110.0
       },
-      "time": 1270180800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
       },
-      "time": 1291266000,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 66.0
       },
-      "time": 1275883200,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "BMI",
+        "time": 1279080000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 21.18243243243243
       },
-      "time": 1270180800,
-      "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "373899003"
-        ]
+      {
+        "description": "group A streptococcus test",
+        "time": 1291266000,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
+      }
+    ],
+    "results": [
+      {
+        "description": "group A streptococcus test",
+        "time": 1291266000,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
+      }
+    ],
+    "procedures": [
+      {
+        "description": "counseling for nutrition",
+        "time": 1279080000,
+        "code_set": "CPT",
+        "code": "97802"
       },
-      "time": 1270180800,
-      "description": "Asthma Daytime Symptoms"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "395022009"
-        ]
+      {
+        "description": "counseling for physical activity",
+        "time": 1279080000,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "time": 1270180800,
-      "description": "Asthma Nighttime Symptoms"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1279080000,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
       },
-      "value": {
-        "scalar": 110.0,
-        "units": null
-      },
-      "time": 1270180800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1270180800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 66.0,
-        "units": null
-      },
-      "time": 1270180800,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 21.18243243243243,
-        "units": null
-      },
-      "time": 1279080000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1291266000,
-      "description": "group A streptococcus test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1270180800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1291266000,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
-      },
-      "time": 1275883200,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "373899003"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Asthma Daytime Symptoms"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "395022009"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Asthma Nighttime Symptoms"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1291266000,
-      "description": "group A streptococcus test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1279080000,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1279080000,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1279080000,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Asthma Symptom Assessment Tool"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "309309"
-        ]
-      },
-      "time": 1291266000,
-      "description": "Quinolones"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "896239"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Long acting inhaled beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Short acting beta 2 agonist"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1291266000,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1291266000,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1270180800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1291266000,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
-      },
-      "time": 1275883200,
-      "status": "active",
-      "description": "Asthma Persistent"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

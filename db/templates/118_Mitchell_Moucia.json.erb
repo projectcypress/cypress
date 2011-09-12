@@ -4,405 +4,241 @@
   "gender": "M",
   "birthdate": <%= between(-1141326000, -1140116400) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1284523200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1278734400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1274760000,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Prostate Cancer",
+        "time": 1279425600,
+        "code_set": "ICD-9-CM",
+        "code": "185",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1274760000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1274760000,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Prostate Cancer",
+        "time": 1279425600,
+        "code_set": "ICD-9-CM",
+        "code": "185",
+        "status": "active"
       },
-      "time": 1284523200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1274760000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1278734400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1274760000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1284523200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
       },
-      "time": 1274760000,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1284523200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 80.0
       },
-      "time": 1279425600,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1284523200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 78.0
       },
-      "time": 1274760000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1278734400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 128.0
       },
-      "time": 1274760000,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1278734400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "value": {
-        "scalar": 130.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1278734400,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 78.0
       },
-      "time": 1284523200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1274760000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
       },
-      "value": {
-        "scalar": 80.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1274760000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 76.0
       },
-      "time": 1284523200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1274760000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 78.0
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1284523200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 23.329972694812014
       },
-      "time": 1284523200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1278734400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.068262969964294
       },
-      "value": {
-        "scalar": 128.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1274760000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.363579080025207
       },
-      "time": 1278734400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Prostate Specific Antigen Test",
+        "time": 1274760000,
+        "code_set": "CPT",
+        "code": "84153",
+        "value": "9 mg/dL"
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "Gleason Score <=6",
+        "time": 1279425600,
+        "code_set": "SNOMED-CT",
+        "code": "369776000"
       },
-      "time": 1278734400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+        "time": 1280980800,
+        "code_set": "SNOMED-CT",
+        "code": "261650005"
+      }
+    ],
+    "results": [
+      {
+        "description": "Prostate Specific Antigen Test",
+        "time": 1274760000,
+        "code_set": "CPT",
+        "code": "84153",
+        "value": "9 mg/dL"
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "Gleason Score <=6",
+        "time": 1279425600,
+        "code_set": "SNOMED-CT",
+        "code": "369776000"
       },
-      "time": 1278734400,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+        "time": 1280980800,
+        "code_set": "SNOMED-CT",
+        "code": "261650005"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Prostate Cancer Treatment",
+        "time": 1280980800,
+        "code_set": "CPT",
+        "code": "55810"
       },
-      "value": {
-        "scalar": 130.0,
-        "units": null
+      {
+        "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+        "time": 1280980800,
+        "code_set": "SNOMED-CT",
+        "code": "261650005"
       },
-      "time": 1274760000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "colonoscopy",
+        "time": 1274155200,
+        "code_set": "CPT",
+        "code": "45378"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1284523200,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1274760000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1274760000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 23.329972694812014,
-        "units": null
-      },
-      "time": 1284523200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.068262969964294,
-        "units": null
-      },
-      "time": 1278734400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.363579080025207,
-        "units": null
-      },
-      "time": 1274760000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84153"
-        ]
-      },
-      "value": {
-        "scalar": "9 mg/dL",
-        "units": null
-      },
-      "time": 1274760000,
-      "description": "Prostate Specific Antigen Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369776000"
-        ]
-      },
-      "time": 1279425600,
-      "description": "Gleason Score <=6"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1280980800,
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1279425600,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1274760000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "84153"
-        ]
-      },
-      "value": {
-        "scalar": "9 mg/dL",
-        "units": null
-      },
-      "time": 1274760000,
-      "description": "Prostate Specific Antigen Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369776000"
-        ]
-      },
-      "time": 1279425600,
-      "description": "Gleason Score <=6"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1280980800,
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "CPT": [
-          "55810"
-        ]
-      },
-      "time": 1280980800,
-      "description": "Prostate Cancer Treatment"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1280980800,
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "45378"
-        ]
-      },
-      "time": 1274155200,
-      "description": "colonoscopy"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1274760000,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1284523200,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1284523200,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1284523200,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1279425600,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1274760000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

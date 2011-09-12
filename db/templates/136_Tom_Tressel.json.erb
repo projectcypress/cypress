@@ -4,303 +4,191 @@
   "gender": "M",
   "birthdate": <%= between(-776203200, -774993600) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "encounter outpatient",
+        "time": 1272600000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "encounter outpatient",
+        "time": 1288584000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "encounter outpatient",
+        "time": 1280721600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "encounter outpatient",
+        "time": 1275364800,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "encounter outpatient BH",
+        "time": 1272686400,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "encounter outpatient",
+        "time": 1272600000,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Major Depression",
+        "time": 1272686400,
+        "code_set": "ICD-9-CM",
+        "code": "296.30",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "SSRI antidepressants",
+        "time": 1272686400,
+        "code_set": "RxNorm",
+        "code": "903884"
+      },
+      {
+        "description": "SSRI antidepressants",
+        "time": 1272686400,
+        "code_set": "RxNorm",
+        "code": "903884"
+      },
+      {
+        "description": "SSRI antidepressants",
+        "time": 1272686400,
+        "code_set": "RxNorm",
+        "code": "903884"
+      },
+      {
+        "description": "SSRI antidepressants",
+        "time": 1273896000,
+        "code_set": "RxNorm",
+        "code": "903884"
+      },
+      {
+        "description": "SSRI antidepressants",
+        "time": 1273896000,
+        "code_set": "RxNorm",
+        "code": "903884"
+      },
+      {
+        "description": "SSRI antidepressants",
+        "time": 1273896000,
+        "code_set": "RxNorm",
+        "code": "903884"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Major Depression",
+        "time": 1272686400,
+        "code_set": "ICD-9-CM",
+        "code": "296.30",
+        "status": "active"
       },
-      "time": 1272600000,
-      "description": "encounter outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1272600000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1288584000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 118.0
       },
-      "time": 1288584000,
-      "description": "encounter outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1288584000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
       },
-      "time": 1280721600,
-      "description": "encounter outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1272600000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 120.0
       },
-      "time": 1275364800,
-      "description": "encounter outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1272600000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 76.0
       },
-      "time": 1272686400,
-      "description": "encounter outpatient BH"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "BMI",
+        "time": 1267592400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.54533179012346
       },
-      "time": 1272600000,
-      "description": "encounter outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ]
+      {
+        "description": "BMI",
+        "time": 1271736000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.680941358024693
       },
-      "time": 1272686400,
-      "status": "active",
-      "description": "Major Depression"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1272600000,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 118.0,
-        "units": null
-      },
-      "time": 1288584000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 72.0,
-        "units": null
-      },
-      "time": 1288584000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 120.0,
-        "units": null
-      },
-      "time": 1272600000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1272600000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.54533179012346,
-        "units": null
-      },
-      "time": 1267592400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.680941358024693,
-        "units": null
-      },
-      "time": 1271736000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.409722222222225,
-        "units": null
-      },
-      "time": 1272686400,
-      "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ]
-      },
-      "time": 1272686400,
-      "status": "active",
-      "description": "Major Depression"
-    }
-  ],
-  "results": [
+      {
+        "description": "BMI",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.409722222222225
+      }
+    ],
+    "results": [
 
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "CPT": [
-          "45378"
-        ]
+    ],
+    "procedures": [
+      {
+        "description": "colonoscopy",
+        "time": 1291006800,
+        "code_set": "CPT",
+        "code": "45378"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1288584000,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1291006800,
-      "description": "colonoscopy"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "903884"
-        ]
-      },
-      "time": 1272686400,
-      "description": "SSRI antidepressants"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "903884"
-        ]
-      },
-      "time": 1272686400,
-      "description": "SSRI antidepressants"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "903884"
-        ]
-      },
-      "time": 1272686400,
-      "description": "SSRI antidepressants"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "903884"
-        ]
-      },
-      "time": 1273896000,
-      "description": "SSRI antidepressants"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "903884"
-        ]
-      },
-      "time": 1273896000,
-      "description": "SSRI antidepressants"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "903884"
-        ]
-      },
-      "time": 1273896000,
-      "description": "SSRI antidepressants"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1288584000,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1288584000,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1288584000,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ]
-      },
-      "time": 1272686400,
-      "status": "active",
-      "description": "Major Depression"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

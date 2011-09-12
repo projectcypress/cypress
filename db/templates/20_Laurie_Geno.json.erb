@@ -4,365 +4,220 @@
   "gender": "F",
   "birthdate": <%= between(-848952000, -847742400) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Office Visit",
+        "time": 1290661200,
+        "code_set": "CPT",
+        "code": "99212"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1290229200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1285905600,
+        "code_set": "CPT",
+        "code": "99212"
+      },
+      {
+        "description": "encounter ED",
+        "time": 1282795200,
+        "code_set": "CPT",
+        "code": "99281"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1273464000,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Breast Cancer History",
+        "time": 1179115200,
+        "code_set": "ICD-9-CM",
+        "code": "V10.3",
+        "status": "inactive"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1273464000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1273464000,
+        "code_set": "RxNorm",
+        "code": "858828"
+      },
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1290661200,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Breast Cancer History",
+        "time": 1179115200,
+        "code_set": "ICD-9-CM",
+        "code": "V10.3",
+        "status": "inactive"
       },
-      "time": 1290661200,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1273464000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1290229200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1282795200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
       },
-      "time": 1285905600,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1290661200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009",
+        "value": "1 ppd"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1290661200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 126.0
       },
-      "time": 1282795200,
-      "description": "encounter ED"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1290661200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 75.0
       },
-      "time": 1273464000,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V10.3"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1285905600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 134.0
       },
-      "time": 1179115200,
-      "status": "inactive",
-      "description": "Breast Cancer History"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1285905600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "time": 1273464000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1282795200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 146.0
       },
-      "time": 1282795200,
-      "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1282795200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 90.0
       },
-      "value": {
-        "scalar": "1 ppd",
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1290661200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 27.454437869822485
       },
-      "time": 1290661200,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1285905600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.286390532544377
       },
-      "value": {
-        "scalar": 126.0,
-        "units": null
+      {
+        "description": "LDL",
+        "time": 1285905600,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 84.0
       },
-      "time": 1290661200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "FOBT",
+        "time": 1285905600,
+        "code_set": "CPT",
+        "code": "82274"
+      }
+    ],
+    "results": [
+      {
+        "description": "LDL",
+        "time": 1285905600,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 84.0
       },
-      "value": {
-        "scalar": 75.0,
-        "units": null
+      {
+        "description": "FOBT",
+        "time": 1285905600,
+        "code_set": "CPT",
+        "code": "82274"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "counseling for physical activity",
+        "time": 1290661200,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "time": 1290661200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Cardiac Monitoring",
+        "time": 1290661200,
+        "code_set": "SNOMED-CT",
+        "code": "23852006"
       },
-      "value": {
-        "scalar": 134.0,
-        "units": null
-      },
-      "time": 1285905600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1285905600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 146.0,
-        "units": null
-      },
-      "time": 1282795200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1282795200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 27.454437869822485,
-        "units": null
-      },
-      "time": 1290661200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 28.286390532544377,
-        "units": null
-      },
-      "time": 1285905600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1285905600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1285905600,
-      "description": "FOBT"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V10.3"
-        ]
-      },
-      "time": 1179115200,
-      "status": "inactive",
-      "description": "Breast Cancer History"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1285905600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1285905600,
-      "description": "FOBT"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1290661200,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "23852006"
-        ]
-      },
-      "time": 1290661200,
-      "description": "Cardiac Monitoring"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1290229200,
-      "description": "breast cancer screening"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1273464000,
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1290661200,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "breast cancer screening",
+        "time": 1290229200,
+        "code_set": "CPT",
+        "code": "77057"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1290661200,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V10.3"
-        ]
-      },
-      "time": 1179115200,
-      "status": "inactive",
-      "description": "Breast Cancer History"
-    }
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1290661200,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

@@ -4,521 +4,301 @@
   "gender": "M",
   "birthdate": <%= between(-874440000, -873230400) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1287547200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279598400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "diabetes",
+        "time": 1270267200,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1270267200,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Atrial Fibrillation",
+        "time": 1279598400,
+        "code_set": "ICD-9-CM",
+        "code": "427.31",
+        "status": "active"
+      },
+      {
+        "description": "Heart Failure",
+        "time": 1279598400,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Insulin",
+        "time": 1270267200,
+        "code_set": "RxNorm",
+        "code": "847207"
+      },
+      {
+        "description": "ACE inhibitor or ARB",
+        "time": 1279598400,
+        "code_set": "RxNorm",
+        "code": "314076"
+      },
+      {
+        "description": "Beta Blocker Therapy",
+        "time": 1279598400,
+        "code_set": "RxNorm",
+        "code": "866924"
+      },
+      {
+        "description": "Warfarin Therapy",
+        "time": 1279598400,
+        "code_set": "RxNorm",
+        "code": "855326"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "diabetes",
+        "time": 1270267200,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
       },
-      "time": 1287547200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1270267200,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1279598400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Atrial Fibrillation",
+        "time": 1279598400,
+        "code_set": "ICD-9-CM",
+        "code": "427.31",
+        "status": "active"
       },
-      "time": 1270267200,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
+      {
+        "description": "Heart Failure",
+        "time": 1279598400,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
       },
-      "time": 1270267200,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1287547200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 110.0
       },
-      "time": 1270267200,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1287547200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
       },
-      "time": 1279598400,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1279598400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 114.0
       },
-      "time": 1279598400,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1279598400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
       },
-      "time": 1270267200,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 112.0
       },
-      "value": {
-        "scalar": 110.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
       },
-      "time": 1287547200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1287547200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.693877551020407
       },
-      "value": {
-        "scalar": 70.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 29.41122448979592
       },
-      "time": 1287547200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1287547200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.2
       },
-      "value": {
-        "scalar": 114.0,
-        "units": null
+      {
+        "description": "HbA1c test",
+        "time": 1279598400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.4
       },
-      "time": 1279598400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.3
+      }
+    ],
+    "results": [
+      {
+        "description": "HbA1c test",
+        "time": 1287547200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.2
       },
-      "value": {
-        "scalar": 72.0,
-        "units": null
+      {
+        "description": "HbA1c test",
+        "time": 1279598400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.4
       },
-      "time": 1279598400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.3
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Foot Exam",
+        "time": 1287547200,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "value": {
-        "scalar": 112.0,
-        "units": null
+      {
+        "description": "Foot Exam",
+        "time": 1279598400,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "time": 1270267200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Foot Exam",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "value": {
-        "scalar": 70.0,
-        "units": null
+      {
+        "description": "counseling for nutrition",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "97802"
       },
-      "time": 1270267200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
+      {
+        "description": "counseling for physical activity",
+        "time": 1270267200,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "value": {
-        "scalar": 28.693877551020407,
-        "units": null
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
       },
-      "time": 1287547200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
+      {
+        "description": "eye exam",
+        "time": 1287547200,
+        "code_set": "HCPCS",
+        "code": "S0621"
       },
-      "value": {
-        "scalar": 29.41122448979592,
-        "units": null
+      {
+        "description": "Ejection Fraction",
+        "time": 1279598400,
+        "code_set": "SNOMED-CT",
+        "code": "70822001"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1287547200,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1270267200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.2,
-        "units": null
-      },
-      "time": 1287547200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.4,
-        "units": null
-      },
-      "time": 1279598400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.3,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "HbA1c test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ]
-      },
-      "time": 1279598400,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1279598400,
-      "status": "active",
-      "description": "Heart Failure"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.2,
-        "units": null
-      },
-      "time": 1287547200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.4,
-        "units": null
-      },
-      "time": 1279598400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.3,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "HbA1c test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1287547200,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1279598400,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1270267200,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1270267200,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1270267200,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ]
-      },
-      "time": 1287547200,
-      "description": "eye exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "70822001"
-        ]
-      },
-      "time": 1279598400,
-      "description": "Ejection Fraction"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "847207"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Insulin"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1279598400,
-      "description": "ACE inhibitor or ARB"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "866924"
-        ]
-      },
-      "time": 1279598400,
-      "description": "Beta Blocker Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "855326"
-        ]
-      },
-      "time": 1279598400,
-      "description": "Warfarin Therapy"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1287547200,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1287547200,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1270267200,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ]
-      },
-      "time": 1279598400,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1279598400,
-      "status": "active",
-      "description": "Heart Failure"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1287547200,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

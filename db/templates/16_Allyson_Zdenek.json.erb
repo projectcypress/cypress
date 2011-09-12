@@ -4,422 +4,256 @@
   "gender": "F",
   "birthdate": <%= between(-41889600, -40680000) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1286251200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1284609600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Prev Med Services 18 and Older",
+        "time": 1271390400,
+        "code_set": "CPT",
+        "code": "99396"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1270094400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1180584000,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Hypertension",
+        "time": 1271390400,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "IUD use",
+        "time": 1179028800,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1271390400,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
+      {
+        "description": "IUD use",
+        "time": 1179028800,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "allergies": [
 
-  ],
-  "medical_equipment": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Hypertension",
+        "time": 1271390400,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1179028800,
-      "description": "IUD use"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
       },
-      "time": 1286251200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1286251200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009",
+        "value": ".5 ppd"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1286251200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
       },
-      "time": 1284609600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99396"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1286251200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "time": 1271390400,
-      "description": "Encounter Prev Med Services 18 and Older"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1286251200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 80.0
       },
-      "time": 1270094400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1284609600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 140.0
       },
-      "time": 1180584000,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1284609600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 90.0
       },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1284609600,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 82.0
       },
-      "time": 1271390400,
-      "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 142.0
       },
-      "value": {
-        "scalar": ".5 ppd",
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 90.0
       },
-      "time": 1286251200,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 84.0
       },
-      "value": {
-        "scalar": 130.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1286251200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.8475
       },
-      "time": 1286251200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 23.433333333333334
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1180584000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.456944444444442
       },
-      "time": 1286251200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Chlamydia Screening",
+        "time": 1286251200,
+        "code_set": "CPT",
+        "code": "87110"
       },
-      "value": {
-        "scalar": 80.0,
-        "units": null
+      {
+        "description": "Pap Test",
+        "time": 1286251200,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "time": 1286251200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "LDL",
+        "time": 1271390400,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 90.0
+      }
+    ],
+    "results": [
+      {
+        "description": "Chlamydia Screening",
+        "time": 1286251200,
+        "code_set": "CPT",
+        "code": "87110"
       },
-      "value": {
-        "scalar": 140.0,
-        "units": null
+      {
+        "description": "Pap Test",
+        "time": 1286251200,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "time": 1284609600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "LDL",
+        "time": 1271390400,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 90.0
+      }
+    ],
+    "procedures": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
       },
-      "value": {
-        "scalar": 90.0,
-        "units": null
+      {
+        "description": "IUD use",
+        "time": 1179028800,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1284609600,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1284609600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 82.0,
-        "units": null
-      },
-      "time": 1284609600,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 142.0,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.8475,
-        "units": null
-      },
-      "time": 1286251200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 23.433333333333334,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.456944444444442,
-        "units": null
-      },
-      "time": 1180584000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1286251200,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1286251200,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "LDL"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1179028800,
-      "description": "IUD use"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1286251200,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1286251200,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "LDL"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1271390400,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1179028800,
-      "description": "IUD use"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1284609600,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1284609600,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1179028800,
-      "description": "IUD use"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1284609600,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "IUD use",
+        "time": 1179028800,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ]
+  }
 }

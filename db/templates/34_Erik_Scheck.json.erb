@@ -4,473 +4,279 @@
   "gender": "M",
   "birthdate": <%= between(-948135600, -946926000) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1286683200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1284523200,
+        "code_set": "CPT",
+        "code": "92012"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279252800,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1272254400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "92012"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
+      },
+      {
+        "description": "Myocardial Infarction",
+        "time": 1293339600,
+        "code_set": "ICD-9-CM",
+        "code": "410.90",
+        "status": "resolved"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "858828"
+      },
+      {
+        "description": "Antiplatelet Therapy",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "243670"
+      },
+      {
+        "description": "Lipid Lowering Therapy",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "617314"
+      },
+      {
+        "description": "ACE inhibitors",
+        "time": 1293598800,
+        "code_set": "RxNorm",
+        "code": "314076"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1286683200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
       },
-      "time": 1284523200,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Myocardial Infarction",
+        "time": 1293339600,
+        "code_set": "ICD-9-CM",
+        "code": "410.90",
+        "status": "resolved"
       },
-      "time": 1279252800,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1286683200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 128.0
       },
-      "time": 1272254400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1286683200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "time": 1270008000,
-      "description": "Encounter Ophthalmological Services"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1279252800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 134.0
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1279252800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 80.0
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1272254400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 132.0
       },
-      "time": 1293339600,
-      "status": "resolved",
-      "description": "Myocardial Infarction"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1272254400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 138.0
       },
-      "value": {
-        "scalar": 128.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 80.0
       },
-      "time": 1286683200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1286683200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.693877551020407
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1279252800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 29.41122448979592
       },
-      "time": 1286683200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1272254400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 30.12857142857143
       },
-      "value": {
-        "scalar": 134.0,
-        "units": null
+      {
+        "description": "LDL Laboratory Test",
+        "time": 1286683200,
+        "code_set": "LOINC",
+        "code": "2089-1",
+        "value": 70.0
       },
-      "time": 1279252800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "LDL Laboratory Test",
+        "time": 1279252800,
+        "code_set": "LOINC",
+        "code": "2089-1",
+        "value": 90.0
+      }
+    ],
+    "results": [
+      {
+        "description": "LDL Laboratory Test",
+        "time": 1286683200,
+        "code_set": "LOINC",
+        "code": "2089-1",
+        "value": 70.0
       },
-      "value": {
-        "scalar": 80.0,
-        "units": null
+      {
+        "description": "LDL Laboratory Test",
+        "time": 1279252800,
+        "code_set": "LOINC",
+        "code": "2089-1",
+        "value": 90.0
+      }
+    ],
+    "procedures": [
+      {
+        "description": "dietary consultation order",
+        "time": 1272254400,
+        "code_set": "SNOMED-CT",
+        "code": "103699006"
       },
-      "time": 1279252800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "eye exam",
+        "time": 1270008000,
+        "code_set": "HCPCS",
+        "code": "S0621"
       },
-      "value": {
-        "scalar": 132.0,
-        "units": null
+      {
+        "description": "Optic Nerve Head Evaluation",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "36228007"
       },
-      "time": 1272254400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Cardiac Surgery",
+        "time": 1293339600,
+        "code_set": "SNOMED-CT",
+        "code": "10326007"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1286683200,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1272254400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 138.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 28.693877551020407,
-        "units": null
-      },
-      "time": 1286683200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 29.41122448979592,
-        "units": null
-      },
-      "time": 1279252800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 30.12857142857143,
-        "units": null
-      },
-      "time": 1272254400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1286683200,
-      "description": "LDL Laboratory Test"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1279252800,
-      "description": "LDL Laboratory Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ]
-      },
-      "time": 1293339600,
-      "status": "resolved",
-      "description": "Myocardial Infarction"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1286683200,
-      "description": "LDL Laboratory Test"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1279252800,
-      "description": "LDL Laboratory Test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "103699006"
-        ]
-      },
-      "time": 1272254400,
-      "description": "dietary consultation order"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ]
-      },
-      "time": 1270008000,
-      "description": "eye exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "36228007"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Optic Nerve Head Evaluation"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "10326007"
-        ]
-      },
-      "time": 1293339600,
-      "description": "Cardiac Surgery"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "243670"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Antiplatelet Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "617314"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Lipid Lowering Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1293598800,
-      "description": "ACE inhibitors"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1286683200,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1286683200,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1272254400,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ]
-      },
-      "time": 1293339600,
-      "status": "resolved",
-      "description": "Myocardial Infarction"
-    }
-  ]
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1286683200,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1272254400,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

@@ -4,287 +4,168 @@
   "gender": "F",
   "birthdate": <%= between(972536400, 973746000) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1289797200,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1284091200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1276142400,
+        "code_set": "CPT",
+        "code": "99241"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Asthma",
+        "time": 1263618000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "pharyngitis",
+        "time": 1284091200,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Tetracycline",
+        "time": 1284091200,
+        "code_set": "RxNorm",
+        "code": "406524"
+      },
+      {
+        "description": "Antiasthmatic combinations",
+        "time": 1276142400,
+        "code_set": "RxNorm",
+        "code": "388681"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Asthma",
+        "time": 1263618000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1289797200,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "pharyngitis",
+        "time": 1284091200,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1289797200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 100.0
       },
-      "time": 1284091200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1289797200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 60.0
       },
-      "time": 1276142400,
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1284091200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 102.0
       },
-      "time": 1263618000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1284091200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 62.0
       },
-      "time": 1284091200,
-      "status": "active",
-      "description": "pharyngitis"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 98.0
       },
-      "value": {
-        "scalar": 100.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 60.0
       },
-      "time": 1289797200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1289797200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 15.518117451062057
       },
-      "value": {
-        "scalar": 60.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1284091200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 15.561197916666668
       },
-      "time": 1289797200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 14.645833333333332
       },
-      "value": {
-        "scalar": 102.0,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 62.0,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 98.0,
-        "units": null
-      },
-      "time": 1276142400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 60.0,
-        "units": null
-      },
-      "time": 1276142400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 15.518117451062057,
-        "units": null
-      },
-      "time": 1289797200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 15.561197916666668,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 14.645833333333332,
-        "units": null
-      },
-      "time": 1276142400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Group A Streptococcus Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1263618000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1284091200,
-      "status": "active",
-      "description": "pharyngitis"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Group A Streptococcus Test"
-    }
-  ],
-  "procedures": [
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1284091200,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
+      }
+    ],
+    "results": [
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1284091200,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
+      }
+    ],
+    "procedures": [
 
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "406524"
-        ]
-      },
-      "time": 1284091200,
-      "description": "Tetracycline"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "388681"
-        ]
-      },
-      "time": 1276142400,
-      "description": "Antiasthmatic combinations"
-    }
-  ],
-  "immunizations": [
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1263618000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1284091200,
-      "status": "active",
-      "description": "pharyngitis"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

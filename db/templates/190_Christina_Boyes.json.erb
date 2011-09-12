@@ -4,317 +4,196 @@
   "gender": "F",
   "birthdate": <%= between(611899200, 613108800) %>,
   "addresses": null,
-  "allergies": [
-    {
-      "codes": {
-        "RxNorm": [
-          "759609"
-        ]
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1286856000,
+        "code_set": "CPT",
+        "code": "99213"
       },
-      "time": 1273636800,
-      "description": "VZV Vaccine"
-    }
-  ],
-  "medical_equipment": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
+      {
+        "description": "Encounter Outpatient",
+        "time": 1273636800,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "leukemia",
+        "time": 989985600,
+        "code_set": "ICD-9-CM",
+        "code": "204",
+        "status": "inactive"
       },
-      "time": 1273636800,
-      "description": "IUD use"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Nonrheumatic mitral (valve) disease",
+        "time": 1273636800,
+        "code_set": "ICD-10-CM",
+        "code": "I34.2",
+        "status": "active"
       },
-      "time": 1286856000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1273636800,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "204"
-        ]
-      },
-      "time": 989985600,
-      "status": "inactive",
-      "description": "leukemia"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "I34.2"
-        ]
-      },
-      "time": 1273636800,
-      "status": "active",
-      "description": "Nonrheumatic mitral (valve) disease"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1273636800,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 112.0,
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 68.0,
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 110.0,
-        "units": null
-      },
-      "time": 1273636800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 62.0,
-        "units": null
-      },
-      "time": 1273636800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.594123048668507,
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.755509641873278,
-        "units": null
-      },
-      "time": 1273636800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1273636800,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1273636800,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84702"
-        ]
-      },
-      "time": 1286856000,
-      "description": "Pregnancy Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "204"
-        ]
-      },
-      "time": 989985600,
-      "status": "inactive",
-      "description": "leukemia"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "I34.2"
-        ]
-      },
-      "time": 1273636800,
-      "status": "active",
-      "description": "Nonrheumatic mitral (valve) disease"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1273636800,
-      "description": "IUD use"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1273636800,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1273636800,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84702"
-        ]
-      },
-      "time": 1286856000,
-      "description": "Pregnancy Test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1273636800,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "44651004"
-        ]
-      },
-      "time": 1273636800,
-      "description": "contraceptive use education"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1273636800,
-      "description": "IUD use"
-    }
-  ],
-  "medications": [
+      {
+        "description": "IUD use",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "medications": [
 
-  ],
-  "immunizations": [
+    ],
+    "medical_equipment": [
+      {
+        "description": "IUD use",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "allergies": [
+      {
+        "description": "VZV Vaccine",
+        "time": 1273636800,
+        "code_set": "RxNorm",
+        "code": "759609"
+      }
+    ],
+    "social_history": [
+      {
+        "description": "leukemia",
+        "time": 989985600,
+        "code_set": "ICD-9-CM",
+        "code": "204",
+        "status": "inactive"
+      },
+      {
+        "description": "Nonrheumatic mitral (valve) disease",
+        "time": 1273636800,
+        "code_set": "ICD-10-CM",
+        "code": "I34.2",
+        "status": "active"
+      },
+      {
+        "description": "Tobacco User",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1286856000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 112.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1286856000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 68.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 110.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 62.0
+      },
+      {
+        "description": "BMI",
+        "time": 1286856000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.594123048668507
+      },
+      {
+        "description": "BMI",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.755509641873278
+      },
+      {
+        "description": "Chlamydia Screening",
+        "time": 1273636800,
+        "code_set": "CPT",
+        "code": "87110"
+      },
+      {
+        "description": "Pap Test",
+        "time": 1273636800,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      },
+      {
+        "description": "Pregnancy Test",
+        "time": 1286856000,
+        "code_set": "CPT",
+        "code": "84702"
+      }
+    ],
+    "results": [
+      {
+        "description": "Chlamydia Screening",
+        "time": 1273636800,
+        "code_set": "CPT",
+        "code": "87110"
+      },
+      {
+        "description": "Pap Test",
+        "time": 1273636800,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      },
+      {
+        "description": "Pregnancy Test",
+        "time": 1286856000,
+        "code_set": "CPT",
+        "code": "84702"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
+      },
+      {
+        "description": "contraceptive use education",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "44651004"
+      },
+      {
+        "description": "IUD use",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1273636800,
-      "description": "IUD use"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "I34.2"
-        ]
-      },
-      "time": 1273636800,
-      "status": "active",
-      "description": "Nonrheumatic mitral (valve) disease"
-    }
-  ],
-  "inactive": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "204"
-        ]
-      },
-      "time": 989985600,
-      "status": "inactive",
-      "description": "leukemia"
-    }
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "care_goals": [
+      {
+        "description": "IUD use",
+        "time": 1273636800,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ]
+  }
 }

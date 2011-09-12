@@ -4,193 +4,120 @@
   "gender": "F",
   "birthdate": <%= between(360216000, 361425600) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "encounter ED",
+        "time": 1278907200,
+        "code_set": "CPT",
+        "code": "99281"
+      },
+      {
+        "description": "encounter ED",
+        "time": 1273723200,
+        "code_set": "CPT",
+        "code": "99281"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Liver Disorders",
+        "time": 1273723200,
+        "code_set": "ICD-9-CM",
+        "code": "571.2",
+        "status": "active"
+      }
+    ],
+    "medications": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "medical_equipment": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "time": 1278907200,
-      "description": "encounter ED"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "time": 1273723200,
-      "description": "encounter ED"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "571.2"
-        ]
-      },
-      "time": 1273723200,
-      "status": "active",
-      "description": "Liver Disorders"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1273723200,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 110.0,
-        "units": null
-      },
-      "time": 1278907200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1278907200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 112.0,
-        "units": null
-      },
-      "time": 1273723200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 72.0,
-        "units": null
-      },
-      "time": 1273723200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84702"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1273723200,
-      "description": "Pregnancy Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84702"
-        ]
-      },
-      "time": 1278907200,
-      "description": "Pregnancy Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "571.2"
-        ]
-      },
-      "time": 1273723200,
-      "status": "active",
-      "description": "Liver Disorders"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "84702"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1273723200,
-      "description": "Pregnancy Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84702"
-        ]
-      },
-      "time": 1278907200,
-      "description": "Pregnancy Test"
-    }
-  ],
-  "procedures": [
+    ],
+    "allergies": [
 
-  ],
-  "medications": [
-
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "571.2"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Liver Disorders",
+        "time": 1273723200,
+        "code_set": "ICD-9-CM",
+        "code": "571.2",
+        "status": "active"
       },
-      "time": 1273723200,
-      "status": "active",
-      "description": "Liver Disorders"
-    }
-  ],
-  "inactive": [
+      {
+        "description": "Tobacco User",
+        "time": 1273723200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1278907200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 110.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1278907200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1273723200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 112.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1273723200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
+      },
+      {
+        "description": "Pregnancy Test",
+        "time": 1273723200,
+        "code_set": "CPT",
+        "code": "84702",
+        "value": true
+      },
+      {
+        "description": "Pregnancy Test",
+        "time": 1278907200,
+        "code_set": "CPT",
+        "code": "84702"
+      }
+    ],
+    "results": [
+      {
+        "description": "Pregnancy Test",
+        "time": 1273723200,
+        "code_set": "CPT",
+        "code": "84702",
+        "value": true
+      },
+      {
+        "description": "Pregnancy Test",
+        "time": 1278907200,
+        "code_set": "CPT",
+        "code": "84702"
+      }
+    ],
+    "procedures": [
 
-  ],
-  "resolved": [
+    ],
+    "immunizations": [
 
-  ]
+    ],
+    "care_goals": [
+
+    ]
+  }
 }

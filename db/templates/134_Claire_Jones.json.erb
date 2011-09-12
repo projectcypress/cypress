@@ -4,283 +4,170 @@
   "gender": "F",
   "birthdate": <%= between(-775512000, -774302400) %>,
   "addresses": null,
-  "allergies": [
-    {
-      "codes": {
-        "RxNorm": [
-          "855326"
-        ]
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1273291200,
+        "code_set": "CPT",
+        "code": "99213"
       },
-      "time": 1273464000,
-      "description": "Warfarin therapy"
-    }
-  ],
-  "medical_equipment": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1281758400,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Atrial Fibrillation",
+        "time": 1281758400,
+        "code_set": "ICD-9-CM",
+        "code": "427.31",
+        "status": "active"
+      },
+      {
+        "description": "Heart Failure",
+        "time": 1273291200,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Warfarin Therapy",
+        "time": 1273291200,
+        "code_set": "RxNorm",
+        "code": "855326"
+      },
+      {
+        "description": "ACE inhibitor or ARB",
+        "time": 1273291200,
+        "code_set": "RxNorm",
+        "code": "314076"
+      },
+      {
+        "description": "Beta Blocker Therapy",
+        "time": 1281758400,
+        "code_set": "RxNorm",
+        "code": "866924"
+      },
+      {
+        "description": "Antiplatelet Therapy",
+        "time": 1273291200,
+        "code_set": "RxNorm",
+        "code": "243670"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "allergies": [
+      {
+        "description": "Warfarin therapy",
+        "time": 1273464000,
+        "code_set": "RxNorm",
+        "code": "855326"
+      }
+    ],
+    "social_history": [
+      {
+        "description": "Atrial Fibrillation",
+        "time": 1281758400,
+        "code_set": "ICD-9-CM",
+        "code": "427.31",
+        "status": "active"
       },
-      "time": 1273291200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Heart Failure",
+        "time": 1273291200,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
       },
-      "time": 1281758400,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1273291200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1281758400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 126.0
       },
-      "time": 1281758400,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1281758400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
       },
-      "time": 1273291200,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1281758400,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 84.0
       },
-      "time": 1273291200,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1273291200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
       },
-      "value": {
-        "scalar": 126.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1273291200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "time": 1281758400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1273291200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 80.0
       },
-      "value": {
-        "scalar": 70.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1273291200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 21.948576675849402
       },
-      "time": 1281758400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1281758400,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 130.0,
-        "units": null
-      },
-      "time": 1273291200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1273291200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1273291200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 21.948576675849402,
-        "units": null
-      },
-      "time": 1273291200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.594123048668507,
-        "units": null
-      },
-      "time": 1281758400,
-      "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ]
-      },
-      "time": 1281758400,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1273291200,
-      "status": "active",
-      "description": "Heart Failure"
-    }
-  ],
-  "results": [
+      {
+        "description": "BMI",
+        "time": 1281758400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.594123048668507
+      }
+    ],
+    "results": [
 
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "70822001"
-        ]
-      },
-      "time": 1273291200,
-      "description": "Ejection Fraction"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "855326"
-        ]
-      },
-      "time": 1273291200,
-      "description": "Warfarin Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1273291200,
-      "description": "ACE inhibitor or ARB"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "866924"
-        ]
-      },
-      "time": 1281758400,
-      "description": "Beta Blocker Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "243670"
-        ]
-      },
-      "time": 1273291200,
-      "description": "Antiplatelet Therapy"
-    }
-  ],
-  "immunizations": [
+    ],
+    "procedures": [
+      {
+        "description": "Ejection Fraction",
+        "time": 1273291200,
+        "code_set": "SNOMED-CT",
+        "code": "70822001"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ]
-      },
-      "time": 1281758400,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1273291200,
-      "status": "active",
-      "description": "Heart Failure"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

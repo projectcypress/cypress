@@ -4,743 +4,439 @@
   "gender": "M",
   "birthdate": <%= between(-869342400, -868132800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1270180800,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter ED",
+        "time": 1241496000,
+        "code_set": "CPT",
+        "code": "99281"
+      },
+      {
+        "description": "Encounter Acute inpt",
+        "time": 1275796800,
+        "code_set": "CPT",
+        "code": "99251"
+      },
+      {
+        "description": "Encounter Inpatient Discharge",
+        "time": 1276142400,
+        "code_set": "CPT",
+        "code": "99238"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279425600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1280289600,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1281067200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Prev Med Group Counseling",
+        "time": 1287201600,
+        "code_set": "CPT",
+        "code": "99412"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Prostate Cancer",
+        "time": 1275796800,
+        "code_set": "ICD-9-CM",
+        "code": "185",
+        "status": "active"
+      },
+      {
+        "description": "Asthma",
+        "time": 1241496000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Coronary Artery Disease No MI",
+        "time": 1260162000,
+        "code_set": "SNOMED-CT",
+        "code": "53741008",
+        "status": "active"
+      },
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antiasthmatic combinations",
+        "time": 1241496000,
+        "code_set": "RxNorm",
+        "code": "388681"
+      },
+      {
+        "description": "Smoking Cessation Agents",
+        "time": 1275969600,
+        "code_set": "RxNorm",
+        "code": "105075"
+      },
+      {
+        "description": "Miscellaneous antibiotics",
+        "time": 1275796800,
+        "code_set": "RxNorm",
+        "code": "686383"
+      },
+      {
+        "description": "ACE inhibitors",
+        "time": 1270180800,
+        "code_set": "RxNorm",
+        "code": "314076"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1270180800,
+        "code_set": "RxNorm",
+        "code": "630208"
+      },
+      {
+        "description": "Long acting inhaled beta 2 agonist",
+        "time": 1270180800,
+        "code_set": "RxNorm",
+        "code": "896239"
+      },
+      {
+        "description": "Lipid Lowering Therapy",
+        "time": 1281067200,
+        "code_set": "RxNorm",
+        "code": "617314"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "time": 1241496000,
-      "description": "Encounter ED"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
-      },
-      "time": 1275796800,
-      "description": "Encounter Acute inpt"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
-      },
-      "time": 1276142400,
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1279425600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "time": 1280289600,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1281067200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99412"
-        ]
-      },
-      "time": 1287201600,
-      "description": "Encounter Prev Med Group Counseling"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1275796800,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1241496000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "53741008"
-        ]
-      },
-      "time": 1260162000,
-      "status": "active",
-      "description": "Coronary Artery Disease No MI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 130.0,
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 132.0,
-        "units": null
-      },
-      "time": 1279425600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 82.0,
-        "units": null
-      },
-      "time": 1279425600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1279425600,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 134.0,
-        "units": null
-      },
-      "time": 1270180800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 86.0,
-        "units": null
-      },
-      "time": 1270180800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 82.0,
-        "units": null
-      },
-      "time": 1270180800,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 34.20739619377163,
-        "units": null
-      },
-      "time": 1270180800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 31.926903114186853,
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84153"
-        ]
-      },
-      "value": {
-        "scalar": "41ng/dL",
-        "units": null
-      },
-      "time": 1270872000,
-      "description": "Prostate Specific Antigen Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369776000"
-        ]
-      },
-      "value": {
-        "scalar": 4.0,
-        "units": null
-      },
-      "time": 1273464000,
-      "description": "Gleason Score <=6"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": "88mg/dL",
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": "145mg/dL",
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "LDL Laboratory Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": "210mg/dL",
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": "175mg/dL",
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "Triglycerides"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1276142400,
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1275796800,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1241496000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "53741008"
-        ]
-      },
-      "time": 1260162000,
-      "status": "active",
-      "description": "Coronary Artery Disease No MI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "84153"
-        ]
-      },
-      "value": {
-        "scalar": "41ng/dL",
-        "units": null
-      },
-      "time": 1270872000,
-      "description": "Prostate Specific Antigen Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369776000"
-        ]
-      },
-      "value": {
-        "scalar": 4.0,
-        "units": null
-      },
-      "time": 1273464000,
-      "description": "Gleason Score <=6"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": "88mg/dL",
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": "145mg/dL",
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "LDL Laboratory Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": "210mg/dL",
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": "175mg/dL",
-        "units": null
-      },
-      "time": 1281067200,
-      "description": "Triglycerides"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1276142400,
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1270180800,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1270180800,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1270180800,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "55810"
-        ]
-      },
-      "time": 1275883200,
-      "description": "Prostate Cancer Treatment"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1276142400,
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "45378"
-        ]
-      },
-      "time": 1270180800,
-      "description": "colonoscopy"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ]
-      },
-      "time": 1279166400,
-      "description": "eye exam"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "388681"
-        ]
-      },
-      "time": 1241496000,
-      "description": "Antiasthmatic combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1275969600,
-      "description": "Smoking Cessation Agents"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "686383"
-        ]
-      },
-      "time": 1275796800,
-      "description": "Miscellaneous antibiotics"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1270180800,
-      "description": "ACE inhibitors"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Short acting beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "896239"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Long acting inhaled beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "617314"
-        ]
-      },
-      "time": 1281067200,
-      "description": "Lipid Lowering Therapy"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1287201600,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1270180800,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1275796800,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1241496000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "53741008"
-        ]
-      },
-      "time": 1260162000,
-      "status": "active",
-      "description": "Coronary Artery Disease No MI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "social_history": [
+      {
+        "description": "Prostate Cancer",
+        "time": 1275796800,
+        "code_set": "ICD-9-CM",
+        "code": "185",
+        "status": "active"
+      },
+      {
+        "description": "Asthma",
+        "time": 1241496000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Coronary Artery Disease No MI",
+        "time": 1260162000,
+        "code_set": "SNOMED-CT",
+        "code": "53741008",
+        "status": "active"
+      },
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
+      },
+      {
+        "description": "Tobacco User",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1281067200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1281067200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
+      },
+      {
+        "description": "Heart Rate",
+        "time": 1281067200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 84.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1279425600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 132.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1279425600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 82.0
+      },
+      {
+        "description": "Heart Rate",
+        "time": 1279425600,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 80.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 134.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 86.0
+      },
+      {
+        "description": "Heart Rate",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 82.0
+      },
+      {
+        "description": "BMI",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 34.20739619377163
+      },
+      {
+        "description": "BMI",
+        "time": 1281067200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 31.926903114186853
+      },
+      {
+        "description": "Prostate Specific Antigen Test",
+        "time": 1270872000,
+        "code_set": "CPT",
+        "code": "84153",
+        "value": "41ng/dL"
+      },
+      {
+        "description": "Gleason Score <=6",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "369776000",
+        "value": 4.0
+      },
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1281067200,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": "88mg/dL"
+      },
+      {
+        "description": "LDL Laboratory Test",
+        "time": 1281067200,
+        "code_set": "LOINC",
+        "code": "2089-1",
+        "value": "145mg/dL"
+      },
+      {
+        "description": "Total Cholesterol",
+        "time": 1281067200,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": "210mg/dL"
+      },
+      {
+        "description": "Triglycerides",
+        "time": 1281067200,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": "175mg/dL"
+      },
+      {
+        "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "261650005"
+      }
+    ],
+    "results": [
+      {
+        "description": "Prostate Specific Antigen Test",
+        "time": 1270872000,
+        "code_set": "CPT",
+        "code": "84153",
+        "value": "41ng/dL"
+      },
+      {
+        "description": "Gleason Score <=6",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "369776000",
+        "value": 4.0
+      },
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1281067200,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": "88mg/dL"
+      },
+      {
+        "description": "LDL Laboratory Test",
+        "time": 1281067200,
+        "code_set": "LOINC",
+        "code": "2089-1",
+        "value": "145mg/dL"
+      },
+      {
+        "description": "Total Cholesterol",
+        "time": 1281067200,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": "210mg/dL"
+      },
+      {
+        "description": "Triglycerides",
+        "time": 1281067200,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": "175mg/dL"
+      },
+      {
+        "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "261650005"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "counseling for nutrition",
+        "time": 1270180800,
+        "code_set": "CPT",
+        "code": "97802"
+      },
+      {
+        "description": "counseling for physical activity",
+        "time": 1270180800,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
+      },
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1270180800,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
+      },
+      {
+        "description": "Prostate Cancer Treatment",
+        "time": 1275883200,
+        "code_set": "CPT",
+        "code": "55810"
+      },
+      {
+        "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "261650005"
+      },
+      {
+        "description": "colonoscopy",
+        "time": 1270180800,
+        "code_set": "CPT",
+        "code": "45378"
+      },
+      {
+        "description": "eye exam",
+        "time": 1279166400,
+        "code_set": "HCPCS",
+        "code": "S0621"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1287201600,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1270180800,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

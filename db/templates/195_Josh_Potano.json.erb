@@ -4,248 +4,147 @@
   "gender": "M",
   "birthdate": <%= between(386485200, 387694800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "encounter non-acute inpatient",
+        "time": 1275364800,
+        "code_set": "CPT",
+        "code": "99324"
+      },
+      {
+        "description": "encounter ED",
+        "time": 1274328000,
+        "code_set": "CPT",
+        "code": "99281"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "IV drug abuse",
+        "time": 1273896000,
+        "code_set": "SNOMED-CT",
+        "code": "191912005",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1274328000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1274328000,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99324"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "IV drug abuse",
+        "time": 1273896000,
+        "code_set": "SNOMED-CT",
+        "code": "191912005",
+        "status": "active"
       },
-      "time": 1275364800,
-      "description": "encounter non-acute inpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1274328000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1274328000,
-      "description": "encounter ED"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "191912005"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1275364800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 150.0
       },
-      "time": 1273896000,
-      "status": "active",
-      "description": "IV drug abuse"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1275364800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 96.0
       },
-      "time": 1274328000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1275364800,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 84.0
       },
-      "time": 1274328000,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 146.0
       },
-      "value": {
-        "scalar": 150.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 92.0
       },
-      "time": 1275364800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 86.0
       },
-      "value": {
-        "scalar": 96.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1275364800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 20.61265432098765
       },
-      "time": 1275364800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1275364800,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 146.0,
-        "units": null
-      },
-      "time": 1274328000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 92.0,
-        "units": null
-      },
-      "time": 1274328000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 86.0,
-        "units": null
-      },
-      "time": 1274328000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 20.61265432098765,
-        "units": null
-      },
-      "time": 1275364800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 20.341435185185187,
-        "units": null
-      },
-      "time": 1274328000,
-      "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "191912005"
-        ]
-      },
-      "time": 1273896000,
-      "status": "active",
-      "description": "IV drug abuse"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1274328000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
+      {
+        "description": "BMI",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 20.341435185185187
+      }
+    ],
+    "results": [
 
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1274328000,
-      "description": "tobacco use cessation counseling"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1274328000,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
+    ],
+    "procedures": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "191912005"
-        ]
-      },
-      "time": 1273896000,
-      "status": "active",
-      "description": "IV drug abuse"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1274328000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

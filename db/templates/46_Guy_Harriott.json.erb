@@ -4,245 +4,151 @@
   "gender": "M",
   "birthdate": <%= between(1237435200, 1238644800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "encounter outpatient-children",
+        "time": 1301112000,
+        "code_set": "ICD-10-CM",
+        "code": "Z00.1"
+      },
+      {
+        "description": "encounter outpatient-children",
+        "time": 1285473600,
+        "code_set": "ICD-10-CM",
+        "code": "Z00.1"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1271304000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "encounter outpatient-children",
+        "time": 1269748800,
+        "code_set": "ICD-10-CM",
+        "code": "Z00.1"
+      },
+      {
+        "description": "encounter outpatient-children",
+        "time": 1254110400,
+        "code_set": "ICD-10-CM",
+        "code": "Z00.1"
+      },
+      {
+        "description": "encounter outpatient-children",
+        "time": 1248494400,
+        "code_set": "ICD-10-CM",
+        "code": "Z00.1"
+      },
+      {
+        "description": "encounter outpatient-children",
+        "time": 1242964800,
+        "code_set": "ICD-10-CM",
+        "code": "Z00.1"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "pharyngitis",
+        "time": 1263963600,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Third generation cephalosporins",
+        "time": 1271304000,
+        "code_set": "RxNorm",
+        "code": "309078"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "pharyngitis",
+        "time": 1263963600,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "BMI",
+        "time": 1301112000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 17.358024691358025
       },
-      "time": 1301112000,
-      "description": "encounter outpatient-children"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
+      {
+        "description": "BMI",
+        "time": 1285473600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 19.22265625
       },
-      "time": 1285473600,
-      "description": "encounter outpatient-children"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "BMI",
+        "time": 1269748800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 18.746666666666666
       },
-      "time": 1271304000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
+      {
+        "description": "BMI",
+        "time": 1254110400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 19.75887573964497
       },
-      "time": 1269748800,
-      "description": "encounter outpatient-children"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
+      {
+        "description": "BMI",
+        "time": 1248494400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 15.7472
       },
-      "time": 1254110400,
-      "description": "encounter outpatient-children"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
+      {
+        "description": "BMI",
+        "time": 1242964800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 13.820793950850662
       },
-      "time": 1248494400,
-      "description": "encounter outpatient-children"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "time": 1242964800,
-      "description": "encounter outpatient-children"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1263963600,
-      "status": "active",
-      "description": "pharyngitis"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 17.358024691358025,
-        "units": null
-      },
-      "time": 1301112000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 19.22265625,
-        "units": null
-      },
-      "time": 1285473600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 18.746666666666666,
-        "units": null
-      },
-      "time": 1269748800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 19.75887573964497,
-        "units": null
-      },
-      "time": 1254110400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 15.7472,
-        "units": null
-      },
-      "time": 1248494400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 13.820793950850662,
-        "units": null
-      },
-      "time": 1242964800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1271304000,
-      "description": "Group A Streptococcus Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1263963600,
-      "status": "active",
-      "description": "pharyngitis"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1271304000,
-      "description": "Group A Streptococcus Test"
-    }
-  ],
-  "procedures": [
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1271304000,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
+      }
+    ],
+    "results": [
+      {
+        "description": "Group A Streptococcus Test",
+        "time": 1271304000,
+        "code_set": "CPT",
+        "code": "87430",
+        "value": true
+      }
+    ],
+    "procedures": [
 
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "309078"
-        ]
-      },
-      "time": 1271304000,
-      "description": "Third generation cephalosporins"
-    }
-  ],
-  "immunizations": [
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1263963600,
-      "status": "active",
-      "description": "pharyngitis"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

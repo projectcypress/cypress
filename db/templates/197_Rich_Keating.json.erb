@@ -4,442 +4,265 @@
   "gender": "M",
   "birthdate": <%= between(39934800, 41144400) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1288584000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1275624000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "99241"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Asthma",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1275624000,
+        "code_set": "RxNorm",
+        "code": "858828"
+      },
+      {
+        "description": "Long acting inhaled beta 2 agonist",
+        "time": 1270267200,
+        "code_set": "RxNorm",
+        "code": "896239"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1270267200,
+        "code_set": "RxNorm",
+        "code": "630208"
+      },
+      {
+        "description": "Smoking Cessation Agents",
+        "time": 1279166400,
+        "code_set": "RxNorm",
+        "code": "105075"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Asthma",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1288584000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1279166400,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1279166400,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
       },
-      "time": 1275624000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
       },
-      "time": 1270267200,
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1288584000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 134.0
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1288584000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 82.0
       },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 132.0
       },
-      "time": 1270267200,
-      "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 80.0
       },
-      "time": 1270267200,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 136.0
       },
-      "time": 1270267200,
-      "description": "Asthma Daytime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 82.0
       },
-      "value": {
-        "scalar": 134.0,
-        "units": null
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 132.0
       },
-      "time": 1288584000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "value": {
-        "scalar": 82.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1288584000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.363579080025207
       },
-      "time": 1288584000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.363579080025207
       },
-      "value": {
-        "scalar": 132.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 136.0,
-        "units": null
-      },
-      "time": 1275624000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 82.0,
-        "units": null
-      },
-      "time": 1275624000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 132.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.363579080025207,
-        "units": null
-      },
-      "time": 1288584000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.363579080025207,
-        "units": null
-      },
-      "time": 1275624000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.363579080025207,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Asthma Daytime Symptoms Quantified"
-    }
-  ],
-  "results": [
+      {
+        "description": "BMI",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.363579080025207
+      }
+    ],
+    "results": [
 
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
+    ],
+    "procedures": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
       },
-      "time": 1270267200,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
       },
-      "time": 1270267200,
-      "description": "Asthma Symptom Assessment Tool"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ]
+      {
+        "description": "eye exam",
+        "time": 1279166400,
+        "code_set": "HCPCS",
+        "code": "S0621"
       },
-      "time": 1279166400,
-      "description": "eye exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "36228007"
-        ]
+      {
+        "description": "Optic Nerve Head Evaluation",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "36228007"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1288584000,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1279166400,
-      "description": "Optic Nerve Head Evaluation"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1275624000,
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "896239"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Long acting inhaled beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Short acting beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Smoking Cessation Agents"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1288584000,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1288584000,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1288584000,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1279166400,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

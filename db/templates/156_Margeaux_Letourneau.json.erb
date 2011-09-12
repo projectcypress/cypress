@@ -4,226 +4,141 @@
   "gender": "F",
   "birthdate": <%= between(-47246400, -46036800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1287201600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1273982400,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "polycystic ovaries",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "256.4",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Insulin",
+        "time": 1273982400,
+        "code_set": "RxNorm",
+        "code": "847207"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "polycystic ovaries",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "256.4",
+        "status": "active"
       },
-      "time": 1287201600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1287201600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 106.0
       },
-      "time": 1273982400,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "256.4"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1287201600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 62.0
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "polycystic ovaries"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1273982400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 108.0
       },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1273982400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 66.0
       },
-      "value": {
-        "scalar": 106.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1287201600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 25.085423875432525
       },
-      "time": 1287201600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1273982400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 27.3659169550173
       },
-      "value": {
-        "scalar": 62.0,
-        "units": null
+      {
+        "description": "Pap Test",
+        "time": 1287201600,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "results": [
+      {
+        "description": "Pap Test",
+        "time": 1287201600,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "counseling for nutrition",
+        "time": 1273982400,
+        "code_set": "CPT",
+        "code": "97802"
       },
-      "time": 1287201600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 108.0,
-        "units": null
-      },
-      "time": 1273982400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 66.0,
-        "units": null
-      },
-      "time": 1273982400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 25.085423875432525,
-        "units": null
-      },
-      "time": 1287201600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 27.3659169550173,
-        "units": null
-      },
-      "time": 1273982400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1287201600,
-      "description": "Pap Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "256.4"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "polycystic ovaries"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1287201600,
-      "description": "Pap Test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1273982400,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1273982400,
-      "description": "counseling for physical activity"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "847207"
-        ]
-      },
-      "time": 1273982400,
-      "description": "Insulin"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "counseling for physical activity",
+        "time": 1273982400,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1273982400,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "256.4"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "polycystic ovaries"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1273982400,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

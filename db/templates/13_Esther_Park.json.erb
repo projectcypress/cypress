@@ -4,415 +4,251 @@
   "gender": "F",
   "birthdate": <%= between(649656000, 650865600) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1293685200,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1284955200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1276574400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1271390400,
+        "code_set": "CPT",
+        "code": "99241"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "sexually active woman",
+        "time": 1276574400,
+        "code_set": "ICD-9-CM",
+        "code": "099.9",
+        "status": "active"
+      },
+      {
+        "description": "Asthma",
+        "time": 1271390400,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antiasthmatic combinations",
+        "time": 1271390400,
+        "code_set": "RxNorm",
+        "code": "388681"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "sexually active woman",
+        "time": 1276574400,
+        "code_set": "ICD-9-CM",
+        "code": "099.9",
+        "status": "active"
       },
-      "time": 1293685200,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Asthma",
+        "time": 1271390400,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1284955200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
       },
-      "time": 1276574400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1271390400,
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1293685200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 108.0
       },
-      "time": 1276574400,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1293685200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 64.0
       },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1293685200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 68.0
       },
-      "time": 1271390400,
-      "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1276574400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 110.0
       },
-      "time": 1271390400,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1276574400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
       },
-      "time": 1271390400,
-      "description": "Asthma Daytime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1276574400,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 70.0
       },
-      "value": {
-        "scalar": 108.0,
-        "units": null
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 104.0
       },
-      "time": 1293685200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 62.0
       },
-      "value": {
-        "scalar": 64.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 64.0
       },
-      "time": 1293685200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "BMI",
+        "time": 1293685200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.12662721893491
       },
-      "value": {
-        "scalar": 68.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1276574400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.62579881656805
       },
-      "time": 1293685200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.12662721893491
       },
-      "value": {
-        "scalar": 110.0,
-        "units": null
+      {
+        "description": "Chlamydia Screening",
+        "time": 1276574400,
+        "code_set": "CPT",
+        "code": "87110"
       },
-      "time": 1276574400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1276574400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "results": [
+      {
+        "description": "Chlamydia Screening",
+        "time": 1276574400,
+        "code_set": "CPT",
+        "code": "87110"
       },
-      "value": {
-        "scalar": 70.0,
-        "units": null
+      {
+        "description": "Pap Test",
+        "time": 1276574400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
       },
-      "time": 1276574400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "procedures indicative of sexually active woman",
+        "time": 1276574400,
+        "code_set": "CPT",
+        "code": "88235"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "DTAP Vaccine",
+        "time": 1293685200,
+        "code_set": "RxNorm",
+        "code": "795926"
       },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1276574400,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 104.0,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 62.0,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 64.0,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.12662721893491,
-        "units": null
-      },
-      "time": 1293685200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.62579881656805,
-        "units": null
-      },
-      "time": 1276574400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.12662721893491,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1276574400,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1276574400,
-      "description": "Pap Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1276574400,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Asthma Daytime Symptoms Quantified"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1276574400,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1276574400,
-      "description": "Pap Test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Asthma Symptom Assessment Tool"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "88235"
-        ]
-      },
-      "time": 1276574400,
-      "description": "procedures indicative of sexually active woman"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "388681"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Antiasthmatic combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "795926"
-        ]
-      },
-      "time": 1293685200,
-      "description": "DTAP Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1284955200,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1284955200,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1276574400,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Asthma"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

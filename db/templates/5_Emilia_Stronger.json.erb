@@ -4,489 +4,284 @@
   "gender": "F",
   "birthdate": <%= between(-765313200, -764103600) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1295154000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1285473600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Inpatient Discharge",
+        "time": 1273896000,
+        "code_set": "CPT",
+        "code": "99238"
+      },
+      {
+        "description": "encounter ED",
+        "time": 1273464000,
+        "code_set": "CPT",
+        "code": "99281"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "diabetes",
+        "time": 1273464000,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Acute Renal Insufficiency",
+        "time": 1273464000,
+        "code_set": "ICD-9-CM",
+        "code": "593.9",
+        "status": "inactive"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antidiabetic-combinations",
+        "time": 1285473600,
+        "code_set": "RxNorm",
+        "code": "861748"
+      },
+      {
+        "description": "Insulin",
+        "time": 1273464000,
+        "code_set": "RxNorm",
+        "code": "847207"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "diabetes",
+        "time": 1273464000,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
       },
-      "time": 1295154000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Acute Renal Insufficiency",
+        "time": 1273464000,
+        "code_set": "ICD-9-CM",
+        "code": "593.9",
+        "status": "inactive"
       },
-      "time": 1285473600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1295154000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 138.0
       },
-      "time": 1273896000,
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1295154000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 84.0
       },
-      "time": 1273464000,
-      "description": "encounter ED"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1295154000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 86.0
       },
-      "time": 1273464000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "593.9"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 150.0
       },
-      "time": 1273464000,
-      "status": "inactive",
-      "description": "Acute Renal Insufficiency"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 94.0
       },
-      "time": 1273464000,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 98.0
       },
-      "value": {
-        "scalar": 138.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1295154000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.339632149155957
       },
-      "time": 1295154000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 29.756613756613756
       },
-      "value": {
-        "scalar": 84.0,
-        "units": null
+      {
+        "description": "HbA1c test",
+        "time": 1295154000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.6
       },
-      "time": 1295154000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1285473600,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.5
       },
-      "value": {
-        "scalar": 86.0,
-        "units": null
+      {
+        "description": "LDL",
+        "time": 1285473600,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 78.0
       },
-      "time": 1295154000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1273896000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.9
       },
-      "value": {
-        "scalar": 150.0,
-        "units": null
+      {
+        "description": "HbA1c test",
+        "time": 1273464000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 9.5
       },
-      "time": 1273464000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "LDL",
+        "time": 1273464000,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 80.0
+      }
+    ],
+    "results": [
+      {
+        "description": "HbA1c test",
+        "time": 1295154000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.6
       },
-      "value": {
-        "scalar": 94.0,
-        "units": null
+      {
+        "description": "HbA1c test",
+        "time": 1285473600,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.5
       },
-      "time": 1273464000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "LDL",
+        "time": 1285473600,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 78.0
       },
-      "value": {
-        "scalar": 98.0,
-        "units": null
+      {
+        "description": "HbA1c test",
+        "time": 1273896000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.9
       },
-      "time": 1273464000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1273464000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 9.5
       },
-      "value": {
-        "scalar": 28.339632149155957,
-        "units": null
+      {
+        "description": "LDL",
+        "time": 1273464000,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 80.0
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Foot Exam",
+        "time": 1295154000,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "time": 1295154000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
+      {
+        "description": "Foot Exam",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Bi-lateral swelling"
       },
-      "value": {
-        "scalar": 29.756613756613756,
-        "units": null
+      {
+        "description": "dietary consultation order",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "103699006"
       },
-      "time": 1273464000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
+      {
+        "description": "counseling for physical activity",
+        "time": 1273464000,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1285473600,
+        "code_set": "CVX",
+        "code": "100"
       },
-      "value": {
-        "scalar": 7.6,
-        "units": null
-      },
-      "time": 1295154000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.5,
-        "units": null
-      },
-      "time": 1285473600,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1285473600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.9,
-        "units": null
-      },
-      "time": 1273896000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 9.5,
-        "units": null
-      },
-      "time": 1273464000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1273464000,
-      "description": "LDL"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "593.9"
-        ]
-      },
-      "time": 1273464000,
-      "status": "inactive",
-      "description": "Acute Renal Insufficiency"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.6,
-        "units": null
-      },
-      "time": 1295154000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.5,
-        "units": null
-      },
-      "time": 1285473600,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1285473600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.9,
-        "units": null
-      },
-      "time": 1273896000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 9.5,
-        "units": null
-      },
-      "time": 1273464000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1273464000,
-      "description": "LDL"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1295154000,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Bi-lateral swelling",
-        "units": null
-      },
-      "time": 1273464000,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "103699006"
-        ]
-      },
-      "time": 1273464000,
-      "description": "dietary consultation order"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1273464000,
-      "description": "counseling for physical activity"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "861748"
-        ]
-      },
-      "time": 1285473600,
-      "description": "Antidiabetic-combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "847207"
-        ]
-      },
-      "time": 1273464000,
-      "description": "Insulin"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1285473600,
-      "description": "Pneumococcal Vaccine all ages"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1285473600,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1273464000,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "diabetes"
-    }
-  ],
-  "inactive": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "593.9"
-        ]
-      },
-      "time": 1273464000,
-      "status": "inactive",
-      "description": "Acute Renal Insufficiency"
-    }
-  ],
-  "resolved": [
-
-  ]
+      {
+        "description": "Influenza Vaccine",
+        "time": 1285473600,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1273464000,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

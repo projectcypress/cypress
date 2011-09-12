@@ -4,206 +4,136 @@
   "gender": "F",
   "birthdate": <%= between(788677200, 789886800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1281931200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Inpatient Discharge",
+        "time": 1278129600,
+        "code_set": "CPT",
+        "code": "99238"
+      },
+      {
+        "description": "encounter acute inpt",
+        "time": 1270180800,
+        "code_set": "CPT",
+        "code": "99251"
+      },
+      {
+        "description": "encounter ED",
+        "time": 1270094400,
+        "code_set": "CPT",
+        "code": "99281"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "sexually active woman",
+        "time": 1281931200,
+        "code_set": "ICD-9-CM",
+        "code": "099.9",
+        "status": "active"
+      },
+      {
+        "description": "IUD use",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "medications": [
 
-  ],
-  "medical_equipment": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1281931200,
-      "description": "IUD use"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1281931200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
-      },
-      "time": 1278129600,
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
-      },
-      "time": 1270180800,
-      "description": "encounter acute inpt"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "time": 1270094400,
-      "description": "encounter ED"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1281931200,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270094400,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 23.793846153846154,
-        "units": null
-      },
-      "time": 1281931200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1281931200,
-      "description": "Chlamydia Screening"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1281931200,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1281931200,
-      "description": "IUD use"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1281931200,
-      "description": "Chlamydia Screening"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "44651004"
-        ]
-      },
-      "time": 1281931200,
-      "description": "contraceptive use education"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1281931200,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1281931200,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1281931200,
-      "description": "IUD use"
-    }
-  ],
-  "medications": [
+    ],
+    "medical_equipment": [
+      {
+        "description": "IUD use",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "allergies": [
 
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "sexually active woman",
+        "time": 1281931200,
+        "code_set": "ICD-9-CM",
+        "code": "099.9",
+        "status": "active"
       },
-      "time": 1281931200,
-      "description": "IUD use"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1270094400,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "BMI",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 23.793846153846154
       },
-      "time": 1281931200,
-      "status": "active",
-      "description": "sexually active woman"
-    }
-  ],
-  "inactive": [
+      {
+        "description": "Chlamydia Screening",
+        "time": 1281931200,
+        "code_set": "CPT",
+        "code": "87110"
+      }
+    ],
+    "results": [
+      {
+        "description": "Chlamydia Screening",
+        "time": 1281931200,
+        "code_set": "CPT",
+        "code": "87110"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "contraceptive use education",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "44651004"
+      },
+      {
+        "description": "counseling for nutrition",
+        "time": 1281931200,
+        "code_set": "CPT",
+        "code": "97802"
+      },
+      {
+        "description": "counseling for physical activity",
+        "time": 1281931200,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
+      },
+      {
+        "description": "IUD use",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "care_goals": [
+      {
+        "description": "IUD use",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "169491004"
+      }
+    ]
+  }
 }

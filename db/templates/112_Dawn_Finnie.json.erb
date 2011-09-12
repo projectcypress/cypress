@@ -4,550 +4,332 @@
   "gender": "F",
   "birthdate": <%= between(-23914800, -22705200) %>,
   "addresses": null,
-  "allergies": [
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Office Visit",
+        "time": 1283659200,
+        "code_set": "CPT",
+        "code": "99212"
       },
-      "time": 1238558400,
-      "description": "Tamoxifen or aromatase inhibitor therapy"
-    }
-  ],
-  "medical_equipment": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1282536000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Inpatient Discharge",
+        "time": 1281931200,
+        "code_set": "CPT",
+        "code": "99238"
+      },
+      {
+        "description": "encounter acute inpt",
+        "time": 1281844800,
+        "code_set": "CPT",
+        "code": "99251"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1280980800,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1278475200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1270094400,
+        "code_set": "CPT",
+        "code": "99212"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1238558400,
+        "code_set": "CPT",
+        "code": "99212"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Breast Cancer",
+        "time": 1281844800,
+        "code_set": "ICD-9-CM",
+        "code": "174.9",
+        "status": "active"
+      },
+      {
+        "description": "low back pain",
+        "time": 606459600,
+        "code_set": "ICD-9-CM",
+        "code": "724.2",
+        "status": "inactive"
+      },
+      {
+        "description": "Hypertension",
+        "time": 771739200,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Sulfonylureas",
+        "time": 1284004800,
+        "code_set": "RxNorm",
+        "code": "844824"
+      },
+      {
+        "description": "ACE inhibitors",
+        "time": 1284004800,
+        "code_set": "RxNorm",
+        "code": "314076"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
+    ],
+    "allergies": [
+      {
+        "description": "Tamoxifen or aromatase inhibitor therapy",
+        "time": 1238558400,
+        "code_set": "RxNorm",
+        "code": "313195"
+      }
+    ],
+    "social_history": [
+      {
+        "description": "Breast Cancer",
+        "time": 1281844800,
+        "code_set": "ICD-9-CM",
+        "code": "174.9",
+        "status": "active"
       },
-      "time": 1283659200,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "low back pain",
+        "time": 606459600,
+        "code_set": "ICD-9-CM",
+        "code": "724.2",
+        "status": "inactive"
       },
-      "time": 1282536000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 771739200,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1281931200,
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1280635200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1283659200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 136.0
       },
-      "time": 1281844800,
-      "description": "encounter acute inpt"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1283659200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 84.0
       },
-      "time": 1280980800,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1283659200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 86.0
       },
-      "time": 1278475200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1280980800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 148.0
       },
-      "time": 1270094400,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1280980800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 89.0
       },
-      "time": 1238558400,
-      "description": "Encounter Office Visit"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1280980800,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 88.0
       },
-      "time": 1281844800,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270094400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 138.0
       },
-      "time": 606459600,
-      "status": "inactive",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270094400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 84.0
       },
-      "time": 771739200,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1270094400,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 84.0
       },
-      "time": 1280635200,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1280980800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 29.291666666666664
       },
-      "value": {
-        "scalar": 136.0,
-        "units": null
+      {
+        "description": "Pap Test",
+        "time": 1270094400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32",
+        "value": "Normal"
       },
-      "time": 1283659200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1238558400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32",
+        "value": "Normal"
       },
-      "value": {
-        "scalar": 84.0,
-        "units": null
+      {
+        "description": "Breast Cancer Stage IC-IIIC",
+        "time": 1280721600,
+        "code_set": "SNOMED-CT",
+        "code": "261653007"
       },
-      "time": 1283659200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Breast Cancer ER or PR Positive",
+        "time": 1281844800,
+        "code_set": "SNOMED-CT",
+        "code": "417742002"
       },
-      "value": {
-        "scalar": 86.0,
-        "units": null
+      {
+        "description": "nephropathy-related procedures",
+        "time": 1278561600,
+        "code_set": "CPT",
+        "code": "90935"
+      }
+    ],
+    "results": [
+      {
+        "description": "Pap Test",
+        "time": 1270094400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32",
+        "value": "Normal"
       },
-      "time": 1283659200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1238558400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32",
+        "value": "Normal"
       },
-      "value": {
-        "scalar": 148.0,
-        "units": null
+      {
+        "description": "Breast Cancer Stage IC-IIIC",
+        "time": 1280721600,
+        "code_set": "SNOMED-CT",
+        "code": "261653007"
       },
-      "time": 1280980800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Breast Cancer ER or PR Positive",
+        "time": 1281844800,
+        "code_set": "SNOMED-CT",
+        "code": "417742002"
       },
-      "value": {
-        "scalar": 89.0,
-        "units": null
+      {
+        "description": "nephropathy-related procedures",
+        "time": 1278561600,
+        "code_set": "CPT",
+        "code": "90935"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1280635200,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
       },
-      "time": 1280980800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "dietary consultation order",
+        "time": 1280980800,
+        "code_set": "SNOMED-CT",
+        "code": "103699006"
       },
-      "value": {
-        "scalar": 88.0,
-        "units": null
+      {
+        "description": "counseling for physical activity",
+        "time": 1280980800,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "time": 1280980800,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Breast Cancer Stage IC-IIIC",
+        "time": 1280721600,
+        "code_set": "SNOMED-CT",
+        "code": "261653007"
       },
-      "value": {
-        "scalar": 138.0,
-        "units": null
+      {
+        "description": "Breast Cancer ER or PR Positive",
+        "time": 1281844800,
+        "code_set": "SNOMED-CT",
+        "code": "417742002"
       },
-      "time": 1270094400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "nephropathy-related procedures",
+        "time": 1278561600,
+        "code_set": "CPT",
+        "code": "90935"
       },
-      "value": {
-        "scalar": 84.0,
-        "units": null
+      {
+        "description": "breast cancer screening",
+        "time": 1278475200,
+        "code_set": "CPT",
+        "code": "77057"
       },
-      "time": 1270094400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1270094400,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 29.291666666666664,
-        "units": null
-      },
-      "time": 1280980800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270094400,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1238558400,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261653007"
-        ]
-      },
-      "time": 1280721600,
-      "description": "Breast Cancer Stage IC-IIIC"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "417742002"
-        ]
-      },
-      "time": 1281844800,
-      "description": "Breast Cancer ER or PR Positive"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "90935"
-        ]
-      },
-      "time": 1278561600,
-      "description": "nephropathy-related procedures"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
-      },
-      "time": 1281844800,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
-      },
-      "time": 606459600,
-      "status": "inactive",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 771739200,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270094400,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1238558400,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261653007"
-        ]
-      },
-      "time": 1280721600,
-      "description": "Breast Cancer Stage IC-IIIC"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "417742002"
-        ]
-      },
-      "time": 1281844800,
-      "description": "Breast Cancer ER or PR Positive"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "90935"
-        ]
-      },
-      "time": 1278561600,
-      "description": "nephropathy-related procedures"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1280635200,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "103699006"
-        ]
-      },
-      "time": 1280980800,
-      "description": "dietary consultation order"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1280980800,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261653007"
-        ]
-      },
-      "time": 1280721600,
-      "description": "Breast Cancer Stage IC-IIIC"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "417742002"
-        ]
-      },
-      "time": 1281844800,
-      "description": "Breast Cancer ER or PR Positive"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "90935"
-        ]
-      },
-      "time": 1278561600,
-      "description": "nephropathy-related procedures"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1278475200,
-      "description": "breast cancer screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1273204800,
-      "description": "breast cancer screening"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "844824"
-        ]
-      },
-      "time": 1284004800,
-      "description": "Sulfonylureas"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1284004800,
-      "description": "ACE inhibitors"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "breast cancer screening",
+        "time": 1273204800,
+        "code_set": "CPT",
+        "code": "77057"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1280980800,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
-      },
-      "time": 1281844800,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 771739200,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
-      },
-      "time": 606459600,
-      "status": "inactive",
-      "description": "low back pain"
-    }
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1280980800,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

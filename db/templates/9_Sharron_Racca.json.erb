@@ -4,451 +4,266 @@
   "gender": "F",
   "birthdate": <%= between(-1215201600, -1213992000) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1292389200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Inpatient Discharge",
+        "time": 1273032000,
+        "code_set": "CPT",
+        "code": "99238"
+      },
+      {
+        "description": "encounter acute inpt",
+        "time": 1272600000,
+        "code_set": "CPT",
+        "code": "99251"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Hypertension",
+        "time": 1272600000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Myocardial Infarction",
+        "time": 1272600000,
+        "code_set": "ICD-9-CM",
+        "code": "410.90",
+        "status": "resolved"
+      },
+      {
+        "description": "Coronary Artery Disease includes MI",
+        "time": 1272600000,
+        "code_set": "ICD-9-CM",
+        "code": "410.90",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1279166400,
+        "code_set": "RxNorm",
+        "code": "858828"
+      },
+      {
+        "description": "Antiplatelet Therapy",
+        "time": 1279166400,
+        "code_set": "RxNorm",
+        "code": "243670"
+      },
+      {
+        "description": "Antiplatelet Therapy",
+        "time": 1273032000,
+        "code_set": "RxNorm",
+        "code": "243670"
+      },
+      {
+        "description": "Beta Blocker Therapy",
+        "time": 1279166400,
+        "code_set": "RxNorm",
+        "code": "866924"
+      },
+      {
+        "description": "Beta Blocker Therapy",
+        "time": 1273032000,
+        "code_set": "RxNorm",
+        "code": "866924"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Hypertension",
+        "time": 1272600000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1292389200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Myocardial Infarction",
+        "time": 1272600000,
+        "code_set": "ICD-9-CM",
+        "code": "410.90",
+        "status": "resolved"
       },
-      "time": 1279166400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
+      {
+        "description": "Coronary Artery Disease includes MI",
+        "time": 1272600000,
+        "code_set": "ICD-9-CM",
+        "code": "410.90",
+        "status": "active"
       },
-      "time": 1273032000,
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1272600000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 144.0
       },
-      "time": 1272600000,
-      "description": "encounter acute inpt"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 94.0
       },
-      "time": 1272600000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 160.0
       },
-      "time": 1272600000,
-      "status": "resolved",
-      "description": "Myocardial Infarction"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 100.0
       },
-      "time": 1272600000,
-      "status": "active",
-      "description": "Coronary Artery Disease includes MI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1273032000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 146.0
       },
-      "time": 1272600000,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1273032000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 90.0
       },
-      "value": {
-        "scalar": 144.0,
-        "units": null
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1272600000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 138.0
       },
-      "time": 1292389200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1272600000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 84.0
       },
-      "value": {
-        "scalar": 94.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 18.87939453125
       },
-      "time": 1292389200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 18.021240234375
       },
-      "value": {
-        "scalar": 160.0,
-        "units": null
+      {
+        "description": "LDL",
+        "time": 1292389200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 120.0
       },
-      "time": 1279166400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "LDL",
+        "time": 1254715200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 135.0
+      }
+    ],
+    "results": [
+      {
+        "description": "LDL",
+        "time": 1292389200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 120.0
       },
-      "value": {
-        "scalar": 100.0,
-        "units": null
+      {
+        "description": "LDL",
+        "time": 1254715200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 135.0
+      }
+    ],
+    "procedures": [
+      {
+        "description": "dietary consultation order",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "103699006"
       },
-      "time": 1279166400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "CABG",
+        "time": 1272600000,
+        "code_set": "CPT",
+        "code": "33535"
       },
-      "value": {
-        "scalar": 146.0,
-        "units": null
+      {
+        "description": "Cardiac Surgery",
+        "time": 1272600000,
+        "code_set": "SNOMED-CT",
+        "code": "10326007"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1279166400,
+        "code_set": "CVX",
+        "code": "100"
       },
-      "time": 1273032000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1273032000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 138.0,
-        "units": null
-      },
-      "time": 1272600000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1272600000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 18.87939453125,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 18.021240234375,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 120.0,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 135.0,
-        "units": null
-      },
-      "time": 1254715200,
-      "description": "LDL"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1272600000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ]
-      },
-      "time": 1272600000,
-      "status": "resolved",
-      "description": "Myocardial Infarction"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ]
-      },
-      "time": 1272600000,
-      "status": "active",
-      "description": "Coronary Artery Disease includes MI"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 120.0,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 135.0,
-        "units": null
-      },
-      "time": 1254715200,
-      "description": "LDL"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "103699006"
-        ]
-      },
-      "time": 1279166400,
-      "description": "dietary consultation order"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "33535"
-        ]
-      },
-      "time": 1272600000,
-      "description": "CABG"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "10326007"
-        ]
-      },
-      "time": 1272600000,
-      "description": "Cardiac Surgery"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "243670"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Antiplatelet Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "243670"
-        ]
-      },
-      "time": 1273032000,
-      "description": "Antiplatelet Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "866924"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Beta Blocker Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "866924"
-        ]
-      },
-      "time": 1273032000,
-      "description": "Beta Blocker Therapy"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Pneumococcal Vaccine all ages"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1292389200,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1279166400,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1272600000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ]
-      },
-      "time": 1272600000,
-      "status": "active",
-      "description": "Coronary Artery Disease includes MI"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ]
-      },
-      "time": 1272600000,
-      "status": "resolved",
-      "description": "Myocardial Infarction"
-    }
-  ]
+      {
+        "description": "Influenza Vaccine",
+        "time": 1292389200,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

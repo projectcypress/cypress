@@ -4,595 +4,343 @@
   "gender": "M",
   "birthdate": <%= between(-892670400, -891460800) %>,
   "addresses": null,
-  "allergies": [
-    {
-      "codes": {
-        "RxNorm": [
-          "C2729553"
-        ]
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1290661200,
+        "code_set": "CPT",
+        "code": "92012"
       },
-      "time": 1270008000,
-      "description": "Polymyxin"
-    }
-  ],
-  "medical_equipment": [
+      {
+        "description": "Encounter Prev Med 40 and Older",
+        "time": 1285819200,
+        "code_set": "CPT",
+        "code": "99396"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1273464000,
+        "code_set": "CPT",
+        "code": "92012"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "diabetes",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Diabetic Retinopathy",
+        "time": 1273464000,
+        "code_set": "ICD-10-CM",
+        "code": "E11.331",
+        "status": "active"
+      },
+      {
+        "description": "Severity of Retinopathy and Macular Edema Findings",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "399875001",
+        "value": "early, no symptoms, no vision loss"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antidiabetic agents",
+        "time": 1290661200,
+        "code_set": "RxNorm",
+        "code": "744863"
+      },
+      {
+        "description": "Antidiabetic agents",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "744863"
+      },
+      {
+        "description": "Lipid Lowering Therapy",
+        "time": 1290661200,
+        "code_set": "RxNorm",
+        "code": "617314"
+      },
+      {
+        "description": "Lipid Lowering Therapy",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "617314"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1290661200,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99396"
-        ]
-      },
-      "time": 1285819200,
-      "description": "Encounter Prev Med 40 and Older"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1273464000,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 152.0,
-        "units": null
-      },
-      "time": 1290661200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 94.0,
-        "units": null
-      },
-      "time": 1290661200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 132.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 74.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 128.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.044766435986162,
-        "units": null
-      },
-      "time": 1290661200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.500865051903112,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 21.892733564013838,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.0,
-        "units": null
-      },
-      "time": 1290661200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 6.8,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.5,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 130.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 145.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "81003"
-        ]
-      },
-      "value": {
-        "scalar": "138 mg/24 hour",
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Urine Macroalbumin"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "399875001"
-        ]
-      },
-      "value": {
-        "scalar": "early, no symptoms, no vision loss",
-        "units": null
-      },
-      "time": 1273464000,
-      "description": "Severity of Retinopathy and Macular Edema Findings"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.0,
-        "units": null
-      },
-      "time": 1290661200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 6.8,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.5,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 130.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 145.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "81003"
-        ]
-      },
-      "value": {
-        "scalar": "138 mg/24 hour",
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Urine Macroalbumin"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1290661200,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1279166400,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "399875001"
-        ]
-      },
-      "time": 1273464000,
-      "description": "severity of retinopathy and macular edema findings"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ]
-      },
-      "time": 1273464000,
-      "description": "eye exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "410455004"
-        ]
-      },
-      "time": 1273464000,
-      "description": "Macular or Fundus Exam"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "744863"
-        ]
-      },
-      "time": 1290661200,
-      "description": "Antidiabetic agents"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "744863"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Antidiabetic agents"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "617314"
-        ]
-      },
-      "time": 1290661200,
-      "description": "Lipid Lowering Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "617314"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Lipid Lowering Therapy"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1285819200,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1279166400,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
+    ],
+    "allergies": [
+      {
+        "description": "Polymyxin",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "C2729553"
+      }
+    ],
+    "social_history": [
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "diabetes",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Diabetic Retinopathy",
+        "time": 1273464000,
+        "code_set": "ICD-10-CM",
+        "code": "E11.331",
+        "status": "active"
+      },
+      {
+        "description": "Tobacco Non-User",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1290661200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 152.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1290661200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 94.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 132.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 128.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 76.0
+      },
+      {
+        "description": "BMI",
+        "time": 1290661200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.044766435986162
+      },
+      {
+        "description": "BMI",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.500865051903112
+      },
+      {
+        "description": "BMI",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 21.892733564013838
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1290661200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.0
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 6.8
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.5
+      },
+      {
+        "description": "LDL",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 130.0
+      },
+      {
+        "description": "LDL",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 145.0
+      },
+      {
+        "description": "Urine Macroalbumin",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "81003",
+        "value": "138 mg/24 hour"
+      }
+    ],
+    "results": [
+      {
+        "description": "HbA1c test",
+        "time": 1290661200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.0
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 6.8
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.5
+      },
+      {
+        "description": "LDL",
+        "time": 1279166400,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 130.0
+      },
+      {
+        "description": "LDL",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 145.0
+      },
+      {
+        "description": "Urine Macroalbumin",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "81003",
+        "value": "138 mg/24 hour"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Foot Exam",
+        "time": 1290661200,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1279166400,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "severity of retinopathy and macular edema findings",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "399875001"
+      },
+      {
+        "description": "eye exam",
+        "time": 1273464000,
+        "code_set": "HCPCS",
+        "code": "S0621"
+      },
+      {
+        "description": "Macular or Fundus Exam",
+        "time": 1273464000,
+        "code_set": "SNOMED-CT",
+        "code": "410455004"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1285819200,
+        "code_set": "RxNorm",
+        "code": "857942"
+      },
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1279166400,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

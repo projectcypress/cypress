@@ -4,461 +4,269 @@
   "gender": "M",
   "birthdate": <%= between(-933710400, -932500800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1286164800,
+        "code_set": "CPT",
+        "code": "92012"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1274587200,
+        "code_set": "CPT",
+        "code": "92012"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1270785600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Inpatient Discharge",
+        "time": 1251518400,
+        "code_set": "CPT",
+        "code": "99238"
+      },
+      {
+        "description": "encounter acute inpt",
+        "time": 1251259200,
+        "code_set": "CPT",
+        "code": "99251"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Hypertension",
+        "time": 1270785600,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "ischemic vascular disease",
+        "time": 1251259200,
+        "code_set": "ICD-9-CM",
+        "code": "411.89",
+        "status": "active"
+      },
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1274587200,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Oral anti-platelet therapy",
+        "time": 1270785600,
+        "code_set": "RxNorm",
+        "code": "243670"
+      },
+      {
+        "description": "Oral anti-platelet therapy",
+        "time": 1251518400,
+        "code_set": "RxNorm",
+        "code": "243670"
+      },
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1270785600,
+        "code_set": "RxNorm",
+        "code": "858828"
+      },
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1251518400,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Hypertension",
+        "time": 1270785600,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1286164800,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "ischemic vascular disease",
+        "time": 1251259200,
+        "code_set": "ICD-9-CM",
+        "code": "411.89",
+        "status": "active"
       },
-      "time": 1285387200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1274587200,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
       },
-      "time": 1274587200,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1270785600,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 128.0
       },
-      "time": 1270785600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "time": 1251518400,
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270785600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 132.0
       },
-      "time": 1251259200,
-      "description": "encounter acute inpt"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270785600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 84.0
       },
-      "time": 1270785600,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1251259200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 152.0
       },
-      "time": 1251259200,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1251259200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 94.0
       },
-      "time": 1274587200,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 25.799444554651853
       },
-      "time": 1270785600,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1270785600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 25.52053164054751
       },
-      "value": {
-        "scalar": 128.0,
-        "units": null
+      {
+        "description": "LDL",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 127.0
       },
-      "time": 1285387200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": 50.0
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "Total Cholesterol",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": 242.0
       },
-      "time": 1285387200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Triglycerides",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": 325.0
+      }
+    ],
+    "results": [
+      {
+        "description": "LDL",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 127.0
       },
-      "value": {
-        "scalar": 132.0,
-        "units": null
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": 50.0
       },
-      "time": 1270785600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Total Cholesterol",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": 242.0
       },
-      "value": {
-        "scalar": 84.0,
-        "units": null
+      {
+        "description": "Triglycerides",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": 325.0
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Optic Nerve Head Evaluation",
+        "time": 1274587200,
+        "code_set": "SNOMED-CT",
+        "code": "36228007"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1285387200,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1270785600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 152.0,
-        "units": null
-      },
-      "time": 1251259200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 94.0,
-        "units": null
-      },
-      "time": 1251259200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 25.799444554651853,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 25.52053164054751,
-        "units": null
-      },
-      "time": 1270785600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 127.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 50.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 242.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 325.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "Triglycerides"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270785600,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ]
-      },
-      "time": 1251259200,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1274587200,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 127.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 50.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 242.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 325.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "Triglycerides"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "36228007"
-        ]
-      },
-      "time": 1274587200,
-      "description": "Optic Nerve Head Evaluation"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "243670"
-        ]
-      },
-      "time": 1270785600,
-      "description": "Oral anti-platelet therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "243670"
-        ]
-      },
-      "time": 1251518400,
-      "description": "Oral anti-platelet therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1270785600,
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1251518400,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1285387200,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1285387200,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1285387200,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270785600,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ]
-      },
-      "time": 1251259200,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1274587200,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

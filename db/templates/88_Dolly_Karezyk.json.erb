@@ -4,569 +4,330 @@
   "gender": "F",
   "birthdate": <%= between(-798494400, -797284800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1289710800,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1283659200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1274673600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "diabetes",
+        "time": 1270267200,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1270267200,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Biguanides",
+        "time": 1270267200,
+        "code_set": "RxNorm",
+        "code": "861007"
+      },
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1270267200,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1289710800,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1283659200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1274673600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 122.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 126.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 74.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 129.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 79.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 30.663452708907254,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 0.086,
-        "units": null
-      },
-      "time": 1289710800,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.4,
-        "units": null
-      },
-      "time": 1283659200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.5,
-        "units": null
-      },
-      "time": 1274673600,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.3,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 64.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 164.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 150.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Triglycerides"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1283659200,
-      "description": "FOBT"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "81003"
-        ]
-      },
-      "time": 1283659200,
-      "description": "Urine Macroalbumin"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 0.086,
-        "units": null
-      },
-      "time": 1289710800,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.4,
-        "units": null
-      },
-      "time": 1283659200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.5,
-        "units": null
-      },
-      "time": 1274673600,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.3,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 64.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 164.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 150.0,
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Triglycerides"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1283659200,
-      "description": "FOBT"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "81003"
-        ]
-      },
-      "time": 1283659200,
-      "description": "Urine Macroalbumin"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270267200,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ]
-      },
-      "time": 1270267200,
-      "description": "eye exam"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "861007"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Biguanides"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1289710800,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1289710800,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1270267200,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "social_history": [
+      {
+        "description": "diabetes",
+        "time": 1270267200,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1270267200,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Tobacco Non-User",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 122.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 126.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 129.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 79.0
+      },
+      {
+        "description": "BMI",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 30.663452708907254
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1289710800,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 0.086
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1283659200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.4
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1274673600,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.5
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.3
+      },
+      {
+        "description": "LDL",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 70.0
+      },
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": 64.0
+      },
+      {
+        "description": "Total Cholesterol",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": 164.0
+      },
+      {
+        "description": "Triglycerides",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": 150.0
+      },
+      {
+        "description": "FOBT",
+        "time": 1283659200,
+        "code_set": "CPT",
+        "code": "82274"
+      },
+      {
+        "description": "Urine Macroalbumin",
+        "time": 1283659200,
+        "code_set": "CPT",
+        "code": "81003"
+      }
+    ],
+    "results": [
+      {
+        "description": "HbA1c test",
+        "time": 1289710800,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 0.086
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1283659200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.4
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1274673600,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.5
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.3
+      },
+      {
+        "description": "LDL",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 70.0
+      },
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": 64.0
+      },
+      {
+        "description": "Total Cholesterol",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": 164.0
+      },
+      {
+        "description": "Triglycerides",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": 150.0
+      },
+      {
+        "description": "FOBT",
+        "time": 1283659200,
+        "code_set": "CPT",
+        "code": "82274"
+      },
+      {
+        "description": "Urine Macroalbumin",
+        "time": 1283659200,
+        "code_set": "CPT",
+        "code": "81003"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Foot Exam",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1270267200,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "eye exam",
+        "time": 1270267200,
+        "code_set": "HCPCS",
+        "code": "S0621"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1289710800,
+        "code_set": "RxNorm",
+        "code": "857942"
+      },
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1289710800,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1270267200,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

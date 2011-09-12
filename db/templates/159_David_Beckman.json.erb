@@ -4,635 +4,365 @@
   "gender": "M",
   "birthdate": <%= between(-413751600, -412542000) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1292389200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1286856000,
+        "code_set": "CPT",
+        "code": "92012"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1276660800,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "92012"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "diabetes",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Diabetic Retinopathy",
+        "time": 1270008000,
+        "code_set": "ICD-10-CM",
+        "code": "E11.331",
+        "status": "active"
+      },
+      {
+        "description": "Major Depression",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "296.30",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Biguanides",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "861007"
+      },
+      {
+        "description": "Miscellaneous antidepressants",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "636354"
+      },
+      {
+        "description": "Smoking Cessation Agents",
+        "time": 1292389200,
+        "code_set": "RxNorm",
+        "code": "105075"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1292389200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1286856000,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1285387200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1276660800,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Encounter Ophthalmological Services"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Major Depression"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 128.0,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 122.0,
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 72.0,
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 130.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 124.0,
-        "units": null
-      },
-      "time": 1276660800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 72.0,
-        "units": null
-      },
-      "time": 1276660800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "37231002"
-        ]
-      },
-      "value": {
-        "scalar": "Mild",
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Macular Edema Findings"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "312905005"
-        ]
-      },
-      "value": {
-        "scalar": "Mild",
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Level of Severity of Retinopathy Findings"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 28.0550304557866,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 28.350346565847513,
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 28.0550304557866,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 27.75971434572569,
-        "units": null
-      },
-      "time": 1276660800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.8,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.2,
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.1,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.9,
-        "units": null
-      },
-      "time": 1276660800,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "1754-1"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "Nephropathy Screening"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Major Depression"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.8,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.2,
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 8.1,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.9,
-        "units": null
-      },
-      "time": 1276660800,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "1754-1"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "Nephropathy Screening"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1276660800,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "312905005"
-        ]
-      },
-      "time": 1270008000,
-      "description": "level of severity of retinopathy findings"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "37231002"
-        ]
-      },
-      "time": 1270008000,
-      "description": "macular edema findings"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "103699006"
-        ]
-      },
-      "time": 1276660800,
-      "description": "dietary consultation order"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1276660800,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1292389200,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "410455004"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Macular or Fundus Exam"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "861007"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Biguanides"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "636354"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Miscellaneous antidepressants"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1292389200,
-      "description": "Smoking Cessation Agents"
-    }
-  ],
-  "immunizations": [
+    ],
+    "social_history": [
+      {
+        "description": "diabetes",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Diabetic Retinopathy",
+        "time": 1270008000,
+        "code_set": "ICD-10-CM",
+        "code": "E11.331",
+        "status": "active"
+      },
+      {
+        "description": "Major Depression",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "296.30",
+        "status": "active"
+      },
+      {
+        "description": "Tobacco User",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 128.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1286856000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 122.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1286856000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 80.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1276660800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 124.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1276660800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
+      },
+      {
+        "description": "Macular Edema Findings",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "37231002",
+        "value": "Mild"
+      },
+      {
+        "description": "Level of Severity of Retinopathy Findings",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "312905005",
+        "value": "Mild"
+      },
+      {
+        "description": "BMI",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.0550304557866
+      },
+      {
+        "description": "BMI",
+        "time": 1286856000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.350346565847513
+      },
+      {
+        "description": "BMI",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.0550304557866
+      },
+      {
+        "description": "BMI",
+        "time": 1276660800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 27.75971434572569
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1292389200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.8
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1286856000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.2
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.1
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1276660800,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.9
+      },
+      {
+        "description": "Nephropathy Screening",
+        "time": 1292389200,
+        "code_set": "LOINC",
+        "code": "1754-1",
+        "value": "Normal"
+      }
+    ],
+    "results": [
+      {
+        "description": "HbA1c test",
+        "time": 1292389200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.8
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1286856000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.2
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 8.1
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1276660800,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.9
+      },
+      {
+        "description": "Nephropathy Screening",
+        "time": 1292389200,
+        "code_set": "LOINC",
+        "code": "1754-1",
+        "value": "Normal"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Foot Exam",
+        "time": 1292389200,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1286856000,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1276660800,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "level of severity of retinopathy findings",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "312905005"
+      },
+      {
+        "description": "macular edema findings",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "37231002"
+      },
+      {
+        "description": "dietary consultation order",
+        "time": 1276660800,
+        "code_set": "SNOMED-CT",
+        "code": "103699006"
+      },
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1276660800,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
+      },
+      {
+        "description": "counseling for physical activity",
+        "time": 1292389200,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
+      },
+      {
+        "description": "Macular or Fundus Exam",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "410455004"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1276660800,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Major Depression"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1276660800,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

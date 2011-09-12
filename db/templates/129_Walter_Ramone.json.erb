@@ -4,364 +4,211 @@
   "gender": "M",
   "birthdate": <%= between(-1163012400, -1161802800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1291179600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1286769600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1283918400,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Heart Failure",
+        "time": 1286769600,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
+      },
+      {
+        "description": "Bradycardia",
+        "time": 1283918400,
+        "code_set": "SNOMED-CT",
+        "code": "48867003",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1283918400,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "ACE inhibitor or ARB",
+        "time": 1291179600,
+        "code_set": "RxNorm",
+        "code": "314076"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Heart Failure",
+        "time": 1286769600,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
       },
-      "time": 1291179600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Bradycardia",
+        "time": 1283918400,
+        "code_set": "SNOMED-CT",
+        "code": "48867003",
+        "status": "active"
       },
-      "time": 1286769600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1283918400,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1283918400,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1283918400,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1291179600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
       },
-      "time": 1286769600,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "48867003"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1291179600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 66.0
       },
-      "time": 1283918400,
-      "status": "active",
-      "description": "Bradycardia"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1291179600,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 56.0
       },
-      "time": 1283918400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1286769600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 134.0
       },
-      "time": 1283918400,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1286769600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 68.0
       },
-      "value": {
-        "scalar": 130.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1286769600,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 58.0
       },
-      "time": 1291179600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1283918400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 136.0
       },
-      "value": {
-        "scalar": 66.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1283918400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 64.0
       },
-      "time": 1291179600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1283918400,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 58.0
       },
-      "value": {
-        "scalar": 56.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1291179600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 25.22337962962963
       },
-      "time": 1291179600,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1286769600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 25.494598765432098
       },
-      "value": {
-        "scalar": 134.0,
-        "units": null
-      },
-      "time": 1286769600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 68.0,
-        "units": null
-      },
-      "time": 1286769600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 58.0,
-        "units": null
-      },
-      "time": 1286769600,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 136.0,
-        "units": null
-      },
-      "time": 1283918400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 64.0,
-        "units": null
-      },
-      "time": 1283918400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 58.0,
-        "units": null
-      },
-      "time": 1283918400,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 25.22337962962963,
-        "units": null
-      },
-      "time": 1291179600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 25.494598765432098,
-        "units": null
-      },
-      "time": 1286769600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 25.76581790123457,
-        "units": null
-      },
-      "time": 1283918400,
-      "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1286769600,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "48867003"
-        ]
-      },
-      "time": 1283918400,
-      "status": "active",
-      "description": "Bradycardia"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1283918400,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
+      {
+        "description": "BMI",
+        "time": 1283918400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 25.76581790123457
+      }
+    ],
+    "results": [
 
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "70822001"
-        ]
+    ],
+    "procedures": [
+      {
+        "description": "Ejection Fraction",
+        "time": 1286769600,
+        "code_set": "SNOMED-CT",
+        "code": "70822001"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1291179600,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1286769600,
-      "description": "Ejection Fraction"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1291179600,
-      "description": "ACE inhibitor or ARB"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1291179600,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1291179600,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1283918400,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1286769600,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "48867003"
-        ]
-      },
-      "time": 1283918400,
-      "status": "active",
-      "description": "Bradycardia"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1283918400,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1291179600,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1283918400,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

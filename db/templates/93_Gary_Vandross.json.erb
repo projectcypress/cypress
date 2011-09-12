@@ -4,489 +4,292 @@
   "gender": "M",
   "birthdate": <%= between(159512400, 160722000) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1292475600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1289016000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1283400000,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279598400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1271390400,
+        "code_set": "CPT",
+        "code": "99241"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "diabetes",
+        "time": 1271390400,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Asthma",
+        "time": 1271390400,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Insulin",
+        "time": 1271390400,
+        "code_set": "RxNorm",
+        "code": "847207"
+      },
+      {
+        "description": "Long acting inhaled beta 2 agonist",
+        "time": 1271390400,
+        "code_set": "RxNorm",
+        "code": "896239"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1271390400,
+        "code_set": "RxNorm",
+        "code": "630208"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "diabetes",
+        "time": 1271390400,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
       },
-      "time": 1292475600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Asthma",
+        "time": 1271390400,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1289016000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
       },
-      "time": 1283400000,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1279598400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1292475600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 126.0
       },
-      "time": 1271390400,
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1292475600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
       },
-      "time": 1271390400,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1289016000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 122.0
       },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1289016000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
       },
-      "time": 1271390400,
-      "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1279598400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 124.0
       },
-      "time": 1271390400,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1279598400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
       },
-      "time": 1271390400,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1292475600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 35.86734693877551
       },
-      "value": {
-        "scalar": 126.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1279598400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 36.58469387755102
       },
-      "time": 1292475600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1292475600,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 0.069
       },
-      "value": {
-        "scalar": 74.0,
-        "units": null
+      {
+        "description": "HbA1c test",
+        "time": 1279598400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 0.068
       },
-      "time": 1292475600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1271390400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 0.068
+      }
+    ],
+    "results": [
+      {
+        "description": "HbA1c test",
+        "time": 1292475600,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 0.069
       },
-      "value": {
-        "scalar": 122.0,
-        "units": null
+      {
+        "description": "HbA1c test",
+        "time": 1279598400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 0.068
       },
-      "time": 1289016000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1271390400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 0.068
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Foot Exam",
+        "time": 1292475600,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "value": {
-        "scalar": 72.0,
-        "units": null
+      {
+        "description": "Foot Exam",
+        "time": 1289016000,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "time": 1289016000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Foot Exam",
+        "time": 1279598400,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "value": {
-        "scalar": 124.0,
-        "units": null
+      {
+        "description": "counseling for nutrition",
+        "time": 1279598400,
+        "code_set": "CPT",
+        "code": "97802"
       },
-      "time": 1279598400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "counseling for physical activity",
+        "time": 1279598400,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "value": {
-        "scalar": 74.0,
-        "units": null
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1271390400,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
       },
-      "time": 1279598400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 35.86734693877551,
-        "units": null
-      },
-      "time": 1292475600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 36.58469387755102,
-        "units": null
-      },
-      "time": 1279598400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 0.069,
-        "units": null
-      },
-      "time": 1292475600,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 0.068,
-        "units": null
-      },
-      "time": 1279598400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 0.068,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "HbA1c test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1271390400,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 0.069,
-        "units": null
-      },
-      "time": 1292475600,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 0.068,
-        "units": null
-      },
-      "time": 1279598400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 0.068,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "HbA1c test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1292475600,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1289016000,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1279598400,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1279598400,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1279598400,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Asthma Symptom Assessment Tool"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ]
-      },
-      "time": 1279598400,
-      "description": "eye exam"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "847207"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Insulin"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "896239"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Long acting inhaled beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Short acting beta 2 agonist"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "eye exam",
+        "time": 1279598400,
+        "code_set": "HCPCS",
+        "code": "S0621"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1279598400,
+        "code_set": "CPT",
+        "code": "97804"
       },
-      "time": 1279598400,
-      "description": "follow-up plan_BMI management"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1292475600,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1271390400,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Asthma"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1292475600,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

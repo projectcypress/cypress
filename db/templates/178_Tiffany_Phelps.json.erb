@@ -4,561 +4,325 @@
   "gender": "F",
   "birthdate": <%= between(716270400, 717480000) %>,
   "addresses": null,
-  "allergies": [
-    {
-      "codes": {
-        "RxNorm": [
-          "798375"
-        ]
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1291784400,
+        "code_set": "CPT",
+        "code": "99213"
       },
-      "time": 1272772800,
-      "description": "Mumps Vaccine"
-    }
-  ],
-  "medical_equipment": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1287806400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "99212"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279857600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1272772800,
+        "code_set": "CPT",
+        "code": "99212"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "diabetes",
+        "time": 1272772800,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Depression",
+        "time": 1272772800,
+        "code_set": "ICD-9-CM",
+        "code": "296.36",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Insulin",
+        "time": 1277611200,
+        "code_set": "RxNorm",
+        "code": "847207"
+      },
+      {
+        "description": "contraceptives",
+        "time": 1283832000,
+        "code_set": "RxNorm",
+        "code": "314146"
+      },
+      {
+        "description": "SSRI antidepressants",
+        "time": 1272772800,
+        "code_set": "RxNorm",
+        "code": "903884"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1291784400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1287806400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1283832000,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
-      },
-      "time": 1279857600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1272772800,
-      "description": "Encounter Office Visit"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "Depression"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 116.0,
-        "units": null
-      },
-      "time": 1291784400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1291784400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 120.0,
-        "units": null
-      },
-      "time": 1287806400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 74.0,
-        "units": null
-      },
-      "time": 1287806400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 118.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 114.0,
-        "units": null
-      },
-      "time": 1279857600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 68.0,
-        "units": null
-      },
-      "time": 1279857600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 116.0,
-        "units": null
-      },
-      "time": 1272772800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1272772800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 21.453857421875,
-        "units": null
-      },
-      "time": 1291784400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 21.797119140625,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 21.2822265625,
-        "units": null
-      },
-      "time": 1274328000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1283832000,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1283832000,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.2,
-        "units": null
-      },
-      "time": 1291784400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.1,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.3,
-        "units": null
-      },
-      "time": 1272772800,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 85.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "LDL"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "Depression"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1283832000,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1283832000,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.2,
-        "units": null
-      },
-      "time": 1291784400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.1,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.3,
-        "units": null
-      },
-      "time": 1272772800,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 85.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "LDL"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1291784400,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1287806400,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1279857600,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1272772800,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "44651004"
-        ]
-      },
-      "time": 1283832000,
-      "description": "contraceptive use education"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "847207"
-        ]
-      },
-      "time": 1277611200,
-      "description": "Insulin"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314146"
-        ]
-      },
-      "time": 1283832000,
-      "description": "contraceptives"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "903884"
-        ]
-      },
-      "time": 1272772800,
-      "description": "SSRI antidepressants"
-    }
-  ],
-  "immunizations": [
+    ],
+    "allergies": [
+      {
+        "description": "Mumps Vaccine",
+        "time": 1272772800,
+        "code_set": "RxNorm",
+        "code": "798375"
+      }
+    ],
+    "social_history": [
+      {
+        "description": "diabetes",
+        "time": 1272772800,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Depression",
+        "time": 1272772800,
+        "code_set": "ICD-9-CM",
+        "code": "296.36",
+        "status": "active"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1291784400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 116.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1291784400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1287806400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 120.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1287806400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 118.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1279857600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 114.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1279857600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 68.0
+      },
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1272772800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 116.0
+      },
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1272772800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
+      },
+      {
+        "description": "BMI",
+        "time": 1291784400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 21.453857421875
+      },
+      {
+        "description": "BMI",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 21.797119140625
+      },
+      {
+        "description": "BMI",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 21.2822265625
+      },
+      {
+        "description": "Pap Test",
+        "time": 1283832000,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      },
+      {
+        "description": "Chlamydia Screening",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "87110"
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1291784400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.2
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.1
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1272772800,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.3
+      },
+      {
+        "description": "LDL",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 85.0
+      }
+    ],
+    "results": [
+      {
+        "description": "Pap Test",
+        "time": 1283832000,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      },
+      {
+        "description": "Chlamydia Screening",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "87110"
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1291784400,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.2
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.1
+      },
+      {
+        "description": "HbA1c test",
+        "time": 1272772800,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 7.3
+      },
+      {
+        "description": "LDL",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 85.0
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Foot Exam",
+        "time": 1291784400,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1287806400,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1279857600,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "Foot Exam",
+        "time": 1272772800,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
+      },
+      {
+        "description": "contraceptive use education",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "44651004"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "Depression"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

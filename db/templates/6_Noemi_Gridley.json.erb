@@ -4,437 +4,265 @@
   "gender": "F",
   "birthdate": <%= between(-262468800, -261259200) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1285473600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1276142400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1271995200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Prev Med 40 and Older",
+        "time": 1255492800,
+        "code_set": "CPT",
+        "code": "99396"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1245211200,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Hypertension",
+        "time": 1218168000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Smoking Cessation Agents",
+        "time": 1271995200,
+        "code_set": "RxNorm",
+        "code": "105075"
+      },
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1245211200,
+        "code_set": "RxNorm",
+        "code": "858828"
+      },
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1255492800,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Hypertension",
+        "time": 1218168000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1285473600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1271995200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
       },
-      "time": 1276142400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1271995200,
+        "code_set": "SNOMED-CT",
+        "code": "230062009",
+        "value": true
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1285473600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 134.0
       },
-      "time": 1271995200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99396"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1285473600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 86.0
       },
-      "time": 1255492800,
-      "description": "Encounter Prev Med 40 and Older"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 136.0
       },
-      "time": 1245211200,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 84.0
       },
-      "time": 1218168000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1271995200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 132.0
       },
-      "time": 1271995200,
-      "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1271995200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 80.0
       },
-      "value": {
-        "scalar": true,
-        "units": null
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1255492800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 136.0
       },
-      "time": 1271995200,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1255492800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 86.0
       },
-      "value": {
-        "scalar": 134.0,
-        "units": null
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1245211200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 146.0
       },
-      "time": 1285473600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1245211200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 94.0
       },
-      "value": {
-        "scalar": 86.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.273780351971485
       },
-      "time": 1285473600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1271995200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.658721318779236
       },
-      "value": {
-        "scalar": 136.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1245211200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.971931387836936
       },
-      "time": 1276142400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1271995200,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "value": {
-        "scalar": 84.0,
-        "units": null
+      {
+        "description": "LDL",
+        "time": 1271995200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 78.0
+      }
+    ],
+    "results": [
+      {
+        "description": "Pap Test",
+        "time": 1271995200,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "time": 1276142400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "LDL",
+        "time": 1271995200,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 78.0
+      }
+    ],
+    "procedures": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1271995200,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
       },
-      "value": {
-        "scalar": 132.0,
-        "units": null
+      {
+        "description": "dietary consultation order",
+        "time": 1271995200,
+        "code_set": "SNOMED-CT",
+        "code": "103699006"
       },
-      "time": 1271995200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "colonoscopy",
+        "time": 1277006400,
+        "code_set": "CPT",
+        "code": "45378"
       },
-      "value": {
-        "scalar": 80.0,
-        "units": null
+      {
+        "description": "breast cancer screening",
+        "time": 1275451200,
+        "code_set": "CPT",
+        "code": "77057"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1285473600,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1271995200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1285473600,
+        "code_set": "CVX",
+        "code": "100"
       },
-      "value": {
-        "scalar": 136.0,
-        "units": null
-      },
-      "time": 1255492800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 86.0,
-        "units": null
-      },
-      "time": 1255492800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 146.0,
-        "units": null
-      },
-      "time": 1245211200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 94.0,
-        "units": null
-      },
-      "time": 1245211200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.273780351971485,
-        "units": null
-      },
-      "time": 1276142400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 28.658721318779236,
-        "units": null
-      },
-      "time": 1271995200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 28.971931387836936,
-        "units": null
-      },
-      "time": 1245211200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1271995200,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1271995200,
-      "description": "LDL"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1218168000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1271995200,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1271995200,
-      "description": "LDL"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1271995200,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "103699006"
-        ]
-      },
-      "time": 1271995200,
-      "description": "dietary consultation order"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "45378"
-        ]
-      },
-      "time": 1277006400,
-      "description": "colonoscopy"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1275451200,
-      "description": "breast cancer screening"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1271995200,
-      "description": "Smoking Cessation Agents"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1245211200,
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1255492800,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1285473600,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1285473600,
-      "description": "Pneumococcal Vaccine all ages"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1255492800,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1255492800,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1218168000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

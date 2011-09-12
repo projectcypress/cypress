@@ -4,450 +4,263 @@
   "gender": "M",
   "birthdate": <%= between(171604800, 172814400) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1292130000,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1285819200,
+        "code_set": "CPT",
+        "code": "99212"
+      },
+      {
+        "description": "Encounter Office Visit",
+        "time": 1284696000,
+        "code_set": "CPT",
+        "code": "99212"
+      },
+      {
+        "description": "encounter outpatient including orthopedics and chiropractics",
+        "time": 1283486400,
+        "code_set": "CPT",
+        "code": "98940"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1275278400,
+        "code_set": "CPT",
+        "code": "99241"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Depression",
+        "time": 1275278400,
+        "code_set": "ICD-9-CM",
+        "code": "296.36",
+        "status": "active"
+      },
+      {
+        "description": "Asthma",
+        "time": 1275278400,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Arrhythmia",
+        "time": 1275278400,
+        "code_set": "ICD-9-CM",
+        "code": "427.89",
+        "status": "active"
+      },
+      {
+        "description": "low back pain",
+        "time": 1283486400,
+        "code_set": "ICD-9-CM",
+        "code": "724.2",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms",
+        "time": 1275278400,
+        "code_set": "SNOMED-CT",
+        "code": "373899003"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms",
+        "time": 1275278400,
+        "code_set": "SNOMED-CT",
+        "code": "395022009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Long acting inhaled beta 2 agonist",
+        "time": 1275278400,
+        "code_set": "RxNorm",
+        "code": "896239"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1275278400,
+        "code_set": "RxNorm",
+        "code": "630208"
+      },
+      {
+        "description": "SSRI antidepressants",
+        "time": 1275278400,
+        "code_set": "RxNorm",
+        "code": "903884"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Depression",
+        "time": 1275278400,
+        "code_set": "ICD-9-CM",
+        "code": "296.36",
+        "status": "active"
       },
-      "time": 1292130000,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
+      {
+        "description": "Asthma",
+        "time": 1275278400,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1285819200,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
+      {
+        "description": "Arrhythmia",
+        "time": 1275278400,
+        "code_set": "ICD-9-CM",
+        "code": "427.89",
+        "status": "active"
       },
-      "time": 1284696000,
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "98940"
-        ]
+      {
+        "description": "low back pain",
+        "time": 1283486400,
+        "code_set": "ICD-9-CM",
+        "code": "724.2",
+        "status": "active"
       },
-      "time": 1283486400,
-      "description": "encounter outpatient including orthopedics and chiropractics"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms",
+        "time": 1275278400,
+        "code_set": "SNOMED-CT",
+        "code": "373899003"
       },
-      "time": 1275278400,
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms",
+        "time": 1275278400,
+        "code_set": "SNOMED-CT",
+        "code": "395022009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1292130000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 135.0
       },
-      "time": 1275278400,
-      "status": "active",
-      "description": "Depression"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1292130000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
       },
-      "time": 1275278400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.89"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1285819200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 150.0
       },
-      "time": 1275278400,
-      "status": "active",
-      "description": "Arrhythmia"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1285819200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 96.0
       },
-      "time": 1283486400,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "373899003"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1284696000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 142.0
       },
-      "time": 1275278400,
-      "description": "Asthma Daytime Symptoms"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "395022009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1284696000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 94.0
       },
-      "time": 1275278400,
-      "description": "Asthma Nighttime Symptoms"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1283486400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 138.0
       },
-      "value": {
-        "scalar": 135.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1283486400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 88.0
       },
-      "time": 1292130000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1275278400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
       },
-      "value": {
-        "scalar": 72.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1275278400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 80.0
       },
-      "time": 1292130000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1292130000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.886245674740483
       },
-      "value": {
-        "scalar": 150.0,
-        "units": null
-      },
-      "time": 1285819200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 96.0,
-        "units": null
-      },
-      "time": 1285819200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 142.0,
-        "units": null
-      },
-      "time": 1284696000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 94.0,
-        "units": null
-      },
-      "time": 1284696000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 138.0,
-        "units": null
-      },
-      "time": 1283486400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 88.0,
-        "units": null
-      },
-      "time": 1283486400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 130.0,
-        "units": null
-      },
-      "time": 1275278400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": null
-      },
-      "time": 1275278400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 28.886245674740483,
-        "units": null
-      },
-      "time": 1292130000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 31.926903114186853,
-        "units": null
-      },
-      "time": 1275278400,
-      "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ]
-      },
-      "time": 1275278400,
-      "status": "active",
-      "description": "Depression"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1275278400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.89"
-        ]
-      },
-      "time": 1275278400,
-      "status": "active",
-      "description": "Arrhythmia"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
-      },
-      "time": 1283486400,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "373899003"
-        ]
-      },
-      "time": 1275278400,
-      "description": "Asthma Daytime Symptoms"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "395022009"
-        ]
-      },
-      "time": 1275278400,
-      "description": "Asthma Nighttime Symptoms"
-    }
-  ],
-  "results": [
+      {
+        "description": "BMI",
+        "time": 1275278400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 31.926903114186853
+      }
+    ],
+    "results": [
 
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "103699006"
-        ]
+    ],
+    "procedures": [
+      {
+        "description": "dietary consultation order",
+        "time": 1275278400,
+        "code_set": "SNOMED-CT",
+        "code": "103699006"
       },
-      "time": 1275278400,
-      "description": "dietary consultation order"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1275278400,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
       },
-      "time": 1275278400,
-      "description": "Asthma Symptom Assessment Tool"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "72010"
-        ]
-      },
-      "time": 1285819200,
-      "description": "Imaging Study-Spinal"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "896239"
-        ]
-      },
-      "time": 1275278400,
-      "description": "Long acting inhaled beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1275278400,
-      "description": "Short acting beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "903884"
-        ]
-      },
-      "time": 1275278400,
-      "description": "SSRI antidepressants"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "Imaging Study-Spinal",
+        "time": 1285819200,
+        "code_set": "CPT",
+        "code": "72010"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ]
-      },
-      "time": 1275278400,
-      "status": "active",
-      "description": "Depression"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1275278400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.89"
-        ]
-      },
-      "time": 1275278400,
-      "status": "active",
-      "description": "Arrhythmia"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
-      },
-      "time": 1283486400,
-      "status": "active",
-      "description": "low back pain"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

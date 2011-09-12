@@ -4,400 +4,239 @@
   "gender": "M",
   "birthdate": <%= between(-461102400, -459892800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Prev Med 40 and Older",
+        "time": 1288065600,
+        "code_set": "CPT",
+        "code": "99396"
+      },
+      {
+        "description": "Encounter Prev Med Services 18 and Older",
+        "time": 1281931200,
+        "code_set": "CPT",
+        "code": "99396"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1274328000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Colorectal Cancer",
+        "time": 1273118400,
+        "code_set": "SNOMED-CT",
+        "code": "363406005",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Chemotherapy for Colon Cancer",
+        "time": 1273118400,
+        "code_set": "RxNorm",
+        "code": "197862"
+      },
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99396"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Colorectal Cancer",
+        "time": 1273118400,
+        "code_set": "SNOMED-CT",
+        "code": "363406005",
+        "status": "active"
       },
-      "time": 1288065600,
-      "description": "Encounter Prev Med 40 and Older"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99396"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1281931200,
-      "description": "Encounter Prev Med Services 18 and Older"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 136.0
       },
-      "time": 1274328000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 76.0
       },
-      "time": 1270008000,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "363406005"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 76.0
       },
-      "time": 1273118400,
-      "status": "active",
-      "description": "Colorectal Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 134.0
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
       },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 76.0
       },
-      "value": {
-        "scalar": 136.0,
-        "units": null
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 138.0
       },
-      "time": 1281931200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "value": {
-        "scalar": 76.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 76.0
       },
-      "time": 1281931200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "BMI",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 20.671864557807975
       },
-      "value": {
-        "scalar": 76.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 21.14167966139452
       },
-      "time": 1281931200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "FOBT",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "82274",
+        "value": true
       },
-      "value": {
-        "scalar": 134.0,
-        "units": null
+      {
+        "description": "Colon Cancer Stage III",
+        "time": 1272859200,
+        "code_set": "SNOMED-CT",
+        "code": "369921003"
+      }
+    ],
+    "results": [
+      {
+        "description": "FOBT",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "82274",
+        "value": true
       },
-      "time": 1274328000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Colon Cancer Stage III",
+        "time": 1272859200,
+        "code_set": "SNOMED-CT",
+        "code": "369921003"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "dietary consultation order",
+        "time": 1274328000,
+        "code_set": "SNOMED-CT",
+        "code": "103699006"
       },
-      "value": {
-        "scalar": 72.0,
-        "units": null
+      {
+        "description": "Colon Cancer Stage III",
+        "time": 1272859200,
+        "code_set": "SNOMED-CT",
+        "code": "369921003"
       },
-      "time": 1274328000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "colonoscopy",
+        "time": 1270180800,
+        "code_set": "CPT",
+        "code": "45378"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Pneumococcal Vaccine ages 2 and older",
+        "time": 1274328000,
+        "code_set": "RxNorm",
+        "code": "854981"
       },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1274328000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 138.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 20.671864557807975,
-        "units": null
-      },
-      "time": 1281931200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 21.14167966139452,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "FOBT"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369921003"
-        ]
-      },
-      "time": 1272859200,
-      "description": "Colon Cancer Stage III"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "363406005"
-        ]
-      },
-      "time": 1273118400,
-      "status": "active",
-      "description": "Colorectal Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "value": {
-        "scalar": true,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "FOBT"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369921003"
-        ]
-      },
-      "time": 1272859200,
-      "description": "Colon Cancer Stage III"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "103699006"
-        ]
-      },
-      "time": 1274328000,
-      "description": "dietary consultation order"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369921003"
-        ]
-      },
-      "time": 1272859200,
-      "description": "Colon Cancer Stage III"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "45378"
-        ]
-      },
-      "time": 1270180800,
-      "description": "colonoscopy"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "197862"
-        ]
-      },
-      "time": 1273118400,
-      "description": "Chemotherapy for Colon Cancer"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "854981"
-        ]
-      },
-      "time": 1274328000,
-      "description": "Pneumococcal Vaccine ages 2 and older"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1288065600,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1274328000,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "363406005"
-        ]
-      },
-      "time": 1273118400,
-      "status": "active",
-      "description": "Colorectal Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+      {
+        "description": "Influenza Vaccine",
+        "time": 1288065600,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1274328000,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

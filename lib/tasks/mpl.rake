@@ -44,9 +44,32 @@ namespace :mpl do
       json.delete('measures')
       json['first'] = "<%= forename('#{json['gender']}') %>"
       json['last'] = "<%= surname %>"
+      json['events'] = {}
+      %w{encounters conditions medications medical_equipment allergies social_history vital_signs results procedures immunizations care_goals}.each do |section|
+        json['events'][section] ||= []
+        json[section].each do |entry|
+          event = {}
+          event['description'] = entry['description']
+          event['time'] = entry['time']
+          event['code_set'] = entry['codes'].keys[0]
+          event['code'] = entry['codes'][event['code_set']][0]
+          if entry['status']
+            event['status'] = entry['status']
+          end
+          if entry['value']
+            event['value'] = entry['value']['scalar']
+          end
+          json['events'][section] << event
+        end
+        json.delete(section)
+      end
+      %w{active inactive resolved}.each do |section|
+        json.delete(section)
+      end
       birthdate = json['birthdate']
       template = JSON.pretty_generate(json)
       template.sub!(/"birthdate": -?\d+/, "\"birthdate\": <%= between(#{birthdate-birthdate_dev}, #{birthdate+birthdate_dev}) %>")
+#      template.sub!(/"addresses": .*,/, "\"addresses\": [<%= address %>],")
       file_name = File.join(template_dir, "#{File.basename(patient_file)}.erb")
       file = File.new(file_name,  "w")
       file.write(template)

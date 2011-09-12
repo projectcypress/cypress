@@ -4,458 +4,273 @@
   "gender": "F",
   "birthdate": <%= between(463809600, 465019200) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1288411200,
+        "code_set": "CPT",
+        "code": "92012"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1279944000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Ophthalmological Services",
+        "time": 1271044800,
+        "code_set": "CPT",
+        "code": "92012"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "diabetes",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
+      },
+      {
+        "description": "Diabetic Retinopathy",
+        "time": 1271044800,
+        "code_set": "ICD-10-CM",
+        "code": "E11.331",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Insulin",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "847207"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "diabetes",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "250",
+        "status": "active"
       },
-      "time": 1288411200,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Diabetic Retinopathy",
+        "time": 1271044800,
+        "code_set": "ICD-10-CM",
+        "code": "E11.331",
+        "status": "active"
       },
-      "time": 1279944000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
       },
-      "time": 1271044800,
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1270008000,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1288411200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 115.0
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1288411200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
       },
-      "time": 1271044800,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 110.0
       },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
       },
-      "time": 1271044800,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 112.0
       },
-      "time": 1271044800,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
       },
-      "value": {
-        "scalar": 115.0,
-        "units": null
+      {
+        "description": "Macular Edema Findings",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "37231002",
+        "value": "Mild"
       },
-      "time": 1288411200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1279944000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 27.31674018063432
       },
-      "value": {
-        "scalar": 74.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 28.793320730938877
       },
-      "time": 1288411200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1279944000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 6.8
       },
-      "value": {
-        "scalar": 110.0,
-        "units": null
+      {
+        "description": "HbA1c test",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 6.7
+      }
+    ],
+    "results": [
+      {
+        "description": "HbA1c test",
+        "time": 1279944000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 6.8
       },
-      "time": 1271044800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "HbA1c test",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "83036",
+        "value": 6.7
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Foot Exam",
+        "time": 1288411200,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "value": {
-        "scalar": 70.0,
-        "units": null
+      {
+        "description": "Foot Exam",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "time": 1271044800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Foot Exam",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "401191002",
+        "value": "Normal"
       },
-      "value": {
-        "scalar": 112.0,
-        "units": null
+      {
+        "description": "macular edema findings",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "37231002"
       },
-      "time": 1270008000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "severity of retinopathy and macular edema findings",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "399875001"
       },
-      "value": {
-        "scalar": 72.0,
-        "units": null
+      {
+        "description": "counseling for nutrition",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "97802"
       },
-      "time": 1270008000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "37231002"
-        ]
+      {
+        "description": "counseling for physical activity",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "value": {
-        "scalar": "Mild",
-        "units": null
+      {
+        "description": "eye exam",
+        "time": 1271044800,
+        "code_set": "HCPCS",
+        "code": "S0621"
       },
-      "time": 1271044800,
-      "description": "Macular Edema Findings"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 27.31674018063432,
-        "units": null
-      },
-      "time": 1279944000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 28.793320730938877,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 6.8,
-        "units": null
-      },
-      "time": 1279944000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 6.7,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "HbA1c test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1271044800,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1271044800,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1271044800,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 6.8,
-        "units": null
-      },
-      "time": 1279944000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 6.7,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "HbA1c test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1288411200,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1271044800,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401191002"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "37231002"
-        ]
-      },
-      "time": 1271044800,
-      "description": "macular edema findings"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "399875001"
-        ]
-      },
-      "time": 1271044800,
-      "description": "severity of retinopathy and macular edema findings"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1270008000,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1270008000,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ]
-      },
-      "time": 1271044800,
-      "description": "eye exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "410455004"
-        ]
-      },
-      "time": 1271044800,
-      "description": "Macular or Fundus Exam"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "847207"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Insulin"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "Macular or Fundus Exam",
+        "time": 1271044800,
+        "code_set": "SNOMED-CT",
+        "code": "410455004"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1270008000,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1271044800,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

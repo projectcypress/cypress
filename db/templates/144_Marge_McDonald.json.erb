@@ -4,309 +4,187 @@
   "gender": "F",
   "birthdate": <%= between(-218228400, -217018800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1285646400,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1280289600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "encounter outpatient including orthopedics and chiropractics",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "98940"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "low back pain",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "724.2",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1270008000,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "low back pain",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "724.2",
+        "status": "active"
       },
-      "time": 1285646400,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1270008000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1280289600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "98940"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1269489600,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1275019200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 128.0
       },
-      "time": 1270008000,
-      "description": "encounter outpatient including orthopedics and chiropractics"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1275019200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1272427200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
       },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1272427200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 82.0
       },
-      "time": 1269489600,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 128.0
       },
-      "value": {
-        "scalar": 128.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 76.0
       },
-      "time": 1275019200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1275019200,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 23.625288804872927
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1270008000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 23.329972694812014
       },
-      "time": 1275019200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1285646400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "value": {
-        "scalar": 130.0,
-        "units": null
+      {
+        "description": "FOBT",
+        "time": 1285646400,
+        "code_set": "CPT",
+        "code": "82274"
+      }
+    ],
+    "results": [
+      {
+        "description": "Pap Test",
+        "time": 1285646400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "time": 1272427200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "FOBT",
+        "time": 1285646400,
+        "code_set": "CPT",
+        "code": "82274"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Imaging Study-Spinal",
+        "time": 1270008000,
+        "code_set": "CPT",
+        "code": "72010"
       },
-      "value": {
-        "scalar": 82.0,
-        "units": null
-      },
-      "time": 1272427200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 128.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 23.625288804872927,
-        "units": null
-      },
-      "time": 1275019200,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 23.329972694812014,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1285646400,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1285646400,
-      "description": "FOBT"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1285646400,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1285646400,
-      "description": "FOBT"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "CPT": [
-          "72010"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Imaging Study-Spinal"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1287979200,
-      "description": "breast cancer screening"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1285646400,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "breast cancer screening",
+        "time": 1287979200,
+        "code_set": "CPT",
+        "code": "77057"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1285646400,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

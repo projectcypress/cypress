@@ -4,290 +4,180 @@
   "gender": "M",
   "birthdate": <%= between(201844800, 203054400) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "encounter outpatient including orthopedics and chiropractics",
+        "time": 1286942400,
+        "code_set": "CPT",
+        "code": "98940"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1281412800,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1272686400,
+        "code_set": "CPT",
+        "code": "99241"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Asthma",
+        "time": 1272686400,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Asthma",
+        "time": 1281412800,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "373899003"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "395022009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Long acting inhaled beta 2 agonist",
+        "time": 1272686400,
+        "code_set": "RxNorm",
+        "code": "896239"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1272686400,
+        "code_set": "RxNorm",
+        "code": "630208"
+      },
+      {
+        "description": "Smoking Cessation Agents",
+        "time": 1272686400,
+        "code_set": "RxNorm",
+        "code": "105075"
+      },
+      {
+        "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
+        "time": 1281412800,
+        "code_set": "RxNorm",
+        "code": "351136"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "98940"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Asthma",
+        "time": 1272686400,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1286942400,
-      "description": "encounter outpatient including orthopedics and chiropractics"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Asthma",
+        "time": 1281412800,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1281412800,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
       },
-      "time": 1272686400,
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "373899003"
       },
-      "time": 1272686400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "395022009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1281412800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 110.0
       },
-      "time": 1281412800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1281412800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 72.0
       },
-      "time": 1272686400,
-      "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "373899003"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 112.0
       },
-      "time": 1272686400,
-      "description": "Asthma Daytime Symptoms"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "395022009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
       },
-      "time": 1272686400,
-      "description": "Asthma Nighttime Symptoms"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 110.0,
-        "units": null
-      },
-      "time": 1281412800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 72.0,
-        "units": null
-      },
-      "time": 1281412800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 112.0,
-        "units": null
-      },
-      "time": 1272686400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 74.0,
-        "units": null
-      },
-      "time": 1272686400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.87200832466181,
-        "units": null
-      },
-      "time": 1272686400,
-      "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1272686400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1281412800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "373899003"
-        ]
-      },
-      "time": 1272686400,
-      "description": "Asthma Daytime Symptoms"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "395022009"
-        ]
-      },
-      "time": 1272686400,
-      "description": "Asthma Nighttime Symptoms"
-    }
-  ],
-  "results": [
+      {
+        "description": "BMI",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.87200832466181
+      }
+    ],
+    "results": [
 
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
+    ],
+    "procedures": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1272686400,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
       },
-      "time": 1272686400,
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1272686400,
-      "description": "counseling for nutrition"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "896239"
-        ]
-      },
-      "time": 1272686400,
-      "description": "Long acting inhaled beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1272686400,
-      "description": "Short acting beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1272686400,
-      "description": "Smoking Cessation Agents"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "351136"
-        ]
-      },
-      "time": 1281412800,
-      "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "counseling for nutrition",
+        "time": 1272686400,
+        "code_set": "CPT",
+        "code": "97802"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1272686400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1281412800,
-      "status": "active",
-      "description": "Asthma"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

@@ -4,368 +4,227 @@
   "gender": "F",
   "birthdate": <%= between(-359150400, -357940800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1281672000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1276401600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Inpatient Discharge",
+        "time": 1276315200,
+        "code_set": "CPT",
+        "code": "99238"
+      },
+      {
+        "description": "encounter acute inpt",
+        "time": 1276142400,
+        "code_set": "CPT",
+        "code": "99251"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1275710400,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Hypertension",
+        "time": 1275710400,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Breast Cancer",
+        "time": 1276142400,
+        "code_set": "ICD-9-CM",
+        "code": "174.9",
+        "status": "active"
+      },
+      {
+        "description": "Metastatic Sites Common to Breast Cancer",
+        "time": 1276142400,
+        "code_set": "ICD-9-CM",
+        "code": "197",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+        "time": 1275710400,
+        "code_set": "RxNorm",
+        "code": "313195"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Hypertension",
+        "time": 1275710400,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1281672000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Breast Cancer",
+        "time": 1276142400,
+        "code_set": "ICD-9-CM",
+        "code": "174.9",
+        "status": "active"
       },
-      "time": 1276401600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
+      {
+        "description": "Metastatic Sites Common to Breast Cancer",
+        "time": 1276142400,
+        "code_set": "ICD-9-CM",
+        "code": "197",
+        "status": "active"
       },
-      "time": 1276315200,
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 960696000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 146.0
       },
-      "time": 1276142400,
-      "description": "encounter acute inpt"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 960696000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 92.0
       },
-      "time": 1275710400,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 960696000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 90.0
       },
-      "time": 1275710400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
+      {
+        "description": "BMI",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 35.15
       },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "197"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1275710400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Metastatic Sites Common to Breast Cancer"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "FOBT",
+        "time": 1275710400,
+        "code_set": "CPT",
+        "code": "82274"
       },
-      "time": 1275710400,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Breast Cancer Stage IC-IIIC",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "261653007"
       },
-      "value": {
-        "scalar": 146.0,
-        "units": null
+      {
+        "description": "Breast Cancer ER or PR Positive",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "417742002"
+      }
+    ],
+    "results": [
+      {
+        "description": "Pap Test",
+        "time": 1275710400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "time": 960696000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "FOBT",
+        "time": 1275710400,
+        "code_set": "CPT",
+        "code": "82274"
       },
-      "value": {
-        "scalar": 92.0,
-        "units": null
+      {
+        "description": "Breast Cancer Stage IC-IIIC",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "261653007"
       },
-      "time": 960696000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Breast Cancer ER or PR Positive",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "417742002"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "counseling for nutrition",
+        "time": 1275710400,
+        "code_set": "CPT",
+        "code": "97802"
       },
-      "value": {
-        "scalar": 90.0,
-        "units": null
+      {
+        "description": "counseling for physical activity",
+        "time": 1275710400,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "time": 960696000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
+      {
+        "description": "Breast Cancer Stage IC-IIIC",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "261653007"
       },
-      "value": {
-        "scalar": 35.15,
-        "units": null
+      {
+        "description": "Breast Cancer ER or PR Positive",
+        "time": 1276142400,
+        "code_set": "SNOMED-CT",
+        "code": "417742002"
       },
-      "time": 1275710400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1275710400,
-      "description": "FOBT"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261653007"
-        ]
-      },
-      "time": 1276142400,
-      "description": "Breast Cancer Stage IC-IIIC"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "417742002"
-        ]
-      },
-      "time": 1276142400,
-      "description": "Breast Cancer ER or PR Positive"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1275710400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
-      },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "197"
-        ]
-      },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Metastatic Sites Common to Breast Cancer"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1275710400,
-      "description": "FOBT"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261653007"
-        ]
-      },
-      "time": 1276142400,
-      "description": "Breast Cancer Stage IC-IIIC"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "417742002"
-        ]
-      },
-      "time": 1276142400,
-      "description": "Breast Cancer ER or PR Positive"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1275710400,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1275710400,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261653007"
-        ]
-      },
-      "time": 1276142400,
-      "description": "Breast Cancer Stage IC-IIIC"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "417742002"
-        ]
-      },
-      "time": 1276142400,
-      "description": "Breast Cancer ER or PR Positive"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1273118400,
-      "description": "breast cancer screening"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "breast cancer screening",
+        "time": 1273118400,
+        "code_set": "CPT",
+        "code": "77057"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1275710400,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1275710400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
-      },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "197"
-        ]
-      },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Metastatic Sites Common to Breast Cancer"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1275710400,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

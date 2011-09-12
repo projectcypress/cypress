@@ -4,370 +4,221 @@
   "gender": "F",
   "birthdate": <%= between(645422400, 646632000) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1288756800,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1284696000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1275710400,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "sexually active woman",
+        "time": 1275710400,
+        "code_set": "ICD-9-CM",
+        "code": "099.9",
+        "status": "active"
+      },
+      {
+        "description": "Bradycardia",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "48867003",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "contraceptives",
+        "time": 1275710400,
+        "code_set": "RxNorm",
+        "code": "314146"
+      },
+      {
+        "description": "Smoking Cessation Agents",
+        "time": 1275710400,
+        "code_set": "RxNorm",
+        "code": "105075"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "sexually active woman",
+        "time": 1275710400,
+        "code_set": "ICD-9-CM",
+        "code": "099.9",
+        "status": "active"
       },
-      "time": 1288756800,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Bradycardia",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "48867003",
+        "status": "active"
       },
-      "time": 1284696000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco User",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "230062009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1288756800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 106.0
       },
-      "time": 1275710400,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1288756800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 60.0
       },
-      "time": 1275710400,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "48867003"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1288756800,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 58.0
       },
-      "time": 1275710400,
-      "status": "active",
-      "description": "Bradycardia"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1284696000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 100.0
       },
-      "time": 1275710400,
-      "description": "Tobacco User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1284696000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 58.0
       },
-      "value": {
-        "scalar": 106.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1284696000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 56.0
       },
-      "time": 1288756800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 106.0
       },
-      "value": {
-        "scalar": 60.0,
-        "units": null
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 60.0
       },
-      "time": 1288756800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 58.0
       },
-      "value": {
-        "scalar": 58.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1288756800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 19.00410899653979
       },
-      "time": 1288756800,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1284696000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 18.548010380622838
       },
-      "value": {
-        "scalar": 100.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 17.787846020761243
       },
-      "time": 1284696000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "HIV Screening",
+        "time": 1275710400,
+        "code_set": "CPT",
+        "code": "87536"
       },
-      "value": {
-        "scalar": 58.0,
-        "units": null
+      {
+        "description": "Pap Test",
+        "time": 1275710400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "results": [
+      {
+        "description": "HIV Screening",
+        "time": 1275710400,
+        "code_set": "CPT",
+        "code": "87536"
       },
-      "time": 1284696000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1275710400,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "contraceptive use education",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "44651004"
       },
-      "value": {
-        "scalar": 56.0,
-        "units": null
-      },
-      "time": 1284696000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 106.0,
-        "units": null
-      },
-      "time": 1275710400,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 60.0,
-        "units": null
-      },
-      "time": 1275710400,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 58.0,
-        "units": null
-      },
-      "time": 1275710400,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 19.00410899653979,
-        "units": null
-      },
-      "time": 1288756800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 18.548010380622838,
-        "units": null
-      },
-      "time": 1284696000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 17.787846020761243,
-        "units": null
-      },
-      "time": 1275710400,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87536"
-        ]
-      },
-      "time": 1275710400,
-      "description": "HIV Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Pap Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1275710400,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "48867003"
-        ]
-      },
-      "time": 1275710400,
-      "status": "active",
-      "description": "Bradycardia"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "87536"
-        ]
-      },
-      "time": 1275710400,
-      "description": "HIV Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Pap Test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "44651004"
-        ]
-      },
-      "time": 1275710400,
-      "description": "contraceptive use education"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ]
-      },
-      "time": 1275710400,
-      "description": "tobacco use cessation counseling"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "314146"
-        ]
-      },
-      "time": 1275710400,
-      "description": "contraceptives"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Smoking Cessation Agents"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "tobacco use cessation counseling",
+        "time": 1275710400,
+        "code_set": "SNOMED-CT",
+        "code": "384742004"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1275710400,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1275710400,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "48867003"
-        ]
-      },
-      "time": 1275710400,
-      "status": "active",
-      "description": "Bradycardia"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1275710400,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

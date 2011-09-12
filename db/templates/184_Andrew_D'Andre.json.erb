@@ -4,403 +4,236 @@
   "gender": "M",
   "birthdate": <%= between(-844459200, -843249600) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1286424000,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Heart Failure",
+        "time": 1286424000,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1283832000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "ACE inhibitor or ARB",
+        "time": 1283832000,
+        "code_set": "RxNorm",
+        "code": "314076"
+      },
+      {
+        "description": "Lipid Lowering Therapy",
+        "time": 1283832000,
+        "code_set": "RxNorm",
+        "code": "617314"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Heart Failure",
+        "time": 1286424000,
+        "code_set": "ICD-9-CM",
+        "code": "428.9",
+        "status": "active"
       },
-      "time": 1283832000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1283832000,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1286424000,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 152.0
       },
-      "time": 1286424000,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 92.0
       },
-      "time": 1283832000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1286424000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 138.0
       },
-      "time": 1283832000,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1286424000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 88.0
       },
-      "value": {
-        "scalar": 152.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 86.0
       },
-      "time": 1283832000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1286424000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 84.0
       },
-      "value": {
-        "scalar": 92.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 31.751708984375
       },
-      "time": 1283832000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1286424000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 31.408447265625
       },
-      "value": {
-        "scalar": 138.0,
-        "units": null
+      {
+        "description": "LDL",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 112.0
       },
-      "time": 1286424000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": 39.0
       },
-      "value": {
-        "scalar": 88.0,
-        "units": null
+      {
+        "description": "Total Cholesterol",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": 186.0
       },
-      "time": 1286424000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Triglycerides",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": 114.0
+      }
+    ],
+    "results": [
+      {
+        "description": "LDL",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "83721",
+        "value": 112.0
       },
-      "value": {
-        "scalar": 86.0,
-        "units": null
+      {
+        "description": "High Density Lipoprotein (HDL)",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "83701",
+        "value": 39.0
       },
-      "time": 1283832000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Total Cholesterol",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "82465",
+        "value": 186.0
       },
-      "value": {
-        "scalar": 84.0,
-        "units": null
+      {
+        "description": "Triglycerides",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "84478",
+        "value": 114.0
+      }
+    ],
+    "procedures": [
+      {
+        "description": "counseling for physical activity",
+        "time": 1283832000,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "time": 1286424000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
+      {
+        "description": "counseling for nutrition",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "97802"
       },
-      "value": {
-        "scalar": 31.751708984375,
-        "units": null
+      {
+        "description": "Ejection Fraction",
+        "time": 1283832000,
+        "code_set": "SNOMED-CT",
+        "code": "70822001"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1286424000,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1283832000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 31.408447265625,
-        "units": null
-      },
-      "time": 1286424000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 112.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 39.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 186.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 114.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "Triglycerides"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1286424000,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1283832000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 112.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 39.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 186.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 114.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "Triglycerides"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
-      },
-      "time": 1283832000,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
-      },
-      "time": 1283832000,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "70822001"
-        ]
-      },
-      "time": 1283832000,
-      "description": "Ejection Fraction"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1283832000,
-      "description": "ACE inhibitor or ARB"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "617314"
-        ]
-      },
-      "time": 1283832000,
-      "description": "Lipid Lowering Therapy"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1286424000,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1286424000,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ]
-      },
-      "time": 1283832000,
-      "description": "follow-up plan_BMI management"
-    }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1286424000,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1283832000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1286424000,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
+      {
+        "description": "follow-up plan_BMI management",
+        "time": 1283832000,
+        "code_set": "CPT",
+        "code": "97804"
+      }
+    ]
+  }
 }

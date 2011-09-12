@@ -4,417 +4,259 @@
   "gender": "F",
   "birthdate": <%= between(620971200, 622180800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1291698000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1275624000,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "encounter ED",
+        "time": 1272686400,
+        "code_set": "CPT",
+        "code": "99281"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Asthma",
+        "time": 1275624000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Cystic fibrosis",
+        "time": 445928400,
+        "code_set": "ICD-9-CM",
+        "code": "277",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1291698000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1291698000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antiasthmatic combinations",
+        "time": 1275624000,
+        "code_set": "RxNorm",
+        "code": "388681"
+      },
+      {
+        "description": "Short acting beta 2 agonist",
+        "time": 1286424000,
+        "code_set": "RxNorm",
+        "code": "630208"
+      },
+      {
+        "description": "contraceptives",
+        "time": 1291698000,
+        "code_set": "RxNorm",
+        "code": "314146"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Asthma",
+        "time": 1275624000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1291698000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Cystic fibrosis",
+        "time": 445928400,
+        "code_set": "ICD-9-CM",
+        "code": "277",
+        "status": "active"
       },
-      "time": 1275624000,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
       },
-      "time": 1272686400,
-      "description": "encounter ED"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1275624000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "277"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
       },
-      "time": 445928400,
-      "status": "active",
-      "description": "Cystic fibrosis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1291698000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1275624000,
-      "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1291698000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1291698000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 125.0
       },
-      "time": 1275624000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1291698000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
       },
-      "time": 1275624000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1291698000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 72.0
       },
-      "time": 1291698000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 122.0
       },
-      "time": 1291698000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 70.0
       },
-      "value": {
-        "scalar": 125.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 70.0
       },
-      "time": 1291698000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1291698000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.707730006683004
       },
-      "value": {
-        "scalar": 74.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.86433504121185
       },
-      "time": 1291698000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1291698000,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "value": {
-        "scalar": 72.0,
-        "units": null
+      {
+        "description": "Chlamydia Screening",
+        "time": 1291698000,
+        "code_set": "CPT",
+        "code": "87110"
+      }
+    ],
+    "results": [
+      {
+        "description": "Pap Test",
+        "time": 1291698000,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "time": 1291698000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Chlamydia Screening",
+        "time": 1291698000,
+        "code_set": "CPT",
+        "code": "87110"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "contraceptive use education",
+        "time": 1291698000,
+        "code_set": "SNOMED-CT",
+        "code": "44651004"
       },
-      "value": {
-        "scalar": 122.0,
-        "units": null
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1275624000,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
       },
-      "time": 1275624000,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1286424000,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1291698000,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1275624000,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1275624000,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.707730006683004,
-        "units": null
-      },
-      "time": 1291698000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.86433504121185,
-        "units": null
-      },
-      "time": 1275624000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1291698000,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1291698000,
-      "description": "Chlamydia Screening"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1275624000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "277"
-        ]
-      },
-      "time": 445928400,
-      "status": "active",
-      "description": "Cystic fibrosis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1275624000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1275624000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1291698000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1291698000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1291698000,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "time": 1291698000,
-      "description": "Chlamydia Screening"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "44651004"
-        ]
-      },
-      "time": 1291698000,
-      "description": "contraceptive use education"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
-      },
-      "time": 1275624000,
-      "description": "Asthma Symptom Assessment Tool"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
-      },
-      "time": 1286424000,
-      "description": "Asthma Symptom Assessment Tool"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "388681"
-        ]
-      },
-      "time": 1275624000,
-      "description": "Antiasthmatic combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1286424000,
-      "description": "Short acting beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314146"
-        ]
-      },
-      "time": 1291698000,
-      "description": "contraceptives"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1291698000,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1291698000,
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1291698000,
+        "code_set": "CVX",
+        "code": "100"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1275624000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "277"
-        ]
-      },
-      "time": 445928400,
-      "status": "active",
-      "description": "Cystic fibrosis"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

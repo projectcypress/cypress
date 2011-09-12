@@ -4,263 +4,165 @@
   "gender": "M",
   "birthdate": <%= between(865915200, 867124800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1285732800,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Office & Outpatient Consult",
+        "time": 1276488000,
+        "code_set": "CPT",
+        "code": "99241"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1273032000,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "pharyngitis",
+        "time": 1273032000,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
+      },
+      {
+        "description": "asthma",
+        "time": 1276488000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1276488000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1276488000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antiasthmatic combinations",
+        "time": 1273032000,
+        "code_set": "RxNorm",
+        "code": "388681"
+      },
+      {
+        "description": "Antiasthmatic combinations",
+        "time": 1285732800,
+        "code_set": "RxNorm",
+        "code": "388681"
+      },
+      {
+        "description": "Second generation cephalosporins",
+        "time": 1273032000,
+        "code_set": "RxNorm",
+        "code": "309097"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "pharyngitis",
+        "time": 1273032000,
+        "code_set": "ICD-10-CM",
+        "code": "J02",
+        "status": "active"
       },
-      "time": 1285732800,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
+      {
+        "description": "asthma",
+        "time": 1276488000,
+        "code_set": "ICD-9-CM",
+        "code": "493.92",
+        "status": "active"
       },
-      "time": 1276488000,
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1276488000,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1273032000,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1276488000,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "BMI",
+        "time": 1285732800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 19.648481590970167
       },
-      "time": 1273032000,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
+      {
+        "description": "BMI",
+        "time": 1276488000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 18.941944444444445
       },
-      "time": 1276488000,
-      "status": "active",
-      "description": "asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1276488000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1276488000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 19.648481590970167,
-        "units": null
-      },
-      "time": 1285732800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 18.941944444444445,
-        "units": null
-      },
-      "time": 1276488000,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 18.551388888888887,
-        "units": null
-      },
-      "time": 1273032000,
-      "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1273032000,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1276488000,
-      "status": "active",
-      "description": "asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1276488000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1276488000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "results": [
+      {
+        "description": "BMI",
+        "time": 1273032000,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 18.551388888888887
+      }
+    ],
+    "results": [
 
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ]
+    ],
+    "procedures": [
+      {
+        "description": "counseling for physical activity",
+        "time": 1273032000,
+        "code_set": "ICD-9-CM",
+        "code": "V65.41"
       },
-      "time": 1273032000,
-      "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ]
+      {
+        "description": "counseling for nutrition",
+        "time": 1273032000,
+        "code_set": "CPT",
+        "code": "97802"
       },
-      "time": 1273032000,
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
-      },
-      "time": 1276488000,
-      "description": "Asthma Symptom Assessment Tool"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "388681"
-        ]
-      },
-      "time": 1273032000,
-      "description": "Antiasthmatic combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "388681"
-        ]
-      },
-      "time": 1285732800,
-      "description": "Antiasthmatic combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "309097"
-        ]
-      },
-      "time": 1273032000,
-      "description": "Second generation cephalosporins"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1285732800,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Asthma Symptom Assessment Tool",
+        "time": 1276488000,
+        "code_set": "SNOMED-CT",
+        "code": "401011001"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1285732800,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1273032000,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1276488000,
-      "status": "active",
-      "description": "asthma"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

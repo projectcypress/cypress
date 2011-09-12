@@ -4,491 +4,304 @@
   "gender": "F",
   "birthdate": <%= between(-405284400, -404074800) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Prev Med Other Services",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "99429"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1281931200,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1274068800,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "Breast Cancer",
+        "time": 1112760000,
+        "code_set": "ICD-9-CM",
+        "code": "174.9",
+        "status": "inactive"
+      },
+      {
+        "description": "Breast Cancer History",
+        "time": 1274068800,
+        "code_set": "ICD-9-CM",
+        "code": "V10.3",
+        "status": "active"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+        "time": 1122868800,
+        "code_set": "RxNorm",
+        "code": "313195"
+      },
+      {
+        "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+        "time": 1154232000,
+        "code_set": "RxNorm",
+        "code": "313195"
+      },
+      {
+        "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+        "time": 1185336000,
+        "code_set": "RxNorm",
+        "code": "313195"
+      },
+      {
+        "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+        "time": 1217304000,
+        "code_set": "RxNorm",
+        "code": "313195"
+      },
+      {
+        "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+        "time": 1248926400,
+        "code_set": "RxNorm",
+        "code": "313195"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "Breast Cancer",
+        "time": 1112760000,
+        "code_set": "ICD-9-CM",
+        "code": "174.9",
+        "status": "inactive"
       },
-      "time": 1285387200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99429"
-        ]
+      {
+        "description": "Breast Cancer History",
+        "time": 1274068800,
+        "code_set": "ICD-9-CM",
+        "code": "V10.3",
+        "status": "active"
       },
-      "time": 1285387200,
-      "description": "Encounter Prev Med Other Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 132.0
       },
-      "time": 1281931200,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 80.0
       },
-      "time": 1274068800,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1285387200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 78.0
       },
-      "time": 1112760000,
-      "status": "inactive",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V10.3"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 128.0
       },
-      "time": 1274068800,
-      "status": "active",
-      "description": "Breast Cancer History"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 76.0
       },
-      "time": 1285387200,
-      "description": "Tobacco Non-User"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1281931200,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 76.0
       },
-      "value": {
-        "scalar": 132.0,
-        "units": null
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1274068800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 130.0
       },
-      "time": 1285387200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1274068800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 78.0
       },
-      "value": {
-        "scalar": 80.0,
-        "units": null
+      {
+        "description": "Heart Rate",
+        "time": 1274068800,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 76.0
       },
-      "time": 1285387200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "BMI",
+        "time": 1105851600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 23.380196523053666
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1274068800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 24.442932728647015
       },
-      "time": 1285387200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1281931200,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "results": [
+      {
+        "description": "Pap Test",
+        "time": 1281931200,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "colonoscopy",
+        "time": 1287979200,
+        "code_set": "CPT",
+        "code": "45378"
       },
-      "value": {
-        "scalar": 128.0,
-        "units": null
+      {
+        "description": "breast cancer screening",
+        "time": 1281931200,
+        "code_set": "CPT",
+        "code": "77057"
       },
-      "time": 1281931200,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "breast cancer screening",
+        "time": 1248321600,
+        "code_set": "CPT",
+        "code": "77057"
       },
-      "value": {
-        "scalar": 76.0,
-        "units": null
+      {
+        "description": "breast cancer screening",
+        "time": 1215921600,
+        "code_set": "CPT",
+        "code": "77057"
       },
-      "time": 1281931200,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "breast cancer screening",
+        "time": 1185336000,
+        "code_set": "CPT",
+        "code": "77057"
       },
-      "value": {
-        "scalar": 76.0,
-        "units": null
+      {
+        "description": "breast cancer screening",
+        "time": 1154404800,
+        "code_set": "CPT",
+        "code": "77057"
       },
-      "time": 1281931200,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "breast cancer screening",
+        "time": 1124683200,
+        "code_set": "CPT",
+        "code": "77057"
       },
-      "value": {
-        "scalar": 130.0,
-        "units": null
+      {
+        "description": "breast cancer screening",
+        "time": 1110862800,
+        "code_set": "CPT",
+        "code": "77057"
+      }
+    ],
+    "immunizations": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1285387200,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1274068800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1285387200,
+        "code_set": "CVX",
+        "code": "100"
       },
-      "value": {
-        "scalar": 78.0,
-        "units": null
+      {
+        "description": "Influenza Vaccine",
+        "time": 1253073600,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1274068800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "Influenza Vaccine",
+        "time": 1224907200,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "value": {
-        "scalar": 76.0,
-        "units": null
+      {
+        "description": "Influenza Vaccine",
+        "time": 1193889600,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "time": 1274068800,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
+      {
+        "description": "Influenza Vaccine",
+        "time": 1160020800,
+        "code_set": "RxNorm",
+        "code": "857942"
       },
-      "value": {
-        "scalar": 23.380196523053666,
-        "units": null
+      {
+        "description": "Pneumococcal Vaccine all ages",
+        "time": 1105851600,
+        "code_set": "CVX",
+        "code": "100"
       },
-      "time": 1105851600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 24.442932728647015,
-        "units": null
-      },
-      "time": 1274068800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1281931200,
-      "description": "Pap Test"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
-      },
-      "time": 1112760000,
-      "status": "inactive",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V10.3"
-        ]
-      },
-      "time": 1274068800,
-      "status": "active",
-      "description": "Breast Cancer History"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1281931200,
-      "description": "Pap Test"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "CPT": [
-          "45378"
-        ]
-      },
-      "time": 1287979200,
-      "description": "colonoscopy"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1281931200,
-      "description": "breast cancer screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1248321600,
-      "description": "breast cancer screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1215921600,
-      "description": "breast cancer screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1185336000,
-      "description": "breast cancer screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1154404800,
-      "description": "breast cancer screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1124683200,
-      "description": "breast cancer screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1110862800,
-      "description": "breast cancer screening"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1122868800,
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1154232000,
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1185336000,
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1217304000,
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1248926400,
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1285387200,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1285387200,
-      "description": "Pneumococcal Vaccine all ages"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1253073600,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1224907200,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1193889600,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1160020800,
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ]
-      },
-      "time": 1105851600,
-      "description": "Pneumococcal Vaccine all ages"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1105851600,
-      "description": "Influenza Vaccine"
-    }
-  ],
-  "care_goals": [
+      {
+        "description": "Influenza Vaccine",
+        "time": 1105851600,
+        "code_set": "RxNorm",
+        "code": "857942"
+      }
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V10.3"
-        ]
-      },
-      "time": 1274068800,
-      "status": "active",
-      "description": "Breast Cancer History"
-    }
-  ],
-  "inactive": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
-      },
-      "time": 1112760000,
-      "status": "inactive",
-      "description": "Breast Cancer"
-    }
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }

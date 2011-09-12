@@ -4,394 +4,238 @@
   "gender": "F",
   "birthdate": <%= between(-243370800, -242161200) %>,
   "addresses": null,
-  "allergies": [
+  "events": {
+    "encounters": [
+      {
+        "description": "Encounter Outpatient",
+        "time": 1292475600,
+        "code_set": "CPT",
+        "code": "99213"
+      },
+      {
+        "description": "encounter ED",
+        "time": 1290661200,
+        "code_set": "CPT",
+        "code": "99281"
+      },
+      {
+        "description": "encounter outpatient including orthopedics and chiropractics",
+        "time": 1286683200,
+        "code_set": "CPT",
+        "code": "98940"
+      },
+      {
+        "description": "encounter ED",
+        "time": 1285387200,
+        "code_set": "CPT",
+        "code": "99281"
+      },
+      {
+        "description": "Encounter Outpatient",
+        "time": 1270612800,
+        "code_set": "CPT",
+        "code": "99213"
+      }
+    ],
+    "conditions": [
+      {
+        "description": "low back pain",
+        "time": 1272945600,
+        "code_set": "ICD-9-CM",
+        "code": "724.2",
+        "status": "active"
+      },
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1270612800,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
+      },
+      {
+        "description": "Hypertension",
+        "time": 1270612800,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
+      },
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270612800,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
+      },
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270612800,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "medications": [
+      {
+        "description": "Antihypertensive combinations",
+        "time": 1270612800,
+        "code_set": "RxNorm",
+        "code": "858828"
+      }
+    ],
+    "medical_equipment": [
 
-  ],
-  "medical_equipment": [
+    ],
+    "allergies": [
 
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+    ],
+    "social_history": [
+      {
+        "description": "low back pain",
+        "time": 1272945600,
+        "code_set": "ICD-9-CM",
+        "code": "724.2",
+        "status": "active"
       },
-      "time": 1292475600,
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
+      {
+        "description": "Primary Open Angle Glaucoma (POAG)",
+        "time": 1270612800,
+        "code_set": "ICD-9-CM",
+        "code": "365.10",
+        "status": "active"
       },
-      "time": 1290661200,
-      "description": "encounter ED"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "98940"
-        ]
+      {
+        "description": "Hypertension",
+        "time": 1270612800,
+        "code_set": "ICD-9-CM",
+        "code": "401.9",
+        "status": "active"
       },
-      "time": 1286683200,
-      "description": "encounter outpatient including orthopedics and chiropractics"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
+      {
+        "description": "Tobacco Non-User",
+        "time": 1272945600,
+        "code_set": "SNOMED-CT",
+        "code": "160618006"
       },
-      "time": 1285387200,
-      "description": "encounter ED"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ]
+      {
+        "description": "Asthma Daytime Symptoms Quantified",
+        "time": 1270612800,
+        "code_set": "SNOMED-CT",
+        "code": "370202007"
       },
-      "time": 1270612800,
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
+      {
+        "description": "Asthma Nighttime Symptoms Quantified",
+        "time": 1270612800,
+        "code_set": "SNOMED-CT",
+        "code": "370205009"
+      }
+    ],
+    "vital_signs": [
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1292475600,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 120.0
       },
-      "time": 1272945600,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1292475600,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 76.0
       },
-      "time": 1270612800,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1292475600,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 72.0
       },
-      "time": 1270612800,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
+      {
+        "description": "Systolic Blood Pressure",
+        "time": 1270612800,
+        "code_set": "SNOMED-CT",
+        "code": "271649006",
+        "value": 118.0
       },
-      "time": 1272945600,
-      "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
+      {
+        "description": "Diastolic Blood Pressure",
+        "time": 1270612800,
+        "code_set": "SNOMED-CT",
+        "code": "271650006",
+        "value": 74.0
       },
-      "time": 1270612800,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
+      {
+        "description": "Heart Rate",
+        "time": 1270612800,
+        "code_set": "SNOMED-CT",
+        "code": "364075005",
+        "value": 70.0
       },
-      "time": 1270612800,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
+      {
+        "description": "BMI",
+        "time": 1292475600,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.916896235078053
       },
-      "value": {
-        "scalar": 120.0,
-        "units": null
+      {
+        "description": "BMI",
+        "time": 1270612800,
+        "code_set": "SNOMED-CT",
+        "code": "60621009",
+        "value": 22.594123048668507
       },
-      "time": 1292475600,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
+      {
+        "description": "Pap Test",
+        "time": 1292475600,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "value": {
-        "scalar": 76.0,
-        "units": null
+      {
+        "description": "FOBT",
+        "time": 1292475600,
+        "code_set": "CPT",
+        "code": "82274"
+      }
+    ],
+    "results": [
+      {
+        "description": "Pap Test",
+        "time": 1292475600,
+        "code_set": "ICD-9-CM",
+        "code": "V72.32"
       },
-      "time": 1292475600,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
+      {
+        "description": "FOBT",
+        "time": 1292475600,
+        "code_set": "CPT",
+        "code": "82274"
+      }
+    ],
+    "procedures": [
+      {
+        "description": "Optic Nerve Head Evaluation",
+        "time": 1272600000,
+        "code_set": "SNOMED-CT",
+        "code": "36228007"
       },
-      "value": {
-        "scalar": 72.0,
-        "units": null
+      {
+        "description": "Imaging Study-Spinal",
+        "time": 1286683200,
+        "code_set": "CPT",
+        "code": "72010"
       },
-      "time": 1292475600,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 118.0,
-        "units": null
-      },
-      "time": 1270612800,
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 74.0,
-        "units": null
-      },
-      "time": 1270612800,
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1270612800,
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.916896235078053,
-        "units": null
-      },
-      "time": 1292475600,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ]
-      },
-      "value": {
-        "scalar": 22.594123048668507,
-        "units": null
-      },
-      "time": 1270612800,
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1292475600,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1292475600,
-      "description": "FOBT"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
-      },
-      "time": 1272945600,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1270612800,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270612800,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270612800,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270612800,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "time": 1292475600,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "time": 1292475600,
-      "description": "FOBT"
-    }
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "36228007"
-        ]
-      },
-      "time": 1272600000,
-      "description": "Optic Nerve Head Evaluation"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "72010"
-        ]
-      },
-      "time": 1286683200,
-      "description": "Imaging Study-Spinal"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ]
-      },
-      "time": 1293685200,
-      "description": "breast cancer screening"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1270612800,
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
+      {
+        "description": "breast cancer screening",
+        "time": 1293685200,
+        "code_set": "CPT",
+        "code": "77057"
+      }
+    ],
+    "immunizations": [
 
-  ],
-  "care_goals": [
+    ],
+    "care_goals": [
 
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
-      },
-      "time": 1272945600,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1270612800,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270612800,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
-  ]
+    ]
+  }
 }
