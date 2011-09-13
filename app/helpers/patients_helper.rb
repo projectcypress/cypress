@@ -35,7 +35,7 @@ module PatientsHelper
   end
   
   def status_code_for(entry)
-    case entry.status
+    case entry.status.to_s
     when 'active'
       '55561003'
     when 'inactive'
