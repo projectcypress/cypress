@@ -67,13 +67,11 @@ class PatientsController < ApplicationController
     # determine if the request was for the browser, or a C32 XML file, or CCR XML file.
     respond_to do |format|
       format.html
-      format.c32
+      format.c32 do
+        render :text => HealthDataStandards::Export::C32.export(@patient)
+      end
       format.ccr do
-        xml = Builder::XmlMarkup.new(:indent => 2)
-        xml.instruct!
-        send_data @patient.to_ccr(xml),
-          :filename => "#{@patient.id}.xml",
-          :type => 'application/x-download'
+        render :text => HealthDataStandards::Export::CCR.export(@patient)
       end
     end
   end

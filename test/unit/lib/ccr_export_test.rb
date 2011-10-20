@@ -7,49 +7,33 @@ require 'nokogiri'
 class CCRExportTest < ActiveSupport::TestCase
 
   setup do
+    collection_fixtures('records', '_id')
   end
 
   test "Checking CCR XML Schema Validation" do
 
-    # perform schema validation of patients by iterating over all of the JSON record fixutes
-    # in the test/fixtures/records/ directory, creating CCR XML, and then running the generated
-    # CCR against an ASTM CCR Schema file if present
-    Dir.glob(File.join(Rails.root, 'test', 'fixtures', 'records', '*.json')).each do |json_fixture_file|
+    record = Record.find('4dcbecdb431a5f5878000004')
 
-      # grab each JSON fixture...
-      fixture_json = JSON.parse(File.read(json_fixture_file))
-      patient_record = Record.new(fixture_json)
+    xml = HealthDataStandards::Export::CCR.export(record)
 
-      #... load the XML associated with that fixture into Nokogiri...
-      xml = Builder::XmlMarkup.new(:indent => 2)
-      xml.instruct!
-      doc = Nokogiri::XML(patient_record.to_ccr(xml))
-
-      #... if we have a CCR XSD file check if it is a valid CCR XML file
-      if (File.exists?("config/ccr.xsd"))
-        #todo: Perform XML Schema validation
-      else
-        puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        puts "Cypress Unit Test Schema File Absent"
-        puts "There currently is not a CCR Schema file setup in your Cypress instance"
-        puts "In order to support CCR Schema validation in the unit tests, you should purchase"
-        puts "a CCR Schema file from the ASTM website http://www.astm.org/Standards/E2369.htm"
-        puts "and put your ASTM CCR Schema file in the file system directory under config/ccr.xsd"
-        puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      end
+    #... if we have a CCR XSD file check if it is a valid CCR XML file
+    if (File.exists?("config/ccr.xsd"))
+      #todo: Perform XML Schema validation
+    else
+      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      puts "Cypress Unit Test Schema File Absent"
+      puts "There currently is not a CCR Schema file setup in your Cypress instance"
+      puts "In order to support CCR Schema validation in the unit tests, you should purchase"
+      puts "a CCR Schema file from the ASTM website http://www.astm.org/Standards/E2369.htm"
+      puts "and put your ASTM CCR Schema file in the file system directory under config/ccr.xsd"
+      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     end
   end
 
   test "Validating CCR XML Data Generation" do
+    record = Record.find('4dcbecdb431a5f5878000004')
 
-    # load Rosa's raw data into the Record model
-    fixture_json = JSON.parse(File.read("test/fixtures/records/rosa.json"))
-    patient_record = Record.new(fixture_json)
-
-    # load the XML into Nokogiri to allow XPath expressions to be run against it
-    xml = Builder::XmlMarkup.new(:indent => 2)
-    xml.instruct!
-    doc = Nokogiri::XML(patient_record.to_ccr(xml))
+    doc = Nokogiri::XML(HealthDataStandards::Export::CCR.export(record))
     doc.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
 
     # registration information

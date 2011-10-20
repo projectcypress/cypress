@@ -9,6 +9,7 @@ gem 'devise'
 gem 'simple_form'
 gem 'nokogiri', '~> 1.4.4' 
 gem 'systemu', '~> 2.2.0'
+gem 'health-data-standards', :git => 'git://barrel.mitre.org/health-data-standards/health-data-standards.git'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
