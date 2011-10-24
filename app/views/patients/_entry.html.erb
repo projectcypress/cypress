@@ -1,15 +1,15 @@
 <tr>
-  <td><%= entry.codes_to_s %></td>
-  <td><%= entry.description %></td>
-  <td><%# There will be more complex logic to highlight values -%>
+  <td class="patient_entry"><%= entry.codes_to_s %></td>
+  <td class="patient_entry"><%= entry.description %></td>
+  <td class="patient_entry"><%# There will be more complex logic to highlight values -%>
     <% if entry.value.present? -%>
       <%= entry.value['scalar'] %>
     <% end -%>
   </td>
-  <td>
+  <td class="patient_entry">
     <% if entry.value.present? && entry.value['units'].present?-%>
       <%= entry.value['units'] %>
     <% end -%>
   </td>
-  <td><time datetime="<%= display_time(entry.time) %>"><%= display_time(entry.time) %></time></td>
+  <td class="patient_entry"><time datetime="<%= display_time(entry.time) %>"><%= display_time(entry.time) %></time></td>
 </tr>
