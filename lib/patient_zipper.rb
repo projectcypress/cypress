@@ -7,12 +7,10 @@ module Cypress
       Zip::ZipOutputStream.open(file.path) do |z|
         patients.each_with_index do |patient, i|
           z.put_next_entry("#{i}_#{patient.first}_#{patient.last}.xml")
-          xml = Builder::XmlMarkup.new(:indent => 2)
-          xml.instruct!
           if format==:c32
-            z << patient.to_c32(xml)
+            z << HealthDataStandards::Export::C32.export(patient)
           else
-            z << patient.to_ccr(xml)
+            z << HealthDataStandards::Export::CCR.export(patient)
           end
         end
       end

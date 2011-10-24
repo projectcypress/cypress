@@ -72,70 +72,68 @@
           <tr>
             <th colspan="5">Allergies</th>
           </tr>
-          <%= render :partial => 'entry', :collection => @patient.allergies %>
+          <%= render :partial => 'entries', :locals => { :collection => 'allergies' } %>  
         </tbody>
         <tbody>
           <tr>
             <th colspan="5">Care Goal</th>
           </tr>
-          <%= render :partial => 'entry', :collection => @patient.care_goals %>
+          <%= render :partial => 'entries', :locals => { :collection => 'care_goals' } %>  
         </tbody>
         <tbody>
           <tr>
             <th colspan="5">Vital Signs</th>
           </tr>
-          <%= render :partial => 'entry', :collection => @patient.vital_signs %>
+          <%= render :partial => 'entries', :locals => { :collection => 'vital_signs' } %>  
         </tbody>
         <tbody>
         <tr>
           <th colspan="5">Laboratory test</th>
         </tr>
-        <%= render :partial => 'entry', :collection => @patient.results %>
+        <%= render :partial => 'entries', :locals => { :collection => 'results' } %>  
        </tbody>
-      </table>
-      <table>
-        <tbody>
-        <tr>
-          <th colspan="5">Encounters</th>
-        </tr>
-        <%= render :partial => 'entry', :collection => @patient.encounters %>
-        </tbody>
-        <tbody>
-        <tr>
-          <th colspan="5">Conditions</th>
-        </tr>
-        <%= render :partial => 'entry', :collection => @patient.conditions %>
-        </tbody>
-        <tbody>
-        <tr>
-          <th colspan="5">Procedure</th>
-        </tr>
-        <%= render :partial => 'entry', :collection => @patient.procedures %>
-        </tbody>
-        <tbody>
-        <tr>
-          <th colspan="5">Medications</th>
-        </tr>
-        <%= render :partial => 'entry', :collection => @patient.medications %>
-        </tbody>
-        <tbody>
-        <tr>
-          <th colspan="5">Social History</th>
-        </tr>
-        <%= render :partial => 'entry', :collection => @patient.social_history %>
-        </tbody>
-        <tbody>
-        <tr>
-          <th colspan="5">Immunizations</th>
-        </tr>
-        <%= render :partial => 'entry', :collection => @patient.immunizations %>
-        </tbody>
-        <tbody>
-        <tr>
-          <th colspan="5">Medical Equipment</th>
-        </tr>
-        <%= render :partial => 'entry', :collection => @patient.medical_equipment %>
-        </tbody>
+       <tbody>
+         <tr>
+           <th colspan="5">Encounters</th>
+         </tr>
+         <%= render :partial => 'entries', :locals => { :collection => 'encounters' } %>  
+       </tbody>
+       <tbody>
+         <tr>
+           <th colspan="5">Conditions</th>
+         </tr>
+         <%= render :partial => 'entries', :locals => { :collection => 'conditions' } %>  
+       </tbody>
+       <tbody>
+         <tr>
+           <th colspan="5">Procedure</th>
+         </tr>
+         <%= render :partial => 'entries', :locals => { :collection => 'procedures' } %>  
+       </tbody>
+       <tbody>
+         <tr>
+           <th colspan="5">Medications</th>
+         </tr>
+         <%= render :partial => 'entries', :locals => { :collection => 'medications' } %>  
+       </tbody>
+       <tbody>
+         <tr>
+           <th colspan="5">Social History</th>
+         </tr>
+         <%= render :partial => 'entries', :locals => { :collection => 'social_history' } %>  
+       </tbody>
+       <tbody>
+         <tr>
+           <th colspan="5">Immunizations</th>
+         </tr>
+         <%= render :partial => 'entries', :locals => { :collection => 'immunizations' } %>  
+       </tbody>
+       <tbody>
+         <tr>
+           <th colspan="5">Medical Equipment</th>
+         </tr>
+         <%= render :partial => 'entries', :locals => { :collection => 'medical_equipment' } %>  
+       </tbody>
       </table>
     </section>
     <footer id="ccattribution">
