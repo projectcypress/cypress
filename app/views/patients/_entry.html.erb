@@ -1,9 +1,9 @@
 <tr>
   <td><%= entry.codes_to_s %></td>
   <td><%= entry.description %></td>
-  <td><%# There will be more complex logic to hilight values -%>
+  <td><%# There will be more complex logic to highlight values -%>
     <% if entry.value.present? -%>
-      <%= entry.value['scalar']%>
+      <%= entry.value['scalar'] %>
     <% end -%>
   </td>
   <td>
