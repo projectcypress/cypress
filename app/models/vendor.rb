@@ -114,10 +114,10 @@ class Vendor
     result_nodes = doc.xpath('/submission/measure-group/provider/pqri-measure')
     result_nodes.each do |result_node|
       key = result_node.at_xpath('pqri-measure-number').text
-      denominator = result_node.at_xpath('eligible-instances').text.to_i
       numerator = result_node.at_xpath('meets-performance-instances').text.to_i
       exclusions = result_node.at_xpath('performance-exclusion-instances').text.to_i
       antinumerator = result_node.at_xpath('performance-not-met-instances').text.to_i
+      denominator = numerator + antinumerator
       self.reported_results[key] = {'denominator'=>denominator, 'numerator'=>numerator, 'exclusions'=>exclusions, 'antinumerator'=>antinumerator}
     end
   end

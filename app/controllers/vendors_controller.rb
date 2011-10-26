@@ -30,10 +30,19 @@ class VendorsController < ApplicationController
     vendor.save! # save here so _id is created
     
     # Generate random records for this test run
-    vendor.patient_gen_job = QME::Randomizer::PatientRandomizationJob.create(
-      :template_dir => Rails.root.join('db', 'templates').to_s,
-      :count => 100,
-      :test_id => vendor._id)
+    #vendor.patient_gen_job = QME::Randomizer::PatientRandomizationJob.create(
+    #  :template_dir => Rails.root.join('db', 'templates').to_s,
+    #  :count => 100,
+    #  :test_id => vendor._id)
+    
+    # Clone AMA records from Mongo
+    ama_patients = Record.where(:test_id => nil)
+    ama_patients.each do |patient|
+      cloned_patient = patient.clone
+      cloned_patient.test_id = vendor._id
+      cloned_patient.save!
+    end
+    
     vendor.save!
     
     redirect_to :action => 'show', :id => vendor.id
