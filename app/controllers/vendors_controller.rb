@@ -25,7 +25,7 @@ class VendorsController < ApplicationController
   
   def create
     vendor = Vendor.new(params[:vendor])
-    vendor.effective_date = Time.gm(2010,12,31).to_i
+    vendor.effective_date = Time.gm(2011,3,31).to_i
     vendor.measure_ids.select! {|id| id.size>0}
     vendor.save! # save here so _id is created
     
