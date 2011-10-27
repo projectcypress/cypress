@@ -10,7 +10,8 @@ module Cypress
       result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
       if report.calculated?
         result = report.result
-      elsif Resque::Status.get(vendor.patient_gen_job) && Resque::Status.get(vendor.patient_gen_job).completed?
+      else
+        # TODO - Once AMA cloning is a background job, we neeed to be sure all patients are created before calculating reports
         report.calculate
       end
       result['measure_id'] = measure.id.to_s
