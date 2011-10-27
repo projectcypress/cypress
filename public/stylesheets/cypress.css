@@ -341,7 +341,7 @@ section a.previous {
   right: 55px;
 }
 section a.advance { background: url(/images/advance.png) 50% 50% no-repeat; }
-section.candidate, section.measure, section.patient, section.ctb_records, section.nqf {
+section.candidate, section.measure, section.patient, section.ctb_records, section.nqf,section.free-text {
   border: 1px solid #aaaaaa;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -815,3 +815,11 @@ footer#ccattribution img {
 form.simple_form span { display: block; }
 form.button_to div { display: inline; }
 form.button_to { display: inline; }
+
+section.free-text dt{
+	font-weight:bold;
+}
+
+section.free-text dd{
+	padding:5px;
+}

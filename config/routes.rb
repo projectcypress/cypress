@@ -1,7 +1,8 @@
 Cypress::Application.routes.draw do
 
   devise_for :users
-
+  
+  get "/information/about"
   resources :vendors do
     resources :patients
     resources :measures do

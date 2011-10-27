@@ -1,0 +1,36 @@
+<div id="container">
+  <%= render :partial=>"shared/header" %>
+
+  <div>
+    <section class="tb">
+      <%= link_to "add EHR vendor", new_vendor_path, {:class=>"cmd"} %>
+      <%= link_to "master patient list", patients_path, {:class=>"cmd"} %>
+      
+    </section>
+
+    <section id="help>
+      <div>
+        <section class="nqf">
+      		<h2>Help</h2>
+    	</section>
+    	
+    	<section class="free-text">
+    		<dl>
+    		<dd>Please send questions regarding Cypress to <a href="mailto:talk@projectcypress.org"><span style="color:#336633"><b>talk@projectcypress.org</b></span></a>.</dd>
+    		 <dd>For information about EHR certification: <a href="http://healthit.hhs.gov/portal/server.pt/community/healthit_hhs_gov__home/1204">Office of the National Coordinator </a></dd>
+            <dd>For information about Stage 1 Meaningful Use Clinical Quality Measures: <a href="https://www.cms.gov/QualityMeasures/">Centers for Medicare and Medicaid Services </a></dd>
+            <dd>For information about certified health IT products: <a href="http://onc-chpl.force.com/ehrcert">Certified Health IT Product List </a></dd>
+            </dl>
+    	</section>
+      </div>
+    </section>
+    <section class="legend">
+      <dl>
+        <dt>Error Report Indicators:</dt>
+        <dd class="pass">passing
+        <dd class="na">insufficient info
+        <dd class="fail">failing
+      </dl>
+    </section>
+</div>
+</div><!-- end #container -->
