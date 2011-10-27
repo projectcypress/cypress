@@ -1,0 +1,37 @@
+<div id="container">
+  <%= render :partial=>"shared/header" %>
+
+  <div>
+    <section class="tb">
+      <%= link_to "add EHR vendor", new_vendor_path, {:class=>"cmd"} %>
+      <%= link_to "master patient list", patients_path, {:class=>"cmd"} %>
+      
+    </section>
+
+    <section id="feedback>
+      <div>
+        <section class="nqf">
+      		<h2>Feedback</h2>
+    	</section>
+    	
+    	<section class="free-text">
+    		<dl>
+    			<dt>Where do I send questions about Cypress?</dt>
+    			<dd>There are three email distribution lists which may also be used to request information about the project's plans and activities. These lists are:</dd>
+    			<dd><a href="mailto:announcements@projectcypress.org"><span style="color:#336633"><b>announcements@projectcypress.org</b></span></a> which anyone can subscribe to.  Messages to this list are limited to the Cypress governing organizations.</dd>
+    			<dd><a href="mailto:talk@projectcypress.org"><span style="color:#336633"><b>talk@projectcypress.org</b></span></a> which like the announcement list, anyone can subscribe to.  Additionally, anyone is free to submit questions about the project to this list.  To prevent spam, all messages are first reviewed by the project team before being forwarded to the distribution list.</dd>
+    			<dd><a href="mailto:dev@projectcypress.org"><span style="color:#336633"><b>dev@projectcypress.org</b></span></a> is used exclusively for software development questions.  Membership to this list is also open to anyone.  However, we encourage individuals to limit participation in this list those that are active software engineers.  Likewise, anyone is free to submit questions about the project to this list.  Similarly, to prevent spam, all messages are first reviewed by the project team before being forwarded to the distribution list.</dd>
+    		</dl>
+    	</section>
+      </div>
+    </section>
+    <section class="legend">
+      <dl>
+        <dt>Error Report Indicators:</dt>
+        <dd class="pass">passing
+        <dd class="na">insufficient info
+        <dd class="fail">failing
+      </dl>
+    </section>
+</div>
+</div><!-- end #container -->
