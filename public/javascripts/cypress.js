@@ -20,6 +20,7 @@
   }
     
   $.cypress.pollResult = function(url, table_url) {
+
     $.getJSON(url, function(data) {
       var pollAgain = false;
       // data can be a single result row as returned by the measures controller
@@ -47,10 +48,12 @@
   }
   
   $.cypress.updatePatientTable = function(url) {
+    $('header h1').css("background", "url(images/busy.gif) top left no-repeat transparent");
     $.ajax({ url: url,
              type: "GET",
              dataType: 'html',
              success: function(res){
+	       $('header h1').css("background", "url(images/cypress_logo.png) top left no-repeat transparent")
                $('#vendor_patients').html(res);
              },
              error: function(xhr, err) {

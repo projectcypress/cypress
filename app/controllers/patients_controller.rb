@@ -40,7 +40,7 @@ class PatientsController < ApplicationController
   end
 
   def zipc32
-    t = Tempfile.new("patients-#{Time.now}")
+    t = Tempfile.new("patients-#{Time.now.to_i}")
     patients = Record.where("test_id" => nil)
     Cypress::PatientZipper.zip(t, patients, :c32)
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
@@ -49,7 +49,7 @@ class PatientsController < ApplicationController
   end
 
   def zipccr
-    t = Tempfile.new("patients-#{Time.now}")
+    t = Tempfile.new("patients-#{Time.now.to_i}")
     patients = Record.where("test_id" => nil)
     Cypress::PatientZipper.zip(t, patients, :ccr)
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', 

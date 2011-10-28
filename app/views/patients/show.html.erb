@@ -54,9 +54,8 @@
       <dl>
         <dt>Gender</dt><dd><%= @patient.gender %></dd>
         <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>
-        <dt>Race</dt><dd>ASDF</dd>
-        <dt>Ethnicity</dt><dd>[ethnicity]</dd>
-        <dt>Language</dt><dd>[language]</dd>
+        <dt>Race</dt><dd><%= @patient.race %></dd>
+        <dt>Ethnicity</dt><dd><%= @patient.ethnicity %></dd>
       </dl>
       </div>
       <!--
