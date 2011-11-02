@@ -3,7 +3,7 @@ development:
   database: cypress_development
 
 test:
-  host: localhost
+  host: <%= ENV['TEST_DB_HOST'] || 'localhost' %>
   database: cypress_test
 
 # set these environment variables on your prod server
