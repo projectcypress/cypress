@@ -28,4 +28,11 @@ class VendorsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert Record.count == 2
   end
+  
+  test "add note" do
+    assert Vendor.find('4def93dd4f85cf8968000006').notes.empty?
+    post(:add_note, {:id => '4def93dd4f85cf8968000006', :note => {:text => 'Great vendor'}})
+    assert_response :redirect
+    assert Vendor.find('4def93dd4f85cf8968000006').notes.count == 1
+  end
 end
