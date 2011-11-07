@@ -28,7 +28,7 @@
         NQF #
         <ul>
         <% @measures.each do |measure_def| %>
-          <li><a href="<%= patients_path(:measure_id=>measure_def.id) %>" class="<%= 'selected' if @selected.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %></a></li>
+          <li><a href="<%= patients_path(:measure_id=>measure_def.id) %>" title="<%= "#{measure_def.name}: #{measure_def.description}" %>" class="<%= 'selected' if @selected.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %></a></li>
         <% end %>
         </ul>
       </div>
