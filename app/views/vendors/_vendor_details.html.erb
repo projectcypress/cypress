@@ -84,35 +84,6 @@
           <dd><select><option>name randomization</option></select>
         </dl>
       </section>
-      <h2>test code sets</h2>
-      <section id="testCodeSets">
-        <dl>
-          <dt>Care goal:</dt>
-          <dd><select><option>code</option></select>
-          <dt>Communication:</dt>
-          <dd><select><option>SNOMED-CT</option></select>
-          <dt>Procedure:</dt>
-          <dd><select><option>SNOMED-CT</option></select>
-          <dt>Physical Exam:</dt>
-          <dd><select><option>SNOMED-CT</option></select>
-        </dl>
-         <dl>
-          <dt>Diagnosis / Condition:</dt>
-          <dd><select><option>ICD-9-CM</option></select>
-          <dt>Diagnostic Study:</dt>
-          <dd><select><option>static</option></select>
-          <dt>Substance:</dt>
-          <dd><select><option>static</option></select>
-        </dl>
-        <dl>
-          <dt>Encounter:</dt>
-          <dd><select><option>CPT</option></select>
-          <dt>Lab Test:</dt>
-          <dd><select><option>ICD-9-CM</option></select>
-          <dt>Negation Rationale:</dt>
-          <dd><select><option>static</option></select>
-        </dl>
-      </section>
       <h2>test measures [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]</h2>
       <section id="testMeasures">
         <%= f.collection_check_boxes :measure_ids, @measures, :measure_id, :display_name %>
