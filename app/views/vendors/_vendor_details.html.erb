@@ -1,3 +1,13 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    function toggleMeasures(toggleSetting) {
+      $('#testMeasures input:checkbox').prop('checked', toggleSetting);
+    }
+  </script>
+  
+  <%= stylesheet_link_tag "button.css" %>
+<% end %>
+
 <%= simple_form_for @vendor do |f| %>
   <h1>Vendor Information</h1>
       <section id="vendorInfo">
@@ -103,7 +113,7 @@
           <dd><select><option>static</option></select>
         </dl>
       </section>
-      <h2>test measures</h2>
+      <h2>test measures [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]</h2>
       <section id="testMeasures">
         <%= f.collection_check_boxes :measure_ids, @measures, :measure_id, :display_name %>
       </section>
