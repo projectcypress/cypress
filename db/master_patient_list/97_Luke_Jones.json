@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f37e7042f99e990000a2",
+  "_id": "4ebacb777042f91ea00000a2",
   "first": "Luke",
   "patient_id": "97",
   "last": "Jones",
   "gender": "M",
   "birthdate": 704779200,
+  "race": "White",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -259,27 +261,27 @@
       "hba1c_test_laboratory_test_result": [
         {
           "date": 1291266000,
-          "value": 0.086
+          "value": 8.6
         },
         {
           "date": 1282190400,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1270612800,
-          "value": 0.083
+          "value": 8.3
         },
         {
           "date": 1291266000,
-          "value": 0.086
+          "value": 8.6
         },
         {
           "date": 1282190400,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1270612800,
-          "value": 0.083
+          "value": 8.3
         }
       ],
       "medications_indicative_of_diabetes_medication_dispensed": [
@@ -598,27 +600,27 @@
       "hba1c_test_laboratory_test_result": [
         {
           "date": 1291266000,
-          "value": 0.086
+          "value": 8.6
         },
         {
           "date": 1282190400,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1270612800,
-          "value": 0.083
+          "value": 8.3
         },
         {
           "date": 1291266000,
-          "value": 0.086
+          "value": 8.6
         },
         {
           "date": 1282190400,
-          "value": 0.084
+          "value": 8.4
         },
         {
           "date": 1270612800,
-          "value": 0.083
+          "value": 8.3
         }
       ],
       "medications_indicative_of_diabetes_medication_dispensed": [
@@ -770,7 +772,7 @@
         ]
       },
       "value": {
-        "scalar": 0.086,
+        "scalar": 8.6,
         "units": null
       },
       "time": 1291266000,
@@ -783,7 +785,7 @@
         ]
       },
       "value": {
-        "scalar": 0.084,
+        "scalar": 8.4,
         "units": null
       },
       "time": 1282190400,
@@ -796,7 +798,7 @@
         ]
       },
       "value": {
-        "scalar": 0.083,
+        "scalar": 8.3,
         "units": null
       },
       "time": 1270612800,
@@ -859,6 +861,10 @@
         "LOINC": [
           "1754-1"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1270612800,
       "description": "Nephropathy Screening"
@@ -884,7 +890,7 @@
         ]
       },
       "value": {
-        "scalar": 0.086,
+        "scalar": 8.6,
         "units": null
       },
       "time": 1291266000,
@@ -897,7 +903,7 @@
         ]
       },
       "value": {
-        "scalar": 0.084,
+        "scalar": 8.4,
         "units": null
       },
       "time": 1282190400,
@@ -910,7 +916,7 @@
         ]
       },
       "value": {
-        "scalar": 0.083,
+        "scalar": 8.3,
         "units": null
       },
       "time": 1270612800,
@@ -973,6 +979,10 @@
         "LOINC": [
           "1754-1"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1270612800,
       "description": "Nephropathy Screening"
@@ -1030,24 +1040,6 @@
 
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270612800,
-      "status": "active",
-      "description": "diabetes"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

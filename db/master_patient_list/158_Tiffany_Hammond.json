@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f37d7042f99e99000098",
+  "_id": "4ebacb777042f91ea0000098",
   "first": "Tiffany",
   "patient_id": "158",
   "last": "Hammond",
   "gender": "F",
   "birthdate": 325314000,
+  "race": "Native Hawaiian or Other Pacific Islander",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -625,6 +627,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1283400000,
       "description": "Pap Test"
     }
@@ -647,6 +653,10 @@
         "ICD-9-CM": [
           "V72.32"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1283400000,
       "description": "Pap Test"
@@ -696,23 +706,5 @@
       "time": 1270440000,
       "description": "follow-up plan_BMI management"
     }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "256.4"
-        ]
-      },
-      "time": 1270440000,
-      "status": "active",
-      "description": "polycystic ovaries"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
   ]
 }

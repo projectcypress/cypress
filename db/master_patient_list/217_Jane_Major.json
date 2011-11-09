@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3787042f99e9900005c",
+  "_id": "4ebacb727042f91ea000005c",
   "first": "Jane",
   "patient_id": "217",
   "last": "Major",
   "gender": "F",
   "birthdate": -358545600,
+  "race": "White",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -647,6 +649,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1275710400,
       "description": "Pap Test"
     },
@@ -655,6 +661,10 @@
         "CPT": [
           "82274"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1275710400,
       "description": "FOBT"
@@ -717,6 +727,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1275710400,
       "description": "Pap Test"
     },
@@ -725,6 +739,10 @@
         "CPT": [
           "82274"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1275710400,
       "description": "FOBT"
@@ -819,43 +837,5 @@
       "time": 1275710400,
       "description": "follow-up plan_BMI management"
     }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1275710400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
-      },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "197"
-        ]
-      },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Metastatic Sites Common to Breast Cancer"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
   ]
 }

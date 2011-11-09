@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3817042f99e990000be",
+  "_id": "4ebacb7a7042f91ea00000be",
   "first": "Geraldo",
   "patient_id": "124",
   "last": "Smith",
   "gender": "M",
   "birthdate": -777931200,
+  "race": "White",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -689,6 +691,10 @@
           "82274"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1289365200,
       "description": "FOBT"
     }
@@ -721,6 +727,10 @@
         "CPT": [
           "82274"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1289365200,
       "description": "FOBT"
@@ -796,34 +806,6 @@
     }
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1273032000,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1273032000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

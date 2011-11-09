@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3717042f99e99000006",
+  "_id": "4ebacb6a7042f91ea0000006",
   "first": "Cara",
   "patient_id": "198",
   "last": "Dolan",
   "gender": "F",
   "birthdate": 106977600,
+  "race": "Native Hawaiian or Other Pacific Islander",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -1020,6 +1022,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1282017600,
       "description": "Pap Test"
     },
@@ -1106,6 +1112,10 @@
         "LOINC": [
           "1754-1"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1270008000,
       "description": "Nephropathy Screening"
@@ -1150,6 +1160,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1282017600,
       "description": "Pap Test"
     },
@@ -1236,6 +1250,10 @@
         "LOINC": [
           "1754-1"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1270008000,
       "description": "Nephropathy Screening"
@@ -1372,44 +1390,6 @@
     }
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1277956800,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

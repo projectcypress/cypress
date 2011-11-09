@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f37a7042f99e9900006d",
+  "_id": "4ebacb737042f91ea000006d",
   "first": "Jenny",
   "patient_id": "137",
   "last": "Jackson",
   "gender": "F",
   "birthdate": 789282000,
+  "race": "White",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -440,6 +442,10 @@
           "87110"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1281931200,
       "description": "Chlamydia Screening"
     }
@@ -471,6 +477,10 @@
         "CPT": [
           "87110"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1281931200,
       "description": "Chlamydia Screening"
@@ -530,23 +540,5 @@
       "time": 1281931200,
       "description": "IUD use"
     }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1281931200,
-      "status": "active",
-      "description": "sexually active woman"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
   ]
 }

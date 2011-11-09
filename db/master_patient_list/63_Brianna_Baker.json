@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3717042f99e99000010",
+  "_id": "4ebacb6b7042f91ea0000010",
   "first": "Brianna",
   "patient_id": "63",
   "last": "Baker",
   "gender": "F",
   "birthdate": 219474000,
+  "race": "White",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -128,21 +130,21 @@
       "rh_status_baby_laboratory_test_result": [
         {
           "date": 1288411200,
-          "value": true
+          "value": false
         },
         {
           "date": 1288411200,
-          "value": true
+          "value": false
         }
       ],
       "rh_status_mother_laboratory_test_result": [
         {
           "date": 1288411200,
-          "value": true
+          "value": false
         },
         {
           "date": 1288411200,
-          "value": true
+          "value": false
         }
       ]
     },
@@ -973,7 +975,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1275537600,
@@ -986,7 +988,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1147838400,
@@ -999,7 +1001,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1288411200,
@@ -1083,7 +1085,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1275537600,
@@ -1096,7 +1098,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1147838400,
@@ -1109,7 +1111,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1288411200,
@@ -1160,54 +1162,6 @@
 
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "91947003"
-        ]
-      },
-      "time": 1147838400,
-      "status": "active",
-      "description": "HIV"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169961004"
-        ]
-      },
-      "time": 1293944400,
-      "status": "active",
-      "description": "Delivery Live Births-Diagnosis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1275537600,
-      "status": "active",
-      "description": "asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "O26.90"
-        ]
-      },
-      "time": 1275537600,
-      "status": "active",
-      "description": "Pregnancy"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

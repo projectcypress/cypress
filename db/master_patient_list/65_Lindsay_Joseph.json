@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3737042f99e9900001b",
+  "_id": "4ebacb6c7042f91ea000001b",
   "first": "Lindsay",
   "patient_id": "65",
   "last": "Joseph",
   "gender": "F",
   "birthdate": 199425600,
+  "race": "Native Hawaiian or Other Pacific Islander",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -132,37 +134,37 @@
       "rh_status_baby_laboratory_test_result": [
         {
           "date": 1299646800,
-          "value": "negative"
+          "value": false
         },
         {
           "date": 1299646800,
-          "value": "negative"
+          "value": false
         },
         {
           "date": 1299646800,
-          "value": "negative"
+          "value": false
         },
         {
           "date": 1299646800,
-          "value": "negative"
+          "value": false
         }
       ],
       "rh_status_mother_laboratory_test_result": [
         {
           "date": 1299646800,
-          "value": "negative"
+          "value": false
         },
         {
           "date": 1299646800,
-          "value": "negative"
+          "value": false
         },
         {
           "date": 1299646800,
-          "value": "negative"
+          "value": false
         },
         {
           "date": 1299646800,
-          "value": "negative"
+          "value": false
         }
       ]
     },
@@ -892,6 +894,10 @@
           "87536"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1282708800,
       "description": "HIV Screening"
     },
@@ -902,7 +908,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1277438400,
@@ -913,6 +919,10 @@
         "ICD-9-CM": [
           "V72.32"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1277438400,
       "description": "Pap Test"
@@ -1020,6 +1030,10 @@
           "87536"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1282708800,
       "description": "HIV Screening"
     },
@@ -1030,7 +1044,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1277438400,
@@ -1041,6 +1055,10 @@
         "ICD-9-CM": [
           "V72.32"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1277438400,
       "description": "Pap Test"
@@ -1099,54 +1117,6 @@
 
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169961004"
-        ]
-      },
-      "time": 1300852800,
-      "status": "active",
-      "description": "Delivery Live Births-Diagnosis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "165746003"
-        ]
-      },
-      "time": 1295672400,
-      "status": "active",
-      "description": "D(Rh) Negative"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "102876002"
-        ]
-      },
-      "time": 1270267200,
-      "status": "active",
-      "description": "Multigravida"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1277438400,
-      "status": "active",
-      "description": "Asthma"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

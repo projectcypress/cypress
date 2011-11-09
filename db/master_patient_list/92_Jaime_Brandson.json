@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f37d7042f99e99000094",
+  "_id": "4ebacb767042f91ea0000094",
   "first": "Jaime",
   "patient_id": "92",
   "last": "Brandson",
   "gender": "F",
   "birthdate": 504334800,
+  "race": "Asian",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -102,21 +104,21 @@
       "rh_status_baby_laboratory_test_result": [
         {
           "date": 1286424000,
-          "value": true
+          "value": false
         },
         {
           "date": 1286424000,
-          "value": true
+          "value": false
         }
       ],
       "rh_status_mother_laboratory_test_result": [
         {
           "date": 1286424000,
-          "value": true
+          "value": false
         },
         {
           "date": 1286424000,
-          "value": true
+          "value": false
         }
       ]
     },
@@ -967,6 +969,10 @@
           "87536"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1275796800,
       "description": "HIV Screening"
     },
@@ -977,7 +983,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1286424000,
@@ -1003,7 +1009,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1270008000,
@@ -1107,6 +1113,10 @@
           "87536"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1275796800,
       "description": "HIV Screening"
     },
@@ -1117,7 +1127,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1286424000,
@@ -1143,7 +1153,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1270008000,
@@ -1176,54 +1186,6 @@
 
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1140843600,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169961004"
-        ]
-      },
-      "time": 1290229200,
-      "status": "active",
-      "description": "Delivery Live Births-Diagnosis"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "O26.90"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Pregnancy"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "127364007"
-        ]
-      },
-      "time": 1281412800,
-      "status": "active",
-      "description": "Primagravida"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

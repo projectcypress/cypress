@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3837042f99e990000e1",
+  "_id": "4ebacb7d7042f91ea00000e1",
   "first": "Kaylee",
   "patient_id": "163",
   "last": "McInerney",
   "gender": "F",
   "birthdate": -367185600,
+  "race": "Black or African American",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -973,6 +975,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1284177600,
       "description": "Pap Test"
     }
@@ -1140,6 +1146,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1284177600,
       "description": "Pap Test"
     }
@@ -1250,63 +1260,6 @@
 
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1270094400,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270094400,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "102876002"
-        ]
-      },
-      "time": 1270094400,
-      "status": "active",
-      "description": "Multigravida"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ]
-      },
-      "time": 1270094400,
-      "status": "active",
-      "description": "Depression"
-    }
-  ],
-  "inactive": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "530.7"
-        ]
-      },
-      "time": 1244606400,
-      "status": "inactive",
-      "description": "Esophageal and GI Bleed"
-    }
-  ],
-  "resolved": [
 
   ]
 }

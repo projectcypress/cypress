@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3737042f99e99000022",
+  "_id": "4ebacb6d7042f91ea0000022",
   "first": "Karen",
   "patient_id": "192",
   "last": "Brown",
   "gender": "F",
   "birthdate": 859784400,
+  "race": "Other Race",
+  "ethnicity": "Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -147,6 +149,26 @@
       "estimated_date_of_conception_patient_characteristic": [
         1265000400,
         1265000400
+      ],
+      "rh_status_baby_laboratory_test_result": [
+        {
+          "date": 1283400000,
+          "value": false
+        },
+        {
+          "date": 1283400000,
+          "value": false
+        }
+      ],
+      "rh_status_mother_laboratory_test_result": [
+        {
+          "date": 1283400000,
+          "value": false
+        },
+        {
+          "date": 1283400000,
+          "value": false
+        }
       ]
     },
     "0018": {
@@ -1046,7 +1068,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1275451200,
@@ -1058,6 +1080,10 @@
           "1314-4"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1283400000,
       "description": "Rh Status Mother"
     },
@@ -1066,6 +1092,10 @@
         "CPT": [
           "87536"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1272168000,
       "description": "HIV Screening"
@@ -1077,7 +1107,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1270008000,
@@ -1171,7 +1201,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1275451200,
@@ -1183,6 +1213,10 @@
           "1314-4"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1283400000,
       "description": "Rh Status Mother"
     },
@@ -1191,6 +1225,10 @@
         "CPT": [
           "87536"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1272168000,
       "description": "HIV Screening"
@@ -1202,7 +1240,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1270008000,
@@ -1253,64 +1291,6 @@
 
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1275451200,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169961004"
-        ]
-      },
-      "time": 1290229200,
-      "status": "active",
-      "description": "Delivery Live Births-Diagnosis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "O26.90"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Pregnancy"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "165746003"
-        ]
-      },
-      "time": 1283400000,
-      "status": "active",
-      "description": "D(Rh) Negative"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

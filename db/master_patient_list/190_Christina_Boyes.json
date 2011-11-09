@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3757042f99e99000039",
+  "_id": "4ebacb6f7042f91ea0000039",
   "first": "Christina",
   "patient_id": "190",
   "last": "Boyes",
   "gender": "F",
   "birthdate": 612504000,
+  "race": "Other Race",
+  "ethnicity": "Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -549,6 +551,10 @@
           "87110"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1273636800,
       "description": "Chlamydia Screening"
     },
@@ -558,6 +564,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1273636800,
       "description": "Pap Test"
     },
@@ -566,6 +576,10 @@
         "CPT": [
           "84702"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1286856000,
       "description": "Pregnancy Test"
@@ -609,6 +623,10 @@
           "87110"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1273636800,
       "description": "Chlamydia Screening"
     },
@@ -618,6 +636,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1273636800,
       "description": "Pap Test"
     },
@@ -626,6 +648,10 @@
         "CPT": [
           "84702"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1286856000,
       "description": "Pregnancy Test"
@@ -676,32 +702,5 @@
       "time": 1273636800,
       "description": "IUD use"
     }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "I34.2"
-        ]
-      },
-      "time": 1273636800,
-      "status": "active",
-      "description": "Nonrheumatic mitral (valve) disease"
-    }
-  ],
-  "inactive": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "204"
-        ]
-      },
-      "time": 989985600,
-      "status": "inactive",
-      "description": "leukemia"
-    }
-  ],
-  "resolved": [
-
   ]
 }

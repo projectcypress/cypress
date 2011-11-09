@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f37c7042f99e99000087",
+  "_id": "4ebacb767042f91ea0000087",
   "first": "Donna",
   "patient_id": "143",
   "last": "Crocker",
   "gender": "F",
   "birthdate": -207259200,
+  "race": "White",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -736,6 +738,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1277438400,
       "description": "Pap test"
     },
@@ -744,6 +750,10 @@
         "CPT": [
           "82274"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1270958400,
       "description": "FOBT"
@@ -840,6 +850,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1277438400,
       "description": "Pap test"
     },
@@ -848,6 +862,10 @@
         "CPT": [
           "82274"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1270958400,
       "description": "FOBT"
@@ -906,43 +924,5 @@
       "time": 1270958400,
       "description": "follow-up plan_BMI management"
     }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270958400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ]
-      },
-      "time": 1283486400,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "280.9"
-        ]
-      },
-      "time": 1270958400,
-      "status": "active",
-      "description": "Anemias and Bleeding Disorders"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
   ]
 }

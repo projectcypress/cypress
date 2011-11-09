@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3747042f99e99000029",
+  "_id": "4ebacb6d7042f91ea0000029",
   "first": "John",
   "patient_id": "203",
   "last": "Berendson",
   "gender": "M",
   "birthdate": -555883200,
+  "race": "American Indian Or Alaska Native",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -1007,6 +1009,10 @@
           "82274"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1288584000,
       "description": "FOBT"
     }
@@ -1067,6 +1073,10 @@
         "CPT": [
           "82274"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1288584000,
       "description": "FOBT"
@@ -1205,43 +1215,5 @@
       "time": 1275019200,
       "description": "follow-up plan_BMI management"
     }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1270526400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1275019200,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270526400,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
   ]
 }

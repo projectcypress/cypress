@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3747042f99e9900002e",
+  "_id": "4ebacb6e7042f91ea000002e",
   "first": "Tiffany",
   "patient_id": "178",
   "last": "Phelps",
   "gender": "F",
   "birthdate": 716875200,
+  "race": "Black or African American",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -1001,6 +1003,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1283832000,
       "description": "Pap Test"
     },
@@ -1009,6 +1015,10 @@
         "CPT": [
           "87110"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1283832000,
       "description": "Chlamydia Screening"
@@ -1095,6 +1105,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1283832000,
       "description": "Pap Test"
     },
@@ -1103,6 +1117,10 @@
         "CPT": [
           "87110"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1283832000,
       "description": "Chlamydia Screening"
@@ -1269,34 +1287,6 @@
 
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "Depression"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

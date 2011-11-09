@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3787042f99e99000056",
+  "_id": "4ebacb727042f91ea0000056",
   "first": "Jack",
   "patient_id": "114",
   "last": "Green",
   "gender": "M",
   "birthdate": -460497600,
+  "race": "Black or African American",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -739,7 +741,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1270008000,
@@ -785,7 +787,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1270008000,
@@ -880,33 +882,5 @@
       "time": 1274328000,
       "description": "follow-up plan_BMI management"
     }
-  ],
-  "active": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "363406005"
-        ]
-      },
-      "time": 1273118400,
-      "status": "active",
-      "description": "Colorectal Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
   ]
 }

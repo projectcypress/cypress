@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f37b7042f99e9900007b",
+  "_id": "4ebacb747042f91ea000007b",
   "first": "Alyssa",
   "patient_id": "75",
   "last": "Repetzki",
   "gender": "F",
   "birthdate": 72939600,
+  "race": "Native Hawaiian or Other Pacific Islander",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -809,6 +811,10 @@
           "V72.32"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1289192400,
       "description": "Pap Test"
     }
@@ -879,6 +885,10 @@
         "ICD-9-CM": [
           "V72.32"
         ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
       },
       "time": 1289192400,
       "description": "Pap Test"
@@ -981,53 +991,5 @@
       "time": 1289192400,
       "description": "follow-up plan_BMI management"
     }
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
-      },
-      "time": 1278475200,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1272081600,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "48867003"
-        ]
-      },
-      "time": 1272081600,
-      "status": "active",
-      "description": "Bradycardia"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1272081600,
-      "status": "active",
-      "description": "Hypertension"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
-
   ]
 }

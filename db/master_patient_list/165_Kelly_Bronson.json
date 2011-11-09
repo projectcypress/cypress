@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3737042f99e99000021",
+  "_id": "4ebacb6d7042f91ea0000021",
   "first": "Kelly",
   "patient_id": "165",
   "last": "Bronson",
   "gender": "F",
   "birthdate": 828248400,
+  "race": "Other Race",
+  "ethnicity": "Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -1102,7 +1104,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1273032000,
@@ -1114,6 +1116,10 @@
           "87536"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1276142400,
       "description": "HIV Screening"
     },
@@ -1124,7 +1130,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1273032000,
@@ -1208,7 +1214,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1273032000,
@@ -1220,6 +1226,10 @@
           "87536"
         ]
       },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
       "time": 1276142400,
       "description": "HIV Screening"
     },
@@ -1230,7 +1240,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1273032000,
@@ -1308,54 +1318,6 @@
 
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1273032000,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169961004"
-        ]
-      },
-      "time": 1288670400,
-      "status": "active",
-      "description": "Delivery Live Births-Diagnosis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "165746003"
-        ]
-      },
-      "time": 1281412800,
-      "status": "active",
-      "description": "D(Rh) Negative"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1273032000,
-      "status": "active",
-      "description": "Asthma"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

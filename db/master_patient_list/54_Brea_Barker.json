@@ -1,10 +1,12 @@
 {
-  "_id": "4eb7f3727042f99e99000011",
+  "_id": "4ebacb6b7042f91ea0000011",
   "first": "Brea",
   "patient_id": "54",
   "last": "Barker",
   "gender": "F",
   "birthdate": 187851600,
+  "race": "White",
+  "ethnicity": "Not Hispanic or Latino",
   "addresses": null,
   "measures": {
     "0001": {
@@ -124,21 +126,21 @@
       "rh_status_baby_laboratory_test_result": [
         {
           "date": 1281067200,
-          "value": "Postive"
+          "value": false
         },
         {
           "date": 1281067200,
-          "value": "Postive"
+          "value": false
         }
       ],
       "rh_status_mother_laboratory_test_result": [
         {
           "date": 1281067200,
-          "value": "Postive"
+          "value": false
         },
         {
           "date": 1281067200,
-          "value": "Postive"
+          "value": false
         }
       ]
     },
@@ -1002,7 +1004,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1185768000,
@@ -1015,7 +1017,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1267333200,
@@ -1112,7 +1114,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1185768000,
@@ -1125,7 +1127,7 @@
         ]
       },
       "value": {
-        "scalar": true,
+        "scalar": "Positive",
         "units": null
       },
       "time": 1267333200,
@@ -1180,54 +1182,6 @@
 
   ],
   "care_goals": [
-
-  ],
-  "active": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "91947003"
-        ]
-      },
-      "time": 1185768000,
-      "status": "active",
-      "description": "HIV"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169961004"
-        ]
-      },
-      "time": 1284696000,
-      "status": "active",
-      "description": "Delivery Live Births-Diagnosis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1271217600,
-      "status": "active",
-      "description": "asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "102876002"
-        ]
-      },
-      "time": 1267333200,
-      "status": "active",
-      "description": "Multigravida"
-    }
-  ],
-  "inactive": [
-
-  ],
-  "resolved": [
 
   ]
 }

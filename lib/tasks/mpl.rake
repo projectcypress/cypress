@@ -30,6 +30,9 @@ namespace :mpl do
     mpls = File.join(mpl_dir, '*')
     Dir.glob(mpls) do |patient_file|
       json = JSON.parse(File.read(patient_file))
+      if json['_id']
+        json['_id'] = BSON::ObjectId.from_string(json['_id'])
+      end
       loader.save('records', json)
     end
   end
