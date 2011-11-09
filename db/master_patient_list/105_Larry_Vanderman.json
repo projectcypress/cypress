@@ -1,5 +1,5 @@
 {
-  "_id": "4e6a1fd04f85cf3515000092",
+  "_id": "4eb7f37d7042f99e99000092",
   "first": "Larry",
   "patient_id": "105",
   "last": "Vanderman",
@@ -49,8 +49,6 @@
         1270094400
       ]
     },
-    "0012": {
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270094400,
@@ -74,6 +72,8 @@
         1277265600,
         1270094400
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -152,20 +152,20 @@
         1270094400
       ]
     },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1291266000,
-        1283313600,
-        1277265600,
-        1270094400
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291266000,
         1277265600
       ],
       "tobacco_non_user_patient_characteristic": [
+        1270094400
+      ]
+    },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1283313600,
+        1277265600,
         1270094400
       ]
     },
@@ -179,6 +179,22 @@
     },
     "0033": {
       "encounter_outpatient_encounter": [
+        1291266000,
+        1283313600,
+        1277265600,
+        1270094400
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1283313600,
+        1277265600,
+        1270094400
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
         1291266000,
         1283313600,
         1277265600,
@@ -246,14 +262,6 @@
         1277265600,
         1270094400
       ],
-      "encounter_outpatient_encounter": [
-        1291266000,
-        1283313600,
-        1277265600,
-        1270094400
-      ]
-    },
-    "0043": {
       "encounter_outpatient_encounter": [
         1291266000,
         1283313600,
@@ -343,7 +351,7 @@
       "hba1c_test_laboratory_test_result": [
         {
           "date": 1285992000,
-          "value": 9.5
+          "value": 0.095
         },
         {
           "date": 1283313600,
@@ -355,7 +363,7 @@
         },
         {
           "date": 1285992000,
-          "value": 9.5
+          "value": 0.095
         },
         {
           "date": 1283313600,
@@ -666,14 +674,6 @@
         1270094400
       ]
     },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291266000,
-        1283313600,
-        1277265600,
-        1270094400
-      ]
-    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291266000,
@@ -749,7 +749,7 @@
       "hba1c_test_laboratory_test_result": [
         {
           "date": 1285992000,
-          "value": 9.5
+          "value": 0.095
         },
         {
           "date": 1283313600,
@@ -761,7 +761,7 @@
         },
         {
           "date": 1285992000,
-          "value": 9.5
+          "value": 0.095
         },
         {
           "date": 1283313600,
@@ -1037,7 +1037,7 @@
         ]
       },
       "value": {
-        "scalar": 9.5,
+        "scalar": 0.095,
         "units": null
       },
       "time": 1285992000,
@@ -1180,7 +1180,7 @@
         ]
       },
       "value": {
-        "scalar": 9.5,
+        "scalar": 0.095,
         "units": null
       },
       "time": 1285992000,

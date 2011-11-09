@@ -1,5 +1,5 @@
 {
-  "_id": "4e6a1fd74f85cf35150000d5",
+  "_id": "4eb7f3837042f99e990000d5",
   "first": "Louise",
   "patient_id": "84",
   "last": "Jefferson",
@@ -58,8 +58,6 @@
         1270267200
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291438800,
@@ -77,6 +75,8 @@
         1278388800,
         1270267200
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -142,17 +142,6 @@
         1270267200
       ]
     },
-    "0031": {
-      "breast_cancer_screening_diagnostic_study_performed": [
-        1286251200
-      ],
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1278388800,
-        1273982400,
-        1270267200
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291438800,
@@ -161,6 +150,17 @@
         1270267200
       ],
       "tobacco_non_user_patient_characteristic": [
+        1270267200
+      ]
+    },
+    "0031": {
+      "breast_cancer_screening_diagnostic_study_performed": [
+        1286251200
+      ],
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1278388800,
+        1273982400,
         1270267200
       ]
     },
@@ -185,6 +185,29 @@
         1278388800,
         1273982400,
         1270267200
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1278388800,
+        1273982400,
+        1270267200
+      ]
+    },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1270267200,
+        1270267200
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1291438800,
+        1278388800,
+        1273982400,
+        1270267200
+      ],
+      "optic_nerve_head_evaluation_procedure_performed": [
+        1270353600
       ]
     },
     "0034": {
@@ -244,14 +267,6 @@
         1273982400,
         1270267200
       ],
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1278388800,
-        1273982400,
-        1270267200
-      ]
-    },
-    "0043": {
       "encounter_outpatient_encounter": [
         1291438800,
         1278388800,
@@ -457,18 +472,6 @@
     },
     "0084": {
       "encounter_outpatient_encounter": [
-        1291438800,
-        1278388800,
-        1273982400,
-        1270267200
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1270267200,
-        1270267200
-      ],
-      "encounter_office_outpatient_consult_encounter": [
         1291438800,
         1278388800,
         1273982400,
@@ -834,6 +837,15 @@
       },
       "time": 1278388800,
       "description": "counseling for nutrition"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "36228007"
+        ]
+      },
+      "time": 1270353600,
+      "description": "Optic Nerve Head Evaluation"
     },
     {
       "codes": {
