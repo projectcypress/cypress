@@ -74,6 +74,12 @@ class VendorsController < ApplicationController
     @measures = Measure.top_level
   end
   
+  def destroy
+    Record.where(:test_id => @vendor).delete
+    Vendor.where(:id => @vendor).delete
+    redirect_to :action => :index
+  end
+  
   def update
     @vendor = Vendor.find(params[:id])
     @vendor.update_attributes(params[:vendor])
