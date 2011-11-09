@@ -8,14 +8,14 @@ birthdate_dev = 60*60*24*7 # 7 days
 namespace :mpl do
 
   desc 'Drop all patients and cached query results'
-  task :clear do
+  task :clear  => :environment do
     loader.drop_collection('records')
     loader.drop_collection('query_cache')
     loader.drop_collection('patient_cache')
   end
   
   desc 'Dump current contents of records collection to master patient list diretcory'
-  task :dump do
+  task :dump => :environment do
     db = loader.get_db
     db['records'].find().each do |record|
       file_name = File.join(mpl_dir, "#{record['patient_id']}_#{record['first']}_#{record['last']}.json")
@@ -26,7 +26,7 @@ namespace :mpl do
   end
 
   desc 'Seed database with master patient list'
-  task :load => :clear do
+  task :load => [:environment, :clear] do
     mpls = File.join(mpl_dir, '*')
     Dir.glob(mpls) do |patient_file|
       json = JSON.parse(File.read(patient_file))
@@ -35,7 +35,7 @@ namespace :mpl do
   end
   
   desc 'Remove identifiers and measure results and insert randomized name and DOB into master patient list files. Store resulting erb templates in db/templates'
-  task :randomize do
+  task :randomize  => :environment do
     mpls = File.join(mpl_dir, '*')
     Dir.glob(mpls) do |patient_file|
       json = JSON.parse(File.read(patient_file))
