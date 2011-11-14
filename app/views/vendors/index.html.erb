@@ -32,7 +32,7 @@
             <td><%= vendor.poc %></td>
             <td><span class="phone"><%= vendor.tel %></span></td>
             <td><%= vendor.proctor %></td>
-            <td><%= link_to 'delete', { :action => 'destroy', :id => vendor._id }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
+            <td><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
           </tr>
         <% end %>
         </tbody>
@@ -46,6 +46,7 @@
             <th>POC</th>
             <th><span style="visibility:hidden">Phone</span></th>
             <th>Proctor</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -57,6 +58,7 @@
             <td><%= vendor.poc %></td>
             <td><span class="phone"><%= vendor.tel %></span></td>
             <td><%= vendor.proctor %></td>
+            <td><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
           </tr>
         <% end %>
         </tbody>
