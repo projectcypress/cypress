@@ -1,12 +1,12 @@
 Cypress
 =========
 
-Cypress is an open source software tool that verifies the implementation of the quality measure calculations within an electronic health record system.
+Cypress is an open source software tool that verifies the implementation of the Stage 1 Meaningful Use Clinical Quality Measures.
 
 Quality Measures
 ----------------
 
-This web application is agnostic of any specific quality measures. It leverages the [Quality Measure Engine](https://github.com/pophealth/quality-measure-engine) library to calculate quality measures. An implementation of the [quality measures needed to meet meaningful use requirements](http://www.cms.gov/QualityMeasures/03_ElectronicSpecifications.asp) is available in the [Measures Project](https://github.com/pophealth/measures).
+This web application leverages the [Quality Measure Engine](https://github.com/pophealth/quality-measure-engine) library to calculate quality measures. An implementation of the [Stage 1 MU CQM needed to meet Stage 1 Meaningful Use requirements](http://www.cms.gov/QualityMeasures/03_ElectronicSpecifications.asp) is available in the [Measures Project](https://github.com/pophealth/measures).
 
 License
 -------
