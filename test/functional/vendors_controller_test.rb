@@ -36,17 +36,18 @@ class VendorsControllerTest < ActionController::TestCase
   end
   
   test "Delete vendors and take their associated records with them" do
-    vendors = Vendor.all.to_a
-    records = Record.all.to_a
-    assert_equal(vendors.length, 1)
-    assert_equal(records.length, 1)
+
+    assert_equal(1, Vendor.count)
+    assert_equal(1, Record.count)
     
-    post(:destroy, {:id => vendors[0]._id})
+    vendor_id = Vendor.first.id
     
-    vendors = Vendor.all.to_a
-    records = Record.all.to_a
-    assert_equal(vendors.length, 0)
-    assert_equal(records.length, 0)
+    Record.first.update_attribute(:test_id, vendor_id)
+    
+    post(:destroy, {:id => vendor_id})
+    
+    assert_equal(0, Vendor.count)
+    assert_equal(0, Record.count)
     assert_response :redirect
   end
 end
