@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Cypress::Application.config.secret_token = 'a99c9281610b796734ad6ba560b82bdb42c5b9342beea1de26ab140ee5032550287521d5c978bda2d5012adf85786fcd23821f8e3841e193e7ce89da44790bac'
+Cypress::Application.config.secret_token = 'b20ef35327795717ef9e5a105c885dd47fb2075dda5d7fed6fddbcbca338ec9edb1e2203f4d767dc7e6f8bf134d8d3235b388c07546f6495096206007f65c345'

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.1.3'
 gem 'rake', '~> 0.8.7'
 gem 'quality-measure-engine'
 gem 'bson_ext', :platforms => :mri
@@ -8,9 +8,17 @@ gem 'mongoid', '~> 2.0'
 gem 'devise'
 gem 'simple_form'
 gem 'nokogiri', '~> 1.4.4' 
-gem 'systemu', '~> 2.2.0'
-gem 'health-data-standards', :git => 'git://barrel.mitre.org/health-data-standards/health-data-standards.git'
+gem 'health-data-standards', '~> 0.2.0'
+gem 'less'
 gem 'pry'
+
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
+
+gem 'jquery-rails'
 
 group :test do
   gem 'cover_me', '>= 1.0.0.rc6'

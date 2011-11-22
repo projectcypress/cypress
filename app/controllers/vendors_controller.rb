@@ -70,7 +70,7 @@ class VendorsController < ApplicationController
   def destroy
     vendor = Vendor.find(params[:id])
     Record.where(:test_id => vendor._id).delete
-    Vendor.where(:_id => vendor._id).delete
+    vendor.destroy
     redirect_to :action => :index
   end
   
