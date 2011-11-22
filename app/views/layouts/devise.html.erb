@@ -8,7 +8,7 @@
   <%= stylesheet_link_tag "cypress" %>
   <%= stylesheet_link_tag "account" %>
 
-  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag :application %>
   <%= javascript_include_tag "account" %>
   <%= csrf_meta_tag %>
 </head>
@@ -18,7 +18,7 @@
   <div id="cap-top"></div>
   <div id="cap-body">
     <div id="branding">
-      <%= image_tag "cypress_big_logo.png", :id => 'imgLogo', :title => 'popHealth welcomes you!', :alt => 'cypress logo' %>
+      <%= image_tag("/images/cypress_big_logo.png", :id => 'imgLogo', :title => 'Cypress welcomes you!', :alt => 'cypress logo') %>
     </div>
     <div id="panelLogin" class="panel">
       <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
