@@ -13,13 +13,16 @@
   <%= render :partial=>"shared/header" %>
 
   <div>
-    <nav class="breadcrumb">
+    <section class="tb">
+      <%= link_to "Master Patient List", patients_path, {:class=>"cmd"} %>
+      <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
-      <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
-      <span><%= @measure.name %></span>
-    </nav>
-    <section class="candidate">
-      
+        <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
+        <span><%= @measure.name %></span>
+      </nav>
+    </section>
+    
+    <section class="candidate">  
       <dl>
         <dt class="vendor">Candidate EHR:</dt><dd class="vendor"><%= @vendor.name %></dd>
         <dt>url:</dt><dd><a href="#">www.vendor_url.com</a></dd>
