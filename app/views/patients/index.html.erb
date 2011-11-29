@@ -18,11 +18,12 @@
       <%= link_to "Download CCRs", zipccr_patients_path, {:class=>"cmd"} %>
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
-        <span>Master Patient List</span>
+        
+        <span><%= @vendor.name if @vendor %> Master Patient List</span>
       </nav>
     </section>
     <section class="nqf">
-      <h2>Master Patient List</h2>
+      <h2><%= @vendor.name if @vendor %> Master Patient List</h2>
     </section>
       <div class="tabs">
         NQF #

@@ -14,6 +14,7 @@ Cypress::Application.routes.draw do
     end
     member do
       get 'zipccr'
+      get 'patients'
       get 'zipc32'
       get 'upload_pqri'
       post 'process_pqri'
