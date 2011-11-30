@@ -1,10 +1,21 @@
 <% content_for :head do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      <% if @result['numerator']=='?' %>
-        $.cypress.addPoll("<%= patients_path(:measure_id=>@selected.id) %>", "<%= table_patients_path(:measure_id=>@selected.id) %>")
-      <% else %>
-        $.cypress.updatePatientTable("<%= table_patients_path(:measure_id=>@selected.id) %>")
+      <% if @vendor %>
+          <% if @result['numerator']=='?' %>
+            $.cypress.addPoll("<%= patients_path(:measure_id=>@selected.id, :vendor_id=>@selected.id ) %>", "<%= table_patients_path(:measure_id=>@selected.id, :vendor_id=>@selected.id) %>")             
+          <% else %>
+            $.cypress.updatePatientTable("<%= table_patients_path(:measure_id=>@selected.id, :vendor_id=>@vendor.id) %>")
+          <% end %>
+          
+        <% else %>
+        
+          <% if @result['numerator']=='?' %>
+            $.cypress.addPoll("<%= patients_path(:measure_id=>@selected.id ) %>", "<%= table_patients_path(:measure_id=>@selected.id) %>")
+          <% else %>
+            $.cypress.updatePatientTable("<%= table_patients_path(:measure_id=>@selected.id) %>")
+          <% end %>
+          
       <% end %>
     });
   </script>

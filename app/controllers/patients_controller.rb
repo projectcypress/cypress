@@ -32,7 +32,12 @@ class PatientsController < ApplicationController
     else
       @selected = @measures[0]
     end
-    @patients = Result.where("value.test_id" => @vendor_id).where("value.measure_id" => @selected['id'])
+    
+    if params[:vendor_id]
+      @vendor = Vendor.find(params[:vendor_id])
+    end
+    
+    @patients = Result.where("value.test_id" => @vendor ? @vendor.id : nil).where("value.measure_id" => @selected['id'])
       .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
     if params[:search] && params[:search].size>0
       @search_term = params[:search]
