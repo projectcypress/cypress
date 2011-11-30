@@ -57,7 +57,7 @@ class VendorsController < ApplicationController
     @vendor = Vendor.find(params[:id])
 
     respond_to do |format|
-      format.json { render :json => {'vendor' => @vendor, 'results'=>@vendor.expected_results }}
+      format.json { render :json => { 'vendor' => @vendor, 'results'=>@vendor.expected_results } }
       format.html { render :action => "show" }
     end
   end
@@ -98,10 +98,6 @@ class VendorsController < ApplicationController
     redirect_to :action => 'show'
   end
   
-  def upload_pqri
-    @vendor = Vendor.find(params[:id])
-  end
-  
   def process_pqri
     vendor = Vendor.find(params[:id])
     vendor_data = params[:vendor]
@@ -109,6 +105,7 @@ class VendorsController < ApplicationController
     doc = Nokogiri::XML(pqri.open)
     vendor.extract_reported_from_pqri(doc)
     vendor.save!
+    
     redirect_to :action => 'show'
   end
 

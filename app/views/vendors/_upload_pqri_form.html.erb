@@ -1,0 +1,8 @@
+<div id="upload_pqri_dialog">
+  <%= form_for([:process_pqri, @vendor], :html => {:method => :post, :multipart => true}) do |f| %>
+    <p>
+      <%= f.label '', "PQRI File", :for => :vendor_pqri %>
+      <%= f.file_field :pqri %>
+    </p>
+  <% end %>
+</div>

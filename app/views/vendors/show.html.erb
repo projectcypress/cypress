@@ -8,8 +8,37 @@
       <%   end %>
       <% end %>
       <% if poll_for_updates %>
-        $.cypress.addPoll("<%= vendor_path(@vendor) %>")
+        $("#upload_results_button").hide();
+        $.cypress.addPoll("<%= vendor_path(@vendor) %>", null, function() { $("#upload_results_button").show(); });
       <% end %>
+      
+      $('#upload_pqri_dialog').dialog({
+        title: 'Upload Results',
+        autoOpen: false,
+        closeOnEscape: true,
+        draggable: true,
+        position: 'center',
+        width: 'auto',
+        height: 'auto',
+        modal: true,
+        show: 'fade',
+        hide: 'fade',
+        resizeable: false,
+        buttons: {
+          Upload: function() {
+            $('#edit_vendor_<%= @vendor._id %>').submit();
+            $(this).dialog('close');
+          },
+          Cancel: function() {
+            $(this).dialog('close');
+          }
+        }
+      });
+      
+      $('#upload_results_button').click(function(event) {
+        $('#upload_pqri_dialog').dialog('open');        
+        event.preventDefault();
+      });
     });
   </script>
 <% end %>
@@ -20,7 +49,7 @@
     <section class="tb">
       <%= link_to "Master Patient List", patients_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Edit Profile", edit_vendor_path, {:class=>"cmd"} %>
-      <%= link_to "Upload Results", upload_pqri_vendor_path, {:class=>"cmd"} %>
+      <%= link_to "Upload Results", "", {:id => 'upload_results_button', :class=>"cmd"} %>
       <%= link_to "Download C32s", zipc32_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Download CCRs", zipccr_vendor_path, {:class=>"cmd"} %>
       <nav class="breadcrumb">
@@ -106,15 +135,18 @@
             ====================== %>
             <td>
               <span class="<%= result_class(expected_result, reported_result, 'denominator') %>"><%= reported_result['denominator'] %></span>
-              <span class="q den">/ <%= expected_result['denominator'] %></span>
+              /
+              <span class="q den"><%= expected_result['denominator'] %></span>
             </td>
             <td>
               <span class="<%= result_class(expected_result, reported_result, 'numerator') %>"><%= reported_result['numerator'] %></span>
-              <span class='q num'>/ <%= expected_result['numerator'] %></span>
+              /
+              <span class='q num'><%= expected_result['numerator'] %></span>
             </td>
             <td>
               <span class="<%= result_class(expected_result, reported_result, 'exclusions') %>"><%= reported_result['exclusions'] %></span>
-              <span class="q exc">/ <%= expected_result['exclusions'] %></span>
+              /
+              <span class="q exc"><%= expected_result['exclusions'] %></span>
             </td>
           </tr>
           <% end %>
@@ -149,15 +181,18 @@
             
             <td>
               <span class=""><%= reported_result['denominator'] %></span>
-              <span class="q den">/ <%= expected_result['denominator'] %></span>
+              /
+              <span class="q den"><%= expected_result['denominator'] %></span>
             </td>
             <td>
               <span class=""><%= reported_result['numerator'] %></span>
-              <span class='q num'>/ <%= expected_result['numerator'] %></span>
+              /
+              <span class='q num'><%= expected_result['numerator'] %></span>
             </td>
             <td>
               <span class=""><%= reported_result['exclusions'] %></span>
-              <span class="q exc">/ <%= expected_result['exclusions'] %></span>
+              /
+              <span class="q exc"><%= expected_result['exclusions'] %></span>
             </td>
           </tr>
           <% end %>
@@ -166,7 +201,10 @@
 
       </table>
     </section>
-      <section class="legend">
+    
+    <%= render :partial => 'upload_pqri_form' %>
+    
+    <section class="legend">
       <dl>
         <dt>Error Report Indicators:</dt>
         <dd class="pass">passing
