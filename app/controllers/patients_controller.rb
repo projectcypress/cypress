@@ -59,14 +59,24 @@ class PatientsController < ApplicationController
   end
 
   def zipccr
-    t = Tempfile.new("patients-#{Time.now.to_i}")
+     t = Tempfile.new("patients-#{Time.now.to_i}")
     patients = Record.where("test_id" => nil)
     Cypress::PatientZipper.zip(t, patients, :ccr)
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
       :filename => 'patients_ccr.zip'
     t.close
   end
-
+  
+   def csv
+     t = Tempfile.new("patients-#{Time.now.to_i}")
+    patients = Record.where("test_id" => nil)
+    Cypress::PatientZipper.flat_file(t, patients)
+    send_file t.path, :type => 'text/csv', :disposition => 'attachment', 
+      :filename => 'patients_csv.csv'
+    t.close
+  end
+  
+ 
   def show
     @patient = Record.find(params[:id])
     if @patient.test_id
@@ -82,6 +92,9 @@ class PatientsController < ApplicationController
       end
       format.ccr do
         render :text => HealthDataStandards::Export::CCR.export(@patient)
+      end
+      format.csv do
+        render :text => HealthDataStandards::Export::CommaSV.export(@patient,true)
       end
     end
   end

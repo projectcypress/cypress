@@ -25,8 +25,20 @@
 
   <div>
     <section class="tb">
+    
+    <% if @vendor %>
+      <%= link_to "Download C32s", zipc32_vendor_path(@vendor.id), {:class=>"cmd"} %>
+      <%= link_to "Download CCRs", zipccr_vendor_path(@vendor.id), {:class=>"cmd"} %>
+      <%= link_to "Download CSV",  csv_vendor_path(@vendor.id), {:class=>"cmd"} %>
+      
+      <% else %>
+      
       <%= link_to "Download C32s", zipc32_patients_path, {:class=>"cmd"} %>
       <%= link_to "Download CCRs", zipccr_patients_path, {:class=>"cmd"} %>
+      <%= link_to "Download CSV", csv_patients_path, {:class=>"cmd"} %>
+      
+    <% end %>
+    
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
         

@@ -16,6 +16,7 @@ Cypress::Application.routes.draw do
       get 'zipccr'
       get 'patients'
       get 'zipc32'
+      get 'csv'
       get 'upload_pqri'
       post 'process_pqri'
       delete 'delete_note'
@@ -26,6 +27,7 @@ Cypress::Application.routes.draw do
   resources :patients do
     get 'zipccr', :on => :collection
     get 'zipc32', :on => :collection
+    get 'csv', :on => :collection
     get 'table', :on => :collection
   end
 

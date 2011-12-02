@@ -1,8 +1,9 @@
 require 'builder'
+require 'csv'
 
 module Cypress
   class PatientZipper
-  
+
     def self.zip(file, patients, format)
       Zip::ZipOutputStream.open(file.path) do |z|
         patients.each_with_index do |patient, i|
@@ -17,6 +18,21 @@ module Cypress
         end
       end
     end
+    
+    def self.flat_file(file, patients)
+      CSV.open(file.path, "wb") do |csv|
+       patients.each_with_index do |patient, i|
+       if i < 1
+        headerAndRow =HealthDataStandards::Export::CommaSV.export(patient,true)
+        csv << headerAndRow[0]
+        csv << headerAndRow[1]
+       else
+        csv << HealthDataStandards::Export::CommaSV.export(patient,false)
+       end
+      end
+     end
+    end
+
     
   end
 end

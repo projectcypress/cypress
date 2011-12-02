@@ -121,6 +121,16 @@ class VendorsController < ApplicationController
       :filename => 'patients_c32.zip'
     t.close
   end
+  
+  def csv
+    vendor = Vendor.find(params[:id])
+     t = Tempfile.new("patients-#{Time.now.to_i}")
+    patients = Record.where("test_id" => vendor.id)
+    Cypress::PatientZipper.flat_file(t, patients)
+    send_file t.path, :type => 'text/csv', :disposition => 'attachment', 
+      :filename => 'patients_csv.csv'
+    t.close
+  end
 
   def zipccr
     vendor = Vendor.find(params[:id])
