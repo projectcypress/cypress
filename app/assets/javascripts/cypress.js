@@ -1,25 +1,27 @@
 // Cypress specific JS functions
 (function($) {
 
-  $.cypress = {}
-  $.cypress.addPoll = function(url, table_url) {
+  $.cypress = {};
+  $.cypress.addPoll = function(url, table_url, resolution) {
     setTimeout(function() {
-      $.cypress.pollResult(url, table_url);
+      $.cypress.pollResult(url, table_url, resolution);
     }, 3000);
   }
   
   $.cypress.updateResults = function(result) {
     if (result.numerator=="?")
       return true;
+      
     var resultRow = $("#"+result.measure_id);
     resultRow.find(".num").text(result.numerator);
     resultRow.find(".den").text(result.denominator);
     resultRow.find(".exc").text(result.exclusions);
     resultRow.find(".out").text(result.antinumerator);
+    
     return false;
   }
     
-  $.cypress.pollResult = function(url, table_url) {
+  $.cypress.pollResult = function(url, table_url, resolution) {
 
     $.getJSON(url, function(data) {
       var pollAgain = false;
@@ -42,7 +44,11 @@
       }
       if (pollAgain) {
         // true if any result is not yet available
-        $.cypress.addPoll(url, table_url);
+        $.cypress.addPoll(url, table_url, resolution);
+      } else {
+        // if we're done with this particular task, execute whatever resolution function that was specified
+        if (resolution != undefined)
+          resolution();
       }
     });
   }

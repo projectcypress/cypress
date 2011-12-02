@@ -11,6 +11,8 @@ gem 'nokogiri', '~> 1.4.4'
 gem 'health-data-standards', '~> 0.3.0' 
 gem 'less'
 gem 'pry'
+gem 'less'
+gem 'remotipart', "~> 1.0.1"
 
 group :assets do
   gem 'sass-rails'
