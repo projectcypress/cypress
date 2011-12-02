@@ -13,6 +13,8 @@ gem 'less'
 gem 'pry'
 gem 'less'
 gem 'remotipart', "~> 1.0.1"
+gem 'prawn'
+gem 'prawnto'
 
 group :assets do
   gem 'sass-rails'

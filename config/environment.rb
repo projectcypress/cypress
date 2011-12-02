@@ -3,3 +3,5 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
 Cypress::Application.initialize!
+
+Mime::Type.register 'application/pdf', :pdf

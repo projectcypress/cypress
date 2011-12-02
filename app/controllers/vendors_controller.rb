@@ -1,5 +1,6 @@
 require 'measure_evaluator'
 require 'patient_zipper'
+require 'prawnto'
 
 class VendorsController < ApplicationController
 
@@ -59,6 +60,7 @@ class VendorsController < ApplicationController
     respond_to do |format|
       format.json { render :json => { 'vendor' => @vendor, 'results'=>@vendor.expected_results } }
       format.html { render :action => "show" }
+      format.pdf  { render :layout => false  }
     end
   end
   

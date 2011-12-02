@@ -92,7 +92,9 @@
             <br/>
           <% end %>
         <% end %>
+        <a href="<%= vendor_url(@vendor.id.to_s) %>.pdf" class="ccr_export">Export PDF</a>
     </section>
+   
     <section id="quality_measures">
       <table>
         <% if @vendor.failing_measures.size > 0 %>
