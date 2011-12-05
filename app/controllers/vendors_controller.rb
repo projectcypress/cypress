@@ -28,6 +28,17 @@ class VendorsController < ApplicationController
     vendor = Vendor.new(params[:vendor])
     vendor.effective_date = Time.local(2011,3,31).to_i
     vendor.measure_ids.select! {|id| id.size>0}
+    vendor.care_goal_codesets.select! {|id| id.size>0}
+    vendor.communication_codesets.select! {|id| id.size>0}
+    vendor.procedure_codesets.select! {|id| id.size>0}
+    vendor.physical_exam_codesets.select! {|id| id.size>0}
+    vendor.condition_codesets.select! {|id| id.size>0}
+    vendor.diagnostic_study_codesets.select! {|id| id.size>0}
+    vendor.substance_codesets.select! {|id| id.size>0}
+    vendor.encounter_codesets.select! {|id| id.size>0}
+    vendor.lab_test_codesets.select! {|id| id.size>0}
+    vendor.negation_rationale_codesets.select! {|id| id.size>0}
+    
     vendor.save! # save here so _id is created
     
     # 500 most common names from 1990 census
@@ -47,6 +58,9 @@ class VendorsController < ApplicationController
       cloned_patient.last = surnames[rand(surnames.length)]
       
       cloned_patient.test_id = vendor._id
+      
+      cloned_patient_missing_conditions_codes = cloned_patient.conditions.codes - vendor.condition_codesets       
+      
       cloned_patient.save!
     end
     vendor.save!
@@ -80,7 +94,19 @@ class VendorsController < ApplicationController
     @vendor = Vendor.find(params[:id])
     @vendor.update_attributes(params[:vendor])
     @vendor.measure_ids.select! {|id| id.size>0}
+    @vendor.care_goal_codesets.select! {|id| id.size>0}
+    @vendor.communication_codesets.select! {|id| id.size>0}
+    @vendor.procedure_codesets.select! {|id| id.size>0}
+    @vendor.physical_exam_codesets.select! {|id| id.size>0}
+    @vendor.condition_codesets.select! {|id| id.size>0}
+    @vendor.diagnostic_study_codesets.select! {|id| id.size>0}
+    @vendor.substance_codesets.select! {|id| id.size>0}
+    @vendor.encounter_codesets.select! {|id| id.size>0}
+    @vendor.lab_test_codesets.select! {|id| id.size>0}
+    @vendor.negation_rationale_codesets.select! {|id| id.size>0}
     @vendor.save!
+    
+   
     redirect_to :action => 'show'
   end
   
