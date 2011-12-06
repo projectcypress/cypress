@@ -84,6 +84,38 @@
           <dd><select><option>name randomization</option></select>
         </dl>
       </section>
+      <h2>test code sets</h2>
+      <section id="testCodeSets">
+        <dl>
+          <dt>Care Goal:</dt>
+          <%= f.collection_check_boxes :care_goal_codesets, [["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+           <dt>Communication:</dt>
+          <%= f.collection_check_boxes :communication_codesets, [["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+          <dt>Procedure:</dt>
+          <%= f.collection_check_boxes :procedure_codesets, [["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+          <dt>Negation Rationale:</dt>
+          <%= f.collection_check_boxes :negation_rationale_codesets, [["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+        </dl>
+         <dl>
+          <dt>Physical Exam:</dt>
+          <%= f.collection_check_boxes :physical_exam_codesets, [["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+           <dt>Condition:</dt>
+          <%= f.collection_check_boxes :condition_codesets, [["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+          <dt>Diagnostic Study:</dt>
+          <%= f.collection_check_boxes :diagnostic_study_codesets, [["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+        </dl>
+          <dl>
+          <dt>Substance:</dt>
+          <%= f.collection_check_boxes :substance_codesets, [["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+           <dt>Encounter:</dt>
+          <%= f.collection_check_boxes :encounter_codesets, [["CPT","CPT"],["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+          <dt>Lab Test:</dt>
+          <%= f.collection_check_boxes :lab_test_codesets, [["SNOMED-CT", "SNOMED-CT"] ,["ICD-9", "ICD-9"],["ICD-10", "ICD-10"]], :first, :last,{},{"item_wrapper_tag"=>"li"} %>
+           
+        </dl>
+
+
+      </section>
       <h2>test measures [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]</h2>
       <section id="testMeasures">
         <%= f.collection_check_boxes :measure_ids, @measures, :measure_id, :display_name %>
