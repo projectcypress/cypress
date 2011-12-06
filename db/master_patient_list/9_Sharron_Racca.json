@@ -1,5 +1,5 @@
 {
-  "_id": "4ebbd26a7042f97ce200001d",
+  "_id": "4ede49ba7042f9195100001d",
   "first": "Sharron",
   "patient_id": "9",
   "last": "Racca",
@@ -64,8 +64,16 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1272600000,
+        1272600000
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1272600000,
+        1272600000
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
@@ -175,6 +183,10 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1279166400
+      ],
       "encounter_acute_inpt_encounter": [
         1273032000,
         1272600000
@@ -360,6 +372,10 @@
       ]
     },
     "0068": {
+      "acute_myocardial_infarction_diagnosis_active": [
+        1272600000,
+        1272600000
+      ],
       "cabg_procedure_performed": [
         1272600000,
         1272600000
@@ -371,11 +387,16 @@
         1272600000
       ],
       "ptca_procedure_performed": [
+        1272600000,
         1272600000
       ],
       "encounter_acute_inpt_encounter": [
         1273032000,
         1272600000
+      ],
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1279166400
       ],
       "oral_anti_platelet_therapy_medication_dispensed": [
         1279166400,
@@ -416,6 +437,10 @@
       ]
     },
     "0073": {
+      "acute_myocardial_infarction_diagnosis_active": [
+        1272600000,
+        1272600000
+      ],
       "cabg_procedure_performed": [
         1272600000,
         1272600000
@@ -427,6 +452,7 @@
         1272600000
       ],
       "ptca_procedure_performed": [
+        1272600000,
         1272600000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -450,6 +476,10 @@
       "encounter_acute_inpt_encounter": [
         1273032000,
         1272600000
+      ],
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1279166400
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
@@ -482,9 +512,31 @@
       "encounter_outpatient_encounter": [
         1292389200,
         1279166400
+      ],
+      "ldl_laboratory_test_laboratory_test_result": [
+        {
+          "date": 1292389200,
+          "value": 120.0
+        },
+        {
+          "date": 1254715200,
+          "value": 135.0
+        },
+        {
+          "date": 1292389200,
+          "value": 120.0
+        },
+        {
+          "date": 1254715200,
+          "value": 135.0
+        }
       ]
     },
     "0075": {
+      "acute_myocardial_infarction_diagnosis_active": [
+        1272600000,
+        1272600000
+      ],
       "cabg_procedure_performed": [
         1272600000,
         1272600000
@@ -514,11 +566,16 @@
         }
       ],
       "ptca_procedure_performed": [
+        1272600000,
         1272600000
       ],
       "encounter_acute_inpt_encounter": [
         1273032000,
         1272600000
+      ],
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1279166400
       ]
     },
     "0081": {
@@ -634,6 +691,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1292389200,
@@ -643,6 +703,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1279166400,
@@ -672,6 +735,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1272600000,
@@ -682,6 +751,12 @@
       "codes": {
         "ICD-9-CM": [
           "410.90"
+        ],
+        "ICD-10-CM": [
+          "I21.3"
+        ],
+        "SNOMED-CT": [
+          "304914007"
         ]
       },
       "time": 1272600000,
@@ -692,6 +767,12 @@
       "codes": {
         "ICD-9-CM": [
           "410.90"
+        ],
+        "ICD-10-CM": [
+          "I21.3"
+        ],
+        "SNOMED-CT": [
+          "57054005"
         ]
       },
       "time": 1272600000,
@@ -817,6 +898,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -830,6 +914,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -843,6 +930,12 @@
       "codes": {
         "CPT": [
           "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
       "value": {
@@ -856,6 +949,12 @@
       "codes": {
         "CPT": [
           "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
       "value": {
@@ -871,6 +970,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1272600000,
@@ -881,6 +986,12 @@
       "codes": {
         "ICD-9-CM": [
           "410.90"
+        ],
+        "ICD-10-CM": [
+          "I21.3"
+        ],
+        "SNOMED-CT": [
+          "304914007"
         ]
       },
       "time": 1272600000,
@@ -891,6 +1002,12 @@
       "codes": {
         "ICD-9-CM": [
           "410.90"
+        ],
+        "ICD-10-CM": [
+          "I21.3"
+        ],
+        "SNOMED-CT": [
+          "57054005"
         ]
       },
       "time": 1272600000,
@@ -903,6 +1020,12 @@
       "codes": {
         "CPT": [
           "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
       "value": {
@@ -916,6 +1039,12 @@
       "codes": {
         "CPT": [
           "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
       "value": {
@@ -940,6 +1069,15 @@
       "codes": {
         "CPT": [
           "33535"
+        ],
+        "HCPCS": [
+          "S2209"
+        ],
+        "ICD-9-CM": [
+          "36.13"
+        ],
+        "SNOMED-CT": [
+          "10326007"
         ]
       },
       "time": 1272600000,
@@ -949,6 +1087,9 @@
       "codes": {
         "SNOMED-CT": [
           "10326007"
+        ],
+        "CPT": [
+          "33535"
         ]
       },
       "time": 1272600000,
@@ -1007,6 +1148,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1279166400,
@@ -1027,6 +1171,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1279166400,

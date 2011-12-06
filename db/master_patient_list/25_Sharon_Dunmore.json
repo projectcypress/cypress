@@ -1,5 +1,5 @@
 {
-  "_id": "4ebbd2757042f97ce20000a8",
+  "_id": "4ede49c97042f919510000a8",
   "first": "Sharon",
   "patient_id": "25",
   "last": "Dunmore",
@@ -60,8 +60,16 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1271563200,
+        1271563200
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1271563200,
+        1271563200
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
@@ -159,6 +167,10 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1288065600,
+        1271563200
+      ],
       "encounter_acute_inpt_encounter": [
         1261112400,
         1261112400
@@ -194,7 +206,9 @@
     },
     "0055": {
       "diabetes_diagnosis_active": [
+        1285732800,
         1271563200,
+        1285732800,
         1271563200
       ],
       "diabetic_retinopathy_diagnosis_active": [
@@ -223,7 +237,9 @@
     },
     "0056": {
       "diabetes_diagnosis_active": [
+        1285732800,
         1271563200,
+        1285732800,
         1271563200
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -245,7 +261,9 @@
     },
     "0059": {
       "diabetes_diagnosis_active": [
+        1285732800,
         1271563200,
+        1285732800,
         1271563200
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -285,7 +303,9 @@
     },
     "0061": {
       "diabetes_diagnosis_active": [
+        1285732800,
         1271563200,
+        1285732800,
         1271563200
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -335,7 +355,9 @@
         1261112400
       ],
       "diabetes_diagnosis_active": [
+        1285732800,
         1271563200,
+        1285732800,
         1271563200
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -357,7 +379,9 @@
     },
     "0064": {
       "diabetes_diagnosis_active": [
+        1285732800,
         1271563200,
+        1285732800,
         1271563200
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -424,6 +448,8 @@
     "0068": {
       "acute_myocardial_infarction_diagnosis_active": [
         1261112400,
+        1261112400,
+        1261112400,
         1261112400
       ],
       "encounter_acute_inpt_and_outpt_encounter": [
@@ -435,6 +461,10 @@
       "encounter_acute_inpt_encounter": [
         1261112400,
         1261112400
+      ],
+      "encounter_outpatient_encounter": [
+        1288065600,
+        1271563200
       ],
       "oral_anti_platelet_therapy_medication_dispensed": [
         1271563200,
@@ -469,6 +499,8 @@
     "0073": {
       "acute_myocardial_infarction_diagnosis_active": [
         1261112400,
+        1261112400,
+        1261112400,
         1261112400
       ],
       "encounter_acute_inpt_and_outpt_encounter": [
@@ -490,6 +522,10 @@
       "encounter_acute_inpt_encounter": [
         1261112400,
         1261112400
+      ],
+      "encounter_outpatient_encounter": [
+        1288065600,
+        1271563200
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
@@ -513,6 +549,16 @@
         1288065600,
         1271563200
       ],
+      "ldl_laboratory_test_laboratory_test_result": [
+        {
+          "date": 1271563200,
+          "value": 74.0
+        },
+        {
+          "date": 1271563200,
+          "value": 74.0
+        }
+      ],
       "lipid_lowering_therapy_medication_order": [
         1271563200,
         1261112400
@@ -524,6 +570,8 @@
     },
     "0075": {
       "acute_myocardial_infarction_diagnosis_active": [
+        1261112400,
+        1261112400,
         1261112400,
         1261112400
       ],
@@ -540,7 +588,15 @@
         },
         {
           "date": 1271563200,
+          "value": 185.0
+        },
+        {
+          "date": 1271563200,
           "value": 65.0
+        },
+        {
+          "date": 1271563200,
+          "value": 185.0
         }
       ],
       "ldl_test_laboratory_test_performed": [
@@ -584,6 +640,10 @@
       "encounter_acute_inpt_encounter": [
         1261112400,
         1261112400
+      ],
+      "encounter_outpatient_encounter": [
+        1288065600,
+        1271563200
       ]
     },
     "0081": {
@@ -709,7 +769,9 @@
     },
     "0575": {
       "diabetes_diagnosis_active": [
+        1285732800,
         1271563200,
+        1285732800,
         1271563200
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -771,6 +833,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1288065600,
@@ -789,6 +854,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1271563200,
@@ -818,6 +886,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1271563200,
@@ -828,6 +902,12 @@
       "codes": {
         "ICD-10-CM": [
           "E11.331"
+        ],
+        "ICD-9-CM": [
+          "362.05"
+        ],
+        "SNOMED-CT": [
+          "312904009"
         ]
       },
       "time": 1285732800,
@@ -838,6 +918,12 @@
       "codes": {
         "ICD-9-CM": [
           "250"
+        ],
+        "ICD-10-CM": [
+          "E11.9"
+        ],
+        "SNOMED-CT": [
+          "73211009"
         ]
       },
       "time": 1271563200,
@@ -848,6 +934,12 @@
       "codes": {
         "ICD-9-CM": [
           "410.90"
+        ],
+        "ICD-10-CM": [
+          "I21.3"
+        ],
+        "SNOMED-CT": [
+          "57054005"
         ]
       },
       "time": 1261112400,
@@ -858,6 +950,12 @@
       "codes": {
         "ICD-9-CM": [
           "410.91"
+        ],
+        "ICD-10-CM": [
+          "I21.3"
+        ],
+        "SNOMED-CT": [
+          "57054005"
         ]
       },
       "time": 1261112400,
@@ -957,6 +1055,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -970,6 +1071,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -983,6 +1087,12 @@
       "codes": {
         "CPT": [
           "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
         ]
       },
       "value": {
@@ -996,6 +1106,12 @@
       "codes": {
         "CPT": [
           "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
         ]
       },
       "value": {
@@ -1009,6 +1125,12 @@
       "codes": {
         "CPT": [
           "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
       "value": {
@@ -1022,6 +1144,12 @@
       "codes": {
         "CPT": [
           "83701"
+        ],
+        "LOINC": [
+          "14646-4"
+        ],
+        "SNOMED-CT": [
+          "28036006"
         ]
       },
       "value": {
@@ -1035,6 +1163,12 @@
       "codes": {
         "CPT": [
           "82465"
+        ],
+        "LOINC": [
+          "2093-3"
+        ],
+        "SNOMED-CT": [
+          "121868005"
         ]
       },
       "value": {
@@ -1048,6 +1182,12 @@
       "codes": {
         "CPT": [
           "84478"
+        ],
+        "LOINC": [
+          "12951-0"
+        ],
+        "SNOMED-CT": [
+          "14740000"
         ]
       },
       "value": {
@@ -1063,6 +1203,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1271563200,
@@ -1073,6 +1219,12 @@
       "codes": {
         "ICD-10-CM": [
           "E11.331"
+        ],
+        "ICD-9-CM": [
+          "362.05"
+        ],
+        "SNOMED-CT": [
+          "312904009"
         ]
       },
       "time": 1285732800,
@@ -1083,6 +1235,12 @@
       "codes": {
         "ICD-9-CM": [
           "250"
+        ],
+        "ICD-10-CM": [
+          "E11.9"
+        ],
+        "SNOMED-CT": [
+          "73211009"
         ]
       },
       "time": 1271563200,
@@ -1093,6 +1251,12 @@
       "codes": {
         "ICD-9-CM": [
           "410.90"
+        ],
+        "ICD-10-CM": [
+          "I21.3"
+        ],
+        "SNOMED-CT": [
+          "57054005"
         ]
       },
       "time": 1261112400,
@@ -1103,6 +1267,12 @@
       "codes": {
         "ICD-9-CM": [
           "410.91"
+        ],
+        "ICD-10-CM": [
+          "I21.3"
+        ],
+        "SNOMED-CT": [
+          "57054005"
         ]
       },
       "time": 1261112400,
@@ -1115,6 +1285,12 @@
       "codes": {
         "CPT": [
           "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
         ]
       },
       "value": {
@@ -1128,6 +1304,12 @@
       "codes": {
         "CPT": [
           "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
         ]
       },
       "value": {
@@ -1141,6 +1323,12 @@
       "codes": {
         "CPT": [
           "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
       "value": {
@@ -1154,6 +1342,12 @@
       "codes": {
         "CPT": [
           "83701"
+        ],
+        "LOINC": [
+          "14646-4"
+        ],
+        "SNOMED-CT": [
+          "28036006"
         ]
       },
       "value": {
@@ -1167,6 +1361,12 @@
       "codes": {
         "CPT": [
           "82465"
+        ],
+        "LOINC": [
+          "2093-3"
+        ],
+        "SNOMED-CT": [
+          "121868005"
         ]
       },
       "value": {
@@ -1180,6 +1380,12 @@
       "codes": {
         "CPT": [
           "84478"
+        ],
+        "LOINC": [
+          "12951-0"
+        ],
+        "SNOMED-CT": [
+          "14740000"
         ]
       },
       "value": {

@@ -1,5 +1,5 @@
 {
-  "_id": "4ebbd2797042f97ce20000d7",
+  "_id": "4ede49ce7042f919510000d7",
   "first": "Dmetry",
   "patient_id": "83",
   "last": "Kournikova",
@@ -223,6 +223,13 @@
       ]
     },
     "0036": {
+      "asthma_diagnosis_active": [
+        1270008000,
+        1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1280203200
+      ],
       "short_acting_beta_2_agonist_medication_active": [
         1278129600,
         1278129600
@@ -401,6 +408,9 @@
         1280203200,
         1278129600,
         1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1280203200
       ]
     },
     "0070": {
@@ -452,6 +462,9 @@
           "value": 122.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1280203200
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1291438800,
@@ -483,6 +496,9 @@
         1280203200,
         1278129600,
         1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1280203200
       ]
     },
     "0081": {
@@ -644,6 +660,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1280203200,
@@ -673,6 +692,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1270008000,
@@ -683,6 +708,12 @@
       "codes": {
         "ICD-9-CM": [
           "365.10"
+        ],
+        "ICD-10-CM": [
+          "H40.13"
+        ],
+        "SNOMED-CT": [
+          "84494001"
         ]
       },
       "time": 1286164800,
@@ -839,6 +870,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -854,6 +888,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1270008000,
@@ -864,6 +904,12 @@
       "codes": {
         "ICD-9-CM": [
           "365.10"
+        ],
+        "ICD-10-CM": [
+          "H40.13"
+        ],
+        "SNOMED-CT": [
+          "84494001"
         ]
       },
       "time": 1286164800,
@@ -897,6 +943,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1270008000,
@@ -906,6 +955,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1280203200,

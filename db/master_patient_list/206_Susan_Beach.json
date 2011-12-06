@@ -1,5 +1,5 @@
 {
-  "_id": "4ebbd2697042f97ce2000014",
+  "_id": "4ede49b97042f91951000014",
   "first": "Susan",
   "patient_id": "206",
   "last": "Beach",
@@ -71,13 +71,24 @@
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
         1291093200,
-        1291093200
+        1270008000,
+        1291093200,
+        1270008000
       ],
       "delivery_live_births_procedure_procedure_performed": [
         1291093200
       ],
       "hiv_screening_laboratory_test_performed": [
         1273464000,
+        1273464000
+      ],
+      "prenatal_visit_encounter": [
+        1291093200,
+        1289797200,
+        1288584000,
+        1286683200,
+        1284091200,
+        1278734400,
         1273464000
       ],
       "estimated_date_of_conception_patient_characteristic": [
@@ -88,10 +99,21 @@
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
         1291093200,
-        1291093200
+        1270008000,
+        1291093200,
+        1270008000
       ],
       "delivery_live_births_procedure_procedure_performed": [
         1291093200
+      ],
+      "prenatal_visit_encounter": [
+        1291093200,
+        1289797200,
+        1288584000,
+        1286683200,
+        1284091200,
+        1278734400,
+        1273464000
       ],
       "estimated_date_of_conception_patient_characteristic": [
         1266728400,
@@ -102,6 +124,10 @@
       "hypertension_diagnosis_active": [
         1270008000,
         1270008000
+      ],
+      "pregnancy_diagnosis_active": [
+        1291093200,
+        1291093200
       ],
       "encounter_outpatient_encounter": [
         1289365200,
@@ -148,6 +174,10 @@
       "encounter_outpatient_w_pcp_obgyn_encounter": [
         1289365200,
         1270094400
+      ],
+      "pregnancy_diagnosis_active": [
+        1291093200,
+        1291093200
       ]
     },
     "0027": {
@@ -209,6 +239,10 @@
       ]
     },
     "0036": {
+      "asthma_diagnosis_active": [
+        1270008000,
+        1270008000
+      ],
       "inhaled_corticosteroids_medication_order": [
         1270008000
       ],
@@ -494,6 +528,10 @@
     "0387": {
     },
     "0389": {
+      "pain_related_to_prostate_cancer_diagnosis_active": [
+        1301544000,
+        1301544000
+      ]
     },
     "0421": {
     },
@@ -515,6 +553,12 @@
       "codes": {
         "ICD-10-CM": [
           "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
         ]
       },
       "time": 1291093200,
@@ -524,6 +568,12 @@
       "codes": {
         "ICD-10-CM": [
           "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
         ]
       },
       "time": 1289797200,
@@ -542,6 +592,12 @@
       "codes": {
         "ICD-10-CM": [
           "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
         ]
       },
       "time": 1288584000,
@@ -551,6 +607,12 @@
       "codes": {
         "ICD-10-CM": [
           "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
         ]
       },
       "time": 1286683200,
@@ -560,6 +622,12 @@
       "codes": {
         "ICD-10-CM": [
           "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
         ]
       },
       "time": 1284091200,
@@ -569,6 +637,12 @@
       "codes": {
         "ICD-10-CM": [
           "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
         ]
       },
       "time": 1278734400,
@@ -578,6 +652,12 @@
       "codes": {
         "ICD-10-CM": [
           "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
         ]
       },
       "time": 1273464000,
@@ -607,6 +687,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1270008000,
@@ -617,6 +703,12 @@
       "codes": {
         "SNOMED-CT": [
           "169961004"
+        ],
+        "ICD-9-CM": [
+          "65.621"
+        ],
+        "ICD-10-CM": [
+          "O30"
         ]
       },
       "time": 1291093200,
@@ -627,6 +719,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1270008000,
@@ -637,6 +735,12 @@
       "codes": {
         "ICD-9-CM": [
           "724.2"
+        ],
+        "ICD-10-CM": [
+          "M54.9"
+        ],
+        "SNOMED-CT": [
+          "279039007"
         ]
       },
       "time": 1301544000,
@@ -789,6 +893,12 @@
       "codes": {
         "CPT": [
           "87536"
+        ],
+        "LOINC": [
+          "9665-1"
+        ],
+        "SNOMED-CT": [
+          "104332002"
         ]
       },
       "value": {
@@ -802,6 +912,9 @@
       "codes": {
         "CPT": [
           "84702"
+        ],
+        "LOINC": [
+          "2119-6"
         ]
       },
       "value": {
@@ -817,6 +930,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1270008000,
@@ -827,6 +946,12 @@
       "codes": {
         "SNOMED-CT": [
           "169961004"
+        ],
+        "ICD-9-CM": [
+          "65.621"
+        ],
+        "ICD-10-CM": [
+          "O30"
         ]
       },
       "time": 1291093200,
@@ -837,6 +962,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1270008000,
@@ -847,6 +978,12 @@
       "codes": {
         "ICD-9-CM": [
           "724.2"
+        ],
+        "ICD-10-CM": [
+          "M54.9"
+        ],
+        "SNOMED-CT": [
+          "279039007"
         ]
       },
       "time": 1301544000,
@@ -886,6 +1023,12 @@
       "codes": {
         "CPT": [
           "87536"
+        ],
+        "LOINC": [
+          "9665-1"
+        ],
+        "SNOMED-CT": [
+          "104332002"
         ]
       },
       "value": {
@@ -899,6 +1042,9 @@
       "codes": {
         "CPT": [
           "84702"
+        ],
+        "LOINC": [
+          "2119-6"
         ]
       },
       "value": {
@@ -923,6 +1069,9 @@
       "codes": {
         "CPT": [
           "59410"
+        ],
+        "SNOMED-CT": [
+          "169961004"
         ]
       },
       "time": 1291093200,
