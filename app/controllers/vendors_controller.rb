@@ -27,17 +27,13 @@ class VendorsController < ApplicationController
   def create
     vendor = Vendor.new(params[:vendor])
     vendor.effective_date = Time.local(2011,3,31).to_i
-    vendor.measure_ids.select! {|id| id.size>0}
-    vendor.care_goal_codesets.select! {|id| id.size>0}
-    vendor.communication_codesets.select! {|id| id.size>0}
-    vendor.procedure_codesets.select! {|id| id.size>0}
-    vendor.physical_exam_codesets.select! {|id| id.size>0}
-    vendor.condition_codesets.select! {|id| id.size>0}
-    vendor.diagnostic_study_codesets.select! {|id| id.size>0}
-    vendor.substance_codesets.select! {|id| id.size>0}
-    vendor.encounter_codesets.select! {|id| id.size>0}
-    vendor.lab_test_codesets.select! {|id| id.size>0}
-    vendor.negation_rationale_codesets.select! {|id| id.size>0}
+    [:measure_ids, :care_goal_codesets, :communication_codesets, :procedure_codesets, :physical_exam_codesets,
+     :condition_codesets, :diagnostic_study_codesets, :substance_codesets, :encounter_codesets, :lab_test_codesets,
+     :negation_rationale_codesets].each do |vendor_aspect|
+      if vendor.send(vendor_aspect).present?
+        vendor.send(vendor_aspect).select! {|id| id.size > 0}
+      end
+    end
     
     vendor.save! # save here so _id is created
     
@@ -59,7 +55,8 @@ class VendorsController < ApplicationController
       
       cloned_patient.test_id = vendor._id
       
-      cloned_patient_missing_conditions_codes = cloned_patient.conditions.codes - vendor.condition_codesets       
+      # This doesn't seem to be working yet
+      #cloned_patient_missing_conditions_codes = cloned_patient.conditions.codes - vendor.condition_codesets
       
       cloned_patient.save!
     end
