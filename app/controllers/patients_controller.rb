@@ -8,6 +8,7 @@ class PatientsController < ApplicationController
 
   def index
     @measures = Measure.installed
+    @measures_categories = @measures.group_by { |t| t.category }
     
     if params[:vendor_id]
       @vendor = Vendor.find(params[:vendor_id])
@@ -27,6 +28,7 @@ class PatientsController < ApplicationController
 
   def table
     @measures = Measure.installed
+    @measures_categories = @measures.group_by { |t| t.category }
     if params[:measure_id]
       @selected = Measure.find(params[:measure_id])
     else
