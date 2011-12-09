@@ -27,14 +27,7 @@ class VendorsController < ApplicationController
   def create
     vendor = Vendor.new(params[:vendor])
     vendor.effective_date = Time.local(2011,3,31).to_i
-    [:measure_ids, :care_goal_codesets, :communication_codesets, :procedure_codesets, :physical_exam_codesets,
-     :condition_codesets, :diagnostic_study_codesets, :substance_codesets, :encounter_codesets, :lab_test_codesets,
-     :negation_rationale_codesets].each do |vendor_aspect|
-      if vendor.send(vendor_aspect).present?
-        vendor.send(vendor_aspect).select! {|id| id.size > 0}
-      end
-    end
-    
+       
     vendor.save! # save here so _id is created
     
     # 500 most common names from 1990 census
@@ -91,16 +84,6 @@ class VendorsController < ApplicationController
     @vendor = Vendor.find(params[:id])
     @vendor.update_attributes(params[:vendor])
     @vendor.measure_ids.select! {|id| id.size>0}
-    @vendor.care_goal_codesets.select! {|id| id.size>0}
-    @vendor.communication_codesets.select! {|id| id.size>0}
-    @vendor.procedure_codesets.select! {|id| id.size>0}
-    @vendor.physical_exam_codesets.select! {|id| id.size>0}
-    @vendor.condition_codesets.select! {|id| id.size>0}
-    @vendor.diagnostic_study_codesets.select! {|id| id.size>0}
-    @vendor.substance_codesets.select! {|id| id.size>0}
-    @vendor.encounter_codesets.select! {|id| id.size>0}
-    @vendor.lab_test_codesets.select! {|id| id.size>0}
-    @vendor.negation_rationale_codesets.select! {|id| id.size>0}
     @vendor.save!
     
    

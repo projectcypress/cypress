@@ -34,16 +34,6 @@ class Vendor
   field :measure_ids, type: Array
   field :patient_gen_job, type: String
   field :reported_results, type: Hash
-  field :care_goal_codesets, type: Array
-  field :communication_codesets, type: Array
-  field :procedure_codesets, type: Array
-  field :physical_exam_codesets, type: Array
-  field :condition_codesets, type: Array
-  field :diagnostic_study_codesets, type: Array
-  field :substance_codesets, type: Array
-  field :encounter_codesets, type: Array
-  field :lab_test_codesets, type: Array
-  field :negation_rationale_codesets, type: Array
 
   # Get the measure definitions for the selected measures. For multinumerator
   # measures this will include all sub measures so measure_defs.size may not be
