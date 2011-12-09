@@ -1,7 +1,12 @@
 <% content_for :head do %>
   <script type="text/javascript">
-    function toggleMeasures(toggleSetting) {
+    function toggleMeasures(toggleSetting, group) {
+     if (arguments.length < 2) {
       $('#testMeasures input:checkbox').prop('checked', toggleSetting);
+      }else{
+      selector = '#testMeasures input:checkbox.' + group;
+      $(selector).prop('checked', toggleSetting);
+      }
     }
   </script>
   
@@ -84,10 +89,19 @@
           <dd><select><option>name randomization</option></select>
         </dl>
       </section>
-      
-      <h2>test measures [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]</h2>
+          
       <section id="testMeasures">
-        <%= f.collection_check_boxes :measure_ids, @measures, :measure_id, :display_name %>
+      <h2>test measures [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]</h2>
+      <% @measures_categories.sort.each do |category, measures| %>
+      <div>
+        <dl>
+         <dt><%= category %> [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category %>')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category %>');">uncheck all</a>]</dt>
+         <dd><%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>category} %></dd>
+        </dl>
+        </div>
+      <% end %>
+       
+      
       </section>
       
 

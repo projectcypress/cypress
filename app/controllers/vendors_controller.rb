@@ -22,6 +22,9 @@ class VendorsController < ApplicationController
   def new
     @vendor = Vendor.new
     @measures = Measure.top_level
+    @measures_categories = @measures.group_by { |t| t.category }
+   
+
   end
   
   def create
@@ -71,6 +74,7 @@ class VendorsController < ApplicationController
   def edit
     @vendor = Vendor.find(params[:id])
     @measures = Measure.top_level
+    @measures_categories = @measures.group_by { |t| t.category }
   end
   
   def destroy
