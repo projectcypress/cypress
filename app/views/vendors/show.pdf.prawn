@@ -22,7 +22,7 @@ if @vendor.failing_measures.size > 0
   @vendor.failing_measures.each do |measure|
     expected_result = @vendor.expected_result(measure)
     reported_result = @vendor.reported_result(measure.key)
-    data << ["NQF#{measure['id']}#{measure.sub_id}\n" + measure.name + " " + measure.subtitle,"#{reported_result['denominator']}/#{expected_result['denominator']}","#{reported_result['numerator']}/#{expected_result['numerator']}","#{reported_result['exclusions']}/#{expected_result['exclusions']}"]
+    data << ["NQF#{measure['id']}#{measure.sub_id}\n" + measure.name + " " + (measure.subtitle || "") ,"#{reported_result['denominator']}/#{expected_result['denominator']}","#{reported_result['numerator']}/#{expected_result['numerator']}","#{reported_result['exclusions']}/#{expected_result['exclusions']}"]
   end
   
   
@@ -38,7 +38,7 @@ data << ["Passing","Denominator","Numerator","Exclusions"]
   @vendor.passing_measures.each do |measure|
     expected_result = @vendor.expected_result(measure)
     reported_result = @vendor.reported_result(measure.key)
-    data << ["NQF#{measure['id']}#{measure.sub_id}\n" + measure.name + " " + measure.subtitle,"#{reported_result['denominator']}/#{expected_result['denominator']}","#{reported_result['numerator']}/#{expected_result['numerator']}","#{reported_result['exclusions']}/#{expected_result['exclusions']}"]
+    data << ["NQF#{measure['id']}#{measure.sub_id}\n" + measure.name + " " + (measure.subtitle || "") ,"#{reported_result['denominator']}/#{expected_result['denominator']}","#{reported_result['numerator']}/#{expected_result['numerator']}","#{reported_result['exclusions']}/#{expected_result['exclusions']}"]
   end
 
 end
