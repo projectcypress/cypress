@@ -1,9 +1,11 @@
 require 'quality-measure-engine'
+require 'measure_evaluator'
 
 loader = QME::Database::Loader.new()
 mpl_dir = File.join(Rails.root, 'db', 'master_patient_list')
 template_dir = File.join(Rails.root, 'db', 'templates')
 birthdate_dev = 60*60*24*7 # 7 days
+evaluator = Cypress::MeasureEvaluator
 
 namespace :mpl do
 
@@ -25,7 +27,7 @@ namespace :mpl do
     end
   end
 
-  desc 'Seed database with master patient list'
+   desc 'Seed database with master patient list'
   task :load => [:environment, :clear] do
     mpls = File.join(mpl_dir, '*')
     Dir.glob(mpls) do |patient_file|
@@ -35,6 +37,77 @@ namespace :mpl do
       end
       loader.save('records', json)
     end
+  end
+  
+  desc 'Evaluate all measures for the entire master patient list'
+  task :eval => :environment do
+    db = loader.get_db
+    Measure.installed.each do |measure|
+      puts 'Evaluating measure: ' + measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + ' - ' + measure['name']
+      evaluator.eval_for_static_records(measure)
+    end
+  end
+  
+  desc 'Collect a subset of "count" patients that meet the criteria for the given set of "measures"'
+  task :subset => :environment do
+    measures = ENV['measures'].split(',')
+    num_patients = ENV['count'] ? ENV['count'].to_i : 20
+    
+    verbose = ENV['verbose']
+    intersection = []
+    initialized = false
+    patient_ids = {}
+    Measure.installed.each do |measure|
+      if measures.any? {|m| m == measure['id']} then
+        if verbose == "true" then
+          print 'Patients for measure ' + measure.key + ': '
+	end
+	patients = Result.where('value.test_id' => nil).where('value.measure_id' => measure['id']).where('value.population' => true).each do |result|
+	  if !patient_ids[measure['id']] then
+	    patient_ids[measure['id']] = []
+	  end
+	  
+	  id = result.value.medical_record_id
+	  patient_ids[measure['id']].push(id)
+
+	  if verbose == "true" then
+	    print id + ' '
+	  end
+	end
+	puts ''
+      end
+    end
+
+    patient_ids.each do |k,v|
+      ints = v.uniq.map {|e| e.to_i}
+      v = ints.sort
+      if intersection == [] then
+        intersection = v
+      else
+        test = intersection & v
+	if test.count == 0 then
+	  puts '!!! there is no intersection with ' + k + ' !!!'
+	else
+          intersection = test 
+	end
+      end
+      if verbose == 'true' then
+        puts '=== patient IDs for ' + k + ' ==='
+        v.each do |id| print id.to_s + ' ' end
+        puts
+      end
+    end
+
+    i = [num_patients,intersection.count].min
+    puts 'Result (returning ' + i.to_s + ' of ' + intersection.count.to_s + ' records): '
+
+    intersection.each do |id|
+      i -= 1
+      if i >= 0 then
+      	 print id.to_s + ' '
+      end
+    end
+    puts
   end
   
   desc 'Remove identifiers and measure results and insert randomized name and DOB into master patient list files. Store resulting erb templates in db/templates'
