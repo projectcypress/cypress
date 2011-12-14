@@ -77,16 +77,25 @@
       <h1>Test Profile</h1>
       <section id="testProfile">
         <dl>
-          <dt># of records</dt>
-          <dd><select><option>225</option></select>
-        </dl>
-        <dl>
-          <dt>error threshold</dt>
-          <dd><select><option>0%</option></select>
-        </dl>
-        <dl>
+          <dt>patients:</dt>
+          <dd>
+	    <%= radio_button_tag(:patient_population_id,"all", @vendor.patient_population_id == "all") %>
+            <%= label_tag(:patient_population_id_all, "all") %>
+	    <br/>
+	    <%= radio_button_tag(:patient_population_id,"core20", @vendor.patient_population_id == "core20") %>
+            <%= label_tag(:patient_population_id_core20, "20 core") %>
+	    <br/>
+	    <%= radio_button_tag(:patient_population_id,"core20alt", @vendor.patient_population_id == "core20alt") %>
+            <%= label_tag(:patient_population_id_core20alt, "20 core alternate") %>
+	  </dd>
+	</dl>
+	<dl>
+          <dt>error threshold:</dt>
+          <dd><select><option>0%</option></select></dd>
+	</dl>
+	<dl>
           <dt>patient test mode:</dt>
-          <dd><select><option>name randomization</option></select>
+          <dd><select><option>name randomization</option></select></dd>
         </dl>
       </section>
           

@@ -33,6 +33,7 @@ class Vendor
   field :effective_date, type: Integer
   field :measure_ids, type: Array
   field :patient_gen_job, type: String
+  field :patient_population_id, type: String
   field :reported_results, type: Hash
 
   # Get the measure definitions for the selected measures. For multinumerator
