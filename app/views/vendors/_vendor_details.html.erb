@@ -104,8 +104,8 @@
       <% @measures_categories.sort.each do |category, measures| %>
       <div>
         <dl>
-         <dt><%= category %> [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category %>')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category %>');">uncheck all</a>]</dt>
-         <dd><%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>category} %></dd>
+         <dt><%= category %> [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" ", "_") %>')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category.tr(" ", "_") %>');">uncheck all</a>]</dt>
+         <dd><%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>category.tr(" ", "_")} %></dd>
         </dl>
         </div>
       <% end %>
