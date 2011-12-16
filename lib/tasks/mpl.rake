@@ -14,6 +14,7 @@ namespace :mpl do
     loader.drop_collection('records')
     loader.drop_collection('query_cache')
     loader.drop_collection('patient_cache')
+    loader.drop_collection('patient_populations')
   end
   
   desc 'Dump current contents of records collection to master patient list diretcory'
@@ -37,6 +38,10 @@ namespace :mpl do
       end
       loader.save('records', json)
     end
+
+    # put a few standard patient populations in 
+    loader.save('patient_populations', {:name => "all", :ids => Array.new(225) {|i| i.to_s}})
+    loader.save('patient_populations', {:name => "core20", :ids => [201,92,20,176,30,109,82,28,5,31,189,58,57,173,188,46,55,72,81,26].collect {|x| x.to_s}})
   end
   
   desc 'Evaluate all measures for the entire master patient list'
