@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6a7042f900a300001f",
+  "_id": "4eeb7ef9c226720fd600001f",
   "first": "Timothy",
   "patient_id": "59",
   "last": "Beck",
@@ -11,18 +11,13 @@
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
         1270008000,
-        1278475200,
-        1270008000,
         1278475200
       ],
       "asthma_nighttime_symptoms_quantified_symptom_assessed": [
-        1270008000,
-        1278475200,
         1270008000,
         1278475200
       ],
@@ -44,11 +39,9 @@
         1270008000
       ],
       "group_a_streptococcus_test_laboratory_test_performed": [
-        1278475200,
         1278475200
       ],
       "pharyngitis_diagnosis_active": [
-        1278475200,
         1278475200
       ],
       "pharyngitis_antibiotics_medication_dispensed": [
@@ -226,7 +219,6 @@
     },
     "0036": {
       "asthma_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -278,7 +270,6 @@
     },
     "0047": {
       "asthma_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -404,7 +395,6 @@
     },
     "0070": {
       "asthma_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -496,7 +486,6 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -650,80 +639,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ],
-        "SNOMED-CT": [
-          "363746003"
-        ],
-        "ICD-9-CM": [
-          "462"
-        ]
-      },
-      "time": 1278475200,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "time": 1270008000,
       "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1278475200,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1278475200,
-      "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
   "vital_signs": [
@@ -918,25 +839,6 @@
       },
       "time": 1270008000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ],
-        "LOINC": [
-          "31971-5"
-        ],
-        "SNOMED-CT": [
-          "122245007"
-        ]
-      },
-      "value": {
-        "scalar": "Positive",
-        "units": null
-      },
-      "time": 1278475200,
-      "description": "Group A Streptococcus Test"
     }
   ],
   "conditions": [

@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf757042f900a3000087",
+  "_id": "4eeb7f05c226720fd6000087",
   "first": "Donna",
   "patient_id": "143",
   "last": "Crocker",
@@ -33,7 +33,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1270958400,
         1270958400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -53,19 +52,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270958400,
         1270958400
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270958400,
         1270958400
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1270958400,
         1270958400
       ],
       "encounter_outpatient_encounter": [
@@ -151,7 +147,6 @@
         1297832400
       ],
       "pap_test_laboratory_test_result": [
-        1277438400,
         1277438400
       ],
       "encounter_ob_gyn_encounter": [
@@ -182,7 +177,6 @@
         1270958400
       ],
       "fobt_laboratory_test_performed": [
-        1270958400,
         1270958400
       ]
     },
@@ -221,7 +215,6 @@
         1270958400
       ],
       "low_back_pain_diagnosis_active": [
-        1283486400,
         1283486400
       ]
     },
@@ -289,14 +282,6 @@
         1270958400
       ],
       "ldl_test_laboratory_test_result": [
-        {
-          "date": 1270958400,
-          "value": 36.0
-        },
-        {
-          "date": 1270958400,
-          "value": 114.0
-        },
         {
           "date": 1270958400,
           "value": 36.0
@@ -382,10 +367,6 @@
         {
           "date": 1270958400,
           "value": 114.0
-        },
-        {
-          "date": 1270958400,
-          "value": 114.0
         }
       ]
     },
@@ -395,14 +376,6 @@
         1270958400
       ],
       "high_density_lipoprotein_hdl_laboratory_test_performed": [
-        {
-          "date": 1270958400,
-          "value": 36.0
-        },
-        {
-          "date": 1270958400,
-          "value": 172.0
-        },
         {
           "date": 1270958400,
           "value": 36.0
@@ -420,31 +393,15 @@
         {
           "date": 1270958400,
           "value": 114.0
-        },
-        {
-          "date": 1270958400,
-          "value": 36.0
-        },
-        {
-          "date": 1270958400,
-          "value": 114.0
         }
       ],
       "total_cholesterol_laboratory_test_performed": [
         {
           "date": 1270958400,
           "value": 172.0
-        },
-        {
-          "date": 1270958400,
-          "value": 172.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
-        {
-          "date": 1270958400,
-          "value": 110.0
-        },
         {
           "date": 1270958400,
           "value": 110.0
@@ -475,7 +432,6 @@
     },
     "0084": {
       "anemias_and_bleeding_disorders_diagnosis_active": [
-        1270958400,
         1270958400
       ],
       "encounter_outpatient_encounter": [
@@ -515,7 +471,6 @@
     },
     "0389": {
       "pain_related_to_prostate_cancer_diagnosis_active": [
-        1283486400,
         1283486400
       ]
     },
@@ -587,54 +542,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1270958400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ],
-        "ICD-10-CM": [
-          "M54.9"
-        ],
-        "SNOMED-CT": [
-          "279039007"
-        ]
-      },
-      "time": 1283486400,
-      "status": "active",
-      "description": "low back pain"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "280.9"
-        ],
-        "ICD-10-CM": [
-          "D50.9"
-        ],
-        "SNOMED-CT": [
-          "87522002"
-        ]
-      },
-      "time": 1270958400,
-      "status": "active",
-      "description": "Anemias and Bleeding Disorders"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -773,135 +680,6 @@
       },
       "time": 1270958400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
-        ]
-      },
-      "value": {
-        "scalar": 36.0,
-        "units": null
-      },
-      "time": 1270958400,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 114.0,
-        "units": null
-      },
-      "time": 1270958400,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
-        ]
-      },
-      "value": {
-        "scalar": 172.0,
-        "units": null
-      },
-      "time": 1270958400,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
-        ]
-      },
-      "value": {
-        "scalar": 110.0,
-        "units": null
-      },
-      "time": 1270958400,
-      "description": "Triglycerides"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1277438400,
-      "description": "Pap test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ],
-        "SNOMED-CT": [
-          "252156002"
-        ],
-        "LOINC": [
-          "2335-8"
-        ],
-        "HCPCS": [
-          "G0328"
-        ],
-        "ICD-9-CM": [
-          "V76.51"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1270958400,
-      "description": "FOBT"
     }
   ],
   "conditions": [

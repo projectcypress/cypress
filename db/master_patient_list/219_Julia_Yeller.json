@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf717042f900a3000060",
+  "_id": "4eeb7f00c226720fd6000060",
   "first": "Julia",
   "patient_id": "219",
   "last": "Yeller",
@@ -251,7 +251,6 @@
     },
     "0052": {
       "cancer_diagnosis_active": [
-        1283400000,
         1283400000
       ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
@@ -383,20 +382,11 @@
         {
           "date": 1270008000,
           "value": 51.0
-        },
-        {
-          "date": 1270008000,
-          "value": 115.0
-        },
-        {
-          "date": 1270008000,
-          "value": 51.0
         }
       ]
     },
     "0067": {
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "antiplatelet_therapy_medication_order": [
@@ -423,7 +413,6 @@
         1270008000
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_acute_inpt_encounter": [
@@ -445,7 +434,6 @@
     },
     "0070": {
       "coronary_artery_disease_no_mi_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "beta_blocker_therapy_medication_order": [
@@ -494,7 +482,6 @@
         1270008000
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -551,7 +538,6 @@
     },
     "0074": {
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -561,10 +547,6 @@
         1270008000
       ],
       "ldl_laboratory_test_laboratory_test_result": [
-        {
-          "date": 1270008000,
-          "value": 115.0
-        },
         {
           "date": 1270008000,
           "value": 115.0
@@ -586,29 +568,12 @@
         {
           "date": 1270008000,
           "value": 186.0
-        },
-        {
-          "date": 1270008000,
-          "value": 51.0
-        },
-        {
-          "date": 1270008000,
-          "value": 186.0
         }
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1270008000,
-          "value": 115.0
-        },
-        {
-          "date": 1270008000,
-          "value": 51.0
-        },
         {
           "date": 1270008000,
           "value": 115.0
@@ -622,17 +587,9 @@
         {
           "date": 1270008000,
           "value": 186.0
-        },
-        {
-          "date": 1270008000,
-          "value": 186.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
-        {
-          "date": 1270008000,
-          "value": 143.0
-        },
         {
           "date": 1270008000,
           "value": 143.0
@@ -730,7 +687,6 @@
     },
     "0387": {
       "breast_cancer_diagnosis_active": [
-        1283400000,
         1283400000
       ],
       "radiation_therapy_procedure_performed": [
@@ -851,38 +807,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ],
-        "ICD-10-CM": [
-          "C50"
-        ],
-        "SNOMED-CT": [
-          "188161004"
-        ]
-      },
-      "time": 1283400000,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ],
-        "ICD-10-CM": [
-          "I24"
-        ],
-        "SNOMED-CT": [
-          "52674009"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -1166,82 +1090,6 @@
       },
       "time": 1270008000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 115.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
-        ]
-      },
-      "value": {
-        "scalar": 51.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
-        ]
-      },
-      "value": {
-        "scalar": 186.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
-        ]
-      },
-      "value": {
-        "scalar": 143.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Triglycerides"
     },
     {
       "codes": {
