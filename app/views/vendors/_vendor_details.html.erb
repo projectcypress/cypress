@@ -79,14 +79,10 @@
         <dl>
           <dt>patients:</dt>
           <dd>
-	    <%= radio_button_tag(:patient_population_id,"all", @vendor.patient_population_id == "all") %>
-            <%= label_tag(:patient_population_id_all, "all") %>
-	    <br/>
-	    <%= radio_button_tag(:patient_population_id,"core20", @vendor.patient_population_id == "core20") %>
-            <%= label_tag(:patient_population_id_core20, "20 core") %>
-	    <br/>
-	    <%= radio_button_tag(:patient_population_id,"core20alt", @vendor.patient_population_id == "core20alt") %>
-            <%= label_tag(:patient_population_id_core20alt, "20 core alternate") %>
+	    <%= f.radio_button :patient_population_id, "all", :checked=>(@vendor[:patient_population_id] == nil || @vendor[:patient_population_id] == "all") %>
+            <%= f.label :patient_population_id_all, "all" %>
+	    <%= f.radio_button :patient_population_id,"core20" %>
+            <%= f.label :patient_population_id_core20, "20 core" %>
 	  </dd>
 	</dl>
 	<dl>
@@ -104,8 +100,8 @@
       <% @measures_categories.sort.each do |category, measures| %>
       <div>
         <dl>
-         <dt><%= category %> [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" ", "_") %>')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category.tr(" ", "_") %>');">uncheck all</a>]</dt>
-         <dd><%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>category.tr(" ", "_")} %></dd>
+         <dt><%= category %> [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" '", "_") %>')">check all</a> | <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category.tr(" '", "_") %>');">uncheck all</a>]</dt>
+         <dd><%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>category.tr(" '", "_")} %></dd>
         </dl>
         </div>
       <% end %>

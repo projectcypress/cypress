@@ -44,9 +44,8 @@ class VendorsController < ApplicationController
                 "core20alt" => [188,4,45,55,59,62,68,69,70,71,72,100,101,102,103,108,109,110,111,113].collect {|y| y.to_s} }
     # Clone AMA records from Mongo 
     ama_patients = Record.where(:test_id => nil)
-    if params[:patient_population_id] != "all" then
-      puts 'Copying AMA patient subset: ' + params[:patient_population_id]
-      ama_patients = ama_patients.any_in("patient_id" => @subsets[params[:patient_population_id]])
+    if params[:vendor][:patient_population_id] != "all" then
+      ama_patients = ama_patients.any_in("patient_id" => @subsets[params[:vendor][:patient_population_id]])
     end
 
     ama_patients.each do |patient|
@@ -63,7 +62,6 @@ class VendorsController < ApplicationController
       
       cloned_patient.save!
     end
-    vendor.patient_population_id = params[:patient_population_id]
     vendor.save!
     
     redirect_to :action => 'show', :id => vendor.id
