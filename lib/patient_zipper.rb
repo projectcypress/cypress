@@ -1,5 +1,6 @@
 require 'builder'
 require 'csv'
+require 'open-uri'
 
 module Cypress
   class PatientZipper
@@ -12,6 +13,13 @@ module Cypress
           z.put_next_entry("#{patient.patient_id}_#{safe_first_name}_#{safe_last_name}.xml")
           if format==:c32
             z << HealthDataStandards::Export::C32.export(patient)
+          elsif format==:html
+            #http://iweb.dl.sourceforge.net/project/ccr-resources/ccr-xslt-html/CCR%20XSL%20V2.0/ccr.xsl
+            
+             doc = Nokogiri::XML::Document.parse(HealthDataStandards::Export::C32.export(patient))
+             xslt  = Nokogiri::XSLT(File.read(Rails.root.join("public","cda.xsl")))
+            
+             z << xslt.apply_to(doc) 
           else
             z << HealthDataStandards::Export::CCR.export(patient)
           end

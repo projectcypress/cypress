@@ -14,6 +14,14 @@ if @vendor.notes
         end
 end
 
+if @vendor.validation_errors
+        pdf.text "PQRI Validation Errors:\n\n"
+        @vendor.validation_errors.each do |error|  
+        pdf.text error + "\n\n"
+        end
+      end
+
+
 data = []
 pdf.text "Failing Measures:"  
 if @vendor.failing_measures.size > 0

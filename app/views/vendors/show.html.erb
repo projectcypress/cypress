@@ -97,6 +97,19 @@
           <a href="<%= vendor_url(@vendor.id.to_s) %>.pdf" class="cmd">Export PDF</a>
         <% end %>
     </section>
+    
+    <section class="pqriValidation">
+    
+      <% if @vendor.validation_errors %>
+        <h2 class="fail">PQRI Validation Errors</h2>
+        <h3>Cypress uses Northwestern Medical's XSD interpretation of <a href="http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.  This is NOT a CMS published XSD.</h3>
+        <% @vendor.validation_errors.each do |error| %>      
+        <div class ="pqriXmlError"><%= error %></div>
+       <% end %> 
+      <% end %>
+      
+    
+    </section>
    
     <section id="quality_measures">
       <table>
