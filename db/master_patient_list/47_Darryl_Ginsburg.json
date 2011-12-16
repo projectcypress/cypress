@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf747042f900a300007a",
+  "_id": "4eeb7f03c226720fd600007a",
   "first": "Darryl",
   "patient_id": "47",
   "last": "Ginsburg",
@@ -43,7 +43,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1242446400,
         1242446400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -64,19 +63,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1242446400,
         1242446400
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1242446400,
         1242446400
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1242446400,
         1242446400
       ],
       "encounter_outpatient_encounter": [
@@ -371,14 +367,6 @@
         {
           "date": 1271217600,
           "value": 65.0
-        },
-        {
-          "date": 1271217600,
-          "value": 60.0
-        },
-        {
-          "date": 1271217600,
-          "value": 65.0
         }
       ]
     },
@@ -462,10 +450,6 @@
         {
           "date": 1271217600,
           "value": 60.0
-        },
-        {
-          "date": 1271217600,
-          "value": 60.0
         }
       ]
     },
@@ -485,25 +469,9 @@
         {
           "date": 1271217600,
           "value": 160.0
-        },
-        {
-          "date": 1271217600,
-          "value": 65.0
-        },
-        {
-          "date": 1271217600,
-          "value": 160.0
         }
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1271217600,
-          "value": 60.0
-        },
-        {
-          "date": 1271217600,
-          "value": 65.0
-        },
         {
           "date": 1271217600,
           "value": 60.0
@@ -517,17 +485,9 @@
         {
           "date": 1271217600,
           "value": 160.0
-        },
-        {
-          "date": 1271217600,
-          "value": 160.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
-        {
-          "date": 1271217600,
-          "value": 175.0
-        },
         {
           "date": 1271217600,
           "value": 175.0
@@ -717,22 +677,6 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1242446400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
@@ -885,82 +829,6 @@
       },
       "time": 1242446400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 60.0,
-        "units": null
-      },
-      "time": 1271217600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
-        ]
-      },
-      "value": {
-        "scalar": 65.0,
-        "units": null
-      },
-      "time": 1271217600,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
-        ]
-      },
-      "value": {
-        "scalar": 160.0,
-        "units": null
-      },
-      "time": 1271217600,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
-        ]
-      },
-      "value": {
-        "scalar": 175.0,
-        "units": null
-      },
-      "time": 1271217600,
-      "description": "Triglycerides"
     }
   ],
   "conditions": [

@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6d7042f900a300003c",
+  "_id": "4eeb7efcc226720fd600003c",
   "first": "Allie",
   "patient_id": "23",
   "last": "Little",
@@ -26,12 +26,9 @@
       ],
       "group_a_streptococcus_test_laboratory_test_performed": [
         1291525200,
-        1282449600,
-        1291525200,
         1282449600
       ],
       "pharyngitis_diagnosis_active": [
-        1282449600,
         1282449600
       ],
       "pharyngitis_antibiotics_medication_dispensed": [
@@ -165,7 +162,6 @@
         1234760400
       ],
       "pap_test_laboratory_test_result": [
-        1271649600,
         1271649600
       ]
     },
@@ -180,7 +176,6 @@
         1271649600
       ],
       "sexually_active_woman_diagnosis_active": [
-        1271649600,
         1271649600
       ],
       "contraceptive_use_education_communication_to_patient": [
@@ -626,38 +621,6 @@
   "social_history": [
     {
       "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ],
-        "SNOMED-CT": [
-          "363746003"
-        ],
-        "ICD-9-CM": [
-          "462"
-        ]
-      },
-      "time": 1282449600,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ],
-        "SNOMED-CT": [
-          "8098009"
-        ],
-        "ICD-10-CM": [
-          "A64"
-        ]
-      },
-      "time": 1271649600,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
@@ -865,72 +828,6 @@
       },
       "time": 1171602000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ],
-        "LOINC": [
-          "31971-5"
-        ],
-        "SNOMED-CT": [
-          "122245007"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1291525200,
-      "description": "Group A Streptococcus Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ],
-        "LOINC": [
-          "31971-5"
-        ],
-        "SNOMED-CT": [
-          "122245007"
-        ]
-      },
-      "value": {
-        "scalar": "Positive",
-        "units": null
-      },
-      "time": 1282449600,
-      "description": "Group A Streptococcus Test"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1271649600,
-      "description": "Pap Test"
     }
   ],
   "conditions": [

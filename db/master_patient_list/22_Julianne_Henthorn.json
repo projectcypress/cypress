@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6d7042f900a3000036",
+  "_id": "4eeb7efcc226720fd6000036",
   "first": "Julianne",
   "patient_id": "22",
   "last": "Henthorn",
@@ -11,15 +11,12 @@
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
-        1250308800,
         1250308800
       ],
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
-        1270008000,
         1270008000
       ],
       "asthma_nighttime_symptoms_quantified_symptom_assessed": [
-        1270008000,
         1270008000
       ],
       "asthma_symptom_assessment_tool_risk_category_assessment": [
@@ -69,7 +66,6 @@
     },
     "0012": {
       "hiv_screening_laboratory_test_performed": [
-        1284091200,
         1284091200
       ]
     },
@@ -161,8 +157,6 @@
       ],
       "pap_test_laboratory_test_result": [
         1284091200,
-        1250308800,
-        1284091200,
         1250308800
       ],
       "encounter_ob_gyn_encounter": [
@@ -173,8 +167,6 @@
     "0033": {
       "chlamydia_screening_laboratory_test_result": [
         1284091200,
-        1250308800,
-        1284091200,
         1250308800
       ],
       "encounter_outpatient_encounter": [
@@ -183,8 +175,6 @@
         1270008000
       ],
       "chlamydia_screening_laboratory_test_performed": [
-        1284091200,
-        1250308800,
         1284091200,
         1250308800
       ],
@@ -226,7 +216,6 @@
     },
     "0036": {
       "asthma_diagnosis_active": [
-        1250308800,
         1250308800
       ],
       "short_acting_beta_2_agonist_medication_active": [
@@ -279,7 +268,6 @@
     },
     "0047": {
       "asthma_diagnosis_active": [
-        1250308800,
         1250308800
       ],
       "corticosteroid_inhaled_or_alternative_asthma_medication_medication_active": [
@@ -399,7 +387,6 @@
     },
     "0070": {
       "asthma_diagnosis_active": [
-        1250308800,
         1250308800
       ],
       "encounter_outpatient_encounter": [
@@ -471,7 +458,6 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1250308800,
         1250308800
       ],
       "encounter_outpatient_encounter": [
@@ -586,46 +572,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "time": 1250308800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "time": 1289797200,
       "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
   "vital_signs": [
@@ -788,119 +740,6 @@
       },
       "time": 1187150400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ],
-        "LOINC": [
-          "31777-6"
-        ],
-        "SNOMED-CT": [
-          "121953005"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87536"
-        ],
-        "LOINC": [
-          "9665-1"
-        ],
-        "SNOMED-CT": [
-          "104332002"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "HIV Screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ],
-        "LOINC": [
-          "31777-6"
-        ],
-        "SNOMED-CT": [
-          "121953005"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1250308800,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1250308800,
-      "description": "Pap Test"
     }
   ],
   "conditions": [

@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf797042f900a30000ab",
+  "_id": "4eeb7f08c226720fd60000ab",
   "first": "Erik",
   "patient_id": "34",
   "last": "Scheck",
@@ -37,7 +37,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -60,19 +59,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000,
         1270008000
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000,
         1270008000
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -176,7 +172,6 @@
     },
     "0086": {
       "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -353,14 +348,6 @@
         {
           "date": 1279252800,
           "value": 90.0
-        },
-        {
-          "date": 1286683200,
-          "value": 70.0
-        },
-        {
-          "date": 1279252800,
-          "value": 90.0
         }
       ]
     },
@@ -412,7 +399,6 @@
         1293339600
       ],
       "myocardial_infarction_diagnosis_resolved": [
-        1293339600,
         1293339600
       ],
       "encounter_outpatient_encounter": [
@@ -492,14 +478,6 @@
         {
           "date": 1279252800,
           "value": 90.0
-        },
-        {
-          "date": 1286683200,
-          "value": 70.0
-        },
-        {
-          "date": 1279252800,
-          "value": 90.0
         }
       ],
       "lipid_lowering_therapy_medication_order": [
@@ -519,14 +497,6 @@
         1272254400
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1286683200,
-          "value": 70.0
-        },
-        {
-          "date": 1279252800,
-          "value": 90.0
-        },
         {
           "date": 1286683200,
           "value": 70.0
@@ -721,54 +691,6 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ],
-        "ICD-10-CM": [
-          "H40.13"
-        ],
-        "SNOMED-CT": [
-          "84494001"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ],
-        "ICD-10-CM": [
-          "I21.3"
-        ],
-        "SNOMED-CT": [
-          "304914007"
-        ]
-      },
-      "time": 1293339600,
-      "status": "resolved",
-      "description": "Myocardial Infarction"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
@@ -953,32 +875,6 @@
       },
       "time": 1272254400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": null
-      },
-      "time": 1286683200,
-      "description": "LDL Laboratory Test"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1279252800,
-      "description": "LDL Laboratory Test"
     }
   ],
   "conditions": [

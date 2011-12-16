@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6f7042f900a3000047",
+  "_id": "4eeb7efdc226720fd6000047",
   "first": "Blair",
   "patient_id": "77",
   "last": "Waldorf",
@@ -12,16 +12,12 @@
     "0001": {
       "asthma_diagnosis_active": [
         1270180800,
-        1275883200,
-        1270180800,
         1275883200
       ],
       "asthma_daytime_symptoms_diagnosis_active": [
-        1270180800,
         1270180800
       ],
       "asthma_nighttime_symptoms_symptom_active": [
-        1270180800,
         1270180800
       ],
       "asthma_symptom_assessment_tool_risk_category_assessment": [
@@ -43,11 +39,9 @@
         1270180800
       ],
       "group_a_streptococcus_test_laboratory_test_performed": [
-        1291266000,
         1291266000
       ],
       "pharyngitis_diagnosis_active": [
-        1291266000,
         1291266000
       ],
       "pharyngitis_antibiotics_medication_dispensed": [
@@ -207,8 +201,6 @@
     "0036": {
       "asthma_diagnosis_active": [
         1270180800,
-        1275883200,
-        1270180800,
         1275883200
       ],
       "encounter_outpatient_encounter": [
@@ -285,11 +277,9 @@
     },
     "0047": {
       "asthma_persistent_diagnosis_active": [
-        1275883200,
         1275883200
       ],
       "asthma_diagnosis_active": [
-        1270180800,
         1270180800
       ],
       "corticosteroid_inhaled_or_alternative_asthma_medication_medication_active": [
@@ -415,8 +405,6 @@
     "0070": {
       "asthma_diagnosis_active": [
         1270180800,
-        1275883200,
-        1270180800,
         1275883200
       ],
       "encounter_outpatient_encounter": [
@@ -486,8 +474,6 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1270180800,
-        1275883200,
         1270180800,
         1275883200
       ],
@@ -636,75 +622,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "time": 1270180800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ],
-        "SNOMED-CT": [
-          "363746003"
-        ],
-        "ICD-9-CM": [
-          "462"
-        ]
-      },
-      "time": 1291266000,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ],
-        "SNOMED-CT": [
-          "427295004"
-        ]
-      },
-      "time": 1275883200,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
       "time": 1270180800,
       "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "373899003"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Asthma Daytime Symptoms"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "395022009"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Asthma Nighttime Symptoms"
     }
   ],
   "vital_signs": [
@@ -768,25 +691,6 @@
       },
       "time": 1279080000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ],
-        "LOINC": [
-          "31971-5"
-        ],
-        "SNOMED-CT": [
-          "122245007"
-        ]
-      },
-      "value": {
-        "scalar": "Positive",
-        "units": null
-      },
-      "time": 1291266000,
-      "description": "group A streptococcus test"
     }
   ],
   "conditions": [

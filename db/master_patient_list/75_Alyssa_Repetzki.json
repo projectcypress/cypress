@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf747042f900a300007b",
+  "_id": "4eeb7f03c226720fd600007b",
   "first": "Alyssa",
   "patient_id": "75",
   "last": "Repetzki",
@@ -12,16 +12,12 @@
     "0001": {
       "asthma_diagnosis_active": [
         1278475200,
-        1272081600,
-        1278475200,
         1272081600
       ],
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
-        1272081600,
         1272081600
       ],
       "asthma_nighttime_symptoms_quantified_symptom_assessed": [
-        1272081600,
         1272081600
       ],
       "asthma_symptom_assessment_tool_risk_category_assessment": [
@@ -58,7 +54,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1272081600,
         1272081600
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -78,19 +73,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1272081600,
         1272081600
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1272081600,
         1272081600
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1272081600,
         1272081600
       ],
       "encounter_outpatient_encounter": [
@@ -174,7 +166,6 @@
         1270008000
       ],
       "pap_test_laboratory_test_result": [
-        1289192400,
         1289192400
       ]
     },
@@ -212,8 +203,6 @@
     },
     "0036": {
       "asthma_diagnosis_active": [
-        1278475200,
-        1272081600,
         1278475200,
         1272081600
       ],
@@ -288,11 +277,9 @@
     },
     "0047": {
       "asthma_persistent_diagnosis_active": [
-        1278475200,
         1278475200
       ],
       "asthma_diagnosis_active": [
-        1272081600,
         1272081600
       ],
       "corticosteroid_inhaled_or_alternative_asthma_medication_medication_allergy": [
@@ -421,17 +408,13 @@
     },
     "0070": {
       "arrhythmia_diagnosis_active": [
-        1272081600,
         1272081600
       ],
       "asthma_diagnosis_active": [
         1278475200,
-        1272081600,
-        1278475200,
         1272081600
       ],
       "bradycardia_diagnosis_active": [
-        1272081600,
         1272081600
       ],
       "encounter_outpatient_encounter": [
@@ -519,17 +502,13 @@
     },
     "0083": {
       "arrhythmia_diagnosis_active": [
-        1272081600,
         1272081600
       ],
       "asthma_diagnosis_active": [
         1278475200,
-        1272081600,
-        1278475200,
         1272081600
       ],
       "bradycardia_diagnosis_active": [
-        1272081600,
         1272081600
       ],
       "encounter_outpatient_encounter": [
@@ -678,91 +657,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ],
-        "SNOMED-CT": [
-          "427295004"
-        ]
-      },
-      "time": 1278475200,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "time": 1272081600,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "48867003"
-        ],
-        "ICD-9-CM": [
-          "427.81"
-        ],
-        "ICD-10-CM": [
-          "R00.1"
-        ]
-      },
-      "time": 1272081600,
-      "status": "active",
-      "description": "Bradycardia"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1272081600,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "time": 1270008000,
       "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1272081600,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1272081600,
-      "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
   "vital_signs": [
@@ -887,34 +787,6 @@
       },
       "time": 1272081600,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1289192400,
-      "description": "Pap Test"
     }
   ],
   "conditions": [

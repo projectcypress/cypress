@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6b7042f900a3000029",
+  "_id": "4eeb7efac226720fd6000029",
   "first": "John",
   "patient_id": "203",
   "last": "Berendson",
@@ -11,15 +11,12 @@
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
-        1270526400,
         1270526400
       ],
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
-        1270526400,
         1270526400
       ],
       "asthma_nighttime_symptoms_quantified_symptom_assessed": [
-        1270526400,
         1270526400
       ],
       "asthma_symptom_assessment_tool_risk_category_assessment": [
@@ -60,7 +57,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1270526400,
         1270526400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -87,19 +83,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270526400,
         1270526400
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270526400,
         1270526400
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1270526400,
         1270526400
       ],
       "encounter_outpatient_encounter": [
@@ -260,13 +253,11 @@
         1270526400
       ],
       "fobt_laboratory_test_performed": [
-        1288584000,
         1288584000
       ]
     },
     "0036": {
       "asthma_diagnosis_active": [
-        1270526400,
         1270526400
       ],
       "encounter_outpatient_encounter": [
@@ -347,7 +338,6 @@
     },
     "0047": {
       "asthma_diagnosis_active": [
-        1270526400,
         1270526400
       ],
       "corticosteroid_inhaled_or_alternative_asthma_medication_medication_active": [
@@ -504,7 +494,6 @@
     },
     "0070": {
       "asthma_diagnosis_active": [
-        1270526400,
         1270526400
       ],
       "beta_blocker_therapy_medication_order": [
@@ -604,7 +593,6 @@
     },
     "0081": {
       "heart_failure_diagnosis_active": [
-        1275019200,
         1275019200
       ],
       "ace_inhibitor_or_arb_medication_active": [
@@ -625,11 +613,9 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1270526400,
         1270526400
       ],
       "heart_failure_diagnosis_active": [
-        1275019200,
         1275019200
       ],
       "beta_blocker_therapy_medication_order": [
@@ -648,7 +634,6 @@
     },
     "0084": {
       "heart_failure_diagnosis_active": [
-        1275019200,
         1275019200
       ],
       "encounter_outpatient_encounter": [
@@ -818,78 +803,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "time": 1270526400,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ],
-        "ICD-10-CM": [
-          "I50.9"
-        ],
-        "SNOMED-CT": [
-          "84114007"
-        ]
-      },
-      "time": 1275019200,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1270526400,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
       "time": 1270526400,
       "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270526400,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270526400,
-      "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
   "vital_signs": [
@@ -1100,31 +1019,6 @@
       },
       "time": 1270526400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ],
-        "SNOMED-CT": [
-          "252156002"
-        ],
-        "LOINC": [
-          "2335-8"
-        ],
-        "HCPCS": [
-          "G0328"
-        ],
-        "ICD-9-CM": [
-          "V76.51"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1288584000,
-      "description": "FOBT"
     }
   ],
   "conditions": [

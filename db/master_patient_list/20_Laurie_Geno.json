@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6c7042f900a3000032",
+  "_id": "4eeb7efbc226720fd6000032",
   "first": "Laurie",
   "patient_id": "20",
   "last": "Geno",
@@ -46,7 +46,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1273464000,
         1273464000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -68,19 +67,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1273464000,
         1273464000
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1273464000,
         1273464000
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1273464000,
         1273464000
       ],
       "encounter_outpatient_encounter": [
@@ -204,7 +200,6 @@
         1273464000
       ],
       "fobt_laboratory_test_performed": [
-        1285905600,
         1285905600
       ]
     },
@@ -361,10 +356,6 @@
         {
           "date": 1285905600,
           "value": 84.0
-        },
-        {
-          "date": 1285905600,
-          "value": 84.0
         }
       ]
     },
@@ -450,10 +441,6 @@
         {
           "date": 1285905600,
           "value": 84.0
-        },
-        {
-          "date": 1285905600,
-          "value": 84.0
         }
       ]
     },
@@ -465,10 +452,6 @@
         1273464000
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1285905600,
-          "value": 84.0
-        },
         {
           "date": 1285905600,
           "value": 84.0
@@ -548,7 +531,6 @@
     },
     "0387": {
       "breast_cancer_history_diagnosis_inactive": [
-        1179115200,
         1179115200
       ],
       "encounter_office_visit_encounter": [
@@ -653,38 +635,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V10.3"
-        ],
-        "ICD-10-CM": [
-          "Z85.3"
-        ],
-        "SNOMED-CT": [
-          "429087003"
-        ]
-      },
-      "time": 1179115200,
-      "status": "inactive",
-      "description": "Breast Cancer History"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "Hypertension"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -836,50 +786,6 @@
       },
       "time": 1285905600,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1285905600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ],
-        "SNOMED-CT": [
-          "252156002"
-        ],
-        "LOINC": [
-          "2335-8"
-        ],
-        "HCPCS": [
-          "G0328"
-        ],
-        "ICD-9-CM": [
-          "V76.51"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1285905600,
-      "description": "FOBT"
     }
   ],
   "conditions": [
