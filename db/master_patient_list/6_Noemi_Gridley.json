@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6b7042f900a3000027",
+  "_id": "4eeb7efac226720fd6000027",
   "first": "Noemi",
   "patient_id": "6",
   "last": "Gridley",
@@ -44,7 +44,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1218168000,
         1218168000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -70,19 +69,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1218168000,
         1218168000
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1218168000,
         1218168000
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1218168000,
         1218168000
       ],
       "encounter_outpatient_encounter": [
@@ -208,7 +204,6 @@
         1245211200
       ],
       "pap_test_laboratory_test_result": [
-        1271995200,
         1271995200
       ]
     },
@@ -419,10 +414,6 @@
         {
           "date": 1271995200,
           "value": 78.0
-        },
-        {
-          "date": 1271995200,
-          "value": 78.0
         }
       ]
     },
@@ -527,10 +518,6 @@
         {
           "date": 1271995200,
           "value": 78.0
-        },
-        {
-          "date": 1271995200,
-          "value": 78.0
         }
       ]
     },
@@ -543,10 +530,6 @@
         1245211200
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1271995200,
-          "value": 78.0
-        },
         {
           "date": 1271995200,
           "value": 78.0
@@ -735,22 +718,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1218168000,
-      "status": "active",
-      "description": "Hypertension"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -982,53 +949,6 @@
       },
       "time": 1245211200,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1271995200,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1271995200,
-      "description": "LDL"
     }
   ],
   "conditions": [

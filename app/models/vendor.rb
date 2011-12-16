@@ -33,6 +33,7 @@ class Vendor
   field :effective_date, type: Integer
   field :measure_ids, type: Array
   field :patient_gen_job, type: String
+  field :patient_population_id, type: String
   field :reported_results, type: Hash
   field :validation_errors, type: Array
 
@@ -123,6 +124,7 @@ class Vendor
     end
   end
   
+
   # validate the pqri submission against the xsd
   # errors are stored in validation_errors
   def validate_pqri(doc,schema)
@@ -133,3 +135,4 @@ class Vendor
   end
   
 end
+

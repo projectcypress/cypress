@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf7d7042f900a30000d2",
+  "_id": "4eeb7f0dc226720fd60000d2",
   "first": "Emilio",
   "patient_id": "186",
   "last": "Hernandez",
@@ -33,7 +33,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1275796800,
         1275796800
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -51,19 +50,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1275796800,
         1275796800
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1275796800,
         1275796800
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1275796800,
         1275796800
       ],
       "encounter_outpatient_encounter": [
@@ -267,14 +263,6 @@
         {
           "date": 1275969600,
           "value": 100.0
-        },
-        {
-          "date": 1275969600,
-          "value": 45.0
-        },
-        {
-          "date": 1275969600,
-          "value": 100.0
         }
       ]
     },
@@ -370,10 +358,6 @@
         {
           "date": 1275969600,
           "value": 100.0
-        },
-        {
-          "date": 1275969600,
-          "value": 100.0
         }
       ],
       "lipid_lowering_therapy_medication_order": [
@@ -396,25 +380,9 @@
         {
           "date": 1275969600,
           "value": 168.0
-        },
-        {
-          "date": 1275969600,
-          "value": 45.0
-        },
-        {
-          "date": 1275969600,
-          "value": 168.0
         }
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1275969600,
-          "value": 45.0
-        },
-        {
-          "date": 1275969600,
-          "value": 100.0
-        },
         {
           "date": 1275969600,
           "value": 45.0
@@ -428,17 +396,9 @@
         {
           "date": 1275969600,
           "value": 168.0
-        },
-        {
-          "date": 1275969600,
-          "value": 168.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
-        {
-          "date": 1275969600,
-          "value": 116.0
-        },
         {
           "date": 1275969600,
           "value": 116.0
@@ -451,7 +411,6 @@
     },
     "0081": {
       "heart_failure_diagnosis_active": [
-        1275969600,
         1275969600
       ],
       "ace_inhibitor_or_arb_medication_active": [
@@ -467,7 +426,6 @@
     },
     "0083": {
       "heart_failure_diagnosis_active": [
-        1275969600,
         1275969600
       ],
       "beta_blocker_therapy_medication_order": [
@@ -487,11 +445,9 @@
     },
     "0084": {
       "atrial_fibrillation_diagnosis_active": [
-        1275969600,
         1275969600
       ],
       "heart_failure_diagnosis_active": [
-        1275969600,
         1275969600
       ],
       "encounter_outpatient_encounter": [
@@ -587,54 +543,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "427.31"
-        ],
-        "ICD-10-CM": [
-          "I48.0"
-        ],
-        "SNOMED-CT": [
-          "49436004"
-        ]
-      },
-      "time": 1275969600,
-      "status": "active",
-      "description": "Atrial Fibrillation"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ],
-        "ICD-10-CM": [
-          "I50.9"
-        ],
-        "SNOMED-CT": [
-          "84114007"
-        ]
-      },
-      "time": 1275969600,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1275796800,
-      "status": "active",
-      "description": "Hypertension"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -767,82 +675,6 @@
       },
       "time": 1277006400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
-        ]
-      },
-      "value": {
-        "scalar": 45.0,
-        "units": null
-      },
-      "time": 1275969600,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 100.0,
-        "units": null
-      },
-      "time": 1275969600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
-        ]
-      },
-      "value": {
-        "scalar": 168.0,
-        "units": null
-      },
-      "time": 1275969600,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
-        ]
-      },
-      "value": {
-        "scalar": 116.0,
-        "units": null
-      },
-      "time": 1275969600,
-      "description": "Triglycerides"
     }
   ],
   "conditions": [

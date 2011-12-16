@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf787042f900a30000a3",
+  "_id": "4eeb7f07c226720fd60000a3",
   "first": "Caroline",
   "patient_id": "99",
   "last": "O'Connor",
@@ -126,7 +126,6 @@
         1272686400
       ],
       "pap_test_laboratory_test_result": [
-        1289102400,
         1289102400
       ]
     },
@@ -194,7 +193,6 @@
     },
     "0055": {
       "diabetes_diagnosis_active": [
-        1272686400,
         1272686400
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -219,7 +217,6 @@
     },
     "0056": {
       "diabetes_diagnosis_active": [
-        1272686400,
         1272686400
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -238,7 +235,6 @@
     },
     "0059": {
       "diabetes_diagnosis_active": [
-        1272686400,
         1272686400
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -249,14 +245,6 @@
         1272686400
       ],
       "hba1c_test_laboratory_test_result": [
-        {
-          "date": 1289102400,
-          "value": 0.071
-        },
-        {
-          "date": 1272686400,
-          "value": 0.072
-        },
         {
           "date": 1289102400,
           "value": 0.071
@@ -275,7 +263,6 @@
     },
     "0061": {
       "diabetes_diagnosis_active": [
-        1272686400,
         1272686400
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -314,7 +301,6 @@
     },
     "0062": {
       "diabetes_diagnosis_active": [
-        1272686400,
         1272686400
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -333,7 +319,6 @@
     },
     "0064": {
       "diabetes_diagnosis_active": [
-        1272686400,
         1272686400
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -344,14 +329,6 @@
         1272686400
       ],
       "ldl_test_laboratory_test_result": [
-        {
-          "date": 1272686400,
-          "value": 81.0
-        },
-        {
-          "date": 1272686400,
-          "value": 50.0
-        },
         {
           "date": 1272686400,
           "value": 81.0
@@ -432,10 +409,6 @@
         {
           "date": 1272686400,
           "value": 81.0
-        },
-        {
-          "date": 1272686400,
-          "value": 81.0
         }
       ]
     },
@@ -445,14 +418,6 @@
         1272686400
       ],
       "high_density_lipoprotein_hdl_laboratory_test_performed": [
-        {
-          "date": 1272686400,
-          "value": 50.0
-        },
-        {
-          "date": 1272686400,
-          "value": 160.0
-        },
         {
           "date": 1272686400,
           "value": 50.0
@@ -470,31 +435,15 @@
         {
           "date": 1272686400,
           "value": 50.0
-        },
-        {
-          "date": 1272686400,
-          "value": 81.0
-        },
-        {
-          "date": 1272686400,
-          "value": 50.0
         }
       ],
       "total_cholesterol_laboratory_test_performed": [
         {
           "date": 1272686400,
           "value": 160.0
-        },
-        {
-          "date": 1272686400,
-          "value": 160.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
-        {
-          "date": 1272686400,
-          "value": 150.0
-        },
         {
           "date": 1272686400,
           "value": 150.0
@@ -576,7 +525,6 @@
     },
     "0575": {
       "diabetes_diagnosis_active": [
-        1272686400,
         1272686400
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -587,14 +535,6 @@
         1272686400
       ],
       "hba1c_test_laboratory_test_result": [
-        {
-          "date": 1289102400,
-          "value": 0.071
-        },
-        {
-          "date": 1272686400,
-          "value": 0.072
-        },
         {
           "date": 1289102400,
           "value": 0.071
@@ -657,22 +597,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ],
-        "ICD-10-CM": [
-          "E11.9"
-        ],
-        "SNOMED-CT": [
-          "73211009"
-        ]
-      },
-      "time": 1272686400,
-      "status": "active",
-      "description": "diabetes"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -779,142 +703,6 @@
       },
       "time": 1272686400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1289102400,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
-        ]
-      },
-      "value": {
-        "scalar": 0.071,
-        "units": null
-      },
-      "time": 1289102400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": 81.0,
-        "units": null
-      },
-      "time": 1272686400,
-      "description": "LDL Laboratory Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
-        ]
-      },
-      "value": {
-        "scalar": 50.0,
-        "units": null
-      },
-      "time": 1272686400,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
-        ]
-      },
-      "value": {
-        "scalar": 160.0,
-        "units": null
-      },
-      "time": 1272686400,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
-        ]
-      },
-      "value": {
-        "scalar": 150.0,
-        "units": null
-      },
-      "time": 1272686400,
-      "description": "Triglycerides"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
-        ]
-      },
-      "value": {
-        "scalar": 0.072,
-        "units": null
-      },
-      "time": 1272686400,
-      "description": "HbA1c test"
     }
   ],
   "conditions": [

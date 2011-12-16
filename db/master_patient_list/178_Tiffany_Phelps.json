@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6c7042f900a300002e",
+  "_id": "4eeb7efbc226720fd600002e",
   "first": "Tiffany",
   "patient_id": "178",
   "last": "Phelps",
@@ -173,13 +173,11 @@
         1272772800
       ],
       "pap_test_laboratory_test_result": [
-        1283832000,
         1283832000
       ]
     },
     "0033": {
       "chlamydia_screening_laboratory_test_result": [
-        1283832000,
         1283832000
       ],
       "encounter_outpatient_encounter": [
@@ -190,7 +188,6 @@
         1272772800
       ],
       "chlamydia_screening_laboratory_test_performed": [
-        1283832000,
         1283832000
       ],
       "contraceptive_use_education_communication_to_patient": [
@@ -288,7 +285,6 @@
     },
     "0055": {
       "diabetes_diagnosis_active": [
-        1272772800,
         1272772800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -310,7 +306,6 @@
     },
     "0056": {
       "diabetes_diagnosis_active": [
-        1272772800,
         1272772800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -329,7 +324,6 @@
     },
     "0059": {
       "diabetes_diagnosis_active": [
-        1272772800,
         1272772800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -340,18 +334,6 @@
         1272772800
       ],
       "hba1c_test_laboratory_test_result": [
-        {
-          "date": 1291784400,
-          "value": 7.2
-        },
-        {
-          "date": 1283832000,
-          "value": 7.1
-        },
-        {
-          "date": 1272772800,
-          "value": 7.3
-        },
         {
           "date": 1291784400,
           "value": 7.2
@@ -374,7 +356,6 @@
     },
     "0061": {
       "diabetes_diagnosis_active": [
-        1272772800,
         1272772800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -437,7 +418,6 @@
     },
     "0062": {
       "diabetes_diagnosis_active": [
-        1272772800,
         1272772800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -456,7 +436,6 @@
     },
     "0064": {
       "diabetes_diagnosis_active": [
-        1272772800,
         1272772800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -467,10 +446,6 @@
         1272772800
       ],
       "ldl_test_laboratory_test_result": [
-        {
-          "date": 1283832000,
-          "value": 85.0
-        },
         {
           "date": 1283832000,
           "value": 85.0
@@ -588,10 +563,6 @@
         {
           "date": 1283832000,
           "value": 85.0
-        },
-        {
-          "date": 1283832000,
-          "value": 85.0
         }
       ]
     },
@@ -604,10 +575,6 @@
         1272772800
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1283832000,
-          "value": 85.0
-        },
         {
           "date": 1283832000,
           "value": 85.0
@@ -666,11 +633,9 @@
     },
     "0105": {
       "depression_diagnosis_active": [
-        1272772800,
         1272772800
       ],
       "major_depression_diagnosis_active": [
-        1272772800,
         1272772800
       ],
       "antidepressant_medications_medication_dispensed": [
@@ -735,7 +700,6 @@
     },
     "0575": {
       "diabetes_diagnosis_active": [
-        1272772800,
         1272772800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -746,18 +710,6 @@
         1272772800
       ],
       "hba1c_test_laboratory_test_result": [
-        {
-          "date": 1291784400,
-          "value": 7.2
-        },
-        {
-          "date": 1283832000,
-          "value": 7.1
-        },
-        {
-          "date": 1272772800,
-          "value": 7.3
-        },
         {
           "date": 1291784400,
           "value": 7.2
@@ -853,38 +805,7 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ],
-        "ICD-10-CM": [
-          "E11.9"
-        ],
-        "SNOMED-CT": [
-          "73211009"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ],
-        "ICD-10-CM": [
-          "F33.3"
-        ],
-        "SNOMED-CT": [
-          "191615005"
-        ]
-      },
-      "time": 1272772800,
-      "status": "active",
-      "description": "Depression"
-    }
+
   ],
   "vital_signs": [
     {
@@ -1094,129 +1015,6 @@
       },
       "time": 1274328000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ],
-        "LOINC": [
-          "31777-6"
-        ],
-        "SNOMED-CT": [
-          "121953005"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
-        ]
-      },
-      "value": {
-        "scalar": 7.2,
-        "units": null
-      },
-      "time": 1291784400,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
-        ]
-      },
-      "value": {
-        "scalar": 7.1,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
-        ]
-      },
-      "value": {
-        "scalar": 7.3,
-        "units": null
-      },
-      "time": 1272772800,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 85.0,
-        "units": null
-      },
-      "time": 1283832000,
-      "description": "LDL"
     }
   ],
   "conditions": [

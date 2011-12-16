@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf7a7042f900a30000b4",
+  "_id": "4eeb7f0ac226720fd60000b4",
   "first": "Lance",
   "patient_id": "31",
   "last": "Dumlao",
@@ -43,7 +43,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1270785600,
         1270785600
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -63,19 +62,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270785600,
         1270785600
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270785600,
         1270785600
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1270785600,
         1270785600
       ],
       "encounter_outpatient_encounter": [
@@ -162,7 +158,6 @@
     },
     "0086": {
       "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1274587200,
         1274587200
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -342,20 +337,11 @@
         {
           "date": 1285387200,
           "value": 50.0
-        },
-        {
-          "date": 1285387200,
-          "value": 127.0
-        },
-        {
-          "date": 1285387200,
-          "value": 50.0
         }
       ]
     },
     "0067": {
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1251259200,
         1251259200
       ],
       "antiplatelet_therapy_medication_order": [
@@ -382,7 +368,6 @@
         1251259200
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1251259200,
         1251259200
       ],
       "encounter_acute_inpt_encounter": [
@@ -408,7 +393,6 @@
     },
     "0070": {
       "coronary_artery_disease_no_mi_diagnosis_active": [
-        1251259200,
         1251259200
       ],
       "encounter_inpatient_discharge_encounter": [
@@ -427,7 +411,6 @@
         1251259200
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1251259200,
         1251259200
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -469,7 +452,6 @@
     },
     "0074": {
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1251259200,
         1251259200
       ],
       "encounter_outpatient_encounter": [
@@ -477,10 +459,6 @@
         1270785600
       ],
       "ldl_laboratory_test_laboratory_test_result": [
-        {
-          "date": 1285387200,
-          "value": 127.0
-        },
         {
           "date": 1285387200,
           "value": 127.0
@@ -502,29 +480,12 @@
         {
           "date": 1285387200,
           "value": 242.0
-        },
-        {
-          "date": 1285387200,
-          "value": 50.0
-        },
-        {
-          "date": 1285387200,
-          "value": 242.0
         }
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1251259200,
         1251259200
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1285387200,
-          "value": 127.0
-        },
-        {
-          "date": 1285387200,
-          "value": 50.0
-        },
         {
           "date": 1285387200,
           "value": 127.0
@@ -538,17 +499,9 @@
         {
           "date": 1285387200,
           "value": 242.0
-        },
-        {
-          "date": 1285387200,
-          "value": 242.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
-        {
-          "date": 1285387200,
-          "value": 325.0
-        },
         {
           "date": 1285387200,
           "value": 325.0
@@ -734,54 +687,6 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1270785600,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ],
-        "ICD-10-CM": [
-          "I24"
-        ],
-        "SNOMED-CT": [
-          "52674009"
-        ]
-      },
-      "time": 1251259200,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ],
-        "ICD-10-CM": [
-          "H40.13"
-        ],
-        "SNOMED-CT": [
-          "84494001"
-        ]
-      },
-      "time": 1274587200,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
@@ -918,82 +823,6 @@
       },
       "time": 1270785600,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 127.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
-        ]
-      },
-      "value": {
-        "scalar": 50.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
-        ]
-      },
-      "value": {
-        "scalar": 242.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
-        ]
-      },
-      "value": {
-        "scalar": 325.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "description": "Triglycerides"
     }
   ],
   "conditions": [

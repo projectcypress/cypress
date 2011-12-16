@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6a7042f900a300001c",
+  "_id": "4eeb7ef8c226720fd600001c",
   "first": "Dollie",
   "patient_id": "8",
   "last": "Bourget",
@@ -47,7 +47,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -68,19 +67,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000,
         1270008000
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000,
         1270008000
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -163,7 +159,6 @@
         1276574400
       ],
       "pap_test_laboratory_test_result": [
-        1284091200,
         1284091200
       ]
     },
@@ -360,14 +355,6 @@
         {
           "date": 1271304000,
           "value": 130.0
-        },
-        {
-          "date": 1284091200,
-          "value": 109.0
-        },
-        {
-          "date": 1271304000,
-          "value": 130.0
         }
       ]
     },
@@ -376,7 +363,6 @@
         1270094400
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "antiplatelet_therapy_medication_order": [
@@ -405,7 +391,6 @@
         1270008000
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "ptca_procedure_performed": [
@@ -438,7 +423,6 @@
         1270094400
       ],
       "coronary_artery_disease_no_mi_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_inpatient_discharge_encounter": [
@@ -473,7 +457,6 @@
         1270008000
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "ptca_procedure_performed": [
@@ -522,7 +505,6 @@
         1270094400
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -531,14 +513,6 @@
         1276574400
       ],
       "ldl_laboratory_test_laboratory_test_result": [
-        {
-          "date": 1284091200,
-          "value": 109.0
-        },
-        {
-          "date": 1271304000,
-          "value": 130.0
-        },
         {
           "date": 1284091200,
           "value": 109.0
@@ -566,18 +540,9 @@
         1270008000
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1284091200,
-          "value": 109.0
-        },
-        {
-          "date": 1271304000,
-          "value": 130.0
-        },
         {
           "date": 1284091200,
           "value": 109.0
@@ -774,38 +739,6 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ],
-        "ICD-10-CM": [
-          "I24"
-        ],
-        "SNOMED-CT": [
-          "52674009"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
@@ -997,72 +930,6 @@
       },
       "time": 1271304000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 109.0,
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 130.0,
-        "units": null
-      },
-      "time": 1271304000,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Pap Test"
     }
   ],
   "conditions": [

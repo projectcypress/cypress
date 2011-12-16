@@ -1,5 +1,5 @@
 {
-  "_id": "4ee7bf6a7042f900a300001d",
+  "_id": "4eeb7ef8c226720fd600001d",
   "first": "Sharron",
   "patient_id": "9",
   "last": "Racca",
@@ -43,7 +43,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1272600000,
         1272600000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -65,19 +64,16 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1272600000,
         1272600000
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1272600000,
         1272600000
       ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1272600000,
         1272600000
       ],
       "encounter_outpatient_encounter": [
@@ -335,14 +331,6 @@
         {
           "date": 1254715200,
           "value": 135.0
-        },
-        {
-          "date": 1292389200,
-          "value": 120.0
-        },
-        {
-          "date": 1254715200,
-          "value": 135.0
         }
       ]
     },
@@ -352,7 +340,6 @@
         1272600000
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1272600000,
         1272600000
       ],
       "antiplatelet_therapy_medication_order": [
@@ -373,7 +360,6 @@
     },
     "0068": {
       "acute_myocardial_infarction_diagnosis_active": [
-        1272600000,
         1272600000
       ],
       "cabg_procedure_performed": [
@@ -417,7 +403,6 @@
         1272600000
       ],
       "myocardial_infarction_diagnosis_resolved": [
-        1272600000,
         1272600000
       ],
       "beta_blocker_therapy_medication_order": [
@@ -438,7 +423,6 @@
     },
     "0073": {
       "acute_myocardial_infarction_diagnosis_active": [
-        1272600000,
         1272600000
       ],
       "cabg_procedure_performed": [
@@ -506,7 +490,6 @@
         1272600000
       ],
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1272600000,
         1272600000
       ],
       "encounter_outpatient_encounter": [
@@ -521,20 +504,11 @@
         {
           "date": 1254715200,
           "value": 135.0
-        },
-        {
-          "date": 1292389200,
-          "value": 120.0
-        },
-        {
-          "date": 1254715200,
-          "value": 135.0
         }
       ]
     },
     "0075": {
       "acute_myocardial_infarction_diagnosis_active": [
-        1272600000,
         1272600000
       ],
       "cabg_procedure_performed": [
@@ -548,14 +522,6 @@
         1272600000
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1292389200,
-          "value": 120.0
-        },
-        {
-          "date": 1254715200,
-          "value": 135.0
-        },
         {
           "date": 1292389200,
           "value": 120.0
@@ -733,54 +699,6 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1272600000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ],
-        "ICD-10-CM": [
-          "I21.3"
-        ],
-        "SNOMED-CT": [
-          "304914007"
-        ]
-      },
-      "time": 1272600000,
-      "status": "resolved",
-      "description": "Myocardial Infarction"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "410.90"
-        ],
-        "ICD-10-CM": [
-          "I21.3"
-        ],
-        "SNOMED-CT": [
-          "57054005"
-        ]
-      },
-      "time": 1272600000,
-      "status": "active",
-      "description": "Coronary Artery Disease includes MI"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
@@ -949,44 +867,6 @@
       },
       "time": 1279166400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 120.0,
-        "units": null
-      },
-      "time": 1292389200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
-        ]
-      },
-      "value": {
-        "scalar": 135.0,
-        "units": null
-      },
-      "time": 1254715200,
-      "description": "LDL"
     }
   ],
   "conditions": [
