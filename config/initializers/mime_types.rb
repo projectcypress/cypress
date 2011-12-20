@@ -5,4 +5,3 @@
 # Mime::Type.register_alias "text/html", :iphone
 Mime::Type.register_alias "text/xml", :c32
 Mime::Type.register_alias "text/xml", :ccr
-Mime::Type.register_alias "text/html", :html
