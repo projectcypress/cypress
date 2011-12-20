@@ -97,6 +97,13 @@ a.cmd {
   cursor:pointer;
   font-size:80%;
   behavior: url(/stylesheets/PIE.htc);
+  width:100px;
+}
+
+div.stacked{
+clear:both;
+padding-bottom:10px;
+margin-top:20px;
 }
 a.cmd:hover {background-color:#a7c98a  + #444;}
 
@@ -107,6 +114,7 @@ nav.breadcrumb {
   font-size:80%;
   text-transform:uppercase;
   margin-bottom:12px;
+  margin-top:-50px;
   padding-top:4px;
   a {
     text-decoration:underline;
@@ -142,10 +150,15 @@ section.candidate, section.records, section.ctb_records, section.nqf {
     display:inline-block;
     address span {display:block;}
   }
-  dl.vendor {dt {line-height:150%;vertical-align: baseline;width:100px}
+  dl.vendor { 
+              dt {line-height:150%;vertical-align: baseline;width:100px}
              dd {width:200px;}
              dd:nth-child(2)  {font-size:150%}  
   }
+}
+
+section.candidate{
+margin-top:50px;
 }
 
 section#vendor {

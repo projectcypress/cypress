@@ -143,6 +143,16 @@ class VendorsController < ApplicationController
     t.close
   end
   
+  def ziphtml
+    vendor = Vendor.find(params[:id])
+    t = Tempfile.new("patients-#{Time.now.to_i}")
+    patients = Record.where("test_id" => vendor.id)
+    Cypress::PatientZipper.zip(t, patients, :html)
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
+      :filename => 'patients_html.zip'
+    t.close
+  end
+  
   def csv
     vendor = Vendor.find(params[:id])
      t = Tempfile.new("patients-#{Time.now.to_i}")
@@ -157,7 +167,7 @@ class VendorsController < ApplicationController
     vendor = Vendor.find(params[:id])
     t = Tempfile.new("patients-#{Time.now.to_i}")
     patients = Record.where("test_id" => vendor.id)
-    Cypress::PatientZipper.zip(t, patients, :html)
+    Cypress::PatientZipper.zip(t, patients, :ccr)
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
       :filename => 'patients_ccr.zip'
     t.close
