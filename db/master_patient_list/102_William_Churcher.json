@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7f05c226720fd600008b",
+  "_id": "4ef0d806a9ffccb9a200008b",
   "first": "William",
   "patient_id": "102",
   "last": "Churcher",
@@ -7,6 +7,7 @@
   "birthdate": -987278400,
   "race": "Other Race",
   "ethnicity": "Not Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -172,6 +173,7 @@
     },
     "0086": {
       "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1287028800,
         1287028800
       ],
       "encounter_domiciliary_encounter": [
@@ -200,10 +202,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1288065600,
-        1272081600
-      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -247,6 +245,7 @@
     },
     "0055": {
       "diabetes_diagnosis_active": [
+        1272081600,
         1272081600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -276,6 +275,7 @@
     },
     "0056": {
       "diabetes_diagnosis_active": [
+        1272081600,
         1272081600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -298,6 +298,7 @@
     },
     "0059": {
       "diabetes_diagnosis_active": [
+        1272081600,
         1272081600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -310,6 +311,18 @@
         1272081600
       ],
       "hba1c_test_laboratory_test_result": [
+        {
+          "date": 1288065600,
+          "value": 7.7
+        },
+        {
+          "date": 1280808000,
+          "value": 7.5
+        },
+        {
+          "date": 1272081600,
+          "value": 7.6
+        },
         {
           "date": 1288065600,
           "value": 7.7
@@ -334,6 +347,7 @@
     },
     "0061": {
       "diabetes_diagnosis_active": [
+        1272081600,
         1272081600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -384,6 +398,7 @@
     },
     "0062": {
       "diabetes_diagnosis_active": [
+        1272081600,
         1272081600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -406,6 +421,7 @@
     },
     "0064": {
       "diabetes_diagnosis_active": [
+        1272081600,
         1272081600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -418,6 +434,14 @@
         1272081600
       ],
       "ldl_test_laboratory_test_result": [
+        {
+          "date": 1272081600,
+          "value": 70.0
+        },
+        {
+          "date": 1272081600,
+          "value": 64.0
+        },
         {
           "date": 1272081600,
           "value": 70.0
@@ -455,10 +479,6 @@
         1288065600,
         1275710400,
         1272081600
-      ],
-      "encounter_outpatient_encounter": [
-        1288065600,
-        1272081600
       ]
     },
     "0070": {
@@ -491,10 +511,6 @@
           "value": 130.0
         }
       ],
-      "encounter_outpatient_encounter": [
-        1288065600,
-        1272081600
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1288065600,
@@ -517,12 +533,6 @@
         1280808000,
         1275710400,
         1272081600
-      ],
-      "ldl_laboratory_test_laboratory_test_result": [
-        {
-          "date": 1272081600,
-          "value": 70.0
-        }
       ]
     },
     "0075": {
@@ -539,10 +549,18 @@
         },
         {
           "date": 1272081600,
-          "value": 164.0
+          "value": 64.0
         }
       ],
       "ldl_test_laboratory_test_performed": [
+        {
+          "date": 1272081600,
+          "value": 70.0
+        },
+        {
+          "date": 1272081600,
+          "value": 64.0
+        },
         {
           "date": 1272081600,
           "value": 70.0
@@ -556,17 +574,21 @@
         {
           "date": 1272081600,
           "value": 164.0
+        },
+        {
+          "date": 1272081600,
+          "value": 164.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
         {
           "date": 1272081600,
           "value": 150.0
+        },
+        {
+          "date": 1272081600,
+          "value": 150.0
         }
-      ],
-      "encounter_outpatient_encounter": [
-        1288065600,
-        1272081600
       ]
     },
     "0081": {
@@ -672,6 +694,7 @@
     },
     "0575": {
       "diabetes_diagnosis_active": [
+        1272081600,
         1272081600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -684,6 +707,18 @@
         1272081600
       ],
       "hba1c_test_laboratory_test_result": [
+        {
+          "date": 1288065600,
+          "value": 7.7
+        },
+        {
+          "date": 1280808000,
+          "value": 7.5
+        },
+        {
+          "date": 1272081600,
+          "value": 7.6
+        },
         {
           "date": 1288065600,
           "value": 7.7
@@ -731,9 +766,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1288065600,
@@ -779,9 +811,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1272081600,
@@ -789,6 +818,36 @@
     }
   ],
   "social_history": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "250"
+        ]
+      },
+      "time": 1272081600,
+      "status": "active",
+      "description": "diabetes"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "365.10"
+        ]
+      },
+      "time": 1287028800,
+      "status": "active",
+      "description": "Primary Open Angle Glaucoma (POAG)"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "70.1"
+        ]
+      },
+      "time": 1272081600,
+      "status": "inactive",
+      "description": "Hepatitis A Diagnosis"
+    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -804,14 +863,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 132.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1288065600,
       "description": "Systolic Blood Pressure"
@@ -820,14 +876,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 78.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1288065600,
       "description": "Diastolic Blood Pressure"
@@ -836,14 +889,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 130.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1280808000,
       "description": "Systolic Blood Pressure"
@@ -852,14 +902,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 76.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1280808000,
       "description": "Diastolic Blood Pressure"
@@ -868,14 +915,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 130.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1272081600,
       "description": "Systolic Blood Pressure"
@@ -884,14 +928,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 78.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1272081600,
       "description": "Diastolic Blood Pressure"
@@ -900,9 +941,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -916,9 +954,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -932,9 +967,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -943,69 +975,11 @@
       },
       "time": 1272081600,
       "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ],
-        "ICD-10-CM": [
-          "E11.9"
-        ],
-        "SNOMED-CT": [
-          "73211009"
-        ]
-      },
-      "time": 1272081600,
-      "status": "active",
-      "description": "diabetes"
     },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ],
-        "ICD-10-CM": [
-          "H40.13"
-        ],
-        "SNOMED-CT": [
-          "84494001"
-        ]
-      },
-      "time": 1287028800,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "70.1"
-        ],
-        "ICD-10-CM": [
-          "B15.9"
-        ],
-        "SNOMED-CT": [
-          "40468003"
-        ]
-      },
-      "time": 1272081600,
-      "status": "inactive",
-      "description": "Hepatitis A Diagnosis"
-    }
-  ],
-  "results": [
     {
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -1019,12 +993,6 @@
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -1038,12 +1006,6 @@
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -1057,12 +1019,6 @@
       "codes": {
         "CPT": [
           "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
         ]
       },
       "value": {
@@ -1076,12 +1032,6 @@
       "codes": {
         "CPT": [
           "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
         ]
       },
       "value": {
@@ -1095,12 +1045,6 @@
       "codes": {
         "CPT": [
           "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
         ]
       },
       "value": {
@@ -1114,12 +1058,131 @@
       "codes": {
         "CPT": [
           "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
+        ]
+      },
+      "value": {
+        "scalar": 150.0,
+        "units": null
+      },
+      "time": 1272081600,
+      "description": "Triglycerides"
+    }
+  ],
+  "conditions": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "250"
+        ]
+      },
+      "time": 1272081600,
+      "status": "active",
+      "description": "diabetes"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "365.10"
+        ]
+      },
+      "time": 1287028800,
+      "status": "active",
+      "description": "Primary Open Angle Glaucoma (POAG)"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "70.1"
+        ]
+      },
+      "time": 1272081600,
+      "status": "inactive",
+      "description": "Hepatitis A Diagnosis"
+    }
+  ],
+  "results": [
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 7.7,
+        "units": null
+      },
+      "time": 1288065600,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 7.5,
+        "units": null
+      },
+      "time": 1280808000,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 7.6,
+        "units": null
+      },
+      "time": 1272081600,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83721"
+        ]
+      },
+      "value": {
+        "scalar": 70.0,
+        "units": null
+      },
+      "time": 1272081600,
+      "description": "LDL"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83701"
+        ]
+      },
+      "value": {
+        "scalar": 64.0,
+        "units": null
+      },
+      "time": 1272081600,
+      "description": "High Density Lipoprotein (HDL)"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "82465"
+        ]
+      },
+      "value": {
+        "scalar": 164.0,
+        "units": null
+      },
+      "time": 1272081600,
+      "description": "Total Cholesterol"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "84478"
         ]
       },
       "value": {
@@ -1174,12 +1237,6 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
-        ],
-        "HCPCS": [
-          "S9451"
-        ],
-        "ICD-10-CM": [
-          "Z71.3"
         ]
       },
       "time": 1272081600,
@@ -1189,15 +1246,6 @@
       "codes": {
         "CPT": [
           "97802"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "ICD-10-CM": [
-          "Z00.8"
         ]
       },
       "time": 1272081600,
@@ -1207,15 +1255,6 @@
       "codes": {
         "HCPCS": [
           "S0621"
-        ],
-        "SNOMED-CT": [
-          "390735007"
-        ],
-        "ICD-9-CM": [
-          "95.03"
-        ],
-        "CPT": [
-          "92012"
         ]
       },
       "time": 1287028800,

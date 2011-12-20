@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7f05c226720fd600008d",
+  "_id": "4ef0d806a9ffccb9a200008d",
   "first": "Claire",
   "patient_id": "91",
   "last": "Davis",
@@ -7,6 +7,7 @@
   "birthdate": -415828800,
   "race": "Black or African American",
   "ethnicity": "Not Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -146,6 +147,7 @@
         1271217600
       ],
       "pap_test_laboratory_test_result": [
+        1293685200,
         1293685200
       ]
     },
@@ -170,6 +172,7 @@
     },
     "0086": {
       "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1277870400,
         1277870400
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -190,16 +193,11 @@
         1271217600
       ],
       "fobt_laboratory_test_performed": [
+        1293685200,
         1293685200
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1293685200,
-        1287115200,
-        1280289600,
-        1271217600
-      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -250,6 +248,7 @@
     },
     "0055": {
       "diabetes_diagnosis_active": [
+        1271217600,
         1271217600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -273,6 +272,7 @@
     },
     "0056": {
       "diabetes_diagnosis_active": [
+        1271217600,
         1271217600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -290,6 +290,7 @@
     },
     "0059": {
       "diabetes_diagnosis_active": [
+        1271217600,
         1271217600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -299,6 +300,18 @@
         1271217600
       ],
       "hba1c_test_laboratory_test_result": [
+        {
+          "date": 1293685200,
+          "value": 7.2
+        },
+        {
+          "date": 1277697600,
+          "value": 7.4
+        },
+        {
+          "date": 1271217600,
+          "value": 7.3
+        },
         {
           "date": 1293685200,
           "value": 7.2
@@ -321,6 +334,7 @@
     },
     "0061": {
       "diabetes_diagnosis_active": [
+        1271217600,
         1271217600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -366,6 +380,7 @@
     },
     "0062": {
       "diabetes_diagnosis_active": [
+        1271217600,
         1271217600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -381,11 +396,13 @@
         1271217600
       ],
       "nephropathy_screening_laboratory_test_performed": [
+        1293685200,
         1293685200
       ]
     },
     "0064": {
       "diabetes_diagnosis_active": [
+        1271217600,
         1271217600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -414,12 +431,6 @@
     },
     "0068": {
       "encounter_acute_inpt_and_outpt_encounter": [
-        1293685200,
-        1287115200,
-        1280289600,
-        1271217600
-      ],
-      "encounter_outpatient_encounter": [
         1293685200,
         1287115200,
         1280289600,
@@ -455,12 +466,6 @@
           "value": 136.0
         }
       ],
-      "encounter_outpatient_encounter": [
-        1293685200,
-        1287115200,
-        1280289600,
-        1271217600
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1293685200,
@@ -486,12 +491,6 @@
     },
     "0075": {
       "encounter_acute_inpt_and_outpt_encounter": [
-        1293685200,
-        1287115200,
-        1280289600,
-        1271217600
-      ],
-      "encounter_outpatient_encounter": [
         1293685200,
         1287115200,
         1280289600,
@@ -580,6 +579,7 @@
     },
     "0575": {
       "diabetes_diagnosis_active": [
+        1271217600,
         1271217600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -589,6 +589,18 @@
         1271217600
       ],
       "hba1c_test_laboratory_test_result": [
+        {
+          "date": 1293685200,
+          "value": 7.2
+        },
+        {
+          "date": 1277697600,
+          "value": 7.4
+        },
+        {
+          "date": 1271217600,
+          "value": 7.3
+        },
         {
           "date": 1293685200,
           "value": 7.2
@@ -624,9 +636,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1293685200,
@@ -636,9 +645,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1287115200,
@@ -648,9 +654,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1280289600,
@@ -660,9 +663,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1271217600,
@@ -670,6 +670,26 @@
     }
   ],
   "social_history": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "250"
+        ]
+      },
+      "time": 1271217600,
+      "status": "active",
+      "description": "diabetes"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "365.10"
+        ]
+      },
+      "time": 1277870400,
+      "status": "active",
+      "description": "Primary Open Angle Glaucoma (POAG)"
+    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -685,14 +705,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 130.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1293685200,
       "description": "Systolic Blood Pressure"
@@ -701,14 +718,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 76.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1293685200,
       "description": "Diastolic Blood Pressure"
@@ -717,14 +731,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 134.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1277697600,
       "description": "Systolic Blood Pressure"
@@ -733,14 +744,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 82.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1277697600,
       "description": "Diastolic Blood Pressure"
@@ -749,14 +757,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 136.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1271217600,
       "description": "Systolic Blood Pressure"
@@ -765,14 +770,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 84.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1271217600,
       "description": "Diastolic Blood Pressure"
@@ -781,9 +783,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -792,53 +791,11 @@
       },
       "time": 1271217600,
       "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ],
-        "ICD-10-CM": [
-          "E11.9"
-        ],
-        "SNOMED-CT": [
-          "73211009"
-        ]
-      },
-      "time": 1271217600,
-      "status": "active",
-      "description": "diabetes"
     },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ],
-        "ICD-10-CM": [
-          "H40.13"
-        ],
-        "SNOMED-CT": [
-          "84494001"
-        ]
-      },
-      "time": 1277870400,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    }
-  ],
-  "results": [
     {
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -852,12 +809,6 @@
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -871,12 +822,6 @@
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -890,12 +835,6 @@
       "codes": {
         "LOINC": [
           "1754-1"
-        ],
-        "CPT": [
-          "90935"
-        ],
-        "SNOMED-CT": [
-          "171234009"
         ]
       },
       "value": {
@@ -909,18 +848,6 @@
       "codes": {
         "CPT": [
           "82274"
-        ],
-        "SNOMED-CT": [
-          "252156002"
-        ],
-        "LOINC": [
-          "2335-8"
-        ],
-        "HCPCS": [
-          "G0328"
-        ],
-        "ICD-9-CM": [
-          "V76.51"
         ]
       },
       "value": {
@@ -934,21 +861,108 @@
       "codes": {
         "ICD-9-CM": [
           "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
+        ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
+      "time": 1293685200,
+      "description": "Pap Test"
+    }
+  ],
+  "conditions": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "250"
+        ]
+      },
+      "time": 1271217600,
+      "status": "active",
+      "description": "diabetes"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "365.10"
+        ]
+      },
+      "time": 1277870400,
+      "status": "active",
+      "description": "Primary Open Angle Glaucoma (POAG)"
+    }
+  ],
+  "results": [
+    {
+      "codes": {
         "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 7.2,
+        "units": null
+      },
+      "time": 1293685200,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 7.4,
+        "units": null
+      },
+      "time": 1277697600,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 7.3,
+        "units": null
+      },
+      "time": 1271217600,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
         "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
+          "1754-1"
+        ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
+      "time": 1293685200,
+      "description": "Nephropathy Screening"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "82274"
+        ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
+      "time": 1293685200,
+      "description": "FOBT"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "V72.32"
         ]
       },
       "value": {
@@ -1012,15 +1026,6 @@
       "codes": {
         "HCPCS": [
           "S0621"
-        ],
-        "SNOMED-CT": [
-          "390735007"
-        ],
-        "ICD-9-CM": [
-          "95.03"
-        ],
-        "CPT": [
-          "92012"
         ]
       },
       "time": 1277870400,
@@ -1030,18 +1035,6 @@
       "codes": {
         "CPT": [
           "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
-        "SNOMED-CT": [
-          "24623002"
         ]
       },
       "time": 1290661200,

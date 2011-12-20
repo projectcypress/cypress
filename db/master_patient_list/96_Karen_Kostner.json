@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7efbc226720fd6000035",
+  "_id": "4ef0d7fca9ffccb9a2000035",
   "first": "Karen",
   "patient_id": "96",
   "last": "Kostner",
@@ -7,6 +7,7 @@
   "birthdate": -124052400,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -41,6 +42,7 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
+        1270526400,
         1270526400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -59,17 +61,12 @@
       ]
     },
     "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270526400
-      ]
     },
     "0014": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270526400
-      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
+        1270526400,
         1270526400
       ],
       "encounter_outpatient_encounter": [
@@ -154,6 +151,7 @@
         1270526400
       ],
       "pap_test_laboratory_test_result": [
+        1279857600,
         1279857600
       ]
     },
@@ -190,12 +188,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1292475600,
-        1285819200,
-        1279857600,
-        1270526400
-      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -252,6 +244,7 @@
         1270526400
       ],
       "polycystic_ovaries_diagnosis_active": [
+        1270526400,
         1270526400
       ]
     },
@@ -269,6 +262,7 @@
         1270526400
       ],
       "polycystic_ovaries_diagnosis_active": [
+        1270526400,
         1270526400
       ]
     },
@@ -286,6 +280,7 @@
         1270526400
       ],
       "polycystic_ovaries_diagnosis_active": [
+        1270526400,
         1270526400
       ]
     },
@@ -303,6 +298,7 @@
         1270526400
       ],
       "polycystic_ovaries_diagnosis_active": [
+        1270526400,
         1270526400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -346,6 +342,7 @@
         1270526400
       ],
       "polycystic_ovaries_diagnosis_active": [
+        1270526400,
         1270526400
       ]
     },
@@ -366,6 +363,7 @@
         1270526400
       ],
       "polycystic_ovaries_diagnosis_active": [
+        1270526400,
         1270526400
       ]
     },
@@ -379,12 +377,6 @@
     },
     "0068": {
       "encounter_acute_inpt_and_outpt_encounter": [
-        1292475600,
-        1285819200,
-        1279857600,
-        1270526400
-      ],
-      "encounter_outpatient_encounter": [
         1292475600,
         1285819200,
         1279857600,
@@ -426,12 +418,6 @@
           "value": 121.0
         }
       ],
-      "encounter_outpatient_encounter": [
-        1292475600,
-        1285819200,
-        1279857600,
-        1270526400
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1285819200,
@@ -453,12 +439,6 @@
     },
     "0075": {
       "encounter_acute_inpt_and_outpt_encounter": [
-        1292475600,
-        1285819200,
-        1279857600,
-        1270526400
-      ],
-      "encounter_outpatient_encounter": [
         1292475600,
         1285819200,
         1279857600,
@@ -575,6 +555,7 @@
         1270526400
       ],
       "polycystic_ovaries_diagnosis_active": [
+        1270526400,
         1270526400
       ]
     }
@@ -590,9 +571,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1292475600,
@@ -602,9 +580,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1285819200,
@@ -614,9 +589,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1279857600,
@@ -626,9 +598,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1270526400,
@@ -636,6 +605,26 @@
     }
   ],
   "social_history": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "256.4"
+        ]
+      },
+      "time": 1270526400,
+      "status": "active",
+      "description": "polycystic ovaries"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ]
+      },
+      "time": 1270526400,
+      "status": "active",
+      "description": "Hypertension"
+    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -651,14 +640,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 120.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1285819200,
       "description": "Systolic Blood Pressure"
@@ -667,14 +653,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 82.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1285819200,
       "description": "Diastolic Blood Pressure"
@@ -696,14 +679,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 121.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270526400,
       "description": "Systolic Blood Pressure"
@@ -712,14 +692,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 85.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270526400,
       "description": "Diastolic Blood Pressure"
@@ -741,9 +718,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -752,6 +726,15 @@
       },
       "time": 1285819200,
       "description": "BMI"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "V72.32"
+        ]
+      },
+      "time": 1279857600,
+      "description": "Pap Test"
     }
   ],
   "conditions": [
@@ -759,12 +742,6 @@
       "codes": {
         "ICD-9-CM": [
           "256.4"
-        ],
-        "ICD-10-CM": [
-          "E28.2"
-        ],
-        "SNOMED-CT": [
-          "69878008"
         ]
       },
       "time": 1270526400,
@@ -775,12 +752,6 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
         ]
       },
       "time": 1270526400,
@@ -793,21 +764,6 @@
       "codes": {
         "ICD-9-CM": [
           "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
         ]
       },
       "time": 1279857600,
@@ -819,15 +775,6 @@
       "codes": {
         "CPT": [
           "97802"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "ICD-10-CM": [
-          "Z00.8"
         ]
       },
       "time": 1285819200,
@@ -837,12 +784,6 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
-        ],
-        "HCPCS": [
-          "S9451"
-        ],
-        "ICD-10-CM": [
-          "Z71.3"
         ]
       },
       "time": 1285819200,
@@ -852,18 +793,6 @@
       "codes": {
         "CPT": [
           "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
-        "SNOMED-CT": [
-          "24623002"
         ]
       },
       "time": 1287201600,
@@ -898,15 +827,6 @@
       "codes": {
         "CPT": [
           "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
         ]
       },
       "time": 1285819200,

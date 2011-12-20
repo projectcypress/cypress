@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7efec226720fd600004c",
+  "_id": "4ef0d7ffa9ffccb9a200004c",
   "first": "Guy",
   "patient_id": "46",
   "last": "Harriott",
@@ -7,6 +7,7 @@
   "birthdate": 1238040000,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -19,9 +20,11 @@
         1271304000
       ],
       "group_a_streptococcus_test_laboratory_test_performed": [
+        1271304000,
         1271304000
       ],
       "pharyngitis_diagnosis_active": [
+        1263963600,
         1263963600
       ],
       "pharyngitis_antibiotics_medication_dispensed": [
@@ -116,9 +119,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1271304000
-      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -187,9 +187,6 @@
     "0068": {
       "encounter_acute_inpt_and_outpt_encounter": [
         1271304000
-      ],
-      "encounter_outpatient_encounter": [
-        1271304000
       ]
     },
     "0070": {
@@ -200,9 +197,6 @@
     "0073": {
       "encounter_acute_inpt_and_outpt_encounter": [
         1271304000
-      ],
-      "encounter_outpatient_encounter": [
-        1271304000
       ]
     },
     "0074": {
@@ -212,9 +206,6 @@
     },
     "0075": {
       "encounter_acute_inpt_and_outpt_encounter": [
-        1271304000
-      ],
-      "encounter_outpatient_encounter": [
         1271304000
       ]
     },
@@ -326,9 +317,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1271304000,
@@ -372,16 +360,22 @@
     }
   ],
   "social_history": [
-
+    {
+      "codes": {
+        "ICD-10-CM": [
+          "J02"
+        ]
+      },
+      "time": 1263963600,
+      "status": "active",
+      "description": "pharyngitis"
+    }
   ],
   "vital_signs": [
     {
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -395,9 +389,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -411,9 +402,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -427,9 +415,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -443,9 +428,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -459,9 +441,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -470,6 +449,19 @@
       },
       "time": 1242964800,
       "description": "BMI"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "87430"
+        ]
+      },
+      "value": {
+        "scalar": "Positive",
+        "units": null
+      },
+      "time": 1271304000,
+      "description": "Group A Streptococcus Test"
     }
   ],
   "conditions": [
@@ -477,12 +469,6 @@
       "codes": {
         "ICD-10-CM": [
           "J02"
-        ],
-        "SNOMED-CT": [
-          "363746003"
-        ],
-        "ICD-9-CM": [
-          "462"
         ]
       },
       "time": 1263963600,
@@ -495,12 +481,6 @@
       "codes": {
         "CPT": [
           "87430"
-        ],
-        "LOINC": [
-          "31971-5"
-        ],
-        "SNOMED-CT": [
-          "122245007"
         ]
       },
       "value": {

@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7f02c226720fd6000074",
+  "_id": "4ef0d803a9ffccb9a2000074",
   "first": "Guy",
   "patient_id": "60",
   "last": "Skillings",
@@ -7,6 +7,7 @@
   "birthdate": -781732800,
   "race": "Asian",
   "ethnicity": "Not Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -170,12 +171,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
-      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -223,6 +218,7 @@
     },
     "0055": {
       "diabetes_diagnosis_active": [
+        1257829200,
         1257829200
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -246,6 +242,7 @@
     },
     "0056": {
       "diabetes_diagnosis_active": [
+        1257829200,
         1257829200
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -263,6 +260,7 @@
     },
     "0059": {
       "diabetes_diagnosis_active": [
+        1257829200,
         1257829200
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -272,6 +270,22 @@
         1257829200
       ],
       "hba1c_test_laboratory_test_result": [
+        {
+          "date": 1292648400,
+          "value": 6.9
+        },
+        {
+          "date": 1283918400,
+          "value": 6.7
+        },
+        {
+          "date": 1276574400,
+          "value": 6.8
+        },
+        {
+          "date": 1257829200,
+          "value": 6.9
+        },
         {
           "date": 1292648400,
           "value": 6.9
@@ -298,6 +312,7 @@
     },
     "0061": {
       "diabetes_diagnosis_active": [
+        1257829200,
         1257829200
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -335,6 +350,7 @@
     },
     "0062": {
       "diabetes_diagnosis_active": [
+        1257829200,
         1257829200
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -352,6 +368,7 @@
     },
     "0064": {
       "diabetes_diagnosis_active": [
+        1257829200,
         1257829200
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -361,6 +378,10 @@
         1257829200
       ],
       "ldl_test_laboratory_test_result": [
+        {
+          "date": 1276574400,
+          "value": 65.0
+        },
         {
           "date": 1276574400,
           "value": 65.0
@@ -386,12 +407,6 @@
     },
     "0068": {
       "encounter_acute_inpt_and_outpt_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
-      ],
-      "encounter_outpatient_encounter": [
         1292648400,
         1283918400,
         1276574400,
@@ -423,12 +438,6 @@
           "value": 134.0
         }
       ],
-      "encounter_outpatient_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1292389200,
@@ -446,12 +455,6 @@
         1283918400,
         1276574400,
         1257829200
-      ],
-      "ldl_laboratory_test_laboratory_test_result": [
-        {
-          "date": 1276574400,
-          "value": 65.0
-        }
       ],
       "lipid_lowering_therapy_medication_order": [
         1276574400
@@ -471,13 +474,11 @@
         {
           "date": 1276574400,
           "value": 65.0
+        },
+        {
+          "date": 1276574400,
+          "value": 65.0
         }
-      ],
-      "encounter_outpatient_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
       ]
     },
     "0081": {
@@ -566,6 +567,7 @@
     },
     "0575": {
       "diabetes_diagnosis_active": [
+        1257829200,
         1257829200
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -575,6 +577,22 @@
         1257829200
       ],
       "hba1c_test_laboratory_test_result": [
+        {
+          "date": 1292648400,
+          "value": 6.9
+        },
+        {
+          "date": 1283918400,
+          "value": 6.7
+        },
+        {
+          "date": 1276574400,
+          "value": 6.8
+        },
+        {
+          "date": 1257829200,
+          "value": 6.9
+        },
         {
           "date": 1292648400,
           "value": 6.9
@@ -614,9 +632,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1292648400,
@@ -626,9 +641,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1283918400,
@@ -638,9 +650,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1276574400,
@@ -650,9 +659,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1257829200,
@@ -660,6 +666,16 @@
     }
   ],
   "social_history": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "250"
+        ]
+      },
+      "time": 1257829200,
+      "status": "active",
+      "description": "diabetes"
+    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -675,14 +691,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 136.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1292389200,
       "description": "Systolic Blood Pressure"
@@ -691,14 +704,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 82.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1292389200,
       "description": "Diastolic Blood Pressure"
@@ -707,14 +717,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 134.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1276574400,
       "description": "Systolic Blood Pressure"
@@ -723,14 +730,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 80.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1276574400,
       "description": "Diastolic Blood Pressure"
@@ -739,9 +743,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -755,9 +756,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -766,37 +764,11 @@
       },
       "time": 1276574400,
       "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ],
-        "ICD-10-CM": [
-          "E11.9"
-        ],
-        "SNOMED-CT": [
-          "73211009"
-        ]
-      },
-      "time": 1257829200,
-      "status": "active",
-      "description": "diabetes"
-    }
-  ],
-  "results": [
+    },
     {
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -810,12 +782,6 @@
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -829,12 +795,6 @@
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -848,12 +808,6 @@
       "codes": {
         "CPT": [
           "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
         ]
       },
       "value": {
@@ -867,12 +821,85 @@
       "codes": {
         "CPT": [
           "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
+        ]
+      },
+      "value": {
+        "scalar": 65.0,
+        "units": null
+      },
+      "time": 1276574400,
+      "description": "LDL"
+    }
+  ],
+  "conditions": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "250"
+        ]
+      },
+      "time": 1257829200,
+      "status": "active",
+      "description": "diabetes"
+    }
+  ],
+  "results": [
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 6.9,
+        "units": null
+      },
+      "time": 1292648400,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 6.7,
+        "units": null
+      },
+      "time": 1283918400,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 6.8,
+        "units": null
+      },
+      "time": 1276574400,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ]
+      },
+      "value": {
+        "scalar": 6.9,
+        "units": null
+      },
+      "time": 1257829200,
+      "description": "HbA1c test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83721"
         ]
       },
       "value": {
@@ -914,15 +941,6 @@
       "codes": {
         "HCPCS": [
           "S0621"
-        ],
-        "SNOMED-CT": [
-          "390735007"
-        ],
-        "ICD-9-CM": [
-          "95.03"
-        ],
-        "CPT": [
-          "92012"
         ]
       },
       "time": 1276574400,
@@ -932,18 +950,6 @@
       "codes": {
         "CPT": [
           "45378"
-        ],
-        "HCPCS": [
-          "G0121"
-        ],
-        "ICD-9-CM": [
-          "45.23"
-        ],
-        "SNOMED-CT": [
-          "456004"
-        ],
-        "ICD-10-CM": [
-          "Z12.11"
         ]
       },
       "time": 1293685200,
@@ -975,9 +981,6 @@
       "codes": {
         "CVX": [
           "100"
-        ],
-        "CPT": [
-          "90669"
         ]
       },
       "time": 1283918400,

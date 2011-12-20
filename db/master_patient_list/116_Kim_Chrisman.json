@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7effc226720fd6000054",
+  "_id": "4ef0d800a9ffccb9a2000054",
   "first": "Kim",
   "patient_id": "116",
   "last": "Chrisman",
@@ -7,6 +7,7 @@
   "birthdate": -928008000,
   "race": "Asian",
   "ethnicity": "Not Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -48,6 +49,7 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
+        1270008000,
         1270008000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -66,17 +68,12 @@
       ]
     },
     "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000
-      ]
     },
     "0014": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000
-      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
+        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -193,6 +190,7 @@
         1275796800
       ],
       "colorectal_cancer_diagnosis_active": [
+        1275796800,
         1275796800
       ],
       "encounter_outpatient_encounter": [
@@ -203,10 +201,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1288152000,
-        1275796800
-      ],
       "encounter_acute_inpt_encounter": [
         1275969600
       ]
@@ -248,9 +242,6 @@
       ]
     },
     "0052": {
-      "cancer_diagnosis_active": [
-        1275796800
-      ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
         1288152000,
         1277438400,
@@ -261,6 +252,7 @@
         1270008000
       ],
       "low_back_pain_diagnosis_active": [
+        1270008000,
         1270008000
       ]
     },
@@ -345,9 +337,6 @@
         1277438400,
         1275796800,
         1270008000
-      ],
-      "nephropathy_diagnosis_active": [
-        1275969600
       ]
     },
     "0064": {
@@ -361,6 +350,14 @@
         1270008000
       ],
       "ldl_test_laboratory_test_result": [
+        {
+          "date": 1270008000,
+          "value": 64.0
+        },
+        {
+          "date": 1270008000,
+          "value": 70.0
+        },
         {
           "date": 1270008000,
           "value": 64.0
@@ -389,10 +386,6 @@
       ],
       "encounter_acute_inpt_encounter": [
         1275969600
-      ],
-      "encounter_outpatient_encounter": [
-        1288152000,
-        1275796800
       ]
     },
     "0070": {
@@ -434,10 +427,6 @@
       "encounter_acute_inpt_encounter": [
         1275969600
       ],
-      "encounter_outpatient_encounter": [
-        1288152000,
-        1275796800
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1288152000,
@@ -460,6 +449,10 @@
         {
           "date": 1270008000,
           "value": 70.0
+        },
+        {
+          "date": 1270008000,
+          "value": 70.0
         }
       ]
     },
@@ -474,7 +467,7 @@
       "high_density_lipoprotein_hdl_laboratory_test_performed": [
         {
           "date": 1270008000,
-          "value": 164.0
+          "value": 64.0
         },
         {
           "date": 1270008000,
@@ -489,9 +482,21 @@
         {
           "date": 1270008000,
           "value": 70.0
+        },
+        {
+          "date": 1270008000,
+          "value": 64.0
+        },
+        {
+          "date": 1270008000,
+          "value": 70.0
         }
       ],
       "total_cholesterol_laboratory_test_performed": [
+        {
+          "date": 1270008000,
+          "value": 164.0
+        },
         {
           "date": 1270008000,
           "value": 164.0
@@ -501,20 +506,17 @@
         {
           "date": 1270008000,
           "value": 150.0
+        },
+        {
+          "date": 1270008000,
+          "value": 150.0
         }
       ],
       "encounter_acute_inpt_encounter": [
         1275969600
-      ],
-      "encounter_outpatient_encounter": [
-        1288152000,
-        1275796800
       ]
     },
     "0081": {
-      "acute_renal_failure_diagnosis_active": [
-        1275969600
-      ],
       "ace_inhibitor_or_arb_medication_active": [
         1270008000,
         1276142400
@@ -577,13 +579,12 @@
     },
     "0385": {
       "acute_renal_insufficiency_diagnosis_active": [
+        1275969600,
         1275969600
       ],
       "colon_cancer_diagnosis_active": [
+        1275796800,
         1275796800
-      ],
-      "neutropenia_diagnosis_active": [
-        1275969600
       ],
       "colon_cancer_stage_iii_procedure_result": [
         1276315200,
@@ -606,9 +607,6 @@
       ]
     },
     "0389": {
-      "pain_related_to_prostate_cancer_diagnosis_active": [
-        1270008000
-      ]
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -650,9 +648,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1288152000,
@@ -680,9 +675,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1275796800,
@@ -702,6 +694,46 @@
     {
       "codes": {
         "SNOMED-CT": [
+          "126838000"
+        ]
+      },
+      "time": 1275796800,
+      "status": "active",
+      "description": "Colon Cancer"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "593.9"
+        ]
+      },
+      "time": 1275969600,
+      "status": "active",
+      "description": "Acute Renal Insufficiency"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ]
+      },
+      "time": 1270008000,
+      "status": "active",
+      "description": "Hypertension"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "724.2"
+        ]
+      },
+      "time": 1270008000,
+      "status": "active",
+      "description": "low back pain"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
           "160618006"
         ]
       },
@@ -714,14 +746,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 130.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1288152000,
       "description": "Systolic Blood Pressure"
@@ -730,14 +759,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 76.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1288152000,
       "description": "Diastolic Blood Pressure"
@@ -759,14 +785,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 150.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270008000,
       "description": "Systolic Blood Pressure"
@@ -775,14 +798,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 96.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270008000,
       "description": "Diastolic Blood Pressure"
@@ -804,9 +824,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -819,111 +836,7 @@
     {
       "codes": {
         "CPT": [
-          "45378"
-        ],
-        "HCPCS": [
-          "G0121"
-        ],
-        "ICD-9-CM": [
-          "45.23"
-        ],
-        "SNOMED-CT": [
-          "456004"
-        ],
-        "ICD-10-CM": [
-          "Z12.11"
-        ]
-      },
-      "time": 1275796800,
-      "description": "colonoscopy"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369921003"
-        ]
-      },
-      "time": 1276315200,
-      "description": "Colon Cancer Stage III"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "126838000"
-        ],
-        "ICD-9-CM": [
-          "153.9"
-        ],
-        "ICD-10-CM": [
-          "C18.9"
-        ]
-      },
-      "time": 1275796800,
-      "status": "active",
-      "description": "Colon Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "593.9"
-        ],
-        "ICD-10-CM": [
-          "N28.9"
-        ],
-        "SNOMED-CT": [
-          "14669001"
-        ]
-      },
-      "time": 1275969600,
-      "status": "active",
-      "description": "Acute Renal Insufficiency"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ],
-        "ICD-10-CM": [
-          "M54.9"
-        ],
-        "SNOMED-CT": [
-          "279039007"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "low back pain"
-    }
-  ],
-  "results": [
-    {
-      "codes": {
-        "CPT": [
           "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
         ]
       },
       "value": {
@@ -937,12 +850,6 @@
       "codes": {
         "CPT": [
           "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
         ]
       },
       "value": {
@@ -956,12 +863,6 @@
       "codes": {
         "CPT": [
           "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
         ]
       },
       "value": {
@@ -988,18 +889,120 @@
       "codes": {
         "CPT": [
           "45378"
-        ],
-        "HCPCS": [
-          "G0121"
-        ],
-        "ICD-9-CM": [
-          "45.23"
-        ],
+        ]
+      },
+      "time": 1275796800,
+      "description": "colonoscopy"
+    },
+    {
+      "codes": {
         "SNOMED-CT": [
-          "456004"
-        ],
-        "ICD-10-CM": [
-          "Z12.11"
+          "369921003"
+        ]
+      },
+      "time": 1276315200,
+      "description": "Colon Cancer Stage III"
+    }
+  ],
+  "conditions": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "126838000"
+        ]
+      },
+      "time": 1275796800,
+      "status": "active",
+      "description": "Colon Cancer"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "593.9"
+        ]
+      },
+      "time": 1275969600,
+      "status": "active",
+      "description": "Acute Renal Insufficiency"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ]
+      },
+      "time": 1270008000,
+      "status": "active",
+      "description": "Hypertension"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "724.2"
+        ]
+      },
+      "time": 1270008000,
+      "status": "active",
+      "description": "low back pain"
+    }
+  ],
+  "results": [
+    {
+      "codes": {
+        "CPT": [
+          "82465"
+        ]
+      },
+      "value": {
+        "scalar": "164mg/dL",
+        "units": null
+      },
+      "time": 1270008000,
+      "description": "Total Cholesterol"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "84478"
+        ]
+      },
+      "value": {
+        "scalar": "150mg/dL",
+        "units": null
+      },
+      "time": 1270008000,
+      "description": "Triglycerides"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83701"
+        ]
+      },
+      "value": {
+        "scalar": "64mg/dL",
+        "units": null
+      },
+      "time": 1270008000,
+      "description": "High Density Lipoprotein (HDL)"
+    },
+    {
+      "codes": {
+        "LOINC": [
+          "2089-1"
+        ]
+      },
+      "value": {
+        "scalar": "70mg/dL",
+        "units": null
+      },
+      "time": 1270008000,
+      "description": "LDL Laboratory Test"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "45378"
         ]
       },
       "time": 1275796800,
@@ -1020,15 +1023,6 @@
       "codes": {
         "CPT": [
           "97802"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "ICD-10-CM": [
-          "Z00.8"
         ]
       },
       "time": 1275796800,
@@ -1038,12 +1032,6 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
-        ],
-        "HCPCS": [
-          "S9451"
-        ],
-        "ICD-10-CM": [
-          "Z71.3"
         ]
       },
       "time": 1275796800,
@@ -1053,18 +1041,6 @@
       "codes": {
         "CPT": [
           "45378"
-        ],
-        "HCPCS": [
-          "G0121"
-        ],
-        "ICD-9-CM": [
-          "45.23"
-        ],
-        "SNOMED-CT": [
-          "456004"
-        ],
-        "ICD-10-CM": [
-          "Z12.11"
         ]
       },
       "time": 1275796800,
@@ -1083,15 +1059,6 @@
       "codes": {
         "SNOMED-CT": [
           "363406005"
-        ],
-        "ICD-10-CM": [
-          "C18"
-        ],
-        "ICD-9-CM": [
-          "153.9"
-        ],
-        "HCPCS": [
-          "G0213"
         ]
       },
       "time": 1275796800,
@@ -1101,9 +1068,6 @@
       "codes": {
         "CPT": [
           "72010"
-        ],
-        "SNOMED-CT": [
-          "91583001"
         ]
       },
       "time": 1270008000,
@@ -1144,9 +1108,6 @@
       "codes": {
         "CVX": [
           "100"
-        ],
-        "CPT": [
-          "90669"
         ]
       },
       "time": 1288152000,
@@ -1158,15 +1119,6 @@
       "codes": {
         "CPT": [
           "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
         ]
       },
       "time": 1275796800,

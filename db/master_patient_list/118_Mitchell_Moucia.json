@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7f01c226720fd6000068",
+  "_id": "4ef0d802a9ffccb9a2000068",
   "first": "Mitchell",
   "patient_id": "118",
   "last": "Moucia",
@@ -7,6 +7,7 @@
   "birthdate": -1140721200,
   "race": "White",
   "ethnicity": "Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -37,6 +38,7 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
+        1274760000,
         1274760000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -56,17 +58,12 @@
       ]
     },
     "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1274760000
-      ]
     },
     "0014": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1274760000
-      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
+        1274760000,
         1274760000
       ],
       "encounter_outpatient_encounter": [
@@ -178,11 +175,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1284523200,
-        1278734400,
-        1274760000
-      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -218,6 +210,7 @@
     },
     "0052": {
       "cancer_diagnosis_active": [
+        1279425600,
         1279425600
       ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
@@ -314,11 +307,6 @@
         1284523200,
         1278734400,
         1274760000
-      ],
-      "encounter_outpatient_encounter": [
-        1284523200,
-        1278734400,
-        1274760000
       ]
     },
     "0070": {
@@ -362,11 +350,6 @@
           "value": 130.0
         }
       ],
-      "encounter_outpatient_encounter": [
-        1284523200,
-        1278734400,
-        1274760000
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1284523200,
@@ -391,11 +374,6 @@
     },
     "0075": {
       "encounter_acute_inpt_and_outpt_encounter": [
-        1284523200,
-        1278734400,
-        1274760000
-      ],
-      "encounter_outpatient_encounter": [
         1284523200,
         1278734400,
         1274760000
@@ -475,12 +453,17 @@
     },
     "0389": {
       "prostate_cancer_diagnosis_active": [
+        1279425600,
         1279425600
       ],
       "prostate_cancer_treatment_procedure_performed": [
         1280980800
       ],
       "prostate_specific_antigen_test_laboratory_test_result": [
+        {
+          "date": 1274760000,
+          "value": 9.0
+        },
         {
           "date": 1274760000,
           "value": 9.0
@@ -492,6 +475,7 @@
         1280980800
       ],
       "gleason_score_6_laboratory_test_result": [
+        1279425600,
         1279425600
       ]
     },
@@ -535,9 +519,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1284523200,
@@ -547,9 +528,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1278734400,
@@ -559,9 +537,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1274760000,
@@ -569,6 +544,26 @@
     }
   ],
   "social_history": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "185"
+        ]
+      },
+      "time": 1279425600,
+      "status": "active",
+      "description": "Prostate Cancer"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ]
+      },
+      "time": 1274760000,
+      "status": "active",
+      "description": "Hypertension"
+    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -584,14 +579,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 130.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1284523200,
       "description": "Systolic Blood Pressure"
@@ -600,14 +592,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 80.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1284523200,
       "description": "Diastolic Blood Pressure"
@@ -629,14 +618,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 128.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1278734400,
       "description": "Systolic Blood Pressure"
@@ -645,14 +631,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 78.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1278734400,
       "description": "Diastolic Blood Pressure"
@@ -674,14 +657,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 130.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1274760000,
       "description": "Systolic Blood Pressure"
@@ -690,14 +670,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 76.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1274760000,
       "description": "Diastolic Blood Pressure"
@@ -719,9 +696,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -735,9 +709,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -751,9 +722,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -762,6 +730,28 @@
       },
       "time": 1274760000,
       "description": "BMI"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "84153"
+        ]
+      },
+      "value": {
+        "scalar": "9 mg/dL",
+        "units": null
+      },
+      "time": 1274760000,
+      "description": "Prostate Specific Antigen Test"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "369776000"
+        ]
+      },
+      "time": 1279425600,
+      "description": "Gleason Score <=6"
     },
     {
       "codes": {
@@ -778,12 +768,6 @@
       "codes": {
         "ICD-9-CM": [
           "185"
-        ],
-        "ICD-10-CM": [
-          "C61"
-        ],
-        "SNOMED-CT": [
-          "399068003"
         ]
       },
       "time": 1279425600,
@@ -794,12 +778,6 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
         ]
       },
       "time": 1274760000,
@@ -812,12 +790,6 @@
       "codes": {
         "CPT": [
           "84153"
-        ],
-        "LOINC": [
-          "19195-7"
-        ],
-        "SNOMED-CT": [
-          "63476009"
         ]
       },
       "value": {
@@ -851,9 +823,6 @@
       "codes": {
         "CPT": [
           "55810"
-        ],
-        "SNOMED-CT": [
-          "176259004"
         ]
       },
       "time": 1280980800,
@@ -872,18 +841,6 @@
       "codes": {
         "CPT": [
           "45378"
-        ],
-        "HCPCS": [
-          "G0121"
-        ],
-        "ICD-9-CM": [
-          "45.23"
-        ],
-        "SNOMED-CT": [
-          "456004"
-        ],
-        "ICD-10-CM": [
-          "Z12.11"
         ]
       },
       "time": 1274155200,
@@ -915,9 +872,6 @@
       "codes": {
         "CVX": [
           "100"
-        ],
-        "CPT": [
-          "90669"
         ]
       },
       "time": 1284523200,
