@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7f04c226720fd6000083",
+  "_id": "4ef0d805a9ffccb9a2000083",
   "first": "David",
   "patient_id": "85",
   "last": "Banner",
@@ -7,6 +7,7 @@
   "birthdate": -239745600,
   "race": "Other Race",
   "ethnicity": "Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -156,6 +157,7 @@
     },
     "0086": {
       "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1278216000,
         1278216000
       ],
       "encounter_domiciliary_encounter": [
@@ -180,10 +182,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1292043600,
-        1270612800
-      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -228,6 +226,7 @@
         1270612800
       ],
       "low_back_pain_diagnosis_active": [
+        1270612800,
         1270612800
       ]
     },
@@ -319,10 +318,6 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1292043600,
         1270612800
-      ],
-      "encounter_outpatient_encounter": [
-        1292043600,
-        1270612800
       ]
     },
     "0070": {
@@ -366,10 +361,6 @@
           "value": 128.0
         }
       ],
-      "encounter_outpatient_encounter": [
-        1292043600,
-        1270612800
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1292043600,
@@ -395,10 +386,6 @@
     },
     "0075": {
       "encounter_acute_inpt_and_outpt_encounter": [
-        1292043600,
-        1270612800
-      ],
-      "encounter_outpatient_encounter": [
         1292043600,
         1270612800
       ]
@@ -473,9 +460,6 @@
       ]
     },
     "0389": {
-      "pain_related_to_prostate_cancer_diagnosis_active": [
-        1270612800
-      ]
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -515,9 +499,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1292043600,
@@ -563,9 +544,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1270612800,
@@ -573,6 +551,26 @@
     }
   ],
   "social_history": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "724.2"
+        ]
+      },
+      "time": 1270612800,
+      "status": "active",
+      "description": "low back pain"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "365.10"
+        ]
+      },
+      "time": 1278216000,
+      "status": "active",
+      "description": "Primary Open Angle Glaucoma (POAG)"
+    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -588,14 +586,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 126.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1292043600,
       "description": "Systolic Blood Pressure"
@@ -604,14 +599,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 64.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1292043600,
       "description": "Diastolic Blood Pressure"
@@ -633,14 +625,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 124.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1281067200,
       "description": "Systolic Blood Pressure"
@@ -649,14 +638,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 60.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1281067200,
       "description": "Diastolic Blood Pressure"
@@ -678,14 +664,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 128.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270612800,
       "description": "Systolic Blood Pressure"
@@ -694,14 +677,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 60.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270612800,
       "description": "Diastolic Blood Pressure"
@@ -723,9 +703,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -739,9 +716,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -757,12 +731,6 @@
       "codes": {
         "ICD-9-CM": [
           "724.2"
-        ],
-        "ICD-10-CM": [
-          "M54.9"
-        ],
-        "SNOMED-CT": [
-          "279039007"
         ]
       },
       "time": 1270612800,
@@ -773,12 +741,6 @@
       "codes": {
         "ICD-9-CM": [
           "365.10"
-        ],
-        "ICD-10-CM": [
-          "H40.13"
-        ],
-        "SNOMED-CT": [
-          "84494001"
         ]
       },
       "time": 1278216000,
@@ -794,15 +756,6 @@
       "codes": {
         "CPT": [
           "97802"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "ICD-10-CM": [
-          "Z00.8"
         ]
       },
       "time": 1281067200,
@@ -812,9 +765,6 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
-        ],
-        "CPT": [
-          "99406"
         ]
       },
       "time": 1270612800,
@@ -833,18 +783,6 @@
       "codes": {
         "CPT": [
           "45378"
-        ],
-        "HCPCS": [
-          "G0121"
-        ],
-        "ICD-9-CM": [
-          "45.23"
-        ],
-        "SNOMED-CT": [
-          "456004"
-        ],
-        "ICD-10-CM": [
-          "Z12.11"
         ]
       },
       "time": 1297573200,

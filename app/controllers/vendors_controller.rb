@@ -1,5 +1,6 @@
 require 'measure_evaluator'
 require 'patient_zipper'
+require 'open-uri'
 require 'prawnto'
 
 class VendorsController < ApplicationController
@@ -116,13 +117,18 @@ class VendorsController < ApplicationController
   end
   
   def process_pqri
+    
     vendor = Vendor.find(params[:id])
     vendor_data = params[:vendor]
     pqri = vendor_data[:pqri]
     doc = Nokogiri::XML(pqri.open)
-    vendor.extract_reported_from_pqri(doc)
+    schema = Nokogiri::XML::Schema(open("http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd"))
+    vendor.extract_reported_from_pqri(doc)   
+    vendor.validate_pqri(doc,schema)
     vendor.save!
     
+    # validate after save, don't need to save to the db
+     
     redirect_to :action => 'show'
   end
 
@@ -133,6 +139,16 @@ class VendorsController < ApplicationController
     Cypress::PatientZipper.zip(t, patients, :c32)
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
       :filename => 'patients_c32.zip'
+    t.close
+  end
+  
+  def ziphtml
+    vendor = Vendor.find(params[:id])
+    t = Tempfile.new("patients-#{Time.now.to_i}")
+    patients = Record.where("test_id" => vendor.id)
+    Cypress::PatientZipper.zip(t, patients, :html)
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
+      :filename => 'patients_html.zip'
     t.close
   end
   
@@ -154,6 +170,7 @@ class VendorsController < ApplicationController
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
       :filename => 'patients_ccr.zip'
     t.close
+    
   end
 
 end

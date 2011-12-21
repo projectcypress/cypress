@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7f0ac226720fd60000b4",
+  "_id": "4ef0d80ba9ffccb9a20000b4",
   "first": "Lance",
   "patient_id": "31",
   "last": "Dumlao",
@@ -7,6 +7,7 @@
   "birthdate": -933105600,
   "race": "American Indian Or Alaska Native",
   "ethnicity": "Not Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -43,6 +44,7 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
+        1270785600,
         1270785600
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -61,17 +63,12 @@
       ]
     },
     "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270785600
-      ]
     },
     "0014": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270785600
-      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
+        1270785600,
         1270785600
       ],
       "encounter_outpatient_encounter": [
@@ -158,6 +155,7 @@
     },
     "0086": {
       "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1274587200,
         1274587200
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -179,10 +177,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1285387200,
-        1270785600
-      ],
       "encounter_acute_inpt_encounter": [
         1251518400,
         1251259200
@@ -337,11 +331,20 @@
         {
           "date": 1285387200,
           "value": 50.0
+        },
+        {
+          "date": 1285387200,
+          "value": 127.0
+        },
+        {
+          "date": 1285387200,
+          "value": 50.0
         }
       ]
     },
     "0067": {
       "coronary_artery_disease_includes_mi_diagnosis_active": [
+        1251259200,
         1251259200
       ],
       "antiplatelet_therapy_medication_order": [
@@ -368,15 +371,12 @@
         1251259200
       ],
       "ischemic_vascular_disease_diagnosis_active": [
+        1251259200,
         1251259200
       ],
       "encounter_acute_inpt_encounter": [
         1251518400,
         1251259200
-      ],
-      "encounter_outpatient_encounter": [
-        1285387200,
-        1270785600
       ],
       "oral_anti_platelet_therapy_medication_dispensed": [
         1270785600,
@@ -393,6 +393,7 @@
     },
     "0070": {
       "coronary_artery_disease_no_mi_diagnosis_active": [
+        1251259200,
         1251259200
       ],
       "encounter_inpatient_discharge_encounter": [
@@ -411,6 +412,7 @@
         1251259200
       ],
       "ischemic_vascular_disease_diagnosis_active": [
+        1251259200,
         1251259200
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -431,10 +433,6 @@
         1251518400,
         1251259200
       ],
-      "encounter_outpatient_encounter": [
-        1285387200,
-        1270785600
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1285387200,
@@ -452,17 +450,12 @@
     },
     "0074": {
       "coronary_artery_disease_includes_mi_diagnosis_active": [
+        1251259200,
         1251259200
       ],
       "encounter_outpatient_encounter": [
         1285387200,
         1270785600
-      ],
-      "ldl_laboratory_test_laboratory_test_result": [
-        {
-          "date": 1285387200,
-          "value": 127.0
-        }
       ]
     },
     "0075": {
@@ -479,13 +472,22 @@
         },
         {
           "date": 1285387200,
-          "value": 242.0
+          "value": 50.0
         }
       ],
       "ischemic_vascular_disease_diagnosis_active": [
+        1251259200,
         1251259200
       ],
       "ldl_test_laboratory_test_performed": [
+        {
+          "date": 1285387200,
+          "value": 127.0
+        },
+        {
+          "date": 1285387200,
+          "value": 50.0
+        },
         {
           "date": 1285387200,
           "value": 127.0
@@ -499,9 +501,17 @@
         {
           "date": 1285387200,
           "value": 242.0
+        },
+        {
+          "date": 1285387200,
+          "value": 242.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
+        {
+          "date": 1285387200,
+          "value": 325.0
+        },
         {
           "date": 1285387200,
           "value": 325.0
@@ -510,10 +520,6 @@
       "encounter_acute_inpt_encounter": [
         1251518400,
         1251259200
-      ],
-      "encounter_outpatient_encounter": [
-        1285387200,
-        1270785600
       ]
     },
     "0081": {
@@ -636,9 +642,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1285387200,
@@ -657,9 +660,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1270785600,
@@ -687,6 +687,36 @@
   "social_history": [
     {
       "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ]
+      },
+      "time": 1270785600,
+      "status": "active",
+      "description": "Hypertension"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "411.89"
+        ]
+      },
+      "time": 1251259200,
+      "status": "active",
+      "description": "ischemic vascular disease"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "365.10"
+        ]
+      },
+      "time": 1274587200,
+      "status": "active",
+      "description": "Primary Open Angle Glaucoma (POAG)"
+    },
+    {
+      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
@@ -700,14 +730,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 128.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1285387200,
       "description": "Systolic Blood Pressure"
@@ -716,14 +743,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 78.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1285387200,
       "description": "Diastolic Blood Pressure"
@@ -732,14 +756,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 132.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270785600,
       "description": "Systolic Blood Pressure"
@@ -748,14 +769,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 84.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270785600,
       "description": "Diastolic Blood Pressure"
@@ -764,14 +782,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 152.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1251259200,
       "description": "Systolic Blood Pressure"
@@ -780,14 +795,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 94.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1251259200,
       "description": "Diastolic Blood Pressure"
@@ -796,9 +808,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -812,9 +821,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -823,69 +829,11 @@
       },
       "time": 1270785600,
       "description": "BMI"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1270785600,
-      "status": "active",
-      "description": "Hypertension"
     },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ],
-        "ICD-10-CM": [
-          "I24"
-        ],
-        "SNOMED-CT": [
-          "52674009"
-        ]
-      },
-      "time": 1251259200,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ],
-        "ICD-10-CM": [
-          "H40.13"
-        ],
-        "SNOMED-CT": [
-          "84494001"
-        ]
-      },
-      "time": 1274587200,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    }
-  ],
-  "results": [
     {
       "codes": {
         "CPT": [
           "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
         ]
       },
       "value": {
@@ -899,12 +847,6 @@
       "codes": {
         "CPT": [
           "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
         ]
       },
       "value": {
@@ -918,12 +860,6 @@
       "codes": {
         "CPT": [
           "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
         ]
       },
       "value": {
@@ -937,12 +873,92 @@
       "codes": {
         "CPT": [
           "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
+        ]
+      },
+      "value": {
+        "scalar": 325.0,
+        "units": null
+      },
+      "time": 1285387200,
+      "description": "Triglycerides"
+    }
+  ],
+  "conditions": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ]
+      },
+      "time": 1270785600,
+      "status": "active",
+      "description": "Hypertension"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "411.89"
+        ]
+      },
+      "time": 1251259200,
+      "status": "active",
+      "description": "ischemic vascular disease"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "365.10"
+        ]
+      },
+      "time": 1274587200,
+      "status": "active",
+      "description": "Primary Open Angle Glaucoma (POAG)"
+    }
+  ],
+  "results": [
+    {
+      "codes": {
+        "CPT": [
+          "83721"
+        ]
+      },
+      "value": {
+        "scalar": 127.0,
+        "units": null
+      },
+      "time": 1285387200,
+      "description": "LDL"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83701"
+        ]
+      },
+      "value": {
+        "scalar": 50.0,
+        "units": null
+      },
+      "time": 1285387200,
+      "description": "High Density Lipoprotein (HDL)"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "82465"
+        ]
+      },
+      "value": {
+        "scalar": 242.0,
+        "units": null
+      },
+      "time": 1285387200,
+      "description": "Total Cholesterol"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "84478"
         ]
       },
       "value": {
@@ -1016,9 +1032,6 @@
       "codes": {
         "CVX": [
           "100"
-        ],
-        "CPT": [
-          "90669"
         ]
       },
       "time": 1285387200,

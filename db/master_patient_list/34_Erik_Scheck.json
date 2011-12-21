@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7f08c226720fd60000ab",
+  "_id": "4ef0d80aa9ffccb9a20000ab",
   "first": "Erik",
   "patient_id": "34",
   "last": "Scheck",
@@ -7,6 +7,7 @@
   "birthdate": -947530800,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -37,6 +38,7 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
+        1270008000,
         1270008000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -58,17 +60,12 @@
       ]
     },
     "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000
-      ]
     },
     "0014": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000
-      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
+        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -172,6 +169,7 @@
     },
     "0086": {
       "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1270008000,
         1270008000
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -195,11 +193,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1286683200,
-        1279252800,
-        1272254400
-      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -348,6 +341,14 @@
         {
           "date": 1279252800,
           "value": 90.0
+        },
+        {
+          "date": 1286683200,
+          "value": 70.0
+        },
+        {
+          "date": 1279252800,
+          "value": 90.0
         }
       ]
     },
@@ -379,11 +380,6 @@
       "ptca_procedure_performed": [
         1293339600
       ],
-      "encounter_outpatient_encounter": [
-        1286683200,
-        1279252800,
-        1272254400
-      ],
       "oral_anti_platelet_therapy_medication_dispensed": [
         1270008000
       ],
@@ -399,6 +395,7 @@
         1293339600
       ],
       "myocardial_infarction_diagnosis_resolved": [
+        1293339600,
         1293339600
       ],
       "encounter_outpatient_encounter": [
@@ -437,11 +434,6 @@
           "value": 138.0
         }
       ],
-      "encounter_outpatient_encounter": [
-        1286683200,
-        1279252800,
-        1272254400
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1286683200,
@@ -478,6 +470,14 @@
         {
           "date": 1279252800,
           "value": 90.0
+        },
+        {
+          "date": 1286683200,
+          "value": 70.0
+        },
+        {
+          "date": 1279252800,
+          "value": 90.0
         }
       ],
       "lipid_lowering_therapy_medication_order": [
@@ -504,15 +504,18 @@
         {
           "date": 1279252800,
           "value": 90.0
+        },
+        {
+          "date": 1286683200,
+          "value": 70.0
+        },
+        {
+          "date": 1279252800,
+          "value": 90.0
         }
       ],
       "ptca_procedure_performed": [
         1293339600
-      ],
-      "encounter_outpatient_encounter": [
-        1286683200,
-        1279252800,
-        1272254400
       ]
     },
     "0081": {
@@ -637,9 +640,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1286683200,
@@ -658,9 +658,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1279252800,
@@ -670,9 +667,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1272254400,
@@ -691,6 +685,36 @@
   "social_history": [
     {
       "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ]
+      },
+      "time": 1270008000,
+      "status": "active",
+      "description": "Hypertension"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "365.10"
+        ]
+      },
+      "time": 1270008000,
+      "status": "active",
+      "description": "Primary Open Angle Glaucoma (POAG)"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "410.90"
+        ]
+      },
+      "time": 1293339600,
+      "status": "resolved",
+      "description": "Myocardial Infarction"
+    },
+    {
+      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
@@ -704,14 +728,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 128.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1286683200,
       "description": "Systolic Blood Pressure"
@@ -720,14 +741,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 78.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1286683200,
       "description": "Diastolic Blood Pressure"
@@ -736,14 +754,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 134.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1279252800,
       "description": "Systolic Blood Pressure"
@@ -752,14 +767,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 80.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1279252800,
       "description": "Diastolic Blood Pressure"
@@ -768,14 +780,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 132.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1272254400,
       "description": "Systolic Blood Pressure"
@@ -784,14 +793,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 78.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1272254400,
       "description": "Diastolic Blood Pressure"
@@ -800,14 +806,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 138.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270008000,
       "description": "Systolic Blood Pressure"
@@ -816,14 +819,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 80.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1270008000,
       "description": "Diastolic Blood Pressure"
@@ -832,9 +832,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -848,9 +845,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -864,9 +858,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -875,6 +866,32 @@
       },
       "time": 1272254400,
       "description": "BMI"
+    },
+    {
+      "codes": {
+        "LOINC": [
+          "2089-1"
+        ]
+      },
+      "value": {
+        "scalar": 70.0,
+        "units": null
+      },
+      "time": 1286683200,
+      "description": "LDL Laboratory Test"
+    },
+    {
+      "codes": {
+        "LOINC": [
+          "2089-1"
+        ]
+      },
+      "value": {
+        "scalar": 90.0,
+        "units": null
+      },
+      "time": 1279252800,
+      "description": "LDL Laboratory Test"
     }
   ],
   "conditions": [
@@ -882,12 +899,6 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
         ]
       },
       "time": 1270008000,
@@ -898,12 +909,6 @@
       "codes": {
         "ICD-9-CM": [
           "365.10"
-        ],
-        "ICD-10-CM": [
-          "H40.13"
-        ],
-        "SNOMED-CT": [
-          "84494001"
         ]
       },
       "time": 1270008000,
@@ -914,12 +919,6 @@
       "codes": {
         "ICD-9-CM": [
           "410.90"
-        ],
-        "ICD-10-CM": [
-          "I21.3"
-        ],
-        "SNOMED-CT": [
-          "304914007"
         ]
       },
       "time": 1293339600,
@@ -969,15 +968,6 @@
       "codes": {
         "HCPCS": [
           "S0621"
-        ],
-        "SNOMED-CT": [
-          "390735007"
-        ],
-        "ICD-9-CM": [
-          "95.03"
-        ],
-        "CPT": [
-          "92012"
         ]
       },
       "time": 1270008000,
@@ -996,9 +986,6 @@
       "codes": {
         "SNOMED-CT": [
           "10326007"
-        ],
-        "CPT": [
-          "33535"
         ]
       },
       "time": 1293339600,
@@ -1057,9 +1044,6 @@
       "codes": {
         "CVX": [
           "100"
-        ],
-        "CPT": [
-          "90669"
         ]
       },
       "time": 1286683200,
@@ -1071,15 +1055,6 @@
       "codes": {
         "CPT": [
           "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
         ]
       },
       "time": 1272254400,

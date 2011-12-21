@@ -1,5 +1,5 @@
 {
-  "_id": "4eeb7efcc226720fd600003f",
+  "_id": "4ef0d7fda9ffccb9a200003f",
   "first": "Rochelle",
   "patient_id": "11",
   "last": "Smith",
@@ -7,6 +7,7 @@
   "birthdate": -629146800,
   "race": "Native Hawaiian or Other Pacific Islander",
   "ethnicity": "Not Hispanic or Latino",
+  "languages": null,
   "addresses": null,
   "measures": {
     "0001": {
@@ -169,6 +170,7 @@
         1264395600
       ],
       "pap_test_laboratory_test_result": [
+        1273291200,
         1273291200
       ]
     },
@@ -201,11 +203,6 @@
       ]
     },
     "0036": {
-      "encounter_outpatient_encounter": [
-        1290574800,
-        1273291200,
-        1264395600
-      ],
       "encounter_acute_inpt_encounter": [
         1279598400
       ],
@@ -392,11 +389,6 @@
       "encounter_acute_inpt_encounter": [
         1279598400
       ],
-      "encounter_outpatient_encounter": [
-        1290574800,
-        1273291200,
-        1264395600
-      ],
       "oral_anti_platelet_therapy_medication_dispensed": [
         1279598400
       ],
@@ -414,12 +406,17 @@
       ],
       "bradycardia_diagnosis_active": [
         1279252800,
+        1279252800,
+        1279252800,
         1279252800
       ],
       "cardiac_monitoring_procedure_performed": [
         1279252800
       ],
       "cardiac_pacer_device_applied": [
+        1279252800,
+        1279252800,
+        1279252800,
         1279252800
       ],
       "encounter_inpatient_discharge_encounter": [
@@ -485,11 +482,6 @@
       "encounter_acute_inpt_encounter": [
         1279598400
       ],
-      "encounter_outpatient_encounter": [
-        1290574800,
-        1273291200,
-        1264395600
-      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1290574800,
@@ -529,11 +521,6 @@
       ],
       "encounter_acute_inpt_encounter": [
         1279598400
-      ],
-      "encounter_outpatient_encounter": [
-        1290574800,
-        1273291200,
-        1264395600
       ]
     },
     "0081": {
@@ -553,9 +540,14 @@
       ],
       "bradycardia_diagnosis_active": [
         1279252800,
+        1279252800,
+        1279252800,
         1279252800
       ],
       "cardiac_pacer_device_applied": [
+        1279252800,
+        1279252800,
+        1279252800,
         1279252800
       ],
       "encounter_outpatient_encounter": [
@@ -685,9 +677,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1290574800,
@@ -715,9 +704,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1273291200,
@@ -727,9 +713,6 @@
       "codes": {
         "CPT": [
           "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
         ]
       },
       "time": 1264395600,
@@ -737,6 +720,26 @@
     }
   ],
   "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "48867003"
+        ]
+      },
+      "time": 1279252800,
+      "status": "active",
+      "description": "Bradycardia"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "427.89"
+        ]
+      },
+      "time": 1279252800,
+      "status": "active",
+      "description": "Arrhythmia"
+    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -752,14 +755,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 114.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1290574800,
       "description": "Systolic Blood Pressure"
@@ -768,14 +768,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 70.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1290574800,
       "description": "Diastolic Blood Pressure"
@@ -797,14 +794,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 112.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1279598400,
       "description": "Systolic Blood Pressure"
@@ -813,14 +807,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 70.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1279598400,
       "description": "Diastolic Blood Pressure"
@@ -842,14 +833,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 122.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1279252800,
       "description": "Systolic Blood Pressure"
@@ -858,14 +846,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 78.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1279252800,
       "description": "Diastolic Blood Pressure"
@@ -887,14 +872,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 110.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1273291200,
       "description": "Systolic Blood Pressure"
@@ -903,14 +885,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 62.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1273291200,
       "description": "Diastolic Blood Pressure"
@@ -932,14 +911,11 @@
       "codes": {
         "SNOMED-CT": [
           "271649006"
-        ],
-        "LOINC": [
-          "8480-6"
         ]
       },
       "value": {
         "scalar": 116.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1264395600,
       "description": "Systolic Blood Pressure"
@@ -948,14 +924,11 @@
       "codes": {
         "SNOMED-CT": [
           "271650006"
-        ],
-        "LOINC": [
-          "8462-4"
         ]
       },
       "value": {
         "scalar": 74.0,
-        "units": "mm[Hg]"
+        "units": null
       },
       "time": 1264395600,
       "description": "Diastolic Blood Pressure"
@@ -977,9 +950,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -993,9 +963,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -1009,9 +976,6 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
         ]
       },
       "value": {
@@ -1020,6 +984,19 @@
       },
       "time": 1264395600,
       "description": "BMI"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "V72.32"
+        ]
+      },
+      "value": {
+        "scalar": "Negative",
+        "units": null
+      },
+      "time": 1273291200,
+      "description": "Pap Test"
     }
   ],
   "conditions": [
@@ -1027,12 +1004,6 @@
       "codes": {
         "SNOMED-CT": [
           "48867003"
-        ],
-        "ICD-9-CM": [
-          "427.81"
-        ],
-        "ICD-10-CM": [
-          "R00.1"
         ]
       },
       "time": 1279252800,
@@ -1043,17 +1014,20 @@
       "codes": {
         "ICD-9-CM": [
           "427.89"
-        ],
-        "ICD-10-CM": [
-          "I49.8"
-        ],
-        "SNOMED-CT": [
-          "44808001"
         ]
       },
       "time": 1279252800,
       "status": "active",
       "description": "Arrhythmia"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "56961003"
+        ]
+      },
+      "time": 1279252800,
+      "description": "Cardiac Pacer"
     }
   ],
   "results": [
@@ -1061,21 +1035,6 @@
       "codes": {
         "ICD-9-CM": [
           "V72.32"
-        ],
-        "ICD-10-CM": [
-          "Z12.4"
-        ],
-        "CPT": [
-          "88174"
-        ],
-        "HCPCS": [
-          "G0147"
-        ],
-        "LOINC": [
-          "10524-7"
-        ],
-        "SNOMED-CT": [
-          "440623000"
         ]
       },
       "value": {
@@ -1107,20 +1066,17 @@
     },
     {
       "codes": {
+        "SNOMED-CT": [
+          "56961003"
+        ]
+      },
+      "time": 1279252800,
+      "description": "Cardiac Pacer"
+    },
+    {
+      "codes": {
         "CPT": [
           "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
-        "SNOMED-CT": [
-          "24623002"
         ]
       },
       "time": 1276660800,
@@ -1152,9 +1108,6 @@
       "codes": {
         "CVX": [
           "100"
-        ],
-        "CPT": [
-          "90669"
         ]
       },
       "time": 1290574800,
@@ -1166,19 +1119,19 @@
       "codes": {
         "CPT": [
           "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
         ]
       },
       "time": 1290574800,
       "description": "follow-up plan_BMI management"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "56961003"
+        ]
+      },
+      "time": 1279252800,
+      "description": "Cardiac Pacer"
     }
   ]
 }
