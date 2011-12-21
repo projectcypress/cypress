@@ -41,11 +41,17 @@
     </section>
       <div class="tabs">
         NQF #
-        <ul>
-        <% @vendor.measure_defs.each do |measure_def| %>
-          <li><a href="<%= vendor_measure_path(@vendor, measure_def) %>" title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>" class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %></a></li>
-        <% end %>
-        </ul>
+
+         <% @measures_categories.sort.each do |category, measures| %>
+      <ul>
+        <li><b><%= category %></b></li>
+       <% measures.each do |measure_def| %>
+        <li><a href="<%= vendor_measure_path(@vendor, measure_def) %>" title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>" class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %></a></li>
+        <% end %>        
+      </ul>
+      <% end %>
+     </ul>
+
       </div>
           <section id="patient_list">
 
