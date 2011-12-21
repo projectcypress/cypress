@@ -9,4 +9,3 @@
 //= require jquery-ui
 //= require ajax_spinner
 //= require cypress
-//= require jquery.remotipart
