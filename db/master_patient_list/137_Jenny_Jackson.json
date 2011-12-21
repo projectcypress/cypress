@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d803a9ffccb9a200006d",
+  "_id": "4ef25209a9ffccc33600006d",
   "first": "Jenny",
   "patient_id": "137",
   "last": "Jackson",
@@ -95,24 +95,22 @@
       ]
     },
     "0033": {
+      "chlamydia_screening_laboratory_test_result": [
+        1281931200
+      ],
       "encounter_outpatient_encounter": [
         1281931200
       ],
       "sexually_active_woman_diagnosis_active": [
-        1281931200,
         1281931200
       ],
       "chlamydia_screening_laboratory_test_performed": [
-        1281931200,
         1281931200
       ],
       "contraceptive_use_education_communication_to_patient": [
         1281931200
       ],
       "iud_use_device_applied": [
-        1281931200,
-        1281931200,
-        1281931200,
         1281931200
       ]
     },
@@ -132,6 +130,9 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1281931200
+      ],
       "encounter_acute_inpt_encounter": [
         1278129600,
         1270180800
@@ -241,6 +242,9 @@
       "encounter_acute_inpt_encounter": [
         1278129600,
         1270180800
+      ],
+      "encounter_outpatient_encounter": [
+        1281931200
       ]
     },
     "0070": {
@@ -260,6 +264,9 @@
       "encounter_acute_inpt_encounter": [
         1278129600,
         1270180800
+      ],
+      "encounter_outpatient_encounter": [
+        1281931200
       ]
     },
     "0074": {
@@ -276,6 +283,9 @@
       "encounter_acute_inpt_encounter": [
         1278129600,
         1270180800
+      ],
+      "encounter_outpatient_encounter": [
+        1281931200
       ]
     },
     "0081": {
@@ -369,6 +379,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1281931200,
@@ -405,16 +418,6 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1281931200,
-      "status": "active",
-      "description": "sexually active woman"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
@@ -428,6 +431,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -436,19 +442,6 @@
       },
       "time": 1281931200,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1281931200,
-      "description": "Chlamydia Screening"
     }
   ],
   "conditions": [
@@ -456,20 +449,17 @@
       "codes": {
         "ICD-9-CM": [
           "099.9"
+        ],
+        "SNOMED-CT": [
+          "8098009"
+        ],
+        "ICD-10-CM": [
+          "A64"
         ]
       },
       "time": 1281931200,
       "status": "active",
       "description": "sexually active woman"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1281931200,
-      "description": "IUD use"
     }
   ],
   "results": [
@@ -477,6 +467,12 @@
       "codes": {
         "CPT": [
           "87110"
+        ],
+        "LOINC": [
+          "31777-6"
+        ],
+        "SNOMED-CT": [
+          "121953005"
         ]
       },
       "value": {
@@ -501,6 +497,15 @@
       "codes": {
         "CPT": [
           "97802"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "ICD-10-CM": [
+          "Z00.8"
         ]
       },
       "time": 1281931200,
@@ -510,19 +515,16 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
+        ],
+        "HCPCS": [
+          "S9451"
+        ],
+        "ICD-10-CM": [
+          "Z71.3"
         ]
       },
       "time": 1281931200,
       "description": "counseling for physical activity"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1281931200,
-      "description": "IUD use"
     }
   ],
   "medications": [
@@ -532,14 +534,6 @@
 
   ],
   "care_goals": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1281931200,
-      "description": "IUD use"
-    }
+
   ]
 }

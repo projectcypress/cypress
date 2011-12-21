@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d80aa9ffccb9a20000ae",
+  "_id": "4ef25210a9ffccc3360000ae",
   "first": "Maricela",
   "patient_id": "17",
   "last": "Gertz",
@@ -52,7 +52,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -75,12 +74,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1270008000
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1270008000
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -203,6 +207,12 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1289016000,
+        1282276800,
+        1276488000,
+        1270008000
+      ],
       "encounter_acute_inpt_encounter": [
         1271044800,
         1270872000
@@ -369,16 +379,11 @@
         {
           "date": 1289016000,
           "value": 68.0
-        },
-        {
-          "date": 1289016000,
-          "value": 68.0
         }
       ]
     },
     "0067": {
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "antiplatelet_therapy_medication_order": [
@@ -407,12 +412,17 @@
         1270008000
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_acute_inpt_encounter": [
         1271044800,
         1270872000
+      ],
+      "encounter_outpatient_encounter": [
+        1289016000,
+        1282276800,
+        1276488000,
+        1270008000
       ],
       "oral_anti_platelet_therapy_medication_dispensed": [
         1271044800
@@ -426,7 +436,6 @@
     },
     "0070": {
       "coronary_artery_disease_no_mi_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_inpatient_discharge_encounter": [
@@ -449,7 +458,6 @@
         1270008000
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -474,6 +482,12 @@
         1271044800,
         1270872000
       ],
+      "encounter_outpatient_encounter": [
+        1289016000,
+        1282276800,
+        1276488000,
+        1270008000
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1289016000,
@@ -495,7 +509,6 @@
     },
     "0074": {
       "coronary_artery_disease_includes_mi_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "encounter_outpatient_encounter": [
@@ -505,10 +518,6 @@
         1270008000
       ],
       "ldl_laboratory_test_laboratory_test_result": [
-        {
-          "date": 1289016000,
-          "value": 68.0
-        },
         {
           "date": 1289016000,
           "value": 68.0
@@ -525,14 +534,9 @@
         1270008000
       ],
       "ischemic_vascular_disease_diagnosis_active": [
-        1270008000,
         1270008000
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1289016000,
-          "value": 68.0
-        },
         {
           "date": 1289016000,
           "value": 68.0
@@ -541,6 +545,12 @@
       "encounter_acute_inpt_encounter": [
         1271044800,
         1270872000
+      ],
+      "encounter_outpatient_encounter": [
+        1289016000,
+        1282276800,
+        1276488000,
+        1270008000
       ]
     },
     "0081": {
@@ -668,6 +678,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1289016000,
@@ -677,6 +690,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1282276800,
@@ -686,6 +702,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1276488000,
@@ -713,6 +732,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1270008000,
@@ -720,26 +742,7 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "411.89"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "ischemic vascular disease"
-    }
+
   ],
   "vital_signs": [
     {
@@ -750,7 +753,7 @@
       },
       "value": {
         "scalar": 130.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289016000,
       "description": "Systolic Blood Pressure"
@@ -763,7 +766,7 @@
       },
       "value": {
         "scalar": 80.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289016000,
       "description": "Diastolic Blood Pressure"
@@ -776,7 +779,7 @@
       },
       "value": {
         "scalar": 126.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282276800,
       "description": "Systolic Blood Pressure"
@@ -789,7 +792,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282276800,
       "description": "Diastolic Blood Pressure"
@@ -802,7 +805,7 @@
       },
       "value": {
         "scalar": 128.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1276488000,
       "description": "Systolic Blood Pressure"
@@ -815,7 +818,7 @@
       },
       "value": {
         "scalar": 78.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1276488000,
       "description": "Diastolic Blood Pressure"
@@ -828,7 +831,7 @@
       },
       "value": {
         "scalar": 130.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Systolic Blood Pressure"
@@ -841,7 +844,7 @@
       },
       "value": {
         "scalar": 82.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Diastolic Blood Pressure"
@@ -850,6 +853,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -863,6 +869,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -871,19 +880,6 @@
       },
       "time": 1270008000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "2089-1"
-        ]
-      },
-      "value": {
-        "scalar": 68.0,
-        "units": null
-      },
-      "time": 1289016000,
-      "description": "LDL Laboratory Test"
     }
   ],
   "conditions": [
@@ -891,6 +887,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1270008000,
@@ -901,6 +903,12 @@
       "codes": {
         "ICD-9-CM": [
           "411.89"
+        ],
+        "ICD-10-CM": [
+          "I24"
+        ],
+        "SNOMED-CT": [
+          "52674009"
         ]
       },
       "time": 1270008000,
@@ -968,6 +976,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1289016000,
@@ -979,6 +990,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1270008000,

@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d801a9ffccb9a200005e",
+  "_id": "4ef25207a9ffccc33600005e",
   "first": "Anna",
   "patient_id": "146",
   "last": "Edwards",
@@ -186,6 +186,10 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1284091200,
+        1275796800
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -225,7 +229,6 @@
     },
     "0052": {
       "cancer_diagnosis_active": [
-        1276142400,
         1276142400
       ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
@@ -317,6 +320,10 @@
         1281672000,
         1275796800,
         1275192000
+      ],
+      "encounter_outpatient_encounter": [
+        1284091200,
+        1275796800
       ]
     },
     "0070": {
@@ -354,6 +361,10 @@
           "value": 124.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1284091200,
+        1275796800
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1284091200,
@@ -379,6 +390,10 @@
         1281672000,
         1275796800,
         1275192000
+      ],
+      "encounter_outpatient_encounter": [
+        1284091200,
+        1275796800
       ]
     },
     "0081": {
@@ -443,7 +458,6 @@
     },
     "0387": {
       "breast_cancer_diagnosis_active": [
-        1276142400,
         1276142400
       ],
       "breast_cancer_er_or_pr_positive_procedure_result": [
@@ -506,6 +520,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1284091200,
@@ -524,6 +541,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1275796800,
@@ -540,16 +560,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
-      },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -569,7 +579,7 @@
       },
       "value": {
         "scalar": 120.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284091200,
       "description": "Systolic Blood Pressure"
@@ -582,7 +592,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284091200,
       "description": "Diastolic Blood Pressure"
@@ -608,7 +618,7 @@
       },
       "value": {
         "scalar": 124.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1275192000,
       "description": "Systolic Blood Pressure"
@@ -621,7 +631,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1275192000,
       "description": "Diastolic Blood Pressure"
@@ -643,6 +653,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -656,6 +669,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -689,6 +705,12 @@
       "codes": {
         "ICD-9-CM": [
           "174.9"
+        ],
+        "ICD-10-CM": [
+          "C50"
+        ],
+        "SNOMED-CT": [
+          "188161004"
         ]
       },
       "time": 1276142400,
@@ -721,6 +743,15 @@
       "codes": {
         "CPT": [
           "97802"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "ICD-10-CM": [
+          "Z00.8"
         ]
       },
       "time": 1275192000,
@@ -730,6 +761,12 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
+        ],
+        "HCPCS": [
+          "S9451"
+        ],
+        "ICD-10-CM": [
+          "Z71.3"
         ]
       },
       "time": 1275192000,
@@ -739,6 +776,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1275796800,
@@ -766,6 +806,18 @@
       "codes": {
         "CPT": [
           "45378"
+        ],
+        "HCPCS": [
+          "G0121"
+        ],
+        "ICD-9-CM": [
+          "45.23"
+        ],
+        "SNOMED-CT": [
+          "456004"
+        ],
+        "ICD-10-CM": [
+          "Z12.11"
         ]
       },
       "time": 1282708800,
@@ -775,6 +827,18 @@
       "codes": {
         "CPT": [
           "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
         ]
       },
       "time": 1275796800,
@@ -798,6 +862,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1284091200,
@@ -809,6 +876,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1284091200,

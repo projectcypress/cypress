@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d803a9ffccb9a200006f",
+  "_id": "4ef25209a9ffccc33600006f",
   "first": "Josh",
   "patient_id": "195",
   "last": "Potano",
@@ -18,6 +18,9 @@
       ]
     },
     "0004": {
+      "alcohol_or_drug_dependence_diagnosis_active": [
+        1273896000
+      ],
       "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
         1275364800,
         1274328000
@@ -31,7 +34,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1274328000,
         1274328000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -47,12 +49,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1274328000
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1274328000
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1274328000,
         1274328000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -132,7 +139,6 @@
         1274328000
       ],
       "iv_drug_abuse_diagnosis_active": [
-        1273896000,
         1273896000
       ]
     },
@@ -364,26 +370,6 @@
     {
       "codes": {
         "SNOMED-CT": [
-          "191912005"
-        ]
-      },
-      "time": 1273896000,
-      "status": "active",
-      "description": "IV drug abuse"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1274328000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
           "230062009"
         ]
       },
@@ -400,7 +386,7 @@
       },
       "value": {
         "scalar": 150.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1275364800,
       "description": "Systolic Blood Pressure"
@@ -413,7 +399,7 @@
       },
       "value": {
         "scalar": 96.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1275364800,
       "description": "Diastolic Blood Pressure"
@@ -439,7 +425,7 @@
       },
       "value": {
         "scalar": 146.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1274328000,
       "description": "Systolic Blood Pressure"
@@ -452,7 +438,7 @@
       },
       "value": {
         "scalar": 92.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1274328000,
       "description": "Diastolic Blood Pressure"
@@ -474,6 +460,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -487,6 +476,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -502,6 +494,9 @@
       "codes": {
         "SNOMED-CT": [
           "191912005"
+        ],
+        "ICD-9-CM": [
+          "305.51"
         ]
       },
       "time": 1273896000,
@@ -512,6 +507,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1274328000,
@@ -527,6 +528,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1274328000,

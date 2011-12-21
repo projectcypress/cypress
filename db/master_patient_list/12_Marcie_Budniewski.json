@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d803a9ffccb9a2000075",
+  "_id": "4ef2520aa9ffccc336000075",
   "first": "Marcie",
   "patient_id": "12",
   "last": "Budniewski",
@@ -70,28 +70,23 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1293253200,
         1293253200
       ],
       "delivery_live_births_procedure_procedure_performed": [
         1293253200
       ],
       "hiv_screening_laboratory_test_performed": [
-        1278734400,
         1278734400
       ],
       "estimated_date_of_conception_patient_characteristic": [
-        1270094400,
         1270094400
       ]
     },
     "0014": {
       "d_rh_negative_diagnosis_active": [
-        1284091200,
         1284091200
       ],
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1293253200,
         1293253200
       ],
       "delivery_live_births_procedure_procedure_performed": [
@@ -101,14 +96,9 @@
         1288411200
       ],
       "estimated_date_of_conception_patient_characteristic": [
-        1270094400,
         1270094400
       ],
       "rh_status_baby_laboratory_test_result": [
-        {
-          "date": 1278734400,
-          "value": false
-        },
         {
           "date": 1278734400,
           "value": false
@@ -118,14 +108,15 @@
         {
           "date": 1278734400,
           "value": false
-        },
-        {
-          "date": 1278734400,
-          "value": false
         }
       ]
     },
     "0018": {
+      "pregnancy_diagnosis_active": [
+        1293253200,
+        1284091200,
+        1274328000
+      ],
       "encounter_outpatient_encounter": [
         1274328000,
         1270008000
@@ -221,6 +212,11 @@
         1277870400,
         1274328000,
         1270008000
+      ],
+      "pregnancy_diagnosis_active": [
+        1293253200,
+        1284091200,
+        1274328000
       ]
     },
     "0027": {
@@ -250,7 +246,6 @@
         1270008000
       ],
       "pap_test_laboratory_test_result": [
-        1270008000,
         1270008000
       ],
       "encounter_ob_gyn_encounter": [
@@ -264,23 +259,23 @@
       ]
     },
     "0033": {
+      "chlamydia_screening_laboratory_test_result": [
+        1270008000
+      ],
       "encounter_outpatient_encounter": [
         1274328000,
         1270008000
       ],
       "pregnancy_test_laboratory_test_performed": [
-        1274328000,
         1274328000
       ],
       "pregnancy_test_laboratory_test_result": [
-        1274328000,
         1274328000
       ],
       "procedures_indicative_of_sexually_active_woman_procedure_performed": [
         1293253200
       ],
       "chlamydia_screening_laboratory_test_performed": [
-        1270008000,
         1270008000
       ],
       "contraceptives_medication_dispensed": [
@@ -315,6 +310,10 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1274328000,
+        1270008000
+      ],
       "encounter_acute_inpt_encounter": [
         1293512400,
         1293253200
@@ -502,6 +501,10 @@
       "encounter_acute_inpt_encounter": [
         1293512400,
         1293253200
+      ],
+      "encounter_outpatient_encounter": [
+        1274328000,
+        1270008000
       ]
     },
     "0070": {
@@ -558,6 +561,10 @@
         1293512400,
         1293253200
       ],
+      "encounter_outpatient_encounter": [
+        1274328000,
+        1270008000
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1292994000,
@@ -609,11 +616,14 @@
       "encounter_acute_inpt_encounter": [
         1293512400,
         1293253200
+      ],
+      "encounter_outpatient_encounter": [
+        1274328000,
+        1270008000
       ]
     },
     "0081": {
       "pregnancy_diagnosis_active": [
-        1274328000,
         1274328000
       ],
       "encounter_inpatient_discharge_encounter": [
@@ -676,7 +686,6 @@
         1270008000
       ],
       "pregnancy_diagnosis_active": [
-        1274328000,
         1274328000
       ],
       "bmi_physical_exam_finding": [
@@ -829,6 +838,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1274328000,
@@ -838,6 +850,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1270008000,
@@ -848,50 +863,11 @@
     {
       "codes": {
         "SNOMED-CT": [
-          "169961004"
-        ]
-      },
-      "time": 1293253200,
-      "status": "active",
-      "description": "Delivery Live Births-Diagnosis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "165746003"
-        ]
-      },
-      "time": 1284091200,
-      "status": "active",
-      "description": "D(Rh) Negative"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "O26.90"
-        ]
-      },
-      "time": 1274328000,
-      "status": "active",
-      "description": "Pregnancy"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
           "160618006"
         ]
       },
       "time": 1270008000,
       "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "248986005"
-        ]
-      },
-      "time": 1270094400,
-      "description": "Estimated date of conception"
     }
   ],
   "vital_signs": [
@@ -903,7 +879,7 @@
       },
       "value": {
         "scalar": 138.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1292994000,
       "description": "Systolic Blood Pressure"
@@ -916,7 +892,7 @@
       },
       "value": {
         "scalar": 75.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1292994000,
       "description": "Diastolic Blood Pressure"
@@ -929,7 +905,7 @@
       },
       "value": {
         "scalar": 136.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1292562000,
       "description": "Systolic Blood Pressure"
@@ -942,7 +918,7 @@
       },
       "value": {
         "scalar": 78.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1292562000,
       "description": "Diastolic Blood Pressure"
@@ -955,7 +931,7 @@
       },
       "value": {
         "scalar": 132.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291784400,
       "description": "Systolic Blood Pressure"
@@ -968,7 +944,7 @@
       },
       "value": {
         "scalar": 78.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291784400,
       "description": "Diastolic Blood Pressure"
@@ -981,7 +957,7 @@
       },
       "value": {
         "scalar": 130.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1290661200,
       "description": "Systolic Blood Pressure"
@@ -994,7 +970,7 @@
       },
       "value": {
         "scalar": 80.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1290661200,
       "description": "Diastolic Blood Pressure"
@@ -1007,7 +983,7 @@
       },
       "value": {
         "scalar": 132.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1288411200,
       "description": "Systolic Blood Pressure"
@@ -1020,7 +996,7 @@
       },
       "value": {
         "scalar": 78.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1288411200,
       "description": "Diastolic Blood Pressure"
@@ -1033,7 +1009,7 @@
       },
       "value": {
         "scalar": 128.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281931200,
       "description": "Systolic Blood Pressure"
@@ -1046,7 +1022,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281931200,
       "description": "Diastolic Blood Pressure"
@@ -1059,7 +1035,7 @@
       },
       "value": {
         "scalar": 128.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277870400,
       "description": "Systolic Blood Pressure"
@@ -1072,7 +1048,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277870400,
       "description": "Diastolic Blood Pressure"
@@ -1085,7 +1061,7 @@
       },
       "value": {
         "scalar": 125.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1274328000,
       "description": "Systolic Blood Pressure"
@@ -1098,7 +1074,7 @@
       },
       "value": {
         "scalar": 70.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1274328000,
       "description": "Diastolic Blood Pressure"
@@ -1107,6 +1083,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1120,6 +1099,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1133,6 +1115,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1146,6 +1131,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1159,6 +1147,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1172,6 +1163,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1185,6 +1179,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1198,6 +1195,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1211,6 +1211,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1219,71 +1222,6 @@
       },
       "time": 1271304000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "LOINC": [
-          "1314-4"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1278734400,
-      "description": "Rh Status Mother"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87536"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1278734400,
-      "description": "HIV Screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84702"
-        ]
-      },
-      "value": {
-        "scalar": "Postive",
-        "units": null
-      },
-      "time": 1274328000,
-      "description": "Pregnancy Test"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "Chlamydia Screening"
     }
   ],
   "conditions": [
@@ -1291,6 +1229,12 @@
       "codes": {
         "SNOMED-CT": [
           "169961004"
+        ],
+        "ICD-9-CM": [
+          "65.621"
+        ],
+        "ICD-10-CM": [
+          "O30"
         ]
       },
       "time": 1293253200,
@@ -1301,6 +1245,12 @@
       "codes": {
         "SNOMED-CT": [
           "165746003"
+        ],
+        "ICD-10-CM": [
+          "O36.0120"
+        ],
+        "ICD-9-CM": [
+          "656.1"
         ]
       },
       "time": 1284091200,
@@ -1311,6 +1261,12 @@
       "codes": {
         "ICD-10-CM": [
           "O26.90"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
+        ],
+        "SNOMED-CT": [
+          "77386006"
         ]
       },
       "time": 1274328000,
@@ -1345,6 +1301,12 @@
       "codes": {
         "CPT": [
           "87536"
+        ],
+        "LOINC": [
+          "9665-1"
+        ],
+        "SNOMED-CT": [
+          "104332002"
         ]
       },
       "value": {
@@ -1358,6 +1320,9 @@
       "codes": {
         "CPT": [
           "84702"
+        ],
+        "LOINC": [
+          "2119-6"
         ]
       },
       "value": {
@@ -1371,6 +1336,21 @@
       "codes": {
         "ICD-9-CM": [
           "V72.32"
+        ],
+        "ICD-10-CM": [
+          "Z12.4"
+        ],
+        "CPT": [
+          "88174"
+        ],
+        "HCPCS": [
+          "G0147"
+        ],
+        "LOINC": [
+          "10524-7"
+        ],
+        "SNOMED-CT": [
+          "440623000"
         ]
       },
       "value": {
@@ -1384,6 +1364,12 @@
       "codes": {
         "CPT": [
           "87110"
+        ],
+        "LOINC": [
+          "31777-6"
+        ],
+        "SNOMED-CT": [
+          "121953005"
         ]
       },
       "value": {
@@ -1399,6 +1385,9 @@
       "codes": {
         "CPT": [
           "59410"
+        ],
+        "SNOMED-CT": [
+          "169961004"
         ]
       },
       "time": 1293253200,

@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7fca9ffccb9a2000039",
+  "_id": "4ef25203a9ffccc336000039",
   "first": "Christina",
   "patient_id": "190",
   "last": "Boyes",
@@ -119,34 +119,30 @@
         1273636800
       ],
       "pap_test_laboratory_test_result": [
-        1273636800,
         1273636800
       ]
     },
     "0033": {
+      "chlamydia_screening_laboratory_test_result": [
+        1273636800
+      ],
       "encounter_outpatient_encounter": [
         1286856000,
         1273636800
       ],
       "pregnancy_test_laboratory_test_performed": [
-        1286856000,
         1286856000
       ],
       "pregnancy_test_laboratory_test_result": [
-        1286856000,
         1286856000
       ],
       "chlamydia_screening_laboratory_test_performed": [
-        1273636800,
         1273636800
       ],
       "contraceptive_use_education_communication_to_patient": [
         1273636800
       ],
       "iud_use_device_applied": [
-        1273636800,
-        1273636800,
-        1273636800,
         1273636800
       ]
     },
@@ -169,6 +165,10 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -267,6 +267,10 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1286856000,
         1273636800
+      ],
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
       ]
     },
     "0070": {
@@ -290,6 +294,10 @@
           "value": 110.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1286856000,
@@ -311,15 +319,17 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1286856000,
         1273636800
+      ],
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
       ]
     },
     "0081": {
       "disease_of_aortic_and_mitral_valves_diagnosis_active": [
-        1273636800,
         1273636800
       ],
       "nonrheumatic_mitral_valve_disease_diagnosis_active": [
-        1273636800,
         1273636800
       ],
       "encounter_outpatient_encounter": [
@@ -421,6 +431,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1286856000,
@@ -430,6 +443,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1273636800,
@@ -437,26 +453,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "204"
-        ]
-      },
-      "time": 989985600,
-      "status": "inactive",
-      "description": "leukemia"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "I34.2"
-        ]
-      },
-      "time": 1273636800,
-      "status": "active",
-      "description": "Nonrheumatic mitral (valve) disease"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -476,7 +472,7 @@
       },
       "value": {
         "scalar": 112.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1286856000,
       "description": "Systolic Blood Pressure"
@@ -489,7 +485,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1286856000,
       "description": "Diastolic Blood Pressure"
@@ -502,7 +498,7 @@
       },
       "value": {
         "scalar": 110.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273636800,
       "description": "Systolic Blood Pressure"
@@ -515,7 +511,7 @@
       },
       "value": {
         "scalar": 62.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273636800,
       "description": "Diastolic Blood Pressure"
@@ -524,6 +520,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -537,6 +536,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -545,45 +547,6 @@
       },
       "time": 1273636800,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1273636800,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1273636800,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84702"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1286856000,
-      "description": "Pregnancy Test"
     }
   ],
   "conditions": [
@@ -591,6 +554,12 @@
       "codes": {
         "ICD-9-CM": [
           "204"
+        ],
+        "ICD-10-CM": [
+          "C91"
+        ],
+        "SNOMED-CT": [
+          "188725004"
         ]
       },
       "time": 989985600,
@@ -601,20 +570,17 @@
       "codes": {
         "ICD-10-CM": [
           "I34.2"
+        ],
+        "SNOMED-CT": [
+          "194727002"
+        ],
+        "ICD-9-CM": [
+          "424"
         ]
       },
       "time": 1273636800,
       "status": "active",
       "description": "Nonrheumatic mitral (valve) disease"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1273636800,
-      "description": "IUD use"
     }
   ],
   "results": [
@@ -622,6 +588,12 @@
       "codes": {
         "CPT": [
           "87110"
+        ],
+        "LOINC": [
+          "31777-6"
+        ],
+        "SNOMED-CT": [
+          "121953005"
         ]
       },
       "value": {
@@ -635,6 +607,21 @@
       "codes": {
         "ICD-9-CM": [
           "V72.32"
+        ],
+        "ICD-10-CM": [
+          "Z12.4"
+        ],
+        "CPT": [
+          "88174"
+        ],
+        "HCPCS": [
+          "G0147"
+        ],
+        "LOINC": [
+          "10524-7"
+        ],
+        "SNOMED-CT": [
+          "440623000"
         ]
       },
       "value": {
@@ -648,6 +635,9 @@
       "codes": {
         "CPT": [
           "84702"
+        ],
+        "LOINC": [
+          "2119-6"
         ]
       },
       "value": {
@@ -663,6 +653,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1273636800,
@@ -676,15 +669,6 @@
       },
       "time": 1273636800,
       "description": "contraceptive use education"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1273636800,
-      "description": "IUD use"
     }
   ],
   "medications": [
@@ -694,14 +678,6 @@
 
   ],
   "care_goals": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1273636800,
-      "description": "IUD use"
-    }
+
   ]
 }

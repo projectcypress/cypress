@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d80ca9ffccb9a20000be",
+  "_id": "4ef25212a9ffccc3360000be",
   "first": "Geraldo",
   "patient_id": "124",
   "last": "Smith",
@@ -38,7 +38,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1273032000,
         1273032000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -57,12 +56,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1273032000
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1273032000
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1273032000,
         1273032000
       ],
       "encounter_outpatient_encounter": [
@@ -197,11 +201,14 @@
         1273032000
       ],
       "fobt_laboratory_test_performed": [
-        1289365200,
         1289365200
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1289365200,
+        1273032000
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -340,6 +347,10 @@
         1289365200,
         1275278400,
         1273032000
+      ],
+      "encounter_outpatient_encounter": [
+        1289365200,
+        1273032000
       ]
     },
     "0070": {
@@ -375,6 +386,10 @@
           "value": 118.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1289365200,
+        1273032000
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1289365200,
@@ -402,11 +417,14 @@
         1289365200,
         1275278400,
         1273032000
+      ],
+      "encounter_outpatient_encounter": [
+        1289365200,
+        1273032000
       ]
     },
     "0081": {
       "heart_failure_diagnosis_active": [
-        1273032000,
         1273032000
       ],
       "encounter_outpatient_encounter": [
@@ -416,7 +434,6 @@
     },
     "0083": {
       "heart_failure_diagnosis_active": [
-        1273032000,
         1273032000
       ],
       "beta_blocker_therapy_medication_order": [
@@ -432,7 +449,6 @@
     },
     "0084": {
       "heart_failure_diagnosis_active": [
-        1273032000,
         1273032000
       ],
       "encounter_outpatient_encounter": [
@@ -526,6 +542,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1289365200,
@@ -544,6 +563,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1273032000,
@@ -551,26 +573,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1273032000,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1273032000,
-      "status": "active",
-      "description": "Hypertension"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -590,7 +592,7 @@
       },
       "value": {
         "scalar": 116.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289365200,
       "description": "Systolic Blood Pressure"
@@ -603,7 +605,7 @@
       },
       "value": {
         "scalar": 66.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289365200,
       "description": "Diastolic Blood Pressure"
@@ -616,7 +618,7 @@
       },
       "value": {
         "scalar": 120.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273032000,
       "description": "Systolic Blood Pressure"
@@ -629,7 +631,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273032000,
       "description": "Diastolic Blood Pressure"
@@ -642,7 +644,7 @@
       },
       "value": {
         "scalar": 118.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1275278400,
       "description": "Systolic Blood Pressure"
@@ -655,7 +657,7 @@
       },
       "value": {
         "scalar": 64.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1275278400,
       "description": "Diastolic Blood Pressure"
@@ -664,6 +666,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -677,6 +682,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -685,19 +693,6 @@
       },
       "time": 1273032000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1289365200,
-      "description": "FOBT"
     }
   ],
   "conditions": [
@@ -705,6 +700,12 @@
       "codes": {
         "ICD-9-CM": [
           "428.9"
+        ],
+        "ICD-10-CM": [
+          "I50.9"
+        ],
+        "SNOMED-CT": [
+          "84114007"
         ]
       },
       "time": 1273032000,
@@ -715,6 +716,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1273032000,
@@ -727,6 +734,18 @@
       "codes": {
         "CPT": [
           "82274"
+        ],
+        "SNOMED-CT": [
+          "252156002"
+        ],
+        "LOINC": [
+          "2335-8"
+        ],
+        "HCPCS": [
+          "G0328"
+        ],
+        "ICD-9-CM": [
+          "V76.51"
         ]
       },
       "value": {
@@ -742,6 +761,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1273032000,
@@ -751,6 +773,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1275278400,

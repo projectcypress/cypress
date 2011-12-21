@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7fda9ffccb9a200003c",
+  "_id": "4ef25203a9ffccc33600003c",
   "first": "Allie",
   "patient_id": "23",
   "last": "Little",
@@ -27,12 +27,9 @@
       ],
       "group_a_streptococcus_test_laboratory_test_performed": [
         1291525200,
-        1282449600,
-        1291525200,
         1282449600
       ],
       "pharyngitis_diagnosis_active": [
-        1282449600,
         1282449600
       ],
       "pharyngitis_antibiotics_medication_dispensed": [
@@ -166,7 +163,6 @@
         1234760400
       ],
       "pap_test_laboratory_test_result": [
-        1271649600,
         1271649600
       ]
     },
@@ -181,7 +177,6 @@
         1271649600
       ],
       "sexually_active_woman_diagnosis_active": [
-        1271649600,
         1271649600
       ],
       "contraceptive_use_education_communication_to_patient": [
@@ -225,6 +220,12 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1291525200,
+        1282449600,
+        1271649600,
+        1234760400
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -354,6 +355,12 @@
         1282449600,
         1271649600,
         1234760400
+      ],
+      "encounter_outpatient_encounter": [
+        1291525200,
+        1282449600,
+        1271649600,
+        1234760400
       ]
     },
     "0070": {
@@ -399,6 +406,12 @@
           "value": 102.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1291525200,
+        1282449600,
+        1271649600,
+        1234760400
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1291525200,
@@ -424,6 +437,12 @@
     },
     "0075": {
       "encounter_acute_inpt_and_outpt_encounter": [
+        1291525200,
+        1282449600,
+        1271649600,
+        1234760400
+      ],
+      "encounter_outpatient_encounter": [
         1291525200,
         1282449600,
         1271649600,
@@ -555,6 +574,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1291525200,
@@ -564,6 +586,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1282449600,
@@ -573,6 +598,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1271649600,
@@ -582,6 +610,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1234760400,
@@ -589,26 +620,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1282449600,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ]
-      },
-      "time": 1271649600,
-      "status": "active",
-      "description": "sexually active woman"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -628,7 +639,7 @@
       },
       "value": {
         "scalar": 106.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291525200,
       "description": "Systolic Blood Pressure"
@@ -641,7 +652,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291525200,
       "description": "Diastolic Blood Pressure"
@@ -667,7 +678,7 @@
       },
       "value": {
         "scalar": 100.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282449600,
       "description": "Systolic Blood Pressure"
@@ -680,7 +691,7 @@
       },
       "value": {
         "scalar": 60.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282449600,
       "description": "Diastolic Blood Pressure"
@@ -706,7 +717,7 @@
       },
       "value": {
         "scalar": 102.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271649600,
       "description": "Systolic Blood Pressure"
@@ -719,7 +730,7 @@
       },
       "value": {
         "scalar": 62.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271649600,
       "description": "Diastolic Blood Pressure"
@@ -741,6 +752,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -754,6 +768,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -767,6 +784,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -780,6 +800,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -788,45 +811,6 @@
       },
       "time": 1171602000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1291525200,
-      "description": "Group A Streptococcus Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": "Positive",
-        "units": null
-      },
-      "time": 1282449600,
-      "description": "Group A Streptococcus Test"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1271649600,
-      "description": "Pap Test"
     }
   ],
   "conditions": [
@@ -834,6 +818,12 @@
       "codes": {
         "ICD-10-CM": [
           "J02"
+        ],
+        "SNOMED-CT": [
+          "363746003"
+        ],
+        "ICD-9-CM": [
+          "462"
         ]
       },
       "time": 1282449600,
@@ -844,6 +834,12 @@
       "codes": {
         "ICD-9-CM": [
           "099.9"
+        ],
+        "SNOMED-CT": [
+          "8098009"
+        ],
+        "ICD-10-CM": [
+          "A64"
         ]
       },
       "time": 1271649600,
@@ -856,6 +852,12 @@
       "codes": {
         "CPT": [
           "87430"
+        ],
+        "LOINC": [
+          "31971-5"
+        ],
+        "SNOMED-CT": [
+          "122245007"
         ]
       },
       "value": {
@@ -869,6 +871,12 @@
       "codes": {
         "CPT": [
           "87430"
+        ],
+        "LOINC": [
+          "31971-5"
+        ],
+        "SNOMED-CT": [
+          "122245007"
         ]
       },
       "value": {
@@ -882,6 +890,21 @@
       "codes": {
         "ICD-9-CM": [
           "V72.32"
+        ],
+        "ICD-10-CM": [
+          "Z12.4"
+        ],
+        "CPT": [
+          "88174"
+        ],
+        "HCPCS": [
+          "G0147"
+        ],
+        "LOINC": [
+          "10524-7"
+        ],
+        "SNOMED-CT": [
+          "440623000"
         ]
       },
       "value": {
@@ -906,6 +929,12 @@
       "codes": {
         "CPT": [
           "88235"
+        ],
+        "HCPCS": [
+          "G0123"
+        ],
+        "ICD-9-CM": [
+          "75"
         ]
       },
       "time": 1271649600,

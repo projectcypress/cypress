@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d802a9ffccb9a2000066",
+  "_id": "4ef25208a9ffccc336000066",
   "first": "Joseph",
   "patient_id": "139",
   "last": "Jester",
@@ -53,7 +53,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1276142400,
         1276142400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -75,12 +74,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1276142400
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1276142400
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1276142400,
         1276142400
       ],
       "encounter_outpatient_encounter": [
@@ -202,11 +206,16 @@
         1276142400
       ],
       "fobt_laboratory_test_performed": [
-        1276142400,
         1276142400
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1289883600,
+        1281240000,
+        1277006400,
+        1276142400
+      ],
       "encounter_acute_inpt_encounter": [
         1278302400
       ]
@@ -251,7 +260,6 @@
     },
     "0052": {
       "cancer_diagnosis_active": [
-        1278129600,
         1278129600
       ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
@@ -389,6 +397,12 @@
       ],
       "encounter_acute_inpt_encounter": [
         1278302400
+      ],
+      "encounter_outpatient_encounter": [
+        1289883600,
+        1281240000,
+        1277006400,
+        1276142400
       ]
     },
     "0070": {
@@ -428,6 +442,12 @@
       "encounter_acute_inpt_encounter": [
         1278302400
       ],
+      "encounter_outpatient_encounter": [
+        1289883600,
+        1281240000,
+        1277006400,
+        1276142400
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1289883600,
@@ -462,6 +482,12 @@
       ],
       "encounter_acute_inpt_encounter": [
         1278302400
+      ],
+      "encounter_outpatient_encounter": [
+        1289883600,
+        1281240000,
+        1277006400,
+        1276142400
       ]
     },
     "0081": {
@@ -555,17 +581,12 @@
     },
     "0389": {
       "prostate_cancer_diagnosis_active": [
-        1278129600,
         1278129600
       ],
       "prostate_cancer_treatment_procedure_performed": [
         1278129600
       ],
       "prostate_specific_antigen_test_laboratory_test_result": [
-        {
-          "date": 1278129600,
-          "value": 9.0
-        },
         {
           "date": 1278129600,
           "value": 9.0
@@ -577,7 +598,6 @@
         1278129600
       ],
       "gleason_score_6_laboratory_test_result": [
-        1278129600,
         1278129600
       ]
     },
@@ -620,6 +640,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1289883600,
@@ -629,6 +652,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1281240000,
@@ -656,6 +682,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1277006400,
@@ -665,6 +694,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1276142400,
@@ -672,26 +704,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1278129600,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1276142400,
-      "status": "active",
-      "description": "Hypertension"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -711,7 +723,7 @@
       },
       "value": {
         "scalar": 124.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289883600,
       "description": "Systolic Blood Pressure"
@@ -724,7 +736,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289883600,
       "description": "Diastolic Blood Pressure"
@@ -737,7 +749,7 @@
       },
       "value": {
         "scalar": 126.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281240000,
       "description": "Systolic Blood Pressure"
@@ -750,7 +762,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281240000,
       "description": "Diastolic Blood Pressure"
@@ -763,7 +775,7 @@
       },
       "value": {
         "scalar": 124.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1276142400,
       "description": "Systolic Blood Pressure"
@@ -776,7 +788,7 @@
       },
       "value": {
         "scalar": 74.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1276142400,
       "description": "Diastolic Blood Pressure"
@@ -785,6 +797,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -793,45 +808,6 @@
       },
       "time": 1281240000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84153"
-        ]
-      },
-      "value": {
-        "scalar": "9 mg/dL",
-        "units": null
-      },
-      "time": 1278129600,
-      "description": "Prostate Specific Antigen Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369776000"
-        ]
-      },
-      "value": {
-        "scalar": 4.0,
-        "units": null
-      },
-      "time": 1278129600,
-      "description": "Gleason Score <=6"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "value": {
-        "scalar": "Positive",
-        "units": null
-      },
-      "time": 1276142400,
-      "description": "FOBT"
     },
     {
       "codes": {
@@ -848,6 +824,12 @@
       "codes": {
         "ICD-9-CM": [
           "185"
+        ],
+        "ICD-10-CM": [
+          "C61"
+        ],
+        "SNOMED-CT": [
+          "399068003"
         ]
       },
       "time": 1278129600,
@@ -858,6 +840,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1276142400,
@@ -870,6 +858,12 @@
       "codes": {
         "CPT": [
           "84153"
+        ],
+        "LOINC": [
+          "19195-7"
+        ],
+        "SNOMED-CT": [
+          "63476009"
         ]
       },
       "value": {
@@ -896,6 +890,18 @@
       "codes": {
         "CPT": [
           "82274"
+        ],
+        "SNOMED-CT": [
+          "252156002"
+        ],
+        "LOINC": [
+          "2335-8"
+        ],
+        "HCPCS": [
+          "G0328"
+        ],
+        "ICD-9-CM": [
+          "V76.51"
         ]
       },
       "value": {
@@ -920,6 +926,9 @@
       "codes": {
         "CPT": [
           "55810"
+        ],
+        "SNOMED-CT": [
+          "176259004"
         ]
       },
       "time": 1278129600,
@@ -938,6 +947,18 @@
       "codes": {
         "CPT": [
           "45378"
+        ],
+        "HCPCS": [
+          "G0121"
+        ],
+        "ICD-9-CM": [
+          "45.23"
+        ],
+        "SNOMED-CT": [
+          "456004"
+        ],
+        "ICD-10-CM": [
+          "Z12.11"
         ]
       },
       "time": 1277006400,
@@ -969,6 +990,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1289883600,

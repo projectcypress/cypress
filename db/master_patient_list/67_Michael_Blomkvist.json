@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7f4a9ffccb9a2000001",
+  "_id": "4ef251fba9ffccc336000001",
   "first": "Michael",
   "patient_id": "67",
   "last": "Blomkvist",
@@ -13,19 +13,13 @@
     "0001": {
       "asthma_diagnosis_active": [
         1273464000,
-        1282017600,
-        1273464000,
         1282017600
       ],
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
         1273464000,
-        1284091200,
-        1273464000,
         1284091200
       ],
       "asthma_nighttime_symptoms_quantified_symptom_assessed": [
-        1273464000,
-        1284091200,
         1273464000,
         1284091200
       ],
@@ -200,6 +194,14 @@
       ]
     },
     "0036": {
+      "asthma_diagnosis_active": [
+        1273464000,
+        1282017600
+      ],
+      "encounter_outpatient_encounter": [
+        1282017600,
+        1282017600
+      ],
       "long_acting_inhaled_beta_2_agonist_medication_active": [
         1284091200,
         1273464000
@@ -249,11 +251,9 @@
     },
     "0047": {
       "asthma_persistent_diagnosis_active": [
-        1282017600,
         1282017600
       ],
       "asthma_diagnosis_active": [
-        1273464000,
         1273464000
       ],
       "corticosteroid_inhaled_or_alternative_asthma_medication_medication_active": [
@@ -361,12 +361,14 @@
         1284091200,
         1282017600,
         1273464000
+      ],
+      "encounter_outpatient_encounter": [
+        1282017600,
+        1282017600
       ]
     },
     "0070": {
       "asthma_diagnosis_active": [
-        1273464000,
-        1282017600,
         1273464000,
         1282017600
       ],
@@ -394,6 +396,10 @@
           "value": 134.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1282017600,
+        1282017600
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1284091200,
@@ -419,6 +425,10 @@
         1284091200,
         1282017600,
         1273464000
+      ],
+      "encounter_outpatient_encounter": [
+        1282017600,
+        1282017600
       ]
     },
     "0081": {
@@ -431,8 +441,6 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1273464000,
-        1282017600,
         1273464000,
         1282017600
       ],
@@ -525,6 +533,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1282017600,
@@ -543,6 +554,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1282017600,
@@ -561,68 +575,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
-      },
-      "time": 1282017600,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
       "time": 1273464000,
       "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1273464000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1273464000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1284091200,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1284091200,
-      "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
   "vital_signs": [
@@ -634,7 +592,7 @@
       },
       "value": {
         "scalar": 132.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284091200,
       "description": "Systolic Blood Pressure"
@@ -647,7 +605,7 @@
       },
       "value": {
         "scalar": 78.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284091200,
       "description": "Diastolic Blood Pressure"
@@ -660,7 +618,7 @@
       },
       "value": {
         "scalar": 134.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273464000,
       "description": "Systolic Blood Pressure"
@@ -673,7 +631,7 @@
       },
       "value": {
         "scalar": 80.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273464000,
       "description": "Diastolic Blood Pressure"
@@ -682,6 +640,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -695,6 +656,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -710,6 +674,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1273464000,
@@ -720,6 +690,9 @@
       "codes": {
         "ICD-10-CM": [
           "J45.42"
+        ],
+        "SNOMED-CT": [
+          "427295004"
         ]
       },
       "time": 1282017600,
@@ -771,6 +744,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1273464000,

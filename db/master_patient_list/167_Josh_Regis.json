@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7f9a9ffccb9a200001e",
+  "_id": "4ef251ffa9ffccc33600001e",
   "first": "Josh",
   "patient_id": "167",
   "last": "Regis",
@@ -12,15 +12,12 @@
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
-        1276488000,
         1276488000
       ],
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
-        1276488000,
         1276488000
       ],
       "asthma_nighttime_symptoms_quantified_symptom_assessed": [
-        1276488000,
         1276488000
       ],
       "asthma_symptom_assessment_tool_risk_category_assessment": [
@@ -39,7 +36,6 @@
         1273032000
       ],
       "pharyngitis_diagnosis_active": [
-        1273032000,
         1273032000
       ],
       "pharyngitis_antibiotics_medication_dispensed": [
@@ -155,6 +151,12 @@
       ]
     },
     "0036": {
+      "asthma_diagnosis_active": [
+        1276488000
+      ],
+      "encounter_outpatient_encounter": [
+        1273032000
+      ],
       "antiasthmatic_combinations_medication_active": [
         1273032000,
         1285732800
@@ -207,7 +209,6 @@
     },
     "0047": {
       "asthma_diagnosis_active": [
-        1276488000,
         1276488000
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -277,11 +278,13 @@
         1285732800,
         1276488000,
         1273032000
+      ],
+      "encounter_outpatient_encounter": [
+        1273032000
       ]
     },
     "0070": {
       "asthma_diagnosis_active": [
-        1276488000,
         1276488000
       ],
       "encounter_outpatient_encounter": [
@@ -294,6 +297,9 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1285732800,
         1276488000,
+        1273032000
+      ],
+      "encounter_outpatient_encounter": [
         1273032000
       ]
     },
@@ -309,6 +315,9 @@
         1285732800,
         1276488000,
         1273032000
+      ],
+      "encounter_outpatient_encounter": [
+        1273032000
       ]
     },
     "0081": {
@@ -320,7 +329,6 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1276488000,
         1276488000
       ],
       "encounter_outpatient_encounter": [
@@ -425,6 +433,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1273032000,
@@ -432,50 +443,16 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1273032000,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1276488000,
-      "status": "active",
-      "description": "asthma"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1276488000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1276488000,
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
+
   ],
   "vital_signs": [
     {
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -489,6 +466,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -502,6 +482,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -517,6 +500,12 @@
       "codes": {
         "ICD-10-CM": [
           "J02"
+        ],
+        "SNOMED-CT": [
+          "363746003"
+        ],
+        "ICD-9-CM": [
+          "462"
         ]
       },
       "time": 1273032000,
@@ -527,6 +516,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1276488000,
@@ -560,6 +555,12 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
+        ],
+        "HCPCS": [
+          "S9451"
+        ],
+        "ICD-10-CM": [
+          "Z71.3"
         ]
       },
       "time": 1273032000,
@@ -569,6 +570,15 @@
       "codes": {
         "CPT": [
           "97802"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "ICD-10-CM": [
+          "Z00.8"
         ]
       },
       "time": 1273032000,

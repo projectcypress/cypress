@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7fda9ffccb9a2000042",
+  "_id": "4ef25204a9ffccc336000042",
   "first": "David",
   "patient_id": "79",
   "last": "Berthoumieux",
@@ -13,16 +13,12 @@
     "0001": {
       "asthma_diagnosis_active": [
         1272427200,
-        1275796800,
-        1272427200,
         1275796800
       ],
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
-        1272427200,
         1272427200
       ],
       "asthma_nighttime_symptoms_quantified_symptom_assessed": [
-        1272427200,
         1272427200
       ],
       "asthma_symptom_assessment_tool_risk_category_assessment": [
@@ -179,6 +175,10 @@
       ]
     },
     "0036": {
+      "asthma_diagnosis_active": [
+        1272427200,
+        1275796800
+      ],
       "encounter_ed_encounter": [
         1291525200,
         1288670400,
@@ -242,11 +242,9 @@
     },
     "0047": {
       "asthma_persistent_diagnosis_active": [
-        1275796800,
         1275796800
       ],
       "asthma_diagnosis_active": [
-        1272427200,
         1272427200
       ],
       "corticosteroid_inhaled_or_alternative_asthma_medication_medication_active": [
@@ -372,8 +370,6 @@
     "0070": {
       "asthma_diagnosis_active": [
         1272427200,
-        1275796800,
-        1272427200,
         1275796800
       ],
       "encounter_outpatient_encounter": [
@@ -437,8 +433,6 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1272427200,
-        1275796800,
         1272427200,
         1275796800
       ],
@@ -565,50 +559,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1272427200,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
-      },
-      "time": 1275796800,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
       "time": 1272427200,
       "description": "Tobacco User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1272427200,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1272427200,
-      "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
   "vital_signs": [
@@ -620,7 +576,7 @@
       },
       "value": {
         "scalar": 136.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1290402000,
       "description": "Systolic Blood Pressure"
@@ -633,7 +589,7 @@
       },
       "value": {
         "scalar": 84.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1290402000,
       "description": "Diastolic Blood Pressure"
@@ -659,7 +615,7 @@
       },
       "value": {
         "scalar": 138.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1272427200,
       "description": "Systolic Blood Pressure"
@@ -672,7 +628,7 @@
       },
       "value": {
         "scalar": 88.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1272427200,
       "description": "Diastolic Blood Pressure"
@@ -694,6 +650,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -709,6 +668,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1272427200,
@@ -719,6 +684,9 @@
       "codes": {
         "ICD-10-CM": [
           "J45.42"
+        ],
+        "SNOMED-CT": [
+          "427295004"
         ]
       },
       "time": 1275796800,
@@ -752,6 +720,15 @@
       "codes": {
         "CPT": [
           "97802"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "ICD-10-CM": [
+          "Z00.8"
         ]
       },
       "time": 1272427200,
@@ -761,6 +738,12 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
+        ],
+        "HCPCS": [
+          "S9451"
+        ],
+        "ICD-10-CM": [
+          "Z71.3"
         ]
       },
       "time": 1272427200,
@@ -770,6 +753,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1272427200,
@@ -857,6 +843,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1272427200,

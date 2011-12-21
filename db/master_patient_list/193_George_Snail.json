@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7f6a9ffccb9a200000d",
+  "_id": "4ef251fda9ffccc33600000d",
   "first": "George",
   "patient_id": "193",
   "last": "Snail",
@@ -47,7 +47,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1277784000,
         1277784000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -70,12 +69,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1277784000
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1277784000
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1277784000,
         1277784000
       ],
       "encounter_outpatient_encounter": [
@@ -215,6 +219,11 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1277524800,
+        1293771600,
+        1285732800
+      ],
       "encounter_ed_encounter": [
         1277784000
       ]
@@ -389,6 +398,11 @@
         1293771600,
         1285732800,
         1277870400
+      ],
+      "encounter_outpatient_encounter": [
+        1277524800,
+        1293771600,
+        1285732800
       ]
     },
     "0070": {
@@ -442,6 +456,11 @@
           "value": 136.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1277524800,
+        1293771600,
+        1285732800
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1284091200,
@@ -475,6 +494,11 @@
         1293771600,
         1285732800,
         1277870400
+      ],
+      "encounter_outpatient_encounter": [
+        1277524800,
+        1293771600,
+        1285732800
       ]
     },
     "0081": {
@@ -530,8 +554,10 @@
       ]
     },
     "0105": {
+      "depression_diagnosis_active": [
+        1277870400
+      ],
       "major_depression_diagnosis_active": [
-        1277870400,
         1277870400
       ],
       "antidepressant_medications_medication_dispensed": [
@@ -633,6 +659,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1277524800,
@@ -642,6 +671,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1293771600,
@@ -651,6 +683,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1285732800,
@@ -678,26 +713,6 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ]
-      },
-      "time": 1277870400,
-      "status": "active",
-      "description": "Major Depression"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1277784000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
@@ -715,7 +730,7 @@
       },
       "value": {
         "scalar": 132.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284091200,
       "description": "Systolic Blood Pressure"
@@ -728,7 +743,7 @@
       },
       "value": {
         "scalar": 72.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284091200,
       "description": "Diastolic Blood Pressure"
@@ -754,7 +769,7 @@
       },
       "value": {
         "scalar": 130.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282968000,
       "description": "Systolic Blood Pressure"
@@ -767,7 +782,7 @@
       },
       "value": {
         "scalar": 72.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282968000,
       "description": "Diastolic Blood Pressure"
@@ -793,7 +808,7 @@
       },
       "value": {
         "scalar": 134.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1280289600,
       "description": "Systolic Blood Pressure"
@@ -806,7 +821,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1280289600,
       "description": "Diastolic Blood Pressure"
@@ -832,7 +847,7 @@
       },
       "value": {
         "scalar": 136.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277784000,
       "description": "Systolic Blood Pressure"
@@ -845,7 +860,7 @@
       },
       "value": {
         "scalar": 78.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277784000,
       "description": "Diastolic Blood Pressure"
@@ -867,6 +882,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -880,6 +898,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -895,6 +916,12 @@
       "codes": {
         "ICD-9-CM": [
           "296.30"
+        ],
+        "ICD-10-CM": [
+          "F33.9"
+        ],
+        "SNOMED-CT": [
+          "268621008"
         ]
       },
       "time": 1277870400,
@@ -905,6 +932,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1277784000,
@@ -929,6 +962,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1277438400,
@@ -1043,6 +1079,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1277438400,

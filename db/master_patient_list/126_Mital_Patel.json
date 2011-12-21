@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d80ca9ffccb9a20000bc",
+  "_id": "4ef25212a9ffccc3360000bc",
   "first": "Mital",
   "patient_id": "126",
   "last": "Patel",
@@ -34,7 +34,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1271131200,
         1271131200
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -51,12 +50,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1271131200
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1271131200
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1271131200,
         1271131200
       ],
       "encounter_outpatient_encounter": [
@@ -155,6 +159,10 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1281585600,
+        1271131200
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -259,6 +267,10 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1281585600,
         1271131200
+      ],
+      "encounter_outpatient_encounter": [
+        1281585600,
+        1271131200
       ]
     },
     "0070": {
@@ -282,6 +294,10 @@
           "value": 154.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1281585600,
+        1271131200
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1281585600,
@@ -303,11 +319,14 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1281585600,
         1271131200
+      ],
+      "encounter_outpatient_encounter": [
+        1281585600,
+        1271131200
       ]
     },
     "0081": {
       "heart_failure_diagnosis_active": [
-        1281585600,
         1281585600
       ],
       "ace_inhibitor_or_arb_medication_active": [
@@ -323,7 +342,6 @@
     },
     "0083": {
       "heart_failure_diagnosis_active": [
-        1281585600,
         1281585600
       ],
       "encounter_outpatient_encounter": [
@@ -333,7 +351,6 @@
     },
     "0084": {
       "heart_failure_diagnosis_active": [
-        1281585600,
         1281585600
       ],
       "encounter_outpatient_encounter": [
@@ -407,6 +424,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1281585600,
@@ -416,6 +436,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1271131200,
@@ -423,26 +446,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1281585600,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1271131200,
-      "status": "active",
-      "description": "Hypertension"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -462,7 +465,7 @@
       },
       "value": {
         "scalar": 150.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281585600,
       "description": "Systolic Blood Pressure"
@@ -475,7 +478,7 @@
       },
       "value": {
         "scalar": 88.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281585600,
       "description": "Diastolic Blood Pressure"
@@ -488,7 +491,7 @@
       },
       "value": {
         "scalar": 154.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271131200,
       "description": "Systolic Blood Pressure"
@@ -501,7 +504,7 @@
       },
       "value": {
         "scalar": 90.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271131200,
       "description": "Diastolic Blood Pressure"
@@ -510,6 +513,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -523,6 +529,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -538,6 +547,12 @@
       "codes": {
         "ICD-9-CM": [
           "428.9"
+        ],
+        "ICD-10-CM": [
+          "I50.9"
+        ],
+        "SNOMED-CT": [
+          "84114007"
         ]
       },
       "time": 1281585600,
@@ -548,6 +563,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1271131200,
@@ -563,6 +584,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1271131200,

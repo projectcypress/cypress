@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7ffa9ffccb9a2000051",
+  "_id": "4ef25206a9ffccc336000051",
   "first": "Shawn",
   "patient_id": "142",
   "last": "Shell",
@@ -161,7 +161,6 @@
         1283745600
       ],
       "colorectal_cancer_diagnosis_active": [
-        1285992000,
         1285992000
       ],
       "encounter_outpatient_encounter": [
@@ -171,6 +170,9 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1282708800
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -205,6 +207,9 @@
       ]
     },
     "0052": {
+      "cancer_diagnosis_active": [
+        1285992000
+      ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
         1288411200,
         1283745600,
@@ -293,6 +298,9 @@
         1288411200,
         1283745600,
         1282708800
+      ],
+      "encounter_outpatient_encounter": [
+        1282708800
       ]
     },
     "0070": {
@@ -336,6 +344,9 @@
           "value": 122.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1282708800
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1288411200,
@@ -362,6 +373,9 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1288411200,
         1283745600,
+        1282708800
+      ],
+      "encounter_outpatient_encounter": [
         1282708800
       ]
     },
@@ -414,7 +428,6 @@
     },
     "0385": {
       "colon_cancer_diagnosis_active": [
-        1285992000,
         1285992000
       ],
       "colon_cancer_stage_iii_procedure_result": [
@@ -495,6 +508,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1282708800,
@@ -502,16 +518,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "126838000"
-        ]
-      },
-      "time": 1285992000,
-      "status": "active",
-      "description": "Colon Cancer"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -531,7 +537,7 @@
       },
       "value": {
         "scalar": 122.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1288411200,
       "description": "Systolic Blood Pressure"
@@ -544,7 +550,7 @@
       },
       "value": {
         "scalar": 74.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1288411200,
       "description": "Diastolic Blood Pressure"
@@ -570,7 +576,7 @@
       },
       "value": {
         "scalar": 120.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1283745600,
       "description": "Systolic Blood Pressure"
@@ -583,7 +589,7 @@
       },
       "value": {
         "scalar": 70.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1283745600,
       "description": "Diastolic Blood Pressure"
@@ -609,7 +615,7 @@
       },
       "value": {
         "scalar": 122.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282708800,
       "description": "Systolic Blood Pressure"
@@ -622,7 +628,7 @@
       },
       "value": {
         "scalar": 72.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282708800,
       "description": "Diastolic Blood Pressure"
@@ -644,6 +650,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -657,6 +666,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -670,6 +682,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -694,6 +709,12 @@
       "codes": {
         "SNOMED-CT": [
           "126838000"
+        ],
+        "ICD-9-CM": [
+          "153.9"
+        ],
+        "ICD-10-CM": [
+          "C18.9"
         ]
       },
       "time": 1285992000,
@@ -726,6 +747,18 @@
       "codes": {
         "CPT": [
           "45378"
+        ],
+        "HCPCS": [
+          "G0121"
+        ],
+        "ICD-9-CM": [
+          "45.23"
+        ],
+        "SNOMED-CT": [
+          "456004"
+        ],
+        "ICD-10-CM": [
+          "Z12.11"
         ]
       },
       "time": 1283745600,
@@ -749,6 +782,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1288411200,

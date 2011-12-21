@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d80fa9ffccb9a20000db",
+  "_id": "4ef25215a9ffccc3360000db",
   "first": "George",
   "patient_id": "100",
   "last": "Skeritt",
@@ -49,7 +49,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1272168000,
         1272168000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -77,12 +76,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1272168000
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1272168000
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1272168000,
         1272168000
       ],
       "encounter_outpatient_encounter": [
@@ -213,6 +217,11 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1291957200,
+        1287201600,
+        1265778000
+      ],
       "encounter_ed_encounter": [
         1270008000
       ]
@@ -272,7 +281,6 @@
         1272168000
       ],
       "diabetic_retinopathy_diagnosis_active": [
-        1272168000,
         1272168000
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -336,18 +344,6 @@
         1265778000
       ],
       "hba1c_test_laboratory_test_result": [
-        {
-          "date": 1291957200,
-          "value": 7.9
-        },
-        {
-          "date": 1281931200,
-          "value": 7.2
-        },
-        {
-          "date": 1270008000,
-          "value": 7.0
-        },
         {
           "date": 1291957200,
           "value": 7.9
@@ -487,14 +483,6 @@
         {
           "date": 1291957200,
           "value": 45.0
-        },
-        {
-          "date": 1291957200,
-          "value": 85.0
-        },
-        {
-          "date": 1291957200,
-          "value": 45.0
         }
       ],
       "medications_indicative_of_diabetes_medication_order": [
@@ -520,6 +508,11 @@
     },
     "0068": {
       "encounter_acute_inpt_and_outpt_encounter": [
+        1291957200,
+        1287201600,
+        1265778000
+      ],
+      "encounter_outpatient_encounter": [
         1291957200,
         1287201600,
         1265778000
@@ -564,6 +557,11 @@
           "value": 150.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1291957200,
+        1287201600,
+        1265778000
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1291957200,
@@ -596,6 +594,12 @@
         1291957200,
         1287201600,
         1265778000
+      ],
+      "ldl_laboratory_test_laboratory_test_result": [
+        {
+          "date": 1291957200,
+          "value": 85.0
+        }
       ]
     },
     "0075": {
@@ -611,18 +615,10 @@
         },
         {
           "date": 1291957200,
-          "value": 45.0
+          "value": 180.0
         }
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1291957200,
-          "value": 85.0
-        },
-        {
-          "date": 1291957200,
-          "value": 45.0
-        },
         {
           "date": 1291957200,
           "value": 85.0
@@ -636,21 +632,18 @@
         {
           "date": 1291957200,
           "value": 180.0
-        },
-        {
-          "date": 1291957200,
-          "value": 180.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
         {
           "date": 1291957200,
           "value": 150.0
-        },
-        {
-          "date": 1291957200,
-          "value": 150.0
         }
+      ],
+      "encounter_outpatient_encounter": [
+        1291957200,
+        1287201600,
+        1265778000
       ]
     },
     "0081": {
@@ -696,7 +689,6 @@
     },
     "0088": {
       "diabetic_retinopathy_diagnosis_active": [
-        1272168000,
         1272168000
       ],
       "encounter_nursing_facility_encounter": [
@@ -711,7 +703,6 @@
     },
     "0089": {
       "diabetic_retinopathy_diagnosis_active": [
-        1272168000,
         1272168000
       ],
       "encounter_nursing_facility_encounter": [
@@ -799,18 +790,6 @@
         {
           "date": 1270008000,
           "value": 7.0
-        },
-        {
-          "date": 1291957200,
-          "value": 7.9
-        },
-        {
-          "date": 1281931200,
-          "value": 7.2
-        },
-        {
-          "date": 1270008000,
-          "value": 7.0
         }
       ],
       "medications_indicative_of_diabetes_medication_dispensed": [
@@ -843,6 +822,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1291957200,
@@ -852,6 +834,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1287201600,
@@ -888,6 +873,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1265778000,
@@ -895,36 +883,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1272168000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1272168000,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1272168000,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -944,7 +902,7 @@
       },
       "value": {
         "scalar": 138.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291957200,
       "description": "Systolic Blood Pressure"
@@ -957,7 +915,7 @@
       },
       "value": {
         "scalar": 88.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291957200,
       "description": "Diastolic Blood Pressure"
@@ -970,7 +928,7 @@
       },
       "value": {
         "scalar": 136.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1287201600,
       "description": "Systolic Blood Pressure"
@@ -983,7 +941,7 @@
       },
       "value": {
         "scalar": 86.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1287201600,
       "description": "Diastolic Blood Pressure"
@@ -996,7 +954,7 @@
       },
       "value": {
         "scalar": 138.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281931200,
       "description": "Systolic Blood Pressure"
@@ -1009,7 +967,7 @@
       },
       "value": {
         "scalar": 88.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281931200,
       "description": "Diastolic Blood Pressure"
@@ -1022,7 +980,7 @@
       },
       "value": {
         "scalar": 140.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1272168000,
       "description": "Systolic Blood Pressure"
@@ -1035,7 +993,7 @@
       },
       "value": {
         "scalar": 90.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1272168000,
       "description": "Diastolic Blood Pressure"
@@ -1048,7 +1006,7 @@
       },
       "value": {
         "scalar": 150.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Systolic Blood Pressure"
@@ -1061,7 +1019,7 @@
       },
       "value": {
         "scalar": 96.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Diastolic Blood Pressure"
@@ -1070,6 +1028,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1083,6 +1044,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1091,97 +1055,6 @@
       },
       "time": 1272168000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 85.0,
-        "units": null
-      },
-      "time": 1291957200,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 45.0,
-        "units": null
-      },
-      "time": 1291957200,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 180.0,
-        "units": null
-      },
-      "time": 1291957200,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 150.0,
-        "units": null
-      },
-      "time": 1291957200,
-      "description": "Triglycerides"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.9,
-        "units": null
-      },
-      "time": 1291957200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.2,
-        "units": null
-      },
-      "time": 1281931200,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 7.0,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "HbA1c test"
     }
   ],
   "conditions": [
@@ -1189,6 +1062,12 @@
       "codes": {
         "ICD-9-CM": [
           "250"
+        ],
+        "ICD-10-CM": [
+          "E11.9"
+        ],
+        "SNOMED-CT": [
+          "73211009"
         ]
       },
       "time": 1272168000,
@@ -1199,6 +1078,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1272168000,
@@ -1209,6 +1094,12 @@
       "codes": {
         "ICD-10-CM": [
           "E11.331"
+        ],
+        "ICD-9-CM": [
+          "362.05"
+        ],
+        "SNOMED-CT": [
+          "312904009"
         ]
       },
       "time": 1272168000,
@@ -1221,6 +1112,12 @@
       "codes": {
         "CPT": [
           "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
       "value": {
@@ -1234,6 +1131,12 @@
       "codes": {
         "CPT": [
           "83701"
+        ],
+        "LOINC": [
+          "14646-4"
+        ],
+        "SNOMED-CT": [
+          "28036006"
         ]
       },
       "value": {
@@ -1247,6 +1150,12 @@
       "codes": {
         "CPT": [
           "82465"
+        ],
+        "LOINC": [
+          "2093-3"
+        ],
+        "SNOMED-CT": [
+          "121868005"
         ]
       },
       "value": {
@@ -1260,6 +1169,12 @@
       "codes": {
         "CPT": [
           "84478"
+        ],
+        "LOINC": [
+          "12951-0"
+        ],
+        "SNOMED-CT": [
+          "14740000"
         ]
       },
       "value": {
@@ -1273,6 +1188,12 @@
       "codes": {
         "CPT": [
           "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
         ]
       },
       "value": {
@@ -1286,6 +1207,12 @@
       "codes": {
         "CPT": [
           "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
         ]
       },
       "value": {
@@ -1299,6 +1226,12 @@
       "codes": {
         "CPT": [
           "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
         ]
       },
       "value": {
@@ -1359,6 +1292,18 @@
       "codes": {
         "CPT": [
           "45378"
+        ],
+        "HCPCS": [
+          "G0121"
+        ],
+        "ICD-9-CM": [
+          "45.23"
+        ],
+        "SNOMED-CT": [
+          "456004"
+        ],
+        "ICD-10-CM": [
+          "Z12.11"
         ]
       },
       "time": 1285214400,
@@ -1368,6 +1313,15 @@
       "codes": {
         "HCPCS": [
           "S0621"
+        ],
+        "SNOMED-CT": [
+          "390735007"
+        ],
+        "ICD-9-CM": [
+          "95.03"
+        ],
+        "CPT": [
+          "92012"
         ]
       },
       "time": 1272168000,
@@ -1419,6 +1373,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1272168000,

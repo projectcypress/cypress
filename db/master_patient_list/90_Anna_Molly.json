@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d806a9ffccb9a200008f",
+  "_id": "4ef2520da9ffccc33600008f",
   "first": "Anna",
   "patient_id": "90",
   "last": "Molly",
@@ -12,11 +12,9 @@
   "measures": {
     "0001": {
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
-        1271044800,
         1271044800
       ],
       "asthma_nighttime_symptoms_quantified_symptom_assessed": [
-        1271044800,
         1271044800
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -166,6 +164,10 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1279944000,
+        1270008000
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -198,10 +200,9 @@
     "0055": {
       "diabetes_diagnosis_active": [
         1270008000,
-        1270008000
+        1271044800
       ],
       "diabetic_retinopathy_diagnosis_active": [
-        1271044800,
         1271044800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -226,7 +227,7 @@
     "0056": {
       "diabetes_diagnosis_active": [
         1270008000,
-        1270008000
+        1271044800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1288411200,
@@ -244,7 +245,7 @@
     "0059": {
       "diabetes_diagnosis_active": [
         1270008000,
-        1270008000
+        1271044800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1288411200,
@@ -253,14 +254,6 @@
         1270008000
       ],
       "hba1c_test_laboratory_test_result": [
-        {
-          "date": 1279944000,
-          "value": 6.8
-        },
-        {
-          "date": 1270008000,
-          "value": 6.7
-        },
         {
           "date": 1279944000,
           "value": 6.8
@@ -280,7 +273,7 @@
     "0061": {
       "diabetes_diagnosis_active": [
         1270008000,
-        1270008000
+        1271044800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1288411200,
@@ -326,7 +319,7 @@
     "0062": {
       "diabetes_diagnosis_active": [
         1270008000,
-        1270008000
+        1271044800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1288411200,
@@ -344,7 +337,7 @@
     "0064": {
       "diabetes_diagnosis_active": [
         1270008000,
-        1270008000
+        1271044800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1288411200,
@@ -370,6 +363,10 @@
     },
     "0068": {
       "encounter_acute_inpt_and_outpt_encounter": [
+        1279944000,
+        1270008000
+      ],
+      "encounter_outpatient_encounter": [
         1279944000,
         1270008000
       ]
@@ -399,6 +396,10 @@
           "value": 112.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1279944000,
+        1270008000
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1288411200,
@@ -424,6 +425,10 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1279944000,
         1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1279944000,
+        1270008000
       ]
     },
     "0081": {
@@ -446,7 +451,6 @@
     },
     "0088": {
       "diabetic_retinopathy_diagnosis_active": [
-        1271044800,
         1271044800
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -466,7 +470,6 @@
     },
     "0089": {
       "diabetic_retinopathy_diagnosis_active": [
-        1271044800,
         1271044800
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -529,7 +532,7 @@
     "0575": {
       "diabetes_diagnosis_active": [
         1270008000,
-        1270008000
+        1271044800
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1288411200,
@@ -538,14 +541,6 @@
         1270008000
       ],
       "hba1c_test_laboratory_test_result": [
-        {
-          "date": 1279944000,
-          "value": 6.8
-        },
-        {
-          "date": 1270008000,
-          "value": 6.7
-        },
         {
           "date": 1279944000,
           "value": 6.8
@@ -586,6 +581,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1279944000,
@@ -604,6 +602,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1270008000,
@@ -613,50 +614,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "250"
-        ]
-      },
-      "time": 1270008000,
-      "status": "active",
-      "description": "diabetes"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "E11.331"
-        ]
-      },
-      "time": 1271044800,
-      "status": "active",
-      "description": "Diabetic Retinopathy"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "time": 1270008000,
       "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1271044800,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1271044800,
-      "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
   "vital_signs": [
@@ -668,7 +631,7 @@
       },
       "value": {
         "scalar": 115.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1288411200,
       "description": "Systolic Blood Pressure"
@@ -681,7 +644,7 @@
       },
       "value": {
         "scalar": 74.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1288411200,
       "description": "Diastolic Blood Pressure"
@@ -694,7 +657,7 @@
       },
       "value": {
         "scalar": 110.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271044800,
       "description": "Systolic Blood Pressure"
@@ -707,7 +670,7 @@
       },
       "value": {
         "scalar": 70.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271044800,
       "description": "Diastolic Blood Pressure"
@@ -720,7 +683,7 @@
       },
       "value": {
         "scalar": 112.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Systolic Blood Pressure"
@@ -733,7 +696,7 @@
       },
       "value": {
         "scalar": 72.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Diastolic Blood Pressure"
@@ -755,6 +718,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -768,6 +734,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -776,32 +745,6 @@
       },
       "time": 1270008000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 6.8,
-        "units": null
-      },
-      "time": 1279944000,
-      "description": "HbA1c test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83036"
-        ]
-      },
-      "value": {
-        "scalar": 6.7,
-        "units": null
-      },
-      "time": 1270008000,
-      "description": "HbA1c test"
     }
   ],
   "conditions": [
@@ -809,6 +752,12 @@
       "codes": {
         "ICD-9-CM": [
           "250"
+        ],
+        "ICD-10-CM": [
+          "E11.9"
+        ],
+        "SNOMED-CT": [
+          "73211009"
         ]
       },
       "time": 1270008000,
@@ -819,6 +768,12 @@
       "codes": {
         "ICD-10-CM": [
           "E11.331"
+        ],
+        "ICD-9-CM": [
+          "362.05"
+        ],
+        "SNOMED-CT": [
+          "312904009"
         ]
       },
       "time": 1271044800,
@@ -849,6 +804,12 @@
       "codes": {
         "CPT": [
           "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
         ]
       },
       "value": {
@@ -862,6 +823,12 @@
       "codes": {
         "CPT": [
           "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
         ]
       },
       "value": {
@@ -934,6 +901,15 @@
       "codes": {
         "CPT": [
           "97802"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "ICD-10-CM": [
+          "Z00.8"
         ]
       },
       "time": 1270008000,
@@ -943,6 +919,12 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
+        ],
+        "HCPCS": [
+          "S9451"
+        ],
+        "ICD-10-CM": [
+          "Z71.3"
         ]
       },
       "time": 1270008000,
@@ -952,6 +934,15 @@
       "codes": {
         "HCPCS": [
           "S0621"
+        ],
+        "SNOMED-CT": [
+          "390735007"
+        ],
+        "ICD-9-CM": [
+          "95.03"
+        ],
+        "CPT": [
+          "92012"
         ]
       },
       "time": 1271044800,
@@ -986,6 +977,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1270008000,

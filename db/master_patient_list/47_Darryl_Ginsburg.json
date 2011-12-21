@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d804a9ffccb9a200007a",
+  "_id": "4ef2520aa9ffccc33600007a",
   "first": "Darryl",
   "patient_id": "47",
   "last": "Ginsburg",
@@ -44,7 +44,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1242446400,
         1242446400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -64,12 +63,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1242446400
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1242446400
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1242446400,
         1242446400
       ],
       "encounter_outpatient_encounter": [
@@ -215,6 +219,11 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1271217600,
+        1242446400
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -359,14 +368,6 @@
         {
           "date": 1271217600,
           "value": 65.0
-        },
-        {
-          "date": 1271217600,
-          "value": 60.0
-        },
-        {
-          "date": 1271217600,
-          "value": 65.0
         }
       ]
     },
@@ -382,6 +383,11 @@
         1292389200,
         1284523200,
         1273982400,
+        1271217600,
+        1242446400
+      ],
+      "encounter_outpatient_encounter": [
+        1292389200,
         1271217600,
         1242446400
       ]
@@ -415,6 +421,11 @@
           "value": 155.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1271217600,
+        1242446400
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1284523200,
@@ -435,6 +446,12 @@
         1292389200,
         1271217600,
         1242446400
+      ],
+      "ldl_laboratory_test_laboratory_test_result": [
+        {
+          "date": 1271217600,
+          "value": 60.0
+        }
       ]
     },
     "0075": {
@@ -452,18 +469,10 @@
         },
         {
           "date": 1271217600,
-          "value": 65.0
+          "value": 160.0
         }
       ],
       "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1271217600,
-          "value": 60.0
-        },
-        {
-          "date": 1271217600,
-          "value": 65.0
-        },
         {
           "date": 1271217600,
           "value": 60.0
@@ -477,21 +486,18 @@
         {
           "date": 1271217600,
           "value": 160.0
-        },
-        {
-          "date": 1271217600,
-          "value": 160.0
         }
       ],
       "triglycerides_laboratory_test_performed": [
         {
           "date": 1271217600,
           "value": 175.0
-        },
-        {
-          "date": 1271217600,
-          "value": 175.0
         }
+      ],
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1271217600,
+        1242446400
       ]
     },
     "0081": {
@@ -601,6 +607,9 @@
       "codes": {
         "ICD-9-CM": [
           "V15.03"
+        ],
+        "SNOMED-CT": [
+          "91930004"
         ]
       },
       "time": 1266037200,
@@ -615,6 +624,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1292389200,
@@ -642,6 +654,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1271217600,
@@ -651,6 +666,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1242446400,
@@ -658,16 +676,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1242446400,
-      "status": "active",
-      "description": "Hypertension"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -687,7 +695,7 @@
       },
       "value": {
         "scalar": 120.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284523200,
       "description": "Systolic Blood Pressure"
@@ -700,7 +708,7 @@
       },
       "value": {
         "scalar": 75.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284523200,
       "description": "Diastolic Blood Pressure"
@@ -713,7 +721,7 @@
       },
       "value": {
         "scalar": 135.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271217600,
       "description": "Systolic Blood Pressure"
@@ -726,7 +734,7 @@
       },
       "value": {
         "scalar": 85.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271217600,
       "description": "Diastolic Blood Pressure"
@@ -739,7 +747,7 @@
       },
       "value": {
         "scalar": 155.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1242446400,
       "description": "Systolic Blood Pressure"
@@ -752,7 +760,7 @@
       },
       "value": {
         "scalar": 100.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1242446400,
       "description": "Diastolic Blood Pressure"
@@ -761,6 +769,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -774,6 +785,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -787,6 +801,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -795,58 +812,6 @@
       },
       "time": 1242446400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 60.0,
-        "units": null
-      },
-      "time": 1271217600,
-      "description": "LDL"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83701"
-        ]
-      },
-      "value": {
-        "scalar": 65.0,
-        "units": null
-      },
-      "time": 1271217600,
-      "description": "High Density Lipoprotein (HDL)"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82465"
-        ]
-      },
-      "value": {
-        "scalar": 160.0,
-        "units": null
-      },
-      "time": 1271217600,
-      "description": "Total Cholesterol"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84478"
-        ]
-      },
-      "value": {
-        "scalar": 175.0,
-        "units": null
-      },
-      "time": 1271217600,
-      "description": "Triglycerides"
     }
   ],
   "conditions": [
@@ -854,6 +819,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1242446400,
@@ -866,6 +837,12 @@
       "codes": {
         "CPT": [
           "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
       "value": {
@@ -879,6 +856,12 @@
       "codes": {
         "CPT": [
           "83701"
+        ],
+        "LOINC": [
+          "14646-4"
+        ],
+        "SNOMED-CT": [
+          "28036006"
         ]
       },
       "value": {
@@ -892,6 +875,12 @@
       "codes": {
         "CPT": [
           "82465"
+        ],
+        "LOINC": [
+          "2093-3"
+        ],
+        "SNOMED-CT": [
+          "121868005"
         ]
       },
       "value": {
@@ -905,6 +894,12 @@
       "codes": {
         "CPT": [
           "84478"
+        ],
+        "LOINC": [
+          "12951-0"
+        ],
+        "SNOMED-CT": [
+          "14740000"
         ]
       },
       "value": {
@@ -920,6 +915,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1273982400,
@@ -929,6 +927,18 @@
       "codes": {
         "CPT": [
           "45378"
+        ],
+        "HCPCS": [
+          "G0121"
+        ],
+        "ICD-9-CM": [
+          "45.23"
+        ],
+        "SNOMED-CT": [
+          "456004"
+        ],
+        "ICD-10-CM": [
+          "Z12.11"
         ]
       },
       "time": 1277179200,
@@ -938,6 +948,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1273982400,
@@ -981,6 +994,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1268542800,

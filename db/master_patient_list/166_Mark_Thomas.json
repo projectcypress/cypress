@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7f9a9ffccb9a2000023",
+  "_id": "4ef25200a9ffccc336000023",
   "first": "Mark",
   "patient_id": "166",
   "last": "Thomas",
@@ -13,13 +13,9 @@
     "0001": {
       "asthma_diagnosis_active": [
         1286942400,
-        1273464000,
-        1286942400,
         1273464000
       ],
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
-        1273464000,
-        1273464000,
         1273464000,
         1273464000
       ],
@@ -37,11 +33,9 @@
         1273464000
       ],
       "group_a_streptococcus_test_laboratory_test_performed": [
-        1277179200,
         1277179200
       ],
       "pharyngitis_diagnosis_active": [
-        1277179200,
         1277179200
       ],
       "pharyngitis_antibiotics_medication_dispensed": [
@@ -205,6 +199,13 @@
       ]
     },
     "0036": {
+      "asthma_diagnosis_active": [
+        1286942400,
+        1273464000
+      ],
+      "encounter_outpatient_encounter": [
+        1277179200
+      ],
       "encounter_ed_encounter": [
         1286942400
       ],
@@ -257,11 +258,9 @@
     },
     "0047": {
       "asthma_persistent_diagnosis_active": [
-        1286942400,
         1286942400
       ],
       "asthma_diagnosis_active": [
-        1273464000,
         1273464000
       ],
       "corticosteroid_inhaled_or_alternative_asthma_medication_medication_active": [
@@ -396,12 +395,13 @@
         1289192400,
         1277179200,
         1273464000
+      ],
+      "encounter_outpatient_encounter": [
+        1277179200
       ]
     },
     "0070": {
       "asthma_diagnosis_active": [
-        1286942400,
-        1273464000,
         1286942400,
         1273464000
       ],
@@ -453,6 +453,9 @@
           "value": 108.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1277179200
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1289192400,
@@ -484,6 +487,9 @@
         1289192400,
         1277179200,
         1273464000
+      ],
+      "encounter_outpatient_encounter": [
+        1277179200
       ]
     },
     "0081": {
@@ -495,8 +501,6 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1286942400,
-        1273464000,
         1286942400,
         1273464000
       ],
@@ -618,6 +622,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1277179200,
@@ -636,60 +643,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ]
-      },
-      "time": 1277179200,
-      "status": "active",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ]
-      },
-      "time": 1286942400,
-      "status": "active",
-      "description": "Asthma Persistent"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1273464000,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "time": 1273464000,
       "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1273464000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1273464000,
-      "description": "Asthma Daytime Symptoms Quantified"
     }
   ],
   "vital_signs": [
@@ -701,7 +660,7 @@
       },
       "value": {
         "scalar": 110.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289192400,
       "description": "Systolic Blood Pressure"
@@ -714,7 +673,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289192400,
       "description": "Diastolic Blood Pressure"
@@ -740,7 +699,7 @@
       },
       "value": {
         "scalar": 112.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1286942400,
       "description": "Systolic Blood Pressure"
@@ -753,7 +712,7 @@
       },
       "value": {
         "scalar": 70.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1286942400,
       "description": "Diastolic Blood Pressure"
@@ -779,7 +738,7 @@
       },
       "value": {
         "scalar": 108.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277179200,
       "description": "Systolic Blood Pressure"
@@ -792,7 +751,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277179200,
       "description": "Diastolic Blood Pressure"
@@ -818,7 +777,7 @@
       },
       "value": {
         "scalar": 108.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273464000,
       "description": "Systolic Blood Pressure"
@@ -831,7 +790,7 @@
       },
       "value": {
         "scalar": 66.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273464000,
       "description": "Diastolic Blood Pressure"
@@ -853,6 +812,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -866,6 +828,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -874,19 +839,6 @@
       },
       "time": 1273464000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87430"
-        ]
-      },
-      "value": {
-        "scalar": "Positive",
-        "units": null
-      },
-      "time": 1277179200,
-      "description": "Group A Streptococcus Test"
     }
   ],
   "conditions": [
@@ -894,6 +846,12 @@
       "codes": {
         "ICD-10-CM": [
           "J02"
+        ],
+        "SNOMED-CT": [
+          "363746003"
+        ],
+        "ICD-9-CM": [
+          "462"
         ]
       },
       "time": 1277179200,
@@ -904,6 +862,9 @@
       "codes": {
         "ICD-10-CM": [
           "J45.42"
+        ],
+        "SNOMED-CT": [
+          "427295004"
         ]
       },
       "time": 1286942400,
@@ -914,6 +875,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1273464000,
@@ -944,6 +911,12 @@
       "codes": {
         "CPT": [
           "87430"
+        ],
+        "LOINC": [
+          "31971-5"
+        ],
+        "SNOMED-CT": [
+          "122245007"
         ]
       },
       "value": {

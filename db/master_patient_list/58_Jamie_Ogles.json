@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7fba9ffccb9a200002f",
+  "_id": "4ef25201a9ffccc33600002f",
   "first": "Jamie",
   "patient_id": "58",
   "last": "Ogles",
@@ -195,12 +195,14 @@
       ],
       "fobt_laboratory_test_performed": [
         1290747600,
-        1248926400,
-        1290747600,
         1248926400
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1286337600,
+        1270008000
+      ],
       "encounter_ed_encounter": [
         1248926400
       ]
@@ -363,6 +365,10 @@
         1286337600,
         1278475200,
         1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1286337600,
+        1270008000
       ]
     },
     "0070": {
@@ -398,6 +404,10 @@
           "value": 110.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1286337600,
+        1270008000
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1290747600,
@@ -430,6 +440,10 @@
         1290747600,
         1286337600,
         1278475200,
+        1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1286337600,
         1270008000
       ]
     },
@@ -545,6 +559,9 @@
       "codes": {
         "ICD-9-CM": [
           "V15.03"
+        ],
+        "SNOMED-CT": [
+          "91930004"
         ]
       },
       "time": 1286337600,
@@ -568,6 +585,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1286337600,
@@ -586,6 +606,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1270008000,
@@ -621,7 +644,7 @@
       },
       "value": {
         "scalar": 112.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1290747600,
       "description": "Systolic Blood Pressure"
@@ -634,7 +657,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1290747600,
       "description": "Diastolic Blood Pressure"
@@ -647,7 +670,7 @@
       },
       "value": {
         "scalar": 108.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1286337600,
       "description": "Systolic Blood Pressure"
@@ -660,7 +683,7 @@
       },
       "value": {
         "scalar": 66.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1286337600,
       "description": "Diastolic Blood Pressure"
@@ -673,7 +696,7 @@
       },
       "value": {
         "scalar": 106.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273204800,
       "description": "Systolic Blood Pressure"
@@ -686,7 +709,7 @@
       },
       "value": {
         "scalar": 64.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273204800,
       "description": "Diastolic Blood Pressure"
@@ -699,7 +722,7 @@
       },
       "value": {
         "scalar": 110.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Systolic Blood Pressure"
@@ -712,7 +735,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Diastolic Blood Pressure"
@@ -721,6 +744,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -734,6 +760,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -747,6 +776,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -760,6 +792,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -768,32 +803,6 @@
       },
       "time": 1270008000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1290747600,
-      "description": "FOBT"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1248926400,
-      "description": "FOBT"
     }
   ],
   "conditions": [
@@ -804,6 +813,18 @@
       "codes": {
         "CPT": [
           "82274"
+        ],
+        "SNOMED-CT": [
+          "252156002"
+        ],
+        "LOINC": [
+          "2335-8"
+        ],
+        "HCPCS": [
+          "G0328"
+        ],
+        "ICD-9-CM": [
+          "V76.51"
         ]
       },
       "value": {
@@ -817,6 +838,18 @@
       "codes": {
         "CPT": [
           "82274"
+        ],
+        "SNOMED-CT": [
+          "252156002"
+        ],
+        "LOINC": [
+          "2335-8"
+        ],
+        "HCPCS": [
+          "G0328"
+        ],
+        "ICD-9-CM": [
+          "V76.51"
         ]
       },
       "value": {
@@ -838,6 +871,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1286337600,

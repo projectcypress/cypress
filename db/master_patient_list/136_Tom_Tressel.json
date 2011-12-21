@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7f6a9ffccb9a200000e",
+  "_id": "4ef251fda9ffccc33600000e",
   "first": "Tom",
   "patient_id": "136",
   "last": "Tressel",
@@ -201,6 +201,13 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1272600000,
+        1288584000,
+        1280721600,
+        1275364800,
+        1272600000
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -354,6 +361,13 @@
         1275364800,
         1272686400,
         1272600000
+      ],
+      "encounter_outpatient_encounter": [
+        1272600000,
+        1288584000,
+        1280721600,
+        1275364800,
+        1272600000
       ]
     },
     "0070": {
@@ -385,6 +399,13 @@
           "value": 120.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1272600000,
+        1288584000,
+        1280721600,
+        1275364800,
+        1272600000
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1288584000,
@@ -413,6 +434,13 @@
         1280721600,
         1275364800,
         1272686400,
+        1272600000
+      ],
+      "encounter_outpatient_encounter": [
+        1272600000,
+        1288584000,
+        1280721600,
+        1275364800,
         1272600000
       ]
     },
@@ -467,8 +495,10 @@
       ]
     },
     "0105": {
+      "depression_diagnosis_active": [
+        1272686400
+      ],
       "major_depression_diagnosis_active": [
-        1272686400,
         1272686400
       ],
       "antidepressant_medications_medication_dispensed": [
@@ -569,6 +599,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1272600000,
@@ -578,6 +611,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1288584000,
@@ -587,6 +623,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1280721600,
@@ -596,6 +635,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1275364800,
@@ -614,6 +656,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1272600000,
@@ -621,16 +666,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ]
-      },
-      "time": 1272686400,
-      "status": "active",
-      "description": "Major Depression"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -650,7 +685,7 @@
       },
       "value": {
         "scalar": 118.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1288584000,
       "description": "Systolic Blood Pressure"
@@ -663,7 +698,7 @@
       },
       "value": {
         "scalar": 72.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1288584000,
       "description": "Diastolic Blood Pressure"
@@ -676,7 +711,7 @@
       },
       "value": {
         "scalar": 120.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1272600000,
       "description": "Systolic Blood Pressure"
@@ -689,7 +724,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1272600000,
       "description": "Diastolic Blood Pressure"
@@ -698,6 +733,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -711,6 +749,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -724,6 +765,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -739,6 +783,12 @@
       "codes": {
         "ICD-9-CM": [
           "296.30"
+        ],
+        "ICD-10-CM": [
+          "F33.9"
+        ],
+        "SNOMED-CT": [
+          "268621008"
         ]
       },
       "time": 1272686400,
@@ -754,6 +804,18 @@
       "codes": {
         "CPT": [
           "45378"
+        ],
+        "HCPCS": [
+          "G0121"
+        ],
+        "ICD-9-CM": [
+          "45.23"
+        ],
+        "SNOMED-CT": [
+          "456004"
+        ],
+        "ICD-10-CM": [
+          "Z12.11"
         ]
       },
       "time": 1291006800,
@@ -830,6 +892,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1288584000,

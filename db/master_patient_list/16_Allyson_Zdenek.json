@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7fca9ffccb9a2000034",
+  "_id": "4ef25202a9ffccc336000034",
   "first": "Allyson",
   "patient_id": "16",
   "last": "Zdenek",
@@ -45,7 +45,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1271390400,
         1271390400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -66,12 +65,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1271390400
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1271390400
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1271390400,
         1271390400
       ],
       "encounter_outpatient_encounter": [
@@ -172,11 +176,13 @@
         1180584000
       ],
       "pap_test_laboratory_test_result": [
-        1286251200,
         1286251200
       ]
     },
     "0033": {
+      "chlamydia_screening_laboratory_test_result": [
+        1286251200
+      ],
       "encounter_outpatient_encounter": [
         1286251200,
         1284609600,
@@ -185,13 +191,9 @@
         1180584000
       ],
       "chlamydia_screening_laboratory_test_performed": [
-        1286251200,
         1286251200
       ],
       "iud_use_device_applied": [
-        1179028800,
-        1179028800,
-        1179028800,
         1179028800
       ]
     },
@@ -222,6 +224,12 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1286251200,
+        1284609600,
+        1270094400,
+        1180584000
+      ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
@@ -364,10 +372,6 @@
         {
           "date": 1271390400,
           "value": 90.0
-        },
-        {
-          "date": 1271390400,
-          "value": 90.0
         }
       ]
     },
@@ -384,6 +388,12 @@
         1286251200,
         1284609600,
         1271390400,
+        1270094400,
+        1180584000
+      ],
+      "encounter_outpatient_encounter": [
+        1286251200,
+        1284609600,
         1270094400,
         1180584000
       ]
@@ -432,6 +442,12 @@
           "value": 142.0
         }
       ],
+      "encounter_outpatient_encounter": [
+        1286251200,
+        1284609600,
+        1270094400,
+        1180584000
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1286251200,
@@ -453,6 +469,12 @@
         1284609600,
         1270094400,
         1180584000
+      ],
+      "ldl_laboratory_test_laboratory_test_result": [
+        {
+          "date": 1271390400,
+          "value": 90.0
+        }
       ]
     },
     "0075": {
@@ -467,11 +489,13 @@
         {
           "date": 1271390400,
           "value": 90.0
-        },
-        {
-          "date": 1271390400,
-          "value": 90.0
         }
+      ],
+      "encounter_outpatient_encounter": [
+        1286251200,
+        1284609600,
+        1270094400,
+        1180584000
       ]
     },
     "0081": {
@@ -603,6 +627,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1286251200,
@@ -612,6 +639,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1284609600,
@@ -630,6 +660,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1270094400,
@@ -639,6 +672,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1180584000,
@@ -646,16 +682,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1271390400,
-      "status": "active",
-      "description": "Hypertension"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -688,7 +714,7 @@
       },
       "value": {
         "scalar": 130.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1286251200,
       "description": "Systolic Blood Pressure"
@@ -701,7 +727,7 @@
       },
       "value": {
         "scalar": 78.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1286251200,
       "description": "Diastolic Blood Pressure"
@@ -727,7 +753,7 @@
       },
       "value": {
         "scalar": 140.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284609600,
       "description": "Systolic Blood Pressure"
@@ -740,7 +766,7 @@
       },
       "value": {
         "scalar": 90.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284609600,
       "description": "Diastolic Blood Pressure"
@@ -766,7 +792,7 @@
       },
       "value": {
         "scalar": 142.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271390400,
       "description": "Systolic Blood Pressure"
@@ -779,7 +805,7 @@
       },
       "value": {
         "scalar": 90.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1271390400,
       "description": "Diastolic Blood Pressure"
@@ -801,6 +827,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -814,6 +843,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -827,6 +859,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -835,45 +870,6 @@
       },
       "time": 1180584000,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1286251200,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1286251200,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "83721"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": null
-      },
-      "time": 1271390400,
-      "description": "LDL"
     }
   ],
   "conditions": [
@@ -881,20 +877,17 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1271390400,
       "status": "active",
       "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1179028800,
-      "description": "IUD use"
     }
   ],
   "results": [
@@ -902,6 +895,12 @@
       "codes": {
         "CPT": [
           "87110"
+        ],
+        "LOINC": [
+          "31777-6"
+        ],
+        "SNOMED-CT": [
+          "121953005"
         ]
       },
       "value": {
@@ -915,6 +914,21 @@
       "codes": {
         "ICD-9-CM": [
           "V72.32"
+        ],
+        "ICD-10-CM": [
+          "Z12.4"
+        ],
+        "CPT": [
+          "88174"
+        ],
+        "HCPCS": [
+          "G0147"
+        ],
+        "LOINC": [
+          "10524-7"
+        ],
+        "SNOMED-CT": [
+          "440623000"
         ]
       },
       "value": {
@@ -928,6 +942,12 @@
       "codes": {
         "CPT": [
           "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
       "value": {
@@ -943,19 +963,13 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1271390400,
       "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1179028800,
-      "description": "IUD use"
     }
   ],
   "medications": [
@@ -983,6 +997,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1284609600,
@@ -990,14 +1007,6 @@
     }
   ],
   "care_goals": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1179028800,
-      "description": "IUD use"
-    }
+
   ]
 }

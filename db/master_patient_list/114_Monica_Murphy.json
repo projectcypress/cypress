@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d801a9ffccb9a200005f",
+  "_id": "4ef25207a9ffccc33600005f",
   "first": "Monica",
   "patient_id": "114",
   "last": "Murphy",
@@ -12,7 +12,6 @@
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
-        1273377600,
         1273377600
       ],
       "asthma_symptom_assessment_tool_risk_category_assessment": [
@@ -220,6 +219,13 @@
       ]
     },
     "0036": {
+      "asthma_diagnosis_active": [
+        1273377600
+      ],
+      "encounter_outpatient_encounter": [
+        1291093200,
+        1284091200
+      ],
       "encounter_acute_inpt_encounter": [
         1284696000,
         1284436800
@@ -273,7 +279,6 @@
     },
     "0047": {
       "asthma_diagnosis_active": [
-        1273377600,
         1273377600
       ],
       "corticosteroid_inhaled_or_alternative_asthma_medication_medication_active": [
@@ -294,7 +299,6 @@
     },
     "0052": {
       "cancer_diagnosis_active": [
-        1284436800,
         1284436800
       ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
@@ -428,11 +432,14 @@
       "encounter_acute_inpt_encounter": [
         1284696000,
         1284436800
+      ],
+      "encounter_outpatient_encounter": [
+        1291093200,
+        1284091200
       ]
     },
     "0070": {
       "asthma_diagnosis_active": [
-        1273377600,
         1273377600
       ],
       "encounter_inpatient_discharge_encounter": [
@@ -480,6 +487,10 @@
         1284696000,
         1284436800
       ],
+      "encounter_outpatient_encounter": [
+        1291093200,
+        1284091200
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1273377600,
@@ -513,6 +524,10 @@
       "encounter_acute_inpt_encounter": [
         1284696000,
         1284436800
+      ],
+      "encounter_outpatient_encounter": [
+        1291093200,
+        1284091200
       ]
     },
     "0081": {
@@ -529,7 +544,6 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1273377600,
         1273377600
       ],
       "encounter_outpatient_encounter": [
@@ -573,7 +587,9 @@
     },
     "0105": {
       "depression_diagnosis_active": [
-        1285387200,
+        1285387200
+      ],
+      "major_depression_diagnosis_active": [
         1285387200
       ],
       "antidepressant_medications_medication_dispensed": [
@@ -606,7 +622,6 @@
     },
     "0387": {
       "breast_cancer_diagnosis_active": [
-        1284436800,
         1284436800
       ],
       "radiation_therapy_procedure_performed": [
@@ -671,6 +686,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1291093200,
@@ -725,6 +743,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1284091200,
@@ -741,46 +762,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "174.9"
-        ]
-      },
-      "time": 1284436800,
-      "status": "active",
-      "description": "Breast Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1273377600,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.36"
-        ]
-      },
-      "time": 1285387200,
-      "status": "active",
-      "description": "Depression"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "70.3"
-        ]
-      },
-      "time": 1256443200,
-      "status": "active",
-      "description": "Hepatitis B Diagnosis"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -800,7 +781,7 @@
       },
       "value": {
         "scalar": 120.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273377600,
       "description": "Systolic Blood Pressure"
@@ -813,7 +794,7 @@
       },
       "value": {
         "scalar": 64.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1273377600,
       "description": "Diastolic Blood Pressure"
@@ -839,7 +820,7 @@
       },
       "value": {
         "scalar": 116.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291093200,
       "description": "Systolic Blood Pressure"
@@ -852,7 +833,7 @@
       },
       "value": {
         "scalar": 62.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291093200,
       "description": "Diastolic Blood Pressure"
@@ -874,6 +855,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -889,6 +873,12 @@
       "codes": {
         "ICD-9-CM": [
           "174.9"
+        ],
+        "ICD-10-CM": [
+          "C50"
+        ],
+        "SNOMED-CT": [
+          "188161004"
         ]
       },
       "time": 1284436800,
@@ -899,6 +889,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1273377600,
@@ -909,6 +905,12 @@
       "codes": {
         "ICD-9-CM": [
           "296.36"
+        ],
+        "ICD-10-CM": [
+          "F33.3"
+        ],
+        "SNOMED-CT": [
+          "191615005"
         ]
       },
       "time": 1285387200,
@@ -919,6 +921,12 @@
       "codes": {
         "ICD-9-CM": [
           "70.3"
+        ],
+        "ICD-10-CM": [
+          "B16.9"
+        ],
+        "SNOMED-CT": [
+          "66071002"
         ]
       },
       "time": 1256443200,
@@ -934,6 +942,15 @@
       "codes": {
         "CPT": [
           "97802"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "ICD-10-CM": [
+          "Z00.8"
         ]
       },
       "time": 1291093200,
@@ -943,6 +960,12 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
+        ],
+        "HCPCS": [
+          "S9451"
+        ],
+        "ICD-10-CM": [
+          "Z71.3"
         ]
       },
       "time": 1291093200,
@@ -979,6 +1002,9 @@
       "codes": {
         "CPT": [
           "77470"
+        ],
+        "SNOMED-CT": [
+          "108290001"
         ]
       },
       "time": 1284609600,
@@ -988,6 +1014,18 @@
       "codes": {
         "CPT": [
           "45378"
+        ],
+        "HCPCS": [
+          "G0121"
+        ],
+        "ICD-9-CM": [
+          "45.23"
+        ],
+        "SNOMED-CT": [
+          "456004"
+        ],
+        "ICD-10-CM": [
+          "Z12.11"
         ]
       },
       "time": 1284091200,
@@ -997,6 +1035,18 @@
       "codes": {
         "CPT": [
           "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
         ]
       },
       "time": 1284091200,
@@ -1006,6 +1056,9 @@
       "codes": {
         "CPT": [
           "76499"
+        ],
+        "SNOMED-CT": [
+          "426945003"
         ]
       },
       "time": 1284177600,
@@ -1064,6 +1117,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1291093200,
@@ -1075,6 +1131,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1291093200,

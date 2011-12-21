@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7fda9ffccb9a200003d",
+  "_id": "4ef25203a9ffccc33600003d",
   "first": "Christian",
   "patient_id": "57",
   "last": "Everitt",
@@ -52,7 +52,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1280980800,
         1280980800
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -77,12 +76,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1280980800
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1280980800
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1280980800,
         1280980800
       ],
       "encounter_outpatient_encounter": [
@@ -221,7 +225,6 @@
         1281412800
       ],
       "colorectal_cancer_diagnosis_active": [
-        1281412800,
         1281412800
       ],
       "encounter_outpatient_encounter": [
@@ -231,11 +234,16 @@
         1280980800
       ],
       "fobt_laboratory_test_performed": [
-        1280980800,
         1280980800
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1286683200,
+        1282276800,
+        1281412800,
+        1280980800
+      ],
       "encounter_acute_inpt_encounter": [
         1283313600,
         1282795200
@@ -278,6 +286,9 @@
       ]
     },
     "0052": {
+      "cancer_diagnosis_active": [
+        1281412800
+      ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
         1286683200,
         1282276800,
@@ -430,6 +441,12 @@
       "encounter_acute_inpt_encounter": [
         1283313600,
         1282795200
+      ],
+      "encounter_outpatient_encounter": [
+        1286683200,
+        1282276800,
+        1281412800,
+        1280980800
       ]
     },
     "0070": {
@@ -478,6 +495,12 @@
         1283313600,
         1282795200
       ],
+      "encounter_outpatient_encounter": [
+        1286683200,
+        1282276800,
+        1281412800,
+        1280980800
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1283313600,
@@ -521,6 +544,12 @@
       "encounter_acute_inpt_encounter": [
         1283313600,
         1282795200
+      ],
+      "encounter_outpatient_encounter": [
+        1286683200,
+        1282276800,
+        1281412800,
+        1280980800
       ]
     },
     "0081": {
@@ -584,7 +613,6 @@
     },
     "0385": {
       "colon_cancer_diagnosis_active": [
-        1281412800,
         1281412800
       ],
       "encounter_office_visit_encounter": [
@@ -658,6 +686,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1286683200,
@@ -685,6 +716,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1282276800,
@@ -694,6 +728,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1281412800,
@@ -703,6 +740,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1280980800,
@@ -710,26 +750,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "363406005"
-        ]
-      },
-      "time": 1281412800,
-      "status": "active",
-      "description": "Colorectal Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1280980800,
-      "status": "active",
-      "description": "Hypertension"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -749,7 +769,7 @@
       },
       "value": {
         "scalar": 110.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1283313600,
       "description": "Systolic Blood Pressure"
@@ -762,7 +782,7 @@
       },
       "value": {
         "scalar": 64.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1283313600,
       "description": "Diastolic Blood Pressure"
@@ -775,7 +795,7 @@
       },
       "value": {
         "scalar": 114.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282795200,
       "description": "Systolic Blood Pressure"
@@ -788,7 +808,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282795200,
       "description": "Diastolic Blood Pressure"
@@ -801,7 +821,7 @@
       },
       "value": {
         "scalar": 120.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282276800,
       "description": "Systolic Blood Pressure"
@@ -814,7 +834,7 @@
       },
       "value": {
         "scalar": 76.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282276800,
       "description": "Diastolic Blood Pressure"
@@ -827,7 +847,7 @@
       },
       "value": {
         "scalar": 106.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281412800,
       "description": "Systolic Blood Pressure"
@@ -840,7 +860,7 @@
       },
       "value": {
         "scalar": 60.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1281412800,
       "description": "Diastolic Blood Pressure"
@@ -853,7 +873,7 @@
       },
       "value": {
         "scalar": 100.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1280980800,
       "description": "Systolic Blood Pressure"
@@ -866,7 +886,7 @@
       },
       "value": {
         "scalar": 58.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1280980800,
       "description": "Diastolic Blood Pressure"
@@ -875,6 +895,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -888,6 +911,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -901,6 +927,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -914,6 +943,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -927,6 +959,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -935,19 +970,6 @@
       },
       "time": 1280980800,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "82274"
-        ]
-      },
-      "value": {
-        "scalar": "Postive",
-        "units": null
-      },
-      "time": 1280980800,
-      "description": "FOBT"
     }
   ],
   "conditions": [
@@ -955,6 +977,15 @@
       "codes": {
         "SNOMED-CT": [
           "363406005"
+        ],
+        "ICD-10-CM": [
+          "C18"
+        ],
+        "ICD-9-CM": [
+          "153.9"
+        ],
+        "HCPCS": [
+          "G0213"
         ]
       },
       "time": 1281412800,
@@ -965,6 +996,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1280980800,
@@ -977,6 +1014,18 @@
       "codes": {
         "CPT": [
           "82274"
+        ],
+        "SNOMED-CT": [
+          "252156002"
+        ],
+        "LOINC": [
+          "2335-8"
+        ],
+        "HCPCS": [
+          "G0328"
+        ],
+        "ICD-9-CM": [
+          "V76.51"
         ]
       },
       "value": {
@@ -992,6 +1041,9 @@
       "codes": {
         "SNOMED-CT": [
           "384742004"
+        ],
+        "CPT": [
+          "99406"
         ]
       },
       "time": 1280980800,
@@ -1001,6 +1053,18 @@
       "codes": {
         "CPT": [
           "45378"
+        ],
+        "HCPCS": [
+          "G0121"
+        ],
+        "ICD-9-CM": [
+          "45.23"
+        ],
+        "SNOMED-CT": [
+          "456004"
+        ],
+        "ICD-10-CM": [
+          "Z12.11"
         ]
       },
       "time": 1281412800,
@@ -1010,6 +1074,15 @@
       "codes": {
         "SNOMED-CT": [
           "363406005"
+        ],
+        "ICD-10-CM": [
+          "C18"
+        ],
+        "ICD-9-CM": [
+          "153.9"
+        ],
+        "HCPCS": [
+          "G0213"
         ]
       },
       "time": 1281412800,
@@ -1041,6 +1114,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1286683200,

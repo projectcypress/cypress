@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7fca9ffccb9a2000036",
+  "_id": "4ef25202a9ffccc336000036",
   "first": "Julianne",
   "patient_id": "22",
   "last": "Henthorn",
@@ -12,15 +12,12 @@
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
-        1250308800,
         1250308800
       ],
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
-        1270008000,
         1270008000
       ],
       "asthma_nighttime_symptoms_quantified_symptom_assessed": [
-        1270008000,
         1270008000
       ],
       "asthma_symptom_assessment_tool_risk_category_assessment": [
@@ -70,7 +67,6 @@
     },
     "0012": {
       "hiv_screening_laboratory_test_performed": [
-        1284091200,
         1284091200
       ]
     },
@@ -162,8 +158,6 @@
       ],
       "pap_test_laboratory_test_result": [
         1284091200,
-        1250308800,
-        1284091200,
         1250308800
       ],
       "encounter_ob_gyn_encounter": [
@@ -172,14 +166,16 @@
       ]
     },
     "0033": {
+      "chlamydia_screening_laboratory_test_result": [
+        1284091200,
+        1250308800
+      ],
       "encounter_outpatient_encounter": [
         1289797200,
         1282536000,
         1270008000
       ],
       "chlamydia_screening_laboratory_test_performed": [
-        1284091200,
-        1250308800,
         1284091200,
         1250308800
       ],
@@ -220,6 +216,9 @@
       ]
     },
     "0036": {
+      "asthma_diagnosis_active": [
+        1250308800
+      ],
       "short_acting_beta_2_agonist_medication_active": [
         1284091200,
         1284091200,
@@ -270,7 +269,6 @@
     },
     "0047": {
       "asthma_diagnosis_active": [
-        1250308800,
         1250308800
       ],
       "corticosteroid_inhaled_or_alternative_asthma_medication_medication_active": [
@@ -390,7 +388,6 @@
     },
     "0070": {
       "asthma_diagnosis_active": [
-        1250308800,
         1250308800
       ],
       "encounter_outpatient_encounter": [
@@ -462,7 +459,6 @@
     },
     "0083": {
       "asthma_diagnosis_active": [
-        1250308800,
         1250308800
       ],
       "encounter_outpatient_encounter": [
@@ -577,40 +573,12 @@
   "social_history": [
     {
       "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ]
-      },
-      "time": 1250308800,
-      "status": "active",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "time": 1289797200,
       "description": "Tobacco Non-User"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
   "vital_signs": [
@@ -622,7 +590,7 @@
       },
       "value": {
         "scalar": 114.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284091200,
       "description": "Systolic Blood Pressure"
@@ -635,7 +603,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284091200,
       "description": "Diastolic Blood Pressure"
@@ -648,7 +616,7 @@
       },
       "value": {
         "scalar": 110.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282536000,
       "description": "Systolic Blood Pressure"
@@ -661,7 +629,7 @@
       },
       "value": {
         "scalar": 64.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1282536000,
       "description": "Diastolic Blood Pressure"
@@ -674,7 +642,7 @@
       },
       "value": {
         "scalar": 102.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Systolic Blood Pressure"
@@ -687,7 +655,7 @@
       },
       "value": {
         "scalar": 62.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1270008000,
       "description": "Diastolic Blood Pressure"
@@ -700,7 +668,7 @@
       },
       "value": {
         "scalar": 108.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1187150400,
       "description": "Systolic Blood Pressure"
@@ -713,7 +681,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1187150400,
       "description": "Diastolic Blood Pressure"
@@ -722,6 +690,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -735,6 +706,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -743,71 +717,6 @@
       },
       "time": 1187150400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "Pap Test"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87536"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1284091200,
-      "description": "HIV Screening"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "87110"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1250308800,
-      "description": "Chlamydia Screening"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.32"
-        ]
-      },
-      "value": {
-        "scalar": "Negative",
-        "units": null
-      },
-      "time": 1250308800,
-      "description": "Pap Test"
     }
   ],
   "conditions": [
@@ -815,6 +724,12 @@
       "codes": {
         "ICD-9-CM": [
           "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
         ]
       },
       "time": 1250308800,
@@ -845,6 +760,12 @@
       "codes": {
         "CPT": [
           "87110"
+        ],
+        "LOINC": [
+          "31777-6"
+        ],
+        "SNOMED-CT": [
+          "121953005"
         ]
       },
       "value": {
@@ -858,6 +779,21 @@
       "codes": {
         "ICD-9-CM": [
           "V72.32"
+        ],
+        "ICD-10-CM": [
+          "Z12.4"
+        ],
+        "CPT": [
+          "88174"
+        ],
+        "HCPCS": [
+          "G0147"
+        ],
+        "LOINC": [
+          "10524-7"
+        ],
+        "SNOMED-CT": [
+          "440623000"
         ]
       },
       "value": {
@@ -871,6 +807,12 @@
       "codes": {
         "CPT": [
           "87536"
+        ],
+        "LOINC": [
+          "9665-1"
+        ],
+        "SNOMED-CT": [
+          "104332002"
         ]
       },
       "value": {
@@ -884,6 +826,12 @@
       "codes": {
         "CPT": [
           "87110"
+        ],
+        "LOINC": [
+          "31777-6"
+        ],
+        "SNOMED-CT": [
+          "121953005"
         ]
       },
       "value": {
@@ -897,6 +845,21 @@
       "codes": {
         "ICD-9-CM": [
           "V72.32"
+        ],
+        "ICD-10-CM": [
+          "Z12.4"
+        ],
+        "CPT": [
+          "88174"
+        ],
+        "HCPCS": [
+          "G0147"
+        ],
+        "LOINC": [
+          "10524-7"
+        ],
+        "SNOMED-CT": [
+          "440623000"
         ]
       },
       "value": {

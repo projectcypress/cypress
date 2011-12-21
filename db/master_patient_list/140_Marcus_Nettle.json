@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d803a9ffccb9a200006c",
+  "_id": "4ef25209a9ffccc33600006c",
   "first": "Marcus",
   "patient_id": "140",
   "last": "Nettle",
@@ -53,7 +53,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1251172800,
         1251172800
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -73,12 +72,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1251172800
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1251172800
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1251172800,
         1251172800
       ],
       "encounter_outpatient_encounter": [
@@ -182,7 +186,6 @@
     },
     "0086": {
       "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1277438400,
         1277438400
       ],
       "encounter_domiciliary_encounter": [
@@ -207,6 +210,12 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1283832000,
+        1279598400,
+        1277438400
+      ],
       "encounter_acute_inpt_encounter": [
         1282449600
       ]
@@ -254,7 +263,6 @@
     },
     "0052": {
       "cancer_diagnosis_active": [
-        1273204800,
         1273204800
       ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
@@ -384,6 +392,12 @@
       ],
       "encounter_acute_inpt_encounter": [
         1282449600
+      ],
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1283832000,
+        1279598400,
+        1277438400
       ]
     },
     "0070": {
@@ -435,6 +449,12 @@
       "encounter_acute_inpt_encounter": [
         1282449600
       ],
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1283832000,
+        1279598400,
+        1277438400
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1291266000,
@@ -465,11 +485,16 @@
       ],
       "encounter_acute_inpt_encounter": [
         1282449600
+      ],
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1283832000,
+        1279598400,
+        1277438400
       ]
     },
     "0081": {
       "heart_failure_diagnosis_active": [
-        1279598400,
         1279598400
       ],
       "ace_inhibitor_or_arb_medication_active": [
@@ -491,7 +516,6 @@
     },
     "0083": {
       "heart_failure_diagnosis_active": [
-        1279598400,
         1279598400
       ],
       "beta_blocker_therapy_medication_order": [
@@ -514,7 +538,6 @@
     },
     "0084": {
       "heart_failure_diagnosis_active": [
-        1279598400,
         1279598400
       ],
       "encounter_outpatient_encounter": [
@@ -586,24 +609,15 @@
         {
           "date": 1279598400,
           "value": 4.0
-        },
-        {
-          "date": 1279598400,
-          "value": 4.0
         }
       ],
       "prostate_cancer_diagnosis_active": [
-        1273204800,
         1273204800
       ],
       "prostate_cancer_treatment_procedure_performed": [
         1282104000
       ],
       "prostate_specific_antigen_test_laboratory_test_result": [
-        {
-          "date": 1279598400,
-          "value": 6.3
-        },
         {
           "date": 1279598400,
           "value": 6.3
@@ -661,6 +675,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1291266000,
@@ -670,6 +687,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1283832000,
@@ -697,6 +717,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1279598400,
@@ -706,6 +729,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1277438400,
@@ -713,46 +739,6 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "185"
-        ]
-      },
-      "time": 1273204800,
-      "status": "active",
-      "description": "Prostate Cancer"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1251172800,
-      "status": "active",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1279598400,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1277438400,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -772,7 +758,7 @@
       },
       "value": {
         "scalar": 118.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291266000,
       "description": "Systolic Blood Pressure"
@@ -785,7 +771,7 @@
       },
       "value": {
         "scalar": 68.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1291266000,
       "description": "Diastolic Blood Pressure"
@@ -811,7 +797,7 @@
       },
       "value": {
         "scalar": 120.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277438400,
       "description": "Systolic Blood Pressure"
@@ -824,7 +810,7 @@
       },
       "value": {
         "scalar": 70.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277438400,
       "description": "Diastolic Blood Pressure"
@@ -846,6 +832,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -859,6 +848,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -867,32 +859,6 @@
       },
       "time": 1277438400,
       "description": "BMI"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "84153"
-        ]
-      },
-      "value": {
-        "scalar": 6.3,
-        "units": null
-      },
-      "time": 1279598400,
-      "description": "Prostate Specific Antigen Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384997002"
-        ]
-      },
-      "value": {
-        "scalar": 4.0,
-        "units": null
-      },
-      "time": 1279598400,
-      "description": "Gleason Score"
     },
     {
       "codes": {
@@ -909,6 +875,12 @@
       "codes": {
         "ICD-9-CM": [
           "185"
+        ],
+        "ICD-10-CM": [
+          "C61"
+        ],
+        "SNOMED-CT": [
+          "399068003"
         ]
       },
       "time": 1273204800,
@@ -919,6 +891,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1251172800,
@@ -929,6 +907,12 @@
       "codes": {
         "ICD-9-CM": [
           "428.9"
+        ],
+        "ICD-10-CM": [
+          "I50.9"
+        ],
+        "SNOMED-CT": [
+          "84114007"
         ]
       },
       "time": 1279598400,
@@ -939,6 +923,12 @@
       "codes": {
         "ICD-9-CM": [
           "365.10"
+        ],
+        "ICD-10-CM": [
+          "H40.13"
+        ],
+        "SNOMED-CT": [
+          "84494001"
         ]
       },
       "time": 1277438400,
@@ -951,6 +941,12 @@
       "codes": {
         "CPT": [
           "84153"
+        ],
+        "LOINC": [
+          "19195-7"
+        ],
+        "SNOMED-CT": [
+          "63476009"
         ]
       },
       "value": {
@@ -964,6 +960,9 @@
       "codes": {
         "SNOMED-CT": [
           "384997002"
+        ],
+        "LOINC": [
+          "35266-6"
         ]
       },
       "value": {
@@ -988,6 +987,15 @@
       "codes": {
         "CPT": [
           "97802"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "ICD-10-CM": [
+          "Z00.8"
         ]
       },
       "time": 1277438400,
@@ -997,6 +1005,12 @@
       "codes": {
         "ICD-9-CM": [
           "V65.41"
+        ],
+        "HCPCS": [
+          "S9451"
+        ],
+        "ICD-10-CM": [
+          "Z71.3"
         ]
       },
       "time": 1277438400,
@@ -1006,6 +1020,9 @@
       "codes": {
         "CPT": [
           "55810"
+        ],
+        "SNOMED-CT": [
+          "176259004"
         ]
       },
       "time": 1282104000,
@@ -1033,6 +1050,9 @@
       "codes": {
         "SNOMED-CT": [
           "3998005"
+        ],
+        "CPT": [
+          "78300"
         ]
       },
       "time": 1282104000,
@@ -1093,6 +1113,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1277438400,

@@ -1,5 +1,5 @@
 {
-  "_id": "4ef0d7fba9ffccb9a200002d",
+  "_id": "4ef25201a9ffccc33600002d",
   "first": "Corinna",
   "patient_id": "176",
   "last": "Markos",
@@ -58,7 +58,6 @@
     },
     "0013": {
       "hypertension_diagnosis_active": [
-        1275192000,
         1275192000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -83,12 +82,17 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1275192000
+      ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1275192000
+      ]
     },
     "0018": {
       "hypertension_diagnosis_active": [
-        1275192000,
         1275192000
       ],
       "encounter_outpatient_encounter": [
@@ -207,7 +211,6 @@
     },
     "0086": {
       "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1280030400,
         1280030400
       ],
       "encounter_office_outpatient_consult_encounter": [
@@ -233,6 +236,10 @@
       ]
     },
     "0036": {
+      "encounter_outpatient_encounter": [
+        1287288000,
+        1284868800
+      ],
       "encounter_acute_inpt_encounter": [
         1282795200,
         1282449600,
@@ -458,6 +465,10 @@
         1282449600,
         1280376000,
         1280030400
+      ],
+      "encounter_outpatient_encounter": [
+        1287288000,
+        1284868800
       ]
     },
     "0070": {
@@ -539,6 +550,10 @@
         1280376000,
         1280030400
       ],
+      "encounter_outpatient_encounter": [
+        1287288000,
+        1284868800
+      ],
       "systolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1289710800,
@@ -586,11 +601,14 @@
         1282449600,
         1280376000,
         1280030400
+      ],
+      "encounter_outpatient_encounter": [
+        1287288000,
+        1284868800
       ]
     },
     "0081": {
       "heart_failure_diagnosis_active": [
-        1275192000,
         1275192000
       ],
       "ace_inhibitor_or_arb_medication_active": [
@@ -612,7 +630,6 @@
     },
     "0083": {
       "heart_failure_diagnosis_active": [
-        1275192000,
         1275192000
       ],
       "beta_blocker_therapy_medication_order": [
@@ -637,7 +654,6 @@
     },
     "0084": {
       "heart_failure_diagnosis_active": [
-        1275192000,
         1275192000
       ],
       "encounter_outpatient_encounter": [
@@ -785,6 +801,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1287288000,
@@ -794,6 +813,9 @@
       "codes": {
         "CPT": [
           "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "time": 1284868800,
@@ -855,36 +877,7 @@
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ]
-      },
-      "time": 1275192000,
-      "status": "active",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ]
-      },
-      "time": 1280030400,
-      "status": "active",
-      "description": "Primary Open Angle Glaucoma (POAG)"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ]
-      },
-      "time": 1275192000,
-      "status": "active",
-      "description": "Hypertension"
-    }
+
   ],
   "vital_signs": [
     {
@@ -895,7 +888,7 @@
       },
       "value": {
         "scalar": 136.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289710800,
       "description": "Systolic Blood Pressure"
@@ -908,7 +901,7 @@
       },
       "value": {
         "scalar": 86.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1289710800,
       "description": "Diastolic Blood Pressure"
@@ -934,7 +927,7 @@
       },
       "value": {
         "scalar": 136.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1287288000,
       "description": "Systolic Blood Pressure"
@@ -947,7 +940,7 @@
       },
       "value": {
         "scalar": 86.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1287288000,
       "description": "Diastolic Blood Pressure"
@@ -973,7 +966,7 @@
       },
       "value": {
         "scalar": 140.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284868800,
       "description": "Systolic Blood Pressure"
@@ -986,7 +979,7 @@
       },
       "value": {
         "scalar": 90.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1284868800,
       "description": "Diastolic Blood Pressure"
@@ -1012,7 +1005,7 @@
       },
       "value": {
         "scalar": 136.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277611200,
       "description": "Systolic Blood Pressure"
@@ -1025,7 +1018,7 @@
       },
       "value": {
         "scalar": 86.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1277611200,
       "description": "Diastolic Blood Pressure"
@@ -1051,7 +1044,7 @@
       },
       "value": {
         "scalar": 136.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1275192000,
       "description": "Systolic Blood Pressure"
@@ -1064,7 +1057,7 @@
       },
       "value": {
         "scalar": 84.0,
-        "units": null
+        "units": "mm[Hg]"
       },
       "time": 1275192000,
       "description": "Diastolic Blood Pressure"
@@ -1086,6 +1079,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1099,6 +1095,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1112,6 +1111,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1125,6 +1127,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1138,6 +1143,9 @@
       "codes": {
         "SNOMED-CT": [
           "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
       "value": {
@@ -1153,6 +1161,12 @@
       "codes": {
         "ICD-9-CM": [
           "428.9"
+        ],
+        "ICD-10-CM": [
+          "I50.9"
+        ],
+        "SNOMED-CT": [
+          "84114007"
         ]
       },
       "time": 1275192000,
@@ -1163,6 +1177,12 @@
       "codes": {
         "ICD-9-CM": [
           "365.10"
+        ],
+        "ICD-10-CM": [
+          "H40.13"
+        ],
+        "SNOMED-CT": [
+          "84494001"
         ]
       },
       "time": 1280030400,
@@ -1173,6 +1193,12 @@
       "codes": {
         "ICD-9-CM": [
           "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
         ]
       },
       "time": 1275192000,
@@ -1264,6 +1290,9 @@
       "codes": {
         "CVX": [
           "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "time": 1289710800,
@@ -1275,6 +1304,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1289710800,
@@ -1284,6 +1322,15 @@
       "codes": {
         "CPT": [
           "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "time": 1275192000,
