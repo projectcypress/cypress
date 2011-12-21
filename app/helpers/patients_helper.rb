@@ -1,7 +1,7 @@
 module PatientsHelper
   def result_to_markup(included)
     if included
-      '<img src="/images/pass.png"/>'
+      '<img src="/assets/pass.png"/>'
     else
       ''
     end
@@ -16,7 +16,7 @@ module PatientsHelper
   end
   
   def patient_picture(patient)
-    image_name = '/images/avatars/'
+    image_name = '/assets/avatars/'
 
     case patient.race.downcase
       when 'american indian or alaska native'
@@ -58,7 +58,7 @@ module PatientsHelper
 
     # if any of the info is unknown, use the catch-all image
     if image_name.include? 'unknown'
-      image_name = '/images/avatars/unknown'
+      image_name = '/assets/avatars/unknown'
     end
 
     image_name += '.png'

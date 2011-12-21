@@ -3,27 +3,27 @@
  * Version 1.0
  * Last Modified Date: 2011-03-21
  * 
- * This is written in LESS, an alternative CSS grammar.
+ * This was originally written in LESS, an alternative CSS grammar.
  * For further information, see http://lesscss.org
- * To compile into the W3C grammar, use the less gem:
- * $ lessc pophealth.less
+ *
+ * Converted to SCSS to jive with the Rails 3.1 asset pipeline: 2011-12-21
  *
  */
 
 @import 'button.css';
 
-@accountBkgColor :#fafafa;
-@inputBkgColor : #fafafa;
-@borderColor : #ddd;
-@errorMsgColor: #f50000;
+$accountBkgColor: #fafafa;
+$inputBkgColor: #fafafa;
+$borderColor: #ddd;
+$errorMsgColor: #f50000;
 
 body.login { 
 	// background-color:@accountBkgColor;
-	background:url(/images/fabric_1.png) 0 0 repeat;
+	background:url(/assets/fabric_1.png) 0 0 repeat;
 }
 
 div#cap-top {
-	background: transparent url(/images/cap-top.png) no-repeat;
+	background: transparent url(/assets/cap-top.png) no-repeat;
 	height: 8px;
 	width: 546px;
 }
@@ -34,28 +34,28 @@ div#cap-top {
 
 * html div#cap-top {
 	background-image: none;
-	filter: e('progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/cap-top.png", sizingMethod="crop")');
+	filter: e('progid:DXImageTransform.Microsoft.AlphaImageLoader(src="assets/cap-top.png", sizingMethod="crop")');
 }
 
 div#cap-body {
-	background: transparent url(/images/cap-bg.png) repeat-y;
+	background: transparent url(/assets/cap-bg.png) repeat-y;
 	width: 545px;
 }
 
 * html div#cap-body {
 	background-image: none;
-	filter: e('progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/cap-bg.png", sizingMethod="scale")');
+	filter: e('progid:DXImageTransform.Microsoft.AlphaImageLoader(src="assets/cap-bg.png", sizingMethod="scale")');
 }
 
 div#cap-bottom {
-	background: transparent url(/images/cap-bottom.png) no-repeat;
+	background: transparent url(/assets/cap-bottom.png) no-repeat;
 	height: 15px;
 	width: 546px;
 }
 
 * html div#cap-bottom {
 	background-image: none;
-	filter: e('progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/cap-bottom.png", sizingMethod="crop")');
+	filter: e('progid:DXImageTransform.Microsoft.AlphaImageLoader(src="assets/cap-bottom.png", sizingMethod="crop")');
 }
 
 #login {
@@ -71,7 +71,7 @@ div#cap-bottom {
 	}
 	
 	.accountError {
-		color:@errorMsgColor;
+		color:$errorMsgColor;
 		font-weight:bold;
 		padding-bottom:10px;
 	}
@@ -81,8 +81,8 @@ div#cap-bottom {
 	margin:0 auto;
 	width:456px;
 	input {
-		background: @inputBkgColor;
-		border: 1px solid @borderColor;
+		background: $inputBkgColor;
+		border: 1px solid $borderColor;
 		font-size: 18px;
 		line-height: 20px;
 		margin: 0;
