@@ -27,8 +27,12 @@ if @vendor.failing_measures.size > 0
   
   
 end
-          
-pdf.table(data)
+
+if data.size > 0 then
+  pdf.table(data)
+else 
+  pdf.text "NONE", :align => :center
+end
 
 data=[]
 pdf.text "\n\nPassing Measures:"  
@@ -43,5 +47,8 @@ data << ["Passing","Denominator","Numerator","Exclusions"]
 
 end
 
-
-pdf.table(data)
+if data.size > 0 then
+  pdf.table(data)
+else 
+  pdf.text "NONE", :align => :center
+end
