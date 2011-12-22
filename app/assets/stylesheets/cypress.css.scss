@@ -3,10 +3,10 @@
  * Version 1.0a
  * Last Modified Date: 2011-05-25
  * 
- * This is written in LESS, an alternative CSS grammar.
+ * This was originally written in LESS, an alternative CSS grammar.
  * For further information, see http://lesscss.org
- * To compile into the W3C grammar, use the less gem:
- * $ lessc cypress.less
+ *
+ * Converted to SCSS to jive with the Rails 3.1 asset pipeline: 2011-12-21
  *
  */
  
@@ -37,7 +37,7 @@ a {
   color:#000;
 }
 
-.bordered {
+@mixin bordered {
   border:1px solid #aaaaaa;
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
@@ -50,7 +50,7 @@ header {
   padding:5px 20px;
   border-bottom:1px solid #aaa;
   h1 {
-    background:transparent url(/images/cypress_logo.png) top left no-repeat;
+    background:transparent url(/assets/cypress_logo.png) top left no-repeat;
     text-indent:-9999pt;
     width:169px;
     height:40px;
@@ -96,7 +96,13 @@ a.cmd {
   color:#539309;
   cursor:pointer;
   font-size:80%;
-  behavior: url(/stylesheets/PIE.htc);
+  behavior: url(/assets/PIE.htc);
+}
+
+div.stacked{
+  clear:both;
+  padding-bottom:10px;
+  margin-top:20px;
 }
 a.cmd:hover {background-color:#a7c98a  + #444;}
 
@@ -107,6 +113,7 @@ nav.breadcrumb {
   font-size:80%;
   text-transform:uppercase;
   margin-bottom:12px;
+  
   padding-top:4px;
   a {
     text-decoration:underline;
@@ -142,15 +149,20 @@ section.candidate, section.records, section.ctb_records, section.nqf {
     display:inline-block;
     address span {display:block;}
   }
-  dl.vendor {dt {line-height:150%;vertical-align: baseline;width:100px}
+  dl.vendor { 
+              dt {line-height:150%;vertical-align: baseline;width:100px}
              dd {width:200px;}
              dd:nth-child(2)  {font-size:150%}  
   }
 }
 
+section.candidate{
+  margin-top:50px;
+}
+
 section#vendor {
-  .bordered;
-  vertical-align:top;
+  @include bordered;
+  vertical-alignign:top;
   
   h1 {
     margin-top:20px;
@@ -162,7 +174,7 @@ section#vendor {
     padding:10px;
     input {
       padding:4px;
-      .bordered;
+      @include bordered;
       }
     }
   h2 {
@@ -255,12 +267,12 @@ section.records {
   textarea {
     height:1em;
     padding:6px;
-    .bordered;
+    @include bordered;
   }
   input[type=button] {
     color:#666;
     background-color:white;
-    .bordered;
+    @include bordered;
   }
   div {margin:0 0 10px 0}
   time {color:#666}
@@ -276,19 +288,19 @@ section a.nav {
   text-indent:-9999pt;
   width:30px;
   height:30px;
-  .bordered;
+  @include bordered;
 }
 section.patient a.nav {top:auto;bottom:10px}
 section a.previous {
-  background:url(/images/previous.png) 50% 50% no-repeat;
+  background:url(/assets/previous.png) 50% 50% no-repeat;
   right:55px;
 }
 section a.advance {
-  background:url(/images/advance.png) 50% 50% no-repeat;
+  background:url(/assets/advance.png) 50% 50% no-repeat;
 }
 
 section.candidate, section.measure, section.patient, section.ctb_records,section.nqf {
-  .bordered;
+  @include bordered;
   padding:10px 10px 20px;
   position:relative;
 }
@@ -305,9 +317,9 @@ section.legend {
   line-height:2em;
   dt {color:#666; display:inline-block;}
   dd {color:#666; display:inline-block; margin-left:25px; padding-left:20px}
-  dd.na {color:#666;background:url(/images/insufficient.png) 0% 50% no-repeat;}
-  dd.pass {color:green;background:url(/images/pass.png) 0 50% no-repeat;}
-  dd.fail {color:red;background:url(/images/fail.png) 0 50% no-repeat;}
+  dd.na {color:#666;background:url(/assets/insufficient.png) 0% 50% no-repeat;}
+  dd.pass {color:green;background:url(/assets/pass.png) 0 50% no-repeat;}
+  dd.fail {color:red;background:url(/assets/fail.png) 0 50% no-repeat;}
 }
 
 section table {
@@ -339,13 +351,13 @@ section table {
   th span.fail {font-weight:bold;color:red;}
   th span.pass {font-weight:bold;color:green;}
   tr td a {text-decoration:none}
-  td div.na {background:url(/images/insufficient.png) 0 50% no-repeat;
+  td div.na {background:url(/assets/insufficient.png) 0 50% no-repeat;
     text-indent:-9999pt;width:16px;
   }
-  td div.fail {background:url(/images/fail.png) 0 50% no-repeat;
+  td div.fail {background:url(/assets/fail.png) 0 50% no-repeat;
     text-indent:-9999pt;width:16px;
   } 
-  td div.pass {background:url(/images/pass.png) 0 50% no-repeat;
+  td div.pass {background:url(/assets/pass.png) 0 50% no-repeat;
     text-indent:-9999pt;width:16px;
   }
   td.r {font-weight:bold}
@@ -397,18 +409,35 @@ section.measure {
       span.fail {color:red}
     }
   }
-  dd.pass {background:url(/images/pass.png) 0 50% no-repeat;padding-left:20px;color:green}
-  dd.na   {background:url(/images/insufficient.png) 0 50% no-repeat;padding-left:20px;color:#999}
-  dd.fail {background:url(/images/fail.png) 0 50% no-repeat;padding-left:20px;color:red;font-weight:bold}
+  dd.pass {background:url(/assets/pass.png) 0 50% no-repeat;padding-left:20px;color:green}
+  dd.na   {background:url(/assets/insufficient.png) 0 50% no-repeat;padding-left:20px;color:#999}
+  dd.fail {background:url(/assets/fail.png) 0 50% no-repeat;padding-left:20px;color:red;font-weight:bold}
 
 }
+
+
+section.pqriValidation {
+  margin-top:10px;
+  position:relative;
+  padding-bottom:0;
+  
+  h2.fail{font-weight:bold;color:red;}
+  
+  div.pqriXmlError{
+    margin-top:10px;
+    padding:3px 3px 3px 3px;
+    background-color:#F7E1E7;
+    border:1px solid #ff0000;
+  }
+}
+
 
 
 section#vendor_patients {
   margin-top:20px;
   margin-bottom:40px;
   #patient_controls {
-    .bordered;
+    @include bordered;
     border:1px solid green;
     width:140px;
     text-align:center;
@@ -512,7 +541,7 @@ section#vendor_patients {
   tr:hover td:nth-child(n+5) {background-color:#e6f3e8;}
     colgroup {background-color:#fff;padding:0}
     col {width:18px;}
-    td:nth-child(-n+4) {background:url(/images/notincluded.png) 25% 25% no-repeat;}
+    td:nth-child(-n+4) {background:url(/assets/notincluded.png) 25% 25% no-repeat;}
     thead {
       tr th {
         text-align:left;
@@ -527,7 +556,7 @@ section#vendor_patients {
 /*    tbody tr:nth-child(2n-1) td:nth-child(n+6) {
       background-color:#f0f0f0;
     } */
-    td.p {background:url(/images/included.png) 25% 25% no-repeat;}
+    td.p {background:url(/assets/included.png) 25% 25% no-repeat;}
   }
 
 
@@ -572,14 +601,14 @@ section#patient_nqf {
     }
     colgroup {background-color:#fff;padding:0}
     col {width:18px;}
-    td:nth-child(-n+5) {background:url(/images/notincluded.png) 25% 25% no-repeat;}
+    td:nth-child(-n+5) {background:url(/assets/notincluded.png) 25% 25% no-repeat;}
     td:first-child{background:none}
     thead {
     tr th {text-align:left;border-bottom:none;}
     }
     td {padding:0 4px;}
-    td.p {background:url(/images/included.png) 25% 25% no-repeat;}
-    td.f {background:url(/images/fail.png) 25% 25% no-repeat;}
+    td.p {background:url(/assets/included.png) 25% 25% no-repeat;}
+    td.f {background:url(/assets/fail.png) 25% 25% no-repeat;}
 
 
     tr td {

@@ -6,12 +6,12 @@ class PatientsHelperTest < ActionView::TestCase
                    :race => 'American Indian or Alaska Native', 
                    :ethnicity => 'Not Hispanic or Latino')
     img = patient_picture(p)
-    assert_equal '/images/avatars/indianman.png', img
+    assert_equal '/assets/avatars/indianman.png', img
     
     p = Record.new(:gender => 'F', :birthdate => Time.now.years_ago(5),
                    :race => 'Asian',
                    :ethnicity => 'Not Hispanic or Latino')
     img = patient_picture(p)
-    assert_equal '/images/avatars/asiangirl.png', img
+    assert_equal '/assets/avatars/asiangirl.png', img
   end
 end

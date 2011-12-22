@@ -69,6 +69,15 @@ class PatientsController < ApplicationController
     t.close
   end
   
+  def ziphtml
+     t = Tempfile.new("patients-#{Time.now.to_i}")
+    patients = Record.where("test_id" => nil)
+    Cypress::PatientZipper.zip(t, patients, :html)
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', 
+      :filename => 'patients_html.zip'
+    t.close
+  end
+  
    def csv
      t = Tempfile.new("patients-#{Time.now.to_i}")
     patients = Record.where("test_id" => nil)

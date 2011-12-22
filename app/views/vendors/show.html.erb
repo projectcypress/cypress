@@ -47,12 +47,16 @@
 
   <div>
     <section class="tb">
-      <%= link_to "Master Patient List", patients_vendor_path, {:class=>"cmd"} %>
+      <div class="stacked"><%= link_to "Master Patient List", patients_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Edit Profile", edit_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Upload Results", "", {:id => 'upload_results_button', :class=>"cmd"} %>
+      </div>
+      <div class="stacked">
       <%= link_to "Download C32s", zipc32_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Download CCRs", zipccr_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Download CSV", csv_vendor_path, {:class=>"cmd"} %>
+      <%= link_to "Download HTML", ziphtml_vendor_path, {:class=>"cmd"} %>
+      </div>
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
         <span><%= @vendor.name %></span>
@@ -96,6 +100,19 @@
         <% if @vendor.reported_results %>
           <a href="<%= vendor_url(@vendor.id.to_s) %>.pdf" class="cmd">Export PDF</a>
         <% end %>
+    </section>
+    
+    <section class="pqriValidation">
+    
+      <% if @vendor.validation_errors %>
+        <h2 class="fail">PQRI Validation Errors</h2>
+        <h3>Cypress uses Northwestern Medical's XSD interpretation of <a href="http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.  This is NOT a CMS published XSD.</h3>
+        <% @vendor.validation_errors.each do |error| %>      
+        <div class ="pqriXmlError"><%= error %></div>
+       <% end %> 
+      <% end %>
+      
+    
     </section>
    
     <section id="quality_measures">

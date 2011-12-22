@@ -35,6 +35,7 @@ class Vendor
   field :patient_gen_job, type: String
   field :patient_population_id, type: String
   field :reported_results, type: Hash
+  field :validation_errors, type: Array
 
   # Get the measure definitions for the selected measures. For multinumerator
   # measures this will include all sub measures so measure_defs.size may not be
@@ -123,4 +124,15 @@ class Vendor
     end
   end
   
+
+  # validate the pqri submission against the xsd
+  # errors are stored in validation_errors
+  def validate_pqri(doc,schema)
+      self.validation_errors =[]
+      schema.validate(doc).each do |error|
+        self.validation_errors << error.message
+    end
+  end
+  
 end
+

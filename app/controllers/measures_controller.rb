@@ -6,6 +6,8 @@ class MeasuresController < ApplicationController
   def show
     @vendor = Vendor.find(params[:vendor_id])
     @measure = Measure.find(params[:id])
+    @measures = Measure.top_level
+    @measures_categories = @measures.group_by { |t| t.category }
     
     respond_to do |format|
       format.json { render :json => @vendor.expected_result(@measure) }

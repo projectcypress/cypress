@@ -11,8 +11,6 @@ gem 'nokogiri', '~> 1.4.4'
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
 gem 'less'
 gem 'pry'
-gem 'less'
-gem 'remotipart', "~> 1.0.1"
 gem 'prawn'
 gem 'prawnto'
 

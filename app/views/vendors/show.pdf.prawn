@@ -14,6 +14,14 @@ if @vendor.notes
         end
 end
 
+if @vendor.validation_errors
+        pdf.text "PQRI Validation Errors:\n\n"
+        @vendor.validation_errors.each do |error|  
+        pdf.text error + "\n\n"
+        end
+      end
+
+
 data = []
 pdf.text "Failing Measures:"  
 if @vendor.failing_measures.size > 0
@@ -27,8 +35,12 @@ if @vendor.failing_measures.size > 0
   
   
 end
-          
-pdf.table(data)
+
+if data.size > 0 then
+  pdf.table(data)
+else 
+  pdf.text "NONE", :align => :center
+end
 
 data=[]
 pdf.text "\n\nPassing Measures:"  
@@ -43,5 +55,8 @@ data << ["Passing","Denominator","Numerator","Exclusions"]
 
 end
 
-
-pdf.table(data)
+if data.size > 0 then
+  pdf.table(data)
+else 
+  pdf.text "NONE", :align => :center
+end
