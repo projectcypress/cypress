@@ -1,12 +1,31 @@
+<% codes = []
+  data_code = ""
+  entry.codes.each do |code_set, code|
+    data_code = "#{code[0]}_#{entry.time}"
+    data_code = data_code.gsub(/\./, '')
+    codes << "#{code_set}: #{code[0]}"
+  end
+  
+  if codes.length > 1
+    first_td_class = "expander"
+  end
+%>
+   
 <tr>
-  <td class="patient_entry"><%= entry.codes_to_s %></td>
+  <td class="<%= first_td_class %>" data-code="<%= data_code %>"></td>
+  <td class="patient_entry">
+    <%= codes.pop %>
+    <div id="<%= data_code %>" class="additional_codes">
+      <% codes.each do |code| %>
+        <span><%= code %></span>
+      <% end %>
+    </div>
+  </td>
   <td class="patient_entry"><%= entry.description %></td>
   <td class="patient_entry"><%# There will be more complex logic to highlight values -%>
     <% if entry.value.present? -%>
       <%= entry.value['scalar'] %>
     <% end -%>
-  </td>
-  <td class="patient_entry">
     <% if entry.value.present? && entry.value['units'].present?-%>
       <%= entry.value['units'] %>
     <% end -%>

@@ -1,20 +1,21 @@
 <% content_for :head do -%>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".expander").toggle(
-      function() {
-        $(this).addClass('open');
-        var codeElement = $(this).data('code');
-        $('#' + codeElement).next(".msg").fadeOut();
-        $('#' + codeElement).slideDown(2000);
-      },
-      function() {
-        $(this).removeClass('open');
-        var codeElement = $(this).data('code');
-        $('#' + codeElement).slideUp(1000);
-        $('#' + codeElement).next(".msg").fadeIn(1000);
-      });
-  });
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".expander").toggle(
+        function() {
+          $(this).addClass('open');
+          var codeElement = $(this).data('code');
+          var codes = $("#" + codeElement);
+          codes.slideDown(500);
+        },
+        function() {
+          $(this).removeClass('open');
+          var codeElement = $(this).data('code');
+          var codes = $("#" + codeElement);
+          codes.slideUp(500);
+        });
+      }
+    );
 </script>
 <% end %>
 
@@ -85,74 +86,30 @@
       <a href="<%= patient_url(@patient.id.to_s) %>.c32" class="c32_export">Export C32</a>
     </section>
 
+    <% patient_characteristics = {
+      'allergies' => 'Allergies',
+      'care_goals' => 'Care Goals',
+      'vital_signs' => 'Vital Signs',
+      'results' => 'Laboratory Tests',
+      'encounters' => 'Encounters',
+      'conditions' => 'Conditions',
+      'procedures' => 'Procedures',
+      'medications' => 'Medications',
+      'social_history' => 'Social History',
+      'immunizations' => 'Immunizations',
+      'medical_equipment' => 'Medical Equipment'
+    } %>
+
     <section id="patient_characteristics">
       <table>
-        <tbody>
-          <tr>
-            <th colspan="5">Allergies</th>
-          </tr>
-          <%= render :partial => 'entries', :locals => { :collection => 'allergies' } %>  
-        </tbody>
-        <tbody>
-          <tr>
-            <th colspan="5">Care Goal</th>
-          </tr>
-          <%= render :partial => 'entries', :locals => { :collection => 'care_goals' } %>  
-        </tbody>
-        <tbody>
-          <tr>
-            <th colspan="5">Vital Signs</th>
-          </tr>
-          <%= render :partial => 'entries', :locals => { :collection => 'vital_signs' } %>  
-        </tbody>
-        <tbody>
-        <tr>
-          <th colspan="5">Laboratory test</th>
-        </tr>
-        <%= render :partial => 'entries', :locals => { :collection => 'results' } %>  
-       </tbody>
-       <tbody>
-         <tr>
-           <th colspan="5">Encounters</th>
-         </tr>
-         <%= render :partial => 'entries', :locals => { :collection => 'encounters' } %>  
-       </tbody>
-       <tbody>
-         <tr>
-           <th colspan="5">Conditions</th>
-         </tr>
-         <%= render :partial => 'entries', :locals => { :collection => 'conditions' } %>  
-       </tbody>
-       <tbody>
-         <tr>
-           <th colspan="5">Procedure</th>
-         </tr>
-         <%= render :partial => 'entries', :locals => { :collection => 'procedures' } %>  
-       </tbody>
-       <tbody>
-         <tr>
-           <th colspan="5">Medications</th>
-         </tr>
-         <%= render :partial => 'entries', :locals => { :collection => 'medications' } %>  
-       </tbody>
-       <tbody>
-         <tr>
-           <th colspan="5">Social History</th>
-         </tr>
-         <%= render :partial => 'entries', :locals => { :collection => 'social_history' } %>  
-       </tbody>
-       <tbody>
-         <tr>
-           <th colspan="5">Immunizations</th>
-         </tr>
-         <%= render :partial => 'entries', :locals => { :collection => 'immunizations' } %>  
-       </tbody>
-       <tbody>
-         <tr>
-           <th colspan="5">Medical Equipment</th>
-         </tr>
-         <%= render :partial => 'entries', :locals => { :collection => 'medical_equipment' } %>  
-       </tbody>
+        <% patient_characteristics.each do |characteristic, characteristic_title| %>
+          <tbody>
+            <tr>
+              <th colspan="5"><%= characteristic_title %></th>
+            </tr>
+            <%= render :partial => 'entries', :locals => { :collection => characteristic } %>  
+          </tbody>
+        <% end %>
       </table>
     </section>
     <footer id="ccattribution">
