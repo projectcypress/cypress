@@ -1,18 +1,8 @@
 <% content_for :head do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      <% poll_for_updates = false %>
-      <% @vendor.expected_results.each do |result| %>
-      <%   if result['numerator']=='?' %>
-      <%     poll_for_updates = true %>
-      <%   end %>
-      <% end %>
-      <% if poll_for_updates %>
-        $("#upload_results_button").hide();
-        $.cypress.addPoll("<%= vendor_path(@vendor) %>", null, function() { $("#upload_results_button").show(); });
-      <% end %>
-      
-      $('#upload_pqri_dialog').dialog({
+    
+     $('#upload_pqri_dialog').dialog({
         title: 'Upload Results',
         autoOpen: false,
         closeOnEscape: true,
@@ -23,7 +13,7 @@
         modal: true,
         show: 'fade',
         hide: 'fade',
-        resizeable: false,
+        resizable: false,
         buttons: {
           Upload: function() {
             $('#edit_vendor_<%= @vendor._id %>').submit();
@@ -35,6 +25,41 @@
         }
       });
       
+       $('#polling_for_updates').dialog({
+        title: 'Waiting for patients to load...',
+        autoOpen: false,
+        closeOnEscape: false,
+        draggable: false,
+        position: 'center',
+        width: 'auto',
+        height: 'auto',
+        modal: true,
+        show: 'fade',
+        hide: 'fade',
+        resizable: false,
+        open: function(event, ui) { $(".ui-dialog-titlebar-close").hide()}
+        
+      });
+
+      <% poll_for_updates = false %>
+      
+      <% if  @patients.size < 1 %>
+      <%     poll_for_updates = true %>
+      <% end %>
+      
+      <% @vendor.expected_results.each do |result| %>
+      <%   if result['numerator']=='?' %>
+      <%     poll_for_updates = true %>
+      <%   end %>
+      <% end %>
+      <% if poll_for_updates %>
+        $("#upload_results_button").hide();
+        $('#polling_for_updates').dialog('open');
+        $.cypress.addPoll("<%= vendor_path(@vendor) %>", null, function() { $("#upload_results_button").show();  $('#polling_for_updates').dialog('close') });
+      <% end %>   
+           
+      
+      
       $('#upload_results_button').click(function(event) {
         $('#upload_pqri_dialog').dialog('open');        
         event.preventDefault();
@@ -42,10 +67,14 @@
     });
   </script>
 <% end %>
+<div id="polling_for_updates" title="Waiting for patients to load...">
+	<p>Please wait while the test data is being loaded.</p>
+</div>
 <div id="container">
    <%= render :partial=>"shared/header" %>
 
   <div>
+  
     <section class="tb">
       <div class="stacked"><%= link_to "Master Patient List", patients_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Edit Profile", edit_vendor_path, {:class=>"cmd"} %>

@@ -1,5 +1,5 @@
 {
-  "_id": "4ef25209a9ffccc33600006b",
+  "_id": "4efa05a0a9ffcce90100006b",
   "first": "Griffin",
   "patient_id": "119",
   "last": "Montana",
@@ -80,6 +80,8 @@
         1276142400
       ]
     },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1281067200,
@@ -98,8 +100,6 @@
         1279425600,
         1270180800
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -216,7 +216,10 @@
         1287201600
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1270180800
+      ],
       "encounter_outpatient_encounter": [
         1270180800,
         1279166400,
@@ -248,10 +251,7 @@
         1281067200
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1270180800
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1270180800,
         1279166400,
@@ -806,18 +806,6 @@
         1281067200
       ]
     },
-    "0387": {
-      "breast_cancer_stage_ic_iiic_procedure_result": [
-        1276142400,
-        1276142400,
-        1276142400
-      ],
-      "encounter_office_visit_encounter": [
-        1270180800,
-        1279425600,
-        1281067200
-      ]
-    },
     "0389": {
       "prostate_cancer_diagnosis_active": [
         1275796800
@@ -838,6 +826,18 @@
       ],
       "gleason_score_6_laboratory_test_result": [
         1273464000
+      ]
+    },
+    "0387": {
+      "breast_cancer_stage_ic_iiic_procedure_result": [
+        1276142400,
+        1276142400,
+        1276142400
+      ],
+      "encounter_office_visit_encounter": [
+        1270180800,
+        1279425600,
+        1281067200
       ]
     },
     "0421": {
@@ -1184,7 +1184,7 @@
           "53741008"
         ],
         "ICD-9-CM": [
-          "414.00"
+          "414"
         ],
         "ICD-10-CM": [
           "I25.1"

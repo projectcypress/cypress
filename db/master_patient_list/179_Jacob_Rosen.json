@@ -1,5 +1,5 @@
 {
-  "_id": "4ef25208a9ffccc336000069",
+  "_id": "4efa059fa9ffcce901000069",
   "first": "Jacob",
   "patient_id": "179",
   "last": "Rosen",
@@ -50,6 +50,8 @@
         1275796800
       ]
     },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1279166400
@@ -63,8 +65,6 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1279166400
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -155,12 +155,18 @@
         1270180800
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1283313600
+      ],
       "encounter_outpatient_encounter": [
         1281067200,
         1280289600,
         1279166400,
         1270180800
+      ],
+      "fobt_laboratory_test_performed": [
+        1276142400
       ]
     },
     "0043": {
@@ -185,18 +191,12 @@
         1279166400
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1283313600
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1281067200,
         1280289600,
         1279166400,
         1270180800
-      ],
-      "fobt_laboratory_test_performed": [
-        1276142400
       ]
     },
     "0036": {
@@ -659,19 +659,6 @@
         1270180800
       ]
     },
-    "0387": {
-      "breast_cancer_stage_ic_iiic_procedure_result": [
-        1276142400,
-        1276142400,
-        1276142400
-      ],
-      "encounter_office_visit_encounter": [
-        1281067200,
-        1280289600,
-        1279166400,
-        1270180800
-      ]
-    },
     "0389": {
       "prostate_cancer_diagnosis_active": [
         1275969600
@@ -692,6 +679,19 @@
       ],
       "gleason_score_6_laboratory_test_result": [
         1276142400
+      ]
+    },
+    "0387": {
+      "breast_cancer_stage_ic_iiic_procedure_result": [
+        1276142400,
+        1276142400,
+        1276142400
+      ],
+      "encounter_office_visit_encounter": [
+        1281067200,
+        1280289600,
+        1279166400,
+        1270180800
       ]
     },
     "0421": {
@@ -999,7 +999,7 @@
           "53741008"
         ],
         "ICD-9-CM": [
-          "414.00"
+          "414"
         ],
         "ICD-10-CM": [
           "I25.1"

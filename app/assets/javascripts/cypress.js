@@ -32,6 +32,10 @@
         for (i=0;i<data.results.length;i++) {
           pollAgain |= $.cypress.updateResults(data.results[i]);
         }
+        //poll until the patient records are populated
+        if (data.patients.length < 1){
+          pollAgain = true;
+        }
       } else {
         // Measure view or master patient index
         pollAgain |= $.cypress.updateResults(data);

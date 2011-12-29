@@ -69,9 +69,10 @@ class VendorsController < ApplicationController
   
   def show
     @vendor = Vendor.find(params[:id])
-
+    @patients = Record.where(:test_id => @vendor.id)
+   
     respond_to do |format|
-      format.json { render :json => { 'vendor' => @vendor, 'results'=>@vendor.expected_results } }
+      format.json { render :json => { 'vendor' => @vendor, 'results'=>@vendor.expected_results, 'patients'=>@patients } }
       format.html { render :action => "show" }
       format.pdf  { render :layout => false  }
     end

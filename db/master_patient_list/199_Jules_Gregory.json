@@ -1,5 +1,5 @@
 {
-  "_id": "4ef25210a9ffccc3360000ac",
+  "_id": "4efa05a7a9ffcce9010000ac",
   "first": "Jules",
   "patient_id": "199",
   "last": "Gregory",
@@ -48,6 +48,11 @@
         1277697600
       ]
     },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1272600000
+      ]
+    },
     "0013": {
       "hypertension_diagnosis_active": [
         1272600000
@@ -65,11 +70,6 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1285300800,
         1280030400,
-        1272600000
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
         1272600000
       ]
     },
@@ -165,17 +165,11 @@
         1272600000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1285300800,
         1280030400,
         1272600000
-      ],
-      "x_ray_study_diagnostic_study_result": [
-        1277524800
-      ],
-      "x_ray_study_diagnostic_study_performed": [
-        1277524800
       ]
     },
     "0043": {
@@ -192,11 +186,17 @@
         1272600000
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1285300800,
         1280030400,
         1272600000
+      ],
+      "x_ray_study_diagnostic_study_result": [
+        1277524800
+      ],
+      "x_ray_study_diagnostic_study_performed": [
+        1277524800
       ]
     },
     "0036": {
@@ -807,14 +807,14 @@
         1272600000
       ]
     },
+    "0389": {
+    },
     "0387": {
       "encounter_office_visit_encounter": [
         1285300800,
         1280030400,
         1272600000
       ]
-    },
-    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -1131,7 +1131,7 @@
           "53741008"
         ],
         "ICD-9-CM": [
-          "414.00"
+          "414"
         ],
         "ICD-10-CM": [
           "I25.1"
@@ -1144,7 +1144,7 @@
     {
       "codes": {
         "ICD-9-CM": [
-          "410.90"
+          "410.9"
         ],
         "ICD-10-CM": [
           "I21.3"
