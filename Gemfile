@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
 gem 'rake', '~> 0.8.7'
-gem 'quality-measure-engine'
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
 gem 'bson_ext', :platforms => :mri
 gem 'mongoid', '~> 2.0'
 gem 'devise'
