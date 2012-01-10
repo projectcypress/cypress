@@ -74,5 +74,23 @@
     $.cypress.updatePatientTable(url);
   }
   
+  $.cypress.showMenu = function(origin, menu) {
+    position = origin.offset();
+    
+    dialog = menu.dialog({
+      position: [position.left, (position.top + $(origin).height() - 20 - $(window).scrollTop())],
+      resizable: false,
+      dialogClass: 'dialog-menuwindow',
+      minHeight: false,
+      minWidth: false,
+      width: origin.outerWidth()
+    });
+    dialog.css('padding', '2px');
+    dialog.parent().hover(
+      function() {},
+      function() { dialog.dialog('close'); }
+    );
+  }
+  
 })( jQuery );
 

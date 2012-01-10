@@ -28,7 +28,7 @@ namespace :mpl do
     end
   end
 
-   desc 'Seed database with master patient list'
+  desc 'Seed database with master patient list'
   task :load => [:environment, :clear] do
     mpls = File.join(mpl_dir, '*')
     Dir.glob(mpls) do |patient_file|

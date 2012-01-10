@@ -86,6 +86,7 @@ header {
 
 a.cmd {
   padding:3px 10px;
+  text-align: center;
   text-decoration:none;
   background-color:#a7c98a + #444;
   background-color:#fff;
@@ -100,12 +101,29 @@ a.cmd {
   width:100px;
 }
 
+a.cmd:hover {background-color:#a7c98a  + #444;}
+
 div.stacked{
   clear:both;
-  padding-bottom:10px;
-  margin-top:20px;
+  ul {
+    border: 1px red solid;
+  }
 }
-a.cmd:hover {background-color:#a7c98a  + #444;}
+
+.dialog-menu {
+  display: none;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: 80%;
+}
+.dialog-menuwindow {
+  border: 1px solid #539309;
+  .ui-dialog-titlebar {
+    display: none;
+  }
+  .ui-menu-item:hover {
+    background-color: #a7c98a  + #444;
+  }
+}
 
 section.tb {
   a.cmd {float:right;margin-left:15px;}
@@ -157,10 +175,6 @@ section.candidate, section.records, section.ctb_records, section.nqf {
   }
 }
 
-section.candidate{
-  margin-top:50px;
-}
-
 section#vendor {
   @include bordered;
   vertical-alignign:top;
@@ -170,6 +184,10 @@ section#vendor {
     background-color:#ecf3e8;
     padding:2px 10px;
     text-transform:uppercase;
+    span.header_commands {
+      display: inline;
+      font-size: 60%;
+    }
   }
   section {
     padding:10px;
@@ -200,6 +218,10 @@ section#vendor {
     text-align:right;
     margin-right:5px;
     vertical-align:top;
+    span.header_commands {
+      display: inline;
+      font-size: 85%;
+    }
   }
   dd {
     width:160px;
@@ -213,7 +235,11 @@ section#vendor {
     }
     
   }
-  input#vendor_submit { margin-top:20px; margin-left: 10px; margin-bottom: 10px; }
+  a#vendor_submit {
+    width: 75px;
+    display: block;
+    margin: 10px 10px;
+  }
 }
 
 section#testMeasures{
@@ -422,6 +448,8 @@ section.pqriValidation {
   position:relative;
   padding-bottom:0;
   
+  h2 { margin-top: 5px; }
+  
   h2.fail{font-weight:bold;color:red;}
   
   div.pqriXmlError{
@@ -431,8 +459,6 @@ section.pqriValidation {
     border:1px solid #ff0000;
   }
 }
-
-
 
 section#vendor_patients {
   margin-top:20px;
@@ -657,11 +683,6 @@ section#patient_characteristics {
     td.reason {text-align:right;font-style:italic;font-size:90%}
     td.val, td em { font-weight:bold}
     tbody tr:last-child td {padding-bottom:20px}
-    .expander {
-      cursor: pointer;
-      background: url(/assets/closed.gif) 0 7px no-repeat;
-      &.open {background:url(/assets/open.gif) 0 7px no-repeat;}
-    }
     .additional_codes {
       display: none;
       margin-left: -7px;
@@ -774,14 +795,15 @@ footer#ccattribution {
   }
 }
 
-form.simple_form span {
-   display: block;
+#vendor form span {
+  display: block;
+}
+#vendor form.button_to div {
+  display: inline;
 }
 
-form.button_to div {
-   display: inline;
-}
-
-form.button_to {
-   display: inline;
+.expander {
+  cursor: pointer;
+  background: url(/assets/closed.gif) 0 7px no-repeat;
+  &.open {background:url(/assets/open.gif) 0 7px no-repeat;}
 }

@@ -9,7 +9,8 @@
     });
   </script>
 <% end %>
-  <div id="container">
+
+<div id="container">
   <%= render :partial=>"shared/header" %>
 
   <div>
@@ -39,72 +40,82 @@
         <dt>Phone:</dt>   <dd>proctor phone #</dd>
       </dl>
     </section>
-      <div class="tabs">
-        NQF #
-
-         <% @measures_categories.sort.each do |category, measures| %>
-      <ul>
-        <li><b><%= category %></b></li>
-       <% measures.each do |measure_def| %>
-        <li><a href="<%= vendor_measure_path(@vendor, measure_def) %>" title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>" class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %></a></li>
-        <% end %>        
-      </ul>
+  
+    <div class="tabs">
+      NQF #
+      <% @measures_categories.sort.each do |category, measures| %>
+        <ul>
+          <li><b><%= category %></b></li>
+          <% measures.each do |measure_def| %>
+            <li>
+              <a href="<%= vendor_measure_path(@vendor, measure_def) %>"
+                title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
+                class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %>
+              </a>
+            </li>
+          <% end %>        
+        </ul>
       <% end %>
-     </ul>
-
-      </div>
-          <section id="patient_list">
-
+    </div>
+  
+    <section id="patient_list">
       <section class="measure">
-      <dl>
-        <dt class="measure_title">Quality Measure:</dt>
-        <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
-        <dd class="measure_desc"><%= @measure.description %></dd>
-      </dl>
-      <% expected_result = @vendor.expected_result(@measure) %>
-      <% reported_result = @vendor.reported_result(@measure.key) %>
-      <dl>
-        <dt >Measure Status:</dt>
-        <% if reported_result['denominator'].class == String %>
-        <dd class="na">N/A</dd>
-        <% elsif @vendor.passed?(expected_result) %>
-        <dd class="">PASS</dd>
-        <% else %>
-        <dd class="fail">Fail</dd>
-        <% end %>        
-      </dl>
-      <dl>
-        <dt>Reporting Statistics:</dt>
-        <dd><table>
-          <tr id='<%= "#{@measure.id}" %>'>
-          <td><span class="r">reported</span> / expected</td>
-          <th>DEN:</th>
-          <td>
-            <span class="r <%= measure_result_class(expected_result, reported_result, 'denominator') %>"><%= reported_result['denominator'] %></span>
-            / <span class="den"><%= expected_result['denominator'] %></span>
-          </td>
-          <th>NUM:</th>
-          <td>
-            <span class="r <%= measure_result_class(expected_result, reported_result, 'numerator') %>"><%= reported_result['numerator'] %></span>
-            / <span class="num"><%= expected_result['numerator'] %></span></td>
-          <th>EXC:</th>
-          <td> 
-            <span class="r <%= measure_result_class(expected_result, reported_result, 'exclusions') %>"><%= reported_result['exclusions'] %></span>
-            / <span class="exc"><%= expected_result['exclusions'] %></span>
-          </td>
-          <th>OUT:</th>
-          <td> 
-            <span class="r <%= measure_result_class(expected_result, reported_result, 'antinumerator') %>"><%= reported_result['antinumerator'] %></span>
-            / <span class="out"><%= expected_result['antinumerator'] %></span>
-          </td>
-          </tr>
-          </table>
-        </dd>
-      </dl>
-    </section>
-    <section id="vendor_patients">
-    </section>
+        <dl>
+          <dt class="measure_title">Quality Measure:</dt>
+          <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
+          <dd class="measure_desc"><%= @measure.description %></dd>
+        </dl>
+        <% expected_result = @vendor.expected_result(@measure) %>
+        <% reported_result = @vendor.reported_result(@measure.key) %>
+        <dl>
+          <dt>Measure Status:</dt>
+          <% if reported_result['denominator'].class == String %>
+            <dd class="na">N/A</dd>
+          <% elsif @vendor.passed?(expected_result) %>
+            <dd class="">PASS</dd>
+          <% else %>
+            <dd class="fail">Fail</dd>
+          <% end %>        
+        </dl>
+        <dl>
+          <dt>Reporting Statistics:</dt>
+          <dd>
+            <table>
+              <tr id='<%= "#{@measure.id}" %>'>
+                <td><span class="r">reported</span> / expected</td>
+                <th>DEN:</th>
+                <td>
+                  <span class="r <%= measure_result_class(expected_result, reported_result, 'denominator') %>"><%= reported_result['denominator'] %></span>
+                  /
+                  <span class="den"><%= expected_result['denominator'] %></span>
+                </td>
+                <th>NUM:</th>
+                <td>
+                  <span class="r <%= measure_result_class(expected_result, reported_result, 'numerator') %>"><%= reported_result['numerator'] %></span>
+                  /
+                  <span class="num"><%= expected_result['numerator'] %></span>
+                </td>
+                <th>EXC:</th>
+                <td> 
+                  <span class="r <%= measure_result_class(expected_result, reported_result, 'exclusions') %>"><%= reported_result['exclusions'] %></span>
+                  /
+                  <span class="exc"><%= expected_result['exclusions'] %></span>
+                </td>
+                <th>OUT:</th>
+                <td> 
+                  <span class="r <%= measure_result_class(expected_result, reported_result, 'antinumerator') %>"><%= reported_result['antinumerator'] %></span>
+                  /
+                  <span class="out"><%= expected_result['antinumerator'] %></span>
+                </td>
+              </tr>
+            </table>
+          </dd>
+        </dl>
+      </section>
+    
+      <section id="vendor_patients">
+      </section>    
     </section><!-- end #patient_list -->
     <br style="clear:both" />
   </div>
-  </div><!-- end #container -->     
+</div><!-- end #container -->       

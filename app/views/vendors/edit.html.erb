@@ -1,15 +1,17 @@
 <div id="container">
-   <%= render :partial=>"shared/header" %>
-     <div>
-       <section class="tb">
-        <nav class="breadcrumb">
-          <a href="<%= vendors_path %>">Certification Dashboard</a> &raquo;
-          <span>Edit <%= @vendor.name %></span>
-        </nav>
-       </section>
-      <section class="candidate">
-        <%= render :partial=>'vendor_details' %>
-      </section>
-     </div>
+  <%= render :partial=>"shared/header" %>
+  
+  <div>
+    <section class="tb">
+      <nav class="breadcrumb">
+        <a href="<%= vendors_path %>">Certification Dashboard</a> &raquo;
+        <span>Edit <%= @vendor.name %></span>
+      </nav>
+    </section>
+    
+    <section id="vendor">
+      <%= render :partial=>'vendor_details' %>
+    </section>
+  </div>
 </div><!-- end #container --> 
 

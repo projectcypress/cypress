@@ -1,14 +1,16 @@
 <div id="container">
-   <%= render :partial=>"shared/header" %>
-   <div>
-     <section class="tb">
+  <%= render :partial=>"shared/header" %>
+
+  <div>
+    <section class="tb">
       <nav class="breadcrumb">
         <a href="<%= vendors_path %>">Certification Dashboard</a> &raquo;
         <span>Create new vendor</span>
       </nav>
-     </section>
-     <section id="vendor">
-       <%= render :partial=>'vendor_details' %>
-     </section>
-   </div>
+    </section>
+
+    <section id="vendor">
+      <%= render :partial=>'vendor_details' %>
+    </section>
+  </div>
 </div><!-- end #container --> 
