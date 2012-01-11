@@ -103,6 +103,12 @@ a.cmd {
 
 a.cmd:hover {background-color:#a7c98a  + #444;}
 
+a.mailing_list {
+  color: #336633;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 div.stacked{
   clear:both;
   ul {
@@ -807,3 +813,12 @@ footer#ccattribution {
   background: url(/assets/closed.gif) 0 7px no-repeat;
   &.open {background:url(/assets/open.gif) 0 7px no-repeat;}
 }
+
+.free_text {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid #CCCCCC;
+}
+.free_text h2 { font-size:1.5em; }
+.free_text p { margin-bottom: 10px; }
+.free_text ul { margin-left: 25px; }
