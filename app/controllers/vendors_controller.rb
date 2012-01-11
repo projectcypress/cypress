@@ -139,7 +139,7 @@ class VendorsController < ApplicationController
     doc = Nokogiri::XML(pqri.open)
     schema = Nokogiri::XML::Schema(open("http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd"))
     vendor.reported_results = vendor.extract_results_from_pqri(doc)
-    #vendor.validation_errors = vendor.validate_pqri(doc, schema)
+    vendor.validation_errors = vendor.validate_pqri(doc, schema)
     
     # If a vendor cannot run their measures in a vaccuum (i.e. calculate measures with just the patient test deck) then
     # we will first import their measure results with their own patients so we can establish a baseline in order
@@ -148,7 +148,7 @@ class VendorsController < ApplicationController
       doc = Nokogiri::XML(baseline.open)
       schema = Nokogiri::XML::Schema(open("http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd"))
       vendor.baseline_results = vendor.extract_results_from_pqri(doc)
-      #vendor.baseline_validation_errors = vendor.validate_pqri(doc, schema)
+      vendor.baseline_validation_errors = vendor.validate_pqri(doc, schema)
 
       vendor.normalize_results_with_baseline
     end
