@@ -1,0 +1,42 @@
+<div id="container">
+  <%= render :partial=>"shared/header" %>
+
+  <div>
+    <section class="tb">
+      <%= link_to "Sign Up", new_user_registration_path, { :class => "cmd" } %>
+      
+      <nav class="breadcrumb">
+        <%= link_to "Log In", root_path %> &raquo;
+        <span>one shot services</span>
+      </nav>
+    </section>
+    
+    <section id="services">
+      <div>
+    	  <section class="pqriValidation">
+    	    <h2>PQRI Validation</h2>
+    	    <%= form_tag '/services/validate_pqri', :multipart => true do |f| %>
+            Choose a PQRI file <%= file_field_tag 'pqri' %>
+            <a id="pqri_submit" class="cmd" onclick="$(this).parent().submit();">Validate</a>
+          <% end %>
+          
+          <% if @validation_errors %>
+            <% if @validation_errors.length == 0 %>
+              <h2 class="success">Uploaded file was formatted correctly!</h2>
+            <% else %>
+              <h2 class="fail">Errors</h2>
+              <h3>Cypress uses Northwestern Medical's XSD interpretation of
+                <a href="http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
+                This is NOT a CMS published XSD.
+              </h3>
+            
+              <% @validation_errors.each do |error| %>      
+                <div class ="pqriXmlError"><%= error %></div>
+              <% end
+            end
+          end %>
+    	  </section>
+      </div>
+    </section>
+  </div>
+</div>

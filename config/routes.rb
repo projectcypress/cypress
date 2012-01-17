@@ -32,6 +32,9 @@ Cypress::Application.routes.draw do
     get 'csv', :on => :collection
     get 'table', :on => :collection
   end
+  
+  resources :services
+  post '/services/validate_pqri'
 
   root :to => "vendors#index"
 
