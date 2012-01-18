@@ -22,10 +22,10 @@ class VendorsControllerTest < ActionController::TestCase
   end
   
   test "create" do
-    assert Record.count == 1
+    assert Vendor.count == 1
     post(:create, {:vendor => {:name => 'An EHR', :measure_ids => ['0004', '0055'], :patient_population_id => 'all'}})
     assert_response :redirect
-    assert Record.count == 2
+    assert Vendor.count == 2
   end
   
   test "add note" do

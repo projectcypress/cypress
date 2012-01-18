@@ -1,4 +1,5 @@
 require 'patient_import_job'
+require 'test_deck_subset_job'
 
 measure_ids = MONGO_DB.collection('measures').find({}, {:fields => {:id => 1}}).map {|r| r['id']}.uniq
 
