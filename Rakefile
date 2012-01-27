@@ -6,5 +6,5 @@ require 'rake'
 require 'resque/tasks'
 
 Cypress::Application.load_tasks
-
+ENV['DB_NAME'] = "cypress_#{Rails.env}"
 task "resque:setup" => :environment

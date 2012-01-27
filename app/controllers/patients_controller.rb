@@ -3,7 +3,7 @@ require 'measure_evaluator'
 class PatientsController < ApplicationController
 
   require 'builder'
-
+  require 'patient_zipper'
   before_filter :authenticate_user!
 
   def index
@@ -109,4 +109,22 @@ class PatientsController < ApplicationController
       end
     end
   end
+  
+  
+  private 
+  
+  def zip(test_id=nil, type=:csv)
+    mime = (type==:csv)? "text/csv" : "application/zip"
+    t = Tempfile.new("patients-#{Time.now.to_i}")
+    patients = Record.where("test_id" => test_id)
+    if type==:csv
+      Cypress::PatientZipper.flat_file(t, patients)
+    else
+       Cypress::PatientZipper.zip(t, patients,type)
+    end
+    send_file t.path, :type =>  mime , :disposition => 'attachment', 
+      :filename => 'patients_#{type.to_s}.#{(type==:csv)? "csv" : "zip"}'
+    t.close
+  end
+  
 end

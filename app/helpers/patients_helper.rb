@@ -1,4 +1,18 @@
 module PatientsHelper
+  
+  
+  def race(patient)
+     r = Race.from_code(patient.race["code"]).first if patient.race
+     r = r || {}
+     r["name"] || ""
+  end
+  
+  def ethnicity(patient)
+    e = Ethnicity.from_code(patient.ethnicity["code"]).first if patient.ethnicity
+    e = e || {}
+    e["name"] || ""
+  end
+  
   def result_to_markup(included)
     if included
       '<img src="/assets/pass.png"/>'
@@ -17,8 +31,8 @@ module PatientsHelper
   
   def patient_picture(patient)
     image_name = '/assets/avatars/'
-
-    case patient.race.downcase
+   
+    case race(patient).downcase
       when 'american indian or alaska native'
         image_name += 'indian'
       when 'asian'
@@ -52,7 +66,7 @@ module PatientsHelper
     end
 
     # consider ethnicity (only Hispanic or not, currently)
-    if patient.ethnicity.downcase == 'hispanic or latino'
+    if ethnicity(patient).downcase == 'hispanic or latino'
       image_name += 'hispanic'
     end
 
