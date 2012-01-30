@@ -35,7 +35,6 @@ class CCRExportTest < ActiveSupport::TestCase
 
     doc = Nokogiri::XML(HealthDataStandards::Export::CCR.export(record))
     doc.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
-
     # registration information
     assert_equal 'Rosa', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Name/ccr:CurrentName/ccr:Given').text
     assert_equal 'Vasquez', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').text
