@@ -93,7 +93,7 @@ class PatientsController < ApplicationController
     if @patient.test_id
       @vendor = Vendor.find @patient.test_id
     end
-    @results = Result.all(:conditions => {'value.patient_id' => @patient.id}, 
+    @results = TestResult.all(:conditions => {'value.patient_id' => @patient.id}, 
       :sort => [['value.measure_id', :asc], ['value.sub_id', :asc]])
     # determine if the request was for the browser, or a C32 XML file, or CCR XML file.
     respond_to do |format|

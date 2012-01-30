@@ -5,19 +5,20 @@
     <section class="tb">
       <div class="stacked">
         <%= link_to "Master Patient List", patients_path, { :class=>"cmd" } %>
-        <%= link_to "Edit Vendor", edit_vendor_path, { :class => "cmd" } %>
-        <%= link_to "Add Product", new_vendor_product_path(@vendor), { :class => "cmd" } %>
+        <%= link_to "Edit Product", edit_vendor_product_path(@vendor, @product), { :class => "cmd" } %>
+        <%= link_to "Add Test", new_vendor_product_product_test_path(@vendor, @product), { :class => "cmd" } %>
       </div>
 
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
-        <span><%= @vendor.name %></span>
+        <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
+        <span><%= @product.name %></span>
       </nav>
     </section>
 
     <section id="ehr_results">
       <table>
-        <% if @incomplete_products.length>0 %>
+        <% if @incomplete_tests.length>0 %>
         <thead>
           <tr>
             <th colspan="2"><span class='fail'>Failing</span> Product</th>
@@ -28,19 +29,19 @@
           </tr>
         </thead>
         <tbody class="fail">
-        <% @incomplete_products.each do |product| %>
+        <% @incomplete_tests.each do |test| %>
           <tr>
             <td><div title="14%" class="fail">14%</div></td>
-            <td><a href="<%= vendor_product_path(@vendor, product) %>"><%= product.name %></a></td>
-            <td><%= product.description %></td>
-            <td><span class="f"><%= product.count_passing %></span> <span class="q">/ <%= product.product_tests.size %></span></td>
-            <td><%= link_to 'delete', vendor_product_path(@vendor, product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+            <td><a href="<%= vendor_product_product_test_path(@vendor, @product, test) %>"><%= test.name %></a></td>
+            <td><%= test.description %></td>
+            <td><span class="f"><%= test.count_passing %></span> <span class="q">/ <%= test.product_tests.size %></span></td>
+            <td><%= link_to 'delete', vendor_product_product_test_path(@vendor, product, test), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
           </tr>
         <% end %>
         </tbody>
         <% end %>
 
-        <% if @complete_products.length>0 %>
+        <% if @complete_tests.length>0 %>
         <thead>
           <tr>
             <th colspan="2"><span class='pass'>Passing</span> Product</th>
@@ -51,14 +52,14 @@
           </tr>
         </thead>
         <tbody>
-        <% @complete_products.each do |product| %>
+        <% @complete_tests.each do |test| %>
           <tr>
             <td><div title="100%" class="pass">100%</div></td>
-            <td><a href="<%= vendor_product_path(@vendor, product) %>"><%= product.name %></a></td>
-            <td><%= product.description %></td>
-            <td><span class="f"><%= product.count_passing %></span> <span class="q">/ <%= product.product_tests.size %></span></td>
+            <td><a href="<%= vendor_product_product_test_path(@vendor, @product, test) %>"><%= test.name %></a></td>
+            <td><%= test.description %></td>
+            <td><span class="f"><%= test.count_passing %></span> <span class="q">/ <%= test.test_executions.size %></span></td>
             <td></td>
-            <td><%= link_to 'delete', vendor_product_path(@vendor, product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+            <td><%= link_to 'delete', vendor_product_product_test_path(@vendor, @product, test), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
           </tr>
         <% end %>
         </tbody>

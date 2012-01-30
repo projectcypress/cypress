@@ -28,15 +28,7 @@ class VendorsControllerTest < ActionController::TestCase
     assert Vendor.count == 2
   end
   
-  test "add note" do
-    assert Vendor.find('4def93dd4f85cf8968000006').notes.empty?
-    post(:add_note, {:id => '4def93dd4f85cf8968000006', :note => {:text => 'Great vendor'}})
-    assert_response :redirect
-    assert Vendor.find('4def93dd4f85cf8968000006').notes.count == 1
-  end
-  
   test "Delete vendors and take their associated records with them" do
-
     assert_equal(1, Vendor.count)
     assert_equal(1, Record.count)
     

@@ -1,13 +1,13 @@
 module Cypress
-  # This is Resque job that will create records for a vendor. Currently you have the choice between doing a full clone of the test deck
+  # This is Resque job that will create records for a ProductTest. Currently you have the choice between doing a full clone of the test deck
   # or a specific subset to cover the 3 core measures. In the near future we will support more options to make very customized TD subsets.
   # For now, a subset_id of 'core20' will mean the 3 core measures. If that parameter does not exist, we copy the whole deck. For example:
   #
-  #    Cypress::TDSubsetJob.create(:subset_id => 'core', :test_id => 'ID of vendor to which these patients belong')
+  #    Cypress::PopulationCloneJob.create(:subset_id => 'core', :test_id => 'ID of vendor to which these patients belong')
   #
   # This will return a uuid which can be used to check in on the status of a job. More details on this can be found
   # at the {Resque Stats project page}[https://github.com/quirkey/resque-status].
-  class TDSubsetJob < Resque::JobWithStatus
+  class PopulationCloneJob < Resque::JobWithStatus
     def perform
       # We'll assign random names to our subset of patients. These are the 500 most common names from 1990 census
       forenames = {
@@ -20,9 +20,9 @@ module Cypress
       ama_patients = Record.where(:test_id => nil)
 
       # If we're using the core subset, use the core 20 patients
-      @subsets = {"core20" => [201,92,20,176,30,109,82,28,5,31,189,58,57,173,188,46,55,72,81,26].collect {|x| x.to_s} }
-      if options['subset_id'] == "core20"
-        ama_patients = ama_patients.any_in("patient_id" => @subsets[options['subset_id']])
+      if options['subset_id'] != "all"
+        patient_population = PatientPopulation.where(:name => options['subset_id'])
+        ama_patients = ama_patients.any_in("patient_id" => patient_population)
       end
 
       ama_patients.each do |patient|

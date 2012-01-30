@@ -16,7 +16,7 @@
         <thead>
           <tr>
             <th colspan="2"><span class='fail'>Failing</span> EHR</th>
-            <th>Measures</th>
+            <th>Products</th>
             <th>POC</th>
             <th><span style="visibility:hidden">Phone</span></th>
             <th>Proctor</th>
@@ -27,8 +27,8 @@
         <% @incomplete_vendors.each do |vendor| %>
           <tr>
             <td><div title="14%" class="fail">14%</div></td>
-            <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-            <td><span class="f"><%= vendor.count_passing %></span> <span class="q">/ <%= vendor.measure_defs.size %></span></td>
+            <td><a href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a></td>
+            <td><span class="f"><%= vendor.count_passing %></span> <span class="q">/ <%= vendor.products.size %></span></td>
             <td><%= vendor.poc %></td>
             <td><span class="phone"><%= vendor.tel %></span></td>
             <td><%= vendor.proctor %></td>
@@ -42,7 +42,7 @@
         <thead>
           <tr>
             <th colspan="2"><span class="pass">Passing </span>EHR</th>
-            <th>Measures</th>
+            <th>Products</th>
             <th>POC</th>
             <th><span style="visibility:hidden">Phone</span></th>
             <th>Proctor</th>
@@ -53,8 +53,8 @@
         <% @complete_vendors.each do |vendor| %>
           <tr>
             <td><div title="100%" class="pass">100%</div></td>
-            <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-            <td><%= vendor.count_passing %> <span class="q">/ <%= vendor.measure_defs.size %></span></td>
+            <td><a href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a></td>
+            <td><%= vendor.count_passing %> <span class="q">/ <%= vendor.products.size %></span></td>
             <td><%= vendor.poc %></td>
             <td><span class="phone"><%= vendor.tel %></span></td>
             <td><%= vendor.proctor %></td>

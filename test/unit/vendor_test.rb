@@ -44,22 +44,4 @@ class VendorTest < ActiveSupport::TestCase
     assert failing.size==1
     assert failing[0]['id']=='0002'
   end
-  
-  test "Vendor imports PQRI" do
-    vendor = Vendor.new
-    doc = Nokogiri::XML(File.new(File.join(Rails.root, 'test/fixtures/pqri/pqri.xml')))
-    vendor.reported_results = vendor.extract_results_from_pqri(doc)
-    
-    assert vendor.reported_results != nil
-    assert vendor.reported_results.size==2
-    assert vendor.reported_results['0421a'] != nil
-    assert vendor.reported_results['0421a']['denominator'] == 80
-    assert vendor.reported_results['0421a']['numerator'] == 39
-    assert vendor.reported_results['0421a']['exclusions'] == 0
-    assert vendor.reported_results['0421b'] != nil
-    assert vendor.reported_results['0421b']['denominator'] == 300
-    assert vendor.reported_results['0421b']['numerator'] == 71
-    assert vendor.reported_results['0421b']['exclusions'] == 0
-  end
-
 end

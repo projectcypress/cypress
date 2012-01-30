@@ -1,0 +1,17 @@
+<div id="container">
+  <%= render :partial=>"shared/header" %>
+
+  <div>
+    <section class="tb">
+      <nav class="breadcrumb">
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
+        <a href="<%= vendors_path(@vendor) %>"><%= @vendor.name %></a> &raquo;
+        <span>Create new product</span>
+      </nav>
+    </section>
+
+    <section id="vendor">
+      <%= render :partial => 'product_details' %>
+    </section>
+  </div>
+</div><!-- end #container -->

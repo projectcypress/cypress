@@ -7,21 +7,25 @@ Cypress::Application.routes.draw do
   get "/information/help"
   resources :vendors do
     resources :patients
+    
     resources :measures do
       member do
         get 'patients'
       end
     end
-    member do
-      get 'zipccr'
-      get 'ziphtml'
-      get 'patients'
-      get 'zipc32'
-      get 'csv'
-      get 'upload_pqri'
-      post 'process_pqri'
-      delete 'delete_note'
-      post 'add_note'
+    
+    resources :products do
+      resources :product_tests do
+        member do
+          get 'zipccr'
+          get 'ziphtml'
+          get 'patients'
+          get 'zipc32'
+          get 'csv'
+          get 'upload_pqri'
+          post 'process_pqri'
+        end
+      end
     end
   end
 

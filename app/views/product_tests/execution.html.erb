@@ -1,0 +1,298 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#upload_pqri_dialog').dialog({
+        title: 'Upload Results',
+        autoOpen: false,
+        closeOnEscape: true,
+        draggable: true,
+        position: 'center',
+        width: 'auto',
+        height: 'auto',
+        modal: true,
+        show: 'fade',
+        hide: 'fade',
+        resizable: false,
+        buttons: {
+          Upload: function() {
+            $('#edit_vendor_<%= @vendor._id %>').submit();
+            $(this).dialog('close');
+          },
+          Cancel: function() {
+            $(this).dialog('close');
+          }
+        }
+      });
+      
+      $('#polling_for_updates').dialog({
+        title: 'Waiting for patients to load...',
+        autoOpen: false,
+        closeOnEscape: false,
+        draggable: false,
+        position: 'center',
+        width: 'auto',
+        height: 'auto',
+        modal: true,
+        show: 'fade',
+        hide: 'fade',
+        resizable: false,
+        open: function(event, ui) { $(".ui-dialog-titlebar-close").hide()}
+      });
+
+      <% poll_for_updates = false
+      
+      if @patients.size < 1
+        poll_for_updates = true
+      end
+      
+      @vendor.expected_results.each do |result|
+        if result['numerator']=='?'
+          poll_for_updates = true
+        end
+      end
+      if poll_for_updates %>
+        $("#upload_results_button").hide();
+        $('#polling_for_updates').dialog('open');
+        $.cypress.addPoll("<%= vendor_path(@vendor) %>", null, function() {
+          $("#upload_results_button").show();
+          $('#polling_for_updates').dialog('close')
+        });
+      <% end %>
+      
+      $('#upload_results_button').click(function(event) {
+        $('#upload_pqri_dialog').dialog('open');        
+        event.preventDefault();
+      });
+    });
+  </script>
+<% end %>
+<div id="polling_for_updates" title="Waiting for patients to load...">
+	<p>Please wait while the test data is being loaded.</p>
+</div>
+<div id="container">
+   <%= render :partial=>"shared/header" %>
+
+  <div>
+  
+    <section class="tb">
+      <div class="stacked">
+        <%= link_to "Upload Results", "", {:id => 'upload_results_button', :class=>"cmd"} %>
+        <%= link_to 'Download', '', {
+          :id => 'download_menu',
+          :class => "cmd",
+          :onmouseover => "$.cypress.showMenu($('#download_menu'), $('#download_options'));"
+        } %>
+        <%= link_to "Edit Profile", edit_vendor_path, {:class=>"cmd"} %>
+        <%= link_to "Master Patient List", patients_vendor_path, {:class=>"cmd"} %>
+        <ul id="download_options" style="display: none" role="listbox"
+          class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Patients as C32s", zipc32_vendor_path, { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Patients as CCRs", zipccr_vendor_path, { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Patients as CSV", csv_vendor_path, { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Patients as HTML", ziphtml_vendor_path, { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <% if @vendor.reported_results %>
+            <li class="ui-menu-item" role="menuitem">
+              <%= link_to "Report as PDF", "#{vendor_url(@vendor.id.to_s)}.pdf", { :class => "ui-corner-all", :tabindex => "-1" } %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <nav class="breadcrumb">
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
+        <span><%= @vendor.name %></span>
+      </nav>
+    </section>
+    <section class="candidate">
+      
+      <dl class="vendor">
+        <dt>Candidate EHR:</dt> <dd><%= @vendor.name %></dd>
+        <dt>url:</dt> <dd><a href="<%= @vendor['url'] %>"><%= @vendor['url'] %></a></dd>
+      </dl>
+      
+      <dl>
+        <dt>EHR POC:</dt> <dd><%= @vendor.poc %></dd>
+        <dt>E-mail:</dt>  <dd><%= @vendor.email %></dd>
+        <dt>Phone:</dt>   <dd><%= @vendor.tel %></dd>
+      </dl>
+      <dl>
+        <dt>Proctor:</dt> <dd><%= @vendor.proctor %></dd>
+        <dt>E-mail:</dt>  <dd><%= @vendor.proctor_email %></dd>
+        <dt>Phone:</dt>   <dd><%= @vendor.proctor_tel %></dd>
+      </dl>
+    </section>
+
+    <section class="records">
+      <label>Notes</label>:
+      <% note = Note.new %>
+      <%= simple_form_for note, :url => add_note_vendor_path do |f| %>
+        <%= f.input_field :text, :as => :text, :rows => 1, :columns => 80 %>
+        <%= f.button :submit, :value => 'add' %>
+      <% end %>
+      <% if @vendor.notes %>
+        <% @vendor.notes.each do |note| %>
+          <time datetime="<%= note.time.strftime('%Y-%m-%d') %>"><%= note.time.strftime('%m/%d/%Y') %></time>: 
+          <%= note.text %><!-- <a href="#">edit</a> -->
+          <%= button_to 'delete', {:action=>'delete_note', :id=>@vendor.id, "note[id]"=>note.id}, :method=>:delete, :confirm=>'Are you sure?' %>
+          <br/>
+        <% end %>
+      <% end %>
+    </section>
+    
+    <section class="pqriValidation">
+      <% if @vendor.validation_errors %>
+        <h2 class="fail">PQRI Validation Errors</h2>
+        <h3>Cypress uses Northwestern Medical's XSD interpretation of
+          <a href="http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
+          This is NOT a CMS published XSD.
+        </h3>
+        
+        <% if @vendor.validation_errors && @vendor.baseline_validation_errors %>
+          <h2>PQRI Errors</h2>
+        <% end %>
+        <% @vendor.validation_errors.each do |error| %>      
+          <div class ="pqriXmlError"><%= error %></div>
+        <% end
+        
+        if @vendor.baseline_validation_errors %>
+          <h2>Baseline PQRI Errors</h2>
+          <% @vendor.baseline_validation_errors.each do |error| %>      
+            <div class ="pqriXmlError"><%= error %></div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </section>
+   
+    <section id="quality_measures">
+      <table>
+        <% if @vendor.failing_measures.size > 0 %>
+        <thead>
+          <tr>
+            <th colspan="2"><span class='fail'>Failing</span> Measures</th>
+            <th>Denominator</th>
+            <th>Numerator</th>
+            <th>Exclusions</th>
+          </tr>
+        </thead>
+        <tbody class="fail">
+          <% @vendor.failing_measures.each do |measure|
+            expected_result = @vendor.expected_result(measure)
+            reported_result = @vendor.reported_result(measure.key) %>
+          <tr id='<%= "#{measure.id}" %>'>
+
+            <%# =====================
+            If the % failure is known then display <div class="fail"
+            if the % failure is unknown then display <div class="na"
+            ====================== %>
+            <td>
+              <% if reported_result['denominator'].class == String || expected_result['denominator'].class == String %>
+                <div title="Insufficient Info" class="na">Insufficient Info</div>
+              <% else %>
+                <div title="0%" class="fail">0%</div>
+              <% end %>
+            </td>
+
+            <td><a href="<%= vendor_measure_path(@vendor, measure) %>">
+              <%= "NQF#{measure['id']}#{measure.sub_id} " %>
+              <%= measure.name %>
+              <%= " - #{measure.subtitle}" if measure.sub_id %></a>
+            </td>
+            
+            <%# =====================
+            The display format is <reported> / <expected>
+            if <reported> != <expected> then display <span class="f">
+            if <reported> has no value, then display <span class="na">
+            if <reported> == <expected> then display <span> without a class
+            ====================== %>
+            <td>
+              <span class="<%= result_class(expected_result, reported_result, 'denominator') %>">
+                <%= reported_result['denominator']%>
+              </span>
+              /
+              <span class="q den">
+                <%= expected_result['denominator'] %>
+              </span>
+            </td>
+            <td>
+              <span class="<%= result_class(expected_result, reported_result, 'numerator') %>"><%= reported_result['numerator'] %></span>
+              /
+              <span class='q num'><%= expected_result['numerator'] %></span>
+            </td>
+            <td>
+              <span class="<%= result_class(expected_result, reported_result, 'exclusions') %>"><%= reported_result['exclusions'] %></span>
+              /
+              <span class="q exc"><%= expected_result['exclusions'] %></span>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+        <% end %>
+        
+        <% if @vendor.passing_measures.size > 0 %>
+        <thead>
+          <tr>
+            <th colspan="2"><span class='pass'>Passing</span> Measures</th>
+            <th>Denominator</th>
+            <th>Numerator</th>
+            <th>Exclusions</th>
+          </tr>
+        </thead>
+
+        <tbody class="pass">
+          <% @vendor.passing_measures.each do |measure| %>
+            <% expected_result = @vendor.expected_result(measure) %>
+            <% reported_result = @vendor.reported_result(measure.key) %>
+          <tr id='<%= "#{measure.id}" %>'>
+
+            <td>
+              <div title="Pass" class="pass">Pass</div>
+            </td>
+
+            <td><a href="<%= vendor_measure_path(@vendor, measure) %>">
+              <%= "NQF#{measure['id']}#{measure.sub_id} " %>
+              <%= measure.name %>
+              <%= " - #{measure.subtitle}" if measure.sub_id %></a>
+            </td>
+            
+            <td>
+              <span class=""><%= reported_result['denominator'] %></span>
+              /
+              <span class="q den"><%= expected_result['denominator'] %></span>
+            </td>
+            <td>
+              <span class=""><%= reported_result['numerator'] %></span>
+              /
+              <span class='q num'><%= expected_result['numerator'] %></span>
+            </td>
+            <td>
+              <span class=""><%= reported_result['exclusions'] %></span>
+              /
+              <span class="q exc"><%= expected_result['exclusions'] %></span>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+        <% end %>
+
+      </table>
+    </section>
+    
+    <%= render :partial => 'upload_pqri_form' %>
+    
+    <section class="legend">
+      <dl>
+        <dt>Error Report Indicators:</dt>
+        <dd class="pass">passing
+        <dd class="na">insufficient info
+        <dd class="fail">failing
+      </dl>
+    </section>
+  </div>
+</div><!-- end #container -->
