@@ -11,7 +11,6 @@ class ProductTest
   field :effective_date_start, type: Integer
   field :effective_date_end, type: Integer
   field :measure_ids, type: Array
-  field :measure_map, type: Hash
   field :baseline_results, type: Hash
   field :reported_results, type: Hash
   field :validation_errors, type: Array

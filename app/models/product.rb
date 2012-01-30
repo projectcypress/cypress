@@ -6,6 +6,7 @@ class Product
   
   field :name, type: String
   field :description, type: String
+  field :measure_map, type: Hash
   
   # If all of the ProductTests passed, then this Product will be considered passing
   def passing?
