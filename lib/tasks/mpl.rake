@@ -40,8 +40,10 @@ namespace :mpl do
     end
 
     # put a few standard patient populations in 
-    loader.save('patient_populations', {:name => "all", :ids => Array.new(225) {|i| i.to_s}})
-    loader.save('patient_populations', {:name => "core20", :ids => [201,92,20,176,30,109,82,28,5,31,189,58,57,173,188,46,55,72,81,26].collect {|x| x.to_s}})
+    loader.save('patient_populations', {:id => "all", :name => "all patient records", :ids => Array.new(225) {|i| i.to_s},
+      :description => "All(225) of the AMA developed synthetic patient records."})
+    loader.save('patient_populations', {:id => "core20", :name => "20 patients for core/alternate", :ids => [201,92,20,176,30,109,82,28,5,31,189,58,57,173,188,46,55,72,81,26].collect {|x| x.to_s},
+      :description => "A subset of 20 patients that can be used to test the core and alternate core quality easures."})
   end
   
   desc 'Evaluate all measures for the entire master patient list'

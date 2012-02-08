@@ -6,7 +6,13 @@ class PatientPopulation
   
   has_and_belongs_to_many :records
   
+  field :id, type: String
   field :name, type: String
   field :description, type: String
   field :patient_ids, type: Array
+
+  def self.installed
+    PatientPopulation.order_by([["name", :asc]]).to_a
+  end
+  
 end

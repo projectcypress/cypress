@@ -36,6 +36,7 @@ class ProductTestsController < ApplicationController
     @product = Product.find(params[:product])
     @vendor = @product.vendor
     @measures = Measure.top_level
+    @patient_populations = PatientPopulation.installed
     @measures_categories = @measures.group_by { |t| t.category }
     
     # TODO - Copied default from popHealth. This probably needs to change at some point. We also currently ignore the uploaded value anyway.
