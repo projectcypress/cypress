@@ -15,7 +15,6 @@ class ProductsControllerTest < ActionController::TestCase
   end
   
   test "results" do
-    binding.pry
     result = @patient.results[0]
     assert_equal 1257901150, result.time
     assert_equal({"SNOMED-CT" => ["439958008"]}, result.codes)

@@ -1,3 +1,5 @@
+require 'pqri_utility'
+
 MONGO_DB = Mongoid.database
 # insert races and ethnicities
 (

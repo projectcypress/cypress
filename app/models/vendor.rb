@@ -1,5 +1,4 @@
 class Vendor
-
   include Mongoid::Document
   
   has_and_belongs_to_many :users
@@ -33,14 +32,14 @@ class Vendor
   # Get the products owned by this vendor that are failing
   def failing_products
     return self.products.select do |product|
-      !product.passing?
+      product.product_tests.empty? || !product.passing?
     end
   end
   
   # Get the products owned by this vendor that are passing
   def passing_products
     return self.products.select do |product|
-      product.passing?
+      !product.product_tests.empty? && product.passing?
     end
   end
   
@@ -53,5 +52,10 @@ class Vendor
   def count_passing
     return self.passing_products.size
   end
+  
+  # The percentage of passing products. Returns 0 if no products
+  def success_rate
+    return 0 if self.products.empty?
+    return self.count_passing / self.products.size
+  end
 end
-

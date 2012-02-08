@@ -1,7 +1,6 @@
-<% submit_method = :post if action_name == "new"
-submit_method = :put if action_name == "edit" %>
-
-<%= form_for([@vendor, @product], :html => { :method => submit_method }) do |f| %>
+<%= form_for([@product], :html => { :method => submit_method }) do |f| %>
+  <%= f.hidden_field :vendor_id, :value => @vendor.id %>
+  
   <h1>Product Information</h1>
   <section id="vendorInfo">
     <dl>
@@ -12,9 +11,5 @@ submit_method = :put if action_name == "edit" %>
     </dl>
   </section> 
   
-  <% submit_text = "Create Product" if action_name == "new"
-  submit_text = "Save Product" if action_name == "edit" %>
-  
   <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();"><%= submit_text %></a>
 <% end %>
-

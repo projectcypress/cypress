@@ -13,14 +13,14 @@ class Product
     self.product_tests.size == self.count_passing
   end
   
-  # Get the products owned by this vendor that are failing
+  # Get the tests owned by this product that are failing
   def failing_tests
     return self.product_tests.select do |test|
       !test.passing?
     end
   end
   
-  # Get the products owned by this vendor that are passing
+  # Get the tests owned by this product that are passing
   def passing_tests
     return self.product_tests.select do |test|
       test.passing?
@@ -29,12 +29,12 @@ class Product
   
   # Count the number of associated ProductTests that are passing
   def count_passing
-    num_passing_tests = 0
-    
-    self.product_tests.each do |test|
-      num_passing_tests += 1 if test.passing?
-    end
-
-    return num_passing_tests = 0
+    return self.passing_tests.size
+  end
+  
+  # The percentage of passing tests. Returns 0 if no products
+  def success_rate
+    return 0 if self.product_tests.empty?
+    return self.count_passing / self.product_tests.size
   end
 end

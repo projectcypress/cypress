@@ -62,7 +62,7 @@
              type: "GET",
              dataType: 'html',
              success: function(res){
-               $('#vendor_patients').html(res);
+               $('#product_test_patients').html(res);
              },
              error: function(xhr, err) {
                alert("Patient table update failed");

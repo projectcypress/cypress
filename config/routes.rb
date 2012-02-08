@@ -1,30 +1,20 @@
 Cypress::Application.routes.draw do
-
+  root :to => "vendors#index"
+  
   devise_for :users
   
-  get "/information/about"
-  get "/information/feedback"
-  get "/information/help"
-  resources :vendors do
-    resources :patients
+  resources :vendors, :products
+  
+  resources :product_tests do
+    member do
+      get 'download'
+      post 'process_pqri'
+    end
     
+    resources :patients
     resources :measures do
       member do
         get 'patients'
-      end
-    end
-    
-    resources :products do
-      resources :product_tests do
-        member do
-          get 'zipccr'
-          get 'ziphtml'
-          get 'patients'
-          get 'zipc32'
-          get 'csv'
-          get 'upload_pqri'
-          post 'process_pqri'
-        end
       end
     end
   end
@@ -37,11 +27,13 @@ Cypress::Application.routes.draw do
     get 'table', :on => :collection
   end
   
-  resources :services
+  get "/information/about"
+  get "/information/feedback"
+  get "/information/help"
+  
   post '/services/validate_pqri'
 
-  root :to => "vendors#index"
-
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
