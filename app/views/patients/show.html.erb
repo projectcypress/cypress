@@ -1,7 +1,7 @@
 <% content_for :head do -%>
   <script type="text/javascript">
     $(document).ready(function() {
-      $(".expander").toggle(
+      $(".code_expander").toggle(
         function() {
           $(this).addClass('open');
           var codeElement = $(this).data('code');
@@ -24,16 +24,41 @@
 
   <div>
     <section class="tb">
+      <div class="stacked">
+        <%= link_to 'Download', '', {
+          :id => 'download_menu',
+          :class => "cmd",
+          :onmouseover => "$.cypress.showMenu($('#download_menu'), $('#download_options'));"
+        } %>
+        <ul id="download_options" style="display: none" role="listbox"
+          class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Patients as C32s", download_patient_path(@patient, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Patients as CCRs", download_patient_path(@patient, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Patients as CSV", download_patient_path(@patient, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Patients as HTML", download_patient_path(@patient, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+        </ul>
+      </div>
+      
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
-        <% if @vendor %>
+        <% if @test %>
           <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
+          <%= link_to @product.name, product_path(@product) %> &raquo;
+          <%= link_to @test.name, product_test_path(@test) %>
         <% else %>
-          <%= link_to 'Master Patient List', patients_path %> &raquo;
+          <%= link_to 'Master Patient List', patients_path %>
         <% end %>
-        <span><%= @patient.first %> <%= @patient.last %></span>
       </nav>
     </section>
+    
     <section id="patient_nqf">
 
     <table>
@@ -79,11 +104,6 @@
         <dt>Ethnicity</dt><dd><%= ethnicity(@patient) %></dd>
       </dl>
       </div>
-      <!--
-        <a href="prev_patient.html" title="See the previous patient" class="nav previous">previous patient</a> <a href="next_patient.html" title="See the next patient" class="nav advance">next patient</a>
-      -->
-      <a href="<%= patient_url(@patient.id.to_s) %>.ccr" class="ccr_export">Export CCR</a>
-      <a href="<%= patient_url(@patient.id.to_s) %>.c32" class="c32_export">Export C32</a>
     </section>
 
     <% patient_characteristics = {

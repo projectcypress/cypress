@@ -1,7 +1,6 @@
-
 <input id="patient_filter" class="search" type="search" size="20" placeholder="search" maxlength="40" value="<%= "#{@search_term}" %>" 
   incremental="true" 
-  onSearch="$.cypress.filterPatients('<%= patients_vendor_measure_path(@vendor, @measure) %>'+'?search='+this.value)"/>
+  onSearch="$.cypress.filterPatients('<%= patients_product_test_measure_path(@test, @measure) %>'+'?search='+this.value)"/>
 
 <table id="patient_subset">
   <colgroup  class="nqf">
@@ -26,22 +25,21 @@
   <tbody>
     <% @patients.each do |patient| %>
       <% if patient.value.population %>
-      <tr>
-        <td class="<%= 'p' if patient.value.denominator %>"></td>
-        <td class="<%= 'p' if patient.value.numerator %>"></td>
-        <td class="<%= 'p' if patient.value.exclusions %>"></td>
-        <td class="<%= 'p' if patient.value.antinumerator %>"></td>
+        <tr>
+          <td class="<%= 'p' if patient.value.denominator %>"></td>
+          <td class="<%= 'p' if patient.value.numerator %>"></td>
+          <td class="<%= 'p' if patient.value.exclusions %>"></td>
+          <td class="<%= 'p' if patient.value.antinumerator %>"></td>
 
-        <td></td>
-        <td><%= link_to patient.value.patient.last, patient_url(patient.value.patient.id) %></td>
-        <td><%= link_to patient.value.patient.first, patient_url(patient.value.patient.id) %></td>
-        <td><time datetime="<%= Time.at(patient.value.patient.birthdate).strftime('%Y-%m-%d') %>">
-          <%= Time.at(patient.value.patient.birthdate).strftime('%m/%d/%Y') %>
-        </time></td>
-        <td><%= patient.value.patient.gender %></td>
-      </tr>
+          <td></td>
+          <td><%= link_to patient.value.patient.last, patient_url(patient.value.patient.id) %></td>
+          <td><%= link_to patient.value.patient.first, patient_url(patient.value.patient.id) %></td>
+          <td><time datetime="<%= Time.at(patient.value.patient.birthdate).strftime('%Y-%m-%d') %>">
+            <%= Time.at(patient.value.patient.birthdate).strftime('%m/%d/%Y') %>
+          </time></td>
+          <td><%= patient.value.patient.gender %></td>
+        </tr>
       <% end %>
     <% end %>
-
   </tbody>
 </table>

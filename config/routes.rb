@@ -20,11 +20,14 @@ Cypress::Application.routes.draw do
   end
 
   resources :patients do
-    get 'zipccr', :on => :collection
-    get 'zipc32', :on => :collection
-    get 'ziphtml', :on => :collection
-    get 'csv', :on => :collection
-    get 'table', :on => :collection
+    member do
+      get 'download'
+    end
+    
+    collection do
+      get 'table'
+      get 'download'
+    end
   end
   
   get "/information/about"

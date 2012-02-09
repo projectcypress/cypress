@@ -1,8 +1,8 @@
-class TestResultValue
+class ResultValue
 
   include Mongoid::Document
 
-  embedded_in :test_result_value, class_name: "TestResult", inverse_of: :value
+  embedded_in :result_value, class_name: "Result", inverse_of: :value
 
   belongs_to :patient, class_name: "Record"
 

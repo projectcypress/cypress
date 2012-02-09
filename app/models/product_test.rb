@@ -31,8 +31,20 @@ class ProductTest
   # Return all measures that are selected for this particular ProductTest
   def measure_defs
     return [] if !measure_ids
-    measure_ids.collect do |measure_id|
+    
+    self.measure_ids.collect do |measure_id|
       Measure.where(id: measure_id).order_by([[:sub_id, :asc]]).all()
     end.flatten
+  end
+  
+  # Returns the number of measures that this ProductTest is actually looking at.
+  def count_measures
+    measures = 0
+    
+    self.measure_ids.each do |measure|
+      measures += 1 if !measure.empty?
+    end
+    
+    return measures
   end
 end

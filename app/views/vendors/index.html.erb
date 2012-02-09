@@ -12,11 +12,12 @@
 
     <section class="candidate">  
       <p>
-        Welcome to Cypress! This is the Certification Dashboard that indexes all EHR vendors that are being tested.
+        Welcome to Cypress! This is the Certification Dashboard that indexes all EHR vendors that are being tested. You can explore the complete Cypress Test Deck
+        by clicking on "Master Patient List" above.
         <% if @vendors['pass'].empty? && @vendors['fail'].empty? %>
-          To begin, click on the "Add EHR Vendor" button above.
+          To begin testing, click on the "Add EHR Vendor" button.
         <% else %>
-          Below you can see the current testing status of each one.
+          Below you can see the current testing status of each vendor that has been added to the system.
         <% end %>
       </p>
     </section>

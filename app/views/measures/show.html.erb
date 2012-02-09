@@ -20,7 +20,7 @@
         <%= link_to "Certification Dashboard", root_path %> &raquo;
         <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
         <%= link_to @product.name, product_path(@product) %> &raquo;
-        <%= link_to @test.name, product_test_path(@test) %>
+        <%= link_to @test.name, product_test_path(@test, :execution_id => @execution) %>
       </nav>
     </section>
     

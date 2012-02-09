@@ -27,7 +27,9 @@ class ProductTestsController < ApplicationController
     respond_to do |format|
       format.json { render :json => { 'test' => @test, 'results' => @current_execution.expected_results, 'patients' => @patients } }
       format.html { render :action => "show" }
-      format.pdf { render :layout => false }
+      
+      format.pdf { render :layout => false, :filename => "hello.pdf" }
+      prawnto :filename => "#{@test.name}.pdf"
     end
   end
   

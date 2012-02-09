@@ -73,6 +73,7 @@
   <div>
     <section class="tb">
       <div class="stacked">
+        <%= link_to "Patient List", patients_path(:product_test_id => @test.id), { :class => "cmd" } %>
         <%= link_to "Upload Results", "", {:id => 'upload_results_button', :class=>"cmd"} %>
         <%= link_to 'Download', '', {
           :id => 'download_menu',
@@ -94,6 +95,11 @@
           <li class="ui-menu-item" role="menuitem">
             <%= link_to "Patients as HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
+          <% if @current_execution.reported_results %>
+            <li class="ui-menu-item" role="menuitem">
+              <%= link_to "Report as PDF", product_test_path(@test, :format => 'pdf'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            </li>
+          <% end %>
         </ul>
       </div>
 
@@ -122,7 +128,7 @@
           <p>
             "<%= @test.name %>" has not been run yet but below are the expected results for your patient population. Try downloading these records in
             C32, CCR, CSV, or HTML format from the "Download" link above and running them through <%= @product.name %>. You can then export the results
-            as a PQRI document and return them to Cypress using the "Upload" link above.
+            as a PQRI document and return them to Cypress using the "Upload Results" link above.
           </p>
         </div>
       </section>
@@ -180,13 +186,15 @@
               <tr id='<%= "#{measure.id}" %>'>
                 <td><div title="<%= result_status %>" class="<%= result_status %>"><%= result_status %></div></td>
                 <td>
-                  <a href="<%= product_test_measure_path(@test, measure) %>">
+                  <a href="<%= product_test_measure_path(@test, measure, :execution => @current_execution) %>">
                   <%= "NQF#{measure['id']}#{measure.sub_id} " %>
                   <%= measure.name %>
                   <%= " - #{measure.subtitle}" if measure.sub_id %></a>
                 </td>
-                <% ['denominator', 'numerator', 'exclusions'].each do |bucket| %>
-                  <td><span class="<%= result_class(reported_result[bucket], expected_result[bucket]) %>"><%= reported_result[bucket]%></span> / <span class="q"><%= expected_result[bucket] %></span></td>
+                <% ['denominator', 'numerator', 'exclusions'].each do |bucket|
+                  reported_class = result_class(reported_result[bucket], expected_result[bucket])
+                  expected_class = bucket.slice(0,3) %>
+                  <td><span class="<%= reported_class %>"><%= reported_result[bucket]%></span> / <span class="q <%= expected_class %>"><%= expected_result[bucket] %></span></td>
                 <% end %>
               </tr>
             <% end %>

@@ -5,7 +5,9 @@ class MeasuresController < ApplicationController
 
   def show
     @test = ProductTest.find(params[:product_test_id])
-    if @test.test_executions.size > 0
+    if !params[:execution_id].nil?
+      @current_execution = TestExecution.find(params[:execution_id])
+    elsif @test.test_executions.size > 0
       @execution = @test.test_executions.first
     else
       @execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
@@ -25,13 +27,16 @@ class MeasuresController < ApplicationController
   
   def patients
     @test = ProductTest.find(params[:product_test_id])
-    if @test.test_executions.size > 0
+    if !params[:execution_id].nil?
+      @current_execution = TestExecution.find(params[:execution_id])
+    elsif @test.test_executions.size > 0
       @execution = @test.test_executions.first
     else
       @execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
     end
     @product = @test.product
     @vendor = @product.vendor
+    @measure = Measure.find(params[:id])
     @result = @execution.expected_result(@measure)
     
     @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure['id'])
