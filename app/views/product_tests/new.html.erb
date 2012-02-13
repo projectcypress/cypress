@@ -1,0 +1,19 @@
+<div id="container">
+  <%= render :partial=>"shared/header" %>
+
+  <div>
+    <section class="tb">
+      <nav class="breadcrumb">
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
+        <%= link_to @vendor.name, vendors_path(@vendor) %> &raquo;
+        <%= link_to @product.name, product_path(@product) %> &raquo;
+        <span>Create new test</span>
+      </nav>
+    </section>
+
+    <section id="vendor">
+      <%# render :partial => 'product_test_details', :locals => { :submit_method => 'post', :submit_text => 'Create' } %>
+      <%= render :partial => 'wizard', :locals => { :submit_method => 'post', :submit_text => 'Create' } %>
+    </section>
+  </div>
+</div>

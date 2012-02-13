@@ -12,7 +12,7 @@ gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-d
 gem 'less'
 gem 'pry'
 gem 'prawn'
-gem 'prawnto'
+gem "prawnto_2", :require => "prawnto"
 
 group :assets do
   gem 'sass-rails'
@@ -23,6 +23,9 @@ end
 gem 'jquery-rails'
 
 group :test do
+  # Pretty printed test output
+  gem 'turn', :require => false
+  gem 'minitest'
   gem 'cover_me', '>= 1.0.0.rc6'
 end
 

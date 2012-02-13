@@ -1,10 +1,10 @@
 <% content_for :head do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      <% if @vendor.expected_result(@measure)['numerator']=='?' %>
-        $.cypress.addPoll("<%= vendor_measure_path(@vendor, @measure) %>", "<%= patients_vendor_measure_path(@vendor, @measure) %>")
+      <% if @execution.expected_result(@measure)['numerator']=='?' %>
+        $.cypress.addPoll("<%= product_test_measure_path(@test, @measure) %>", "<%= patients_product_test_measure_path(@test, @measure) %>")
       <% else %>
-        $.cypress.updatePatientTable("<%= patients_vendor_measure_path(@vendor, @measure) %>")
+        $.cypress.updatePatientTable("<%= patients_product_test_measure_path(@test, @measure) %>")
       <% end %>
     });
   </script>
@@ -19,25 +19,20 @@
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
         <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
-        <span><%= @measure.name %></span>
+        <%= link_to @product.name, product_path(@product) %> &raquo;
+        <%= link_to @test.name, product_test_path(@test, :execution_id => @execution) %>
       </nav>
     </section>
     
-    <section class="candidate">  
+    <section class="candidate">
       <dl>
-        <dt class="vendor">Candidate EHR:</dt><dd class="vendor"><%= @vendor.name %></dd>
-        <dt>url:</dt><dd><a href="#">www.vendor_url.com</a></dd>
-      </dl>
-      
-      <dl>
-        <dt>EHR POC:</dt> <dd><%= @vendor.poc %></dd>
-        <dt>E-mail:</dt>  <dd><!-- vendor e-mail here --></dd>
-        <dt>Phone:</dt>   <dd><%= @vendor.tel %></dd>
+        <dt class="vendor">EHR Vendor</dt><dd class="vendor"><%= @vendor.name %></dd>
       </dl>
       <dl>
-        <dt>Proctor:</dt> <dd><%= @vendor.proctor %></dd>
-        <dt>E-mail:</dt>  <dd>proctor_email@proctor.com</dd>
-        <dt>Phone:</dt>   <dd>proctor phone #</dd>
+        <dt>Product</dt> <dd><%= @product.name %></dd>
+      </dl>
+      <dl>
+        <dt>Test</dt> <dd><%= @test.name %></dd>
       </dl>
     </section>
   
@@ -48,7 +43,7 @@
           <li><b><%= category %></b></li>
           <% measures.each do |measure_def| %>
             <li>
-              <a href="<%= vendor_measure_path(@vendor, measure_def) %>"
+              <a href="<%= product_test_measure_path(@test, measure_def) %>"
                 title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
                 class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %>
               </a>
@@ -65,13 +60,13 @@
           <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
           <dd class="measure_desc"><%= @measure.description %></dd>
         </dl>
-        <% expected_result = @vendor.expected_result(@measure) %>
-        <% reported_result = @vendor.reported_result(@measure.key) %>
+        <% expected_result = @execution.expected_result(@measure) %>
+        <% reported_result = @execution.reported_result(@measure.key) %>
         <dl>
           <dt>Measure Status:</dt>
           <% if reported_result['denominator'].class == String %>
             <dd class="na">N/A</dd>
-          <% elsif @vendor.passed?(expected_result) %>
+          <% elsif @execution.passed?(expected_result) %>
             <dd class="">PASS</dd>
           <% else %>
             <dd class="fail">Fail</dd>
@@ -113,9 +108,9 @@
         </dl>
       </section>
     
-      <section id="vendor_patients">
+      <section id="product_test_patients">
       </section>    
-    </section><!-- end #patient_list -->
+    </section>
     <br style="clear:both" />
   </div>
-</div><!-- end #container -->       
+</div>

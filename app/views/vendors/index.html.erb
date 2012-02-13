@@ -10,68 +10,51 @@
       </nav>
     </section>
 
+    <section class="candidate">  
+      <p>
+        Welcome to Cypress! This is the Certification Dashboard that indexes all EHR vendors that are being tested. You can explore the complete Cypress Test Deck
+        by clicking on "Master Patient List" above.
+        <% if @vendors['pass'].empty? && @vendors['fail'].empty? %>
+          To begin testing, click on the "Add EHR Vendor" button.
+        <% else %>
+          Below you can see the current testing status of each vendor that has been added to the system.
+        <% end %>
+      </p>
+    </section>
+
     <section id="ehr_results">
       <table>
-        <% if @incomplete_vendors.length>0 %>
-        <thead>
-          <tr>
-            <th colspan="2"><span class='fail'>Failing</span> EHR</th>
-            <th>Measures</th>
-            <th>POC</th>
-            <th><span style="visibility:hidden">Phone</span></th>
-            <th>Proctor</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody class="fail">
-        <% @incomplete_vendors.each do |vendor| %>
-          <tr>
-            <td><div title="14%" class="fail">14%</div></td>
-            <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-            <td><span class="f"><%= vendor.count_passing %></span> <span class="q">/ <%= vendor.measure_defs.size %></span></td>
-            <td><%= vendor.poc %></td>
-            <td><span class="phone"><%= vendor.tel %></span></td>
-            <td><%= vendor.proctor %></td>
-            <td><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
-          </tr>
-        <% end %>
-        </tbody>
-        <% end %>
-
-        <% if @complete_vendors.length>0 %>
-        <thead>
-          <tr>
-            <th colspan="2"><span class="pass">Passing </span>EHR</th>
-            <th>Measures</th>
-            <th>POC</th>
-            <th><span style="visibility:hidden">Phone</span></th>
-            <th>Proctor</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @complete_vendors.each do |vendor| %>
-          <tr>
-            <td><div title="100%" class="pass">100%</div></td>
-            <td><a href="<%= vendor_path vendor._id %>"><%= vendor.name %></a></td>
-            <td><%= vendor.count_passing %> <span class="q">/ <%= vendor.measure_defs.size %></span></td>
-            <td><%= vendor.poc %></td>
-            <td><span class="phone"><%= vendor.tel %></span></td>
-            <td><%= vendor.proctor %></td>
-            <td><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
-          </tr>
-        <% end %>
-        </tbody>
+        <% @vendors.each do |result_status, result_vendors|
+          next if result_vendors.empty? %>
+          <thead>
+            <tr>
+              <th colspan="3"><span class="<%= result_status %>"><%= result_status %>ing</span> EHR Vendors</th>
+              <th>Products</th>
+              <th>POC</th>
+              <th>Proctor</th>
+              <th></th>
+            </tr>
+          </thead>
+          <% result_vendors.each do |vendor| %>
+            <% success_rate = vendor.success_rate
+            dot_color = result_status
+            dot_color = "na" if vendor.products.empty? %>
+            <tbody>
+              <tr>
+                <td><div title="<%= success_rate %>%" class="<%= dot_color %>"><%= success_rate %></div></td>
+                <td></td>
+                <td class="<%= result_status %>"><a href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a></td>
+                <td><span class="<%= dot_color %>"><%= vendor.count_passing %></span> <span class="q">/ <%= vendor.products.size %></span></td>
+                <td><%= vendor.poc %></td>
+                <td><%= vendor.proctor %></td>
+                <td><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
+              </tr>
+            </tbody>
+          <% end %>
         <% end %>
       </table>
     </section>
-    <section class="legend">
-      <dl>
-        <dt>Error Report Indicators:</dt>
-        <dd class="pass">passing
-        <dd class="na">insufficient info
-        <dd class="fail">failing
-      </dl>
-    </section>
+
+    <%= render :partial=>"shared/legend" %>
+  </div>
 </div>
-</div><!-- end #container -->

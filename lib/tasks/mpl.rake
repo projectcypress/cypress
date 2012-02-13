@@ -40,8 +40,10 @@ namespace :mpl do
     end
 
     # put a few standard patient populations in 
-    loader.save('patient_populations', {:name => "all", :ids => Array.new(225) {|i| i.to_s}})
-    loader.save('patient_populations', {:name => "core20", :ids => [201,92,20,176,30,109,82,28,5,31,189,58,57,173,188,46,55,72,81,26].collect {|x| x.to_s}})
+    loader.save('patient_populations', {:id => "all", :name => "all patient records", :ids => Array.new(225) {|i| i.to_s},
+      :description => "All(225) of the AMA developed synthetic patient records."})
+    loader.save('patient_populations', {:id => "core20", :name => "20 patients for core/alternate", :ids => [201,92,20,176,30,109,82,28,5,31,189,58,57,173,188,46,55,72,81,26].collect {|x| x.to_s},
+      :description => "A subset of 20 patients that can be used to test the core and alternate core quality easures."})
   end
   
   desc 'Evaluate all measures for the entire master patient list'
@@ -63,43 +65,47 @@ namespace :mpl do
     initialized = false
     patient_ids = {}
     Measure.installed.each do |measure|
-      if measures.any? {|m| m == measure['id']} then
-        if verbose == "true" then
+      if measures.any? {|m| m == measure['id']}
+        if verbose == "true"
           print 'Patients for measure ' + measure.key + ': '
-	end
-	patients = Result.where('value.test_id' => nil).where('value.measure_id' => measure['id']).where('value.population' => true).each do |result|
-	  if !patient_ids[measure['id']] then
-	    patient_ids[measure['id']] = []
-	  end
+	      end
+	      
+	      patients = Result.where('value.test_id' => nil).where('value.measure_id' => measure['id']).where('value.population' => true).each do |result|
+	        if !patient_ids[measure['id']]
+	          patient_ids[measure['id']] = []
+	        end
 	  
-	  id = result.value.medical_record_id
-	  patient_ids[measure['id']].push(id)
+	        id = result.value.medical_record_id
+	        patient_ids[measure['id']].push(id)
 
-	  if verbose == "true" then
-	    print id + ' '
-	  end
-	end
-	puts ''
+	        if verbose == "true"
+	          print id + ' '
+	        end
+	      end
+	      puts ''
       end
     end
 
     patient_ids.each do |k,v|
       ints = v.uniq.map {|e| e.to_i}
       v = ints.sort
-      if intersection == [] then
+      if intersection == []
         intersection = v
       else
         test = intersection & v
-	if test.count == 0 then
-	  puts '!!! there is no intersection with ' + k + ' !!!'
-	else
+	      if test.count == 0
+	        puts '!!! there is no intersection with ' + k + ' !!!'
+	      else
           intersection = test 
-	end
+	      end
       end
+      
       if verbose == 'true' then
         puts '=== patient IDs for ' + k + ' ==='
-        v.each do |id| print id.to_s + ' ' end
-        puts
+        v.each do |id|
+          print id.to_s + ' '
+        end
+        puts ''
       end
     end
 
@@ -112,50 +118,6 @@ namespace :mpl do
       	 print id.to_s + ' '
       end
     end
-    puts
+    puts ''
   end
-  
-  desc 'Remove identifiers and measure results and insert randomized name and DOB into master patient list files. Store resulting erb templates in db/templates'
-  task :randomize  => :environment do
-    mpls = File.join(mpl_dir, '*')
-    Dir.glob(mpls) do |patient_file|
-      json = JSON.parse(File.read(patient_file))
-      json.delete('_id')
-      json.delete('patient_id')
-      json.delete('measures')
-      json['first'] = "<%= forename('#{json['gender']}') %>"
-      json['last'] = "<%= surname %>"
-      json['events'] = {}
-      %w{encounters conditions medications medical_equipment allergies social_history vital_signs results procedures immunizations care_goals}.each do |section|
-        json['events'][section] ||= []
-        json[section].each do |entry|
-          event = {}
-          event['description'] = entry['description']
-          event['time'] = entry['time']
-          event['code_set'] = entry['codes'].keys[0]
-          event['code'] = entry['codes'][event['code_set']][0]
-          if entry['status']
-            event['status'] = entry['status']
-          end
-          if entry['value']
-            event['value'] = entry['value']['scalar']
-          end
-          json['events'][section] << event
-        end
-        json.delete(section)
-      end
-      %w{active inactive resolved}.each do |section|
-        json.delete(section)
-      end
-      birthdate = json['birthdate']
-      template = JSON.pretty_generate(json)
-      template.sub!(/"birthdate": -?\d+/, "\"birthdate\": <%= between(#{birthdate-birthdate_dev}, #{birthdate+birthdate_dev}) %>")
-#      template.sub!(/"addresses": .*,/, "\"addresses\": [<%= address %>],")
-      file_name = File.join(template_dir, "#{File.basename(patient_file)}.erb")
-      file = File.new(file_name,  "w")
-      file.write(template)
-      file.close
-    end
-  end
-  
 end

@@ -1,0 +1,15 @@
+<%= form_for([@product], :html => { :method => submit_method }) do |f| %>
+  <%= f.hidden_field :vendor_id, :value => @vendor.id %>
+  
+  <h1>Product Information</h1>
+  <section id="vendorInfo">
+    <dl>
+      <dt>Product Name:</dt>
+      <dd><%= f.text_field :name, :size=>"20", :class=>"req" %></dd>
+      <dt>Description:</dt>
+      <dd><%= f.text_field :description, :size=>"20", :class=>"req" %></dd>
+    </dl>
+  </section> 
+  
+  <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();"><%= submit_text %></a>
+<% end %>

@@ -10,8 +10,8 @@
     </section>
     
     <section id="vendor">
-      <%= render :partial=>'vendor_details' %>
+      <%= render :partial => 'vendor_details', :locals => { :submit_method => 'put', :submit_text => 'Save' } %>
     </section>
   </div>
-</div><!-- end #container --> 
+</div>
 

@@ -10,19 +10,20 @@ module Cypress
         patients.each_with_index do |patient, i|
           safe_first_name = patient.first.gsub("'", '')
           safe_last_name = patient.last.gsub("'", '')
+          next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
         
           if format==:c32
-            z.put_next_entry("#{patient.patient_id}_#{safe_first_name}_#{safe_last_name}.xml")
+            z.put_next_entry("#{next_entry_path}.xml")
             z << HealthDataStandards::Export::C32.export(patient)
           elsif format==:html
             #http://iweb.dl.sourceforge.net/project/ccr-resources/ccr-xslt-html/CCR%20XSL%20V2.0/ccr.xsl
-             z.put_next_entry("#{patient.patient_id}_#{safe_first_name}_#{safe_last_name}.html")
+             z.put_next_entry("#{next_entry_path}.html")
              doc = Nokogiri::XML::Document.parse(HealthDataStandards::Export::C32.export(patient))
              xslt  = Nokogiri::XSLT(File.read(Rails.root.join("public","cda.xsl")))
             
              z << xslt.apply_to(doc) 
           else
-            z.put_next_entry("#{patient.patient_id}_#{safe_first_name}_#{safe_last_name}.xml")
+            z.put_next_entry("#{next_entry_path}.xml")
             z << HealthDataStandards::Export::CCR.export(patient)
           end
         end

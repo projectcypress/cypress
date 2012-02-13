@@ -1,0 +1,241 @@
+<% content_for :head do %>
+  <style type="text/css">
+    /* formwizard and validation */
+    .navigation_button {
+      width : 70px;
+    }
+    .step {
+      height: 40em;
+    }
+    label.error {
+      color: red;
+      font-size: 1em;
+      width: 40em;
+      margin-left: 0.5em;
+    }
+    #navigation {
+      margin-top : 0.5em;
+      margin-right : 1em;
+      text-align: center;
+      padding-bottom: 1em;
+    }
+    dd .date_range {
+      width: 400px;
+    }
+
+    /* vertical tabs */
+    .ui-tabs-vertical { width: 55em; }
+    .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+    .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+    .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+    .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+    .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+  </style>
+  <script type="text/javascript">
+    var cache = {}; // caching inputs for the visited steps
+
+    $(document).ready(function() {
+      $('.date').datepicker();
+
+      // for styling the vertical tabs
+      $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');
+      $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
+
+      // establish the form wizard
+      $('#new_product_test').formwizard({
+        formPluginEnabled: true,
+        validationEnabled: true,
+        focusFirstInput : true,
+        formOptions :{
+          success: function(data){$('#new_product_test').submit(); },
+          beforeSubmit: function(data){console.debug("data sent to the server: " + $.param(data));},
+          dataType: 'json',
+          resetForm: true
+        },
+        textSubmit: 'Done',
+        disableUIStyles: false
+      }).bind("step_shown", function(event,data){ //TODO still need to hook up validation
+        if(data.isLastStep){ // if this is the last step...then
+          $("#summaryContainer").empty(); // empty the container holding the
+          $.each(data.activatedSteps, function(i, id){ // for each of the activated steps...do
+            if(id === "wizard-summary-screen") return; // if it is the summary page then just return
+            cache[id] = $("#" + id).find(".input"); // else, find the div:s with class="input" and cache them with a key equal to the current step id
+            cache[id].detach().appendTo('#summaryContainer').show().find(":input").removeAttr("disabled"); // detach the cached inputs and append them to the summary container, also show and enable them
+          });
+        }else if(data.previousStep === "wizard-summary-screen"){ // if we are movin back from the summary page
+          $.each(cache, function(id, inputs){ // for each of the keys in the cache...do
+            var i = inputs.detach().appendTo("#" + id).find(":input");  // put the input divs back into their normal step
+            if(id === data.currentStep){ // (we are moving back from the summary page so...) if enable inputs on the current step
+              i.removeAttr("disabled");
+            }else{ // disable the inputs on the rest of the steps
+              i.attr("disabled","disabled");
+            }
+          });
+          cache = {}; // empty the cache again
+        }
+      })
+
+      $('.navigation_button').button();
+      $('.link').button().css({"width":"90%","margin-left":"5%","height":"5em"});
+
+      // for handling the selection of measures from groups
+      $('#all_measures').click(function () {
+        $('#wizard-measures-screen input:checkbox').prop('checked', $(this).prop('checked'));
+        $('.measure_group').prop('checked', $(this).prop('checked'));
+        tallyMeasureGroups();
+      });
+      $('.measure_group_all').click(function () {
+        var groupName = $(this).attr('id');
+        $(this).closest('div').find('input:checkbox').prop('checked', $(this).prop('checked'));
+        tallyMeasureGroups();
+      });
+
+      $('.measure_cb').change(function() {
+        tallyMeasureGroups();
+      });
+      function tallyMeasureGroups() {
+        var grandTotal = 0;
+        $.each($('.measure_group'), function(index, item){
+          var total = Math.max(0,$(this).find('input.measure_cb:checked').length);
+          $('#' + $(item).attr('id') +'_group').prop('checked', $(this).find('input.measure_cb').length == total);
+          grandTotal += total;
+          $('#' + $(item).attr('id') +'_group_total').empty().html(total > 0 ? total : '');
+        });
+        $('#all_measures').prop('checked',$('#wizard-measures-screen input.measure_cb').length == grandTotal)
+      }
+    });
+
+  </script>
+<% end %>
+
+<%= form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
+  <%= f.hidden_field :product_id, :value => @product.id %>
+
+  <section id="wizard-metadata-screen" class="first step">
+    <h2 class="ui-widget-title">Describe the test...</h2>
+    <dl class="xinput">
+      <dt>
+        Test Name:
+      </dt>
+      <dd>
+        <%= f.text_field :name, :size=>"80", :class=>"xrequired", :title=>"Choose a name for the new test"%>
+      </dd>
+      <dt>
+        Reporting Period:
+      </dt>
+      <dd>
+        <span class="date_range">
+          <input type="text" class="date" id="effective_date_start" name="product_test[effective_date_start]" size="8" value="<%= Time.at(@period_start).strftime("%m/%d/%Y") %>"/>
+          <input type="text" class="date" id="effective_date_end" name="product_test[effective_date_end]" size="8" value="<%= Time.at(@effective_date).strftime("%m/%d/%Y") %>"/>
+        </span>
+      </dd>
+      <dt>
+        Description:
+      </dt>
+      <dd>
+        <%= f.text_area :description, :cols=>80, :rows=>5, :class=>"req", :title=>"Give a description of what this test is supposed to do" %>
+      </dd>
+    </dl>
+
+    <h2>Please select a workflow option...</h2>
+    <section>
+      <dl>
+        <dt>
+          <input id="wf1" type="radio" name="workflow" class="link" value="wizard-measures-screen" /><label for="wf1">Manual entry</label>
+        </dt>
+        <dd>description 1...
+          <!--
+          <ul>
+            <li>export patient data from cypress as HTML</li>
+            <li>manually enter the patient data into EHR</li>
+            <li>export quality report from EHR as PQRI</li>
+            <li>import quality report into cypress</li>
+          </ul>
+          -->
+        </dd>
+        <dt>
+          <input id="wf2" type="radio" name="workflow" class="link" checked="checked" value="wizard-measures-screen" /><label for="wf2">Automated</label>
+        </dt>
+        <dd>description 2...
+          <!--
+          <ul>
+            <li>export patient data from cypress as C32s or CCRs</li>
+            <li>import patient data into EHR</li>
+            <li>export quality report from EHR as PQRI</li>
+            <li>import quality report into cypress</li>
+          </ul>
+          -->
+        </dd>
+        <dt>
+          <input id="wf3" type="radio" name="workflow" class="link" value="wizard-byod-screen" /><label for="wf3">Use my data</label>
+        </dt>
+        <dd>
+          Description 3...
+          <!--
+          <ul>
+             <li>export patient data from EHR as C32s</li>
+             <li>export quality report from EHR as PQRI</li>
+             <li>import both items to cypress</li>
+           </ul>
+          -->
+        </dd>
+      </dl>
+    </section>
+  </section>
+
+  <section id="wizard-measures-screen" class="step">
+    <h2 class="ui-widget-title">Identify which quality measures to test...</h2>
+    <span class="header_commands" style="text-align:center;"><input type="checkbox" id="all_measures"/><label for="all_measures">all quality measures</label></span>
+    <div id="tabs">
+      <!-- set up a tab header for each measure group -->
+      <ul>
+        <% @measures_categories.sort.each do |category, measures| %>
+          <li>
+            <a href="#<%= category.tr(" '", "_") %>"><%= category %></a><span style="padding-top:.5em;text-align:right;padding-right:5px;" id="<%= category.tr(" '", "_") %>_group_total"></span></li>
+        <% end %>
+      </ul>
+      <!-- set up a tab for each measure group -->
+      <% @measures_categories.sort.each do |category, measures| %>
+        <div id="<%= category.tr(" '", "_")%>" class="measure_group"> <span class="header_commands"><input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all"/><label for="<%= category.tr(" '", "_")%>_group">all <%= category %> measures</label></span><br/>
+          <%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>["measure_cb", category.tr(" '", "_")]} %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section id="wizard-patients-screen" class="step">
+    <h2 class="ui-widget-title">Select patient records to use...</h2>
+    <div>
+      Test <%= collection_select(:patient_population, :id, @patient_populations, :id, :name) %>
+
+    </div>
+
+    <input type="hidden" class="link" value="wizard-summary-screen"/>
+    <br/>
+    <div>
+      Patient test mode:
+      <select>
+        <option>name randomization</option>
+      </select>
+    </div>
+  </section>
+
+  <section id="wizard-byod-screen" class="step">
+    <h2 class="ui-widget-title">Bring your own records...</h2>
+    <dl>
+      <dt><%= label_tag :byod_label, "upload .zip of C32s:" %></dt>
+      <dd><%= file_field_tag :byod %></dd>
+    </dl>
+  </section>
+
+  <section id="wizard-summary-screen" class="step submit_step">
+    <span class="font_normal_07em_black">Summary page</span><br />
+    <p>Please verify your information below.</p>
+    <div id="summaryContainer"></div>
+  </section>
+
+  <div id="navigation">
+    <input class="navigation_button" id="back" value="Back" type="reset" />
+    <input class="navigation_button" id="next" value="Next" type="submit" />
+  </div>
+<% end %>

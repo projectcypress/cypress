@@ -3,56 +3,98 @@
 
   <div>
     <section class="tb">
-      <%= link_to "add EHR vendor", new_vendor_path, {:class=>"cmd"} %>
-      <%= link_to "master patient list", patients_path, {:class=>"cmd"} %>
-      
+      <%= link_to "Master Patient List", patients_path, { :class => "cmd" } %>
+      <nav class="breadcrumb">
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
+        <span>feedback</span>
+      </nav>
     </section>
 
-    <section id="about>
+    <section id="about">
       <div>
-        <section class="nqf">
-      		<h2 class="static-header">About Cypress</h2>
-    	</section>
-    	
-    	<section class="free-text">
-    	
-    		<dl>
-    			<dt>What is Cypress?</dt>
-    			<dd>Cypress is an open source testing tool that can be used to verify the accurate calculation of the Stage 1 Meaningful Use Clinical Quality Measures.</dd>
-			    <dd>The Cypress project is being stewarded by The MITRE Corporation and is being supported by the Office of the National Coordinator for Health Information Technology (ONC) within the United States Department of Health and Human Services (HHS).</dd>
-				<dd>Cypress will go through the same ONC approval process as any other testing tool and should be viewed as a utility to aid in verifying the accuracy of Stage 1 Meaningful Use Clinical Quality Measure calculations.</dd>
+    	  <section class="free_text">
+    	    <h2>What is Cypress?</h2>
+    	    <p>
+    	      Cypress is an open source testing tool that can be used to verify the accurate calculation of the Stage 1 Meaningful Use Clinical Quality Measures.
+    			  The Cypress project is being stewarded by The MITRE Corporation and is being supported by the Office of the National Coordinator for
+    			  Health Information Technology (ONC) within the United States Department of Health and Human Services (HHS). Cypress will go through the same
+    			  ONC approval process as any other testing tool and should be viewed as a utility to aid in verifying the accuracy of
+    			  Stage 1 Meaningful Use Clinical Quality Measure calculations.
+    			</p>
     		
-    			<dt>Who could use Cypress?</dt>
-    			<dd>Cypress could be used by the EHR vendor community and the testing community. For an EHR vendor, Cypress would provide verification that their software calculations of Stage 1 Meaningful Use Clinical Quality Measures are correct. In addition, Cypress could be used by the testing community as a means of testing EHR software products for accurate Stage 1 Meaningful Use Clinical Quality Measure calculations.</dd>
+    			<h2>Who could use Cypress?</h2>
+    			<p>
+    			  Cypress could be used by the EHR vendor community and the testing community. For an EHR vendor, Cypress would provide verification that
+    			  their software calculations of Stage 1 Meaningful Use Clinical Quality Measures are correct. In addition, Cypress could be used by the testing community as
+    			  a means of testing EHR software products for accurate Stage 1 Meaningful Use Clinical Quality Measure calculations.
+    			</p>
     		
-    			<dt>What is the objective of Cypress?</dt>
-    			<dd>The objective of Cypress is to enable repeatable testing of an EHR or EHR module's ability to accurately calculate Stage 1 Meaningful Use Clinical Quality Measures. Cypress supports EHR vendors, and the testing community, to make testing the accuracy of Stage 1 Meaningful Use Clinical Quality Measure calculations easier.</dd>
+    			<h2>What is the objective of Cypress?</h2>
+    			<p>
+    			  The objective of Cypress is to enable repeatable testing of an EHR or EHR module's ability to accurately calculate
+    			  Stage 1 Meaningful Use Clinical Quality Measures. Cypress supports EHR vendors, and the testing community, to make testing the accuracy of
+    			  Stage 1 Meaningful Use Clinical Quality Measure calculations easier.
+    			</p>
     			
-    			<dt>Who are the intended users of Cypress?</dt>
-    			<dd>Cypress has been designed to support both the EHR vendor and testing community. Cypress provides both of these types of organizations with a tool to verify the accurate calculation of Stage 1 Meaningful Use Clinical Quality Measures. With Cypress, EHR vendors are able to explore how well their products can accurately produce the results for the Stage 1 Meaningful Use Clinical Quality Measures. The testing community is free analyze results in Cypress in order to better understand any technical gaps in calculated Stage 1 Meaningful Use Clinical Quality Measure results.</dd>
+    			<h2>Who are the intended users of Cypress?</h2>
+    			<p>
+    			  Cypress has been designed to support both the EHR vendor and testing community. Cypress provides both of these types of organizations with a tool to verify
+    			  the accurate calculation of Stage 1 Meaningful Use Clinical Quality Measures. With Cypress, EHR vendors are able to explore how well their products
+    			  can accurately produce the results for the Stage 1 Meaningful Use Clinical Quality Measures. The testing community is free analyze results in Cypress
+    			  in order to better understand any technical gaps in calculated Stage 1 Meaningful Use Clinical Quality Measure results.
+    			</p>
     		
-				<dt>What is basic Concept of Operations for use of Cypress?</dt>
-				<dd>Cypress has been designed to allow an EHR vendor to test the accuracy of their Stage 1 Meaningful Use Clinical Quality Measure calculations against a set of realistic patient data. Cypress could also be used to aid with the testing of these software products. The following is a diagram showing the concept of operations:</dd>
-				<dd>A user looking to use Cypress to test an EHR product's Stage 1 Meaningful Use Clinical Quality Measure calculations can export the realistic patient data from Cypress in either the HITSP/C32 (C32) or ASTM Continuity of Care Record (CCR) data formats. These XML patient records would then be input into an EHR product. The EHR product should then process these patient records and export the calculations of the Stage 1 Meaningful Use Clinical Quality Measures.</dd>
-				<dd>For reporting results back into Cypress, an EHR system needs to export a PQRI Quality Report XML document to be input into the Cypress system. This document can be uploaded to Cypress via its user interface. The calculated results from the EHR product will be compared against the values Cypress calculated for the test patient population. Cypress will display where any discrepancies exist in the summary data, as well as the list of test patients within the dataset that should be categorized within the numerator, denominator, and exclusions for each of the Stage 1 Meaningful Use Clinical Quality Measure tested.</dd>
-    			<dd><img src="/assets/cypress_conops.png"/></dd>
+				  <h2>What is basic Concept of Operations for use of Cypress?</h2>
+				  <p>Cypress has been designed to allow an EHR vendor to test the accuracy of their Stage 1 Meaningful Use Clinical Quality Measure
+				    calculations against a set of realistic patient data. Cypress could also be used to aid with the testing of these software products.
+				    The following is a diagram showing the concept of operations:
+				  </p>
+				  <img src="/assets/cypress_conops.png" />
+				  <p>
+				    A user looking to use Cypress to test an EHR product's Stage 1 Meaningful Use Clinical Quality Measure calculations can export the realistic patient
+				    data from Cypress in either the HITSP/C32 (C32) or ASTM Continuity of Care Record (CCR) data formats. These XML patient records would then be input into
+				    an EHR product. The EHR product should then process these patient records and export the calculations of the Stage 1 Meaningful Use Clinical Quality Measures.
+				  </p>
+				  <p>
+				    For reporting results back into Cypress, an EHR system needs to export a PQRI Quality Report XML document to be input into the Cypress system.
+				    This document can be uploaded to Cypress via its user interface. The calculated results from the EHR product will be compared against the values
+				    Cypress calculated for the test patient population. Cypress will display where any discrepancies exist in the summary data, as well as the list of
+				    test patients within the dataset that should be categorized within the numerator, denominator, and exclusions for each of the
+				    Stage 1 Meaningful Use Clinical Quality Measure tested.
+				  </p>	    
     			
-    			<dt>How can Cypress be used by the testing community?</dt>
-    			<dd>Cypress can be used by any member of the testing community interested in exploring how accurately a software system can calculate Stage 1 Meaningful Use Clinical Quality Measures.</dd>
+    			<h2>How can Cypress be used by the testing community?</h2>
+    			<p>
+    			  Cypress can be used by any member of the testing community interested in exploring how accurately a software system can calculate
+    			  Stage 1 Meaningful Use Clinical Quality Measures.
+    			</p>
     			
-    			<dt>How can Cypress be used by EHR vendors?</dt>
-    			<dd>Cypress is a free open source tool that is readily available for EHR vendors to download and test their system's ability to accurately calculate the Stage 1 Meaningful Use Clinical Quality Measures. Cypress has been designed to make this internal testing and validation process easier for EHR software vendors. It is unlikely that a vendor would want to integrate the Cypress testing software with their product.</dd>
+    			<h2>How can Cypress be used by EHR vendors?</h2>
+    			<p>
+    			  Cypress is a free open source tool that is readily available for EHR vendors to download and test their system's ability to accurately calculate the
+    			  Stage 1 Meaningful Use Clinical Quality Measures. Cypress has been designed to make this internal testing and validation process easier for EHR software vendors.
+    			  It is unlikely that a vendor would want to integrate the Cypress testing software with their product.
+    			</p>
     			
-    			<dt>Is Cypress used to report EHR Stage 1 Meaningful Use Clinical Quality Measure data?</dt>
-    			<dd>No. Cypress is designed to test the data calculations that would be used in such a report. Cypress would ensure that the software used to produce the report is calculating the Stage 1 Meaningful Use Clinical Quality Measures correctly, but is not designed to export the report itself.</dd>
+    			<h2>Is Cypress used to report EHR Stage 1 Meaningful Use Clinical Quality Measure data?</h2>
+    			<p>No. Cypress is designed to test the data calculations that would be used in such a report. Cypress would ensure that the software used to produce
+    			  the report is calculating the Stage 1 Meaningful Use Clinical Quality Measures correctly, but is not designed to export the report itself.
+    			</p>
     			
-    			<dt>Can Cypress be used to demonstrate Meaningful Use?</dt>
-    			<dd>No. Cypress could be a supporting software tool to help test EHR systems and EHR modules for accurate calculation of Stage 1 Meaningful Use Clinical Quality Measures. Eligible health care professionals can qualify for incentive payments under the Stage 1 Meaningful Use program when they adopt certified EHR technology and use it to achieve specified objectives. One of those specified objectives that an eligible provider must meet is to report on Stage 1 Meaningful Use Clinical Quality Measures.
-Cypress could be a tool used to verify that an EHR software product is calculating those Stage 1 Meaningful Use Clinical Quality Measures correctly. However, Cypress cannot support an eligible provider's demonstration of Stage 1 Meaningful Use Clinical Quality Measure reporting.</dd>
-    		</dl>
-    	</section>
+    			<h2>Can Cypress be used to demonstrate Meaningful Use?</h2>
+    			<p>No. Cypress could be a supporting software tool to help test EHR systems and EHR modules for accurate calculation of
+    			  Stage 1 Meaningful Use Clinical Quality Measures. Eligible health care professionals can qualify for incentive payments under the Stage 1 Meaningful Use
+    			  program when they adopt certified EHR technology and use it to achieve specified objectives. One of those specified objectives that an eligible provider must
+    			  meet is to report on Stage 1 Meaningful Use Clinical Quality Measures.
+    			</p>
+    			<p>
+    			  Cypress could be a tool used to verify that an EHR software product is calculating those Stage 1 Meaningful Use Clinical Quality Measures correctly.
+    			  However, Cypress cannot support an eligible provider's demonstration of Stage 1 Meaningful Use Clinical Quality Measure reporting.
+    			</p>
+    	  </section>
       </div>
     </section>
+    
     <section class="legend">
       <dl>
         <dt>Error Report Indicators:</dt>
@@ -61,5 +103,5 @@ Cypress could be a tool used to verify that an EHR software product is calculati
         <dd class="fail">failing
       </dl>
     </section>
-</div>
+  </div>
 </div><!-- end #container -->

@@ -3,34 +3,36 @@
 
   <div>
     <section class="tb">
-      <%= link_to "add EHR vendor", new_vendor_path, {:class=>"cmd"} %>
-      <%= link_to "master patient list", patients_path, {:class=>"cmd"} %>
-      
+      <%= link_to "Master Patient List", patients_path, { :class => "cmd" } %>
+      <nav class="breadcrumb">
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
+        <span>help</span>
+      </nav>
     </section>
 
-    <section id="help>
-      <div>
-        <section class="nqf">
-      		<h2 class="static-header">Help</h2>
-    	</section>
-    	
-    	<section class="free-text">
-    		<dl>
-    		<dd>Please send questions regarding Cypress to <a href="mailto:talk@projectcypress.org"><span style="color:#336633"><b>talk@projectcypress.org</b></span></a>.</dd>
-    		 <dd>For information about EHR certification: <a href="http://healthit.hhs.gov/portal/server.pt/community/healthit_hhs_gov__home/1204">Office of the National Coordinator </a></dd>
-            <dd>For information about Stage 1 Meaningful Use Clinical Quality Measures: <a href="https://www.cms.gov/QualityMeasures/">Centers for Medicare and Medicaid Services </a></dd>
-            <dd>For information about certified health IT products: <a href="http://onc-chpl.force.com/ehrcert">Certified Health IT Product List </a></dd>
-            </dl>
-    	</section>
+    <section id="help">
+      <div>	
+    	  <section class="free_text">
+    		  <p>
+    		    Please send questions regarding Cypress to <a class="mailing_list" href="mailto:talk@projectcypress.org">talk@projectcypress.org</a>.
+    		    Here are other useful sources relevant to the project:
+    		  </p>
+    		  <ul>
+    		    <li>For information about EHR certification: <a href="http://healthit.hhs.gov/portal/server.pt/community/healthit_hhs_gov__home/1204">Office of the National Coordinator </a></li>
+            <li>For information about Stage 1 Meaningful Use Clinical Quality Measures: <a href="https://www.cms.gov/QualityMeasures/">Centers for Medicare and Medicaid Services </a></li>
+            <li>For information about certified health IT products: <a href="http://onc-chpl.force.com/ehrcert">Certified Health IT Product List </a></li>
+          </ul>
+    	  </section>
       </div>
     </section>
+    
     <section class="legend">
       <dl>
         <dt>Error Report Indicators:</dt>
-        <dd class="pass">passing
-        <dd class="na">insufficient info
-        <dd class="fail">failing
+        <dd class="pass">passing</dd>
+        <dd class="na">insufficient info</dd>
+        <dd class="fail">failing</dd>
       </dl>
     </section>
-</div>
+  </div>
 </div><!-- end #container -->

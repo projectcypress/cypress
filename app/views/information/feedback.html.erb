@@ -3,28 +3,38 @@
 
   <div>
     <section class="tb">
-      <%= link_to "add EHR vendor", new_vendor_path, {:class=>"cmd"} %>
-      <%= link_to "master patient list", patients_path, {:class=>"cmd"} %>
-      
+      <%= link_to "Master Patient List", patients_path, { :class => "cmd" } %>
+      <nav class="breadcrumb">
+        <%= link_to "Certification Dashboard", root_path %> &raquo;
+        <span>feedback</span>
+      </nav>
     </section>
 
-    <section id="feedback>
+    <section id="feedback">
       <div>
-        <section class="nqf">
-      		<h2 class="static-header">Feedback</h2>
-    	</section>
-    	
-    	<section class="free-text">
-    		<dl>
-    			<dt>Where do I send questions about Cypress?</dt>
-    			<dd>There are three email distribution lists which may also be used to request information about the project's plans and activities. These lists are:</dd>
-    			<dd><a href="mailto:announcements@projectcypress.org"><span style="color:#336633"><b>announcements@projectcypress.org</b></span></a> which anyone can subscribe to.  Messages to this list are limited to the Cypress governing organizations.</dd>
-    			<dd><a href="mailto:talk@projectcypress.org"><span style="color:#336633"><b>talk@projectcypress.org</b></span></a> which like the announcement list, anyone can subscribe to.  Additionally, anyone is free to submit questions about the project to this list.  To prevent spam, all messages are first reviewed by the project team before being forwarded to the distribution list.</dd>
-    			<dd><a href="mailto:dev@projectcypress.org"><span style="color:#336633"><b>dev@projectcypress.org</b></span></a> is used exclusively for software development questions.  Membership to this list is also open to anyone.  However, we encourage individuals to limit participation in this list those that are active software engineers.  Likewise, anyone is free to submit questions about the project to this list.  Similarly, to prevent spam, all messages are first reviewed by the project team before being forwarded to the distribution list.</dd>
-    		</dl>
-    	</section>
+    	  <section class="free_text">
+          <p>There are three email distribution lists which may also be used to request information about the project's plans and activities. These lists are:</p>
+          <ul>
+            <li>
+              <a class="mailing_list" href="mailto:announcements@projectcypress.org">announcements@projectcypress.org</a> -
+              Messages to this list are limited to the Cypress governing organizations. Anyone can subscribe.
+            </li>
+    			  <li>
+    			    <a class="mailing_list" href="mailto:talk@projectcypress.org">talk@projectcypress.org</a> -
+    			    Anyone is free to submit questions about the project to this list. To prevent spam, all messages are first reviewed by the project team before
+    			    being forwarded to the distribution list. This list is also open to everyone.
+    			  </li>
+    			  <li>
+    			    <a class="mailing_list" href="mailto:dev@projectcypress.org">dev@projectcypress.org</a> -
+    			    This list is used exclusively for software development questions. Again, membership to this list is open to everyone. However, we encourage individuals to
+    			    limit participation in this list to those that are active software engineers. Anyone is free to submit questions about the project to this list, but
+    			    to prevent spam, all messages are first reviewed by the project team before being forwarded to the distribution list.
+    			  </li>
+    		  </ul>
+    	  </section>
       </div>
     </section>
+    
     <section class="legend">
       <dl>
         <dt>Error Report Indicators:</dt>
@@ -33,5 +43,5 @@
         <dd class="fail">failing
       </dl>
     </section>
-</div>
+  </div>
 </div><!-- end #container -->

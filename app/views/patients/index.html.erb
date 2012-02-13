@@ -1,40 +1,39 @@
 <% content_for :head do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      <% if @vendor %>
-          <% if @result['numerator']=='?' %>
-            $.cypress.addPoll("<%= patients_path(:measure_id=>@selected.id, :vendor_id=>@selected.id ) %>", "<%= table_patients_path(:measure_id=>@selected.id, :vendor_id=>@selected.id) %>")             
-          <% else %>
-            $.cypress.updatePatientTable("<%= table_patients_path(:measure_id=>@selected.id, :vendor_id=>@vendor.id) %>")
-          <% end %>
-          
+      <% if @test %>
+        <% if @result['numerator']=='?' %>
+          $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id, :product_test_id => @test.id ) %>",
+                            "<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id) %>")             
         <% else %>
-        
-          <% if @result['numerator']=='?' %>
-            $.cypress.addPoll("<%= patients_path(:measure_id=>@selected.id ) %>", "<%= table_patients_path(:measure_id=>@selected.id) %>")
-          <% else %>
-            $.cypress.updatePatientTable("<%= table_patients_path(:measure_id=>@selected.id) %>")
-          <% end %>
-          
+          $.cypress.updatePatientTable("<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id) %>")
+        <% end %>
+      <% else %>
+        <% if @result['numerator']=='?' %>
+          $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id ) %>", "<%= table_patients_path(:measure_id => @selected.id) %>")
+        <% else %>
+          $.cypress.updatePatientTable("<%= table_patients_path(:measure_id => @selected.id) %>")
+        <% end %>
       <% end %>
     });
   </script>
 <% end %>
+
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
   <div>
     <section class="tb">
-      <% if @vendor
-        zip_c32_path = zipc32_vendor_path(@vendor.id)
-        zip_ccr_path = zipccr_vendor_path(@vendor.id)
-        csv_path = csv_vendor_path(@vendor.id)
-        zip_html_path = ziphtml_vendor_path(@vendor.id)      
+      <% if @test
+        zip_c32_path = download_patients_path(@test.id, :format => 'c32')
+        zip_ccr_path = download_patients_path(@test.id, :format => 'ccr')
+        csv_path = download_patients_path(@test.id, :format => 'csv')
+        zip_html_path = download_patients_path(@test.id, :format => 'html')
       else
-        zip_c32_path = zipc32_patients_path
-        zip_ccr_path = zipccr_patients_path
-        csv_path = csv_patients_path
-        zip_html_path = ziphtml_patients_path
+        zip_c32_path = download_patients_path(:format => 'c32')
+        zip_ccr_path = download_patients_path(:format => 'ccr')
+        csv_path = download_patients_path(:format => 'csv')
+        zip_html_path = download_patients_path(:format => 'html')
       end %>
       
       <%= link_to 'Download', '', {
@@ -59,13 +58,24 @@
       </ul>
     
       <nav class="breadcrumb">
-        <%= link_to "Certification Dashboard", root_path %> &raquo;
-        <span><%= @vendor.name if @vendor %> Master Patient List</span>
+        <% if @test %>
+          <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
+          <%= link_to @product.name, product_path(@product) %> &raquo;
+          <%= link_to @test.name, product_test_path(@test) %>
+        <% else %>
+          <%= link_to "Certification Dashboard", root_path %>
+        <% end %>
       </nav>
     </section>
     
     <section class="nqf">
-      <h2><%= @vendor.name if @vendor %> Master Patient List</h2>
+      <h2>
+        <% if @test %>
+          <%= @test.name %> Patient List
+        <% else %>
+          Master Patient List
+        <% end %>
+      </h2>
     </section>
     
     <div class="tabs">
@@ -75,7 +85,7 @@
           <li><b><%= category %></b></li>
           <% measures.each do |measure_def| %>
             <li>
-              <a href="<%= patients_path(:measure_id=>measure_def.id) %>"
+              <a href="<%= patients_path(:product_test_id => @test, :measure_id=>measure_def.id) %>"
                 title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
                 class="<%= 'selected' if @selected.id==measure_def.id %>"><%= "#{measure_def['id']}#{measure_def.sub_id}" %>
               </a>
@@ -107,7 +117,7 @@
         </dl>
       </section>
     
-      <section id="vendor_patients">
+      <section id="product_test_patients">
       </section>
     </section>
   </div>

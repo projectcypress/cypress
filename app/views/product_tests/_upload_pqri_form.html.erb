@@ -1,0 +1,18 @@
+<div id="upload_pqri_dialog">
+  <%= form_for([:process_pqri, @test], :html => {:method => :post, :multipart => true}) do |f| %>
+    <table>
+      <tbody>
+        <tr>
+          <td class="first"></td>
+          <td><%= f.label '', "PQRI File", :for => :vendor_pqri %></td>
+          <td><%= f.file_field :pqri %></td>
+        </tr>
+        <tr id="advanced_options" class="hidden">
+          <td></td>
+          <td><%= f.label '', "Baseline PQRI File", :for => :vendor_pqri %></td>
+          <td><%= f.file_field :baseline %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>

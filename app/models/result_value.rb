@@ -13,5 +13,4 @@ class ResultValue
   field :population, type: Boolean
   field :measure_id, type: String
   field :sub_id, type: String
-
 end
