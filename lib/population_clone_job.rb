@@ -22,8 +22,8 @@ module Cypress
 
       # If we're using the core subset, use the core 20 patients
       if options['subset_id'] != "all"
-        patient_population = PatientPopulation.where(:name => options['subset_id'])
-        ama_patients = ama_patients.any_in("patient_id" => patient_population)
+        patient_population = PatientPopulation.where(:id => options['subset_id']).first
+        ama_patients = Record.where(:patient_id.in => patient_population.ids)
       end
       
       rand_prefix = Time.new.to_i
