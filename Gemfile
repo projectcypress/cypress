@@ -9,7 +9,6 @@ gem 'devise'
 gem 'simple_form'
 gem 'nokogiri', '~> 1.4.4' 
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
-gem 'less'
 gem 'pry'
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"

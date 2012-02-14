@@ -34,6 +34,7 @@ Cypress::Application.routes.draw do
   get "/information/feedback"
   get "/information/help"
   
+  get '/services/index'
   post '/services/validate_pqri'
 
   
