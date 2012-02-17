@@ -63,11 +63,11 @@
       <% if action_name == "new" %>
         <h2>Bring Your Own Data</h2>
         <dl>
-          <dt><%= label_tag :byod_label, "upload .zip of C32s:" %></dt>
+          <dt><%= label_tag :byod_label, "upload .zip of records:" %></dt>
           <dd><%= file_field_tag :byod %></dd>
         </dl>
         <dl>
-          <dt>format:</dt>
+          <dt>as:</dt>
           <dd>
             <%= f.radio_button :upload_format, "c32",
               :checked => (@test[:upload_format] == nil || @test[:upload_format] == "c32") %>
