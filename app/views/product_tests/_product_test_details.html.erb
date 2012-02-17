@@ -37,14 +37,14 @@
       </dd>
     </dl>
   </section>
-  
+
   <% if action_name == 'new' %>
     <h1>Patient Population</h1>
     <section id="testProfile">
       <dl>
         <dt>patients:</dt>
         <dd>
-          <%= f.radio_button :patient_population, "all", 
+          <%= f.radio_button :patient_population, "all",
             :checked => (@test[:patient_population] == nil || @test[:patient_population] == "all") %>
           <%= f.label :patient_population_id_all, "all" %>
           <%= f.radio_button :patient_population,"core20" %>
@@ -66,12 +66,23 @@
           <dt><%= label_tag :byod_label, "upload .zip of C32s:" %></dt>
           <dd><%= file_field_tag :byod %></dd>
         </dl>
+        <dl>
+          <dt>format:</dt>
+          <dd>
+            <%= f.radio_button :upload_format, "c32",
+              :checked => (@test[:upload_format] == nil || @test[:upload_format] == "c32") %>
+            <%= f.label :upload_format_c32, "C32" %>
+            <%= f.radio_button :upload_format, "ccr", :checked => @test[:upload_format] == "ccr"%>
+            <%= f.label :upload_format_ccr, "CCR" %>
+          </dd>
+        </dl>
+
       <% end %>
     </section>
 
     <h1>Test Measures
       <span class="header_commands">
-        [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> | 
+        [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> |
         <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]
       </span>
     </h1>
@@ -79,18 +90,18 @@
       <% @measures_categories.sort.each do |category, measures| %>
         <div>
           <dl>
-            <dt><%= category %> 
+            <dt><%= category %>
               <span class="header_commands">
-                [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" '", "_") %>')">check all</a> | 
+                [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" '", "_") %>')">check all</a> |
                 <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category.tr(" '", "_") %>');">uncheck all</a>]
               </span>
             </dt>
-            <dd><%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>category.tr(" '", "_")} %></dd>  
+            <dd><%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>category.tr(" '", "_")} %></dd>
           </dl>
         </div>
       <% end %>
     </section>
   <% end %>
-  
+
   <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();"><%= submit_text %></a>
 <% end %>

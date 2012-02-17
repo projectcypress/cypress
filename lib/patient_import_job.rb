@@ -11,8 +11,13 @@ module Cypress
       Zip::ZipFile.foreach(options['zip_file_location']) do |zip_entry|
         if zip_entry.name.include?('.xml') && ! zip_entry.name.include?('__MACOSX')
           doc = Nokogiri::XML(zip_entry.get_input_stream)
-          doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-          patient = HealthDataStandards::Import::C32::PatientImporter.instance.parse_c32(doc)
+          if options['format'] == 'ccr' then
+            doc.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
+            patient = HealthDataStandards::Import::CCR::PatientImporter.instance.parse_ccr(doc)
+          else
+            doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+            patient = HealthDataStandards::Import::C32::PatientImporter.instance.parse_c32(doc)
+          end
           
           patient.test_id = options['test_id']
           

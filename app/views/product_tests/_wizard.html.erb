@@ -35,10 +35,10 @@
     var cache = {}; // caching inputs for the visited steps
 
     $(document).ready(function() {
-      $('.date').datepicker();
+      $('.date').datepicker().css({'width':'100px'});
 
       // for styling the vertical tabs
-      $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');
+      $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix').css({"width":"80%","margin-left":"10%"});
       $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
 
       // establish the form wizard
@@ -48,12 +48,14 @@
         focusFirstInput : true,
         formOptions :{
           success: function(data){$('#new_product_test').submit(); },
-          beforeSubmit: function(data){console.debug("data sent to the server: " + $.param(data));},
+          beforeSubmit: function(data){
+            console.debug("data sent to the server: " + $.param(data));
+          },
           dataType: 'json',
           resetForm: true
         },
         textSubmit: 'Done',
-        disableUIStyles: false
+        disableUIStyles: true
       }).bind("step_shown", function(event,data){ //TODO still need to hook up validation
         if(data.isLastStep){ // if this is the last step...then
           $("#summaryContainer").empty(); // empty the container holding the
@@ -75,9 +77,10 @@
         }
       })
 
-      $('.navigation_button').button();
+      $('.cmd').button();
       $('.link').button().css({"width":"90%","margin-left":"5%","height":"5em"});
-
+      $('label.workflow').css({"width":"120px","text-align":"center"});
+    
       // for handling the selection of measures from groups
       $('#all_measures').click(function () {
         $('#wizard-measures-screen input:checkbox').prop('checked', $(this).prop('checked'));
@@ -118,14 +121,15 @@
         Test Name:
       </dt>
       <dd>
-        <%= f.text_field :name, :size=>"80", :class=>"xrequired", :title=>"Choose a name for the new test"%>
+        <%= f.text_field :name, :size=>120, :class=>"xrequired", :title=>"Choose a name for the new test"%>
       </dd>
       <dt>
         Reporting Period:
       </dt>
       <dd>
-        <span class="date_range">
+        <span class="date_range">from
           <input type="text" class="date" id="effective_date_start" name="product_test[effective_date_start]" size="8" value="<%= Time.at(@period_start).strftime("%m/%d/%Y") %>"/>
+          to
           <input type="text" class="date" id="effective_date_end" name="product_test[effective_date_end]" size="8" value="<%= Time.at(@effective_date).strftime("%m/%d/%Y") %>"/>
         </span>
       </dd>
@@ -138,48 +142,33 @@
     </dl>
 
     <h2>Please select a workflow option...</h2>
-    <section>
-      <dl>
-        <dt>
-          <input id="wf1" type="radio" name="workflow" class="link" value="wizard-measures-screen" /><label for="wf1">Manual entry</label>
-        </dt>
-        <dd>description 1...
-          <!--
-          <ul>
-            <li>export patient data from cypress as HTML</li>
-            <li>manually enter the patient data into EHR</li>
-            <li>export quality report from EHR as PQRI</li>
-            <li>import quality report into cypress</li>
-          </ul>
-          -->
-        </dd>
-        <dt>
-          <input id="wf2" type="radio" name="workflow" class="link" checked="checked" value="wizard-measures-screen" /><label for="wf2">Automated</label>
-        </dt>
-        <dd>description 2...
-          <!--
-          <ul>
-            <li>export patient data from cypress as C32s or CCRs</li>
-            <li>import patient data into EHR</li>
-            <li>export quality report from EHR as PQRI</li>
-            <li>import quality report into cypress</li>
-          </ul>
-          -->
-        </dd>
-        <dt>
-          <input id="wf3" type="radio" name="workflow" class="link" value="wizard-byod-screen" /><label for="wf3">Use my data</label>
-        </dt>
-        <dd>
-          Description 3...
-          <!--
-          <ul>
-             <li>export patient data from EHR as C32s</li>
-             <li>export quality report from EHR as PQRI</li>
-             <li>import both items to cypress</li>
-           </ul>
-          -->
-        </dd>
-      </dl>
+    <section style="text-align:left;">
+      <p>
+        <input id="wf1" type="radio" name="workflow" class="link" value="wizard-measures-screen" />
+        <label for="wf1" class="workflow">Manual entry</label><br/>
+        With the "manual entry" workflow you will export a subset of the cypress patient records in
+        standard HTML or CSV format.  Then someone from your team can enter that data into the EHR and produce a physician summary
+        report in XML (PQRI format).  Following that, you will return to cypress and import the report you generated to see how your
+        quality measure calculations compare to those produced by cypress.
+      </p>
+      <br/>
+      <p>
+        <input id="wf2" type="radio" name="workflow" class="link" checked="checked" value="wizard-measures-screen" />
+        <label for="wf2" class="workflow">Automated entry</label><br/>
+        With the "automated entry" workflow you will be able to download Cypress patient records (or a subset thereof) in CCR or C32 format.
+        Then you can upload those records into your EHR and produce a physician summary
+        report in XML (PQRI format).  Following that, you will upload the report you generated into Cypress to see how your
+        quality measure calculations compare.
+      </p>
+      <br/>
+      <p>
+        <input id="wf3" type="radio" name="workflow" class="link" value="wizard-byod-screen" />
+        <label for="wf3" class="workflow">Use my data</label><br/>
+        With the "use my data" approach you will not be leveraging the Cypress provided patient records.  Instead, you elect to
+        upload "synthetic" patients from your EHR in CCR or C32 format into cypress.  Once that is done you
+        will need to provide a physician summary report in XML (PQRI format) that covers that same set of patients.  Cypress will
+        run its report generation over those same patients and you can compare the results to those uploaded from your EHR.
+      </p>
     </section>
   </section>
 
@@ -205,19 +194,23 @@
 
   <section id="wizard-patients-screen" class="step">
     <h2 class="ui-widget-title">Select patient records to use...</h2>
-    <div>
-      Test <%= collection_select(:patient_population, :id, @patient_populations, :id, :name) %>
-
-    </div>
+    <section>
+      Cypress has a number of pre-defined patient populations to choose from.  In the future you will be able to define your own
+      subset of the available patient records for your test.  Currently we offer the full 225 test patients or a subset(20) of them
+      designed to test the core and core alternate quality measures.
+      <p style="text-align:center;">
+        <%= f.collection_select(:patient_population, @patient_populations, :name, :description, {:prompt =>"Choose a population"}, {:size => 4}) %>
+      </p>
+    </section>
 
     <input type="hidden" class="link" value="wizard-summary-screen"/>
     <br/>
-    <div>
+    <section>
       Patient test mode:
       <select>
         <option>name randomization</option>
       </select>
-    </div>
+    </section>
   </section>
 
   <section id="wizard-byod-screen" class="step">
@@ -229,13 +222,13 @@
   </section>
 
   <section id="wizard-summary-screen" class="step submit_step">
-    <span class="font_normal_07em_black">Summary page</span><br />
+    <h2 class="ui-widget-title">Summary page</h2>
     <p>Please verify your information below.</p>
     <div id="summaryContainer"></div>
   </section>
 
   <div id="navigation">
-    <input class="navigation_button" id="back" value="Back" type="reset" />
-    <input class="navigation_button" id="next" value="Next" type="submit" />
+    <input class="cmd" id="back" value="Back" type="reset" />
+    <input class="cmd" id="next" value="Next" type="submit" />
   </div>
 <% end %>
