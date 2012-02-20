@@ -1,16 +1,15 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
-gem 'rake', '~> 0.8.7'
-gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
+gem 'jquery-rails'
+gem 'rake'
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'master'
 gem 'bson_ext', :platforms => :mri
 gem 'mongoid', '~> 2.0'
 gem 'devise'
 gem 'simple_form'
 gem 'nokogiri', '~> 1.4.4' 
-#gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master', :tag => 'v0.1'
-gem 'health-data-standards', :git => 'https://github.com/ssayer/health-data-standards.git', :branch => 'master'
-gem 'less'
+gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 gem 'pry'
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
@@ -21,13 +20,17 @@ group :assets do
   gem 'uglifier'
 end
 
-gem 'jquery-rails'
-
-group :test do
+group :test, :develop do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'minitest'
   gem 'cover_me', '>= 1.0.0.rc6'
+end
+
+group :production do
+  # Is there an easy way to say "all platforms except :mswin, :mingw" without
+  # explicitly listing all other platforms?
+  gem 'therubyracer', :platforms => [:ruby, :jruby]
 end
 
 # Bundle edge Rails instead:

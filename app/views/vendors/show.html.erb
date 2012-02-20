@@ -1,3 +1,24 @@
+<% content_for :head do -%>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".expander").toggle(
+        function() {
+          $(this).addClass('open');
+          var codeElement = $(this).data('code');
+          var codes = $("." + codeElement);
+          codes.show();
+        },
+        function() {
+          $(this).removeClass('open');
+          var codeElement = $(this).data('code');
+          var codes = $("." + codeElement);
+          codes.hide();
+        });
+      }
+    );
+  </script>
+<% end %>
+
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
@@ -47,17 +68,44 @@
           <% result_products.each do |product| %>
             <% success_rate = product.success_rate
             dot_color = result_status
-            dot_color = 'na' if product.product_tests.empty? %>
+            dot_color = 'na' if product.product_tests.empty?
+            if !product.product_tests.empty? 
+              first_td_class = 'expander toggle'
+              dot_color = result_status
+            else
+              dot_color = 'na'
+            end %>
             <tbody>
               <tr>
                 <td><div title="<%= success_rate %>%" class="<%= dot_color %>"><%= success_rate %></div></td>
-                <td></td>
+                <td class="<%= first_td_class %>" data-code="<%= product.id %>"></td>
                 <td class="<%= result_status %>"><a href="<%= product_path(product) %>"><%= product.name %></a></td>
                 <td><%= product.description %></td>
                 <td><span class="<%= dot_color %>"><%= product.count_passing %></span> <span class="q">/ <%= product.product_tests.size %></span></td>
                 <td></td>
                 <td><%= link_to 'delete', product_path(product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>                
               </tr>
+              <% if !product.product_tests.empty?
+                product.product_tests.each do |test|
+                  if test.passing?
+                    test_status = 'pass'
+                    test_success_rate = 100
+                  else
+                    test_status = 'fail'
+                    test_success_rate = 0
+                  end %>
+                  
+                  <tr class="sub_rows <%= product.id %>">
+                    <td></td>
+                    <td title="<%= test_success_rate %>%" class="<%= test_status %>"></td>
+                    <td class="<%= test_status %>"><a href="<%= product_test_path(test) %>"><%= test.name %></a></td>
+                    <td><span class="<%= test_status %>"><%= test.test_executions.size %><span class="q"> executions</span></td>
+                    <td></td>
+                    <td></td>
+                    <td><%= link_to 'delete', product_path(product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                  </tr>
+                <% end %>
+              <% end %>
             </tbody>
           <% end %>
         <% end %>

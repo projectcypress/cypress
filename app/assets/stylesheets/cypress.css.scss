@@ -98,7 +98,7 @@ a.cmd {
   cursor:pointer;
   font-size:80%;
   behavior: url(/assets/PIE.htc);
-  /*width:100px;*/
+  width:100px;
 }
 
 a.cmd:hover {background-color:#a7c98a  + #444;}
@@ -778,6 +778,8 @@ footer#ccattribution {
 .free_text p { margin-bottom: 10px; }
 .free_text ul { margin-left: 25px; }
 .directions { text-align: center; }
+.directions ol { padding-left: 200px }
+.directions ol li { text-align: left; }
 
 #services {
   border-top: 1px solid #CCCCCC;

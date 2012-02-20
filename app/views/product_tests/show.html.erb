@@ -126,10 +126,14 @@
       <section class="free_text">
         <div class="directions">
           <p>
-            "<%= @test.name %>" has not been run yet but below are the expected results for your patient population. Try downloading these records in
-            C32, CCR, CSV, or HTML format from the "Download" link above and running them through <%= @product.name %>. You can then export the results
-            as a PQRI document and return them to Cypress using the "Upload Results" link above.
+            Below are the expected results for your patient population.  You must perform the following steps to complete your test:
           </p>
+          <ol>
+            <li>Download these records in C32, CCR, CSV, or HTML format from the "Download" link above</li>
+            <li>Import them into <%= @product.name %></li>
+            <li>Export the results as a PQRI document</li>
+            <li>Return them to Cypress using the "Upload Results" link above.</li>
+          </ol>
         </div>
       </section>
     <% end %>

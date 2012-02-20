@@ -95,5 +95,5 @@
 })( jQuery );
 
 $(document).ready(function() {
-  $('.cmd').button().css({'color':'green'});
+  //$('.cmd').button().css({'color':'green'});
 })
