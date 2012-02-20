@@ -13,10 +13,7 @@ module Cypress
           doc = Nokogiri::XML(zip_entry.get_input_stream)
           if options['format'] == 'ccr' then
             doc.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
-            puts 'here'
-            binding.pry
             patient = HealthDataStandards::Import::CCR::PatientImporter.instance.parse_ccr(doc)
-            puts 'out'
           else
             doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
             patient = HealthDataStandards::Import::C32::PatientImporter.instance.parse_c32(doc)
@@ -25,7 +22,6 @@ module Cypress
           patient.test_id = options['test_id']
           
           QME::Importer::MeasurePropertiesGenerator.instance.generate_properties!(patient)
-          puts 'done'
         end
       end
       
