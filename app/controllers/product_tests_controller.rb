@@ -56,8 +56,9 @@ class ProductTestsController < ApplicationController
       # If the user brought their own data, kick off a PatientImportJob. Store the file temporarily in /tmp
       uploaded_file = params[:byod].tempfile
       byod_path = "/tmp/byod_#{test.id}_#{Time.now.to_i}"
+      format = params[:product_test][:upload_format]
       File.rename(File.path(uploaded_file), byod_path)
-      Cypress::PatientImportJob.create(:zip_file_location => byod_path, :test_id => test.id)
+      Cypress::PatientImportJob.create(:zip_file_location => byod_path, :test_id => test.id, :format => format)
     else
       # Otherwise we're making a subset of the Test Deck
       Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)  

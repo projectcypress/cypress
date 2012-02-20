@@ -1,5 +1,6 @@
 pdf.text "Test Results Produced by Project Cypress - projectcypress.org\n\n"
 pdf.text  "Candidate EHR: #{@vendor.name}" 
+pdf.text  "Vendor ID: #{@vendor.vendor_id}" 
 pdf.text "EHR POC: #{@vendor.poc}"
 pdf.text "E-mail: #{@vendor.email}"
 pdf.text "Phone: #{@vendor.tel}\n\n"

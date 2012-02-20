@@ -1,3 +1,24 @@
+<% content_for :head do -%>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".expander").toggle(
+        function() {
+          $(this).addClass('open');
+          var codeElement = $(this).data('code');
+          var codes = $("." + codeElement);
+          codes.show();
+        },
+        function() {
+          $(this).removeClass('open');
+          var codeElement = $(this).data('code');
+          var codes = $("." + codeElement);
+          codes.hide();
+        });
+      }
+    );
+  </script>
+<% end %>
+
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
@@ -12,13 +33,8 @@
 
     <section class="candidate">  
       <p>
-        Welcome to Cypress! This is the Certification Dashboard that indexes all EHR vendors that are being tested. You can explore the complete Cypress Test Deck
-        by clicking on "Master Patient List" above.
-        <% if @vendors['pass'].empty? && @vendors['fail'].empty? %>
-          To begin testing, click on the "Add EHR Vendor" button.
-        <% else %>
-          Below you can see the current testing status of each vendor that has been added to the system.
-        <% end %>
+        Welcome to Cypress! This is the Certification Dashboard that displays the names of the EHR vendors and the status of their products being tested.
+        You can begin by adding an EHR vendor or simply explore the complete Cypress Test Deck by clicking on "Master Patient List" above.
       </p>
     </section>
 
@@ -38,17 +54,42 @@
           <% result_vendors.each do |vendor| %>
             <% success_rate = vendor.success_rate
             dot_color = result_status
-            dot_color = "na" if vendor.products.empty? %>
+            dot_color = "na" if vendor.products.empty?
+            if !vendor.products.empty? 
+              first_td_class = 'expander toggle'
+              dot_color = result_status
+            else
+              dot_color = 'na'
+            end %>
             <tbody>
               <tr>
                 <td><div title="<%= success_rate %>%" class="<%= dot_color %>"><%= success_rate %></div></td>
-                <td></td>
+                <td class="<%= first_td_class %>" data-code="<%= vendor.id %>"></td>
                 <td class="<%= result_status %>"><a href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a></td>
                 <td><span class="<%= dot_color %>"><%= vendor.count_passing %></span> <span class="q">/ <%= vendor.products.size %></span></td>
                 <td><%= vendor.poc %></td>
                 <td><%= vendor.proctor %></td>
                 <td><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
               </tr>
+              <% if !vendor.products.empty?
+                vendor.products.each do |product|
+                  if product.passing?
+                    product_status = 'pass'
+                  else
+                    product_status = 'fail'
+                  end %>
+                  
+                  <tr class="sub_rows <%= vendor.id %>">
+                    <td></td>
+                    <td title="<%= product.success_rate %>%" class="<%= product_status %>"></td>
+                    <td class="<%= product_status %>"><a href="<%= product_path(product) %>"><%= product.name %></a></td>
+                    <td><span class="<%= product_status %>"><%= product.count_passing %><span class="q"> / <%= product.product_tests.size %> tests passed</span></td>
+                    <td></td>
+                    <td></td>
+                    <td><%= link_to 'delete', product_path(product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                  </tr>
+                <% end %>
+              <% end %>
             </tbody>
           <% end %>
         <% end %>

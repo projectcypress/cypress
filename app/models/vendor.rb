@@ -14,6 +14,7 @@ class Vendor
   field :email, type: String
   field :tel, type: String
   field :fax, type: String
+  field :vendor_id, type: String
   field :accounts_poc, type: String
   field :accounts_email, type: String
   field :accounts_tel, type: String
