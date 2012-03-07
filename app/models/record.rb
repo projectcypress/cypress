@@ -4,7 +4,6 @@ class Record
   include Mongoid::Document
   
   has_and_belongs_to_many :patient_population
-  has_many :results
   
   field :measures, type: Hash
 end

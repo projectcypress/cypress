@@ -12,6 +12,7 @@ class ProductTestsController < ApplicationController
     @vendor = @product.vendor
     @patients = Record.where(:test_id => @test.id)
     
+    # Decide our current execution. Show the one requested, if any. Otherwise show the most recent, or a new one if none exist
     if !params[:execution_id].nil?
       @current_execution = TestExecution.find(params[:execution_id])
     elsif @test.test_executions.size > 0
@@ -20,15 +21,33 @@ class ProductTestsController < ApplicationController
       @never_executed_before = true
       @current_execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
     end
+    
+    # Calculate and categorize the passing and failing measures
     passing_measures = @current_execution.passing_measures
     failing_measures = @current_execution.failing_measures
     @measures = { 'fail' => failing_measures, 'pass' => passing_measures }
     
+    # Calculate the time remaining
+    @loading_progress = {}
+
+    # For the population to be cloned or imported
+    
+    # population_creation_job
+    # And for the measures to be calculated
+    @percent_completed = ((@test.measure_defs.size - @test.result_calculation_jobs.size).to_f / @test.measure_defs.size.to_f) * 100
+    
     respond_to do |format|
-      format.json { render :json => { 'test' => @test, 'results' => @current_execution.expected_results, 'patients' => @patients } }
+      # Don't send tons of JSON until we have results. In the meantime, just update the client on our calculation status.
+      format.json do
+        if @percent_completed < 100
+          render :json => { 'percent_completed' => @percent_completed }
+        else
+          render :json => {'test' => @test, 'results' => @current_execution.expected_results, 'percent_completed' => @percent_completed, 'patients' => @patients }
+        end
+      end
       format.html { render :action => "show" }
       
-      format.pdf { render :layout => false, :filename => "hello.pdf" }
+      format.pdf { render :layout => false }
       prawnto :filename => "#{@test.name}.pdf"
     end
   end
@@ -58,11 +77,13 @@ class ProductTestsController < ApplicationController
       byod_path = "/tmp/byod_#{test.id}_#{Time.now.to_i}"
       format = params[:product_test][:upload_format]
       File.rename(File.path(uploaded_file), byod_path)
-      Cypress::PatientImportJob.create(:zip_file_location => byod_path, :test_id => test.id, :format => format)
+      
+      test.population_creation_job = Cypress::PatientImportJob.create(:zip_file_location => byod_path, :test_id => test.id, :format => format)
     else
       # Otherwise we're making a subset of the Test Deck
-      Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)  
+      test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)  
     end
+    test.save!
     
     redirect_to product_test_path(test)
   end

@@ -5,7 +5,7 @@
   $.cypress.addPoll = function(url, table_url, resolution) {
     setTimeout(function() {
       $.cypress.pollResult(url, table_url, resolution);
-    }, 3000);
+    }, 2000);
   }
   
   $.cypress.updateResults = function(result) {
@@ -24,18 +24,25 @@
   $.cypress.pollResult = function(url, table_url, resolution) {
 
     $.getJSON(url, function(data) {
+      // Update the progress bar
+      if (data.percent_completed > 0)
+        $("#loading_progress .ui-progressbar-value").show();
+      $("#loading_progress .ui-progressbar-value").animate({ width: data.percent_completed + '%' }, 'slow');
+      
       var pollAgain = false;
       // data can be a single result row as returned by the measures controller
       // or a structure containing an array of results as returned by the vendor controller
       if (data.results) {
         // Vendor view page
-        for (i=0;i<data.results.length;i++) {
+        for (var i = 0; i < data.results.length; i++) {
           pollAgain |= $.cypress.updateResults(data.results[i]);
         }
         //poll until the patient records are populated
         if (data.patients.length < 1){
           pollAgain = true;
         }
+      } else if (data.percent_completed < 100) {
+        pollAgain = true;
       } else {
         // Measure view or master patient index
         pollAgain |= $.cypress.updateResults(data);
@@ -46,6 +53,7 @@
           }
         }
       }
+      
       if (pollAgain) {
         // true if any result is not yet available
         $.cypress.addPoll(url, table_url, resolution);

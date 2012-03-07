@@ -13,6 +13,9 @@ Devise.setup do |config|
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
   require 'devise/orm/mongoid'
+  
+  # Since version 2.0, we need to define our schema on our own
+  Devise.apply_schema = false
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is

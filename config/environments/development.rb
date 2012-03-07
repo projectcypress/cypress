@@ -27,4 +27,7 @@ Cypress::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  # Limit logging for when we're testing
+  #config.log_level = :error  
 end
