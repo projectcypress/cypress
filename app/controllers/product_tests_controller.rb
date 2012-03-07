@@ -71,7 +71,7 @@ class ProductTestsController < ApplicationController
     test.effective_date = Time.gm(2011, 3, 31).to_i # TODO - Use the start and end dates from the New form. This is a static, hardcoded effective data
     test.save!
     
-    if params[:byod]
+    if params[:byod] && Rails.env != 'production'
       # If the user brought their own data, kick off a PatientImportJob. Store the file temporarily in /tmp
       uploaded_file = params[:byod].tempfile
       byod_path = "/tmp/byod_#{test.id}_#{Time.now.to_i}"

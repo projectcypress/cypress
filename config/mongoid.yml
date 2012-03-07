@@ -1,15 +1,13 @@
-development:
-  host: localhost
-  database: cypress_development
-
 test:
   host: <%= ENV['TEST_DB_HOST'] || 'localhost' %>
   database: cypress_test
 
+development:
+  host: localhost
+  database: cypress_development
+
 # set these environment variables on your prod server
 production:
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
+  host: localhost
+  port: 27017
+  database: cypress_production
