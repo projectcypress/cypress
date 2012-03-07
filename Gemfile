@@ -1,18 +1,20 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.2'
 gem 'jquery-rails'
 gem 'rake'
 gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'master'
 gem 'bson_ext', :platforms => :mri
 gem 'mongoid', '~> 2.0'
-gem 'devise'
+gem 'devise', '~> 2.0'
 gem 'simple_form'
 gem 'nokogiri', '~> 1.4.4' 
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
-gem 'pry'
+#gem 'health-data-standards', :path => '../../shared/HealthDataStandards'
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
+gem 'pry'
+gem 'pry-nav'
 
 group :assets do
   gem 'sass-rails'
@@ -21,15 +23,12 @@ group :assets do
 end
 
 group :test, :develop do
-  # Pretty printed test output
   gem 'turn', :require => false
   gem 'minitest'
   gem 'cover_me', '>= 1.0.0.rc6'
 end
 
 group :production do
-  # Is there an easy way to say "all platforms except :mswin, :mingw" without
-  # explicitly listing all other platforms?
   gem 'therubyracer', :platforms => [:ruby, :jruby]
 end
 

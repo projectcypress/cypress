@@ -401,6 +401,14 @@ section#quality_measures {
   td:nth-child(-n+5) {text-align:center}
   td:nth-child(-n+2) {text-align:left}
 }
+#loading_progress {
+  margin-top: 30px;
+  border: 1px solid red;
+  .ui-progressbar-value { 
+    background: #EBFFCE;
+    border: 1px solid #539309;
+  }
+}
 
 section.measure {
   margin-top:10px;

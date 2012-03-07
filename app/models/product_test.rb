@@ -10,6 +10,8 @@ class ProductTest
   field :description, type: String
   field :effective_date, type: Integer
   field :measure_ids, type: Array
+  field :population_creation_job, type: String
+  field :result_calculation_jobs, type: Hash
   field :baseline_results, type: Hash
   field :reported_results, type: Hash
   field :validation_errors, type: Array

@@ -27,5 +27,13 @@ module Cypress
       
       File.delete(options['zip_file_location'])
     end
+    
+    def queued_imports
+      
+    end
+    
+    def completed_imports
+      
+    end
   end
 end

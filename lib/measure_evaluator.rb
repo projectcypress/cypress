@@ -9,11 +9,25 @@ module Cypress
         {'effective_date' => test.effective_date, 'test_id' => test.id})
       result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
       
+      test.result_calculation_jobs = {} if test.result_calculation_jobs.nil?
+      measure_id = measure.id.to_s
+      
       if report.calculated?
+        # Get rid of any resque jobs that we may have used to calculate these results and return the result
+        test.result_calculation_jobs.delete(measure_id)
         result = report.result
       else
-        report.calculate
+        # If we don't already have an existing job for this measure, create one and add it to our job list
+        job = test.result_calculation_jobs[measure_id]
+        if job.nil?
+          uuid = report.calculate
+          job = report.status(uuid)
+        end
+        
+        test.result_calculation_jobs[measure_id] = job
       end
+      test.save!
+      
       result['measure_id'] = measure.id.to_s
       result['key'] = measure.key
       
