@@ -34,11 +34,11 @@ class ProductTestsController < ApplicationController
     
     # population_creation_job
     # And for the measures to be calculated
-    if @test.measure_defs.nil? || @test.result_calculation_jobs.nil? || @test.measure_defs.size == 0
-      @percent_completed = 100.0;
-    else
+    #if @test.measure_defs.nil? || @test.result_calculation_jobs.nil? || @test.measure_defs.size == 0
+    #  @percent_completed = 100.0;
+    #else
       @percent_completed = ((@test.measure_defs.size - @test.result_calculation_jobs.size).to_f / @test.measure_defs.size.to_f) * 100
-    end
+    #end
     
     respond_to do |format|
       # Don't send tons of JSON until we have results. In the meantime, just update the client on our calculation status.
