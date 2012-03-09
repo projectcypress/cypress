@@ -5,7 +5,7 @@
       width : 70px;
     }
     label.workflow {
-      width:120px;
+      width:220px;
       text-align:center;
       color:green;
     }
@@ -103,9 +103,8 @@
     <input type="hidden" class="link" value="wizard-measures-screen"/>
     <h2 class="ui-widget-title">Select patient records to use...</h2>
     <section>
-      Cypress has a number of pre-defined patient populations to choose from.  In the future you will be able to define your own
-      subset of the available patient records for your test.  Currently we offer the full 225 test patients or a subset(20) of them
-      designed to test the core and core alternate quality measures.
+      Cypress has two predefined patient populations to choose from - the full 225 or a subset of 20
+      designed to test the core and core alternate Stage 1 Clinical Quality Measures.<br/><br/>
       <p>
         <%= f.collection_select(:patient_population, @patient_populations, :name, :description, {:prompt =>"Choose a population"}, {:size => 4}) %>
       </p>
