@@ -102,7 +102,7 @@
                     <td><span class="<%= test_status %>"><%= test.test_executions.size %><span class="q"> executions</span></td>
                     <td></td>
                     <td></td>
-                    <td><%= link_to 'delete', product_path(product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                    <td><%= link_to 'delete', product_test_path(test), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               <% end %>

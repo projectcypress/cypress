@@ -34,7 +34,11 @@ class ProductTestsController < ApplicationController
     
     # population_creation_job
     # And for the measures to be calculated
-    @percent_completed = ((@test.measure_defs.size - @test.result_calculation_jobs.size).to_f / @test.measure_defs.size.to_f) * 100
+    #if @test.measure_defs.nil? || @test.result_calculation_jobs.nil? || @test.measure_defs.size == 0
+    #  @percent_completed = 100.0;
+    #else
+      @percent_completed = ((@test.measure_defs.size - @test.result_calculation_jobs.size).to_f / @test.measure_defs.size.to_f) * 100
+    #end
     
     respond_to do |format|
       # Don't send tons of JSON until we have results. In the meantime, just update the client on our calculation status.
@@ -45,6 +49,7 @@ class ProductTestsController < ApplicationController
           render :json => {'test' => @test, 'results' => @current_execution.expected_results, 'percent_completed' => @percent_completed, 'patients' => @patients }
         end
       end
+      
       format.html { render :action => "show" }
       
       format.pdf { render :layout => false }
@@ -83,8 +88,9 @@ class ProductTestsController < ApplicationController
       # Otherwise we're making a subset of the Test Deck
       test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)  
     end
+
     test.save!
-    
+
     redirect_to product_test_path(test)
   end
   
