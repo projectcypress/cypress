@@ -4,14 +4,10 @@
     .navigation_button {
       width : 70px;
     }
-    .step {
-      height: 40em;
-    }
-    label.error {
-      color: red;
-      font-size: 1em;
-      width: 40em;
-      margin-left: 0.5em;
+    label.workflow {
+      width:120px;
+      text-align:center;
+      color:green;
     }
     #navigation {
       margin-top : 0.5em;
@@ -19,8 +15,24 @@
       text-align: center;
       padding-bottom: 1em;
     }
+    #navigation .noborder {border: 0;color:green;background:transparent;}
+    .link {
+      width:90%;
+      margin-left:5%;
+      height:5em;
+    }
     dd .date_range {
       width: 400px;
+    }
+    #validationErrorMessages {
+      text-align:center;
+    }
+    label.validationErrors {
+      color: red;
+      font-size: 1em;
+      font-weight:bold;
+      width: 40em;
+      margin-left: 0.5em;
     }
 
     /* vertical tabs */
@@ -29,40 +41,211 @@
     .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
     .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
     .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
-    .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+    .ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 47em;}
   </style>
+<% end %>
+
+<%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
+  <%= f.hidden_field :product_id, :value => @product.id %>
+
+  <section id="wizard-metadata-screen" class="first step" style="overflow:auto;">
+    <h2 class="ui-widget-title">Describe the test...</h2>
+    <dl>
+      <dt>
+        Test Name:
+      </dt>
+      <dd>
+        <table><tr><td>
+              <%= f.text_field :name, :size=>100%>
+            </td></tr></table>
+      </dd>
+      <dt>
+        Reporting Period:
+      </dt>
+      <dd>
+        <span class="date_range">from
+          <input type="text" class="effective_date" id="effective_date_start" name="product_test[effective_date_start]" size="8" value="<%= Time.at(@period_start).strftime("%m/%d/%Y") %>"/>
+          to
+          <input type="text" class="effective_date" id="effective_date_end" name="product_test[effective_date_end]" size="8" value="<%= Time.at(@effective_date).strftime("%m/%d/%Y") %>"/>
+        </span>
+      </dd>
+      <dt>
+        <%= f.label :description, "Description:" %>
+      </dt>
+      <dd>
+        <%= f.text_area :description, :cols=>80, :rows=>3 %>
+      </dd>
+    </dl>
+
+    <h2>Please select a workflow option...</h2>
+    <section style="text-align:left;">
+      <p>
+        <input id="wf1" type="radio" name="workflow" class="link" value="wizard-patients-screen" />
+        <label for="wf1" class="workflow">Manual entry</label><br/>
+        With the "manual entry" workflow you will export a subset of the cypress patient records in
+        standard HTML format.  Then someone from your team can enter that data into the EHR and produce a physician summary
+        report in XML (PQRI format).  Following that, you will return to cypress and import the report you generated to see how your
+        quality measure calculations compare to those produced by cypress.
+      </p>
+      <br/>
+      <p>
+        <input id="wf2" type="radio" name="workflow" class="link" checked="checked" value="wizard-patients-screen" />
+        <label for="wf2" class="workflow">Automated entry</label><br/>
+        With the "automated entry" workflow you will be able to download Cypress patient records (or a subset thereof) in CCR or C32 format.
+        Then you can upload those records into your EHR and produce a physician summary
+        report in XML (PQRI format).  Following that, you will upload the report you generated into Cypress to see how your
+        quality measure calculations compare.
+      </p>
+      <br/>
+      <p>
+        <input id="wf3" type="radio" name="workflow" class="link" value="wizard-byod-screen" />
+        <label for="wf3" class="workflow">Use my data</label><br/>
+        With the "use my data" approach you will not be leveraging the Cypress provided patient records.  Instead, you elect to
+        upload "synthetic" patients from your EHR in CCR or C32 format into cypress.  Once that is done you
+        will need to provide a physician summary report in XML (PQRI format) that covers that same set of patients.  Cypress will
+        run its report generation over those same patients and you can compare the results to those uploaded from your EHR.
+      </p>
+    </section>
+  </section>
+
+  <section id="wizard-patients-screen" class="step">
+    <input type="hidden" class="link" value="wizard-measures-screen"/>
+    <h2 class="ui-widget-title">Select patient records to use...</h2>
+    <section>
+      Cypress has a number of pre-defined patient populations to choose from.  In the future you will be able to define your own
+      subset of the available patient records for your test.  Currently we offer the full 225 test patients or a subset(20) of them
+      designed to test the core and core alternate quality measures.
+      <p>
+        <%= f.collection_select(:patient_population, @patient_populations, :name, :description, {:prompt =>"Choose a population"}, {:size => 4}) %>
+      </p>
+    </section>
+
+    <br/>
+    <section>
+      Patient test mode:
+      <select>
+        <option>name randomization</option>
+      </select>
+    </section>
+  </section>
+
+  <section id="wizard-byod-screen" class="step">
+    <input type="hidden" class="link" value="wizard-measures-screen"/>
+    <h2 class="ui-widget-title">Bring your own records...</h2>
+    <dl>
+      <dt><%= label_tag :byod_label, "upload .zip of records:" %></dt>
+      <dd><%= file_field_tag :byod %></dd>
+    </dl>
+    <dl>
+      <dt>as:</dt>
+      <dd>
+        <%= f.radio_button :upload_format, "c32",
+          :checked => (@test[:upload_format] == nil || @test[:upload_format] == "c32") %>
+        <%= f.label :upload_format_c32, "C32" %>
+        <%= f.radio_button :upload_format, "ccr", :checked => @test[:upload_format] == "ccr"%>
+        <%= f.label :upload_format_ccr, "CCR" %>
+      </dd>
+    </dl>
+  </section>
+
+  <section id="wizard-measures-screen" class="step submit_step">
+    <h2 class="ui-widget-title">Identify <strong>at least one</strong> quality measure to test...</h2>
+    <span class="header_commands" style="text-align:center;"><input type="checkbox" id="all_measures"/><label for="all_measures">all quality measures</label></span>
+    <div id="tabs">
+      <!-- set up a tab header for each measure group -->
+      <ul>
+        <% @measures_categories.sort.each do |category, measures| %>
+          <li>
+            <a href="#<%= category.tr(" '", "_") %>"><%= category %></a><span style="padding-top:.5em;text-align:right;padding-right:5px;" id="<%= category.tr(" '", "_") %>_group_total"></span></li>
+        <% end %>
+      </ul>
+      <!-- set up a tab for each measure group -->
+      <% @measures_categories.sort.each do |category, measures| %>
+        <div id="<%= category.tr(" '", "_")%>" class="measure_group"> <span class="header_commands"><input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all"/><label for="<%= category.tr(" '", "_")%>_group">all <%= category %> measures</label></span><br/>
+          <%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>["measure_cb", category.tr(" '", "_")]} %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+
+  <!--
+  <section id="wizard-summary-screen" class="step submit_step">
+    <h2 class="ui-widget-title">Summary page</h2>
+    <p>Please verify your information below.</p>
+    <div id="summaryContainer">
+      Nothing should be here yet
+    </div>
+  </section>
+  -->
+
+  <div id="validationErrorMessages"></div>
+  <div id="navigation">
+    <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
+    <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /> </a>
+  </div>
+
   <script type="text/javascript">
     var cache = {}; // caching inputs for the visited steps
 
     $(document).ready(function() {
-      $('.date').datepicker().css({'width':'100px'});
-
+      $('.effective_date').datepicker().css({'width':'85px','text-align':'center'});
       // for styling the vertical tabs
-      $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix').css({"width":"80%","margin-left":"10%"});
+      $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix').css({"width":"90%","margin-left":"5%"});
       $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
 
       // establish the form wizard
       $('#new_product_test').formwizard({
-        formPluginEnabled: true,
+        // !important - otherwise the rails form processing
+        // doesn't redirect properly.  set formPluginEnabled to false
+        formPluginEnabled: false,
         validationEnabled: true,
         focusFirstInput : true,
-        formOptions :{
-          success: function(data){$('#new_product_test').submit(); },
-          beforeSubmit: function(data){
-            console.debug("data sent to the server: " + $.param(data));
-          },
+        formOptions : {
           dataType: 'json',
           resetForm: true
         },
         textSubmit: 'Done',
-        disableUIStyles: true
+        disableUIStyles: true,
+        validationOptions: {
+          rules: {
+            "product_test[name]": "required",
+            "product_test[description]": "required",
+            "product_test[effective_date_start]": {
+              required: true,
+              date: true
+            },
+            "product_test[effective_date_end]": {
+              required: true,
+              date: true
+            },
+            "product_test[patient_population]": "required",
+            "product_test[measure_ids][]": "required",
+            "byod": "required"
+          },
+          errorClass: "validationErrors",
+          messages: {
+            "product_test[name]": {required:"The test needs a name."},
+            "product_test[description]": {required:"Give a brief description."},
+            "product_test[effective_date_start]": { required:"Specify the start of the reporting period.", date:"Correct date format: mm/dd/yyyy"},
+            "product_test[effective_date_end]": { required:"Specify the end of the reporting period", date:"Correct date format: mm/dd/yyyy"},
+            "product_test[patient_population]": { required:"Choose a patient population."},
+            "product_test[measure_ids][]": { required:"You must choose at least one quality measure."},
+            "byod": { required:"You must provide a .zip file containing your patient records."}
+          },
+          errorPlacement: function(error, element) {
+            error.appendTo( $('#validationErrorMessages') );
+          }
+
+        }
       }).bind("step_shown", function(event,data){ //TODO still need to hook up validation
         if(data.isLastStep){ // if this is the last step...then
-          $("#summaryContainer").empty(); // empty the container holding the
+          $("#summaryContainer").empty().append("<ul/>"); // empty the container holding the
           $.each(data.activatedSteps, function(i, id){ // for each of the activated steps...do
             if(id === "wizard-summary-screen") return; // if it is the summary page then just return
             cache[id] = $("#" + id).find(".input"); // else, find the div:s with class="input" and cache them with a key equal to the current step id
-            cache[id].detach().appendTo('#summaryContainer').show().find(":input").removeAttr("disabled"); // detach the cached inputs and append them to the summary container, also show and enable them
+            //cache[id].detach().appendTo('#summaryContainer').show().find(":input").removeAttr("disabled"); // detach the cached inputs and append them to the summary container, also show and enable them
+            $('#summaryContainer').append("<li>"+cache[id].value+"</li>")
           });
         }else if(data.previousStep === "wizard-summary-screen"){ // if we are movin back from the summary page
           $.each(cache, function(id, inputs){ // for each of the keys in the cache...do
@@ -77,10 +260,8 @@
         }
       })
 
-      $('.cmd').button();
-      $('.link').button().css({"width":"90%","margin-left":"5%","height":"5em"});
-      $('label.workflow').css({"width":"120px","text-align":"center"});
-    
+      $('.link').button();
+
       // for handling the selection of measures from groups
       $('#all_measures').click(function () {
         $('#wizard-measures-screen input:checkbox').prop('checked', $(this).prop('checked'));
@@ -109,126 +290,5 @@
     });
 
   </script>
-<% end %>
 
-<%= form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
-  <%= f.hidden_field :product_id, :value => @product.id %>
-
-  <section id="wizard-metadata-screen" class="first step">
-    <h2 class="ui-widget-title">Describe the test...</h2>
-    <dl class="xinput">
-      <dt>
-        Test Name:
-      </dt>
-      <dd>
-        <%= f.text_field :name, :size=>120, :class=>"xrequired", :title=>"Choose a name for the new test"%>
-      </dd>
-      <dt>
-        Reporting Period:
-      </dt>
-      <dd>
-        <span class="date_range">from
-          <input type="text" class="date" id="effective_date_start" name="product_test[effective_date_start]" size="8" value="<%= Time.at(@period_start).strftime("%m/%d/%Y") %>"/>
-          to
-          <input type="text" class="date" id="effective_date_end" name="product_test[effective_date_end]" size="8" value="<%= Time.at(@effective_date).strftime("%m/%d/%Y") %>"/>
-        </span>
-      </dd>
-      <dt>
-        Description:
-      </dt>
-      <dd>
-        <%= f.text_area :description, :cols=>80, :rows=>5, :class=>"req", :title=>"Give a description of what this test is supposed to do" %>
-      </dd>
-    </dl>
-
-    <h2>Please select a workflow option...</h2>
-    <section style="text-align:left;">
-      <p>
-        <input id="wf1" type="radio" name="workflow" class="link" value="wizard-measures-screen" />
-        <label for="wf1" class="workflow">Manual entry</label><br/>
-        With the "manual entry" workflow you will export a subset of the cypress patient records in
-        standard HTML or CSV format.  Then someone from your team can enter that data into the EHR and produce a physician summary
-        report in XML (PQRI format).  Following that, you will return to cypress and import the report you generated to see how your
-        quality measure calculations compare to those produced by cypress.
-      </p>
-      <br/>
-      <p>
-        <input id="wf2" type="radio" name="workflow" class="link" checked="checked" value="wizard-measures-screen" />
-        <label for="wf2" class="workflow">Automated entry</label><br/>
-        With the "automated entry" workflow you will be able to download Cypress patient records (or a subset thereof) in CCR or C32 format.
-        Then you can upload those records into your EHR and produce a physician summary
-        report in XML (PQRI format).  Following that, you will upload the report you generated into Cypress to see how your
-        quality measure calculations compare.
-      </p>
-      <br/>
-      <p>
-        <input id="wf3" type="radio" name="workflow" class="link" value="wizard-byod-screen" />
-        <label for="wf3" class="workflow">Use my data</label><br/>
-        With the "use my data" approach you will not be leveraging the Cypress provided patient records.  Instead, you elect to
-        upload "synthetic" patients from your EHR in CCR or C32 format into cypress.  Once that is done you
-        will need to provide a physician summary report in XML (PQRI format) that covers that same set of patients.  Cypress will
-        run its report generation over those same patients and you can compare the results to those uploaded from your EHR.
-      </p>
-    </section>
-  </section>
-
-  <section id="wizard-measures-screen" class="step">
-    <h2 class="ui-widget-title">Identify which quality measures to test...</h2>
-    <span class="header_commands" style="text-align:center;"><input type="checkbox" id="all_measures"/><label for="all_measures">all quality measures</label></span>
-    <div id="tabs">
-      <!-- set up a tab header for each measure group -->
-      <ul>
-        <% @measures_categories.sort.each do |category, measures| %>
-          <li>
-            <a href="#<%= category.tr(" '", "_") %>"><%= category %></a><span style="padding-top:.5em;text-align:right;padding-right:5px;" id="<%= category.tr(" '", "_") %>_group_total"></span></li>
-        <% end %>
-      </ul>
-      <!-- set up a tab for each measure group -->
-      <% @measures_categories.sort.each do |category, measures| %>
-        <div id="<%= category.tr(" '", "_")%>" class="measure_group"> <span class="header_commands"><input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all"/><label for="<%= category.tr(" '", "_")%>_group">all <%= category %> measures</label></span><br/>
-          <%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>["measure_cb", category.tr(" '", "_")]} %>
-        </div>
-      <% end %>
-    </div>
-  </section>
-
-  <section id="wizard-patients-screen" class="step">
-    <h2 class="ui-widget-title">Select patient records to use...</h2>
-    <section>
-      Cypress has a number of pre-defined patient populations to choose from.  In the future you will be able to define your own
-      subset of the available patient records for your test.  Currently we offer the full 225 test patients or a subset(20) of them
-      designed to test the core and core alternate quality measures.
-      <p style="text-align:center;">
-        <%= f.collection_select(:patient_population, @patient_populations, :name, :description, {:prompt =>"Choose a population"}, {:size => 4}) %>
-      </p>
-    </section>
-
-    <input type="hidden" class="link" value="wizard-summary-screen"/>
-    <br/>
-    <section>
-      Patient test mode:
-      <select>
-        <option>name randomization</option>
-      </select>
-    </section>
-  </section>
-
-  <section id="wizard-byod-screen" class="step">
-    <h2 class="ui-widget-title">Bring your own records...</h2>
-    <dl>
-      <dt><%= label_tag :byod_label, "upload .zip of C32s:" %></dt>
-      <dd><%= file_field_tag :byod %></dd>
-    </dl>
-  </section>
-
-  <section id="wizard-summary-screen" class="step submit_step">
-    <h2 class="ui-widget-title">Summary page</h2>
-    <p>Please verify your information below.</p>
-    <div id="summaryContainer"></div>
-  </section>
-
-  <div id="navigation">
-    <input class="cmd" id="back" value="Back" type="reset" />
-    <input class="cmd" id="next" value="Next" type="submit" />
-  </div>
 <% end %>
