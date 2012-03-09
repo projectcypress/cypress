@@ -79,31 +79,22 @@
 
     <h2>Please select a workflow option...</h2>
     <section style="text-align:left;">
-      <p>
-        <input id="wf1" type="radio" name="workflow" class="link" value="wizard-patients-screen" />
-        <label for="wf1" class="workflow">Manual entry</label><br/>
-        With the "manual entry" workflow you will export a subset of the cypress patient records in
-        standard HTML format.  Then someone from your team can enter that data into the EHR and produce a physician summary
-        report in XML (PQRI format).  Following that, you will return to cypress and import the report you generated to see how your
-        quality measure calculations compare to those produced by cypress.
-      </p>
-      <br/>
+           
       <p>
         <input id="wf2" type="radio" name="workflow" class="link" checked="checked" value="wizard-patients-screen" />
-        <label for="wf2" class="workflow">Automated entry</label><br/>
-        With the "automated entry" workflow you will be able to download Cypress patient records (or a subset thereof) in CCR or C32 format.
-        Then you can upload those records into your EHR and produce a physician summary
-        report in XML (PQRI format).  Following that, you will upload the report you generated into Cypress to see how your
-        quality measure calculations compare.
-      </p>
+        <label for="wf2" class="workflow">Test Deck C32/CCR Export</label><br/>
+        The Cypress Test Deck will be exported in HITSP C32 or ASTM CCR XML format and imported into an EHR software product or module.      </p>
       <br/>
+       <p>
+        <input id="wf1" type="radio" name="workflow" class="link" value="wizard-patients-screen" />
+        <label for="wf1" class="workflow">Test Deck HTML Export</label><br/>
+        The Cypress Test Deck will be exported in HTML format and input into an EHR software product or module.
+      </p>
+<br/>
       <p>
         <input id="wf3" type="radio" name="workflow" class="link" value="wizard-byod-screen" />
-        <label for="wf3" class="workflow">Use my data</label><br/>
-        With the "use my data" approach you will not be leveraging the Cypress provided patient records.  Instead, you elect to
-        upload "synthetic" patients from your EHR in CCR or C32 format into cypress.  Once that is done you
-        will need to provide a physician summary report in XML (PQRI format) that covers that same set of patients.  Cypress will
-        run its report generation over those same patients and you can compare the results to those uploaded from your EHR.
+        <label for="wf3" class="workflow">C32/CCR Upload</label><br/>
+       Exported HITSP C32 or ASTM CCR XML formatted patient records will be uploaded to Cypress in lieu of the Test Deck for this test.
       </p>
     </section>
   </section>
