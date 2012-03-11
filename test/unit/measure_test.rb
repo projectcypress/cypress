@@ -24,17 +24,19 @@ class MeasureTest < ActiveSupport::TestCase
   test "Should list installed measures" do
     measures = Measure.installed
     
-    assert measures.count == 2
+    assert measures.count == 3
     assert measures.index{|m| m.measure_id=="0001"} != nil
     assert measures.index{|m| m.measure_id=="0002"} != nil
+    assert measures.index{|m| m.measure_id=="0348"} != nil
   end
 
   test "Should list top levels" do
     measures = Measure.top_level
     
-    assert measures.count == 2
+    assert measures.count == 3
     assert measures.index{|m| m.measure_id=="0001"} != nil
     assert measures.index{|m| m.measure_id=="0002"} != nil
+    assert measures.index{|m| m.measure_id=="0348"} != nil
   end
   
 end

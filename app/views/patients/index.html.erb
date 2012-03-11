@@ -5,14 +5,18 @@
         <% if @result['numerator']=='?' %>
           $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id, :product_test_id => @test.id ) %>",
                             "<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution], :showAll => @showAll) %>")             
+        <% elsif @showAll%>
+          $.cypress.updatePatientTable("<%= table_all_patients_path(:product_test_id => @test.id,:execution=> params[:execution]) %>")
         <% else %>
-          $.cypress.updatePatientTable("<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution], :showAll => @showAll) %>")
+          $.cypress.updatePatientTable("<%= table_measure_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution]) %>")
         <% end %>
       <% else %>
         <% if @result['numerator']=='?' %>
           $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id ) %>", "<%= table_patients_path(:measure_id => @selected.id, :showAll => @showAll) %>")
+        <% elsif @showAll == true%>
+          $.cypress.updatePatientTable("<%= table_all_patients_path() %>")
         <% else %>
-          $.cypress.updatePatientTable("<%= table_patients_path(:measure_id => @selected.id, :showAll => @showAll) %>")
+          $.cypress.updatePatientTable("<%= table_measure_patients_path(:measure_id => @selected.id) %>")
         <% end %>
       <% end %>
     });

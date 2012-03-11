@@ -12,7 +12,6 @@ class ProductTestsController < ApplicationController
     @vendor = @product.vendor
     @patients = Record.where(:test_id => @test.id)
 
-    
     # Decide our current execution. Show the one requested, if any. Otherwise show the most recent, or a new one if none exist
     if !params[:execution_id].nil?
       @current_execution = TestExecution.find(params[:execution_id])   
@@ -122,7 +121,6 @@ class ProductTestsController < ApplicationController
   end
   
   def destroy
-
     test = ProductTest.find(params[:id])
     product = test.product
     
@@ -131,8 +129,6 @@ class ProductTestsController < ApplicationController
       TestExecution.find(params[:execution_id]).destroy
     else
       # Otherwise, delete the whole ProductTest and get rid of all the Records, TestExecutions, and patient_cache entries that are associated with it.
-      
-
       test.destroy
     end
 
@@ -153,17 +149,12 @@ class ProductTestsController < ApplicationController
     test_data = params[:product_test]
     baseline = test_data[:baseline]
     pqri = test_data[:pqri]
-   
-
     
     if (!params[:execution_id].empty?)
       execution = TestExecution.find(params[:execution_id])
     else
       execution = TestExecution.new({:product_test => test, :execution_date => Time.now})
     end
-   
-    
-
     
     # If a vendor cannot run their measures in a vaccuum (i.e. calculate measures with just the patient test deck) then
     # we will first import their measure results with their own patients so we can establish a baseline in order

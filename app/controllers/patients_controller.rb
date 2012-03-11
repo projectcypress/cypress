@@ -4,12 +4,15 @@ class PatientsController < ApplicationController
 
   require 'builder'
   require 'patient_zipper'
+  
   before_filter :authenticate_user!
 
   def index
 
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
+      @product = @test.product
+      @vendor  = @product.vendor
       @measures = @test.measure_defs
     else
       @measures = Measure.installed
@@ -23,11 +26,6 @@ class PatientsController < ApplicationController
     else
       @selected = @measures[0]
       @showAll = true
-    end
-    
-    if params[:product_test_id]     
-        @product = @test.product
-        @vendor = @product.vendor
     end
     
     # If a ProductTest is specified, show results for only the patients included in that population
@@ -58,39 +56,40 @@ class PatientsController < ApplicationController
     if @patient.test_id
       @test = ProductTest.find(@patient.test_id)
       @product = @test.product
-      @vendor = @product.vendor
+      @vendor  = @product.vendor
     end
-    
+
     @results = Result.all(:conditions => {'value.patient_id' => @patient.id}, :sort => [['value.measure_id', :asc], ['value.sub_id', :asc]])
   end
 
-  def table
+  def table_measure
+    @showAll = false
     @measures = Measure.installed
     @measures_categories = @measures.group_by { |t| t.category }
-    @showAll = params[:showAll] == 'true'
-    
-    if params[:measure_id]
-      @selected = Measure.find(params[:measure_id])
-    else
-      @selected = @measures[0]
-      @showAll = true
-    end
-    
-    # If a ProductTest was passed into this method, we'll only use records associated with that test.
-    # Otherwise we're showing the entire Master Patient List
+    @selected = Measure.find(params[:measure_id])
+
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
     end
-    
-    if @showAll
-      @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.population" => true)
-        .order_by([["value.last", :asc]])
-      @patients = remove_duplicates(@patients)
-    else
-      @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected['id'])
-        .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
-        .order_by([ ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
+
+    @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected['id'])
+      .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
+      .order_by([ ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
+
+    render 'table'
+  end
+
+  def table_all
+    @showAll = true
+    if params[:product_test_id]
+      @test = ProductTest.find(params[:product_test_id])
     end
+
+    @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.population" => true)
+      .order_by([["value.last", :asc]])
+    @patients = remove_duplicates(@patients)
+
+    render 'table'
   end
 
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format, patient to download by :id
@@ -120,11 +119,12 @@ class PatientsController < ApplicationController
     seen_ids = Array.new
     new_patient_list = Array.new
     patients.each do |patient|
-      if !seen_ids.include?(patient.value.patient.id.to_s)
+      if !seen_ids.include?(patient.value.patient_id.to_s)
         new_patient_list << patient
-        seen_ids << patient.value.patient.id.to_s
+        seen_ids << patient.value.patient_id.to_s
       end
     end
     new_patient_list
   end
+
 end

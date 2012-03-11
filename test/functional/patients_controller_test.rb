@@ -1,89 +1,134 @@
 require 'test_helper'
 
 class PatientsControllerTest < ActionController::TestCase
-  
+include Devise::TestHelpers
+
   setup do
-    collection_fixtures('records', '_id')
-    collection_fixtures('users',"_id")
-    @pi = HealthDataStandards::Import::C32::PatientImporter.instance
-    sign_in :user, User.first(:conditions => {:email => 'bobby@tables.org'})
-    get(:show, {:id => '4dcbecdb431a5f5878000004', :format => 'c32'})
-    assert_response :success
-    doc = Nokogiri::XML(response.body)
-    puts doc
-    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    @patient = @pi.parse_c32(doc)
-  end
-  
-  test "demographics" do
-    sign_in :user, User.first(:conditions => {:email => 'bobby@tables.org'})
-    get(:show, {:id => '4dcbecdb431a5f5878000004', :format => 'c32'})
-    assert_response :success
+    collection_fixtures('query_cache', 'test_id')
+    collection_fixtures('measures')
+    collection_fixtures('products','_id','vendor_id')
+    collection_fixtures('records', '_id','test_id')
+    collection_fixtures('product_tests', '_id')
+    collection_fixtures('patient_populations', '_id')
+    collection_fixtures('test_executions', '_id')
+    collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id')
     
-    doc = Nokogiri::XML(response.body)
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @user = User.first(:conditions => {:username => 'bobbytables'})
+    sign_in @user
+  end
+  
+  test "index" do
+    m1 = Measure.where(:id => '0001').first
+    m2 = Measure.where(:id => '0348').first
+
+    get :index, {:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m1._id}
+    assert_response :success
+    showAll  = assigns[:showAll]
+    selected = assigns[:selected]
+    assert showAll == false
+    assert selected.id == m1.id
     
-    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-    patient = Record.new
-    @pi.get_demographics(patient, doc)
+    #measure selected that wasnt in the test
+    get :index, {:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m2._id}
+    showAll  = assigns[:showAll]
+    selected = assigns[:selected]
+    result   = assigns[:result]
+    assert showAll == false
+    assert selected.id == m2.id
+    assert result['measure_id'].to_s == m2.id.to_s
+    assert result['numerator']   == '0'
+    assert result['antinumerator'] == 0
+    assert result['denominator'] == '0'
+    assert result['exclusions']  == '0'
 
-    assert_equal 'Rosa', patient.first
-    assert_equal 'Vasquez', patient.last
-    assert_equal 'F', patient.gender
-    assert_equal 345426614, patient.birthdate
-  end
-  
-  test "encounters" do
-    encounter = @patient.encounters[0]
-    assert_equal 1267322332, encounter.time
-    assert_equal({"CPT" => ["99201"]}, encounter.codes)
-  end
-  
-  test "conditions" do
-    condition = @patient.conditions[0]
-    assert_equal 1269776601, condition.as_point_in_time
-    assert_equal({"SNOMED-CT" => ["160603005"]}, condition.codes)
-  end
-  
-  test "vitals" do
-    vital = @patient.vital_signs[0]
-    assert_equal 1266664414, vital.time
-    assert_equal({"SNOMED-CT" => ["225171007"]}, vital.codes)
-    assert_equal "26", vital.value[:scalar]
-  end
-  
-  test "procedures" do
-    procedure = @patient.procedures[0]
-    assert_equal 1273150428, procedure.time
-    assert_equal({"SNOMED-CT" => ["171055003"]}, procedure.codes)
-  end
 
-  test "immunizations" do
-    immunization = @patient.immunizations[0]
-    assert_equal 1264529050, immunization.time
-    assert_equal({"RxNorm" => ["854931"]}, immunization.codes)
+    get :index, {:product_test_id =>'4f58f8de1d41c851eb000478'}
+    showAll  = assigns[:showAll]
+    result   = assigns[:result]
+
+    assert showAll == true
+    assert result['measure_id']  == '-'
+    assert result['numerator']   == '-'
+    assert result['antinumerator'] == '-'
+    assert result['denominator'] == '-'
+    assert result['exclusions']  == '-'
+
+    get :index, {:measure_id => m1.id}
+    result  = assigns[:result]
+    showAll = assigns[:showAll]
+    assert showAll == false
+    assert result['measure_id'].to_s  == m1.id.to_s, '1'
+    assert result['numerator']   == 44
+    assert result['antinumerator'] == 6
+    assert result['denominator'] == 50
+    assert result['exclusions']  == 0
+
   end
 
-  test "medications" do
-    medication = @patient.medications[0]
-    assert_equal 1271810257, medication.start_time
-    assert_equal({"RxNorm" => ["105075"]}, medication.codes)
+  test "show" do
+    r1 = Record.find("4f5bb2ef1d41c841b3000046")
+    get :show, {:id => r1.id}
+    test = assigns[:test]
+    product = assigns[:product]
+    vendor  = assigns[:vendor]
+    results = assigns[:results]
+
+    assert test.id.to_s   == "4f58f8de1d41c851eb000478"
+    assert product.id.to_s== "4f57a88a1d41c851eb000004"
+    assert vendor.id.to_s == "4f57a8791d41c851eb000002"
+    assert results.count  == 1
+
   end
 
-  test "care goals" do
-    care_goal = @patient.care_goals[0]
-    assert_equal 1278043200, care_goal.time
-    assert_equal({"CPT" => ["97804"]}, care_goal.codes)
+  test "table_measure" do
+    m1 = Measure.where(:id => '0001').first
+    m2 = Measure.where(:id => '0002').first
+
+    get :table_measure,{:measure_id => m1.id }
+    assert assigns[:patients].count == 3
+
+    get :table_measure,{:measure_id => m2.id }
+    assert assigns[:patients].count == 2
+
+    get :table_measure,{:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m1.id}
+    assert assigns[:patients].count == 4
+
+    get :table_measure,{:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m2.id}
+    assert assigns[:patients].count == 3
   end
 
-  test "social history" do
-    social_history = @patient.social_history[0]
-    assert_equal 1265778000, social_history.time
-    assert_equal({"ICD-9-CM" => ["250"]}, social_history.codes)
+  test "table_all" do
+    get :table_all,{}
+    assert assigns[:patients].count == 5
+
+    get :table_all,{:product_test_id => '4f58f8de1d41c851eb000478'}
+    assert assigns[:patients].count == 6
   end
-  
-  test "medical equipment" do
-    medical_equipment = @patient.medical_equipment[0]
-    assert_equal 1279252800, medical_equipment.time
-    assert_equal({"SNOMED-CT" => ["56961003"]}, medical_equipment.codes)
+
+  test "download" do
+    r1 = Record.find("4f5bb2ef1d41c841b3000046")
+
+    get :download,{:id => r1.id , :format => 'csv' }
+    assert_response :success, "Failed to download CSV file"
+    flat_file = "patient_id,first name,last name,gender,race,ethnicity,birthdate\n21,Rachel,Mendez,M,White,Not Hispanic or Latino,06/08/1981\n"
+    assert @response.body == flat_file , "Downloaded CSV file contents not correct"
+
+    get :download,{:id => r1.id , :format => 'c32' }
+    assert_response :success,"Failed to download C32 zip file"
+    get :download,{:id => r1.id , :format => 'ccr' }
+    assert_response :success,"Failed to download CCR zip file"
+    get :download,{:id => r1.id , :format => 'html'}
+    assert_response :success,"Failed to download HTML zip file"
+
+    get :download,{:format => 'csv' }
+    assert_response :success,"Failed to download Master Patient List CSV file"
+    get :download,{:format => 'c32' }
+    assert_response :success,"Failed to download Master Patient List C32 zip file"
+    get :download,{:format => 'ccr' }
+    assert_response :success,"Failed to download Master Patient List CCR zip file"
+    get :download,{:format => 'html'}
+    assert_response :success,"Failed to download Master Patient List HTML zip file"
   end
+
 end
