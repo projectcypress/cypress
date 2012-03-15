@@ -23,7 +23,6 @@ class PatientPopulation
                               'function(o,prev){prev.patients.push(o.value.patient_id);}')
 
     patients = {}
-
     measures_to_patients.sort! {|a,b| 
        al = a ? a['patients'].length : 0
        bl = b ? b['patients'].length : 0
@@ -33,7 +32,7 @@ class PatientPopulation
     measures_to_patients.each do |val|
       val["patients"].each do |p|
          patients[p] ||= []
-         entry = [val["value.measure_id"],val["value.,sub_id"]]
+         entry = [val["value.measure_id"],val["value.sub_id"]]
          patients[p].push entry unless patients[p].index(entry) 
       end
     end
@@ -41,7 +40,7 @@ class PatientPopulation
     p_list = []
     m_list = []
     measures_to_patients.each do |val|
-      entry = [val["value.measure_id"],val["value.,sub_id"]]
+      entry = [val["value.measure_id"],val["value.sub_id"]]
       unless m_list.index(entry) 
         m_list.push(entry)
         patient = nil
