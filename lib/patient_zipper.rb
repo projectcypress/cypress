@@ -18,7 +18,7 @@ module Cypress
           elsif format==:html
             #http://iweb.dl.sourceforge.net/project/ccr-resources/ccr-xslt-html/CCR%20XSL%20V2.0/ccr.xsl
              z.put_next_entry("#{next_entry_path}.html")
-             doc = Nokogiri::XML::Document.parse(HealthDataStandards::Export::C32.export(patient))
+             doc = Nokogiri::XML::Document.parse(HealthDataStandards::Export::HTML.export(patient))
              xslt  = Nokogiri::XSLT(File.read(Rails.root.join("public","cda.xsl")))
             
              z << xslt.apply_to(doc) 
