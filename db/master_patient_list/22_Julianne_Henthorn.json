@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0599a9ffcce901000036",
+  "_id": "4f6224bda9ffcca063000036",
   "first": "Julianne",
   "patient_id": "22",
   "last": "Henthorn",
@@ -47,11 +47,6 @@
         1270008000
       ]
     },
-    "0012": {
-      "hiv_screening_laboratory_test_performed": [
-        1284091200
-      ]
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1284091200,
@@ -68,6 +63,11 @@
         1282536000,
         1270008000,
         1187150400
+      ]
+    },
+    "0012": {
+      "hiv_screening_laboratory_test_performed": [
+        1284091200
       ]
     },
     "0014": {
@@ -138,9 +138,6 @@
     "0028": {
       "encounter_prev_med_individual_counseling_encounter": [
         1289797200
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1289797200
       ]
     },
     "0031": {
@@ -163,26 +160,6 @@
       "encounter_ob_gyn_encounter": [
         1284091200,
         1187150400
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1289797200,
-        1282536000,
-        1270008000
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1289797200,
-        1282536000,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1282536000,
-        1270008000
       ]
     },
     "0033": {
@@ -213,6 +190,26 @@
       "contraceptives_medication_active": [
         1284091200,
         1250308800
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1289797200,
+        1282536000,
+        1270008000
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1282536000,
+        1270008000
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1289797200,
+        1282536000,
+        1270008000
       ]
     },
     "0036": {
@@ -493,9 +490,9 @@
     },
     "0385": {
     },
-    "0389": {
-    },
     "0387": {
+    },
+    "0389": {
     },
     "0421": {
       "bmi_physical_exam_finding": [
@@ -531,6 +528,7 @@
         ]
       },
       "time": 1289797200,
+      "specifics": "C0374642:Preventive medicine counseling and/or risk factor reduction intervention(s) provided to an individual (separate procedure); approximately 60 minutes;",
       "description": "Encounter Prev Med-Individual counseling"
     },
     {
@@ -540,6 +538,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;",
       "description": "encounter ob/gyn"
     },
     {
@@ -549,6 +548,7 @@
         ]
       },
       "time": 1282536000,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -558,6 +558,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -567,19 +568,12 @@
         ]
       },
       "time": 1187150400,
+      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;",
       "description": "encounter ob/gyn"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1289797200,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -593,6 +587,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284091200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -606,6 +601,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284091200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -619,6 +615,7 @@
         "units": "mm[Hg]"
       },
       "time": 1282536000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -632,6 +629,7 @@
         "units": "mm[Hg]"
       },
       "time": 1282536000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -645,6 +643,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -658,6 +657,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -671,6 +671,7 @@
         "units": "mm[Hg]"
       },
       "time": 1187150400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -684,6 +685,7 @@
         "units": "mm[Hg]"
       },
       "time": 1187150400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -700,6 +702,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -716,6 +719,7 @@
         "units": null
       },
       "time": 1187150400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -734,6 +738,7 @@
       },
       "time": 1250308800,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "Asthma"
     },
     {
@@ -743,6 +748,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -752,6 +758,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
       "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
@@ -773,6 +780,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
       "description": "Chlamydia Screening"
     },
     {
@@ -801,6 +809,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -820,6 +829,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C0523323:HIV p24 antigen test;",
       "description": "HIV Screening"
     },
     {
@@ -839,6 +849,7 @@
         "units": null
       },
       "time": 1250308800,
+      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
       "description": "Chlamydia Screening"
     },
     {
@@ -867,6 +878,7 @@
         "units": null
       },
       "time": 1250308800,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     }
   ],
@@ -878,6 +890,7 @@
         ]
       },
       "time": 1250308800,
+      "specifics": "C0204948:Contraceptive use education;",
       "description": "contraceptive use education"
     },
     {
@@ -887,6 +900,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
       "description": "Asthma Symptom Assessment Tool"
     }
   ],
@@ -898,6 +912,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C0981634:Ethinyl Estradiol 0.05 MG / Norgestrel 0.5 MG Oral Tablet;",
       "description": "contraceptives"
     },
     {
@@ -907,6 +922,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;",
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
     },
     {
@@ -916,6 +932,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     },
     {
@@ -925,6 +942,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;",
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
     },
     {
@@ -934,6 +952,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     },
     {
@@ -943,6 +962,7 @@
         ]
       },
       "time": 1250308800,
+      "specifics": "C0981634:Ethinyl Estradiol 0.05 MG / Norgestrel 0.5 MG Oral Tablet;",
       "description": "contraceptives"
     }
   ],
@@ -954,6 +974,7 @@
         ]
       },
       "time": 1289797200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     }
   ],

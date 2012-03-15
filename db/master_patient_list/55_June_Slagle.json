@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0593a9ffcce901000009",
+  "_id": "4f6224b7a9ffcca063000009",
   "first": "June",
   "patient_id": "55",
   "last": "Slagle",
@@ -63,8 +63,6 @@
         1270008000
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1292389200,
@@ -81,6 +79,8 @@
         1284091200,
         1270008000
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -162,7 +162,7 @@
         1270008000
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1292389200,
         1284091200,
@@ -183,7 +183,7 @@
         1270008000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1292389200,
         1284091200,
@@ -479,12 +479,12 @@
         1284091200
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1284091200
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -523,6 +523,7 @@
         ]
       },
       "time": 1292389200,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -535,6 +536,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -544,6 +546,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     }
   ],
@@ -562,6 +565,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292389200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -575,6 +579,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292389200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -588,6 +593,7 @@
         "units": null
       },
       "time": 1292389200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -601,6 +607,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284091200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -614,6 +621,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284091200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -627,6 +635,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -640,6 +649,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -653,6 +663,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -666,6 +677,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -682,6 +694,7 @@
         "units": null
       },
       "time": 1292389200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -698,6 +711,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -716,6 +730,7 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "Asthma"
     },
     {
@@ -732,6 +747,7 @@
       },
       "time": 1284091200,
       "status": "active",
+      "specifics": "C0001344:Acute pharyngitis;",
       "description": "pharyngitis"
     },
     {
@@ -741,6 +757,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -750,6 +767,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
       "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
@@ -771,6 +789,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;",
       "description": "Group A Streptococcus Test"
     }
   ],
@@ -791,6 +810,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -806,6 +826,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -815,6 +836,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
       "description": "Asthma Symptom Assessment Tool"
     }
   ],
@@ -826,6 +848,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C1331798:Doxycycline 75 MG Enteric Coated Tablet;",
       "description": "Tetracycline"
     },
     {
@@ -835,6 +858,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C2731895:60 ACTUAT Fluticasone propionate 0.115 MG/ACTUAT / salmeterol 0.021 MG/ACTUAT Metered Dose Inhaler;",
       "description": "Long acting inhaled beta 2 agonist"
     },
     {
@@ -844,6 +868,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     }
   ],

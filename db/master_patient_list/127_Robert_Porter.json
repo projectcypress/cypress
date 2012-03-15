@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05aaa9ffcce9010000c3",
+  "_id": "4f6224cca9ffcca0630000c3",
   "first": "Robert",
   "patient_id": "127",
   "last": "Porter",
@@ -33,11 +33,6 @@
         1270267200
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270267200
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270267200
@@ -54,6 +49,11 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1286251200,
         1272600000,
+        1270267200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1270267200
       ]
     },
@@ -129,9 +129,6 @@
       ],
       "encounter_prev_med_other_services_encounter": [
         1286251200
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270267200
       ]
     },
     "0031": {
@@ -148,7 +145,7 @@
         1270267200
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1286251200,
         1272600000,
@@ -171,7 +168,7 @@
         1270267200
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1286251200,
         1272600000,
@@ -470,13 +467,13 @@
         1270267200
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1272600000,
         1270267200
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -526,6 +523,7 @@
         ]
       },
       "time": 1286251200,
+      "specifics": "C0374646:Unlisted preventive medicine service;",
       "description": "Encounter Prev Med Other Services"
     },
     {
@@ -535,6 +533,7 @@
         ]
       },
       "time": 1272600000,
+      "specifics": "C0973360:Health and behavior assessment (eg, health-focused clinical interview, behavioral observations, psychophysiological monitoring, health-oriented questionnaires), each 15 minutes face-to-face with the patient; initial assessment;",
       "description": "Encounter Health and Behavior Assessment"
     },
     {
@@ -547,6 +546,7 @@
         ]
       },
       "time": 1272600000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -559,19 +559,12 @@
         ]
       },
       "time": 1270267200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270267200,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -585,6 +578,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286251200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -598,6 +592,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286251200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -611,6 +606,7 @@
         "units": null
       },
       "time": 1286251200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -624,6 +620,7 @@
         "units": "mm[Hg]"
       },
       "time": 1272600000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -637,6 +634,7 @@
         "units": "mm[Hg]"
       },
       "time": 1272600000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -650,6 +648,7 @@
         "units": null
       },
       "time": 1272600000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -663,6 +662,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270267200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -676,6 +676,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270267200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -689,6 +690,7 @@
         "units": null
       },
       "time": 1270267200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -705,6 +707,7 @@
         "units": null
       },
       "time": 1286251200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -721,6 +724,7 @@
         "units": null
       },
       "time": 1272600000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -737,6 +741,7 @@
         "units": null
       },
       "time": 1270267200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -755,6 +760,7 @@
       },
       "time": 1271044800,
       "status": "active",
+      "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
       "description": "Heart Failure"
     },
     {
@@ -771,6 +777,7 @@
       },
       "time": 1270267200,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -785,6 +792,7 @@
         ]
       },
       "time": 1270267200,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -794,6 +802,7 @@
         ]
       },
       "time": 1272600000,
+      "specifics": "C0420347:Patient referral to dietitian;",
       "description": "dietary consultation order"
     },
     {
@@ -803,6 +812,7 @@
         ]
       },
       "time": 1270699200,
+      "specifics": "C0232174:Cardiac ejection fraction;",
       "description": "Ejection Fraction"
     }
   ],
@@ -814,6 +824,7 @@
         ]
       },
       "time": 1270267200,
+      "specifics": "C1359886:Metoprolol Tartrate 25 MG Oral Tablet;",
       "description": "Beta Blocker Therapy"
     },
     {
@@ -823,6 +834,7 @@
         ]
       },
       "time": 1270267200,
+      "specifics": "C0981555:Lisinopril 10 MG Oral Tablet;",
       "description": "ACE inhibitor or ARB"
     }
   ],
@@ -834,6 +846,7 @@
         ]
       },
       "time": 1286251200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -843,6 +856,7 @@
         ]
       },
       "time": 1286251200,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
       "description": "Pneumococcal Vaccine"
     }
   ],
@@ -863,6 +877,7 @@
         ]
       },
       "time": 1272600000,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

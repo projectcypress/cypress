@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0598a9ffcce90100002b",
+  "_id": "4f6224bba9ffcca06300002b",
   "first": "Jackie",
   "patient_id": "201",
   "last": "Peterson",
@@ -66,29 +66,6 @@
         1287979200
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1272427200,
-        1287979200
-      ],
-      "delivery_live_births_procedure_procedure_performed": [
-        1287979200
-      ],
-      "hiv_screening_laboratory_test_performed": [
-        1272427200
-      ],
-      "prenatal_visit_encounter": [
-        1287115200,
-        1285905600,
-        1283313600,
-        1279166400,
-        1275364800,
-        1272427200
-      ],
-      "estimated_date_of_conception_patient_characteristic": [
-        1263618000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1272427200
@@ -121,6 +98,26 @@
         1270008000
       ]
     },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1272427200,
+        1287979200
+      ],
+      "delivery_live_births_procedure_procedure_performed": [
+        1287979200
+      ],
+      "hiv_screening_laboratory_test_performed": [
+        1272427200
+      ],
+      "prenatal_visit_encounter": [
+        1287115200,
+        1285905600,
+        1283313600,
+        1279166400,
+        1275364800,
+        1272427200
+      ]
+    },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
         1272427200,
@@ -136,9 +133,6 @@
         1279166400,
         1275364800,
         1272427200
-      ],
-      "estimated_date_of_conception_patient_characteristic": [
-        1263618000
       ],
       "rh_status_baby_laboratory_test_result": [
         {
@@ -279,9 +273,6 @@
         1270872000,
         1270008000
       ],
-      "tobacco_user_patient_characteristic": [
-        1270008000
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1270008000,
         1270872000
@@ -308,13 +299,22 @@
         1270008000
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1291179600,
         1284523200,
         1281412800,
         1270872000,
         1270008000
+      ],
+      "pregnancy_test_laboratory_test_performed": [
+        1270008000
+      ],
+      "pregnancy_test_laboratory_test_result": [
+        1270008000
+      ],
+      "procedures_indicative_of_sexually_active_woman_procedure_performed": [
+        1287979200
       ]
     },
     "0043": {
@@ -335,22 +335,13 @@
         1270008000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1291179600,
         1284523200,
         1281412800,
         1270872000,
         1270008000
-      ],
-      "pregnancy_test_laboratory_test_performed": [
-        1270008000
-      ],
-      "pregnancy_test_laboratory_test_result": [
-        1270008000
-      ],
-      "procedures_indicative_of_sexually_active_woman_procedure_performed": [
-        1287979200
       ]
     },
     "0036": {
@@ -824,8 +815,6 @@
         1270008000
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1291179600,
@@ -834,6 +823,8 @@
         1270872000,
         1270008000
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -869,6 +860,7 @@
         ]
       },
       "time": 1272427200,
+      "specifics": "C0781756:Mumps Virus Vaccine Live, Jeryl Lynn Strain 40000 UNT/ML Injectable Solution;",
       "description": "Mumps Vaccine"
     }
   ],
@@ -886,6 +878,7 @@
         ]
       },
       "time": 1291179600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -895,6 +888,7 @@
         ]
       },
       "time": 1288324800,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
       "description": "Encounter Inpatient Discharge"
     },
     {
@@ -904,6 +898,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "description": "encounter acute inpt"
     },
     {
@@ -919,6 +914,7 @@
         ]
       },
       "time": 1287115200,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -934,6 +930,7 @@
         ]
       },
       "time": 1285905600,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -946,6 +943,7 @@
         ]
       },
       "time": 1284523200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -961,6 +959,7 @@
         ]
       },
       "time": 1283313600,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -970,6 +969,7 @@
         ]
       },
       "time": 1281412800,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -985,6 +985,7 @@
         ]
       },
       "time": 1279166400,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -1000,6 +1001,7 @@
         ]
       },
       "time": 1275364800,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -1015,6 +1017,7 @@
         ]
       },
       "time": 1272427200,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -1024,6 +1027,7 @@
         ]
       },
       "time": 1270872000,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -1036,19 +1040,12 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -1062,6 +1059,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291179600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1075,6 +1073,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291179600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1088,6 +1087,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287979200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1101,6 +1101,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287979200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1114,6 +1115,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285905600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1127,6 +1129,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285905600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1140,6 +1143,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283313600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1153,6 +1157,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283313600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1166,6 +1171,7 @@
         "units": "mm[Hg]"
       },
       "time": 1279166400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1179,6 +1185,7 @@
         "units": "mm[Hg]"
       },
       "time": 1279166400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1192,6 +1199,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275364800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1205,6 +1213,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275364800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1218,6 +1227,7 @@
         "units": "mm[Hg]"
       },
       "time": 1272427200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1231,6 +1241,7 @@
         "units": "mm[Hg]"
       },
       "time": 1272427200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1244,6 +1255,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1257,6 +1269,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     }
   ],
@@ -1275,6 +1288,7 @@
       },
       "time": 1272427200,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "Asthma"
     },
     {
@@ -1291,6 +1305,7 @@
       },
       "time": 1272427200,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     },
     {
@@ -1307,6 +1322,7 @@
       },
       "time": 1287979200,
       "status": "active",
+      "specifics": "C0032989:Multiple Pregnancy;",
       "description": "Delivery Live Births-Diagnosis"
     },
     {
@@ -1323,16 +1339,8 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C2903762:Pregnancy related conditions, unspecified, unspecified trimester;",
       "description": "Pregnancy"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "248986005"
-        ]
-      },
-      "time": 1263618000,
-      "description": "Estimated date of conception"
     },
     {
       "codes": {
@@ -1341,6 +1349,7 @@
         ]
       },
       "time": 1272427200,
+      "specifics": "C1276804:Asthma daytime symptoms;",
       "description": "Asthma Daytime Symptoms"
     },
     {
@@ -1350,6 +1359,7 @@
         ]
       },
       "time": 1272427200,
+      "specifics": "C1273489:Asthma night-time symptoms;",
       "description": "Asthma Nighttime Symptoms"
     }
   ],
@@ -1371,6 +1381,7 @@
         "units": null
       },
       "time": 1272427200,
+      "specifics": "C0523323:HIV p24 antigen test;",
       "description": "HIV Screening"
     },
     {
@@ -1384,6 +1395,7 @@
         "units": null
       },
       "time": 1285905600,
+      "specifics": "C0482428:Rh immune globulin screen:Impression/interpretation of study:Point in time:Whole blood:Nominal;",
       "description": "Rh Status Mother"
     },
     {
@@ -1397,6 +1409,7 @@
         "units": null
       },
       "time": 1285905600,
+      "specifics": "C0482428:Rh immune globulin screen:Impression/interpretation of study:Point in time:Whole blood:Nominal;",
       "description": "Rh Status Baby"
     },
     {
@@ -1413,6 +1426,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;",
       "description": "Pregnancy Test"
     },
     {
@@ -1441,6 +1455,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     }
   ],
@@ -1455,6 +1470,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -1467,6 +1483,7 @@
         ]
       },
       "time": 1270872000,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -1476,6 +1493,7 @@
         ]
       },
       "time": 1272427200,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
       "description": "Asthma Symptom Assessment Tool"
     },
     {
@@ -1488,6 +1506,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C1384485:Normal delivery;  There are two SNOMED codes for \"normal delivery;\" 48782003 is the other one",
       "description": "Delivery Live Births-Procedure"
     }
   ],
@@ -1499,6 +1518,7 @@
         ]
       },
       "time": 1270872000,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     },
     {
@@ -1508,6 +1528,7 @@
         ]
       },
       "time": 1270872000,
+      "specifics": "C2731895:60 ACTUAT Fluticasone propionate 0.115 MG/ACTUAT / salmeterol 0.021 MG/ACTUAT Metered Dose Inhaler;",
       "description": "Long acting inhaled beta 2 agonist"
     }
   ],

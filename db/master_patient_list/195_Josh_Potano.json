@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a0a9ffcce90100006f",
+  "_id": "4f6224c3a9ffcca06300006f",
   "first": "Josh",
   "patient_id": "195",
   "last": "Potano",
@@ -32,11 +32,6 @@
         1275364800
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1274328000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1274328000
@@ -50,6 +45,11 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1275364800,
+        1274328000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1274328000
       ]
     },
@@ -95,9 +95,6 @@
       ]
     },
     "0028": {
-      "tobacco_user_patient_characteristic": [
-        1274328000
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1274328000
       ]
@@ -106,7 +103,7 @@
     },
     "0032": {
     },
-    "0034": {
+    "0033": {
     },
     "0043": {
     },
@@ -115,7 +112,7 @@
         1275364800
       ]
     },
-    "0033": {
+    "0034": {
     },
     "0036": {
       "encounter_ed_encounter": [
@@ -312,9 +309,9 @@
     },
     "0385": {
     },
-    "0389": {
-    },
     "0387": {
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -354,6 +351,7 @@
         ]
       },
       "time": 1275364800,
+      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;",
       "description": "encounter non-acute inpatient"
     },
     {
@@ -363,19 +361,12 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1274328000,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -389,6 +380,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275364800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -402,6 +394,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275364800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -415,6 +408,7 @@
         "units": null
       },
       "time": 1275364800,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -428,6 +422,7 @@
         "units": "mm[Hg]"
       },
       "time": 1274328000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -441,6 +436,7 @@
         "units": "mm[Hg]"
       },
       "time": 1274328000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -454,6 +450,7 @@
         "units": null
       },
       "time": 1274328000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -470,6 +467,7 @@
         "units": null
       },
       "time": 1275364800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -486,6 +484,7 @@
         "units": null
       },
       "time": 1274328000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -501,6 +500,7 @@
       },
       "time": 1273896000,
       "status": "active",
+      "specifics": "C0154530:Opioid abuse, continuous use;",
       "description": "IV drug abuse"
     },
     {
@@ -517,6 +517,7 @@
       },
       "time": 1274328000,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -534,6 +535,7 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     }
   ],
@@ -545,6 +547,7 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     }
   ],

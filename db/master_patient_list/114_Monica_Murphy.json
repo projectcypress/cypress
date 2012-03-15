@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059ea9ffcce90100005f",
+  "_id": "4f6224c1a9ffcca06300005f",
   "first": "Monica",
   "patient_id": "114",
   "last": "Murphy",
@@ -60,8 +60,6 @@
         1284436800
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1273377600,
@@ -78,6 +76,8 @@
         1273377600,
         1291093200
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -147,9 +147,6 @@
         1284177600,
         1284091200,
         1273377600
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1273377600
       ]
     },
     "0031": {
@@ -173,16 +170,19 @@
         1273377600
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1284091200
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1291093200,
         1287979200,
         1284177600,
         1284091200,
         1273377600
+      ],
+      "x_ray_study_diagnostic_study_result": [
+        1284177600
+      ],
+      "x_ray_study_diagnostic_study_performed": [
+        1284177600
       ]
     },
     "0043": {
@@ -203,19 +203,16 @@
         1273377600
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1284091200
+      ],
       "encounter_outpatient_encounter": [
         1291093200,
         1287979200,
         1284177600,
         1284091200,
         1273377600
-      ],
-      "x_ray_study_diagnostic_study_result": [
-        1284177600
-      ],
-      "x_ray_study_diagnostic_study_performed": [
-        1284177600
       ]
     },
     "0036": {
@@ -620,8 +617,6 @@
         1273377600
       ]
     },
-    "0389": {
-    },
     "0387": {
       "breast_cancer_diagnosis_active": [
         1284436800
@@ -642,6 +637,8 @@
         1284091200,
         1273377600
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -692,6 +689,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -701,6 +699,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -710,6 +709,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C0973360:Health and behavior assessment (eg, health-focused clinical interview, behavioral observations, psychophysiological monitoring, health-oriented questionnaires), each 15 minutes face-to-face with the patient; initial assessment;",
       "description": "Encounter Health and Behavior Assessment"
     },
     {
@@ -719,6 +719,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
       "description": "Encounter Inpatient Discharge"
     },
     {
@@ -728,6 +729,7 @@
         ]
       },
       "time": 1284436800,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "description": "Encounter Acute inpt"
     },
     {
@@ -737,6 +739,7 @@
         ]
       },
       "time": 1284177600,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -749,6 +752,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -758,19 +762,12 @@
         ]
       },
       "time": 1273377600,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1273377600,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -784,6 +781,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273377600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -797,6 +795,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273377600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -810,6 +809,7 @@
         "units": null
       },
       "time": 1273377600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -823,6 +823,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291093200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -836,6 +837,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291093200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -849,6 +851,7 @@
         "units": null
       },
       "time": 1291093200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -865,6 +868,7 @@
         "units": null
       },
       "time": 1291093200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -883,6 +887,7 @@
       },
       "time": 1284436800,
       "status": "active",
+      "specifics": "C0235653:Malignant neoplasm of female breast;",
       "description": "Breast Cancer"
     },
     {
@@ -899,6 +904,7 @@
       },
       "time": 1273377600,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "Asthma"
     },
     {
@@ -915,6 +921,7 @@
       },
       "time": 1285387200,
       "status": "active",
+      "specifics": "C0154415:Major Depressive Disorder, Recurrent, In Full Remission;",
       "description": "Depression"
     },
     {
@@ -931,6 +938,7 @@
       },
       "time": 1256443200,
       "status": "active",
+      "specifics": "C0019163:Hepatitis B; C0700211:Viral hepatitis B without mention of hepatic coma;",
       "description": "Hepatitis B Diagnosis"
     }
   ],
@@ -954,6 +962,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -969,6 +978,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -978,6 +988,7 @@
         ]
       },
       "time": 1273377600,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
       "description": "Asthma Symptom Assessment Tool"
     },
     {
@@ -987,6 +998,7 @@
         ]
       },
       "time": 1284436800,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     },
     {
@@ -996,6 +1008,7 @@
         ]
       },
       "time": 1284436800,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -1008,6 +1021,7 @@
         ]
       },
       "time": 1284609600,
+      "specifics": "C1522449:Therapeutic radiology procedure;",
       "description": "Radiation Therapy"
     },
     {
@@ -1029,6 +1043,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     },
     {
@@ -1050,6 +1065,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     },
     {
@@ -1062,6 +1078,7 @@
         ]
       },
       "time": 1284177600,
+      "specifics": "C0848630:Radiographic imaging of bone (procedure);",
       "description": "X-ray Study"
     }
   ],
@@ -1073,6 +1090,7 @@
         ]
       },
       "time": 1273377600,
+      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;",
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
     },
     {
@@ -1082,6 +1100,7 @@
         ]
       },
       "time": 1273377600,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     },
     {
@@ -1091,6 +1110,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
       "description": "SSRI antidepressants"
     }
   ],
@@ -1102,6 +1122,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1111,6 +1132,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;",
       "description": "Hepatitis A Vaccine"
     },
     {
@@ -1123,6 +1145,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     }
   ],
@@ -1143,6 +1166,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

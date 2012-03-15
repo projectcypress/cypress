@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059ea9ffcce90100005c",
+  "_id": "4f6224c1a9ffcca06300005c",
   "first": "Jane",
   "patient_id": "217",
   "last": "Major",
@@ -46,11 +46,6 @@
         1276142400
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1275710400
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1275710400
@@ -65,6 +60,11 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         960696000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1275710400
       ]
     },
     "0014": {
@@ -122,9 +122,6 @@
         1281672000,
         1276401600,
         1275710400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1275710400
       ]
     },
     "0031": {
@@ -147,13 +144,10 @@
         1275710400
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1281672000,
         1276401600,
-        1275710400
-      ],
-      "fobt_laboratory_test_performed": [
         1275710400
       ]
     },
@@ -171,10 +165,13 @@
         1275710400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1281672000,
         1276401600,
+        1275710400
+      ],
+      "fobt_laboratory_test_performed": [
         1275710400
       ]
     },
@@ -460,8 +457,6 @@
         1275710400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "breast_cancer_diagnosis_active": [
         1276142400
@@ -490,6 +485,8 @@
       "tamoxifen_or_aromatase_inhibitor_therapy_medication_active": [
         1275710400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -536,6 +533,7 @@
         ]
       },
       "time": 1281672000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -548,6 +546,7 @@
         ]
       },
       "time": 1276401600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -557,6 +556,7 @@
         ]
       },
       "time": 1276315200,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
       "description": "Encounter Inpatient Discharge"
     },
     {
@@ -566,6 +566,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "description": "encounter acute inpt"
     },
     {
@@ -578,19 +579,12 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -604,6 +598,7 @@
         "units": "mm[Hg]"
       },
       "time": 960696000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -617,6 +612,7 @@
         "units": "mm[Hg]"
       },
       "time": 960696000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -630,6 +626,7 @@
         "units": null
       },
       "time": 960696000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -646,6 +643,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -655,6 +653,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -664,6 +663,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     }
   ],
@@ -682,6 +682,7 @@
       },
       "time": 1275710400,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     },
     {
@@ -698,6 +699,7 @@
       },
       "time": 1276142400,
       "status": "active",
+      "specifics": "C0235653:Malignant neoplasm of female breast;",
       "description": "Breast Cancer"
     },
     {
@@ -714,6 +716,7 @@
       },
       "time": 1276142400,
       "status": "active",
+      "specifics": "C0153676:Secondary malignant neoplasm of lung;",
       "description": "Metastatic Sites Common to Breast Cancer"
     }
   ],
@@ -744,6 +747,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -769,6 +773,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "FOBT"
     },
     {
@@ -778,6 +783,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -787,6 +793,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     }
   ],
@@ -807,6 +814,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -822,6 +830,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -831,6 +840,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -840,6 +850,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     },
     {
@@ -861,6 +872,7 @@
         ]
       },
       "time": 1273118400,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     }
   ],
@@ -872,6 +884,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
       "description": "Tamoxifen or Aromatase Inhibitor Therapy"
     }
   ],
@@ -895,6 +908,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

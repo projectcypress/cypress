@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059ea9ffcce90100005e",
+  "_id": "4f6224c1a9ffcca06300005e",
   "first": "Anna",
   "patient_id": "146",
   "last": "Edwards",
@@ -40,8 +40,6 @@
         1275192000
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1284091200,
@@ -57,6 +55,8 @@
         1284091200,
         1275192000
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -124,9 +124,6 @@
         1275796800,
         1275192000
       ],
-      "tobacco_user_patient_characteristic": [
-        1275192000
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1275796800
       ]
@@ -150,10 +147,7 @@
         1275192000
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1282708800
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1284091200,
         1281672000,
@@ -177,7 +171,10 @@
         1275192000
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1282708800
+      ],
       "encounter_outpatient_encounter": [
         1284091200,
         1281672000,
@@ -456,8 +453,6 @@
         1275192000
       ]
     },
-    "0389": {
-    },
     "0387": {
       "breast_cancer_diagnosis_active": [
         1276142400
@@ -478,6 +473,8 @@
         1275796800,
         1275192000
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -526,6 +523,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -535,6 +533,7 @@
         ]
       },
       "time": 1281672000,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -547,6 +546,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -556,19 +556,12 @@
         ]
       },
       "time": 1275192000,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1275192000,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -582,6 +575,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284091200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -595,6 +589,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284091200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -608,6 +603,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -621,6 +617,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275192000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -634,6 +631,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275192000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -647,6 +645,7 @@
         "units": null
       },
       "time": 1275192000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -663,6 +662,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -679,6 +679,7 @@
         "units": null
       },
       "time": 1275192000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -688,6 +689,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -697,6 +699,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     }
   ],
@@ -715,6 +718,7 @@
       },
       "time": 1276142400,
       "status": "active",
+      "specifics": "C0235653:Malignant neoplasm of female breast;",
       "description": "Breast Cancer"
     }
   ],
@@ -726,6 +730,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -735,6 +740,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     }
   ],
@@ -755,6 +761,7 @@
         ]
       },
       "time": 1275192000,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -770,6 +777,7 @@
         ]
       },
       "time": 1275192000,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -782,6 +790,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -791,6 +800,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -800,6 +810,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     },
     {
@@ -821,6 +832,7 @@
         ]
       },
       "time": 1282708800,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     },
     {
@@ -842,6 +854,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     }
   ],
@@ -856,6 +869,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -868,6 +882,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     }
   ],
@@ -888,6 +903,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]
