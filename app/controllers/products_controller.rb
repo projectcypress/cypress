@@ -14,6 +14,9 @@ class ProductsController < ApplicationController
   def new
     @vendor = Vendor.find(params[:vendor])
     @product = Product.new
+    
+    @measures = Measure.all_by_measure
+    @measures_categories = @measures.group_by { |t| t['category'] }
   end
   
   def create
@@ -26,6 +29,9 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
     @vendor = @product.vendor
+    
+    @measures = Measure.top_level
+    @measures_categories = @measures.group_by { |t| t.category }
   end
   
   def update
@@ -39,6 +45,7 @@ class ProductsController < ApplicationController
   def destroy
     product = Product.find(params[:id])
     vendor = product.vendor
+    
     product.destroy
     
     redirect_to vendor_path(vendor)

@@ -20,6 +20,18 @@ class Measure
       !measure.sub_id || measure.sub_id=='a'
     end
   end
+  
+  # Finds all measures and groups the sub measures
+  # @return Array - This returns an Array of Hashes. Each Hash will represent a top level measure with an ID, name, and category.
+  #                 It will also have an array called subs containing hashes with an ID and name for each sub-measure.
+  def self.all_by_measure
+    reduce = 'function(obj,prev) {
+                if (obj.sub_id != null)
+                  prev.subs.push({id : obj.id + obj.sub_id, name : obj.subtitle});
+              }'
+    
+    MONGO_DB['measures'].group(:key => [:id, :name, :category], :initial => {:subs => []}, :reduce => reduce)
+  end
 
   def display_name
     "#{self['id']} - #{name}"
@@ -28,7 +40,4 @@ class Measure
   def measure_id
     self['id']
   end
-  
-    
-
 end

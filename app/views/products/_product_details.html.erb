@@ -1,3 +1,60 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#measureMap input:checkbox").change(function() {
+        if ($(this).prop('checked'))
+          $(this).closest('dd').removeClass('inactive');
+        else 
+          $(this).closest('dd').addClass('inactive');
+        
+        var text = $(this).closest('dd').find('input:text');
+        if (text.val() === '' && $(this).prop('checked')) {
+          text.css('border', '1px red solid');
+        } else {
+          text.css('border', '');
+        }
+      });
+      
+      $("#measureMap label").click(function() {
+        checkbox = $(this).prev('input:checkbox');
+        checkbox.prop('checked', !checkbox.prop('checked')).change();
+      });
+      
+      $("#measureMap input:text").keyup(function() {
+        if ($(this).val() === '')
+          $(this).closest('dd').find('input:checkbox').prop('checked', false).change();
+        else 
+          $(this).closest('dd').find('input:checkbox').prop('checked', true).change();
+      });
+      
+      $(".measure_expander").toggle(
+        function() {
+          $(this).addClass('open');
+          var element = $(this).data('measure');
+          var measures = $("." + element);
+          measures.show();
+        },
+        function() {
+          $(this).removeClass('open');
+          var element = $(this).data('measure');
+          var measures = $("." + element);
+          measures.hide();
+        });
+      
+      $("#measureMap input:checkbox").change();
+    });
+    
+    // Add functionality to buttons that check or uncheck all Measures by category in the form.
+    function toggleMeasures(toggleSetting, group) {
+      var selector = "#measureMap input:checkbox"
+      if (group) {
+        selector = '#measureMap input:checkbox.' + group;
+      }
+      $(selector).prop('checked', toggleSetting).change();
+    }
+  </script>
+<% end %>
+
 <%= form_for([@product], :html => { :method => submit_method }) do |f| %>
   <%= f.hidden_field :vendor_id, :value => @vendor.id %>
   
@@ -9,7 +66,20 @@
       <dt>Description:</dt>
       <dd><%= f.text_field :description, :size=>"20", :class=>"req" %></dd>
     </dl>
-  </section> 
+  </section>
   
-  <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();"><%= submit_text %></a>
+  <h1>Measure Mapping
+    <span class="header_commands">
+      [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> |
+      <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]
+    </span>
+  </h1>
+  <section id="measureMap">
+    As PQRI measure numbers may vary by author, below is a list of how Cypress labels Stage 1 CQM. If the numbers do not match your PQRI formatting, please
+    replace the values with your labeling scheme and Cypress will remember it for later. Cypress will also only show you measures that you check below and
+    won't bother you again with unchecked selections.
+    <%= render :partial => 'edit_measure_map' %>
+  </section>
+  
+  <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();" style="display: inline-block"><%= submit_text %></a>
 <% end %>

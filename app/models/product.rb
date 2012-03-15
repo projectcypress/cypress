@@ -2,7 +2,7 @@ class Product
   include Mongoid::Document
 
   belongs_to :vendor
-  has_many :product_tests
+  has_many :product_tests, dependent: :destroy
   
   field :name, type: String
   field :description, type: String

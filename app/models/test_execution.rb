@@ -2,7 +2,6 @@ class TestExecution
   include Mongoid::Document
 
   belongs_to :product_test
-  has_many :results
 
   field :execution_date, type: Integer
   field :baseline_results, type: Hash

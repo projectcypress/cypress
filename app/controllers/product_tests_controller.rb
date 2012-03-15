@@ -86,7 +86,8 @@ class ProductTestsController < ApplicationController
       test.population_creation_job = Cypress::PatientImportJob.create(:zip_file_location => byod_path, :test_id => test.id, :format => format)
     else
       # Otherwise we're making a subset of the Test Deck
-      test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)  
+      test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)
+      test.patient_population = PatientPopulation.where(:name => params[:product_test][:patient_population]).first
     end
 
     test.save!
@@ -121,8 +122,7 @@ class ProductTestsController < ApplicationController
     if params[:execution_id]
       TestExecution.find(params[:execution_id]).destroy
     else
-      # Otherwise, delete the whole ProductTest and get rid of all the Records that are associated with it.
-      Record.where(:test_id => test.id).delete
+      # Otherwise, delete the whole ProductTest and get rid of all the Records, TestExecutions, and patient_cache entries that are associated with it.
       test.destroy
     end
 
