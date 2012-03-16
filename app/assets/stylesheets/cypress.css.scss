@@ -99,6 +99,8 @@ a.cmd {
   font-size:80%;
   behavior: url(/assets/PIE.htc);
   width:100px;
+  &.disabled { color: #aaa; border-color: #aaa; }
+  &.disabled:hover { background-color: #fff; cursor: default; }
 }
 
 a.cmd:hover {background-color:#a7c98a  + #444;}
@@ -255,6 +257,7 @@ section#testMeasures, section#measureMap {
     font-style:italic;
     padding-bottom:20px;
   }
+  div { margin-top: 20px; }
   dl {
     font-size:90%;
     width:925px;
@@ -309,7 +312,6 @@ section#testMeasures, section#measureMap {
     span.left { margin-left: 11px }
     span.right { margin-right: 14px }
   }
-  div { margin-top: 20px; }
 }
 
 section.records {
