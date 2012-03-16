@@ -34,11 +34,7 @@ class ProductTestsController < ApplicationController
     
     # population_creation_job
     # And for the measures to be calculated
-    #if @test.measure_defs.nil? || @test.result_calculation_jobs.nil? || @test.measure_defs.size == 0
-    #  @percent_completed = 100.0;
-    #else
-      @percent_completed = ((@test.measure_defs.size - @test.result_calculation_jobs.size).to_f / @test.measure_defs.size.to_f) * 100
-    #end
+    @percent_completed = ((@test.measure_defs.size - @test.result_calculation_jobs.size).to_f / @test.measure_defs.size.to_f) * 100
     
     respond_to do |format|
       # Don't send tons of JSON until we have results. In the meantime, just update the client on our calculation status.
@@ -89,6 +85,7 @@ class ProductTestsController < ApplicationController
       test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)  
     end
 
+    test.download_filename = params[:download_filename]
     test.save!
 
     redirect_to product_test_path(test)
@@ -163,16 +160,25 @@ class ProductTestsController < ApplicationController
     
     file = Tempfile.new("patients-#{Time.now.to_i}")
     patients = Record.where("test_id" => test.id)
-    format = params[:format]
     
+    format = params[:format]
+    filename = test.download_filename
+    if params[:format].nil? then
+      format = /(ccr|html|csv|c32)\.zip/.match(filename)[1]
+    else
+      original_format = /((ccr|html|csv|c32)\.zip)/.match(filename)[1]
+      filename = filename.sub(original_format,format)
+    end
+
     if format == 'csv'
       Cypress::PatientZipper.flat_file(file, patients)
-      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => 'patients_csv.csv'
+      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => filename
     else
       Cypress::PatientZipper.zip(file, patients, format.to_sym)
-      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "patients_#{format}.zip"
+      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => filename
     end
     
     file.close
   end
+
 end

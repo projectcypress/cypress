@@ -1,0 +1,70 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<style type="text/css">
+  td.num {color:green;}
+  td.den {color:blue;}
+  td.exc {color:red;}
+  .num,.den,.exc, th.num,th.den,th.exc {text-align:center}
+  td.num:hover,td.den:hover,td.exc:hover,td.measure:hover,tr.patient:hover {background:#DEFADE;}
+</style>
+<table>
+  <thead>
+    <tr>
+      <th>quality measures</th>
+      <th>patients</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <table>
+          <thead>
+            <tr>
+              <th>measure NQF#</th>
+              <th class="num">numerator</th>
+              <th class="den">denominator</th>
+              <th class="exc">exclusions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% coverage.each do |measure, values| %>
+              <tr class="<%= measure %> measure">
+                <td title="<%= values[:name] %>" class="measure"><%= measure %></td>
+                <td class="<%= measure %> num"><%= values[:num] %></td>
+                <td class="<%= measure %> den"><%= values[:den] %></td>
+                <td class="<%= measure %> exc"><%= values[:exc] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      </td>
+      <td>
+        <table>
+          <thead style="position:relative;">
+            <tr>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th style="text-align:center">DOB</th>
+              <th style="text-align:center">Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% patients.each do |patient| %>
+              <tr class="<%= %> patient">
+                <td><%= patient[:last] %></td>
+                <td><%= patient[:first] %></td>
+                <td style="text-align:center"><time datetime="<%= Time.at(patient.birthdate).strftime('%Y-%m-%d') %>"><%= Time.at(patient.birthdate).strftime('%m/%d/%Y') %></time></td>
+        <td style="text-align:center"><%= patient[:gender] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</td>
+</tr>
+</tbody>
+</table>
+

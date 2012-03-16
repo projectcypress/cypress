@@ -4,7 +4,7 @@ Cypress::Application.routes.draw do
   devise_for :users
   
   resources :vendors, :products
-  
+
   resources :product_tests do
     member do
       get 'download'
@@ -37,6 +37,7 @@ Cypress::Application.routes.draw do
   get '/services/index'
   post '/services/validate_pqri'
 
+  match '/measures/minimal_set' => 'measures#minimal_set'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

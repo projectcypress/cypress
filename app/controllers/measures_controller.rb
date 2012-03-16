@@ -40,14 +40,58 @@ class MeasuresController < ApplicationController
     @result = @execution.expected_result(@measure)
     
     @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure['id'])
-      .where("value.sub_id" => @measure.sub_id)
+    .where("value.sub_id" => @measure.sub_id)
     if params[:search] && params[:search].size>0
       @search_term = params[:search]
       regex = Regexp.new('^'+params[:search], Regexp::IGNORECASE)
       patient_ids = Record.any_of({"first" => regex}, {"last" => regex}).collect {|p| p.id}
       @patients = @patients.any_in("value.patient_id" => patient_ids)
     end
-    @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
+    @patients = @patients.order_by([["value.numerator".order, :desc],["value.denominator", :desc],["value.exclusions", :desc]])
   end
-  
+
+  # Find the minimal set of patient records required to cover the list of measures passed in
+  def minimal_set
+    measure_ids = params[:measure_ids]
+    num_records = [params[:num_records].to_i, 5].max
+
+    coverage = {}
+    all_patients = []
+    all_measures = []
+    
+    # stub code for the queries that determine the appropriate set of patients
+    Measure.installed.each do |measure|
+      if measure_ids.any? {|m| m == measure[:id]}
+        Result.where('value.test_id' => nil).where('value.measure_id' => measure['id']).where('value.population' => true).each do |result|
+          key = measure.key
+          coverage[key] = {:name => measure[:name], :num => 0, :den => 0, :exc => 0, :patient_ids => []} unless coverage[key]
+          #coverage[key][:patient_ids].push(result.value.patient_id)
+          all_patients.push(result.value.patient_id)
+          all_measures.push(measure)
+        end
+      end
+    end
+
+    # collect the patient records
+    unique_patients = all_patients.uniq.slice(0, num_records)
+    patient_list = Record.where( { _id: { "$in" => unique_patients } } ).order_by([["_id", :desc]]);
+
+    # loop through and tally the num/den/exc
+    all_measures.uniq.each do |measure|
+      Result.where('value.test_id' => nil).where('value.measure_id' => measure['id']).where('value.population' => true).each do |result|
+        if unique_patients.any? {|id| id == result['value']['patient_id'] }
+          key = measure.key
+          coverage[key][:num] += 1 if result['value']['numerator']
+          coverage[key][:den] += 1 if result['value']['denominator']
+          coverage[key][:exc] += 1 if result['value']['exclusions']
+        end
+      end
+    end
+    # end stub
+    respond_to do |format|
+      format.html {render :partial => 'measure_coverage', :locals => { :coverage => coverage, :patients => patient_list} }
+      format.json {render :json => {:coverage => coverage}}
+    end
+  end
+
 end
