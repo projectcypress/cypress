@@ -2,16 +2,20 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $("#measureMap input:checkbox").change(function() {
-        if ($(this).prop('checked'))
-          $(this).closest('dd').removeClass('inactive');
-        else 
-          $(this).closest('dd').addClass('inactive');
+        var checkbox = $(this);
+        var toggleSetting = checkbox.prop('checked');
+        var row = checkbox.closest('dd');
         
-        var text = $(this).closest('dd').find('input:text');
-        if (text.val() === '' && $(this).prop('checked')) {
-          text.css('border', '1px red solid');
-        } else {
-          text.css('border', '');
+        toggleRow(row, toggleSetting);
+        
+        // If this checkbox is the parent to others, cascade the effect
+        if (!row.hasClass("sub")) {
+          while ((row = row.closest("dd").next("dd")).hasClass("sub")) {
+            checkbox = row.find('input:checkbox');
+            checkbox.prop('checked', toggleSetting);
+
+            toggleRow(row, toggleSetting);
+          }
         }
       });
       
@@ -52,6 +56,27 @@
       }
       $(selector).prop('checked', toggleSetting).change();
     }
+    
+    function toggleRow(row, toggleSetting) {
+      if (toggleSetting)
+        row.closest('dd').removeClass('inactive');
+      else
+        row.closest('dd').addClass('inactive');
+      
+      var text = row.find('input:text');
+      if (toggleSetting && text.val() === '') {
+        text.css('border', '1px red solid');
+        text.closest('dd').find('.measure_expander').toggle();
+      } else {
+        text.css('border', '');
+      }
+    }
+    
+    function verify() {
+      
+      
+      return false;
+    }
   </script>
 <% end %>
 
@@ -81,5 +106,5 @@
     <%= render :partial => 'edit_measure_map' %>
   </section>
   
-  <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();" style="display: inline-block"><%= submit_text %></a>
+  <a id="vendor_submit" class="cmd disabled" onclick="$(this).parent().submit();" style="display: inline-block"><%= submit_text %></a>
 <% end %>
