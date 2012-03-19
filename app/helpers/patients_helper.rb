@@ -5,14 +5,12 @@ module PatientsHelper
      r = Race.from_code(patient.race["code"]).first if patient.race
      r = r || {}
      r["name"] || ""
-     patient.race  #until the race comes in as a code
   end
   
   def ethnicity(patient)
     e = Ethnicity.from_code(patient.ethnicity["code"]).first if patient.ethnicity
     e = e || {}
     e["name"] || ""
-    patient.ethnicity #until the ethnicity comes in as a code
   end
   
   def result_to_markup(included)

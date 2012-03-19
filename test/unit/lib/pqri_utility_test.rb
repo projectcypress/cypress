@@ -1,6 +1,7 @@
 require 'test_helper'
+require 'fileutils'
 
-class TDSubsetJobTest < ActiveSupport::TestCase
+class PQRITest < ActiveSupport::TestCase
 
   def test_perform
     assert true
