@@ -32,6 +32,7 @@ class TestExecution
     reported_result = reported_result(expected_result['key'])
     ['denominator', 'numerator', 'exclusions'].each do |component|
       if reported_result[component] != expected_result[component]
+        #puts "reported: #{reported_result[component]} , expected: #{expected_result[component]}"
         return false
       end
     end
@@ -84,7 +85,7 @@ class TestExecution
   # The percentage of passing measures. Returns 0 if this is a new, yet to be run TestExecution
   def success_rate
     return 0 if self.results.empty?
-    return self.count_passing / self.product_test.measure_ids.size
+    return self.count_passing.to_f / self.product_test.measure_ids.size
   end
   
   # This function is used to normalize test results that first import a baseline.

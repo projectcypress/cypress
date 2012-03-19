@@ -35,6 +35,6 @@ class Product
   # The percentage of passing tests. Returns 0 if no products
   def success_rate
     return 0 if self.product_tests.empty?
-    return self.count_passing / self.product_tests.size
+    return self.count_passing.to_f / self.product_tests.size
   end
 end
