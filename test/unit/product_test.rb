@@ -56,7 +56,6 @@ class ProducTest < ActiveSupport::TestCase
   end
   
   test "Should report success rate" do
-    #newprod = Product.new()
     assert Product.new().success_rate == 0
     assert @product1.success_rate == 0.5
     assert @product2.success_rate == 1
