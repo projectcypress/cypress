@@ -16,6 +16,7 @@ class ProductTest
   field :reported_results, type: Hash
   field :validation_errors, type: Array
   field :baseline_validation_errors, type: Array
+  field :download_filename, type: String
   
   # Returns true if this ProductTests most recent TestExecution is passing
   def passing?

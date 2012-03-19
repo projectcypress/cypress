@@ -3,8 +3,9 @@ module Cypress
   # or a specific subset to cover the 3 core measures. In the near future we will support more options to make very customized TD subsets.
   # For now, a subset_id of 'core20' will mean the 3 core measures. If that parameter does not exist, we copy the whole deck. For example:
   #
-  #    Cypress::PopulationCloneJob.create(:subset_id => 'core', :test_id => 'ID of vendor to which these patients belong')
+  #    Cypress::PopulationCloneJob.create(:subset_id => 'core20', :test_id => 'ID of vendor to which these patients belong')
   #
+  #    Cypress::PopulationCloneJob.create(:patient_ids => [1,2,7,9,221], :test_id => 'ID of vendor to which these patients belong')
   # This will return a uuid which can be used to check in on the status of a job. More details on this can be found
   # at the {Resque Stats project page}[https://github.com/quirkey/resque-status].
   class PopulationCloneJob < Resque::JobWithStatus
@@ -20,10 +21,15 @@ module Cypress
       # Clone AMA records from Mongo
       ama_patients = Record.where(:test_id => nil)
 
-      # If we're using the core subset, use the core 20 patients
-      if options['subset_id'] != "all"
+      if options['patient_ids']
+        # clone each of the patients identified in the :patient_ids parameter
+        ama_patients = Record.where(:test_id => nil).where(:patient_id.in => options['patient_ids'])
+      elsif options['subset_id'] != "all"
+        # If we're using one of the predefined patient populations, use the patients identified therein
         patient_population = PatientPopulation.where(:name => options['subset_id']).first
         ama_patients = Record.where(:patient_id.in => patient_population.patient_ids)
+      else
+        # no manipulation required
       end
       
       rand_prefix = Time.new.to_i

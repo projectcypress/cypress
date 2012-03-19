@@ -75,7 +75,7 @@ namespace :mpl do
 	          patient_ids[measure['id']] = []
 	        end
 	  
-	        id = result.value.medical_record_id
+	        id = Record.find(result.value.patient_id).patient_id
 	        patient_ids[measure['id']].push(id)
 
 	        if verbose == "true"

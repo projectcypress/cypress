@@ -99,5 +99,6 @@ class PatientsController < ApplicationController
     end
     
     file.close
-  end  
+  end
+
 end
