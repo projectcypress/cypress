@@ -77,7 +77,7 @@
             hide: 'fade',
             resizable: false,
             open: function(event, ui) { $(".ui-dialog-titlebar-close").show()}
-          }).html('<a href="<%=  download_product_test_path(@test) %>" class="cmd" onclick="$(\'#polling_for_updates\').dialog(\'close\')">download now</a>');
+          }).html('<div style="text-align:center;"><a href="<%=  download_product_test_path(@test) %>" class="cmd" onclick="$(\'#polling_for_updates\').dialog(\'close\')">download now</a></div>');
 
         });
   <% end %>

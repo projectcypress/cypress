@@ -80,6 +80,8 @@ class ProductTestsController < ApplicationController
       File.rename(File.path(uploaded_file), byod_path)
       
       test.population_creation_job = Cypress::PatientImportJob.create(:zip_file_location => byod_path, :test_id => test.id, :format => format)
+    elsif params[:patient_ids]
+      test.population_creation_job = Cypress::PopulationCloneJob.create(:patient_ids => params[:patient_ids], :test_id => test.id)
     else
       # Otherwise we're making a subset of the Test Deck
       test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)  
@@ -162,7 +164,7 @@ class ProductTestsController < ApplicationController
     patients = Record.where("test_id" => test.id)
     
     format = params[:format]
-    filename = test.download_filename
+    filename = test.download_filename || "#{test.name}_html.zip"
     if params[:format].nil? then
       format = /(ccr|html|csv|c32)\.zip/.match(filename)[1]
     else

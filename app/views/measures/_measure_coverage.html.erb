@@ -3,17 +3,23 @@
 # and open the template in the editor.
 %>
 <style type="text/css">
-  td.num {color:green;}
-  td.den {color:blue;}
-  td.exc {color:red;}
-  .num,.den,.exc, th.num,th.den,th.exc {text-align:center}
-  td.num:hover,td.den:hover,td.exc:hover,td.measure:hover,tr.patient:hover {background:#DEFADE;}
+  #measure_coverage .numerator,
+  #measure_coverage .denominator,
+  #measure_coverage .exclusions,
+  #measure_coverage .antinumerator {
+    text-align:center;
+  }
+  tr.patient:hover,tr.measure:hover {background:#DEFADE;}
 </style>
+<% patients.each do |p| %>
+<input type="hidden" name="patient_ids[]" value="<%= p[:patient_id] %>"/>
+<% end %>
+
 <table>
   <thead>
     <tr>
-      <th>quality measures</th>
-      <th>patients</th>
+      <th style="text-align:center;">quality measures</th>
+      <th style="text-align:center;">patients</th>
     </tr>
   </thead>
   <tbody>
@@ -22,19 +28,25 @@
         <table>
           <thead>
             <tr>
-              <th>measure NQF#</th>
-              <th class="num">numerator</th>
-              <th class="den">denominator</th>
-              <th class="exc">exclusions</th>
+              <th>NQF#</th>
+              <th class="numerator">numerator</th>
+              <th class="denominator">denominator</th>
+              <th class="antinumerator">antinumerator</th>
+              <th class="exclusions">exclusions</th>
             </tr>
           </thead>
           <tbody>
             <% coverage.each do |measure, values| %>
-              <tr class="<%= measure %> measure">
+              <tr id="<%= measure %>" class="measure <%=
+                arr = values[:patients].map {|v| v[:_id]}
+                arr.join(' ')
+
+              %>">
                 <td title="<%= values[:name] %>" class="measure"><%= measure %></td>
-                <td class="<%= measure %> num"><%= values[:num] %></td>
-                <td class="<%= measure %> den"><%= values[:den] %></td>
-                <td class="<%= measure %> exc"><%= values[:exc] %></td>
+                <td class="numerator"><%= values[:num] %></td>
+                <td class="denominator"><%= values[:den] %></td>
+                <td class="antinumerator"><%= values[:ant] %></td>
+                <td class="exclusions"><%= values[:exc] %></td>
               </tr>
             <% end %>
           </tbody>
@@ -53,7 +65,10 @@
           </thead>
           <tbody>
             <% patients.each do |patient| %>
-              <tr class="<%= %> patient">
+              <tr id="<%= patient[:_id] %>" class="patient <%=
+                arr = coverage.map {|c,v| c if v[:patients].include?(patient)}
+                arr.join(' ')
+              %>">
                 <td><%= patient[:last] %></td>
                 <td><%= patient[:first] %></td>
                 <td style="text-align:center"><time datetime="<%= Time.at(patient.birthdate).strftime('%Y-%m-%d') %>"><%= Time.at(patient.birthdate).strftime('%m/%d/%Y') %></time></td>
@@ -67,4 +82,3 @@
 </tr>
 </tbody>
 </table>
-

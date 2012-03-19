@@ -55,8 +55,10 @@ class MeasuresController < ApplicationController
     measure_ids = params[:measure_ids]
     num_records = [params[:num_records].to_i, 5].max
 
+
     coverage = {}
-    all_patients = []
+    #all_patients = []  if you don't want the minimal set, uncomment this
+    all_patients = PatientPopulation.min_coverage(measure_ids)
     all_measures = []
     
     # stub code for the queries that determine the appropriate set of patients
@@ -64,29 +66,39 @@ class MeasuresController < ApplicationController
       if measure_ids.any? {|m| m == measure[:id]}
         Result.where('value.test_id' => nil).where('value.measure_id' => measure['id']).where('value.population' => true).each do |result|
           key = measure.key
-          coverage[key] = {:name => measure[:name], :num => 0, :den => 0, :exc => 0, :patient_ids => []} unless coverage[key]
+          coverage[key] = {:name => measure[:name] + ( measure[:subtitle] ? ': ' + measure[:subtitle] : ''), :num => 0, :den => 0, :exc => 0, :ant => 0, :patients => []} unless coverage[key]
+          #if you don't want the minimal set, uncomment the following 2 lines
           #coverage[key][:patient_ids].push(result.value.patient_id)
-          all_patients.push(result.value.patient_id)
+          #all_patients.push(result.value.patient_id)
           all_measures.push(measure)
         end
       end
     end
 
     # collect the patient records
-    unique_patients = all_patients.uniq.slice(0, num_records)
-    patient_list = Record.where( { _id: { "$in" => unique_patients } } ).order_by([["_id", :desc]]);
+    #unique_patients = all_patients.uniq.slice(0, num_records)
+    unique_patients = all_patients
+    #if you don't want the minimal set, uncomment the following line
+    #patient_list = Record.where( { _id: { "$in" => unique_patients } } ).order_by([["_id", :desc]]);
+    patient_list = Record.where( { _id: { "$in" => all_patients } } ).order_by([["_id", :desc]]);
 
     # loop through and tally the num/den/exc
     all_measures.uniq.each do |measure|
       Result.where('value.test_id' => nil).where('value.measure_id' => measure['id']).where('value.population' => true).each do |result|
         if unique_patients.any? {|id| id == result['value']['patient_id'] }
           key = measure.key
-          coverage[key][:num] += 1 if result['value']['numerator']
-          coverage[key][:den] += 1 if result['value']['denominator']
-          coverage[key][:exc] += 1 if result['value']['exclusions']
+          patient = Record.find(result['value']['patient_id'])
+          if !coverage[key][:patients].include?(patient)
+            coverage[key][:num] += 1 if result['value']['numerator']
+            coverage[key][:den] += 1 if result['value']['denominator']
+            coverage[key][:ant] += 1 if result['value']['antinumerator']
+            coverage[key][:exc] += 1 if result['value']['exclusions']
+            coverage[key][:patients].push(patient)
+          end
         end
       end
     end
+    
     # end stub
     respond_to do |format|
       format.html {render :partial => 'measure_coverage', :locals => { :coverage => coverage, :patients => patient_list} }
