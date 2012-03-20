@@ -1,6 +1,7 @@
 require 'test_helper'
+require 'fileutils'
 
-class TDSubsetJobTest < ActiveSupport::TestCase
+class PatientZipperTest < ActiveSupport::TestCase
 
   def test_perform
     assert true

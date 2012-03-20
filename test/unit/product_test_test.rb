@@ -5,9 +5,22 @@ class ProductTestTest < ActiveSupport::TestCase
     collection_fixtures('product_tests', '_id')
   end
 
-  test "first test" do
+  test "Should know if its passing" do
     assert true
   end
+  
+  test "Should return its executions, in order" do
+    assert true
+  end
+  
+  test "Should return the measure defs" do
+    assert true
+  end
+  
+  test "Should know how many measures its testing" do
+    assert true
+  end
+  
 =begin
 
   test "that ProductTests can import a PQRI file" do
