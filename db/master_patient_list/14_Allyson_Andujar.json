@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05ada9ffcce9010000de",
+  "_id": "4f6224cfa9ffcca0630000de",
   "first": "Allyson",
   "patient_id": "14",
   "last": "Andujar",
@@ -32,8 +32,6 @@
         1270008000
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1284868800,
@@ -49,6 +47,8 @@
         1276747200,
         1269316800
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -110,9 +110,6 @@
       "encounter_office_visit_encounter": [
         1284868800,
         1270008000
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270008000
       ]
     },
     "0031": {
@@ -127,7 +124,7 @@
         1270008000
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1284868800,
         1270008000
@@ -149,7 +146,7 @@
         1270094400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1284868800,
         1270008000
@@ -584,13 +581,13 @@
         1270008000
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1284868800,
         1270008000
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -662,6 +659,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C2723050:Neomycin Sulfate 500 MG;",
       "description": "Neomycin"
     }
   ],
@@ -679,6 +677,7 @@
         ]
       },
       "time": 1284868800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -688,6 +687,7 @@
         ]
       },
       "time": 1276747200,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -697,6 +697,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -709,19 +710,12 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -735,6 +729,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284868800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -748,6 +743,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284868800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -761,6 +757,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276747200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -774,6 +771,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276747200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -787,6 +785,7 @@
         "units": "mm[Hg]"
       },
       "time": 1269316800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -800,6 +799,7 @@
         "units": "mm[Hg]"
       },
       "time": 1269316800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -809,6 +809,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C0271051:Macular retinal edema;",
       "description": "Macular Edema Findings"
     },
     {
@@ -818,6 +819,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C0339473:Preproliferative diabetic retinopathy; C0730278:Severe nonproliferative diabetic retinopathy;",
       "description": "Level of Severity of Retinopathy Findings"
     },
     {
@@ -834,6 +836,7 @@
         "units": null
       },
       "time": 1284868800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -850,6 +853,7 @@
         "units": null
       },
       "time": 1276747200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -866,6 +870,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -884,6 +889,7 @@
       },
       "time": 1244433600,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     },
     {
@@ -900,6 +906,7 @@
       },
       "time": 1270094400,
       "status": "active",
+      "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
       "description": "Diabetic Retinopathy"
     },
     {
@@ -916,6 +923,7 @@
       },
       "time": 1284868800,
       "status": "active",
+      "specifics": "C0494490:Other mononeuropathies;  This is not a code for nephropathy and is an error.  The ICD-10 codes for nephropathy are actually for neuropathy",
       "description": "Nephropathy"
     }
   ],
@@ -937,6 +945,7 @@
         "units": null
       },
       "time": 1284868800,
+      "specifics": "C0001922:Abnormal presence of albumin;",
       "description": "Urine Macroalbumin"
     },
     {
@@ -956,6 +965,7 @@
         "units": null
       },
       "time": 1284868800,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -975,6 +985,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -994,6 +1005,7 @@
         "units": null
       },
       "time": 1287460800,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1013,6 +1025,7 @@
         "units": null
       },
       "time": 1278302400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1032,6 +1045,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     }
   ],
@@ -1047,6 +1061,7 @@
         "units": null
       },
       "time": 1284868800,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1060,6 +1075,7 @@
         "units": null
       },
       "time": 1269316800,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1069,6 +1085,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C1275954:Non-high-risk proliferative diabetic retinopathy with clinically significant macular edema;",
       "description": "severity of retinopathy and macular edema findings"
     },
     {
@@ -1078,6 +1095,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C1444586:Slit lamp fundus examination;",
       "description": "Macular or Fundus Exam"
     },
     {
@@ -1096,6 +1114,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     }
   ],
@@ -1107,6 +1126,7 @@
         ]
       },
       "time": 1284868800,
+      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;",
       "description": "Antidiabetic-combinations"
     },
     {
@@ -1116,6 +1136,7 @@
         ]
       },
       "time": 1276747200,
+      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;",
       "description": "Antidiabetic-combinations"
     },
     {
@@ -1125,6 +1146,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;",
       "description": "Antidiabetic agents"
     },
     {
@@ -1134,6 +1156,7 @@
         ]
       },
       "time": 1284868800,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -1143,6 +1166,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     }
   ],

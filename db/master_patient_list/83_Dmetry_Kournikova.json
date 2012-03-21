@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05aca9ffcce9010000d7",
+  "_id": "4f6224cea9ffcca0630000d7",
   "first": "Dmetry",
   "patient_id": "83",
   "last": "Kournikova",
@@ -53,8 +53,6 @@
         1270008000
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291438800,
@@ -73,6 +71,8 @@
         1280203200,
         1270008000
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -144,9 +144,6 @@
         1280203200,
         1270008000
       ],
-      "tobacco_user_patient_characteristic": [
-        1270008000
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1270008000,
         1280203200
@@ -176,7 +173,7 @@
         1270008000
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1291438800,
         1283918400,
@@ -210,7 +207,7 @@
         1286164800
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1291438800,
         1283918400,
@@ -572,14 +569,14 @@
         1270008000
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1283918400,
         1280203200,
         1270008000
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -620,6 +617,7 @@
         ]
       },
       "time": 1291438800,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -629,6 +627,7 @@
         ]
       },
       "time": 1289016000,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -638,6 +637,7 @@
         ]
       },
       "time": 1286164800,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -647,6 +647,7 @@
         ]
       },
       "time": 1283918400,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -659,6 +660,7 @@
         ]
       },
       "time": 1280203200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -668,6 +670,7 @@
         ]
       },
       "time": 1278129600,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -677,19 +680,12 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -703,6 +699,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291438800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -716,6 +713,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291438800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -729,6 +727,7 @@
         "units": null
       },
       "time": 1291438800,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -742,6 +741,7 @@
         "units": "mm[Hg]"
       },
       "time": 1280203200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -755,6 +755,7 @@
         "units": "mm[Hg]"
       },
       "time": 1280203200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -768,6 +769,7 @@
         "units": null
       },
       "time": 1280203200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -781,6 +783,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -794,6 +797,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -807,6 +811,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -823,6 +828,7 @@
         "units": null
       },
       "time": 1280203200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -841,6 +847,7 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "Asthma"
     },
     {
@@ -857,6 +864,7 @@
       },
       "time": 1286164800,
       "status": "active",
+      "specifics": "C0017612:Glaucoma, Open-Angle;",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -866,6 +874,7 @@
         ]
       },
       "time": 1278129600,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -875,6 +884,7 @@
         ]
       },
       "time": 1278129600,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
       "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
@@ -892,6 +902,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -904,6 +915,7 @@
         ]
       },
       "time": 1280203200,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     }
   ],
@@ -915,6 +927,7 @@
         ]
       },
       "time": 1278129600,
+      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;",
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
     },
     {
@@ -924,6 +937,7 @@
         ]
       },
       "time": 1278129600,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     },
     {
@@ -933,6 +947,7 @@
         ]
       },
       "time": 1283918400,
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
       "description": "Smoking Cessation Agents"
     }
   ],

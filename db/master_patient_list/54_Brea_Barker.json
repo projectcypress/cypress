@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0594a9ffcce901000011",
+  "_id": "4f6224b8a9ffcca063000011",
   "first": "Brea",
   "patient_id": "54",
   "last": "Barker",
@@ -48,31 +48,6 @@
         1284696000
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1284696000
-      ],
-      "delivery_live_births_procedure_procedure_performed": [
-        1284696000
-      ],
-      "hiv_diagnosis_active": [
-        1185768000
-      ],
-      "hiv_screening_laboratory_test_performed": [
-        1185768000
-      ],
-      "prenatal_visit_encounter": [
-        1283918400,
-        1281067200,
-        1278388800,
-        1276747200,
-        1271736000,
-        1267333200
-      ],
-      "estimated_date_of_conception_patient_characteristic": [
-        1261458000
-      ]
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1283918400,
@@ -93,6 +68,28 @@
         1271736000
       ]
     },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1284696000
+      ],
+      "delivery_live_births_procedure_procedure_performed": [
+        1284696000
+      ],
+      "hiv_diagnosis_active": [
+        1185768000
+      ],
+      "hiv_screening_laboratory_test_performed": [
+        1185768000
+      ],
+      "prenatal_visit_encounter": [
+        1283918400,
+        1281067200,
+        1278388800,
+        1276747200,
+        1271736000,
+        1267333200
+      ]
+    },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
         1284696000
@@ -107,9 +104,6 @@
         1276747200,
         1271736000,
         1267333200
-      ],
-      "estimated_date_of_conception_patient_characteristic": [
-        1261458000
       ],
       "multigravida_diagnosis_active": [
         1267333200
@@ -205,9 +199,6 @@
       ]
     },
     "0028": {
-      "tobacco_non_user_patient_characteristic": [
-        1271217600
-      ]
     },
     "0031": {
       "encounter_outpatient_encounter": [
@@ -224,10 +215,13 @@
         1267333200
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1290747600,
         1278388800
+      ],
+      "procedures_indicative_of_sexually_active_woman_procedure_performed": [
+        1284696000
       ]
     },
     "0043": {
@@ -242,13 +236,10 @@
         1278388800
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1290747600,
         1278388800
-      ],
-      "procedures_indicative_of_sexually_active_woman_procedure_performed": [
-        1284696000
       ]
     },
     "0036": {
@@ -549,9 +540,9 @@
     },
     "0385": {
     },
-    "0389": {
-    },
     "0387": {
+    },
+    "0389": {
     },
     "0421": {
       "bmi_physical_exam_finding": [
@@ -609,6 +600,7 @@
         ]
       },
       "time": 1290747600,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -618,6 +610,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "description": "encounter acute inpt"
     },
     {
@@ -633,6 +626,7 @@
         ]
       },
       "time": 1283918400,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -648,6 +642,7 @@
         ]
       },
       "time": 1281067200,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -657,6 +652,7 @@
         ]
       },
       "time": 1278388800,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -672,6 +668,7 @@
         ]
       },
       "time": 1278388800,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -687,6 +684,7 @@
         ]
       },
       "time": 1276747200,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -702,6 +700,7 @@
         ]
       },
       "time": 1271736000,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -717,19 +716,12 @@
         ]
       },
       "time": 1267333200,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1271217600,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -743,6 +735,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283918400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -756,6 +749,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283918400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -769,6 +763,7 @@
         "units": "mm[Hg]"
       },
       "time": 1281067200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -782,6 +777,7 @@
         "units": "mm[Hg]"
       },
       "time": 1281067200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -795,6 +791,7 @@
         "units": "mm[Hg]"
       },
       "time": 1278388800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -808,6 +805,7 @@
         "units": "mm[Hg]"
       },
       "time": 1278388800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -821,6 +819,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276747200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -834,6 +833,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276747200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -847,6 +847,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271736000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -860,6 +861,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271736000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -876,6 +878,7 @@
         "units": null
       },
       "time": 1284696000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -892,6 +895,7 @@
         "units": null
       },
       "time": 1283918400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -908,6 +912,7 @@
         "units": null
       },
       "time": 1281067200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -924,6 +929,7 @@
         "units": null
       },
       "time": 1278388800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -940,6 +946,7 @@
         "units": null
       },
       "time": 1276747200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -956,6 +963,7 @@
         "units": null
       },
       "time": 1271736000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -972,6 +980,7 @@
         "units": null
       },
       "time": 1267333200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -990,6 +999,7 @@
       },
       "time": 1185768000,
       "status": "active",
+      "specifics": "C2909595:Human immunodeficiency [HIV] disease complicating pregnancy, unspecified trimester;",
       "description": "HIV"
     },
     {
@@ -1006,6 +1016,7 @@
       },
       "time": 1284696000,
       "status": "active",
+      "specifics": "C0032989:Multiple Pregnancy;",
       "description": "Delivery Live Births-Diagnosis"
     },
     {
@@ -1022,6 +1033,7 @@
       },
       "time": 1271217600,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "asthma"
     },
     {
@@ -1032,16 +1044,8 @@
       },
       "time": 1267333200,
       "status": "active",
+      "specifics": "C0404831:Multigravida;",
       "description": "Multigravida"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "248986005"
-        ]
-      },
-      "time": 1261458000,
-      "description": "Estimated date of conception"
     },
     {
       "codes": {
@@ -1050,6 +1054,7 @@
         ]
       },
       "time": 1278388800,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -1059,6 +1064,7 @@
         ]
       },
       "time": 1278388800,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
       "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
@@ -1080,6 +1086,7 @@
         "units": null
       },
       "time": 1185768000,
+      "specifics": "C0523323:HIV p24 antigen test;",
       "description": "HIV Screening"
     },
     {
@@ -1108,6 +1115,7 @@
         "units": null
       },
       "time": 1267333200,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -1121,6 +1129,7 @@
         "units": null
       },
       "time": 1281067200,
+      "specifics": "C0482428:Rh immune globulin screen:Impression/interpretation of study:Point in time:Whole blood:Nominal;",
       "description": "Rh Status Mother"
     }
   ],
@@ -1135,6 +1144,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C1384485:Normal delivery;  There are two SNOMED codes for \"normal delivery;\" 48782003 is the other one",
       "description": "Delivery Live Births-Procedure"
     }
   ],
@@ -1146,6 +1156,7 @@
         ]
       },
       "time": 1278388800,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     },
     {
@@ -1155,6 +1166,7 @@
         ]
       },
       "time": 1278388800,
+      "specifics": "C0593903:atorvastatin 10 MG Oral Tablet [Lipitor];",
       "description": "Lipid Lowering Therapy"
     }
   ],

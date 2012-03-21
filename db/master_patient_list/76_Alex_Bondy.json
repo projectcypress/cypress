@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059ba9ffcce901000044",
+  "_id": "4f6224bea9ffcca063000044",
   "first": "Alex",
   "patient_id": "76",
   "last": "Bondy",
@@ -57,8 +57,6 @@
         1270353600
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1287979200,
@@ -72,6 +70,8 @@
         1287979200,
         1270353600
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -127,9 +127,6 @@
       ]
     },
     "0028": {
-      "tobacco_user_patient_characteristic": [
-        1270353600
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1270353600
       ]
@@ -146,7 +143,7 @@
         1270353600
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1287979200,
         1270353600
@@ -167,7 +164,7 @@
         1270353600
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1287979200,
         1270353600
@@ -439,9 +436,9 @@
     },
     "0385": {
     },
-    "0389": {
-    },
     "0387": {
+    },
+    "0389": {
     },
     "0421": {
       "follow_up_plan_bmi_management_care_plan": [
@@ -482,6 +479,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -491,6 +489,7 @@
         ]
       },
       "time": 1276660800,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     },
     {
@@ -500,19 +499,12 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1270353600,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -526,6 +518,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287979200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -539,6 +532,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287979200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -552,6 +546,7 @@
         "units": null
       },
       "time": 1287979200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -565,6 +560,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270353600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -578,6 +574,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270353600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -591,6 +588,7 @@
         "units": null
       },
       "time": 1270353600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -607,6 +605,7 @@
         "units": null
       },
       "time": 1287979200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -623,6 +622,7 @@
         "units": null
       },
       "time": 1270353600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -641,6 +641,7 @@
       },
       "time": 1270353600,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "Asthma"
     },
     {
@@ -657,6 +658,7 @@
       },
       "time": 451803600,
       "status": "active",
+      "specifics": "C0010674:Cystic Fibrosis;",
       "description": "Cystic fibrosis"
     },
     {
@@ -670,6 +672,7 @@
       },
       "time": 1276660800,
       "status": "active",
+      "specifics": "C1960047:Moderate persistent asthma;",
       "description": "Asthma Persistent"
     },
     {
@@ -679,6 +682,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C1276804:Asthma daytime symptoms;",
       "description": "Asthma Daytime Symptoms"
     },
     {
@@ -688,6 +692,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C1273489:Asthma night-time symptoms;",
       "description": "Asthma Nighttime Symptoms"
     },
     {
@@ -697,6 +702,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -706,6 +712,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
       "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
@@ -729,6 +736,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -744,6 +752,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -756,6 +765,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -765,6 +775,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
       "description": "Asthma Symptom Assessment Tool"
     },
     {
@@ -774,6 +785,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
       "description": "Asthma Symptom Assessment Tool"
     }
   ],
@@ -785,6 +797,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;",
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
     },
     {
@@ -794,6 +807,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     }
   ],
@@ -805,6 +819,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -814,6 +829,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
       "description": "Pneumococcal Vaccine"
     }
   ],
@@ -834,6 +850,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059aa9ffcce90100003c",
+  "_id": "4f6224bda9ffcca06300003c",
   "first": "Allie",
   "patient_id": "23",
   "last": "Little",
@@ -56,8 +56,6 @@
         1234760400
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291525200,
@@ -75,6 +73,8 @@
         1282449600,
         1271649600
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -142,9 +142,6 @@
         1282449600,
         1271649600,
         1234760400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1271649600
       ]
     },
     "0031": {
@@ -164,30 +161,6 @@
       ],
       "pap_test_laboratory_test_result": [
         1271649600
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1291525200,
-        1282449600,
-        1271649600,
-        1234760400
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1291525200,
-        1282449600,
-        1271649600,
-        1234760400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291525200,
-        1282449600,
-        1271649600,
-        1234760400
       ]
     },
     "0033": {
@@ -217,6 +190,30 @@
       ],
       "iud_use_device_allergy": [
         1263531600
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1291525200,
+        1282449600,
+        1271649600,
+        1234760400
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291525200,
+        1282449600,
+        1271649600,
+        1234760400
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1291525200,
+        1282449600,
+        1271649600,
+        1234760400
       ]
     },
     "0036": {
@@ -510,8 +507,6 @@
         1234760400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1291525200,
@@ -519,6 +514,8 @@
         1271649600,
         1234760400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -563,6 +560,7 @@
         ]
       },
       "time": 1263531600,
+      "specifics": "C2921403:Contraceptive IUD check (finding);",
       "description": "IUD use"
     }
   ],
@@ -580,6 +578,7 @@
         ]
       },
       "time": 1291525200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -592,6 +591,7 @@
         ]
       },
       "time": 1282449600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -604,6 +604,7 @@
         ]
       },
       "time": 1271649600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -616,19 +617,12 @@
         ]
       },
       "time": 1234760400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1271649600,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -642,6 +636,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291525200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -655,6 +650,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291525200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -668,6 +664,7 @@
         "units": null
       },
       "time": 1291525200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -681,6 +678,7 @@
         "units": "mm[Hg]"
       },
       "time": 1282449600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -694,6 +692,7 @@
         "units": "mm[Hg]"
       },
       "time": 1282449600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -707,6 +706,7 @@
         "units": null
       },
       "time": 1282449600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -720,6 +720,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271649600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -733,6 +734,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271649600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -746,6 +748,7 @@
         "units": null
       },
       "time": 1271649600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -762,6 +765,7 @@
         "units": null
       },
       "time": 1291525200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -778,6 +782,7 @@
         "units": null
       },
       "time": 1282449600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -794,6 +799,7 @@
         "units": null
       },
       "time": 1271649600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -810,6 +816,7 @@
         "units": null
       },
       "time": 1171602000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -828,12 +835,13 @@
       },
       "time": 1282449600,
       "status": "active",
+      "specifics": "C0001344:Acute pharyngitis;",
       "description": "pharyngitis"
     },
     {
       "codes": {
         "ICD-9-CM": [
-          "99.9"
+          "099.9"
         ],
         "SNOMED-CT": [
           "8098009"
@@ -844,6 +852,7 @@
       },
       "time": 1271649600,
       "status": "active",
+      "specifics": "C0036916:Sexually Transmitted Diseases;",
       "description": "sexually active woman"
     }
   ],
@@ -865,6 +874,7 @@
         "units": null
       },
       "time": 1291525200,
+      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;",
       "description": "Group A Streptococcus Test"
     },
     {
@@ -884,6 +894,7 @@
         "units": null
       },
       "time": 1282449600,
+      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;",
       "description": "Group A Streptococcus Test"
     },
     {
@@ -912,6 +923,7 @@
         "units": null
       },
       "time": 1271649600,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     }
   ],
@@ -923,6 +935,7 @@
         ]
       },
       "time": 1271649600,
+      "specifics": "C0204948:Contraceptive use education;",
       "description": "contraceptive use education"
     },
     {
@@ -938,6 +951,7 @@
         ]
       },
       "time": 1271649600,
+      "specifics": "C0161942:Other obstetric operations NOS;",
       "description": "procedures indicative of sexually active woman"
     }
   ],
@@ -949,6 +963,7 @@
         ]
       },
       "time": 1282449600,
+      "specifics": "C0975386:cefpodoxime 200 MG Oral Tablet;",
       "description": "Third generation cephalosporins"
     },
     {
@@ -958,6 +973,7 @@
         ]
       },
       "time": 1271649600,
+      "specifics": "C0981634:Ethinyl Estradiol 0.05 MG / Norgestrel 0.5 MG Oral Tablet;",
       "description": "contraceptives"
     }
   ],

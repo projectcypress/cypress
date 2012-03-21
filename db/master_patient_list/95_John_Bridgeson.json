@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a5a9ffcce90100009e",
+  "_id": "4f6224c8a9ffcca06300009e",
   "first": "John",
   "patient_id": "95",
   "last": "Bridgeson",
@@ -37,8 +37,6 @@
         1273118400
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291266000,
@@ -52,6 +50,8 @@
         1291266000,
         1273118400
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -101,9 +101,6 @@
       "encounter_office_visit_encounter": [
         1291266000,
         1273118400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1273118400
       ]
     },
     "0031": {
@@ -118,7 +115,7 @@
         1273118400
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1291266000,
         1273118400
@@ -136,7 +133,7 @@
         1273118400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1291266000,
         1273118400
@@ -530,13 +527,13 @@
         1273118400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1291266000,
         1273118400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -609,6 +606,7 @@
         ]
       },
       "time": 1291266000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -618,6 +616,7 @@
         ]
       },
       "time": 1284609600,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     },
     {
@@ -630,19 +629,12 @@
         ]
       },
       "time": 1273118400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1273118400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -656,6 +648,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291266000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -669,6 +662,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291266000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -682,6 +676,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273118400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -695,6 +690,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273118400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -711,6 +707,7 @@
         "units": null
       },
       "time": 1291266000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -727,6 +724,7 @@
         "units": null
       },
       "time": 1273118400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -745,6 +743,7 @@
       },
       "time": 1273118400,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     }
   ],
@@ -766,6 +765,7 @@
         "units": null
       },
       "time": 1291179600,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -785,6 +785,7 @@
         "units": null
       },
       "time": 1291179600,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -804,6 +805,7 @@
         "units": null
       },
       "time": 1291179600,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     },
     {
@@ -823,6 +825,7 @@
         "units": null
       },
       "time": 1291179600,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -842,6 +845,7 @@
         "units": null
       },
       "time": 1273118400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -861,6 +865,7 @@
         "units": null
       },
       "time": 1273118400,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -880,6 +885,7 @@
         "units": null
       },
       "time": 1273118400,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -899,6 +905,7 @@
         "units": null
       },
       "time": 1273118400,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     },
     {
@@ -918,6 +925,7 @@
         "units": null
       },
       "time": 1273118400,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -937,6 +945,7 @@
         "units": null
       },
       "time": 1273118400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     }
   ],
@@ -952,6 +961,7 @@
         "units": null
       },
       "time": 1291266000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -965,6 +975,7 @@
         "units": null
       },
       "time": 1273118400,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -974,6 +985,7 @@
         ]
       },
       "time": 1273118400,
+      "specifics": "C0420347:Patient referral to dietitian;",
       "description": "dietary consultation order"
     },
     {
@@ -992,6 +1004,7 @@
         ]
       },
       "time": 1287201600,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     }
   ],
@@ -1003,6 +1016,7 @@
         ]
       },
       "time": 1273118400,
+      "specifics": "C2683559:3 ML Insulin Lispro 100 UNT/ML Prefilled Syringe;",
       "description": "Insulin"
     },
     {
@@ -1012,6 +1026,7 @@
         ]
       },
       "time": 1273118400,
+      "specifics": "C0593903:atorvastatin 10 MG Oral Tablet [Lipitor];",
       "description": "Lipid Lowering Therapy"
     }
   ],
@@ -1035,6 +1050,7 @@
         ]
       },
       "time": 1273118400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

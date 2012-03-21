@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0599a9ffcce901000033",
+  "_id": "4f6224bca9ffcca063000033",
   "first": "Lenore",
   "patient_id": "24",
   "last": "Tibbets",
@@ -37,8 +37,6 @@
         1274068800
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1285387200,
@@ -55,6 +53,8 @@
         1281931200,
         1274068800
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -122,9 +122,6 @@
       ],
       "encounter_prev_med_other_services_encounter": [
         1285387200
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1285387200
       ]
     },
     "0031": {
@@ -155,10 +152,7 @@
         1281931200
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1287979200
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1285387200,
         1285387200,
@@ -181,7 +175,10 @@
         1274068800
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1287979200
+      ],
       "encounter_outpatient_encounter": [
         1285387200,
         1285387200,
@@ -486,8 +483,6 @@
         1274068800
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1285387200,
@@ -508,6 +503,8 @@
         1217304000,
         1248926400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -552,6 +549,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -561,6 +559,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C0374646:Unlisted preventive medicine service;",
       "description": "Encounter Prev Med Other Services"
     },
     {
@@ -573,6 +572,7 @@
         ]
       },
       "time": 1281931200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -585,19 +585,12 @@
         ]
       },
       "time": 1274068800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1285387200,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -611,6 +604,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285387200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -624,6 +618,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285387200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -637,6 +632,7 @@
         "units": null
       },
       "time": 1285387200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -650,6 +646,7 @@
         "units": "mm[Hg]"
       },
       "time": 1281931200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -663,6 +660,7 @@
         "units": "mm[Hg]"
       },
       "time": 1281931200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -676,6 +674,7 @@
         "units": null
       },
       "time": 1281931200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -689,6 +688,7 @@
         "units": "mm[Hg]"
       },
       "time": 1274068800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -702,6 +702,7 @@
         "units": "mm[Hg]"
       },
       "time": 1274068800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -715,6 +716,7 @@
         "units": null
       },
       "time": 1274068800,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -731,6 +733,7 @@
         "units": null
       },
       "time": 1105851600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -747,6 +750,7 @@
         "units": null
       },
       "time": 1274068800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -765,6 +769,7 @@
       },
       "time": 1112760000,
       "status": "inactive",
+      "specifics": "C0235653:Malignant neoplasm of female breast;",
       "description": "Breast Cancer"
     },
     {
@@ -781,6 +786,7 @@
       },
       "time": 1274068800,
       "status": "active",
+      "specifics": "C1997028:History of malignant neoplasm of breast;",
       "description": "Breast Cancer History"
     }
   ],
@@ -811,6 +817,7 @@
         "units": null
       },
       "time": 1281931200,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     }
   ],
@@ -834,6 +841,7 @@
         ]
       },
       "time": 1287979200,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     },
     {
@@ -855,6 +863,7 @@
         ]
       },
       "time": 1281931200,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     },
     {
@@ -876,6 +885,7 @@
         ]
       },
       "time": 1248321600,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     },
     {
@@ -897,6 +907,7 @@
         ]
       },
       "time": 1215921600,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     },
     {
@@ -918,6 +929,7 @@
         ]
       },
       "time": 1185336000,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     },
     {
@@ -939,6 +951,7 @@
         ]
       },
       "time": 1154404800,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     },
     {
@@ -960,6 +973,7 @@
         ]
       },
       "time": 1124683200,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     },
     {
@@ -981,6 +995,7 @@
         ]
       },
       "time": 1110862800,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     }
   ],
@@ -992,6 +1007,7 @@
         ]
       },
       "time": 1122868800,
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
       "description": "Tamoxifen or Aromatase Inhibitor Therapy"
     },
     {
@@ -1001,6 +1017,7 @@
         ]
       },
       "time": 1154232000,
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
       "description": "Tamoxifen or Aromatase Inhibitor Therapy"
     },
     {
@@ -1010,6 +1027,7 @@
         ]
       },
       "time": 1185336000,
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
       "description": "Tamoxifen or Aromatase Inhibitor Therapy"
     },
     {
@@ -1019,6 +1037,7 @@
         ]
       },
       "time": 1217304000,
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
       "description": "Tamoxifen or Aromatase Inhibitor Therapy"
     },
     {
@@ -1028,6 +1047,7 @@
         ]
       },
       "time": 1248926400,
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
       "description": "Tamoxifen or Aromatase Inhibitor Therapy"
     }
   ],
@@ -1039,6 +1059,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1051,6 +1072,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     },
     {
@@ -1060,6 +1082,7 @@
         ]
       },
       "time": 1253073600,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1069,6 +1092,7 @@
         ]
       },
       "time": 1224907200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1078,6 +1102,7 @@
         ]
       },
       "time": 1193889600,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1087,6 +1112,7 @@
         ]
       },
       "time": 1160020800,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1099,6 +1125,7 @@
         ]
       },
       "time": 1105851600,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     },
     {
@@ -1108,6 +1135,7 @@
         ]
       },
       "time": 1105851600,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     }
   ],
