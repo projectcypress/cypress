@@ -14,17 +14,6 @@ class ProducTest < ActiveSupport::TestCase
     @product1 = Product.find("4f57a88a1d41c851eb000004")
     @product2 = Product.find("4f636ae01d41c851eb00048e")
   end
-=begin
-  test "AAA info dump" do
-  puts @product1.passing?
-  failing1 = @product1.failing_tests
-  f1 = failing1[0]
-  f2 = failing1[1]
-  puts f1._id
-  puts f2._id
-  puts f1.ordered_executions.count
-  end
-=end
 
   test "Should know if its passing" do
     assert !@product1.passing?

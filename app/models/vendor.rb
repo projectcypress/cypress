@@ -57,6 +57,6 @@ class Vendor
   # The percentage of passing products. Returns 0 if no products
   def success_rate
     return 0 if self.products.empty?
-    return self.count_passing / self.products.size
+    return self.count_passing.to_f / self.products.size
   end
 end
