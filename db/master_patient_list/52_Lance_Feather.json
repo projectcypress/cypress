@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a1a9ffcce901000079",
+  "_id": "4f6224c4a9ffcca063000079",
   "first": "Lance",
   "patient_id": "52",
   "last": "Feather",
@@ -40,11 +40,6 @@
         1253851200
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1253851200
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1253851200
@@ -65,6 +60,11 @@
         1321506000,
         1287806400,
         1278388800,
+        1253851200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1253851200
       ]
     },
@@ -148,9 +148,6 @@
         1279252800,
         1270872000,
         1253851200
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1287806400
       ]
     },
     "0031": {
@@ -169,10 +166,7 @@
         1253851200
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1289883600
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1287806400,
         1279252800,
@@ -200,7 +194,10 @@
         1281412800
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1289883600
+      ],
       "encounter_outpatient_encounter": [
         1287806400,
         1279252800,
@@ -623,8 +620,6 @@
         1253851200
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1287806400,
@@ -632,6 +627,8 @@
         1270872000,
         1253851200
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -678,6 +675,7 @@
         ]
       },
       "time": 1245816000,
+      "specifics": "C0781756:Mumps Virus Vaccine Live, Jeryl Lynn Strain 40000 UNT/ML Injectable Solution;",
       "description": "Mumps Vaccine"
     }
   ],
@@ -692,6 +690,7 @@
         ]
       },
       "time": 1295240400,
+      "specifics": "C0374195:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; comprehensive, established patient, one or more visits;",
       "description": "encounter outpatient - opthamological services"
     },
     {
@@ -704,6 +703,7 @@
         ]
       },
       "time": 1287806400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -713,6 +713,7 @@
         ]
       },
       "time": 1281412800,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -725,6 +726,7 @@
         ]
       },
       "time": 1279252800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -737,6 +739,7 @@
         ]
       },
       "time": 1270872000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -749,19 +752,12 @@
         ]
       },
       "time": 1253851200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1287806400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -775,6 +771,7 @@
         "units": "mm[Hg]"
       },
       "time": 1321506000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -788,6 +785,7 @@
         "units": "mm[Hg]"
       },
       "time": 1321506000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -801,6 +799,7 @@
         "units": null
       },
       "time": 1321506000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -814,6 +813,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287806400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -827,6 +827,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287806400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -840,6 +841,7 @@
         "units": null
       },
       "time": 1287806400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -853,6 +855,7 @@
         "units": "mm[Hg]"
       },
       "time": 1278388800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -866,6 +869,7 @@
         "units": "mm[Hg]"
       },
       "time": 1279252800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -879,6 +883,7 @@
         "units": null
       },
       "time": 1279252800,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -892,6 +897,7 @@
         "units": "mm[Hg]"
       },
       "time": 1253851200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -905,6 +911,7 @@
         "units": "mm[Hg]"
       },
       "time": 1253851200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -918,6 +925,7 @@
         "units": null
       },
       "time": 1253851200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -934,6 +942,7 @@
         "units": null
       },
       "time": 1321506000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -950,6 +959,7 @@
         "units": null
       },
       "time": 1287806400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -966,6 +976,7 @@
         "units": null
       },
       "time": 1279252800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -982,6 +993,7 @@
         "units": null
       },
       "time": 1253851200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -1000,6 +1012,7 @@
       },
       "time": 1253851200,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -1021,6 +1034,7 @@
         "units": null
       },
       "time": 1253851200,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -1040,6 +1054,7 @@
         "units": null
       },
       "time": 1253851200,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -1059,6 +1074,7 @@
         "units": null
       },
       "time": 1253851200,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -1078,6 +1094,7 @@
         "units": null
       },
       "time": 1253851200,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     }
   ],
@@ -1098,6 +1115,7 @@
         ]
       },
       "time": 1281412800,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     },
     {
@@ -1119,6 +1137,7 @@
         ]
       },
       "time": 1289883600,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     }
   ],
@@ -1130,6 +1149,7 @@
         ]
       },
       "time": 1279252800,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -1139,6 +1159,7 @@
         ]
       },
       "time": 1253851200,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     }
   ],
@@ -1153,6 +1174,7 @@
         ]
       },
       "time": 1287806400,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     },
     {
@@ -1162,6 +1184,7 @@
         ]
       },
       "time": 1287806400,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1171,6 +1194,7 @@
         ]
       },
       "time": 1287806400,
+      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;",
       "description": "Hepatitis A Vaccine"
     },
     {
@@ -1180,6 +1204,7 @@
         ]
       },
       "time": 1287806400,
+      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;",
       "description": "Hepatitis A Vaccine"
     },
     {
@@ -1189,6 +1214,7 @@
         ]
       },
       "time": 1270872000,
+      "specifics": "C0710716:Measles Virus Vaccine Live, Enders' attenuated Edmonston strain 2000 UNT/ML / Mumps Virus Vaccine Live, Jeryl Lynn Strain 25000 UNT/ML / Rubella Virus Vaccine Live (Wistar RA 27-3 Strain) 2000 UNT/ML Injectable Solution [M-M-R II];",
       "description": "MMR Vaccine"
     }
   ],

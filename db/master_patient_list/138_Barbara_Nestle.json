@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a0a9ffcce901000071",
+  "_id": "4f6224c4a9ffcca063000071",
   "first": "Barbara",
   "patient_id": "138",
   "last": "Nestle",
@@ -28,8 +28,6 @@
         1273723200
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1278907200,
@@ -39,6 +37,8 @@
         1278907200,
         1273723200
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -69,19 +69,10 @@
     "0027": {
     },
     "0028": {
-      "tobacco_user_patient_characteristic": [
-        1273723200
-      ]
     },
     "0031": {
     },
     "0032": {
-    },
-    "0034": {
-    },
-    "0043": {
-    },
-    "0086": {
     },
     "0033": {
       "pregnancy_test_laboratory_test_performed": [
@@ -92,6 +83,12 @@
         1273723200,
         1278907200
       ]
+    },
+    "0043": {
+    },
+    "0086": {
+    },
+    "0034": {
     },
     "0036": {
       "encounter_ed_encounter": [
@@ -220,9 +217,9 @@
     },
     "0385": {
     },
-    "0389": {
-    },
     "0387": {
+    },
+    "0389": {
     },
     "0421": {
     },
@@ -247,6 +244,7 @@
         ]
       },
       "time": 1278907200,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     },
     {
@@ -256,19 +254,12 @@
         ]
       },
       "time": 1273723200,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1273723200,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -282,6 +273,7 @@
         "units": "mm[Hg]"
       },
       "time": 1278907200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -295,6 +287,7 @@
         "units": "mm[Hg]"
       },
       "time": 1278907200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -308,6 +301,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273723200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -321,6 +315,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273723200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     }
   ],
@@ -339,6 +334,7 @@
       },
       "time": 1273723200,
       "status": "active",
+      "specifics": "C0156189:Cirrhosis and chronic liver disease;",
       "description": "Liver Disorders"
     }
   ],
@@ -357,6 +353,7 @@
         "units": null
       },
       "time": 1273723200,
+      "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;",
       "description": "Pregnancy Test"
     },
     {
@@ -373,6 +370,7 @@
         "units": null
       },
       "time": 1278907200,
+      "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;",
       "description": "Pregnancy Test"
     }
   ],

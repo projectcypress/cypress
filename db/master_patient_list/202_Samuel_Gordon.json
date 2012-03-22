@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0598a9ffcce90100002a",
+  "_id": "4f6224bba9ffcca06300002a",
   "first": "Samuel",
   "patient_id": "202",
   "last": "Gordon",
@@ -40,11 +40,6 @@
         1272427200
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1272427200
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1272427200
@@ -69,6 +64,11 @@
         1283313600,
         1278648000,
         1309233600,
+        1272427200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1272427200
       ]
     },
@@ -166,9 +166,6 @@
         1278648000,
         1272427200
       ],
-      "tobacco_user_patient_characteristic": [
-        1240891200
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1272427200
       ],
@@ -195,15 +192,12 @@
         1272427200
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1291093200,
         1283313600,
         1278648000,
         1272427200
-      ],
-      "fobt_laboratory_test_performed": [
-        1283313600
       ]
     },
     "0043": {
@@ -232,12 +226,15 @@
         1309233600
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1291093200,
         1283313600,
         1278648000,
         1272427200
+      ],
+      "fobt_laboratory_test_performed": [
+        1283313600
       ]
     },
     "0036": {
@@ -699,8 +696,6 @@
         1272427200
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1291093200,
@@ -708,6 +703,8 @@
         1278648000,
         1272427200
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -742,6 +739,7 @@
         ]
       },
       "time": 1323406800,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -754,6 +752,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -766,6 +765,7 @@
         ]
       },
       "time": 1283313600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -775,6 +775,7 @@
         ]
       },
       "time": 1278648000,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -784,6 +785,7 @@
         ]
       },
       "time": 1309233600,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -793,19 +795,12 @@
         ]
       },
       "time": 1272427200,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1240891200,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -819,6 +814,7 @@
         "units": "mm[Hg]"
       },
       "time": 1323406800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -832,6 +828,7 @@
         "units": "mm[Hg]"
       },
       "time": 1323406800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -845,6 +842,7 @@
         "units": "mm[Hg]"
       },
       "time": 1322629200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -858,6 +856,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291093200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -871,6 +870,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283313600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -884,6 +884,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283313600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -897,6 +898,7 @@
         "units": "mm[Hg]"
       },
       "time": 1278648000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -910,6 +912,7 @@
         "units": "mm[Hg]"
       },
       "time": 1278648000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -923,6 +926,7 @@
         "units": "mm[Hg]"
       },
       "time": 1309233600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -936,6 +940,7 @@
         "units": "mm[Hg]"
       },
       "time": 1277697600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -949,6 +954,7 @@
         "units": "mm[Hg]"
       },
       "time": 1272427200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -962,6 +968,7 @@
         "units": "mm[Hg]"
       },
       "time": 1272427200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     }
   ],
@@ -980,6 +987,7 @@
       },
       "time": 1234760400,
       "status": "inactive",
+      "specifics": "C0264490:Acute respiratory failure;",
       "description": "acute respiratory failure"
     },
     {
@@ -996,6 +1004,7 @@
       },
       "time": 1234760400,
       "status": "active",
+      "specifics": "C0024117:Chronic Obstructive Airway Disease; C1537189:Chronic obstructive lung disease, NEC; C1527303:Chronic Airflow Obstruction;",
       "description": "COPD"
     },
     {
@@ -1012,6 +1021,7 @@
       },
       "time": 1272427200,
       "status": "active",
+      "specifics": "C0022116:Ischemia;",
       "description": "ischemic vascular disease"
     },
     {
@@ -1028,6 +1038,7 @@
       },
       "time": 1272427200,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     },
     {
@@ -1044,6 +1055,7 @@
       },
       "time": 1277697600,
       "status": "active",
+      "specifics": "C0017612:Glaucoma, Open-Angle;",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],
@@ -1071,6 +1083,7 @@
         "units": null
       },
       "time": 1283313600,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "FOBT"
     },
     {
@@ -1090,6 +1103,7 @@
         "units": null
       },
       "time": 1272513600,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -1109,6 +1123,7 @@
         "units": null
       },
       "time": 1272513600,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -1128,6 +1143,7 @@
         "units": null
       },
       "time": 1272513600,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -1147,6 +1163,7 @@
         "units": null
       },
       "time": 1272513600,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     }
   ],
@@ -1161,6 +1178,7 @@
         ]
       },
       "time": 1272427200,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -1179,6 +1197,7 @@
         ]
       },
       "time": 1277697600,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     }
   ],
@@ -1190,6 +1209,7 @@
         ]
       },
       "time": 1278648000,
+      "specifics": "C0783425:Aspirin 81 MG Oral Tablet;",
       "description": "Antiplatelet Therapy"
     },
     {
@@ -1199,6 +1219,7 @@
         ]
       },
       "time": 1278648000,
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
       "description": "Smoking Cessation Agents"
     },
     {
@@ -1208,6 +1229,7 @@
         ]
       },
       "time": 1278648000,
+      "specifics": "C0693534:valsartan 80 MG Oral Capsule;",
       "description": "Angiotension II inhibitors"
     },
     {
@@ -1217,6 +1239,7 @@
         ]
       },
       "time": 1272427200,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -1226,6 +1249,7 @@
         ]
       },
       "time": 1234760400,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     },
     {
@@ -1235,6 +1259,7 @@
         ]
       },
       "time": 1272427200,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     }
   ],
@@ -1246,6 +1271,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1255,6 +1281,7 @@
         ]
       },
       "time": 1291093200,
+      "specifics": "",
       "description": "Pneumococcal Vaccine ages 2 and older"
     }
   ],

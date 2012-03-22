@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a4a9ffcce90100008f",
+  "_id": "4f6224c7a9ffcca06300008f",
   "first": "Anna",
   "patient_id": "90",
   "last": "Molly",
@@ -38,8 +38,6 @@
         1270008000
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1288411200,
@@ -55,6 +53,8 @@
         1271044800,
         1270008000
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -118,9 +118,6 @@
       "encounter_office_visit_encounter": [
         1279944000,
         1270008000
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270008000
       ]
     },
     "0031": {
@@ -135,7 +132,7 @@
         1270008000
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1279944000,
         1270008000
@@ -157,7 +154,7 @@
         1271044800
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1279944000,
         1270008000
@@ -502,13 +499,13 @@
         1270008000
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1279944000,
         1270008000
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -575,6 +572,7 @@
         ]
       },
       "time": 1288411200,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -587,6 +585,7 @@
         ]
       },
       "time": 1279944000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -596,6 +595,7 @@
         ]
       },
       "time": 1271044800,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -608,19 +608,12 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -634,6 +627,7 @@
         "units": "mm[Hg]"
       },
       "time": 1288411200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -647,6 +641,7 @@
         "units": "mm[Hg]"
       },
       "time": 1288411200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -660,6 +655,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271044800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -673,6 +669,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271044800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -686,6 +683,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -699,6 +697,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -712,6 +711,7 @@
         "units": null
       },
       "time": 1271044800,
+      "specifics": "C0271051:Macular retinal edema;",
       "description": "Macular Edema Findings"
     },
     {
@@ -728,6 +728,7 @@
         "units": null
       },
       "time": 1279944000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -744,6 +745,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -762,6 +764,7 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     },
     {
@@ -778,6 +781,7 @@
       },
       "time": 1271044800,
       "status": "active",
+      "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
       "description": "Diabetic Retinopathy"
     },
     {
@@ -787,6 +791,7 @@
         ]
       },
       "time": 1271044800,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -796,6 +801,7 @@
         ]
       },
       "time": 1271044800,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
       "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
@@ -817,6 +823,7 @@
         "units": null
       },
       "time": 1279944000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -836,6 +843,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     }
   ],
@@ -851,6 +859,7 @@
         "units": null
       },
       "time": 1288411200,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -864,6 +873,7 @@
         "units": null
       },
       "time": 1271044800,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -877,6 +887,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -886,6 +897,7 @@
         ]
       },
       "time": 1271044800,
+      "specifics": "C0271051:Macular retinal edema;",
       "description": "macular edema findings"
     },
     {
@@ -895,6 +907,7 @@
         ]
       },
       "time": 1271044800,
+      "specifics": "C1275954:Non-high-risk proliferative diabetic retinopathy with clinically significant macular edema;",
       "description": "severity of retinopathy and macular edema findings"
     },
     {
@@ -913,6 +926,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -928,6 +942,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -946,6 +961,7 @@
         ]
       },
       "time": 1271044800,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     },
     {
@@ -955,6 +971,7 @@
         ]
       },
       "time": 1271044800,
+      "specifics": "C1444586:Slit lamp fundus examination;",
       "description": "Macular or Fundus Exam"
     }
   ],
@@ -966,6 +983,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C2683559:3 ML Insulin Lispro 100 UNT/ML Prefilled Syringe;",
       "description": "Insulin"
     }
   ],
@@ -989,6 +1007,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

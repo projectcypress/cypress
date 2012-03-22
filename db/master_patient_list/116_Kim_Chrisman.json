@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059da9ffcce901000054",
+  "_id": "4f6224c0a9ffcca063000054",
   "first": "Kim",
   "patient_id": "116",
   "last": "Chrisman",
@@ -47,11 +47,6 @@
         1275969600
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270008000
@@ -68,6 +63,11 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1288152000,
+        1270008000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1270008000
       ]
     },
@@ -138,9 +138,6 @@
         1277438400,
         1275796800,
         1270008000
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270008000
       ]
     },
     "0031": {
@@ -159,17 +156,17 @@
         1270008000
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1275796800
-      ],
-      "colorectal_cancer_diagnosis_active": [
-        1275796800
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1288152000,
         1277438400,
         1275796800,
+        1270008000
+      ],
+      "x_ray_study_diagnostic_study_result": [
+        1270008000
+      ],
+      "x_ray_study_diagnostic_study_performed": [
         1270008000
       ]
     },
@@ -189,17 +186,17 @@
         1270008000
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1275796800
+      ],
+      "colorectal_cancer_diagnosis_active": [
+        1275796800
+      ],
       "encounter_outpatient_encounter": [
         1288152000,
         1277438400,
         1275796800,
-        1270008000
-      ],
-      "x_ray_study_diagnostic_study_result": [
-        1270008000
-      ],
-      "x_ray_study_diagnostic_study_performed": [
         1270008000
       ]
     },
@@ -598,16 +595,16 @@
         1270008000
       ]
     },
-    "0389": {
-      "pain_related_to_prostate_cancer_diagnosis_active": [
-        1270008000
-      ]
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1288152000,
         1277438400,
         1275796800,
+        1270008000
+      ]
+    },
+    "0389": {
+      "pain_related_to_prostate_cancer_diagnosis_active": [
         1270008000
       ]
     },
@@ -657,6 +654,7 @@
         ]
       },
       "time": 1288152000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -666,6 +664,7 @@
         ]
       },
       "time": 1277438400,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -675,6 +674,7 @@
         ]
       },
       "time": 1275969600,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "description": "encounter acute inpt"
     },
     {
@@ -687,6 +687,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -696,19 +697,12 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -722,6 +716,7 @@
         "units": "mm[Hg]"
       },
       "time": 1288152000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -735,6 +730,7 @@
         "units": "mm[Hg]"
       },
       "time": 1288152000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -748,6 +744,7 @@
         "units": null
       },
       "time": 1288152000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -761,6 +758,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -774,6 +772,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -787,6 +786,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -803,6 +803,7 @@
         "units": null
       },
       "time": 1275796800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -824,6 +825,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     },
     {
@@ -833,6 +835,7 @@
         ]
       },
       "time": 1276315200,
+      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
       "description": "Colon Cancer Stage III"
     }
   ],
@@ -851,6 +854,7 @@
       },
       "time": 1275796800,
       "status": "active",
+      "specifics": "C0007102:Malignant tumor of colon; C0346629:Malignant neoplasm of large intestine;",
       "description": "Colon Cancer"
     },
     {
@@ -867,6 +871,7 @@
       },
       "time": 1275969600,
       "status": "active",
+      "specifics": "C0022660:Kidney Failure, Acute;",
       "description": "Acute Renal Insufficiency"
     },
     {
@@ -883,6 +888,7 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     },
     {
@@ -899,6 +905,7 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C0024031:Low Back Pain;",
       "description": "low back pain"
     }
   ],
@@ -920,6 +927,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -939,6 +947,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     },
     {
@@ -958,6 +967,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -971,6 +981,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0364225:Cholesterol.in LDL:Mass Concentration:Point in time:Serum/Plasma:Quantitative;",
       "description": "LDL Laboratory Test"
     },
     {
@@ -992,6 +1003,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     },
     {
@@ -1001,6 +1013,7 @@
         ]
       },
       "time": 1276315200,
+      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
       "description": "Colon Cancer Stage III"
     }
   ],
@@ -1021,6 +1034,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -1036,6 +1050,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -1057,6 +1072,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     },
     {
@@ -1066,6 +1082,7 @@
         ]
       },
       "time": 1276315200,
+      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
       "description": "Colon Cancer Stage III"
     },
     {
@@ -1084,6 +1101,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "Pet imaging whole body; diagnosis; colorectal",
       "description": "Colorectal Cancer"
     },
     {
@@ -1096,6 +1114,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0203144:Diagnostic radiography of spine, survey study;",
       "description": "Imaging Study-Spinal"
     }
   ],
@@ -1107,6 +1126,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -1116,6 +1136,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0981555:Lisinopril 10 MG Oral Tablet;",
       "description": "ACE inhibitor or ARB"
     }
   ],
@@ -1127,6 +1148,7 @@
         ]
       },
       "time": 1288152000,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1139,6 +1161,7 @@
         ]
       },
       "time": 1288152000,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     }
   ],
@@ -1159,6 +1182,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

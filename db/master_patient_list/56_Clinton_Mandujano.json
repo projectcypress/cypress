@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059aa9ffcce90100003e",
+  "_id": "4f6224bea9ffcca06300003e",
   "first": "Clinton",
   "patient_id": "56",
   "last": "Mandujano",
@@ -40,8 +40,6 @@
         1239854400
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1286769600,
@@ -61,6 +59,8 @@
         1274846400,
         1239854400
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -136,9 +136,6 @@
         1277006400,
         1274846400,
         1239854400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1274846400
       ]
     },
     "0031": {
@@ -157,10 +154,7 @@
         1239854400
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1274846400
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1286769600,
         1277006400,
@@ -184,7 +178,10 @@
         1239854400
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1274846400
+      ],
       "encounter_outpatient_encounter": [
         1286769600,
         1277006400,
@@ -568,8 +565,6 @@
         1239854400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1286769600,
@@ -577,6 +572,8 @@
         1274846400,
         1239854400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -621,6 +618,7 @@
         ]
       },
       "time": 1239854400,
+      "specifics": "",
       "description": "Polymyxin"
     }
   ],
@@ -638,6 +636,7 @@
         ]
       },
       "time": 1286769600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -647,6 +646,7 @@
         ]
       },
       "time": 1277006400,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -659,6 +659,7 @@
         ]
       },
       "time": 1274846400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -668,19 +669,12 @@
         ]
       },
       "time": 1239854400,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1274846400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -694,6 +688,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286769600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -707,6 +702,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286769600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -720,6 +716,7 @@
         "units": null
       },
       "time": 1286769600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -733,6 +730,7 @@
         "units": "mm[Hg]"
       },
       "time": 1277006400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -746,6 +744,7 @@
         "units": "mm[Hg]"
       },
       "time": 1277006400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -759,6 +758,7 @@
         "units": null
       },
       "time": 1277006400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -772,6 +772,7 @@
         "units": "mm[Hg]"
       },
       "time": 1274846400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -785,6 +786,7 @@
         "units": "mm[Hg]"
       },
       "time": 1274846400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -798,6 +800,7 @@
         "units": null
       },
       "time": 1274846400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -811,6 +814,7 @@
         "units": "mm[Hg]"
       },
       "time": 1239854400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -824,6 +828,7 @@
         "units": "mm[Hg]"
       },
       "time": 1239854400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -837,6 +842,7 @@
         "units": null
       },
       "time": 1239854400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -853,6 +859,7 @@
         "units": null
       },
       "time": 1286769600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -869,6 +876,7 @@
         "units": null
       },
       "time": 1277006400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -885,6 +893,7 @@
         "units": null
       },
       "time": 1274846400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -901,6 +910,7 @@
         "units": null
       },
       "time": 1239854400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -919,6 +929,7 @@
       },
       "time": 1277006400,
       "status": "active",
+      "specifics": "C0085610:Sinus bradycardia; C2910381:Sinoatrial bradycardia; C0428977:Bradycardia; C0232190:Vagal autonomic bradycardia;",
       "description": "Bradycardia"
     }
   ],
@@ -940,6 +951,7 @@
         "units": null
       },
       "time": 1274846400,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -959,6 +971,7 @@
         "units": null
       },
       "time": 1274846400,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -978,6 +991,7 @@
         "units": null
       },
       "time": 1274846400,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -997,6 +1011,7 @@
         "units": null
       },
       "time": 1274846400,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     }
   ],
@@ -1020,6 +1035,7 @@
         ]
       },
       "time": 1274846400,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     },
     {
@@ -1029,6 +1045,7 @@
         ]
       },
       "time": 1277006400,
+      "specifics": "C0150496:Cardiac monitoring;",
       "description": "Cardiac Monitoring"
     }
   ],
@@ -1043,6 +1060,7 @@
         ]
       },
       "time": 1286769600,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1055,6 +1073,7 @@
         ]
       },
       "time": 1286769600,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     }
   ],

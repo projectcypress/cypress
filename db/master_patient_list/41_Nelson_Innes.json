@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0595a9ffcce901000017",
+  "_id": "4f6224b9a9ffcca063000017",
   "first": "Nelson",
   "patient_id": "41",
   "last": "Innes",
@@ -35,11 +35,6 @@
         1270008000
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270008000
@@ -56,6 +51,11 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1290661200,
         1279166400,
+        1270008000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1270008000
       ]
     },
@@ -128,9 +128,6 @@
       ],
       "encounter_prev_med_services_18_and_older_encounter": [
         1285819200
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270008000
       ]
     },
     "0031": {
@@ -147,7 +144,7 @@
         1270008000
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1285819200,
         1279166400,
@@ -171,7 +168,7 @@
         1273464000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1285819200,
         1279166400,
@@ -598,13 +595,13 @@
         1270008000
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1279166400,
         1270008000
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -674,6 +671,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "",
       "description": "Polymyxin"
     }
   ],
@@ -688,6 +686,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -697,6 +696,7 @@
         ]
       },
       "time": 1285819200,
+      "specifics": "C0374637:Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 40-64 years;",
       "description": "Encounter Prev Med 40 and Older"
     },
     {
@@ -709,6 +709,7 @@
         ]
       },
       "time": 1279166400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -718,6 +719,7 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -730,19 +732,12 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -756,6 +751,7 @@
         "units": "mm[Hg]"
       },
       "time": 1290661200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -769,6 +765,7 @@
         "units": "mm[Hg]"
       },
       "time": 1290661200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -782,6 +779,7 @@
         "units": "mm[Hg]"
       },
       "time": 1279166400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -795,6 +793,7 @@
         "units": "mm[Hg]"
       },
       "time": 1279166400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -808,6 +807,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -821,6 +821,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -837,6 +838,7 @@
         "units": null
       },
       "time": 1290661200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -853,6 +855,7 @@
         "units": null
       },
       "time": 1279166400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -869,6 +872,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -887,6 +891,7 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     },
     {
@@ -903,6 +908,7 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     },
     {
@@ -919,6 +925,7 @@
       },
       "time": 1273464000,
       "status": "active",
+      "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
       "description": "Diabetic Retinopathy"
     },
     {
@@ -932,6 +939,7 @@
         "units": null
       },
       "time": 1273464000,
+      "specifics": "C1275954:Non-high-risk proliferative diabetic retinopathy with clinically significant macular edema;",
       "description": "Severity of Retinopathy and Macular Edema Findings"
     }
   ],
@@ -953,6 +961,7 @@
         "units": null
       },
       "time": 1290661200,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -972,6 +981,7 @@
         "units": null
       },
       "time": 1279166400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -991,6 +1001,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1010,6 +1021,7 @@
         "units": null
       },
       "time": 1279166400,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -1029,6 +1041,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -1048,6 +1061,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0001922:Abnormal presence of albumin;",
       "description": "Urine Macroalbumin"
     }
   ],
@@ -1063,6 +1077,7 @@
         "units": null
       },
       "time": 1290661200,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1076,6 +1091,7 @@
         "units": null
       },
       "time": 1279166400,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1089,6 +1105,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1098,6 +1115,7 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C1275954:Non-high-risk proliferative diabetic retinopathy with clinically significant macular edema;",
       "description": "severity of retinopathy and macular edema findings"
     },
     {
@@ -1116,6 +1134,7 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     },
     {
@@ -1125,6 +1144,7 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C1444586:Slit lamp fundus examination;",
       "description": "Macular or Fundus Exam"
     }
   ],
@@ -1136,6 +1156,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;",
       "description": "Antidiabetic agents"
     },
     {
@@ -1145,6 +1166,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;",
       "description": "Antidiabetic agents"
     },
     {
@@ -1154,6 +1176,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C0593903:atorvastatin 10 MG Oral Tablet [Lipitor];",
       "description": "Lipid Lowering Therapy"
     },
     {
@@ -1163,6 +1186,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0593903:atorvastatin 10 MG Oral Tablet [Lipitor];",
       "description": "Lipid Lowering Therapy"
     }
   ],
@@ -1174,6 +1198,7 @@
         ]
       },
       "time": 1285819200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1186,6 +1211,7 @@
         ]
       },
       "time": 1279166400,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     }
   ],

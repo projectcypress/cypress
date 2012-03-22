@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05aca9ffcce9010000d6",
+  "_id": "4f6224cea9ffcca0630000d6",
   "first": "Greta",
   "patient_id": "82",
   "last": "Spears",
@@ -55,8 +55,6 @@
         1270353600
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1279080000,
@@ -74,6 +72,8 @@
         1279080000,
         1273118400
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -141,9 +141,6 @@
         1273118400,
         1272686400
       ],
-      "tobacco_user_patient_characteristic": [
-        1272686400
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1272686400
       ]
@@ -174,7 +171,7 @@
         1276315200
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1291438800,
         1285214400,
@@ -182,9 +179,6 @@
         1273118400,
         1272686400,
         1270353600
-      ],
-      "fobt_laboratory_test_performed": [
-        1279080000
       ]
     },
     "0043": {
@@ -213,7 +207,7 @@
         1291438800
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1291438800,
         1285214400,
@@ -221,6 +215,9 @@
         1273118400,
         1272686400,
         1270353600
+      ],
+      "fobt_laboratory_test_performed": [
+        1279080000
       ]
     },
     "0036": {
@@ -554,8 +551,6 @@
         1272686400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1285214400,
@@ -563,6 +558,8 @@
         1273118400,
         1272686400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -603,6 +600,7 @@
         ]
       },
       "time": 1291438800,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -612,6 +610,7 @@
         ]
       },
       "time": 1285214400,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -624,6 +623,7 @@
         ]
       },
       "time": 1279080000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -633,6 +633,7 @@
         ]
       },
       "time": 1276315200,
+      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;",
       "description": "encounter ob/gyn"
     },
     {
@@ -645,6 +646,7 @@
         ]
       },
       "time": 1273118400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -654,6 +656,7 @@
         ]
       },
       "time": 1272686400,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -663,19 +666,12 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1272686400,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -689,6 +685,7 @@
         "units": "mm[Hg]"
       },
       "time": 1279080000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -702,6 +699,7 @@
         "units": "mm[Hg]"
       },
       "time": 1279080000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -715,6 +713,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273118400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -728,6 +727,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273118400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -744,6 +744,7 @@
         "units": null
       },
       "time": 1279080000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -762,6 +763,7 @@
       },
       "time": 1270353600,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "Asthma"
     },
     {
@@ -778,6 +780,7 @@
       },
       "time": 1291438800,
       "status": "active",
+      "specifics": "C0017612:Glaucoma, Open-Angle;",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -787,6 +790,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -796,6 +800,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     }
   ],
@@ -826,6 +831,7 @@
         "units": null
       },
       "time": 1276315200,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -851,6 +857,7 @@
         "units": null
       },
       "time": 1279080000,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "FOBT"
     }
   ],
@@ -865,6 +872,7 @@
         ]
       },
       "time": 1272686400,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -874,6 +882,7 @@
         ]
       },
       "time": 1291438800,
+      "specifics": "C0200149:Ophthalmic examination and evaluation;",
       "description": "Optic Nerve Head Evaluation"
     }
   ],
@@ -885,6 +894,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C2731895:60 ACTUAT Fluticasone propionate 0.115 MG/ACTUAT / salmeterol 0.021 MG/ACTUAT Metered Dose Inhaler;",
       "description": "Long acting inhaled beta 2 agonist"
     },
     {
@@ -894,6 +904,7 @@
         ]
       },
       "time": 1270353600,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     }
   ],
