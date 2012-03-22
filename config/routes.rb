@@ -5,6 +5,17 @@ Cypress::Application.routes.draw do
   
   resources :vendors, :products
 
+  namespace :api do
+    resources :vendors do
+      resources :products do
+        resources :product_tests do
+          resources :patient_population 
+          resources :test_executions
+        end
+      end
+    end
+  end
+
   resources :product_tests do
     member do
       get 'download'
