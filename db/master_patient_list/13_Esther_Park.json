@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0599a9ffcce90100003b",
+  "_id": "4f6224bda9ffcca06300003b",
   "first": "Esther",
   "patient_id": "13",
   "last": "Park",
@@ -50,8 +50,6 @@
         1271390400
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1293685200,
@@ -69,6 +67,8 @@
         1276574400,
         1271390400
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -133,9 +133,6 @@
       "encounter_office_visit_encounter": [
         1284955200,
         1276574400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1271390400
       ]
     },
     "0031": {
@@ -157,30 +154,6 @@
         1276574400
       ]
     },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1293685200,
-        1284955200,
-        1276574400,
-        1271390400
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1293685200,
-        1284955200,
-        1276574400,
-        1271390400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1293685200,
-        1284955200,
-        1276574400,
-        1271390400
-      ]
-    },
     "0033": {
       "chlamydia_screening_laboratory_test_result": [
         1276574400
@@ -199,6 +172,30 @@
       ],
       "chlamydia_screening_laboratory_test_performed": [
         1276574400
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1293685200,
+        1284955200,
+        1276574400,
+        1271390400
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1293685200,
+        1284955200,
+        1276574400,
+        1271390400
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1293685200,
+        1284955200,
+        1276574400,
+        1271390400
       ]
     },
     "0036": {
@@ -521,13 +518,13 @@
         1276574400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1284955200,
         1276574400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -572,6 +569,7 @@
         ]
       },
       "time": 1293685200,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -584,6 +582,7 @@
         ]
       },
       "time": 1284955200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -596,6 +595,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -605,19 +605,12 @@
         ]
       },
       "time": 1271390400,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1271390400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -631,6 +624,7 @@
         "units": "mm[Hg]"
       },
       "time": 1293685200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -644,6 +638,7 @@
         "units": "mm[Hg]"
       },
       "time": 1293685200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -657,6 +652,7 @@
         "units": null
       },
       "time": 1293685200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -670,6 +666,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276574400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -683,6 +680,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276574400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -696,6 +694,7 @@
         "units": null
       },
       "time": 1276574400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -709,6 +708,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271390400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -722,6 +722,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271390400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -735,6 +736,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -751,6 +753,7 @@
         "units": null
       },
       "time": 1293685200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -767,6 +770,7 @@
         "units": null
       },
       "time": 1276574400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -783,6 +787,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -790,7 +795,7 @@
     {
       "codes": {
         "ICD-9-CM": [
-          "99.9"
+          "099.9"
         ],
         "SNOMED-CT": [
           "8098009"
@@ -801,6 +806,7 @@
       },
       "time": 1276574400,
       "status": "active",
+      "specifics": "C0036916:Sexually Transmitted Diseases;",
       "description": "sexually active woman"
     },
     {
@@ -817,6 +823,7 @@
       },
       "time": 1271390400,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "Asthma"
     },
     {
@@ -826,6 +833,7 @@
         ]
       },
       "time": 1271390400,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -835,6 +843,7 @@
         ]
       },
       "time": 1271390400,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     }
   ],
@@ -856,6 +865,7 @@
         "units": null
       },
       "time": 1276574400,
+      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
       "description": "Chlamydia Screening"
     },
     {
@@ -884,6 +894,7 @@
         "units": null
       },
       "time": 1276574400,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     }
   ],
@@ -895,6 +906,7 @@
         ]
       },
       "time": 1271390400,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
       "description": "Asthma Symptom Assessment Tool"
     },
     {
@@ -910,6 +922,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0161942:Other obstetric operations NOS;",
       "description": "procedures indicative of sexually active woman"
     }
   ],
@@ -921,6 +934,7 @@
         ]
       },
       "time": 1271390400,
+      "specifics": "C1273882:Dyphylline 100 MG / Guaifenesin 100 MG Oral Tablet;",
       "description": "Antiasthmatic combinations"
     }
   ],
@@ -932,6 +946,7 @@
         ]
       },
       "time": 1293685200,
+      "specifics": "C1697230:Diphtheria Toxoid Vaccine 13.4 UNT/ML / Tetanus Toxoid Vaccine 10 UNT/ML Injectable Solution;",
       "description": "DTAP Vaccine"
     },
     {
@@ -941,6 +956,7 @@
         ]
       },
       "time": 1284955200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     }
   ],

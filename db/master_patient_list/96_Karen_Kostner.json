@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0599a9ffcce901000035",
+  "_id": "4f6224bda9ffcca063000035",
   "first": "Karen",
   "patient_id": "96",
   "last": "Kostner",
@@ -40,11 +40,6 @@
         1270526400
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270526400
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270526400
@@ -61,6 +56,11 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1285819200,
+        1270526400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1270526400
       ]
     },
@@ -131,9 +131,6 @@
         1285819200,
         1279857600,
         1270526400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270526400
       ]
     },
     "0031": {
@@ -158,7 +155,7 @@
         1279857600
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1292475600,
         1285819200,
@@ -182,7 +179,7 @@
         1270526400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1292475600,
         1285819200,
@@ -532,8 +529,6 @@
         1270526400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1292475600,
@@ -541,6 +536,8 @@
         1279857600,
         1270526400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -597,6 +594,7 @@
         ]
       },
       "time": 1292475600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -609,6 +607,7 @@
         ]
       },
       "time": 1285819200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -621,6 +620,7 @@
         ]
       },
       "time": 1279857600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -633,19 +633,12 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270526400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -659,6 +652,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285819200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -672,6 +666,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285819200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -685,6 +680,7 @@
         "units": null
       },
       "time": 1285819200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -698,6 +694,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270526400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -711,6 +708,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270526400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -724,6 +722,7 @@
         "units": null
       },
       "time": 1270526400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -740,6 +739,7 @@
         "units": null
       },
       "time": 1285819200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -758,6 +758,7 @@
       },
       "time": 1270526400,
       "status": "active",
+      "specifics": "",
       "description": "polycystic ovaries"
     },
     {
@@ -774,6 +775,7 @@
       },
       "time": 1270526400,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -800,6 +802,7 @@
         ]
       },
       "time": 1279857600,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     }
   ],
@@ -820,6 +823,7 @@
         ]
       },
       "time": 1285819200,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -835,6 +839,7 @@
         ]
       },
       "time": 1285819200,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -856,6 +861,7 @@
         ]
       },
       "time": 1287201600,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     }
   ],
@@ -867,6 +873,7 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;",
       "description": "Antidiabetic agents"
     },
     {
@@ -876,6 +883,7 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     }
   ],
@@ -899,6 +907,7 @@
         ]
       },
       "time": 1285819200,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

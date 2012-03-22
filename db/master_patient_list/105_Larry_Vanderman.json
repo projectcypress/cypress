@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a4a9ffcce901000092",
+  "_id": "4f6224c7a9ffcca063000092",
   "first": "Larry",
   "patient_id": "105",
   "last": "Vanderman",
@@ -49,11 +49,6 @@
         1270094400
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270094400
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270094400
@@ -74,6 +69,11 @@
         1291266000,
         1283313600,
         1277265600,
+        1270094400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1270094400
       ]
     },
@@ -160,9 +160,6 @@
       "encounter_office_visit_encounter": [
         1291266000,
         1277265600
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270094400
       ]
     },
     "0031": {
@@ -181,7 +178,7 @@
         1270094400
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1291266000,
         1283313600,
@@ -205,7 +202,7 @@
         1270094400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1291266000,
         1283313600,
@@ -670,13 +667,13 @@
         1277265600
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1291266000,
         1277265600
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -753,6 +750,7 @@
         ]
       },
       "time": 1291266000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -762,6 +760,7 @@
         ]
       },
       "time": 1283313600,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -774,6 +773,7 @@
         ]
       },
       "time": 1277265600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -783,19 +783,12 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270094400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -809,6 +802,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291266000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -822,6 +816,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291266000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -835,6 +830,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283313600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -848,6 +844,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283313600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -861,6 +858,7 @@
         "units": "mm[Hg]"
       },
       "time": 1277265600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -874,6 +872,7 @@
         "units": "mm[Hg]"
       },
       "time": 1277265600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -887,6 +886,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270094400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -900,6 +900,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270094400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -916,6 +917,7 @@
         "units": null
       },
       "time": 1285992000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -932,6 +934,7 @@
         "units": null
       },
       "time": 1283313600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -948,6 +951,7 @@
         "units": null
       },
       "time": 1277265600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -966,6 +970,7 @@
       },
       "time": 1270094400,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     },
     {
@@ -982,6 +987,7 @@
       },
       "time": 1270094400,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "Asthma"
     },
     {
@@ -998,6 +1004,7 @@
       },
       "time": 1270094400,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     },
     {
@@ -1007,6 +1014,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -1016,6 +1024,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
       "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
@@ -1037,6 +1046,7 @@
         "units": null
       },
       "time": 1285992000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1056,6 +1066,7 @@
         "units": null
       },
       "time": 1283313600,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1075,6 +1086,7 @@
         "units": null
       },
       "time": 1277265600,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1094,6 +1106,7 @@
         "units": null
       },
       "time": 1277265600,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -1113,6 +1126,7 @@
         "units": null
       },
       "time": 1277265600,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -1132,6 +1146,7 @@
         "units": null
       },
       "time": 1277265600,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -1151,6 +1166,7 @@
         "units": null
       },
       "time": 1277265600,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     }
   ],
@@ -1166,6 +1182,7 @@
         "units": null
       },
       "time": 1291266000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1179,6 +1196,7 @@
         "units": null
       },
       "time": 1283313600,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1192,6 +1210,7 @@
         "units": null
       },
       "time": 1277265600,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1205,6 +1224,7 @@
         "units": null
       },
       "time": 1270094400,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1223,6 +1243,7 @@
         ]
       },
       "time": 1277265600,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -1238,6 +1259,7 @@
         ]
       },
       "time": 1277265600,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -1256,6 +1278,7 @@
         ]
       },
       "time": 1278388800,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     }
   ],
@@ -1267,6 +1290,7 @@
         ]
       },
       "time": 1278475200,
+      "specifics": "C2683559:3 ML Insulin Lispro 100 UNT/ML Prefilled Syringe;",
       "description": "Insulin"
     },
     {
@@ -1276,6 +1300,7 @@
         ]
       },
       "time": 1277265600,
+      "specifics": "C0593903:atorvastatin 10 MG Oral Tablet [Lipitor];",
       "description": "Lipid Lowering Therapy"
     },
     {
@@ -1285,6 +1310,7 @@
         ]
       },
       "time": 1277265600,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -1294,6 +1320,7 @@
         ]
       },
       "time": 1277265600,
+      "specifics": "C2731895:60 ACTUAT Fluticasone propionate 0.115 MG/ACTUAT / salmeterol 0.021 MG/ACTUAT Metered Dose Inhaler;",
       "description": "Long acting inhaled beta 2 agonist"
     },
     {
@@ -1303,6 +1330,7 @@
         ]
       },
       "time": 1277265600,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     }
   ],
@@ -1326,6 +1354,7 @@
         ]
       },
       "time": 1283313600,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

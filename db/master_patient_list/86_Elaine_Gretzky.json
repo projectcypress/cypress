@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a3a9ffcce901000086",
+  "_id": "4f6224c6a9ffcca063000086",
   "first": "Elaine",
   "patient_id": "86",
   "last": "Gretzky",
@@ -46,11 +46,6 @@
         1270612800
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270612800
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270612800
@@ -65,6 +60,11 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1292475600,
+        1270612800
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1270612800
       ]
     },
@@ -122,9 +122,6 @@
       "encounter_office_visit_encounter": [
         1292475600,
         1270612800
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1272945600
       ]
     },
     "0031": {
@@ -145,13 +142,16 @@
         1292475600
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1292475600,
         1270612800
       ],
-      "fobt_laboratory_test_performed": [
-        1292475600
+      "x_ray_study_diagnostic_study_result": [
+        1286683200
+      ],
+      "x_ray_study_diagnostic_study_performed": [
+        1286683200
       ]
     },
     "0043": {
@@ -172,16 +172,13 @@
         1272600000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1292475600,
         1270612800
       ],
-      "x_ray_study_diagnostic_study_result": [
-        1286683200
-      ],
-      "x_ray_study_diagnostic_study_performed": [
-        1286683200
+      "fobt_laboratory_test_performed": [
+        1292475600
       ]
     },
     "0036": {
@@ -451,15 +448,15 @@
         1270612800
       ]
     },
-    "0389": {
-      "pain_related_to_prostate_cancer_diagnosis_active": [
-        1272945600
-      ]
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1292475600,
         1270612800
+      ]
+    },
+    "0389": {
+      "pain_related_to_prostate_cancer_diagnosis_active": [
+        1272945600
       ]
     },
     "0421": {
@@ -506,6 +503,7 @@
         ]
       },
       "time": 1292475600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -515,6 +513,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     },
     {
@@ -524,6 +523,7 @@
         ]
       },
       "time": 1286683200,
+      "specifics": "C0519198:Chiropractic manipulative treatment (CMT); spinal, one to two regions;",
       "description": "encounter outpatient including orthopedics and chiropractics"
     },
     {
@@ -533,6 +533,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     },
     {
@@ -545,19 +546,12 @@
         ]
       },
       "time": 1270612800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1272945600,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -571,6 +565,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292475600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -584,6 +579,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292475600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -597,6 +593,7 @@
         "units": null
       },
       "time": 1292475600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -610,6 +607,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270612800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -623,6 +621,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270612800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -636,6 +635,7 @@
         "units": null
       },
       "time": 1270612800,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -652,6 +652,7 @@
         "units": null
       },
       "time": 1292475600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -668,6 +669,7 @@
         "units": null
       },
       "time": 1270612800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -686,6 +688,7 @@
       },
       "time": 1272945600,
       "status": "active",
+      "specifics": "C0024031:Low Back Pain;",
       "description": "low back pain"
     },
     {
@@ -702,6 +705,7 @@
       },
       "time": 1270612800,
       "status": "active",
+      "specifics": "C0017612:Glaucoma, Open-Angle;",
       "description": "Primary Open Angle Glaucoma (POAG)"
     },
     {
@@ -718,6 +722,7 @@
       },
       "time": 1270612800,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     },
     {
@@ -727,6 +732,7 @@
         ]
       },
       "time": 1270612800,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
       "description": "Asthma Daytime Symptoms Quantified"
     },
     {
@@ -736,6 +742,7 @@
         ]
       },
       "time": 1270612800,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
       "description": "Asthma Nighttime Symptoms Quantified"
     }
   ],
@@ -766,6 +773,7 @@
         "units": null
       },
       "time": 1292475600,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -791,6 +799,7 @@
         "units": null
       },
       "time": 1292475600,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "FOBT"
     }
   ],
@@ -802,6 +811,7 @@
         ]
       },
       "time": 1272600000,
+      "specifics": "C0200149:Ophthalmic examination and evaluation;",
       "description": "Optic Nerve Head Evaluation"
     },
     {
@@ -814,6 +824,7 @@
         ]
       },
       "time": 1286683200,
+      "specifics": "C0203144:Diagnostic radiography of spine, survey study;",
       "description": "Imaging Study-Spinal"
     },
     {
@@ -835,6 +846,7 @@
         ]
       },
       "time": 1293685200,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     }
   ],
@@ -846,6 +858,7 @@
         ]
       },
       "time": 1270612800,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     }
   ],

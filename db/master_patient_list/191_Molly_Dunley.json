@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0599a9ffcce90100003a",
+  "_id": "4f6224bda9ffcca06300003a",
   "first": "Molly",
   "patient_id": "191",
   "last": "Dunley",
@@ -36,11 +36,6 @@
         1275710400
       ]
     },
-    "0012": {
-      "hiv_screening_laboratory_test_performed": [
-        1275710400
-      ]
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1288756800,
@@ -55,6 +50,11 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1288756800,
         1284696000,
+        1275710400
+      ]
+    },
+    "0012": {
+      "hiv_screening_laboratory_test_performed": [
         1275710400
       ]
     },
@@ -123,9 +123,6 @@
         1284696000,
         1275710400
       ],
-      "tobacco_user_patient_characteristic": [
-        1275710400
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1275710400
       ],
@@ -153,27 +150,6 @@
         1275710400
       ]
     },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1288756800,
-        1284696000,
-        1275710400
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1288756800,
-        1284696000,
-        1275710400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1288756800,
-        1284696000,
-        1275710400
-      ]
-    },
     "0033": {
       "encounter_outpatient_encounter": [
         1288756800,
@@ -193,6 +169,27 @@
         1275710400
       ],
       "contraceptives_medication_active": [
+        1275710400
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1288756800,
+        1284696000,
+        1275710400
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1288756800,
+        1284696000,
+        1275710400
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1288756800,
+        1284696000,
         1275710400
       ]
     },
@@ -471,14 +468,14 @@
         1275710400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1288756800,
         1284696000,
         1275710400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -529,6 +526,7 @@
         ]
       },
       "time": 1288756800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -541,6 +539,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -553,19 +552,12 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -579,6 +571,7 @@
         "units": "mm[Hg]"
       },
       "time": 1288756800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -592,6 +585,7 @@
         "units": "mm[Hg]"
       },
       "time": 1288756800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -605,6 +599,7 @@
         "units": null
       },
       "time": 1288756800,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -618,6 +613,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284696000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -631,6 +627,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284696000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -644,6 +641,7 @@
         "units": null
       },
       "time": 1284696000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -657,6 +655,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275710400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -670,6 +669,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275710400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -683,6 +683,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -699,6 +700,7 @@
         "units": null
       },
       "time": 1288756800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -715,6 +717,7 @@
         "units": null
       },
       "time": 1284696000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -731,6 +734,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -738,7 +742,7 @@
     {
       "codes": {
         "ICD-9-CM": [
-          "99.9"
+          "099.9"
         ],
         "SNOMED-CT": [
           "8098009"
@@ -749,6 +753,7 @@
       },
       "time": 1275710400,
       "status": "active",
+      "specifics": "C0036916:Sexually Transmitted Diseases;",
       "description": "sexually active woman"
     },
     {
@@ -765,6 +770,7 @@
       },
       "time": 1275710400,
       "status": "active",
+      "specifics": "C0085610:Sinus bradycardia; C2910381:Sinoatrial bradycardia; C0428977:Bradycardia; C0232190:Vagal autonomic bradycardia;",
       "description": "Bradycardia"
     }
   ],
@@ -786,6 +792,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C0523323:HIV p24 antigen test;",
       "description": "HIV Screening"
     },
     {
@@ -814,6 +821,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     }
   ],
@@ -825,6 +833,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0204948:Contraceptive use education;",
       "description": "contraceptive use education"
     },
     {
@@ -837,6 +846,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     }
   ],
@@ -848,6 +858,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0981634:Ethinyl Estradiol 0.05 MG / Norgestrel 0.5 MG Oral Tablet;",
       "description": "contraceptives"
     },
     {
@@ -857,6 +868,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
       "description": "Smoking Cessation Agents"
     }
   ],
@@ -880,6 +892,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

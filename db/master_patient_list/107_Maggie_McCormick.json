@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a3a9ffcce901000088",
+  "_id": "4f6224c6a9ffcca063000088",
   "first": "Maggie",
   "patient_id": "107",
   "last": "McCormick",
@@ -32,11 +32,6 @@
         1272168000
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1277697600
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1277697600
@@ -54,6 +49,11 @@
         1277697600,
         1275019200,
         1272168000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1277697600
       ]
     },
     "0014": {
@@ -119,9 +119,6 @@
       "encounter_office_visit_encounter": [
         1277697600,
         1272168000
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1272168000
       ]
     },
     "0031": {
@@ -139,10 +136,16 @@
         1277697600
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1277697600,
         1272168000
+      ],
+      "x_ray_study_diagnostic_study_result": [
+        1275019200
+      ],
+      "x_ray_study_diagnostic_study_performed": [
+        1275019200
       ]
     },
     "0043": {
@@ -157,16 +160,10 @@
         1272168000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1277697600,
         1272168000
-      ],
-      "x_ray_study_diagnostic_study_result": [
-        1275019200
-      ],
-      "x_ray_study_diagnostic_study_performed": [
-        1275019200
       ]
     },
     "0036": {
@@ -404,14 +401,14 @@
         1272168000
       ]
     },
-    "0389": {
-      "pain_related_to_prostate_cancer_diagnosis_active": [
-        1272168000
-      ]
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1277697600,
+        1272168000
+      ]
+    },
+    "0389": {
+      "pain_related_to_prostate_cancer_diagnosis_active": [
         1272168000
       ]
     },
@@ -465,6 +462,7 @@
         ]
       },
       "time": 1277697600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -474,6 +472,7 @@
         ]
       },
       "time": 1275019200,
+      "specifics": "C0519198:Chiropractic manipulative treatment (CMT); spinal, one to two regions;",
       "description": "encounter outpatient including orthopedics and chiropractics"
     },
     {
@@ -486,19 +485,12 @@
         ]
       },
       "time": 1272168000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1272168000,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -512,6 +504,7 @@
         "units": "mm[Hg]"
       },
       "time": 1277697600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -525,6 +518,7 @@
         "units": "mm[Hg]"
       },
       "time": 1277697600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -538,6 +532,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275019200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -551,6 +546,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275019200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -564,6 +560,7 @@
         "units": "mm[Hg]"
       },
       "time": 1272168000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -577,6 +574,7 @@
         "units": "mm[Hg]"
       },
       "time": 1272168000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -593,6 +591,7 @@
         "units": null
       },
       "time": 1277697600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -609,6 +608,7 @@
         "units": null
       },
       "time": 1275019200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -625,6 +625,7 @@
         "units": null
       },
       "time": 1272168000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -643,6 +644,7 @@
       },
       "time": 1272168000,
       "status": "active",
+      "specifics": "C0024031:Low Back Pain;",
       "description": "low back pain"
     },
     {
@@ -659,6 +661,7 @@
       },
       "time": 1277697600,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -689,6 +692,7 @@
         "units": null
       },
       "time": 1277697600,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     }
   ],
@@ -700,6 +704,7 @@
         ]
       },
       "time": 1272168000,
+      "specifics": "C0420347:Patient referral to dietitian;",
       "description": "dietary consultation order"
     },
     {
@@ -712,6 +717,7 @@
         ]
       },
       "time": 1275019200,
+      "specifics": "C0203144:Diagnostic radiography of spine, survey study;",
       "description": "Imaging Study-Spinal"
     }
   ],
@@ -723,6 +729,7 @@
         ]
       },
       "time": 1272168000,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     }
   ],
@@ -746,6 +753,7 @@
         ]
       },
       "time": 1277697600,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a9a9ffcce9010000ba",
+  "_id": "4f6224cba9ffcca0630000ba",
   "first": "Jake",
   "patient_id": "125",
   "last": "Johnson",
@@ -40,11 +40,6 @@
         1270094400
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270094400
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270094400
@@ -61,6 +56,11 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1287115200,
+        1270094400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1270094400
       ]
     },
@@ -132,9 +132,6 @@
         1281844800,
         1273896000,
         1270094400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270094400
       ]
     },
     "0031": {
@@ -153,12 +150,18 @@
         1270094400
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1287115200,
         1281844800,
         1273896000,
         1270094400
+      ],
+      "x_ray_study_diagnostic_study_result": [
+        1270526400
+      ],
+      "x_ray_study_diagnostic_study_performed": [
+        1270526400
       ]
     },
     "0043": {
@@ -177,18 +180,12 @@
         1270094400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1287115200,
         1281844800,
         1273896000,
         1270094400
-      ],
-      "x_ray_study_diagnostic_study_result": [
-        1270526400
-      ],
-      "x_ray_study_diagnostic_study_performed": [
-        1270526400
       ]
     },
     "0036": {
@@ -484,8 +481,6 @@
         1270094400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1287115200,
@@ -493,6 +488,8 @@
         1273896000,
         1270094400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -529,6 +526,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "",
       "description": "Streptomycin"
     }
   ],
@@ -546,6 +544,7 @@
         ]
       },
       "time": 1287115200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -555,6 +554,7 @@
         ]
       },
       "time": 1281844800,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -564,6 +564,7 @@
         ]
       },
       "time": 1273896000,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -576,19 +577,12 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270094400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -602,6 +596,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287115200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -615,6 +610,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287115200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -628,6 +624,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270094400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -641,6 +638,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270094400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -657,6 +655,7 @@
         "units": null
       },
       "time": 1287115200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -673,6 +672,7 @@
         "units": null
       },
       "time": 1270094400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -691,6 +691,7 @@
       },
       "time": 1270094400,
       "status": "active",
+      "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
       "description": "Heart Failure"
     },
     {
@@ -707,6 +708,7 @@
       },
       "time": 1270094400,
       "status": "active",
+      "specifics": "C0035078:Kidney Failure;",
       "description": "Renal Failure and ESRD"
     },
     {
@@ -723,6 +725,7 @@
       },
       "time": 1270094400,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -746,6 +749,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -761,6 +765,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -770,6 +775,7 @@
         ]
       },
       "time": 1270872000,
+      "specifics": "C0232174:Cardiac ejection fraction;",
       "description": "Ejection Fraction"
     },
     {
@@ -782,6 +788,7 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C0848630:Radiographic imaging of bone (procedure);",
       "description": "X-ray Study"
     }
   ],
@@ -793,6 +800,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C1359886:Metoprolol Tartrate 25 MG Oral Tablet;",
       "description": "Beta Blocker Therapy"
     },
     {
@@ -802,6 +810,7 @@
         ]
       },
       "time": 1270094400,
+      "specifics": "C0783425:Aspirin 81 MG Oral Tablet;",
       "description": "Antiplatelet Therapy"
     }
   ],

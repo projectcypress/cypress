@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0594a9ffcce90100000d",
+  "_id": "4f6224b8a9ffcca06300000d",
   "first": "George",
   "patient_id": "193",
   "last": "Snail",
@@ -45,11 +45,6 @@
         1277870400
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1277784000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1277784000
@@ -70,6 +65,11 @@
         1284091200,
         1282968000,
         1280289600,
+        1277784000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1277784000
       ]
     },
@@ -154,9 +154,6 @@
         1293771600,
         1285732800
       ],
-      "tobacco_user_patient_characteristic": [
-        1277438400
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1277438400
       ],
@@ -183,7 +180,7 @@
         1277870400
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1277524800,
         1293771600,
@@ -210,7 +207,7 @@
         1277870400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1277524800,
         1293771600,
@@ -604,14 +601,14 @@
         1285732800
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1277524800,
         1293771600,
         1285732800
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -665,6 +662,7 @@
         ]
       },
       "time": 1277524800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -677,6 +675,7 @@
         ]
       },
       "time": 1293771600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -689,6 +688,7 @@
         ]
       },
       "time": 1285732800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -698,6 +698,7 @@
         ]
       },
       "time": 1277870400,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "encounter outpatient BH"
     },
     {
@@ -707,19 +708,12 @@
         ]
       },
       "time": 1277784000,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1277438400,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -733,6 +727,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284091200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -746,6 +741,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284091200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -759,6 +755,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -772,6 +769,7 @@
         "units": "mm[Hg]"
       },
       "time": 1282968000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -785,6 +783,7 @@
         "units": "mm[Hg]"
       },
       "time": 1282968000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -798,6 +797,7 @@
         "units": null
       },
       "time": 1282968000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -811,6 +811,7 @@
         "units": "mm[Hg]"
       },
       "time": 1280289600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -824,6 +825,7 @@
         "units": "mm[Hg]"
       },
       "time": 1280289600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -837,6 +839,7 @@
         "units": null
       },
       "time": 1280289600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -850,6 +853,7 @@
         "units": "mm[Hg]"
       },
       "time": 1277784000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -863,6 +867,7 @@
         "units": "mm[Hg]"
       },
       "time": 1277784000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -876,6 +881,7 @@
         "units": null
       },
       "time": 1277784000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -892,6 +898,7 @@
         "units": null
       },
       "time": 1284091200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -908,6 +915,7 @@
         "units": null
       },
       "time": 1277438400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -926,6 +934,7 @@
       },
       "time": 1277870400,
       "status": "active",
+      "specifics": "C0154409:Major Depressive Disorder, Recurrent, Unspecified;",
       "description": "Major Depression"
     },
     {
@@ -942,6 +951,7 @@
       },
       "time": 1277784000,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -956,6 +966,7 @@
         ]
       },
       "time": 1277438400,
+      "specifics": "C0420347:Patient referral to dietitian;",
       "description": "dietary consultation order"
     },
     {
@@ -968,6 +979,7 @@
         ]
       },
       "time": 1277438400,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     }
   ],
@@ -979,6 +991,7 @@
         ]
       },
       "time": 1277438400,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -988,6 +1001,7 @@
         ]
       },
       "time": 1277438400,
+      "specifics": "",
       "description": "Miscellaneous antidepressants"
     },
     {
@@ -997,6 +1011,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
       "description": "Smoking Cessation Agents"
     },
     {
@@ -1006,6 +1021,7 @@
         ]
       },
       "time": 1277870400,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
       "description": "SSRI antidepressants"
     },
     {
@@ -1015,6 +1031,7 @@
         ]
       },
       "time": 1277870400,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
       "description": "SSRI antidepressants"
     },
     {
@@ -1024,6 +1041,7 @@
         ]
       },
       "time": 1277870400,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
       "description": "SSRI antidepressants"
     },
     {
@@ -1033,6 +1051,7 @@
         ]
       },
       "time": 1279080000,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
       "description": "SSRI antidepressants"
     },
     {
@@ -1042,6 +1061,7 @@
         ]
       },
       "time": 1279080000,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
       "description": "SSRI antidepressants"
     },
     {
@@ -1051,6 +1071,7 @@
         ]
       },
       "time": 1279080000,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
       "description": "SSRI antidepressants"
     }
   ],
@@ -1062,6 +1083,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1071,6 +1093,7 @@
         ]
       },
       "time": 1284091200,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
       "description": "Pneumococcal Vaccine"
     }
   ],
@@ -1091,6 +1114,7 @@
         ]
       },
       "time": 1277438400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0593a9ffcce901000005",
+  "_id": "4f6224b7a9ffcca063000005",
   "first": "Callie",
   "patient_id": "170",
   "last": "Devon",
@@ -46,8 +46,6 @@
         1271390400
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1292562000,
@@ -67,6 +65,8 @@
         1280635200,
         1271390400
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -138,9 +138,6 @@
       "encounter_office_visit_encounter": [
         1284696000,
         1271390400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1280635200
       ]
     },
     "0031": {
@@ -160,33 +157,6 @@
       ],
       "pap_test_laboratory_test_result": [
         1284696000
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1292562000,
-        1284696000,
-        1280635200,
-        1271390400
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1292562000,
-        1284696000,
-        1280635200,
-        1271390400
-      ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
-        1284696000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1292562000,
-        1284696000,
-        1280635200,
-        1271390400
       ]
     },
     "0033": {
@@ -213,6 +183,33 @@
       ],
       "contraceptives_medication_active": [
         1284696000
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1292562000,
+        1284696000,
+        1280635200,
+        1271390400
+      ],
+      "pneumococcal_vaccine_all_ages_medication_administered": [
+        1284696000
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1292562000,
+        1284696000,
+        1280635200,
+        1271390400
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1292562000,
+        1284696000,
+        1280635200,
+        1271390400
       ]
     },
     "0036": {
@@ -678,13 +675,13 @@
         1271390400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1284696000,
         1271390400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -754,6 +751,7 @@
         ]
       },
       "time": 1292562000,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -766,6 +764,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -775,6 +774,7 @@
         ]
       },
       "time": 1280635200,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office & Outpatient Consult"
     },
     {
@@ -787,19 +787,12 @@
         ]
       },
       "time": 1271390400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1280635200,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -813,6 +806,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292562000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -826,6 +820,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292562000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -839,6 +834,7 @@
         "units": null
       },
       "time": 1292562000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -852,6 +848,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284696000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -865,6 +862,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284696000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -878,6 +876,7 @@
         "units": null
       },
       "time": 1284696000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -891,6 +890,7 @@
         "units": "mm[Hg]"
       },
       "time": 1280635200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -904,6 +904,7 @@
         "units": "mm[Hg]"
       },
       "time": 1280635200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -917,6 +918,7 @@
         "units": null
       },
       "time": 1280635200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -930,6 +932,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271390400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -943,6 +946,7 @@
         "units": "mm[Hg]"
       },
       "time": 1271390400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -956,6 +960,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -972,6 +977,7 @@
         "units": null
       },
       "time": 1284696000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -988,6 +994,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -1006,6 +1013,7 @@
       },
       "time": 1280635200,
       "status": "active",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "description": "asthma"
     },
     {
@@ -1022,6 +1030,7 @@
       },
       "time": 1271390400,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     }
   ],
@@ -1052,6 +1061,7 @@
         "units": null
       },
       "time": 1284696000,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -1071,6 +1081,7 @@
         "units": null
       },
       "time": 1284696000,
+      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
       "description": "Chlamydia Screening"
     },
     {
@@ -1090,6 +1101,7 @@
         "units": null
       },
       "time": 1292562000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1109,6 +1121,7 @@
         "units": null
       },
       "time": 1280635200,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1128,6 +1141,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1147,6 +1161,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -1166,6 +1181,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -1185,6 +1201,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -1204,6 +1221,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     }
   ],
@@ -1219,6 +1237,7 @@
         "units": null
       },
       "time": 1292562000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1232,6 +1251,7 @@
         "units": null
       },
       "time": 1284696000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1245,6 +1265,7 @@
         "units": null
       },
       "time": 1280635200,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1258,6 +1279,7 @@
         "units": null
       },
       "time": 1271390400,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1267,6 +1289,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C0204948:Contraceptive use education;",
       "description": "contraceptive use education"
     },
     {
@@ -1276,6 +1299,7 @@
         ]
       },
       "time": 1271390400,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
       "description": "Asthma Symptom Assessment Tool"
     },
     {
@@ -1294,6 +1318,7 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     }
   ],
@@ -1305,6 +1330,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C0981634:Ethinyl Estradiol 0.05 MG / Norgestrel 0.5 MG Oral Tablet;",
       "description": "contraceptives"
     },
     {
@@ -1314,6 +1340,7 @@
         ]
       },
       "time": 1271736000,
+      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;",
       "description": "Antidiabetic agents"
     },
     {
@@ -1323,6 +1350,7 @@
         ]
       },
       "time": 1271736000,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     }
   ],
@@ -1334,6 +1362,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1343,6 +1372,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
       "description": "Pneumococcal Vaccine"
     }
   ],
@@ -1363,6 +1393,7 @@
         ]
       },
       "time": 1284696000,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

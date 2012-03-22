@@ -20,8 +20,15 @@ module Cypress
              z.put_next_entry("#{next_entry_path}.html")
              doc = Nokogiri::XML::Document.parse(HealthDataStandards::Export::C32.export(patient))
              xslt  = Nokogiri::XSLT(File.read(Rails.root.join("public","cda.xsl")))
+             xml = xslt.apply_to(doc)
             
-             z << xslt.apply_to(doc) 
+             html=HealthDataStandards::Export::HTML.export(patient)
+             
+             transformed = Nokogiri::HTML::Document.parse(xml)
+             transformed.at_css('ul').after(html)
+             
+             z << transformed.to_html
+            
           else
             z.put_next_entry("#{next_entry_path}.xml")
             z << HealthDataStandards::Export::CCR.export(patient)
@@ -42,8 +49,6 @@ module Cypress
        end
       end
      end
-    end
-
-    
+    end    
   end
 end

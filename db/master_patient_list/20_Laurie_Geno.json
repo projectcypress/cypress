@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0598a9ffcce901000032",
+  "_id": "4f6224bca9ffcca063000032",
   "first": "Laurie",
   "patient_id": "20",
   "last": "Geno",
@@ -45,11 +45,6 @@
         1273464000
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1273464000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1273464000
@@ -69,6 +64,11 @@
         1290661200,
         1285905600,
         1282795200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1273464000
       ]
     },
     "0014": {
@@ -146,7 +146,6 @@
         1273464000
       ],
       "tobacco_user_patient_characteristic": [
-        1282795200,
         1290661200
       ]
     },
@@ -169,15 +168,12 @@
         1273464000
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1290661200,
         1290229200,
         1285905600,
         1273464000
-      ],
-      "fobt_laboratory_test_performed": [
-        1285905600
       ]
     },
     "0043": {
@@ -196,12 +192,15 @@
         1273464000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1290661200,
         1290229200,
         1285905600,
         1273464000
+      ],
+      "fobt_laboratory_test_performed": [
+        1285905600
       ]
     },
     "0036": {
@@ -530,8 +529,6 @@
         1273464000
       ]
     },
-    "0389": {
-    },
     "0387": {
       "breast_cancer_history_diagnosis_inactive": [
         1179115200
@@ -542,6 +539,8 @@
         1285905600,
         1273464000
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -590,6 +589,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -602,6 +602,7 @@
         ]
       },
       "time": 1290229200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -611,6 +612,7 @@
         ]
       },
       "time": 1285905600,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -620,6 +622,7 @@
         ]
       },
       "time": 1282795200,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     },
     {
@@ -632,19 +635,11 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1282795200,
-      "description": "Tobacco User"
-    },
     {
       "codes": {
         "SNOMED-CT": [
@@ -656,6 +651,7 @@
         "units": null
       },
       "time": 1290661200,
+      "specifics": "C0459846:Moderate cigarette smoker;",
       "description": "Tobacco User"
     }
   ],
@@ -671,6 +667,7 @@
         "units": "mm[Hg]"
       },
       "time": 1290661200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -684,6 +681,7 @@
         "units": "mm[Hg]"
       },
       "time": 1290661200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -697,6 +695,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285905600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -710,6 +709,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285905600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -723,6 +723,7 @@
         "units": "mm[Hg]"
       },
       "time": 1282795200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -736,6 +737,7 @@
         "units": "mm[Hg]"
       },
       "time": 1282795200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -752,6 +754,7 @@
         "units": null
       },
       "time": 1290661200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -768,6 +771,7 @@
         "units": null
       },
       "time": 1285905600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -786,6 +790,7 @@
       },
       "time": 1179115200,
       "status": "inactive",
+      "specifics": "C1997028:History of malignant neoplasm of breast;",
       "description": "Breast Cancer History"
     },
     {
@@ -802,6 +807,7 @@
       },
       "time": 1273464000,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -823,6 +829,7 @@
         "units": null
       },
       "time": 1285905600,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -848,6 +855,7 @@
         "units": null
       },
       "time": 1285905600,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "FOBT"
     }
   ],
@@ -865,6 +873,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -874,6 +883,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C0150496:Cardiac monitoring;",
       "description": "Cardiac Monitoring"
     },
     {
@@ -895,6 +905,7 @@
         ]
       },
       "time": 1290229200,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     }
   ],
@@ -906,6 +917,7 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -915,6 +927,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     }
   ],
@@ -938,6 +951,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]
