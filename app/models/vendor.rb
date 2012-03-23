@@ -46,7 +46,7 @@ class Vendor
   
   # Returns true if all associated Products are passing
   def passing?
-    return self.passing_products.size == self.products.size
+    return (self.products.size > 0)&&(self.passing_products.size == self.products.size)
   end
   
   # Return the number of currently passing Products

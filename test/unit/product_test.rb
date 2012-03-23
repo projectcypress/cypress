@@ -16,8 +16,10 @@ class ProducTest < ActiveSupport::TestCase
   end
 
   test "Should know if its passing" do
-    assert !@product1.passing?
-    assert @product2.passing?
+    prod3 = Product.new()
+    assert !prod3.passing?, "Empty Product reporting as passing"
+    assert !@product1.passing? , "Failing product reporting as passing"
+    assert  @product2.passing? , "Passing product reporting as failing"
   end
 
   test "Should return failing tests" do
