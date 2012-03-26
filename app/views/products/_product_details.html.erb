@@ -4,8 +4,8 @@
       $("#measureMap input:checkbox").change(function() {
         var checkbox = $(this);
         var toggleSetting = checkbox.prop('checked');
-        var row = checkbox.closest('dd');
-        
+
+        var row = checkbox.closest('dd');        
         toggleRow(row, toggleSetting);
         
         // If this checkbox is the parent to others, cascade the effect
@@ -27,7 +27,7 @@
       $("#measureMap input:text").keyup(function() {
         if ($(this).val() === '')
           $(this).closest('dd').find('input:checkbox').prop('checked', false).change();
-        else 
+        else
           $(this).closest('dd').find('input:checkbox').prop('checked', true).change();
       });
       
@@ -93,18 +93,7 @@
     </dl>
   </section>
   
-  <h1>Measure Mapping
-    <span class="header_commands">
-      [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> |
-      <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]
-    </span>
-  </h1>
-  <section id="measureMap">
-    As PQRI measure numbers may vary by author, below is a list of how Cypress labels Stage 1 CQM. If the numbers do not match your PQRI formatting, please
-    replace the values with your labeling scheme and Cypress will remember it for later. Cypress will also only show you measures that you check below and
-    won't bother you again with unchecked selections.
-    <%= render :partial => 'edit_measure_map' %>
-  </section>
+  <%# render :partial => 'edit_measure_map' %>
   
-  <a id="vendor_submit" class="cmd disabled" onclick="$(this).parent().submit();" style="display: inline-block"><%= submit_text %></a>
+  <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();" style="display: inline-block"><%= submit_text %></a>
 <% end %>

@@ -35,6 +35,13 @@
       text-align: center;
       padding-bottom: 1em;
     }
+    textarea {
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      padding: 4px;
+      border: 1px solid #AAAAAA;
+    }
     #navigation .noborder {border: 0;color:green;background:transparent;}
     .link {
       height:5em;
@@ -49,6 +56,16 @@
     #wizard-patients-manual-screen td,
     #wizard-patients-manual-screen th {
       text-align: left;
+    }
+    a.remove {
+      padding: 0px 5px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    a.add {
+      padding: 0px 5px;
+      margin-left: 10px;
+      margin-right: 10px;
     }
     input[type=radio] {display:inline-block;}
     dd.wide, span.wide {
@@ -99,14 +116,14 @@
       </tr>
     </table>
   </div>
-  <section id="first" class="step" style="overflow:auto;">
-    <h2 class="ui-widget-title">Describe the test...</h2>
+  <section id="first" class="step" style="width: 100%; overflow:auto;">
+    <h2 class="ui-widget-title" style="margin-top: 20px;">Describe the test...</h2>
     <dl>
       <dt>
         Test Name:
       </dt>
       <dd>
-        <%= f.text_field :name, :size=>100 %>
+        <%= f.text_field :name, :size => 87 %>
       </dd>
       <dt>
         Reporting Period:
@@ -122,13 +139,13 @@
         <%= f.label :description, "Description:" %>
       </dt>
       <dd>
-        <%= f.text_area :description, :cols=>80, :rows=>3 %>
+        <%= f.text_area :description, :cols => 75, :rows => 3 %>
       </dd>
     </dl>
   </section>
 
   <section id="wizard-measures-screen" class="step">
-    <h2 class="ui-widget-title">Identify <strong>at least one</strong> quality measure to test...</h2>
+    <h2 class="ui-widget-title" style="margin-top: 20px;">Identify <strong>at least one</strong> quality measure to test...</h2>
     <span class="header_commands" style="text-align:center;"><input type="checkbox" id="all_measures"/><label for="all_measures">all quality measures</label></span>
     <div id="tabs">
       <!-- set up a tab header for each measure group -->
@@ -148,7 +165,7 @@
   </section>
 
   <section id="wizard-workflow-screen" class="step">
-    <h2>Please select a workflow option...</h2>
+    <h2 style="margin-top: 20px;">Please select a workflow option...</h2>
     <section>
       <p class="wf2_container workflow">
         <input type="radio" id="wf2" name="workflow" class="link" value="wizard-patients-automated-screen" style="display:none;"/>
@@ -174,7 +191,7 @@
   </section>
 
   <section id="wizard-patients-automated-screen" class="step submit_step">
-    <h2 class="ui-widget-title">Select patient records to use...</h2>
+    <h2 class="ui-widget-title" style="margin-top: 20px;">Select patient records to use...</h2>
     <section>
       Cypress has two predefined patient populations to choose from - the full 225 or a subset of 20
       designed to test the core and core alternate Stage 1 Clinical Quality Measures.<br/><br/>
@@ -210,7 +227,7 @@
   </section>
 
   <section id="wizard-patients-manual-screen" class="step submit_step">
-    <h2 class="ui-widget-title">Patient records that satisfy your chosen quality measures...</h2>
+    <h2 class="ui-widget-title" style="margin-top: 20px;">Patient records that satisfy your chosen quality measures...</h2>
 
     <!--
     <span>
@@ -232,7 +249,7 @@
   </section>
 
   <section id="wizard-patients-byod-screen" class="step submit_step">
-    <h2 class="ui-widget-title">Bring your own records...</h2>
+    <h2 class="ui-widget-title" style="margin-top: 20px;">Bring your own records...</h2>
     <dl>
       <dt><%= label_tag :byod_label, "upload .zip of records:" %></dt>
       <dd><%= file_field_tag :byod %></dd>
@@ -268,6 +285,8 @@
 
   <script type="text/javascript">
     var cache = {}; // caching inputs for the visited steps
+    var overflow = [];
+    var usedOverflow = [];
 
     function updateDownloadFilename() {
       var download_filename = $('#product_test_name').val().replace(/ /g,"_") + "_" +
@@ -316,17 +335,7 @@
       $.ajax({ url: "/measures/minimal_set",
         type: "POST",
         data: {measure_ids: ids, num_records: $('#total_records').val()},
-        dataType: 'html',
-        success: function(res){
-          $('#measure_coverage').html(res);
-          $('tr.patient td, tr.measure td').hover(function(){
-            var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
-            $(classes.substr(0,classes.length-1) + ' td').addClass('highlight');
-          },function(){
-            var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
-            $(classes.substr(0,classes.length-1) + ' td').removeClass('highlight');
-          })
-        },
+        dataType: 'script',
         error: function(xhr, err) {
           alert("Sorry, we can't currently calculate large numbers of quality measures");
         }

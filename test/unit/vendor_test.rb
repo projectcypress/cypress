@@ -41,7 +41,7 @@ class VendorTest < ActiveSupport::TestCase
   
   test "Should know if all products are passing" do
     assert !@vendor1.passing? , "Failing vendor reporting as passing"
-    assert @vendor2.passing?  , "Passing vendor reporting as failing"
+    assert @vendor2.passing? , "Passing vendor reporting as failing"
     #assert !@emptyVendor.passing? , "Empty vendor reporting as passing"
   end
   
