@@ -95,14 +95,14 @@
     <div id="effectiveDate">effective date: 03/31/11</div>
     <section class="patient">
       <div>
-      <img src="<%= patient_picture(@patient) %>" width="120" height="130" style="position:absolute;top:0;left:0"/>
-      <span class="patientname"><strong><%= @patient.last %></strong>, <%= @patient.first %></span>
-      <dl>
-        <dt>Gender</dt><dd><%= @patient.gender %></dd>
-        <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>
-        <dt>Race</dt><dd><%= race(@patient) %></dd>
-        <dt>Ethnicity</dt><dd><%= ethnicity(@patient) %></dd>
-      </dl>
+        <img src="<%= patient_picture(@patient) %>" width="120" height="130" style="position:absolute;top:0;left:0">
+        <span class="patientname"><strong><%= @patient.last %></strong>, <%= @patient.first %></span>
+        <dl>
+          <dt>Gender</dt><dd><%= @patient.gender %></dd>
+          <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>
+          <dt>Race</dt><dd><%= race(@patient) %></dd>
+          <dt>Ethnicity</dt><dd><%= ethnicity(@patient) %></dd>
+        </dl>
       </div>
     </section>
 

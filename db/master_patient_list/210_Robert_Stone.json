@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05aba9ffcce9010000cd",
+  "_id": "4f6224cda9ffcca0630000cd",
   "first": "Robert",
   "patient_id": "210",
   "last": "Stone",
@@ -40,11 +40,6 @@
         1275710400
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1276401600
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1276401600
@@ -64,6 +59,11 @@
         1289883600,
         1280721600,
         1275710400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1276401600
       ]
     },
     "0014": {
@@ -136,9 +136,6 @@
         1280721600,
         1278734400,
         1275710400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1275710400
       ]
     },
     "0031": {
@@ -157,7 +154,7 @@
         1275710400
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1289883600,
         1280721600,
@@ -181,7 +178,7 @@
         1275710400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1289883600,
         1280721600,
@@ -576,8 +573,6 @@
         1275710400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1289883600,
@@ -585,6 +580,8 @@
         1278734400,
         1275710400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -630,6 +627,7 @@
         ]
       },
       "time": 1289883600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -642,6 +640,7 @@
         ]
       },
       "time": 1280721600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -654,6 +653,7 @@
         ]
       },
       "time": 1278734400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -666,19 +666,12 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -692,6 +685,7 @@
         "units": "mm[Hg]"
       },
       "time": 1289883600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -705,6 +699,7 @@
         "units": "mm[Hg]"
       },
       "time": 1289883600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -718,6 +713,7 @@
         "units": null
       },
       "time": 1289883600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -731,6 +727,7 @@
         "units": "mm[Hg]"
       },
       "time": 1280721600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -744,6 +741,7 @@
         "units": "mm[Hg]"
       },
       "time": 1280721600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -757,6 +755,7 @@
         "units": null
       },
       "time": 1280721600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -770,6 +769,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275710400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -783,6 +783,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275710400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -796,6 +797,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -812,6 +814,7 @@
         "units": null
       },
       "time": 1278734400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -828,6 +831,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -846,6 +850,7 @@
       },
       "time": 1280721600,
       "status": "active",
+      "specifics": "C0004238:Atrial Fibrillation;",
       "description": "Atrial Fibrillation"
     },
     {
@@ -862,6 +867,7 @@
       },
       "time": 1278734400,
       "status": "active",
+      "specifics": "C0018965:Hematuria;",
       "description": "Hematuria"
     },
     {
@@ -878,6 +884,7 @@
       },
       "time": 1278734400,
       "status": "active",
+      "specifics": "C0162316:Iron deficiency anemia; C0008272:Asiderotic anemia;",
       "description": "Anemias and Bleeding Disorders"
     },
     {
@@ -894,6 +901,7 @@
       },
       "time": 1276401600,
       "status": "active",
+      "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
       "description": "Heart Failure"
     },
     {
@@ -910,6 +918,7 @@
       },
       "time": 1276401600,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -931,6 +940,7 @@
         "units": null
       },
       "time": 1275451200,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -950,6 +960,7 @@
         "units": null
       },
       "time": 1275451200,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -969,6 +980,7 @@
         "units": null
       },
       "time": 1275451200,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -988,6 +1000,7 @@
         "units": null
       },
       "time": 1275451200,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     }
   ],
@@ -999,6 +1012,7 @@
         ]
       },
       "time": 1276401600,
+      "specifics": "C0232174:Cardiac ejection fraction;",
       "description": "Ejection Fraction"
     }
   ],
@@ -1010,6 +1024,7 @@
         ]
       },
       "time": 1276401600,
+      "specifics": "C0981555:Lisinopril 10 MG Oral Tablet;",
       "description": "ACE inhibitor or ARB"
     },
     {
@@ -1019,6 +1034,7 @@
         ]
       },
       "time": 1276401600,
+      "specifics": "C1359886:Metoprolol Tartrate 25 MG Oral Tablet;",
       "description": "Beta Blocker Therapy"
     }
   ],
@@ -1030,6 +1046,7 @@
         ]
       },
       "time": 1289883600,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1042,6 +1059,7 @@
         ]
       },
       "time": 1289883600,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     }
   ],

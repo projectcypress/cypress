@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059fa9ffcce901000067",
+  "_id": "4f6224c3a9ffcca063000067",
   "first": "Harold",
   "patient_id": "224",
   "last": "Monnet",
@@ -47,8 +47,6 @@
         1279166400
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1279166400
@@ -62,6 +60,8 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1279166400
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -119,9 +119,6 @@
         1275796800,
         1270180800
       ],
-      "tobacco_user_patient_characteristic": [
-        1270180800
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1270180800
       ],
@@ -146,10 +143,7 @@
         1270180800
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1270180800
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1280289600,
         1275796800,
@@ -185,7 +179,10 @@
         1291698000
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1270180800
+      ],
       "encounter_outpatient_encounter": [
         1280289600,
         1275796800,
@@ -607,6 +604,18 @@
         1270180800
       ]
     },
+    "0387": {
+      "breast_cancer_stage_ic_iiic_procedure_result": [
+        1276142400,
+        1276142400,
+        1276142400
+      ],
+      "encounter_office_visit_encounter": [
+        1280289600,
+        1275796800,
+        1270180800
+      ]
+    },
     "0389": {
       "prostate_cancer_diagnosis_active": [
         1276142400
@@ -627,18 +636,6 @@
       ],
       "gleason_score_6_laboratory_test_result": [
         1276142400
-      ]
-    },
-    "0387": {
-      "breast_cancer_stage_ic_iiic_procedure_result": [
-        1276142400,
-        1276142400,
-        1276142400
-      ],
-      "encounter_office_visit_encounter": [
-        1280289600,
-        1275796800,
-        1270180800
       ]
     },
     "0421": {
@@ -715,6 +712,7 @@
         ]
       },
       "time": 1281067200,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -724,6 +722,7 @@
         ]
       },
       "time": 1280289600,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -733,6 +732,7 @@
         ]
       },
       "time": 1279166400,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
       "description": "Encounter Inpatient Discharge"
     },
     {
@@ -742,6 +742,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;",
       "description": "encounter non-acute inpatient"
     },
     {
@@ -751,6 +752,7 @@
         ]
       },
       "time": 1275796800,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -763,19 +765,12 @@
         ]
       },
       "time": 1270180800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1270180800,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -789,6 +784,7 @@
         "units": "mm[Hg]"
       },
       "time": 1279166400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -802,6 +798,7 @@
         "units": "mm[Hg]"
       },
       "time": 1279166400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -815,6 +812,7 @@
         "units": null
       },
       "time": 1279166400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -831,6 +829,7 @@
         "units": null
       },
       "time": 1281067200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -847,6 +846,7 @@
         "units": null
       },
       "time": 1280289600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -863,6 +863,7 @@
         "units": null
       },
       "time": 1279166400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -879,6 +880,7 @@
         "units": null
       },
       "time": 1270180800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -888,6 +890,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0475386:Tumor stage T1c;",
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
     }
   ],
@@ -906,6 +909,7 @@
       },
       "time": 1276142400,
       "status": "active",
+      "specifics": "C0376358:Malignant neoplasm of prostate;",
       "description": "Prostate Cancer"
     },
     {
@@ -922,6 +926,7 @@
       },
       "time": 1270180800,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     },
     {
@@ -938,6 +943,7 @@
       },
       "time": 1291698000,
       "status": "active",
+      "specifics": "C0017612:Glaucoma, Open-Angle;",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],
@@ -959,6 +965,7 @@
         "units": null
       },
       "time": 1276142400,
+      "specifics": "C0201544:Prostate specific antigen measurement;",
       "description": "Prostate Specific Antigen Test"
     },
     {
@@ -972,6 +979,7 @@
         "units": null
       },
       "time": 1276142400,
+      "specifics": "C1276444:Gleason Score 5-6: Moderately differentiated;",
       "description": "Gleason Score <=6"
     },
     {
@@ -991,6 +999,7 @@
         "units": null
       },
       "time": 1276142400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1010,6 +1019,7 @@
         "units": null
       },
       "time": 1276142400,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -1029,6 +1039,7 @@
         "units": null
       },
       "time": 1276142400,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -1048,6 +1059,7 @@
         "units": null
       },
       "time": 1276142400,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -1067,6 +1079,7 @@
         "units": null
       },
       "time": 1276142400,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     },
     {
@@ -1076,6 +1089,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0475386:Tumor stage T1c;",
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
     }
   ],
@@ -1091,6 +1105,7 @@
         "units": null
       },
       "time": 1279166400,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1109,6 +1124,7 @@
         ]
       },
       "time": 1270180800,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -1124,6 +1140,7 @@
         ]
       },
       "time": 1270180800,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -1136,6 +1153,7 @@
         ]
       },
       "time": 1270180800,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -1154,6 +1172,7 @@
         ]
       },
       "time": 1291698000,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     },
     {
@@ -1163,6 +1182,7 @@
         ]
       },
       "time": 1291698000,
+      "specifics": "C0200149:Ophthalmic examination and evaluation;",
       "description": "Optic Nerve Head Evaluation"
     },
     {
@@ -1175,6 +1195,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0554156:Radical prostatectomy - unspecified excision of pelvic nodes;",
       "description": "Prostate Cancer Treatment"
     },
     {
@@ -1184,6 +1205,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0475386:Tumor stage T1c;",
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
     },
     {
@@ -1205,6 +1227,7 @@
         ]
       },
       "time": 1270180800,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     }
   ],
@@ -1216,6 +1239,7 @@
         ]
       },
       "time": 1270180800,
+      "specifics": "C0978483:Metformin hydrochloride 500 MG Oral Tablet;",
       "description": "Biguanides"
     },
     {
@@ -1225,6 +1249,7 @@
         ]
       },
       "time": 1270180800,
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
       "description": "Smoking Cessation Agents"
     }
   ],
@@ -1236,6 +1261,7 @@
         ]
       },
       "time": 1291611600,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1245,6 +1271,7 @@
         ]
       },
       "time": 1291611600,
+      "specifics": "",
       "description": "Pneumococcal Vaccine ages 2 and older"
     }
   ],
@@ -1265,6 +1292,7 @@
         ]
       },
       "time": 1270180800,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

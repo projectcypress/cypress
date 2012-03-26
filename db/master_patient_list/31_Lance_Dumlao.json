@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a8a9ffcce9010000b4",
+  "_id": "4f6224cba9ffcca0630000b4",
   "first": "Lance",
   "patient_id": "31",
   "last": "Dumlao",
@@ -42,11 +42,6 @@
         1251259200
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270785600
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270785600
@@ -64,6 +59,11 @@
         1285387200,
         1270785600,
         1251259200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1270785600
       ]
     },
     "0014": {
@@ -128,9 +128,6 @@
       "encounter_office_visit_encounter": [
         1285387200,
         1270785600
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270785600
       ]
     },
     "0031": {
@@ -145,7 +142,7 @@
         1270785600
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1285387200,
         1270785600
@@ -173,7 +170,7 @@
         1274587200
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1285387200,
         1270785600
@@ -580,13 +577,13 @@
         1270785600
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1285387200,
         1270785600
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -631,6 +628,7 @@
         ]
       },
       "time": 1286164800,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -643,6 +641,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -652,6 +651,7 @@
         ]
       },
       "time": 1274587200,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -664,6 +664,7 @@
         ]
       },
       "time": 1270785600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -673,6 +674,7 @@
         ]
       },
       "time": 1251518400,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
       "description": "Encounter Inpatient Discharge"
     },
     {
@@ -682,19 +684,12 @@
         ]
       },
       "time": 1251259200,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "description": "encounter acute inpt"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270785600,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -708,6 +703,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285387200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -721,6 +717,7 @@
         "units": "mm[Hg]"
       },
       "time": 1285387200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -734,6 +731,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270785600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -747,6 +745,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270785600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -760,6 +759,7 @@
         "units": "mm[Hg]"
       },
       "time": 1251259200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -773,6 +773,7 @@
         "units": "mm[Hg]"
       },
       "time": 1251259200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -789,6 +790,7 @@
         "units": null
       },
       "time": 1285387200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -805,6 +807,7 @@
         "units": null
       },
       "time": 1270785600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -823,6 +826,7 @@
       },
       "time": 1270785600,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     },
     {
@@ -839,6 +843,7 @@
       },
       "time": 1251259200,
       "status": "active",
+      "specifics": "C0022116:Ischemia;",
       "description": "ischemic vascular disease"
     },
     {
@@ -855,6 +860,7 @@
       },
       "time": 1274587200,
       "status": "active",
+      "specifics": "C0017612:Glaucoma, Open-Angle;",
       "description": "Primary Open Angle Glaucoma (POAG)"
     }
   ],
@@ -876,6 +882,7 @@
         "units": null
       },
       "time": 1285387200,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -895,6 +902,7 @@
         "units": null
       },
       "time": 1285387200,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -914,6 +922,7 @@
         "units": null
       },
       "time": 1285387200,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -933,6 +942,7 @@
         "units": null
       },
       "time": 1285387200,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     }
   ],
@@ -944,6 +954,7 @@
         ]
       },
       "time": 1274587200,
+      "specifics": "C0200149:Ophthalmic examination and evaluation;",
       "description": "Optic Nerve Head Evaluation"
     }
   ],
@@ -955,6 +966,7 @@
         ]
       },
       "time": 1270785600,
+      "specifics": "C0783425:Aspirin 81 MG Oral Tablet;",
       "description": "Oral anti-platelet therapy"
     },
     {
@@ -964,6 +976,7 @@
         ]
       },
       "time": 1251518400,
+      "specifics": "C0783425:Aspirin 81 MG Oral Tablet;",
       "description": "Oral anti-platelet therapy"
     },
     {
@@ -973,6 +986,7 @@
         ]
       },
       "time": 1270785600,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -982,6 +996,7 @@
         ]
       },
       "time": 1251518400,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     }
   ],
@@ -993,6 +1008,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1005,6 +1021,7 @@
         ]
       },
       "time": 1285387200,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     }
   ],

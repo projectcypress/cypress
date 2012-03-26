@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05ada9ffcce9010000dc",
+  "_id": "4f6224cfa9ffcca0630000dc",
   "first": "Selena",
   "patient_id": "19",
   "last": "Lotherberg",
@@ -32,8 +32,6 @@
         1270008000
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291698000,
@@ -49,6 +47,8 @@
         1273982400,
         1270008000
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -108,9 +108,6 @@
       "encounter_office_visit_encounter": [
         1291698000,
         1270008000
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270008000
       ]
     },
     "0031": {
@@ -135,10 +132,24 @@
         1273982400
       ]
     },
-    "0034": {
+    "0033": {
+      "chlamydia_screening_laboratory_test_result": [
+        1273982400,
+        1182139200
+      ],
       "encounter_outpatient_encounter": [
         1291698000,
         1270008000
+      ],
+      "sexually_active_woman_diagnosis_active": [
+        1273982400
+      ],
+      "chlamydia_screening_laboratory_test_performed": [
+        1273982400,
+        1182139200
+      ],
+      "iud_use_device_applied": [
+        1273982400
       ]
     },
     "0043": {
@@ -160,24 +171,10 @@
         1271736000
       ]
     },
-    "0033": {
-      "chlamydia_screening_laboratory_test_result": [
-        1273982400,
-        1182139200
-      ],
+    "0034": {
       "encounter_outpatient_encounter": [
         1291698000,
         1270008000
-      ],
-      "sexually_active_woman_diagnosis_active": [
-        1273982400
-      ],
-      "chlamydia_screening_laboratory_test_performed": [
-        1273982400,
-        1182139200
-      ],
-      "iud_use_device_applied": [
-        1273982400
       ]
     },
     "0036": {
@@ -556,15 +553,15 @@
         1270008000
       ]
     },
-    "0389": {
-      "pain_related_to_prostate_cancer_diagnosis_active": [
-        1275624000
-      ]
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1291698000,
         1270008000
+      ]
+    },
+    "0389": {
+      "pain_related_to_prostate_cancer_diagnosis_active": [
+        1275624000
       ]
     },
     "0421": {
@@ -635,6 +632,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C2709653:Baker's yeast allergenic extract 100 MG/ML Injectable Solution;",
       "description": "Bakers Yeast"
     }
   ],
@@ -646,6 +644,7 @@
         ]
       },
       "time": 1273982400,
+      "specifics": "C2921403:Contraceptive IUD check (finding);",
       "description": "IUD use"
     }
   ],
@@ -660,6 +659,7 @@
         ]
       },
       "time": 1291698000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -669,6 +669,7 @@
         ]
       },
       "time": 1281931200,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -678,6 +679,7 @@
         ]
       },
       "time": 1275624000,
+      "specifics": "C0519198:Chiropractic manipulative treatment (CMT); spinal, one to two regions;",
       "description": "encounter outpatient including orthopedics and chiropractics"
     },
     {
@@ -687,6 +689,7 @@
         ]
       },
       "time": 1273982400,
+      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;",
       "description": "encounter ob/gyn"
     },
     {
@@ -696,6 +699,7 @@
         ]
       },
       "time": 1271736000,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "Encounter Ophthalmological Services"
     },
     {
@@ -708,19 +712,12 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1270008000,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -734,6 +731,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291698000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -747,6 +745,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291698000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -760,6 +759,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273982400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -773,6 +773,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273982400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -786,6 +787,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -799,6 +801,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -815,6 +818,7 @@
         "units": null
       },
       "time": 1291698000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -831,6 +835,7 @@
         "units": null
       },
       "time": 1273982400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -847,6 +852,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -865,12 +871,13 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     },
     {
       "codes": {
         "ICD-9-CM": [
-          "99.9"
+          "099.9"
         ],
         "SNOMED-CT": [
           "8098009"
@@ -881,6 +888,7 @@
       },
       "time": 1273982400,
       "status": "active",
+      "specifics": "C0036916:Sexually Transmitted Diseases;",
       "description": "sexually active woman"
     },
     {
@@ -897,6 +905,7 @@
       },
       "time": 1275624000,
       "status": "active",
+      "specifics": "C0024031:Low Back Pain;",
       "description": "low back pain"
     },
     {
@@ -913,6 +922,7 @@
       },
       "time": 1271736000,
       "status": "active",
+      "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
       "description": "Diabetic Retinopathy"
     }
   ],
@@ -934,6 +944,7 @@
         "units": null
       },
       "time": 1292562000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -953,6 +964,7 @@
         "units": null
       },
       "time": 1283918400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -972,6 +984,7 @@
         "units": null
       },
       "time": 1276574400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -991,6 +1004,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -1010,6 +1024,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -1038,6 +1053,7 @@
         "units": null
       },
       "time": 1273982400,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -1057,6 +1073,7 @@
         "units": null
       },
       "time": 1273982400,
+      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
       "description": "Chlamydia Screening"
     },
     {
@@ -1085,6 +1102,7 @@
         "units": null
       },
       "time": 1182139200,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -1104,6 +1122,7 @@
         "units": null
       },
       "time": 1182139200,
+      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
       "description": "Chlamydia Screening"
     }
   ],
@@ -1119,6 +1138,7 @@
         "units": null
       },
       "time": 1291698000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1132,6 +1152,7 @@
         "units": null
       },
       "time": 1273982400,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1145,6 +1166,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -1154,6 +1176,7 @@
         ]
       },
       "time": 1270872000,
+      "specifics": "C0271051:Macular retinal edema;",
       "description": "macular edema findings"
     },
     {
@@ -1163,6 +1186,7 @@
         ]
       },
       "time": 1270872000,
+      "specifics": "C0339473:Preproliferative diabetic retinopathy; C0730278:Severe nonproliferative diabetic retinopathy;",
       "description": "level of severity of retinopathy findings"
     },
     {
@@ -1172,6 +1196,7 @@
         ]
       },
       "time": 1271736000,
+      "specifics": "C1444586:Slit lamp fundus examination;",
       "description": "Macular or Fundus Exam"
     },
     {
@@ -1190,6 +1215,7 @@
         ]
       },
       "time": 1271736000,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     },
     {
@@ -1211,6 +1237,7 @@
         ]
       },
       "time": 1285214400,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     }
   ],
@@ -1222,6 +1249,7 @@
         ]
       },
       "time": 1242619200,
+      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;",
       "description": "Antidiabetic-combinations"
     }
   ],
@@ -1233,6 +1261,7 @@
         ]
       },
       "time": 1291698000,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1242,6 +1271,7 @@
         ]
       },
       "time": 1291698000,
+      "specifics": "",
       "description": "Pneumococcal Vaccine ages 2 and older"
     }
   ],

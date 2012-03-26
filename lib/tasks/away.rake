@@ -1,5 +1,6 @@
 require 'quality-measure-engine'
 require 'pry'
+require 'pry-nav'
 
 loader = QME::Database::Loader.new()
 

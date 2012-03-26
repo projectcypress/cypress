@@ -3,7 +3,7 @@ class ProductTest
 
   belongs_to :product
   has_one :patient_population
-  has_many :test_executions
+  has_many :test_executions, dependent: :destroy
 
   # Test Details
   field :name, type: String
@@ -16,6 +16,7 @@ class ProductTest
   field :reported_results, type: Hash
   field :validation_errors, type: Array
   field :baseline_validation_errors, type: Array
+  field :download_filename, type: String
   
   # Returns true if this ProductTests most recent TestExecution is passing
   def passing?
@@ -48,5 +49,23 @@ class ProductTest
     end
     
     return measures
+  end
+  
+  # Check to see if this population was imported by the vendor
+  def imported_population?
+    return self.patient_population.nil?
+  end
+  
+  def destroy
+    # Get rid of all related Records to this test
+    Record.where(:test_id => self.id).each do |record|
+      MONGO_DB.collection('patient_cache').remove({'value.patient_id' => record.id})
+      record.destroy
+    end
+    
+    # Get rid of all related executions
+    self.test_executions.each do |execution|
+      execution.destroy
+    end
   end
 end

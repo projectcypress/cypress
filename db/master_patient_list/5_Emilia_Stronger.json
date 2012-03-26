@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a0a9ffcce901000073",
+  "_id": "4f6224c4a9ffcca063000073",
   "first": "Emilia",
   "patient_id": "5",
   "last": "Stronger",
@@ -44,8 +44,6 @@
         1273896000
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1295154000,
@@ -59,6 +57,8 @@
         1295154000,
         1273464000
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -111,9 +111,6 @@
       "encounter_office_visit_encounter": [
         1295154000,
         1285473600
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1273464000
       ]
     },
     "0031": {
@@ -128,7 +125,7 @@
         1285473600
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1295154000,
         1285473600
@@ -146,7 +143,7 @@
         1285473600
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1295154000,
         1285473600
@@ -550,13 +547,13 @@
         1285473600
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1295154000,
         1285473600
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -641,6 +638,7 @@
         ]
       },
       "time": 1295154000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -653,6 +651,7 @@
         ]
       },
       "time": 1285473600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -662,6 +661,7 @@
         ]
       },
       "time": 1273896000,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
       "description": "Encounter Inpatient Discharge"
     },
     {
@@ -671,19 +671,12 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1273464000,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -697,6 +690,7 @@
         "units": "mm[Hg]"
       },
       "time": 1295154000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -710,6 +704,7 @@
         "units": "mm[Hg]"
       },
       "time": 1295154000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -723,6 +718,7 @@
         "units": null
       },
       "time": 1295154000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -736,6 +732,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273464000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -749,6 +746,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273464000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -762,6 +760,7 @@
         "units": null
       },
       "time": 1273464000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -778,6 +777,7 @@
         "units": null
       },
       "time": 1295154000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -794,6 +794,7 @@
         "units": null
       },
       "time": 1273464000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -812,6 +813,7 @@
       },
       "time": 1273464000,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     },
     {
@@ -828,6 +830,7 @@
       },
       "time": 1273464000,
       "status": "inactive",
+      "specifics": "C0022660:Kidney Failure, Acute;",
       "description": "Acute Renal Insufficiency"
     }
   ],
@@ -849,6 +852,7 @@
         "units": null
       },
       "time": 1295154000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -868,6 +872,7 @@
         "units": null
       },
       "time": 1285473600,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -887,6 +892,7 @@
         "units": null
       },
       "time": 1285473600,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -906,6 +912,7 @@
         "units": null
       },
       "time": 1273896000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -925,6 +932,7 @@
         "units": null
       },
       "time": 1273464000,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -944,6 +952,7 @@
         "units": null
       },
       "time": 1273464000,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     }
   ],
@@ -959,6 +968,7 @@
         "units": null
       },
       "time": 1295154000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -972,6 +982,7 @@
         "units": null
       },
       "time": 1273464000,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -981,6 +992,7 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C0420347:Patient referral to dietitian;",
       "description": "dietary consultation order"
     },
     {
@@ -996,6 +1008,7 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     }
   ],
@@ -1007,6 +1020,7 @@
         ]
       },
       "time": 1285473600,
+      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;",
       "description": "Antidiabetic-combinations"
     },
     {
@@ -1016,6 +1030,7 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C2683559:3 ML Insulin Lispro 100 UNT/ML Prefilled Syringe;",
       "description": "Insulin"
     }
   ],
@@ -1030,6 +1045,7 @@
         ]
       },
       "time": 1285473600,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     },
     {
@@ -1039,6 +1055,7 @@
         ]
       },
       "time": 1285473600,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     }
   ],
@@ -1059,6 +1076,7 @@
         ]
       },
       "time": 1273464000,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

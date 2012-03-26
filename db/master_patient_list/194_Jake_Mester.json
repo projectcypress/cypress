@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0593a9ffcce90100000b",
+  "_id": "4f6224b7a9ffcca06300000b",
   "first": "Jake",
   "patient_id": "194",
   "last": "Mester",
@@ -41,11 +41,6 @@
         1275364800
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1275192000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1275192000
@@ -63,6 +58,11 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1291179600,
         1283400000,
+        1275192000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1275192000
       ]
     },
@@ -148,10 +148,7 @@
         1275364800
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1289883600
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1291179600,
         1283400000,
@@ -172,7 +169,10 @@
         1275364800
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1289883600
+      ],
       "encounter_outpatient_encounter": [
         1291179600,
         1283400000,
@@ -513,13 +513,13 @@
         1283400000
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1291179600,
         1283400000
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -575,6 +575,7 @@
         ]
       },
       "time": 1291179600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -587,6 +588,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -596,6 +598,7 @@
         ]
       },
       "time": 1275364800,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "encounter outpatient BH"
     },
     {
@@ -605,6 +608,7 @@
         ]
       },
       "time": 1275192000,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "description": "encounter ED"
     }
   ],
@@ -623,6 +627,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291179600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -636,6 +641,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291179600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -649,6 +655,7 @@
         "units": null
       },
       "time": 1291179600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -662,6 +669,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283400000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -675,6 +683,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283400000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -688,6 +697,7 @@
         "units": null
       },
       "time": 1283400000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -701,6 +711,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275192000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -714,6 +725,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275192000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -727,6 +739,7 @@
         "units": null
       },
       "time": 1275192000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -743,6 +756,7 @@
         "units": null
       },
       "time": 1291179600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -759,6 +773,7 @@
         "units": null
       },
       "time": 1283400000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -775,6 +790,7 @@
         "units": null
       },
       "time": 1275192000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -793,6 +809,7 @@
       },
       "time": 1275364800,
       "status": "active",
+      "specifics": "C0154409:Major Depressive Disorder, Recurrent, Unspecified;",
       "description": "Major Depression"
     },
     {
@@ -809,6 +826,7 @@
       },
       "time": 1275192000,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -823,6 +841,7 @@
         ]
       },
       "time": 1277870400,
+      "specifics": "C0420347:Patient referral to dietitian;",
       "description": "dietary consultation order"
     },
     {
@@ -844,6 +863,7 @@
         ]
       },
       "time": 1289883600,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     }
   ],
@@ -855,6 +875,7 @@
         ]
       },
       "time": 1275192000,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -864,6 +885,7 @@
         ]
       },
       "time": 1275364800,
+      "specifics": "C0978679:Mirtazapine 15 MG Oral Tablet;",
       "description": "Tetracyclic antidepressants"
     },
     {
@@ -873,6 +895,7 @@
         ]
       },
       "time": 1275364800,
+      "specifics": "C0978679:Mirtazapine 15 MG Oral Tablet;",
       "description": "Tetracyclic antidepressants"
     },
     {
@@ -882,6 +905,7 @@
         ]
       },
       "time": 1275364800,
+      "specifics": "C0978679:Mirtazapine 15 MG Oral Tablet;",
       "description": "Tetracyclic antidepressants"
     },
     {
@@ -891,6 +915,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0978679:Mirtazapine 15 MG Oral Tablet;",
       "description": "Tetracyclic antidepressants"
     },
     {
@@ -900,6 +925,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0978679:Mirtazapine 15 MG Oral Tablet;",
       "description": "Tetracyclic antidepressants"
     },
     {
@@ -909,6 +935,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0978679:Mirtazapine 15 MG Oral Tablet;",
       "description": "Tetracyclic antidepressants"
     },
     {
@@ -918,6 +945,7 @@
         ]
       },
       "time": 1285905600,
+      "specifics": "C0978679:Mirtazapine 15 MG Oral Tablet;",
       "description": "Tetracyclic antidepressants"
     }
   ],
@@ -929,6 +957,7 @@
         ]
       },
       "time": 1291179600,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     }
   ],
@@ -949,6 +978,7 @@
         ]
       },
       "time": 1277870400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

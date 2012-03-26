@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a0a9ffcce901000074",
+  "_id": "4f6224c4a9ffcca063000074",
   "first": "Guy",
   "patient_id": "60",
   "last": "Skillings",
@@ -40,8 +40,6 @@
         1257829200
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1292389200,
@@ -57,6 +55,8 @@
         1292389200,
         1276574400
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -114,9 +114,6 @@
         1283918400,
         1276574400,
         1257829200
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1257829200
       ]
     },
     "0031": {
@@ -135,10 +132,7 @@
         1257829200
       ]
     },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1293685200
-      ],
+    "0033": {
       "encounter_outpatient_encounter": [
         1292648400,
         1283918400,
@@ -162,7 +156,10 @@
         1257829200
       ]
     },
-    "0033": {
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1293685200
+      ],
       "encounter_outpatient_encounter": [
         1292648400,
         1283918400,
@@ -537,8 +534,6 @@
         1257829200
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1292648400,
@@ -546,6 +541,8 @@
         1276574400,
         1257829200
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -621,6 +618,7 @@
         ]
       },
       "time": 1292648400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -633,6 +631,7 @@
         ]
       },
       "time": 1283918400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -645,6 +644,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -657,19 +657,12 @@
         ]
       },
       "time": 1257829200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1257829200,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -683,6 +676,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292389200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -696,6 +690,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292389200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -709,6 +704,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276574400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -722,6 +718,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276574400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -738,6 +735,7 @@
         "units": null
       },
       "time": 1292389200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -754,6 +752,7 @@
         "units": null
       },
       "time": 1276574400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -772,6 +771,7 @@
       },
       "time": 1257829200,
       "status": "active",
+      "specifics": "C0011849:Diabetes Mellitus;",
       "description": "diabetes"
     }
   ],
@@ -793,6 +793,7 @@
         "units": null
       },
       "time": 1292648400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -812,6 +813,7 @@
         "units": null
       },
       "time": 1283918400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -831,6 +833,7 @@
         "units": null
       },
       "time": 1276574400,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -850,6 +853,7 @@
         "units": null
       },
       "time": 1257829200,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -869,6 +873,7 @@
         "units": null
       },
       "time": 1276574400,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     }
   ],
@@ -884,6 +889,7 @@
         "units": null
       },
       "time": 1292389200,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -897,6 +903,7 @@
         "units": null
       },
       "time": 1276574400,
+      "specifics": "C1303165:Diabetic foot examination;",
       "description": "Foot Exam"
     },
     {
@@ -915,6 +922,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "description": "eye exam"
     },
     {
@@ -936,6 +944,7 @@
         ]
       },
       "time": 1293685200,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     }
   ],
@@ -947,6 +956,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;",
       "description": "Antidiabetic-combinations"
     },
     {
@@ -956,6 +966,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0593903:atorvastatin 10 MG Oral Tablet [Lipitor];",
       "description": "Lipid Lowering Therapy"
     }
   ],
@@ -970,6 +981,7 @@
         ]
       },
       "time": 1283918400,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     },
     {
@@ -979,6 +991,7 @@
         ]
       },
       "time": 1257829200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     }
   ],

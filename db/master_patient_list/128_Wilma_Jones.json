@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05aaa9ffcce9010000c6",
+  "_id": "4f6224cda9ffcca0630000c6",
   "first": "Wilma",
   "patient_id": "128",
   "last": "Jones",
@@ -35,11 +35,6 @@
         1283918400
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1286251200
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1286251200
@@ -57,6 +52,11 @@
         1292821200,
         1286769600,
         1283918400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1286251200
       ]
     },
     "0014": {
@@ -127,9 +127,6 @@
       ],
       "encounter_prev_med_individual_counseling_encounter": [
         1286769600
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1286251200
       ]
     },
     "0031": {
@@ -152,14 +149,11 @@
         1289797200
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1292821200,
         1286769600,
         1283918400
-      ],
-      "fobt_laboratory_test_performed": [
-        1289797200
       ]
     },
     "0043": {
@@ -175,11 +169,14 @@
         1283918400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1292821200,
         1286769600,
         1283918400
+      ],
+      "fobt_laboratory_test_performed": [
+        1289797200
       ]
     },
     "0036": {
@@ -472,13 +469,13 @@
         1283918400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1292821200,
         1283918400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -512,6 +509,7 @@
         ]
       },
       "time": 1286251200,
+      "specifics": "C1359886:Metoprolol Tartrate 25 MG Oral Tablet;",
       "description": "beta blocker therapy"
     }
   ],
@@ -529,6 +527,7 @@
         ]
       },
       "time": 1292821200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -538,6 +537,7 @@
         ]
       },
       "time": 1286769600,
+      "specifics": "C0374642:Preventive medicine counseling and/or risk factor reduction intervention(s) provided to an individual (separate procedure); approximately 60 minutes;",
       "description": "Encounter Prev Med-Individual counseling"
     },
     {
@@ -550,19 +550,12 @@
         ]
       },
       "time": 1283918400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1286251200,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -576,6 +569,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292821200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -589,6 +583,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292821200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -602,6 +597,7 @@
         "units": null
       },
       "time": 1292821200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -615,6 +611,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286769600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -628,6 +625,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286769600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -641,6 +639,7 @@
         "units": null
       },
       "time": 1286769600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -654,6 +653,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283918400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -667,6 +667,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283918400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -680,6 +681,7 @@
         "units": null
       },
       "time": 1283918400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -696,6 +698,7 @@
         "units": null
       },
       "time": 1283918400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -712,6 +715,7 @@
         "units": null
       },
       "time": 1286769600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -730,6 +734,7 @@
       },
       "time": 1286251200,
       "status": "active",
+      "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
       "description": "Heart Failure"
     },
     {
@@ -746,6 +751,7 @@
       },
       "time": 1286251200,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -776,6 +782,7 @@
         "units": null
       },
       "time": 1289797200,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -801,6 +808,7 @@
         "units": null
       },
       "time": 1289797200,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "FOBT"
     }
   ],
@@ -812,6 +820,7 @@
         ]
       },
       "time": 1285905600,
+      "specifics": "C0232174:Cardiac ejection fraction;",
       "description": "Ejection Fraction"
     },
     {
@@ -833,6 +842,7 @@
         ]
       },
       "time": 1289797200,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     }
   ],
@@ -844,6 +854,7 @@
         ]
       },
       "time": 1286251200,
+      "specifics": "C0981555:Lisinopril 10 MG Oral Tablet;",
       "description": "ACE inhibitor or ARB"
     }
   ],

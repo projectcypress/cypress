@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a9a9ffcce9010000bd",
+  "_id": "4f6224cca9ffcca0630000bd",
   "first": "Jasper",
   "patient_id": "182",
   "last": "Rodriguez",
@@ -32,11 +32,6 @@
         1274328000
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1275192000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1275192000
@@ -52,6 +47,11 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1284523200,
         1274328000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1275192000
       ]
     },
     "0014": {
@@ -112,9 +112,6 @@
         1284523200,
         1274328000
       ],
-      "tobacco_user_patient_characteristic": [
-        1274328000
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1274328000
       ],
@@ -137,7 +134,7 @@
         1274328000
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1284523200,
         1274328000
@@ -155,7 +152,7 @@
         1274328000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1284523200,
         1274328000
@@ -402,13 +399,13 @@
         1274328000
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1284523200,
         1274328000
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -456,6 +453,7 @@
         ]
       },
       "time": 1280894400,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "description": "colonoscopy"
     }
   ],
@@ -473,6 +471,7 @@
         ]
       },
       "time": 1284523200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -485,19 +484,12 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1274328000,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -511,6 +503,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284523200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -524,6 +517,7 @@
         "units": "mm[Hg]"
       },
       "time": 1284523200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -537,6 +531,7 @@
         "units": null
       },
       "time": 1284523200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -550,6 +545,7 @@
         "units": "mm[Hg]"
       },
       "time": 1274328000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -563,6 +559,7 @@
         "units": "mm[Hg]"
       },
       "time": 1274328000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -576,6 +573,7 @@
         "units": null
       },
       "time": 1274328000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -592,6 +590,7 @@
         "units": null
       },
       "time": 1284523200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -608,6 +607,7 @@
         "units": null
       },
       "time": 1274328000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -626,6 +626,7 @@
       },
       "time": 1275192000,
       "status": "active",
+      "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
       "description": "Heart Failure"
     },
     {
@@ -642,6 +643,7 @@
       },
       "time": 1275192000,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -659,6 +661,7 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -668,6 +671,7 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C0232174:Cardiac ejection fraction;",
       "description": "Ejection Fraction"
     }
   ],
@@ -679,6 +683,7 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
       "description": "Smoking Cessation Agents"
     },
     {
@@ -688,6 +693,7 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C0981555:Lisinopril 10 MG Oral Tablet;",
       "description": "ACE inhibitor or ARB"
     }
   ],
@@ -699,6 +705,7 @@
         ]
       },
       "time": 1284523200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -711,6 +718,7 @@
         ]
       },
       "time": 1284523200,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     }
   ],
@@ -731,6 +739,7 @@
         ]
       },
       "time": 1274328000,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

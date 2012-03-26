@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a9a9ffcce9010000bf",
+  "_id": "4f6224cca9ffcca0630000bf",
   "first": "Michael",
   "patient_id": "183",
   "last": "Bethany",
@@ -36,11 +36,6 @@
         1275710400
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1275710400
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1275710400
@@ -56,6 +51,11 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1288497600,
+        1275710400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1275710400
       ]
     },
@@ -123,9 +123,6 @@
         1288497600,
         1280548800,
         1275710400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1275710400
       ]
     },
     "0031": {
@@ -142,7 +139,7 @@
         1275710400
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1288497600,
         1280548800,
@@ -163,7 +160,7 @@
         1275710400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1288497600,
         1280548800,
@@ -455,14 +452,14 @@
         1275710400
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1288497600,
         1280548800,
         1275710400
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -509,6 +506,7 @@
         ]
       },
       "time": 1288497600,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -521,6 +519,7 @@
         ]
       },
       "time": 1280548800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -533,19 +532,12 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1275710400,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -559,6 +551,7 @@
         "units": "mm[Hg]"
       },
       "time": 1288497600,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -572,6 +565,7 @@
         "units": "mm[Hg]"
       },
       "time": 1288497600,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -585,6 +579,7 @@
         "units": null
       },
       "time": 1288497600,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -598,6 +593,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275710400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -611,6 +607,7 @@
         "units": "mm[Hg]"
       },
       "time": 1275710400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -624,6 +621,7 @@
         "units": null
       },
       "time": 1275710400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -640,6 +638,7 @@
         "units": null
       },
       "time": 1288497600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -656,6 +655,7 @@
         "units": null
       },
       "time": 1276142400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -674,6 +674,7 @@
       },
       "time": 1280548800,
       "status": "active",
+      "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
       "description": "Heart Failure"
     },
     {
@@ -690,6 +691,7 @@
       },
       "time": 1275710400,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     }
   ],
@@ -713,6 +715,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -728,6 +731,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -737,6 +741,7 @@
         ]
       },
       "time": 1280548800,
+      "specifics": "C0232174:Cardiac ejection fraction;",
       "description": "Ejection Fraction"
     }
   ],
@@ -748,6 +753,7 @@
         ]
       },
       "time": 1280548800,
+      "specifics": "C1359886:Metoprolol Tartrate 25 MG Oral Tablet;",
       "description": "Beta Blocker Therapy"
     },
     {
@@ -757,6 +763,7 @@
         ]
       },
       "time": 1280548800,
+      "specifics": "C0981555:Lisinopril 10 MG Oral Tablet;",
       "description": "ACE inhibitor or ARB"
     },
     {
@@ -766,6 +773,7 @@
         ]
       },
       "time": 1275710400,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     }
   ],
@@ -777,6 +785,7 @@
         ]
       },
       "time": 1288497600,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -789,6 +798,7 @@
         ]
       },
       "time": 1288497600,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
       "description": "Pneumococcal Vaccine all ages"
     }
   ],
@@ -809,6 +819,7 @@
         ]
       },
       "time": 1276142400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

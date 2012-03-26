@@ -1,5 +1,5 @@
 {
-  "_id": "4efa05a5a9ffcce90100009a",
+  "_id": "4f6224c8a9ffcca06300009a",
   "first": "Allison",
   "patient_id": "104",
   "last": "Lenta",
@@ -28,6 +28,20 @@
         1292389200
       ]
     },
+    "0013": {
+      "diastolic_blood_pressure_physical_exam_finding": [
+        1291784400,
+        1290661200,
+        1287547200,
+        1276574400
+      ],
+      "systolic_blood_pressure_physical_exam_finding": [
+        1291784400,
+        1290661200,
+        1287547200,
+        1276574400
+      ]
+    },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
         1292389200
@@ -45,23 +59,6 @@
         1283140800,
         1276574400,
         1272600000
-      ],
-      "estimated_date_of_conception_patient_characteristic": [
-        1271304000
-      ]
-    },
-    "0013": {
-      "diastolic_blood_pressure_physical_exam_finding": [
-        1291784400,
-        1290661200,
-        1287547200,
-        1276574400
-      ],
-      "systolic_blood_pressure_physical_exam_finding": [
-        1291784400,
-        1290661200,
-        1287547200,
-        1276574400
       ]
     },
     "0014": {
@@ -78,9 +75,6 @@
         1283140800,
         1276574400,
         1272600000
-      ],
-      "estimated_date_of_conception_patient_characteristic": [
-        1271304000
       ],
       "rh_status_baby_laboratory_test_result": [
         {
@@ -148,19 +142,10 @@
     "0027": {
     },
     "0028": {
-      "tobacco_non_user_patient_characteristic": [
-        1272600000
-      ]
     },
     "0031": {
     },
     "0032": {
-    },
-    "0034": {
-    },
-    "0043": {
-    },
-    "0086": {
     },
     "0033": {
       "pregnancy_test_laboratory_test_performed": [
@@ -172,6 +157,12 @@
       "procedures_indicative_of_sexually_active_woman_procedure_performed": [
         1292389200
       ]
+    },
+    "0043": {
+    },
+    "0086": {
+    },
+    "0034": {
     },
     "0036": {
       "encounter_acute_inpt_encounter": [
@@ -427,9 +418,9 @@
     },
     "0385": {
     },
-    "0389": {
-    },
     "0387": {
+    },
+    "0389": {
     },
     "0421": {
       "pregnancy_diagnosis_active": [
@@ -475,6 +466,7 @@
         ]
       },
       "time": 1292648400,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
       "description": "Encounter Inpatient Discharge"
     },
     {
@@ -484,6 +476,7 @@
         ]
       },
       "time": 1292389200,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "description": "encounter acute inpt"
     },
     {
@@ -499,6 +492,7 @@
         ]
       },
       "time": 1291784400,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -514,6 +508,7 @@
         ]
       },
       "time": 1290661200,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -529,6 +524,7 @@
         ]
       },
       "time": 1287547200,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -544,6 +540,7 @@
         ]
       },
       "time": 1283140800,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -559,6 +556,7 @@
         ]
       },
       "time": 1276574400,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     },
     {
@@ -574,19 +572,12 @@
         ]
       },
       "time": 1272600000,
+      "specifics": "C0451636:Pregnant state, incidental;",
       "description": "Prenatal Visit"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "160618006"
-        ]
-      },
-      "time": 1272600000,
-      "description": "Tobacco Non-User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -600,6 +591,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291784400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -613,6 +605,7 @@
         "units": "mm[Hg]"
       },
       "time": 1291784400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -626,6 +619,7 @@
         "units": "mm[Hg]"
       },
       "time": 1290661200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -639,6 +633,7 @@
         "units": "mm[Hg]"
       },
       "time": 1290661200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -652,6 +647,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287547200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -665,6 +661,7 @@
         "units": "mm[Hg]"
       },
       "time": 1287547200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -678,6 +675,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276574400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -691,6 +689,7 @@
         "units": "mm[Hg]"
       },
       "time": 1276574400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     }
   ],
@@ -709,6 +708,7 @@
       },
       "time": 1287547200,
       "status": "active",
+      "specifics": "C0085207:Gestational Diabetes;",
       "description": "gestational diabetes"
     },
     {
@@ -725,6 +725,7 @@
       },
       "time": 1272600000,
       "status": "active",
+      "specifics": "C2903762:Pregnancy related conditions, unspecified, unspecified trimester;",
       "description": "Pregnancy"
     },
     {
@@ -741,16 +742,8 @@
       },
       "time": 1292389200,
       "status": "active",
+      "specifics": "C0032989:Multiple Pregnancy;",
       "description": "Delivery Live Births-Diagnosis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "248986005"
-        ]
-      },
-      "time": 1271304000,
-      "description": "Estimated date of conception"
     }
   ],
   "results": [
@@ -768,6 +761,7 @@
         "units": null
       },
       "time": 1272600000,
+      "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;",
       "description": "Pregnancy Test"
     },
     {
@@ -787,6 +781,7 @@
         "units": null
       },
       "time": 1290661200,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
       "description": "HbA1c test"
     },
     {
@@ -806,6 +801,7 @@
         "units": null
       },
       "time": 1273464000,
+      "specifics": "C0523323:HIV p24 antigen test;",
       "description": "HIV Screening"
     },
     {
@@ -819,6 +815,7 @@
         "units": null
       },
       "time": 1287547200,
+      "specifics": "C0482428:Rh immune globulin screen:Impression/interpretation of study:Point in time:Whole blood:Nominal;",
       "description": "Rh Status Mother"
     }
   ],
@@ -833,6 +830,7 @@
         ]
       },
       "time": 1292389200,
+      "specifics": "C1384485:Normal delivery;  There are two SNOMED codes for \"normal delivery;\" 48782003 is the other one",
       "description": "Delivery Live Births-Procedure"
     }
   ],
@@ -844,6 +842,7 @@
         ]
       },
       "time": 1287547200,
+      "specifics": "C2683559:3 ML Insulin Lispro 100 UNT/ML Prefilled Syringe;",
       "description": "Insulin"
     }
   ],

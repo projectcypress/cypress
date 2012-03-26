@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059fa9ffcce901000063",
+  "_id": "4f6224c2a9ffcca063000063",
   "first": "Joan",
   "patient_id": "109",
   "last": "Long",
@@ -50,8 +50,6 @@
         1270008000
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1292216400,
@@ -73,6 +71,8 @@
         1281067200,
         1270008000
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -165,9 +165,6 @@
         1283400000,
         1281067200
       ],
-      "tobacco_user_patient_characteristic": [
-        1283400000
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1283400000
       ]
@@ -194,7 +191,7 @@
         1281067200
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1292216400,
         1283659200,
@@ -218,7 +215,7 @@
         1281067200
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1292216400,
         1283659200,
@@ -731,8 +728,6 @@
         1281067200
       ]
     },
-    "0389": {
-    },
     "0387": {
       "breast_cancer_diagnosis_active": [
         1283400000
@@ -756,6 +751,8 @@
         1283400000,
         1281067200
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -824,6 +821,7 @@
         ]
       },
       "time": 1292216400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -833,6 +831,7 @@
         ]
       },
       "time": 1283659200,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -842,6 +841,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Office Visit"
     },
     {
@@ -854,6 +854,7 @@
         ]
       },
       "time": 1281067200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -863,6 +864,7 @@
         ]
       },
       "time": 1270267200,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
       "description": "Encounter Inpatient Discharge"
     },
     {
@@ -872,19 +874,12 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "description": "encounter acute inpt"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1283400000,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -898,6 +893,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292216400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -911,6 +907,7 @@
         "units": "mm[Hg]"
       },
       "time": 1292216400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -924,6 +921,7 @@
         "units": null
       },
       "time": 1292216400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -937,6 +935,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283659200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -950,6 +949,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283659200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -963,6 +963,7 @@
         "units": null
       },
       "time": 1283659200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -976,6 +977,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283400000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -989,6 +991,7 @@
         "units": "mm[Hg]"
       },
       "time": 1283400000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1002,6 +1005,7 @@
         "units": null
       },
       "time": 1283400000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -1015,6 +1019,7 @@
         "units": "mm[Hg]"
       },
       "time": 1281067200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1028,6 +1033,7 @@
         "units": "mm[Hg]"
       },
       "time": 1281067200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1041,6 +1047,7 @@
         "units": null
       },
       "time": 1281067200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -1054,6 +1061,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -1067,6 +1075,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270008000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -1080,6 +1089,7 @@
         "units": null
       },
       "time": 1270008000,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -1096,6 +1106,7 @@
         "units": null
       },
       "time": 1252123200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -1112,6 +1123,7 @@
         "units": null
       },
       "time": 1267419600,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -1128,6 +1140,7 @@
         "units": null
       },
       "time": 1281067200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -1144,6 +1157,7 @@
         "units": null
       },
       "time": 1283400000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -1160,6 +1174,7 @@
         "units": null
       },
       "time": 1217563200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -1176,6 +1191,7 @@
         "units": null
       },
       "time": 1266037200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -1185,6 +1201,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -1194,6 +1211,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     }
   ],
@@ -1212,6 +1230,7 @@
       },
       "time": 1283400000,
       "status": "active",
+      "specifics": "C0235653:Malignant neoplasm of female breast;",
       "description": "Breast Cancer"
     },
     {
@@ -1228,6 +1247,7 @@
       },
       "time": 1270008000,
       "status": "active",
+      "specifics": "C0022116:Ischemia;",
       "description": "ischemic vascular disease"
     }
   ],
@@ -1249,6 +1269,7 @@
         "units": null
       },
       "time": 1292216400,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "description": "LDL"
     },
     {
@@ -1268,6 +1289,7 @@
         "units": null
       },
       "time": 1292216400,
+      "specifics": "C0392885:High density lipoprotein measurement;",
       "description": "High Density Lipoprotein (HDL)"
     },
     {
@@ -1287,6 +1309,7 @@
         "units": null
       },
       "time": 1292216400,
+      "specifics": "C0546633:Cholesterol total measurement;",
       "description": "Total Cholesterol"
     },
     {
@@ -1306,6 +1329,7 @@
         "units": null
       },
       "time": 1292216400,
+      "specifics": "C0202236:Triglycerides measurement;",
       "description": "Triglycerides"
     },
     {
@@ -1315,6 +1339,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -1324,6 +1349,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     }
   ],
@@ -1344,6 +1370,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -1353,6 +1380,7 @@
         ]
       },
       "time": 1281067200,
+      "specifics": "C0420347:Patient referral to dietitian;",
       "description": "dietary consultation order"
     },
     {
@@ -1365,6 +1393,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -1374,6 +1403,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C0475389:Tumor stage T2c;",
       "description": "Breast Cancer Stage IC-IIIC"
     },
     {
@@ -1383,6 +1413,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C1563119:Hormone receptor positive tumor;",
       "description": "Breast Cancer ER or PR Positive"
     },
     {
@@ -1395,6 +1426,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C0024884:radical mastectomy;",
       "description": "unilateral mastectomy"
     },
     {
@@ -1407,6 +1439,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C1522449:Therapeutic radiology procedure;",
       "description": "Radiation Therapy"
     },
     {
@@ -1428,6 +1461,7 @@
         ]
       },
       "time": 1281067200,
+      "specifics": "C0203028:Screening mammography;",
       "description": "breast cancer screening"
     }
   ],
@@ -1439,6 +1473,7 @@
         ]
       },
       "time": 1270267200,
+      "specifics": "C0783425:Aspirin 81 MG Oral Tablet;",
       "description": "Oral anti-platelet therapy"
     },
     {
@@ -1448,6 +1483,7 @@
         ]
       },
       "time": 1270008000,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
       "description": "Antihypertensive combinations"
     },
     {
@@ -1457,6 +1493,7 @@
         ]
       },
       "time": 1270267200,
+      "specifics": "C1359886:Metoprolol Tartrate 25 MG Oral Tablet;",
       "description": "Beta Blocker Therapy"
     },
     {
@@ -1466,6 +1503,7 @@
         ]
       },
       "time": 1283400000,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
       "description": "Short acting beta 2 agonist"
     }
   ],

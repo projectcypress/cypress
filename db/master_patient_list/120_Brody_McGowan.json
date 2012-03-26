@@ -1,5 +1,5 @@
 {
-  "_id": "4efa059fa9ffcce901000064",
+  "_id": "4f6224c2a9ffcca063000064",
   "first": "Brody",
   "patient_id": "120",
   "last": "McGowan",
@@ -50,11 +50,6 @@
         1276660800
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270526400
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270526400
@@ -73,6 +68,11 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1286683200,
         1273982400,
+        1270526400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1270526400
       ]
     },
@@ -156,9 +156,6 @@
         1273982400,
         1270526400
       ],
-      "tobacco_user_patient_characteristic": [
-        1270526400
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1270526400
       ],
@@ -185,7 +182,7 @@
         1270526400
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1286683200,
         1277870400,
@@ -212,7 +209,7 @@
         1270526400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1286683200,
         1277870400,
@@ -622,6 +619,19 @@
         1270526400
       ]
     },
+    "0387": {
+      "breast_cancer_stage_ic_iiic_procedure_result": [
+        1276660800,
+        1276660800,
+        1276660800
+      ],
+      "encounter_office_visit_encounter": [
+        1286683200,
+        1277870400,
+        1273982400,
+        1270526400
+      ]
+    },
     "0389": {
       "pain_related_to_prostate_cancer_diagnosis_active": [
         1277870400
@@ -645,19 +655,6 @@
       ],
       "gleason_score_6_laboratory_test_result": [
         1273982400
-      ]
-    },
-    "0387": {
-      "breast_cancer_stage_ic_iiic_procedure_result": [
-        1276660800,
-        1276660800,
-        1276660800
-      ],
-      "encounter_office_visit_encounter": [
-        1286683200,
-        1277870400,
-        1273982400,
-        1270526400
       ]
     },
     "0421": {
@@ -711,6 +708,7 @@
         ]
       },
       "time": 1286683200,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -723,6 +721,7 @@
         ]
       },
       "time": 1277870400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -732,6 +731,7 @@
         ]
       },
       "time": 1276920000,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
       "description": "Encounter Inpatient Discharge"
     },
     {
@@ -741,6 +741,7 @@
         ]
       },
       "time": 1276660800,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "description": "encounter acute inpt"
     },
     {
@@ -753,6 +754,7 @@
         ]
       },
       "time": 1273982400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -765,19 +767,12 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1270526400,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -791,6 +786,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286683200,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -804,6 +800,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286683200,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -817,6 +814,7 @@
         "units": null
       },
       "time": 1286683200,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -830,6 +828,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273982400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -843,6 +842,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273982400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -856,6 +856,7 @@
         "units": null
       },
       "time": 1273982400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -869,6 +870,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270526400,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -882,6 +884,7 @@
         "units": "mm[Hg]"
       },
       "time": 1270526400,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -895,6 +898,7 @@
         "units": null
       },
       "time": 1270526400,
+      "specifics": "C0018810:heart rate;",
       "description": "Heart Rate"
     },
     {
@@ -911,6 +915,7 @@
         "units": null
       },
       "time": 1286683200,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -927,6 +932,7 @@
         "units": null
       },
       "time": 1270526400,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -936,6 +942,7 @@
         ]
       },
       "time": 1276660800,
+      "specifics": "C0475386:Tumor stage T1c;",
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
     }
   ],
@@ -954,6 +961,7 @@
       },
       "time": 1270526400,
       "status": "active",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "description": "Hypertension"
     },
     {
@@ -970,6 +978,7 @@
       },
       "time": 1273982400,
       "status": "active",
+      "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
       "description": "Heart Failure"
     },
     {
@@ -986,6 +995,7 @@
       },
       "time": 1273982400,
       "status": "active",
+      "specifics": "C0004238:Atrial Fibrillation;",
       "description": "Atrial Fibrillation"
     },
     {
@@ -1002,6 +1012,7 @@
       },
       "time": 1276660800,
       "status": "active",
+      "specifics": "C0376358:Malignant neoplasm of prostate;",
       "description": "Prostate Cancer"
     },
     {
@@ -1018,6 +1029,7 @@
       },
       "time": 1277870400,
       "status": "active",
+      "specifics": "C2875364:Pain due to malignancy (primary) (secondary); C1719400:Tumor associated pain; C1719395:Neoplasm related pain (acute) (chronic); C1719396:Cancer associated pain;",
       "description": "Pain Related to Prostate Cancer"
     }
   ],
@@ -1039,6 +1051,7 @@
         "units": null
       },
       "time": 1273982400,
+      "specifics": "C0201544:Prostate specific antigen measurement;",
       "description": "Prostate Specific Antigen Test"
     },
     {
@@ -1052,6 +1065,7 @@
         "units": null
       },
       "time": 1273982400,
+      "specifics": "C1276444:Gleason Score 5-6: Moderately differentiated;",
       "description": "Gleason Score <=6"
     },
     {
@@ -1061,6 +1075,7 @@
         ]
       },
       "time": 1276660800,
+      "specifics": "C0475386:Tumor stage T1c;",
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
     }
   ],
@@ -1075,6 +1090,7 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -1093,6 +1109,7 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "description": "counseling for nutrition"
     },
     {
@@ -1108,6 +1125,7 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "counseling for physical activity"
     },
     {
@@ -1120,6 +1138,7 @@
         ]
       },
       "time": 1276660800,
+      "specifics": "C0554156:Radical prostatectomy - unspecified excision of pelvic nodes;",
       "description": "Prostate Cancer Treatment"
     },
     {
@@ -1129,6 +1148,7 @@
         ]
       },
       "time": 1276660800,
+      "specifics": "C0475386:Tumor stage T1c;",
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
     },
     {
@@ -1138,6 +1158,7 @@
         ]
       },
       "time": 1273982400,
+      "specifics": "C0232174:Cardiac ejection fraction;",
       "description": "Ejection Fraction"
     }
   ],
@@ -1149,6 +1170,7 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C0981555:Lisinopril 10 MG Oral Tablet;",
       "description": "ACE inhibitor or ARB"
     },
     {
@@ -1158,6 +1180,7 @@
         ]
       },
       "time": 1273982400,
+      "specifics": "C1359886:Metoprolol Tartrate 25 MG Oral Tablet;",
       "description": "Beta Blocker Therapy"
     },
     {
@@ -1167,6 +1190,7 @@
         ]
       },
       "time": 1273982400,
+      "specifics": "C0710785:Warfarin Sodium 4 MG Oral Tablet [Coumadin];",
       "description": "Warfarin Therapy"
     },
     {
@@ -1176,6 +1200,7 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
       "description": "Smoking Cessation Agents"
     }
   ],
@@ -1187,6 +1212,7 @@
         ]
       },
       "time": 1286683200,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
       "description": "Influenza Vaccine"
     },
     {
@@ -1196,6 +1222,7 @@
         ]
       },
       "time": 1286683200,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
       "description": "Pneumococcal Vaccine"
     }
   ],
@@ -1216,6 +1243,7 @@
         ]
       },
       "time": 1270526400,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "description": "follow-up plan_BMI management"
     }
   ]

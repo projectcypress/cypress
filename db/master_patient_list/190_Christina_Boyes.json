@@ -1,5 +1,5 @@
 {
-  "_id": "4efa0599a9ffcce901000039",
+  "_id": "4f6224bda9ffcca063000039",
   "first": "Christina",
   "patient_id": "190",
   "last": "Boyes",
@@ -32,8 +32,6 @@
         1273636800
       ]
     },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1286856000,
@@ -47,6 +45,8 @@
         1286856000,
         1273636800
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -100,9 +100,6 @@
         1286856000,
         1273636800
       ],
-      "tobacco_user_patient_characteristic": [
-        1273636800
-      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1273636800
       ]
@@ -119,24 +116,6 @@
         1273636800
       ],
       "pap_test_laboratory_test_result": [
-        1273636800
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1286856000,
-        1273636800
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1286856000,
-        1273636800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1286856000,
         1273636800
       ]
     },
@@ -161,6 +140,24 @@
         1273636800
       ],
       "iud_use_device_applied": [
+        1273636800
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
+      ]
+    },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1286856000,
+        1273636800
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1286856000,
         1273636800
       ]
     },
@@ -373,13 +370,13 @@
         1273636800
       ]
     },
-    "0389": {
-    },
     "0387": {
       "encounter_office_visit_encounter": [
         1286856000,
         1273636800
       ]
+    },
+    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -412,6 +409,7 @@
         ]
       },
       "time": 1273636800,
+      "specifics": "C1814392:Varicella Virus Vaccine Live (Oka-Merck) strain 29800 UNT/ML Injectable Suspension [Zostavax];",
       "description": "VZV Vaccine"
     }
   ],
@@ -423,6 +421,7 @@
         ]
       },
       "time": 1273636800,
+      "specifics": "C2921403:Contraceptive IUD check (finding);",
       "description": "IUD use"
     }
   ],
@@ -437,6 +436,7 @@
         ]
       },
       "time": 1286856000,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     },
     {
@@ -449,19 +449,12 @@
         ]
       },
       "time": 1273636800,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "description": "Encounter Outpatient"
     }
   ],
   "social_history": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230062009"
-        ]
-      },
-      "time": 1273636800,
-      "description": "Tobacco User"
-    }
+
   ],
   "vital_signs": [
     {
@@ -475,6 +468,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286856000,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -488,6 +482,7 @@
         "units": "mm[Hg]"
       },
       "time": 1286856000,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -501,6 +496,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273636800,
+      "specifics": "C0871470:Systolic Pressure;",
       "description": "Systolic Blood Pressure"
     },
     {
@@ -514,6 +510,7 @@
         "units": "mm[Hg]"
       },
       "time": 1273636800,
+      "specifics": "C0428883:Diastolic blood pressure;",
       "description": "Diastolic Blood Pressure"
     },
     {
@@ -530,6 +527,7 @@
         "units": null
       },
       "time": 1286856000,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     },
     {
@@ -546,6 +544,7 @@
         "units": null
       },
       "time": 1273636800,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "description": "BMI"
     }
   ],
@@ -564,6 +563,7 @@
       },
       "time": 989985600,
       "status": "inactive",
+      "specifics": "C0023448:Lymphoid leukemia;",
       "description": "leukemia"
     },
     {
@@ -580,6 +580,7 @@
       },
       "time": 1273636800,
       "status": "active",
+      "specifics": "C0026265:Diseases of mitral valve;",
       "description": "Nonrheumatic mitral (valve) disease"
     }
   ],
@@ -601,6 +602,7 @@
         "units": null
       },
       "time": 1273636800,
+      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
       "description": "Chlamydia Screening"
     },
     {
@@ -629,6 +631,7 @@
         "units": null
       },
       "time": 1273636800,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "description": "Pap Test"
     },
     {
@@ -645,6 +648,7 @@
         "units": null
       },
       "time": 1286856000,
+      "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;",
       "description": "Pregnancy Test"
     }
   ],
@@ -659,6 +663,7 @@
         ]
       },
       "time": 1273636800,
+      "specifics": "C1692317:Smoking cessation assistance;",
       "description": "tobacco use cessation counseling"
     },
     {
@@ -668,6 +673,7 @@
         ]
       },
       "time": 1273636800,
+      "specifics": "C0204948:Contraceptive use education;",
       "description": "contraceptive use education"
     }
   ],

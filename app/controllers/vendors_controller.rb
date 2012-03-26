@@ -41,12 +41,7 @@ class VendorsController < ApplicationController
   end
   
   def destroy
-    vendor = Vendor.find(params[:id])
-
-    vendor.products.each do |product|
-      product.destroy
-    end
-    vendor.destroy
+    Vendor.find(params[:id]).destroy
     
     redirect_to root_path
   end
