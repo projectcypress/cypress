@@ -10,7 +10,7 @@ class Product
   
   # If all of the ProductTests passed, then this Product will be considered passing
   def passing?
-    self.product_tests.size == self.count_passing
+    return (self.product_tests.size > 0) && (self.product_tests.size == self.count_passing)
   end
   
   # Get the tests owned by this product that are failing

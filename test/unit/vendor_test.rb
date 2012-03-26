@@ -4,52 +4,57 @@ class VendorTest < ActiveSupport::TestCase
 
   setup do
     collection_fixtures('vendors', '_id')
-    collection_fixtures('query_cache', 'test_id')
+    collection_fixtures('test_executions', '_id', "product_test_id")
+    collection_fixtures('products', '_id','vendor_id')
+    collection_fixtures('product_tests', '_id','product_id')
     collection_fixtures('measures')
+    collection_fixtures('query_cache','_id','test_id')
+    collection_fixtures('patient_cache','_id')
+    
+    @vendor1 = Vendor.find("4f57a8791d41c851eb000002")
+    @vendor2 = Vendor.find("4f636aba1d41c851eb00048c")
+    @emptyVendor = Vendor.new()
   end
 
-  test "first test" do
-    assert true
+  test "Should return failing products" do
+    failing1 = @vendor1.failing_products
+    failing2 = @vendor2.failing_products
+    failing3 = @emptyVendor.failing_products
+    
+    assert failing3.size == 0 , "Empty vendor reporting failing products"
+    assert failing2.size == 0 , "Vendor reporting wrong number of failing products"
+    assert failing1.size == 1 , "Vendor reporting wrong number of failing products"
+    assert failing1[0]._id.to_s == "4f57a88a1d41c851eb000004" , "Vendor reporting wrong failing product"
   end
 
-=begin
+  test "Should return passing products" do
+    passing1 = @vendor1.passing_products
+    passing2 = @vendor2.passing_products
+    passing3 = @emptyVendor.passing_products
 
-  test "Finding the fixture vendor" do
-    vendors = Vendor.all.to_a
-    assert vendors.size==1
-    vendor = vendors[0]
-    assert vendor.name=='EHRSrUS'
+    assert passing3.size == 0 , "Empty vendor reporting passing products"
+    assert passing1.size == 1 , "Vendor reporting wrong number of passing products"
+    assert passing2.size == 1 , "Vendor reporting wrong number of passing products"
+    assert passing1[0]._id.to_s == "4f6b77831d41c851eb0004a5" , "Vendor reporting wrong passing product"
+    assert passing2[0]._id.to_s == "4f636ae01d41c851eb00048e" , "Vendor reporting wrong passing product"
   end
-
-  test "Vendor gets expected results" do
-    vendor = Vendor.all.to_a[0]
-    assert vendor.measure_ids.size==2
-    results = vendor.expected_results
-    assert results.size==2
-    assert results[0]['key']=='0001'
-    assert results[0]['denominator']==9
-    assert results[1]['key']=='0002'
-    assert results[1]['denominator']==2
+  
+  test "Should know if all products are passing" do
+    assert !@vendor1.passing? , "Failing vendor reporting as passing"
+    assert @vendor2.passing?  , "Passing vendor reporting as failing"
+    #assert !@emptyVendor.passing? , "Empty vendor reporting as passing"
   end
-
-  test "Vendor compares expected and reported results" do
-    vendor = Vendor.all.to_a[0]
-    assert vendor.measure_ids.size==2
-    results = vendor.expected_results
-    assert !vendor.passing?
-    assert vendor.passed?(results[0])
-    assert !vendor.passed?(results[1])
+  
+  test "Should know how many products are passing" do
+    assert @vendor1.count_passing == 1 , "Vendor reporting wrong number of passing products"
+    assert @vendor2.count_passing == 1 , "Vendor reporting wrong number of passing products"
+    assert @emptyVendor.count_passing == 0, "Empty vendor reporting wrong number of passing products"
   end
-
-  test "Vendor returns passing and failing measures " do
-    vendor = Vendor.all.to_a[0]
-    passing = vendor.passing_measures
-    assert passing.size==1
-    assert passing[0]['id']=='0001'
-    failing = vendor.failing_measures
-    assert failing.size==1
-    assert failing[0]['id']=='0002'
+  
+  test "Should return product passing rate" do
+    assert @vendor1.success_rate == 0.5 , "Vendor reporting wrong success rate"
+    assert @vendor2.success_rate == 1.0 , "Vendor reporting wrong success rate"
+    assert @emptyVendor.success_rate == 0.0 , "Empty vendor reporting wrong success rate"
   end
-
-=end
+  
 end

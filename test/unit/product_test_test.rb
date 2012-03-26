@@ -2,43 +2,35 @@ require 'test_helper'
 
 class ProductTestTest < ActiveSupport::TestCase
   setup do
+    collection_fixtures('test_executions', '_id', "product_test_id")
     collection_fixtures('product_tests', '_id')
+    
+    @test1 = ProductTest.find("4f58f8de1d41c851eb000478")
+    @test2 = ProductTest.find("4f5a606b1d41c851eb000484")
   end
 
   test "Should know if its passing" do
-    assert true
+    assert @test1.passing?
+    assert !@test2.passing?
   end
   
-  test "Should return its executions, in order" do
-    assert true
+  test "Should return its executions in order" do
+    e1 = @test1.ordered_executions
+    
+    assert e1[0]._id.to_s == "4f5900981d41c851eb000482"
+    assert e1[1]._id.to_s == "4f5900161d41c851eb000481"
   end
   
   test "Should return the measure defs" do
-    assert true
+    defs = @test1.measure_defs
+    
+    assert defs[0].key == "0001"
+    assert defs[1].key == "0002"
   end
   
   test "Should know how many measures its testing" do
-    assert true
+    assert @test1.count_measures == 2
   end
   
-=begin
 
-  test "that ProductTests can import a PQRI file" do
-    test = ProductTest.new
-    doc = Nokogiri::XML(File.new(File.join(Rails.root, 'test/fixtures/pqri/pqri.xml')))
-    test.reported_results = test.extract_results_from_pqri(doc)
-    
-    assert test.reported_results != nil
-    assert test.reported_results.size==2
-    assert test.reported_results['0421a'] != nil
-    assert test.reported_results['0421a']['denominator'] == 80
-    assert test.reported_results['0421a']['numerator'] == 39
-    assert test.reported_results['0421a']['exclusions'] == 0
-    assert test.reported_results['0421b'] != nil
-    assert test.reported_results['0421b']['denominator'] == 300
-    assert test.reported_results['0421b']['numerator'] == 71
-    assert test.reported_results['0421b']['exclusions'] == 0
-  end
-
-=end
 end
