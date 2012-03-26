@@ -9,7 +9,7 @@ namespace :away do
   task :everything  => :environment do
     loader.get_db.collections.each do |collection|
       if collection.name != 'system.indexes' && collection.name != 'system.js'
-        loader.drop
+        collection.drop
       end
     end
   end
