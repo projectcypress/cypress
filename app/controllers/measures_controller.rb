@@ -58,7 +58,8 @@ class MeasuresController < ApplicationController
       patient_ids = Record.any_of({"first" => regex}, {"last" => regex}).collect {|p| p.id}
       @patients = @patients.any_in("value.patient_id" => patient_ids)
     end
-    @patients = @patients.order_by([["value.numerator".order, :desc],["value.denominator", :desc],["value.exclusions", :desc]])
+
+    @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
   end
 
   # Find the minimal set of patient records required to cover the list of measures passed in
