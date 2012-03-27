@@ -16,8 +16,19 @@ class MeasuresController < ApplicationController
     @vendor = @product.vendor
     
     @measure = Measure.find(params[:id])
-    @measures = Measure.top_level
+    if params[:product_test_id]
+      @measures = @test.measure_defs
+    else
+      @measures = Measure.top_level
+    end
+
     @measures_categories = @measures.group_by { |t| t.category }
+    
+    if params[:measure_id]
+      @selected = Measure.find(params[:measure_id])
+    else
+      @selected = @measures[0]
+    end
     
     respond_to do |format|
       format.json { render :json => @execution.expected_result(@measure) }
