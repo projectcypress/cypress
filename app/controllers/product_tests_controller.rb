@@ -11,6 +11,7 @@ class ProductTestsController < ApplicationController
     @product = @test.product
     @vendor = @product.vendor
     @patients = Record.where(:test_id => @test.id)
+
     
     # Decide our current execution. Show the one requested, if any. Otherwise show the most recent, or a new one if none exist
     if !params[:execution_id].nil?
@@ -69,7 +70,8 @@ class ProductTestsController < ApplicationController
   def create
     # Create a new test and save here so id is made. We'll use it while cloning Records to associate them back to this ProductTest.
     test = ProductTest.new(params[:product_test])
-    test.effective_date = Time.gm(2011, 3, 31).to_i # TODO - Use the start and end dates from the New form. This is a static, hardcoded effective data
+    month, day, year = params[:product_test][:effective_date_end].split('/')
+    test.effective_date = Time.local(year.to_i, month.to_i, day.to_i).to_i
     test.save!
     
     if params[:byod] && Rails.env != 'production'
@@ -100,7 +102,7 @@ class ProductTestsController < ApplicationController
     @vendor = @product.vendor
     
     # TODO - Copied default from popHealth. This probably needs to change at some point. We also currently ignore the uploaded value anyway.
-    @effective_date = Time.gm(2010, 12, 31)
+    @effective_date = @test.effective_date
     @period_start = 3.months.ago(Time.at(@effective_date))
   end
   
@@ -127,7 +129,15 @@ class ProductTestsController < ApplicationController
 
     redirect_to product_path(product)
   end
-  
+
+  #calculates the period for reporting based on effective date (end date)
+  def period
+    month, day, year = params[:effective_date].split('/')
+    @effective_date = Time.local(year.to_i, month.to_i, day.to_i).to_i
+    @period_start = 3.months.ago(Time.at(@effective_date))
+    render :period, :status=>200
+  end
+
   # Accept a PQRI document and use it to define a new TestExecution on this ProductTest
   def process_pqri
     test = ProductTest.find(params[:id])

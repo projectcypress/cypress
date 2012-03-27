@@ -131,6 +131,7 @@
     <section class="candidate">  
       <dl class="vendor">
         <dt>Test:</dt> <dd><%= @test.name %></dd>
+        <dt>Reporting Period:</dt> <dd><%= 3.months.ago(Time.at(@test.effective_date)).strftime("%m/%d/%Y") %> - <%= Time.at(@test.effective_date).strftime("%m/%d/%Y") %></dd>
       </dl>
       <dl>
         <dt>description:</dt> <dd><%= @test.description %></dd>

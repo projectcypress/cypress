@@ -62,6 +62,8 @@ class MeasuresController < ApplicationController
     @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
   end
 
+  
+
   # Find the minimal set of patient records required to cover the list of measures passed in
   def minimal_set
     measure_ids = params[:measure_ids]
