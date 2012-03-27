@@ -11,6 +11,14 @@
           <td></td>
           <td><%= f.label '', "Baseline PQRI File", :for => :vendor_pqri %></td>
           <td><%= f.file_field :baseline %></td>
+          <%= hidden_field_tag(:execution_id, params[:execution_id]) %>
+        </tr>
+        <tr><td>&nbsp;<td></tr>
+        <tr id="advanced_options" class="hidden">
+          <td></td>
+          <td></td>
+          <td><%= check_box_tag(:create_new_execution) %>
+          <%= label_tag(:create_new_execution, "Create a new test execution with this upload.") %></td>
         </tr>
       </tbody>
     </table>

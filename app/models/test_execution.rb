@@ -84,7 +84,7 @@ class TestExecution
   
   # The percentage of passing measures. Returns 0 if this is a new, yet to be run TestExecution
   def success_rate
-    return 0 if self.reported_results.empty?
+    return 0 if self.reported_results.nil?
     return self.count_passing.to_f / self.product_test.measure_ids.size
   end
   

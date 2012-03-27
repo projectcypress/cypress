@@ -154,12 +154,24 @@ class ProductTestsController < ApplicationController
     test_data = params[:product_test]
     baseline = test_data[:baseline]
     pqri = test_data[:pqri]
+   
+
+    if (params[:create_new_execution])
+      execution = TestExecution.new({:product_test => test, :execution_date => Time.now.to_i})
+    else
+      if (!params[:execution_id].empty?)
+       
+        execution = TestExecution.find(params[:execution_id])
+      elsif test.test_executions.size > 0
+      
+        execution = test.ordered_executions.first
+      else
+        
+        execution = TestExecution.new({:product_test => test, :execution_date => Time.now})
+      end
+    end
     
-    execution = TestExecution.new({:product_test => test, :execution_date => Time.now.to_i})
-    
-    doc = Nokogiri::XML(pqri.open)
-    execution.reported_results = Cypress::PqriUtility.extract_results(doc)
-    execution.validation_errors = Cypress::PqriUtility.validate(doc)
+
     
     # If a vendor cannot run their measures in a vaccuum (i.e. calculate measures with just the patient test deck) then
     # we will first import their measure results with their own patients so we can establish a baseline in order
@@ -167,11 +179,20 @@ class ProductTestsController < ApplicationController
     if (baseline)
       doc = Nokogiri::XML(baseline.open)
       execution.baseline_results = Cypress::PqriUtility.extract_results(doc)
-      execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)
-
-      execution.normalize_results_with_baseline
+      execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)    
+      
     end
-    
+
+    if (pqri)
+      doc = Nokogiri::XML(pqri.open)
+      execution.reported_results = Cypress::PqriUtility.extract_results(doc)
+      execution.validation_errors = Cypress::PqriUtility.validate(doc)
+      if execution.baseline_results
+        execution.normalize_results_with_baseline
+      end
+      
+    end
+    execution.execution_date=Time.now.to_i
     execution.save!
     redirect_to :action => 'show'
   end

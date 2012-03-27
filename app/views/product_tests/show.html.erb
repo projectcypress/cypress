@@ -23,6 +23,8 @@
           }
         }
       });
+
+
       
       $('#upload_results_button').click(function(event) {
         $('#upload_pqri_dialog').dialog('open');
@@ -43,6 +45,17 @@
         resizable: false,
         open: function(event, ui) { $(".ui-dialog-titlebar-close").hide()}
       });
+
+      $(".expander").toggle(
+        function() {
+          $(this).addClass('open');
+          
+          $(".pqriXmlError, .baselinePqriXmlError").show();
+        },
+        function() {
+          $(this).removeClass('open');
+         $(".pqriXmlError, .baselinePqriXmlError").hide();
+        });
 
   <% poll_for_updates = false
 
@@ -158,27 +171,48 @@
     <% end %>
 
     <section class="pqriValidation">
-      <% if @current_execution.validation_errors %>
+      <% if @current_execution.validation_errors || @current_execution.baseline_validation_errors %>
         <h2 class="fail">PQRI Validation Errors</h2>
         <h3>Cypress uses Northwestern Medical's XSD interpretation of
           <a href="http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
           This is NOT a CMS published XSD.
         </h3>
 
-        <% if @current_execution.validation_errors && @current_execution.baseline_validation_errors %>
-          <h2>PQRI Errors</h2>
+        <% if @current_execution.validation_errors || @current_execution.baseline_validation_errors %>
+          
+       
+        <table>
+          <% if @current_execution.validation_errors %>
+          <tr>               
+            <td class="expander toggle" data-code="pqri_results"></td>
+            <td><h2>View PQRI Errors</h2></td>
+         </tr>
+         <tr>
+           <td colspan="2" class="sub_rows pqriXmlError pqri_results">
+           
+              <% @current_execution.validation_errors.each do |error| %>
+                <div class ="pqriXmlError"><%= error %></div>        
+              <% end %>
+       
+           </td>
+        </tr>
         <% end %>
-        <% @current_execution.validation_errors.each do |error| %>
-          <div class ="pqriXmlError"><%= error %></div>
-        <% end
-
-        if @current_execution.baseline_validation_errors %>
-          <h2>Baseline PQRI Errors</h2>
+        <%if @current_execution.baseline_validation_errors %>
+        <tr>
+            <td class="expander toggle" data-code="baselinepqri_results"></td>
+            <td> <h2>View Baseline PQRI Errors</h2></td>
+        </tr>
+        <tr>
+         <td colspan="2" class="sub_rows baselinepqri_results">
           <% @current_execution.baseline_validation_errors.each do |error| %>
-            <div class ="pqriXmlError"><%= error %></div>
+            <div class ="baselinePqriXmlError"><%= error %></div>
           <% end %>
+          </td>
+        </tr>
         <% end %>
       <% end %>
+      </table>
+       <% end %>
     </section>
 
     <section id="quality_measures">
