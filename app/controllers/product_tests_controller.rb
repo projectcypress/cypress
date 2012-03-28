@@ -121,17 +121,6 @@ class ProductTestsController < ApplicationController
       TestExecution.find(params[:execution_id]).destroy
     else
       # Otherwise, delete the whole ProductTest and get rid of all the Records, TestExecutions, and patient_cache entries that are associated with it.
-       # Get rid of all related Records to this test
-        Record.where(:test_id => test.id).each do |record|
-          MONGO_DB.collection('patient_cache').remove({'value.patient_id' => record.id})
-          record.destroy
-        end
-        
-        # Get rid of all related executions
-        test.test_executions.each do |execution|
-          execution.destroy
-        end
-
       test.destroy
     end
 
