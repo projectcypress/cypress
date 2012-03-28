@@ -287,6 +287,7 @@
     var cache = {}; // caching inputs for the visited steps
     var overflow = [];
     var usedOverflow = [];
+    var coverage = [];
 
     function updateDownloadFilename() {
       var download_filename = $('#product_test_name').val().replace(/ /g,"_") + "_" +

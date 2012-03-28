@@ -1,13 +1,11 @@
 // Store our list of overflow patients
 overflow = <%= raw @overflow.as_json.to_json %>;
+coverage = <%= raw @coverage.as_json.to_json %>;
 
 $('#measure_coverage').html("<%= escape_javascript(render :partial => 'measure_coverage', :locals => { :coverage => @coverage, :patients => @patient_list }) %>");
-$('tr.patient td, tr.measure td').hover(function(){
+$('tr.patient td, tr.measure td').on("mouseenter mouseout", null, null, function() {
   var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
-  $(classes.substr(0,classes.length-1) + ' td').addClass('highlight');
-},function(){
-  var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
-  $(classes.substr(0,classes.length-1) + ' td').removeClass('highlight');
+  $(classes.substr(0,classes.length-1) + ' td').toggleClass('highlight');
 });
 
 /* Add a patient from the list of overflow */
@@ -32,14 +30,16 @@ $("#add_patient").click(function() {
     $("#remove_patient").removeClass("disabled");
   
   // Gather necessary information for our new entry
-  var coverage = <%= raw @coverage.as_json.to_json %>;
   var measureClasses = "";
   var birthdate = new Date(additionalPatient.birthdate);
   var formattedBirthdate = (birthdate.getMonth() + 1) + "/" + birthdate.getDate() + "/" + birthdate.getFullYear();
+  // Gather all the measures this patient affects so we can add hover functionality to the new row and the measure rows
   $.each(coverage, function(measure, values) {
     for (var p in coverage[measure].patients) {
-      if (additionalPatient == coverage[measure].patients[p])
-        measureClasses.concat(measure);
+      if (additionalPatient._id == coverage[measure].patients[p]._id) {
+        measureClasses = measureClasses.concat(" ", measure);
+        $("#" + measure).addClass("" + additionalPatient._id);
+      }
     }
   });
   
@@ -50,7 +50,13 @@ $("#add_patient").click(function() {
     "<td style='text-align:center'><time datetime='" + formattedBirthdate + "'>" + formattedBirthdate + "</time></td>" + 
     "<td style='text-align:center'>" + additionalPatient.gender + "</td>" +
   "</tr>";
+  
+  // Add the new row along with a hidden input to include the patient in the set of records to be cloned
   $("#minimal_patients_table").append(newRow);
+  $("#minimal_patients_table").append("<input type='hidden' name='patient_ids[]' value='" + additionalPatient._id + "'>");
+  
+  // Affect the matrix of candidate patients
+  $('tr.patient td, tr.measure td').css("border", "1px solid red");
 });
 $("#remove_patient").click(function() {
   // If we're at the minimum set, don't remove any more patients
@@ -70,6 +76,7 @@ $("#remove_patient").click(function() {
   if (overflow.length == 1)
     $("#add_patient").removeClass("disabled");
   
-  // Actually remove the row
+  // Actually remove the row and the hidden input associated with it
   $("#minimal_patients_table tr:last").remove();
+  $("#minimal_patients_table input:last").remove();
 });
