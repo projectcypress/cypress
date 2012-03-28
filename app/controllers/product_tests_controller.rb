@@ -15,9 +15,7 @@ class ProductTestsController < ApplicationController
     
     # Decide our current execution. Show the one requested, if any. Otherwise show the most recent, or a new one if none exist
     if !params[:execution_id].nil?
-      @current_execution = TestExecution.find(params[:execution_id])
-    elsif @test.test_executions.size > 0
-      @current_execution = @test.ordered_executions.first
+      @current_execution = TestExecution.find(params[:execution_id])   
     else
       @never_executed_before = true
       @current_execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
@@ -156,20 +154,13 @@ class ProductTestsController < ApplicationController
     pqri = test_data[:pqri]
    
 
-    if (params[:create_new_execution])
-      execution = TestExecution.new({:product_test => test, :execution_date => Time.now.to_i})
-    else
-      if (!params[:execution_id].empty?)
-       
+    
+      if (!params[:execution_id].empty?)       
         execution = TestExecution.find(params[:execution_id])
-      elsif test.test_executions.size > 0
-      
-        execution = test.ordered_executions.first
-      else
-        
+      else        
         execution = TestExecution.new({:product_test => test, :execution_date => Time.now})
       end
-    end
+   
     
 
     
@@ -179,8 +170,7 @@ class ProductTestsController < ApplicationController
     if (baseline)
       doc = Nokogiri::XML(baseline.open)
       execution.baseline_results = Cypress::PqriUtility.extract_results(doc)
-      execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)    
-      
+      execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)          
     end
 
     if (pqri)
@@ -189,12 +179,12 @@ class ProductTestsController < ApplicationController
       execution.validation_errors = Cypress::PqriUtility.validate(doc)
       if execution.baseline_results
         execution.normalize_results_with_baseline
-      end
-      
+      end      
     end
+
     execution.execution_date=Time.now.to_i
     execution.save!
-    redirect_to :action => 'show'
+    redirect_to :action => 'show', :execution_id=>execution._id
   end
 
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format

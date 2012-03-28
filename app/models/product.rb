@@ -19,6 +19,13 @@ class Product
       !test.passing?
     end
   end
+
+  # Get the tests owned by this product that are incomplete
+  def incomplete_tests
+    return self.product_tests.select do |test|
+      test.reported_results.nil?
+    end
+  end
   
   # Get the tests owned by this product that are passing
   def passing_tests

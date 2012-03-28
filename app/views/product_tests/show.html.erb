@@ -50,11 +50,15 @@
         function() {
           $(this).addClass('open');
           
-          $(".pqriXmlError, .baselinePqriXmlError").show();
+          var codeElement = $(this).data('code');
+          var codes = $("." + codeElement);
+          codes.show();
         },
         function() {
           $(this).removeClass('open');
-         $(".pqriXmlError, .baselinePqriXmlError").hide();
+           var codeElement = $(this).data('code');
+          var codes = $("." + codeElement);
+          codes.hide();
         });
 
   <% poll_for_updates = false
@@ -187,8 +191,8 @@
             <td class="expander toggle" data-code="pqri_results"></td>
             <td><h2>View PQRI Errors</h2></td>
          </tr>
-         <tr>
-           <td colspan="2" class="sub_rows pqri_results">
+         <tr class="sub_rows pqri_results">
+           <td colspan="2">
            
               <% @current_execution.validation_errors.each do |error| %>
                 <div class ="pqriXmlError"><%= error %></div>        
@@ -198,12 +202,12 @@
         </tr>
         <% end %>
         <%if @current_execution.baseline_validation_errors %>
-        <tr>
+        <tr >
             <td class="expander toggle" data-code="baselinepqri_results"></td>
             <td> <h2>View Baseline PQRI Errors</h2></td>
         </tr>
-        <tr>
-         <td colspan="2" class="sub_rows baselinepqri_results">
+        <tr class="sub_rows baselinepqri_results">
+         <td colspan="2">
           <% @current_execution.baseline_validation_errors.each do |error| %>
             <div class ="baselinePqriXmlError"><%= error %></div>
           <% end %>

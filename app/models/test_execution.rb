@@ -13,6 +13,11 @@ class TestExecution
   def passing?
     return self.expected_results.size == self.count_passing
   end
+
+  # A TestExecution is incomplete if no reported results
+  def incomplete?
+    return self.reported_results.nil?
+  end
   
   # Compare the expected results to the stroed reported results and return the
   # count that match

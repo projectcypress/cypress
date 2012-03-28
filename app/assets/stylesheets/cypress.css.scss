@@ -493,6 +493,10 @@ section.pqriValidation {
     padding:3px 3px 3px 3px;
     background-color:#F7E1E7;
     border:1px solid #ff0000;
+    
+  }
+
+  tr.baselinepqri_results,tr.pqri_results{
     display:none;
   }
 
@@ -767,6 +771,7 @@ section#ehr_results {
     tr td:nth-child(7) {text-align:right}
     td.fail, td.fail a {color:red}
     td.pass, td.pass a {color:green}
+    td.incomplete, td.incomplete a {color:#666}
     td.na, td.na a {color: #666}
     
     tbody td:nth-child(7) { text-align: right }
@@ -789,6 +794,7 @@ section#ehr_results {
     td:nth-child(2).na {color:#666;background:url(/assets/insufficient.png) 0% 50% no-repeat;}
     td:nth-child(2).pass {color:green;background:url(/assets/pass.png) 0 50% no-repeat;}
     td:nth-child(2).fail {color:red; background:url(/assets/fail.png) 0% 50% no-repeat;}
+    td:nth-child(2).incomplete {color:#666; background:url(/assets/insufficient.png) 0% 50% no-repeat;}
   }
 }
 

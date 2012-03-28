@@ -7,8 +7,9 @@ class ProductsController < ApplicationController
     
     failing_tests = @product.failing_tests
     passing_tests = @product.passing_tests
+   
     
-    @tests = { 'fail' => failing_tests, 'pass' => passing_tests }
+    @tests = { 'fail' => failing_tests, 'pass' => passing_tests}
   end
   
   def new
