@@ -11,12 +11,11 @@ class ProductTestsController < ApplicationController
     @product = @test.product
     @vendor = @product.vendor
     @patients = Record.where(:test_id => @test.id)
+
     
     # Decide our current execution. Show the one requested, if any. Otherwise show the most recent, or a new one if none exist
     if !params[:execution_id].nil?
-      @current_execution = TestExecution.find(params[:execution_id])
-    elsif @test.test_executions.size > 0
-      @current_execution = @test.ordered_executions.first
+      @current_execution = TestExecution.find(params[:execution_id])   
     else
       @never_executed_before = true
       @current_execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
@@ -69,7 +68,8 @@ class ProductTestsController < ApplicationController
   def create
     # Create a new test and save here so id is made. We'll use it while cloning Records to associate them back to this ProductTest.
     test = ProductTest.new(params[:product_test])
-    test.effective_date = Time.gm(2011, 3, 31).to_i # TODO - Use the start and end dates from the New form. This is a static, hardcoded effective data
+    month, day, year = params[:product_test][:effective_date_end].split('/')
+    test.effective_date = Time.local(year.to_i, month.to_i, day.to_i).to_i
     test.save!
     
     if params[:byod] && Rails.env != 'production'
@@ -98,9 +98,7 @@ class ProductTestsController < ApplicationController
     @test = ProductTest.find(params[:id])
     @product = @test.product
     @vendor = @product.vendor
-    
-    # TODO - Copied default from popHealth. This probably needs to change at some point. We also currently ignore the uploaded value anyway.
-    @effective_date = Time.gm(2010, 12, 31)
+    @effective_date = @test.effective_date
     @period_start = 3.months.ago(Time.at(@effective_date))
   end
   
@@ -114,6 +112,7 @@ class ProductTestsController < ApplicationController
   end
   
   def destroy
+
     test = ProductTest.find(params[:id])
     product = test.product
     
@@ -122,24 +121,39 @@ class ProductTestsController < ApplicationController
       TestExecution.find(params[:execution_id]).destroy
     else
       # Otherwise, delete the whole ProductTest and get rid of all the Records, TestExecutions, and patient_cache entries that are associated with it.
+      
+
       test.destroy
     end
 
     redirect_to product_path(product)
   end
-  
+
+  #calculates the period for reporting based on effective date (end date)
+  def period
+    month, day, year = params[:effective_date].split('/')
+    @effective_date = Time.local(year.to_i, month.to_i, day.to_i).to_i
+    @period_start = 3.months.ago(Time.at(@effective_date))
+    render :period, :status=>200
+  end
+
   # Accept a PQRI document and use it to define a new TestExecution on this ProductTest
   def process_pqri
     test = ProductTest.find(params[:id])
     test_data = params[:product_test]
     baseline = test_data[:baseline]
     pqri = test_data[:pqri]
+   
+
     
-    execution = TestExecution.new({:product_test => test, :execution_date => Time.now.to_i})
+      if (!params[:execution_id].empty?)       
+        execution = TestExecution.find(params[:execution_id])
+      else        
+        execution = TestExecution.new({:product_test => test, :execution_date => Time.now})
+      end
+   
     
-    doc = Nokogiri::XML(pqri.open)
-    execution.reported_results = Cypress::PqriUtility.extract_results(doc)
-    execution.validation_errors = Cypress::PqriUtility.validate(doc)
+
     
     # If a vendor cannot run their measures in a vaccuum (i.e. calculate measures with just the patient test deck) then
     # we will first import their measure results with their own patients so we can establish a baseline in order
@@ -147,13 +161,21 @@ class ProductTestsController < ApplicationController
     if (baseline)
       doc = Nokogiri::XML(baseline.open)
       execution.baseline_results = Cypress::PqriUtility.extract_results(doc)
-      execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)
-
-      execution.normalize_results_with_baseline
+      execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)          
     end
-    
+
+    if (pqri)
+      doc = Nokogiri::XML(pqri.open)
+      execution.reported_results = Cypress::PqriUtility.extract_results(doc)
+      execution.validation_errors = Cypress::PqriUtility.validate(doc)
+      if execution.baseline_results
+        execution.normalize_results_with_baseline
+      end      
+    end
+
+    execution.execution_date=Time.now.to_i
     execution.save!
-    redirect_to :action => 'show'
+    redirect_to :action => 'show', :execution_id=>execution._id
   end
 
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format

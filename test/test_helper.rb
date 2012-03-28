@@ -10,7 +10,12 @@ class ActiveSupport::TestCase
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
       fixture_json = JSON.parse(File.read(json_fixture_file))
       id_attributes.each do |attr|
+        
+        if fixture_json[attr].kind_of? Array
+          fixture_json[attr] = fixture_json[attr].collect{|att| BSON::ObjectId.from_string(att)}
+        else
         fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
+        end
       end
       Mongoid.database[collection].save(fixture_json, :safe => true)
     end

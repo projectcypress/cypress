@@ -3,6 +3,7 @@ class Vendor
   
   has_and_belongs_to_many :users
   has_many :products, dependent: :destroy
+
   
   # Vendor Details
   field :name, type: String
@@ -30,6 +31,8 @@ class Vendor
   field :proctor_tel, type: String
   field :proctor_email, type: String
   
+  
+  validates_presence_of :name
   # Get the products owned by this vendor that are failing
   def failing_products
     return self.products.select do |product|

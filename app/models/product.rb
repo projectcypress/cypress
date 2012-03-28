@@ -3,11 +3,12 @@ class Product
 
   belongs_to :vendor
   has_many :product_tests, dependent: :destroy
+
   
   field :name, type: String
   field :description, type: String
   field :measure_map, type: Hash
-  
+  validates_presence_of :name
   # If all of the ProductTests passed, then this Product will be considered passing
   def passing?
     return (self.product_tests.size > 0) && (self.product_tests.size == self.count_passing)
@@ -17,6 +18,13 @@ class Product
   def failing_tests
     return self.product_tests.select do |test|
       !test.passing?
+    end
+  end
+
+  # Get the tests owned by this product that are incomplete
+  def incomplete_tests
+    return self.product_tests.select do |test|
+      test.reported_results.nil?
     end
   end
   

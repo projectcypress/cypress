@@ -12,11 +12,10 @@ class ProductTest
   field :measure_ids, type: Array
   field :population_creation_job, type: String
   field :result_calculation_jobs, type: Hash
-  field :baseline_results, type: Hash
-  field :reported_results, type: Hash
-  field :validation_errors, type: Array
-  field :baseline_validation_errors, type: Array
   field :download_filename, type: String
+  
+  
+  validates_presence_of :name
   
   # Returns true if this ProductTests most recent TestExecution is passing
   def passing?
@@ -56,13 +55,21 @@ class ProductTest
     return self.patient_population.nil?
   end
   
+
   def destroy
     # Gather all records and their IDs so we can delete them along with every associated entry in the patient cache
     records = Record.where(:test_id => self.id)
     record_ids = records.map { _id }
     MONGO_DB.collection('patient_cache').remove({'value.patient_id' => {"$in" => record_ids}})
     records.destroy
+
+    # Get rid of all related executions
+      self.test_executions.each do |execution|
+        execution.destroy
+      end
+
     
     self.delete
   end
+
 end

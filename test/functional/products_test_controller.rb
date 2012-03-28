@@ -4,7 +4,7 @@ class ProductsControllerTest < ActionController::TestCase
   
   setup do
     collection_fixtures('records', '_id')
-    collection_fixtures('users')
+    collection_fixtures('users',"_id")
     @pi = HealthDataStandards::Import::C32::PatientImporter.instance
     sign_in :user, User.first(:conditions => {:email => 'bobby@tables.org'})
     get(:show, {:id => '4dcbecdb431a5f5878000004', :format => 'c32'})

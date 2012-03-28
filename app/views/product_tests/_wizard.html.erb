@@ -129,8 +129,8 @@
         Reporting Period:
       </dt>
       <dd>
-        <span class="wide">from
-          <input type="text" class="effective_date" id="effective_date_start" name="product_test[effective_date_start]" size="8" value="<%= Time.at(@period_start).strftime("%m/%d/%Y") %>"/>
+        <span class="wide">from          
+          <span id="effective_date_start" class="inline-span"><%= Time.at(@period_start).strftime("%m/%d/%Y") %></span>
           to
           <input type="text" class="effective_date" id="effective_date_end" name="product_test[effective_date_end]" size="8" value="<%= Time.at(@effective_date).strftime("%m/%d/%Y") %>"/>
         </span>
@@ -346,7 +346,13 @@
     $(document).ready(function() {
       $('#tradeoffSlider').slider({range:true,min:5,max:225,values: [ 5, 20 ]});
       //$('#total_records').spinner({min: 5, max: 225});
-      $('.effective_date').datepicker().css({'width':'85px','text-align':'center'});
+      $('#effective_date_end').datepicker({
+                          onSelect: function(dateText, inst) { 
+                                       var effective_date = dateText;
+                                      $.post("/product_tests/period", {"effective_date": effective_date, "persist": false}, function(data){
+                                            $("#effective_date_start").html(data.start);
+                                            },"json");
+                                    }}).css({'width':'85px','text-align':'center'});
       // for styling the vertical tabs
       $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix').css({"width":"90%","margin-left":"5%"});
       $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
@@ -368,10 +374,6 @@
         validationOptions: {
           rules: {
             "product_test[name]": "required",
-            "product_test[effective_date_start]": {
-              required: true,
-              date: true
-            },
             "product_test[effective_date_end]": {
               required: true,
               date: true

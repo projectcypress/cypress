@@ -3,15 +3,22 @@ class TestExecution
 
   belongs_to :product_test
 
+
   field :execution_date, type: Integer
   field :baseline_results, type: Hash
   field :reported_results, type: Hash
   field :validation_errors, type: Array
   field :baseline_validation_errors, type: Array
   
+  validates_presence_of :execution_date
   # A TestExecution is passing if the number of p
   def passing?
     return self.expected_results.size == self.count_passing
+  end
+
+  # A TestExecution is incomplete if no reported results
+  def incomplete?
+    return self.reported_results.nil?
   end
   
   # Compare the expected results to the stroed reported results and return the
@@ -84,6 +91,7 @@ class TestExecution
   
   # The percentage of passing measures. Returns 0 if this is a new, yet to be run TestExecution
   def success_rate
+    return 0 if self.reported_results.nil?
     return self.count_passing.to_f / self.product_test.measure_ids.size
   end
   
