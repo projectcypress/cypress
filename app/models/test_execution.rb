@@ -3,12 +3,14 @@ class TestExecution
 
   belongs_to :product_test
 
+
   field :execution_date, type: Integer
   field :baseline_results, type: Hash
   field :reported_results, type: Hash
   field :validation_errors, type: Array
   field :baseline_validation_errors, type: Array
   
+  validates_presence_of :execution_date
   # A TestExecution is passing if the number of p
   def passing?
     return self.expected_results.size == self.count_passing

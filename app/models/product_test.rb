@@ -12,11 +12,10 @@ class ProductTest
   field :measure_ids, type: Array
   field :population_creation_job, type: String
   field :result_calculation_jobs, type: Hash
-  field :baseline_results, type: Hash
-  field :reported_results, type: Hash
-  field :validation_errors, type: Array
-  field :baseline_validation_errors, type: Array
   field :download_filename, type: String
+  
+  
+  validates_presence_of :name
   
   # Returns true if this ProductTests most recent TestExecution is passing
   def passing?

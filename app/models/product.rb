@@ -3,11 +3,12 @@ class Product
 
   belongs_to :vendor
   has_many :product_tests, dependent: :destroy
+
   
   field :name, type: String
   field :description, type: String
   field :measure_map, type: Hash
-  
+  validates_presence_of :name
   # If all of the ProductTests passed, then this Product will be considered passing
   def passing?
     return (self.product_tests.size > 0) && (self.product_tests.size == self.count_passing)
