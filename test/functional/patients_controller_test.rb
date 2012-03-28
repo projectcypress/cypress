@@ -10,6 +10,7 @@ class PatientsControllerTest < ActionController::TestCase
     get(:show, {:id => '4dcbecdb431a5f5878000004', :format => 'c32'})
     assert_response :success
     doc = Nokogiri::XML(response.body)
+    puts doc
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     @patient = @pi.parse_c32(doc)
   end
@@ -18,7 +19,9 @@ class PatientsControllerTest < ActionController::TestCase
     sign_in :user, User.first(:conditions => {:email => 'bobby@tables.org'})
     get(:show, {:id => '4dcbecdb431a5f5878000004', :format => 'c32'})
     assert_response :success
+    
     doc = Nokogiri::XML(response.body)
+    
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     patient = Record.new
     @pi.get_demographics(patient, doc)

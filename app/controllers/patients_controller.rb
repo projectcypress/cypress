@@ -7,7 +7,14 @@ class PatientsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @measures = Measure.installed
+
+    if params[:product_test_id]
+      @test = ProductTest.find(params[:product_test_id])
+      @measures = @test.measure_defs
+    else
+      @measures = Measure.installed
+    end
+
     @measures_categories = @measures.group_by { |t| t.category }
     
     if params[:measure_id]
@@ -18,11 +25,10 @@ class PatientsController < ApplicationController
     
     # If a ProductTest is specified, show results for only the patients included in that population
     # Otherwise show the whole Master Patient List
-    if params[:product_test_id]
-      @test = ProductTest.find(params[:product_test_id])
+    if params[:product_test_id]     
       @product = @test.product
       @vendor = @product.vendor
-      if @test.measure_ids.include?(@selected)
+      if @measures.include?(@selected)
         @result = Cypress::MeasureEvaluator.eval(@test, @selected)
       else
         # If the selected measure wasn't chosen to be part of the test, return zeroed results

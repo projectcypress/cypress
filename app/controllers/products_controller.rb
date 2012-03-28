@@ -7,13 +7,17 @@ class ProductsController < ApplicationController
     
     failing_tests = @product.failing_tests
     passing_tests = @product.passing_tests
+   
     
-    @tests = { 'fail' => failing_tests, 'pass' => passing_tests }
+    @tests = { 'fail' => failing_tests, 'pass' => passing_tests}
   end
   
   def new
     @vendor = Vendor.find(params[:vendor])
     @product = Product.new
+    
+    @measures = Measure.all_by_measure
+    @measures_categories = @measures.group_by { |t| t['category'] }
   end
   
   def create
@@ -26,6 +30,9 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
     @vendor = @product.vendor
+    
+    @measures = Measure.top_level
+    @measures_categories = @measures.group_by { |t| t.category }
   end
   
   def update
@@ -39,7 +46,28 @@ class ProductsController < ApplicationController
   def destroy
     product = Product.find(params[:id])
     vendor = product.vendor
-    product.destroy
+
+    ProductTest.where(:product_id=>product.id).each do |test|
+       # Get rid of all related Records to this test
+      Record.where(:test_id => test.id).each do |record|
+        MONGO_DB.collection('patient_cache').remove({'value.patient_id' => record.id})
+        record.destroy
+      end
+
+      # Get rid of all related executions
+      test.test_executions.each do |execution|
+        execution.destroy
+      end
+
+    end
+
+       product.destroy
+
+    
+    
+    
+    
+ 
     
     redirect_to vendor_path(vendor)
   end

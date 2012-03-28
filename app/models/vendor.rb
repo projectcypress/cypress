@@ -2,7 +2,7 @@ class Vendor
   include Mongoid::Document
   
   has_and_belongs_to_many :users
-  has_many :products
+  has_many :products, dependent: :destroy
   
   # Vendor Details
   field :name, type: String
@@ -46,7 +46,7 @@ class Vendor
   
   # Returns true if all associated Products are passing
   def passing?
-    return self.passing_products.size == self.products.size
+    return (self.products.size > 0)&&(self.passing_products.size == self.products.size)
   end
   
   # Return the number of currently passing Products
@@ -57,6 +57,6 @@ class Vendor
   # The percentage of passing products. Returns 0 if no products
   def success_rate
     return 0 if self.products.empty?
-    return self.count_passing / self.products.size
+    return self.count_passing.to_f / self.products.size
   end
 end

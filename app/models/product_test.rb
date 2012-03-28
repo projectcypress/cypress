@@ -3,7 +3,7 @@ class ProductTest
 
   belongs_to :product
   has_one :patient_population
-  has_many :test_executions
+  has_many :test_executions, dependent: :delete
 
   # Test Details
   field :name, type: String
@@ -50,4 +50,27 @@ class ProductTest
     
     return measures
   end
+  
+  # Check to see if this population was imported by the vendor
+  def imported_population?
+    return self.patient_population.nil?
+  end
+  
+
+  def destroy
+    # Gather all records and their IDs so we can delete them along with every associated entry in the patient cache
+    records = Record.where(:test_id => self.id)
+    record_ids = records.map { _id }
+    MONGO_DB.collection('patient_cache').remove({'value.patient_id' => {"$in" => record_ids}})
+    records.destroy
+
+    # Get rid of all related executions
+      self.test_executions.each do |execution|
+        execution.destroy
+      end
+
+    
+    self.delete
+  end
+
 end

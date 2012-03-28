@@ -2,7 +2,7 @@ class Product
   include Mongoid::Document
 
   belongs_to :vendor
-  has_many :product_tests
+  has_many :product_tests, dependent: :destroy
   
   field :name, type: String
   field :description, type: String
@@ -10,13 +10,20 @@ class Product
   
   # If all of the ProductTests passed, then this Product will be considered passing
   def passing?
-    self.product_tests.size == self.count_passing
+    return (self.product_tests.size > 0) && (self.product_tests.size == self.count_passing)
   end
   
   # Get the tests owned by this product that are failing
   def failing_tests
     return self.product_tests.select do |test|
       !test.passing?
+    end
+  end
+
+  # Get the tests owned by this product that are incomplete
+  def incomplete_tests
+    return self.product_tests.select do |test|
+      test.reported_results.nil?
     end
   end
   
@@ -35,6 +42,6 @@ class Product
   # The percentage of passing tests. Returns 0 if no products
   def success_rate
     return 0 if self.product_tests.empty?
-    return self.count_passing / self.product_tests.size
+    return self.count_passing.to_f / self.product_tests.size
   end
 end

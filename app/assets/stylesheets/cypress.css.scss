@@ -99,6 +99,8 @@ a.cmd {
   font-size:80%;
   behavior: url(/assets/PIE.htc);
   width:100px;
+  &.disabled { color: #aaa; border-color: #aaa; }
+  &.disabled:hover { background-color: #fff; cursor: default; }
 }
 
 a.cmd:hover {background-color:#a7c98a  + #444;}
@@ -148,6 +150,8 @@ nav.breadcrumb {
   a:first-child {margin-left:0;}
   span {margin-left:5px;}
 }
+
+
 
 
 section.candidate, section.records, section.ctb_records, section.nqf {
@@ -246,8 +250,7 @@ section#vendor {
   }
 }
 
-section#testMeasures{
-  margin-top:20px;
+section#testMeasures, section#measureMap {
   h2 {
     margin:5px 10px;
     padding-top:15px;
@@ -256,9 +259,10 @@ section#testMeasures{
     font-style:italic;
     padding-bottom:20px;
   }
+  div { margin-top: 20px; }
   dl {
     font-size:90%;
-    width:840px;
+    width:925px;
     display:table-cell;
     vertical-align:top;
     line-height:2.5em;
@@ -266,20 +270,49 @@ section#testMeasures{
   }
   dt {
     color:#666;
-    width:840px;
+    width:925px;
     clear:both;
-    padding:3px;
-    
+    padding:3px;   
     text-align:left;
     margin-right:5px;
     vertical-align:top;
     border-bottom:1px solid black;
   }
   dd {
-    width:840px;
-     padding-bottom:10px;
-    clear:both;
-    address span {display:block;}
+    margin-left: 10px;
+    width: 925px;
+    clear: both;
+    label:hover { cursor: pointer }
+    span { display: inline-block }
+    span.measure_expander {
+      margin-right: -12px;
+      cursor: pointer;
+      width: 8px; height: 8px;
+      background: url(/assets/closed.gif) no-repeat;
+      &.open {background:url(/assets/open.gif) no-repeat};
+    }
+    span.left {
+      margin-left: 15px;
+      input { margin: 0 }
+      width: 800px;
+    }
+    span.right {
+      text-align: right;
+      float: right;
+      margin-right: 10px;
+    }
+    address span { display: block }
+  }
+  dd.inactive {
+    color: #aaa;
+    input, label { color: #aaa }
+  }
+  dd.sub {
+    display: none;
+    margin-left: 13px;
+    border-left: 1px solid #656464;
+    span.left { margin-left: 11px }
+    span.right { margin-right: 14px }
   }
 }
 
@@ -403,7 +436,6 @@ section#quality_measures {
 }
 #loading_progress {
   margin-top: 30px;
-  border: 1px solid red;
   .ui-progressbar-value { 
     background: #EBFFCE;
     border: 1px solid #539309;
@@ -456,12 +488,19 @@ section.pqriValidation {
   
   h2.success{font-weight:bold;color:green;}
   
-  div.pqriXmlError{
+  div.pqriXmlError,div.baselinePqriXmlError{
     margin-top:10px;
     padding:3px 3px 3px 3px;
     background-color:#F7E1E7;
     border:1px solid #ff0000;
+    
   }
+
+  tr.baselinepqri_results,tr.pqri_results{
+    display:none;
+  }
+
+  
 }
 
 section#vendor_patients {
@@ -603,6 +642,13 @@ section#patient_nqf {
 
   }
 }
+
+section#first{
+  span.inline-span{
+   display:inline;
+  }
+}
+
 div#effectiveDate {
   text-align:center;
   font-style:italic;
@@ -725,6 +771,7 @@ section#ehr_results {
     tr td:nth-child(7) {text-align:right}
     td.fail, td.fail a {color:red}
     td.pass, td.pass a {color:green}
+    td.incomplete, td.incomplete a {color:#666}
     td.na, td.na a {color: #666}
     
     tbody td:nth-child(7) { text-align: right }
@@ -747,8 +794,37 @@ section#ehr_results {
     td:nth-child(2).na {color:#666;background:url(/assets/insufficient.png) 0% 50% no-repeat;}
     td:nth-child(2).pass {color:green;background:url(/assets/pass.png) 0 50% no-repeat;}
     td:nth-child(2).fail {color:red; background:url(/assets/fail.png) 0% 50% no-repeat;}
+    td:nth-child(2).incomplete {color:#666; background:url(/assets/insufficient.png) 0% 50% no-repeat;}
   }
 }
+
+section#pqriValidation {
+    margin-bottom:40px;
+      table {
+        thead tr th {text-align:left;}
+        tr:first-child th {text-transform:uppercase;border-bottom:1px solid #ccc;}
+        thead tr th:nth-child(2) {text-align:center}
+        thead tr th:nth-child(3) {text-align:center}
+        thead tr th:nth-child(4) {text-align:center}
+        thead tr th:nth-child(5) {text-align:right}
+        tr td:nth-child(1) {width: 20px; text-align:left}
+        tr td:nth-child(2) {width: 0px} 
+        tr td:nth-child(2).toggle {width: 10px; text-align:left}
+        tr td:nth-child(3) {width: 200px; text-align:left}
+        tr td:nth-child(4) {width: 300px; text-align:center}
+        tr td:nth-child(5) {width: 100px; text-align:center}
+        tr td:nth-child(6) {text-align:center}
+        tr td:nth-child(7) {text-align:right} 
+        
+        tbody td:nth-child(7) { text-align: right }
+      } 
+  
+  .sub_rows {
+    display: none;
+    
+  }
+}
+
 footer#ccattribution {
   clear:left;
   text-align:right;

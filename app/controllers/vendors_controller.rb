@@ -42,9 +42,21 @@ class VendorsController < ApplicationController
   
   def destroy
     vendor = Vendor.find(params[:id])
+    #delete all products for vendor
+    Product.where(:vendor_id=>vendor.id).each do |product|
+      #all tests for product
+      ProductTest.where(:product_id=>product.id).each do |test|
+       # Get rid of all related Records to this test
+        Record.where(:test_id => test.id).each do |record|
+          MONGO_DB.collection('patient_cache').remove({'value.patient_id' => record.id})
+          record.destroy
+        end
+        # Get rid of all related executions
+        test.test_executions.each do |execution|
+          execution.destroy
+        end
 
-    vendor.products.each do |product|
-      product.destroy
+      end
     end
     vendor.destroy
     

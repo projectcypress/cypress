@@ -23,6 +23,8 @@
           }
         }
       });
+
+
       
       $('#upload_results_button').click(function(event) {
         $('#upload_pqri_dialog').dialog('open');
@@ -43,6 +45,21 @@
         resizable: false,
         open: function(event, ui) { $(".ui-dialog-titlebar-close").hide()}
       });
+
+      $(".expander").toggle(
+        function() {
+          $(this).addClass('open');
+          
+          var codeElement = $(this).data('code');
+          var codes = $("." + codeElement);
+          codes.show();
+        },
+        function() {
+          $(this).removeClass('open');
+           var codeElement = $(this).data('code');
+          var codes = $("." + codeElement);
+          codes.hide();
+        });
 
   <% poll_for_updates = false
 
@@ -67,7 +84,7 @@
           $('#polling_for_updates').dialog(
           { title: 'Download patient records...',
             autoOpen: true,
-            closeOnEscape: false,
+            closeOnEscape: true,
             draggable: false,
             position: 'center',
             width: 'auto',
@@ -77,7 +94,7 @@
             hide: 'fade',
             resizable: false,
             open: function(event, ui) { $(".ui-dialog-titlebar-close").show()}
-          }).html('<div style="text-align:center;"><a href="<%=  download_product_test_path(@test) %>" class="cmd" onclick="$(\'#polling_for_updates\').dialog(\'close\')">download now</a></div>');
+          }).html('<div style="text-align:center;"><br/><a href="<%=  download_product_test_path(@test) %>" class="cmd" onclick="$(\'#polling_for_updates\').dialog(\'close\')">Download Now</a></div><br/><div style="text-align:center;"><a href="#" class="cmd" onclick="$(\'#polling_for_updates\').dialog(\'close\')">Download Later</a></div>');
 
         });
   <% end %>
@@ -131,6 +148,7 @@
     <section class="candidate">  
       <dl class="vendor">
         <dt>Test:</dt> <dd><%= @test.name %></dd>
+        <dt>Reporting Period:</dt> <dd><%= 3.months.ago(Time.at(@test.effective_date)).strftime("%m/%d/%Y") %> - <%= Time.at(@test.effective_date).strftime("%m/%d/%Y") %></dd>
       </dl>
       <dl>
         <dt>description:</dt> <dd><%= @test.description %></dd>
@@ -157,27 +175,48 @@
     <% end %>
 
     <section class="pqriValidation">
-      <% if @current_execution.validation_errors %>
+      <% if @current_execution.validation_errors || @current_execution.baseline_validation_errors %>
         <h2 class="fail">PQRI Validation Errors</h2>
         <h3>Cypress uses Northwestern Medical's XSD interpretation of
           <a href="http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
           This is NOT a CMS published XSD.
         </h3>
 
-        <% if @current_execution.validation_errors && @current_execution.baseline_validation_errors %>
-          <h2>PQRI Errors</h2>
+        <% if @current_execution.validation_errors || @current_execution.baseline_validation_errors %>
+          
+       
+        <table>
+          <% if @current_execution.validation_errors %>
+          <tr>               
+            <td class="expander toggle" data-code="pqri_results"></td>
+            <td><h2>View PQRI Errors</h2></td>
+         </tr>
+         <tr class="sub_rows pqri_results">
+           <td colspan="2">
+           
+              <% @current_execution.validation_errors.each do |error| %>
+                <div class ="pqriXmlError"><%= error %></div>        
+              <% end %>
+       
+           </td>
+        </tr>
         <% end %>
-        <% @current_execution.validation_errors.each do |error| %>
-          <div class ="pqriXmlError"><%= error %></div>
-        <% end
-
-        if @current_execution.baseline_validation_errors %>
-          <h2>Baseline PQRI Errors</h2>
+        <%if @current_execution.baseline_validation_errors %>
+        <tr >
+            <td class="expander toggle" data-code="baselinepqri_results"></td>
+            <td> <h2>View Baseline PQRI Errors</h2></td>
+        </tr>
+        <tr class="sub_rows baselinepqri_results">
+         <td colspan="2">
           <% @current_execution.baseline_validation_errors.each do |error| %>
-            <div class ="pqriXmlError"><%= error %></div>
+            <div class ="baselinePqriXmlError"><%= error %></div>
           <% end %>
+          </td>
+        </tr>
         <% end %>
       <% end %>
+      </table>
+       <% end %>
     </section>
 
     <section id="quality_measures">

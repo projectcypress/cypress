@@ -19,7 +19,11 @@
   <thead>
     <tr>
       <th style="text-align:center;">quality measures</th>
-      <th style="text-align:center;">patients</th>
+      <th style="text-align:center;">
+        <a id="remove_patient" class="cmd remove disabled">- (0/<%= @overflow.size %>)</a>
+        patients
+        <a id="add_patient" class="cmd add <% if @overflow.empty? %>disabled<% end %>">+ (<%= @overflow.size %>/<%= @overflow.size %>)</a>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -54,7 +58,7 @@
 
       </td>
       <td>
-        <table>
+        <table id="minimal_patients_table">
           <thead style="position:relative;">
             <tr>
               <th>Last Name</th>

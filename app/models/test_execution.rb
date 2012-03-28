@@ -2,7 +2,6 @@ class TestExecution
   include Mongoid::Document
 
   belongs_to :product_test
-  has_many :results
 
   field :execution_date, type: Integer
   field :baseline_results, type: Hash
@@ -13,6 +12,11 @@ class TestExecution
   # A TestExecution is passing if the number of p
   def passing?
     return self.expected_results.size == self.count_passing
+  end
+
+  # A TestExecution is incomplete if no reported results
+  def incomplete?
+    return self.reported_results.nil?
   end
   
   # Compare the expected results to the stroed reported results and return the
@@ -33,6 +37,7 @@ class TestExecution
     reported_result = reported_result(expected_result['key'])
     ['denominator', 'numerator', 'exclusions'].each do |component|
       if reported_result[component] != expected_result[component]
+        #puts "reported: #{reported_result[component]} , expected: #{expected_result[component]}"
         return false
       end
     end
@@ -84,8 +89,8 @@ class TestExecution
   
   # The percentage of passing measures. Returns 0 if this is a new, yet to be run TestExecution
   def success_rate
-    return 0 if self.results.empty?
-    return self.count_passing / self.product_test.measure_ids.size
+    return 0 if self.reported_results.nil?
+    return self.count_passing.to_f / self.product_test.measure_ids.size
   end
   
   # This function is used to normalize test results that first import a baseline.

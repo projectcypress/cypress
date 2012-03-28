@@ -1,0 +1,44 @@
+<h1>Measure Mapping
+  <span class="header_commands">
+    [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> |
+    <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]
+  </span>
+</h1>
+<section id="measureMap">
+  As PQRI measure numbers may vary by author, below is a list of how Cypress labels Stage 1 CQM. If the numbers do not match your PQRI formatting, please
+  replace the values with your labeling scheme and Cypress will remember it for later. Cypress will also only show you measures that you check below and
+  won't bother you again with unchecked selections.
+
+  <% @measures_categories.sort.each do |category, measures| %>
+    <div>
+      <dl>
+        <dt><%= category %>
+          <span class="header_commands">
+            [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" '", "_") %>')">check all</a> |
+            <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category.tr(" '", "_") %>');">uncheck all</a>]
+          </span>
+        </dt>
+        <% measures.each do |measure| %>
+          <dd class='inactive'>
+            <% if !measure['subs'].empty? %><span class="measure_expander" data-measure="<%= measure['id'].to_i %>"></span><% end %>
+            <span class="left">
+              <%= check_box_tag 'product[measure_map][]', measure['id'], false, { "class" => "#{category.tr(" '", "_")}" } %>
+              <%= label_tag 'measure_name', measure['name'] %>
+            </span>
+            <span class="right">NQF <%= text_field measure['id'], measure['id'], :value => measure['id'], :size => '5', :class => 'req' %></span>
+          </dd>
+
+          <% measure['subs'].each do |sub_measure| %>
+            <dd class='inactive sub <%= measure['id'].to_i %>'>
+              <span class="left">
+                <%= check_box_tag 'product[measure_map][]', sub_measure['id'], false, { "disabled" => true, "class" => "#{category.tr(" '", "_")}" } %>
+                <%= label_tag 'sub_measure_name', sub_measure['name'] %>
+              </span>
+              <span class="right">NQF <%= text_field sub_measure['id'], sub_measure['id'], :value => sub_measure['id'], :size => '5', :class => 'req' %></span>
+            </dd>
+          <% end %>
+        <% end %>
+      </dl>
+    </div>
+  <% end %>
+</section>

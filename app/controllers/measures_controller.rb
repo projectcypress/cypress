@@ -16,8 +16,19 @@ class MeasuresController < ApplicationController
     @vendor = @product.vendor
     
     @measure = Measure.find(params[:id])
-    @measures = Measure.top_level
+    if params[:product_test_id]
+      @measures = @test.measure_defs
+    else
+      @measures = Measure.top_level
+    end
+
     @measures_categories = @measures.group_by { |t| t.category }
+    
+    if params[:measure_id]
+      @selected = Measure.find(params[:measure_id])
+    else
+      @selected = @measures[0]
+    end
     
     respond_to do |format|
       format.json { render :json => @execution.expected_result(@measure) }
@@ -47,8 +58,11 @@ class MeasuresController < ApplicationController
       patient_ids = Record.any_of({"first" => regex}, {"last" => regex}).collect {|p| p.id}
       @patients = @patients.any_in("value.patient_id" => patient_ids)
     end
-    @patients = @patients.order_by([["value.numerator".order, :desc],["value.denominator", :desc],["value.exclusions", :desc]])
+
+    @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
   end
+
+  
 
   # Find the minimal set of patient records required to cover the list of measures passed in
   def minimal_set
@@ -56,9 +70,11 @@ class MeasuresController < ApplicationController
     num_records = [params[:num_records].to_i, 5].max
 
 
-    coverage = {}
+    @coverage = {}
     #all_patients = []  if you don't want the minimal set, uncomment this
-    all_patients = PatientPopulation.min_coverage(measure_ids)
+    minimal_set = PatientPopulation.min_coverage(measure_ids)
+    all_patients = minimal_set[:minimal_set]
+    overflow_patients = minimal_set[:overflow]
     all_measures = []
     
     # stub code for the queries that determine the appropriate set of patients
@@ -66,9 +82,9 @@ class MeasuresController < ApplicationController
       if measure_ids.any? {|m| m == measure[:id]}
         Result.where('value.test_id' => nil).where('value.measure_id' => measure['id']).where('value.population' => true).each do |result|
           key = measure.key
-          coverage[key] = {:name => measure[:name] + ( measure[:subtitle] ? ': ' + measure[:subtitle] : ''), :num => 0, :den => 0, :exc => 0, :ant => 0, :patients => []} unless coverage[key]
+          @coverage[key] = {:name => measure[:name] + ( measure[:subtitle] ? ': ' + measure[:subtitle] : ''), :num => 0, :den => 0, :exc => 0, :ant => 0, :patients => []} unless @coverage[key]
           #if you don't want the minimal set, uncomment the following 2 lines
-          #coverage[key][:patient_ids].push(result.value.patient_id)
+          #@coverage[key][:patient_ids].push(result.value.patient_id)
           #all_patients.push(result.value.patient_id)
           all_measures.push(measure)
         end
@@ -79,8 +95,9 @@ class MeasuresController < ApplicationController
     #unique_patients = all_patients.uniq.slice(0, num_records)
     unique_patients = all_patients
     #if you don't want the minimal set, uncomment the following line
-    #patient_list = Record.where( { _id: { "$in" => unique_patients } } ).order_by([["_id", :desc]]);
-    patient_list = Record.where( { _id: { "$in" => all_patients } } ).order_by([["_id", :desc]]);
+    #@patient_list = Record.where( { _id: { "$in" => unique_patients } } ).order_by([["_id", :desc]]);
+    @patient_list = Record.where( { _id: { "$in" => all_patients } } ).order_by([["_id", :desc]])
+    @overflow = Record.where({ _id: { "$in" => overflow_patients } })
 
     # loop through and tally the num/den/exc
     all_measures.uniq.each do |measure|
@@ -88,12 +105,12 @@ class MeasuresController < ApplicationController
         if unique_patients.any? {|id| id == result['value']['patient_id'] }
           key = measure.key
           patient = Record.find(result['value']['patient_id'])
-          if !coverage[key][:patients].include?(patient)
-            coverage[key][:num] += 1 if result['value']['numerator']
-            coverage[key][:den] += 1 if result['value']['denominator']
-            coverage[key][:ant] += 1 if result['value']['antinumerator']
-            coverage[key][:exc] += 1 if result['value']['exclusions']
-            coverage[key][:patients].push(patient)
+          if !@coverage[key][:patients].include?(patient)
+            @coverage[key][:num] += 1 if result['value']['numerator']
+            @coverage[key][:den] += 1 if result['value']['denominator']
+            @coverage[key][:ant] += 1 if result['value']['antinumerator']
+            @coverage[key][:exc] += 1 if result['value']['exclusions']
+            @coverage[key][:patients].push(patient)
           end
         end
       end
@@ -101,8 +118,8 @@ class MeasuresController < ApplicationController
     
     # end stub
     respond_to do |format|
-      format.html {render :partial => 'measure_coverage', :locals => { :coverage => coverage, :patients => patient_list} }
-      format.json {render :json => {:coverage => coverage}}
+      format.js { render :layout => false }
+      format.json {render :json => {:coverage => @coverage}}      
     end
   end
 

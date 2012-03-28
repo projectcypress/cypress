@@ -54,7 +54,15 @@ namespace :mpl do
       evaluator.eval_for_static_records(measure)
     end
   end
-  
+
+  desc 'Perform all tasks necessary for initializing a newly installed system'
+  task :initialize => :environment do
+    Rake::Task['away:cypress'].invoke()
+    Rake::Task['mpl:clear'].invoke()
+    Rake::Task['mpl:load'].invoke()
+    Rake::Task['mpl:eval'].invoke()
+  end
+
   desc 'Collect a subset of "count" patients that meet the criteria for the given set of "measures"'
   task :subset => :environment do
     measures = ENV['measures'].split(',')

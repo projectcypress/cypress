@@ -91,7 +91,11 @@
                   if execution.passing?
                     execution_status = 'pass'
                   else
-                    execution_status = 'fail'
+                    if execution.incomplete?
+                      execution_status='incomplete'
+                    else
+                      execution_status = 'fail'
+                    end
                   end %>
                   
                   <tr class="sub_rows <%= test.id %>">
