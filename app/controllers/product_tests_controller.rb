@@ -121,6 +121,8 @@ class ProductTestsController < ApplicationController
       TestExecution.find(params[:execution_id]).destroy
     else
       # Otherwise, delete the whole ProductTest and get rid of all the Records, TestExecutions, and patient_cache entries that are associated with it.
+      
+
       test.destroy
     end
 
