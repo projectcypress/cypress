@@ -17,25 +17,34 @@ class PatientsController < ApplicationController
 
     @measures_categories = @measures.group_by { |t| t.category }
     
+    @showAll = false
     if params[:measure_id]
       @selected = Measure.find(params[:measure_id])
     else
       @selected = @measures[0]
+      @showAll = true
+    end
+    
+    if params[:product_test_id]     
+        @product = @test.product
+        @vendor = @product.vendor
     end
     
     # If a ProductTest is specified, show results for only the patients included in that population
     # Otherwise show the whole Master Patient List
-    if params[:product_test_id]     
-      @product = @test.product
-      @vendor = @product.vendor
-      if @measures.include?(@selected)
-        @result = Cypress::MeasureEvaluator.eval(@test, @selected)
-      else
-        # If the selected measure wasn't chosen to be part of the test, return zeroed results
-        @result = {'measure_id' => @selected.id, 'numerator' => '0', 'antinumerator' => 0, 'denominator' => '0', 'exclusions' => '0'}
-      end
+    if @showAll
+      @result = {'measure_id' => '-', 'numerator' => '-', 'antinumerator' => '-', 'denominator' => '-', 'exclusions' => '-'}
     else
-      @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected)
+      if params[:product_test_id]
+        if @measures.include?(@selected)
+          @result = Cypress::MeasureEvaluator.eval(@test, @selected)
+        else
+          # If the selected measure wasn't chosen to be part of the test, return zeroed results
+          @result = {'measure_id' => @selected.id, 'numerator' => '0', 'antinumerator' => 0, 'denominator' => '0', 'exclusions' => '0'}
+        end
+      else
+        @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected)
+      end
     end
     
     respond_to do |format|
@@ -58,10 +67,12 @@ class PatientsController < ApplicationController
   def table
     @measures = Measure.installed
     @measures_categories = @measures.group_by { |t| t.category }
+    @showAll = params[:showAll] == 'true'
     if params[:measure_id]
       @selected = Measure.find(params[:measure_id])
     else
       @selected = @measures[0]
+      @showAll = true
     end
     
     # If a ProductTest was passed into this method, we'll only use records associated with that test.
@@ -69,8 +80,15 @@ class PatientsController < ApplicationController
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
     end
-    @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected['id'])
-      .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
+    
+    if @showAll
+      @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.population" => true)
+        .order_by([["value.last", :asc]])
+      #@patients = remove_duplicates(all_patients)
+    else
+      @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected['id'])
+        .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
+    end
     
     # If we're filtering the list, narrow the display down to patients with names or IDs that fit the search criteria
     if params[:search] && params[:search].size > 0
@@ -80,8 +98,13 @@ class PatientsController < ApplicationController
       @patients = @patients.any_in("value.patient_id" => patient_ids)
     end
     
-    @patients = @patients.order_by([
+    if @showAll
+      @patients = @patients.order_by([["value.last", :asc]])
+      @patients = remove_duplicates(@patients)
+    else
+     @patients = @patients.order_by([
       ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
+    end
   end
 
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format, patient to download by :id
@@ -107,4 +130,15 @@ class PatientsController < ApplicationController
     file.close
   end
 
+  def remove_duplicates(patients)
+    seen_ids = Array.new
+    new_patient_list = Array.new
+    patients.each do |patient|
+      if !seen_ids.include?(patient.value.patient.id.to_s)
+        new_patient_list << patient
+        seen_ids << patient.value.patient.id.to_s
+      end
+    end
+    new_patient_list
+  end
 end

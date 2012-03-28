@@ -11,10 +11,17 @@
   </colgroup>
   <thead style="position:relative;">
     <tr class="rot">
+   <% if @showAll %>
+     <th><div></div></th>
+      <th><div></div></th>
+      <th><div></div></th>
+      <th><div></div></th>
+   <% else%>
       <th><div>DEN</div></th>
       <th><div>NUM</div></th>
       <th><div>EXC</div></th>
       <th><div>OUT</div></th>
+   <% end %>
       <th></th>
       <th>Last Name</th>
       <th>First Name</th>
@@ -23,19 +30,35 @@
     </tr>
   </thead>
   <tbody>
-  <% @patients.each do |patient| %>
-    <% if patient.value.population %>
-    <tr>
-      <td class="<%= 'p' if patient.value.denominator %>"></td>
-      <td class="<%= 'p' if patient.value.numerator %>"></td>
-      <td class="<%= 'p' if patient.value.exclusions %>"></td>
-      <td class="<%= 'p' if patient.value.antinumerator %>"></td>
-      <td></td>
-      <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.last %></td>
-      <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.first %></td>
-      <td><%= display_time(patient.value.patient.birthdate) %></td>
-      <td><%= patient.value.patient.gender %></td>
-    </tr>
+  <% if @showAll %>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td style="background: none"></td>
+        <td style="background: none"></td>
+        <td style="background: none"></td>
+        <td style="background: none"></td>
+        <td></td>
+        <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.last %></td>
+        <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.first %></td>
+        <td><%= display_time(patient.value.patient.birthdate) %></td>
+        <td><%= patient.value.patient.gender %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <% @patients.each do |patient| %>
+      <% if patient.value.population %>
+      <tr>
+        <td class="<%= 'p' if patient.value.denominator %>"></td>
+        <td class="<%= 'p' if patient.value.numerator %>"></td>
+        <td class="<%= 'p' if patient.value.exclusions %>"></td>
+        <td class="<%= 'p' if patient.value.antinumerator %>"></td>
+        <td></td>
+        <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.last %></td>
+        <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.first %></td>
+        <td><%= display_time(patient.value.patient.birthdate) %></td>
+        <td><%= patient.value.patient.gender %></td>
+      </tr>
+      <% end %>
     <% end %>
   <% end %>
   </tbody>
