@@ -68,6 +68,7 @@ class PatientsController < ApplicationController
     @measures = Measure.installed
     @measures_categories = @measures.group_by { |t| t.category }
     @showAll = params[:showAll] == 'true'
+    
     if params[:measure_id]
       @selected = Measure.find(params[:measure_id])
     else
@@ -84,26 +85,11 @@ class PatientsController < ApplicationController
     if @showAll
       @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.population" => true)
         .order_by([["value.last", :asc]])
-      #@patients = remove_duplicates(all_patients)
+      @patients = remove_duplicates(@patients)
     else
       @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected['id'])
         .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
-    end
-    
-    # If we're filtering the list, narrow the display down to patients with names or IDs that fit the search criteria
-    if params[:search] && params[:search].size > 0
-      @search_term = params[:search]
-      regex = Regexp.new('^'+params[:search], Regexp::IGNORECASE)
-      patient_ids = Record.any_of({"first" => regex}, {"last" => regex}).collect {|p| p.id}
-      @patients = @patients.any_in("value.patient_id" => patient_ids)
-    end
-    
-    if @showAll
-      @patients = @patients.order_by([["value.last", :asc]])
-      @patients = remove_duplicates(@patients)
-    else
-     @patients = @patients.order_by([
-      ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
+        .order_by([ ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
     end
   end
 
