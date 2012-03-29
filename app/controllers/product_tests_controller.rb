@@ -81,7 +81,17 @@ class ProductTestsController < ApplicationController
       
       test.population_creation_job = Cypress::PatientImportJob.create(:zip_file_location => byod_path, :test_id => test.id, :format => format)
     elsif params[:patient_ids]
-      test.population_creation_job = Cypress::PopulationCloneJob.create(:patient_ids => params[:patient_ids], :test_id => test.id)
+      if params[:population_description] && params[:population_name]
+        # if the user has created a population using the minimal_set feature
+        # and they want to save it for subsequent tests
+        population = PatientPopulation.new({:product_test => test, :name => params[:population_name], :description => params[:population_description],
+            :patient_ids => params[:patient_ids]})
+        population.save!
+        test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:population_name], :test_id => test.id)
+        test.patient_population = population
+      else
+        test.population_creation_job = Cypress::PopulationCloneJob.create(:patient_ids => params[:patient_ids], :test_id => test.id)
+      end
     else
       # Otherwise we're making a subset of the Test Deck
       test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)
@@ -146,11 +156,11 @@ class ProductTestsController < ApplicationController
    
 
     
-      if (!params[:execution_id].empty?)       
-        execution = TestExecution.find(params[:execution_id])
-      else        
-        execution = TestExecution.new({:product_test => test, :execution_date => Time.now})
-      end
+    if (!params[:execution_id].empty?)
+      execution = TestExecution.find(params[:execution_id])
+    else
+      execution = TestExecution.new({:product_test => test, :execution_date => Time.now})
+    end
    
     
 
