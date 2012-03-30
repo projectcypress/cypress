@@ -132,7 +132,7 @@
           </li>
           <% if @current_execution.reported_results %>
             <li class="ui-menu-item" role="menuitem">
-              <%= link_to "Report as PDF", product_test_path(@test, :format => 'pdf'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+              <%= link_to "Report as PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
             </li>
           <% end %>
         </ul>
