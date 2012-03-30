@@ -108,7 +108,7 @@
   <div>
     <section class="tb">
       <div class="stacked">
-        <%= link_to "Patient List", patients_path(:product_test_id => @test.id), { :class => "cmd" } %>
+        <%= link_to "Patient List", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "cmd" } %>
         <%= link_to "Upload Results", "", {:id => 'upload_results_button', :class=>"cmd"} %>
         <%= link_to 'Download', '', {
           :id => 'download_menu',
