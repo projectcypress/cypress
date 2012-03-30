@@ -100,6 +100,9 @@
     td span.complete {background:url(/assets/included.png) 0 50% no-repeat;
                       text-indent:-9999pt;width:16px;
     }
+    td span.current {background:url(/assets/pass.png) 0 50% no-repeat;
+                     text-indent:-9999pt;width:16px;
+    }
 
   </style>
 <% end %>
@@ -109,7 +112,7 @@
   <div id="progress_bar" style="float:right;">
     <table><tr>
         <td>completed:</td>
-        <td><span class="complete" id="step1">1</span></td>
+        <td><span class="current" id="step1">1</span></td>
         <td><span class="incomplete" id="step2">2</span></td>
         <td><span class="incomplete" id="step3">3</span></td>
         <td><span class="incomplete" id="step4">4</span></td>
@@ -129,7 +132,7 @@
         Reporting Period:
       </dt>
       <dd>
-        <span class="wide">from          
+        <span class="wide">from
           <span id="effective_date_start" class="inline-span"><%= Time.at(@period_start).strftime("%m/%d/%Y") %></span>
           to
           <input type="text" class="effective_date" id="effective_date_end" name="product_test[effective_date_end]" size="8" value="<%= Time.at(@effective_date).strftime("%m/%d/%Y") %>"/>
@@ -228,24 +231,13 @@
 
   <section id="wizard-patients-manual-screen" class="step submit_step">
     <h2 class="ui-widget-title" style="margin-top: 20px;">Patient records that satisfy your chosen quality measures...</h2>
-
-    <!--
-    <span>
-      <span title="want more or fewer?">I'd like</span>
-      <input type="text" id="total_records" value="5" width="5"/> patient records
-      <a class="cmd" id="roll_again" title="dont like what you see?" onclick="updateMinimalPatientSet()">go</a>
-    </span>
-
-    <table style="width:100%;">
-      <tr>
-        <td>fewer records</td>
-        <td style="width:60%;"><span id="tradeoffSlider"></span></td>
-        <td>better coverage</td>
-      </tr>
-    </table>
-    -->
-
-    <div id="measure_coverage" style="height:400px;overflow:auto;"></div>
+    <div id="measure_coverage" style="height:315px;overflow:auto;"></div>
+    <section id="save_population">
+      <p>if you would like to save this patient population
+        for use in other tests, please give it a name and a brief description</p>
+      Name:<input type="text" name="population_name"/>
+      Description: <input type="text" name="population_description" size="80"/>
+    </section>
   </section>
 
   <section id="wizard-patients-byod-screen" class="step submit_step">
@@ -297,19 +289,25 @@
       $('#download_filename').attr('readonly',true).val(download_filename);
     };
     function updateProgressBar(screen) {
-      $('#step2,#step3,#step4').removeClass('complete').addClass('incomplete');
+      $('#step1,#step2,#step3,#step4').removeClass('complete current incomplete').addClass('incomplete');
       switch (screen) {
+        case "first":
+          $('#step1').removeClass('incomplete').addClass('current');
+          break;
         case "wizard-measures-screen":
-          $('#step2').removeClass('incomplete').addClass('complete');
+          $('#step1').removeClass('incomplete').addClass('complete');
+          $('#step2').removeClass('incomplete').addClass('current');
           break;
         case "wizard-workflow-screen":
-          $('#step2,#step3').removeClass('incomplete').addClass('complete');
+          $('#step1,#step2').removeClass('incomplete').addClass('complete');
+          $('#step3').removeClass('incomplete').addClass('current');
           break;
 
         case "wizard-patients-automated-screen":
         case "wizard-patients-manual-screen":
         case "wizard-patients-byod-screen":
-          $('#step2,#step3,#step4').removeClass('incomplete').addClass('complete');
+          $('#step1,#step2,#step3').removeClass('incomplete').addClass('complete');
+          $('#step4').removeClass('incomplete').addClass('current');
           break;
       }
     }
@@ -347,12 +345,12 @@
       $('#tradeoffSlider').slider({range:true,min:5,max:225,values: [ 5, 20 ]});
       //$('#total_records').spinner({min: 5, max: 225});
       $('#effective_date_end').datepicker({
-                          onSelect: function(dateText, inst) { 
-                                       var effective_date = dateText;
-                                      $.post("/product_tests/period", {"effective_date": effective_date, "persist": false}, function(data){
-                                            $("#effective_date_start").html(data.start);
-                                            },"json");
-                                    }}).css({'width':'85px','text-align':'center'});
+        onSelect: function(dateText, inst) {
+          var effective_date = dateText;
+          $.post("/product_tests/period", {"effective_date": effective_date, "persist": false}, function(data){
+            $("#effective_date_start").html(data.start);
+          },"json");
+        }}).css({'width':'85px','text-align':'center'});
       // for styling the vertical tabs
       $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix').css({"width":"90%","margin-left":"5%"});
       $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
