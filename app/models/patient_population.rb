@@ -36,51 +36,26 @@ class PatientPopulation
       val["patients"].each do |p|
          patients[p] ||= []
          entry = [val["value.measure_id"],val["value.sub_id"]]
-         patients[p].push entry unless patients[p].index(entry) 
+         patients[p].push entry unless patients[p].index(entry)
       end
     end
-
-    # Build our list of patients. As we cover each measure, add it to the list so we know
-    # # not to add irrelevant patients. Instead, we'll drop them in overflow for extra use.
-    # p_list = []
-    # m_list = []
-    # overflow = []
-    # measures_to_patients.each do |val|
-    #   entry = [val["value.measure_id"],val["value.sub_id"]]
-    #   # Find the patient that is most "valuable", i.e. has the longest list of measures in which they are included
-    #   patient = nil
-    #   val["patients"].each do |p|
-    #     patient ||= p
-    #     patient = (patients[patient].length < patients[p].length) ? p : patient
-    #   end
-    #   # Unless this measure has already been added to the list
-    #   unless m_list.index(entry)
-    #     # Add the patient to the minimum set, mark the measure as satisfied, and
-    #     p_list.push(patient)
-    #     m_list.concat(patients[patient])
-    #     m_list.push(entry) # Delete this line?
-    #   else 
-    #     # Otherwise, this measure has already be satisfied, so just add the patient to our overflow list
-    #     overflow.push(patient) unless overflow.index(patient)
-    #   end
-    # end
         
-     p_list = []
-     m_list = []
-     measures_to_patients.each do |val|
-       entry = [val["value.measure_id"],val["value.sub_id"]]
-       unless m_list.index(entry) 
-         m_list.push(entry)
-         patient = nil
-         val["patients"].each do |p|
-           patient ||= p
-           patient =(patients[patient].length < patients[p].length) ? p : patient
-         end
-         p_list.push(patient)
-         m_list.concat( patients[patient] )
-       end
-     end
-
+    p_list = []
+    m_list = []
+    measures_to_patients.each do |val|
+      entry = [val["value.measure_id"],val["value.sub_id"]]
+      unless m_list.index(entry) 
+        m_list.push(entry)
+        patient = nil
+        # Find the patient that is most "valuable", i.e. has the longest list of measures in which they are included
+        val["patients"].each do |p|
+          patient ||= p
+          patient = (patients[patient].length < patients[p].length) ? p : patient
+        end
+        p_list.push(patient)
+        m_list.concat( patients[patient] )
+      end
+    end
     
     { :minimal_set => p_list, :overflow => patients.keys - p_list }
  end

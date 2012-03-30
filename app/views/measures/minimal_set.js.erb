@@ -3,8 +3,14 @@ overflow = <%= raw @overflow.as_json.to_json %>;
 coverage = <%= raw @coverage.as_json.to_json %>;
 
 $('#measure_coverage').html("<%= escape_javascript(render :partial => 'measure_coverage', :locals => { :coverage => @coverage, :patients => @patient_list }) %>");
-$('tr.patient td, tr.measure td').on("mouseenter mouseout", null, null, function() {
+$("#save_population").show();
+$('tr.patient td, tr.measure td').on("mouseenter mouseout", function() {
   var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
+  
+  alert("original: " + $(this).parent()[0].classList.toString() + "\n"
+    + "updated to: " + classes + "\n"
+    + "mystery: " + classes.substr(0,classes.length-1) + ' td');
+  
   $(classes.substr(0,classes.length-1) + ' td').toggleClass('highlight');
 });
 
@@ -44,19 +50,22 @@ $("#add_patient").click(function() {
   });
   
   // Put the pieces of the new row together
-  var newRow = "<tr id='" + additionalPatient._id + "' class='patient " + measureClasses + "'>" +
+  var newRow = $("<tr id='" + additionalPatient._id + "' class='patient " + measureClasses + "'>" +
     "<td>" + additionalPatient.last + "</td>" +
     "<td>" + additionalPatient.first + "</td>" +
     "<td style='text-align:center'><time datetime='" + formattedBirthdate + "'>" + formattedBirthdate + "</time></td>" + 
     "<td style='text-align:center'>" + additionalPatient.gender + "</td>" +
-  "</tr>";
+  "</tr>");
   
   // Add the new row along with a hidden input to include the patient in the set of records to be cloned
   $("#minimal_patients_table").append(newRow);
   $("#minimal_patients_table").append("<input type='hidden' name='patient_ids[]' value='" + additionalPatient._id + "'>");
   
-  // Affect the matrix of candidate patients
-  $('tr.patient td, tr.measure td').css("border", "1px solid red");
+  /*newRow = $("#minimal_patients_table tr:last");
+  newRow.children("td").on("mouseenter mouseout", function() {
+    var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
+    $(classes.substr(0,classes.length-1) + ' td').toggleClass('highlight');
+  });*/
 });
 $("#remove_patient").click(function() {
   // If we're at the minimum set, don't remove any more patients

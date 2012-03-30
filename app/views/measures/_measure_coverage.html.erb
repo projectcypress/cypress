@@ -11,8 +11,9 @@
   }
   tr.patient:hover,tr.measure:hover {background:#DEFADE;}
 </style>
+
 <% patients.each do |p| %>
-<input type="hidden" name="patient_ids[]" value="<%= p[:patient_id] %>"/>
+  <input type="hidden" name="patient_ids[]" value="<%= p[:patient_id] %>"/>
 <% end %>
 
 <table>
@@ -40,17 +41,17 @@
             </tr>
           </thead>
           <tbody>
-            <% coverage.each do |measure, values| %>
+            <% @coverage.each do |measure, values| %>
               <tr id="<%= measure %>" class="measure <%=
-                arr = values[:patients].map {|v| v[:_id]}
+                arr = values['patients'].map {|v| v[:_id]}
                 arr.join(' ')
 
               %>">
                 <td title="<%= values[:name] %>" class="measure"><%= measure %></td>
-                <td class="numerator"><%= values[:num] %></td>
-                <td class="denominator"><%= values[:den] %></td>
-                <td class="antinumerator"><%= values[:ant] %></td>
-                <td class="exclusions"><%= values[:exc] %></td>
+                <td class="numerator"><%= values['numerator'] %></td>
+                <td class="denominator"><%= values['denominator'] %></td>
+                <td class="antinumerator"><%= values['antinumerator'] %></td>
+                <td class="exclusions"><%= values['exclusion'] %></td>
               </tr>
             <% end %>
           </tbody>
@@ -70,12 +71,12 @@
           <tbody>
             <% patients.each do |patient| %>
               <tr id="<%= patient[:_id] %>" class="patient <%=
-                arr = coverage.map {|c,v| c if v[:patients].include?(patient)}
+                arr = coverage.map {|c,v| c if v['patients'].include?(patient)}
                 arr.join(' ')
               %>">
                 <td><%= patient[:last] %></td>
                 <td><%= patient[:first] %></td>
-                <td style="text-align:center"><time datetime="<%= Time.at(patient.birthdate).strftime('%Y-%m-%d') %>"><%= Time.at(patient.birthdate).strftime('%m/%d/%Y') %></time></td>
+                <td style="text-align:center"><%= Time.at(patient.birthdate).strftime('%m/%d/%Y') %></td>
         <td style="text-align:center"><%= patient[:gender] %></td>
       </tr>
     <% end %>
