@@ -28,7 +28,7 @@ module Cypress
       puts doc
       doc = (doc.kind_of? String) ? Nokogiri::XML::Document.new(doc) : doc
       validation_errors = []
-      schema = Nokogiri::XML::Schema(open("http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd"))
+      schema = Nokogiri::XML::Schema(open(Rails.root.join("public","Registry_Payment.xsd")))
 
       schema.validate(doc).each do |error|
         validation_errors << error.message
