@@ -4,9 +4,9 @@
       <% if @test %>
         <% if @result['numerator']=='?' %>
           $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id, :product_test_id => @test.id ) %>",
-                            "<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id, :showAll => @showAll) %>")             
+                            "<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution], :showAll => @showAll) %>")             
         <% else %>
-          $.cypress.updatePatientTable("<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id, :showAll => @showAll) %>")
+          $.cypress.updatePatientTable("<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution], :showAll => @showAll) %>")
         <% end %>
       <% else %>
         <% if @result['numerator']=='?' %>
@@ -63,7 +63,7 @@
           <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
           <%= link_to @product.name, product_path(@product) %> &raquo;
           <%= link_to @test.name, product_test_path(@test, :execution_id => params[:execution])  %> &raquo;
-          <%= link_to "Patient List", patients_path(:product_test_id => @test.id, :execution => params[:execution]) %>
+          <%= link_to "Patient List", patients_path(:product_test_id => @test.id, :execution_id => params[:execution]) %>
         <% else %>
           <%= link_to "Master Patient List", patients_path %>
         <% end %>

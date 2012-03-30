@@ -35,8 +35,8 @@
         <td style="background: none"></td>
         <td style="background: none"></td>
         <td></td>
-        <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.last %></td>
-        <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.first %></td>
+        <td><a href="<%= patient_url(patient.value.patient.id.to_s,:execution=> params[:execution]) %>"><%= patient.value.patient.last %></td>
+        <td><a href="<%= patient_url(patient.value.patient.id.to_s,:execution=> params[:execution]) %>"><%= patient.value.patient.first %></td>
         <td><%= display_time(patient.value.patient.birthdate) %></td>
         <td><%= patient.value.patient.gender %></td>
       </tr>
@@ -50,8 +50,8 @@
         <td class="<%= 'p' if patient.value.exclusions %>"></td>
         <td class="<%= 'p' if patient.value.antinumerator %>"></td>
         <td></td>
-        <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.last %></td>
-        <td><a href="<%= patient_url(patient.value.patient.id.to_s) %>"><%= patient.value.patient.first %></td>
+        <td><a href="<%= patient_url(patient.value.patient.id.to_s,:execution=> params[:execution]) %>"><%= patient.value.patient.last %></td>
+        <td><a href="<%= patient_url(patient.value.patient.id.to_s,:execution=> params[:execution]) %>"><%= patient.value.patient.first %></td>
         <td><%= display_time(patient.value.patient.birthdate) %></td>
         <td><%= patient.value.patient.gender %></td>
       </tr>
