@@ -108,7 +108,7 @@
   <div>
     <section class="tb">
       <div class="stacked">
-        <%= link_to "Patient List", patients_path(:product_test_id => @test.id), { :class => "cmd" } %>
+        <%= link_to "Patient List", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "cmd" } %>
         <%= link_to "Upload Results", "", {:id => 'upload_results_button', :class=>"cmd"} %>
         <%= link_to 'Download', '', {
           :id => 'download_menu',
@@ -132,7 +132,7 @@
           </li>
           <% if @current_execution.reported_results %>
             <li class="ui-menu-item" role="menuitem">
-              <%= link_to "Report as PDF", product_test_path(@test, :format => 'pdf'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+              <%= link_to "Report as PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
             </li>
           <% end %>
         </ul>

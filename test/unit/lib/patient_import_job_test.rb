@@ -4,10 +4,6 @@ require 'fileutils'
 class PatientImportJobTest < ActiveSupport::TestCase
 
   def test_perform
-    assert true
-  end
-=begin
-  def test_perform
     # test the import of CCR format records
     patient_count = Record.count
 
@@ -38,5 +34,5 @@ class PatientImportJobTest < ActiveSupport::TestCase
     assert_equal (patient_count + 2), Record.count
 
   end
-=end
+
 end

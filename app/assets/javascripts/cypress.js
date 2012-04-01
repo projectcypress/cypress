@@ -102,6 +102,3 @@
   
 })( jQuery );
 
-$(document).ready(function() {
-  //$('.cmd').button().css({'color':'green'});
-})

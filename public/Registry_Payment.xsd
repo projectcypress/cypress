@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xs:simpleType name="pqriSubmissionType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                PQRI-REGISTRY
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="PQRI-REGISTRY"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pqriSubmissionOption">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Allowed Values:
+                -------
+                PAYMENT or TEST
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="PQRI-REGISTRY|TEST"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pqriSubmissionVersion">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Per PQRI 2009, this must be exactly "2.0"
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="2.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pqriDate">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Date format like MM-DD-YYYY
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([0-1][0-9][\-][0-3][0-9][\-][0-2][0-9][0-2][0-9])"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pqriTime">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Military format with or without colon
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{2}[:]?\d{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pqriSubmissionMethod">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Allowed Values:
+                -------
+                A,B,C,E,F
+                A = 12 months, 80%, 3 or more measures
+                B = 6 months, 80%, 3 or more measures
+                C = 12 months, 30 consecutive, measure group
+                E = 12 months, 80%, measure group
+                F = 6 months, 80%, measure group
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <!--
+            NOTE: could also have done these as enumerations instead
+            <xs:enumeration value="A" />
+            <xs:enumeration value="B" />
+            ...
+            etc.
+            -->
+            <xs:pattern value="A|B|C|E|F"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pqriMeasureGroup">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Allowed Values:
+                -------
+                A,C,D,E,F,G,H,X
+                ID of the measure group.
+                A = Diabetes Mellitis
+                C = CKD
+                D = Preventive Care
+                E = Perioperative Care
+                F = Rheumatoid Arthritis
+                G = Back Pain
+                H = CABG
+                X = Not Applicable
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="A|C|D|E|F|G|H|X"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pqriYN">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Allowed Values:
+                -------
+                Y or y
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="Y|y"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pqriPCt">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Supports percentages in range 0-100.00
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:float">
+            <!--
+            <xs:pattern value="((100|[0-9]{1,2})(\.[0-9]{1,6})?)"/>
+            -->
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pqriMeasureNum">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Per the spec this is Numeric 3, but with ED measures this is NOT true
+                if you're doing ED measures, you probably want to change this to be max 6
+                so you can fit in the subgroup/stratification identifier "0495-2" etc.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="6"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="pqriSubmission" >
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Opening tag for submission element.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="file-audit-data" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        This tag and the entire file-audit-data section are required in the XML document. This tag contains no data.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="create-date" type="pqriDate" minOccurs="1" maxOccurs="1" >
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    The month, day, and year the XML file was created.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="create-time" type="pqriTime" minOccurs="1" maxOccurs="1" >
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    The hour and minutes representing the time the file was created.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="create-by" minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    The entity who created the file.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <!--Char, Max Len 50-->
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="1"/>
+                                    <xs:maxLength value="50"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="version"  minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    The version of the file being submitted..
+                                </xs:documentation>
+                            </xs:annotation>
+                            <!--Char, Max Len 20-->
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="1"/>
+                                    <xs:maxLength value="20"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="file-number" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
+                            <!--Int, Max Len 5-->
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    The number of the file.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+
+                        <xs:element name="number-of-files" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
+                            <!--Int, Max Len 5-->
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    Total number of files.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="registry" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        This tag is required in the XML document, however, it contains no data.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="registry-name" minOccurs="1" maxOccurs="1" >
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    The registry name.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <!--Char, Max Len 100-->
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="1"/>
+                                    <xs:maxLength value="100"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="registry-id"  minOccurs="1" maxOccurs="1" >
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    Used to identify the registry. Use Registry's Corporate TIN number.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <!--Char, Max Len 9-->
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="1"/>
+                                    <xs:maxLength value="9"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="submission-method" type="pqriSubmissionMethod" minOccurs="1" maxOccurs="1" >
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    Submission Method. Note: Limit one xml file to a single submission method
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="measure-group" minOccurs="1" maxOccurs="unbounded">
+                <!-- multiple allowed per file -->
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Opening tag for measure group. There could be multiple measure groups in a single XML file. This element repeats if there are multiple measure groups
+                    </xs:documentation>
+                </xs:annotation>
+
+
+                <xs:complexType>
+                    <xs:sequence>
+
+                        <xs:element name="provider" minOccurs="1" maxOccurs="unbounded">
+                            <!-- multiple allowed per file -->
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en">
+                                    This tag is required in the XML document, however, it contains no data. This element repeats if there are multiple providers
+                                </xs:documentation>
+                            </xs:annotation>
+
+                            <xs:complexType>
+                                <xs:sequence>
+
+                                    <xs:element name="npi" type="xs:integer" minOccurs="1" maxOccurs="1" >
+                                        <!--Char Numeric, Max Len 10-->
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="en">
+                                                National Provider Identifier as assigned by CMS.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="tin" type="xs:integer" minOccurs="1" maxOccurs="1" >
+                                        <!--Char Numeric, Max Len 9-->
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="en">
+                                                The tax identification number for specific NPI.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="waiver-signed" type="pqriYN" minOccurs="1" maxOccurs="1" >
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="en">
+                                                Participation waiver signed? A participation waiver indicates the eligible professional has given the registry permission to submit data on their behalf.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+
+                                    <xs:element name="encounter-from-date" type="pqriDate" minOccurs="1" maxOccurs="1" >
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="en">
+                                                The month, day, and year of the first service date of the submission period ("From" date).
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="encounter-to-date" type="pqriDate" minOccurs="1" maxOccurs="1" >
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="en">
+                                                The month, day, and year of the last service date of the submission period ("To" date).
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+
+
+                                    <xs:element name="measure-group-stat" minOccurs="0" maxOccurs="unbounded">
+                                        <!-- should this be maxOccurs="unbounded" ?-->
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="en">
+                                                Opening tag for measure group stat.  If the measure-group 'ID' is 'X', do not include the measure-group-stat segment
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="ffs-patient-count" type="xs:integer" minOccurs="0" maxOccurs="1" >
+                                                    <!--Numeric, Conditional; only required if measure-group 'ID' value is not 'X', Max Len 10-->
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Total number of Medicare Part B FFS patients seen for the PQRI measure group.
+                                                            Conditional; only required if measure-group 'ID' value is not 'X'
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                                <xs:element name="group-reporting-rate-numerator" type="xs:integer" minOccurs="0" maxOccurs="1" >
+                                                    <!--Numeric, Conditional; only required if measure-group 'ID' value is not 'X', Max Len 10-->
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Number of instances of reporting for all applicable measures within the measure group, for each eligible instance (reporting rate numerator).
+                                                            Conditional; only required if measure-group 'ID' value is not 'X'
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                                <xs:element name="group-eligible-instances" type="xs:integer" minOccurs="0" maxOccurs="1" >
+                                                    <!--Numeric, Conditional; only required if measure-group 'ID' value is not 'X', Max Len 10-->
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Number of eligible instances (reporting denominator) for the PQRI measure group.
+                                                            Conditional; only required if measure-group 'ID' value is not 'X'
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                                <xs:element name="group-reporting-rate" type="pqriPCt" minOccurs="0" maxOccurs="1" >
+                                                    <!--Numeric, Conditional; only required if measure-group 'ID' value is not 'X', 0.00 - 100.00-->
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Percentage of reporting (Reporting Rate Numerator/Reporting Denominator).
+                                                            Conditional; only required if measure-group 'ID' value is not 'X'
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+
+
+                                    <xs:element name="pqri-measure" minOccurs="1" maxOccurs="unbounded">
+                                        <!-- should this be  maxOccurs="unbounded" ?-->
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="en">
+                                                Opening tag for PQRI measure. This tag is required in the XML document, however, it contains no data. This element repeats if there are multiple measures
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="pqri-measure-number" type="pqriMeasureNum" minOccurs="1" maxOccurs="1" >
+                                                    <!-- see data type notes above -->
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            The PQRI measure number.
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                                <xs:element name="eligible-instances" type="xs:integer" minOccurs="1" maxOccurs="1">
+                                                    <!-- Numeric, Max Len 10-->
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Number of eligible instances (reporting denominator) for the PQRI measure.
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+
+                                                <xs:element name="meets-performance-instances" type="xs:integer" minOccurs="1" maxOccurs="1" >
+                                                    <!-- Numeric, Max Len 10-->
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Number of instances of quality service performed (performance numerator).
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+
+                                                <xs:element name="performance-exclusion-instances" type="xs:integer" minOccurs="1" maxOccurs="1" >
+                                                    <!-- Numeric, Max Len 10-->
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Number of performance exclusions for the PQRI Measure
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+
+                                                <xs:element name="performance-not-met-instances" type="xs:integer" minOccurs="1" maxOccurs="1" >
+                                                    <!-- Numeric, Max Len 10-->
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Number of instances which do not meet the performance criteria, even though reporting occurred.
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+
+                                                <xs:element name="reporting-rate" type="pqriPCt" minOccurs="1" maxOccurs="1" >
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Percentage of reporting (Performance Numerator + Performance Exclusions + Performance Not Met/Reporting Denominator).
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+
+                                                <xs:element name="performance-rate" type="pqriPCt" minOccurs="1" maxOccurs="1" nillable="true">
+                                                    <xs:annotation>
+                                                        <xs:documentation xml:lang="en">
+                                                            Percentage of performance (Performance Numerator/Reporting Numerator-Performance Exclusions).
+                                                            Conditional; 
+                                                            
+							    Note:  When the performance-rate value is null use performance-rate xsi:nil=true for this tag.  
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="ID" type="pqriMeasureGroup" use="required" >
+                        <xs:annotation>
+                            <xs:documentation xml:lang="en">
+                                ID of the measure group
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="type" type="pqriSubmissionType" use="required" >
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    Describes the setting for which data is being submitted.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="option" type="pqriSubmissionOption" use="required" >
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    Describes the registry option to be used (Use the value PAYMENT to repesent PRODUCTION files and TEST to represent TEST files whose data will NOT be stored in Data Warehouse)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="version" type="pqriSubmissionVersion" use="required" >
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    The version of the file layout
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="submission" type="pqriSubmission" nillable="false"/>
+
+    
+</xs:schema>
