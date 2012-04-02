@@ -81,7 +81,7 @@ class ProductTestsController < ApplicationController
       
       test.population_creation_job = Cypress::PatientImportJob.create(:zip_file_location => byod_path, :test_id => test.id, :format => format)
     elsif params[:patient_ids]
-      if params[:population_description] && params[:population_name]
+      if params[:population_description] && !params[:population_name].empty?
         # if the user has created a population using the minimal_set feature
         # and they want to save it for subsequent tests
         population = PatientPopulation.new({:product_test => test, :name => params[:population_name], :description => params[:population_description],

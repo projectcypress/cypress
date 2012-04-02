@@ -78,12 +78,12 @@ class MeasuresController < ApplicationController
     overflow_ids = minimal_set[:overflow]
     
     # Query to find the actual Records for our minmal set and overflow
-    @patient_list = Record.where( { _id: { "$in" => minimal_ids } } ).only(:_id, :first, :last, :birthdate, :gender).order_by([["_id", :desc]])
-    @overflow = Record.where({ _id: { "$in" => overflow_ids } }).only(:_id, :first, :last, :birthdate, :gender)
+    @patient_list = Record.where( { _id: { "$in" => minimal_ids } } ).only(:_id, :first, :last, :birthdate, :gender, :patient_id).order_by([["_id", :desc]])
+    @overflow = Record.where({ _id: { "$in" => overflow_ids } }).only(:_id, :first, :last, :birthdate, :gender, :patient_id)
     all_patients = @patient_list | @overflow
     
     # Get the results that are relevant to the measures and patients the user asked for
-    results = Result.where({'value.measure_id' => { "$in" => measure_ids}, 'value.patient_id' => { "$in" => minimal_ids | overflow_ids } })
+    results = Result.where({'value.measure_id' => { "$in" => measure_ids}, 'value.patient_id' => { "$in" => minimal_ids } })
     
     # Use the relevant results to build @coverage of each measure
     @coverage = {}

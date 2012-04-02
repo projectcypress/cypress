@@ -67,6 +67,7 @@
   </style>
   <script type="text/javascript">
     var cache = {}; // caching inputs for the visited steps
+    var minimalPatients = [];
     var overflow = [];
     var usedOverflow = [];
     var coverage = [];
@@ -169,9 +170,7 @@
         }
       });
     });
-
   </script>
-
 <% end %>
 
 <%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
@@ -198,6 +197,4 @@
     <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
     <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /> </a>
   </div>
-
-
 <% end %>

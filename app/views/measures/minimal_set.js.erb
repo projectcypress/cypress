@@ -1,16 +1,14 @@
 // Store our list of overflow patients
+minimalPatients = <%= raw @patient_list.as_json.to_json %>;
 overflow = <%= raw @overflow.as_json.to_json %>;
 coverage = <%= raw @coverage.as_json.to_json %>;
 
 $('#measure_coverage').html("<%= escape_javascript(render :partial => 'measure_coverage', :locals => { :coverage => @coverage, :patients => @patient_list }) %>");
+updateFullMatrix();
 $("#save_population").show();
+
 $('tr.patient td, tr.measure td').on("mouseenter mouseout", function() {
   var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
-  
-  alert("original: " + $(this).parent()[0].classList.toString() + "\n"
-    + "updated to: " + classes + "\n"
-    + "mystery: " + classes.substr(0,classes.length-1) + ' td');
-  
   $(classes.substr(0,classes.length-1) + ' td').toggleClass('highlight');
 });
 
@@ -34,6 +32,8 @@ $("#add_patient").click(function() {
     $("#add_patient").addClass("disabled");
   if (usedOverflow.length == 1)
     $("#remove_patient").removeClass("disabled");
+    
+  alert(JSON.stringify(additionalPatient));
   
   // Gather necessary information for our new entry
   var measureClasses = "";
@@ -59,13 +59,13 @@ $("#add_patient").click(function() {
   
   // Add the new row along with a hidden input to include the patient in the set of records to be cloned
   $("#minimal_patients_table").append(newRow);
-  $("#minimal_patients_table").append("<input type='hidden' name='patient_ids[]' value='" + additionalPatient._id + "'>");
+  $("#minimal_patients_table").append("<input type='hidden' name='patient_ids[]' value='" + additionalPatient.patient_id + "'>");
   
-  /*newRow = $("#minimal_patients_table tr:last");
+  newRow = $("#minimal_patients_table tr:last");
   newRow.children("td").on("mouseenter mouseout", function() {
     var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
     $(classes.substr(0,classes.length-1) + ' td').toggleClass('highlight');
-  });*/
+  });
 });
 $("#remove_patient").click(function() {
   // If we're at the minimum set, don't remove any more patients

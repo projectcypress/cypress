@@ -12,6 +12,27 @@
   tr.patient:hover,tr.measure:hover {background:#DEFADE;}
 </style>
 
+<script type="text/javascript">
+  function updateFullMatrix() {
+    for (measure in coverage) {
+      var mappedPatients = [];
+      $.each(coverage[measure].patients, function(i, patient) {
+        mappedPatients.push(patient._id);
+      });
+    
+      var measureRow = $("#" + measure);
+      measureRow.removeClass();
+      measureRow.addClass("measure " + mappedPatients.join(" "));
+      
+      var buckets = ["numerator", "denominator", "antinumerator", "exclusion"];
+      for (b in buckets) {
+        var bucket = buckets[b];
+        measureRow.children("." + bucket).html(coverage[measure][bucket]);
+      }
+    }
+  }
+</script>
+
 <% patients.each do |p| %>
   <input type="hidden" name="patient_ids[]" value="<%= p[:patient_id] %>"/>
 <% end %>
@@ -48,10 +69,10 @@
 
               %>">
                 <td title="<%= values[:name] %>" class="measure"><%= measure %></td>
-                <td class="numerator"><%= values['numerator'] %></td>
-                <td class="denominator"><%= values['denominator'] %></td>
-                <td class="antinumerator"><%= values['antinumerator'] %></td>
-                <td class="exclusions"><%= values['exclusion'] %></td>
+                <td class="numerator"></td>
+                <td class="denominator"></td>
+                <td class="antinumerator"></td>
+                <td class="exclusions"></td>
               </tr>
             <% end %>
           </tbody>
