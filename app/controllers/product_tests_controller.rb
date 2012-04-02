@@ -85,7 +85,7 @@ class ProductTestsController < ApplicationController
         # if the user has created a population using the minimal_set feature
         # and they want to save it for subsequent tests
         population = PatientPopulation.new({:product_test => test, :name => params[:population_name], :description => params[:population_description],
-            :patient_ids => params[:patient_ids]})
+            :patient_ids => params[:patient_ids], :user => User.where({:email => current_user[:email]}).first })
         population.save!
         test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:population_name], :test_id => test.id)
         test.patient_population = population
