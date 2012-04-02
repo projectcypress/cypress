@@ -5,6 +5,7 @@ class PatientPopulation
   include Mongoid::Document
   
   belongs_to :product_test
+  belongs_to :user
   has_and_belongs_to_many :records
   
   field :id, type: String
