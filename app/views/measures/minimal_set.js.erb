@@ -31,11 +31,17 @@ $("#add_patient").click(function() {
 
 /* Remove a patient from the patientList and return them to overflow */
 $("#remove_patient").click(function() {
-  if (removeMinimalPatient()) {
+  var patient = removeMinimalPatient();
+  
+  if (patient) {
     updateOverflowButtons();
 
-    // Actually remove the row and the hidden input associated with it
+    // Remove the row and the hidden input associated with it
     $("#minimal_patients_table tr:last").remove();
     $("#minimal_patients_table input:last").remove();
+    
+    // Update all of the buckets in the matrix that this patient affects
+    for (m in patient.measures)
+      updateMatrixByMeasure(patient.measures[m]);
   }
 });
