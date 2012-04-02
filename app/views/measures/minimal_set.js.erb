@@ -1,75 +1,41 @@
-// Store our list of overflow patients
+// Store all of the data from calculating the minimal set
+minimalPatients = <%= raw @patient_list.as_json.to_json %>;
 overflow = <%= raw @overflow.as_json.to_json %>;
+coverage = <%= raw @coverage.as_json.to_json %>;
+minimalCount = minimalPatients.length;
 
+// Render the minimal set matrix
 $('#measure_coverage').html("<%= escape_javascript(render :partial => 'measure_coverage', :locals => { :coverage => @coverage, :patients => @patient_list }) %>");
-$('tr.patient td, tr.measure td').hover(function(){
-  var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
-  $(classes.substr(0,classes.length-1) + ' td').addClass('highlight');
-},function(){
-  var classes = $(this).parent()[0].classList.toString().replace(/(\w+)/g,"#$1,").replace(/ /g,"");
-  $(classes.substr(0,classes.length-1) + ' td').removeClass('highlight');
-});
+$("#save_population").show();
+updateMatrix();
+
+/* EVENTS */
+/* On hover, highlight the matching measures for patients or the matching patients for measures */
+$('tr.patient td').on("mouseenter mouseout", highlightMeasures);
+$('tr.measure td').on("mouseenter mouseout", highlightPatients);
 
 /* Add a patient from the list of overflow */
 $("#add_patient").click(function() {
-  // If we've exhausted the overflow list, we can't add anymore
-  if (overflow.length < 1)
-    return;
+  var patient = addMinimalPatient();
   
-  // Select a random patient and move them from the overflow list to the used list
-  var randomIndex = Math.floor(Math.random() * overflow.length);
-  var additionalPatient = overflow.splice(randomIndex, 1)[0];
-  usedOverflow.push(additionalPatient);
-  
-  // Update the text of the adding and removing buttons
-  var totalOverflow = overflow.length + usedOverflow.length;
-  $("#add_patient").text("+ (" + overflow.length + "/" + totalOverflow + ")");
-  $("#remove_patient").text("- (" + usedOverflow.length + "/" + totalOverflow + ")");
-  // Enable/Disable the adding and removing buttons as their lists become filled or empty
-  if (overflow.length == 0)
-    $("#add_patient").addClass("disabled");
-  if (usedOverflow.length == 1)
-    $("#remove_patient").removeClass("disabled");
-  
-  // Gather necessary information for our new entry
-  var coverage = <%= raw @coverage.as_json.to_json %>;
-  var measureClasses = "";
-  var birthdate = new Date(additionalPatient.birthdate);
-  var formattedBirthdate = (birthdate.getMonth() + 1) + "/" + birthdate.getDate() + "/" + birthdate.getFullYear();
-  $.each(coverage, function(measure, values) {
-    for (var p in coverage[measure].patients) {
-      if (additionalPatient == coverage[measure].patients[p])
-        measureClasses.concat(measure);
-    }
-  });
-  
-  // Put the pieces of the new row together
-  var newRow = "<tr id='" + additionalPatient._id + "' class='patient " + measureClasses + "'>" +
-    "<td>" + additionalPatient.last + "</td>" +
-    "<td>" + additionalPatient.first + "</td>" +
-    "<td style='text-align:center'><time datetime='" + formattedBirthdate + "'>" + formattedBirthdate + "</time></td>" + 
-    "<td style='text-align:center'>" + additionalPatient.gender + "</td>" +
-  "</tr>";
-  $("#minimal_patients_table").append(newRow);
+  // If we successfully added an overflow patient, create an entry for them and update the view
+  if (patient) {
+    createMinimalPatientRow(patient);
+    updateOverflowButtons();
+    
+    // Update all of the buckets in the matrix that this patient affects
+    for (m in patient.measures)
+      updateMatrixByMeasure(patient.measures[m]);
+  }
 });
+
+/* Remove a patient from the patientList and return them to overflow */
 $("#remove_patient").click(function() {
-  // If we're at the minimum set, don't remove any more patients
-  if (usedOverflow.length < 1)
-    return;
-  
-  // Drop the patient from the used list and return them to overflow
-  overflow.push(usedOverflow.pop());
-  
-  // Update the text of the adding and removing buttons
-  var totalOverflow = overflow.length + usedOverflow.length;
-  $("#add_patient").text("+ (" + overflow.length + "/" + totalOverflow + ")");
-  $("#remove_patient").text("- (" + usedOverflow.length + "/" + totalOverflow + ")");
-  // Enable/Disable the adding and removing buttons as their lists become filled or empty
-  if (usedOverflow.length == 0)
-    $("#remove_patient").addClass("disabled");
-  if (overflow.length == 1)
-    $("#add_patient").removeClass("disabled");
-  
-  // Actually remove the row
-  $("#minimal_patients_table tr:last").remove();
+  if (removeMinimalPatient()) {
+    updateOverflowButtons();
+
+    // Actually remove the row and the hidden input associated with it
+    $("#minimal_patients_table tr:last").remove();
+    $("#minimal_patients_table input:last").remove();
+  }
 });

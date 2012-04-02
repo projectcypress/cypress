@@ -6,27 +6,7 @@
     }
     .highlight {background:#DEFADE;}
     .step {height:30em;}
-    p.workflow {
-      border:1px solid #539309;
-      -moz-border-radius:5px;
-      -webkit-border-radius:5px;
-      border-radius:5px;
-      color:#539309;
-      cursor:pointer;
-      font-size:110%;
-      text-align:center;
-      width: 80%;
-      margin-left:10%;
-    }
-    p.selectedWorkflow {
-      font-weight:bold;
-      background:#DEFADE;
-      border:1px solid green;
-    }
-    #wizard-workflow-screen label {
-      padding: 2em;
-    }
-
+    
     td {vertical-align: top;}
     p {padding:5px;}
     #navigation {
@@ -47,26 +27,9 @@
       height:5em;
       padding:1em;
     }
-    .wf1_container, .wf2_container, .wf3_container {
-      position:relative;
-    }
     .left {float: left;clear:left;}
     .right {float: right;clear:right;}
 
-    #wizard-patients-manual-screen td,
-    #wizard-patients-manual-screen th {
-      text-align: left;
-    }
-    a.remove {
-      padding: 0px 5px;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-    a.add {
-      padding: 0px 5px;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
     input[type=radio] {display:inline-block;}
     dd.wide, span.wide {
       width: 45em;
@@ -74,7 +37,6 @@
     #validationErrorMessages {
       text-align:center;
     }
-    td.wf_label {display:inline-block;white-space:nowrap;width:200px;}
     label.validationErrors {
       color: red;
       font-size: 1em;
@@ -82,8 +44,6 @@
       width: 40em;
       margin-left: 0.5em;
     }
-    .measure_group {margin-left:.5em;}
-    .measure_group label {text-indent:5em;}
     input.required,textarea.required {background:#FFE9EC;}
     input.valid,textarea.valid {background:#DEFADE;}
     /* vertical tabs */
@@ -100,256 +60,49 @@
     td span.complete {background:url(/assets/included.png) 0 50% no-repeat;
                       text-indent:-9999pt;width:16px;
     }
+    td span.current {background:url(/assets/pass.png) 0 50% no-repeat;
+                     text-indent:-9999pt;width:16px;
+    }
 
   </style>
-<% end %>
-
-<%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
-  <%= f.hidden_field :product_id, :value => @product.id %>
-  <div id="progress_bar" style="float:right;">
-    <table><tr>
-        <td>completed:</td>
-        <td><span class="complete" id="step1">1</span></td>
-        <td><span class="incomplete" id="step2">2</span></td>
-        <td><span class="incomplete" id="step3">3</span></td>
-        <td><span class="incomplete" id="step4">4</span></td>
-      </tr>
-    </table>
-  </div>
-  <section id="first" class="step" style="width: 100%; overflow:auto;">
-    <h2 class="ui-widget-title" style="margin-top: 20px;">Describe the test...</h2>
-    <dl>
-      <dt>
-        Test Name:
-      </dt>
-      <dd>
-        <%= f.text_field :name, :size => 87 %>
-      </dd>
-      <dt>
-        Reporting Period:
-      </dt>
-      <dd>
-        <span class="wide">from
-          <input type="text" class="effective_date" id="effective_date_start" name="product_test[effective_date_start]" size="8" value="<%= Time.at(@period_start).strftime("%m/%d/%Y") %>"/>
-          to
-          <input type="text" class="effective_date" id="effective_date_end" name="product_test[effective_date_end]" size="8" value="<%= Time.at(@effective_date).strftime("%m/%d/%Y") %>"/>
-        </span>
-      </dd>
-      <dt>
-        <%= f.label :description, "Description:" %>
-      </dt>
-      <dd>
-        <%= f.text_area :description, :cols => 75, :rows => 3 %>
-      </dd>
-    </dl>
-  </section>
-
-  <section id="wizard-measures-screen" class="step">
-    <h2 class="ui-widget-title" style="margin-top: 20px;">Identify <strong>at least one</strong> quality measure to test...</h2>
-    <span class="header_commands" style="text-align:center;"><input type="checkbox" id="all_measures"/><label for="all_measures">all quality measures</label></span>
-    <div id="tabs">
-      <!-- set up a tab header for each measure group -->
-      <ul>
-        <% @measures_categories.sort.each do |category, measures| %>
-          <li>
-            <a href="#<%= category.tr(" '", "_") %>"><%= category %></a><span style="padding-top:.5em;text-align:right;padding-right:5px;" id="<%= category.tr(" '", "_") %>_group_total"></span></li>
-        <% end %>
-      </ul>
-      <!-- set up a tab for each measure group -->
-      <% @measures_categories.sort.each do |category, measures| %>
-        <div id="<%= category.tr(" '", "_")%>" class="measure_group"> <span class="header_commands"><input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all"/><label for="<%= category.tr(" '", "_")%>_group">all <%= category %> measures</label></span><br/>
-          <%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>["measure_cb", category.tr(" '", "_")]} %>
-        </div>
-      <% end %>
-    </div>
-  </section>
-
-  <section id="wizard-workflow-screen" class="step">
-    <h2 style="margin-top: 20px;">Please select a workflow option...</h2>
-    <section>
-      <p class="wf2_container workflow">
-        <input type="radio" id="wf2" name="workflow" class="link" value="wizard-patients-automated-screen" style="display:none;"/>
-        <label for="wf2"><em>C32/CCR Export</em><br/>
-          The Cypress Test Deck will be exported in HITSP C32 or ASTM CCR XML format and imported into an EHR software product or module.
-        </label>
-      </p>
-      <br/>
-      <p class="wf1_container workflow">
-        <input type="radio" id="wf1" name="workflow" class="link" value="wizard-patients-manual-screen" style="display:none;"/>
-        <label for="wf1"><em>HTML Export</em><br/>
-          The Cypress Test Deck will be exported in HTML format and input into an EHR software product or module.
-        </label>
-      </p>
-      <br/>
-      <p class="wf3_container workflow">
-        <input type="radio" id="wf3" name="workflow" class="link" value="wizard-patients-byod-screen" style="display:none;"/>
-        <label for="wf3"><em>C32/CCR Upload</em><br/>
-          Exported HITSP C32 or ASTM CCR XML formatted patient records will be uploaded to Cypress in lieu of the Test Deck for this test.
-        </label>
-      </p>
-    </section>
-  </section>
-
-  <section id="wizard-patients-automated-screen" class="step submit_step">
-    <h2 class="ui-widget-title" style="margin-top: 20px;">Select patient records to use...</h2>
-    <section>
-      Cypress has two predefined patient populations to choose from - the full 225 or a subset of 20
-      designed to test the core and core alternate Stage 1 Clinical Quality Measures.<br/><br/>
-      <dl>
-        <dt>
-          population:
-        </dt>
-        <dd>
-          <%= f.collection_select(:patient_population, @patient_populations, :name, :description, {:selected => 'all'}) %>
-        </dd>
-        <dt>download as:</dt>
-        <dd>
-          <span class="wide">
-            <input type="radio" name="download_format" id="c32" value="c32"/>
-            <label for="c32">HITSP C32</label>
-            <input type="radio" name="download_format" id="ccr" value="ccr"/>
-            <label for="ccr">ASTM CCR</label>
-            <input type="radio" name="download_format" id="html" value="html"/>
-            <label for="html">HTML</label>
-            into <input id="download_filename" type="text" name="download_filename" value="all_patients_c32" size="25"/>
-          </span>
-        </dd>
-        <dt>
-          patient test mode:
-        </dt>
-        <dd>
-          <select>
-            <option>name randomization</option>
-          </select>
-        </dd>
-      </dl>
-    </section>
-  </section>
-
-  <section id="wizard-patients-manual-screen" class="step submit_step">
-    <h2 class="ui-widget-title" style="margin-top: 20px;">Patient records that satisfy your chosen quality measures...</h2>
-
-    <!--
-    <span>
-      <span title="want more or fewer?">I'd like</span>
-      <input type="text" id="total_records" value="5" width="5"/> patient records
-      <a class="cmd" id="roll_again" title="dont like what you see?" onclick="updateMinimalPatientSet()">go</a>
-    </span>
-
-    <table style="width:100%;">
-      <tr>
-        <td>fewer records</td>
-        <td style="width:60%;"><span id="tradeoffSlider"></span></td>
-        <td>better coverage</td>
-      </tr>
-    </table>
-    -->
-
-    <div id="measure_coverage" style="height:400px;overflow:auto;"></div>
-  </section>
-
-  <section id="wizard-patients-byod-screen" class="step submit_step">
-    <h2 class="ui-widget-title" style="margin-top: 20px;">Bring your own records...</h2>
-    <dl>
-      <dt><%= label_tag :byod_label, "upload .zip of records:" %></dt>
-      <dd><%= file_field_tag :byod %></dd>
-    </dl>
-    <dl>
-      <dt>as:</dt>
-      <dd>
-        <%= f.radio_button :upload_format, "c32",
-          :checked => (@test[:upload_format] == nil || @test[:upload_format] == "c32") %>
-        <%= f.label :upload_format_c32, "C32" %>
-        <%= f.radio_button :upload_format, "ccr", :checked => @test[:upload_format] == "ccr"%>
-        <%= f.label :upload_format_ccr, "CCR" %>
-      </dd>
-    </dl>
-  </section>
-
-
-  <!--
-  <section id="wizard-summary-screen" class="step submit_step">
-    <h2 class="ui-widget-title">Summary page</h2>
-    <p>Please verify your information below.</p>
-    <div id="summaryContainer">
-      Nothing should be here yet
-    </div>
-  </section>
-  -->
-
-  <div id="validationErrorMessages"></div>
-  <div id="navigation">
-    <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
-    <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /> </a>
-  </div>
-
   <script type="text/javascript">
     var cache = {}; // caching inputs for the visited steps
-    var overflow = [];
+    
+    // Variables for the minimal patient set
+    var minimalCount = 0;
+    var minimalPatients = [];
     var usedOverflow = [];
+    var coverage = [];
 
-    function updateDownloadFilename() {
-      var download_filename = $('#product_test_name').val().replace(/ /g,"_") + "_" +
-        $('#product_test_patient_population').val() + "_" +
-        $('input[name=download_format]:checked').val() +
-        '.zip';
-      $('#download_filename').attr('readonly',true).val(download_filename);
-    };
     function updateProgressBar(screen) {
-      $('#step2,#step3,#step4').removeClass('complete').addClass('incomplete');
+      $('#step1,#step2,#step3,#step4').removeClass('complete current incomplete').addClass('incomplete');
       switch (screen) {
+        case "first":
+          $('#step1').removeClass('incomplete').addClass('current');
+          break;
         case "wizard-measures-screen":
-          $('#step2').removeClass('incomplete').addClass('complete');
+          $('#step1').removeClass('incomplete').addClass('complete');
+          $('#step2').removeClass('incomplete').addClass('current');
           break;
         case "wizard-workflow-screen":
-          $('#step2,#step3').removeClass('incomplete').addClass('complete');
+          $('#step1,#step2').removeClass('incomplete').addClass('complete');
+          $('#step3').removeClass('incomplete').addClass('current');
           break;
 
         case "wizard-patients-automated-screen":
         case "wizard-patients-manual-screen":
         case "wizard-patients-byod-screen":
-          $('#step2,#step3,#step4').removeClass('incomplete').addClass('complete');
+          $('#step1,#step2,#step3').removeClass('incomplete').addClass('complete');
+          $('#step4').removeClass('incomplete').addClass('current');
           break;
       }
     }
-    function tallyMeasureGroups() {
-      var grandTotal = 0;
-      $.each($('.measure_group'), function(index, item){
-        var total = Math.max(0,$(this).find('input.measure_cb:checked').length);
-        $('#' + $(item).attr('id') +'_group').prop('checked', $(this).find('input.measure_cb').length == total);
-        grandTotal += total;
-        $('#' + $(item).attr('id') +'_group_total').empty().html(total > 0 ? total : '');
-      });
-      $('#all_measures').prop('checked',$('#wizard-measures-screen input.measure_cb').length == grandTotal)
-      // clear the coverage map
-      $('#measure_coverage').empty()
-    };
-    function updateMinimalPatientSet() {
-      $('#measure_coverage').empty();
-      var ids = [];
-      $('.measure_cb:checked').each(function(i,e) {
-        var id = $(e).attr('id');
-        ids.push(id.substr(id.lastIndexOf('_')+1));
-      });
-      // get the needed num/den/exc for each of the selected measures
-      $.ajax({ url: "/measures/minimal_set",
-        type: "POST",
-        data: {measure_ids: ids, num_records: $('#total_records').val()},
-        dataType: 'script',
-        error: function(xhr, err) {
-          alert("Sorry, we can't currently calculate large numbers of quality measures");
-        }
-      });
-    }
-
     $(document).ready(function() {
-      $('#tradeoffSlider').slider({range:true,min:5,max:225,values: [ 5, 20 ]});
-      //$('#total_records').spinner({min: 5, max: 225});
-      $('.effective_date').datepicker().css({'width':'85px','text-align':'center'});
+      $.fx.off = true; // disable the annoying animations the wizard uses
       // for styling the vertical tabs
       $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix').css({"width":"90%","margin-left":"5%"});
       $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
-
+      $('#tabs').tabs("select",2)
       // establish the form wizard
       $('#new_product_test').formwizard({
         // !important - otherwise the rails form processing
@@ -367,10 +120,6 @@
         validationOptions: {
           rules: {
             "product_test[name]": "required",
-            "product_test[effective_date_start]": {
-              required: true,
-              date: true
-            },
             "product_test[effective_date_end]": {
               required: true,
               date: true
@@ -391,13 +140,7 @@
           errorPlacement: function(error, element) {
             error.appendTo( $('#validationErrorMessages') );
           }
-        },
-        inAnimation : {},
-        outAnimation: {},
-        inDuration : 500,
-        outDuration: 500,
-        easing: null
-
+        }
       }).bind("step_shown", function(event,data){ //TODO still need to hook up validation
         // do screen-specific functions here
         if (data.currentStep == "wizard-patients-automated-screen") {
@@ -407,7 +150,7 @@
         }
         // update the progress indicator
         updateProgressBar(data.currentStep);
-        
+
         if(data.isLastStep){ // if this is the last step...then
           $("#summaryContainer").empty().append("<ul/>"); // empty the container holding the
           $.each(data.activatedSteps, function(i, id){ // for each of the activated steps...do
@@ -428,54 +171,32 @@
           cache = {}; // empty the cache again
         }
       });
-
-      // for choosing the workflow option
-      $('label').hover(function(){$(this).parent().addClass('highlight')},
-      function(){$(this).parent().removeClass('highlight')}
-    ).click(function(){
-        var self = this;
-        $.each(['wf1','wf2','wf3'], function(i,e) {
-          $('.'+e+'_container').removeClass('selectedWorkflow');
-        });
-        $(this).parent().addClass('selectedWorkflow');
-      });
- 
-      // for determining the download filename
-      $('#wf2').click(function(){
-        $('#html,label[for="html"]').hide();
-        $('#c32').attr('checked',true);
-        $('#c32,#ccr,label[for="c32"],label[for="ccr"]').show();
-      });
-      $('#wf1').click(function(){
-        $('#c32,#ccr,label[for="c32"],label[for="ccr"]').hide();
-        $('#html').attr('checked',true);
-        $('#html,label[for="html"]').show();
-      });
-      $('#product_test_patient_population,input[name=download_format]').change(function(){
-        updateDownloadFilename();
-      });
-
-
-      // for handling the selection of measures from groups
-      $('#all_measures').click(function () {
-        $('#wizard-measures-screen input:checkbox').prop('checked', $(this).prop('checked'));
-        $('.measure_group').prop('checked', $(this).prop('checked'));
-        tallyMeasureGroups();
-      });
-      $('.measure_group_all').click(function () {
-        var groupName = $(this).attr('id');
-        $(this).closest('div').find('input:checkbox').prop('checked', $(this).prop('checked'));
-        tallyMeasureGroups();
-      });
-
-      $('.measure_cb').change(function() {
-        tallyMeasureGroups();
-      });
-
-      // set the default choice by invoking a click on workflow 2
-      $('label[for=wf2]').trigger("click");
     });
-
   </script>
+<% end %>
 
+<%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
+  <%= f.hidden_field :product_id, :value => @product.id %>
+  <div id="progress_bar" style="float:right;">
+    <table><tr>
+        <td>completed:</td>
+        <td><span class="current" id="step1">1</span></td>
+        <td><span class="incomplete" id="step2">2</span></td>
+        <td><span class="incomplete" id="step3">3</span></td>
+        <td><span class="incomplete" id="step4">4</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <%= render :partial => "product_tests/wizard_screens/home", :locals => {:f => f} %>
+  <%= render :partial => "product_tests/wizard_screens/measures", :locals => {:f => f} %>
+  <%= render :partial => "product_tests/wizard_screens/workflow", :locals => {:f => f} %>
+  <%= render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
+
+  <div id="validationErrorMessages"></div>
+
+  <div id="navigation">
+    <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
+    <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /> </a>
+  </div>
 <% end %>

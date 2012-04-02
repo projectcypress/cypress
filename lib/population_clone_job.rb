@@ -29,7 +29,11 @@ module Cypress
         patient_population = PatientPopulation.where(:name => options['subset_id']).first
         ama_patients = Record.where(:patient_id.in => patient_population.patient_ids)
       else
-        # no manipulation required
+        # For randomness, when a user requests to use the full test deck, we add up to 10% duplicate records
+        additional_patient_count = Random.rand(ama_patients.size * 0.1).to_i
+        additional_patient_ids = additional_patient_count.times.map{ Random.rand(ama_patients.size).to_s }
+        additional_patients = Record.where(:test_id => nil).where(:patient_id.in => additional_patient_ids)
+        ama_patients = ama_patients.concat(additional_patients)
       end
       
       rand_prefix = Time.new.to_i

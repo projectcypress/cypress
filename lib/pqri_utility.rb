@@ -4,6 +4,7 @@ module Cypress
     # Extract and return measure results from a PQRI document and add to the reported results
     # for this test.
     def self.extract_results(doc)
+      doc = (doc.kind_of? String )? Nokogiri::XML::Document.new(doc) : doc
       results ||= {}
       result_nodes = doc.xpath('/submission/measure-group/provider/pqri-measure')
 
@@ -24,8 +25,10 @@ module Cypress
     #
     # Return value is an array of all errors found.
     def self.validate(doc)
+      puts doc
+      doc = (doc.kind_of? String) ? Nokogiri::XML::Document.new(doc) : doc
       validation_errors = []
-      schema = Nokogiri::XML::Schema(open("http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd"))
+      schema = Nokogiri::XML::Schema(open(Rails.root.join("public","Registry_Payment.xsd")))
 
       schema.validate(doc).each do |error|
         validation_errors << error.message

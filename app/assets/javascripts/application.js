@@ -13,4 +13,3 @@
 //= require jquery.validate.min
 //= require jquery.form
 //= require jquery.form.wizard
-//= require bbq

@@ -2,15 +2,27 @@
   <%= form_for([:process_pqri, @test], :html => {:method => :post, :multipart => true}) do |f| %>
     <table>
       <tbody>
-        <tr>
-          <td class="first"></td>
+       
+        <tr id="advanced_options" class="hidden">
+          <td>1. </td>
+          <td><%= f.label '', "Baseline PQRI File", :for => :vendor_pqri %></td>
+          <td>&nbsp;<td>
+          <td><%= f.file_field :baseline %></td>
+          <%= hidden_field_tag(:execution_id, params[:execution_id]) %>
+        </tr>
+          <tr><td>&nbsp;<td></tr>
+         <tr>
+          <td class="first">2.</td>
           <td><%= f.label '', "PQRI File", :for => :vendor_pqri %></td>
+          <td>&nbsp;<td>
           <td><%= f.file_field :pqri %></td>
         </tr>
+        <tr><td>&nbsp;<td></tr>
         <tr id="advanced_options" class="hidden">
           <td></td>
-          <td><%= f.label '', "Baseline PQRI File", :for => :vendor_pqri %></td>
-          <td><%= f.file_field :baseline %></td>
+          <td></td>
+          <td><td>
+          
         </tr>
       </tbody>
     </table>

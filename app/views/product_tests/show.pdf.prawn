@@ -13,12 +13,7 @@ pdf.text "Product: #{@product.name}"
 pdf.text "Test: #{@test.name}"
 pdf.text "Run at: #{@current_execution.pretty_date}\n\n"
 
-if @current_execution.validation_errors
-  pdf.text "PQRI Validation Errors:\n\n"
-  @current_execution.validation_errors.each do |error|  
-    pdf.text error + "\n\n"
-  end
-end
+
 
 data = []
 pdf.text "Failing Measures:"  
@@ -53,4 +48,11 @@ if data.size > 0 then
   pdf.table(data)
 else 
   pdf.text "NONE", :align => :center
+end
+
+if @current_execution.validation_errors
+  pdf.text "PQRI Validation Errors:\n\n"
+  @current_execution.validation_errors.each do |error|  
+    pdf.text error + "\n\n"
+  end
 end

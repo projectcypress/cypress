@@ -1,7 +1,8 @@
 class User
   include Mongoid::Document
 
-  has_many :vendors
+  has_and_belongs_to_many :vendors
+  has_many :patient_populations
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable

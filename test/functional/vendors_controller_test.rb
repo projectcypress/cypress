@@ -4,10 +4,10 @@ class VendorsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   
   setup do
-    collection_fixtures('vendors', '_id')
+    collection_fixtures('vendors', '_id',"user_ids")
     collection_fixtures('query_cache', 'test_id')
     collection_fixtures('measures')
-    collection_fixtures('users')
+    collection_fixtures('users',"_id")
     collection_fixtures('records', '_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
