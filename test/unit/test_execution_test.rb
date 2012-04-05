@@ -67,15 +67,11 @@ class TestExecutionTest < ActiveSupport::TestCase
     assert measure1['antinumerator'] == 3,"antinumerator"
   end
   
-=begin
-  #cant get this to work right now  
+
+  #Why wont this work? 
   test "Should report correct success rate" do
-    puts @execution_failed.success_rate
-    puts @execution_passed.success_rate
-    puts @execution_half_passed.success_rate 
     assert @execution_failed.success_rate == 0
     assert @execution_passed.success_rate == 1
     assert @execution_half_passed.success_rate == 0.5
   end
-=end
 end
