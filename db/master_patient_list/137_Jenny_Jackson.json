@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224c3a9ffcca06300006d",
-  "first": "Jenny",
+  "_id": "4f7e05dd8e27b48183000e1c",
   "patient_id": "137",
+  "first": "Jenny",
   "last": "Jackson",
   "gender": "F",
   "birthdate": 789282000,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -357,88 +355,6 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169491004"
-        ]
-      },
-      "time": 1281931200,
-      "specifics": "C2921403:Contraceptive IUD check (finding);",
-      "description": "IUD use"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1281931200,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
-      },
-      "time": 1278129600,
-      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
-      },
-      "time": 1270180800,
-      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
-      "description": "encounter acute inpt"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "time": 1270094400,
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
-      "description": "encounter ED"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 23.793846153846154,
-        "units": null
-      },
-      "time": 1281931200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    }
-  ],
   "conditions": [
     {
       "codes": {
@@ -452,10 +368,150 @@
           "A64"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e23",
+      "_type": "Entry",
       "time": 1281931200,
-      "status": "active",
+      "description": "sexually active woman",
       "specifics": "C0036916:Sexually Transmitted Diseases;",
-      "description": "sexually active woman"
+      "status": "active"
+    }
+  ],
+  "encounters": [
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e1e",
+      "_type": "Encounter",
+      "time": 1281931200,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99238"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e1f",
+      "_type": "Encounter",
+      "time": 1278129600,
+      "description": "Encounter Inpatient Discharge",
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99251"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e20",
+      "_type": "Encounter",
+      "time": 1270180800,
+      "description": "encounter acute inpt",
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99281"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e21",
+      "_type": "Encounter",
+      "time": 1270094400,
+      "description": "encounter ED",
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;"
+    }
+  ],
+  "medical_equipment": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "169491004"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e1d",
+      "_type": "Entry",
+      "time": 1281931200,
+      "description": "IUD use",
+      "specifics": "C2921403:Contraceptive IUD check (finding);"
+    }
+  ],
+  "procedures": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "44651004"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e25",
+      "_type": "Procedure",
+      "time": 1281931200,
+      "description": "contraceptive use education",
+      "specifics": "C0204948:Contraceptive use education;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "97802"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "ICD-10-CM": [
+          "Z00.8"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e26",
+      "_type": "Procedure",
+      "time": 1281931200,
+      "description": "counseling for nutrition",
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "V65.41"
+        ],
+        "HCPCS": [
+          "S9451"
+        ],
+        "ICD-10-CM": [
+          "Z71.3"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e27",
+      "_type": "Procedure",
+      "time": 1281931200,
+      "description": "counseling for physical activity",
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
     }
   ],
   "results": [
@@ -475,65 +531,32 @@
         "scalar": "Negative",
         "units": null
       },
+      "_id": "4f7e05dd8e27b48183000e24",
+      "_type": "LabResult",
       "time": 1281931200,
-      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
-      "description": "Chlamydia Screening"
+      "description": "Chlamydia Screening",
+      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;"
     }
   ],
-  "procedures": [
+  "vital_signs": [
     {
       "codes": {
         "SNOMED-CT": [
-          "44651004"
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
-      "time": 1281931200,
-      "specifics": "C0204948:Contraceptive use education;",
-      "description": "contraceptive use education"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97802"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "ICD-10-CM": [
-          "Z00.8"
-        ]
+      "value": {
+        "scalar": 23.793846153846154,
+        "units": null
       },
+      "_id": "4f7e05dd8e27b48183000e22",
+      "_type": "Entry",
       "time": 1281931200,
-      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
-      "description": "counseling for nutrition"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V65.41"
-        ],
-        "HCPCS": [
-          "S9451"
-        ],
-        "ICD-10-CM": [
-          "Z71.3"
-        ]
-      },
-      "time": 1281931200,
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
-      "description": "counseling for physical activity"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "medications": [
-
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
-
   ]
 }

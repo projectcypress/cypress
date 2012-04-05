@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224c4a9ffcca063000072",
-  "first": "Joe",
+  "_id": "4f7e05de8e27b48183000e66",
   "patient_id": "196",
+  "first": "Joe",
   "last": "Rice",
   "gender": "M",
   "birthdate": 107755200,
   "race": "Asian",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -485,11 +483,49 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
+  "conditions": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05de8e27b48183000e75",
+      "_type": "Entry",
+      "time": 1284350400,
+      "description": "Hypertension",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
+      "status": "active"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "296.30"
+        ],
+        "ICD-10-CM": [
+          "F33.9"
+        ],
+        "SNOMED-CT": [
+          "268621008"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05de8e27b48183000e76",
+      "_type": "Entry",
+      "time": 1285819200,
+      "description": "Major Depression",
+      "specifics": "C0154409:Major Depressive Disorder, Recurrent, Unspecified;",
+      "status": "active"
+    }
   ],
   "encounters": [
     {
@@ -501,9 +537,13 @@
           "V70.0"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05de8e27b48183000e67",
+      "_type": "Encounter",
       "time": 1293685200,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
@@ -514,9 +554,13 @@
           "V70.0"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05de8e27b48183000e68",
+      "_type": "Encounter",
       "time": 1285819200,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
@@ -524,13 +568,63 @@
           "99281"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05de8e27b48183000e69",
+      "_type": "Encounter",
       "time": 1284350400,
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
-      "description": "encounter ED"
+      "description": "encounter ED",
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;"
     }
   ],
-  "social_history": [
-
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "105075"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05de8e27b48183000e78",
+      "_type": "Medication",
+      "time": 1285819200,
+      "description": "Smoking Cessation Agents",
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05de8e27b48183000e79",
+      "_type": "Medication",
+      "time": 1284609600,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+    }
+  ],
+  "procedures": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "384742004"
+        ],
+        "CPT": [
+          "99406"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05de8e27b48183000e77",
+      "_type": "Procedure",
+      "time": 1285819200,
+      "description": "tobacco use cessation counseling",
+      "specifics": "C1692317:Smoking cessation assistance;"
+    }
   ],
   "vital_signs": [
     {
@@ -543,9 +637,11 @@
         "scalar": 136.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05de8e27b48183000e6a",
+      "_type": "Entry",
       "time": 1293685200,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
@@ -557,9 +653,11 @@
         "scalar": 84.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05de8e27b48183000e6b",
+      "_type": "Entry",
       "time": 1293685200,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
@@ -571,9 +669,11 @@
         "scalar": 64.0,
         "units": null
       },
+      "_id": "4f7e05de8e27b48183000e6c",
+      "_type": "Entry",
       "time": 1293685200,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
     },
     {
       "codes": {
@@ -585,9 +685,11 @@
         "scalar": 134.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05de8e27b48183000e6d",
+      "_type": "Entry",
       "time": 1285819200,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
@@ -599,9 +701,11 @@
         "scalar": 82.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05de8e27b48183000e6e",
+      "_type": "Entry",
       "time": 1285819200,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
@@ -613,9 +717,11 @@
         "scalar": 64.0,
         "units": null
       },
+      "_id": "4f7e05de8e27b48183000e6f",
+      "_type": "Entry",
       "time": 1285819200,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
     },
     {
       "codes": {
@@ -627,9 +733,11 @@
         "scalar": 156.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05de8e27b48183000e70",
+      "_type": "Entry",
       "time": 1284350400,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
@@ -641,9 +749,11 @@
         "scalar": 96.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05de8e27b48183000e71",
+      "_type": "Entry",
       "time": 1284350400,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
@@ -655,9 +765,11 @@
         "scalar": 60.0,
         "units": null
       },
+      "_id": "4f7e05de8e27b48183000e72",
+      "_type": "Entry",
       "time": 1284350400,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
     },
     {
       "codes": {
@@ -672,9 +784,11 @@
         "scalar": 19.93383742911153,
         "units": null
       },
+      "_id": "4f7e05de8e27b48183000e73",
+      "_type": "Entry",
       "time": 1293685200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     },
     {
       "codes": {
@@ -689,91 +803,11 @@
         "scalar": 17.718966603654692,
         "units": null
       },
+      "_id": "4f7e05de8e27b48183000e74",
+      "_type": "Entry",
       "time": 1285819200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1284350400,
-      "status": "active",
-      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
-      "description": "Hypertension"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ],
-        "ICD-10-CM": [
-          "F33.9"
-        ],
-        "SNOMED-CT": [
-          "268621008"
-        ]
-      },
-      "time": 1285819200,
-      "status": "active",
-      "specifics": "C0154409:Major Depressive Disorder, Recurrent, Unspecified;",
-      "description": "Major Depression"
-    }
-  ],
-  "results": [
-
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ],
-        "CPT": [
-          "99406"
-        ]
-      },
-      "time": 1285819200,
-      "specifics": "C1692317:Smoking cessation assistance;",
-      "description": "tobacco use cessation counseling"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1285819200,
-      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
-      "description": "Smoking Cessation Agents"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1284609600,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
-
   ]
 }

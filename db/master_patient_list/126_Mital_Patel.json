@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224cca9ffcca0630000bc",
-  "first": "Mital",
+  "_id": "4f7e05ec8e27b48183001767",
   "patient_id": "126",
+  "first": "Mital",
   "last": "Patel",
   "gender": "M",
   "birthdate": -1093550400,
   "race": "Other Race",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -410,11 +408,49 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
+  "conditions": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "428.9"
+        ],
+        "ICD-10-CM": [
+          "I50.9"
+        ],
+        "SNOMED-CT": [
+          "84114007"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05ec8e27b48183001770",
+      "_type": "Entry",
+      "time": 1281585600,
+      "description": "Heart Failure",
+      "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
+      "status": "active"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05ec8e27b48183001771",
+      "_type": "Entry",
+      "time": 1271131200,
+      "description": "Hypertension",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
+      "status": "active"
+    }
   ],
   "encounters": [
     {
@@ -426,9 +462,13 @@
           "V70.0"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05ec8e27b48183001768",
+      "_type": "Encounter",
       "time": 1281585600,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
@@ -439,13 +479,79 @@
           "V70.0"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05ec8e27b48183001769",
+      "_type": "Encounter",
       "time": 1271131200,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     }
   ],
-  "social_history": [
-
+  "immunizations": [
+    {
+      "codes": {
+        "RxNorm": [
+          "854969"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05ec8e27b48183001775",
+      "_type": "Immunization",
+      "time": 1271131200,
+      "description": "Pneumococcal Vaccine",
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;"
+    }
+  ],
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05ec8e27b48183001774",
+      "_type": "Medication",
+      "time": 1271131200,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+    }
+  ],
+  "procedures": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "384742004"
+        ],
+        "CPT": [
+          "99406"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05ec8e27b48183001772",
+      "_type": "Procedure",
+      "time": 1271131200,
+      "description": "tobacco use cessation counseling",
+      "specifics": "C1692317:Smoking cessation assistance;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "70822001"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05ec8e27b48183001773",
+      "_type": "Procedure",
+      "time": 1281585600,
+      "description": "Ejection Fraction",
+      "specifics": "C0232174:Cardiac ejection fraction;"
+    }
   ],
   "vital_signs": [
     {
@@ -458,9 +564,11 @@
         "scalar": 150.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05ec8e27b4818300176a",
+      "_type": "Entry",
       "time": 1281585600,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
@@ -472,9 +580,11 @@
         "scalar": 88.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05ec8e27b4818300176b",
+      "_type": "Entry",
       "time": 1281585600,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
@@ -486,9 +596,11 @@
         "scalar": 154.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05ec8e27b4818300176c",
+      "_type": "Entry",
       "time": 1271131200,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
@@ -500,9 +612,11 @@
         "scalar": 90.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05ec8e27b4818300176d",
+      "_type": "Entry",
       "time": 1271131200,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
@@ -517,9 +631,11 @@
         "scalar": 22.594123048668507,
         "units": null
       },
+      "_id": "4f7e05ec8e27b4818300176e",
+      "_type": "Entry",
       "time": 1281585600,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     },
     {
       "codes": {
@@ -534,100 +650,11 @@
         "scalar": 22.271349862258955,
         "units": null
       },
+      "_id": "4f7e05ec8e27b4818300176f",
+      "_type": "Entry",
       "time": 1271131200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "428.9"
-        ],
-        "ICD-10-CM": [
-          "I50.9"
-        ],
-        "SNOMED-CT": [
-          "84114007"
-        ]
-      },
-      "time": 1281585600,
-      "status": "active",
-      "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
-      "description": "Heart Failure"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1271131200,
-      "status": "active",
-      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ],
-        "CPT": [
-          "99406"
-        ]
-      },
-      "time": 1271131200,
-      "specifics": "C1692317:Smoking cessation assistance;",
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "70822001"
-        ]
-      },
-      "time": 1281585600,
-      "specifics": "C0232174:Cardiac ejection fraction;",
-      "description": "Ejection Fraction"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1271131200,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "854969"
-        ]
-      },
-      "time": 1271131200,
-      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
-      "description": "Pneumococcal Vaccine"
-    }
-  ],
-  "care_goals": [
-
   ]
 }

@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224cfa9ffcca0630000de",
-  "first": "Allyson",
+  "_id": "4f7e05f28e27b48183001b1f",
   "patient_id": "14",
+  "first": "Allyson",
   "last": "Andujar",
   "gender": "F",
   "birthdate": -829598400,
   "race": "Other Race",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -658,220 +656,14 @@
           "866041"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b20",
+      "_type": "Allergy",
       "time": 1270008000,
-      "specifics": "C2723050:Neomycin Sulfate 500 MG;",
-      "description": "Neomycin"
-    }
-  ],
-  "medical_equipment": [
-
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1284868800,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1276747200,
-      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1270094400,
-      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1270008000,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 146.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1284868800,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 96.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1284868800,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 140.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1276747200,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 92.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1276747200,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 138.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1269316800,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1269316800,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "37231002"
-        ]
-      },
-      "time": 1270094400,
-      "specifics": "C0271051:Macular retinal edema;",
-      "description": "Macular Edema Findings"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "312905005"
-        ]
-      },
-      "time": 1270094400,
-      "specifics": "C0339473:Preproliferative diabetic retinopathy; C0730278:Severe nonproliferative diabetic retinopathy;",
-      "description": "Level of Severity of Retinopathy Findings"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 24.12662721893491,
-        "units": null
-      },
-      "time": 1284868800,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 23.793846153846154,
-        "units": null
-      },
-      "time": 1276747200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 23.96023668639053,
-        "units": null
-      },
-      "time": 1270008000,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "Neomycin",
+      "status": "history",
+      "specifics": "C2723050:Neomycin Sulfate 500 MG;"
     }
   ],
   "conditions": [
@@ -887,10 +679,14 @@
           "73211009"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b30",
+      "_type": "Entry",
       "time": 1244433600,
-      "status": "active",
+      "description": "diabetes",
       "specifics": "C0011849:Diabetes Mellitus;",
-      "description": "diabetes"
+      "status": "active"
     },
     {
       "codes": {
@@ -904,10 +700,14 @@
           "312904009"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b31",
+      "_type": "Entry",
       "time": 1270094400,
-      "status": "active",
+      "description": "Diabetic Retinopathy",
       "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
-      "description": "Diabetic Retinopathy"
+      "status": "active"
     },
     {
       "codes": {
@@ -921,10 +721,235 @@
           "G58"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b32",
+      "_type": "Entry",
       "time": 1284868800,
-      "status": "active",
+      "description": "Nephropathy",
       "specifics": "C0494490:Other mononeuropathies;  This is not a code for nephropathy and is an error.  The ICD-10 codes for nephropathy are actually for neuropathy",
-      "description": "Nephropathy"
+      "status": "active"
+    }
+  ],
+  "encounters": [
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b21",
+      "_type": "Encounter",
+      "time": 1284868800,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "92012"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b22",
+      "_type": "Encounter",
+      "time": 1276747200,
+      "description": "Encounter Ophthalmological Services",
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "92012"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b23",
+      "_type": "Encounter",
+      "time": 1270094400,
+      "description": "Encounter Ophthalmological Services",
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b24",
+      "_type": "Encounter",
+      "time": 1270008000,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    }
+  ],
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "861748"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b3e",
+      "_type": "Medication",
+      "time": 1284868800,
+      "description": "Antidiabetic-combinations",
+      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "861748"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b3f",
+      "_type": "Medication",
+      "time": 1276747200,
+      "description": "Antidiabetic-combinations",
+      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "744863"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b40",
+      "_type": "Medication",
+      "time": 1270008000,
+      "description": "Antidiabetic agents",
+      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b41",
+      "_type": "Medication",
+      "time": 1284868800,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b42",
+      "_type": "Medication",
+      "time": 1270008000,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+    }
+  ],
+  "procedures": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "401191002"
+        ]
+      },
+      "value": {
+        "scalar": "Normal",
+        "units": null
+      },
+      "_id": "4f7e05f28e27b48183001b39",
+      "_type": "Procedure",
+      "time": 1284868800,
+      "description": "Foot Exam",
+      "specifics": "C1303165:Diabetic foot examination;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "401191002"
+        ]
+      },
+      "value": {
+        "scalar": "Normal",
+        "units": null
+      },
+      "_id": "4f7e05f28e27b48183001b3a",
+      "_type": "Procedure",
+      "time": 1269316800,
+      "description": "Foot Exam",
+      "specifics": "C1303165:Diabetic foot examination;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "399875001"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b3b",
+      "_type": "Procedure",
+      "time": 1270094400,
+      "description": "severity of retinopathy and macular edema findings",
+      "specifics": "C1275954:Non-high-risk proliferative diabetic retinopathy with clinically significant macular edema;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "410455004"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b3c",
+      "_type": "Procedure",
+      "time": 1270094400,
+      "description": "Macular or Fundus Exam",
+      "specifics": "C1444586:Slit lamp fundus examination;"
+    },
+    {
+      "codes": {
+        "HCPCS": [
+          "S0621"
+        ],
+        "SNOMED-CT": [
+          "390735007"
+        ],
+        "ICD-9-CM": [
+          "95.03"
+        ],
+        "CPT": [
+          "92012"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05f28e27b48183001b3d",
+      "_type": "Procedure",
+      "time": 1270094400,
+      "description": "eye exam",
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;"
     }
   ],
   "results": [
@@ -944,9 +969,11 @@
         "scalar": "120 mg/24 hours",
         "units": null
       },
+      "_id": "4f7e05f28e27b48183001b33",
+      "_type": "LabResult",
       "time": 1284868800,
-      "specifics": "C0001922:Abnormal presence of albumin;",
-      "description": "Urine Macroalbumin"
+      "description": "Urine Macroalbumin",
+      "specifics": "C0001922:Abnormal presence of albumin;"
     },
     {
       "codes": {
@@ -964,9 +991,11 @@
         "scalar": 104.0,
         "units": null
       },
+      "_id": "4f7e05f28e27b48183001b34",
+      "_type": "LabResult",
       "time": 1284868800,
-      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
-      "description": "LDL"
+      "description": "LDL",
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
     },
     {
       "codes": {
@@ -984,9 +1013,11 @@
         "scalar": 125.0,
         "units": null
       },
+      "_id": "4f7e05f28e27b48183001b35",
+      "_type": "LabResult",
       "time": 1270008000,
-      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
-      "description": "LDL"
+      "description": "LDL",
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
     },
     {
       "codes": {
@@ -1004,9 +1035,11 @@
         "scalar": 7.6,
         "units": null
       },
+      "_id": "4f7e05f28e27b48183001b36",
+      "_type": "LabResult",
       "time": 1287460800,
-      "specifics": "C0474680:Hemoglobin A1c measurement;",
-      "description": "HbA1c test"
+      "description": "HbA1c test",
+      "specifics": "C0474680:Hemoglobin A1c measurement;"
     },
     {
       "codes": {
@@ -1024,9 +1057,11 @@
         "scalar": 7.3,
         "units": null
       },
+      "_id": "4f7e05f28e27b48183001b37",
+      "_type": "LabResult",
       "time": 1278302400,
-      "specifics": "C0474680:Hemoglobin A1c measurement;",
-      "description": "HbA1c test"
+      "description": "HbA1c test",
+      "specifics": "C0474680:Hemoglobin A1c measurement;"
     },
     {
       "codes": {
@@ -1044,136 +1079,198 @@
         "scalar": 7.7,
         "units": null
       },
+      "_id": "4f7e05f28e27b48183001b38",
+      "_type": "LabResult",
       "time": 1270008000,
-      "specifics": "C0474680:Hemoglobin A1c measurement;",
-      "description": "HbA1c test"
+      "description": "HbA1c test",
+      "specifics": "C0474680:Hemoglobin A1c measurement;"
     }
   ],
-  "procedures": [
+  "vital_signs": [
     {
       "codes": {
         "SNOMED-CT": [
-          "401191002"
+          "271649006"
         ]
       },
       "value": {
-        "scalar": "Normal",
-        "units": null
+        "scalar": 146.0,
+        "units": "mm[Hg]"
       },
+      "_id": "4f7e05f28e27b48183001b25",
+      "_type": "Entry",
       "time": 1284868800,
-      "specifics": "C1303165:Diabetic foot examination;",
-      "description": "Foot Exam"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
         "SNOMED-CT": [
-          "401191002"
+          "271650006"
         ]
       },
       "value": {
-        "scalar": "Normal",
-        "units": null
+        "scalar": 96.0,
+        "units": "mm[Hg]"
       },
-      "time": 1269316800,
-      "specifics": "C1303165:Diabetic foot examination;",
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "399875001"
-        ]
-      },
-      "time": 1270094400,
-      "specifics": "C1275954:Non-high-risk proliferative diabetic retinopathy with clinically significant macular edema;",
-      "description": "severity of retinopathy and macular edema findings"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "410455004"
-        ]
-      },
-      "time": 1270094400,
-      "specifics": "C1444586:Slit lamp fundus examination;",
-      "description": "Macular or Fundus Exam"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ],
-        "SNOMED-CT": [
-          "390735007"
-        ],
-        "ICD-9-CM": [
-          "95.03"
-        ],
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1270094400,
-      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
-      "description": "eye exam"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "861748"
-        ]
-      },
+      "_id": "4f7e05f28e27b48183001b26",
+      "_type": "Entry",
       "time": 1284868800,
-      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;",
-      "description": "Antidiabetic-combinations"
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
-        "RxNorm": [
-          "861748"
+        "SNOMED-CT": [
+          "271649006"
         ]
       },
+      "value": {
+        "scalar": 140.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05f28e27b48183001b27",
+      "_type": "Entry",
       "time": 1276747200,
-      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;",
-      "description": "Antidiabetic-combinations"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
-        "RxNorm": [
-          "744863"
+        "SNOMED-CT": [
+          "271650006"
         ]
       },
-      "time": 1270008000,
-      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;",
-      "description": "Antidiabetic agents"
+      "value": {
+        "scalar": 92.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05f28e27b48183001b28",
+      "_type": "Entry",
+      "time": 1276747200,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
-        "RxNorm": [
-          "858828"
+        "SNOMED-CT": [
+          "271649006"
         ]
       },
+      "value": {
+        "scalar": 138.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05f28e27b48183001b29",
+      "_type": "Entry",
+      "time": 1269316800,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 90.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05f28e27b48183001b2a",
+      "_type": "Entry",
+      "time": 1269316800,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "37231002"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4f7e05f28e27b48183001b2b",
+      "_type": "Entry",
+      "time": 1270094400,
+      "description": "Macular Edema Findings",
+      "specifics": "C0271051:Macular retinal edema;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "312905005"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4f7e05f28e27b48183001b2c",
+      "_type": "Entry",
+      "time": 1270094400,
+      "description": "Level of Severity of Retinopathy Findings",
+      "specifics": "C0339473:Preproliferative diabetic retinopathy; C0730278:Severe nonproliferative diabetic retinopathy;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 24.12662721893491,
+        "units": null
+      },
+      "_id": "4f7e05f28e27b48183001b2d",
+      "_type": "Entry",
       "time": 1284868800,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     },
     {
       "codes": {
-        "RxNorm": [
-          "858828"
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
+      "value": {
+        "scalar": 23.793846153846154,
+        "units": null
+      },
+      "_id": "4f7e05f28e27b48183001b2e",
+      "_type": "Entry",
+      "time": 1276747200,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 23.96023668639053,
+        "units": null
+      },
+      "_id": "4f7e05f28e27b48183001b2f",
+      "_type": "Entry",
       "time": 1270008000,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
-
   ]
 }
