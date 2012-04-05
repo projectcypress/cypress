@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224baa9ffcca063000024",
-  "first": "Carsona",
+  "_id": "4f7e05cd8e27b4818300047b",
   "patient_id": "81",
+  "first": "Carsona",
   "last": "Daly",
   "gender": "F",
   "birthdate": 771739200,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -378,11 +376,77 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
+  "conditions": [
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b48183000481",
+      "_type": "Entry",
+      "time": 1276401600,
+      "description": "Asthma",
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
+      "status": "active"
+    },
+    {
+      "codes": {
+        "ICD-10-CM": [
+          "J02"
+        ],
+        "SNOMED-CT": [
+          "363746003"
+        ],
+        "ICD-9-CM": [
+          "462"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b48183000482",
+      "_type": "Entry",
+      "time": 1280894400,
+      "description": "pharyngitis",
+      "specifics": "C0001344:Acute pharyngitis;",
+      "status": "active"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "370202007"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b48183000483",
+      "_type": "Entry",
+      "time": 1276401600,
+      "description": "Asthma Daytime Symptoms Quantified",
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "370205009"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b48183000484",
+      "_type": "Entry",
+      "time": 1276401600,
+      "description": "Asthma Nighttime Symptoms Quantified",
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
+    }
   ],
   "encounters": [
     {
@@ -391,9 +455,13 @@
           "99241"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b4818300047c",
+      "_type": "Encounter",
       "time": 1290574800,
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Office & Outpatient Consult"
+      "description": "Encounter Office & Outpatient Consult",
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
@@ -404,9 +472,13 @@
           "V70.0"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b4818300047d",
+      "_type": "Encounter",
       "time": 1280894400,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
@@ -414,13 +486,124 @@
           "99241"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b4818300047e",
+      "_type": "Encounter",
       "time": 1276401600,
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Office & Outpatient Consult"
+      "description": "Encounter Office & Outpatient Consult",
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     }
   ],
-  "social_history": [
-
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "686383"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b4818300048a",
+      "_type": "Medication",
+      "time": 1280894400,
+      "description": "Miscellaneous antibiotics",
+      "specifics": "C0976723:Erythromycin Ethylsuccinate 40 MG/ML / Sulfisoxazole 120 MG/ML Oral Suspension;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "630208"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b4818300048b",
+      "_type": "Medication",
+      "time": 1276401600,
+      "description": "Short acting beta 2 agonist",
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;"
+    }
+  ],
+  "procedures": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 120.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05cd8e27b48183000485",
+      "_type": "Procedure",
+      "time": 1290574800,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 68.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05cd8e27b48183000486",
+      "_type": "Procedure",
+      "time": 1290574800,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 118.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05cd8e27b48183000487",
+      "_type": "Procedure",
+      "time": 1276401600,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 67.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05cd8e27b48183000488",
+      "_type": "Procedure",
+      "time": 1276401600,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "401011001"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05cd8e27b48183000489",
+      "_type": "Procedure",
+      "time": 1276401600,
+      "description": "Asthma Symptom Assessment Tool",
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;"
+    }
   ],
   "vital_signs": [
     {
@@ -436,9 +619,11 @@
         "scalar": 24.325259515570938,
         "units": null
       },
+      "_id": "4f7e05cd8e27b4818300047f",
+      "_type": "Entry",
       "time": 1290574800,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     },
     {
       "codes": {
@@ -453,164 +638,11 @@
         "scalar": 24.0211937716263,
         "units": null
       },
+      "_id": "4f7e05cd8e27b48183000480",
+      "_type": "Entry",
       "time": 1276401600,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "time": 1276401600,
-      "status": "active",
-      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
-      "description": "Asthma"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ],
-        "SNOMED-CT": [
-          "363746003"
-        ],
-        "ICD-9-CM": [
-          "462"
-        ]
-      },
-      "time": 1280894400,
-      "status": "active",
-      "specifics": "C0001344:Acute pharyngitis;",
-      "description": "pharyngitis"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "time": 1276401600,
-      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
-      "description": "Asthma Daytime Symptoms Quantified"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "time": 1276401600,
-      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
-      "description": "Asthma Nighttime Symptoms Quantified"
-    }
-  ],
-  "results": [
-
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 120.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1290574800,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 68.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1290574800,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 118.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1276401600,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 67.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1276401600,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "401011001"
-        ]
-      },
-      "time": 1276401600,
-      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
-      "description": "Asthma Symptom Assessment Tool"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "686383"
-        ]
-      },
-      "time": 1280894400,
-      "specifics": "C0976723:Erythromycin Ethylsuccinate 40 MG/ML / Sulfisoxazole 120 MG/ML Oral Suspension;",
-      "description": "Miscellaneous antibiotics"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1276401600,
-      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
-      "description": "Short acting beta 2 agonist"
-    }
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
-
   ]
 }

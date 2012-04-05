@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224bca9ffcca063000033",
-  "first": "Lenore",
+  "_id": "4f7e05d18e27b4818300069a",
   "patient_id": "24",
+  "first": "Lenore",
   "last": "Tibbets",
   "gender": "F",
   "birthdate": -404679600,
   "race": "Black or African American",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -166,6 +164,10 @@
         1285387200,
         1281931200,
         1274068800
+      ],
+      "pneumococcal_vaccine_all_ages_medication_administered": [
+        1285387200,
+        1105851600
       ]
     },
     "0086": {
@@ -532,228 +534,6 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1285387200,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99429"
-        ]
-      },
-      "time": 1285387200,
-      "specifics": "C0374646:Unlisted preventive medicine service;",
-      "description": "Encounter Prev Med Other Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1281931200,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1274068800,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 132.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1285387200,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1285387200,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": null
-      },
-      "time": 1285387200,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 128.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1281931200,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1281931200,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1281931200,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 130.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1274068800,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1274068800,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1274068800,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 23.380196523053666,
-        "units": null
-      },
-      "time": 1105851600,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 24.442932728647015,
-        "units": null
-      },
-      "time": 1274068800,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    }
-  ],
   "conditions": [
     {
       "codes": {
@@ -767,10 +547,14 @@
           "188161004"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006aa",
+      "_type": "Entry",
       "time": 1112760000,
-      "status": "inactive",
+      "description": "Breast Cancer",
       "specifics": "C0235653:Malignant neoplasm of female breast;",
-      "description": "Breast Cancer"
+      "status": "inactive"
     },
     {
       "codes": {
@@ -784,10 +568,483 @@
           "429087003"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006ab",
+      "_type": "Entry",
       "time": 1274068800,
-      "status": "active",
+      "description": "Breast Cancer History",
       "specifics": "C1997028:History of malignant neoplasm of breast;",
-      "description": "Breast Cancer History"
+      "status": "active"
+    }
+  ],
+  "encounters": [
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b4818300069b",
+      "_type": "Encounter",
+      "time": 1285387200,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99429"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b4818300069c",
+      "_type": "Encounter",
+      "time": 1285387200,
+      "description": "Encounter Prev Med Other Services",
+      "specifics": "C0374646:Unlisted preventive medicine service;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b4818300069d",
+      "_type": "Encounter",
+      "time": 1281931200,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b4818300069e",
+      "_type": "Encounter",
+      "time": 1274068800,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    }
+  ],
+  "immunizations": [
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006ba",
+      "_type": "Immunization",
+      "time": 1285387200,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
+    },
+    {
+      "codes": {
+        "CVX": [
+          "100"
+        ],
+        "CPT": [
+          "90669"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006bb",
+      "_type": "Immunization",
+      "time": 1285387200,
+      "description": "Pneumococcal Vaccine all ages",
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006bc",
+      "_type": "Immunization",
+      "time": 1253073600,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006bd",
+      "_type": "Immunization",
+      "time": 1224907200,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006be",
+      "_type": "Immunization",
+      "time": 1193889600,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006bf",
+      "_type": "Immunization",
+      "time": 1160020800,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
+    },
+    {
+      "codes": {
+        "CVX": [
+          "100"
+        ],
+        "CPT": [
+          "90669"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006c0",
+      "_type": "Immunization",
+      "time": 1105851600,
+      "description": "Pneumococcal Vaccine all ages",
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006c1",
+      "_type": "Immunization",
+      "time": 1105851600,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
+    }
+  ],
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "313195"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b5",
+      "_type": "Medication",
+      "time": 1122868800,
+      "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "313195"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b6",
+      "_type": "Medication",
+      "time": 1154232000,
+      "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "313195"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b7",
+      "_type": "Medication",
+      "time": 1185336000,
+      "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "313195"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b8",
+      "_type": "Medication",
+      "time": 1217304000,
+      "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "313195"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b9",
+      "_type": "Medication",
+      "time": 1248926400,
+      "description": "Tamoxifen or Aromatase Inhibitor Therapy",
+      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;"
+    }
+  ],
+  "procedures": [
+    {
+      "codes": {
+        "CPT": [
+          "45378"
+        ],
+        "HCPCS": [
+          "G0121"
+        ],
+        "ICD-9-CM": [
+          "45.23"
+        ],
+        "SNOMED-CT": [
+          "456004"
+        ],
+        "ICD-10-CM": [
+          "Z12.11"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006ad",
+      "_type": "Procedure",
+      "time": 1287979200,
+      "description": "colonoscopy",
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006ae",
+      "_type": "Procedure",
+      "time": 1281931200,
+      "description": "breast cancer screening",
+      "specifics": "C0203028:Screening mammography;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006af",
+      "_type": "Procedure",
+      "time": 1248321600,
+      "description": "breast cancer screening",
+      "specifics": "C0203028:Screening mammography;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b0",
+      "_type": "Procedure",
+      "time": 1215921600,
+      "description": "breast cancer screening",
+      "specifics": "C0203028:Screening mammography;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b1",
+      "_type": "Procedure",
+      "time": 1185336000,
+      "description": "breast cancer screening",
+      "specifics": "C0203028:Screening mammography;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b2",
+      "_type": "Procedure",
+      "time": 1154404800,
+      "description": "breast cancer screening",
+      "specifics": "C0203028:Screening mammography;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b3",
+      "_type": "Procedure",
+      "time": 1124683200,
+      "description": "breast cancer screening",
+      "specifics": "C0203028:Screening mammography;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d18e27b481830006b4",
+      "_type": "Procedure",
+      "time": 1110862800,
+      "description": "breast cancer screening",
+      "specifics": "C0203028:Screening mammography;"
     }
   ],
   "results": [
@@ -816,330 +1073,195 @@
         "scalar": "Negative",
         "units": null
       },
+      "_id": "4f7e05d18e27b481830006ac",
+      "_type": "LabResult",
       "time": 1281931200,
-      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
-      "description": "Pap Test"
+      "description": "Pap Test",
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;"
     }
   ],
-  "procedures": [
+  "vital_signs": [
     {
       "codes": {
-        "CPT": [
-          "45378"
-        ],
-        "HCPCS": [
-          "G0121"
-        ],
-        "ICD-9-CM": [
-          "45.23"
-        ],
         "SNOMED-CT": [
-          "456004"
-        ],
-        "ICD-10-CM": [
-          "Z12.11"
+          "271649006"
         ]
       },
-      "time": 1287979200,
-      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
-      "description": "colonoscopy"
+      "value": {
+        "scalar": 132.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d18e27b4818300069f",
+      "_type": "Entry",
+      "time": 1285387200,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
-        "CPT": [
-          "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
         "SNOMED-CT": [
-          "24623002"
+          "271650006"
         ]
       },
+      "value": {
+        "scalar": 80.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d18e27b481830006a0",
+      "_type": "Entry",
+      "time": 1285387200,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "364075005"
+        ]
+      },
+      "value": {
+        "scalar": 78.0,
+        "units": null
+      },
+      "_id": "4f7e05d18e27b481830006a1",
+      "_type": "Entry",
+      "time": 1285387200,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 128.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d18e27b481830006a2",
+      "_type": "Entry",
       "time": 1281931200,
-      "specifics": "C0203028:Screening mammography;",
-      "description": "breast cancer screening"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
-        "CPT": [
-          "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
         "SNOMED-CT": [
-          "24623002"
+          "271650006"
         ]
       },
-      "time": 1248321600,
-      "specifics": "C0203028:Screening mammography;",
-      "description": "breast cancer screening"
+      "value": {
+        "scalar": 76.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d18e27b481830006a3",
+      "_type": "Entry",
+      "time": 1281931200,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
-        "CPT": [
-          "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
         "SNOMED-CT": [
-          "24623002"
+          "364075005"
         ]
       },
-      "time": 1215921600,
-      "specifics": "C0203028:Screening mammography;",
-      "description": "breast cancer screening"
+      "value": {
+        "scalar": 76.0,
+        "units": null
+      },
+      "_id": "4f7e05d18e27b481830006a4",
+      "_type": "Entry",
+      "time": 1281931200,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
     },
     {
       "codes": {
-        "CPT": [
-          "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
         "SNOMED-CT": [
-          "24623002"
+          "271649006"
         ]
       },
-      "time": 1185336000,
-      "specifics": "C0203028:Screening mammography;",
-      "description": "breast cancer screening"
+      "value": {
+        "scalar": 130.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d18e27b481830006a5",
+      "_type": "Entry",
+      "time": 1274068800,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
-        "CPT": [
-          "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
         "SNOMED-CT": [
-          "24623002"
+          "271650006"
         ]
       },
-      "time": 1154404800,
-      "specifics": "C0203028:Screening mammography;",
-      "description": "breast cancer screening"
+      "value": {
+        "scalar": 78.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d18e27b481830006a6",
+      "_type": "Entry",
+      "time": 1274068800,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
-        "CPT": [
-          "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
         "SNOMED-CT": [
-          "24623002"
+          "364075005"
         ]
       },
-      "time": 1124683200,
-      "specifics": "C0203028:Screening mammography;",
-      "description": "breast cancer screening"
+      "value": {
+        "scalar": 76.0,
+        "units": null
+      },
+      "_id": "4f7e05d18e27b481830006a7",
+      "_type": "Entry",
+      "time": 1274068800,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
     },
     {
       "codes": {
-        "CPT": [
-          "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
         "SNOMED-CT": [
-          "24623002"
-        ]
-      },
-      "time": 1110862800,
-      "specifics": "C0203028:Screening mammography;",
-      "description": "breast cancer screening"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1122868800,
-      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1154232000,
-      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1185336000,
-      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1217304000,
-      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "313195"
-        ]
-      },
-      "time": 1248926400,
-      "specifics": "C0980471:Tamoxifen 20 MG Oral Tablet;",
-      "description": "Tamoxifen or Aromatase Inhibitor Therapy"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1285387200,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
+          "60621009"
         ],
-        "CPT": [
-          "90669"
+        "LOINC": [
+          "39156-5"
         ]
       },
-      "time": 1285387200,
-      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
-      "description": "Pneumococcal Vaccine all ages"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
+      "value": {
+        "scalar": 23.380196523053666,
+        "units": null
       },
-      "time": 1253073600,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1224907200,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1193889600,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1160020800,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ],
-        "CPT": [
-          "90669"
-        ]
-      },
+      "_id": "4f7e05d18e27b481830006a8",
+      "_type": "Entry",
       "time": 1105851600,
-      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
-      "description": "Pneumococcal Vaccine all ages"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     },
     {
       "codes": {
-        "RxNorm": [
-          "857942"
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
         ]
       },
-      "time": 1105851600,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
+      "value": {
+        "scalar": 24.442932728647015,
+        "units": null
+      },
+      "_id": "4f7e05d18e27b481830006a9",
+      "_type": "Entry",
+      "time": 1274068800,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "care_goals": [
-
   ]
 }

@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224c4a9ffcca063000079",
-  "first": "Lance",
+  "_id": "4f7e05df8e27b48183000f5e",
   "patient_id": "52",
+  "first": "Lance",
   "last": "Feather",
   "gender": "M",
   "birthdate": -763239600,
   "race": "Native Hawaiian or Other Pacific Islander",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -180,6 +178,9 @@
         1279252800,
         1270872000,
         1253851200
+      ],
+      "pneumococcal_vaccine_all_ages_medication_administered": [
+        1287806400
       ]
     },
     "0086": {
@@ -674,327 +675,14 @@
           "798375"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f5f",
+      "_type": "Allergy",
       "time": 1245816000,
-      "specifics": "C0781756:Mumps Virus Vaccine Live, Jeryl Lynn Strain 40000 UNT/ML Injectable Solution;",
-      "description": "Mumps Vaccine"
-    }
-  ],
-  "medical_equipment": [
-
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "92014"
-        ]
-      },
-      "time": 1295240400,
-      "specifics": "C0374195:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; comprehensive, established patient, one or more visits;",
-      "description": "encounter outpatient - opthamological services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1287806400,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1281412800,
-      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1279252800,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1270872000,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1253851200,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 132.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1321506000,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 86.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1321506000,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 88.0,
-        "units": null
-      },
-      "time": 1321506000,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 130.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1287806400,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1287806400,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 86.0,
-        "units": null
-      },
-      "time": 1287806400,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 128.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1278388800,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 78.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1279252800,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 82.0,
-        "units": null
-      },
-      "time": 1279252800,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 134.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1253851200,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1253851200,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1253851200,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 24.363579080025207,
-        "units": null
-      },
-      "time": 1321506000,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 24.51123713505566,
-        "units": null
-      },
-      "time": 1287806400,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 23.920604914933836,
-        "units": null
-      },
-      "time": 1279252800,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 24.068262969964294,
-        "units": null
-      },
-      "time": 1253851200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "Mumps Vaccine",
+      "status": "history",
+      "specifics": "C0781756:Mumps Virus Vaccine Live, Jeryl Lynn Strain 40000 UNT/ML Injectable Solution;"
     }
   ],
   "conditions": [
@@ -1010,92 +698,217 @@
           "59621000"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f76",
+      "_type": "Entry",
       "time": 1253851200,
-      "status": "active",
+      "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
-      "description": "Hypertension"
+      "status": "active"
     }
   ],
-  "results": [
+  "encounters": [
     {
       "codes": {
         "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
+          "92014"
         ]
       },
       "value": {
-        "scalar": 50.0,
-        "units": null
       },
-      "time": 1253851200,
-      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
-      "description": "LDL"
+      "_id": "4f7e05df8e27b48183000f60",
+      "_type": "Encounter",
+      "time": 1295240400,
+      "description": "encounter outpatient - opthamological services",
+      "specifics": "C0374195:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; comprehensive, established patient, one or more visits;"
     },
     {
       "codes": {
         "CPT": [
-          "83701"
+          "99213"
         ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "value": {
-        "scalar": 65.0,
-        "units": null
       },
-      "time": 1253851200,
-      "specifics": "C0392885:High density lipoprotein measurement;",
-      "description": "High Density Lipoprotein (HDL)"
+      "_id": "4f7e05df8e27b48183000f61",
+      "_type": "Encounter",
+      "time": 1287806400,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
         "CPT": [
-          "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
+          "92012"
         ]
       },
       "value": {
-        "scalar": 150.0,
-        "units": null
       },
-      "time": 1253851200,
-      "specifics": "C0546633:Cholesterol total measurement;",
-      "description": "Total Cholesterol"
+      "_id": "4f7e05df8e27b48183000f62",
+      "_type": "Encounter",
+      "time": 1281412800,
+      "description": "Encounter Ophthalmological Services",
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;"
     },
     {
       "codes": {
         "CPT": [
-          "84478"
+          "99213"
         ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "value": {
-        "scalar": 175.0,
-        "units": null
       },
+      "_id": "4f7e05df8e27b48183000f63",
+      "_type": "Encounter",
+      "time": 1279252800,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f64",
+      "_type": "Encounter",
+      "time": 1270872000,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f65",
+      "_type": "Encounter",
       "time": 1253851200,
-      "specifics": "C0202236:Triglycerides measurement;",
-      "description": "Triglycerides"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    }
+  ],
+  "immunizations": [
+    {
+      "codes": {
+        "CVX": [
+          "100"
+        ],
+        "CPT": [
+          "90669"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f7f",
+      "_type": "Immunization",
+      "time": 1287806400,
+      "description": "Pneumococcal Vaccine all ages",
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f80",
+      "_type": "Immunization",
+      "time": 1287806400,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "798481"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f81",
+      "_type": "Immunization",
+      "time": 1287806400,
+      "description": "Hepatitis A Vaccine",
+      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "798481"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f82",
+      "_type": "Immunization",
+      "time": 1287806400,
+      "description": "Hepatitis A Vaccine",
+      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "804186"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f83",
+      "_type": "Immunization",
+      "time": 1270872000,
+      "description": "MMR Vaccine",
+      "specifics": "C0710716:Measles Virus Vaccine Live, Enders' attenuated Edmonston strain 2000 UNT/ML / Mumps Virus Vaccine Live, Jeryl Lynn Strain 25000 UNT/ML / Rubella Virus Vaccine Live (Wistar RA 27-3 Strain) 2000 UNT/ML Injectable Solution [M-M-R II];"
+    }
+  ],
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f7d",
+      "_type": "Medication",
+      "time": 1279252800,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f7e",
+      "_type": "Medication",
+      "time": 1253851200,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
     }
   ],
   "procedures": [
@@ -1114,9 +927,13 @@
           "92012"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f7b",
+      "_type": "Procedure",
       "time": 1281412800,
-      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
-      "description": "eye exam"
+      "description": "eye exam",
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;"
     },
     {
       "codes": {
@@ -1136,89 +953,373 @@
           "Z12.11"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f7c",
+      "_type": "Procedure",
       "time": 1289883600,
-      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
-      "description": "colonoscopy"
+      "description": "colonoscopy",
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
     }
   ],
-  "medications": [
+  "results": [
     {
       "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1279252800,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1253851200,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ],
         "CPT": [
-          "90669"
+          "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
         ]
       },
-      "time": 1287806400,
-      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
-      "description": "Pneumococcal Vaccine all ages"
+      "value": {
+        "scalar": 50.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f77",
+      "_type": "LabResult",
+      "time": 1253851200,
+      "description": "LDL",
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
     },
     {
       "codes": {
-        "RxNorm": [
-          "857942"
+        "CPT": [
+          "83701"
+        ],
+        "LOINC": [
+          "14646-4"
+        ],
+        "SNOMED-CT": [
+          "28036006"
         ]
       },
-      "time": 1287806400,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
+      "value": {
+        "scalar": 65.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f78",
+      "_type": "LabResult",
+      "time": 1253851200,
+      "description": "High Density Lipoprotein (HDL)",
+      "specifics": "C0392885:High density lipoprotein measurement;"
     },
     {
       "codes": {
-        "RxNorm": [
-          "798481"
+        "CPT": [
+          "82465"
+        ],
+        "LOINC": [
+          "2093-3"
+        ],
+        "SNOMED-CT": [
+          "121868005"
         ]
       },
-      "time": 1287806400,
-      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;",
-      "description": "Hepatitis A Vaccine"
+      "value": {
+        "scalar": 150.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f79",
+      "_type": "LabResult",
+      "time": 1253851200,
+      "description": "Total Cholesterol",
+      "specifics": "C0546633:Cholesterol total measurement;"
     },
     {
       "codes": {
-        "RxNorm": [
-          "798481"
+        "CPT": [
+          "84478"
+        ],
+        "LOINC": [
+          "12951-0"
+        ],
+        "SNOMED-CT": [
+          "14740000"
         ]
       },
-      "time": 1287806400,
-      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;",
-      "description": "Hepatitis A Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "804186"
-        ]
+      "value": {
+        "scalar": 175.0,
+        "units": null
       },
-      "time": 1270872000,
-      "specifics": "C0710716:Measles Virus Vaccine Live, Enders' attenuated Edmonston strain 2000 UNT/ML / Mumps Virus Vaccine Live, Jeryl Lynn Strain 25000 UNT/ML / Rubella Virus Vaccine Live (Wistar RA 27-3 Strain) 2000 UNT/ML Injectable Solution [M-M-R II];",
-      "description": "MMR Vaccine"
+      "_id": "4f7e05df8e27b48183000f7a",
+      "_type": "LabResult",
+      "time": 1253851200,
+      "description": "Triglycerides",
+      "specifics": "C0202236:Triglycerides measurement;"
     }
   ],
-  "care_goals": [
-
+  "vital_signs": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 132.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f66",
+      "_type": "Entry",
+      "time": 1321506000,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 86.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f67",
+      "_type": "Entry",
+      "time": 1321506000,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "364075005"
+        ]
+      },
+      "value": {
+        "scalar": 88.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f68",
+      "_type": "Entry",
+      "time": 1321506000,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 130.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f69",
+      "_type": "Entry",
+      "time": 1287806400,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 84.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f6a",
+      "_type": "Entry",
+      "time": 1287806400,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "364075005"
+        ]
+      },
+      "value": {
+        "scalar": 86.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f6b",
+      "_type": "Entry",
+      "time": 1287806400,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 128.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f6c",
+      "_type": "Entry",
+      "time": 1278388800,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 78.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f6d",
+      "_type": "Entry",
+      "time": 1279252800,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "364075005"
+        ]
+      },
+      "value": {
+        "scalar": 82.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f6e",
+      "_type": "Entry",
+      "time": 1279252800,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 134.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f6f",
+      "_type": "Entry",
+      "time": 1253851200,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 80.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f70",
+      "_type": "Entry",
+      "time": 1253851200,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "364075005"
+        ]
+      },
+      "value": {
+        "scalar": 84.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f71",
+      "_type": "Entry",
+      "time": 1253851200,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 24.363579080025207,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f72",
+      "_type": "Entry",
+      "time": 1321506000,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 24.51123713505566,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f73",
+      "_type": "Entry",
+      "time": 1287806400,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 23.920604914933836,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f74",
+      "_type": "Entry",
+      "time": 1279252800,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 24.068262969964294,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f75",
+      "_type": "Entry",
+      "time": 1253851200,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    }
   ]
 }

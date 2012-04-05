@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224c3a9ffcca06300006f",
-  "first": "Josh",
+  "_id": "4f7e05dd8e27b48183000e3a",
   "patient_id": "195",
+  "first": "Josh",
   "last": "Potano",
   "gender": "M",
   "birthdate": 387090000,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
     },
@@ -337,11 +335,46 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
+  "conditions": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "191912005"
+        ],
+        "ICD-9-CM": [
+          "305.51"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e45",
+      "_type": "Entry",
+      "time": 1273896000,
+      "description": "IV drug abuse",
+      "specifics": "C0154530:Opioid abuse, continuous use;",
+      "status": "active"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e46",
+      "_type": "Entry",
+      "time": 1274328000,
+      "description": "Hypertension",
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
+      "status": "active"
+    }
   ],
   "encounters": [
     {
@@ -350,9 +383,13 @@
           "99324"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e3b",
+      "_type": "Encounter",
       "time": 1275364800,
-      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;",
-      "description": "encounter non-acute inpatient"
+      "description": "encounter non-acute inpatient",
+      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;"
     },
     {
       "codes": {
@@ -360,13 +397,49 @@
           "99281"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e3c",
+      "_type": "Encounter",
       "time": 1274328000,
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
-      "description": "encounter ED"
+      "description": "encounter ED",
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;"
     }
   ],
-  "social_history": [
-
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e48",
+      "_type": "Medication",
+      "time": 1274328000,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+    }
+  ],
+  "procedures": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "384742004"
+        ],
+        "CPT": [
+          "99406"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dd8e27b48183000e47",
+      "_type": "Procedure",
+      "time": 1274328000,
+      "description": "tobacco use cessation counseling",
+      "specifics": "C1692317:Smoking cessation assistance;"
+    }
   ],
   "vital_signs": [
     {
@@ -379,9 +452,11 @@
         "scalar": 150.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05dd8e27b48183000e3d",
+      "_type": "Entry",
       "time": 1275364800,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
@@ -393,9 +468,11 @@
         "scalar": 96.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05dd8e27b48183000e3e",
+      "_type": "Entry",
       "time": 1275364800,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
@@ -407,9 +484,11 @@
         "scalar": 84.0,
         "units": null
       },
+      "_id": "4f7e05dd8e27b48183000e3f",
+      "_type": "Entry",
       "time": 1275364800,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
     },
     {
       "codes": {
@@ -421,9 +500,11 @@
         "scalar": 146.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05dd8e27b48183000e40",
+      "_type": "Entry",
       "time": 1274328000,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
@@ -435,9 +516,11 @@
         "scalar": 92.0,
         "units": "mm[Hg]"
       },
+      "_id": "4f7e05dd8e27b48183000e41",
+      "_type": "Entry",
       "time": 1274328000,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
     },
     {
       "codes": {
@@ -449,9 +532,11 @@
         "scalar": 86.0,
         "units": null
       },
+      "_id": "4f7e05dd8e27b48183000e42",
+      "_type": "Entry",
       "time": 1274328000,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
     },
     {
       "codes": {
@@ -466,9 +551,11 @@
         "scalar": 20.61265432098765,
         "units": null
       },
+      "_id": "4f7e05dd8e27b48183000e43",
+      "_type": "Entry",
       "time": 1275364800,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     },
     {
       "codes": {
@@ -483,78 +570,11 @@
         "scalar": 20.341435185185187,
         "units": null
       },
+      "_id": "4f7e05dd8e27b48183000e44",
+      "_type": "Entry",
       "time": 1274328000,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "191912005"
-        ],
-        "ICD-9-CM": [
-          "305.51"
-        ]
-      },
-      "time": 1273896000,
-      "status": "active",
-      "specifics": "C0154530:Opioid abuse, continuous use;",
-      "description": "IV drug abuse"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "time": 1274328000,
-      "status": "active",
-      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
-      "description": "Hypertension"
-    }
-  ],
-  "results": [
-
-  ],
-  "procedures": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ],
-        "CPT": [
-          "99406"
-        ]
-      },
-      "time": 1274328000,
-      "specifics": "C1692317:Smoking cessation assistance;",
-      "description": "tobacco use cessation counseling"
-    }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1274328000,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
-    }
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
-
   ]
 }

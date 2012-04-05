@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224bca9ffcca06300002f",
-  "first": "Jamie",
+  "_id": "4f7e05d08e27b4818300062a",
   "patient_id": "58",
+  "first": "Jamie",
   "last": "Ogles",
   "gender": "M",
   "birthdate": -300657600,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -173,6 +171,9 @@
         1286337600,
         1278475200,
         1270008000
+      ],
+      "pneumococcal_vaccine_all_ages_medication_administered": [
+        1286337600
       ]
     },
     "0086": {
@@ -561,13 +562,15 @@
           "91930004"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d08e27b4818300062b",
+      "_type": "Allergy",
       "time": 1286337600,
-      "specifics": "C0559469:Allergy to eggs;",
-      "description": "Allergy to Eggs"
+      "description": "Allergy to Eggs",
+      "status": "active",
+      "specifics": "C0559469:Allergy to eggs;"
     }
-  ],
-  "medical_equipment": [
-
   ],
   "encounters": [
     {
@@ -576,9 +579,13 @@
           "99212"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d08e27b4818300062c",
+      "_type": "Encounter",
       "time": 1290747600,
-      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Office Visit"
+      "description": "Encounter Office Visit",
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
@@ -589,9 +596,13 @@
           "V70.0"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d08e27b4818300062d",
+      "_type": "Encounter",
       "time": 1286337600,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
@@ -599,9 +610,13 @@
           "99212"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d08e27b4818300062e",
+      "_type": "Encounter",
       "time": 1278475200,
-      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Office Visit"
+      "description": "Encounter Office Visit",
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
@@ -612,9 +627,13 @@
           "V70.0"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d08e27b4818300062f",
+      "_type": "Encounter",
       "time": 1270008000,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
@@ -622,198 +641,33 @@
           "99281"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d08e27b48183000630",
+      "_type": "Encounter",
       "time": 1248926400,
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
-      "description": "encounter ED"
+      "description": "encounter ED",
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;"
     }
   ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
+  "immunizations": [
     {
       "codes": {
-        "SNOMED-CT": [
-          "271649006"
+        "CVX": [
+          "100"
+        ],
+        "CPT": [
+          "90669"
         ]
       },
       "value": {
-        "scalar": 112.0,
-        "units": "mm[Hg]"
       },
-      "time": 1290747600,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 68.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1290747600,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 108.0,
-        "units": "mm[Hg]"
-      },
+      "_id": "4f7e05d08e27b4818300063f",
+      "_type": "Immunization",
       "time": 1286337600,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 66.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1286337600,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 106.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1273204800,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 64.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1273204800,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 110.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1270008000,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 68.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1270008000,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 23.85526315789474,
-        "units": null
-      },
-      "time": 1290747600,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 24.342105263157897,
-        "units": null
-      },
-      "time": 1286337600,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 23.733552631578945,
-        "units": null
-      },
-      "time": 1273204800,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 23.85526315789474,
-        "units": null
-      },
-      "time": 1270008000,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "Pneumococcal Vaccine all ages",
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;"
     }
-  ],
-  "conditions": [
-
   ],
   "results": [
     {
@@ -838,9 +692,11 @@
         "scalar": "Negative",
         "units": null
       },
+      "_id": "4f7e05d08e27b4818300063d",
+      "_type": "LabResult",
       "time": 1290747600,
-      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
-      "description": "FOBT"
+      "description": "FOBT",
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
     },
     {
       "codes": {
@@ -864,33 +720,217 @@
         "scalar": "Negative",
         "units": null
       },
+      "_id": "4f7e05d08e27b4818300063e",
+      "_type": "LabResult",
       "time": 1248926400,
-      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
-      "description": "FOBT"
+      "description": "FOBT",
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
     }
   ],
-  "procedures": [
-
-  ],
-  "medications": [
-
-  ],
-  "immunizations": [
+  "vital_signs": [
     {
       "codes": {
-        "CVX": [
-          "100"
-        ],
-        "CPT": [
-          "90669"
+        "SNOMED-CT": [
+          "271649006"
         ]
       },
+      "value": {
+        "scalar": 112.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d08e27b48183000631",
+      "_type": "Entry",
+      "time": 1290747600,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 68.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d08e27b48183000632",
+      "_type": "Entry",
+      "time": 1290747600,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 108.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d08e27b48183000633",
+      "_type": "Entry",
       "time": 1286337600,
-      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
-      "description": "Pneumococcal Vaccine all ages"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 66.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d08e27b48183000634",
+      "_type": "Entry",
+      "time": 1286337600,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 106.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d08e27b48183000635",
+      "_type": "Entry",
+      "time": 1273204800,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 64.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d08e27b48183000636",
+      "_type": "Entry",
+      "time": 1273204800,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 110.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d08e27b48183000637",
+      "_type": "Entry",
+      "time": 1270008000,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 68.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d08e27b48183000638",
+      "_type": "Entry",
+      "time": 1270008000,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 23.85526315789474,
+        "units": null
+      },
+      "_id": "4f7e05d08e27b48183000639",
+      "_type": "Entry",
+      "time": 1290747600,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 24.342105263157897,
+        "units": null
+      },
+      "_id": "4f7e05d08e27b4818300063a",
+      "_type": "Entry",
+      "time": 1286337600,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 23.733552631578945,
+        "units": null
+      },
+      "_id": "4f7e05d08e27b4818300063b",
+      "_type": "Entry",
+      "time": 1273204800,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 23.85526315789474,
+        "units": null
+      },
+      "_id": "4f7e05d08e27b4818300063c",
+      "_type": "Entry",
+      "time": 1270008000,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "care_goals": [
-
   ]
 }
