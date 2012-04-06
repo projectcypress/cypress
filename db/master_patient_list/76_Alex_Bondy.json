@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224bea9ffcca063000044",
-  "first": "Alex",
+  "_id": "4f7e05d48e27b48183000899",
   "patient_id": "76",
+  "first": "Alex",
   "last": "Bondy",
   "gender": "M",
   "birthdate": 399700800,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -465,165 +463,29 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
-  ],
-  "encounters": [
+  "care_goals": [
     {
       "codes": {
         "CPT": [
-          "99241"
-        ]
-      },
-      "time": 1287979200,
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Office & Outpatient Consult"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "time": 1276660800,
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
-      "description": "encounter ED"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "time": 1270353600,
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Office & Outpatient Consult"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 128.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1287979200,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1287979200,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 86.0,
-        "units": null
-      },
-      "time": 1287979200,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 124.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1270353600,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 74.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1270353600,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 84.0,
-        "units": null
-      },
-      "time": 1270353600,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
+          "97804"
         ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 25.76581790123457,
-        "units": null
-      },
-      "time": 1287979200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
+        "HCPCS": [
+          "S9470"
         ],
-        "LOINC": [
-          "39156-5"
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
         ]
       },
       "value": {
-        "scalar": 27.12191358024691,
-        "units": null
       },
+      "_id": "4f7e05d48e27b481830008b5",
+      "_type": "Entry",
       "time": 1270353600,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "follow-up plan_BMI management",
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
     }
   ],
   "conditions": [
@@ -639,10 +501,14 @@
           "195979001"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008a5",
+      "_type": "Entry",
       "time": 1270353600,
-      "status": "active",
+      "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
-      "description": "Asthma"
+      "status": "active"
     },
     {
       "codes": {
@@ -656,10 +522,14 @@
           "190905008"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008a6",
+      "_type": "Entry",
       "time": 451803600,
-      "status": "active",
+      "description": "Cystic fibrosis",
       "specifics": "C0010674:Cystic Fibrosis;",
-      "description": "Cystic fibrosis"
+      "status": "active"
     },
     {
       "codes": {
@@ -670,10 +540,14 @@
           "427295004"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008a7",
+      "_type": "Entry",
       "time": 1276660800,
-      "status": "active",
+      "description": "Asthma Persistent",
       "specifics": "C1960047:Moderate persistent asthma;",
-      "description": "Asthma Persistent"
+      "status": "active"
     },
     {
       "codes": {
@@ -681,9 +555,13 @@
           "373899003"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008a8",
+      "_type": "Entry",
       "time": 1270353600,
-      "specifics": "C1276804:Asthma daytime symptoms;",
-      "description": "Asthma Daytime Symptoms"
+      "description": "Asthma Daytime Symptoms",
+      "specifics": "C1276804:Asthma daytime symptoms;"
     },
     {
       "codes": {
@@ -691,9 +569,13 @@
           "395022009"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008a9",
+      "_type": "Entry",
       "time": 1270353600,
-      "specifics": "C1273489:Asthma night-time symptoms;",
-      "description": "Asthma Nighttime Symptoms"
+      "description": "Asthma Nighttime Symptoms",
+      "specifics": "C1273489:Asthma night-time symptoms;"
     },
     {
       "codes": {
@@ -701,9 +583,13 @@
           "370202007"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008aa",
+      "_type": "Entry",
       "time": 1287979200,
-      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
-      "description": "Asthma Daytime Symptoms Quantified"
+      "description": "Asthma Daytime Symptoms Quantified",
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
     },
     {
       "codes": {
@@ -711,13 +597,118 @@
           "370205009"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008ab",
+      "_type": "Entry",
       "time": 1287979200,
-      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
-      "description": "Asthma Nighttime Symptoms Quantified"
+      "description": "Asthma Nighttime Symptoms Quantified",
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
     }
   ],
-  "results": [
-
+  "encounters": [
+    {
+      "codes": {
+        "CPT": [
+          "99241"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b4818300089a",
+      "_type": "Encounter",
+      "time": 1287979200,
+      "description": "Encounter Office & Outpatient Consult",
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99281"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b4818300089b",
+      "_type": "Encounter",
+      "time": 1276660800,
+      "description": "encounter ED",
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99241"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b4818300089c",
+      "_type": "Encounter",
+      "time": 1270353600,
+      "description": "Encounter Office & Outpatient Consult",
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    }
+  ],
+  "immunizations": [
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008b3",
+      "_type": "Immunization",
+      "time": 1287979200,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "854969"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008b4",
+      "_type": "Immunization",
+      "time": 1287979200,
+      "description": "Pneumococcal Vaccine",
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;"
+    }
+  ],
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "351136"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008b1",
+      "_type": "Medication",
+      "time": 1270353600,
+      "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
+      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "630208"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008b2",
+      "_type": "Medication",
+      "time": 1270353600,
+      "description": "Short acting beta 2 agonist",
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;"
+    }
   ],
   "procedures": [
     {
@@ -735,9 +726,13 @@
           "Z00.8"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008ac",
+      "_type": "Procedure",
       "time": 1270353600,
-      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
-      "description": "counseling for nutrition"
+      "description": "counseling for nutrition",
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;"
     },
     {
       "codes": {
@@ -751,9 +746,13 @@
           "Z71.3"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008ad",
+      "_type": "Procedure",
       "time": 1270353600,
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
-      "description": "counseling for physical activity"
+      "description": "counseling for physical activity",
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
     },
     {
       "codes": {
@@ -764,9 +763,13 @@
           "99406"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008ae",
+      "_type": "Procedure",
       "time": 1270353600,
-      "specifics": "C1692317:Smoking cessation assistance;",
-      "description": "tobacco use cessation counseling"
+      "description": "tobacco use cessation counseling",
+      "specifics": "C1692317:Smoking cessation assistance;"
     },
     {
       "codes": {
@@ -774,9 +777,13 @@
           "401011001"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008af",
+      "_type": "Procedure",
       "time": 1270353600,
-      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
-      "description": "Asthma Symptom Assessment Tool"
+      "description": "Asthma Symptom Assessment Tool",
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;"
     },
     {
       "codes": {
@@ -784,74 +791,149 @@
           "401011001"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d48e27b481830008b0",
+      "_type": "Procedure",
       "time": 1287979200,
-      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
-      "description": "Asthma Symptom Assessment Tool"
+      "description": "Asthma Symptom Assessment Tool",
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;"
     }
   ],
-  "medications": [
+  "vital_signs": [
     {
       "codes": {
-        "RxNorm": [
-          "351136"
-        ]
-      },
-      "time": 1270353600,
-      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;",
-      "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1270353600,
-      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
-      "description": "Short acting beta 2 agonist"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1287979200,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "854969"
-        ]
-      },
-      "time": 1287979200,
-      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
-      "description": "Pneumococcal Vaccine"
-    }
-  ],
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
         "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
+          "271649006"
         ]
       },
+      "value": {
+        "scalar": 128.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d48e27b4818300089d",
+      "_type": "Entry",
+      "time": 1287979200,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 76.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d48e27b4818300089e",
+      "_type": "Entry",
+      "time": 1287979200,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "364075005"
+        ]
+      },
+      "value": {
+        "scalar": 86.0,
+        "units": null
+      },
+      "_id": "4f7e05d48e27b4818300089f",
+      "_type": "Entry",
+      "time": 1287979200,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 124.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d48e27b481830008a0",
+      "_type": "Entry",
       "time": 1270353600,
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
-      "description": "follow-up plan_BMI management"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 74.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d48e27b481830008a1",
+      "_type": "Entry",
+      "time": 1270353600,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "364075005"
+        ]
+      },
+      "value": {
+        "scalar": 84.0,
+        "units": null
+      },
+      "_id": "4f7e05d48e27b481830008a2",
+      "_type": "Entry",
+      "time": 1270353600,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 25.76581790123457,
+        "units": null
+      },
+      "_id": "4f7e05d48e27b481830008a3",
+      "_type": "Entry",
+      "time": 1287979200,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 27.12191358024691,
+        "units": null
+      },
+      "_id": "4f7e05d48e27b481830008a4",
+      "_type": "Entry",
+      "time": 1270353600,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
   ]
 }

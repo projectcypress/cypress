@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224c0a9ffcca063000055",
-  "first": "Angie",
+  "_id": "4f7e05d88e27b48183000aa6",
   "patient_id": "33",
+  "first": "Angie",
   "last": "Kriman",
   "gender": "F",
   "birthdate": -608932800,
   "race": "Native Hawaiian or Other Pacific Islander",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -179,6 +177,9 @@
         1275796800,
         1271304000,
         1270008000
+      ],
+      "pneumococcal_vaccine_all_ages_medication_administered": [
+        1288152000
       ]
     },
     "0086": {
@@ -665,210 +666,29 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
-  ],
-  "encounters": [
+  "care_goals": [
     {
       "codes": {
         "CPT": [
-          "99213"
+          "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
         ],
         "ICD-9-CM": [
-          "V70.0"
+          "V65.3"
         ]
       },
-      "time": 1288152000,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
+      "value": {
       },
-      "time": 1275969600,
-      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
-      "description": "encounter acute inpt"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
+      "_id": "4f7e05d88e27b48183000acb",
+      "_type": "Entry",
       "time": 1275796800,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
-      },
-      "time": 1274241600,
-      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
-      "description": "encounter acute inpt"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1271304000,
-      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
-      "description": "encounter office visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1270008000,
-      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
-      "description": "encounter office visit"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 102.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1275796800,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 54.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1275796800,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": null
-      },
-      "time": 1275796800,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 20.479785969084425,
-        "units": null
-      },
-      "time": 1288152000,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 20.479785969084425,
-        "units": null
-      },
-      "time": 1275796800,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 20.688763376932222,
-        "units": null
-      },
-      "time": 1271304000,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 20.688763376932222,
-        "units": null
-      },
-      "time": 1270008000,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 20.688763376932222,
-        "units": null
-      },
-      "time": 1242792000,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "description": "follow-up plan_BMI management",
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
     }
   ],
   "conditions": [
@@ -884,10 +704,14 @@
           "C18.9"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ab5",
+      "_type": "Entry",
       "time": 1275969600,
-      "status": "active",
+      "description": "Colon Cancer",
       "specifics": "C0007102:Malignant tumor of colon; C0346629:Malignant neoplasm of large intestine;",
-      "description": "Colon Cancer"
+      "status": "active"
     },
     {
       "codes": {
@@ -901,10 +725,14 @@
           "195979001"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ab6",
+      "_type": "Entry",
       "time": 1270008000,
-      "status": "active",
+      "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
-      "description": "Asthma"
+      "status": "active"
     },
     {
       "codes": {
@@ -918,10 +746,14 @@
           "59621000"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ab7",
+      "_type": "Entry",
       "time": 1270008000,
-      "status": "active",
+      "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
-      "description": "Hypertension"
+      "status": "active"
     },
     {
       "codes": {
@@ -935,10 +767,14 @@
           "279039007"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ab8",
+      "_type": "Entry",
       "time": 1270008000,
-      "status": "active",
+      "description": "low back pain",
       "specifics": "C0024031:Low Back Pain;",
-      "description": "low back pain"
+      "status": "active"
     },
     {
       "codes": {
@@ -946,9 +782,13 @@
           "395022009"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ab9",
+      "_type": "Entry",
       "time": 1274241600,
-      "specifics": "C1273489:Asthma night-time symptoms;",
-      "description": "Asthma Nighttime Symptoms"
+      "description": "Asthma Nighttime Symptoms",
+      "specifics": "C1273489:Asthma night-time symptoms;"
     },
     {
       "codes": {
@@ -956,91 +796,196 @@
           "370202007"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000aba",
+      "_type": "Entry",
       "time": 1274241600,
-      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
-      "description": "Asthma Daytime Symptoms Quantified"
+      "description": "Asthma Daytime Symptoms Quantified",
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
     }
   ],
-  "results": [
+  "encounters": [
     {
       "codes": {
         "CPT": [
-          "82465"
+          "99213"
         ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "value": {
-        "scalar": "164mg/dL",
-        "units": null
       },
-      "time": 1275796800,
-      "specifics": "C0546633:Cholesterol total measurement;",
-      "description": "Total Cholesterol"
+      "_id": "4f7e05d88e27b48183000aa7",
+      "_type": "Encounter",
+      "time": 1288152000,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
         "CPT": [
-          "84478"
-        ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
+          "99251"
         ]
       },
       "value": {
-        "scalar": "150mg/dL",
-        "units": null
       },
-      "time": 1275796800,
-      "specifics": "C0202236:Triglycerides measurement;",
-      "description": "Triglycerides"
+      "_id": "4f7e05d88e27b48183000aa8",
+      "_type": "Encounter",
+      "time": 1275969600,
+      "description": "encounter acute inpt",
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;"
     },
     {
       "codes": {
         "CPT": [
-          "83701"
+          "99213"
         ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "value": {
-        "scalar": "45mg/dL",
-        "units": null
       },
+      "_id": "4f7e05d88e27b48183000aa9",
+      "_type": "Encounter",
       "time": 1275796800,
-      "specifics": "C0392885:High density lipoprotein measurement;",
-      "description": "High Density Lipoprotein (HDL)"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
         "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
+          "99251"
         ]
       },
       "value": {
-        "scalar": "69mg/dL",
-        "units": null
       },
-      "time": 1275796800,
-      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
-      "description": "LDL"
+      "_id": "4f7e05d88e27b48183000aaa",
+      "_type": "Encounter",
+      "time": 1274241600,
+      "description": "encounter acute inpt",
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99212"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000aab",
+      "_type": "Encounter",
+      "time": 1271304000,
+      "description": "encounter office visit",
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99212"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000aac",
+      "_type": "Encounter",
+      "time": 1270008000,
+      "description": "encounter office visit",
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;"
+    }
+  ],
+  "immunizations": [
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac9",
+      "_type": "Immunization",
+      "time": 1288152000,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
+    },
+    {
+      "codes": {
+        "CVX": [
+          "100"
+        ],
+        "CPT": [
+          "90669"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000aca",
+      "_type": "Immunization",
+      "time": 1288152000,
+      "description": "Pneumococcal Vaccine all ages",
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;"
+    }
+  ],
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac5",
+      "_type": "Medication",
+      "time": 1270008000,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "630208"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac6",
+      "_type": "Medication",
+      "time": 1274328000,
+      "description": "Short acting beta 2 agonist",
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "351136"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac7",
+      "_type": "Medication",
+      "time": 1270008000,
+      "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
+      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "314076"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac8",
+      "_type": "Medication",
+      "time": 1276142400,
+      "description": "ACE inhibitor or ARB",
+      "specifics": "C0981555:Lisinopril 10 MG Oral Tablet;"
     }
   ],
   "procedures": [
@@ -1059,9 +1004,13 @@
           "Z00.8"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000abf",
+      "_type": "Procedure",
       "time": 1275796800,
-      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
-      "description": "counseling for nutrition"
+      "description": "counseling for nutrition",
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;"
     },
     {
       "codes": {
@@ -1075,9 +1024,13 @@
           "Z71.3"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac0",
+      "_type": "Procedure",
       "time": 1275796800,
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
-      "description": "counseling for physical activity"
+      "description": "counseling for physical activity",
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
     },
     {
       "codes": {
@@ -1085,9 +1038,13 @@
           "401011001"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac1",
+      "_type": "Procedure",
       "time": 1242792000,
-      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
-      "description": "Asthma Symptom Assessment Tool"
+      "description": "Asthma Symptom Assessment Tool",
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;"
     },
     {
       "codes": {
@@ -1107,9 +1064,13 @@
           "Z12.11"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac2",
+      "_type": "Procedure",
       "time": 1275796800,
-      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
-      "description": "colonoscopy"
+      "description": "colonoscopy",
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
     },
     {
       "codes": {
@@ -1117,9 +1078,13 @@
           "369921003"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac3",
+      "_type": "Procedure",
       "time": 1275969600,
-      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
-      "description": "Colon Cancer Stage III"
+      "description": "Colon Cancer Stage III",
+      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;"
     },
     {
       "codes": {
@@ -1136,97 +1101,248 @@
           "G0213"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05d88e27b48183000ac4",
+      "_type": "Procedure",
       "time": 1275796800,
-      "specifics": "Pet imaging whole body; diagnosis; colorectal",
-      "description": "Colorectal Cancer"
+      "description": "Colorectal Cancer",
+      "specifics": "Pet imaging whole body; diagnosis; colorectal"
     }
   ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1270008000,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "630208"
-        ]
-      },
-      "time": 1274328000,
-      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
-      "description": "Short acting beta 2 agonist"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "351136"
-        ]
-      },
-      "time": 1270008000,
-      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;",
-      "description": "Corticosteroid, Inhaled or Alternative Asthma Medication"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "314076"
-        ]
-      },
-      "time": 1276142400,
-      "specifics": "C0981555:Lisinopril 10 MG Oral Tablet;",
-      "description": "ACE inhibitor or ARB"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1288152000,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ],
-        "CPT": [
-          "90669"
-        ]
-      },
-      "time": 1288152000,
-      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
-      "description": "Pneumococcal Vaccine all ages"
-    }
-  ],
-  "care_goals": [
+  "results": [
     {
       "codes": {
         "CPT": [
-          "97804"
+          "82465"
         ],
-        "HCPCS": [
-          "S9470"
+        "LOINC": [
+          "2093-3"
         ],
         "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
+          "121868005"
         ]
       },
+      "value": {
+        "scalar": "164mg/dL",
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000abb",
+      "_type": "LabResult",
       "time": 1275796800,
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
-      "description": "follow-up plan_BMI management"
+      "description": "Total Cholesterol",
+      "specifics": "C0546633:Cholesterol total measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "84478"
+        ],
+        "LOINC": [
+          "12951-0"
+        ],
+        "SNOMED-CT": [
+          "14740000"
+        ]
+      },
+      "value": {
+        "scalar": "150mg/dL",
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000abc",
+      "_type": "LabResult",
+      "time": 1275796800,
+      "description": "Triglycerides",
+      "specifics": "C0202236:Triglycerides measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83701"
+        ],
+        "LOINC": [
+          "14646-4"
+        ],
+        "SNOMED-CT": [
+          "28036006"
+        ]
+      },
+      "value": {
+        "scalar": "45mg/dL",
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000abd",
+      "_type": "LabResult",
+      "time": 1275796800,
+      "description": "High Density Lipoprotein (HDL)",
+      "specifics": "C0392885:High density lipoprotein measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
+        ]
+      },
+      "value": {
+        "scalar": "69mg/dL",
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000abe",
+      "_type": "LabResult",
+      "time": 1275796800,
+      "description": "LDL",
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
+    }
+  ],
+  "vital_signs": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 102.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d88e27b48183000aad",
+      "_type": "Entry",
+      "time": 1275796800,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 54.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05d88e27b48183000aae",
+      "_type": "Entry",
+      "time": 1275796800,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "364075005"
+        ]
+      },
+      "value": {
+        "scalar": 76.0,
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000aaf",
+      "_type": "Entry",
+      "time": 1275796800,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 20.479785969084425,
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000ab0",
+      "_type": "Entry",
+      "time": 1288152000,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 20.479785969084425,
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000ab1",
+      "_type": "Entry",
+      "time": 1275796800,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 20.688763376932222,
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000ab2",
+      "_type": "Entry",
+      "time": 1271304000,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 20.688763376932222,
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000ab3",
+      "_type": "Entry",
+      "time": 1270008000,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 20.688763376932222,
+        "units": null
+      },
+      "_id": "4f7e05d88e27b48183000ab4",
+      "_type": "Entry",
+      "time": 1242792000,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
   ]
 }

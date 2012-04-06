@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224c3a9ffcca063000067",
-  "first": "Harold",
+  "_id": "4f7e05dc8e27b48183000d30",
   "patient_id": "224",
+  "first": "Harold",
   "last": "Monnet",
   "gender": "M",
   "birthdate": -584740800,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -698,200 +696,29 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
-  ],
-  "encounters": [
+  "care_goals": [
     {
       "codes": {
         "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1281067200,
-      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
-      "description": "Encounter Ophthalmological Services"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1280289600,
-      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
-      },
-      "time": 1279166400,
-      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
-      "description": "Encounter Inpatient Discharge"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99324"
-        ]
-      },
-      "time": 1276142400,
-      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;",
-      "description": "encounter non-acute inpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "time": 1275796800,
-      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Office Visit"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
+          "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
         ],
         "ICD-9-CM": [
-          "V70.0"
+          "V65.3"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d57",
+      "_type": "Entry",
       "time": 1270180800,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 132.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1279166400,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 80.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1279166400,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "364075005"
-        ]
-      },
-      "value": {
-        "scalar": 88.0,
-        "units": null
-      },
-      "time": 1279166400,
-      "specifics": "C0018810:heart rate;",
-      "description": "Heart Rate"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 29.28585598095616,
-        "units": null
-      },
-      "time": 1281067200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 29.704225352112676,
-        "units": null
-      },
-      "time": 1280289600,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 29.983138266217022,
-        "units": null
-      },
-      "time": 1279166400,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 30.68042055147788,
-        "units": null
-      },
-      "time": 1270180800,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "261650005"
-        ]
-      },
-      "time": 1276142400,
-      "specifics": "C0475386:Tumor stage T1c;",
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
+      "description": "follow-up plan_BMI management",
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
     }
   ],
   "conditions": [
@@ -907,10 +734,14 @@
           "399068003"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d3f",
+      "_type": "Entry",
       "time": 1276142400,
-      "status": "active",
+      "description": "Prostate Cancer",
       "specifics": "C0376358:Malignant neoplasm of prostate;",
-      "description": "Prostate Cancer"
+      "status": "active"
     },
     {
       "codes": {
@@ -924,10 +755,14 @@
           "73211009"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d40",
+      "_type": "Entry",
       "time": 1270180800,
-      "status": "active",
+      "description": "diabetes",
       "specifics": "C0011849:Diabetes Mellitus;",
-      "description": "diabetes"
+      "status": "active"
     },
     {
       "codes": {
@@ -941,156 +776,163 @@
           "84494001"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d41",
+      "_type": "Entry",
       "time": 1291698000,
-      "status": "active",
+      "description": "Primary Open Angle Glaucoma (POAG)",
       "specifics": "C0017612:Glaucoma, Open-Angle;",
-      "description": "Primary Open Angle Glaucoma (POAG)"
+      "status": "active"
     }
   ],
-  "results": [
+  "encounters": [
     {
       "codes": {
         "CPT": [
-          "84153"
-        ],
-        "LOINC": [
-          "19195-7"
-        ],
-        "SNOMED-CT": [
-          "63476009"
+          "92012"
         ]
       },
       "value": {
-        "scalar": "4ng/dL",
-        "units": null
       },
-      "time": 1276142400,
-      "specifics": "C0201544:Prostate specific antigen measurement;",
-      "description": "Prostate Specific Antigen Test"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "369776000"
-        ]
-      },
-      "value": {
-        "scalar": 3.0,
-        "units": null
-      },
-      "time": 1276142400,
-      "specifics": "C1276444:Gleason Score 5-6: Moderately differentiated;",
-      "description": "Gleason Score <=6"
+      "_id": "4f7e05dc8e27b48183000d31",
+      "_type": "Encounter",
+      "time": 1281067200,
+      "description": "Encounter Ophthalmological Services",
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;"
     },
     {
       "codes": {
         "CPT": [
-          "83036"
-        ],
-        "LOINC": [
-          "4548-4"
-        ],
-        "SNOMED-CT": [
-          "43396009"
+          "99212"
         ]
       },
       "value": {
-        "scalar": 0.065,
-        "units": null
       },
-      "time": 1276142400,
-      "specifics": "C0474680:Hemoglobin A1c measurement;",
-      "description": "HbA1c test"
+      "_id": "4f7e05dc8e27b48183000d32",
+      "_type": "Encounter",
+      "time": 1280289600,
+      "description": "Encounter Office Visit",
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
         "CPT": [
-          "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
+          "99238"
         ]
       },
       "value": {
-        "scalar": "45mg/dL",
-        "units": null
       },
-      "time": 1276142400,
-      "specifics": "C0392885:High density lipoprotein measurement;",
-      "description": "High Density Lipoprotein (HDL)"
+      "_id": "4f7e05dc8e27b48183000d33",
+      "_type": "Encounter",
+      "time": 1279166400,
+      "description": "Encounter Inpatient Discharge",
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;"
     },
     {
       "codes": {
         "CPT": [
-          "83721"
-        ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
+          "99324"
         ]
       },
       "value": {
-        "scalar": "130mg/dL",
-        "units": null
       },
+      "_id": "4f7e05dc8e27b48183000d34",
+      "_type": "Encounter",
       "time": 1276142400,
-      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
-      "description": "LDL"
+      "description": "encounter non-acute inpatient",
+      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;"
     },
     {
       "codes": {
         "CPT": [
-          "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
+          "99212"
         ]
       },
       "value": {
-        "scalar": "210mg/dL",
-        "units": null
       },
-      "time": 1276142400,
-      "specifics": "C0546633:Cholesterol total measurement;",
-      "description": "Total Cholesterol"
+      "_id": "4f7e05dc8e27b48183000d35",
+      "_type": "Encounter",
+      "time": 1275796800,
+      "description": "Encounter Office Visit",
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
         "CPT": [
-          "84478"
+          "99213"
         ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "value": {
-        "scalar": "175mg/dL",
-        "units": null
       },
-      "time": 1276142400,
-      "specifics": "C0202236:Triglycerides measurement;",
-      "description": "Triglycerides"
+      "_id": "4f7e05dc8e27b48183000d36",
+      "_type": "Encounter",
+      "time": 1270180800,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    }
+  ],
+  "immunizations": [
+    {
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d55",
+      "_type": "Immunization",
+      "time": 1291611600,
+      "description": "Influenza Vaccine",
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
     },
     {
       "codes": {
-        "SNOMED-CT": [
-          "261650005"
+        "RxNorm": [
+          "854981"
         ]
       },
-      "time": 1276142400,
-      "specifics": "C0475386:Tumor stage T1c;",
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d56",
+      "_type": "Immunization",
+      "time": 1291611600,
+      "description": "Pneumococcal Vaccine ages 2 and older",
+      "specifics": ""
+    }
+  ],
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "861007"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d53",
+      "_type": "Medication",
+      "time": 1270180800,
+      "description": "Biguanides",
+      "specifics": "C0978483:Metformin hydrochloride 500 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "105075"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d54",
+      "_type": "Medication",
+      "time": 1270180800,
+      "description": "Smoking Cessation Agents",
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;"
     }
   ],
   "procedures": [
@@ -1104,9 +946,11 @@
         "scalar": "Normal",
         "units": null
       },
+      "_id": "4f7e05dc8e27b48183000d4a",
+      "_type": "Procedure",
       "time": 1279166400,
-      "specifics": "C1303165:Diabetic foot examination;",
-      "description": "Foot Exam"
+      "description": "Foot Exam",
+      "specifics": "C1303165:Diabetic foot examination;"
     },
     {
       "codes": {
@@ -1123,9 +967,13 @@
           "Z00.8"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d4b",
+      "_type": "Procedure",
       "time": 1270180800,
-      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
-      "description": "counseling for nutrition"
+      "description": "counseling for nutrition",
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;"
     },
     {
       "codes": {
@@ -1139,9 +987,13 @@
           "Z71.3"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d4c",
+      "_type": "Procedure",
       "time": 1270180800,
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
-      "description": "counseling for physical activity"
+      "description": "counseling for physical activity",
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
     },
     {
       "codes": {
@@ -1152,9 +1004,13 @@
           "99406"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d4d",
+      "_type": "Procedure",
       "time": 1270180800,
-      "specifics": "C1692317:Smoking cessation assistance;",
-      "description": "tobacco use cessation counseling"
+      "description": "tobacco use cessation counseling",
+      "specifics": "C1692317:Smoking cessation assistance;"
     },
     {
       "codes": {
@@ -1171,9 +1027,13 @@
           "92012"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d4e",
+      "_type": "Procedure",
       "time": 1291698000,
-      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
-      "description": "eye exam"
+      "description": "eye exam",
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;"
     },
     {
       "codes": {
@@ -1181,9 +1041,13 @@
           "36228007"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d4f",
+      "_type": "Procedure",
       "time": 1291698000,
-      "specifics": "C0200149:Ophthalmic examination and evaluation;",
-      "description": "Optic Nerve Head Evaluation"
+      "description": "Optic Nerve Head Evaluation",
+      "specifics": "C0200149:Ophthalmic examination and evaluation;"
     },
     {
       "codes": {
@@ -1194,9 +1058,13 @@
           "176259004"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d50",
+      "_type": "Procedure",
       "time": 1276142400,
-      "specifics": "C0554156:Radical prostatectomy - unspecified excision of pelvic nodes;",
-      "description": "Prostate Cancer Treatment"
+      "description": "Prostate Cancer Treatment",
+      "specifics": "C0554156:Radical prostatectomy - unspecified excision of pelvic nodes;"
     },
     {
       "codes": {
@@ -1204,9 +1072,13 @@
           "261650005"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d51",
+      "_type": "Procedure",
       "time": 1276142400,
-      "specifics": "C0475386:Tumor stage T1c;",
-      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer"
+      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+      "specifics": "C0475386:Tumor stage T1c;"
     },
     {
       "codes": {
@@ -1226,74 +1098,317 @@
           "Z12.11"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d52",
+      "_type": "Procedure",
       "time": 1270180800,
-      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
-      "description": "colonoscopy"
+      "description": "colonoscopy",
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
     }
   ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "861007"
-        ]
-      },
-      "time": 1270180800,
-      "specifics": "C0978483:Metformin hydrochloride 500 MG Oral Tablet;",
-      "description": "Biguanides"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1270180800,
-      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
-      "description": "Smoking Cessation Agents"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "time": 1291611600,
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
-      "description": "Influenza Vaccine"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "854981"
-        ]
-      },
-      "time": 1291611600,
-      "specifics": "",
-      "description": "Pneumococcal Vaccine ages 2 and older"
-    }
-  ],
-  "care_goals": [
+  "results": [
     {
       "codes": {
         "CPT": [
-          "97804"
+          "84153"
         ],
-        "HCPCS": [
-          "S9470"
+        "LOINC": [
+          "19195-7"
         ],
         "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
+          "63476009"
         ]
       },
+      "value": {
+        "scalar": "4ng/dL",
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d42",
+      "_type": "LabResult",
+      "time": 1276142400,
+      "description": "Prostate Specific Antigen Test",
+      "specifics": "C0201544:Prostate specific antigen measurement;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "369776000"
+        ]
+      },
+      "value": {
+        "scalar": 3.0,
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d43",
+      "_type": "LabResult",
+      "time": 1276142400,
+      "description": "Gleason Score <=6",
+      "specifics": "C1276444:Gleason Score 5-6: Moderately differentiated;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83036"
+        ],
+        "LOINC": [
+          "4548-4"
+        ],
+        "SNOMED-CT": [
+          "43396009"
+        ]
+      },
+      "value": {
+        "scalar": 0.065,
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d44",
+      "_type": "LabResult",
+      "time": 1276142400,
+      "description": "HbA1c test",
+      "specifics": "C0474680:Hemoglobin A1c measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83701"
+        ],
+        "LOINC": [
+          "14646-4"
+        ],
+        "SNOMED-CT": [
+          "28036006"
+        ]
+      },
+      "value": {
+        "scalar": "45mg/dL",
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d45",
+      "_type": "LabResult",
+      "time": 1276142400,
+      "description": "High Density Lipoprotein (HDL)",
+      "specifics": "C0392885:High density lipoprotein measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83721"
+        ],
+        "LOINC": [
+          "2089-1"
+        ],
+        "SNOMED-CT": [
+          "113079009"
+        ]
+      },
+      "value": {
+        "scalar": "130mg/dL",
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d46",
+      "_type": "LabResult",
+      "time": 1276142400,
+      "description": "LDL",
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "82465"
+        ],
+        "LOINC": [
+          "2093-3"
+        ],
+        "SNOMED-CT": [
+          "121868005"
+        ]
+      },
+      "value": {
+        "scalar": "210mg/dL",
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d47",
+      "_type": "LabResult",
+      "time": 1276142400,
+      "description": "Total Cholesterol",
+      "specifics": "C0546633:Cholesterol total measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "84478"
+        ],
+        "LOINC": [
+          "12951-0"
+        ],
+        "SNOMED-CT": [
+          "14740000"
+        ]
+      },
+      "value": {
+        "scalar": "175mg/dL",
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d48",
+      "_type": "LabResult",
+      "time": 1276142400,
+      "description": "Triglycerides",
+      "specifics": "C0202236:Triglycerides measurement;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "261650005"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d49",
+      "_type": "LabResult",
+      "time": 1276142400,
+      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+      "specifics": "C0475386:Tumor stage T1c;"
+    }
+  ],
+  "vital_signs": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 132.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05dc8e27b48183000d37",
+      "_type": "Entry",
+      "time": 1279166400,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 80.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05dc8e27b48183000d38",
+      "_type": "Entry",
+      "time": 1279166400,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "364075005"
+        ]
+      },
+      "value": {
+        "scalar": 88.0,
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d39",
+      "_type": "Entry",
+      "time": 1279166400,
+      "description": "Heart Rate",
+      "specifics": "C0018810:heart rate;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 29.28585598095616,
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d3a",
+      "_type": "Entry",
+      "time": 1281067200,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 29.704225352112676,
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d3b",
+      "_type": "Entry",
+      "time": 1280289600,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 29.983138266217022,
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d3c",
+      "_type": "Entry",
+      "time": 1279166400,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 30.68042055147788,
+        "units": null
+      },
+      "_id": "4f7e05dc8e27b48183000d3d",
+      "_type": "Entry",
       "time": 1270180800,
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
-      "description": "follow-up plan_BMI management"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "261650005"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05dc8e27b48183000d3e",
+      "_type": "Entry",
+      "time": 1276142400,
+      "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
+      "specifics": "C0475386:Tumor stage T1c;"
     }
   ]
 }

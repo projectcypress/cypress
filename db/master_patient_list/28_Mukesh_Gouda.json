@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224cba9ffcca0630000b9",
-  "first": "Mukesh",
+  "_id": "4f7e05eb8e27b4818300172d",
   "patient_id": "28",
+  "first": "Mukesh",
   "last": "Gouda",
   "gender": "M",
   "birthdate": -962913600,
   "race": "Other Race",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -434,135 +432,6 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1276574400,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1273032000,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 150.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1276401600,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 88.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1276401600,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 154.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1273032000,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 90.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1273032000,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 22.271349862258955,
-        "units": null
-      },
-      "time": 1276401600,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 22.594123048668507,
-        "units": null
-      },
-      "time": 1267765200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    }
-  ],
   "conditions": [
     {
       "codes": {
@@ -576,10 +445,14 @@
           "84114007"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05eb8e27b48183001736",
+      "_type": "Entry",
       "time": 1276401600,
-      "status": "active",
+      "description": "Heart Failure",
       "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
-      "description": "Heart Failure"
+      "status": "active"
     },
     {
       "codes": {
@@ -593,10 +466,66 @@
           "59621000"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05eb8e27b48183001737",
+      "_type": "Entry",
       "time": 1273032000,
-      "status": "active",
+      "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
-      "description": "Hypertension"
+      "status": "active"
+    }
+  ],
+  "encounters": [
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05eb8e27b4818300172e",
+      "_type": "Encounter",
+      "time": 1276574400,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05eb8e27b4818300172f",
+      "_type": "Encounter",
+      "time": 1273032000,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    }
+  ],
+  "procedures": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "70822001"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05eb8e27b4818300173c",
+      "_type": "Procedure",
+      "time": 1276401600,
+      "description": "Ejection Fraction",
+      "specifics": "C0232174:Cardiac ejection fraction;"
     }
   ],
   "results": [
@@ -616,9 +545,11 @@
         "scalar": 68.0,
         "units": null
       },
+      "_id": "4f7e05eb8e27b48183001738",
+      "_type": "LabResult",
       "time": 1276401600,
-      "specifics": "C0392885:High density lipoprotein measurement;",
-      "description": "High Density Lipoprotein (HDL)"
+      "description": "High Density Lipoprotein (HDL)",
+      "specifics": "C0392885:High density lipoprotein measurement;"
     },
     {
       "codes": {
@@ -636,9 +567,11 @@
         "scalar": 91.0,
         "units": null
       },
+      "_id": "4f7e05eb8e27b48183001739",
+      "_type": "LabResult",
       "time": 1276401600,
-      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
-      "description": "LDL"
+      "description": "LDL",
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
     },
     {
       "codes": {
@@ -656,9 +589,11 @@
         "scalar": 180.0,
         "units": null
       },
+      "_id": "4f7e05eb8e27b4818300173a",
+      "_type": "LabResult",
       "time": 1276401600,
-      "specifics": "C0546633:Cholesterol total measurement;",
-      "description": "Total Cholesterol"
+      "description": "Total Cholesterol",
+      "specifics": "C0546633:Cholesterol total measurement;"
     },
     {
       "codes": {
@@ -676,30 +611,115 @@
         "scalar": 111.0,
         "units": null
       },
+      "_id": "4f7e05eb8e27b4818300173b",
+      "_type": "LabResult",
       "time": 1276401600,
-      "specifics": "C0202236:Triglycerides measurement;",
-      "description": "Triglycerides"
+      "description": "Triglycerides",
+      "specifics": "C0202236:Triglycerides measurement;"
     }
   ],
-  "procedures": [
+  "vital_signs": [
     {
       "codes": {
         "SNOMED-CT": [
-          "70822001"
+          "271649006"
         ]
       },
+      "value": {
+        "scalar": 150.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05eb8e27b48183001730",
+      "_type": "Entry",
       "time": 1276401600,
-      "specifics": "C0232174:Cardiac ejection fraction;",
-      "description": "Ejection Fraction"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 88.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05eb8e27b48183001731",
+      "_type": "Entry",
+      "time": 1276401600,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 154.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05eb8e27b48183001732",
+      "_type": "Entry",
+      "time": 1273032000,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 90.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05eb8e27b48183001733",
+      "_type": "Entry",
+      "time": 1273032000,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 22.271349862258955,
+        "units": null
+      },
+      "_id": "4f7e05eb8e27b48183001734",
+      "_type": "Entry",
+      "time": 1276401600,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 22.594123048668507,
+        "units": null
+      },
+      "_id": "4f7e05eb8e27b48183001735",
+      "_type": "Entry",
+      "time": 1267765200,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "medications": [
-
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
-
   ]
 }

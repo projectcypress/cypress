@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224c8a9ffcca0630000a3",
-  "first": "Caroline",
+  "_id": "4f7e05e68e27b4818300141f",
   "patient_id": "99",
+  "first": "Caroline",
   "last": "O'Connor",
   "gender": "F",
   "birthdate": -142200000,
   "race": "Other Race",
   "ethnicity": "Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -553,145 +551,6 @@
       ]
     }
   },
-  "allergies": [
-
-  ],
-  "medical_equipment": [
-
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1289102400,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "time": 1282190400,
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
-      "description": "encounter ED"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1272686400,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 128.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1289102400,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 70.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1289102400,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 132.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1272686400,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 76.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1272686400,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 23.885215794306703,
-        "units": null
-      },
-      "time": 1289102400,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 24.04660238751148,
-        "units": null
-      },
-      "time": 1272686400,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    }
-  ],
   "conditions": [
     {
       "codes": {
@@ -705,10 +564,180 @@
           "73211009"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05e68e27b48183001429",
+      "_type": "Entry",
       "time": 1272686400,
-      "status": "active",
+      "description": "diabetes",
       "specifics": "C0011849:Diabetes Mellitus;",
-      "description": "diabetes"
+      "status": "active"
+    }
+  ],
+  "encounters": [
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05e68e27b48183001420",
+      "_type": "Encounter",
+      "time": 1289102400,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99281"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05e68e27b48183001421",
+      "_type": "Encounter",
+      "time": 1282190400,
+      "description": "encounter ED",
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05e68e27b48183001422",
+      "_type": "Encounter",
+      "time": 1272686400,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    }
+  ],
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "847207"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05e68e27b48183001436",
+      "_type": "Medication",
+      "time": 1272686400,
+      "description": "Insulin",
+      "specifics": "C2683559:3 ML Insulin Lispro 100 UNT/ML Prefilled Syringe;"
+    }
+  ],
+  "procedures": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "401191002"
+        ]
+      },
+      "value": {
+        "scalar": "Normal",
+        "units": null
+      },
+      "_id": "4f7e05e68e27b48183001431",
+      "_type": "Procedure",
+      "time": 1289102400,
+      "description": "Foot Exam",
+      "specifics": "C1303165:Diabetic foot examination;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "401191002"
+        ]
+      },
+      "value": {
+        "scalar": "Normal",
+        "units": null
+      },
+      "_id": "4f7e05e68e27b48183001432",
+      "_type": "Procedure",
+      "time": 1272686400,
+      "description": "Foot Exam",
+      "specifics": "C1303165:Diabetic foot examination;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "384742004"
+        ],
+        "CPT": [
+          "99406"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05e68e27b48183001433",
+      "_type": "Procedure",
+      "time": 1272686400,
+      "description": "tobacco use cessation counseling",
+      "specifics": "C1692317:Smoking cessation assistance;"
+    },
+    {
+      "codes": {
+        "HCPCS": [
+          "S0621"
+        ],
+        "SNOMED-CT": [
+          "390735007"
+        ],
+        "ICD-9-CM": [
+          "95.03"
+        ],
+        "CPT": [
+          "92012"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05e68e27b48183001434",
+      "_type": "Procedure",
+      "time": 1286769600,
+      "description": "eye exam",
+      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "77057"
+        ],
+        "HCPCS": [
+          "G0202"
+        ],
+        "ICD-9-CM": [
+          "V76.12"
+        ],
+        "ICD-10-CM": [
+          "Z12.31"
+        ],
+        "SNOMED-CT": [
+          "24623002"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05e68e27b48183001435",
+      "_type": "Procedure",
+      "time": 1286769600,
+      "description": "breast cancer screening",
+      "specifics": "C0203028:Screening mammography;"
     }
   ],
   "results": [
@@ -737,9 +766,11 @@
         "scalar": "Negative",
         "units": null
       },
+      "_id": "4f7e05e68e27b4818300142a",
+      "_type": "LabResult",
       "time": 1289102400,
-      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
-      "description": "Pap Test"
+      "description": "Pap Test",
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;"
     },
     {
       "codes": {
@@ -757,9 +788,11 @@
         "scalar": 0.071,
         "units": null
       },
+      "_id": "4f7e05e68e27b4818300142b",
+      "_type": "LabResult",
       "time": 1289102400,
-      "specifics": "C0474680:Hemoglobin A1c measurement;",
-      "description": "HbA1c test"
+      "description": "HbA1c test",
+      "specifics": "C0474680:Hemoglobin A1c measurement;"
     },
     {
       "codes": {
@@ -771,9 +804,11 @@
         "scalar": 81.0,
         "units": null
       },
+      "_id": "4f7e05e68e27b4818300142c",
+      "_type": "LabResult",
       "time": 1272686400,
-      "specifics": "C0364225:Cholesterol.in LDL:Mass Concentration:Point in time:Serum/Plasma:Quantitative;",
-      "description": "LDL Laboratory Test"
+      "description": "LDL Laboratory Test",
+      "specifics": "C0364225:Cholesterol.in LDL:Mass Concentration:Point in time:Serum/Plasma:Quantitative;"
     },
     {
       "codes": {
@@ -791,9 +826,11 @@
         "scalar": 50.0,
         "units": null
       },
+      "_id": "4f7e05e68e27b4818300142d",
+      "_type": "LabResult",
       "time": 1272686400,
-      "specifics": "C0392885:High density lipoprotein measurement;",
-      "description": "High Density Lipoprotein (HDL)"
+      "description": "High Density Lipoprotein (HDL)",
+      "specifics": "C0392885:High density lipoprotein measurement;"
     },
     {
       "codes": {
@@ -811,9 +848,11 @@
         "scalar": 160.0,
         "units": null
       },
+      "_id": "4f7e05e68e27b4818300142e",
+      "_type": "LabResult",
       "time": 1272686400,
-      "specifics": "C0546633:Cholesterol total measurement;",
-      "description": "Total Cholesterol"
+      "description": "Total Cholesterol",
+      "specifics": "C0546633:Cholesterol total measurement;"
     },
     {
       "codes": {
@@ -831,9 +870,11 @@
         "scalar": 150.0,
         "units": null
       },
+      "_id": "4f7e05e68e27b4818300142f",
+      "_type": "LabResult",
       "time": 1272686400,
-      "specifics": "C0202236:Triglycerides measurement;",
-      "description": "Triglycerides"
+      "description": "Triglycerides",
+      "specifics": "C0202236:Triglycerides measurement;"
     },
     {
       "codes": {
@@ -851,111 +892,115 @@
         "scalar": 0.072,
         "units": null
       },
+      "_id": "4f7e05e68e27b48183001430",
+      "_type": "LabResult",
       "time": 1272686400,
-      "specifics": "C0474680:Hemoglobin A1c measurement;",
-      "description": "HbA1c test"
+      "description": "HbA1c test",
+      "specifics": "C0474680:Hemoglobin A1c measurement;"
     }
   ],
-  "procedures": [
+  "vital_signs": [
     {
       "codes": {
         "SNOMED-CT": [
-          "401191002"
+          "271649006"
         ]
       },
       "value": {
-        "scalar": "Normal",
-        "units": null
+        "scalar": 128.0,
+        "units": "mm[Hg]"
       },
+      "_id": "4f7e05e68e27b48183001423",
+      "_type": "Entry",
       "time": 1289102400,
-      "specifics": "C1303165:Diabetic foot examination;",
-      "description": "Foot Exam"
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
     },
     {
       "codes": {
         "SNOMED-CT": [
-          "401191002"
+          "271650006"
         ]
       },
       "value": {
-        "scalar": "Normal",
+        "scalar": 70.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05e68e27b48183001424",
+      "_type": "Entry",
+      "time": 1289102400,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 132.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05e68e27b48183001425",
+      "_type": "Entry",
+      "time": 1272686400,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 76.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05e68e27b48183001426",
+      "_type": "Entry",
+      "time": 1272686400,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 23.885215794306703,
         "units": null
       },
+      "_id": "4f7e05e68e27b48183001427",
+      "_type": "Entry",
+      "time": 1289102400,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 24.04660238751148,
+        "units": null
+      },
+      "_id": "4f7e05e68e27b48183001428",
+      "_type": "Entry",
       "time": 1272686400,
-      "specifics": "C1303165:Diabetic foot examination;",
-      "description": "Foot Exam"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "384742004"
-        ],
-        "CPT": [
-          "99406"
-        ]
-      },
-      "time": 1272686400,
-      "specifics": "C1692317:Smoking cessation assistance;",
-      "description": "tobacco use cessation counseling"
-    },
-    {
-      "codes": {
-        "HCPCS": [
-          "S0621"
-        ],
-        "SNOMED-CT": [
-          "390735007"
-        ],
-        "ICD-9-CM": [
-          "95.03"
-        ],
-        "CPT": [
-          "92012"
-        ]
-      },
-      "time": 1286769600,
-      "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
-      "description": "eye exam"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "77057"
-        ],
-        "HCPCS": [
-          "G0202"
-        ],
-        "ICD-9-CM": [
-          "V76.12"
-        ],
-        "ICD-10-CM": [
-          "Z12.31"
-        ],
-        "SNOMED-CT": [
-          "24623002"
-        ]
-      },
-      "time": 1286769600,
-      "specifics": "C0203028:Screening mammography;",
-      "description": "breast cancer screening"
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
-  ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "847207"
-        ]
-      },
-      "time": 1272686400,
-      "specifics": "C2683559:3 ML Insulin Lispro 100 UNT/ML Prefilled Syringe;",
-      "description": "Insulin"
-    }
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
-
   ]
 }

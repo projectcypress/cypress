@@ -1,14 +1,12 @@
 {
-  "_id": "4f6224c4a9ffcca06300007a",
-  "first": "Darryl",
+  "_id": "4f7e05df8e27b48183000f84",
   "patient_id": "47",
+  "first": "Darryl",
   "last": "Ginsburg",
   "gender": "M",
   "birthdate": -834609600,
   "race": "White",
   "ethnicity": "Not Hispanic or Latino",
-  "languages": null,
-  "addresses": null,
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -609,213 +607,39 @@
           "91930004"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f85",
+      "_type": "Allergy",
       "time": 1266037200,
-      "specifics": "C0559469:Allergy to eggs;",
-      "description": "Allergy to Eggs"
+      "description": "Allergy to Eggs",
+      "status": "active",
+      "specifics": "C0559469:Allergy to eggs;"
     }
   ],
-  "medical_equipment": [
-
-  ],
-  "encounters": [
+  "care_goals": [
     {
       "codes": {
         "CPT": [
-          "99213"
+          "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
         ],
         "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1292389200,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99412"
-        ]
-      },
-      "time": 1284523200,
-      "specifics": "C0374644:Preventive medicine counseling and/or risk factor reduction intervention(s) provided to individuals in a group setting (separate procedure); approximately 60 minutes;",
-      "description": "Encounter Prev Med Group Counseling"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99412"
-        ]
-      },
-      "time": 1273982400,
-      "specifics": "C0374644:Preventive medicine counseling and/or risk factor reduction intervention(s) provided to individuals in a group setting (separate procedure); approximately 60 minutes;",
-      "description": "Encounter Prev Med Group Counseling"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1271217600,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "time": 1242446400,
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
-      "description": "Encounter Outpatient"
-    }
-  ],
-  "social_history": [
-
-  ],
-  "vital_signs": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
+          "V65.3"
         ]
       },
       "value": {
-        "scalar": 120.0,
-        "units": "mm[Hg]"
       },
-      "time": 1284523200,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 75.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1284523200,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 135.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1271217600,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 85.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1271217600,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271649006"
-        ]
-      },
-      "value": {
-        "scalar": 155.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1242446400,
-      "specifics": "C0871470:Systolic Pressure;",
-      "description": "Systolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "271650006"
-        ]
-      },
-      "value": {
-        "scalar": 100.0,
-        "units": "mm[Hg]"
-      },
-      "time": 1242446400,
-      "specifics": "C0428883:Diastolic blood pressure;",
-      "description": "Diastolic Blood Pressure"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 25.82448979591837,
-        "units": null
-      },
-      "time": 1284523200,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 26.111428571428572,
-        "units": null
-      },
-      "time": 1271217600,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "60621009"
-        ],
-        "LOINC": [
-          "39156-5"
-        ]
-      },
-      "value": {
-        "scalar": 26.398367346938777,
-        "units": null
-      },
-      "time": 1242446400,
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
-      "description": "BMI"
+      "_id": "4f7e05df8e27b48183000f9f",
+      "_type": "Entry",
+      "time": 1268542800,
+      "description": "follow-up plan_BMI management",
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
     }
   ],
   "conditions": [
@@ -831,92 +655,139 @@
           "59621000"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f94",
+      "_type": "Entry",
       "time": 1242446400,
-      "status": "active",
+      "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
-      "description": "Hypertension"
+      "status": "active"
     }
   ],
-  "results": [
+  "encounters": [
     {
       "codes": {
         "CPT": [
-          "83721"
+          "99213"
         ],
-        "LOINC": [
-          "2089-1"
-        ],
-        "SNOMED-CT": [
-          "113079009"
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "value": {
-        "scalar": 60.0,
-        "units": null
       },
-      "time": 1271217600,
-      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
-      "description": "LDL"
+      "_id": "4f7e05df8e27b48183000f86",
+      "_type": "Encounter",
+      "time": 1292389200,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
     },
     {
       "codes": {
         "CPT": [
-          "83701"
-        ],
-        "LOINC": [
-          "14646-4"
-        ],
-        "SNOMED-CT": [
-          "28036006"
+          "99412"
         ]
       },
       "value": {
-        "scalar": 65.0,
-        "units": null
       },
-      "time": 1271217600,
-      "specifics": "C0392885:High density lipoprotein measurement;",
-      "description": "High Density Lipoprotein (HDL)"
+      "_id": "4f7e05df8e27b48183000f87",
+      "_type": "Encounter",
+      "time": 1284523200,
+      "description": "Encounter Prev Med Group Counseling",
+      "specifics": "C0374644:Preventive medicine counseling and/or risk factor reduction intervention(s) provided to individuals in a group setting (separate procedure); approximately 60 minutes;"
     },
     {
       "codes": {
         "CPT": [
-          "82465"
-        ],
-        "LOINC": [
-          "2093-3"
-        ],
-        "SNOMED-CT": [
-          "121868005"
+          "99412"
         ]
       },
       "value": {
-        "scalar": 160.0,
-        "units": null
       },
-      "time": 1271217600,
-      "specifics": "C0546633:Cholesterol total measurement;",
-      "description": "Total Cholesterol"
+      "_id": "4f7e05df8e27b48183000f88",
+      "_type": "Encounter",
+      "time": 1273982400,
+      "description": "Encounter Prev Med Group Counseling",
+      "specifics": "C0374644:Preventive medicine counseling and/or risk factor reduction intervention(s) provided to individuals in a group setting (separate procedure); approximately 60 minutes;"
     },
     {
       "codes": {
         "CPT": [
-          "84478"
+          "99213"
         ],
-        "LOINC": [
-          "12951-0"
-        ],
-        "SNOMED-CT": [
-          "14740000"
+        "ICD-9-CM": [
+          "V70.0"
         ]
       },
       "value": {
-        "scalar": 175.0,
-        "units": null
       },
+      "_id": "4f7e05df8e27b48183000f89",
+      "_type": "Encounter",
       "time": 1271217600,
-      "specifics": "C0202236:Triglycerides measurement;",
-      "description": "Triglycerides"
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f8a",
+      "_type": "Encounter",
+      "time": 1242446400,
+      "description": "Encounter Outpatient",
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
+    }
+  ],
+  "medications": [
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f9c",
+      "_type": "Medication",
+      "time": 1271217600,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "858828"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f9d",
+      "_type": "Medication",
+      "time": 1242446400,
+      "description": "Antihypertensive combinations",
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+    },
+    {
+      "codes": {
+        "RxNorm": [
+          "105075"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f9e",
+      "_type": "Medication",
+      "time": 1284523200,
+      "description": "Smoking Cessation Agents",
+      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;"
     }
   ],
   "procedures": [
@@ -929,9 +800,13 @@
           "99406"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f99",
+      "_type": "Procedure",
       "time": 1273982400,
-      "specifics": "C1692317:Smoking cessation assistance;",
-      "description": "tobacco use cessation counseling"
+      "description": "tobacco use cessation counseling",
+      "specifics": "C1692317:Smoking cessation assistance;"
     },
     {
       "codes": {
@@ -951,9 +826,13 @@
           "Z12.11"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f9a",
+      "_type": "Procedure",
       "time": 1277179200,
-      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
-      "description": "colonoscopy"
+      "description": "colonoscopy",
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
     },
     {
       "codes": {
@@ -964,65 +843,258 @@
           "99406"
         ]
       },
+      "value": {
+      },
+      "_id": "4f7e05df8e27b48183000f9b",
+      "_type": "Procedure",
       "time": 1273982400,
-      "specifics": "C1692317:Smoking cessation assistance;",
-      "description": "Tobacco Use Cessation Counseling"
+      "description": "Tobacco Use Cessation Counseling",
+      "specifics": "C1692317:Smoking cessation assistance;"
     }
   ],
-  "medications": [
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1271217600,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "858828"
-        ]
-      },
-      "time": 1242446400,
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
-      "description": "Antihypertensive combinations"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "105075"
-        ]
-      },
-      "time": 1284523200,
-      "specifics": "C0355809:16 HR Nicotine 0.313 MG/HR Transdermal Patch;",
-      "description": "Smoking Cessation Agents"
-    }
-  ],
-  "immunizations": [
-
-  ],
-  "care_goals": [
+  "results": [
     {
       "codes": {
         "CPT": [
-          "97804"
+          "83721"
         ],
-        "HCPCS": [
-          "S9470"
+        "LOINC": [
+          "2089-1"
         ],
         "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
+          "113079009"
         ]
       },
-      "time": 1268542800,
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
-      "description": "follow-up plan_BMI management"
+      "value": {
+        "scalar": 60.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f95",
+      "_type": "LabResult",
+      "time": 1271217600,
+      "description": "LDL",
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "83701"
+        ],
+        "LOINC": [
+          "14646-4"
+        ],
+        "SNOMED-CT": [
+          "28036006"
+        ]
+      },
+      "value": {
+        "scalar": 65.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f96",
+      "_type": "LabResult",
+      "time": 1271217600,
+      "description": "High Density Lipoprotein (HDL)",
+      "specifics": "C0392885:High density lipoprotein measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "82465"
+        ],
+        "LOINC": [
+          "2093-3"
+        ],
+        "SNOMED-CT": [
+          "121868005"
+        ]
+      },
+      "value": {
+        "scalar": 160.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f97",
+      "_type": "LabResult",
+      "time": 1271217600,
+      "description": "Total Cholesterol",
+      "specifics": "C0546633:Cholesterol total measurement;"
+    },
+    {
+      "codes": {
+        "CPT": [
+          "84478"
+        ],
+        "LOINC": [
+          "12951-0"
+        ],
+        "SNOMED-CT": [
+          "14740000"
+        ]
+      },
+      "value": {
+        "scalar": 175.0,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f98",
+      "_type": "LabResult",
+      "time": 1271217600,
+      "description": "Triglycerides",
+      "specifics": "C0202236:Triglycerides measurement;"
+    }
+  ],
+  "vital_signs": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 120.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f8b",
+      "_type": "Entry",
+      "time": 1284523200,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 75.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f8c",
+      "_type": "Entry",
+      "time": 1284523200,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 135.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f8d",
+      "_type": "Entry",
+      "time": 1271217600,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 85.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f8e",
+      "_type": "Entry",
+      "time": 1271217600,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271649006"
+        ]
+      },
+      "value": {
+        "scalar": 155.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f8f",
+      "_type": "Entry",
+      "time": 1242446400,
+      "description": "Systolic Blood Pressure",
+      "specifics": "C0871470:Systolic Pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "271650006"
+        ]
+      },
+      "value": {
+        "scalar": 100.0,
+        "units": "mm[Hg]"
+      },
+      "_id": "4f7e05df8e27b48183000f90",
+      "_type": "Entry",
+      "time": 1242446400,
+      "description": "Diastolic Blood Pressure",
+      "specifics": "C0428883:Diastolic blood pressure;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 25.82448979591837,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f91",
+      "_type": "Entry",
+      "time": 1284523200,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 26.111428571428572,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f92",
+      "_type": "Entry",
+      "time": 1271217600,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "60621009"
+        ],
+        "LOINC": [
+          "39156-5"
+        ]
+      },
+      "value": {
+        "scalar": 26.398367346938777,
+        "units": null
+      },
+      "_id": "4f7e05df8e27b48183000f93",
+      "_type": "Entry",
+      "time": 1242446400,
+      "description": "BMI",
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
     }
   ]
 }
