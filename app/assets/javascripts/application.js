@@ -7,7 +7,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require ajax_spinner
 //= require cypress
 //= require jquery.calendrical
 //= require jquery.validate.min
