@@ -40,6 +40,7 @@ class PatientPopulation
          patients[p].push entry unless patients[p].index(entry)
       end
     end
+
         
     p_list = []
     m_list = []

@@ -40,7 +40,7 @@
 
     <section id="ehr_results">
       <table>
-        <% @vendors.each do |result_status, result_vendors|
+        <% vendors_by_status(@vendors).each do |result_status, result_vendors|
           next if result_vendors.empty? %>
           <thead>
             <tr>

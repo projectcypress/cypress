@@ -17,6 +17,8 @@ class ProductTest
   
   validates_presence_of :name
   
+  around_destroy :destroy_records
+  
   # Returns true if this ProductTests most recent TestExecution is passing
   def passing?
     return false if self.test_executions.empty?
@@ -62,13 +64,6 @@ class ProductTest
     record_ids = records.map { _id }
     MONGO_DB.collection('patient_cache').remove({'value.patient_id' => {"$in" => record_ids}})
     records.destroy
-
-    # Get rid of all related executions
-      self.test_executions.each do |execution|
-        execution.destroy
-      end
-
-    
     self.delete
   end
 

@@ -26,7 +26,7 @@
     <section class="tb">
       <div class="stacked">
         <%= link_to "Add Product", new_product_path(:vendor => @vendor), { :class => "cmd" } %>
-        <%= link_to "Edit Vendor", edit_vendor_path, { :class => "cmd" } %>
+        <%= link_to "Edit Vendor", edit_vendor_path(@vendor), { :class => "cmd" } %>
       </div>
 
       <nav class="breadcrumb">
@@ -54,7 +54,7 @@
 
     <section id="ehr_results">
       <table>
-        <% @products.each do |result_status, result_products|
+        <% products_by_status(@vendor).each do |result_status, result_products|
           next if result_products.empty? %>
           <thead>
             <tr>

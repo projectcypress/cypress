@@ -1,19 +1,13 @@
 class VendorsController < ApplicationController
   before_filter :authenticate_user!
-
+  before_filter :find_vendor , :only=>[:show, :destroy, :edit]
+  
   def index
-    passing_vendors = []
-    failing_vendors = []
-    
-    Vendor.all.each do |vendor|
-      if !vendor.products.empty? && vendor.passing?
-        passing_vendors << vendor
-      else
-        failing_vendors << vendor
-      end
-    end
-    
-    @vendors = { 'fail' => failing_vendors, 'pass' => passing_vendors }
+    @vendors = current_user.vendors
+    respond_to do |f|
+      f.json {render :json=> @vendors }
+      f.html {}
+    end    
   end
   
   def new
@@ -21,53 +15,48 @@ class VendorsController < ApplicationController
   end
   
   def create
-    vendor = Vendor.new(params[:vendor])
-    vendor.save!
+    @vendor = current_user.vendors.build params[:vendor]
+    @vendor.save
     
-    redirect_to root_path
+    respond_to do |f|
+      f.json {redirect_to vendor_url(@vendor)}
+      f.html { redirect_to root_path}
+    end
+   
   end
   
   def show
-    @vendor = Vendor.find(params[:id])
-    
-    failing_products = @vendor.failing_products
-    passing_products = @vendor.passing_products
-    
-    @products = { 'fail' => failing_products, 'pass' => passing_products }
+    respond_to do |f|
+      f.json { render json: @vendor}
+      f.html {}
+    end
   end
   
   def edit
-    @vendor = Vendor.find(params[:id])
-  end
-  
-  def destroy
-    vendor = Vendor.find(params[:id])
-    #delete all products for vendor
-    Product.where(:vendor_id=>vendor.id).each do |product|
-      #all tests for product
-      ProductTest.where(:product_id=>product.id).each do |test|
-       # Get rid of all related Records to this test
-        Record.where(:test_id => test.id).each do |record|
-          MONGO_DB.collection('patient_cache').remove({'value.patient_id' => record.id})
-          record.destroy
-        end
-        # Get rid of all related executions
-        test.test_executions.each do |execution|
-          execution.destroy
-        end
-
-      end
-    end
-    vendor.destroy
     
-    redirect_to root_path
+  end
+
+  def destroy
+    @vendor.destroy
+    respond_to do |f|
+      f.json { render :text=>"", :status=>201}
+      f.html {redirect_to root_path}
+    end 
   end
   
   def update
     vendor = Vendor.find(params[:id])
     vendor.update_attributes(params[:vendor])
     vendor.save!
-   
     redirect_to vendor_path(vendor)
   end
+  
+
+
+private 
+
+def find_vendor
+  @vendor = Vendor.find(params[:id]||params[:vendor_id])
+end
+
 end

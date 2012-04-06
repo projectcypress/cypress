@@ -81,7 +81,7 @@
 <% end %>
 
 <%= form_for([@product], :html => { :method => submit_method }) do |f| %>
-  <%= f.hidden_field :vendor_id, :value => @vendor.id %>
+  <%= f.hidden_field :vendor_id, :value => @product.vendor.id %>
   
   <h1>Product Information</h1>
   <section id="vendorInfo">

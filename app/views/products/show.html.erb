@@ -31,7 +31,7 @@
 
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
-        <%= link_to @vendor.name, vendor_path(@vendor) %>
+        <%= link_to @product.vendor.name, vendor_path(@product.vendor) %>
       </nav>
     </section>
     
@@ -40,13 +40,13 @@
         <dt>Product:</dt> <dd><%= @product.name %></dd>
       </dl>
       <dl>
-        <dt>description:</dt> <dd><%= @product.description %></dd>
+        <dt>description:</dt> <dd><%= @product.description %></dd>ƒ
       </dl>
     </section>
 
     <section id="ehr_results">
       <table>
-        <% @tests.each do |result_status, result_tests|
+        <% product_tests_by_status(@product).each do |result_status, result_tests|
           next if result_tests.empty?
           if result_status == 'incomplete'
             result_status = 'na'
