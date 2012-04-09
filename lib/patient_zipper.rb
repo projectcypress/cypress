@@ -7,6 +7,7 @@ module Cypress
 
     def self.zip(file, patients, format)
       Zip::ZipOutputStream.open(file.path) do |z|
+        xslt  = Nokogiri::XSLT(File.read(Rails.root.join("public","cda.xsl")))
         patients.each_with_index do |patient, i|
           safe_first_name = patient.first.gsub("'", '')
           safe_last_name = patient.last.gsub("'", '')
@@ -19,11 +20,10 @@ module Cypress
             #http://iweb.dl.sourceforge.net/project/ccr-resources/ccr-xslt-html/CCR%20XSL%20V2.0/ccr.xsl
              z.put_next_entry("#{next_entry_path}.html")
              doc = Nokogiri::XML::Document.parse(HealthDataStandards::Export::C32.export(patient))
-             xslt  = Nokogiri::XSLT(File.read(Rails.root.join("public","cda.xsl")))
+             
              xml = xslt.apply_to(doc)
             
              html=HealthDataStandards::Export::HTML.export(patient)
-             
              transformed = Nokogiri::HTML::Document.parse(xml)
              transformed.at_css('ul').after(html)
              
