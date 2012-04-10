@@ -57,7 +57,6 @@ namespace :mpl do
 
   desc 'Perform all tasks necessary for initializing a newly installed system'
   task :initialize => :environment do
-    Rake::Task['away:cypress'].invoke()
     Rake::Task['mpl:clear'].invoke()
     Rake::Task['mpl:load'].invoke()
     Rake::Task['mpl:eval'].invoke()
