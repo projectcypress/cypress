@@ -23,9 +23,17 @@ class ProductsControllerTest < ActionController::TestCase
     count = v.products.count
     post(:create, {:product => {:name => 'A product',:vendor_id=>v.id}})
     assert_response :redirect
+    assert_redirected_to vendor_path(v)
+    v.reload
+    assert_equal v.products.count, count+1
+    
+
+    post(:create, {:product => {:vendor_id=>v.id}})
+    assert_response :success    
     
     v.reload
     assert_equal v.products.count, count+1
+    
   end
   
   test "Delete vendors and take their associated records with them" do
@@ -35,6 +43,7 @@ class ProductsControllerTest < ActionController::TestCase
     
     assert_equal(Product.count, count -1)
     assert_response :redirect
+    assert_redirected_to vendor_path(pro.vendor)
   end
   
   
@@ -43,7 +52,8 @@ class ProductsControllerTest < ActionController::TestCase
     assert product.name != "updated"
     put :update,{:id =>product.id,:product =>{name: "updated"}}
     assert assigns(:product).name == "updated" 
-    
+    assert_response :redirect
+    assert_redirected_to product_path(product)
   end
   
   
@@ -51,12 +61,14 @@ class ProductsControllerTest < ActionController::TestCase
     product = Product.first
     get :edit,{:id =>product.id}
     assert assigns(:product) ==product
+    assert :success
   end
   
   test "show" do 
      product = Product.first
      get :show,{:id =>product.id}
      assert assigns(:product) ==product
+     assert :success
   end
   
   
@@ -64,6 +76,7 @@ class ProductsControllerTest < ActionController::TestCase
      v = Vendor.first
      get :new,{:vendor =>v.id}
      assert assigns(:product).vendor == v
+     assert :success
   end
   
   

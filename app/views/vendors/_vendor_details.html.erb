@@ -1,4 +1,5 @@
-<%= form_for(@vendor, :html => { :method => submit_method }) do |f| %>
+<%= form_for(@vendor, :html => { :method => submit_method(@vendor) }) do |f| %>
+<%= error_messages_for :vendor %>
   <h1>Vendor Information</h1>
   <section id="vendorInfo">
     <dl>
@@ -63,5 +64,5 @@
     </dl>
   </section>
   
-  <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();"><%= submit_text %></a>
+  <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();"><%= submit_text(@vendor) %></a>
 <% end %>

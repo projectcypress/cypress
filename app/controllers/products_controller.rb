@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
   before_filter :authenticate_user!
   
+  rescue_from Mongoid::Errors::Validations do
+     render :template => "products/edit"
+   end
+   
   def show
     @product = Product.find(params[:id])
   end
@@ -11,10 +15,10 @@ class ProductsController < ApplicationController
   end
   
   def create
-    product = Product.new(params[:product])
-    product.save!
+    @product = Product.new(params[:product])
+    @product.save!
     
-    redirect_to vendor_path(product.vendor.id)
+    redirect_to vendor_path(@product.vendor.id)
   end
   
   def edit

@@ -20,6 +20,9 @@ class VendorsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:vendors).size == @user.vendors.count
 
+    sign_out @user
+    get :index
+    assert_response :redirect
   end
   
   test "create" do
@@ -28,6 +31,13 @@ class VendorsControllerTest < ActionController::TestCase
     assert_response :redirect
     @user.reload
     assert_equal @user.vendors.count , vcount+1
+    assert_redirected_to root_path
+    
+    post(:create, {:vendor => {}})
+    @user.reload
+    assert_equal @user.vendors.count , vcount+1
+    assert_response :success
+    
   end
   
   test "Delete vendors and take their associated records with them" do
@@ -37,6 +47,7 @@ class VendorsControllerTest < ActionController::TestCase
     
     assert_equal(@user.vendors.count, vcount -1)
     assert_response :redirect
+    assert_redirected_to root_path
   end
   
   

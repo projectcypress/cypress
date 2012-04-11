@@ -1,7 +1,12 @@
 class VendorsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_vendor , :only=>[:show, :destroy, :edit]
-  
+  before_filter :find_vendor , :only=>[:show, :destroy, :edit, :update]
+
+  rescue_from Mongoid::Errors::Validations do
+     render :template => "vendors/edit"
+   end
+   
+   
   def index
     @vendors = current_user.vendors
     respond_to do |f|
@@ -16,8 +21,7 @@ class VendorsController < ApplicationController
   
   def create
     @vendor = current_user.vendors.build params[:vendor]
-    @vendor.save
-    
+    @vendor.save!
     respond_to do |f|
       f.json {redirect_to vendor_url(@vendor)}
       f.html { redirect_to root_path}
@@ -45,10 +49,12 @@ class VendorsController < ApplicationController
   end
   
   def update
-    vendor = Vendor.find(params[:id])
-    vendor.update_attributes(params[:vendor])
-    vendor.save!
-    redirect_to vendor_path(vendor)
+    @vendor.update_attributes(params[:vendor])
+    unless @vendor.save
+      render :template=>"vendor/edit"
+    end
+    
+    redirect_to vendor_path(@vendor)
   end
   
 
