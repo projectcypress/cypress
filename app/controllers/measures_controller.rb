@@ -2,34 +2,17 @@ require 'measure_evaluator'
 
 class MeasuresController < ApplicationController
   before_filter :authenticate_user!
-
+  before_filter :find_test_and_execution, only: [:show, :patients]
+  before_filter :find_measure, only: [:show,:patients]
+  
   def show
-    @test = ProductTest.find(params[:product_test_id])
-    if !params[:execution_id].nil?
-      @current_execution = TestExecution.find(params[:execution_id])
-    elsif @test.test_executions.size > 0
-      @execution = @test.test_executions.first
-    else
-      @execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
-    end
-    @product = @test.product
-    @vendor = @product.vendor
     
-    @measure = Measure.find(params[:id])
-    if params[:product_test_id]
-      @measures = @test.measure_defs
-    else
-      @measures = Measure.top_level
-    end
-
+    @product = @test.product
+    @vendor = @product.vendor  
+    @measures = @test.measure_defs
     @measures_categories = @measures.group_by { |t| t.category }
     
-    if params[:measure_id]
-      @selected = Measure.find(params[:measure_id])
-    else
-      @selected = @measures[0]
-    end
-    
+
     respond_to do |format|
       format.json { render :json => @execution.expected_result(@measure) }
       format.html { render :action => "show" }
@@ -37,17 +20,9 @@ class MeasuresController < ApplicationController
   end
   
   def patients
-    @test = ProductTest.find(params[:product_test_id])
-    if !params[:execution_id].nil?
-      @current_execution = TestExecution.find(params[:execution_id])
-    elsif @test.test_executions.size > 0
-      @execution = @test.test_executions.first
-    else
-      @execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
-    end
+   
     @product = @test.product
     @vendor = @product.vendor
-    @measure = Measure.find(params[:id])
     @result = @execution.expected_result(@measure)
     
     @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure['id'])
@@ -119,5 +94,27 @@ class MeasuresController < ApplicationController
       format.json {render :json => {:coverage => @coverage}}      
     end
   end
+  
+  
+  private
+  
+  
+  def find_measure
+    @measure = Measure.find(params[:id])
+  end
+  
+  
+  def find_test_and_execution
+    @test = ProductTest.find(params[:product_test_id])
+    if params[:execution_id]
+      @current_execution = TestExecution.find(params[:execution_id])
+    elsif @test.test_executions.size > 0
+      @execution = @test.test_executions.first
+    else
+      @execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
+    end
+  end
+  
+
 
 end
