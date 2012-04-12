@@ -28,6 +28,7 @@ group :test, :develop do
   gem 'turn', :require => false
   gem 'minitest'
   gem 'cover_me', '>= 1.0.0.rc6'
+  gem 'mocha', :require => false
 end
 
 group :production do
