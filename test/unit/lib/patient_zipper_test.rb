@@ -86,8 +86,11 @@ class PatientZipperTest < ActiveSupport::TestCase
     Cypress::PatientZipper.flat_file(file,@patients)
     contents = file.read
     correct_contents = "patient_id,first name,last name,gender,race,ethnicity,birthdate\n19,Selena,Lotherberg,F,Other Race,Hispanic or Latino,03/31/1997\n20,Rosa,Vasquez,F,Other Race,Hispanic or Latino,08/05/1940\n"
-  
-    assert correct_contents == contents, "CSV contents not correct: \n #{correct_contents}"
+    lines = contents.split("\n")
+    assert correct_contents.index(lines[0]) == 0, "First line should contain header"
+    assert correct_contents.index(lines[1]) , " Contents should contain entry for #{lines[1]}"
+    assert correct_contents.index(lines[2]) , " Contents should contain entry for #{lines[2]}"
+
     file.close
     File.delete(file.path)
   end
