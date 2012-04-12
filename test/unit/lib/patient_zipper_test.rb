@@ -87,7 +87,7 @@ class PatientZipperTest < ActiveSupport::TestCase
     contents = file.read
     correct_contents = "patient_id,first name,last name,gender,race,ethnicity,birthdate\n19,Selena,Lotherberg,F,Other Race,Hispanic or Latino,03/31/1997\n20,Rosa,Vasquez,F,Other Race,Hispanic or Latino,08/05/1940\n"
   
-    assert correct_contents == contents, "CSV contents not correct"
+    assert correct_contents == contents, "CSV contents not correct: \n #{correct_contents}"
     file.close
     File.delete(file.path)
   end
