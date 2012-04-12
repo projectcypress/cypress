@@ -25,7 +25,6 @@ module Cypress
     #
     # Return value is an array of all errors found.
     def self.validate(doc)
-      puts doc
       doc = (doc.kind_of? String) ? Nokogiri::XML::Document.new(doc) : doc
       validation_errors = []
       schema = Nokogiri::XML::Schema(open(Rails.root.join("public","Registry_Payment.xsd")))

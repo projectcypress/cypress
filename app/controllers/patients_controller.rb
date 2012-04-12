@@ -52,7 +52,6 @@ class PatientsController < ApplicationController
   end
   
   def show
-    binding.pry
     @patient = Record.find(params[:id])
     if @patient.test_id
       @test = ProductTest.find(@patient.test_id)
