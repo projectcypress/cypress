@@ -4,6 +4,7 @@ class PatientsController < ApplicationController
 
   require 'builder'
   require 'patient_zipper'
+  require 'remove_duplicate_patients'
   
   before_filter :authenticate_user!
 
@@ -87,7 +88,7 @@ class PatientsController < ApplicationController
 
     @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.population" => true)
       .order_by([["value.last", :asc]])
-    @patients = remove_duplicates(@patients)
+    @patients = Cypress::DuplicateRemover.remove_duplicates(@patients)
 
     render 'table'
   end
@@ -113,18 +114,6 @@ class PatientsController < ApplicationController
     end
     
     file.close
-  end
-
-  def remove_duplicates(patients)
-    seen_ids = Array.new
-    new_patient_list = Array.new
-    patients.each do |patient|
-      if !seen_ids.include?(patient.value.patient_id.to_s)
-        new_patient_list << patient
-        seen_ids << patient.value.patient_id.to_s
-      end
-    end
-    new_patient_list
   end
 
 end
