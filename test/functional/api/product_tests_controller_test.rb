@@ -46,7 +46,7 @@ module Api
       vendor = @user.vendors.first
       product = vendor.products.first
       count = product.product_tests.count
-      pt={name:"hey"}
+      pt={name:"hey", effective_date:1324443600}
       @request.env['RAW_POST_DATA'] = pt.to_json
       @request.env['CONTENT_TYPE'] = 'application/json'
       post :create, {vendor_id: vendor.id, product_id:product.id}

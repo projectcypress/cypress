@@ -137,6 +137,7 @@ include Devise::TestHelpers
     pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")
     
     pt2.name = 'Product test with no executions'
+    pt2.effective_date = 1324443600
     pt2.save!
 
     post :process_pqri, {:id => pt1.id.to_s , :product_test => {:pqri => pqri}, :execution_id => ex.id}

@@ -7,6 +7,9 @@ class Measure
   field :subtitle, type: String
   field :short_subtitle, type: String
   
+  validates_presence_of :id
+  validates_presence_of :name
+  
   def key
     "#{self['id']}#{sub_id}"
   end
