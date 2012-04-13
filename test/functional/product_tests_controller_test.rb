@@ -60,6 +60,7 @@ include Devise::TestHelpers
   end
 
   test "create" do
+    Cypress::PopulationCloneJob.stubs(:create).returns("JOB_ID")
     pt1 = {:name =>'new1', :effective_date_end =>'12/21/2011' , :upload_format =>'c32', :patient_population =>'test'}
     pt2 = {:name =>'new2', :effective_date_end =>'12/21/2011' , :upload_format =>'ccr', :patient_population =>'test'}
     pt3 = {:name =>'new3', :effective_date_end =>'12/21/2011' , :upload_format =>'csv', :patient_population =>'test'}

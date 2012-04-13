@@ -1,0 +1,19 @@
+# Mongoid Configuration for Travis CI
+# ===================================
+#
+
+defaults: &defaults
+  host: localhost
+  port: 27017
+
+development:
+  <<: *defaults
+  database: cypress_development
+
+test:
+  <<: *defaults
+  database: cypress_test
+
+production:
+  <<: *defaults
+  database: cypress_production
