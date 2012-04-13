@@ -9,5 +9,8 @@ class Ethnicity
   scope :ordered, order_by([:order, :asc])
   scope :selected, ->(ethnicity_ids) { any_in(:_id => ethnicity_ids)}
   scope :selected_or_all, ->(ethnicity_ids) { ethnicity_ids.nil? || ethnicity_ids.empty? ? Ethnicity.all : Ethnicity.selected(ethnicity_ids) }
-  
+
+  validates_presence_of :name
+  validates_presence_of :order
+  validates_presence_of :codes
 end

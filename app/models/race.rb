@@ -10,4 +10,7 @@ class Race
   scope :selected, ->(race_ids) { any_in(:_id => race_ids)}
   scope :selected_or_all, ->(race_ids) { race_ids.nil? || race_ids.empty? ? Race.all : Race.selected(race_ids) }
   
+  validates_presence_of :name
+  validates_presence_of :order
+  validates_presence_of :codes
 end

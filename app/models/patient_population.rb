@@ -13,6 +13,10 @@ class PatientPopulation
   field :description, type: String
   field :patient_ids, type: Array
  
+  validates_presence_of :id
+  validates_presence_of :name
+  validates_presence_of :patient_ids
+
   def self.installed
     PatientPopulation.order_by([["name", :asc]]).to_a
   end

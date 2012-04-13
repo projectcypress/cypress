@@ -16,6 +16,7 @@ class ProductTest
   
   
   validates_presence_of :name
+  validates_presence_of :effective_date
   
   around_destroy :destroy_records
   
