@@ -46,20 +46,20 @@ module Api
       assert 201
     end
     
-    # 
-    # test "create" do
-    #   vendor = @user.vendors.first
-    #   product = vendor.products.first
-    #   pt = product.product_tests.first
-    #   base_line = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_baseline.xml'), 'application/xml')
-    #   reported_results = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_passing.xml'), 'application/xml')
-    # 
-    #   count = TestExecution.count
-    #   post :create, {vendor_id: vendor.id, product_id:product.id, product_test_id:pt.id, baseline_results:base_line, reported_results:reported_results}
-    #   assert :success
-    #   assert_equal count+1,TestExecution.count
-    # 
-    # end
+  
+    test "create" do      
+      vendor = @user.vendors.first
+      product = vendor.products.first
+      pt = product.product_tests.first
+      base_line = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_baseline.xml'), 'application/xml')
+      reported_results = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_passing.xml'), 'application/xml')
+    
+      count = TestExecution.count
+      post :create, {vendor_id: vendor.id, product_id:product.id, product_test_id:pt.id, baseline_results:base_line, reported_results:reported_results}
+      assert :success
+      assert_equal count+1,TestExecution.count
+    
+    end
   
   end
 end

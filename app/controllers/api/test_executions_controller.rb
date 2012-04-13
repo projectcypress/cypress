@@ -10,19 +10,23 @@ module Api
     end
     
     def create
-      blr = params[:baseline_results] ? Cypress::PqriUtility.extract_results(params[:baseline_results].read) : nil
-      rr = params[:reported_results] ? Cypress::PqriUtility.extract_results(params[:reported_results].read) : nil
       
-      blve = params[:baseline_results] ? Cypress::PqriUtility.validate(params[:baseline_results].read) : nil
-      ve = params[:reported_results] ? Cypress::PqriUtility.validate(params[:reported_results].read) : nil
+      bl = params[:baseline_results] ? params[:baseline_results].read : nil
+      er = params[:reported_results] ? params[:reported_results].read : nil
       
-      te = TestExecution.new(baseline_results:blr, reported_results: rr, baseline_validation_errors:blve, validation_errors:ve)
+      blr = bl ? Cypress::PqriUtility.extract_results(bl) : nil
+      rr = er ? Cypress::PqriUtility.extract_results(er) : nil
+      
+      blve = bl ? Cypress::PqriUtility.validate(bl) : nil
+      ve = er ? Cypress::PqriUtility.validate(er) : nil
+      
+      te = TestExecution.new(baseline_results:blr, reported_results: rr, baseline_validation_errors:blve, validation_errors:ve, execution_date:Time.now.to_i)
       te.save
       redirect_to api_vendor_product_product_test_test_execution_url(@vendor,@product,@product_test,te)
     end
     
     def show
-      render json:@test_execution
+      render json: @test_execution
     end
     
     def destroy
