@@ -48,6 +48,7 @@ Cypress::Application.routes.draw do
   get "/information/help"
   
   get '/services/index'
+  get '/services/validate_pqri'
   post '/services/validate_pqri'
 
   match '/measures/minimal_set' => 'measures#minimal_set'
