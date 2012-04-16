@@ -29,10 +29,10 @@
   <div>
     <section class="tb">
       <% if @test
-        zip_c32_path = download_patients_path(@test.id, :format => 'c32')
-        zip_ccr_path = download_patients_path(@test.id, :format => 'ccr')
-        csv_path = download_patients_path(@test.id, :format => 'csv')
-        zip_html_path = download_patients_path(@test.id, :format => 'html')
+        zip_c32_path = download_product_test_path(@test, :format => 'c32')
+        zip_ccr_path = download_product_test_path(@test, :format => 'ccr')
+        csv_path = download_product_test_path(@test, :format => 'csv')
+        zip_html_path = download_product_test_path(@test, :format => 'html')
       else
         zip_c32_path = download_patients_path(:format => 'c32')
         zip_ccr_path = download_patients_path(:format => 'ccr')
