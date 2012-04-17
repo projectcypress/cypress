@@ -1,3 +1,5 @@
+<%= javascript 'product_tests', 'measures' %>
+
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
@@ -12,7 +14,6 @@
     </section>
 
     <section id="vendor">
-      <%# render :partial => 'product_test_details', :locals => { :submit_method => 'post', :submit_text => 'Create' } %>
       <%= render :partial => 'wizard', :locals => { :submit_method => 'post', :submit_text => 'Create' } %>
     </section>
   </div>

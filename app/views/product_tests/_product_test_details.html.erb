@@ -1,21 +1,3 @@
-<% content_for :head do %>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('.date').calendricalDate({usa: true, changed: this.close()});
-    });
-    
-    // Add functionality to buttons that check or uncheck all Measures by category in the form.
-    function toggleMeasures(toggleSetting, group) {
-      if (arguments.length < 2) {
-        $('#testMeasures input:checkbox').prop('checked', toggleSetting);
-      } else {
-        selector = '#testMeasures input:checkbox.' + group;
-        $(selector).prop('checked', toggleSetting);
-      }
-    }
-  </script>
-<% end %>
-
 <%= simple_form_for([@test], :html => { :method => submit_method(@test), :multipart => true }) do |f| %>
   <%= f.hidden_field :product_id, :value => @product.id %>
 
@@ -29,71 +11,6 @@
     </dl>
    
   </section>
-
-  <% if action_name == 'new' %>
-    <h1>Patient Population</h1>
-    <section id="testProfile">
-      <dl>
-        <dt>patients:</dt>
-        <dd>
-          <%= f.radio_button :patient_population, "all",
-            :checked => (@test[:patient_population] == nil || @test[:patient_population] == "all") %>
-          <%= f.label :patient_population_id_all, "all" %>
-          <%= f.radio_button :patient_population,"core20" %>
-          <%= f.label :patient_population_id_core20, "20 core" %>
-        </dd>
-      </dl>
-      <dl>
-        <dt>error threshold:</dt>
-        <dd><select><option>0%</option></select></dd>
-      </dl>
-      <dl>
-        <dt>patient test mode:</dt>
-        <dd><select><option>name randomization</option></select></dd>
-      </dl>
-
-      <% if action_name == "new" %>
-        <h2>Bring Your Own Data</h2>
-        <dl>
-          <dt><%= label_tag :byod_label, "upload .zip of records:" %></dt>
-          <dd><%= file_field_tag :byod %></dd>
-        </dl>
-        <dl>
-          <dt>as:</dt>
-          <dd>
-            <%= f.radio_button :upload_format, "c32",
-              :checked => (@test[:upload_format] == nil || @test[:upload_format] == "c32") %>
-            <%= f.label :upload_format_c32, "C32" %>
-            <%= f.radio_button :upload_format, "ccr", :checked => @test[:upload_format] == "ccr"%>
-            <%= f.label :upload_format_ccr, "CCR" %>
-          </dd>
-        </dl>
-
-      <% end %>
-    </section>
-
-    <h1>Test Measures
-      <span class="header_commands">
-        [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> |
-        <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]
-      </span>
-    </h1>
-    <section id="testMeasures">
-      <% @measures_categories.sort.each do |category, measures| %>
-        <div>
-          <dl>
-            <dt><%= category %>
-              <span class="header_commands">
-                [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" '", "_") %>')">check all</a> |
-                <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category.tr(" '", "_") %>');">uncheck all</a>]
-              </span>
-            </dt>
-            <dd><%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>category.tr(" '", "_")} %></dd>
-          </dl>
-        </div>
-      <% end %>
-    </section>
-  <% end %>
 
   <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();"><%= submit_text(@test) %></a>
 <% end %>
