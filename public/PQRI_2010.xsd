@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 
-    <xs:simpleType name="pqriSubmissionType">
-        <xs:annotation>
-            <xs:documentation xml:lang="en">
-                PQRI-REGISTRY
-            </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:pattern value="PQRI-REGISTRY"/>
-        </xs:restriction>
-    </xs:simpleType>
+ 
 
     <xs:simpleType name="pqriCollectionMethod">
         <xs:annotation>
@@ -28,16 +19,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="pqriSubmissionVersion">
-        <xs:annotation>
-            <xs:documentation xml:lang="en">
-                Per PQRI 2010, this must be exactly "3.0"
-            </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:pattern value="3.0"/>
-        </xs:restriction>
-    </xs:simpleType>
+  
 
     <xs:simpleType name="pqriDate">
         <xs:annotation>
@@ -490,14 +472,14 @@
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
-        <xs:attribute name="type" type="pqriSubmissionType" use="required" >
+        <xs:attribute name="type" type="xs:string" fixed="PQRI-REGISTRY" use="required" >
             <xs:annotation>
                 <xs:documentation xml:lang="en">
                     Describes the setting for which data is being submitted.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="version" type="pqriSubmissionVersion" use="required" >
+        <xs:attribute name="version" type="xs:string" fixed="3.0" use="required" >
             <xs:annotation>
                 <xs:documentation xml:lang="en">
                     The version of the file layout

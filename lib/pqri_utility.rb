@@ -1,6 +1,10 @@
 module Cypress
   class PqriUtility
   
+    SCHEMA_VERSIONS = {
+      "2.0" => "Registry_Payment.xsd",
+      "3.0" => "PQRI_2010.xsd"
+    }
     # Extract and return measure results from a PQRI document and add to the reported results
     # for this test.
     def self.extract_results(doc)
@@ -27,7 +31,14 @@ module Cypress
     def self.validate(doc)
       doc = (doc.kind_of? String) ? Nokogiri::XML::Document.new(doc) : doc
       validation_errors = []
-      schema = Nokogiri::XML::Schema(open(Rails.root.join("public","Registry_Payment.xsd")))
+
+      version = doc.xpath("/submission/@version").to_s
+      
+      unless SCHEMA_VERSIONS[version]
+        return ["Schema Not avaialble for version #{version} to validate against"]
+      end
+      
+      schema = Nokogiri::XML::Schema(open(Rails.root.join("public",SCHEMA_VERSIONS[version])))
 
       schema.validate(doc).each do |error|
         validation_errors << error.message
