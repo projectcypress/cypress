@@ -9,7 +9,7 @@
   replace the values with your labeling scheme and Cypress will remember it for later. Cypress will also only show you measures that you check below and
   won't bother you again with unchecked selections.
 
-  <% @measures_categories.sort.each do |category, measures| %>
+  <% measure_categories(:all_by_measure).sort.each do |category, measures| %>
     <div>
       <dl>
         <dt><%= category %>
