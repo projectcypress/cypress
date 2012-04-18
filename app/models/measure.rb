@@ -35,6 +35,17 @@ class Measure
     
     MONGO_DB['measures'].group(:key => [:id, :name, :category], :initial => {:subs => []}, :reduce => reduce)
   end
+  
+  def self.measure_categories(type = :all_by_measure)
+    case type
+      when :top_level
+        measures = Measure.top_level
+        measures.group_by { |t| t['category'] }
+      when :all_by_measure
+        measures = Measure.all_by_measure
+        measures.group_by { |t| t['category'] }
+    end
+  end
 
   def display_name
     "#{self['id']} - #{name}"

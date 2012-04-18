@@ -12,6 +12,8 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @product.vendor = Vendor.find(params[:vendor])
+    
+    @measures_categories = Measure.measure_categories
   end
   
   def create
@@ -23,6 +25,7 @@ class ProductsController < ApplicationController
   
   def edit
     @product = Product.find(params[:id])
+    @measures_categories = Measure.measure_categories
   end
   
   def update
