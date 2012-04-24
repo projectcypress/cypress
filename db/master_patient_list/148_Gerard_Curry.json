@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05dd8e27b48183000e49",
+  "_id": "4f96ca26a9ffcc3503000e49",
   "patient_id": "148",
   "first": "Gerard",
   "last": "Curry",
   "gender": "M",
   "birthdate": 202449600,
-  "race": "Asian",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Asian",
+    "code": "2028-9"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -40,6 +46,17 @@
         1272686400
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1281412800,
+        1272686400
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1272686400
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1281412800,
@@ -53,8 +70,6 @@
         1281412800,
         1272686400
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -96,15 +111,6 @@
         1272686400
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1281412800,
-        1272686400
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1272686400
-      ]
-    },
     "0028": {
       "tobacco_use_cessation_counseling_procedure_performed": [
         1272686400
@@ -128,25 +134,23 @@
         1272686400
       ]
     },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1281412800,
-        1272686400
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1281412800,
-        1272686400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1281412800,
-        1272686400
-      ]
-    },
     "0034": {
+      "encounter_outpatient_encounter": [
+        1281412800,
+        1272686400
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1281412800,
+        1272686400
+      ],
+      "encounter_outpatient_encounter": [
+        1281412800,
+        1272686400
+      ]
+    },
+    "0033": {
       "encounter_outpatient_encounter": [
         1281412800,
         1272686400
@@ -185,11 +189,7 @@
         1272686400
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1281412800,
-        1272686400
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1281412800,
         1272686400
@@ -358,6 +358,12 @@
         1272686400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1281412800,
+        1272686400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1281412800,
@@ -412,8 +418,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e52",
-      "_type": "Entry",
+      "_id": "4f96ca26a9ffcc3503000e52",
+      "_type": "Condition",
       "time": 1272686400,
       "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
@@ -433,8 +439,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e53",
-      "_type": "Entry",
+      "_id": "4f96ca26a9ffcc3503000e53",
+      "_type": "Condition",
       "time": 1281412800,
       "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
@@ -448,8 +454,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e54",
-      "_type": "Entry",
+      "_id": "4f96ca26a9ffcc3503000e54",
+      "_type": "Condition",
       "time": 1272686400,
       "description": "Asthma Daytime Symptoms",
       "specifics": "C1276804:Asthma daytime symptoms;"
@@ -462,8 +468,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e55",
-      "_type": "Entry",
+      "_id": "4f96ca26a9ffcc3503000e55",
+      "_type": "Condition",
       "time": 1272686400,
       "description": "Asthma Nighttime Symptoms",
       "specifics": "C1273489:Asthma night-time symptoms;"
@@ -478,7 +484,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e4a",
+      "_id": "4f96ca26a9ffcc3503000e4a",
       "_type": "Encounter",
       "time": 1286942400,
       "description": "encounter outpatient including orthopedics and chiropractics",
@@ -492,7 +498,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e4b",
+      "_id": "4f96ca26a9ffcc3503000e4b",
       "_type": "Encounter",
       "time": 1281412800,
       "description": "Encounter Office & Outpatient Consult",
@@ -506,7 +512,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e4c",
+      "_id": "4f96ca26a9ffcc3503000e4c",
       "_type": "Encounter",
       "time": 1272686400,
       "description": "Encounter Office & Outpatient Consult",
@@ -522,7 +528,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e58",
+      "_id": "4f96ca26a9ffcc3503000e58",
       "_type": "Medication",
       "time": 1272686400,
       "description": "Long acting inhaled beta 2 agonist",
@@ -536,7 +542,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e59",
+      "_id": "4f96ca26a9ffcc3503000e59",
       "_type": "Medication",
       "time": 1272686400,
       "description": "Short acting beta 2 agonist",
@@ -550,7 +556,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e5a",
+      "_id": "4f96ca26a9ffcc3503000e5a",
       "_type": "Medication",
       "time": 1272686400,
       "description": "Smoking Cessation Agents",
@@ -564,7 +570,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e5b",
+      "_id": "4f96ca26a9ffcc3503000e5b",
       "_type": "Medication",
       "time": 1281412800,
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
@@ -583,7 +589,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e56",
+      "_id": "4f96ca26a9ffcc3503000e56",
       "_type": "Procedure",
       "time": 1272686400,
       "description": "tobacco use cessation counseling",
@@ -606,7 +612,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e57",
+      "_id": "4f96ca26a9ffcc3503000e57",
       "_type": "Procedure",
       "time": 1272686400,
       "description": "counseling for nutrition",
@@ -624,8 +630,8 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05dd8e27b48183000e4d",
-      "_type": "Entry",
+      "_id": "4f96ca26a9ffcc3503000e4d",
+      "_type": "VitalSign",
       "time": 1281412800,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -640,8 +646,8 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05dd8e27b48183000e4e",
-      "_type": "Entry",
+      "_id": "4f96ca26a9ffcc3503000e4e",
+      "_type": "VitalSign",
       "time": 1281412800,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -656,8 +662,8 @@
         "scalar": 112.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05dd8e27b48183000e4f",
-      "_type": "Entry",
+      "_id": "4f96ca26a9ffcc3503000e4f",
+      "_type": "VitalSign",
       "time": 1272686400,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -672,8 +678,8 @@
         "scalar": 74.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05dd8e27b48183000e50",
-      "_type": "Entry",
+      "_id": "4f96ca26a9ffcc3503000e50",
+      "_type": "VitalSign",
       "time": 1272686400,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -691,8 +697,8 @@
         "scalar": 24.87200832466181,
         "units": null
       },
-      "_id": "4f7e05dd8e27b48183000e51",
-      "_type": "Entry",
+      "_id": "4f96ca26a9ffcc3503000e51",
+      "_type": "VitalSign",
       "time": 1272686400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

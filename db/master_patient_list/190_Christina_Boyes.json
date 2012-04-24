@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05d28e27b48183000766",
+  "_id": "4f96ca1da9ffcc3503000766",
   "patient_id": "190",
   "first": "Christina",
   "last": "Boyes",
   "gender": "F",
   "birthdate": 612504000,
-  "race": "Other Race",
-  "ethnicity": "Hispanic or Latino",
+  "race": {
+    "name": "Other Race",
+    "code": "2131-1"
+  },
+  "ethnicity": {
+    "name": "Hispanic or Latino",
+    "code": "2135-2"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -30,6 +36,17 @@
         1273636800
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1273636800
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1286856000,
@@ -43,8 +60,6 @@
         1286856000,
         1273636800
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -84,15 +99,6 @@
         1273636800
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1286856000,
-        1273636800
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1273636800
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1286856000,
@@ -114,6 +120,22 @@
         1273636800
       ],
       "pap_test_laboratory_test_result": [
+        1273636800
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1286856000,
+        1273636800
+      ],
+      "encounter_outpatient_encounter": [
+        1286856000,
         1273636800
       ]
     },
@@ -141,24 +163,6 @@
         1273636800
       ]
     },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1286856000,
-        1273636800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1286856000,
-        1273636800
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1286856000,
-        1273636800
-      ]
-    },
     "0036": {
       "encounter_outpatient_encounter": [
         1286856000,
@@ -174,11 +178,7 @@
         1273636800
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1286856000,
-        1273636800
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1286856000,
         1273636800
@@ -344,6 +344,12 @@
         1273636800
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1286856000,
+        1273636800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1286856000,
@@ -408,7 +414,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d28e27b48183000767",
+      "_id": "4f96ca1da9ffcc3503000767",
       "_type": "Allergy",
       "time": 1273636800,
       "description": "VZV Vaccine",
@@ -431,8 +437,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d28e27b48183000771",
-      "_type": "Entry",
+      "_id": "4f96ca1da9ffcc3503000771",
+      "_type": "Condition",
       "time": 989985600,
       "description": "leukemia",
       "specifics": "C0023448:Lymphoid leukemia;",
@@ -452,8 +458,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d28e27b48183000772",
-      "_type": "Entry",
+      "_id": "4f96ca1da9ffcc3503000772",
+      "_type": "Condition",
       "time": 1273636800,
       "description": "Nonrheumatic mitral (valve) disease",
       "specifics": "C0026265:Diseases of mitral valve;",
@@ -472,7 +478,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d28e27b48183000769",
+      "_id": "4f96ca1da9ffcc3503000769",
       "_type": "Encounter",
       "time": 1286856000,
       "description": "Encounter Outpatient",
@@ -489,7 +495,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d28e27b4818300076a",
+      "_id": "4f96ca1da9ffcc350300076a",
       "_type": "Encounter",
       "time": 1273636800,
       "description": "Encounter Outpatient",
@@ -505,7 +511,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d28e27b48183000768",
+      "_id": "4f96ca1da9ffcc3503000768",
       "_type": "Entry",
       "time": 1273636800,
       "description": "IUD use",
@@ -524,7 +530,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d28e27b48183000776",
+      "_id": "4f96ca1da9ffcc3503000776",
       "_type": "Procedure",
       "time": 1273636800,
       "description": "tobacco use cessation counseling",
@@ -538,7 +544,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d28e27b48183000777",
+      "_id": "4f96ca1da9ffcc3503000777",
       "_type": "Procedure",
       "time": 1273636800,
       "description": "contraceptive use education",
@@ -562,7 +568,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f7e05d28e27b48183000773",
+      "_id": "4f96ca1da9ffcc3503000773",
       "_type": "LabResult",
       "time": 1273636800,
       "description": "Chlamydia Screening",
@@ -593,7 +599,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f7e05d28e27b48183000774",
+      "_id": "4f96ca1da9ffcc3503000774",
       "_type": "LabResult",
       "time": 1273636800,
       "description": "Pap Test",
@@ -612,7 +618,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f7e05d28e27b48183000775",
+      "_id": "4f96ca1da9ffcc3503000775",
       "_type": "LabResult",
       "time": 1286856000,
       "description": "Pregnancy Test",
@@ -630,8 +636,8 @@
         "scalar": 112.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d28e27b4818300076b",
-      "_type": "Entry",
+      "_id": "4f96ca1da9ffcc350300076b",
+      "_type": "VitalSign",
       "time": 1286856000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -646,8 +652,8 @@
         "scalar": 68.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d28e27b4818300076c",
-      "_type": "Entry",
+      "_id": "4f96ca1da9ffcc350300076c",
+      "_type": "VitalSign",
       "time": 1286856000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -662,8 +668,8 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d28e27b4818300076d",
-      "_type": "Entry",
+      "_id": "4f96ca1da9ffcc350300076d",
+      "_type": "VitalSign",
       "time": 1273636800,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -678,8 +684,8 @@
         "scalar": 62.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d28e27b4818300076e",
-      "_type": "Entry",
+      "_id": "4f96ca1da9ffcc350300076e",
+      "_type": "VitalSign",
       "time": 1273636800,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -697,8 +703,8 @@
         "scalar": 22.594123048668507,
         "units": null
       },
-      "_id": "4f7e05d28e27b4818300076f",
-      "_type": "Entry",
+      "_id": "4f96ca1da9ffcc350300076f",
+      "_type": "VitalSign",
       "time": 1286856000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -716,8 +722,8 @@
         "scalar": 22.755509641873278,
         "units": null
       },
-      "_id": "4f7e05d28e27b48183000770",
-      "_type": "Entry",
+      "_id": "4f96ca1da9ffcc3503000770",
+      "_type": "VitalSign",
       "time": 1273636800,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

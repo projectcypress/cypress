@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05d58e27b481830008f0",
+  "_id": "4f96ca1fa9ffcc35030008f0",
   "patient_id": "77",
   "first": "Blair",
   "last": "Waldorf",
   "gender": "M",
   "birthdate": 724309200,
-  "race": "White",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -71,6 +77,19 @@
         1270180800
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1287201600,
+        1279080000,
+        1270180800
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1279080000
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1270180800
@@ -84,8 +103,6 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1270180800
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -126,17 +143,6 @@
         1270180800
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1291266000,
-        1287201600,
-        1279080000,
-        1270180800
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1279080000
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291266000,
@@ -162,31 +168,32 @@
         1270180800
       ]
     },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1291266000,
-        1287201600,
-        1279080000,
-        1270180800
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1291266000,
-        1287201600,
-        1279080000,
-        1270180800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291266000,
-        1287201600,
-        1279080000,
-        1270180800
-      ]
-    },
     "0034": {
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1287201600,
+        1279080000,
+        1270180800
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1291266000,
+        1287201600,
+        1279080000,
+        1270180800
+      ],
+      "encounter_outpatient_encounter": [
+        1291266000,
+        1287201600,
+        1279080000,
+        1270180800
+      ],
+      "influenza_vaccine_medication_administered": [
+        1291266000
+      ]
+    },
+    "0033": {
       "encounter_outpatient_encounter": [
         1291266000,
         1287201600,
@@ -236,21 +243,12 @@
         1291266000
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1291266000,
-        1287201600,
-        1279080000,
-        1270180800
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1291266000,
         1287201600,
         1279080000,
         1270180800
-      ],
-      "influenza_vaccine_medication_administered": [
-        1291266000
       ]
     },
     "0047": {
@@ -473,6 +471,14 @@
         1270180800
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291266000,
+        1287201600,
+        1279080000,
+        1270180800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291266000,
@@ -553,8 +559,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008fa",
-      "_type": "Entry",
+      "_id": "4f96ca1fa9ffcc35030008fa",
+      "_type": "Condition",
       "time": 1270180800,
       "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
@@ -574,8 +580,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008fb",
-      "_type": "Entry",
+      "_id": "4f96ca1fa9ffcc35030008fb",
+      "_type": "Condition",
       "time": 1291266000,
       "description": "pharyngitis",
       "specifics": "C0001344:Acute pharyngitis;",
@@ -592,8 +598,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008fc",
-      "_type": "Entry",
+      "_id": "4f96ca1fa9ffcc35030008fc",
+      "_type": "Condition",
       "time": 1275883200,
       "description": "Asthma Persistent",
       "specifics": "C1960047:Moderate persistent asthma;",
@@ -607,8 +613,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008fd",
-      "_type": "Entry",
+      "_id": "4f96ca1fa9ffcc35030008fd",
+      "_type": "Condition",
       "time": 1270180800,
       "description": "Asthma Daytime Symptoms",
       "specifics": "C1276804:Asthma daytime symptoms;"
@@ -621,8 +627,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008fe",
-      "_type": "Entry",
+      "_id": "4f96ca1fa9ffcc35030008fe",
+      "_type": "Condition",
       "time": 1270180800,
       "description": "Asthma Nighttime Symptoms",
       "specifics": "C1273489:Asthma night-time symptoms;"
@@ -640,7 +646,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008f1",
+      "_id": "4f96ca1fa9ffcc35030008f1",
       "_type": "Encounter",
       "time": 1291266000,
       "description": "Encounter Outpatient",
@@ -654,7 +660,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008f2",
+      "_id": "4f96ca1fa9ffcc35030008f2",
       "_type": "Encounter",
       "time": 1287201600,
       "description": "Encounter Office & Outpatient Consult",
@@ -671,7 +677,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008f3",
+      "_id": "4f96ca1fa9ffcc35030008f3",
       "_type": "Encounter",
       "time": 1279080000,
       "description": "Encounter Outpatient",
@@ -685,7 +691,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008f4",
+      "_id": "4f96ca1fa9ffcc35030008f4",
       "_type": "Encounter",
       "time": 1275883200,
       "description": "encounter ED",
@@ -699,7 +705,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b481830008f5",
+      "_id": "4f96ca1fa9ffcc35030008f5",
       "_type": "Encounter",
       "time": 1270180800,
       "description": "Encounter Office & Outpatient Consult",
@@ -715,7 +721,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000907",
+      "_id": "4f96ca1fa9ffcc3503000907",
       "_type": "Immunization",
       "time": 1291266000,
       "description": "Influenza Vaccine",
@@ -731,7 +737,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000904",
+      "_id": "4f96ca1fa9ffcc3503000904",
       "_type": "Medication",
       "time": 1291266000,
       "description": "Quinolones",
@@ -745,7 +751,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000905",
+      "_id": "4f96ca1fa9ffcc3503000905",
       "_type": "Medication",
       "time": 1270267200,
       "description": "Long acting inhaled beta 2 agonist",
@@ -759,7 +765,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000906",
+      "_id": "4f96ca1fa9ffcc3503000906",
       "_type": "Medication",
       "time": 1270267200,
       "description": "Short acting beta 2 agonist",
@@ -784,7 +790,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000900",
+      "_id": "4f96ca1fa9ffcc3503000900",
       "_type": "Procedure",
       "time": 1279080000,
       "description": "counseling for nutrition",
@@ -804,7 +810,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000901",
+      "_id": "4f96ca1fa9ffcc3503000901",
       "_type": "Procedure",
       "time": 1279080000,
       "description": "counseling for physical activity",
@@ -821,7 +827,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000902",
+      "_id": "4f96ca1fa9ffcc3503000902",
       "_type": "Procedure",
       "time": 1279080000,
       "description": "tobacco use cessation counseling",
@@ -835,7 +841,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000903",
+      "_id": "4f96ca1fa9ffcc3503000903",
       "_type": "Procedure",
       "time": 1270180800,
       "description": "Asthma Symptom Assessment Tool",
@@ -859,7 +865,7 @@
         "scalar": "Positive",
         "units": null
       },
-      "_id": "4f7e05d58e27b481830008ff",
+      "_id": "4f96ca1fa9ffcc35030008ff",
       "_type": "LabResult",
       "time": 1291266000,
       "description": "group A streptococcus test",
@@ -877,8 +883,8 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d58e27b481830008f6",
-      "_type": "Entry",
+      "_id": "4f96ca1fa9ffcc35030008f6",
+      "_type": "VitalSign",
       "time": 1270180800,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -893,8 +899,8 @@
         "scalar": 70.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d58e27b481830008f7",
-      "_type": "Entry",
+      "_id": "4f96ca1fa9ffcc35030008f7",
+      "_type": "VitalSign",
       "time": 1270180800,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -909,8 +915,8 @@
         "scalar": 66.0,
         "units": null
       },
-      "_id": "4f7e05d58e27b481830008f8",
-      "_type": "Entry",
+      "_id": "4f96ca1fa9ffcc35030008f8",
+      "_type": "VitalSign",
       "time": 1270180800,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -928,8 +934,8 @@
         "scalar": 21.18243243243243,
         "units": null
       },
-      "_id": "4f7e05d58e27b481830008f9",
-      "_type": "Entry",
+      "_id": "4f96ca1fa9ffcc35030008f9",
+      "_type": "VitalSign",
       "time": 1279080000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

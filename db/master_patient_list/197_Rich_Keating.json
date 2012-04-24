@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05c68e27b4818300001a",
+  "_id": "4f96ca13a9ffcc350300001a",
   "patient_id": "197",
   "first": "Rich",
   "last": "Keating",
   "gender": "M",
   "birthdate": 40539600,
-  "race": "Asian",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Asian",
+    "code": "2028-9"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -50,6 +56,22 @@
         1270267200
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1288584000,
+        1279166400,
+        1275624000,
+        1270267200
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1270267200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1270008000
+      ]
+    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270008000
@@ -71,11 +93,6 @@
         1279166400,
         1275624000,
         1270267200
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270008000
       ]
     },
     "0014": {
@@ -143,17 +160,6 @@
         1270267200
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1288584000,
-        1279166400,
-        1275624000,
-        1270267200
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1270267200
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1288584000,
@@ -185,7 +191,7 @@
         1270267200
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1288584000,
         1279166400,
@@ -193,32 +199,24 @@
         1270267200
       ]
     },
-    "0043": {
+    "0041": {
+      "encounter_influenza_encounter": [
+        1288584000,
+        1279166400,
+        1275624000,
+        1270267200
+      ],
       "encounter_outpatient_encounter": [
         1288584000,
         1279166400,
         1275624000,
         1270267200
       ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
+      "influenza_vaccine_medication_administered": [
         1288584000
       ]
     },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1279166400
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1288584000,
-        1279166400,
-        1275624000,
-        1270267200
-      ],
-      "optic_nerve_head_evaluation_procedure_performed": [
-        1279166400
-      ]
-    },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1288584000,
         1279166400,
@@ -264,20 +262,14 @@
         1288584000
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1288584000,
-        1279166400,
-        1275624000,
-        1270267200
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1288584000,
         1279166400,
         1275624000,
         1270267200
       ],
-      "influenza_vaccine_medication_administered": [
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1288584000
       ]
     },
@@ -531,6 +523,20 @@
         1270267200
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1279166400
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1288584000,
+        1279166400,
+        1275624000,
+        1270267200
+      ],
+      "optic_nerve_head_evaluation_procedure_performed": [
+        1279166400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1288584000,
@@ -613,8 +619,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300002a",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc350300002a",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
@@ -634,8 +640,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300002b",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc350300002b",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
@@ -655,8 +661,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300002c",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc350300002c",
+      "_type": "Condition",
       "time": 1279166400,
       "description": "Primary Open Angle Glaucoma (POAG)",
       "specifics": "C0017612:Glaucoma, Open-Angle;",
@@ -670,8 +676,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300002d",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc350300002d",
+      "_type": "Condition",
       "time": 1270267200,
       "description": "Asthma Nighttime Symptoms Quantified",
       "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
@@ -684,8 +690,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300002e",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc350300002e",
+      "_type": "Condition",
       "time": 1270267200,
       "description": "Asthma Daytime Symptoms Quantified",
       "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
@@ -703,7 +709,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300001b",
+      "_id": "4f96ca13a9ffcc350300001b",
       "_type": "Encounter",
       "time": 1288584000,
       "description": "Encounter Outpatient",
@@ -717,7 +723,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300001c",
+      "_id": "4f96ca13a9ffcc350300001c",
       "_type": "Encounter",
       "time": 1279166400,
       "description": "Encounter Office & Outpatient Consult",
@@ -734,7 +740,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300001d",
+      "_id": "4f96ca13a9ffcc350300001d",
       "_type": "Encounter",
       "time": 1275624000,
       "description": "Encounter Outpatient",
@@ -748,7 +754,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300001e",
+      "_id": "4f96ca13a9ffcc350300001e",
       "_type": "Encounter",
       "time": 1270267200,
       "description": "Encounter Office & Outpatient Consult",
@@ -764,7 +770,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b48183000037",
+      "_id": "4f96ca13a9ffcc3503000037",
       "_type": "Immunization",
       "time": 1288584000,
       "description": "Influenza Vaccine",
@@ -781,7 +787,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b48183000038",
+      "_id": "4f96ca13a9ffcc3503000038",
       "_type": "Immunization",
       "time": 1288584000,
       "description": "Pneumococcal Vaccine all ages",
@@ -797,7 +803,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b48183000033",
+      "_id": "4f96ca13a9ffcc3503000033",
       "_type": "Medication",
       "time": 1275624000,
       "description": "Antihypertensive combinations",
@@ -811,7 +817,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b48183000034",
+      "_id": "4f96ca13a9ffcc3503000034",
       "_type": "Medication",
       "time": 1270267200,
       "description": "Long acting inhaled beta 2 agonist",
@@ -825,7 +831,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b48183000035",
+      "_id": "4f96ca13a9ffcc3503000035",
       "_type": "Medication",
       "time": 1270267200,
       "description": "Short acting beta 2 agonist",
@@ -839,7 +845,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b48183000036",
+      "_id": "4f96ca13a9ffcc3503000036",
       "_type": "Medication",
       "time": 1279166400,
       "description": "Smoking Cessation Agents",
@@ -858,7 +864,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b4818300002f",
+      "_id": "4f96ca13a9ffcc350300002f",
       "_type": "Procedure",
       "time": 1270267200,
       "description": "tobacco use cessation counseling",
@@ -872,7 +878,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b48183000030",
+      "_id": "4f96ca13a9ffcc3503000030",
       "_type": "Procedure",
       "time": 1270267200,
       "description": "Asthma Symptom Assessment Tool",
@@ -895,7 +901,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b48183000031",
+      "_id": "4f96ca13a9ffcc3503000031",
       "_type": "Procedure",
       "time": 1279166400,
       "description": "eye exam",
@@ -909,7 +915,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05c68e27b48183000032",
+      "_id": "4f96ca13a9ffcc3503000032",
       "_type": "Procedure",
       "time": 1279166400,
       "description": "Optic Nerve Head Evaluation",
@@ -927,8 +933,8 @@
         "scalar": 134.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05c68e27b4818300001f",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc350300001f",
+      "_type": "VitalSign",
       "time": 1288584000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -943,8 +949,8 @@
         "scalar": 82.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05c68e27b48183000020",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000020",
+      "_type": "VitalSign",
       "time": 1288584000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -959,8 +965,8 @@
         "scalar": 132.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05c68e27b48183000021",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000021",
+      "_type": "VitalSign",
       "time": 1279166400,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -975,8 +981,8 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05c68e27b48183000022",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000022",
+      "_type": "VitalSign",
       "time": 1279166400,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -991,8 +997,8 @@
         "scalar": 136.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05c68e27b48183000023",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000023",
+      "_type": "VitalSign",
       "time": 1275624000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1007,8 +1013,8 @@
         "scalar": 82.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05c68e27b48183000024",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000024",
+      "_type": "VitalSign",
       "time": 1275624000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1023,8 +1029,8 @@
         "scalar": 132.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05c68e27b48183000025",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000025",
+      "_type": "VitalSign",
       "time": 1270267200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1039,8 +1045,8 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05c68e27b48183000026",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000026",
+      "_type": "VitalSign",
       "time": 1270267200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1058,8 +1064,8 @@
         "scalar": 24.363579080025207,
         "units": null
       },
-      "_id": "4f7e05c68e27b48183000027",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000027",
+      "_type": "VitalSign",
       "time": 1288584000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1077,8 +1083,8 @@
         "scalar": 24.363579080025207,
         "units": null
       },
-      "_id": "4f7e05c68e27b48183000028",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000028",
+      "_type": "VitalSign",
       "time": 1275624000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1096,8 +1102,8 @@
         "scalar": 24.363579080025207,
         "units": null
       },
-      "_id": "4f7e05c68e27b48183000029",
-      "_type": "Entry",
+      "_id": "4f96ca13a9ffcc3503000029",
+      "_type": "VitalSign",
       "time": 1270267200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

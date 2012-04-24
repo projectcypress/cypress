@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05db8e27b48183000cf0",
+  "_id": "4f96ca24a9ffcc3503000cf0",
   "patient_id": "223",
   "first": "Brad",
   "last": "McGreggor",
   "gender": "M",
   "birthdate": -1142622000,
-  "race": "Black or African American",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Black or African American",
+    "code": "2054-5"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -48,6 +54,22 @@
         1283227200
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1289365200,
+        1284523200,
+        1281412800,
+        1279166400
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1279166400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1279166400
+      ]
+    },
     "0013": {
       "hypertension_diagnosis_active": [
         1279166400
@@ -62,11 +84,6 @@
         1279166400
       ],
       "systolic_blood_pressure_physical_exam_finding": [
-        1279166400
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
         1279166400
       ]
     },
@@ -116,17 +133,6 @@
         1279166400
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1289365200,
-        1284523200,
-        1281412800,
-        1279166400
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1279166400
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1289365200,
@@ -160,7 +166,7 @@
         1279166400
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1289365200,
         1284523200,
@@ -168,26 +174,24 @@
         1279166400
       ]
     },
-    "0043": {
+    "0041": {
+      "encounter_influenza_encounter": [
+        1289365200,
+        1284523200,
+        1281412800,
+        1279166400
+      ],
       "encounter_outpatient_encounter": [
         1289365200,
         1284523200,
         1281412800,
         1279166400
       ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
+      "influenza_vaccine_medication_administered": [
         1284523200
       ]
     },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1289365200,
-        1284523200,
-        1281412800,
-        1279166400
-      ]
-    },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1289365200,
         1284523200,
@@ -219,20 +223,14 @@
         1284523200
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1289365200,
-        1284523200,
-        1281412800,
-        1279166400
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1289365200,
         1284523200,
         1281412800,
         1279166400
       ],
-      "influenza_vaccine_medication_administered": [
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1284523200
       ]
     },
@@ -561,6 +559,14 @@
         1279166400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1289365200,
+        1284523200,
+        1281412800,
+        1279166400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1289365200,
@@ -679,8 +685,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cfd",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000cfd",
+      "_type": "Condition",
       "time": 1279166400,
       "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
@@ -700,8 +706,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cfe",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000cfe",
+      "_type": "Condition",
       "time": 1279166400,
       "description": "Heart Failure",
       "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
@@ -721,8 +727,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cff",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000cff",
+      "_type": "Condition",
       "time": 1279166400,
       "description": "Atrial Fibrillation",
       "specifics": "C0004238:Atrial Fibrillation;",
@@ -742,8 +748,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d00",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000d00",
+      "_type": "Condition",
       "time": 1283227200,
       "description": "Prostate Cancer",
       "specifics": "C0376358:Malignant neoplasm of prostate;",
@@ -763,8 +769,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d01",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000d01",
+      "_type": "Condition",
       "time": 1284523200,
       "description": "Pain Related to Prostate Cancer",
       "specifics": "C2875364:Pain due to malignancy (primary) (secondary); C1719400:Tumor associated pain; C1719395:Neoplasm related pain (acute) (chronic); C1719396:Cancer associated pain;",
@@ -780,7 +786,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cf1",
+      "_id": "4f96ca24a9ffcc3503000cf1",
       "_type": "Encounter",
       "time": 1289365200,
       "description": "Encounter Office Visit",
@@ -797,7 +803,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cf2",
+      "_id": "4f96ca24a9ffcc3503000cf2",
       "_type": "Encounter",
       "time": 1284523200,
       "description": "Encounter Outpatient",
@@ -811,7 +817,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cf3",
+      "_id": "4f96ca24a9ffcc3503000cf3",
       "_type": "Encounter",
       "time": 1283572800,
       "description": "Encounter Inpatient Discharge",
@@ -825,7 +831,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cf4",
+      "_id": "4f96ca24a9ffcc3503000cf4",
       "_type": "Encounter",
       "time": 1283227200,
       "description": "encounter acute inpt",
@@ -839,7 +845,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cf5",
+      "_id": "4f96ca24a9ffcc3503000cf5",
       "_type": "Encounter",
       "time": 1281412800,
       "description": "Encounter Office Visit",
@@ -856,7 +862,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cf6",
+      "_id": "4f96ca24a9ffcc3503000cf6",
       "_type": "Encounter",
       "time": 1279166400,
       "description": "Encounter Outpatient",
@@ -872,7 +878,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d13",
+      "_id": "4f96ca24a9ffcc3503000d13",
       "_type": "Immunization",
       "time": 1284523200,
       "description": "Influenza Vaccine",
@@ -886,7 +892,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d14",
+      "_id": "4f96ca24a9ffcc3503000d14",
       "_type": "Immunization",
       "time": 1284523200,
       "description": "Pneumococcal Vaccine",
@@ -902,7 +908,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d0f",
+      "_id": "4f96ca24a9ffcc3503000d0f",
       "_type": "Medication",
       "time": 1279166400,
       "description": "ACE inhibitor or ARB",
@@ -916,7 +922,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d10",
+      "_id": "4f96ca24a9ffcc3503000d10",
       "_type": "Medication",
       "time": 1279166400,
       "description": "Beta Blocker Therapy",
@@ -930,7 +936,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d11",
+      "_id": "4f96ca24a9ffcc3503000d11",
       "_type": "Medication",
       "time": 1279166400,
       "description": "Warfarin Therapy",
@@ -944,7 +950,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d12",
+      "_id": "4f96ca24a9ffcc3503000d12",
       "_type": "Medication",
       "time": 1289365200,
       "description": "Smoking Cessation Agents",
@@ -963,7 +969,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d09",
+      "_id": "4f96ca24a9ffcc3503000d09",
       "_type": "Procedure",
       "time": 1279166400,
       "description": "tobacco use cessation counseling",
@@ -986,7 +992,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d0a",
+      "_id": "4f96ca24a9ffcc3503000d0a",
       "_type": "Procedure",
       "time": 1279166400,
       "description": "counseling for nutrition",
@@ -1006,7 +1012,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d0b",
+      "_id": "4f96ca24a9ffcc3503000d0b",
       "_type": "Procedure",
       "time": 1279166400,
       "description": "counseling for physical activity",
@@ -1023,7 +1029,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d0c",
+      "_id": "4f96ca24a9ffcc3503000d0c",
       "_type": "Procedure",
       "time": 1283227200,
       "description": "Prostate Cancer Treatment",
@@ -1037,7 +1043,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d0d",
+      "_id": "4f96ca24a9ffcc3503000d0d",
       "_type": "Procedure",
       "time": 1283227200,
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
@@ -1051,7 +1057,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d0e",
+      "_id": "4f96ca24a9ffcc3503000d0e",
       "_type": "Procedure",
       "time": 1279166400,
       "description": "Ejection Fraction",
@@ -1075,7 +1081,7 @@
         "scalar": "2.5 ng/dL",
         "units": null
       },
-      "_id": "4f7e05db8e27b48183000d02",
+      "_id": "4f96ca24a9ffcc3503000d02",
       "_type": "LabResult",
       "time": 1278302400,
       "description": "Prostate Specific Antigen Test",
@@ -1091,7 +1097,7 @@
         "scalar": 5.0,
         "units": null
       },
-      "_id": "4f7e05db8e27b48183000d03",
+      "_id": "4f96ca24a9ffcc3503000d03",
       "_type": "LabResult",
       "time": 1278302400,
       "description": "Gleason Score <=6",
@@ -1113,7 +1119,7 @@
         "scalar": "80 mg/dL",
         "units": null
       },
-      "_id": "4f7e05db8e27b48183000d04",
+      "_id": "4f96ca24a9ffcc3503000d04",
       "_type": "LabResult",
       "time": 1279166400,
       "description": "LDL",
@@ -1135,7 +1141,7 @@
         "scalar": "150 mg/dL",
         "units": null
       },
-      "_id": "4f7e05db8e27b48183000d05",
+      "_id": "4f96ca24a9ffcc3503000d05",
       "_type": "LabResult",
       "time": 1279166400,
       "description": "Total Cholesterol",
@@ -1157,7 +1163,7 @@
         "scalar": "175 mg/dL",
         "units": null
       },
-      "_id": "4f7e05db8e27b48183000d06",
+      "_id": "4f96ca24a9ffcc3503000d06",
       "_type": "LabResult",
       "time": 1279166400,
       "description": "Triglycerides",
@@ -1179,7 +1185,7 @@
         "scalar": "40 mg/dL",
         "units": null
       },
-      "_id": "4f7e05db8e27b48183000d07",
+      "_id": "4f96ca24a9ffcc3503000d07",
       "_type": "LabResult",
       "time": 1279166400,
       "description": "High Density Lipoprotein (HDL)",
@@ -1193,7 +1199,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000d08",
+      "_id": "4f96ca24a9ffcc3503000d08",
       "_type": "LabResult",
       "time": 1283227200,
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
@@ -1211,8 +1217,8 @@
         "scalar": 126.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05db8e27b48183000cf7",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000cf7",
+      "_type": "VitalSign",
       "time": 1279166400,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1227,8 +1233,8 @@
         "scalar": 74.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05db8e27b48183000cf8",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000cf8",
+      "_type": "VitalSign",
       "time": 1279166400,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1243,8 +1249,8 @@
         "scalar": 84.0,
         "units": null
       },
-      "_id": "4f7e05db8e27b48183000cf9",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000cf9",
+      "_type": "VitalSign",
       "time": 1279166400,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -1262,8 +1268,8 @@
         "scalar": 22.594123048668507,
         "units": null
       },
-      "_id": "4f7e05db8e27b48183000cfa",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000cfa",
+      "_type": "VitalSign",
       "time": 1285819200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1281,8 +1287,8 @@
         "scalar": 23.239669421487605,
         "units": null
       },
-      "_id": "4f7e05db8e27b48183000cfb",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000cfb",
+      "_type": "VitalSign",
       "time": 1279166400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1295,8 +1301,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05db8e27b48183000cfc",
-      "_type": "Entry",
+      "_id": "4f96ca24a9ffcc3503000cfc",
+      "_type": "VitalSign",
       "time": 1283227200,
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
       "specifics": "C0475386:Tumor stage T1c;"

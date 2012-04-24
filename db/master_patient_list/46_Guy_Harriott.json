@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05d68e27b481830009a6",
+  "_id": "4f96ca20a9ffcc35030009a6",
   "patient_id": "46",
   "first": "Guy",
   "last": "Harriott",
   "gender": "M",
   "birthdate": 1238040000,
-  "race": "White",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -41,12 +47,17 @@
         1271304000
       ]
     },
-    "0013": {
+    "0027": {
       "encounter_outpatient_encounter": [
         1271304000
       ]
     },
     "0012": {
+    },
+    "0013": {
+      "encounter_outpatient_encounter": [
+        1271304000
+      ]
     },
     "0014": {
     },
@@ -74,11 +85,6 @@
         1242964800
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1271304000
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1271304000
@@ -94,22 +100,20 @@
         1271304000
       ]
     },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1271304000
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1271304000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1271304000
-      ]
-    },
     "0034": {
+      "encounter_outpatient_encounter": [
+        1271304000
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1271304000
+      ],
+      "encounter_outpatient_encounter": [
+        1271304000
+      ]
+    },
+    "0033": {
       "encounter_outpatient_encounter": [
         1271304000
       ]
@@ -130,10 +134,7 @@
         1242964800
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1271304000
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1271304000
       ]
@@ -232,6 +233,11 @@
         1271304000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1271304000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1271304000
@@ -311,8 +317,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009b4",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009b4",
+      "_type": "Condition",
       "time": 1263963600,
       "description": "pharyngitis",
       "specifics": "C0001344:Acute pharyngitis;",
@@ -328,7 +334,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009a7",
+      "_id": "4f96ca20a9ffcc35030009a7",
       "_type": "Encounter",
       "time": 1301112000,
       "description": "encounter outpatient-children",
@@ -342,7 +348,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009a8",
+      "_id": "4f96ca20a9ffcc35030009a8",
       "_type": "Encounter",
       "time": 1285473600,
       "description": "encounter outpatient-children",
@@ -359,7 +365,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009a9",
+      "_id": "4f96ca20a9ffcc35030009a9",
       "_type": "Encounter",
       "time": 1271304000,
       "description": "Encounter Outpatient",
@@ -373,7 +379,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009aa",
+      "_id": "4f96ca20a9ffcc35030009aa",
       "_type": "Encounter",
       "time": 1269748800,
       "description": "encounter outpatient-children",
@@ -387,7 +393,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009ab",
+      "_id": "4f96ca20a9ffcc35030009ab",
       "_type": "Encounter",
       "time": 1254110400,
       "description": "encounter outpatient-children",
@@ -401,7 +407,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009ac",
+      "_id": "4f96ca20a9ffcc35030009ac",
       "_type": "Encounter",
       "time": 1248494400,
       "description": "encounter outpatient-children",
@@ -415,7 +421,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009ad",
+      "_id": "4f96ca20a9ffcc35030009ad",
       "_type": "Encounter",
       "time": 1242964800,
       "description": "encounter outpatient-children",
@@ -431,7 +437,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009b6",
+      "_id": "4f96ca20a9ffcc35030009b6",
       "_type": "Medication",
       "time": 1271304000,
       "description": "Third generation cephalosporins",
@@ -455,7 +461,7 @@
         "scalar": "Positive",
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009b5",
+      "_id": "4f96ca20a9ffcc35030009b5",
       "_type": "LabResult",
       "time": 1271304000,
       "description": "Group A Streptococcus Test",
@@ -476,8 +482,8 @@
         "scalar": 17.358024691358025,
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009ae",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009ae",
+      "_type": "VitalSign",
       "time": 1301112000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -495,8 +501,8 @@
         "scalar": 19.22265625,
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009af",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009af",
+      "_type": "VitalSign",
       "time": 1285473600,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -514,8 +520,8 @@
         "scalar": 18.746666666666666,
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009b0",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009b0",
+      "_type": "VitalSign",
       "time": 1269748800,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -533,8 +539,8 @@
         "scalar": 19.75887573964497,
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009b1",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009b1",
+      "_type": "VitalSign",
       "time": 1254110400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -552,8 +558,8 @@
         "scalar": 15.7472,
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009b2",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009b2",
+      "_type": "VitalSign",
       "time": 1248494400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -571,8 +577,8 @@
         "scalar": 13.820793950850662,
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009b3",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009b3",
+      "_type": "VitalSign",
       "time": 1242964800,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05d68e27b481830009b7",
+  "_id": "4f96ca20a9ffcc35030009b7",
   "patient_id": "222",
   "first": "Josh",
   "last": "Brown",
   "gender": "M",
   "birthdate": -143150400,
-  "race": "Black or African American",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Black or African American",
+    "code": "2054-5"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -48,6 +54,19 @@
         1274328000
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1283486400,
+        1276574400,
+        1271736000,
+        1270008000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1270008000
+      ]
+    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270008000
@@ -62,11 +81,6 @@
         1270008000
       ],
       "systolic_blood_pressure_physical_exam_finding": [
-        1270008000
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
         1270008000
       ]
     },
@@ -110,14 +124,6 @@
         1270008000
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1283486400,
-        1276574400,
-        1271736000,
-        1270008000
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1283486400,
@@ -142,30 +148,6 @@
         1270008000
       ]
     },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1283486400,
-        1276574400,
-        1271736000,
-        1270008000
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1283486400,
-        1276574400,
-        1271736000,
-        1270008000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1283486400,
-        1276574400,
-        1271736000,
-        1270008000
-      ]
-    },
     "0034": {
       "colonoscopy_procedure_performed": [
         1271736000
@@ -180,6 +162,28 @@
         1270008000
       ],
       "fobt_laboratory_test_performed": [
+        1270008000
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1283486400,
+        1276574400,
+        1271736000,
+        1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1283486400,
+        1276574400,
+        1271736000,
+        1270008000
+      ]
+    },
+    "0033": {
+      "encounter_outpatient_encounter": [
+        1283486400,
+        1276574400,
+        1271736000,
         1270008000
       ]
     },
@@ -201,13 +205,7 @@
         1270008000
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1283486400,
-        1276574400,
-        1271736000,
-        1270008000
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1283486400,
         1276574400,
@@ -516,6 +514,14 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1283486400,
+        1276574400,
+        1271736000,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1283486400,
@@ -623,8 +629,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009c4",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009c4",
+      "_type": "Condition",
       "time": 1274328000,
       "description": "Colon Cancer",
       "specifics": "C0007102:Malignant tumor of colon; C0346629:Malignant neoplasm of large intestine;",
@@ -644,8 +650,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009c5",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009c5",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
@@ -664,7 +670,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009b8",
+      "_id": "4f96ca20a9ffcc35030009b8",
       "_type": "Encounter",
       "time": 1283486400,
       "description": "Encounter Outpatient",
@@ -678,7 +684,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009b9",
+      "_id": "4f96ca20a9ffcc35030009b9",
       "_type": "Encounter",
       "time": 1276574400,
       "description": "Encounter Office Visit",
@@ -692,7 +698,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009ba",
+      "_id": "4f96ca20a9ffcc35030009ba",
       "_type": "Encounter",
       "time": 1274932800,
       "description": "Encounter Inpatient Discharge",
@@ -706,7 +712,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009bb",
+      "_id": "4f96ca20a9ffcc35030009bb",
       "_type": "Encounter",
       "time": 1274328000,
       "description": "Encounter Acute inpt",
@@ -723,7 +729,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009bc",
+      "_id": "4f96ca20a9ffcc35030009bc",
       "_type": "Encounter",
       "time": 1271736000,
       "description": "Encounter Outpatient",
@@ -737,7 +743,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009bd",
+      "_id": "4f96ca20a9ffcc35030009bd",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Office Visit",
@@ -753,7 +759,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009cf",
+      "_id": "4f96ca20a9ffcc35030009cf",
       "_type": "Medication",
       "time": 1275796800,
       "description": "Chemotherapy for Colon Cancer",
@@ -767,7 +773,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009d0",
+      "_id": "4f96ca20a9ffcc35030009d0",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Antihypertensive combinations",
@@ -781,7 +787,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009d1",
+      "_id": "4f96ca20a9ffcc35030009d1",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Lipid Lowering Therapy",
@@ -797,7 +803,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009cc",
+      "_id": "4f96ca20a9ffcc35030009cc",
       "_type": "Procedure",
       "time": 1274328000,
       "description": "Colon Cancer Stage III",
@@ -814,7 +820,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009cd",
+      "_id": "4f96ca20a9ffcc35030009cd",
       "_type": "Procedure",
       "time": 1275796800,
       "description": "Chemotherapy",
@@ -840,7 +846,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009ce",
+      "_id": "4f96ca20a9ffcc35030009ce",
       "_type": "Procedure",
       "time": 1271736000,
       "description": "Colonoscopy",
@@ -870,7 +876,7 @@
         "scalar": "positive",
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009c6",
+      "_id": "4f96ca20a9ffcc35030009c6",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "FOBT",
@@ -892,7 +898,7 @@
         "scalar": "65mg/dL",
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009c7",
+      "_id": "4f96ca20a9ffcc35030009c7",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "High Density Lipoprotein (HDL)",
@@ -908,7 +914,7 @@
         "scalar": "107mg/dL",
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009c8",
+      "_id": "4f96ca20a9ffcc35030009c8",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "LDL Laboratory Test",
@@ -930,7 +936,7 @@
         "scalar": "205mg/dL",
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009c9",
+      "_id": "4f96ca20a9ffcc35030009c9",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Total Cholesterol",
@@ -952,7 +958,7 @@
         "scalar": "165mg.dL",
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009ca",
+      "_id": "4f96ca20a9ffcc35030009ca",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Triglycerides",
@@ -966,7 +972,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009cb",
+      "_id": "4f96ca20a9ffcc35030009cb",
       "_type": "LabResult",
       "time": 1274328000,
       "description": "Colon Cancer Stage III",
@@ -984,8 +990,8 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d68e27b481830009be",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009be",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1000,8 +1006,8 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d68e27b481830009bf",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009bf",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1016,8 +1022,8 @@
         "scalar": 76.0,
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009c0",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009c0",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -1035,8 +1041,8 @@
         "scalar": 21.14167966139452,
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009c1",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009c1",
+      "_type": "VitalSign",
       "time": 1283486400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1054,8 +1060,8 @@
         "scalar": 21.14167966139452,
         "units": null
       },
-      "_id": "4f7e05d68e27b481830009c2",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009c2",
+      "_type": "VitalSign",
       "time": 1271736000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1068,8 +1074,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d68e27b481830009c3",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc35030009c3",
+      "_type": "VitalSign",
       "time": 1274328000,
       "description": "Colon Cancer Stage III",
       "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;"

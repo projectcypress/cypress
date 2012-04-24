@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05d98e27b48183000bec",
+  "_id": "4f96ca23a9ffcc3503000bec",
   "patient_id": "114",
   "first": "Monica",
   "last": "Murphy",
   "gender": "F",
   "birthdate": -809467200,
-  "race": "White",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -58,6 +64,17 @@
         1284436800
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1291093200,
+        1287979200,
+        1284177600,
+        1284091200,
+        1273377600
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1273377600,
@@ -74,8 +91,6 @@
         1273377600,
         1291093200
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -126,15 +141,6 @@
         1273377600
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1291093200,
-        1287979200,
-        1284177600,
-        1284091200,
-        1273377600
-      ]
-    },
     "0028": {
       "encounter_health_and_behavior_assessment_encounter": [
         1285387200
@@ -168,6 +174,37 @@
         1273377600
       ]
     },
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1284091200
+      ],
+      "encounter_outpatient_encounter": [
+        1291093200,
+        1287979200,
+        1284177600,
+        1284091200,
+        1273377600
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1291093200,
+        1287979200,
+        1284177600,
+        1284091200,
+        1273377600
+      ],
+      "encounter_outpatient_encounter": [
+        1291093200,
+        1287979200,
+        1284177600,
+        1284091200,
+        1273377600
+      ],
+      "influenza_vaccine_medication_administered": [
+        1291093200
+      ]
+    },
     "0033": {
       "encounter_outpatient_encounter": [
         1291093200,
@@ -181,39 +218,6 @@
       ],
       "x_ray_study_diagnostic_study_performed": [
         1284177600
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1291093200,
-        1287979200,
-        1284177600,
-        1284091200,
-        1273377600
-      ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
-        1291093200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291093200,
-        1287979200,
-        1284177600,
-        1284091200,
-        1273377600
-      ]
-    },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1284091200
-      ],
-      "encounter_outpatient_encounter": [
-        1291093200,
-        1287979200,
-        1284177600,
-        1284091200,
-        1273377600
       ]
     },
     "0036": {
@@ -256,14 +260,7 @@
         1291093200
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1291093200,
-        1287979200,
-        1284177600,
-        1284091200,
-        1273377600
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1291093200,
         1287979200,
@@ -271,7 +268,7 @@
         1284091200,
         1273377600
       ],
-      "influenza_vaccine_medication_administered": [
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1291093200
       ]
     },
@@ -565,6 +562,15 @@
         1273377600
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291093200,
+        1287979200,
+        1284177600,
+        1284091200,
+        1273377600
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291093200,
@@ -691,7 +697,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c0f",
+      "_id": "4f96ca23a9ffcc3503000c0f",
       "_type": "Entry",
       "time": 1291093200,
       "description": "follow-up plan_BMI management",
@@ -713,8 +719,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bfc",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bfc",
+      "_type": "Condition",
       "time": 1284436800,
       "description": "Breast Cancer",
       "specifics": "C0235653:Malignant neoplasm of female breast;",
@@ -734,8 +740,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bfd",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bfd",
+      "_type": "Condition",
       "time": 1273377600,
       "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
@@ -755,8 +761,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bfe",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bfe",
+      "_type": "Condition",
       "time": 1285387200,
       "description": "Depression",
       "specifics": "C0154415:Major Depressive Disorder, Recurrent, In Full Remission;",
@@ -776,8 +782,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bff",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bff",
+      "_type": "Condition",
       "time": 1256443200,
       "description": "Hepatitis B Diagnosis",
       "specifics": "C0019163:Hepatitis B; C0700211:Viral hepatitis B without mention of hepatic coma;",
@@ -796,7 +802,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bed",
+      "_id": "4f96ca23a9ffcc3503000bed",
       "_type": "Encounter",
       "time": 1291093200,
       "description": "Encounter Outpatient",
@@ -810,7 +816,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bee",
+      "_id": "4f96ca23a9ffcc3503000bee",
       "_type": "Encounter",
       "time": 1287979200,
       "description": "Encounter Office Visit",
@@ -824,7 +830,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bef",
+      "_id": "4f96ca23a9ffcc3503000bef",
       "_type": "Encounter",
       "time": 1285387200,
       "description": "Encounter Health and Behavior Assessment",
@@ -838,7 +844,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bf0",
+      "_id": "4f96ca23a9ffcc3503000bf0",
       "_type": "Encounter",
       "time": 1284696000,
       "description": "Encounter Inpatient Discharge",
@@ -852,7 +858,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bf1",
+      "_id": "4f96ca23a9ffcc3503000bf1",
       "_type": "Encounter",
       "time": 1284436800,
       "description": "Encounter Acute inpt",
@@ -866,7 +872,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bf2",
+      "_id": "4f96ca23a9ffcc3503000bf2",
       "_type": "Encounter",
       "time": 1284177600,
       "description": "Encounter Office Visit",
@@ -883,7 +889,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bf3",
+      "_id": "4f96ca23a9ffcc3503000bf3",
       "_type": "Encounter",
       "time": 1284091200,
       "description": "Encounter Outpatient",
@@ -897,7 +903,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000bf4",
+      "_id": "4f96ca23a9ffcc3503000bf4",
       "_type": "Encounter",
       "time": 1273377600,
       "description": "Encounter Office Visit",
@@ -913,7 +919,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c0c",
+      "_id": "4f96ca23a9ffcc3503000c0c",
       "_type": "Immunization",
       "time": 1291093200,
       "description": "Influenza Vaccine",
@@ -927,7 +933,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c0d",
+      "_id": "4f96ca23a9ffcc3503000c0d",
       "_type": "Immunization",
       "time": 1291093200,
       "description": "Hepatitis A Vaccine",
@@ -944,7 +950,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c0e",
+      "_id": "4f96ca23a9ffcc3503000c0e",
       "_type": "Immunization",
       "time": 1291093200,
       "description": "Pneumococcal Vaccine all ages",
@@ -960,7 +966,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c09",
+      "_id": "4f96ca23a9ffcc3503000c09",
       "_type": "Medication",
       "time": 1273377600,
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
@@ -974,7 +980,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c0a",
+      "_id": "4f96ca23a9ffcc3503000c0a",
       "_type": "Medication",
       "time": 1273377600,
       "description": "Short acting beta 2 agonist",
@@ -988,7 +994,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c0b",
+      "_id": "4f96ca23a9ffcc3503000c0b",
       "_type": "Medication",
       "time": 1285387200,
       "description": "SSRI antidepressants",
@@ -1013,7 +1019,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c00",
+      "_id": "4f96ca23a9ffcc3503000c00",
       "_type": "Procedure",
       "time": 1291093200,
       "description": "counseling for nutrition",
@@ -1033,7 +1039,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c01",
+      "_id": "4f96ca23a9ffcc3503000c01",
       "_type": "Procedure",
       "time": 1291093200,
       "description": "counseling for physical activity",
@@ -1047,7 +1053,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c02",
+      "_id": "4f96ca23a9ffcc3503000c02",
       "_type": "Procedure",
       "time": 1273377600,
       "description": "Asthma Symptom Assessment Tool",
@@ -1061,7 +1067,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c03",
+      "_id": "4f96ca23a9ffcc3503000c03",
       "_type": "Procedure",
       "time": 1284436800,
       "description": "Breast Cancer ER or PR Positive",
@@ -1075,7 +1081,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c04",
+      "_id": "4f96ca23a9ffcc3503000c04",
       "_type": "Procedure",
       "time": 1284436800,
       "description": "Breast Cancer Stage IC-IIIC",
@@ -1092,7 +1098,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c05",
+      "_id": "4f96ca23a9ffcc3503000c05",
       "_type": "Procedure",
       "time": 1284609600,
       "description": "Radiation Therapy",
@@ -1118,7 +1124,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c06",
+      "_id": "4f96ca23a9ffcc3503000c06",
       "_type": "Procedure",
       "time": 1284091200,
       "description": "colonoscopy",
@@ -1144,7 +1150,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c07",
+      "_id": "4f96ca23a9ffcc3503000c07",
       "_type": "Procedure",
       "time": 1284091200,
       "description": "breast cancer screening",
@@ -1161,7 +1167,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000c08",
+      "_id": "4f96ca23a9ffcc3503000c08",
       "_type": "Procedure",
       "time": 1284177600,
       "description": "X-ray Study",
@@ -1179,8 +1185,8 @@
         "scalar": 120.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000bf5",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bf5",
+      "_type": "VitalSign",
       "time": 1273377600,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1195,8 +1201,8 @@
         "scalar": 64.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000bf6",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bf6",
+      "_type": "VitalSign",
       "time": 1273377600,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1211,8 +1217,8 @@
         "scalar": 72.0,
         "units": null
       },
-      "_id": "4f7e05d98e27b48183000bf7",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bf7",
+      "_type": "VitalSign",
       "time": 1273377600,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -1227,8 +1233,8 @@
         "scalar": 116.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000bf8",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bf8",
+      "_type": "VitalSign",
       "time": 1291093200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1243,8 +1249,8 @@
         "scalar": 62.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000bf9",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bf9",
+      "_type": "VitalSign",
       "time": 1291093200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1259,8 +1265,8 @@
         "scalar": 68.0,
         "units": null
       },
-      "_id": "4f7e05d98e27b48183000bfa",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bfa",
+      "_type": "VitalSign",
       "time": 1291093200,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -1278,8 +1284,8 @@
         "scalar": 20.980257116620752,
         "units": null
       },
-      "_id": "4f7e05d98e27b48183000bfb",
-      "_type": "Entry",
+      "_id": "4f96ca23a9ffcc3503000bfb",
+      "_type": "VitalSign",
       "time": 1291093200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

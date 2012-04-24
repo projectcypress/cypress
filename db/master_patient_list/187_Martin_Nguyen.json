@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05d58e27b4818300095a",
+  "_id": "4f96ca20a9ffcc350300095a",
   "patient_id": "187",
   "first": "Martin",
   "last": "Nguyen",
   "gender": "M",
   "birthdate": 1237262400,
-  "race": "Asian",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Asian",
+    "code": "2028-9"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
     },
@@ -14,9 +20,11 @@
     },
     "0004": {
     },
-    "0013": {
+    "0027": {
     },
     "0012": {
+    },
+    "0013": {
     },
     "0014": {
     },
@@ -37,27 +45,21 @@
         1239940800
       ]
     },
-    "0027": {
-    },
     "0028": {
     },
     "0031": {
     },
     "0032": {
     },
-    "0033": {
+    "0034": {
     },
-    "0043": {
-      "pneumococcal_vaccine_all_ages_medication_administered": [
+    "0041": {
+      "influenza_vaccine_medication_administered": [
         1268798400,
-        1253678400,
-        1248148800,
-        1242705600
+        1253678400
       ]
     },
-    "0086": {
-    },
-    "0034": {
+    "0033": {
     },
     "0036": {
     },
@@ -108,10 +110,12 @@
         1276747200
       ]
     },
-    "0041": {
-      "influenza_vaccine_medication_administered": [
+    "0043": {
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1268798400,
-        1253678400
+        1253678400,
+        1248148800,
+        1242705600
       ]
     },
     "0047": {
@@ -148,6 +152,8 @@
     },
     "0084": {
     },
+    "0086": {
+    },
     "0088": {
     },
     "0089": {
@@ -180,7 +186,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300095b",
+      "_id": "4f96ca20a9ffcc350300095b",
       "_type": "Encounter",
       "time": 1300939200,
       "description": "encounter outpatient-children",
@@ -194,7 +200,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300095c",
+      "_id": "4f96ca20a9ffcc350300095c",
       "_type": "Encounter",
       "time": 1284782400,
       "description": "encounter outpatient-children",
@@ -208,7 +214,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300095d",
+      "_id": "4f96ca20a9ffcc350300095d",
       "_type": "Encounter",
       "time": 1276747200,
       "description": "encounter outpatient-children",
@@ -222,7 +228,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300095e",
+      "_id": "4f96ca20a9ffcc350300095e",
       "_type": "Encounter",
       "time": 1268798400,
       "description": "encounter outpatient-children",
@@ -236,7 +242,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300095f",
+      "_id": "4f96ca20a9ffcc350300095f",
       "_type": "Encounter",
       "time": 1285214400,
       "description": "encounter outpatient-children",
@@ -250,7 +256,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000960",
+      "_id": "4f96ca20a9ffcc3503000960",
       "_type": "Encounter",
       "time": 1248148800,
       "description": "encounter outpatient-children",
@@ -264,7 +270,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000961",
+      "_id": "4f96ca20a9ffcc3503000961",
       "_type": "Encounter",
       "time": 1242705600,
       "description": "encounter outpatient-children",
@@ -278,7 +284,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000962",
+      "_id": "4f96ca20a9ffcc3503000962",
       "_type": "Encounter",
       "time": 1239940800,
       "description": "encounter outpatient-children",
@@ -294,7 +300,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000964",
+      "_id": "4f96ca20a9ffcc3503000964",
       "_type": "Medication",
       "time": 1300939200,
       "description": "Hepatitis A Vaccine",
@@ -308,7 +314,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000965",
+      "_id": "4f96ca20a9ffcc3503000965",
       "_type": "Medication",
       "time": 1284782400,
       "description": "DTAP Vaccine",
@@ -325,7 +331,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000966",
+      "_id": "4f96ca20a9ffcc3503000966",
       "_type": "Medication",
       "time": 1284782400,
       "description": "IPV Vaccination",
@@ -339,7 +345,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000967",
+      "_id": "4f96ca20a9ffcc3503000967",
       "_type": "Medication",
       "time": 1276747200,
       "description": "MMR Vaccine",
@@ -353,7 +359,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000968",
+      "_id": "4f96ca20a9ffcc3503000968",
       "_type": "Medication",
       "time": 1276747200,
       "description": "VZV Vaccine",
@@ -367,7 +373,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000969",
+      "_id": "4f96ca20a9ffcc3503000969",
       "_type": "Medication",
       "time": 1276747200,
       "description": "Hepatitis A Vaccine",
@@ -381,7 +387,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300096a",
+      "_id": "4f96ca20a9ffcc350300096a",
       "_type": "Medication",
       "time": 1268798400,
       "description": "Pneumococcal Vaccine",
@@ -395,7 +401,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300096b",
+      "_id": "4f96ca20a9ffcc350300096b",
       "_type": "Medication",
       "time": 1268798400,
       "description": "Influenza Vaccine",
@@ -409,7 +415,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300096c",
+      "_id": "4f96ca20a9ffcc350300096c",
       "_type": "Medication",
       "time": 1253678400,
       "description": "Hepatitis B Vaccine",
@@ -423,7 +429,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300096d",
+      "_id": "4f96ca20a9ffcc350300096d",
       "_type": "Medication",
       "time": 1253678400,
       "description": "DTAP Vaccine",
@@ -437,7 +443,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300096e",
+      "_id": "4f96ca20a9ffcc350300096e",
       "_type": "Medication",
       "time": 1253678400,
       "description": "Pneumococcal Vaccine",
@@ -451,7 +457,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300096f",
+      "_id": "4f96ca20a9ffcc350300096f",
       "_type": "Medication",
       "time": 1253678400,
       "description": "Influenza Vaccine",
@@ -465,7 +471,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000970",
+      "_id": "4f96ca20a9ffcc3503000970",
       "_type": "Medication",
       "time": 1248148800,
       "description": "Rotavirus Vaccine",
@@ -479,7 +485,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000971",
+      "_id": "4f96ca20a9ffcc3503000971",
       "_type": "Medication",
       "time": 1248148800,
       "description": "DTAP Vaccine",
@@ -496,7 +502,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000972",
+      "_id": "4f96ca20a9ffcc3503000972",
       "_type": "Medication",
       "time": 1248148800,
       "description": "HiB Vaccine",
@@ -510,7 +516,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000973",
+      "_id": "4f96ca20a9ffcc3503000973",
       "_type": "Medication",
       "time": 1248148800,
       "description": "Pneumococcal Vaccine",
@@ -527,7 +533,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000974",
+      "_id": "4f96ca20a9ffcc3503000974",
       "_type": "Medication",
       "time": 1248148800,
       "description": "IPV Vaccination",
@@ -541,7 +547,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000975",
+      "_id": "4f96ca20a9ffcc3503000975",
       "_type": "Medication",
       "time": 1242705600,
       "description": "Rotavirus Vaccine",
@@ -555,7 +561,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000976",
+      "_id": "4f96ca20a9ffcc3503000976",
       "_type": "Medication",
       "time": 1242705600,
       "description": "DTAP Vaccine",
@@ -572,7 +578,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000977",
+      "_id": "4f96ca20a9ffcc3503000977",
       "_type": "Medication",
       "time": 1242705600,
       "description": "HiB Vaccine",
@@ -586,7 +592,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000978",
+      "_id": "4f96ca20a9ffcc3503000978",
       "_type": "Medication",
       "time": 1242705600,
       "description": "Pneumococcal Vaccine",
@@ -603,7 +609,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b48183000979",
+      "_id": "4f96ca20a9ffcc3503000979",
       "_type": "Medication",
       "time": 1242705600,
       "description": "IPV Vaccination",
@@ -617,7 +623,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300097a",
+      "_id": "4f96ca20a9ffcc350300097a",
       "_type": "Medication",
       "time": 1239940800,
       "description": "Hepatitis B Vaccine",
@@ -631,7 +637,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d58e27b4818300097b",
+      "_id": "4f96ca20a9ffcc350300097b",
       "_type": "Medication",
       "time": 1237089600,
       "description": "Hepatitis B Vaccine",
@@ -652,8 +658,8 @@
         "scalar": 16.1386593204775,
         "units": null
       },
-      "_id": "4f7e05d58e27b48183000963",
-      "_type": "Entry",
+      "_id": "4f96ca20a9ffcc3503000963",
+      "_type": "VitalSign",
       "time": 1269403200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05e78e27b481830014c7",
+  "_id": "4f96ca2fa9ffcc35030014c7",
   "patient_id": "25",
   "first": "Sharon",
   "last": "Dunmore",
   "gender": "F",
   "birthdate": -1074798000,
-  "race": "Black or African American",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Black or African American",
+    "code": "2054-5"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -40,6 +46,17 @@
         1261112400
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1288065600,
+        1271563200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1271563200
+      ]
+    },
     "0013": {
       "hypertension_diagnosis_active": [
         1271563200
@@ -54,11 +71,6 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1288065600,
-        1271563200
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
         1271563200
       ]
     },
@@ -106,12 +118,6 @@
         1271563200
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1288065600,
-        1271563200
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1288065600,
@@ -130,29 +136,23 @@
         1271563200
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1288065600,
         1271563200
       ]
     },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1288065600,
-        1271563200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
+    "0041": {
+      "encounter_influenza_encounter": [
         1288065600,
         1271563200
       ],
-      "encounter_ophthalmological_services_encounter": [
-        1297832400,
-        1285732800
+      "encounter_outpatient_encounter": [
+        1288065600,
+        1271563200
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1288065600,
         1271563200
@@ -174,11 +174,7 @@
         1271563200
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1288065600,
-        1271563200
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1288065600,
         1271563200
@@ -608,6 +604,16 @@
         1271563200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1288065600,
+        1271563200
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1297832400,
+        1285732800
+      ]
+    },
     "0088": {
       "diabetic_retinopathy_diagnosis_active": [
         1285732800
@@ -741,8 +747,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014d6",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d6",
+      "_type": "Condition",
       "time": 1271563200,
       "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
@@ -762,8 +768,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014d7",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d7",
+      "_type": "Condition",
       "time": 1285732800,
       "description": "Diabetic Retinopathy",
       "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
@@ -783,8 +789,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014d8",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d8",
+      "_type": "Condition",
       "time": 1271563200,
       "description": "diabetes",
       "specifics": "C0011849:Diabetes Mellitus;",
@@ -804,8 +810,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014d9",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d9",
+      "_type": "Condition",
       "time": 1261112400,
       "description": "Coronary Artery Disease includes MI",
       "specifics": "C0155626:Acute myocardial infarction;",
@@ -825,8 +831,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014da",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014da",
+      "_type": "Condition",
       "time": 1261112400,
       "description": "acute myocardial infarction",
       "specifics": "C0155626:Acute myocardial infarction;",
@@ -842,7 +848,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014c8",
+      "_id": "4f96ca2fa9ffcc35030014c8",
       "_type": "Encounter",
       "time": 1297832400,
       "description": "Encounter Ophthalmological Services",
@@ -859,7 +865,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014c9",
+      "_id": "4f96ca2fa9ffcc35030014c9",
       "_type": "Encounter",
       "time": 1288065600,
       "description": "Encounter Outpatient",
@@ -873,7 +879,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014ca",
+      "_id": "4f96ca2fa9ffcc35030014ca",
       "_type": "Encounter",
       "time": 1285732800,
       "description": "Encounter Ophthalmological Services",
@@ -890,7 +896,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014cb",
+      "_id": "4f96ca2fa9ffcc35030014cb",
       "_type": "Encounter",
       "time": 1271563200,
       "description": "Encounter Outpatient",
@@ -904,7 +910,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014cc",
+      "_id": "4f96ca2fa9ffcc35030014cc",
       "_type": "Encounter",
       "time": 1261112400,
       "description": "Encounter Inpatient Discharge",
@@ -918,7 +924,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014cd",
+      "_id": "4f96ca2fa9ffcc35030014cd",
       "_type": "Encounter",
       "time": 1261112400,
       "description": "encounter acute inpt",
@@ -934,7 +940,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014e6",
+      "_id": "4f96ca2fa9ffcc35030014e6",
       "_type": "Medication",
       "time": 1271563200,
       "description": "Oral anti-platelet therapy",
@@ -948,7 +954,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014e7",
+      "_id": "4f96ca2fa9ffcc35030014e7",
       "_type": "Medication",
       "time": 1261112400,
       "description": "Oral anti-platelet therapy",
@@ -962,7 +968,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014e8",
+      "_id": "4f96ca2fa9ffcc35030014e8",
       "_type": "Medication",
       "time": 1271563200,
       "description": "Beta Blocker Therapy",
@@ -976,7 +982,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014e9",
+      "_id": "4f96ca2fa9ffcc35030014e9",
       "_type": "Medication",
       "time": 1261112400,
       "description": "Beta Blocker Therapy",
@@ -990,7 +996,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014ea",
+      "_id": "4f96ca2fa9ffcc35030014ea",
       "_type": "Medication",
       "time": 1271563200,
       "description": "Lipid Lowering Therapy",
@@ -1004,7 +1010,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014eb",
+      "_id": "4f96ca2fa9ffcc35030014eb",
       "_type": "Medication",
       "time": 1261112400,
       "description": "Lipid Lowering Therapy",
@@ -1018,7 +1024,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014ec",
+      "_id": "4f96ca2fa9ffcc35030014ec",
       "_type": "Medication",
       "time": 1271563200,
       "description": "Antihypertensive combinations",
@@ -1032,7 +1038,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014ed",
+      "_id": "4f96ca2fa9ffcc35030014ed",
       "_type": "Medication",
       "time": 1261112400,
       "description": "Antihypertensive combinations",
@@ -1046,7 +1052,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014ee",
+      "_id": "4f96ca2fa9ffcc35030014ee",
       "_type": "Medication",
       "time": 1261112400,
       "description": "Insulin",
@@ -1064,7 +1070,7 @@
         "scalar": null,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014e1",
+      "_id": "4f96ca2fa9ffcc35030014e1",
       "_type": "Procedure",
       "time": 1288065600,
       "description": "Foot Exam",
@@ -1080,7 +1086,7 @@
         "scalar": null,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014e2",
+      "_id": "4f96ca2fa9ffcc35030014e2",
       "_type": "Procedure",
       "time": 1271563200,
       "description": "Foot Exam",
@@ -1094,7 +1100,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014e3",
+      "_id": "4f96ca2fa9ffcc35030014e3",
       "_type": "Procedure",
       "time": 1286251200,
       "description": "macular edema findings",
@@ -1108,7 +1114,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014e4",
+      "_id": "4f96ca2fa9ffcc35030014e4",
       "_type": "Procedure",
       "time": 1286251200,
       "description": "level of severity of retinopathy findings",
@@ -1122,7 +1128,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05e78e27b481830014e5",
+      "_id": "4f96ca2fa9ffcc35030014e5",
       "_type": "Procedure",
       "time": 1285732800,
       "description": "Macular or Fundus Exam",
@@ -1146,7 +1152,7 @@
         "scalar": 8.3,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014db",
+      "_id": "4f96ca2fa9ffcc35030014db",
       "_type": "LabResult",
       "time": 1288065600,
       "description": "HbA1c test",
@@ -1168,7 +1174,7 @@
         "scalar": 8.0,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014dc",
+      "_id": "4f96ca2fa9ffcc35030014dc",
       "_type": "LabResult",
       "time": 1271563200,
       "description": "HbA1c test",
@@ -1190,7 +1196,7 @@
         "scalar": 74.0,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014dd",
+      "_id": "4f96ca2fa9ffcc35030014dd",
       "_type": "LabResult",
       "time": 1271563200,
       "description": "LDL",
@@ -1212,7 +1218,7 @@
         "scalar": 65.0,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014de",
+      "_id": "4f96ca2fa9ffcc35030014de",
       "_type": "LabResult",
       "time": 1271563200,
       "description": "High Density Lipoprotein (HDL)",
@@ -1234,7 +1240,7 @@
         "scalar": 185.0,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014df",
+      "_id": "4f96ca2fa9ffcc35030014df",
       "_type": "LabResult",
       "time": 1271563200,
       "description": "Total Cholesterol",
@@ -1256,7 +1262,7 @@
         "scalar": 230.0,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014e0",
+      "_id": "4f96ca2fa9ffcc35030014e0",
       "_type": "LabResult",
       "time": 1271563200,
       "description": "Triglycerides",
@@ -1274,8 +1280,8 @@
         "scalar": 148.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05e78e27b481830014ce",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014ce",
+      "_type": "VitalSign",
       "time": 1288065600,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1290,8 +1296,8 @@
         "scalar": 92.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05e78e27b481830014cf",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014cf",
+      "_type": "VitalSign",
       "time": 1288065600,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1306,8 +1312,8 @@
         "scalar": 155.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05e78e27b481830014d0",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d0",
+      "_type": "VitalSign",
       "time": 1271563200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1322,8 +1328,8 @@
         "scalar": 96.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05e78e27b481830014d1",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d1",
+      "_type": "VitalSign",
       "time": 1271563200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1338,8 +1344,8 @@
         "scalar": "Mild",
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014d2",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d2",
+      "_type": "VitalSign",
       "time": 1286251200,
       "description": "Macular Edema Findings",
       "specifics": "C0271051:Macular retinal edema;"
@@ -1354,8 +1360,8 @@
         "scalar": "MIld",
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014d3",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d3",
+      "_type": "VitalSign",
       "time": 1286251200,
       "description": "Level of Severity of Retinopathy Findings",
       "specifics": "C0339473:Preproliferative diabetic retinopathy; C0730278:Severe nonproliferative diabetic retinopathy;"
@@ -1373,8 +1379,8 @@
         "scalar": 24.207988980716255,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014d4",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d4",
+      "_type": "VitalSign",
       "time": 1288065600,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1392,8 +1398,8 @@
         "scalar": 23.401056014692376,
         "units": null
       },
-      "_id": "4f7e05e78e27b481830014d5",
-      "_type": "Entry",
+      "_id": "4f96ca2fa9ffcc35030014d5",
+      "_type": "VitalSign",
       "time": 1271563200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

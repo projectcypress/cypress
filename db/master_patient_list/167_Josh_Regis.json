@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05cc8e27b481830003c1",
+  "_id": "4f96ca18a9ffcc35030003c1",
   "patient_id": "167",
   "first": "Josh",
   "last": "Regis",
   "gender": "M",
   "birthdate": 866520000,
-  "race": "Native Hawaiian or Other Pacific Islander",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Native Hawaiian or Other Pacific Islander",
+    "code": "2076-8"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -58,7 +64,7 @@
         1273032000
       ]
     },
-    "0013": {
+    "0027": {
       "encounter_outpatient_encounter": [
         1285732800,
         1276488000,
@@ -66,6 +72,13 @@
       ]
     },
     "0012": {
+    },
+    "0013": {
+      "encounter_outpatient_encounter": [
+        1285732800,
+        1276488000,
+        1273032000
+      ]
     },
     "0014": {
     },
@@ -94,13 +107,6 @@
         1273032000
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1285732800,
-        1276488000,
-        1273032000
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1273032000
@@ -120,28 +126,29 @@
         1273032000
       ]
     },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1285732800,
-        1276488000,
-        1273032000
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1285732800,
-        1276488000,
-        1273032000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1285732800,
-        1276488000,
-        1273032000
-      ]
-    },
     "0034": {
+      "encounter_outpatient_encounter": [
+        1285732800,
+        1276488000,
+        1273032000
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1285732800,
+        1276488000,
+        1273032000
+      ],
+      "encounter_outpatient_encounter": [
+        1285732800,
+        1276488000,
+        1273032000
+      ],
+      "influenza_vaccine_medication_administered": [
+        1285732800
+      ]
+    },
+    "0033": {
       "encounter_outpatient_encounter": [
         1285732800,
         1276488000,
@@ -190,19 +197,11 @@
         1285732800
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1285732800,
-        1276488000,
-        1273032000
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1285732800,
         1276488000,
         1273032000
-      ],
-      "influenza_vaccine_medication_administered": [
-        1285732800
       ]
     },
     "0047": {
@@ -342,6 +341,13 @@
         1273032000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1285732800,
+        1276488000,
+        1273032000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1285732800,
@@ -417,8 +423,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003c8",
-      "_type": "Entry",
+      "_id": "4f96ca18a9ffcc35030003c8",
+      "_type": "Condition",
       "time": 1273032000,
       "description": "pharyngitis",
       "specifics": "C0001344:Acute pharyngitis;",
@@ -438,8 +444,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003c9",
-      "_type": "Entry",
+      "_id": "4f96ca18a9ffcc35030003c9",
+      "_type": "Condition",
       "time": 1276488000,
       "description": "asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
@@ -453,8 +459,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003ca",
-      "_type": "Entry",
+      "_id": "4f96ca18a9ffcc35030003ca",
+      "_type": "Condition",
       "time": 1276488000,
       "description": "Asthma Daytime Symptoms Quantified",
       "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
@@ -467,8 +473,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003cb",
-      "_type": "Entry",
+      "_id": "4f96ca18a9ffcc35030003cb",
+      "_type": "Condition",
       "time": 1276488000,
       "description": "Asthma Nighttime Symptoms Quantified",
       "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
@@ -483,7 +489,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003c2",
+      "_id": "4f96ca18a9ffcc35030003c2",
       "_type": "Encounter",
       "time": 1285732800,
       "description": "Encounter Office & Outpatient Consult",
@@ -497,7 +503,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003c3",
+      "_id": "4f96ca18a9ffcc35030003c3",
       "_type": "Encounter",
       "time": 1276488000,
       "description": "Encounter Office & Outpatient Consult",
@@ -514,7 +520,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003c4",
+      "_id": "4f96ca18a9ffcc35030003c4",
       "_type": "Encounter",
       "time": 1273032000,
       "description": "Encounter Outpatient",
@@ -530,7 +536,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003d2",
+      "_id": "4f96ca18a9ffcc35030003d2",
       "_type": "Immunization",
       "time": 1285732800,
       "description": "Influenza Vaccine",
@@ -546,7 +552,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003cf",
+      "_id": "4f96ca18a9ffcc35030003cf",
       "_type": "Medication",
       "time": 1273032000,
       "description": "Antiasthmatic combinations",
@@ -560,7 +566,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003d0",
+      "_id": "4f96ca18a9ffcc35030003d0",
       "_type": "Medication",
       "time": 1285732800,
       "description": "Antiasthmatic combinations",
@@ -574,7 +580,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003d1",
+      "_id": "4f96ca18a9ffcc35030003d1",
       "_type": "Medication",
       "time": 1273032000,
       "description": "Second generation cephalosporins",
@@ -596,7 +602,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003cc",
+      "_id": "4f96ca18a9ffcc35030003cc",
       "_type": "Procedure",
       "time": 1273032000,
       "description": "counseling for physical activity",
@@ -619,7 +625,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003cd",
+      "_id": "4f96ca18a9ffcc35030003cd",
       "_type": "Procedure",
       "time": 1273032000,
       "description": "counseling for nutrition",
@@ -633,7 +639,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05cc8e27b481830003ce",
+      "_id": "4f96ca18a9ffcc35030003ce",
       "_type": "Procedure",
       "time": 1276488000,
       "description": "Asthma Symptom Assessment Tool",
@@ -654,8 +660,8 @@
         "scalar": 19.648481590970167,
         "units": null
       },
-      "_id": "4f7e05cc8e27b481830003c5",
-      "_type": "Entry",
+      "_id": "4f96ca18a9ffcc35030003c5",
+      "_type": "VitalSign",
       "time": 1285732800,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -673,8 +679,8 @@
         "scalar": 18.941944444444445,
         "units": null
       },
-      "_id": "4f7e05cc8e27b481830003c6",
-      "_type": "Entry",
+      "_id": "4f96ca18a9ffcc35030003c6",
+      "_type": "VitalSign",
       "time": 1276488000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -692,8 +698,8 @@
         "scalar": 18.551388888888887,
         "units": null
       },
-      "_id": "4f7e05cc8e27b481830003c7",
-      "_type": "Entry",
+      "_id": "4f96ca18a9ffcc35030003c7",
+      "_type": "VitalSign",
       "time": 1273032000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

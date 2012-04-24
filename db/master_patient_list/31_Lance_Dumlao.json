@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05ea8e27b4818300169d",
+  "_id": "4f96ca31a9ffcc350300169d",
   "patient_id": "31",
   "first": "Lance",
   "last": "Dumlao",
   "gender": "M",
   "birthdate": -933105600,
-  "race": "American Indian Or Alaska Native",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "American Indian Or Alaska Native",
+    "code": null
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -40,6 +46,17 @@
         1251259200
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1285387200,
+        1270785600
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1270785600
+      ]
+    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270785600
@@ -57,11 +74,6 @@
         1285387200,
         1270785600,
         1251259200
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1270785600
       ]
     },
     "0014": {
@@ -116,12 +128,6 @@
         1270785600
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1285387200,
-        1270785600
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1285387200,
@@ -140,38 +146,26 @@
         1270785600
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1285387200,
         1270785600
       ]
     },
-    "0043": {
+    "0041": {
+      "encounter_influenza_encounter": [
+        1285387200,
+        1270785600
+      ],
       "encounter_outpatient_encounter": [
         1285387200,
         1270785600
       ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
+      "influenza_vaccine_medication_administered": [
         1285387200
       ]
     },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1274587200
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1285387200,
-        1270785600
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1286164800,
-        1274587200
-      ],
-      "optic_nerve_head_evaluation_procedure_performed": [
-        1274587200
-      ]
-    },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1285387200,
         1270785600
@@ -196,16 +190,12 @@
         1285387200
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1285387200,
-        1270785600
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1285387200,
         1270785600
       ],
-      "influenza_vaccine_medication_administered": [
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1285387200
       ]
     },
@@ -544,6 +534,22 @@
         1270785600
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1274587200
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1285387200,
+        1270785600
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1286164800,
+        1274587200
+      ],
+      "optic_nerve_head_evaluation_procedure_performed": [
+        1274587200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1285387200,
@@ -630,8 +636,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016ac",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016ac",
+      "_type": "Condition",
       "time": 1270785600,
       "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
@@ -651,8 +657,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016ad",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016ad",
+      "_type": "Condition",
       "time": 1251259200,
       "description": "ischemic vascular disease",
       "specifics": "C0022116:Ischemia;",
@@ -672,8 +678,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016ae",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016ae",
+      "_type": "Condition",
       "time": 1274587200,
       "description": "Primary Open Angle Glaucoma (POAG)",
       "specifics": "C0017612:Glaucoma, Open-Angle;",
@@ -689,7 +695,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b4818300169e",
+      "_id": "4f96ca31a9ffcc350300169e",
       "_type": "Encounter",
       "time": 1286164800,
       "description": "Encounter Ophthalmological Services",
@@ -706,7 +712,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b4818300169f",
+      "_id": "4f96ca31a9ffcc350300169f",
       "_type": "Encounter",
       "time": 1285387200,
       "description": "Encounter Outpatient",
@@ -720,7 +726,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016a0",
+      "_id": "4f96ca31a9ffcc35030016a0",
       "_type": "Encounter",
       "time": 1274587200,
       "description": "Encounter Ophthalmological Services",
@@ -737,7 +743,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016a1",
+      "_id": "4f96ca31a9ffcc35030016a1",
       "_type": "Encounter",
       "time": 1270785600,
       "description": "Encounter Outpatient",
@@ -751,7 +757,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016a2",
+      "_id": "4f96ca31a9ffcc35030016a2",
       "_type": "Encounter",
       "time": 1251518400,
       "description": "Encounter Inpatient Discharge",
@@ -765,7 +771,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016a3",
+      "_id": "4f96ca31a9ffcc35030016a3",
       "_type": "Encounter",
       "time": 1251259200,
       "description": "encounter acute inpt",
@@ -781,7 +787,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016b8",
+      "_id": "4f96ca31a9ffcc35030016b8",
       "_type": "Immunization",
       "time": 1285387200,
       "description": "Influenza Vaccine",
@@ -798,7 +804,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016b9",
+      "_id": "4f96ca31a9ffcc35030016b9",
       "_type": "Immunization",
       "time": 1285387200,
       "description": "Pneumococcal Vaccine all ages",
@@ -814,7 +820,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016b4",
+      "_id": "4f96ca31a9ffcc35030016b4",
       "_type": "Medication",
       "time": 1270785600,
       "description": "Oral anti-platelet therapy",
@@ -828,7 +834,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016b5",
+      "_id": "4f96ca31a9ffcc35030016b5",
       "_type": "Medication",
       "time": 1251518400,
       "description": "Oral anti-platelet therapy",
@@ -842,7 +848,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016b6",
+      "_id": "4f96ca31a9ffcc35030016b6",
       "_type": "Medication",
       "time": 1270785600,
       "description": "Antihypertensive combinations",
@@ -856,7 +862,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016b7",
+      "_id": "4f96ca31a9ffcc35030016b7",
       "_type": "Medication",
       "time": 1251518400,
       "description": "Antihypertensive combinations",
@@ -872,7 +878,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ea8e27b481830016b3",
+      "_id": "4f96ca31a9ffcc35030016b3",
       "_type": "Procedure",
       "time": 1274587200,
       "description": "Optic Nerve Head Evaluation",
@@ -896,7 +902,7 @@
         "scalar": 127.0,
         "units": null
       },
-      "_id": "4f7e05ea8e27b481830016af",
+      "_id": "4f96ca31a9ffcc35030016af",
       "_type": "LabResult",
       "time": 1285387200,
       "description": "LDL",
@@ -918,7 +924,7 @@
         "scalar": 50.0,
         "units": null
       },
-      "_id": "4f7e05ea8e27b481830016b0",
+      "_id": "4f96ca31a9ffcc35030016b0",
       "_type": "LabResult",
       "time": 1285387200,
       "description": "High Density Lipoprotein (HDL)",
@@ -940,7 +946,7 @@
         "scalar": 242.0,
         "units": null
       },
-      "_id": "4f7e05ea8e27b481830016b1",
+      "_id": "4f96ca31a9ffcc35030016b1",
       "_type": "LabResult",
       "time": 1285387200,
       "description": "Total Cholesterol",
@@ -962,7 +968,7 @@
         "scalar": 325.0,
         "units": null
       },
-      "_id": "4f7e05ea8e27b481830016b2",
+      "_id": "4f96ca31a9ffcc35030016b2",
       "_type": "LabResult",
       "time": 1285387200,
       "description": "Triglycerides",
@@ -980,8 +986,8 @@
         "scalar": 128.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ea8e27b481830016a4",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016a4",
+      "_type": "VitalSign",
       "time": 1285387200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -996,8 +1002,8 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ea8e27b481830016a5",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016a5",
+      "_type": "VitalSign",
       "time": 1285387200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1012,8 +1018,8 @@
         "scalar": 132.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ea8e27b481830016a6",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016a6",
+      "_type": "VitalSign",
       "time": 1270785600,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1028,8 +1034,8 @@
         "scalar": 84.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ea8e27b481830016a7",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016a7",
+      "_type": "VitalSign",
       "time": 1270785600,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1044,8 +1050,8 @@
         "scalar": 152.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ea8e27b481830016a8",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016a8",
+      "_type": "VitalSign",
       "time": 1251259200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1060,8 +1066,8 @@
         "scalar": 94.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ea8e27b481830016a9",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016a9",
+      "_type": "VitalSign",
       "time": 1251259200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1079,8 +1085,8 @@
         "scalar": 25.799444554651853,
         "units": null
       },
-      "_id": "4f7e05ea8e27b481830016aa",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016aa",
+      "_type": "VitalSign",
       "time": 1285387200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1098,8 +1104,8 @@
         "scalar": 25.52053164054751,
         "units": null
       },
-      "_id": "4f7e05ea8e27b481830016ab",
-      "_type": "Entry",
+      "_id": "4f96ca31a9ffcc35030016ab",
+      "_type": "VitalSign",
       "time": 1270785600,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
