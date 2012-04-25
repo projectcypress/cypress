@@ -12,13 +12,15 @@ class CCRExportTest < ActiveSupport::TestCase
 
   test "Checking CCR XML Schema Validation" do
 
-    record = Record.find('4dcbecdb431a5f5878000004')
-
-    xml = HealthDataStandards::Export::CCR.export(record)
-
     #... if we have a CCR XSD file check if it is a valid CCR XML file
     if (File.exists?("config/ccr.xsd"))
-      #todo: Perform XML Schema validation
+      xsd = Nokogiri::XML::Schema(File.read("config/ccr.xsd"))
+      xml = Nokogiri::XML(HealthDataStandards::Export::CCR.export(Record.find('4dcbecdb431a5f5878000004')))
+      errors = xsd.validate(xml)
+      errors.each do |error|
+        puts error.message
+      end
+      assert_equal errors.size , 0 , "Validation of CCR xml failed"
     else
       puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
       puts "Cypress Unit Test Schema File Absent"
@@ -29,21 +31,21 @@ class CCRExportTest < ActiveSupport::TestCase
       puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     end
   end
+
 =begin
-
-  test "Validating CCR XML Data Generation" do
+ test "Validating CCR XML Data Generation" do
     record = Record.find('4dcbecdb431a5f5878000004')
-
     doc = Nokogiri::XML(HealthDataStandards::Export::CCR.export(record))
     doc.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
+
     # registration information
     assert_equal 'Rosa', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Name/ccr:CurrentName/ccr:Given').text
     assert_equal 'Vasquez', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Name/ccr:CurrentName/ccr:Family').text
     assert_equal 'Female', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:Gender/ccr:Text').text
-    assert_equal '1980-12-11T18:50:14Z', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:DateOfBirth/ccr:ExactDateTime').text
+    assert_equal '1940-08-05T00:00:00Z', doc.at_xpath('//ccr:Actors/ccr:Actor/ccr:Person/ccr:DateOfBirth/ccr:ExactDateTime').text
 
     # problems
-    assert_equal '160603005', doc.at_xpath('//ccr:Problems/ccr:Problem/ccr:Description/ccr:Code/ccr:Value').text
+    assert_equal '126838000', doc.at_xpath('//ccr:Problems/ccr:Problem/ccr:Description/ccr:Code/ccr:Value').text
     # vital sign
     assert_equal '225171007', doc.at_xpath('//ccr:VitalSigns/ccr:Result/ccr:Description/ccr:Code/ccr:Value').text
     # lab results
@@ -59,6 +61,6 @@ class CCRExportTest < ActiveSupport::TestCase
     # immunization
     assert_equal '854931', doc.at_xpath('//ccr:Immunizations/ccr:Immunization/ccr:Product/ccr:BrandName/ccr:Code/ccr:Value').text
   end
-
 =end
+
 end
