@@ -45,10 +45,10 @@
             <% @coverage.each do |measure, values| %>
               <tr id="<%= measure %>" class="measure">
                 <td title="<%= values[:name] %>" class="measure"><%= measure %></td>
-                <td class="numerator"></td>
-                <td class="denominator"></td>
-                <td class="antinumerator"></td>
-                <td class="exclusions"></td>
+                <td class="numerator" style="text-align:center"></td>
+                <td class="denominator" style="text-align:center"></td>
+                <td class="antinumerator" style="text-align:center"></td>
+                <td class="exclusions" style="text-align:center"></td>
               </tr>
             <% end %>
           </tbody>
