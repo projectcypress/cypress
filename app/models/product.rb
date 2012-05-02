@@ -6,6 +6,7 @@ class Product
 
   
   field :name, type: String
+  field :version, type: String
   field :description, type: String
   field :measure_map, type: Hash
   validates_presence_of :name

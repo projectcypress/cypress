@@ -5,8 +5,10 @@ class TestExecution
 
 
   field :execution_date, type: Integer
+  field :product_version, type: String
   field :baseline_results, type: Hash
   field :reported_results, type: Hash
+  field :required_modules, type: Hash
   field :validation_errors, type: Array
   field :baseline_validation_errors, type: Array
   
