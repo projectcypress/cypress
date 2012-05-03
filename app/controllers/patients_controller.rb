@@ -18,7 +18,6 @@ class PatientsController < ApplicationController
     else
       @measures = Measure.installed
     end
-
     @measures_categories = @measures.group_by { |t| t.category }
     
     @showAll = false

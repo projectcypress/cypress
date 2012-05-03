@@ -1,12 +1,12 @@
 class ProductsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :find_product, only: [:show,:edit,:update]
   
   rescue_from Mongoid::Errors::Validations do
-     render :template => "products/edit"
-   end
+    render :template => "products/edit"
+  end
    
   def show
-    @product = Product.find(params[:id])
   end
   
   def new
@@ -15,6 +15,12 @@ class ProductsController < ApplicationController
   end
   
   def create
+    measures = params[:product][:measure_map]
+    measure_map = {}
+    measures.each do |m|
+      measure_map[m] = params[m][m]
+    end
+    params[:product][:measure_map] = measure_map
     @product = Product.new(params[:product])
     @product.save!
     
@@ -22,11 +28,9 @@ class ProductsController < ApplicationController
   end
   
   def edit
-    @product = Product.find(params[:id])
   end
   
   def update
-    @product = Product.find(params[:id])
     @product.update_attributes(params[:product])
     @product.save!
    

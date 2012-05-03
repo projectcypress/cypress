@@ -42,7 +42,6 @@ $(document).ready(function() {
             var measures = $("." + element);
             measures.hide();
         });
-
     $("#measureMap input:checkbox").change();
 
     $(".expander").toggle(

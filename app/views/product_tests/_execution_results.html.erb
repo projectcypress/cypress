@@ -56,7 +56,7 @@
         </td>
 
         <td><a href="<%= product_test_measure_path(@test, measure) %>">
-          <%= "NQF#{measure['id']}#{measure.sub_id} " %>
+          <%= "#{@product.measure_map[measure.key]} " %>
           <%= measure.name %>
           <%= " - #{measure.subtitle}" if measure.sub_id %></a>
         </td>
@@ -112,7 +112,7 @@
         </td>
 
         <td><a href="<%= vendor_measure_path(@vendor, measure) %>">
-          <%= "NQF#{measure['id']}#{measure.sub_id} " %>
+          <%= "#{@product.measure_map[measure.key]} " %>
           <%= measure.name %>
           <%= " - #{measure.subtitle}" if measure.sub_id %></a>
         </td>

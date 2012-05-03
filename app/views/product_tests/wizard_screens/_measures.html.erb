@@ -7,7 +7,7 @@
 <% end %>
 
 <section id="wizard-measures-screen" class="step">
-  <h2 class="ui-widget-title" style="margin-top: 20px;">Identify <strong>at least one</strong> quality measure to test...</h2>
+  <h2 class="ui-widget-title" style="margin-top: 20px;">Identify <strong>at least one</strong> quality measure to test from the list of available measures for this product...</h2>
   <span class="header_commands" style="text-align:center;"><input type="checkbox" id="all_measures"/><label for="all_measures">all quality measures</label></span>
   <div id="tabs">
     <!-- set up a tab header for each measure group -->
@@ -17,12 +17,14 @@
           <a href="#<%= category.tr(" '", "_") %>"><%= category %></a><span style="padding-top:.5em;text-align:right;padding-right:5px;" id="<%= category.tr(" '", "_") %>_group_total"></span></li>
       <% end %>
     </ul>
-    <!-- set up a tab for each measure group -->
     <% @measures_categories.sort.each do |category, measures| %>
+
+    <!-- set up a checkbox for each measure in the group -->
       <div id="<%= category.tr(" '", "_")%>" class="measure_group"> <span class="header_commands"><input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all"/><label for="<%= category.tr(" '", "_")%>_group">all <%= category %> measures</label></span><br/>
-          <%= f.collection_check_boxes :measure_ids, measures, :measure_id, :display_name, {}, {"class"=>["measure_cb", category.tr(" '", "_")]} %>
+          <%= f.collection_check_boxes :measure_ids, measures, :measure_id, :mapped_name, {}, {"class"=>["measure_cb", category.tr(" '", "_")]} %>
       </div>
     <% end %>
+
   </div>
 </section>
 

@@ -12,6 +12,7 @@ class ProductTestsController < ApplicationController
     @vendor = @product.vendor
     @patients = Record.where(:test_id => @test.id)
 
+  
     # Decide our current execution. Show the one requested, if any. Otherwise show the most recent, or a new one if none exist
     if !params[:execution_id].nil?
       @current_execution = TestExecution.find(params[:execution_id])   
@@ -19,7 +20,8 @@ class ProductTestsController < ApplicationController
       @never_executed_before = true
       @current_execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
     end
-    
+
+
     # Calculate and categorize the passing and failing measures
     passing_measures = @current_execution.passing_measures
     failing_measures = @current_execution.failing_measures
@@ -57,8 +59,16 @@ class ProductTestsController < ApplicationController
     @vendor = @product.vendor
     @measures = Measure.top_level
     @patient_populations = PatientPopulation.installed
-    @measures_categories = @measures.group_by { |t| t.category }
-    
+    @measures_categories = @measures.select do |t|
+      @product.measure_map.keys.include? t[:id]
+    end.group_by {|g| g.category}
+
+    # replace the measure ids with the ones specified in the product's measure_map
+    @measures_categories.each do |cat, measures|
+      measures.each do |m|
+        m[:mapped_name] = @product.measure_map[m.key] + " " + m.name
+      end
+    end
     # TODO - Copied default from popHealth. This probably needs to change at some point. We also currently ignore the uploaded value anyway.
     @effective_date = Time.gm(2010, 12, 31)
     @period_start = 3.months.ago(Time.at(@effective_date))
@@ -70,7 +80,7 @@ class ProductTestsController < ApplicationController
     month, day, year = params[:product_test][:effective_date_end].split('/')
     test.effective_date = Time.local(year.to_i, month.to_i, day.to_i).to_i
     test.save!
-    
+
     if params[:byod] && Rails.env != 'production'
       # If the user brought their own data, kick off a PatientImportJob. Store the file temporarily in /tmp
       uploaded_file = params[:byod].tempfile
@@ -149,6 +159,8 @@ class ProductTestsController < ApplicationController
     test_data = params[:product_test]
     baseline = test_data[:baseline]
     pqri = test_data[:pqri]
+    product = test.product
+    measure_map = product.measure_map
     
     if (!params[:execution_id].empty?)
       execution = TestExecution.find(params[:execution_id])
@@ -167,7 +179,7 @@ class ProductTestsController < ApplicationController
 
     if (pqri)
       doc = Nokogiri::XML(pqri.open)
-      execution.reported_results = Cypress::PqriUtility.extract_results(doc)
+      execution.reported_results = Cypress::PqriUtility.extract_results(doc, measure_map)
       execution.validation_errors = Cypress::PqriUtility.validate(doc)
       if execution.baseline_results
         execution.normalize_results_with_baseline
