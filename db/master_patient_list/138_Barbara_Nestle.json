@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca26a9ffcc3503000e5c",
+  "_id": "4fa29634a9ffcc62bf000ec6",
   "patient_id": "138",
   "first": "Barbara",
   "last": "Nestle",
@@ -33,6 +33,9 @@
       ]
     },
     "0027": {
+      "tobacco_user_patient_characteristic": [
+        1273723200
+      ]
     },
     "0012": {
     },
@@ -73,6 +76,9 @@
     "0024": {
     },
     "0028": {
+      "tobacco_user_patient_characteristic": [
+        1273723200
+      ]
     },
     "0031": {
     },
@@ -213,13 +219,13 @@
     },
     "0089": {
     },
+    "0385": {
+    },
     "0105": {
       "encounter_ed_encounter": [
         1278907200,
         1273723200
       ]
-    },
-    "0385": {
     },
     "0387": {
     },
@@ -249,7 +255,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca26a9ffcc3503000e63",
+      "_id": "4fa29634a9ffcc62bf000ece",
       "_type": "Condition",
       "time": 1273723200,
       "description": "Liver Disorders",
@@ -266,7 +272,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca26a9ffcc3503000e5d",
+      "_id": "4fa29634a9ffcc62bf000ec7",
       "_type": "Encounter",
       "time": 1278907200,
       "description": "encounter ED",
@@ -280,7 +286,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca26a9ffcc3503000e5e",
+      "_id": "4fa29634a9ffcc62bf000ec8",
       "_type": "Encounter",
       "time": 1273723200,
       "description": "encounter ED",
@@ -301,7 +307,7 @@
         "scalar": "Positive",
         "units": null
       },
-      "_id": "4f96ca26a9ffcc3503000e64",
+      "_id": "4fa29634a9ffcc62bf000ecf",
       "_type": "LabResult",
       "time": 1273723200,
       "description": "Pregnancy Test",
@@ -320,11 +326,29 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f96ca26a9ffcc3503000e65",
+      "_id": "4fa29634a9ffcc62bf000ed0",
       "_type": "LabResult",
       "time": 1278907200,
       "description": "Pregnancy Test",
       "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "230062009"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa29634a9ffcc62bf000ec9",
+      "_type": "SocialHistory",
+      "time": 1273723200,
+      "description": "Tobacco User",
+      "specifics": "C0459846:Moderate cigarette smoker;"
     }
   ],
   "vital_signs": [
@@ -338,7 +362,7 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca26a9ffcc3503000e5f",
+      "_id": "4fa29634a9ffcc62bf000eca",
       "_type": "VitalSign",
       "time": 1278907200,
       "description": "Systolic Blood Pressure",
@@ -354,7 +378,7 @@
         "scalar": 70.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca26a9ffcc3503000e60",
+      "_id": "4fa29634a9ffcc62bf000ecb",
       "_type": "VitalSign",
       "time": 1278907200,
       "description": "Diastolic Blood Pressure",
@@ -370,7 +394,7 @@
         "scalar": 112.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca26a9ffcc3503000e61",
+      "_id": "4fa29634a9ffcc62bf000ecc",
       "_type": "VitalSign",
       "time": 1273723200,
       "description": "Systolic Blood Pressure",
@@ -386,7 +410,7 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca26a9ffcc3503000e62",
+      "_id": "4fa29634a9ffcc62bf000ecd",
       "_type": "VitalSign",
       "time": 1273723200,
       "description": "Diastolic Blood Pressure",

@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca21a9ffcc3503000a11",
+  "_id": "4fa2962ea9ffcc62bf000a5a",
   "patient_id": "221",
   "first": "Caroline",
   "last": "Murray",
@@ -132,6 +132,9 @@
         1284523200,
         1277870400,
         1270785600
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1281412800
       ]
     },
     "0031": {
@@ -202,8 +205,10 @@
     },
     "0036": {
       "encounter_outpatient_encounter": [
+        1291611600,
         1284523200,
-        1277870400
+        1277870400,
+        1270785600
       ],
       "encounter_acute_inpt_encounter": [
         1279339200
@@ -506,16 +511,6 @@
         1270785600
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
-        1291611600,
-        1284523200,
-        1279339200,
-        1279166400,
-        1277870400,
-        1270785600
-      ]
-    },
     "0385": {
       "colon_cancer_diagnosis_active": [
         1279166400
@@ -528,6 +523,16 @@
       "encounter_office_visit_encounter": [
         1291611600,
         1284523200,
+        1277870400,
+        1270785600
+      ]
+    },
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+        1291611600,
+        1284523200,
+        1279339200,
+        1279166400,
         1277870400,
         1270785600
       ]
@@ -606,7 +611,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a2b",
+      "_id": "4fa2962ea9ffcc62bf000a75",
       "_type": "Entry",
       "time": 1270785600,
       "description": "follow-up plan_BMI management",
@@ -628,7 +633,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a21",
+      "_id": "4fa2962ea9ffcc62bf000a6b",
       "_type": "Condition",
       "time": 1279166400,
       "description": "Colon Cancer",
@@ -649,7 +654,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a22",
+      "_id": "4fa2962ea9ffcc62bf000a6c",
       "_type": "Condition",
       "time": 1275624000,
       "description": "Anemias and Bleeding Disorders",
@@ -666,7 +671,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a12",
+      "_id": "4fa2962ea9ffcc62bf000a5b",
       "_type": "Encounter",
       "time": 1291611600,
       "description": "Encounter Office Visit",
@@ -683,7 +688,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a13",
+      "_id": "4fa2962ea9ffcc62bf000a5c",
       "_type": "Encounter",
       "time": 1284523200,
       "description": "Encounter Outpatient",
@@ -697,7 +702,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a14",
+      "_id": "4fa2962ea9ffcc62bf000a5d",
       "_type": "Encounter",
       "time": 1279339200,
       "description": "Encounter Inpatient Discharge",
@@ -711,7 +716,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a15",
+      "_id": "4fa2962ea9ffcc62bf000a5e",
       "_type": "Encounter",
       "time": 1279166400,
       "description": "encounter non-acute inpatient",
@@ -728,7 +733,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a16",
+      "_id": "4fa2962ea9ffcc62bf000a5f",
       "_type": "Encounter",
       "time": 1277870400,
       "description": "Encounter Outpatient",
@@ -742,7 +747,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a17",
+      "_id": "4fa2962ea9ffcc62bf000a60",
       "_type": "Encounter",
       "time": 1270785600,
       "description": "Encounter Office Visit",
@@ -758,7 +763,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a2a",
+      "_id": "4fa2962ea9ffcc62bf000a74",
       "_type": "Immunization",
       "time": 1284523200,
       "description": "Influenza Vaccine",
@@ -774,7 +779,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a26",
+      "_id": "4fa2962ea9ffcc62bf000a70",
       "_type": "Procedure",
       "time": 1270785600,
       "description": "dietary consultation order",
@@ -788,7 +793,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a27",
+      "_id": "4fa2962ea9ffcc62bf000a71",
       "_type": "Procedure",
       "time": 1279166400,
       "description": "Colon Cancer Stage III",
@@ -814,7 +819,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a28",
+      "_id": "4fa2962ea9ffcc62bf000a72",
       "_type": "Procedure",
       "time": 1277870400,
       "description": "colonoscopy",
@@ -840,7 +845,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a29",
+      "_id": "4fa2962ea9ffcc62bf000a73",
       "_type": "Procedure",
       "time": 1272600000,
       "description": "breast cancer screening",
@@ -870,7 +875,7 @@
         "scalar": "Positive",
         "units": null
       },
-      "_id": "4f96ca21a9ffcc3503000a23",
+      "_id": "4fa2962ea9ffcc62bf000a6d",
       "_type": "LabResult",
       "time": 1275624000,
       "description": "FOBT",
@@ -901,7 +906,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f96ca21a9ffcc3503000a24",
+      "_id": "4fa2962ea9ffcc62bf000a6e",
       "_type": "LabResult",
       "time": 1277870400,
       "description": "Pap Test",
@@ -915,11 +920,29 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a25",
+      "_id": "4fa2962ea9ffcc62bf000a6f",
       "_type": "LabResult",
       "time": 1279166400,
       "description": "Colon Cancer Stage III",
       "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2962ea9ffcc62bf000a61",
+      "_type": "SocialHistory",
+      "time": 1281412800,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -933,7 +956,7 @@
         "scalar": 120.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca21a9ffcc3503000a18",
+      "_id": "4fa2962ea9ffcc62bf000a62",
       "_type": "VitalSign",
       "time": 1284523200,
       "description": "Systolic Blood Pressure",
@@ -949,7 +972,7 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca21a9ffcc3503000a19",
+      "_id": "4fa2962ea9ffcc62bf000a63",
       "_type": "VitalSign",
       "time": 1284523200,
       "description": "Diastolic Blood Pressure",
@@ -965,7 +988,7 @@
         "scalar": 166.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca21a9ffcc3503000a1a",
+      "_id": "4fa2962ea9ffcc62bf000a64",
       "_type": "VitalSign",
       "time": 1277870400,
       "description": "Systolic Blood Pressure",
@@ -981,7 +1004,7 @@
         "scalar": 76.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca21a9ffcc3503000a1b",
+      "_id": "4fa2962ea9ffcc62bf000a65",
       "_type": "VitalSign",
       "time": 1277870400,
       "description": "Diastolic Blood Pressure",
@@ -1000,7 +1023,7 @@
         "scalar": 33.245638200183656,
         "units": null
       },
-      "_id": "4f96ca21a9ffcc3503000a1c",
+      "_id": "4fa2962ea9ffcc62bf000a66",
       "_type": "VitalSign",
       "time": 1291611600,
       "description": "BMI",
@@ -1019,7 +1042,7 @@
         "scalar": 33.245638200183656,
         "units": null
       },
-      "_id": "4f96ca21a9ffcc3503000a1d",
+      "_id": "4fa2962ea9ffcc62bf000a67",
       "_type": "VitalSign",
       "time": 1275624000,
       "description": "BMI",
@@ -1038,7 +1061,7 @@
         "scalar": 33.245638200183656,
         "units": null
       },
-      "_id": "4f96ca21a9ffcc3503000a1e",
+      "_id": "4fa2962ea9ffcc62bf000a68",
       "_type": "VitalSign",
       "time": 1282622400,
       "description": "BMI",
@@ -1057,7 +1080,7 @@
         "scalar": 33.245638200183656,
         "units": null
       },
-      "_id": "4f96ca21a9ffcc3503000a1f",
+      "_id": "4fa2962ea9ffcc62bf000a69",
       "_type": "VitalSign",
       "time": 1270785600,
       "description": "BMI",
@@ -1071,7 +1094,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca21a9ffcc3503000a20",
+      "_id": "4fa2962ea9ffcc62bf000a6a",
       "_type": "VitalSign",
       "time": 1279166400,
       "description": "Colon Cancer Stage III",

@@ -21,6 +21,13 @@ class MeasureEvaluatorTest < ActiveSupport::TestCase
     assert result['denominator']  == 48, "Measure Evaluator reported wrong result for a measure"
     assert result['exclusions']   == 0 , "Measure Evaluator reported wrong result for a measure"
     assert result['antinumerator']== 4 , "Measure Evaluator reported wrong result for a measure"
+
+    @measure = Measure.where({:id => '0002'}).first
+    result = Cypress::MeasureEvaluator.eval(@test, @measure)
+    assert result['numerator']    == 13, "Measure Evaluator reported wrong result for a measure" 
+    assert result['denominator']  == 15, "Measure Evaluator reported wrong result for a measure" 
+    assert result['exclusions']   == 0 , "Measure Evaluator reported wrong result for a measure"
+    assert result['antinumerator']== 2 , "Measure Evaluator reported wrong result for a measure"
   end
 
   test "Should evaluate measures for static records" do

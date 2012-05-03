@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca19a9ffcc350300047b",
+  "_id": "4fa29626a9ffcc62bf0004a5",
   "patient_id": "81",
   "first": "Carsona",
   "last": "Daly",
@@ -103,6 +103,9 @@
     "0028": {
       "encounter_office_visit_encounter": [
         1280894400
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1276401600
       ]
     },
     "0031": {
@@ -150,7 +153,9 @@
         1276401600
       ],
       "encounter_outpatient_encounter": [
-        1280894400
+        1290574800,
+        1280894400,
+        1276401600
       ],
       "short_acting_beta_2_agonist_medication_active": [
         1276401600
@@ -340,16 +345,16 @@
         1276401600
       ]
     },
+    "0385": {
+      "encounter_office_visit_encounter": [
+        1280894400
+      ]
+    },
     "0105": {
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1290574800,
         1280894400,
         1276401600
-      ]
-    },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1280894400
       ]
     },
     "0387": {
@@ -397,7 +402,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc3503000481",
+      "_id": "4fa29626a9ffcc62bf0004ac",
       "_type": "Condition",
       "time": 1276401600,
       "description": "Asthma",
@@ -418,7 +423,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc3503000482",
+      "_id": "4fa29626a9ffcc62bf0004ad",
       "_type": "Condition",
       "time": 1280894400,
       "description": "pharyngitis",
@@ -433,7 +438,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc3503000483",
+      "_id": "4fa29626a9ffcc62bf0004ae",
       "_type": "Condition",
       "time": 1276401600,
       "description": "Asthma Daytime Symptoms Quantified",
@@ -447,7 +452,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc3503000484",
+      "_id": "4fa29626a9ffcc62bf0004af",
       "_type": "Condition",
       "time": 1276401600,
       "description": "Asthma Nighttime Symptoms Quantified",
@@ -463,7 +468,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc350300047c",
+      "_id": "4fa29626a9ffcc62bf0004a6",
       "_type": "Encounter",
       "time": 1290574800,
       "description": "Encounter Office & Outpatient Consult",
@@ -480,7 +485,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc350300047d",
+      "_id": "4fa29626a9ffcc62bf0004a7",
       "_type": "Encounter",
       "time": 1280894400,
       "description": "Encounter Outpatient",
@@ -494,7 +499,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc350300047e",
+      "_id": "4fa29626a9ffcc62bf0004a8",
       "_type": "Encounter",
       "time": 1276401600,
       "description": "Encounter Office & Outpatient Consult",
@@ -510,7 +515,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc350300048a",
+      "_id": "4fa29626a9ffcc62bf0004b5",
       "_type": "Medication",
       "time": 1280894400,
       "description": "Miscellaneous antibiotics",
@@ -524,7 +529,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc350300048b",
+      "_id": "4fa29626a9ffcc62bf0004b6",
       "_type": "Medication",
       "time": 1276401600,
       "description": "Short acting beta 2 agonist",
@@ -542,7 +547,7 @@
         "scalar": 120.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca19a9ffcc3503000485",
+      "_id": "4fa29626a9ffcc62bf0004b0",
       "_type": "Procedure",
       "time": 1290574800,
       "description": "Systolic Blood Pressure",
@@ -558,7 +563,7 @@
         "scalar": 68.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca19a9ffcc3503000486",
+      "_id": "4fa29626a9ffcc62bf0004b1",
       "_type": "Procedure",
       "time": 1290574800,
       "description": "Diastolic Blood Pressure",
@@ -574,7 +579,7 @@
         "scalar": 118.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca19a9ffcc3503000487",
+      "_id": "4fa29626a9ffcc62bf0004b2",
       "_type": "Procedure",
       "time": 1276401600,
       "description": "Systolic Blood Pressure",
@@ -590,7 +595,7 @@
         "scalar": 67.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca19a9ffcc3503000488",
+      "_id": "4fa29626a9ffcc62bf0004b3",
       "_type": "Procedure",
       "time": 1276401600,
       "description": "Diastolic Blood Pressure",
@@ -604,11 +609,29 @@
       },
       "value": {
       },
-      "_id": "4f96ca19a9ffcc3503000489",
+      "_id": "4fa29626a9ffcc62bf0004b4",
       "_type": "Procedure",
       "time": 1276401600,
       "description": "Asthma Symptom Assessment Tool",
       "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa29626a9ffcc62bf0004a9",
+      "_type": "SocialHistory",
+      "time": 1276401600,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -625,7 +648,7 @@
         "scalar": 24.325259515570938,
         "units": null
       },
-      "_id": "4f96ca19a9ffcc350300047f",
+      "_id": "4fa29626a9ffcc62bf0004aa",
       "_type": "VitalSign",
       "time": 1290574800,
       "description": "BMI",
@@ -644,7 +667,7 @@
         "scalar": 24.0211937716263,
         "units": null
       },
-      "_id": "4f96ca19a9ffcc3503000480",
+      "_id": "4fa29626a9ffcc62bf0004ab",
       "_type": "VitalSign",
       "time": 1276401600,
       "description": "BMI",

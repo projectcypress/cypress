@@ -32,5 +32,9 @@ class ProductTestTest < ActiveSupport::TestCase
     assert @test1.count_measures == 2
   end
   
+   test "Should report if patient pop is imported" do
+    assert @test1.imported_population? == true
+    
+  end
 
 end

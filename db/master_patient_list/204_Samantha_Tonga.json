@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca16a9ffcc35030002a1",
+  "_id": "4fa29623a9ffcc62bf0002b9",
   "patient_id": "204",
   "first": "Samantha",
   "last": "Tonga",
@@ -78,6 +78,9 @@
         1288584000,
         1285905600,
         1278648000
+      ],
+      "estimated_date_of_conception_patient_characteristic": [
+        1271304000
       ]
     },
     "0013": {
@@ -116,6 +119,9 @@
         1288584000,
         1285905600,
         1278648000
+      ],
+      "estimated_date_of_conception_patient_characteristic": [
+        1271304000
       ],
       "rh_status_baby_laboratory_test_result": [
         {
@@ -205,6 +211,9 @@
     "0028": {
       "encounter_office_visit_encounter": [
         1276574400,
+        1270008000
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1270008000
       ]
     },
@@ -589,15 +598,15 @@
         1270008000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
-        1293426000,
+    "0385": {
+      "encounter_office_visit_encounter": [
         1276574400,
         1270008000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+        1293426000,
         1276574400,
         1270008000
       ]
@@ -638,7 +647,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002a2",
+      "_id": "4fa29623a9ffcc62bf0002ba",
       "_type": "Allergy",
       "time": 1270008000,
       "description": "VZV Vaccine",
@@ -661,7 +670,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002b8",
+      "_id": "4fa29623a9ffcc62bf0002d1",
       "_type": "Condition",
       "time": 1293426000,
       "description": "Delivery Live Births-Diagnosis",
@@ -682,7 +691,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002b9",
+      "_id": "4fa29623a9ffcc62bf0002d2",
       "_type": "Condition",
       "time": 1276574400,
       "description": "Pregnancy",
@@ -703,7 +712,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002ba",
+      "_id": "4fa29623a9ffcc62bf0002d3",
       "_type": "Condition",
       "time": 1270008000,
       "description": "Asthma",
@@ -713,12 +722,26 @@
     {
       "codes": {
         "SNOMED-CT": [
+          "248986005"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4fa29623a9ffcc62bf0002d4",
+      "_type": "Condition",
+      "time": 1271304000,
+      "description": "Estimated date of conception",
+      "specifics": "C0425966:Estimated date of conception;"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
           "373899003"
         ]
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002bb",
+      "_id": "4fa29623a9ffcc62bf0002d5",
       "_type": "Condition",
       "time": 1270008000,
       "description": "Asthma Daytime Symptoms",
@@ -732,7 +755,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002bc",
+      "_id": "4fa29623a9ffcc62bf0002d6",
       "_type": "Condition",
       "time": 1270008000,
       "description": "Asthma Nighttime Symptoms",
@@ -748,7 +771,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002a3",
+      "_id": "4fa29623a9ffcc62bf0002bb",
       "_type": "Encounter",
       "time": 1293426000,
       "description": "encounter acute inpt",
@@ -768,7 +791,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002a4",
+      "_id": "4fa29623a9ffcc62bf0002bc",
       "_type": "Encounter",
       "time": 1292475600,
       "description": "Prenatal Visit",
@@ -788,7 +811,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002a5",
+      "_id": "4fa29623a9ffcc62bf0002bd",
       "_type": "Encounter",
       "time": 1291611600,
       "description": "Prenatal Visit",
@@ -808,7 +831,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002a6",
+      "_id": "4fa29623a9ffcc62bf0002be",
       "_type": "Encounter",
       "time": 1290661200,
       "description": "Prenatal Visit",
@@ -828,7 +851,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002a7",
+      "_id": "4fa29623a9ffcc62bf0002bf",
       "_type": "Encounter",
       "time": 1288584000,
       "description": "Prenatal Visit",
@@ -848,7 +871,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002a8",
+      "_id": "4fa29623a9ffcc62bf0002c0",
       "_type": "Encounter",
       "time": 1285905600,
       "description": "Prenatal Visit",
@@ -868,7 +891,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002a9",
+      "_id": "4fa29623a9ffcc62bf0002c1",
       "_type": "Encounter",
       "time": 1278648000,
       "description": "Prenatal Visit",
@@ -885,7 +908,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002aa",
+      "_id": "4fa29623a9ffcc62bf0002c2",
       "_type": "Encounter",
       "time": 1276574400,
       "description": "Encounter Outpatient",
@@ -902,7 +925,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002ab",
+      "_id": "4fa29623a9ffcc62bf0002c3",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Outpatient",
@@ -918,7 +941,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002c4",
+      "_id": "4fa29623a9ffcc62bf0002de",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Short acting beta 2 agonist",
@@ -932,7 +955,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002c5",
+      "_id": "4fa29623a9ffcc62bf0002df",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Long acting inhaled beta 2 agonist",
@@ -948,7 +971,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002c2",
+      "_id": "4fa29623a9ffcc62bf0002dc",
       "_type": "Procedure",
       "time": 1270008000,
       "description": "Asthma Symptom Assessment Tool",
@@ -965,7 +988,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca16a9ffcc35030002c3",
+      "_id": "4fa29623a9ffcc62bf0002dd",
       "_type": "Procedure",
       "time": 1293426000,
       "description": "Delivery Live Births-Procedure",
@@ -989,7 +1012,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f96ca16a9ffcc35030002bd",
+      "_id": "4fa29623a9ffcc62bf0002d7",
       "_type": "LabResult",
       "time": 1285905600,
       "description": "HIV Screening",
@@ -1005,7 +1028,7 @@
         "scalar": "Positive",
         "units": null
       },
-      "_id": "4f96ca16a9ffcc35030002be",
+      "_id": "4fa29623a9ffcc62bf0002d8",
       "_type": "LabResult",
       "time": 1285905600,
       "description": "Rh Status Mother",
@@ -1024,7 +1047,7 @@
         "scalar": "Postive",
         "units": null
       },
-      "_id": "4f96ca16a9ffcc35030002bf",
+      "_id": "4fa29623a9ffcc62bf0002d9",
       "_type": "LabResult",
       "time": 1276574400,
       "description": "Pregnancy Test",
@@ -1055,7 +1078,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f96ca16a9ffcc35030002c0",
+      "_id": "4fa29623a9ffcc62bf0002da",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Pap Test",
@@ -1077,11 +1100,29 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f96ca16a9ffcc35030002c1",
+      "_id": "4fa29623a9ffcc62bf0002db",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Chlamydia Screening",
       "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa29623a9ffcc62bf0002c4",
+      "_type": "SocialHistory",
+      "time": 1270008000,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -1095,7 +1136,7 @@
         "scalar": 116.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002ac",
+      "_id": "4fa29623a9ffcc62bf0002c5",
       "_type": "VitalSign",
       "time": 1292475600,
       "description": "Systolic Blood Pressure",
@@ -1111,7 +1152,7 @@
         "scalar": 68.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002ad",
+      "_id": "4fa29623a9ffcc62bf0002c6",
       "_type": "VitalSign",
       "time": 1292475600,
       "description": "Diastolic Blood Pressure",
@@ -1127,7 +1168,7 @@
         "scalar": 118.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002ae",
+      "_id": "4fa29623a9ffcc62bf0002c7",
       "_type": "VitalSign",
       "time": 1291611600,
       "description": "Systolic Blood Pressure",
@@ -1143,7 +1184,7 @@
         "scalar": 70.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002af",
+      "_id": "4fa29623a9ffcc62bf0002c8",
       "_type": "VitalSign",
       "time": 1291611600,
       "description": "Diastolic Blood Pressure",
@@ -1159,7 +1200,7 @@
         "scalar": 120.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002b0",
+      "_id": "4fa29623a9ffcc62bf0002c9",
       "_type": "VitalSign",
       "time": 1290661200,
       "description": "Systolic Blood Pressure",
@@ -1175,7 +1216,7 @@
         "scalar": 70.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002b1",
+      "_id": "4fa29623a9ffcc62bf0002ca",
       "_type": "VitalSign",
       "time": 1290661200,
       "description": "Diastolic Blood Pressure",
@@ -1191,7 +1232,7 @@
         "scalar": 118.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002b2",
+      "_id": "4fa29623a9ffcc62bf0002cb",
       "_type": "VitalSign",
       "time": 1288584000,
       "description": "Systolic Blood Pressure",
@@ -1207,7 +1248,7 @@
         "scalar": 68.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002b3",
+      "_id": "4fa29623a9ffcc62bf0002cc",
       "_type": "VitalSign",
       "time": 1288584000,
       "description": "Diastolic Blood Pressure",
@@ -1223,7 +1264,7 @@
         "scalar": 116.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002b4",
+      "_id": "4fa29623a9ffcc62bf0002cd",
       "_type": "VitalSign",
       "time": 1285905600,
       "description": "Systolic Blood Pressure",
@@ -1239,7 +1280,7 @@
         "scalar": 66.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002b5",
+      "_id": "4fa29623a9ffcc62bf0002ce",
       "_type": "VitalSign",
       "time": 1285905600,
       "description": "Diastolic Blood Pressure",
@@ -1255,7 +1296,7 @@
         "scalar": 114.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002b6",
+      "_id": "4fa29623a9ffcc62bf0002cf",
       "_type": "VitalSign",
       "time": 1278648000,
       "description": "Systolic Blood Pressure",
@@ -1271,7 +1312,7 @@
         "scalar": 66.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca16a9ffcc35030002b7",
+      "_id": "4fa29623a9ffcc62bf0002d0",
       "_type": "VitalSign",
       "time": 1278648000,
       "description": "Diastolic Blood Pressure",

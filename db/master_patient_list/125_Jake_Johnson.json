@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca32a9ffcc350300173d",
+  "_id": "4fa29641a9ffcc62bf0017f6",
   "patient_id": "125",
   "first": "Jake",
   "last": "Johnson",
@@ -136,6 +136,9 @@
         1281844800,
         1273896000,
         1270094400
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1270094400
       ]
     },
     "0031": {
@@ -193,6 +196,8 @@
     "0036": {
       "encounter_outpatient_encounter": [
         1287115200,
+        1281844800,
+        1273896000,
         1270094400
       ]
     },
@@ -469,16 +474,16 @@
         1270094400
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1287115200,
         1281844800,
         1273896000,
         1270094400
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1287115200,
         1281844800,
         1273896000,
@@ -531,7 +536,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300173e",
+      "_id": "4fa29641a9ffcc62bf0017f7",
       "_type": "Allergy",
       "time": 1270094400,
       "description": "Streptomycin",
@@ -554,7 +559,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc3503001749",
+      "_id": "4fa29641a9ffcc62bf001803",
       "_type": "Condition",
       "time": 1270094400,
       "description": "Heart Failure",
@@ -575,7 +580,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300174a",
+      "_id": "4fa29641a9ffcc62bf001804",
       "_type": "Condition",
       "time": 1270094400,
       "description": "Renal Failure and ESRD",
@@ -596,7 +601,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300174b",
+      "_id": "4fa29641a9ffcc62bf001805",
       "_type": "Condition",
       "time": 1270094400,
       "description": "Hypertension",
@@ -616,7 +621,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300173f",
+      "_id": "4fa29641a9ffcc62bf0017f8",
       "_type": "Encounter",
       "time": 1287115200,
       "description": "Encounter Outpatient",
@@ -630,7 +635,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc3503001740",
+      "_id": "4fa29641a9ffcc62bf0017f9",
       "_type": "Encounter",
       "time": 1281844800,
       "description": "Encounter Office Visit",
@@ -644,7 +649,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc3503001741",
+      "_id": "4fa29641a9ffcc62bf0017fa",
       "_type": "Encounter",
       "time": 1273896000,
       "description": "Encounter Office Visit",
@@ -661,7 +666,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc3503001742",
+      "_id": "4fa29641a9ffcc62bf0017fb",
       "_type": "Encounter",
       "time": 1270094400,
       "description": "Encounter Outpatient",
@@ -677,7 +682,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc3503001750",
+      "_id": "4fa29641a9ffcc62bf00180a",
       "_type": "Medication",
       "time": 1270094400,
       "description": "Beta Blocker Therapy",
@@ -691,7 +696,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc3503001751",
+      "_id": "4fa29641a9ffcc62bf00180b",
       "_type": "Medication",
       "time": 1270094400,
       "description": "Antiplatelet Therapy",
@@ -716,7 +721,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300174c",
+      "_id": "4fa29641a9ffcc62bf001806",
       "_type": "Procedure",
       "time": 1270094400,
       "description": "counseling for nutrition",
@@ -736,7 +741,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300174d",
+      "_id": "4fa29641a9ffcc62bf001807",
       "_type": "Procedure",
       "time": 1270094400,
       "description": "counseling for physical activity",
@@ -750,7 +755,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300174e",
+      "_id": "4fa29641a9ffcc62bf001808",
       "_type": "Procedure",
       "time": 1270872000,
       "description": "Ejection Fraction",
@@ -767,11 +772,29 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300174f",
+      "_id": "4fa29641a9ffcc62bf001809",
       "_type": "Procedure",
       "time": 1270526400,
       "description": "X-ray Study",
       "specifics": "C0848630:Radiographic imaging of bone (procedure);"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa29641a9ffcc62bf0017fc",
+      "_type": "SocialHistory",
+      "time": 1270094400,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -785,7 +808,7 @@
         "scalar": 154.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca32a9ffcc3503001743",
+      "_id": "4fa29641a9ffcc62bf0017fd",
       "_type": "VitalSign",
       "time": 1287115200,
       "description": "Systolic Blood Pressure",
@@ -801,7 +824,7 @@
         "scalar": 88.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca32a9ffcc3503001744",
+      "_id": "4fa29641a9ffcc62bf0017fe",
       "_type": "VitalSign",
       "time": 1287115200,
       "description": "Diastolic Blood Pressure",
@@ -817,7 +840,7 @@
         "scalar": 160.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca32a9ffcc3503001745",
+      "_id": "4fa29641a9ffcc62bf0017ff",
       "_type": "VitalSign",
       "time": 1270094400,
       "description": "Systolic Blood Pressure",
@@ -833,7 +856,7 @@
         "scalar": 92.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca32a9ffcc3503001746",
+      "_id": "4fa29641a9ffcc62bf001800",
       "_type": "VitalSign",
       "time": 1270094400,
       "description": "Diastolic Blood Pressure",
@@ -852,7 +875,7 @@
         "scalar": 26.850694444444446,
         "units": null
       },
-      "_id": "4f96ca32a9ffcc3503001747",
+      "_id": "4fa29641a9ffcc62bf001801",
       "_type": "VitalSign",
       "time": 1287115200,
       "description": "BMI",
@@ -871,7 +894,7 @@
         "scalar": 27.66435185185185,
         "units": null
       },
-      "_id": "4f96ca32a9ffcc3503001748",
+      "_id": "4fa29641a9ffcc62bf001802",
       "_type": "VitalSign",
       "time": 1270094400,
       "description": "BMI",

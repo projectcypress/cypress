@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca32a9ffcc350300172d",
+  "_id": "4fa29640a9ffcc62bf0017e5",
   "patient_id": "28",
   "first": "Mukesh",
   "last": "Gouda",
@@ -111,6 +111,9 @@
     "0028": {
       "encounter_office_visit_encounter": [
         1276574400,
+        1273032000
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1273032000
       ]
     },
@@ -395,14 +398,14 @@
         1273032000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1276574400,
         1273032000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1276574400,
         1273032000
       ]
@@ -453,7 +456,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc3503001736",
+      "_id": "4fa29640a9ffcc62bf0017ef",
       "_type": "Condition",
       "time": 1276401600,
       "description": "Heart Failure",
@@ -474,7 +477,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc3503001737",
+      "_id": "4fa29640a9ffcc62bf0017f0",
       "_type": "Condition",
       "time": 1273032000,
       "description": "Hypertension",
@@ -494,7 +497,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300172e",
+      "_id": "4fa29640a9ffcc62bf0017e6",
       "_type": "Encounter",
       "time": 1276574400,
       "description": "Encounter Outpatient",
@@ -511,7 +514,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300172f",
+      "_id": "4fa29640a9ffcc62bf0017e7",
       "_type": "Encounter",
       "time": 1273032000,
       "description": "Encounter Outpatient",
@@ -527,7 +530,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca32a9ffcc350300173c",
+      "_id": "4fa29640a9ffcc62bf0017f5",
       "_type": "Procedure",
       "time": 1276401600,
       "description": "Ejection Fraction",
@@ -551,7 +554,7 @@
         "scalar": 68.0,
         "units": null
       },
-      "_id": "4f96ca32a9ffcc3503001738",
+      "_id": "4fa29640a9ffcc62bf0017f1",
       "_type": "LabResult",
       "time": 1276401600,
       "description": "High Density Lipoprotein (HDL)",
@@ -573,7 +576,7 @@
         "scalar": 91.0,
         "units": null
       },
-      "_id": "4f96ca32a9ffcc3503001739",
+      "_id": "4fa29640a9ffcc62bf0017f2",
       "_type": "LabResult",
       "time": 1276401600,
       "description": "LDL",
@@ -595,7 +598,7 @@
         "scalar": 180.0,
         "units": null
       },
-      "_id": "4f96ca32a9ffcc350300173a",
+      "_id": "4fa29640a9ffcc62bf0017f3",
       "_type": "LabResult",
       "time": 1276401600,
       "description": "Total Cholesterol",
@@ -617,11 +620,29 @@
         "scalar": 111.0,
         "units": null
       },
-      "_id": "4f96ca32a9ffcc350300173b",
+      "_id": "4fa29640a9ffcc62bf0017f4",
       "_type": "LabResult",
       "time": 1276401600,
       "description": "Triglycerides",
       "specifics": "C0202236:Triglycerides measurement;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa29640a9ffcc62bf0017e8",
+      "_type": "SocialHistory",
+      "time": 1273032000,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -635,7 +656,7 @@
         "scalar": 150.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca32a9ffcc3503001730",
+      "_id": "4fa29640a9ffcc62bf0017e9",
       "_type": "VitalSign",
       "time": 1276401600,
       "description": "Systolic Blood Pressure",
@@ -651,7 +672,7 @@
         "scalar": 88.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca32a9ffcc3503001731",
+      "_id": "4fa29640a9ffcc62bf0017ea",
       "_type": "VitalSign",
       "time": 1276401600,
       "description": "Diastolic Blood Pressure",
@@ -667,7 +688,7 @@
         "scalar": 154.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca32a9ffcc3503001732",
+      "_id": "4fa29640a9ffcc62bf0017eb",
       "_type": "VitalSign",
       "time": 1273032000,
       "description": "Systolic Blood Pressure",
@@ -683,7 +704,7 @@
         "scalar": 90.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca32a9ffcc3503001733",
+      "_id": "4fa29640a9ffcc62bf0017ec",
       "_type": "VitalSign",
       "time": 1273032000,
       "description": "Diastolic Blood Pressure",
@@ -702,7 +723,7 @@
         "scalar": 22.271349862258955,
         "units": null
       },
-      "_id": "4f96ca32a9ffcc3503001734",
+      "_id": "4fa29640a9ffcc62bf0017ed",
       "_type": "VitalSign",
       "time": 1276401600,
       "description": "BMI",
@@ -721,7 +742,7 @@
         "scalar": 22.594123048668507,
         "units": null
       },
-      "_id": "4f96ca32a9ffcc3503001735",
+      "_id": "4fa29640a9ffcc62bf0017ee",
       "_type": "VitalSign",
       "time": 1267765200,
       "description": "BMI",

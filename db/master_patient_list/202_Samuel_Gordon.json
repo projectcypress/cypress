@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca1aa9ffcc3503000563",
+  "_id": "4fa29627a9ffcc62bf000591",
   "patient_id": "202",
   "first": "Samuel",
   "last": "Gordon",
@@ -53,6 +53,9 @@
       ],
       "tobacco_use_cessation_counseling_communication_to_patient": [
         1272427200
+      ],
+      "tobacco_user_patient_characteristic": [
+        1240891200
       ]
     },
     "0012": {
@@ -170,6 +173,9 @@
         1278648000,
         1272427200
       ],
+      "tobacco_user_patient_characteristic": [
+        1240891200
+      ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1272427200
       ],
@@ -233,12 +239,20 @@
       ]
     },
     "0036": {
+      "asthma_diagnosis_active": [
+        1234760400
+      ],
       "copd_diagnosis_active": [
+        1234760400
+      ],
+      "emphysema_diagnosis_active": [
         1234760400
       ],
       "encounter_outpatient_encounter": [
         1291093200,
-        1283313600
+        1283313600,
+        1278648000,
+        1272427200
       ],
       "short_acting_beta_2_agonist_medication_active": [
         1234760400,
@@ -400,6 +414,10 @@
         1272427200
       ],
       "ace_inhibitors_arbs_medication_dispensed": [
+        1278648000,
+        1272427200
+      ],
+      "ace_inhibitors_arbs_medication_active": [
         1278648000,
         1272427200
       ],
@@ -684,16 +702,16 @@
         1309233600
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1291093200,
         1283313600,
         1278648000,
         1272427200
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1291093200,
         1283313600,
         1278648000,
@@ -744,7 +762,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000576",
+      "_id": "4fa29627a9ffcc62bf0005a5",
       "_type": "Condition",
       "time": 1234760400,
       "description": "acute respiratory failure",
@@ -765,7 +783,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000577",
+      "_id": "4fa29627a9ffcc62bf0005a6",
       "_type": "Condition",
       "time": 1234760400,
       "description": "COPD",
@@ -786,7 +804,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000578",
+      "_id": "4fa29627a9ffcc62bf0005a7",
       "_type": "Condition",
       "time": 1272427200,
       "description": "ischemic vascular disease",
@@ -807,7 +825,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000579",
+      "_id": "4fa29627a9ffcc62bf0005a8",
       "_type": "Condition",
       "time": 1272427200,
       "description": "Hypertension",
@@ -828,7 +846,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc350300057a",
+      "_id": "4fa29627a9ffcc62bf0005a9",
       "_type": "Condition",
       "time": 1277697600,
       "description": "Primary Open Angle Glaucoma (POAG)",
@@ -845,7 +863,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000564",
+      "_id": "4fa29627a9ffcc62bf000592",
       "_type": "Encounter",
       "time": 1323406800,
       "description": "Encounter Ophthalmological Services",
@@ -862,7 +880,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000565",
+      "_id": "4fa29627a9ffcc62bf000593",
       "_type": "Encounter",
       "time": 1291093200,
       "description": "Encounter Outpatient",
@@ -879,7 +897,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000566",
+      "_id": "4fa29627a9ffcc62bf000594",
       "_type": "Encounter",
       "time": 1283313600,
       "description": "Encounter Outpatient",
@@ -893,7 +911,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000567",
+      "_id": "4fa29627a9ffcc62bf000595",
       "_type": "Encounter",
       "time": 1278648000,
       "description": "Encounter Office Visit",
@@ -907,7 +925,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000568",
+      "_id": "4fa29627a9ffcc62bf000596",
       "_type": "Encounter",
       "time": 1309233600,
       "description": "Encounter Ophthalmological Services",
@@ -921,7 +939,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000569",
+      "_id": "4fa29627a9ffcc62bf000597",
       "_type": "Encounter",
       "time": 1272427200,
       "description": "Encounter Office Visit",
@@ -937,7 +955,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000588",
+      "_id": "4fa29627a9ffcc62bf0005b7",
       "_type": "Immunization",
       "time": 1291093200,
       "description": "Influenza Vaccine",
@@ -951,7 +969,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000589",
+      "_id": "4fa29627a9ffcc62bf0005b8",
       "_type": "Immunization",
       "time": 1291093200,
       "description": "Pneumococcal Vaccine ages 2 and older",
@@ -967,7 +985,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000582",
+      "_id": "4fa29627a9ffcc62bf0005b1",
       "_type": "Medication",
       "time": 1278648000,
       "description": "Antiplatelet Therapy",
@@ -981,7 +999,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000583",
+      "_id": "4fa29627a9ffcc62bf0005b2",
       "_type": "Medication",
       "time": 1278648000,
       "description": "Smoking Cessation Agents",
@@ -995,7 +1013,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000584",
+      "_id": "4fa29627a9ffcc62bf0005b3",
       "_type": "Medication",
       "time": 1278648000,
       "description": "Angiotension II inhibitors",
@@ -1009,7 +1027,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000585",
+      "_id": "4fa29627a9ffcc62bf0005b4",
       "_type": "Medication",
       "time": 1272427200,
       "description": "Antihypertensive combinations",
@@ -1023,7 +1041,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000586",
+      "_id": "4fa29627a9ffcc62bf0005b5",
       "_type": "Medication",
       "time": 1234760400,
       "description": "Short acting beta 2 agonist",
@@ -1037,7 +1055,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000587",
+      "_id": "4fa29627a9ffcc62bf0005b6",
       "_type": "Medication",
       "time": 1272427200,
       "description": "Short acting beta 2 agonist",
@@ -1056,7 +1074,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000580",
+      "_id": "4fa29627a9ffcc62bf0005af",
       "_type": "Procedure",
       "time": 1272427200,
       "description": "tobacco use cessation counseling",
@@ -1079,7 +1097,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1aa9ffcc3503000581",
+      "_id": "4fa29627a9ffcc62bf0005b0",
       "_type": "Procedure",
       "time": 1277697600,
       "description": "eye exam",
@@ -1109,7 +1127,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f96ca1aa9ffcc350300057b",
+      "_id": "4fa29627a9ffcc62bf0005aa",
       "_type": "LabResult",
       "time": 1283313600,
       "description": "FOBT",
@@ -1131,7 +1149,7 @@
         "scalar": 82.0,
         "units": null
       },
-      "_id": "4f96ca1aa9ffcc350300057c",
+      "_id": "4fa29627a9ffcc62bf0005ab",
       "_type": "LabResult",
       "time": 1272513600,
       "description": "LDL",
@@ -1153,7 +1171,7 @@
         "scalar": 56.0,
         "units": null
       },
-      "_id": "4f96ca1aa9ffcc350300057d",
+      "_id": "4fa29627a9ffcc62bf0005ac",
       "_type": "LabResult",
       "time": 1272513600,
       "description": "High Density Lipoprotein (HDL)",
@@ -1175,7 +1193,7 @@
         "scalar": 180.0,
         "units": null
       },
-      "_id": "4f96ca1aa9ffcc350300057e",
+      "_id": "4fa29627a9ffcc62bf0005ad",
       "_type": "LabResult",
       "time": 1272513600,
       "description": "Total Cholesterol",
@@ -1197,11 +1215,29 @@
         "scalar": 210.0,
         "units": null
       },
-      "_id": "4f96ca1aa9ffcc350300057f",
+      "_id": "4fa29627a9ffcc62bf0005ae",
       "_type": "LabResult",
       "time": 1272513600,
       "description": "Triglycerides",
       "specifics": "C0202236:Triglycerides measurement;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "230062009"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa29627a9ffcc62bf000598",
+      "_type": "SocialHistory",
+      "time": 1240891200,
+      "description": "Tobacco User",
+      "specifics": "C0459846:Moderate cigarette smoker;"
     }
   ],
   "vital_signs": [
@@ -1215,7 +1251,7 @@
         "scalar": 146.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc350300056a",
+      "_id": "4fa29627a9ffcc62bf000599",
       "_type": "VitalSign",
       "time": 1323406800,
       "description": "Systolic Blood Pressure",
@@ -1231,7 +1267,7 @@
         "scalar": 92.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc350300056b",
+      "_id": "4fa29627a9ffcc62bf00059a",
       "_type": "VitalSign",
       "time": 1323406800,
       "description": "Diastolic Blood Pressure",
@@ -1247,7 +1283,7 @@
         "scalar": 144.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc350300056c",
+      "_id": "4fa29627a9ffcc62bf00059b",
       "_type": "VitalSign",
       "time": 1322629200,
       "description": "Systolic Blood Pressure",
@@ -1263,7 +1299,7 @@
         "scalar": 90.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc350300056d",
+      "_id": "4fa29627a9ffcc62bf00059c",
       "_type": "VitalSign",
       "time": 1291093200,
       "description": "Diastolic Blood Pressure",
@@ -1279,7 +1315,7 @@
         "scalar": 138.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc350300056e",
+      "_id": "4fa29627a9ffcc62bf00059d",
       "_type": "VitalSign",
       "time": 1283313600,
       "description": "Systolic Blood Pressure",
@@ -1295,7 +1331,7 @@
         "scalar": 88.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc350300056f",
+      "_id": "4fa29627a9ffcc62bf00059e",
       "_type": "VitalSign",
       "time": 1283313600,
       "description": "Diastolic Blood Pressure",
@@ -1311,7 +1347,7 @@
         "scalar": 136.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc3503000570",
+      "_id": "4fa29627a9ffcc62bf00059f",
       "_type": "VitalSign",
       "time": 1278648000,
       "description": "Systolic Blood Pressure",
@@ -1327,7 +1363,7 @@
         "scalar": 86.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc3503000571",
+      "_id": "4fa29627a9ffcc62bf0005a0",
       "_type": "VitalSign",
       "time": 1278648000,
       "description": "Diastolic Blood Pressure",
@@ -1343,7 +1379,7 @@
         "scalar": 142.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc3503000572",
+      "_id": "4fa29627a9ffcc62bf0005a1",
       "_type": "VitalSign",
       "time": 1309233600,
       "description": "Systolic Blood Pressure",
@@ -1359,7 +1395,7 @@
         "scalar": 92.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc3503000573",
+      "_id": "4fa29627a9ffcc62bf0005a2",
       "_type": "VitalSign",
       "time": 1277697600,
       "description": "Diastolic Blood Pressure",
@@ -1375,7 +1411,7 @@
         "scalar": 140.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc3503000574",
+      "_id": "4fa29627a9ffcc62bf0005a3",
       "_type": "VitalSign",
       "time": 1272427200,
       "description": "Systolic Blood Pressure",
@@ -1391,7 +1427,7 @@
         "scalar": 90.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1aa9ffcc3503000575",
+      "_id": "4fa29627a9ffcc62bf0005a4",
       "_type": "VitalSign",
       "time": 1272427200,
       "description": "Diastolic Blood Pressure",
