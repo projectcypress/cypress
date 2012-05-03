@@ -1,5 +1,23 @@
 <% content_for :head do %>
   <script type="text/javascript">
+    $(function() {
+      $('#loading_dialog').dialog({
+        autoOpen: false,
+        closeOnEscape: false,
+        draggable: false,
+        position: 'center',
+        width: 'auto',
+        height: '100',
+        modal: true,
+        resizable: false,
+        open: function(event, ui) { $(".ui-dialog-titlebar-close").hide()}
+      });
+    });
+    function openLoadingDialog(){
+      $('#loading_dialog').dialog('open');
+    }
+    setTimeout("openLoadingDialog()",400);
+
     $(document).ready(function() {
       <% if @test %>
         <% if @result['numerator']=='?' %>
@@ -22,6 +40,10 @@
     });
   </script>
 <% end %>
+
+<div id="loading_dialog" title="Loading...">
+  <p>Please wait while the patients are retrieved.</p>
+</div>
 
 <div id="container">
   <%= render :partial=>"shared/header" %>

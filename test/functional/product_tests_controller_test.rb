@@ -138,6 +138,7 @@ include Devise::TestHelpers
     
     pt2.name = 'Product test with no executions'
     pt2.effective_date = 1324443600
+    pt2.product_id = pt1.product_id
     pt2.save!
 
     post :process_pqri, {:id => pt1.id.to_s , :product_test => {:pqri => pqri}, :execution_id => ex.id}
@@ -146,6 +147,7 @@ include Devise::TestHelpers
     assert ex_updated.reported_results['0001']['denominator'] == 56
     assert TestExecution.where(:product_test_id => pt1.id).count == ex_count
 
+    #
     post :process_pqri, {:id => pt2.id , :product_test => {:pqri => pqri, :baseline => baseline}, :execution_id => {}}
     new_ex = TestExecution.where(:product_test_id => pt2.id).first
     assert new_ex.reported_results['0001']['denominator'] == 50

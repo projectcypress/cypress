@@ -15,23 +15,24 @@
 </style>
 <% end %>
 
-<% #TODO - This doesn't need to be nested tables. Should be a header div with two inline-block tables. %>
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:center;">quality measures</th>
-      <th style="text-align:center;">
-        <a id="remove_patient" class="cmd remove disabled">- (0/<%= @overflow.size %>)</a>
-        patients
-        <a id="add_patient" class="cmd add <% if @overflow.empty? %>disabled<% end %>">+ (<%= @overflow.size %>/<%= @overflow.size %>)</a>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <table>
-          <thead>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:center;">quality measures</th>
+        <th style="text-align:center;">
+          <a id="remove_patient" class="cmd remove disabled">- (0/<%= @overflow.size %>)</a>
+          patients
+          <a id="add_patient" class="cmd add <% if @overflow.empty? %>disabled<% end %>">+ (<%= @overflow.size %>/<%= @overflow.size %>)</a>
+        </th>
+      </tr>
+    </thead>
+  </table>
+</div>
+
+  <div style="height:23em;float:left;overflow:auto;padding-right:20px;">
+        <table id="measure_results_table" style="width:100%;">
+         <thead>
             <tr>
               <th>NQF#</th>
               <th class="numerator">numerator</th>
@@ -44,18 +45,18 @@
             <% @coverage.each do |measure, values| %>
               <tr id="<%= measure %>" class="measure">
                 <td title="<%= values[:name] %>" class="measure"><%= measure %></td>
-                <td class="numerator"></td>
-                <td class="denominator"></td>
-                <td class="antinumerator"></td>
-                <td class="exclusions"></td>
+                <td class="numerator" style="text-align:center"></td>
+                <td class="denominator" style="text-align:center"></td>
+                <td class="antinumerator" style="text-align:center"></td>
+                <td class="exclusions" style="text-align:center"></td>
               </tr>
             <% end %>
           </tbody>
         </table>
-      </td>
-      <td>
+  </div>
+  <div style="height:23em;overflow:auto;">
         <table id="minimal_patients_table">
-          <thead style="position:relative;">
+          <thead>
             <tr>
               <th>Last Name</th>
               <th>First Name</th>
@@ -75,7 +76,5 @@
             <% end %>
           </tbody>
         </table>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  </div>
+</div>

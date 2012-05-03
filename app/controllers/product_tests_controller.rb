@@ -1,5 +1,6 @@
 require 'measure_evaluator'
 require 'patient_zipper'
+require 'get_dependencies'
 require 'open-uri'
 require 'prawnto'
 
@@ -146,6 +147,7 @@ class ProductTestsController < ApplicationController
   # Accept a PQRI document and use it to define a new TestExecution on this ProductTest
   def process_pqri
     test = ProductTest.find(params[:id])
+    product = Product.find(test.product_id)
     test_data = params[:product_test]
     baseline = test_data[:baseline]
     pqri = test_data[:pqri]
@@ -153,7 +155,7 @@ class ProductTestsController < ApplicationController
     if (!params[:execution_id].empty?)
       execution = TestExecution.find(params[:execution_id])
     else
-      execution = TestExecution.new({:product_test => test, :execution_date => Time.now})
+      execution = TestExecution.new({:product_test => test, :execution_date => Time.now, :product_version=>product.version})
     end
     
     # If a vendor cannot run their measures in a vaccuum (i.e. calculate measures with just the patient test deck) then
@@ -173,8 +175,10 @@ class ProductTestsController < ApplicationController
         execution.normalize_results_with_baseline
       end      
     end
-
     execution.execution_date=Time.now.to_i
+    execution.product_version=product.version
+    execution.required_modules=Cypress::GetDependencies::get_dependencies
+    
     execution.save!
     redirect_to :action => 'show', :execution_id=>execution._id
   end
