@@ -5,6 +5,9 @@ class ProductTest
   has_one :patient_population
   has_many :test_executions, dependent: :delete
   belongs_to :user
+
+  embeds_many :notes, inverse_of: :product_test
+
   # Test Details
   field :name, type: String
   field :description, type: String
@@ -13,7 +16,6 @@ class ProductTest
   field :population_creation_job, type: String
   field :result_calculation_jobs, type: Hash
   field :download_filename, type: String
-  
   
   validates_presence_of :name
   validates_presence_of :effective_date

@@ -154,7 +154,7 @@ class ProductTestsController < ApplicationController
     baseline = test_data[:baseline]
     pqri = test_data[:pqri]
     
-    if (!params[:execution_id].empty?)
+    if !params[:execution_id].empty?
       execution = TestExecution.find(params[:execution_id])
     else
       execution = TestExecution.new({:product_test => test, :execution_date => Time.now, :product_version=>product.version})
@@ -163,11 +163,13 @@ class ProductTestsController < ApplicationController
     # If a vendor cannot run their measures in a vaccuum (i.e. calculate measures with just the patient test deck) then
     # we will first import their measure results with their own patients so we can establish a baseline in order
     # to normalize with a second PQRI with results that include the test deck.
+
     if (baseline)
       doc = Nokogiri::XML(baseline.read)
       execution.baseline_results = Cypress::PqriUtility.extract_results(doc)
       execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)          
     end
+
 
     if (pqri)
       doc = Nokogiri::XML(pqri.read)
@@ -212,4 +214,24 @@ class ProductTestsController < ApplicationController
     file.close
   end
 
+  def delete_note
+    test = ProductTest.find(params[:id])
+
+    note = test.notes.find(params[:note][:id])
+    note.destroy
+
+    redirect_to :action => 'show', :execution_id => params[:execution_id]
+  end
+
+  def add_note
+    test = ProductTest.find(params[:id])
+
+    note = Note.new(params[:note])
+    note.time = Time.now
+
+    test.notes << note
+    test.save!
+
+    redirect_to :action => 'show', :execution_id => params[:execution_id]
+  end
 end

@@ -1,6 +1,6 @@
 pdf.text "Test Results Produced by Project Cypress - projectcypress.org\n\n"
-pdf.text  "Candidate EHR: #{@vendor.name}" 
-pdf.text  "Vendor ID: #{@vendor.vendor_id}" 
+pdf.text "Candidate EHR: #{@vendor.name}" 
+pdf.text "Vendor ID: #{@vendor.vendor_id}" 
 pdf.text "EHR POC: #{@vendor.poc}"
 pdf.text "E-mail: #{@vendor.email}"
 pdf.text "Phone: #{@vendor.tel}\n\n"
@@ -27,7 +27,13 @@ end
 pdf.text "Test: #{@test.name}"
 pdf.text "Run at: #{@current_execution.pretty_date}\n\n"
 
-
+if @test.notes
+  pdf.text "Notes:"
+  @test.notes.each do |note|
+    pdf.text "#{note.time.strftime('%m/%d/%Y')}: #{note.text}\n"
+  end
+  pdf.text "\n"
+end
 
 data = []
 pdf.text "Failing Measures:"  

@@ -20,6 +20,8 @@ Cypress::Application.routes.draw do
     member do
       get 'download'
       post 'process_pqri'
+      post 'add_note'
+      delete 'delete_note'
     end
     
     resources :patients
