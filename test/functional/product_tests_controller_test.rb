@@ -64,7 +64,8 @@ include Devise::TestHelpers
     pt1 = {:name =>'new1', :effective_date_end =>'12/21/2011' , :upload_format =>'c32', :patient_population =>'test'}
     pt2 = {:name =>'new2', :effective_date_end =>'12/21/2011' , :upload_format =>'ccr', :patient_population =>'test'}
     pt3 = {:name =>'new3', :effective_date_end =>'12/21/2011' , :upload_format =>'csv', :patient_population =>'test'}
-    
+    pt4 = {:name =>'new4', :effective_date_end =>'12/21/2011' , :upload_format =>'c32'}
+
     get :create, {:product_test => pt1, :download_filename => 'pt1file' }
     assert_response :redirect
     newTest = ProductTest.where({:name => 'new1'})
@@ -79,6 +80,10 @@ include Devise::TestHelpers
     assert_response :redirect
     assert ProductTest.where({:name => 'new3'}).count == 1
     assert PatientPopulation.where({:name => 'minset'}).count == 1
+
+    get :create, {:product_test => pt4, :patient_ids => ['19','20','21'], :measure_ids => ["0013","0028","0421","" ] }
+    assert_response :redirect
+    assert ProductTest.where({:name => 'new4'}).count == 1
   end
 
   test "edit" do
@@ -131,14 +136,21 @@ include Devise::TestHelpers
   test "process_pqri" do
     pt1 = ProductTest.find("4f58f8de1d41c851eb000478")
     pt2 = ProductTest.new
+    pt3 = ProductTest.find("4fa3f10d824eb96b51000005")
+
     ex  = TestExecution.where(:product_test_id => pt1.id).first
     ex_count = TestExecution.where(:product_test_id => pt1.id).count
     baseline = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_baseline.xml'), "application/xml")
     pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")
+    pqri_with_mapped_measures = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_with_mapped_measures.xml'), "application/xml")
     
     pt2.name = 'Product test with no executions'
     pt2.effective_date = 1324443600
     pt2.save!
+
+    pt3.name = 'Product test mapped measures'
+    pt3.effective_date = 1324443600
+    pt3.save!
 
     post :process_pqri, {:id => pt1.id.to_s , :product_test => {:pqri => pqri}, :execution_id => ex.id}
     assert_response :redirect
@@ -150,6 +162,13 @@ include Devise::TestHelpers
     new_ex = TestExecution.where(:product_test_id => pt2.id).first
     assert new_ex.reported_results['0001']['denominator'] == 50
     assert TestExecution.where(:product_test_id => pt2.id).count == 1
+
+    post :process_pqri, {:id => pt3.id , :product_test => {:pqri => pqri_with_mapped_measures}, :execution_id => {}}
+    new_ex = TestExecution.where(:product_test_id => pt3.id).first
+
+    assert new_ex.reported_results['0001']['denominator'] == 35
+    assert new_ex.reported_results['0002']['denominator'] == 8
+    assert TestExecution.where(:product_test_id => pt3.id).count == 1
   end
 
   test "download" do

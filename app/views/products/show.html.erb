@@ -31,7 +31,7 @@
         </tr>
         <tr class="sub_rows measure_details">
           <td colspan="2">
-            <%= @product.measure_map.select {|m| /[0-9]$/.match m}.values.join ", " %>
+            <%= @product.measure_map.select {|m| /[0-9]$/.match m}.keys.join ", " %>
           </td>
         </tr>
       </table>

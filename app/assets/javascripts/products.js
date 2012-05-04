@@ -1,4 +1,13 @@
 $(document).ready(function() {
+
+    // for styling the vertical tabs
+    $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix').css({
+        "width":"90%",
+        "margin-left":"5%"
+    });
+    $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
+    $('#tabs').tabs("select",2)
+
     $("#measureMap input:checkbox").change(function() {
         var checkbox = $(this);
         var toggleSetting = checkbox.prop('checked');

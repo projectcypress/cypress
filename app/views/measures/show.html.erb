@@ -43,12 +43,9 @@
           <li><b><%= category %></b></li>
           <% measures.each do |measure_def| %>
             <li>
-              <%#  we may want to use the NQF number in the tab (since we can know its exact length)
-                   and include the mapped name in the title attribute(?) in case they have mapped something like
-                   NQF 0013 => 0013-but-with-our-really-long-mapped-id-which-doesn't-display-particularly-well %>
               <a href="<%= product_test_measure_path(@test, measure_def,:execution=> params[:execution]) %>"
-                title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
-                class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{ @product.measure_map[measure_def.key]}" %>
+                title="<%= "(#{@product.measure_map[measure_def.key]}) #{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
+                class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def.key}" %>
               </a>
             </li>
           <% end %>        

@@ -15,12 +15,14 @@ class ProductsController < ApplicationController
   end
   
   def create
-    measures = params[:product][:measure_map]
-    measure_map = {}
-    measures.each do |m|
-      measure_map[m] = params[m][m]
+    # construct the measure mapping from the selections indicated by the user
+    if params[:product] && params[:product][:measure_map]
+      measure_keys = params[:product][:measure_map]
+      measure_map = {}
+      measure_keys.each { |m| measure_map[m] = params[m][m] }
+      params[:product][:measure_map] = measure_map
     end
-    params[:product][:measure_map] = measure_map
+
     @product = Product.new(params[:product])
     @product.save!
     

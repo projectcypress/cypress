@@ -55,8 +55,8 @@
           <% end %>
         </td>
 
-        <td><a href="<%= product_test_measure_path(@test, measure) %>">
-          <%= "#{@product.measure_map[measure.key]} " %>
+        <td><a href="<%= product_test_measure_path(@test, measure) %>" title="<%= "#{@product.measure_map[measure.key]} " %>">
+          <%= "#{measure.key} " %>
           <%= measure.name %>
           <%= " - #{measure.subtitle}" if measure.sub_id %></a>
         </td>
@@ -111,8 +111,8 @@
           <div title="Pass" class="pass">Pass</div>
         </td>
 
-        <td><a href="<%= vendor_measure_path(@vendor, measure) %>">
-          <%= "#{@product.measure_map[measure.key]} " %>
+        <td><a href="<%= vendor_measure_path(@vendor, measure) %>" title="<%= "#{@product.measure_map[measure.key]} " %>">
+          <%= "#{measure.key} " %>
           <%= measure.name %>
           <%= " - #{measure.subtitle}" if measure.sub_id %></a>
         </td>

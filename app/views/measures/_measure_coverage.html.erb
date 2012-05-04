@@ -44,7 +44,7 @@
     <tbody>
       <% @coverage.each do |measure, values| %>
         <tr id="<%= measure %>" class="measure">
-          <td title="<%= values[:name] %>" class="measure"><%= @product.measure_map[measure] %></td>
+          <td title="<%= @product.measure_map[measure] %>" class="measure"><%= measure %></td>
           <td class="numerator" style="text-align:center"></td>
           <td class="denominator" style="text-align:center"></td>
           <td class="antinumerator" style="text-align:center"></td>

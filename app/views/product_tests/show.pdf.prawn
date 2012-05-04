@@ -23,7 +23,7 @@ if @current_execution.failing_measures.size > 0
   @current_execution.failing_measures.each do |measure|
     expected_result = @current_execution.expected_result(measure)
     reported_result = @current_execution.reported_result(measure.key)
-    data << ["#{@product.measure_map[measure.key]}\n" + measure.name + " " + (measure.subtitle || "") ,"#{reported_result['denominator']}/#{expected_result['denominator']}","#{reported_result['numerator']}/#{expected_result['numerator']}","#{reported_result['exclusions']}/#{expected_result['exclusions']}"]
+    data << ["#{measure.key}\n" + measure.name + " " + (measure.subtitle || "") ,"#{reported_result['denominator']}/#{expected_result['denominator']}","#{reported_result['numerator']}/#{expected_result['numerator']}","#{reported_result['exclusions']}/#{expected_result['exclusions']}"]
   end  
 end
 
@@ -40,7 +40,7 @@ data << ["Passing","Denominator","Numerator","Exclusions"]
   @current_execution.passing_measures.each do |measure|
     expected_result = @current_execution.expected_result(measure)
     reported_result = @current_execution.reported_result(measure.key)
-    data << ["#{@product.measure_map[measure.key]}\n" + measure.name + " " + (measure.subtitle || "") ,"#{reported_result['denominator']}/#{expected_result['denominator']}","#{reported_result['numerator']}/#{expected_result['numerator']}","#{reported_result['exclusions']}/#{expected_result['exclusions']}"]
+    data << ["#{measure.key}\n" + measure.name + " " + (measure.subtitle || "") ,"#{reported_result['denominator']}/#{expected_result['denominator']}","#{reported_result['numerator']}/#{expected_result['numerator']}","#{reported_result['exclusions']}/#{expected_result['exclusions']}"]
   end
 end
 

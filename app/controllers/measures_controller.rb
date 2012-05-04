@@ -44,7 +44,6 @@ class MeasuresController < ApplicationController
   # @coverage - Maps measures to the list of associated patients in both @patient_list and @overflow
   def minimal_set
     measure_ids = params[:measure_ids]
-    
     # Find the IDs of all Records for our minimal set and overflow
     minimal_set = PatientPopulation.min_coverage(measure_ids)
     minimal_ids = minimal_set[:minimal_set]

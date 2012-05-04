@@ -59,8 +59,9 @@ class ProductTestsController < ApplicationController
     @vendor = @product.vendor
     @measures = Measure.top_level
     @patient_populations = PatientPopulation.installed
+
     @measures_categories = @measures.select do |t|
-      @product.measure_map.keys.include? t[:id]
+      @product.measure_map.keys.include?(t[:id])
     end.group_by {|g| g.category}
 
     # replace the measure ids with the ones specified in the product's measure_map
@@ -160,20 +161,20 @@ class ProductTestsController < ApplicationController
     baseline = test_data[:baseline]
     pqri = test_data[:pqri]
     product = test.product
-    measure_map = product.measure_map
-    
+    measure_map = product.measure_map if product
+
     if (!params[:execution_id].empty?)
       execution = TestExecution.find(params[:execution_id])
     else
       execution = TestExecution.new({:product_test => test, :execution_date => Time.now})
     end
     
-    # If a vendor cannot run their measures in a vaccuum (i.e. calculate measures with just the patient test deck) then
+    # If a vendor cannot run their measures in a vacuum (i.e. calculate measures with just the patient test deck) then
     # we will first import their measure results with their own patients so we can establish a baseline in order
     # to normalize with a second PQRI with results that include the test deck.
     if (baseline)
       doc = Nokogiri::XML(baseline.open)
-      execution.baseline_results = Cypress::PqriUtility.extract_results(doc)
+      execution.baseline_results = Cypress::PqriUtility.extract_results(doc, measure_map)
       execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)          
     end
 
