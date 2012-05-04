@@ -23,8 +23,6 @@
           }
         }
       });
-
-
       
       $('#upload_results_button').click(function(event) {
         $('#upload_pqri_dialog').dialog('open');
@@ -184,6 +182,25 @@
         </div>
       </section>
     <% end %>
+    
+    <section class="records">
+      <label>Notes</label>:
+
+      <% note = Note.new %>
+      <%= simple_form_for note, :url => add_note_product_test_path(:execution_id => @current_execution) do |f| %>
+        <%= f.input_field :text, :as => :text, :rows => 1, :columns => 80 %>
+        <%= f.button :submit, :value => 'add', :class => "cmd" %>
+      <% end %>
+
+      <% if @test.notes %>
+        <% @test.notes.each do |note| %>
+          <%= note.time.strftime('%m/%d/%Y') %>:
+          <%= note.text %>
+          <%= button_to 'delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?' %>
+          <br />
+        <% end %>
+      <% end %>
+    </section>
 
     <section class="pqriValidation">
       <% if @current_execution.validation_errors || @current_execution.baseline_validation_errors %>
