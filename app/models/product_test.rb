@@ -4,7 +4,7 @@ class ProductTest
   belongs_to :product
   has_one :patient_population
   has_many :test_executions, dependent: :delete
-
+  belongs_to :user
   # Test Details
   field :name, type: String
   field :description, type: String

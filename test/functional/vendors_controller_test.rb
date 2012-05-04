@@ -18,7 +18,7 @@ class VendorsControllerTest < ActionController::TestCase
   test "index" do
     get :index
     assert_response :success
-    assert assigns(:vendors).size == @user.vendors.count
+    assert assigns(:vendors).size == Vendor.count
 
     sign_out @user
     get :index
@@ -26,33 +26,33 @@ class VendorsControllerTest < ActionController::TestCase
   end
   
   test "create" do
-    vcount = @user.vendors.count
+    vcount = Vendor.count
     post(:create, {:vendor => {:name => 'An EHR', :measure_ids => ['0004', '0055'], :patient_population_id => 'all'}})
     assert_response :redirect
     @user.reload
-    assert_equal @user.vendors.count , vcount+1
+    assert_equal Vendor.count , vcount+1
     assert_redirected_to root_path
     
     post(:create, {:vendor => {}})
     @user.reload
-    assert_equal @user.vendors.count , vcount+1
+    assert_equal Vendor.count , vcount+1
     assert_response :success
     
   end
   
-  test "Delete vendors and take their associated records with them" do
-    vcount = @user.vendors.count
-    vendor_id = @user.vendors.first.id
+  test "Delete Vendor and take their associated records with them" do
+    vcount =Vendor.count
+    vendor_id =Vendor.first.id
     post(:destroy, {:vendor_id => vendor_id})  
     
-    assert_equal(@user.vendors.count, vcount -1)
+    assert_equal(Vendor.count, vcount -1)
     assert_response :redirect
     assert_redirected_to root_path
   end
   
   
   test "Update" do
-   vendor = @user.vendors.first
+   vendor =Vendor.first
    assert vendor.name != "twinkles"
    put :update, {:id=>vendor.id,:vendor=>{:name=> "twinkles"}}
    vendor.reload
@@ -61,8 +61,9 @@ class VendorsControllerTest < ActionController::TestCase
   
   
   test "show" do 
-     get :show, {:vendor_id => @user.vendors.first.id}
-     assert assigns(:vendor) == @user.vendors.first
+    vendor = Vendor.first
+     get :show, {:vendor_id => vendor.id}
+     assert assigns(:vendor) == vendor
   end
   
   

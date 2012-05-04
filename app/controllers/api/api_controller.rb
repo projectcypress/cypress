@@ -2,7 +2,7 @@ module Api
   class ApiController < ApplicationController
     before_filter :authenticate_user!
     def find_vendor
-      @vendor = current_user.vendors.find(params[:vendor_id])
+      @vendor = Vendor.find(params[:vendor_id])
     end
     
     def find_product

@@ -2,6 +2,7 @@ class Product
   include Mongoid::Document
 
   belongs_to :vendor
+  has_and_belongs_to_many :users
   has_many :product_tests, dependent: :destroy
 
   

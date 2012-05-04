@@ -19,15 +19,15 @@ module Api
   
   
     test "index" do
-      ven = @user.vendors.first
+      ven = Vendor.first
       prod = ven.products.first
       pt = prod.product_tests.first
-      get :index, {vendor_id: @user.vendors.first.id, product_id:prod.id, product_test_id:pt.id}
+      get :index, {vendor_id:Vendor.first.id, product_id:prod.id, product_test_id:pt.id}
       assert :success
     end
     
     test "show" do
-      vendor = @user.vendors.first
+      vendor = Vendor.first
       product = vendor.products.first
       pt = product.product_tests.first
       te =  pt.test_executions.first 
@@ -37,7 +37,7 @@ module Api
     end
     
     test "delete" do
-      vendor = @user.vendors.first
+      vendor = Vendor.first
       product = vendor.products.first
       pt = product.product_tests.first
       te = pt.test_executions.first 
@@ -48,7 +48,7 @@ module Api
     
   
     test "create" do      
-      vendor = @user.vendors.first
+      vendor = Vendor.first
       product = vendor.products.first
       pt = product.product_tests.first
       base_line = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_baseline.xml'), 'application/xml')

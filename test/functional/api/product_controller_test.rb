@@ -18,19 +18,19 @@ module Api
   
   
     test "index" do
-      get :index, {vendor_id: @user.vendors.first.id}
+      get :index, {vendor_id: Vendor.first.id}
       assert :success
     end
     
     test "show" do
-      vendor = @user.vendors.first
+      vendor = Vendor.first
       product = vendor.products.first
       get :show, {vendor_id: vendor.id, id: product.id }
       assert :success
     end
     
     test "delete" do
-      vendor = @user.vendors.first
+      vendor = Vendor.first
       product = vendor.products.first
       delete :destroy, {vendor_id: vendor.id, id: product.id }
       assert 201
@@ -38,7 +38,7 @@ module Api
     
     
     test "create" do
-      vendor = @user.vendors.first
+      vendor = Vendor.first
       product={name:"hey"}
       count = vendor.products.count
       @request.env['RAW_POST_DATA'] = product.to_json

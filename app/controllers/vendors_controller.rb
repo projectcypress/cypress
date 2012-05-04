@@ -8,7 +8,7 @@ class VendorsController < ApplicationController
    
    
   def index
-    @vendors = current_user.vendors
+    @vendors = Vendor.all
     respond_to do |f|
       f.json {render :json=> @vendors }
       f.html {}
@@ -20,7 +20,7 @@ class VendorsController < ApplicationController
   end
   
   def create
-    @vendor = current_user.vendors.build params[:vendor]
+    @vendor = Vendor.new params[:vendor]
     @vendor.save!
     respond_to do |f|
       f.json {redirect_to vendor_url(@vendor)}
