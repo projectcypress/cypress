@@ -146,6 +146,7 @@ include Devise::TestHelpers
     
     pt2.name = 'Product test with no executions'
     pt2.effective_date = 1324443600
+    pt2.product_id = pt1.product_id
     pt2.save!
 
     pt3.name = 'Product test mapped measures'
@@ -185,5 +186,26 @@ include Devise::TestHelpers
     assert_response :success,"Failed to download CCR zip file"
     get :download,{:id => pt.id , :format => 'html'}
     assert_response :success,"Failed to download HTML zip file"
+  end
+  
+  test "add note" do
+    assert ProductTest.find("4f58f8de1d41c851eb000478").notes.empty?
+
+    post(:add_note, {:id => "4f58f8de1d41c851eb000478", :note => {:text => "This is notable"}})
+    assert_response :redirect
+    assert ProductTest.find("4f58f8de1d41c851eb000478").notes.count == 1
+  end
+  
+  test "delete note" do
+    test = ProductTest.find("4f6b78801d41c851eb0004a7")
+    assert_equal test.notes.size, 1
+    
+    # BSONify the ID of the note connected to this ProductTest so that it's findable during deletion
+    test.notes.first["_id"] = BSON::ObjectId.from_string(test.notes.first["_id"])
+    test.save
+    
+    delete(:delete_note, {:id => "4f6b78801d41c851eb0004a7", "note" => {"id" => "4fa287f99e8f54e9e9000038"}})
+    assert_response :redirect
+    assert ProductTest.find('4f6b78801d41c851eb0004a7').notes.empty?
   end
 end

@@ -54,16 +54,24 @@ include Devise::TestHelpers
     assert result['denominator'] == '-'
     assert result['exclusions']  == '-'
 
+    expected_result = {"measure_id" => m1['id'],
+      "effective_date" => 1293753600,
+      "denominator" => 48,
+      "numerator" => 44,
+      "antinumerator" => 4,
+      "exclusions" => 0 }
+    QME::QualityReport.any_instance.stubs(:result).returns(expected_result)
+    QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
+
     get :index, {:measure_id => m1.id}
     result  = assigns[:result]
     showAll = assigns[:showAll]
     assert showAll == false
     assert result['measure_id'].to_s  == m1.id.to_s, '1'
-    assert result['numerator']   == 44
-    assert result['antinumerator'] == 6
-    assert result['denominator'] == 50
-    assert result['exclusions']  == 0
-
+    assert result['numerator']    == 44, "Measure Evaluator reported wrong result for a measure"
+    assert result['denominator']  == 48, "Measure Evaluator reported wrong result for a measure"
+    assert result['exclusions']   == 0 , "Measure Evaluator reported wrong result for a measure"
+    assert result['antinumerator']== 4 , "Measure Evaluator reported wrong result for a measure"
   end
 
   test "show" do

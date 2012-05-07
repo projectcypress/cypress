@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca2ea9ffcc3503001499",
+  "_id": "4fa2ed4ba9ffcc3a1f00153f",
   "patient_id": "2",
   "first": "Donna",
   "last": "Pineiro",
@@ -175,6 +175,9 @@
       "encounter_office_visit_encounter": [
         1289016000,
         1277870400
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1270008000
       ]
     },
     "0031": {
@@ -230,7 +233,9 @@
       ],
       "encounter_outpatient_encounter": [
         1289016000,
-        1277870400
+        1283400000,
+        1277870400,
+        1270008000
       ],
       "encounter_acute_inpt_encounter": [
         1272513600,
@@ -385,6 +390,10 @@
         1272427200
       ],
       "ace_inhibitors_arbs_medication_dispensed": [
+        1289016000,
+        1272427200
+      ],
+      "ace_inhibitors_arbs_medication_active": [
         1289016000,
         1272427200
       ],
@@ -751,6 +760,12 @@
         1270008000
       ]
     },
+    "0385": {
+      "encounter_office_visit_encounter": [
+        1289016000,
+        1277870400
+      ]
+    },
     "0105": {
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1289016000,
@@ -759,12 +774,6 @@
         1272513600,
         1272254400,
         1270008000
-      ]
-    },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1289016000,
-        1277870400
       ]
     },
     "0387": {
@@ -823,7 +832,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014ab",
+      "_id": "4fa2ed4ba9ffcc3a1f001552",
       "_type": "Condition",
       "time": 1270008000,
       "description": "Hypertension",
@@ -844,7 +853,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014ac",
+      "_id": "4fa2ed4ba9ffcc3a1f001553",
       "_type": "Condition",
       "time": 1272254400,
       "description": "Coronary Artery Disease includes MI",
@@ -865,7 +874,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014ad",
+      "_id": "4fa2ed4ba9ffcc3a1f001554",
       "_type": "Condition",
       "time": 1272513600,
       "description": "Myocardial Infarction",
@@ -886,7 +895,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014ae",
+      "_id": "4fa2ed4ba9ffcc3a1f001555",
       "_type": "Condition",
       "time": 1270008000,
       "description": "Asthma",
@@ -904,7 +913,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014af",
+      "_id": "4fa2ed4ba9ffcc3a1f001556",
       "_type": "Condition",
       "time": 1283400000,
       "description": "Asthma Persistent",
@@ -919,7 +928,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014b0",
+      "_id": "4fa2ed4ba9ffcc3a1f001557",
       "_type": "Condition",
       "time": 1283400000,
       "description": "Asthma Daytime Symptoms Quantified",
@@ -933,7 +942,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014b1",
+      "_id": "4fa2ed4ba9ffcc3a1f001558",
       "_type": "Condition",
       "time": 1283400000,
       "description": "Asthma Nighttime Symptoms Quantified",
@@ -947,7 +956,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014b2",
+      "_id": "4fa2ed4ba9ffcc3a1f001559",
       "_type": "Condition",
       "time": 1265605200,
       "description": "Asthma Daytime Symptoms Quantified",
@@ -961,7 +970,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014b3",
+      "_id": "4fa2ed4ba9ffcc3a1f00155a",
       "_type": "Condition",
       "time": 1265605200,
       "description": "Asthma Nighttime Symptoms Quantified",
@@ -980,7 +989,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc350300149a",
+      "_id": "4fa2ed4ba9ffcc3a1f001540",
       "_type": "Encounter",
       "time": 1289016000,
       "description": "Encounter Outpatient",
@@ -994,7 +1003,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc350300149b",
+      "_id": "4fa2ed4ba9ffcc3a1f001541",
       "_type": "Encounter",
       "time": 1283400000,
       "description": "Encounter Office & Outpatient Consult",
@@ -1011,7 +1020,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc350300149c",
+      "_id": "4fa2ed4ba9ffcc3a1f001542",
       "_type": "Encounter",
       "time": 1277870400,
       "description": "Encounter Outpatient",
@@ -1025,7 +1034,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc350300149d",
+      "_id": "4fa2ed4ba9ffcc3a1f001543",
       "_type": "Encounter",
       "time": 1272513600,
       "description": "Encounter Inpatient Discharge",
@@ -1039,7 +1048,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc350300149e",
+      "_id": "4fa2ed4ba9ffcc3a1f001544",
       "_type": "Encounter",
       "time": 1272254400,
       "description": "encounter acute inpt",
@@ -1053,7 +1062,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc350300149f",
+      "_id": "4fa2ed4ba9ffcc3a1f001545",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Office & Outpatient Consult",
@@ -1069,7 +1078,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014bf",
+      "_id": "4fa2ed4ba9ffcc3a1f001566",
       "_type": "Medication",
       "time": 1289016000,
       "description": "Antihypertensive combinations",
@@ -1083,7 +1092,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014c0",
+      "_id": "4fa2ed4ba9ffcc3a1f001567",
       "_type": "Medication",
       "time": 1272427200,
       "description": "Antihypertensive combinations",
@@ -1097,7 +1106,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014c1",
+      "_id": "4fa2ed4ba9ffcc3a1f001568",
       "_type": "Medication",
       "time": 1289016000,
       "description": "Lipid Lowering Therapy",
@@ -1111,7 +1120,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014c2",
+      "_id": "4fa2ed4ba9ffcc3a1f001569",
       "_type": "Medication",
       "time": 1272427200,
       "description": "Lipid Lowering Therapy",
@@ -1125,7 +1134,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014c3",
+      "_id": "4fa2ed4ba9ffcc3a1f00156a",
       "_type": "Medication",
       "time": 1289016000,
       "description": "Beta Blocker Therapy",
@@ -1139,7 +1148,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014c4",
+      "_id": "4fa2ed4ba9ffcc3a1f00156b",
       "_type": "Medication",
       "time": 1272427200,
       "description": "Beta Blocker Therapy",
@@ -1153,7 +1162,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014c5",
+      "_id": "4fa2ed4ba9ffcc3a1f00156c",
       "_type": "Medication",
       "time": 1283400000,
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
@@ -1167,7 +1176,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014c6",
+      "_id": "4fa2ed4ba9ffcc3a1f00156d",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Short acting beta 2 agonist",
@@ -1183,7 +1192,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014bc",
+      "_id": "4fa2ed4ba9ffcc3a1f001563",
       "_type": "Procedure",
       "time": 1265605200,
       "description": "Asthma Symptom Assessment Tool",
@@ -1197,7 +1206,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014bd",
+      "_id": "4fa2ed4ba9ffcc3a1f001564",
       "_type": "Procedure",
       "time": 1283400000,
       "description": "Asthma Symptom Assessment Tool",
@@ -1214,7 +1223,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca2ea9ffcc35030014be",
+      "_id": "4fa2ed4ba9ffcc3a1f001565",
       "_type": "Procedure",
       "time": 1272254400,
       "description": "Cardiac Surgery",
@@ -1238,7 +1247,7 @@
         "scalar": 149.0,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014b4",
+      "_id": "4fa2ed4ba9ffcc3a1f00155b",
       "_type": "LabResult",
       "time": 1289016000,
       "description": "LDL",
@@ -1260,7 +1269,7 @@
         "scalar": 45.0,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014b5",
+      "_id": "4fa2ed4ba9ffcc3a1f00155c",
       "_type": "LabResult",
       "time": 1289016000,
       "description": "High Density Lipoprotein (HDL)",
@@ -1282,7 +1291,7 @@
         "scalar": 380.0,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014b6",
+      "_id": "4fa2ed4ba9ffcc3a1f00155d",
       "_type": "LabResult",
       "time": 1289016000,
       "description": "Triglycerides",
@@ -1304,7 +1313,7 @@
         "scalar": 270.0,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014b7",
+      "_id": "4fa2ed4ba9ffcc3a1f00155e",
       "_type": "LabResult",
       "time": 1289016000,
       "description": "Total Cholesterol",
@@ -1326,7 +1335,7 @@
         "scalar": 179.0,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014b8",
+      "_id": "4fa2ed4ba9ffcc3a1f00155f",
       "_type": "LabResult",
       "time": 1272254400,
       "description": "LDL",
@@ -1348,7 +1357,7 @@
         "scalar": 25.0,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014b9",
+      "_id": "4fa2ed4ba9ffcc3a1f001560",
       "_type": "LabResult",
       "time": 1272254400,
       "description": "High Density Lipoprotein (HDL)",
@@ -1370,7 +1379,7 @@
         "scalar": 480.0,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014ba",
+      "_id": "4fa2ed4ba9ffcc3a1f001561",
       "_type": "LabResult",
       "time": 1272254400,
       "description": "Triglycerides",
@@ -1392,11 +1401,29 @@
         "scalar": 300.0,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014bb",
+      "_id": "4fa2ed4ba9ffcc3a1f001562",
       "_type": "LabResult",
       "time": 1272254400,
       "description": "Total Cholesterol",
       "specifics": "C0546633:Cholesterol total measurement;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed4ba9ffcc3a1f001546",
+      "_type": "SocialHistory",
+      "time": 1270008000,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -1410,7 +1437,7 @@
         "scalar": 138.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca2ea9ffcc35030014a0",
+      "_id": "4fa2ed4ba9ffcc3a1f001547",
       "_type": "VitalSign",
       "time": 1289016000,
       "description": "Systolic Blood Pressure",
@@ -1426,7 +1453,7 @@
         "scalar": 86.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca2ea9ffcc35030014a1",
+      "_id": "4fa2ed4ba9ffcc3a1f001548",
       "_type": "VitalSign",
       "time": 1289016000,
       "description": "Diastolic Blood Pressure",
@@ -1442,7 +1469,7 @@
         "scalar": 138.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca2ea9ffcc35030014a2",
+      "_id": "4fa2ed4ba9ffcc3a1f001549",
       "_type": "VitalSign",
       "time": 1277870400,
       "description": "Systolic Blood Pressure",
@@ -1458,7 +1485,7 @@
         "scalar": 88.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca2ea9ffcc35030014a3",
+      "_id": "4fa2ed4ba9ffcc3a1f00154a",
       "_type": "VitalSign",
       "time": 1277870400,
       "description": "Diastolic Blood Pressure",
@@ -1474,7 +1501,7 @@
         "scalar": 140.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca2ea9ffcc35030014a4",
+      "_id": "4fa2ed4ba9ffcc3a1f00154b",
       "_type": "VitalSign",
       "time": 1272513600,
       "description": "Systolic Blood Pressure",
@@ -1490,7 +1517,7 @@
         "scalar": 90.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca2ea9ffcc35030014a5",
+      "_id": "4fa2ed4ba9ffcc3a1f00154c",
       "_type": "VitalSign",
       "time": 1272513600,
       "description": "Diastolic Blood Pressure",
@@ -1506,7 +1533,7 @@
         "scalar": 200.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca2ea9ffcc35030014a6",
+      "_id": "4fa2ed4ba9ffcc3a1f00154d",
       "_type": "VitalSign",
       "time": 1272254400,
       "description": "Systolic Blood Pressure",
@@ -1522,7 +1549,7 @@
         "scalar": 120.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca2ea9ffcc35030014a7",
+      "_id": "4fa2ed4ba9ffcc3a1f00154e",
       "_type": "VitalSign",
       "time": 1272254400,
       "description": "Diastolic Blood Pressure",
@@ -1541,7 +1568,7 @@
         "scalar": 21.892733564013838,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014a8",
+      "_id": "4fa2ed4ba9ffcc3a1f00154f",
       "_type": "VitalSign",
       "time": 1289016000,
       "description": "BMI",
@@ -1560,7 +1587,7 @@
         "scalar": 22.500865051903112,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014a9",
+      "_id": "4fa2ed4ba9ffcc3a1f001550",
       "_type": "VitalSign",
       "time": 1283400000,
       "description": "BMI",
@@ -1579,7 +1606,7 @@
         "scalar": 22.80493079584775,
         "units": null
       },
-      "_id": "4f96ca2ea9ffcc35030014aa",
+      "_id": "4fa2ed4ba9ffcc3a1f001551",
       "_type": "VitalSign",
       "time": 1270008000,
       "description": "BMI",

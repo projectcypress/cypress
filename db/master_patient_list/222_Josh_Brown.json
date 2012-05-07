@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca20a9ffcc35030009b7",
+  "_id": "4fa2ed3ca9ffcc3a1f0009fd",
   "patient_id": "222",
   "first": "Josh",
   "last": "Brown",
@@ -130,6 +130,9 @@
         1276574400,
         1271736000,
         1270008000
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1270008000
       ]
     },
     "0031": {
@@ -190,7 +193,9 @@
     "0036": {
       "encounter_outpatient_encounter": [
         1283486400,
-        1271736000
+        1276574400,
+        1271736000,
+        1270008000
       ],
       "encounter_acute_inpt_encounter": [
         1274932800,
@@ -297,6 +302,9 @@
         1270008000
       ],
       "ace_inhibitors_arbs_medication_dispensed": [
+        1270008000
+      ],
+      "ace_inhibitors_arbs_medication_active": [
         1270008000
       ],
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -538,16 +546,6 @@
         1270008000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
-        1283486400,
-        1276574400,
-        1274932800,
-        1274328000,
-        1271736000,
-        1270008000
-      ]
-    },
     "0385": {
       "colon_cancer_diagnosis_active": [
         1274328000
@@ -566,6 +564,16 @@
       "encounter_office_visit_encounter": [
         1283486400,
         1276574400,
+        1271736000,
+        1270008000
+      ]
+    },
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+        1283486400,
+        1276574400,
+        1274932800,
+        1274328000,
         1271736000,
         1270008000
       ]
@@ -629,7 +637,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009c4",
+      "_id": "4fa2ed3ca9ffcc3a1f000a0b",
       "_type": "Condition",
       "time": 1274328000,
       "description": "Colon Cancer",
@@ -650,7 +658,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009c5",
+      "_id": "4fa2ed3ca9ffcc3a1f000a0c",
       "_type": "Condition",
       "time": 1270008000,
       "description": "Hypertension",
@@ -670,7 +678,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009b8",
+      "_id": "4fa2ed3ca9ffcc3a1f0009fe",
       "_type": "Encounter",
       "time": 1283486400,
       "description": "Encounter Outpatient",
@@ -684,7 +692,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009b9",
+      "_id": "4fa2ed3ca9ffcc3a1f0009ff",
       "_type": "Encounter",
       "time": 1276574400,
       "description": "Encounter Office Visit",
@@ -698,7 +706,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009ba",
+      "_id": "4fa2ed3ca9ffcc3a1f000a00",
       "_type": "Encounter",
       "time": 1274932800,
       "description": "Encounter Inpatient Discharge",
@@ -712,7 +720,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009bb",
+      "_id": "4fa2ed3ca9ffcc3a1f000a01",
       "_type": "Encounter",
       "time": 1274328000,
       "description": "Encounter Acute inpt",
@@ -729,7 +737,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009bc",
+      "_id": "4fa2ed3ca9ffcc3a1f000a02",
       "_type": "Encounter",
       "time": 1271736000,
       "description": "Encounter Outpatient",
@@ -743,7 +751,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009bd",
+      "_id": "4fa2ed3ca9ffcc3a1f000a03",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Office Visit",
@@ -759,7 +767,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009cf",
+      "_id": "4fa2ed3ca9ffcc3a1f000a16",
       "_type": "Medication",
       "time": 1275796800,
       "description": "Chemotherapy for Colon Cancer",
@@ -773,7 +781,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009d0",
+      "_id": "4fa2ed3ca9ffcc3a1f000a17",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Antihypertensive combinations",
@@ -787,7 +795,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009d1",
+      "_id": "4fa2ed3ca9ffcc3a1f000a18",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Lipid Lowering Therapy",
@@ -803,7 +811,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009cc",
+      "_id": "4fa2ed3ca9ffcc3a1f000a13",
       "_type": "Procedure",
       "time": 1274328000,
       "description": "Colon Cancer Stage III",
@@ -820,7 +828,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009cd",
+      "_id": "4fa2ed3ca9ffcc3a1f000a14",
       "_type": "Procedure",
       "time": 1275796800,
       "description": "Chemotherapy",
@@ -846,7 +854,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009ce",
+      "_id": "4fa2ed3ca9ffcc3a1f000a15",
       "_type": "Procedure",
       "time": 1271736000,
       "description": "Colonoscopy",
@@ -876,7 +884,7 @@
         "scalar": "positive",
         "units": null
       },
-      "_id": "4f96ca20a9ffcc35030009c6",
+      "_id": "4fa2ed3ca9ffcc3a1f000a0d",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "FOBT",
@@ -898,7 +906,7 @@
         "scalar": "65mg/dL",
         "units": null
       },
-      "_id": "4f96ca20a9ffcc35030009c7",
+      "_id": "4fa2ed3ca9ffcc3a1f000a0e",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "High Density Lipoprotein (HDL)",
@@ -914,7 +922,7 @@
         "scalar": "107mg/dL",
         "units": null
       },
-      "_id": "4f96ca20a9ffcc35030009c8",
+      "_id": "4fa2ed3ca9ffcc3a1f000a0f",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "LDL Laboratory Test",
@@ -936,7 +944,7 @@
         "scalar": "205mg/dL",
         "units": null
       },
-      "_id": "4f96ca20a9ffcc35030009c9",
+      "_id": "4fa2ed3ca9ffcc3a1f000a10",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Total Cholesterol",
@@ -958,7 +966,7 @@
         "scalar": "165mg.dL",
         "units": null
       },
-      "_id": "4f96ca20a9ffcc35030009ca",
+      "_id": "4fa2ed3ca9ffcc3a1f000a11",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Triglycerides",
@@ -972,11 +980,29 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009cb",
+      "_id": "4fa2ed3ca9ffcc3a1f000a12",
       "_type": "LabResult",
       "time": 1274328000,
       "description": "Colon Cancer Stage III",
       "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed3ca9ffcc3a1f000a04",
+      "_type": "SocialHistory",
+      "time": 1270008000,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -990,7 +1016,7 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca20a9ffcc35030009be",
+      "_id": "4fa2ed3ca9ffcc3a1f000a05",
       "_type": "VitalSign",
       "time": 1270008000,
       "description": "Systolic Blood Pressure",
@@ -1006,7 +1032,7 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca20a9ffcc35030009bf",
+      "_id": "4fa2ed3ca9ffcc3a1f000a06",
       "_type": "VitalSign",
       "time": 1270008000,
       "description": "Diastolic Blood Pressure",
@@ -1022,7 +1048,7 @@
         "scalar": 76.0,
         "units": null
       },
-      "_id": "4f96ca20a9ffcc35030009c0",
+      "_id": "4fa2ed3ca9ffcc3a1f000a07",
       "_type": "VitalSign",
       "time": 1270008000,
       "description": "Heart Rate",
@@ -1041,7 +1067,7 @@
         "scalar": 21.14167966139452,
         "units": null
       },
-      "_id": "4f96ca20a9ffcc35030009c1",
+      "_id": "4fa2ed3ca9ffcc3a1f000a08",
       "_type": "VitalSign",
       "time": 1283486400,
       "description": "BMI",
@@ -1060,7 +1086,7 @@
         "scalar": 21.14167966139452,
         "units": null
       },
-      "_id": "4f96ca20a9ffcc35030009c2",
+      "_id": "4fa2ed3ca9ffcc3a1f000a09",
       "_type": "VitalSign",
       "time": 1271736000,
       "description": "BMI",
@@ -1074,7 +1100,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca20a9ffcc35030009c3",
+      "_id": "4fa2ed3ca9ffcc3a1f000a0a",
       "_type": "VitalSign",
       "time": 1274328000,
       "description": "Colon Cancer Stage III",

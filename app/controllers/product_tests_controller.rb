@@ -1,5 +1,6 @@
 require 'measure_evaluator'
 require 'patient_zipper'
+require 'get_dependencies'
 require 'open-uri'
 require 'prawnto'
 
@@ -12,7 +13,6 @@ class ProductTestsController < ApplicationController
     @vendor = @product.vendor
     @patients = Record.where(:test_id => @test.id)
 
-  
     # Decide our current execution. Show the one requested, if any. Otherwise show the most recent, or a new one if none exist
     if !params[:execution_id].nil?
       @current_execution = TestExecution.find(params[:execution_id])   
@@ -20,8 +20,7 @@ class ProductTestsController < ApplicationController
       @never_executed_before = true
       @current_execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
     end
-
-
+    
     # Calculate and categorize the passing and failing measures
     passing_measures = @current_execution.passing_measures
     failing_measures = @current_execution.failing_measures
@@ -163,10 +162,10 @@ class ProductTestsController < ApplicationController
     product = test.product
     measure_map = product.measure_map if product
 
-    if (!params[:execution_id].empty?)
+    if !params[:execution_id].empty?
       execution = TestExecution.find(params[:execution_id])
     else
-      execution = TestExecution.new({:product_test => test, :execution_date => Time.now})
+      execution = TestExecution.new({:product_test => test, :execution_date => Time.now, :product_version=>product.version})
     end
     
     # If a vendor cannot run their measures in a vacuum (i.e. calculate measures with just the patient test deck) then
@@ -178,7 +177,7 @@ class ProductTestsController < ApplicationController
       execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)          
     end
 
-    if (pqri)
+    if pqri
       doc = Nokogiri::XML(pqri.open)
       execution.reported_results = Cypress::PqriUtility.extract_results(doc, measure_map)
       execution.validation_errors = Cypress::PqriUtility.validate(doc)
@@ -186,8 +185,10 @@ class ProductTestsController < ApplicationController
         execution.normalize_results_with_baseline
       end      
     end
-
     execution.execution_date=Time.now.to_i
+    execution.product_version=product.version
+    execution.required_modules=Cypress::GetDependencies::get_dependencies
+    
     execution.save!
     redirect_to :action => 'show', :execution_id=>execution._id
   end
@@ -219,4 +220,24 @@ class ProductTestsController < ApplicationController
     file.close
   end
 
+  def delete_note
+    test = ProductTest.find(params[:id])
+
+    note = test.notes.find(params[:note][:id])
+    note.destroy
+
+    redirect_to :action => 'show', :execution_id => params[:execution_id]
+  end
+
+  def add_note
+    test = ProductTest.find(params[:id])
+
+    note = Note.new(params[:note])
+    note.time = Time.now
+
+    test.notes << note
+    test.save!
+
+    redirect_to :action => 'show', :execution_id => params[:execution_id]
+  end
 end

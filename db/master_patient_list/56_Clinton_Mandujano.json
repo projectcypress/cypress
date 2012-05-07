@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca1da9ffcc35030007e8",
+  "_id": "4fa2ed39a9ffcc3a1f000828",
   "patient_id": "56",
   "first": "Clinton",
   "last": "Mandujano",
@@ -140,6 +140,9 @@
         1277006400,
         1274846400,
         1239854400
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1274846400
       ]
     },
     "0031": {
@@ -197,7 +200,9 @@
     "0036": {
       "encounter_outpatient_encounter": [
         1286769600,
-        1274846400
+        1277006400,
+        1274846400,
+        1239854400
       ]
     },
     "0038": {
@@ -556,16 +561,16 @@
         1239854400
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1286769600,
         1277006400,
         1274846400,
         1239854400
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1286769600,
         1277006400,
         1274846400,
@@ -626,7 +631,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc35030007e9",
+      "_id": "4fa2ed39a9ffcc3a1f000829",
       "_type": "Allergy",
       "time": 1239854400,
       "description": "Polymyxin",
@@ -649,7 +654,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc35030007fe",
+      "_id": "4fa2ed39a9ffcc3a1f00083f",
       "_type": "Condition",
       "time": 1277006400,
       "description": "Bradycardia",
@@ -669,7 +674,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc35030007ea",
+      "_id": "4fa2ed39a9ffcc3a1f00082a",
       "_type": "Encounter",
       "time": 1286769600,
       "description": "Encounter Outpatient",
@@ -683,7 +688,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc35030007eb",
+      "_id": "4fa2ed39a9ffcc3a1f00082b",
       "_type": "Encounter",
       "time": 1277006400,
       "description": "Encounter Office Visit",
@@ -700,7 +705,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc35030007ec",
+      "_id": "4fa2ed39a9ffcc3a1f00082c",
       "_type": "Encounter",
       "time": 1274846400,
       "description": "Encounter Outpatient",
@@ -714,7 +719,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc35030007ed",
+      "_id": "4fa2ed39a9ffcc3a1f00082d",
       "_type": "Encounter",
       "time": 1239854400,
       "description": "Encounter Office Visit",
@@ -730,7 +735,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000805",
+      "_id": "4fa2ed39a9ffcc3a1f000846",
       "_type": "Immunization",
       "time": 1286769600,
       "description": "Influenza Vaccine",
@@ -747,7 +752,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000806",
+      "_id": "4fa2ed39a9ffcc3a1f000847",
       "_type": "Immunization",
       "time": 1286769600,
       "description": "Pneumococcal Vaccine all ages",
@@ -775,7 +780,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000803",
+      "_id": "4fa2ed39a9ffcc3a1f000844",
       "_type": "Procedure",
       "time": 1274846400,
       "description": "colonoscopy",
@@ -789,7 +794,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000804",
+      "_id": "4fa2ed39a9ffcc3a1f000845",
       "_type": "Procedure",
       "time": 1277006400,
       "description": "Cardiac Monitoring",
@@ -813,7 +818,7 @@
         "scalar": 54.0,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc35030007ff",
+      "_id": "4fa2ed39a9ffcc3a1f000840",
       "_type": "LabResult",
       "time": 1274846400,
       "description": "LDL",
@@ -835,7 +840,7 @@
         "scalar": 70.0,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc3503000800",
+      "_id": "4fa2ed39a9ffcc3a1f000841",
       "_type": "LabResult",
       "time": 1274846400,
       "description": "High Density Lipoprotein (HDL)",
@@ -857,7 +862,7 @@
         "scalar": 160.0,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc3503000801",
+      "_id": "4fa2ed39a9ffcc3a1f000842",
       "_type": "LabResult",
       "time": 1274846400,
       "description": "Total Cholesterol",
@@ -879,11 +884,29 @@
         "scalar": 180.0,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc3503000802",
+      "_id": "4fa2ed39a9ffcc3a1f000843",
       "_type": "LabResult",
       "time": 1274846400,
       "description": "Triglycerides",
       "specifics": "C0202236:Triglycerides measurement;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed39a9ffcc3a1f00082e",
+      "_type": "SocialHistory",
+      "time": 1274846400,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -897,7 +920,7 @@
         "scalar": 106.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc35030007ee",
+      "_id": "4fa2ed39a9ffcc3a1f00082f",
       "_type": "VitalSign",
       "time": 1286769600,
       "description": "Systolic Blood Pressure",
@@ -913,7 +936,7 @@
         "scalar": 60.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc35030007ef",
+      "_id": "4fa2ed39a9ffcc3a1f000830",
       "_type": "VitalSign",
       "time": 1286769600,
       "description": "Diastolic Blood Pressure",
@@ -929,7 +952,7 @@
         "scalar": 54.0,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc35030007f0",
+      "_id": "4fa2ed39a9ffcc3a1f000831",
       "_type": "VitalSign",
       "time": 1286769600,
       "description": "Heart Rate",
@@ -945,7 +968,7 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc35030007f1",
+      "_id": "4fa2ed39a9ffcc3a1f000832",
       "_type": "VitalSign",
       "time": 1277006400,
       "description": "Systolic Blood Pressure",
@@ -961,7 +984,7 @@
         "scalar": 62.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc35030007f2",
+      "_id": "4fa2ed39a9ffcc3a1f000833",
       "_type": "VitalSign",
       "time": 1277006400,
       "description": "Diastolic Blood Pressure",
@@ -977,7 +1000,7 @@
         "scalar": 56.0,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc35030007f3",
+      "_id": "4fa2ed39a9ffcc3a1f000834",
       "_type": "VitalSign",
       "time": 1277006400,
       "description": "Heart Rate",
@@ -993,7 +1016,7 @@
         "scalar": 100.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc35030007f4",
+      "_id": "4fa2ed39a9ffcc3a1f000835",
       "_type": "VitalSign",
       "time": 1274846400,
       "description": "Systolic Blood Pressure",
@@ -1009,7 +1032,7 @@
         "scalar": 62.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc35030007f5",
+      "_id": "4fa2ed39a9ffcc3a1f000836",
       "_type": "VitalSign",
       "time": 1274846400,
       "description": "Diastolic Blood Pressure",
@@ -1025,7 +1048,7 @@
         "scalar": 52.0,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc35030007f6",
+      "_id": "4fa2ed39a9ffcc3a1f000837",
       "_type": "VitalSign",
       "time": 1274846400,
       "description": "Heart Rate",
@@ -1041,7 +1064,7 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc35030007f7",
+      "_id": "4fa2ed39a9ffcc3a1f000838",
       "_type": "VitalSign",
       "time": 1239854400,
       "description": "Systolic Blood Pressure",
@@ -1057,7 +1080,7 @@
         "scalar": 66.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc35030007f8",
+      "_id": "4fa2ed39a9ffcc3a1f000839",
       "_type": "VitalSign",
       "time": 1239854400,
       "description": "Diastolic Blood Pressure",
@@ -1073,7 +1096,7 @@
         "scalar": 62.0,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc35030007f9",
+      "_id": "4fa2ed39a9ffcc3a1f00083a",
       "_type": "VitalSign",
       "time": 1239854400,
       "description": "Heart Rate",
@@ -1092,7 +1115,7 @@
         "scalar": 23.70759769886927,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc35030007fa",
+      "_id": "4fa2ed39a9ffcc3a1f00083b",
       "_type": "VitalSign",
       "time": 1286769600,
       "description": "BMI",
@@ -1111,7 +1134,7 @@
         "scalar": 23.42868478476493,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc35030007fb",
+      "_id": "4fa2ed39a9ffcc3a1f00083c",
       "_type": "VitalSign",
       "time": 1277006400,
       "description": "BMI",
@@ -1130,7 +1153,7 @@
         "scalar": 23.70759769886927,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc35030007fc",
+      "_id": "4fa2ed39a9ffcc3a1f00083d",
       "_type": "VitalSign",
       "time": 1274846400,
       "description": "BMI",
@@ -1149,7 +1172,7 @@
         "scalar": 24.404879984130133,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc35030007fd",
+      "_id": "4fa2ed39a9ffcc3a1f00083e",
       "_type": "VitalSign",
       "time": 1239854400,
       "description": "BMI",

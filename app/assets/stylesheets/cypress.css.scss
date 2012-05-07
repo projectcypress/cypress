@@ -249,7 +249,7 @@ section#vendor {
   }
 }
 
-section#testMeasures, section#measureMap {
+section#testMeasures {
   h2 {
     margin:5px 10px;
     padding-top:15px;
@@ -271,7 +271,7 @@ section#testMeasures, section#measureMap {
     color:#666;
     width:925px;
     clear:both;
-    padding:3px;   
+    padding:3px;
     text-align:left;
     margin-right:5px;
     vertical-align:top;
@@ -299,6 +299,69 @@ section#testMeasures, section#measureMap {
       text-align: right;
       float: right;
       margin-right: 10px;
+    }
+    address span { display: block }
+  }
+  dd.inactive {
+    color: #aaa;
+    input, label { color: #aaa }
+  }
+  dd.sub {
+    display: none;
+    margin-left: 13px;
+    border-left: 1px solid #656464;
+    span.left { margin-left: 11px }
+    span.right { margin-right: 14px }
+  }
+}
+section#measureMap {
+  h2 {
+    margin:5px 10px;
+    padding-top:5px;
+    color:#666;
+    border-top:1px solid #eee;
+    font-style:italic;
+    padding-bottom:20px;
+  }
+  div { margin-top: 5px; }
+  dl {
+    font-size:90%;
+    width:725px;
+    display:table-cell;
+    vertical-align:top;
+    line-height:2.5em;
+    clear:both;
+  }
+  dt {
+    color:#666;
+    width:725px;
+    clear:both;
+    padding:3px;
+    text-align:left;
+    margin-right:5px;
+    vertical-align:top;
+  }
+  dd {
+    margin-left: 10px;
+    width: 725px;
+    clear: both;
+    label:hover { cursor: pointer }
+    span { display: inline-block }
+    span.measure_expander {
+      margin-right: -12px;
+      cursor: pointer;
+      width: 8px; height: 8px;
+      background: url(/assets/closed.gif) no-repeat;
+      &.open {background:url(/assets/open.gif) no-repeat};
+    }
+    span.left {
+      margin-left: 15px;
+      input { margin: 0 }
+      width: 600px;
+    }
+    span.mapping {
+      display:none;
+      margin-left: .2em;
     }
     address span { display: block }
   }

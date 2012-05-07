@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca29a9ffcc35030010b2",
+  "_id": "4fa2ed45a9ffcc3a1f001131",
   "patient_id": "121",
   "first": "Cooper",
   "last": "Post",
@@ -135,6 +135,9 @@
     "0028": {
       "encounter_office_visit_encounter": [
         1291266000,
+        1271736000
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1271736000
       ]
     },
@@ -284,6 +287,9 @@
         1271736000
       ],
       "ace_inhibitors_arbs_medication_dispensed": [
+        1271736000
+      ],
+      "ace_inhibitors_arbs_medication_active": [
         1271736000
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -465,14 +471,14 @@
         1271736000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1291266000,
         1271736000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1291266000,
         1271736000
       ]
@@ -532,7 +538,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010ce",
+      "_id": "4fa2ed45a9ffcc3a1f00114e",
       "_type": "Entry",
       "time": 1271736000,
       "description": "follow-up plan_BMI management",
@@ -554,7 +560,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010c5",
+      "_id": "4fa2ed45a9ffcc3a1f001145",
       "_type": "Condition",
       "time": 1274328000,
       "description": "low back pain",
@@ -575,7 +581,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010c6",
+      "_id": "4fa2ed45a9ffcc3a1f001146",
       "_type": "Condition",
       "time": 1271736000,
       "description": "Hypertension",
@@ -595,7 +601,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010b3",
+      "_id": "4fa2ed45a9ffcc3a1f001132",
       "_type": "Encounter",
       "time": 1291266000,
       "description": "Encounter Outpatient",
@@ -609,7 +615,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010b4",
+      "_id": "4fa2ed45a9ffcc3a1f001133",
       "_type": "Encounter",
       "time": 1283745600,
       "description": "encounter outpatient including orthopedics and chiropractics",
@@ -623,7 +629,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010b5",
+      "_id": "4fa2ed45a9ffcc3a1f001134",
       "_type": "Encounter",
       "time": 1274328000,
       "description": "encounter outpatient including orthopedics and chiropractics",
@@ -640,7 +646,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010b6",
+      "_id": "4fa2ed45a9ffcc3a1f001135",
       "_type": "Encounter",
       "time": 1271736000,
       "description": "Encounter Outpatient",
@@ -656,7 +662,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010cc",
+      "_id": "4fa2ed45a9ffcc3a1f00114c",
       "_type": "Immunization",
       "time": 1291266000,
       "description": "Influenza Vaccine",
@@ -670,7 +676,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010cd",
+      "_id": "4fa2ed45a9ffcc3a1f00114d",
       "_type": "Immunization",
       "time": 1291266000,
       "description": "Pneumococcal Vaccine ages 2 and older",
@@ -686,7 +692,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010cb",
+      "_id": "4fa2ed45a9ffcc3a1f00114b",
       "_type": "Medication",
       "time": 1271736000,
       "description": "Antihypertensive combinations",
@@ -708,7 +714,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010c8",
+      "_id": "4fa2ed45a9ffcc3a1f001148",
       "_type": "Procedure",
       "time": 1271736000,
       "description": "counseling for physical activity",
@@ -728,7 +734,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010c9",
+      "_id": "4fa2ed45a9ffcc3a1f001149",
       "_type": "Procedure",
       "time": 1271736000,
       "description": "counseling for physical activity",
@@ -754,7 +760,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca29a9ffcc35030010ca",
+      "_id": "4fa2ed45a9ffcc3a1f00114a",
       "_type": "Procedure",
       "time": 1293512400,
       "description": "colonoscopy",
@@ -778,11 +784,29 @@
         "scalar": 82.0,
         "units": null
       },
-      "_id": "4f96ca29a9ffcc35030010c7",
+      "_id": "4fa2ed45a9ffcc3a1f001147",
       "_type": "LabResult",
       "time": 1271736000,
       "description": "LDL",
       "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed45a9ffcc3a1f001136",
+      "_type": "SocialHistory",
+      "time": 1271736000,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -796,7 +820,7 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca29a9ffcc35030010b7",
+      "_id": "4fa2ed45a9ffcc3a1f001137",
       "_type": "VitalSign",
       "time": 1291266000,
       "description": "Systolic Blood Pressure",
@@ -812,7 +836,7 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca29a9ffcc35030010b8",
+      "_id": "4fa2ed45a9ffcc3a1f001138",
       "_type": "VitalSign",
       "time": 1291266000,
       "description": "Diastolic Blood Pressure",
@@ -828,7 +852,7 @@
         "scalar": 76.0,
         "units": null
       },
-      "_id": "4f96ca29a9ffcc35030010b9",
+      "_id": "4fa2ed45a9ffcc3a1f001139",
       "_type": "VitalSign",
       "time": 1291266000,
       "description": "Heart Rate",
@@ -844,7 +868,7 @@
         "scalar": 126.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca29a9ffcc35030010ba",
+      "_id": "4fa2ed45a9ffcc3a1f00113a",
       "_type": "VitalSign",
       "time": 1283745600,
       "description": "Systolic Blood Pressure",
@@ -860,7 +884,7 @@
         "scalar": 76.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca29a9ffcc35030010bb",
+      "_id": "4fa2ed45a9ffcc3a1f00113b",
       "_type": "VitalSign",
       "time": 1283745600,
       "description": "Diastolic Blood Pressure",
@@ -876,7 +900,7 @@
         "scalar": 74.0,
         "units": null
       },
-      "_id": "4f96ca29a9ffcc35030010bc",
+      "_id": "4fa2ed45a9ffcc3a1f00113c",
       "_type": "VitalSign",
       "time": 1283745600,
       "description": "Heart Rate",
@@ -892,7 +916,7 @@
         "scalar": 128.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca29a9ffcc35030010bd",
+      "_id": "4fa2ed45a9ffcc3a1f00113d",
       "_type": "VitalSign",
       "time": 1274328000,
       "description": "Systolic Blood Pressure",
@@ -908,7 +932,7 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca29a9ffcc35030010be",
+      "_id": "4fa2ed45a9ffcc3a1f00113e",
       "_type": "VitalSign",
       "time": 1274328000,
       "description": "Diastolic Blood Pressure",
@@ -924,7 +948,7 @@
         "scalar": 74.0,
         "units": null
       },
-      "_id": "4f96ca29a9ffcc35030010bf",
+      "_id": "4fa2ed45a9ffcc3a1f00113f",
       "_type": "VitalSign",
       "time": 1274328000,
       "description": "Heart Rate",
@@ -940,7 +964,7 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca29a9ffcc35030010c0",
+      "_id": "4fa2ed45a9ffcc3a1f001140",
       "_type": "VitalSign",
       "time": 1271736000,
       "description": "Systolic Blood Pressure",
@@ -956,7 +980,7 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca29a9ffcc35030010c1",
+      "_id": "4fa2ed45a9ffcc3a1f001141",
       "_type": "VitalSign",
       "time": 1271736000,
       "description": "Diastolic Blood Pressure",
@@ -972,7 +996,7 @@
         "scalar": 76.0,
         "units": null
       },
-      "_id": "4f96ca29a9ffcc35030010c2",
+      "_id": "4fa2ed45a9ffcc3a1f001142",
       "_type": "VitalSign",
       "time": 1271736000,
       "description": "Heart Rate",
@@ -991,7 +1015,7 @@
         "scalar": 30.94863905325444,
         "units": null
       },
-      "_id": "4f96ca29a9ffcc35030010c3",
+      "_id": "4fa2ed45a9ffcc3a1f001143",
       "_type": "VitalSign",
       "time": 1291266000,
       "description": "BMI",
@@ -1010,7 +1034,7 @@
         "scalar": 33.11171597633136,
         "units": null
       },
-      "_id": "4f96ca29a9ffcc35030010c4",
+      "_id": "4fa2ed45a9ffcc3a1f001144",
       "_type": "VitalSign",
       "time": 1271736000,
       "description": "BMI",

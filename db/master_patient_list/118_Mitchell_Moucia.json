@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca25a9ffcc3503000d58",
+  "_id": "4fa2ed41a9ffcc3a1f000db9",
   "patient_id": "118",
   "first": "Mitchell",
   "last": "Moucia",
@@ -131,6 +131,9 @@
       "encounter_office_visit_encounter": [
         1284523200,
         1278734400,
+        1274760000
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1274760000
       ]
     },
@@ -285,6 +288,9 @@
         1274760000
       ],
       "ace_inhibitors_arbs_medication_dispensed": [
+        1274760000
+      ],
+      "ace_inhibitors_arbs_medication_active": [
         1274760000
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -452,15 +458,15 @@
         1274760000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1284523200,
         1278734400,
         1274760000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1284523200,
         1278734400,
         1274760000
@@ -544,7 +550,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d69",
+      "_id": "4fa2ed41a9ffcc3a1f000dcb",
       "_type": "Condition",
       "time": 1279425600,
       "description": "Prostate Cancer",
@@ -565,7 +571,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d6a",
+      "_id": "4fa2ed41a9ffcc3a1f000dcc",
       "_type": "Condition",
       "time": 1274760000,
       "description": "Hypertension",
@@ -585,7 +591,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d59",
+      "_id": "4fa2ed41a9ffcc3a1f000dba",
       "_type": "Encounter",
       "time": 1284523200,
       "description": "Encounter Outpatient",
@@ -602,7 +608,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d5a",
+      "_id": "4fa2ed41a9ffcc3a1f000dbb",
       "_type": "Encounter",
       "time": 1278734400,
       "description": "Encounter Outpatient",
@@ -619,7 +625,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d5b",
+      "_id": "4fa2ed41a9ffcc3a1f000dbc",
       "_type": "Encounter",
       "time": 1274760000,
       "description": "Encounter Outpatient",
@@ -635,7 +641,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d72",
+      "_id": "4fa2ed41a9ffcc3a1f000dd4",
       "_type": "Immunization",
       "time": 1284523200,
       "description": "Influenza Vaccine",
@@ -652,7 +658,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d73",
+      "_id": "4fa2ed41a9ffcc3a1f000dd5",
       "_type": "Immunization",
       "time": 1284523200,
       "description": "Pneumococcal Vaccine all ages",
@@ -668,7 +674,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d71",
+      "_id": "4fa2ed41a9ffcc3a1f000dd3",
       "_type": "Medication",
       "time": 1274760000,
       "description": "Antihypertensive combinations",
@@ -687,7 +693,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d6e",
+      "_id": "4fa2ed41a9ffcc3a1f000dd0",
       "_type": "Procedure",
       "time": 1280980800,
       "description": "Prostate Cancer Treatment",
@@ -701,7 +707,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d6f",
+      "_id": "4fa2ed41a9ffcc3a1f000dd1",
       "_type": "Procedure",
       "time": 1280980800,
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
@@ -727,7 +733,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d70",
+      "_id": "4fa2ed41a9ffcc3a1f000dd2",
       "_type": "Procedure",
       "time": 1274155200,
       "description": "colonoscopy",
@@ -751,7 +757,7 @@
         "scalar": "9 mg/dL",
         "units": null
       },
-      "_id": "4f96ca25a9ffcc3503000d6b",
+      "_id": "4fa2ed41a9ffcc3a1f000dcd",
       "_type": "LabResult",
       "time": 1274760000,
       "description": "Prostate Specific Antigen Test",
@@ -767,7 +773,7 @@
         "scalar": null,
         "units": null
       },
-      "_id": "4f96ca25a9ffcc3503000d6c",
+      "_id": "4fa2ed41a9ffcc3a1f000dce",
       "_type": "LabResult",
       "time": 1279425600,
       "description": "Gleason Score <=6",
@@ -781,11 +787,29 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d6d",
+      "_id": "4fa2ed41a9ffcc3a1f000dcf",
       "_type": "LabResult",
       "time": 1280980800,
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",
       "specifics": "C0475386:Tumor stage T1c;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed41a9ffcc3a1f000dbd",
+      "_type": "SocialHistory",
+      "time": 1274760000,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -799,7 +823,7 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca25a9ffcc3503000d5c",
+      "_id": "4fa2ed41a9ffcc3a1f000dbe",
       "_type": "VitalSign",
       "time": 1284523200,
       "description": "Systolic Blood Pressure",
@@ -815,7 +839,7 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca25a9ffcc3503000d5d",
+      "_id": "4fa2ed41a9ffcc3a1f000dbf",
       "_type": "VitalSign",
       "time": 1284523200,
       "description": "Diastolic Blood Pressure",
@@ -831,7 +855,7 @@
         "scalar": 78.0,
         "units": null
       },
-      "_id": "4f96ca25a9ffcc3503000d5e",
+      "_id": "4fa2ed41a9ffcc3a1f000dc0",
       "_type": "VitalSign",
       "time": 1284523200,
       "description": "Heart Rate",
@@ -847,7 +871,7 @@
         "scalar": 128.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca25a9ffcc3503000d5f",
+      "_id": "4fa2ed41a9ffcc3a1f000dc1",
       "_type": "VitalSign",
       "time": 1278734400,
       "description": "Systolic Blood Pressure",
@@ -863,7 +887,7 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca25a9ffcc3503000d60",
+      "_id": "4fa2ed41a9ffcc3a1f000dc2",
       "_type": "VitalSign",
       "time": 1278734400,
       "description": "Diastolic Blood Pressure",
@@ -879,7 +903,7 @@
         "scalar": 78.0,
         "units": null
       },
-      "_id": "4f96ca25a9ffcc3503000d61",
+      "_id": "4fa2ed41a9ffcc3a1f000dc3",
       "_type": "VitalSign",
       "time": 1278734400,
       "description": "Heart Rate",
@@ -895,7 +919,7 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca25a9ffcc3503000d62",
+      "_id": "4fa2ed41a9ffcc3a1f000dc4",
       "_type": "VitalSign",
       "time": 1274760000,
       "description": "Systolic Blood Pressure",
@@ -911,7 +935,7 @@
         "scalar": 76.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca25a9ffcc3503000d63",
+      "_id": "4fa2ed41a9ffcc3a1f000dc5",
       "_type": "VitalSign",
       "time": 1274760000,
       "description": "Diastolic Blood Pressure",
@@ -927,7 +951,7 @@
         "scalar": 78.0,
         "units": null
       },
-      "_id": "4f96ca25a9ffcc3503000d64",
+      "_id": "4fa2ed41a9ffcc3a1f000dc6",
       "_type": "VitalSign",
       "time": 1274760000,
       "description": "Heart Rate",
@@ -946,7 +970,7 @@
         "scalar": 23.329972694812014,
         "units": null
       },
-      "_id": "4f96ca25a9ffcc3503000d65",
+      "_id": "4fa2ed41a9ffcc3a1f000dc7",
       "_type": "VitalSign",
       "time": 1284523200,
       "description": "BMI",
@@ -965,7 +989,7 @@
         "scalar": 24.068262969964294,
         "units": null
       },
-      "_id": "4f96ca25a9ffcc3503000d66",
+      "_id": "4fa2ed41a9ffcc3a1f000dc8",
       "_type": "VitalSign",
       "time": 1278734400,
       "description": "BMI",
@@ -984,7 +1008,7 @@
         "scalar": 24.363579080025207,
         "units": null
       },
-      "_id": "4f96ca25a9ffcc3503000d67",
+      "_id": "4fa2ed41a9ffcc3a1f000dc9",
       "_type": "VitalSign",
       "time": 1274760000,
       "description": "BMI",
@@ -998,7 +1022,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca25a9ffcc3503000d68",
+      "_id": "4fa2ed41a9ffcc3a1f000dca",
       "_type": "VitalSign",
       "time": 1280980800,
       "description": "AJCC Cancer Stage Low Risk Recurrence Prostate Cancer",

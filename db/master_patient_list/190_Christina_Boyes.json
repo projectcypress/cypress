@@ -1,5 +1,5 @@
 {
-  "_id": "4f96ca1da9ffcc3503000766",
+  "_id": "4fa2ed38a9ffcc3a1f0007a1",
   "patient_id": "190",
   "first": "Christina",
   "last": "Boyes",
@@ -42,6 +42,9 @@
         1273636800
       ],
       "tobacco_use_cessation_counseling_communication_to_patient": [
+        1273636800
+      ],
+      "tobacco_user_patient_characteristic": [
         1273636800
       ]
     },
@@ -102,6 +105,9 @@
     "0028": {
       "encounter_office_visit_encounter": [
         1286856000,
+        1273636800
+      ],
+      "tobacco_user_patient_characteristic": [
         1273636800
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
@@ -362,14 +368,14 @@
         1273636800
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1286856000,
         1273636800
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1286856000,
         1273636800
       ]
@@ -414,7 +420,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000767",
+      "_id": "4fa2ed38a9ffcc3a1f0007a2",
       "_type": "Allergy",
       "time": 1273636800,
       "description": "VZV Vaccine",
@@ -437,7 +443,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000771",
+      "_id": "4fa2ed38a9ffcc3a1f0007ad",
       "_type": "Condition",
       "time": 989985600,
       "description": "leukemia",
@@ -458,7 +464,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000772",
+      "_id": "4fa2ed38a9ffcc3a1f0007ae",
       "_type": "Condition",
       "time": 1273636800,
       "description": "Nonrheumatic mitral (valve) disease",
@@ -478,7 +484,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000769",
+      "_id": "4fa2ed38a9ffcc3a1f0007a4",
       "_type": "Encounter",
       "time": 1286856000,
       "description": "Encounter Outpatient",
@@ -495,7 +501,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc350300076a",
+      "_id": "4fa2ed38a9ffcc3a1f0007a5",
       "_type": "Encounter",
       "time": 1273636800,
       "description": "Encounter Outpatient",
@@ -511,7 +517,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000768",
+      "_id": "4fa2ed38a9ffcc3a1f0007a3",
       "_type": "Entry",
       "time": 1273636800,
       "description": "IUD use",
@@ -530,7 +536,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000776",
+      "_id": "4fa2ed38a9ffcc3a1f0007b2",
       "_type": "Procedure",
       "time": 1273636800,
       "description": "tobacco use cessation counseling",
@@ -544,7 +550,7 @@
       },
       "value": {
       },
-      "_id": "4f96ca1da9ffcc3503000777",
+      "_id": "4fa2ed38a9ffcc3a1f0007b3",
       "_type": "Procedure",
       "time": 1273636800,
       "description": "contraceptive use education",
@@ -568,7 +574,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f96ca1da9ffcc3503000773",
+      "_id": "4fa2ed38a9ffcc3a1f0007af",
       "_type": "LabResult",
       "time": 1273636800,
       "description": "Chlamydia Screening",
@@ -599,7 +605,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f96ca1da9ffcc3503000774",
+      "_id": "4fa2ed38a9ffcc3a1f0007b0",
       "_type": "LabResult",
       "time": 1273636800,
       "description": "Pap Test",
@@ -618,11 +624,29 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f96ca1da9ffcc3503000775",
+      "_id": "4fa2ed38a9ffcc3a1f0007b1",
       "_type": "LabResult",
       "time": 1286856000,
       "description": "Pregnancy Test",
       "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "230062009"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed38a9ffcc3a1f0007a6",
+      "_type": "SocialHistory",
+      "time": 1273636800,
+      "description": "Tobacco User",
+      "specifics": "C0459846:Moderate cigarette smoker;"
     }
   ],
   "vital_signs": [
@@ -636,7 +660,7 @@
         "scalar": 112.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc350300076b",
+      "_id": "4fa2ed38a9ffcc3a1f0007a7",
       "_type": "VitalSign",
       "time": 1286856000,
       "description": "Systolic Blood Pressure",
@@ -652,7 +676,7 @@
         "scalar": 68.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc350300076c",
+      "_id": "4fa2ed38a9ffcc3a1f0007a8",
       "_type": "VitalSign",
       "time": 1286856000,
       "description": "Diastolic Blood Pressure",
@@ -668,7 +692,7 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc350300076d",
+      "_id": "4fa2ed38a9ffcc3a1f0007a9",
       "_type": "VitalSign",
       "time": 1273636800,
       "description": "Systolic Blood Pressure",
@@ -684,7 +708,7 @@
         "scalar": 62.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f96ca1da9ffcc350300076e",
+      "_id": "4fa2ed38a9ffcc3a1f0007aa",
       "_type": "VitalSign",
       "time": 1273636800,
       "description": "Diastolic Blood Pressure",
@@ -703,7 +727,7 @@
         "scalar": 22.594123048668507,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc350300076f",
+      "_id": "4fa2ed38a9ffcc3a1f0007ab",
       "_type": "VitalSign",
       "time": 1286856000,
       "description": "BMI",
@@ -722,7 +746,7 @@
         "scalar": 22.755509641873278,
         "units": null
       },
-      "_id": "4f96ca1da9ffcc3503000770",
+      "_id": "4fa2ed38a9ffcc3a1f0007ac",
       "_type": "VitalSign",
       "time": 1273636800,
       "description": "BMI",

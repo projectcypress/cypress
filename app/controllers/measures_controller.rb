@@ -97,8 +97,9 @@ class MeasuresController < ApplicationController
   
   def find_product
     if @test.nil?
-      @product = Product.find(params[:id] || params[:product_id])
-    else 
+      @product = Product.find(params[:id]) if params[:id]
+      @product = Product.find(params[:product_id]) if params[:product_id]
+    else
       @product = @test.product
     end
   end

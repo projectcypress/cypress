@@ -92,6 +92,11 @@ function toggleRow(row, toggleSetting) {
     }
 }
 
+function showMappings(category) {
+    var selector = "span.mapping." + category;
+    $(selector).toggle();
+}
+
 function verify() {
     return false;
 }
