@@ -7,7 +7,7 @@ class PQRITest < ActiveSupport::TestCase
   test "Should import a PQRI file" do
     xml_file = File.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_passing.xml'))
     doc = Nokogiri::XML(xml_file)
-    results = Cypress::PqriUtility.extract_results(doc)
+    results = Cypress::PqriUtility.extract_results(doc, nil)
     assert results.size == 2
     measure1 = results['0001']
     measure2 = results['0002']

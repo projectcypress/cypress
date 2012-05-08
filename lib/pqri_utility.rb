@@ -7,19 +7,27 @@ module Cypress
     }
     # Extract and return measure results from a PQRI document and add to the reported results
     # for this test.
-    def self.extract_results(doc)
+    def self.extract_results(doc, id_map)
       doc = (doc.kind_of? String )? Nokogiri::XML::Document.new(doc) : doc
       results ||= {}
       result_nodes = doc.xpath('/submission/measure-group/provider/pqri-measure')
 
+      # the measure IDs in the report must be a subset of what the product is
+      # allowed to test (in the measure_map)
+      # reverse the hash of nqf#=>product-specific-measure-id
+      measure_map = id_map.invert if id_map
+   
       result_nodes.each do |result_node|
         key = result_node.at_xpath('pqri-measure-number').text
+        key = measure_map[key] if id_map
         numerator = result_node.at_xpath('meets-performance-instances').text.to_i
         exclusions = result_node.at_xpath('performance-exclusion-instances').text.to_i
         antinumerator = result_node.at_xpath('performance-not-met-instances').text.to_i
         denominator = numerator + antinumerator
 
-        results[key] = {'denominator' => denominator, 'numerator' => numerator, 'exclusions' => exclusions, 'antinumerator' => antinumerator}
+        # TODO: we need to figure out how to report errors like the PQRI not containing the same
+        # measure IDs as designated by the product when it was created
+        results[key] = {'denominator' => denominator, 'numerator' => numerator, 'exclusions' => exclusions, 'antinumerator' => antinumerator} if key
       end
 
       return results

@@ -15,7 +15,7 @@
         <%= link_to @product.vendor.name, vendor_path(@product.vendor) %>
       </nav>
     </section>
-    
+
     <section class="candidate">
       <dl class="vendor">
         <dt>Product:</dt> <dd><%= @product.name %></dd>
@@ -24,8 +24,20 @@
       <dl>
         <dt>description:</dt> <dd><%= @product.description %></dd>
       </dl>
+      <br/>
+      <table>
+        <tr >
+          <td class="expander toggle" data-code="measure_details"></td>
+          <td> <h2>View Available Measures (NQF#)</h2></td>
+        </tr>
+        <tr class="sub_rows measure_details">
+          <td colspan="2">
+            <%= @product.measure_map.select {|m| /[0-9]$/.match m}.keys.join ", " %>
+          </td>
+        </tr>
+      </table>
     </section>
-
+    
     <section id="ehr_results">
       <table>
         <% product_tests_by_status(@product).each do |result_status, result_tests|
@@ -52,7 +64,7 @@
               success_rate = 0
             end %>
             <tbody>
-              <% if !test.test_executions.empty? 
+              <% if !test.test_executions.empty?
                 first_td_class = 'expander toggle'
                 dot_color = result_status
               else
@@ -60,12 +72,12 @@
               end %>
               <tr>
                 <td><div title="<%= success_rate %>%" class="<%= dot_color %>"><%= success_rate %></div></td>
-                <td class="<%= first_td_class %>" data-code="<%= test.id %>"></td>
+                         <td class="<%= first_td_class %>" data-code="<%= test.id %>"></td>
                 <td class="<%= result_status %>"><a href="<%= product_test_path(test) %>"><%= test.name %></a></td>
                 <td><%= test.description %></td>
                 <td><%= test.test_executions.size %></td>
                 <td></td>
-               <td><%= link_to 'delete', product_test_path(test), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                <td><%= link_to 'delete', product_test_path(test), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
               </tr>
 
               <% if !test.test_executions.empty?
@@ -79,11 +91,11 @@
                       execution_status = 'fail'
                     end
                   end %>
-                  
+
                   <tr class="sub_rows <%= test.id %>">
                     <td></td>
                     <td title="<%= execution.success_rate %>%" class="<%= execution_status %>"></td>
-                    <td class="<%= execution_status %>"><a href="<%= product_test_path(test, :execution_id => execution.id) %>"><%= execution.pretty_date %></a></td>
+                        <td class="<%= execution_status %>"><a href="<%= product_test_path(test, :execution_id => execution.id) %>"><%= execution.pretty_date %></a></td>
                     <td><span class="<%= execution_status %>"><%= execution.passing_measures.size %><span class="q"> / <%= execution.product_test.count_measures %> measures passed</span></td>
                     <td></td>
                     <td></td>

@@ -3,16 +3,16 @@
 # and open the template in the editor.
 %>
 <% content_for :head do %>
-<%= javascript 'measures' %>
-<style type="text/css">
-  #measure_coverage .numerator,
-  #measure_coverage .denominator,
-  #measure_coverage .exclusions,
-  #measure_coverage .antinumerator {
-    text-align:center;
-  }
-  tr.patient:hover,tr.measure:hover {background:#DEFADE;}
-</style>
+  <%= javascript 'measures' %>
+  <style type="text/css">
+    #measure_coverage .numerator,
+    #measure_coverage .denominator,
+    #measure_coverage .exclusions,
+    #measure_coverage .antinumerator {
+      text-align:center;
+    }
+    tr.patient:hover,tr.measure:hover {background:#DEFADE;}
+  </style>
 <% end %>
 
 <div>
@@ -30,51 +30,51 @@
   </table>
 </div>
 
-  <div style="height:23em;float:left;overflow:auto;padding-right:20px;">
-        <table id="measure_results_table" style="width:100%;">
-         <thead>
-            <tr>
-              <th>NQF#</th>
-              <th class="numerator">numerator</th>
-              <th class="denominator">denominator</th>
-              <th class="antinumerator">antinumerator</th>
-              <th class="exclusions">exclusions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @coverage.each do |measure, values| %>
-              <tr id="<%= measure %>" class="measure">
-                <td title="<%= values[:name] %>" class="measure"><%= measure %></td>
-                <td class="numerator" style="text-align:center"></td>
-                <td class="denominator" style="text-align:center"></td>
-                <td class="antinumerator" style="text-align:center"></td>
-                <td class="exclusions" style="text-align:center"></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-  </div>
-  <div style="height:23em;overflow:auto;">
-        <table id="minimal_patients_table">
-          <thead>
-            <tr>
-              <th>Last Name</th>
-              <th>First Name</th>
-              <th style="text-align:center">DOB</th>
-              <th style="text-align:center">Gender</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% patients.each do |patient| %>
-              <input type="hidden" name="patient_ids[]" value="<%= patient[:patient_id] %>" />
-              <tr id="<%= patient[:_id] %>" class="patient">
-                <td><%= patient[:last] %></td>
-                <td><%= patient[:first] %></td>
-                <td style="text-align:center"><%= Time.at(patient.birthdate).strftime('%m/%d/%Y') %></td>
-                <td style="text-align:center"><%= patient[:gender] %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-  </div>
+<div style="height:23em;float:left;overflow:auto;padding-right:20px;">
+  <table id="measure_results_table" style="width:100%;">
+    <thead>
+      <tr>
+        <th>NQF#</th>
+        <th class="numerator">numerator</th>
+        <th class="denominator">denominator</th>
+        <th class="antinumerator">antinumerator</th>
+        <th class="exclusions">exclusions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @coverage.each do |measure, values| %>
+        <tr id="<%= measure %>" class="measure">
+          <td title="<%= @product.measure_map[measure] %>" class="measure"><%= measure %></td>
+          <td class="numerator" style="text-align:center"></td>
+          <td class="denominator" style="text-align:center"></td>
+          <td class="antinumerator" style="text-align:center"></td>
+          <td class="exclusions" style="text-align:center"></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div style="height:23em;overflow:auto;">
+  <table id="minimal_patients_table">
+    <thead>
+      <tr>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th style="text-align:center">DOB</th>
+        <th style="text-align:center">Gender</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% patients.each do |patient| %>
+      <input type="hidden" name="patient_ids[]" value="<%= patient[:patient_id] %>" />
+      <tr id="<%= patient[:_id] %>" class="patient">
+        <td><%= patient[:last] %></td>
+        <td><%= patient[:first] %></td>
+        <td style="text-align:center"><%= Time.at(patient.birthdate).strftime('%m/%d/%Y') %></td>
+        <td style="text-align:center"><%= patient[:gender] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
 </div>

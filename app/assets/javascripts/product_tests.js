@@ -31,6 +31,7 @@
             type: "POST",
             data: {
                 measure_ids: ids,
+                product_id: $('#product_test_product_id').val(),
                 num_records: $('#total_records').val()
             },
             dataType: 'script',

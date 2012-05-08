@@ -4,14 +4,13 @@ class MeasuresController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_test_and_execution, only: [:show, :patients]
   before_filter :find_measure, only: [:show,:patients]
-  
+  before_filter :find_product, only: [:show,:patients,:minimal_set]
+
   def show
     
-    @product = @test.product
     @vendor = @product.vendor  
     @measures = @test.measure_defs
     @measures_categories = @measures.group_by { |t| t.category }
-    
 
     respond_to do |format|
       format.json { render :json => @execution.expected_result(@measure) }
@@ -21,7 +20,6 @@ class MeasuresController < ApplicationController
   
   def patients
    
-    @product = @test.product
     @vendor = @product.vendor
     @result = @execution.expected_result(@measure)
     
@@ -46,7 +44,6 @@ class MeasuresController < ApplicationController
   # @coverage - Maps measures to the list of associated patients in both @patient_list and @overflow
   def minimal_set
     measure_ids = params[:measure_ids]
-
     # Find the IDs of all Records for our minimal set and overflow
     minimal_set = PatientPopulation.min_coverage(measure_ids)
     minimal_ids = minimal_set[:minimal_set]
@@ -68,7 +65,7 @@ class MeasuresController < ApplicationController
       
       # Identify the measure to which this result is referring
       measure = "#{result.value.measure_id}#{result.value.sub_id}".to_s
-      
+
       # Add this measure to the patients for easy lookup in both directions (i.e. patients <-> measures)
       patient_index = @patient_list.index{|patient| patient.id == result.value.patient_id}
       if patient_index
@@ -98,6 +95,14 @@ class MeasuresController < ApplicationController
   
   private
   
+  def find_product
+    if @test.nil?
+      @product = Product.find(params[:id]) if params[:id]
+      @product = Product.find(params[:product_id]) if params[:product_id]
+    else
+      @product = @test.product
+    end
+  end
   
   def find_measure
     @measure = Measure.find(params[:id])

@@ -58,8 +58,17 @@ class ProductTestsController < ApplicationController
     @vendor = @product.vendor
     @measures = Measure.top_level
     @patient_populations = PatientPopulation.installed
-    @measures_categories = @measures.group_by { |t| t.category }
-    
+
+    @measures_categories = @measures.select do |t|
+      @product.measure_map.keys.include?(t[:id])
+    end.group_by {|g| g.category}
+
+    # replace the measure ids with the ones specified in the product's measure_map
+    @measures_categories.each do |cat, measures|
+      measures.each do |m|
+        m[:mapped_name] = @product.measure_map[m.key] + " " + m.name
+      end
+    end
     # TODO - Copied default from popHealth. This probably needs to change at some point. We also currently ignore the uploaded value anyway.
     @effective_date = Time.gm(2010, 12, 31)
     @period_start = 3.months.ago(Time.at(@effective_date))
@@ -71,7 +80,7 @@ class ProductTestsController < ApplicationController
     month, day, year = params[:product_test][:effective_date_end].split('/')
     test.effective_date = Time.local(year.to_i, month.to_i, day.to_i).to_i
     test.save!
-    
+
     if params[:byod] && Rails.env != 'production'
       # If the user brought their own data, kick off a PatientImportJob. Store the file temporarily in /tmp
       uploaded_file = params[:byod].tempfile
@@ -147,29 +156,30 @@ class ProductTestsController < ApplicationController
   # Accept a PQRI document and use it to define a new TestExecution on this ProductTest
   def process_pqri
     test = ProductTest.find(params[:id])
-    product = Product.find(test.product_id)
     test_data = params[:product_test]
     baseline = test_data[:baseline]
     pqri = test_data[:pqri]
-    
-    if (!params[:execution_id].empty?)
+    product = test.product
+    measure_map = product.measure_map if product
+
+    if !params[:execution_id].empty?
       execution = TestExecution.find(params[:execution_id])
     else
       execution = TestExecution.new({:product_test => test, :execution_date => Time.now, :product_version=>product.version})
     end
     
-    # If a vendor cannot run their measures in a vaccuum (i.e. calculate measures with just the patient test deck) then
+    # If a vendor cannot run their measures in a vacuum (i.e. calculate measures with just the patient test deck) then
     # we will first import their measure results with their own patients so we can establish a baseline in order
     # to normalize with a second PQRI with results that include the test deck.
     if (baseline)
       doc = Nokogiri::XML(baseline.open)
-      execution.baseline_results = Cypress::PqriUtility.extract_results(doc)
+      execution.baseline_results = Cypress::PqriUtility.extract_results(doc, measure_map)
       execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)          
     end
 
-    if (pqri)
+    if pqri
       doc = Nokogiri::XML(pqri.open)
-      execution.reported_results = Cypress::PqriUtility.extract_results(doc)
+      execution.reported_results = Cypress::PqriUtility.extract_results(doc, measure_map)
       execution.validation_errors = Cypress::PqriUtility.validate(doc)
       if execution.baseline_results
         execution.normalize_results_with_baseline
@@ -210,4 +220,24 @@ class ProductTestsController < ApplicationController
     file.close
   end
 
+  def delete_note
+    test = ProductTest.find(params[:id])
+
+    note = test.notes.find(params[:note][:id])
+    note.destroy
+
+    redirect_to :action => 'show', :execution_id => params[:execution_id]
+  end
+
+  def add_note
+    test = ProductTest.find(params[:id])
+
+    note = Note.new(params[:note])
+    note.time = Time.now
+
+    test.notes << note
+    test.save!
+
+    redirect_to :action => 'show', :execution_id => params[:execution_id]
+  end
 end
