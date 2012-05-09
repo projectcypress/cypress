@@ -5,9 +5,9 @@ pdf.text "EHR POC: #{@vendor.poc}"
 pdf.text "E-mail: #{@vendor.email}"
 pdf.text "Phone: #{@vendor.tel}\n\n"
 
-pdf.text "Proctor: #{@vendor.proctor}"
-pdf.text "E-mail: #{@vendor.proctor_email}"
-pdf.text "Phone: #{@vendor.proctor_tel}\n\n"
+pdf.text "Proctor: #{@test.proctor}"
+pdf.text "E-mail: #{@test.proctor_email}"
+pdf.text "Phone: #{@test.proctor_tel}\n\n"
 
 pdf.text "Product: #{@product.name}"
 pdf.text "Product Version: #{@product.version}"

@@ -494,9 +494,9 @@ section#quality_measures {
     tr th:first-child {text-align:left;}
     tr th:nth-child(5) {text-align:left;}
   }
-  tbody.fail td:nth-child(2) a {color:red}
+  tbody.fail td:nth-child(2) a {color:red;font-weight:bold;}
   tbody.pass td:nth-child(2) a {color:green}
-  tbody.fail span.f {color:red}
+  tbody.fail span.f {color:red;font-weight:bold;}
   td:first-child {width:1em;}
   td:nth-child(-n+5) {text-align:center}
   td:nth-child(-n+2) {text-align:left}
@@ -536,7 +536,7 @@ section.measure {
       td,th {padding:0 8px 0 0;}
       th {font-style:italic;text-align:right;color:#000}
       span.r {font-weight:bold}
-      span.fail {color:red}
+      span.fail {color:red;font-weight:bold;}
     }
   }
   dd.pass {background:url(/assets/pass.png) 0 50% no-repeat;padding-left:20px;color:green}
@@ -836,7 +836,7 @@ section#ehr_results {
     tr td:nth-child(5) {width: 100px; text-align:center}
     tr td:nth-child(6) {text-align:center}
     tr td:nth-child(7) {text-align:right}
-    td.fail, td.fail a {color:red}
+    td.fail, td.fail a {color:red;}
     td.pass, td.pass a {color:green}
     td.incomplete, td.incomplete a {color:#666}
     td.na, td.na a {color: #666}
@@ -844,7 +844,7 @@ section#ehr_results {
     tbody td:nth-child(7) { text-align: right }
   }
   td span.pass {color:black}
-  td span.fail {color:red}
+  td span.fail {color:red;}
   td span.na {font-style:normal}
   th.failing {
     color:red;
@@ -860,7 +860,7 @@ section#ehr_results {
     display: none;
     td:nth-child(2).na {color:#666;background:url(/assets/insufficient.png) 0% 50% no-repeat;}
     td:nth-child(2).pass {color:green;background:url(/assets/pass.png) 0 50% no-repeat;}
-    td:nth-child(2).fail {color:red; background:url(/assets/fail.png) 0% 50% no-repeat;}
+    td:nth-child(2).fail {color:red; background:url(/assets/fail.png) 0% 50% no-repeat;font-weight:bold;}
     td:nth-child(2).incomplete {color:#666; background:url(/assets/insufficient.png) 0% 50% no-repeat;}
   }
 }

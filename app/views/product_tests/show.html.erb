@@ -149,6 +149,11 @@
         <dt>Product Version:</dt> <dd><%= @current_execution.product_version %></dd>
       </dl>
       <dl>
+        <dt>Proctor:</dt> <dd><%= @test.proctor %></dd>
+        <dt>E-mail:</dt> <dd><%= @test.proctor_email %></dd>
+        <dt>Phone:</dt> <dd><%= @test.proctor_tel %></dd>
+      </dl>
+      <dl>
         <dt>Description:</dt> <dd><%= @test.description %></dd>
         <% if !@never_executed_before %>
           <dt>Run on:</dt> <dd><%= @current_execution.pretty_date %></dd>

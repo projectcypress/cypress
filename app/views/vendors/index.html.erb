@@ -49,7 +49,6 @@
                 <td class="<%= result_status %>"><a href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a></td>
                 <td><span class="<%= dot_color %>"><%= vendor.count_passing %></span> <span class="q">/ <%= vendor.products.size %></span></td>
                 <td><%= vendor.poc %></td>
-                <td><%= vendor.proctor %></td>
                 <td><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
               </tr>
               <% if !vendor.products.empty?
