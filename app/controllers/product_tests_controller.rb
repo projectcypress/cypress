@@ -8,7 +8,7 @@ class ProductTestsController < ApplicationController
   before_filter :authenticate_user!
   
   def show
-    @test = current_user.product_tests.find(params[:id])
+    @test = ProductTest.find(params[:id])
     @product = @test.product
     @vendor = @product.vendor
     @patients = Record.where(:test_id => @test.id)
