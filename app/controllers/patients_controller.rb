@@ -80,14 +80,14 @@ class PatientsController < ApplicationController
   end
 
   def table_all
-    @showAll = true
+    @showAll  = true
+    @patients = nil
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
+      @patients = Record.where("test_id" => @test.id).order_by([["last", :asc]])
+    else
+      @patients = Record.where("test_id" => nil).order_by([["last", :asc]])
     end
-
-    @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.population" => true)
-      .order_by([["value.last", :asc]])
-    @patients = Cypress::DuplicateRemover.remove_duplicates(@patients)
 
     render 'table'
   end
