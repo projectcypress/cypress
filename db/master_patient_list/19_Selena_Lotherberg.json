@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05f28e27b48183001ad5",
+  "_id": "4fa2ed54a9ffcc3a1f001bb0",
   "patient_id": "19",
   "first": "Selena",
   "last": "Lotherberg",
   "gender": "F",
   "birthdate": -143496000,
-  "race": "Other Race",
-  "ethnicity": "Hispanic or Latino",
+  "race": {
+    "name": "Other Race",
+    "code": "2131-1"
+  },
+  "ethnicity": {
+    "name": "Hispanic or Latino",
+    "code": "2135-2"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -30,6 +36,14 @@
         1270008000
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1270008000
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291698000,
@@ -45,8 +59,6 @@
         1273982400,
         1270008000
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -96,15 +108,12 @@
         1270008000
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1270008000
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291698000,
+        1270008000
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1270008000
       ]
     },
@@ -130,6 +139,25 @@
         1273982400
       ]
     },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1270008000
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1291698000,
+        1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1270008000
+      ],
+      "influenza_vaccine_medication_administered": [
+        1291698000
+      ]
+    },
     "0033": {
       "chlamydia_screening_laboratory_test_result": [
         1273982400,
@@ -148,31 +176,6 @@
       ],
       "iud_use_device_applied": [
         1273982400
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1270008000
-      ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
-        1291698000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291698000,
-        1270008000
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1281931200,
-        1271736000
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1270008000
       ]
     },
     "0036": {
@@ -194,16 +197,12 @@
         1291698000
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1291698000,
-        1270008000
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1291698000,
         1270008000
       ],
-      "influenza_vaccine_medication_administered": [
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1291698000
       ]
     },
@@ -266,6 +265,14 @@
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1242619200
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1242619200
+      ],
+      "foot_exam_physical_exam_performed": [
+        1291698000,
+        1273982400,
+        1270008000
       ]
     },
     "0059": {
@@ -302,6 +309,9 @@
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1242619200
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1242619200
       ]
     },
     "0061": {
@@ -319,6 +329,9 @@
         1242619200
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1242619200
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1242619200
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -365,6 +378,9 @@
         1242619200
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1242619200
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1242619200
       ]
     },
@@ -501,6 +517,16 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291698000,
+        1270008000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1281931200,
+        1271736000
+      ]
+    },
     "0088": {
       "diabetic_retinopathy_diagnosis_active": [
         1271736000
@@ -512,6 +538,12 @@
       "encounter_ophthalmological_services_encounter": [
         1281931200,
         1271736000
+      ],
+      "level_of_severity_of_retinopathy_findings_physical_exam_finding": [
+        1270872000
+      ],
+      "macular_edema_findings_physical_exam_finding": [
+        1270872000
       ],
       "macular_or_fundus_exam_procedure_performed": [
         1271736000
@@ -539,14 +571,14 @@
         1271736000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1291698000,
         1270008000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1291698000,
         1270008000
       ]
@@ -631,7 +663,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001ad6",
+      "_id": "4fa2ed54a9ffcc3a1f001bb1",
       "_type": "Allergy",
       "time": 1270008000,
       "description": "Bakers Yeast",
@@ -654,8 +686,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001ae7",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bc3",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "diabetes",
       "specifics": "C0011849:Diabetes Mellitus;",
@@ -675,8 +707,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001ae8",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bc4",
+      "_type": "Condition",
       "time": 1273982400,
       "description": "sexually active woman",
       "specifics": "C0036916:Sexually Transmitted Diseases;",
@@ -696,8 +728,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001ae9",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bc5",
+      "_type": "Condition",
       "time": 1275624000,
       "description": "low back pain",
       "specifics": "C0024031:Low Back Pain;",
@@ -717,8 +749,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001aea",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bc6",
+      "_type": "Condition",
       "time": 1271736000,
       "description": "Diabetic Retinopathy",
       "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
@@ -737,7 +769,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001ad8",
+      "_id": "4fa2ed54a9ffcc3a1f001bb3",
       "_type": "Encounter",
       "time": 1291698000,
       "description": "Encounter Outpatient",
@@ -751,7 +783,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001ad9",
+      "_id": "4fa2ed54a9ffcc3a1f001bb4",
       "_type": "Encounter",
       "time": 1281931200,
       "description": "Encounter Ophthalmological Services",
@@ -765,7 +797,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001ada",
+      "_id": "4fa2ed54a9ffcc3a1f001bb5",
       "_type": "Encounter",
       "time": 1275624000,
       "description": "encounter outpatient including orthopedics and chiropractics",
@@ -779,7 +811,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001adb",
+      "_id": "4fa2ed54a9ffcc3a1f001bb6",
       "_type": "Encounter",
       "time": 1273982400,
       "description": "encounter ob/gyn",
@@ -793,7 +825,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001adc",
+      "_id": "4fa2ed54a9ffcc3a1f001bb7",
       "_type": "Encounter",
       "time": 1271736000,
       "description": "Encounter Ophthalmological Services",
@@ -810,7 +842,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001add",
+      "_id": "4fa2ed54a9ffcc3a1f001bb8",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Outpatient",
@@ -826,7 +858,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001afd",
+      "_id": "4fa2ed54a9ffcc3a1f001bd9",
       "_type": "Immunization",
       "time": 1291698000,
       "description": "Influenza Vaccine",
@@ -840,7 +872,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001afe",
+      "_id": "4fa2ed54a9ffcc3a1f001bda",
       "_type": "Immunization",
       "time": 1291698000,
       "description": "Pneumococcal Vaccine ages 2 and older",
@@ -856,7 +888,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001ad7",
+      "_id": "4fa2ed54a9ffcc3a1f001bb2",
       "_type": "Entry",
       "time": 1273982400,
       "description": "IUD use",
@@ -872,7 +904,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001afc",
+      "_id": "4fa2ed54a9ffcc3a1f001bd8",
       "_type": "Medication",
       "time": 1242619200,
       "description": "Antidiabetic-combinations",
@@ -890,7 +922,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001af4",
+      "_id": "4fa2ed54a9ffcc3a1f001bd0",
       "_type": "Procedure",
       "time": 1291698000,
       "description": "Foot Exam",
@@ -906,7 +938,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001af5",
+      "_id": "4fa2ed54a9ffcc3a1f001bd1",
       "_type": "Procedure",
       "time": 1273982400,
       "description": "Foot Exam",
@@ -922,7 +954,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001af6",
+      "_id": "4fa2ed54a9ffcc3a1f001bd2",
       "_type": "Procedure",
       "time": 1270008000,
       "description": "Foot Exam",
@@ -936,7 +968,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001af7",
+      "_id": "4fa2ed54a9ffcc3a1f001bd3",
       "_type": "Procedure",
       "time": 1270872000,
       "description": "macular edema findings",
@@ -950,7 +982,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001af8",
+      "_id": "4fa2ed54a9ffcc3a1f001bd4",
       "_type": "Procedure",
       "time": 1270872000,
       "description": "level of severity of retinopathy findings",
@@ -964,7 +996,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001af9",
+      "_id": "4fa2ed54a9ffcc3a1f001bd5",
       "_type": "Procedure",
       "time": 1271736000,
       "description": "Macular or Fundus Exam",
@@ -987,7 +1019,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001afa",
+      "_id": "4fa2ed54a9ffcc3a1f001bd6",
       "_type": "Procedure",
       "time": 1271736000,
       "description": "eye exam",
@@ -1013,7 +1045,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001afb",
+      "_id": "4fa2ed54a9ffcc3a1f001bd7",
       "_type": "Procedure",
       "time": 1285214400,
       "description": "breast cancer screening",
@@ -1037,7 +1069,7 @@
         "scalar": 7.3,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001aeb",
+      "_id": "4fa2ed54a9ffcc3a1f001bc7",
       "_type": "LabResult",
       "time": 1292562000,
       "description": "HbA1c test",
@@ -1059,7 +1091,7 @@
         "scalar": 7.5,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001aec",
+      "_id": "4fa2ed54a9ffcc3a1f001bc8",
       "_type": "LabResult",
       "time": 1283918400,
       "description": "HbA1c test",
@@ -1081,7 +1113,7 @@
         "scalar": 7.1,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001aed",
+      "_id": "4fa2ed54a9ffcc3a1f001bc9",
       "_type": "LabResult",
       "time": 1276574400,
       "description": "HbA1c test",
@@ -1103,7 +1135,7 @@
         "scalar": 7.6,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001aee",
+      "_id": "4fa2ed54a9ffcc3a1f001bca",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "HbA1c test",
@@ -1125,7 +1157,7 @@
         "scalar": 76.0,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001aef",
+      "_id": "4fa2ed54a9ffcc3a1f001bcb",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "LDL",
@@ -1156,7 +1188,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001af0",
+      "_id": "4fa2ed54a9ffcc3a1f001bcc",
       "_type": "LabResult",
       "time": 1273982400,
       "description": "Pap Test",
@@ -1178,7 +1210,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001af1",
+      "_id": "4fa2ed54a9ffcc3a1f001bcd",
       "_type": "LabResult",
       "time": 1273982400,
       "description": "Chlamydia Screening",
@@ -1209,7 +1241,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001af2",
+      "_id": "4fa2ed54a9ffcc3a1f001bce",
       "_type": "LabResult",
       "time": 1182139200,
       "description": "Pap Test",
@@ -1231,11 +1263,29 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001af3",
+      "_id": "4fa2ed54a9ffcc3a1f001bcf",
       "_type": "LabResult",
       "time": 1182139200,
       "description": "Chlamydia Screening",
       "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed54a9ffcc3a1f001bb9",
+      "_type": "SocialHistory",
+      "time": 1270008000,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -1249,8 +1299,8 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001ade",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bba",
+      "_type": "VitalSign",
       "time": 1291698000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1265,8 +1315,8 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001adf",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bbb",
+      "_type": "VitalSign",
       "time": 1291698000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1281,8 +1331,8 @@
         "scalar": 118.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001ae0",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bbc",
+      "_type": "VitalSign",
       "time": 1273982400,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1297,8 +1347,8 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001ae1",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bbd",
+      "_type": "VitalSign",
       "time": 1273982400,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1313,8 +1363,8 @@
         "scalar": 126.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001ae2",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bbe",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1329,8 +1379,8 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001ae3",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bbf",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1348,8 +1398,8 @@
         "scalar": 29.225245653817083,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001ae4",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bc0",
+      "_type": "VitalSign",
       "time": 1291698000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1367,8 +1417,8 @@
         "scalar": 30.110859158478206,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001ae5",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bc1",
+      "_type": "VitalSign",
       "time": 1273982400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1386,8 +1436,8 @@
         "scalar": 30.110859158478206,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001ae6",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bc2",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

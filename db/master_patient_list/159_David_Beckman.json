@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05f18e27b48183001a5f",
+  "_id": "4fa2ed54a9ffcc3a1f001b37",
   "patient_id": "159",
   "first": "David",
   "last": "Beckman",
   "gender": "M",
   "birthdate": -413146800,
-  "race": "Native Hawaiian or Other Pacific Islander",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Native Hawaiian or Other Pacific Islander",
+    "code": "2076-8"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -34,6 +40,21 @@
         1276660800
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1285387200,
+        1276660800
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1276660800
+      ],
+      "tobacco_user_patient_characteristic": [
+        1270008000
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1292389200,
@@ -52,8 +73,6 @@
         1285387200,
         1276660800
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -116,21 +135,14 @@
         1276660800
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1292389200,
-        1285387200,
-        1276660800
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1276660800
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1292389200,
         1285387200,
         1276660800
+      ],
+      "tobacco_user_patient_characteristic": [
+        1270008000
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1276660800
@@ -156,32 +168,26 @@
         1276660800
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1292389200,
         1285387200,
         1276660800
       ]
     },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1292389200,
-        1285387200,
-        1276660800
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
+    "0041": {
+      "encounter_influenza_encounter": [
         1292389200,
         1285387200,
         1276660800
       ],
-      "encounter_ophthalmological_services_encounter": [
-        1286856000,
-        1270008000
+      "encounter_outpatient_encounter": [
+        1292389200,
+        1285387200,
+        1276660800
       ]
     },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1292389200,
         1285387200,
@@ -202,12 +208,7 @@
         1276660800
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1292389200,
-        1285387200,
-        1276660800
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1292389200,
         1285387200,
@@ -270,6 +271,15 @@
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1270008000
+      ],
+      "foot_exam_physical_exam_performed": [
+        1292389200,
+        1286856000,
+        1285387200,
+        1276660800
       ]
     },
     "0059": {
@@ -307,6 +317,9 @@
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1270008000
       ]
     },
     "0061": {
@@ -325,6 +338,9 @@
         1270008000
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1270008000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -380,6 +396,9 @@
         1270008000
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1270008000
       ],
       "nephropathy_screening_laboratory_test_performed": [
@@ -522,6 +541,17 @@
         1276660800
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1292389200,
+        1285387200,
+        1276660800
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1286856000,
+        1270008000
+      ]
+    },
     "0088": {
       "diabetic_retinopathy_diagnosis_active": [
         1270008000
@@ -536,9 +566,11 @@
         1270008000
       ],
       "level_of_severity_of_retinopathy_findings_physical_exam_finding": [
+        1270008000,
         1270008000
       ],
       "macular_edema_findings_physical_exam_finding": [
+        1270008000,
         1270008000
       ],
       "macular_or_fundus_exam_procedure_performed": [
@@ -568,6 +600,13 @@
         1270008000
       ]
     },
+    "0385": {
+      "encounter_office_visit_encounter": [
+        1292389200,
+        1285387200,
+        1276660800
+      ]
+    },
     "0105": {
       "depression_diagnosis_active": [
         1270008000
@@ -588,13 +627,6 @@
       ],
       "antidepressant_medications_medication_active": [
         1270008000
-      ]
-    },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1292389200,
-        1285387200,
-        1276660800
       ]
     },
     "0387": {
@@ -696,7 +728,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a88",
+      "_id": "4fa2ed54a9ffcc3a1f001b61",
       "_type": "Entry",
       "time": 1276660800,
       "description": "follow-up plan_BMI management",
@@ -718,8 +750,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a73",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b4c",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "diabetes",
       "specifics": "C0011849:Diabetes Mellitus;",
@@ -739,8 +771,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a74",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b4d",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "Diabetic Retinopathy",
       "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
@@ -760,8 +792,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a75",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b4e",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "Major Depression",
       "specifics": "C0154409:Major Depressive Disorder, Recurrent, Unspecified;",
@@ -780,7 +812,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a60",
+      "_id": "4fa2ed54a9ffcc3a1f001b38",
       "_type": "Encounter",
       "time": 1292389200,
       "description": "Encounter Outpatient",
@@ -794,7 +826,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a61",
+      "_id": "4fa2ed54a9ffcc3a1f001b39",
       "_type": "Encounter",
       "time": 1286856000,
       "description": "Encounter Ophthalmological Services",
@@ -811,7 +843,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a62",
+      "_id": "4fa2ed54a9ffcc3a1f001b3a",
       "_type": "Encounter",
       "time": 1285387200,
       "description": "Encounter Outpatient",
@@ -828,7 +860,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a63",
+      "_id": "4fa2ed54a9ffcc3a1f001b3b",
       "_type": "Encounter",
       "time": 1276660800,
       "description": "Encounter Outpatient",
@@ -842,7 +874,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a64",
+      "_id": "4fa2ed54a9ffcc3a1f001b3c",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Ophthalmological Services",
@@ -858,7 +890,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a85",
+      "_id": "4fa2ed54a9ffcc3a1f001b5e",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Biguanides",
@@ -872,7 +904,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a86",
+      "_id": "4fa2ed54a9ffcc3a1f001b5f",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Miscellaneous antidepressants",
@@ -886,7 +918,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a87",
+      "_id": "4fa2ed54a9ffcc3a1f001b60",
       "_type": "Medication",
       "time": 1292389200,
       "description": "Smoking Cessation Agents",
@@ -904,7 +936,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a7b",
+      "_id": "4fa2ed54a9ffcc3a1f001b54",
       "_type": "Procedure",
       "time": 1292389200,
       "description": "Foot Exam",
@@ -920,7 +952,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a7c",
+      "_id": "4fa2ed54a9ffcc3a1f001b55",
       "_type": "Procedure",
       "time": 1286856000,
       "description": "Foot Exam",
@@ -936,7 +968,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a7d",
+      "_id": "4fa2ed54a9ffcc3a1f001b56",
       "_type": "Procedure",
       "time": 1285387200,
       "description": "Foot Exam",
@@ -952,7 +984,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a7e",
+      "_id": "4fa2ed54a9ffcc3a1f001b57",
       "_type": "Procedure",
       "time": 1276660800,
       "description": "Foot Exam",
@@ -966,7 +998,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a7f",
+      "_id": "4fa2ed54a9ffcc3a1f001b58",
       "_type": "Procedure",
       "time": 1270008000,
       "description": "level of severity of retinopathy findings",
@@ -980,7 +1012,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a80",
+      "_id": "4fa2ed54a9ffcc3a1f001b59",
       "_type": "Procedure",
       "time": 1270008000,
       "description": "macular edema findings",
@@ -994,7 +1026,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a81",
+      "_id": "4fa2ed54a9ffcc3a1f001b5a",
       "_type": "Procedure",
       "time": 1276660800,
       "description": "dietary consultation order",
@@ -1011,7 +1043,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a82",
+      "_id": "4fa2ed54a9ffcc3a1f001b5b",
       "_type": "Procedure",
       "time": 1276660800,
       "description": "tobacco use cessation counseling",
@@ -1031,7 +1063,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a83",
+      "_id": "4fa2ed54a9ffcc3a1f001b5c",
       "_type": "Procedure",
       "time": 1292389200,
       "description": "counseling for physical activity",
@@ -1045,7 +1077,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f18e27b48183001a84",
+      "_id": "4fa2ed54a9ffcc3a1f001b5d",
       "_type": "Procedure",
       "time": 1270008000,
       "description": "Macular or Fundus Exam",
@@ -1069,7 +1101,7 @@
         "scalar": 7.8,
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a76",
+      "_id": "4fa2ed54a9ffcc3a1f001b4f",
       "_type": "LabResult",
       "time": 1292389200,
       "description": "HbA1c test",
@@ -1091,7 +1123,7 @@
         "scalar": 8.2,
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a77",
+      "_id": "4fa2ed54a9ffcc3a1f001b50",
       "_type": "LabResult",
       "time": 1286856000,
       "description": "HbA1c test",
@@ -1113,7 +1145,7 @@
         "scalar": 8.1,
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a78",
+      "_id": "4fa2ed54a9ffcc3a1f001b51",
       "_type": "LabResult",
       "time": 1285387200,
       "description": "HbA1c test",
@@ -1135,7 +1167,7 @@
         "scalar": 7.9,
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a79",
+      "_id": "4fa2ed54a9ffcc3a1f001b52",
       "_type": "LabResult",
       "time": 1276660800,
       "description": "HbA1c test",
@@ -1157,11 +1189,29 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a7a",
+      "_id": "4fa2ed54a9ffcc3a1f001b53",
       "_type": "LabResult",
       "time": 1292389200,
       "description": "Nephropathy Screening",
       "specifics": "C0740222:Nephropathy screen;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "230062009"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed54a9ffcc3a1f001b3d",
+      "_type": "SocialHistory",
+      "time": 1270008000,
+      "description": "Tobacco User",
+      "specifics": "C0459846:Moderate cigarette smoker;"
     }
   ],
   "vital_signs": [
@@ -1175,8 +1225,8 @@
         "scalar": 128.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f18e27b48183001a65",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b3e",
+      "_type": "VitalSign",
       "time": 1292389200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1191,8 +1241,8 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f18e27b48183001a66",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b3f",
+      "_type": "VitalSign",
       "time": 1292389200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1207,8 +1257,8 @@
         "scalar": 122.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f18e27b48183001a67",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b40",
+      "_type": "VitalSign",
       "time": 1286856000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1223,8 +1273,8 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f18e27b48183001a68",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b41",
+      "_type": "VitalSign",
       "time": 1286856000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1239,8 +1289,8 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f18e27b48183001a69",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b42",
+      "_type": "VitalSign",
       "time": 1285387200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1255,8 +1305,8 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f18e27b48183001a6a",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b43",
+      "_type": "VitalSign",
       "time": 1285387200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1271,8 +1321,8 @@
         "scalar": 124.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f18e27b48183001a6b",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b44",
+      "_type": "VitalSign",
       "time": 1276660800,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1287,8 +1337,8 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f18e27b48183001a6c",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b45",
+      "_type": "VitalSign",
       "time": 1276660800,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1303,8 +1353,8 @@
         "scalar": "Mild",
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a6d",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b46",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Macular Edema Findings",
       "specifics": "C0271051:Macular retinal edema;"
@@ -1319,8 +1369,8 @@
         "scalar": "Mild",
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a6e",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b47",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Level of Severity of Retinopathy Findings",
       "specifics": "C0339473:Preproliferative diabetic retinopathy; C0730278:Severe nonproliferative diabetic retinopathy;"
@@ -1338,8 +1388,8 @@
         "scalar": 28.0550304557866,
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a6f",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b48",
+      "_type": "VitalSign",
       "time": 1292389200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1357,8 +1407,8 @@
         "scalar": 28.350346565847513,
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a70",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b49",
+      "_type": "VitalSign",
       "time": 1286856000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1376,8 +1426,8 @@
         "scalar": 28.0550304557866,
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a71",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b4a",
+      "_type": "VitalSign",
       "time": 1285387200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1395,8 +1445,8 @@
         "scalar": 27.75971434572569,
         "units": null
       },
-      "_id": "4f7e05f18e27b48183001a72",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001b4b",
+      "_type": "VitalSign",
       "time": 1276660800,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

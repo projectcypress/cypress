@@ -19,14 +19,14 @@ module Api
   
   
     test "index" do
-      ven = @user.vendors.first
+      ven = Vendor.first
       prod = ven.products.first
-      get :index, {vendor_id: @user.vendors.first.id, product_id:prod.id}
+      get :index, {vendor_id: Vendor.first.id, product_id:prod.id}
       assert :success
     end
     
     test "show" do
-      vendor = @user.vendors.first
+      vendor = Vendor.first
       product = vendor.products.first
       pt = product.product_tests.first
       get :show, {vendor_id: vendor.id, product_id: product.id, id: pt.id}
@@ -34,7 +34,7 @@ module Api
     end
     
     test "delete" do
-      vendor = @user.vendors.first
+      vendor = Vendor.first
       product = vendor.products.first
       pt = product.product_tests.first
       delete :destroy, {vendor_id: vendor.id, product_id: product.id, id: pt.id}
@@ -43,7 +43,7 @@ module Api
     
     
     test "create" do
-      vendor = @user.vendors.first
+      vendor = Vendor.first
       product = vendor.products.first
       count = product.product_tests.count
       pt={name:"hey", effective_date:1324443600}

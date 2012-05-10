@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05f28e27b48183001aff",
+  "_id": "4fa2ed54a9ffcc3a1f001bdb",
   "patient_id": "101",
   "first": "Selena",
   "last": "Roth",
   "gender": "F",
   "birthdate": -1090267200,
-  "race": "Other Race",
-  "ethnicity": "Hispanic or Latino",
+  "race": {
+    "name": "Other Race",
+    "code": "2131-1"
+  },
+  "ethnicity": {
+    "name": "Hispanic or Latino",
+    "code": "2135-2"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -30,6 +36,14 @@
         1279512000
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291698000,
@@ -45,8 +59,6 @@
         1279512000,
         1270008000
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -95,16 +107,13 @@
         1279512000
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291698000,
         1279512000
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1270008000
       ]
     },
     "0031": {
@@ -119,32 +128,26 @@
         1279512000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1291698000,
         1279512000
       ]
     },
-    "0043": {
+    "0041": {
+      "encounter_influenza_encounter": [
+        1291698000,
+        1279512000
+      ],
       "encounter_outpatient_encounter": [
         1291698000,
         1279512000
       ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
+      "influenza_vaccine_medication_administered": [
         1291698000
       ]
     },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1284609600,
-        1270008000
-      ]
-    },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1291698000,
         1279512000
@@ -165,16 +168,12 @@
         1291698000
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1291698000,
-        1279512000
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1291698000,
         1279512000
       ],
-      "influenza_vaccine_medication_administered": [
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1291698000
       ]
     },
@@ -233,6 +232,14 @@
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1270008000
+      ],
+      "foot_exam_physical_exam_performed": [
+        1291698000,
+        1279512000,
+        1270008000
       ]
     },
     "0059": {
@@ -265,6 +272,9 @@
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1270008000
       ]
     },
     "0061": {
@@ -282,6 +292,9 @@
         1270008000
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1270008000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -328,6 +341,9 @@
         1270008000
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1270008000
       ],
       "nephropathy_screening_laboratory_test_performed": [
@@ -497,6 +513,16 @@
         1279512000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1284609600,
+        1270008000
+      ]
+    },
     "0088": {
       "diabetic_retinopathy_diagnosis_active": [
         1270008000
@@ -523,14 +549,14 @@
         1270008000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1291698000,
         1279512000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1291698000,
         1279512000
       ]
@@ -620,7 +646,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b1e",
+      "_id": "4fa2ed54a9ffcc3a1f001bfb",
       "_type": "Entry",
       "time": 1270008000,
       "description": "follow-up plan_BMI management",
@@ -642,8 +668,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b0d",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001bea",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "diabetes",
       "specifics": "C0011849:Diabetes Mellitus;",
@@ -663,8 +689,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b0e",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001beb",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "Diabetic Retinopathy",
       "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
@@ -683,7 +709,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b00",
+      "_id": "4fa2ed54a9ffcc3a1f001bdc",
       "_type": "Encounter",
       "time": 1291698000,
       "description": "Encounter Outpatient",
@@ -697,7 +723,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b01",
+      "_id": "4fa2ed54a9ffcc3a1f001bdd",
       "_type": "Encounter",
       "time": 1284609600,
       "description": "Encounter Ophthalmological Services",
@@ -714,7 +740,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b02",
+      "_id": "4fa2ed54a9ffcc3a1f001bde",
       "_type": "Encounter",
       "time": 1279512000,
       "description": "Encounter Outpatient",
@@ -728,7 +754,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b03",
+      "_id": "4fa2ed54a9ffcc3a1f001bdf",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Ophthalmological Services",
@@ -744,7 +770,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b1c",
+      "_id": "4fa2ed54a9ffcc3a1f001bf9",
       "_type": "Immunization",
       "time": 1291698000,
       "description": "Influenza Vaccine",
@@ -761,7 +787,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b1d",
+      "_id": "4fa2ed54a9ffcc3a1f001bfa",
       "_type": "Immunization",
       "time": 1291698000,
       "description": "Pneumococcal Vaccine all ages",
@@ -777,7 +803,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b1b",
+      "_id": "4fa2ed54a9ffcc3a1f001bf8",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Insulin",
@@ -795,7 +821,7 @@
         "scalar": "sensor polyneuropathy present",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b17",
+      "_id": "4fa2ed54a9ffcc3a1f001bf4",
       "_type": "Procedure",
       "time": 1291698000,
       "description": "Foot Exam",
@@ -811,7 +837,7 @@
         "scalar": "sensor polyneuropathy present",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b18",
+      "_id": "4fa2ed54a9ffcc3a1f001bf5",
       "_type": "Procedure",
       "time": 1279512000,
       "description": "Foot Exam",
@@ -827,7 +853,7 @@
         "scalar": "sensor polyneuropathy present",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b19",
+      "_id": "4fa2ed54a9ffcc3a1f001bf6",
       "_type": "Procedure",
       "time": 1270008000,
       "description": "Foot Exam",
@@ -850,7 +876,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f28e27b48183001b1a",
+      "_id": "4fa2ed54a9ffcc3a1f001bf7",
       "_type": "Procedure",
       "time": 1270008000,
       "description": "eye exam",
@@ -874,7 +900,7 @@
         "scalar": 7.3,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b0f",
+      "_id": "4fa2ed54a9ffcc3a1f001bec",
       "_type": "LabResult",
       "time": 1291698000,
       "description": "HbA1c test",
@@ -896,7 +922,7 @@
         "scalar": 7.5,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b10",
+      "_id": "4fa2ed54a9ffcc3a1f001bed",
       "_type": "LabResult",
       "time": 1279512000,
       "description": "HbA1c test",
@@ -918,7 +944,7 @@
         "scalar": 7.1,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b11",
+      "_id": "4fa2ed54a9ffcc3a1f001bee",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "HbA1c test",
@@ -940,7 +966,7 @@
         "scalar": 75.0,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b12",
+      "_id": "4fa2ed54a9ffcc3a1f001bef",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "LDL",
@@ -962,7 +988,7 @@
         "scalar": 150.0,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b13",
+      "_id": "4fa2ed54a9ffcc3a1f001bf0",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Total Cholesterol",
@@ -984,7 +1010,7 @@
         "scalar": 140.0,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b14",
+      "_id": "4fa2ed54a9ffcc3a1f001bf1",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Triglycerides",
@@ -1006,7 +1032,7 @@
         "scalar": 45.0,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b15",
+      "_id": "4fa2ed54a9ffcc3a1f001bf2",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "High Density Lipoprotein (HDL)",
@@ -1028,11 +1054,29 @@
         "scalar": "sensor polyneuropathy present",
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b16",
+      "_id": "4fa2ed54a9ffcc3a1f001bf3",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Nephropathy Screening",
       "specifics": "C0740222:Nephropathy screen;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed54a9ffcc3a1f001be0",
+      "_type": "SocialHistory",
+      "time": 1270008000,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -1046,8 +1090,8 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001b04",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001be1",
+      "_type": "VitalSign",
       "time": 1291698000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1062,8 +1106,8 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001b05",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001be2",
+      "_type": "VitalSign",
       "time": 1291698000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1078,8 +1122,8 @@
         "scalar": 118.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001b06",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001be3",
+      "_type": "VitalSign",
       "time": 1279512000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1094,8 +1138,8 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001b07",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001be4",
+      "_type": "VitalSign",
       "time": 1279512000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1110,8 +1154,8 @@
         "scalar": 126.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001b08",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001be5",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1126,8 +1170,8 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f28e27b48183001b09",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001be6",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1145,8 +1189,8 @@
         "scalar": 29.225245653817083,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b0a",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001be7",
+      "_type": "VitalSign",
       "time": 1291698000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1164,8 +1208,8 @@
         "scalar": 30.110859158478206,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b0b",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001be8",
+      "_type": "VitalSign",
       "time": 1279512000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1183,8 +1227,8 @@
         "scalar": 29.57949105568153,
         "units": null
       },
-      "_id": "4f7e05f28e27b48183001b0c",
-      "_type": "Entry",
+      "_id": "4fa2ed54a9ffcc3a1f001be9",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

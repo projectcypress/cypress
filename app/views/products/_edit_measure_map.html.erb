@@ -1,4 +1,14 @@
-<h1>Measure Mapping
+<% content_for :head do %>
+  <style>
+    /* vertical tabs */
+    .ui-tabs-vertical { width: 55em; }
+    .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+    .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+    .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+    .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+    .ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 47em;}
+  </style>
+<% end %><h1>Measure Mapping
   <span class="header_commands">
     [<a href="javascript:void(0)" onclick="toggleMeasures('true')">check all</a> |
     <a href="javascript:void(0)" onclick="toggleMeasures(0);">uncheck all</a>]
@@ -8,37 +18,47 @@
   As PQRI measure numbers may vary by author, below is a list of how Cypress labels Stage 1 CQM. If the numbers do not match your PQRI formatting, please
   replace the values with your labeling scheme and Cypress will remember it for later. Cypress will also only show you measures that you check below and
   won't bother you again with unchecked selections.
+  <div id="tabs">
+    <!-- set up a tab header for each measure group -->
+    <ul>
+      <% measure_categories(:all_by_measure).sort.each do |category, measures| %>
+        <li>
+          <a href="#<%= category.tr(" '", "_") %>"><%= category %></a><span style="padding-top:.5em;text-align:right;padding-right:5px;" id="<%= category.tr(" '", "_") %>_group_total"></span></li>
+      <% end %>
+    </ul>
 
-  <% measures_categories(category_type).sort.each do |category, measures| %>
-    <div>
-      <dl>
-        <dt><%= category %>
-          <span class="header_commands">
-            [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" '", "_") %>')">check all</a> |
-            <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category.tr(" '", "_") %>');">uncheck all</a>]
-          </span>
-        </dt>
-        <% measures.each do |measure| %>
-          <dd class='inactive'>
-            <% if !measure['subs'].empty? %><span class="measure_expander" data-measure="<%= measure['id'].to_i %>"></span><% end %>
-            <span class="left">
-              <%= check_box_tag 'product[measure_map][]', measure['id'], false, { "class" => "#{category.tr(" '", "_")}" } %>
-              <%= label_tag 'measure_name', measure['name'] %>
+    <% measure_categories(:all_by_measure).sort.each do |category, measures| %>
+      <div id="<%= category.tr(" '", "_")%>" class="measure_group">
+        <dl>
+          <dt>
+            <span class="header_commands">
+              [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" '", "_") %>')">check all</a> |
+              <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category.tr(" '", "_") %>');">uncheck all</a> |
+              <a href="javascript:void(0)" onclick="showMappings('<%= category.tr(" '", "_") %>');">change labels</a>
+              ]
             </span>
-            <span class="right">NQF <%= text_field measure['id'], measure['id'], :value => measure['id'], :size => '5', :class => 'req' %></span>
-          </dd>
-
-          <% measure['subs'].each do |sub_measure| %>
-            <dd class='inactive sub <%= measure['id'].to_i %>'>
+          </dt>
+          <% measures.each do |measure| %>
+            <dd class='inactive'>
               <span class="left">
-                <%= check_box_tag 'product[measure_map][]', sub_measure['id'], false, { "disabled" => true, "class" => "#{category.tr(" '", "_")}" } %>
-                <%= label_tag 'sub_measure_name', sub_measure['name'] %>
+                <%= check_box_tag 'product[measure_map][]', measure['id'], false, { "class" => "#{category.tr(" '", "_")}" } %>
+                <span class="mapping <%= "#{category.tr(" '", "_")}" %>"><%= text_field measure['id'], measure['id'], :value => measure['id'], :size => '5', :class => 'req' %></span>
+                <%= label_tag 'measure_name', measure['name'] %>
               </span>
-              <span class="right">NQF <%= text_field sub_measure['id'], sub_measure['id'], :value => sub_measure['id'], :size => '5', :class => 'req' %></span>
             </dd>
+
+            <% measure['subs'].each do |sub_measure| %>
+              <dd class='inactive <%= measure['id'].to_i %>'>
+                <span class="left">
+                  <%= check_box_tag 'product[measure_map][]', sub_measure['id'], false, { "disabled" => false, "class" => "#{category.tr(" '", "_")}" } %>
+                  <span class="mapping <%= "#{category.tr(" '", "_")}" %>"><%= text_field sub_measure['id'], sub_measure['id'], :value => sub_measure['id'], :size => '5', :class => 'req' %></span>
+                  <%= label_tag 'sub_measure_name', measure['name'] + " - " + sub_measure['name'] %>
+                </span>
+              </dd>
+            <% end %>
           <% end %>
-        <% end %>
-      </dl>
-    </div>
-  <% end %>
+        </dl>
+      </div>
+    <% end %>
+  </div>
 </section>

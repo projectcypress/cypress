@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05f08e27b481830019eb",
+  "_id": "4fa2ed53a9ffcc3a1f001abf",
   "patient_id": "84",
   "first": "Louise",
   "last": "Jefferson",
   "gender": "F",
   "birthdate": -373402800,
-  "race": "Native Hawaiian or Other Pacific Islander",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Native Hawaiian or Other Pacific Islander",
+    "code": "2076-8"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -56,6 +62,16 @@
         1270267200
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1278388800,
+        1273982400,
+        1270267200
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291438800,
@@ -73,8 +89,6 @@
         1278388800,
         1270267200
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -132,19 +146,14 @@
         1270267200
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1278388800,
-        1273982400,
-        1270267200
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1291438800,
         1278388800,
         1273982400,
+        1270267200
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1270267200
       ]
     },
@@ -173,33 +182,6 @@
         1285646400
       ]
     },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1278388800,
-        1273982400,
-        1270267200
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1278388800,
-        1273982400,
-        1270267200
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1270267200
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1291438800,
-        1278388800,
-        1273982400,
-        1270267200
-      ]
-    },
     "0034": {
       "encounter_outpatient_encounter": [
         1291438800,
@@ -209,6 +191,28 @@
       ],
       "fobt_laboratory_test_performed": [
         1285646400
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1291438800,
+        1278388800,
+        1273982400,
+        1270267200
+      ],
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1278388800,
+        1273982400,
+        1270267200
+      ]
+    },
+    "0033": {
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1278388800,
+        1273982400,
+        1270267200
       ]
     },
     "0036": {
@@ -258,13 +262,7 @@
         1270267200
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1291438800,
-        1278388800,
-        1273982400,
-        1270267200
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1291438800,
         1278388800,
@@ -491,6 +489,17 @@
         1270267200
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1270267200
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1291438800,
+        1278388800,
+        1273982400,
+        1270267200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291438800,
@@ -507,16 +516,16 @@
         1270267200
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1291438800,
         1278388800,
         1273982400,
         1270267200
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1291438800,
         1278388800,
         1273982400,
@@ -577,7 +586,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a03",
+      "_id": "4fa2ed53a9ffcc3a1f001ad8",
       "_type": "Entry",
       "time": 1278388800,
       "description": "follow-up plan_BMI management",
@@ -599,8 +608,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019f8",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001acd",
+      "_type": "Condition",
       "time": 1270267200,
       "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
@@ -620,8 +629,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019f9",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001ace",
+      "_type": "Condition",
       "time": 1270267200,
       "description": "Primary Open Angle Glaucoma (POAG)",
       "specifics": "C0017612:Glaucoma, Open-Angle;",
@@ -635,8 +644,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019fa",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001acf",
+      "_type": "Condition",
       "time": 1270267200,
       "description": "Asthma Daytime Symptoms Quantified",
       "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
@@ -649,8 +658,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019fb",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001ad0",
+      "_type": "Condition",
       "time": 1270267200,
       "description": "Asthma Nighttime Symptoms Quantified",
       "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
@@ -668,7 +677,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019ec",
+      "_id": "4fa2ed53a9ffcc3a1f001ac0",
       "_type": "Encounter",
       "time": 1291438800,
       "description": "Encounter Outpatient",
@@ -682,7 +691,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019ed",
+      "_id": "4fa2ed53a9ffcc3a1f001ac1",
       "_type": "Encounter",
       "time": 1285646400,
       "description": "encounter ob/gyn",
@@ -699,7 +708,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019ee",
+      "_id": "4fa2ed53a9ffcc3a1f001ac2",
       "_type": "Encounter",
       "time": 1278388800,
       "description": "Encounter Outpatient",
@@ -716,7 +725,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019ef",
+      "_id": "4fa2ed53a9ffcc3a1f001ac3",
       "_type": "Encounter",
       "time": 1273982400,
       "description": "Encounter Outpatient",
@@ -733,7 +742,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019f0",
+      "_id": "4fa2ed53a9ffcc3a1f001ac4",
       "_type": "Encounter",
       "time": 1270267200,
       "description": "Encounter Outpatient",
@@ -749,7 +758,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a01",
+      "_id": "4fa2ed53a9ffcc3a1f001ad6",
       "_type": "Medication",
       "time": 1270267200,
       "description": "Inhaled steroid combinations",
@@ -763,7 +772,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a02",
+      "_id": "4fa2ed53a9ffcc3a1f001ad7",
       "_type": "Medication",
       "time": 1270267200,
       "description": "Second generation cephalosporins",
@@ -785,7 +794,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019fe",
+      "_id": "4fa2ed53a9ffcc3a1f001ad3",
       "_type": "Procedure",
       "time": 1278388800,
       "description": "counseling for physical activity",
@@ -808,7 +817,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b481830019ff",
+      "_id": "4fa2ed53a9ffcc3a1f001ad4",
       "_type": "Procedure",
       "time": 1278388800,
       "description": "counseling for nutrition",
@@ -834,7 +843,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a00",
+      "_id": "4fa2ed53a9ffcc3a1f001ad5",
       "_type": "Procedure",
       "time": 1286251200,
       "description": "breast cancer screening",
@@ -867,7 +876,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f7e05f08e27b481830019fc",
+      "_id": "4fa2ed53a9ffcc3a1f001ad1",
       "_type": "LabResult",
       "time": 1285646400,
       "description": "Pap Test",
@@ -895,11 +904,29 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f7e05f08e27b481830019fd",
+      "_id": "4fa2ed53a9ffcc3a1f001ad2",
       "_type": "LabResult",
       "time": 1285646400,
       "description": "FOBT",
       "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed53a9ffcc3a1f001ac5",
+      "_type": "SocialHistory",
+      "time": 1270267200,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -913,8 +940,8 @@
         "scalar": 116.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b481830019f1",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001ac6",
+      "_type": "VitalSign",
       "time": 1291438800,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -929,8 +956,8 @@
         "scalar": 74.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b481830019f2",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001ac7",
+      "_type": "VitalSign",
       "time": 1291438800,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -945,8 +972,8 @@
         "scalar": 114.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b481830019f3",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001ac8",
+      "_type": "VitalSign",
       "time": 1278388800,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -961,8 +988,8 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b481830019f4",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001ac9",
+      "_type": "VitalSign",
       "time": 1278388800,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -977,8 +1004,8 @@
         "scalar": 116.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b481830019f5",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001aca",
+      "_type": "VitalSign",
       "time": 1270267200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -993,8 +1020,8 @@
         "scalar": 74.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b481830019f6",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001acb",
+      "_type": "VitalSign",
       "time": 1270267200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1012,8 +1039,8 @@
         "scalar": 30.99647266313933,
         "units": null
       },
-      "_id": "4f7e05f08e27b481830019f7",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001acc",
+      "_type": "VitalSign",
       "time": 1278388800,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

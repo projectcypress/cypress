@@ -5,13 +5,13 @@ module Api
     respond_to :json
    
     def index
-       @vendors = current_user.vendors
+       @vendors = Vendor.all
        render :json=> @vendors
     end
     
     def create
       json = JSON.parse(request.body.read)
-      @vendor = current_user.vendors.build json
+      @vendor = Vendor.new json
       @vendor.save
       redirect_to api_vendor_url(@vendor)
       
@@ -24,7 +24,7 @@ module Api
     
     def update
       json = JSON.parse(request.body.read)
-      @vendor .update_attributes json
+      @vendor.update_attributes json
       @vendor.save
       redirect_to api_vendor_url(@vendor)
       
@@ -40,7 +40,7 @@ module Api
     private 
     
     def find_vendor
-      @vendor = current_user.vendors.find(params[:id])
+      @vendor = Vendor.find(params[:id])
     end
  
   end

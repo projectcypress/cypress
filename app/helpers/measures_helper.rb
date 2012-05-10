@@ -13,11 +13,10 @@ module MeasuresHelper
     case type
       when :top_level
         measures = Measure.top_level
-        measures.group_by { |t| t.category }
+        measures.group_by { |t| t['category'] }
       when :all_by_measure
         measures = Measure.all_by_measure
-        measures.group_by { |t| t.category }
+        measures.group_by { |t| t['category'] }
     end
   end
-  
 end

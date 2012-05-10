@@ -70,10 +70,12 @@
              type: "GET",
              dataType: 'html',
              success: function(res){
-               $('#product_test_patients').html(res);
+              $('#product_test_patients').html(res);
+              $('#loading_dialog').dialog('close');
              },
              error: function(xhr, err) {
-               alert("Patient table update failed");
+              $('#loading_dialog').dialog('close');
+              alert("Patient table update failed");
              }
            });
   }

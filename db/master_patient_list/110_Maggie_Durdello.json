@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05d98e27b48183000b2d",
+  "_id": "4fa2ed3ea9ffcc3a1f000b7f",
   "patient_id": "110",
   "first": "Maggie",
   "last": "Durdello",
   "gender": "F",
   "birthdate": -630097200,
-  "race": "Asian",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Asian",
+    "code": "2028-9"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -54,6 +60,22 @@
         1259730000
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1290402000,
+        1283745600,
+        1274500800,
+        1270008000
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1259989200
+      ],
+      "tobacco_user_patient_characteristic": [
+        1259730000
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1290402000,
@@ -71,8 +93,6 @@
         1283745600,
         1274500800
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -130,23 +150,15 @@
         1270008000
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1290402000,
-        1283745600,
-        1274500800,
-        1270008000
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1259989200
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1290402000,
         1283745600,
         1274500800,
         1270008000
+      ],
+      "tobacco_user_patient_characteristic": [
+        1259730000
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
         1259989200
@@ -174,33 +186,6 @@
         1274500800
       ]
     },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1290402000,
-        1283745600,
-        1274500800,
-        1270008000
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1290402000,
-        1283745600,
-        1274500800,
-        1270008000
-      ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
-        1290402000
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1290402000,
-        1283745600,
-        1274500800,
-        1270008000
-      ]
-    },
     "0034": {
       "encounter_outpatient_encounter": [
         1290402000,
@@ -212,10 +197,37 @@
         1274500800
       ]
     },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1290402000,
+        1283745600,
+        1274500800,
+        1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1290402000,
+        1283745600,
+        1274500800,
+        1270008000
+      ],
+      "influenza_vaccine_medication_administered": [
+        1290402000
+      ]
+    },
+    "0033": {
+      "encounter_outpatient_encounter": [
+        1290402000,
+        1283745600,
+        1274500800,
+        1270008000
+      ]
+    },
     "0036": {
       "encounter_outpatient_encounter": [
         1290402000,
-        1274500800
+        1283745600,
+        1274500800,
+        1270008000
       ],
       "encounter_acute_inpt_encounter": [
         1278734400,
@@ -238,20 +250,14 @@
         1290402000
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1290402000,
-        1283745600,
-        1274500800,
-        1270008000
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1290402000,
         1283745600,
         1274500800,
         1270008000
       ],
-      "influenza_vaccine_medication_administered": [
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1290402000
       ]
     },
@@ -558,6 +564,14 @@
         1270008000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1290402000,
+        1283745600,
+        1274500800,
+        1270008000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1290402000,
@@ -574,6 +588,14 @@
         1270008000
       ]
     },
+    "0385": {
+      "encounter_office_visit_encounter": [
+        1290402000,
+        1283745600,
+        1274500800,
+        1270008000
+      ]
+    },
     "0105": {
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1290402000,
@@ -584,14 +606,6 @@
         1270008000,
         1259989200,
         1259730000
-      ]
-    },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1290402000,
-        1283745600,
-        1274500800,
-        1270008000
       ]
     },
     "0387": {
@@ -677,7 +691,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b4f",
+      "_id": "4fa2ed3ea9ffcc3a1f000ba2",
       "_type": "Entry",
       "time": 1290402000,
       "description": "follow-up plan_BMI management",
@@ -699,8 +713,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b40",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b93",
+      "_type": "Condition",
       "time": 1278734400,
       "description": "Breast Cancer",
       "specifics": "C0235653:Malignant neoplasm of female breast;",
@@ -720,8 +734,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b41",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b94",
+      "_type": "Condition",
       "time": 1259730000,
       "description": "ischemic vascular disease",
       "specifics": "C0022116:Ischemia;",
@@ -740,7 +754,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b2e",
+      "_id": "4fa2ed3ea9ffcc3a1f000b80",
       "_type": "Encounter",
       "time": 1290402000,
       "description": "Encounter Outpatient",
@@ -754,7 +768,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b2f",
+      "_id": "4fa2ed3ea9ffcc3a1f000b81",
       "_type": "Encounter",
       "time": 1283745600,
       "description": "Encounter Office Visit",
@@ -768,7 +782,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b30",
+      "_id": "4fa2ed3ea9ffcc3a1f000b82",
       "_type": "Encounter",
       "time": 1278734400,
       "description": "Encounter Inpatient Discharge",
@@ -782,7 +796,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b31",
+      "_id": "4fa2ed3ea9ffcc3a1f000b83",
       "_type": "Encounter",
       "time": 1278561600,
       "description": "encounter acute inpt",
@@ -799,7 +813,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b32",
+      "_id": "4fa2ed3ea9ffcc3a1f000b84",
       "_type": "Encounter",
       "time": 1274500800,
       "description": "Encounter Outpatient",
@@ -813,7 +827,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b33",
+      "_id": "4fa2ed3ea9ffcc3a1f000b85",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Office Visit",
@@ -827,7 +841,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b34",
+      "_id": "4fa2ed3ea9ffcc3a1f000b86",
       "_type": "Encounter",
       "time": 1259989200,
       "description": "Encounter Inpatient Discharge",
@@ -841,7 +855,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b35",
+      "_id": "4fa2ed3ea9ffcc3a1f000b87",
       "_type": "Encounter",
       "time": 1259730000,
       "description": "encounter acute inpt",
@@ -857,7 +871,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b4d",
+      "_id": "4fa2ed3ea9ffcc3a1f000ba0",
       "_type": "Immunization",
       "time": 1290402000,
       "description": "Influenza Vaccine",
@@ -871,7 +885,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b4e",
+      "_id": "4fa2ed3ea9ffcc3a1f000ba1",
       "_type": "Immunization",
       "time": 1290402000,
       "description": "Pneumococcal Vaccine",
@@ -887,7 +901,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b4c",
+      "_id": "4fa2ed3ea9ffcc3a1f000b9f",
       "_type": "Medication",
       "time": 1279166400,
       "description": "Tamoxifen or Aromatase Inhibitor Therapy",
@@ -912,7 +926,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b46",
+      "_id": "4fa2ed3ea9ffcc3a1f000b99",
       "_type": "Procedure",
       "time": 1290402000,
       "description": "counseling for nutrition",
@@ -932,7 +946,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b47",
+      "_id": "4fa2ed3ea9ffcc3a1f000b9a",
       "_type": "Procedure",
       "time": 1290402000,
       "description": "counseling for physical activity",
@@ -949,7 +963,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b48",
+      "_id": "4fa2ed3ea9ffcc3a1f000b9b",
       "_type": "Procedure",
       "time": 1259989200,
       "description": "tobacco use cessation counseling",
@@ -963,7 +977,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b49",
+      "_id": "4fa2ed3ea9ffcc3a1f000b9c",
       "_type": "Procedure",
       "time": 1278734400,
       "description": "Breast Cancer Stage IC-IIIC",
@@ -977,7 +991,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b4a",
+      "_id": "4fa2ed3ea9ffcc3a1f000b9d",
       "_type": "Procedure",
       "time": 1278734400,
       "description": "Breast Cancer ER or PR Positive",
@@ -1003,7 +1017,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b4b",
+      "_id": "4fa2ed3ea9ffcc3a1f000b9e",
       "_type": "Procedure",
       "time": 1276142400,
       "description": "breast cancer screening",
@@ -1033,7 +1047,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f7e05d98e27b48183000b42",
+      "_id": "4fa2ed3ea9ffcc3a1f000b95",
       "_type": "LabResult",
       "time": 1274500800,
       "description": "FOBT",
@@ -1064,7 +1078,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f7e05d98e27b48183000b43",
+      "_id": "4fa2ed3ea9ffcc3a1f000b96",
       "_type": "LabResult",
       "time": 1274500800,
       "description": "Pap Test",
@@ -1078,7 +1092,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b44",
+      "_id": "4fa2ed3ea9ffcc3a1f000b97",
       "_type": "LabResult",
       "time": 1278734400,
       "description": "Breast Cancer Stage IC-IIIC",
@@ -1092,11 +1106,29 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b45",
+      "_id": "4fa2ed3ea9ffcc3a1f000b98",
       "_type": "LabResult",
       "time": 1278734400,
       "description": "Breast Cancer ER or PR Positive",
       "specifics": "C1563119:Hormone receptor positive tumor;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "230062009"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed3ea9ffcc3a1f000b88",
+      "_type": "SocialHistory",
+      "time": 1259730000,
+      "description": "Tobacco User",
+      "specifics": "C0459846:Moderate cigarette smoker;"
     }
   ],
   "vital_signs": [
@@ -1110,8 +1142,8 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000b36",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b89",
+      "_type": "VitalSign",
       "time": 1290402000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1126,8 +1158,8 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000b37",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b8a",
+      "_type": "VitalSign",
       "time": 1290402000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1142,8 +1174,8 @@
         "scalar": 126.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000b38",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b8b",
+      "_type": "VitalSign",
       "time": 1283745600,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1158,8 +1190,8 @@
         "scalar": 76.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000b39",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b8c",
+      "_type": "VitalSign",
       "time": 1283745600,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1174,8 +1206,8 @@
         "scalar": 128.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000b3a",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b8d",
+      "_type": "VitalSign",
       "time": 1274500800,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1190,8 +1222,8 @@
         "scalar": 76.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05d98e27b48183000b3b",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b8e",
+      "_type": "VitalSign",
       "time": 1274500800,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1209,8 +1241,8 @@
         "scalar": 24.853535353535353,
         "units": null
       },
-      "_id": "4f7e05d98e27b48183000b3c",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b8f",
+      "_type": "VitalSign",
       "time": 1290402000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1228,8 +1260,8 @@
         "scalar": 25.821854912764003,
         "units": null
       },
-      "_id": "4f7e05d98e27b48183000b3d",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b90",
+      "_type": "VitalSign",
       "time": 1283745600,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1242,8 +1274,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b3e",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b91",
+      "_type": "VitalSign",
       "time": 1278734400,
       "description": "Breast Cancer Stage IC-IIIC",
       "specifics": "C0475389:Tumor stage T2c;"
@@ -1256,8 +1288,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05d98e27b48183000b3f",
-      "_type": "Entry",
+      "_id": "4fa2ed3ea9ffcc3a1f000b92",
+      "_type": "VitalSign",
       "time": 1278734400,
       "description": "Breast Cancer ER or PR Positive",
       "specifics": "C1563119:Hormone receptor positive tumor;"

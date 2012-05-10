@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05ca8e27b4818300021e",
+  "_id": "4fa2ed30a9ffcc3a1f00022e",
   "patient_id": "61",
   "first": "Samantha",
   "last": "Charles",
   "gender": "F",
   "birthdate": 266472000,
-  "race": "White",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -61,6 +67,33 @@
         1291870800
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1273464000,
+        1270094400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1291957200
+      ],
+      "delivery_live_births_procedure_procedure_performed": [
+        1291957200
+      ],
+      "hiv_screening_laboratory_test_performed": [
+        1279166400
+      ],
+      "prenatal_visit_encounter": [
+        1291611600,
+        1290920400,
+        1290229200,
+        1286683200,
+        1278734400
+      ],
+      "estimated_date_of_conception_patient_characteristic": [
+        1268370000
+      ]
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291611600,
@@ -83,24 +116,6 @@
         1273464000
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1291957200
-      ],
-      "delivery_live_births_procedure_procedure_performed": [
-        1291957200
-      ],
-      "hiv_screening_laboratory_test_performed": [
-        1279166400
-      ],
-      "prenatal_visit_encounter": [
-        1291611600,
-        1290920400,
-        1290229200,
-        1286683200,
-        1278734400
-      ]
-    },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
         1291957200
@@ -114,6 +129,9 @@
         1290229200,
         1286683200,
         1278734400
+      ],
+      "estimated_date_of_conception_patient_characteristic": [
+        1268370000
       ],
       "rh_status_baby_laboratory_test_result": [
         {
@@ -203,15 +221,12 @@
         1273464000
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1273464000,
-        1270094400
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1273464000,
+        1270094400
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1270094400
       ]
     },
@@ -222,6 +237,22 @@
       ]
     },
     "0032": {
+      "encounter_outpatient_encounter": [
+        1273464000,
+        1270094400
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1273464000,
+        1270094400
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1273464000,
+        1270094400
+      ],
       "encounter_outpatient_encounter": [
         1273464000,
         1270094400
@@ -240,24 +271,6 @@
       ],
       "procedures_indicative_of_sexually_active_woman_procedure_performed": [
         1291957200
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1273464000,
-        1270094400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1273464000,
-        1270094400
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1273464000,
-        1270094400
       ]
     },
     "0036": {
@@ -288,11 +301,7 @@
         1270094400
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1273464000,
-        1270094400
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1273464000,
         1270094400
@@ -579,6 +588,12 @@
         1270094400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1273464000,
+        1270094400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1273464000,
@@ -591,16 +606,16 @@
         1270094400
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
-        1292130000,
-        1291870800,
+    "0385": {
+      "encounter_office_visit_encounter": [
         1273464000,
         1270094400
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+        1292130000,
+        1291870800,
         1273464000,
         1270094400
       ]
@@ -654,8 +669,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000235",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000246",
+      "_type": "Condition",
       "time": 1291957200,
       "description": "Delivery Live Births-Diagnosis",
       "specifics": "C0032989:Multiple Pregnancy;",
@@ -675,8 +690,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000236",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000247",
+      "_type": "Condition",
       "time": 1288670400,
       "description": "asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
@@ -696,12 +711,26 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000237",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000248",
+      "_type": "Condition",
       "time": 1273464000,
       "description": "Pregnancy",
       "specifics": "C2903762:Pregnancy related conditions, unspecified, unspecified trimester;",
       "status": "active"
+    },
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "248986005"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4fa2ed30a9ffcc3a1f000249",
+      "_type": "Condition",
+      "time": 1268370000,
+      "description": "Estimated date of conception",
+      "specifics": "C0425966:Estimated date of conception;"
     },
     {
       "codes": {
@@ -711,8 +740,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000238",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f00024a",
+      "_type": "Condition",
       "time": 1270094400,
       "description": "Asthma Daytime Symptoms Quantified",
       "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
@@ -725,8 +754,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000239",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f00024b",
+      "_type": "Condition",
       "time": 1270094400,
       "description": "Asthma Nighttime Symptoms Quantified",
       "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
@@ -741,7 +770,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b4818300021f",
+      "_id": "4fa2ed30a9ffcc3a1f00022f",
       "_type": "Encounter",
       "time": 1292130000,
       "description": "Encounter Inpatient Discharge",
@@ -755,7 +784,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000220",
+      "_id": "4fa2ed30a9ffcc3a1f000230",
       "_type": "Encounter",
       "time": 1291870800,
       "description": "encounter acute inpt",
@@ -775,7 +804,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000221",
+      "_id": "4fa2ed30a9ffcc3a1f000231",
       "_type": "Encounter",
       "time": 1291611600,
       "description": "Prenatal Visit",
@@ -795,7 +824,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000222",
+      "_id": "4fa2ed30a9ffcc3a1f000232",
       "_type": "Encounter",
       "time": 1290920400,
       "description": "Prenatal Visit",
@@ -815,7 +844,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000223",
+      "_id": "4fa2ed30a9ffcc3a1f000233",
       "_type": "Encounter",
       "time": 1290229200,
       "description": "Prenatal Visit",
@@ -835,7 +864,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000224",
+      "_id": "4fa2ed30a9ffcc3a1f000234",
       "_type": "Encounter",
       "time": 1286683200,
       "description": "Prenatal Visit",
@@ -855,7 +884,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000225",
+      "_id": "4fa2ed30a9ffcc3a1f000235",
       "_type": "Encounter",
       "time": 1278734400,
       "description": "Prenatal Visit",
@@ -872,7 +901,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000226",
+      "_id": "4fa2ed30a9ffcc3a1f000236",
       "_type": "Encounter",
       "time": 1273464000,
       "description": "Encounter Outpatient",
@@ -889,7 +918,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000227",
+      "_id": "4fa2ed30a9ffcc3a1f000237",
       "_type": "Encounter",
       "time": 1270094400,
       "description": "Encounter Outpatient",
@@ -905,7 +934,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b4818300023f",
+      "_id": "4fa2ed30a9ffcc3a1f000251",
       "_type": "Medication",
       "time": 1270094400,
       "description": "Long acting inhaled beta 2 agonist",
@@ -919,7 +948,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b48183000240",
+      "_id": "4fa2ed30a9ffcc3a1f000252",
       "_type": "Medication",
       "time": 1270094400,
       "description": "Second generation cephalosporins",
@@ -935,7 +964,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b4818300023d",
+      "_id": "4fa2ed30a9ffcc3a1f00024f",
       "_type": "Procedure",
       "time": 1270094400,
       "description": "Asthma Symptom Assessment Tool",
@@ -952,7 +981,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ca8e27b4818300023e",
+      "_id": "4fa2ed30a9ffcc3a1f000250",
       "_type": "Procedure",
       "time": 1291957200,
       "description": "Delivery Live Births-Procedure",
@@ -976,7 +1005,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f7e05ca8e27b4818300023a",
+      "_id": "4fa2ed30a9ffcc3a1f00024c",
       "_type": "LabResult",
       "time": 1279166400,
       "description": "HIV Screening",
@@ -995,7 +1024,7 @@
         "scalar": "Positive",
         "units": null
       },
-      "_id": "4f7e05ca8e27b4818300023b",
+      "_id": "4fa2ed30a9ffcc3a1f00024d",
       "_type": "LabResult",
       "time": 1273464000,
       "description": "Pregnancy Test",
@@ -1011,11 +1040,29 @@
         "scalar": "Positive",
         "units": null
       },
-      "_id": "4f7e05ca8e27b4818300023c",
+      "_id": "4fa2ed30a9ffcc3a1f00024e",
       "_type": "LabResult",
       "time": 1286683200,
       "description": "Rh Status Mother",
       "specifics": "C0482428:Rh immune globulin screen:Impression/interpretation of study:Point in time:Whole blood:Nominal;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed30a9ffcc3a1f000238",
+      "_type": "SocialHistory",
+      "time": 1270094400,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -1029,8 +1076,8 @@
         "scalar": 116.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b48183000228",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000239",
+      "_type": "VitalSign",
       "time": 1291611600,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1045,8 +1092,8 @@
         "scalar": 68.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b48183000229",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f00023a",
+      "_type": "VitalSign",
       "time": 1291611600,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1061,8 +1108,8 @@
         "scalar": 120.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b4818300022a",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f00023b",
+      "_type": "VitalSign",
       "time": 1290920400,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1077,8 +1124,8 @@
         "scalar": 70.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b4818300022b",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f00023c",
+      "_type": "VitalSign",
       "time": 1290920400,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1093,8 +1140,8 @@
         "scalar": 118.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b4818300022c",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f00023d",
+      "_type": "VitalSign",
       "time": 1290229200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1109,8 +1156,8 @@
         "scalar": 68.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b4818300022d",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f00023e",
+      "_type": "VitalSign",
       "time": 1290229200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1125,8 +1172,8 @@
         "scalar": 116.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b4818300022e",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f00023f",
+      "_type": "VitalSign",
       "time": 1286683200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1141,8 +1188,8 @@
         "scalar": 66.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b4818300022f",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000240",
+      "_type": "VitalSign",
       "time": 1286683200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1157,8 +1204,8 @@
         "scalar": 112.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b48183000230",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000241",
+      "_type": "VitalSign",
       "time": 1278734400,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1173,8 +1220,8 @@
         "scalar": 60.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b48183000231",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000242",
+      "_type": "VitalSign",
       "time": 1278734400,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1189,8 +1236,8 @@
         "scalar": 114.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b48183000232",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000243",
+      "_type": "VitalSign",
       "time": 1273464000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1205,8 +1252,8 @@
         "scalar": 62.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ca8e27b48183000233",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000244",
+      "_type": "VitalSign",
       "time": 1273464000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1224,8 +1271,8 @@
         "scalar": 23.627455621301774,
         "units": null
       },
-      "_id": "4f7e05ca8e27b48183000234",
-      "_type": "Entry",
+      "_id": "4fa2ed30a9ffcc3a1f000245",
+      "_type": "VitalSign",
       "time": 1270094400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

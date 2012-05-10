@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05eb8e27b4818300173d",
+  "_id": "4fa2ed4fa9ffcc3a1f0017f6",
   "patient_id": "125",
   "first": "Jake",
   "last": "Johnson",
   "gender": "M",
   "birthdate": -41457600,
-  "race": "Black or African American",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Black or African American",
+    "code": "2054-5"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -38,6 +44,19 @@
         1270094400
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1287115200,
+        1281844800,
+        1273896000,
+        1270094400
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1270094400
+      ]
+    },
     "0013": {
       "hypertension_diagnosis_active": [
         1270094400
@@ -54,11 +73,6 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1287115200,
-        1270094400
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
         1270094400
       ]
     },
@@ -116,19 +130,14 @@
         1270094400
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1287115200,
-        1281844800,
-        1273896000,
-        1270094400
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1287115200,
         1281844800,
         1273896000,
+        1270094400
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1270094400
       ]
     },
@@ -141,6 +150,28 @@
       ]
     },
     "0032": {
+      "encounter_outpatient_encounter": [
+        1287115200,
+        1281844800,
+        1273896000,
+        1270094400
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1287115200,
+        1281844800,
+        1273896000,
+        1270094400
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1287115200,
+        1281844800,
+        1273896000,
+        1270094400
+      ],
       "encounter_outpatient_encounter": [
         1287115200,
         1281844800,
@@ -162,33 +193,11 @@
         1270526400
       ]
     },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1287115200,
-        1281844800,
-        1273896000,
-        1270094400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1287115200,
-        1281844800,
-        1273896000,
-        1270094400
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1287115200,
-        1281844800,
-        1273896000,
-        1270094400
-      ]
-    },
     "0036": {
       "encounter_outpatient_encounter": [
         1287115200,
+        1281844800,
+        1273896000,
         1270094400
       ]
     },
@@ -203,13 +212,7 @@
         1270094400
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1287115200,
-        1281844800,
-        1273896000,
-        1270094400
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1287115200,
         1281844800,
@@ -447,6 +450,14 @@
         1270094400
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1287115200,
+        1281844800,
+        1273896000,
+        1270094400
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1287115200,
@@ -463,16 +474,16 @@
         1270094400
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1287115200,
         1281844800,
         1273896000,
         1270094400
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1287115200,
         1281844800,
         1273896000,
@@ -525,7 +536,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b4818300173e",
+      "_id": "4fa2ed4fa9ffcc3a1f0017f7",
       "_type": "Allergy",
       "time": 1270094400,
       "description": "Streptomycin",
@@ -548,8 +559,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b48183001749",
-      "_type": "Entry",
+      "_id": "4fa2ed4fa9ffcc3a1f001803",
+      "_type": "Condition",
       "time": 1270094400,
       "description": "Heart Failure",
       "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
@@ -569,8 +580,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b4818300174a",
-      "_type": "Entry",
+      "_id": "4fa2ed4fa9ffcc3a1f001804",
+      "_type": "Condition",
       "time": 1270094400,
       "description": "Renal Failure and ESRD",
       "specifics": "C0035078:Kidney Failure;",
@@ -590,8 +601,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b4818300174b",
-      "_type": "Entry",
+      "_id": "4fa2ed4fa9ffcc3a1f001805",
+      "_type": "Condition",
       "time": 1270094400,
       "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
@@ -610,7 +621,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b4818300173f",
+      "_id": "4fa2ed4fa9ffcc3a1f0017f8",
       "_type": "Encounter",
       "time": 1287115200,
       "description": "Encounter Outpatient",
@@ -624,7 +635,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b48183001740",
+      "_id": "4fa2ed4fa9ffcc3a1f0017f9",
       "_type": "Encounter",
       "time": 1281844800,
       "description": "Encounter Office Visit",
@@ -638,7 +649,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b48183001741",
+      "_id": "4fa2ed4fa9ffcc3a1f0017fa",
       "_type": "Encounter",
       "time": 1273896000,
       "description": "Encounter Office Visit",
@@ -655,7 +666,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b48183001742",
+      "_id": "4fa2ed4fa9ffcc3a1f0017fb",
       "_type": "Encounter",
       "time": 1270094400,
       "description": "Encounter Outpatient",
@@ -671,7 +682,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b48183001750",
+      "_id": "4fa2ed4fa9ffcc3a1f00180a",
       "_type": "Medication",
       "time": 1270094400,
       "description": "Beta Blocker Therapy",
@@ -685,7 +696,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b48183001751",
+      "_id": "4fa2ed4fa9ffcc3a1f00180b",
       "_type": "Medication",
       "time": 1270094400,
       "description": "Antiplatelet Therapy",
@@ -710,7 +721,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b4818300174c",
+      "_id": "4fa2ed4fa9ffcc3a1f001806",
       "_type": "Procedure",
       "time": 1270094400,
       "description": "counseling for nutrition",
@@ -730,7 +741,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b4818300174d",
+      "_id": "4fa2ed4fa9ffcc3a1f001807",
       "_type": "Procedure",
       "time": 1270094400,
       "description": "counseling for physical activity",
@@ -744,7 +755,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b4818300174e",
+      "_id": "4fa2ed4fa9ffcc3a1f001808",
       "_type": "Procedure",
       "time": 1270872000,
       "description": "Ejection Fraction",
@@ -761,11 +772,29 @@
       },
       "value": {
       },
-      "_id": "4f7e05eb8e27b4818300174f",
+      "_id": "4fa2ed4fa9ffcc3a1f001809",
       "_type": "Procedure",
       "time": 1270526400,
       "description": "X-ray Study",
       "specifics": "C0848630:Radiographic imaging of bone (procedure);"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed4fa9ffcc3a1f0017fc",
+      "_type": "SocialHistory",
+      "time": 1270094400,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -779,8 +808,8 @@
         "scalar": 154.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05eb8e27b48183001743",
-      "_type": "Entry",
+      "_id": "4fa2ed4fa9ffcc3a1f0017fd",
+      "_type": "VitalSign",
       "time": 1287115200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -795,8 +824,8 @@
         "scalar": 88.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05eb8e27b48183001744",
-      "_type": "Entry",
+      "_id": "4fa2ed4fa9ffcc3a1f0017fe",
+      "_type": "VitalSign",
       "time": 1287115200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -811,8 +840,8 @@
         "scalar": 160.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05eb8e27b48183001745",
-      "_type": "Entry",
+      "_id": "4fa2ed4fa9ffcc3a1f0017ff",
+      "_type": "VitalSign",
       "time": 1270094400,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -827,8 +856,8 @@
         "scalar": 92.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05eb8e27b48183001746",
-      "_type": "Entry",
+      "_id": "4fa2ed4fa9ffcc3a1f001800",
+      "_type": "VitalSign",
       "time": 1270094400,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -846,8 +875,8 @@
         "scalar": 26.850694444444446,
         "units": null
       },
-      "_id": "4f7e05eb8e27b48183001747",
-      "_type": "Entry",
+      "_id": "4fa2ed4fa9ffcc3a1f001801",
+      "_type": "VitalSign",
       "time": 1287115200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -865,8 +894,8 @@
         "scalar": 27.66435185185185,
         "units": null
       },
-      "_id": "4f7e05eb8e27b48183001748",
-      "_type": "Entry",
+      "_id": "4fa2ed4fa9ffcc3a1f001802",
+      "_type": "VitalSign",
       "time": 1270094400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05f08e27b48183001a1b",
+  "_id": "4fa2ed53a9ffcc3a1f001af1",
   "patient_id": "83",
   "first": "Dmetry",
   "last": "Kournikova",
   "gender": "M",
   "birthdate": 123829200,
-  "race": "Other Race",
-  "ethnicity": "Hispanic or Latino",
+  "race": {
+    "name": "Other Race",
+    "code": "2131-1"
+  },
+  "ethnicity": {
+    "name": "Hispanic or Latino",
+    "code": "2135-2"
+  },
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -51,6 +57,24 @@
         1270008000
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1283918400,
+        1280203200,
+        1278129600,
+        1270008000
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1270008000,
+        1280203200
+      ],
+      "tobacco_user_patient_characteristic": [
+        1270008000
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1291438800,
@@ -69,8 +93,6 @@
         1280203200,
         1270008000
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -123,23 +145,13 @@
         1270008000
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1283918400,
-        1280203200,
-        1278129600,
-        1270008000
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1270008000,
-        1280203200
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1283918400,
         1280203200,
+        1270008000
+      ],
+      "tobacco_user_patient_characteristic": [
         1270008000
       ],
       "tobacco_use_cessation_counseling_procedure_performed": [
@@ -171,41 +183,32 @@
         1270008000
       ]
     },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1283918400,
-        1280203200,
-        1278129600,
-        1270008000
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1291438800,
-        1283918400,
-        1280203200,
-        1278129600,
-        1270008000
-      ]
-    },
-    "0086": {
-      "primary_open_angle_glaucoma_poag_diagnosis_active": [
-        1286164800
-      ],
-      "encounter_office_outpatient_consult_encounter": [
-        1291438800,
-        1283918400,
-        1280203200,
-        1278129600,
-        1270008000
-      ],
-      "encounter_ophthalmological_services_encounter": [
-        1289016000,
-        1286164800
-      ]
-    },
     "0034": {
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1283918400,
+        1280203200,
+        1278129600,
+        1270008000
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1291438800,
+        1283918400,
+        1280203200,
+        1278129600,
+        1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1291438800,
+        1283918400,
+        1280203200,
+        1278129600,
+        1270008000
+      ]
+    },
+    "0033": {
       "encounter_outpatient_encounter": [
         1291438800,
         1283918400,
@@ -219,7 +222,11 @@
         1270008000
       ],
       "encounter_outpatient_encounter": [
-        1280203200
+        1291438800,
+        1283918400,
+        1280203200,
+        1278129600,
+        1270008000
       ],
       "short_acting_beta_2_agonist_medication_active": [
         1278129600,
@@ -243,14 +250,7 @@
         1270008000
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1291438800,
-        1283918400,
-        1280203200,
-        1278129600,
-        1270008000
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1291438800,
         1283918400,
@@ -525,6 +525,22 @@
         1270008000
       ]
     },
+    "0086": {
+      "primary_open_angle_glaucoma_poag_diagnosis_active": [
+        1286164800
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1291438800,
+        1283918400,
+        1280203200,
+        1278129600,
+        1270008000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1289016000,
+        1286164800
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1291438800,
@@ -551,19 +567,19 @@
         1286164800
       ]
     },
+    "0385": {
+      "encounter_office_visit_encounter": [
+        1283918400,
+        1280203200,
+        1270008000
+      ]
+    },
     "0105": {
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1291438800,
         1283918400,
         1280203200,
         1278129600,
-        1270008000
-      ]
-    },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1283918400,
-        1280203200,
         1270008000
       ]
     },
@@ -616,8 +632,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a2d",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001b04",
+      "_type": "Condition",
       "time": 1270008000,
       "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
@@ -637,8 +653,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a2e",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001b05",
+      "_type": "Condition",
       "time": 1286164800,
       "description": "Primary Open Angle Glaucoma (POAG)",
       "specifics": "C0017612:Glaucoma, Open-Angle;",
@@ -652,8 +668,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a2f",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001b06",
+      "_type": "Condition",
       "time": 1278129600,
       "description": "Asthma Daytime Symptoms Quantified",
       "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
@@ -666,8 +682,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a30",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001b07",
+      "_type": "Condition",
       "time": 1278129600,
       "description": "Asthma Nighttime Symptoms Quantified",
       "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
@@ -682,7 +698,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a1c",
+      "_id": "4fa2ed53a9ffcc3a1f001af2",
       "_type": "Encounter",
       "time": 1291438800,
       "description": "Encounter Office & Outpatient Consult",
@@ -696,7 +712,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a1d",
+      "_id": "4fa2ed53a9ffcc3a1f001af3",
       "_type": "Encounter",
       "time": 1289016000,
       "description": "Encounter Ophthalmological Services",
@@ -710,7 +726,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a1e",
+      "_id": "4fa2ed53a9ffcc3a1f001af4",
       "_type": "Encounter",
       "time": 1286164800,
       "description": "Encounter Ophthalmological Services",
@@ -724,7 +740,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a1f",
+      "_id": "4fa2ed53a9ffcc3a1f001af5",
       "_type": "Encounter",
       "time": 1283918400,
       "description": "Encounter Office Visit",
@@ -741,7 +757,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a20",
+      "_id": "4fa2ed53a9ffcc3a1f001af6",
       "_type": "Encounter",
       "time": 1280203200,
       "description": "Encounter Outpatient",
@@ -755,7 +771,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a21",
+      "_id": "4fa2ed53a9ffcc3a1f001af7",
       "_type": "Encounter",
       "time": 1278129600,
       "description": "Encounter Office & Outpatient Consult",
@@ -769,7 +785,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a22",
+      "_id": "4fa2ed53a9ffcc3a1f001af8",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Office Visit",
@@ -785,7 +801,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a33",
+      "_id": "4fa2ed53a9ffcc3a1f001b0a",
       "_type": "Medication",
       "time": 1278129600,
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
@@ -799,7 +815,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a34",
+      "_id": "4fa2ed53a9ffcc3a1f001b0b",
       "_type": "Medication",
       "time": 1278129600,
       "description": "Short acting beta 2 agonist",
@@ -813,7 +829,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a35",
+      "_id": "4fa2ed53a9ffcc3a1f001b0c",
       "_type": "Medication",
       "time": 1283918400,
       "description": "Smoking Cessation Agents",
@@ -832,7 +848,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a31",
+      "_id": "4fa2ed53a9ffcc3a1f001b08",
       "_type": "Procedure",
       "time": 1270008000,
       "description": "tobacco use cessation counseling",
@@ -849,11 +865,29 @@
       },
       "value": {
       },
-      "_id": "4f7e05f08e27b48183001a32",
+      "_id": "4fa2ed53a9ffcc3a1f001b09",
       "_type": "Procedure",
       "time": 1280203200,
       "description": "tobacco use cessation counseling",
       "specifics": "C1692317:Smoking cessation assistance;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "230062009"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed53a9ffcc3a1f001af9",
+      "_type": "SocialHistory",
+      "time": 1270008000,
+      "description": "Tobacco User",
+      "specifics": "C0459846:Moderate cigarette smoker;"
     }
   ],
   "vital_signs": [
@@ -867,8 +901,8 @@
         "scalar": 126.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b48183001a23",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001afa",
+      "_type": "VitalSign",
       "time": 1291438800,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -883,8 +917,8 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b48183001a24",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001afb",
+      "_type": "VitalSign",
       "time": 1291438800,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -899,8 +933,8 @@
         "scalar": 82.0,
         "units": null
       },
-      "_id": "4f7e05f08e27b48183001a25",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001afc",
+      "_type": "VitalSign",
       "time": 1291438800,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -915,8 +949,8 @@
         "scalar": 124.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b48183001a26",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001afd",
+      "_type": "VitalSign",
       "time": 1280203200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -931,8 +965,8 @@
         "scalar": 74.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b48183001a27",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001afe",
+      "_type": "VitalSign",
       "time": 1280203200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -947,8 +981,8 @@
         "scalar": 86.0,
         "units": null
       },
-      "_id": "4f7e05f08e27b48183001a28",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001aff",
+      "_type": "VitalSign",
       "time": 1280203200,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -963,8 +997,8 @@
         "scalar": 122.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b48183001a29",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001b00",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -979,8 +1013,8 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05f08e27b48183001a2a",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001b01",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -995,8 +1029,8 @@
         "scalar": 84.0,
         "units": null
       },
-      "_id": "4f7e05f08e27b48183001a2b",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001b02",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -1014,8 +1048,8 @@
         "scalar": 32.312553863832235,
         "units": null
       },
-      "_id": "4f7e05f08e27b48183001a2c",
-      "_type": "Entry",
+      "_id": "4fa2ed53a9ffcc3a1f001b03",
+      "_type": "VitalSign",
       "time": 1280203200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

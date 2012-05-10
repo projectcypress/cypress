@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05ce8e27b481830004b5",
+  "_id": "4fa2ed34a9ffcc3a1f0004e1",
   "patient_id": "45",
   "first": "Nelson",
   "last": "Tuff",
   "gender": "M",
   "birthdate": 877492800,
-  "race": "Other Race",
-  "ethnicity": "Hispanic or Latino",
+  "race": {
+    "name": "Other Race",
+    "code": "2131-1"
+  },
+  "ethnicity": {
+    "name": "Hispanic or Latino",
+    "code": "2135-2"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -38,6 +44,16 @@
         1202274000
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1295067600,
+        1278648000,
+        1270008000,
+        1202274000
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1295067600,
@@ -59,8 +75,6 @@
         1274328000,
         1270008000
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -140,14 +154,6 @@
         1089172800
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1295067600,
-        1278648000,
-        1270008000,
-        1202274000
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1295067600,
@@ -172,7 +178,7 @@
         1202274000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1295067600,
         1278648000,
@@ -180,29 +186,25 @@
         1202274000
       ]
     },
-    "0043": {
+    "0041": {
+      "encounter_influenza_encounter": [
+        1295067600,
+        1278648000,
+        1270008000,
+        1202274000
+      ],
       "encounter_outpatient_encounter": [
         1295067600,
         1278648000,
         1270008000,
         1202274000
       ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
+      "influenza_vaccine_medication_administered": [
         1124683200,
-        1108530000,
-        1103086800,
-        1099108800
+        1108530000
       ]
     },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1295067600,
-        1278648000,
-        1270008000,
-        1202274000
-      ]
-    },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1295067600,
         1278648000,
@@ -268,22 +270,18 @@
         1131598800
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1295067600,
-        1278648000,
-        1270008000,
-        1202274000
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1295067600,
         1278648000,
         1270008000,
         1202274000
       ],
-      "influenza_vaccine_medication_administered": [
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1124683200,
-        1108530000
+        1108530000,
+        1103086800,
+        1099108800
       ]
     },
     "0047": {
@@ -343,6 +341,10 @@
         1270008000,
         1295067600
       ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1270008000,
+        1295067600
+      ],
       "foot_exam_physical_exam_performed": [
         1295067600,
         1278648000,
@@ -384,6 +386,10 @@
       "medications_indicative_of_diabetes_medication_order": [
         1270008000,
         1295067600
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1270008000,
+        1295067600
       ]
     },
     "0061": {
@@ -401,6 +407,10 @@
         1295067600
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1270008000,
+        1295067600
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1270008000,
         1295067600
       ],
@@ -464,6 +474,10 @@
         1295067600
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1270008000,
+        1295067600
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1270008000,
         1295067600
       ]
@@ -625,6 +639,14 @@
         1202274000
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1295067600,
+        1278648000,
+        1270008000,
+        1202274000
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1295067600,
@@ -641,16 +663,16 @@
         1202274000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1295067600,
         1278648000,
         1270008000,
         1202274000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1295067600,
         1278648000,
         1270008000,
@@ -757,7 +779,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004f4",
+      "_id": "4fa2ed34a9ffcc3a1f000520",
       "_type": "Entry",
       "time": 1270008000,
       "description": "follow-up plan_BMI management",
@@ -780,7 +802,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004f5",
+      "_id": "4fa2ed34a9ffcc3a1f000521",
       "_type": "Entry",
       "time": 1295067600,
       "description": "follow-up plan_BMI management",
@@ -802,8 +824,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004d5",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f000501",
+      "_type": "Condition",
       "time": 1265778000,
       "description": "diabetes",
       "specifics": "C0011849:Diabetes Mellitus;",
@@ -822,7 +844,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004b6",
+      "_id": "4fa2ed34a9ffcc3a1f0004e2",
       "_type": "Encounter",
       "time": 1295067600,
       "description": "Encounter Outpatient",
@@ -836,7 +858,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004b7",
+      "_id": "4fa2ed34a9ffcc3a1f0004e3",
       "_type": "Encounter",
       "time": 1285992000,
       "description": "encounter outpatient-children",
@@ -853,7 +875,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004b8",
+      "_id": "4fa2ed34a9ffcc3a1f0004e4",
       "_type": "Encounter",
       "time": 1278648000,
       "description": "Encounter Outpatient",
@@ -867,7 +889,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004b9",
+      "_id": "4fa2ed34a9ffcc3a1f0004e5",
       "_type": "Encounter",
       "time": 1274328000,
       "description": "encounter outpatient-children",
@@ -884,7 +906,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004ba",
+      "_id": "4fa2ed34a9ffcc3a1f0004e6",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Outpatient",
@@ -901,7 +923,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004bb",
+      "_id": "4fa2ed34a9ffcc3a1f0004e7",
       "_type": "Encounter",
       "time": 1202274000,
       "description": "Encounter Outpatient",
@@ -915,7 +937,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004bc",
+      "_id": "4fa2ed34a9ffcc3a1f0004e8",
       "_type": "Encounter",
       "time": 1159243200,
       "description": "encounter outpatient-children",
@@ -929,7 +951,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004bd",
+      "_id": "4fa2ed34a9ffcc3a1f0004e9",
       "_type": "Encounter",
       "time": 1140238800,
       "description": "encounter outpatient-children",
@@ -943,7 +965,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004be",
+      "_id": "4fa2ed34a9ffcc3a1f0004ea",
       "_type": "Encounter",
       "time": 1131598800,
       "description": "encounter outpatient-children",
@@ -957,7 +979,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004bf",
+      "_id": "4fa2ed34a9ffcc3a1f0004eb",
       "_type": "Encounter",
       "time": 1124683200,
       "description": "encounter outpatient-children",
@@ -971,7 +993,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004c0",
+      "_id": "4fa2ed34a9ffcc3a1f0004ec",
       "_type": "Encounter",
       "time": 1108530000,
       "description": "encounter outpatient-children",
@@ -985,7 +1007,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004c1",
+      "_id": "4fa2ed34a9ffcc3a1f0004ed",
       "_type": "Encounter",
       "time": 1103086800,
       "description": "encounter outpatient-children",
@@ -999,7 +1021,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004c2",
+      "_id": "4fa2ed34a9ffcc3a1f0004ee",
       "_type": "Encounter",
       "time": 1099108800,
       "description": "encounter outpatient-children",
@@ -1013,7 +1035,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004c3",
+      "_id": "4fa2ed34a9ffcc3a1f0004ef",
       "_type": "Encounter",
       "time": 1093060800,
       "description": "encounter outpatient-children",
@@ -1027,7 +1049,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004c4",
+      "_id": "4fa2ed34a9ffcc3a1f0004f0",
       "_type": "Encounter",
       "time": 1089172800,
       "description": "encounter outpatient-children",
@@ -1043,7 +1065,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004de",
+      "_id": "4fa2ed34a9ffcc3a1f00050a",
       "_type": "Immunization",
       "time": 1159243200,
       "description": "Hepatitis A Vaccine",
@@ -1057,7 +1079,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004df",
+      "_id": "4fa2ed34a9ffcc3a1f00050b",
       "_type": "Immunization",
       "time": 1140238800,
       "description": "DTAP Vaccine",
@@ -1074,7 +1096,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e0",
+      "_id": "4fa2ed34a9ffcc3a1f00050c",
       "_type": "Immunization",
       "time": 1140238800,
       "description": "IPV Vaccination",
@@ -1088,7 +1110,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e1",
+      "_id": "4fa2ed34a9ffcc3a1f00050d",
       "_type": "Immunization",
       "time": 1131598800,
       "description": "MMR Vaccine",
@@ -1102,7 +1124,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e2",
+      "_id": "4fa2ed34a9ffcc3a1f00050e",
       "_type": "Immunization",
       "time": 1131598800,
       "description": "VZV Vaccine",
@@ -1116,7 +1138,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e3",
+      "_id": "4fa2ed34a9ffcc3a1f00050f",
       "_type": "Immunization",
       "time": 1131598800,
       "description": "Hepatitis A Vaccine",
@@ -1130,7 +1152,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e4",
+      "_id": "4fa2ed34a9ffcc3a1f000510",
       "_type": "Immunization",
       "time": 1124683200,
       "description": "Pneumococcal Vaccine",
@@ -1144,7 +1166,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e5",
+      "_id": "4fa2ed34a9ffcc3a1f000511",
       "_type": "Immunization",
       "time": 1124683200,
       "description": "Influenza Vaccine",
@@ -1158,7 +1180,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e6",
+      "_id": "4fa2ed34a9ffcc3a1f000512",
       "_type": "Immunization",
       "time": 1108530000,
       "description": "Hepatitis B Vaccine",
@@ -1172,7 +1194,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e7",
+      "_id": "4fa2ed34a9ffcc3a1f000513",
       "_type": "Immunization",
       "time": 1108530000,
       "description": "DTAP Vaccine",
@@ -1186,7 +1208,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e8",
+      "_id": "4fa2ed34a9ffcc3a1f000514",
       "_type": "Immunization",
       "time": 1108530000,
       "description": "Pneumococcal Vaccine",
@@ -1200,7 +1222,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004e9",
+      "_id": "4fa2ed34a9ffcc3a1f000515",
       "_type": "Immunization",
       "time": 1108530000,
       "description": "Influenza Vaccine",
@@ -1214,7 +1236,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004ea",
+      "_id": "4fa2ed34a9ffcc3a1f000516",
       "_type": "Immunization",
       "time": 1103086800,
       "description": "DTAP Vaccine",
@@ -1231,7 +1253,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004eb",
+      "_id": "4fa2ed34a9ffcc3a1f000517",
       "_type": "Immunization",
       "time": 1103086800,
       "description": "HiB Vaccine",
@@ -1245,7 +1267,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004ec",
+      "_id": "4fa2ed34a9ffcc3a1f000518",
       "_type": "Immunization",
       "time": 1103086800,
       "description": "Pneumococcal Vaccine",
@@ -1262,7 +1284,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004ed",
+      "_id": "4fa2ed34a9ffcc3a1f000519",
       "_type": "Immunization",
       "time": 1103086800,
       "description": "IPV Vaccination",
@@ -1276,7 +1298,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004ee",
+      "_id": "4fa2ed34a9ffcc3a1f00051a",
       "_type": "Immunization",
       "time": 1099108800,
       "description": "DTAP Vaccine",
@@ -1293,7 +1315,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004ef",
+      "_id": "4fa2ed34a9ffcc3a1f00051b",
       "_type": "Immunization",
       "time": 1099108800,
       "description": "HiB Vaccine",
@@ -1307,7 +1329,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004f0",
+      "_id": "4fa2ed34a9ffcc3a1f00051c",
       "_type": "Immunization",
       "time": 1099108800,
       "description": "Pneumococcal Vaccine",
@@ -1324,7 +1346,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004f1",
+      "_id": "4fa2ed34a9ffcc3a1f00051d",
       "_type": "Immunization",
       "time": 1099108800,
       "description": "IPV Vaccination",
@@ -1338,7 +1360,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004f2",
+      "_id": "4fa2ed34a9ffcc3a1f00051e",
       "_type": "Immunization",
       "time": 1093060800,
       "description": "Hepatitis B Vaccine",
@@ -1352,7 +1374,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004f3",
+      "_id": "4fa2ed34a9ffcc3a1f00051f",
       "_type": "Immunization",
       "time": 1089172800,
       "description": "Hepatitis B Vaccine",
@@ -1368,7 +1390,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004dc",
+      "_id": "4fa2ed34a9ffcc3a1f000508",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Antidiabetic agents",
@@ -1382,7 +1404,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004dd",
+      "_id": "4fa2ed34a9ffcc3a1f000509",
       "_type": "Medication",
       "time": 1295067600,
       "description": "Antidiabetic agents",
@@ -1398,7 +1420,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004da",
+      "_id": "4fa2ed34a9ffcc3a1f000506",
       "_type": "Procedure",
       "time": 1270008000,
       "description": "dietary consultation order",
@@ -1412,7 +1434,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ce8e27b481830004db",
+      "_id": "4fa2ed34a9ffcc3a1f000507",
       "_type": "Procedure",
       "time": 1295067600,
       "description": "dietary consultation order",
@@ -1436,7 +1458,7 @@
         "scalar": 8.1,
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004d6",
+      "_id": "4fa2ed34a9ffcc3a1f000502",
       "_type": "LabResult",
       "time": 1295067600,
       "description": "HbA1c test",
@@ -1458,7 +1480,7 @@
         "scalar": 7.3,
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004d7",
+      "_id": "4fa2ed34a9ffcc3a1f000503",
       "_type": "LabResult",
       "time": 1285992000,
       "description": "HbA1c test",
@@ -1480,7 +1502,7 @@
         "scalar": 7.5,
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004d8",
+      "_id": "4fa2ed34a9ffcc3a1f000504",
       "_type": "LabResult",
       "time": 1278648000,
       "description": "HbA1c test",
@@ -1502,7 +1524,7 @@
         "scalar": 8.6,
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004d9",
+      "_id": "4fa2ed34a9ffcc3a1f000505",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "HbA1c test",
@@ -1520,8 +1542,8 @@
         "scalar": 126.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004c5",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004f1",
+      "_type": "VitalSign",
       "time": 1295067600,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1536,8 +1558,8 @@
         "scalar": 82.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004c6",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004f2",
+      "_type": "VitalSign",
       "time": 1295067600,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1552,8 +1574,8 @@
         "scalar": 124.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004c7",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004f3",
+      "_type": "VitalSign",
       "time": 1285992000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1568,8 +1590,8 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004c8",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004f4",
+      "_type": "VitalSign",
       "time": 1285992000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1584,8 +1606,8 @@
         "scalar": 128.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004c9",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004f5",
+      "_type": "VitalSign",
       "time": 1278648000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1600,8 +1622,8 @@
         "scalar": 82.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004ca",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004f6",
+      "_type": "VitalSign",
       "time": 1278648000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1616,8 +1638,8 @@
         "scalar": 126.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004cb",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004f7",
+      "_type": "VitalSign",
       "time": 1274328000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1632,8 +1654,8 @@
         "scalar": 84.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004cc",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004f8",
+      "_type": "VitalSign",
       "time": 1274328000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1648,8 +1670,8 @@
         "scalar": 124.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004cd",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004f9",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1664,8 +1686,8 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ce8e27b481830004ce",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004fa",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1680,8 +1702,8 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004cf",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004fb",
+      "_type": "VitalSign",
       "time": 1295067600,
       "description": "Foot Exam",
       "specifics": "C1303165:Diabetic foot examination;"
@@ -1696,8 +1718,8 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004d0",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004fc",
+      "_type": "VitalSign",
       "time": 1278648000,
       "description": "Foot Exam",
       "specifics": "C1303165:Diabetic foot examination;"
@@ -1712,8 +1734,8 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004d1",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004fd",
+      "_type": "VitalSign",
       "time": 1265778000,
       "description": "Foot Exam",
       "specifics": "C1303165:Diabetic foot examination;"
@@ -1731,8 +1753,8 @@
         "scalar": 29.256837098692035,
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004d2",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004fe",
+      "_type": "VitalSign",
       "time": 1295067600,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1750,8 +1772,8 @@
         "scalar": 29.210526315789473,
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004d3",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f0004ff",
+      "_type": "VitalSign",
       "time": 1285992000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1769,8 +1791,8 @@
         "scalar": 28.777777777777775,
         "units": null
       },
-      "_id": "4f7e05ce8e27b481830004d4",
-      "_type": "Entry",
+      "_id": "4fa2ed34a9ffcc3a1f000500",
+      "_type": "VitalSign",
       "time": 1270008000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

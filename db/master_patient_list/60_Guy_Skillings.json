@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05de8e27b48183000e98",
+  "_id": "4fa2ed43a9ffcc3a1f000f05",
   "patient_id": "60",
   "first": "Guy",
   "last": "Skillings",
   "gender": "M",
   "birthdate": -781732800,
-  "race": "Asian",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Asian",
+    "code": "2028-9"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -38,6 +44,16 @@
         1257829200
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1292648400,
+        1283918400,
+        1276574400,
+        1257829200
+      ]
+    },
+    "0012": {
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1292389200,
@@ -53,8 +69,6 @@
         1292389200,
         1276574400
       ]
-    },
-    "0012": {
     },
     "0014": {
     },
@@ -98,19 +112,14 @@
         1257829200
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1292648400,
         1283918400,
         1276574400,
+        1257829200
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1257829200
       ]
     },
@@ -130,37 +139,35 @@
         1257829200
       ]
     },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
-      ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
-        1283918400
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
-      ]
-    },
     "0034": {
       "colonoscopy_procedure_performed": [
         1293685200
       ],
+      "encounter_outpatient_encounter": [
+        1292648400,
+        1283918400,
+        1276574400,
+        1257829200
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1292648400,
+        1283918400,
+        1276574400,
+        1257829200
+      ],
+      "encounter_outpatient_encounter": [
+        1292648400,
+        1283918400,
+        1276574400,
+        1257829200
+      ],
+      "influenza_vaccine_medication_administered": [
+        1257829200
+      ]
+    },
+    "0033": {
       "encounter_outpatient_encounter": [
         1292648400,
         1283918400,
@@ -187,21 +194,15 @@
         1257829200
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1292648400,
-        1283918400,
-        1276574400,
-        1257829200
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1292648400,
         1283918400,
         1276574400,
         1257829200
       ],
-      "influenza_vaccine_medication_administered": [
-        1257829200
+      "pneumococcal_vaccine_all_ages_medication_administered": [
+        1283918400
       ]
     },
     "0047": {
@@ -258,6 +259,13 @@
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1276574400
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1276574400
+      ],
+      "foot_exam_physical_exam_performed": [
+        1292389200,
+        1276574400
       ]
     },
     "0059": {
@@ -293,6 +301,9 @@
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1276574400
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1276574400
       ]
     },
     "0061": {
@@ -309,6 +320,9 @@
         1276574400
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1276574400
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1276574400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -346,6 +360,9 @@
         1276574400
       ],
       "medications_indicative_of_diabetes_medication_order": [
+        1276574400
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1276574400
       ]
     },
@@ -503,6 +520,14 @@
         1257829200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1292648400,
+        1283918400,
+        1276574400,
+        1257829200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1292648400,
@@ -519,16 +544,16 @@
         1257829200
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1292648400,
         1283918400,
         1276574400,
         1257829200
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1292648400,
         1283918400,
         1276574400,
@@ -617,8 +642,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000ea3",
-      "_type": "Entry",
+      "_id": "4fa2ed43a9ffcc3a1f000f11",
+      "_type": "Condition",
       "time": 1257829200,
       "description": "diabetes",
       "specifics": "C0011849:Diabetes Mellitus;",
@@ -637,7 +662,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000e99",
+      "_id": "4fa2ed43a9ffcc3a1f000f06",
       "_type": "Encounter",
       "time": 1292648400,
       "description": "Encounter Outpatient",
@@ -654,7 +679,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000e9a",
+      "_id": "4fa2ed43a9ffcc3a1f000f07",
       "_type": "Encounter",
       "time": 1283918400,
       "description": "Encounter Outpatient",
@@ -671,7 +696,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000e9b",
+      "_id": "4fa2ed43a9ffcc3a1f000f08",
       "_type": "Encounter",
       "time": 1276574400,
       "description": "Encounter Outpatient",
@@ -688,7 +713,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000e9c",
+      "_id": "4fa2ed43a9ffcc3a1f000f09",
       "_type": "Encounter",
       "time": 1257829200,
       "description": "Encounter Outpatient",
@@ -707,7 +732,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000eaf",
+      "_id": "4fa2ed43a9ffcc3a1f000f1d",
       "_type": "Immunization",
       "time": 1283918400,
       "description": "Pneumococcal Vaccine all ages",
@@ -721,7 +746,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000eb0",
+      "_id": "4fa2ed43a9ffcc3a1f000f1e",
       "_type": "Immunization",
       "time": 1257829200,
       "description": "Influenza Vaccine",
@@ -737,7 +762,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000ead",
+      "_id": "4fa2ed43a9ffcc3a1f000f1b",
       "_type": "Medication",
       "time": 1276574400,
       "description": "Antidiabetic-combinations",
@@ -751,7 +776,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000eae",
+      "_id": "4fa2ed43a9ffcc3a1f000f1c",
       "_type": "Medication",
       "time": 1276574400,
       "description": "Lipid Lowering Therapy",
@@ -769,7 +794,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05de8e27b48183000ea9",
+      "_id": "4fa2ed43a9ffcc3a1f000f17",
       "_type": "Procedure",
       "time": 1292389200,
       "description": "Foot Exam",
@@ -785,7 +810,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4f7e05de8e27b48183000eaa",
+      "_id": "4fa2ed43a9ffcc3a1f000f18",
       "_type": "Procedure",
       "time": 1276574400,
       "description": "Foot Exam",
@@ -808,7 +833,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000eab",
+      "_id": "4fa2ed43a9ffcc3a1f000f19",
       "_type": "Procedure",
       "time": 1276574400,
       "description": "eye exam",
@@ -834,7 +859,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05de8e27b48183000eac",
+      "_id": "4fa2ed43a9ffcc3a1f000f1a",
       "_type": "Procedure",
       "time": 1293685200,
       "description": "colonoscopy",
@@ -858,7 +883,7 @@
         "scalar": 6.9,
         "units": null
       },
-      "_id": "4f7e05de8e27b48183000ea4",
+      "_id": "4fa2ed43a9ffcc3a1f000f12",
       "_type": "LabResult",
       "time": 1292648400,
       "description": "HbA1c test",
@@ -880,7 +905,7 @@
         "scalar": 6.7,
         "units": null
       },
-      "_id": "4f7e05de8e27b48183000ea5",
+      "_id": "4fa2ed43a9ffcc3a1f000f13",
       "_type": "LabResult",
       "time": 1283918400,
       "description": "HbA1c test",
@@ -902,7 +927,7 @@
         "scalar": 6.8,
         "units": null
       },
-      "_id": "4f7e05de8e27b48183000ea6",
+      "_id": "4fa2ed43a9ffcc3a1f000f14",
       "_type": "LabResult",
       "time": 1276574400,
       "description": "HbA1c test",
@@ -924,7 +949,7 @@
         "scalar": 6.9,
         "units": null
       },
-      "_id": "4f7e05de8e27b48183000ea7",
+      "_id": "4fa2ed43a9ffcc3a1f000f15",
       "_type": "LabResult",
       "time": 1257829200,
       "description": "HbA1c test",
@@ -946,11 +971,29 @@
         "scalar": 65.0,
         "units": null
       },
-      "_id": "4f7e05de8e27b48183000ea8",
+      "_id": "4fa2ed43a9ffcc3a1f000f16",
       "_type": "LabResult",
       "time": 1276574400,
       "description": "LDL",
       "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed43a9ffcc3a1f000f0a",
+      "_type": "SocialHistory",
+      "time": 1257829200,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -964,8 +1007,8 @@
         "scalar": 136.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05de8e27b48183000e9d",
-      "_type": "Entry",
+      "_id": "4fa2ed43a9ffcc3a1f000f0b",
+      "_type": "VitalSign",
       "time": 1292389200,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -980,8 +1023,8 @@
         "scalar": 82.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05de8e27b48183000e9e",
-      "_type": "Entry",
+      "_id": "4fa2ed43a9ffcc3a1f000f0c",
+      "_type": "VitalSign",
       "time": 1292389200,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -996,8 +1039,8 @@
         "scalar": 134.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05de8e27b48183000e9f",
-      "_type": "Entry",
+      "_id": "4fa2ed43a9ffcc3a1f000f0d",
+      "_type": "VitalSign",
       "time": 1276574400,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1012,8 +1055,8 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05de8e27b48183000ea0",
-      "_type": "Entry",
+      "_id": "4fa2ed43a9ffcc3a1f000f0e",
+      "_type": "VitalSign",
       "time": 1276574400,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1031,8 +1074,8 @@
         "scalar": 24.405141677613063,
         "units": null
       },
-      "_id": "4f7e05de8e27b48183000ea1",
-      "_type": "Entry",
+      "_id": "4fa2ed43a9ffcc3a1f000f0f",
+      "_type": "VitalSign",
       "time": 1292389200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1050,8 +1093,8 @@
         "scalar": 24.141302308125354,
         "units": null
       },
-      "_id": "4f7e05de8e27b48183000ea2",
-      "_type": "Entry",
+      "_id": "4fa2ed43a9ffcc3a1f000f10",
+      "_type": "VitalSign",
       "time": 1276574400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

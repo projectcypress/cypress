@@ -1,4 +1,4 @@
-<% content_for :head do -%>
+f<% content_for :head do -%>
   <script type="text/javascript">
     $(document).ready(function() {
       $('#upload_pqri_dialog').dialog({
@@ -23,8 +23,6 @@
           }
         }
       });
-
-
       
       $('#upload_results_button').click(function(event) {
         $('#upload_pqri_dialog').dialog('open');
@@ -62,7 +60,6 @@
         });
 
   <% poll_for_updates = false
-
   if @patients.size < 1 || @percent_completed < 100
     poll_for_updates = true
   end
@@ -149,11 +146,22 @@
       <dl class="vendor">
         <dt>Test:</dt> <dd><%= @test.name %></dd>
         <dt>Reporting Period:</dt> <dd><%= 3.months.ago(Time.at(@test.effective_date)).strftime("%m/%d/%Y") %> - <%= Time.at(@test.effective_date).strftime("%m/%d/%Y") %></dd>
+        <dt>Product Version:</dt> <dd><%= @current_execution.product_version %></dd>
       </dl>
       <dl>
-        <dt>description:</dt> <dd><%= @test.description %></dd>
+        <dt>Description:</dt> <dd><%= @test.description %></dd>
         <% if !@never_executed_before %>
-          <dt>run on:</dt> <dd><%= @current_execution.pretty_date %></dd>
+          <dt>Run on:</dt> <dd><%= @current_execution.pretty_date %></dd>
+        <% end %>
+        <% if @current_execution.required_modules %>
+          <% (n,v) = @current_execution.required_modules.first%>
+          <% @current_execution.required_modules.delete(n)%>
+          <dt>Modules:</dt><dd><%= n %>: v<%= v %></dd>
+          <% @current_execution.required_modules.each do |name,version| %>
+            <dt></dt><dd><%= name %>: v<%= version %></dd>
+          <% end %>
+          <% else %>
+          <dt>Modules:</dt>
         <% end %>
       </dl>
     </section>
@@ -173,48 +181,39 @@
         </div>
       </section>
     <% end %>
+    
+    <section class="records">
+      <label>Notes</label>:
 
-    <section class="pqriValidation">
-      <% if @current_execution.validation_errors || @current_execution.baseline_validation_errors %>
-        <h2 class="fail">PQRI Validation Errors</h2>
-        <h3>Cypress uses Northwestern Medical's XSD interpretation of
-          <a href="http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
-          This is NOT a CMS published XSD.
-        </h3>
+      <% note = Note.new %>
+      <%= simple_form_for note, :url => add_note_product_test_path(:execution_id => @current_execution) do |f| %>
+        <%= f.input_field :text, :as => :text, :rows => 1, :columns => 80 %>
+        <%= f.button :submit, :value => 'add', :class => "cmd" %>
+      <% end %>
 
-        <% if @current_execution.validation_errors || @current_execution.baseline_validation_errors %>
-          
-       
-        <table>
-          <% if @current_execution.validation_errors %>
-          <tr>               
-            <td class="expander toggle" data-code="pqri_results"></td>
-            <td><h2>View PQRI Errors</h2></td>
-         </tr>
-         <tr class="sub_rows pqri_results">
-           <td colspan="2">
-           
-              <% @current_execution.validation_errors.each do |error| %>
-                <div class ="pqriXmlError"><%= error %></div>        
-              <% end %>
-       
-           </td>
-        </tr>
-        <% end %>
-        <%if @current_execution.baseline_validation_errors %>
-        <tr >
-            <td class="expander toggle" data-code="baselinepqri_results"></td>
-            <td> <h2>View Baseline PQRI Errors</h2></td>
-        </tr>
-        <tr class="sub_rows baselinepqri_results">
-         <td colspan="2">
-          <% @current_execution.baseline_validation_errors.each do |error| %>
-            <div class ="baselinePqriXmlError"><%= error %></div>
-          <% end %>
-          </td>
-        </tr>
+      <% if @test.notes %>
+        <% @test.notes.each do |note| %>
+          <%= note.time.strftime('%m/%d/%Y') %>:
+          <%= note.text %>
+          <%= button_to 'delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?' %>
+          <br />
         <% end %>
       <% end %>
+    </section>
+
+    <section class="pqriValidation">
+      <% if !@current_execution.validation_errors.try(:empty?) || !@current_execution.baseline_validation_errors.try(:empty?) %>
+        <h2 class="fail">PQRI Validation Errors</h2>
+        <h3>Cypress uses Northwestern Medical's XSD interpretation of
+          <a href="/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
+          This is NOT a CMS published XSD.
+        </h3>
+ 
+        <table>
+          
+          <%= render partial: "pqri_errors", locals: {pqri_errors:@current_execution.validation_errors,title:"View PQRI Errors", data_code:"pqri_results" }%>
+          <%= render partial: "pqri_errors", locals: {pqri_errors:@current_execution.baseline_validation_errors,title:"View Baseline PQRI Errors", data_code:"baselinepqri_results" }%>
+         
       </table>
        <% end %>
     </section>
@@ -246,9 +245,8 @@
 
               <tr id='<%= "#{measure.id}" %>'>
                 <td><div title="<%= result_status %>" class="<%= result_status %>"><%= result_status %></div></td>
-                <td>
-                  <a href="<%= product_test_measure_path(@test, measure, :execution => @current_execution) %>">
-                    <%= "NQF#{measure['id']}#{measure.sub_id} " %>
+                <td title="<%= "#{@product.measure_map[measure.key]} " %>">
+                    <%= "#{measure.key} " %>
                     <%= measure.name %>
                     <%= " - #{measure.subtitle}" if measure.sub_id %></a>
                 </td>

@@ -1,7 +1,7 @@
 module Cypress
   class MeasureEvaluator
     
-    STATIC_EFFECTIVE_DATE = Time.gm(2011,3,31).to_i
+    STATIC_EFFECTIVE_DATE = Time.gm(2010,12,30).to_i
   
     # Evaluates the supplied measure for a particular vendor
     def self.eval(test, measure)

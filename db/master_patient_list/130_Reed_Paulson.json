@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05ed8e27b48183001827",
+  "_id": "4fa2ed50a9ffcc3a1f0018ea",
   "patient_id": "130",
   "first": "Reed",
   "last": "Paulson",
   "gender": "M",
   "birthdate": -1037559600,
-  "race": "Asian",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "Asian",
+    "code": "2028-9"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -34,6 +40,18 @@
         1285819200
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1275624000,
+        1278993600,
+        1285819200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1275624000
+      ]
+    },
     "0013": {
       "hypertension_diagnosis_active": [
         1275624000
@@ -52,11 +70,6 @@
         1275624000,
         1278993600,
         1280462400
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1275624000
       ]
     },
     "0014": {
@@ -117,18 +130,14 @@
         1285819200
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1275624000,
-        1278993600,
-        1285819200
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1275624000,
         1278993600,
         1285819200
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1275624000
       ]
     },
     "0031": {
@@ -145,31 +154,29 @@
         1285819200
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1275624000,
         1278993600,
         1285819200
       ]
     },
-    "0043": {
+    "0041": {
+      "encounter_influenza_encounter": [
+        1275624000,
+        1278993600,
+        1285819200
+      ],
       "encounter_outpatient_encounter": [
         1275624000,
         1278993600,
         1285819200
       ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
+      "influenza_vaccine_medication_administered": [
         1285819200
       ]
     },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1275624000,
-        1278993600,
-        1285819200
-      ]
-    },
-    "0034": {
+    "0033": {
       "encounter_outpatient_encounter": [
         1275624000,
         1278993600,
@@ -193,18 +200,13 @@
         1285819200
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1275624000,
-        1278993600,
-        1285819200
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1275624000,
         1278993600,
         1285819200
       ],
-      "influenza_vaccine_medication_administered": [
+      "pneumococcal_vaccine_all_ages_medication_administered": [
         1285819200
       ]
     },
@@ -283,6 +285,9 @@
         1279166400
       ],
       "ace_inhibitors_arbs_medication_dispensed": [
+        1279166400
+      ],
+      "ace_inhibitors_arbs_medication_active": [
         1279166400
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -525,6 +530,13 @@
         1285819200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1275624000,
+        1278993600,
+        1285819200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1275624000,
@@ -539,15 +551,15 @@
         1285819200
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1275624000,
         1278993600,
         1285819200
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1275624000,
         1278993600,
         1285819200
@@ -606,8 +618,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001837",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018fb",
+      "_type": "Condition",
       "time": 1279166400,
       "description": "Heart Failure",
       "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
@@ -627,8 +639,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001838",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018fc",
+      "_type": "Condition",
       "time": 1275624000,
       "description": "Arrhythmia",
       "specifics": "C0264886:Conduction disorder of the heart; C0003811:Cardiac Arrhythmia;",
@@ -648,8 +660,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001839",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018fd",
+      "_type": "Condition",
       "time": 1275624000,
       "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
@@ -668,7 +680,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001828",
+      "_id": "4fa2ed50a9ffcc3a1f0018eb",
       "_type": "Encounter",
       "time": 1275624000,
       "description": "Encounter Outpatient",
@@ -685,7 +697,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001829",
+      "_id": "4fa2ed50a9ffcc3a1f0018ec",
       "_type": "Encounter",
       "time": 1278993600,
       "description": "Encounter Outpatient",
@@ -702,7 +714,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b4818300182a",
+      "_id": "4fa2ed50a9ffcc3a1f0018ed",
       "_type": "Encounter",
       "time": 1285819200,
       "description": "Encounter Outpatient",
@@ -718,7 +730,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001843",
+      "_id": "4fa2ed50a9ffcc3a1f001907",
       "_type": "Immunization",
       "time": 1285819200,
       "description": "Influenza Vaccine",
@@ -735,7 +747,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001844",
+      "_id": "4fa2ed50a9ffcc3a1f001908",
       "_type": "Immunization",
       "time": 1285819200,
       "description": "Pneumococcal Vaccine all ages",
@@ -751,7 +763,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001840",
+      "_id": "4fa2ed50a9ffcc3a1f001904",
       "_type": "Medication",
       "time": 1279166400,
       "description": "Beta Blocker Therapy",
@@ -765,7 +777,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001841",
+      "_id": "4fa2ed50a9ffcc3a1f001905",
       "_type": "Medication",
       "time": 1279166400,
       "description": "ACE inhibitor or ARB",
@@ -779,7 +791,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b48183001842",
+      "_id": "4fa2ed50a9ffcc3a1f001906",
       "_type": "Medication",
       "time": 1275624000,
       "description": "Antiplatelet Therapy",
@@ -804,7 +816,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b4818300183e",
+      "_id": "4fa2ed50a9ffcc3a1f001902",
       "_type": "Procedure",
       "time": 1278993600,
       "description": "counseling for nutrition",
@@ -818,7 +830,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05ed8e27b4818300183f",
+      "_id": "4fa2ed50a9ffcc3a1f001903",
       "_type": "Procedure",
       "time": 1279166400,
       "description": "Ejection Fraction",
@@ -842,7 +854,7 @@
         "scalar": 43.0,
         "units": null
       },
-      "_id": "4f7e05ed8e27b4818300183a",
+      "_id": "4fa2ed50a9ffcc3a1f0018fe",
       "_type": "LabResult",
       "time": 1275624000,
       "description": "High Density Lipoprotein (HDL)",
@@ -864,7 +876,7 @@
         "scalar": 130.0,
         "units": null
       },
-      "_id": "4f7e05ed8e27b4818300183b",
+      "_id": "4fa2ed50a9ffcc3a1f0018ff",
       "_type": "LabResult",
       "time": 1275624000,
       "description": "LDL",
@@ -886,7 +898,7 @@
         "scalar": 186.0,
         "units": null
       },
-      "_id": "4f7e05ed8e27b4818300183c",
+      "_id": "4fa2ed50a9ffcc3a1f001900",
       "_type": "LabResult",
       "time": 1275624000,
       "description": "Total Cholesterol",
@@ -908,11 +920,29 @@
         "scalar": 152.0,
         "units": null
       },
-      "_id": "4f7e05ed8e27b4818300183d",
+      "_id": "4fa2ed50a9ffcc3a1f001901",
       "_type": "LabResult",
       "time": 1275624000,
       "description": "Triglycerides",
       "specifics": "C0202236:Triglycerides measurement;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed50a9ffcc3a1f0018ee",
+      "_type": "SocialHistory",
+      "time": 1275624000,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -926,8 +956,8 @@
         "scalar": 134.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ed8e27b4818300182b",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018ef",
+      "_type": "VitalSign",
       "time": 1275624000,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -942,8 +972,8 @@
         "scalar": 84.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ed8e27b4818300182c",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f0",
+      "_type": "VitalSign",
       "time": 1275624000,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -958,8 +988,8 @@
         "scalar": 80.0,
         "units": null
       },
-      "_id": "4f7e05ed8e27b4818300182d",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f1",
+      "_type": "VitalSign",
       "time": 1275624000,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -974,8 +1004,8 @@
         "scalar": 138.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ed8e27b4818300182e",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f2",
+      "_type": "VitalSign",
       "time": 1278993600,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -990,8 +1020,8 @@
         "scalar": 88.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ed8e27b4818300182f",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f3",
+      "_type": "VitalSign",
       "time": 1278993600,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1006,8 +1036,8 @@
         "scalar": 84.0,
         "units": null
       },
-      "_id": "4f7e05ed8e27b48183001830",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f4",
+      "_type": "VitalSign",
       "time": 1278993600,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -1022,8 +1052,8 @@
         "scalar": 133.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ed8e27b48183001831",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f5",
+      "_type": "VitalSign",
       "time": 1280462400,
       "description": "Systolic Blood Pressure",
       "specifics": "C0871470:Systolic Pressure;"
@@ -1038,8 +1068,8 @@
         "scalar": 84.0,
         "units": "mm[Hg]"
       },
-      "_id": "4f7e05ed8e27b48183001832",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f6",
+      "_type": "VitalSign",
       "time": 1280462400,
       "description": "Diastolic Blood Pressure",
       "specifics": "C0428883:Diastolic blood pressure;"
@@ -1054,8 +1084,8 @@
         "scalar": 88.0,
         "units": null
       },
-      "_id": "4f7e05ed8e27b48183001833",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f7",
+      "_type": "VitalSign",
       "time": 1280462400,
       "description": "Heart Rate",
       "specifics": "C0018810:heart rate;"
@@ -1073,8 +1103,8 @@
         "scalar": 24.67673469387755,
         "units": null
       },
-      "_id": "4f7e05ed8e27b48183001834",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f8",
+      "_type": "VitalSign",
       "time": 1275624000,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1092,8 +1122,8 @@
         "scalar": 25.250612244897958,
         "units": null
       },
-      "_id": "4f7e05ed8e27b48183001835",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018f9",
+      "_type": "VitalSign",
       "time": 1278993600,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
@@ -1111,8 +1141,8 @@
         "scalar": 24.389795918367348,
         "units": null
       },
-      "_id": "4f7e05ed8e27b48183001836",
-      "_type": "Entry",
+      "_id": "4fa2ed50a9ffcc3a1f0018fa",
+      "_type": "VitalSign",
       "time": 1280462400,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"

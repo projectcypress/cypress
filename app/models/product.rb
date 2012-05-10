@@ -2,10 +2,12 @@ class Product
   include Mongoid::Document
 
   belongs_to :vendor
+  has_and_belongs_to_many :users
   has_many :product_tests, dependent: :destroy
 
   
   field :name, type: String
+  field :version, type: String
   field :description, type: String
   field :measure_map, type: Hash
   validates_presence_of :name
@@ -44,5 +46,15 @@ class Product
   def success_rate
     return 0 if self.product_tests.empty?
     return self.count_passing.to_f / self.product_tests.size
+  end
+
+  # provide a default measure_map if none exist for the given product
+  def measure_map
+    return self[:measure_map] if self[:measure_map]
+
+    measure_map = {}
+    Measure.installed.each { |m| measure_map[m.key] = m.key }
+    return measure_map
+
   end
 end

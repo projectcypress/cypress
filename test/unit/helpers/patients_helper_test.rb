@@ -16,6 +16,20 @@ class PatientsHelperTest < ActionView::TestCase
     assert_equal '/assets/avatars/asiangirl.png', patient_picture(p)
     p.race = 'unknown'
     assert_equal '/assets/avatars/unknown.png', patient_picture(p)
+
+    p = Record.new(:gender => 'M', :birthdate => Time.now.years_ago(5),
+                   :race => {'code'=> "2054-5"} ,
+                   :ethnicity =>{'code'=>"2186-5" })
+    assert_equal '/assets/avatars/blackboy.png', patient_picture(p)
+    p.race = 'unknown'
+    assert_equal '/assets/avatars/unknown.png', patient_picture(p)
+
+     p = Record.new(:gender => 'F', :birthdate => Time.now.years_ago(20),
+                   :race => {'code'=> "2076-8"} ,
+                   :ethnicity =>{'code'=>"2186-5" })
+    assert_equal '/assets/avatars/hawaiianwoman.png', patient_picture(p)
+    p.race = 'unknown'
+    assert_equal '/assets/avatars/unknown.png', patient_picture(p)
   end
 
   test "should convert result to markup" do

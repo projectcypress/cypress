@@ -45,6 +45,10 @@ include Devise::TestHelpers
     coverage = assigns[:coverage]  
     assert coverage.count == 0
 
+    m3 = Measure.where(:id => '0348').first
+    get :minimal_set, {:measure_ids => [m1.id,m2.id,m3.id], :format=>"json"}
+    coverage = assigns[:coverage] 
+    assert coverage.count == 0
 
   end
 

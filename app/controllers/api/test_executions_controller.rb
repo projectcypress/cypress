@@ -14,8 +14,8 @@ module Api
       bl = params[:baseline_results] ? params[:baseline_results].read : nil
       er = params[:reported_results] ? params[:reported_results].read : nil
       
-      blr = bl ? Cypress::PqriUtility.extract_results(bl) : nil
-      rr = er ? Cypress::PqriUtility.extract_results(er) : nil
+      blr = bl ? Cypress::PqriUtility.extract_results(bl, nil) : nil
+      rr = er ? Cypress::PqriUtility.extract_results(er, nil) : nil
       
       blve = bl ? Cypress::PqriUtility.validate(bl) : nil
       ve = er ? Cypress::PqriUtility.validate(er) : nil

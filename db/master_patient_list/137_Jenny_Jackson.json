@@ -1,12 +1,18 @@
 {
-  "_id": "4f7e05dd8e27b48183000e1c",
+  "_id": "4fa2ed42a9ffcc3a1f000e82",
   "patient_id": "137",
   "first": "Jenny",
   "last": "Jackson",
   "gender": "F",
   "birthdate": 789282000,
-  "race": "White",
-  "ethnicity": "Not Hispanic or Latino",
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
+  "ethnicity": {
+    "name": "Not Hispanic or Latino",
+    "code": "2186-5"
+  },
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -41,12 +47,17 @@
         1270180800
       ]
     },
-    "0013": {
+    "0027": {
       "encounter_outpatient_encounter": [
         1281931200
       ]
     },
     "0012": {
+    },
+    "0013": {
+      "encounter_outpatient_encounter": [
+        1281931200
+      ]
     },
     "0014": {
     },
@@ -69,14 +80,12 @@
         1281931200
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1281931200
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1281931200
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1270094400
       ]
     },
     "0031": {
@@ -85,6 +94,19 @@
       ]
     },
     "0032": {
+      "encounter_outpatient_encounter": [
+        1281931200
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1281931200
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1281931200
+      ],
       "encounter_outpatient_encounter": [
         1281931200
       ]
@@ -109,21 +131,6 @@
         1281931200
       ]
     },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1281931200
-      ]
-    },
-    "0086": {
-      "encounter_office_outpatient_consult_encounter": [
-        1281931200
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1281931200
-      ]
-    },
     "0036": {
       "encounter_outpatient_encounter": [
         1281931200
@@ -141,10 +148,7 @@
         1281931200
       ]
     },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1281931200
-      ],
+    "0043": {
       "encounter_outpatient_encounter": [
         1281931200
       ]
@@ -301,6 +305,11 @@
         1281931200
       ]
     },
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1281931200
+      ]
+    },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
         1281931200
@@ -308,6 +317,11 @@
     },
     "0089": {
       "encounter_office_outpatient_consult_encounter": [
+        1281931200
+      ]
+    },
+    "0385": {
+      "encounter_office_visit_encounter": [
         1281931200
       ]
     },
@@ -319,11 +333,6 @@
       ],
       "encounter_ed_encounter": [
         1270094400
-      ]
-    },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1281931200
       ]
     },
     "0387": {
@@ -370,8 +379,8 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e23",
-      "_type": "Entry",
+      "_id": "4fa2ed42a9ffcc3a1f000e8a",
+      "_type": "Condition",
       "time": 1281931200,
       "description": "sexually active woman",
       "specifics": "C0036916:Sexually Transmitted Diseases;",
@@ -390,7 +399,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e1e",
+      "_id": "4fa2ed42a9ffcc3a1f000e84",
       "_type": "Encounter",
       "time": 1281931200,
       "description": "Encounter Outpatient",
@@ -404,7 +413,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e1f",
+      "_id": "4fa2ed42a9ffcc3a1f000e85",
       "_type": "Encounter",
       "time": 1278129600,
       "description": "Encounter Inpatient Discharge",
@@ -418,7 +427,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e20",
+      "_id": "4fa2ed42a9ffcc3a1f000e86",
       "_type": "Encounter",
       "time": 1270180800,
       "description": "encounter acute inpt",
@@ -432,7 +441,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e21",
+      "_id": "4fa2ed42a9ffcc3a1f000e87",
       "_type": "Encounter",
       "time": 1270094400,
       "description": "encounter ED",
@@ -448,7 +457,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e1d",
+      "_id": "4fa2ed42a9ffcc3a1f000e83",
       "_type": "Entry",
       "time": 1281931200,
       "description": "IUD use",
@@ -464,7 +473,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e25",
+      "_id": "4fa2ed42a9ffcc3a1f000e8c",
       "_type": "Procedure",
       "time": 1281931200,
       "description": "contraceptive use education",
@@ -487,7 +496,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e26",
+      "_id": "4fa2ed42a9ffcc3a1f000e8d",
       "_type": "Procedure",
       "time": 1281931200,
       "description": "counseling for nutrition",
@@ -507,7 +516,7 @@
       },
       "value": {
       },
-      "_id": "4f7e05dd8e27b48183000e27",
+      "_id": "4fa2ed42a9ffcc3a1f000e8e",
       "_type": "Procedure",
       "time": 1281931200,
       "description": "counseling for physical activity",
@@ -531,11 +540,29 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4f7e05dd8e27b48183000e24",
+      "_id": "4fa2ed42a9ffcc3a1f000e8b",
       "_type": "LabResult",
       "time": 1281931200,
       "description": "Chlamydia Screening",
       "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;"
+    }
+  ],
+  "social_history": [
+    {
+      "codes": {
+        "SNOMED-CT": [
+          "160618006"
+        ]
+      },
+      "value": {
+        "scalar": null,
+        "units": null
+      },
+      "_id": "4fa2ed42a9ffcc3a1f000e88",
+      "_type": "SocialHistory",
+      "time": 1270094400,
+      "description": "Tobacco Non-User",
+      "specifics": "C0425311:Current non-smoker;"
     }
   ],
   "vital_signs": [
@@ -552,8 +579,8 @@
         "scalar": 23.793846153846154,
         "units": null
       },
-      "_id": "4f7e05dd8e27b48183000e22",
-      "_type": "Entry",
+      "_id": "4fa2ed42a9ffcc3a1f000e89",
+      "_type": "VitalSign",
       "time": 1281931200,
       "description": "BMI",
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
