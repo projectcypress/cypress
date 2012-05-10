@@ -23,7 +23,7 @@ class VendorTest < ActiveSupport::TestCase
     
     assert failing3.size == 0 , "Empty vendor reporting failing products"
     assert failing2.size == 0 , "Vendor reporting wrong number of failing products"
-    assert failing1.size == 1 , "Vendor reporting wrong number of failing products"
+    assert failing1.size == 2 , "Vendor reporting wrong number of failing products"
     assert failing1[0]._id.to_s == "4f57a88a1d41c851eb000004" , "Vendor reporting wrong failing product"
   end
 
@@ -52,7 +52,7 @@ class VendorTest < ActiveSupport::TestCase
   end
   
   test "Should return product passing rate" do
-    assert @vendor1.success_rate == 0.5 , "Vendor reporting wrong success rate"
+    assert @vendor1.success_rate == 1.0/3.0 , "Vendor reporting wrong success rate"
     assert @vendor2.success_rate == 1.0 , "Vendor reporting wrong success rate"
     assert @emptyVendor.success_rate == 0.0 , "Empty vendor reporting wrong success rate"
   end

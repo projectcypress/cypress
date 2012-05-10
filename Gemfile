@@ -8,16 +8,22 @@ gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-meas
 #gem 'quality-measure-engine', '1.1.1'
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
 #gem 'health-data-standards', '0.7.1'
+
 gem 'bson_ext', :platforms => :mri
 gem 'mongoid', '~> 2.0'
+
 gem 'devise', '~> 2.0'
 gem 'simple_form'
-gem 'nokogiri', '~> 1.4.4' 
+gem 'nokogiri', '~> 1.4.4'
 
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
+
 gem 'pry'
 gem 'pry-nav'
+
+# Windows doesn't have syslog, so need a gem to log to EventLog instead
+gem 'win32-eventlog', :platforms => [:mswin, :mingw]
 
 group :assets do
   gem 'sass-rails'

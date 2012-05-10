@@ -62,7 +62,9 @@
         <% @results.each do |result| %>
           <% if result.value.population %>
           <tr>
-            <td><%= "#{result.value.measure_id}#{result.value.sub_id}" %></td>
+            <td title="<%= "#{@product.measure_map[result.value.measure_id + (result.value.sub_id.nil? ? "" : result.value.sub_id)] if @product}" %>">
+              <%= "#{result.value.measure_id}#{result.value.sub_id}" %>
+            </td>
             <td <%= raw result_to_class(result.value.denominator?) %>></td>
             <td <%= raw result_to_class(result.value.numerator?) %>></td>
             <td <%= raw result_to_class(result.value.exclusions?) %>></td>

@@ -37,7 +37,6 @@ module Api
     private 
     
     def find_product
-      # binding.pry
       find_vendor unless @vendor
       @product = @vendor.products.find(params[:id])
     end

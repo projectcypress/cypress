@@ -55,6 +55,18 @@ namespace :mpl do
     end
   end
 
+  desc 'Evaluate all measures for the entire master patient list and dumps results to text file for diffing'
+  task :eval_diff_file => :environment do
+    db = loader.get_db
+    current_results = File.new(Rails.root.join("public","current_mpl_results.txt"), "w+")
+    Measure.installed.each do |measure|
+      result = evaluator.eval_for_static_records(measure)
+      current_results.puts measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["numerator"]:' + result['numerator'].to_s 
+      current_results.puts measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["denominator"]:' + result['denominator'].to_s 
+      current_results.puts measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["exclusions"]:' + result['exclusions'].to_s 
+    end
+  end
+
   desc 'Perform all tasks necessary for initializing a newly installed system'
   task :initialize => :environment do
     Rake::Task['mpl:clear'].invoke()
