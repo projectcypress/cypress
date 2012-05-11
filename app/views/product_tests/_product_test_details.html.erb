@@ -1,3 +1,4 @@
+<%= javascript 'product_tests' %>
 <%= simple_form_for([@test], :html => { :method => submit_method(@test), :multipart => true }) do |f| %>
   <%= f.hidden_field :product_id, :value => @product.id %>
 
@@ -5,7 +6,7 @@
   <section id="vendorInfo">
     <dl>
       <dt>Test Name:</dt>
-      <dd><%= f.text_field :name, :size=>"20", :class=>"req" %></dd>
+      <dd><%= f.text_field :name, :size=>"20", :class=>"required" %></dd>
       <dt>Description:</dt>
       <dd><%= f.text_field :description, :size=>"20", :class=>"req" %></dd>
     </dl>
@@ -17,8 +18,9 @@
       <dt>Phone:</dt>
       <dd><%= f.text_field :proctor_tel, :size=>"20", :class=>"req" %></dd>
     </dl>
-   
+
   </section>
 
+  <div id="validationErrorMessages"></div>
   <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();"><%= submit_text(@test) %></a>
 <% end %>

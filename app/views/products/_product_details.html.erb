@@ -1,6 +1,4 @@
-<% content_for :head do %>
 <%= javascript 'products' %>
-<% end %>
 
 <%= form_for([@product], :html => { :method => submit_method(@product) }) do |f| %>
   <%= f.hidden_field :vendor_id, :value => @product.vendor.id %>
@@ -9,7 +7,7 @@
   <section id="vendorInfo">
     <dl>
       <dt>Product Name:</dt>
-      <dd><%= f.text_field :name, :size=>"20", :class=>"req" %></dd>
+      <dd><%= f.text_field :name, :size=>"20", :class=>"required" %></dd>
       <dt>Version:</dt>
       <dd><%= f.text_field :version, :size=>"20", :class=>"req" %></dd>
     </dl>
@@ -20,6 +18,6 @@
   </section>
 
   <%= render :partial => 'edit_measure_map' if mode == :new %>
-  
+  <div id="validationErrorMessages"></div>
   <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();" style="display: inline-block"><%= submit_text(@product) %></a>
 <% end %>

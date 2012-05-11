@@ -12,6 +12,21 @@ $(document).ready(function() {
             var codes = $("." + codeElement);
             codes.hide();
         });
+    $('form.new_vendor,form.edit_vendor').validate({
+        rules: {
+            "vendor[name]": "required"
+        },
+        errorClass: "validationErrors",
+        messages: {
+            "vendor[name]": {
+                required:"The vendor needs a name."
+            }
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( $('#validationErrorMessages') );
+        }
+    });
+
 });
 
 

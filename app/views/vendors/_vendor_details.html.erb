@@ -1,10 +1,10 @@
+<%= javascript 'vendors' %>
 <%= form_for(@vendor, :html => { :method => submit_method(@vendor) }) do |f| %>
-<%= error_messages_for :vendor %>
   <h1>Vendor Information</h1>
   <section id="vendorInfo">
     <dl>
       <dt>Vendor Name:</dt>
-      <dd><%= f.text_field :name, :size=>"20", :class=>"req" %></dd>
+      <dd><%= f.text_field :name, :size=>"20", :class=>"required" %></dd>
       <dt>Vendor ID:</dt>
       <dd><%= f.text_field :vendor_id, :size=>"20", :class=>"req" %></dd>
       <dt>Url:</dt>
@@ -27,7 +27,7 @@
       <dd><%= f.text_field :fax, :size=>"20", :class=>"req" %></dd>
     </dl>
   </section>
-  
+
   <h2>alternate POCs</h2>
   <section id="altPOC">
     <dl>
@@ -55,6 +55,7 @@
       <dd><%= f.text_field :press_tel, :size=>"20", :class=>"req" %></dd>
     </dl>
   </section>
-  
+
+  <div id="validationErrorMessages"></div>
   <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();"><%= submit_text(@vendor) %></a>
 <% end %>

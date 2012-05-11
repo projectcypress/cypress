@@ -935,3 +935,15 @@ footer#ccattribution {
 #services {
   border-top: 1px solid #CCCCCC;
 }
+#validationErrorMessages {
+  text-align:center;
+}
+label.validationErrors {
+  color: red;
+  font-size: 1em;
+  font-weight:bold;
+  width: 40em;
+  margin-left: 0.5em;
+}
+input.required,textarea.required {background:#FFE9EC;}
+input.valid,textarea.valid {background:#DEFADE;}
