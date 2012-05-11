@@ -5,10 +5,11 @@ include Devise::TestHelpers
 
   setup do
     collection_fixtures('query_cache', 'test_id')
+    collection_fixtures('users',"_id", "product_ids","product_test_ids")
     collection_fixtures('measures')
-    collection_fixtures('products','_id','vendor_id')
+    collection_fixtures('products','_id','vendor_id', "user_id")
     collection_fixtures('records', '_id','test_id')
-    collection_fixtures('product_tests', '_id','product_id')
+    collection_fixtures('product_tests', '_id','product_id',"user_id")
     collection_fixtures('patient_populations', '_id')
     collection_fixtures('test_executions', '_id','product_test_id')
     collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id')
@@ -147,6 +148,7 @@ include Devise::TestHelpers
     pt2.name = 'Product test with no executions'
     pt2.effective_date = 1324443600
     pt2.product_id = pt1.product_id
+    pt2.user=@user
     pt2.save!
 
     pt3.name = 'Product test mapped measures'
@@ -159,7 +161,10 @@ include Devise::TestHelpers
     assert ex_updated.reported_results['0001']['denominator'] == 56
     assert TestExecution.where(:product_test_id => pt1.id).count == ex_count
 
+    pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")    
+
     post :process_pqri, {:id => pt2.id , :product_test => {:pqri => pqri, :baseline => baseline}, :execution_id => {}}
+
     new_ex = TestExecution.where(:product_test_id => pt2.id).first
     assert new_ex.reported_results['0001']['denominator'] == 50
     assert TestExecution.where(:product_test_id => pt2.id).count == 1

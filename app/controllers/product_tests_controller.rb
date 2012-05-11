@@ -76,7 +76,7 @@ class ProductTestsController < ApplicationController
   
   def create
     # Create a new test and save here so id is made. We'll use it while cloning Records to associate them back to this ProductTest.
-    test = ProductTest.new(params[:product_test])
+    test = current_user.product_tests.build(params[:product_test])
     month, day, year = params[:product_test][:effective_date_end].split('/')
     test.effective_date = Time.local(year.to_i, month.to_i, day.to_i).to_i
     test.save!
@@ -114,7 +114,7 @@ class ProductTestsController < ApplicationController
   end
   
   def edit
-    @test = ProductTest.find(params[:id])
+    @test = current_user.product_tests.find(params[:id])
     @product = @test.product
     @vendor = @product.vendor
     @effective_date = @test.effective_date
@@ -122,7 +122,7 @@ class ProductTestsController < ApplicationController
   end
   
   def update
-    test = ProductTest.find(params[:id])
+    test = current_user.product_tests.find(params[:id])
     test.update_attributes(params[:product_test])
     test.measure_ids.select! {|id| id.size > 0}
     test.save!
@@ -131,7 +131,7 @@ class ProductTestsController < ApplicationController
   end
   
   def destroy
-    test = ProductTest.find(params[:id])
+    test = current_user.product_tests.find(params[:id])
     product = test.product
     
     # If a TestExecution was included as a param, just delete that.
@@ -155,8 +155,10 @@ class ProductTestsController < ApplicationController
 
   # Accept a PQRI document and use it to define a new TestExecution on this ProductTest
   def process_pqri
-    test = ProductTest.find(params[:id])
-    test_data = params[:product_test]
+    test = current_user.product_tests.find(params[:id])
+    product = test.product
+    test_data = params[:product_test] || {}
+
     baseline = test_data[:baseline]
     pqri = test_data[:pqri]
     product = test.product
@@ -171,6 +173,7 @@ class ProductTestsController < ApplicationController
     # If a vendor cannot run their measures in a vacuum (i.e. calculate measures with just the patient test deck) then
     # we will first import their measure results with their own patients so we can establish a baseline in order
     # to normalize with a second PQRI with results that include the test deck.
+
     if (baseline)
       doc = Nokogiri::XML(baseline.open)
       execution.baseline_results = Cypress::PqriUtility.extract_results(doc, measure_map)
@@ -195,7 +198,7 @@ class ProductTestsController < ApplicationController
 
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format
   def download
-    test = ProductTest.find(params[:id])
+    test = current_user.product_tests.find(params[:id])
     
     file = Tempfile.new("patients-#{Time.now.to_i}")
     patients = Record.where("test_id" => test.id)

@@ -1,4 +1,4 @@
-<% content_for :head do -%>
+f<% content_for :head do -%>
   <script type="text/javascript">
     $(document).ready(function() {
       $('#upload_pqri_dialog').dialog({
@@ -207,46 +207,18 @@
     </section>
 
     <section class="pqriValidation">
-      <% if @current_execution.validation_errors || @current_execution.baseline_validation_errors %>
+      <% if !@current_execution.validation_errors.try(:empty?) || !@current_execution.baseline_validation_errors.try(:empty?) %>
         <h2 class="fail">PQRI Validation Errors</h2>
         <h3>Cypress uses Northwestern Medical's XSD interpretation of
-          <a href="http://edw.northwestern.edu/xmlvalidator/xml/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
+          <a href="/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
           This is NOT a CMS published XSD.
         </h3>
-
-        <% if @current_execution.validation_errors || @current_execution.baseline_validation_errors %>
-          
-       
+ 
         <table>
-          <% if @current_execution.validation_errors %>
-          <tr>               
-            <td class="expander toggle" data-code="pqri_results"></td>
-            <td><h2>View PQRI Errors</h2></td>
-         </tr>
-         <tr class="sub_rows pqri_results">
-           <td colspan="2">
-           
-              <% @current_execution.validation_errors.each do |error| %>
-                <div class ="pqriXmlError"><%= error %></div>        
-              <% end %>
-       
-           </td>
-        </tr>
-        <% end %>
-        <%if @current_execution.baseline_validation_errors %>
-        <tr >
-            <td class="expander toggle" data-code="baselinepqri_results"></td>
-            <td> <h2>View Baseline PQRI Errors</h2></td>
-        </tr>
-        <tr class="sub_rows baselinepqri_results">
-         <td colspan="2">
-          <% @current_execution.baseline_validation_errors.each do |error| %>
-            <div class ="baselinePqriXmlError"><%= error %></div>
-          <% end %>
-          </td>
-        </tr>
-        <% end %>
-      <% end %>
+          
+          <%= render partial: "pqri_errors", locals: {pqri_errors:@current_execution.validation_errors,title:"View PQRI Errors", data_code:"pqri_results" }%>
+          <%= render partial: "pqri_errors", locals: {pqri_errors:@current_execution.baseline_validation_errors,title:"View Baseline PQRI Errors", data_code:"baselinepqri_results" }%>
+         
       </table>
        <% end %>
     </section>

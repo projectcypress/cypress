@@ -108,10 +108,10 @@ include Devise::TestHelpers
 
   test "table_all" do
     get :table_all,{}
-    assert assigns[:patients].count == 5
+    assert assigns[:patients].count == 2
 
     get :table_all,{:product_test_id => '4f58f8de1d41c851eb000478'}
-    assert assigns[:patients].count == 6
+    assert assigns[:patients].count == 1
   end
 
   test "download" do

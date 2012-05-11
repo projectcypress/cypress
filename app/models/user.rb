@@ -1,7 +1,8 @@
 class User
   include Mongoid::Document
 
-  has_and_belongs_to_many :vendors
+  has_and_belongs_to_many :products
+  has_many   :product_tests
   has_many :patient_populations
 
   # Include default devise modules. Others available are:

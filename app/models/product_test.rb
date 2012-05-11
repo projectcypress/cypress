@@ -4,6 +4,8 @@ class ProductTest
   belongs_to :product
   has_one :patient_population
   has_many :test_executions, dependent: :delete
+  belongs_to :user
+
   embeds_many :notes, inverse_of: :product_test
 
   # Proctor Details

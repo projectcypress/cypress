@@ -1,20 +1,21 @@
 class ProductsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_product, only: [:show,:edit,:update]
   
   rescue_from Mongoid::Errors::Validations do
     render :template => "products/edit"
   end
    
   def show
+    @product = Product.find(params[:id])
   end
   
   def new
-    @product = Product.new
+    @product = current_user.products.new
     @product.vendor = Vendor.find(params[:vendor])
   end
   
   def create
+
     # construct the measure mapping from the selections indicated by the user
     if params[:product] && params[:product][:measure_map]
       measure_keys = params[:product][:measure_map]
@@ -23,16 +24,19 @@ class ProductsController < ApplicationController
       params[:product][:measure_map] = measure_map
     end
 
-    @product = Product.new(params[:product])
+    @product = current_user.products.build(params[:product])
     @product.save!
     
     redirect_to vendor_path(@product.vendor.id)
   end
   
   def edit
+
+    @product = current_user.products.find(params[:id])
   end
   
   def update
+    @product = current_user.products.find(params[:id])
     @product.update_attributes(params[:product])
     @product.save!
    
@@ -40,7 +44,7 @@ class ProductsController < ApplicationController
   end
   
   def destroy
-    product = Product.find(params[:id])
+    product = current_user.products.find(params[:id])
     vendor = product.vendor
     product.destroy
     redirect_to vendor_path(vendor)
@@ -50,7 +54,4 @@ class ProductsController < ApplicationController
   
   private
   
-  def find_product
-    @product = Product.find(params[:id] || params[:product_id])
-  end
 end
