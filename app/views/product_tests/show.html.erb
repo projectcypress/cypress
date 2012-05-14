@@ -243,7 +243,8 @@ f<% content_for :head do -%>
             </tr>
           </thead>
           <tbody class="<%= result_status %>">
-            <% result_measures.each do |measure|
+            <%
+              result_measures.each do |measure|
               expected_result = @current_execution.expected_result(measure)
               reported_result = @current_execution.reported_result(measure.key)
               result_status = 'na' if reported_result['numerator'].class == String %>

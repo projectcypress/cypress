@@ -1,11 +1,11 @@
 <% content_for :head do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      <% if @execution.expected_result(@measure)['numerator']=='?' %>
+  <% if @execution.expected_result(@measure)['numerator']=='?' %>
         $.cypress.addPoll("<%= product_test_measure_path(@test, @measure) %>", "<%= patients_product_test_measure_path(@test, @measure) %>")
-      <% else %>
+  <% else %>
         $.cypress.updatePatientTable("<%= patients_product_test_measure_path(@test, @measure) %>")
-      <% end %>
+  <% end %>
     });
   </script>
 <% end %>
@@ -23,7 +23,7 @@
         <%= link_to @test.name, product_test_path(@test, :execution_id => params[:execution]) %>
       </nav>
     </section>
-    
+
     <section class="candidate">
       <dl>
         <dt class="vendor">EHR Vendor</dt><dd class="vendor"><%= @vendor.name %></dd>
@@ -35,7 +35,7 @@
         <dt>Test</dt> <dd><%= @test.name %></dd>
       </dl>
     </section>
-  
+
     <div class="tabs">
       NQF #
       <% @measures_categories.sort.each do |category, measures| %>
@@ -44,15 +44,15 @@
           <% measures.each do |measure_def| %>
             <li>
               <a href="<%= product_test_measure_path(@test, measure_def,:execution=> params[:execution]) %>"
-                title="<%= "(#{@product.measure_map[measure_def.key]}) #{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
-                class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def.key}" %>
+                 title="<%= "(#{@product.measure_map[measure_def.key]}) #{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
+                 class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def.key}" %>
               </a>
             </li>
-          <% end %>        
+          <% end %>
         </ul>
       <% end %>
     </div>
-  
+
     <section id="patient_list">
       <section class="measure">
         <dl>
@@ -70,7 +70,7 @@
             <dd class="">PASS</dd>
           <% else %>
             <dd class="fail">Fail</dd>
-          <% end %>        
+          <% end %>
         </dl>
         <dl>
           <dt>Reporting Statistics:</dt>
@@ -107,7 +107,7 @@
           </dd>
         </dl>
       </section>
-    
+
       <section id="product_test_patients">
       </section>    
     </section>

@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
    
   def show
     @product = Product.find(params[:id])
+    @product.measure_map ||= Measure.default_map
   end
   
   def new
@@ -20,7 +21,7 @@ class ProductsController < ApplicationController
     if params[:product] && params[:product][:measure_map]
       measure_keys = params[:product][:measure_map]
       measure_map = {}
-      measure_keys.each { |m| measure_map[m] = params[m][m] }
+      measure_keys.each { |m| measure_map[m] = params[m][m] if params[m] && params[m][m]}
       params[:product][:measure_map] = measure_map
     end
 
@@ -50,8 +51,5 @@ class ProductsController < ApplicationController
     redirect_to vendor_path(vendor)
   end
   
-  
-  
-  private
   
 end

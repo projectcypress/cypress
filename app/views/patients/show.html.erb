@@ -12,7 +12,7 @@
           :onmouseover => "$.cypress.showMenu($('#download_menu'), $('#download_options'));"
         } %>
         <ul id="download_options" style="display: none" role="listbox"
-          class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
           <li class="ui-menu-item" role="menuitem">
             <%= link_to "Patients as C32s", download_patient_path(@patient, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
@@ -27,7 +27,7 @@
           </li>
         </ul>
       </div>
-      
+
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
         <% if @test %>
@@ -39,41 +39,41 @@
         <% end %>
       </nav>
     </section>
-    
+
     <section id="patient_nqf">
 
-    <table>
-      <colgroup  class="nqf">
-        <col />
-        <col />
-        <col />
-        <col />
-      </colgroup>
-      <thead style="position:relative;">
-        <tr class="rot">
-          <th><div>NQF #</div></th>
-          <th><div>DEN</div></th>
-          <th><div>NUM</div></th>
-          <th><div>EX</div></th>
-          <th><div>OUT</div></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @results.each do |result| %>
-          <% if result.value.population %>
-          <tr>
-            <td title="<%= "#{@product.measure_map[result.value.measure_id + (result.value.sub_id.nil? ? "" : result.value.sub_id)] if @product}" %>">
-              <%= "#{result.value.measure_id}#{result.value.sub_id}" %>
-            </td>
-            <td <%= raw result_to_class(result.value.denominator?) %>></td>
-            <td <%= raw result_to_class(result.value.numerator?) %>></td>
-            <td <%= raw result_to_class(result.value.exclusions?) %>></td>
-            <td <%= raw result_to_class(result.value.antinumerator?) %>></td>
+      <table>
+        <colgroup  class="nqf">
+          <col />
+          <col />
+          <col />
+          <col />
+        </colgroup>
+        <thead style="position:relative;">
+          <tr class="rot">
+            <th><div>NQF #</div></th>
+            <th><div>DEN</div></th>
+            <th><div>NUM</div></th>
+            <th><div>EX</div></th>
+            <th><div>OUT</div></th>
           </tr>
+        </thead>
+        <tbody>
+          <% @results.each do |result| %>
+            <% if result.value.population %>
+              <tr>
+                <td title="<%= "#{@product.measure_map[result.value.measure_id + (result.value.sub_id.nil? ? "" : result.value.sub_id)] if @product}" %>">
+                  <%= "#{result.value.measure_id}#{result.value.sub_id}" %>
+                </td>
+                <td <%= raw result_to_class(result.value.denominator?) %>></td>
+                <td <%= raw result_to_class(result.value.numerator?) %>></td>
+                <td <%= raw result_to_class(result.value.exclusions?) %>></td>
+                <td <%= raw result_to_class(result.value.antinumerator?) %>></td>
+              </tr>
+            <% end %>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
     </section>
     <div id="effectiveDate">effective date: 03/31/11</div>
     <section class="patient">
@@ -110,7 +110,7 @@
             <tr>
               <th colspan="5"><%= characteristic_title %></th>
             </tr>
-            <%= render :partial => 'entries', :locals => { :collection => characteristic } %>  
+            <%= render :partial => 'entries', :locals => { :collection => characteristic } %>
           </tbody>
         <% end %>
       </table>

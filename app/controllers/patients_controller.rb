@@ -13,6 +13,7 @@ class PatientsController < ApplicationController
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
       @product = @test.product
+      @product.measure_map ||= Measure.default_map
       @vendor  = @product.vendor
       @measures = @test.measure_defs
     else
@@ -56,6 +57,7 @@ class PatientsController < ApplicationController
     if @patient.test_id
       @test = ProductTest.find(@patient.test_id)
       @product = @test.product
+      @product.measure_map ||= Measure.default_map
       @vendor  = @product.vendor
     end
 
