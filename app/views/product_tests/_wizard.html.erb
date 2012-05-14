@@ -34,19 +34,7 @@
     dd.wide, span.wide {
       width: 45em;
     }
-    #validationErrorMessages {
-      text-align:center;
-    }
-    label.validationErrors {
-      color: red;
-      font-size: 1em;
-      font-weight:bold;
-      width: 40em;
-      margin-left: 0.5em;
-    }
-    input.required,textarea.required {background:#FFE9EC;}
-    input.valid,textarea.valid {background:#DEFADE;}
-    /* vertical tabs */
+   /* vertical tabs */
     .ui-tabs-vertical { width: 55em; }
     .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
     .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
@@ -86,7 +74,6 @@
   <%= render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
 
   <div id="validationErrorMessages"></div>
-
   <div id="navigation">
     <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
     <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /> </a>

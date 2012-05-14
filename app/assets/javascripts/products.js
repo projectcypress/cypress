@@ -24,6 +24,7 @@ $(document).ready(function() {
                 toggleRow(row, toggleSetting);
             }
         }
+        $('form').valid();
     });
 
     $("#measureMap label").click(function() {
@@ -38,20 +39,7 @@ $(document).ready(function() {
             $(this).closest('dd').find('input:checkbox').prop('checked', true).change();
     });
 
-    $(".measure_expander").toggle(
-        function() {
-            $(this).addClass('open');
-            var element = $(this).data('measure');
-            var measures = $("." + element);
-            measures.show();
-        },
-        function() {
-            $(this).removeClass('open');
-            var element = $(this).data('measure');
-            var measures = $("." + element);
-            measures.hide();
-        });
-    $("#measureMap input:checkbox").change();
+    //$("#measureMap input:checkbox").change();
 
     $(".expander").toggle(
         function() {
@@ -66,6 +54,25 @@ $(document).ready(function() {
             var codes = $("." + codeElement);
             codes.hide();
         });
+
+    $('#new_product,.edit_product').validate({
+        rules: {
+            "product[name]": "required",
+            "product[measure_map][]": "required"
+        },
+        errorClass: "validationErrors",
+        messages: {
+            "product[name]": {
+                required:"The product needs a name."
+            },
+            "product[measure_map][]": {
+                required:"You must choose at least one quality measure.  If you aren't sure how to choose, select them all."
+            }
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( $('#validationErrorMessages') );
+        }
+    });
 });
 
 // Add functionality to buttons that check or uncheck all Measures by category in the form.

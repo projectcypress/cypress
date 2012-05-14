@@ -48,13 +48,4 @@ class Product
     return self.count_passing.to_f / self.product_tests.size
   end
 
-  # provide a default measure_map if none exist for the given product
-  def measure_map
-    return self[:measure_map] if self[:measure_map]
-
-    measure_map = {}
-    Measure.installed.each { |m| measure_map[m.key] = m.key }
-    return measure_map
-
-  end
 end

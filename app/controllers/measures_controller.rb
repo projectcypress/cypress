@@ -11,6 +11,7 @@ class MeasuresController < ApplicationController
     @vendor = @product.vendor  
     @measures = @test.measure_defs
     @measures_categories = @measures.group_by { |t| t.category }
+    @product.measure_map ||= Measure.default_map
 
     respond_to do |format|
       format.json { render :json => @execution.expected_result(@measure) }
@@ -102,6 +103,7 @@ class MeasuresController < ApplicationController
     else
       @product = @test.product
     end
+    
   end
   
   def find_measure

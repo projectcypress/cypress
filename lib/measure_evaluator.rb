@@ -35,15 +35,18 @@ module Cypress
     end
 
     # Evaluates the supplied measure for the static patients
-    def self.eval_for_static_records(measure)
+    def self.eval_for_static_records(measure, asynchronous = true)
       report = QME::QualityReport.new(measure['id'], measure.sub_id, 
         {'effective_date' => STATIC_EFFECTIVE_DATE, 'test_id' => nil})
       result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
       
       if report.calculated?
         result = report.result
-      else
-        report.calculate
+      else 
+        report.calculate(asynchronous)
+        if !asynchronous
+          result = report.result
+        end
       end
       result['measure_id'] = measure.id.to_s
       result['key'] = measure.key

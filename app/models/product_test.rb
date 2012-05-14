@@ -8,6 +8,11 @@ class ProductTest
 
   embeds_many :notes, inverse_of: :product_test
 
+  # Proctor Details
+  field :proctor, type: String
+  field :proctor_tel, type: String
+  field :proctor_email, type: String
+
   # Test Details
   field :name, type: String
   field :description, type: String
@@ -16,7 +21,7 @@ class ProductTest
   field :population_creation_job, type: String
   field :result_calculation_jobs, type: Hash
   field :download_filename, type: String
-  
+
   validates_presence_of :name
   validates_presence_of :effective_date
   

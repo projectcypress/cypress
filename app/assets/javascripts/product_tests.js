@@ -14,6 +14,7 @@
         $('#all_measures').prop('checked',$('#wizard-measures-screen input.measure_cb').length == grandTotal)
         // clear the coverage map
         $('#measure_coverage').empty()
+        $('form').valid();
     };
 
 
@@ -250,5 +251,20 @@ $(document).ready(function() {
             cache = {}; // empty the cache again
         }
     });
+    $('.edit_product_test').validate({
+        rules: {
+            "product_test[name]": "required"
+        },
+        errorClass: "validationErrors",
+        messages: {
+            "product_test[name]": {
+                required:"The test needs a name."
+            }
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( $('#validationErrorMessages') );
+        }
+    });
+
 });
 

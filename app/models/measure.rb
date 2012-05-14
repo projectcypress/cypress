@@ -23,7 +23,13 @@ class Measure
       !measure.sub_id || measure.sub_id=='a'
     end
   end
-  
+
+  def self.default_map
+    map = {}
+    Measure.top_level.each {|measure| map[measure.key] = measure.key }
+    map
+  end
+
   # Finds all measures and groups the sub measures
   # @return Array - This returns an Array of Hashes. Each Hash will represent a top level measure with an ID, name, and category.
   #                 It will also have an array called subs containing hashes with an ID and name for each sub-measure.

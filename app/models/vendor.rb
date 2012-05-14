@@ -24,13 +24,7 @@ class Vendor
   field :tech_tel, type: String
   field :press_poc, type: String
   field :press_email, type: String
-  field :press_tel, type: String
-  
-  # Proctor Details
-  field :proctor, type: String
-  field :proctor_tel, type: String
-  field :proctor_email, type: String
-  
+  field :press_tel, type: String  
   
   validates_presence_of :name
   # Get the products owned by this vendor that are failing
