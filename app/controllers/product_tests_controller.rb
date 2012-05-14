@@ -59,22 +59,12 @@ class ProductTestsController < ApplicationController
     @vendor = @product.vendor
     @measures = Measure.top_level
     @patient_populations = PatientPopulation.installed
-    map = @product.measure_map
-    if map.nil?
-      map = {}
-      Measure.top_level.each {|measure| map[measure.key] = measure.key }
-    end
+    @product.measure_map ||= Measure.default_map
 
     @measures_categories = @measures.select do |t|
-      map.keys.include?(t[:id])
+      @product.measure_map.keys.include?(t[:id])
     end.group_by {|g| g.category}
 
-    # replace the measure ids with the ones specified in the product's measure_map
-    @measures_categories.each do |cat, measures|
-      measures.each do |m|
-        m[:mapped_name] = map[m.key] + " " + m.name
-      end
-    end
     # TODO - Copied default from popHealth. This probably needs to change at some point. We also currently ignore the uploaded value anyway.
     @effective_date = Time.gm(2010, 12, 31)
     @period_start = 3.months.ago(Time.at(@effective_date))
