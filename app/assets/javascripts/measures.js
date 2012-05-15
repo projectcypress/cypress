@@ -1,8 +1,7 @@
-
 /* Loop over all of the measures in coverage and fill the values of the matrix */
 function updateMatrix() {
     for (measure in coverage)
-        updateMatrixByMeasure(measure);
+      updateMatrixByMeasure(measure);
 }
 
 /* Update the bucket values for the given measure in the matrix */
@@ -103,6 +102,9 @@ function createMinimalPatientRow(patient) {
 
 /* Highlight all measure rows in the minimal set matrix that are affected by the triggering patient */
 function highlightMeasures() {
+    // First highlight the full row over which we're hovering
+    $(this).closest('tr').toggleClass('highlight');
+  
     // Find the patient from the ID attached to the row that triggered this event
     var patientId = $(this).closest('tr').prop("id");
     var patient;
@@ -120,6 +122,9 @@ function highlightMeasures() {
 
 /* Highlight all patient rows in the minimal set matrix that are affected by the triggering measure */
 function highlightPatients() {
+    // First highlight the full row over which we're hovering
+    $(this).closest('tr').toggleClass('highlight');
+  
     // Find the measure from the ID attached to the row that triggered this event
     var measureId = $(this).closest('tr').prop("id");
 
@@ -135,9 +140,3 @@ function highlightPatients() {
     var patientRows = patients.join(", #");
     $("#" + patientRows + " td").toggleClass('highlight');
 }
-
-
-
-
-
-
