@@ -4,7 +4,7 @@ module Cypress
     STATIC_EFFECTIVE_DATE = Time.gm(2010,12,30).to_i
   
     # Evaluates the supplied measure for a particular vendor
-    def self.eval(test, measure)
+    def self.eval(test, measure, asynchronous = true)
       report = QME::QualityReport.new(measure['id'], measure.sub_id, 
         {'effective_date' => test.effective_date, 'test_id' => test.id})
       result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
@@ -16,15 +16,21 @@ module Cypress
         # Get rid of any resque jobs that we may have used to calculate these results and return the result
         test.result_calculation_jobs.delete(measure_id)
         result = report.result
-      else
+      elsif asynchronous
         # If we don't already have an existing job for this measure, create one and add it to our job list
         job = test.result_calculation_jobs[measure_id]
         if job.nil?
-          uuid = report.calculate
-          job = report.status(uuid)
+          uuid = report.calculate()
+          job   = report.status(uuid)
         end
-        
         test.result_calculation_jobs[measure_id] = job
+      else
+        #The measure calculation job needs test.id to be a string,which it converts to an objectID
+        #Giving it a straight objectID causes an error. Thus we call calculate on newreport, and the result is stored in the original report!
+        newreport = QME::QualityReport.new(measure['id'], measure.sub_id, 
+        {'effective_date' => test.effective_date, 'test_id' => test.id.to_s})
+        newreport.calculate(false)
+        result = report.result
       end
       test.save!
       

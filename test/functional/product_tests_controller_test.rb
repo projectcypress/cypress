@@ -67,11 +67,10 @@ include Devise::TestHelpers
     pt3 = {:name =>'new3', :effective_date_end =>'12/21/2011' , :upload_format =>'csv', :patient_population =>'test'}
     pt4 = {:name =>'new4', :effective_date_end =>'12/21/2011' , :upload_format =>'c32'}
 
-    get :create, {:product_test => pt1, :download_filename => 'pt1file' }
+    get :create, {:product_test => pt1 }
     assert_response :redirect
     newTest = ProductTest.where({:name => 'new1'})
     assert newTest.count == 1
-    assert newTest.first.download_filename == 'pt1file'
 
     get :create, {:product_test => pt2, :download_filename => 'pt2file', :patient_ids => ['19','20','21'] }
     assert_response :redirect

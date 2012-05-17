@@ -42,14 +42,6 @@
         });
     };
 
-    $.testWizard.updateDownloadFilename = function() {
-        var download_filename = $('#product_test_name').val().replace(/ /g,"_") + "_" +
-        $('#product_test_patient_population').val() + "_" +
-        $('input[name=download_format]:checked').val() +
-        '.zip';
-        $('#download_filename').attr('readonly',true).val(download_filename);
-    };
-
     $.testWizard.updateProgressBar = function(screen) {
         $('#step1,#step2,#step3,#step4').removeClass('complete current incomplete').addClass('incomplete');
         switch (screen) {
@@ -93,10 +85,6 @@ $(document).ready(function() {
         $.testWizard.tallyMeasureGroups();
     });
 
-    $('#product_test_patient_population,input[name=download_format]').change(function(){
-        $.testWizard.updateDownloadFilename();
-    });
-
     $('[name=population_name]').change(function() {
         $('[name=population_description]').addClass("required");
     });
@@ -129,9 +117,6 @@ $(document).ready(function() {
         $('#c32,#ccr,label[for="c32"],label[for="ccr"]').hide();
         $('#html').attr('checked',true);
         $('#html,label[for="html"]').show();
-    });
-    $('#product_test_patient_population,input[name=download_format]').change(function(){
-        $.testWizard.updateDownloadFilename();
     });
     // set the default choice by invoking a click on workflow 2
     $('label[for=wf2]').trigger("click");
@@ -223,9 +208,7 @@ $(document).ready(function() {
         }
     }).bind("step_shown", function(event,data){ //TODO still need to hook up validation
         // do screen-specific functions here
-        if (data.currentStep == "wizard-patients-automated-screen") {
-            $.testWizard.updateDownloadFilename();
-        } else if (data.currentStep == "wizard-patients-manual-screen") {
+        if (data.currentStep == "wizard-patients-manual-screen") {
             $.testWizard.updateMinimalPatientSet();
         }
         // update the progress indicator

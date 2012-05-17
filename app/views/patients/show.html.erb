@@ -14,16 +14,16 @@
         <ul id="download_options" style="display: none" role="listbox"
             class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
           <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Patients as C32s", download_patient_path(@patient, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            <%= link_to "Patient as C32", download_patient_path(@patient, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
           <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Patients as CCRs", download_patient_path(@patient, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            <%= link_to "Patient as CCR", download_patient_path(@patient, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
           <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Patients as CSV", download_patient_path(@patient, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            <%= link_to "Patient as CSV", download_patient_path(@patient, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
           <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Patients as HTML", download_patient_path(@patient, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            <%= link_to "Patient as HTML", download_patient_path(@patient, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
         </ul>
       </div>
