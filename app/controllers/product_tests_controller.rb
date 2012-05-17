@@ -74,7 +74,7 @@ class ProductTestsController < ApplicationController
     # Create a new test and save here so id is made. We'll use it while cloning Records to associate them back to this ProductTest.
     test = current_user.product_tests.build(params[:product_test])
     month, day, year = params[:product_test][:effective_date_end].split('/')
-    test.effective_date = Time.local(year.to_i, month.to_i, day.to_i).to_i
+    test.effective_date = Time.gm(year.to_i, month.to_i, day.to_i).to_i
     test.save!
 
     if params[:byod] && Rails.env != 'production'
