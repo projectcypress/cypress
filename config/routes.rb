@@ -22,6 +22,7 @@ Cypress::Application.routes.draw do
       post 'process_pqri'
       post 'add_note'
       delete 'delete_note'
+      post 'email'
     end
     
     resources :patients

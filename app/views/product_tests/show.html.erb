@@ -91,7 +91,7 @@
             hide: 'fade',
             resizable: false,
             open: function(event, ui) { $(".ui-dialog-titlebar-close").show()}
-          }).html('<div style="text-align:center;"><br/><a href="<%=  download_product_test_path(@test) %>" class="cmd" onclick="$(\'#polling_for_updates\').dialog(\'close\')">Download Now</a></div><br/><div style="text-align:center;"><a href="#" class="cmd" onclick="$(\'#polling_for_updates\').dialog(\'close\')">Download Later</a></div>');
+          }).html("<%= escape_javascript(render :partial => 'download_dialog') %>");
 
         });
   <% end %>
@@ -107,29 +107,43 @@
       <div class="stacked">
         <%= link_to "Patient List", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "cmd" } %>
         <%= link_to "Upload Results", "", {:id => 'upload_results_button', :class=>"cmd"} %>
-        <%= link_to 'Download', '', {
-          :id => 'download_menu',
+        <%= link_to 'Share Patients', '', {
+          :id => 'share_menu',
           :class => "cmd",
-          :onmouseover => "$.cypress.showMenu($('#download_menu'), $('#download_options'));"
+          :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
         } %>
         <%= link_to "Edit Test", edit_product_test_path(@test), { :class => "cmd" } %>
-        <ul id="download_options" style="display: none" role="listbox"
+        <ul id="share_options" style="display: none" role="listbox"
             class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Patients as C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Patients as CCRs", download_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Patients as CSV", download_product_test_path(@test, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Patients as HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
           <% if @current_execution.reported_results %>
             <li class="ui-menu-item" role="menuitem">
-              <%= link_to "Report as PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
+              <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            </li>
+          <% end %>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Download C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Download CCRs", download_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Download CSV", download_product_test_path(@test, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <% if @test.proctor_email %>
+            <li class="ui-menu-item" role="menuitem">
+              <%= link_to "E-mail C32s", email_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            </li>
+            <li class="ui-menu-item" role="menuitem">
+              <%= link_to "E-mail CCRs", email_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            </li>
+            <li class="ui-menu-item" role="menuitem">
+              <%= link_to "E-mail CSV", email_product_test_path(@test, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            </li>
+            <li class="ui-menu-item" role="menuitem">
+              <%= link_to "E-mail HTML", email_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
             </li>
           <% end %>
         </ul>

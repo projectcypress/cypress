@@ -65,7 +65,6 @@ class ProductTestsController < ApplicationController
       @product.measure_map.keys.include?(t[:id])
     end.group_by {|g| g.category}
 
-    # TODO - Copied default from popHealth. This probably needs to change at some point. We also currently ignore the uploaded value anyway.
     @effective_date = Time.gm(2010, 12, 31)
     @period_start = 3.months.ago(Time.at(@effective_date))
   end
@@ -169,7 +168,7 @@ class ProductTestsController < ApplicationController
     # we will first import their measure results with their own patients so we can establish a baseline in order
     # to normalize with a second PQRI with results that include the test deck.
 
-    if (baseline)
+    if baseline
       doc = Nokogiri::XML(baseline.open)
       execution.baseline_results = Cypress::PqriUtility.extract_results(doc, measure_map)
       execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)          
@@ -225,5 +224,15 @@ class ProductTestsController < ApplicationController
     test.save!
 
     redirect_to :action => 'show', :execution_id => params[:execution_id]
+  end
+  
+  # Send an e-mail to the Vendor POC with an attachment that contains all of the Records included in this test
+  def email
+    test = ProductTest.find(params[:id])
+    format = params[:format]
+    
+    UserMailer.send_records(test, format).deliver
+    
+    redirect_to :action => 'show'
   end
 end

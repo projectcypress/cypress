@@ -248,6 +248,5 @@ $(document).ready(function() {
             error.appendTo( $('#validationErrorMessages') );
         }
     });
-
 });
 

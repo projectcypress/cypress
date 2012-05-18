@@ -59,5 +59,8 @@ Cypress::Application.configure do
   config.active_support.deprecation = :notify
   
   # Only log errors
-  config.log_level = :error  
+  config.log_level = :error
+  
+  # Mailer
+  ActionMailer::Base.delivery_method = :smtp
 end

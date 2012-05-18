@@ -212,4 +212,11 @@ include Devise::TestHelpers
     assert_response :redirect
     assert ProductTest.find('4f6b78801d41c851eb0004a7').notes.empty?
   end
+  
+  test "email records" do
+    test = ProductTest.find("4f58f8de1d41c851eb000478")
+    post :email, { :id => test, :format => 'c32' }
+    
+    assert_response :redirect
+  end
 end

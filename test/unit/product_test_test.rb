@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'zip/zip'
 
 class ProductTestTest < ActiveSupport::TestCase
   setup do
@@ -37,4 +38,32 @@ class ProductTestTest < ActiveSupport::TestCase
     
   end
 
+  test "generate records file" do
+    test = ProductTest.find("4f58f8de1d41c851eb000478")
+    
+    # Check that we get the appropriate file for every format we generate
+    formats = ["c32", "ccr", "csv", "html"]
+    formats.each do |format|
+      # Make sure we're at least creating some sort of file
+      file = test.generate_records_file(format)
+      assert !file.nil?
+
+      # A very rough check to see if we get the right type of file      
+      if format == 'csv'
+        # CSV should contain actual text of a record
+        assert_match(/Rachel,Mendez/, file.read)
+      else
+        # Other formats should return a zip with patient records
+        zip = Zip::ZipFile.new(file.path)
+        if format == 'html'
+          assert zip.find_entry("0_Rachel_Mendez.html")
+        else
+          assert zip.find_entry("0_Rachel_Mendez.xml")
+        end
+      end
+      
+      file.close
+      file.unlink
+    end
+  end
 end

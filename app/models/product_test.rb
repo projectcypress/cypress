@@ -63,7 +63,6 @@ class ProductTest
   def imported_population?
     return self.patient_population.nil?
   end
-  
 
   def destroy
     # Gather all records and their IDs so we can delete them along with every associated entry in the patient cache
@@ -73,5 +72,20 @@ class ProductTest
     records.destroy
     self.delete
   end
-
+  
+  # Used for downloading and e-mailing the records associated with this test.
+  #
+  # Returns a file that represents the test's patients given the requested format.
+  def generate_records_file(format)
+    file = Tempfile.new("patients-#{Time.now.to_i}")
+    patients = Record.where("test_id" => self.id)
+    
+    if format == 'csv'
+      Cypress::PatientZipper.flat_file(file, patients)
+    else
+      Cypress::PatientZipper.zip(file, patients, format.to_sym)
+    end
+    
+    file
+  end
 end
