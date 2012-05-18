@@ -129,8 +129,8 @@ include Devise::TestHelpers
     get :period, {:effective_date => '12/21/2011'}
 
     assert_response :success
-    assert assigns[:effective_date] == 1324443600
-    assert assigns[:period_start]   == '2011-09-21 00:00:00 -0400'
+    assert_equal assigns[:effective_date], '2011-12-21 00:00:00 UTC'
+    assert_equal assigns[:period_start], '2011-09-21 00:00:00 UTC'
   end
 
   test "process_pqri" do

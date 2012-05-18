@@ -1,7 +1,8 @@
 module Cypress
   class MeasureEvaluator
-    
-    STATIC_EFFECTIVE_DATE = Time.gm(2010,12,30).to_i
+    STATIC_EFFECTIVE_DATE = Time.gm(APP_CONFIG["effective_date"]["year"],
+                                    APP_CONFIG["effective_date"]["month"],
+                                    APP_CONFIG["effective_date"]["day"])
   
     # Evaluates the supplied measure for a particular vendor
     def self.eval(test, measure, asynchronous = true)

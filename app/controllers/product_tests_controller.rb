@@ -65,7 +65,7 @@ class ProductTestsController < ApplicationController
       @product.measure_map.keys.include?(t[:id])
     end.group_by {|g| g.category}
 
-    @effective_date = Time.gm(2010, 12, 31)
+    @effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
     @period_start = 3.months.ago(Time.at(@effective_date))
   end
   
@@ -142,9 +142,10 @@ class ProductTestsController < ApplicationController
   #calculates the period for reporting based on effective date (end date)
   def period
     month, day, year = params[:effective_date].split('/')
-    @effective_date = Time.local(year.to_i, month.to_i, day.to_i).to_i
+    @effective_date = Time.gm(year.to_i, month.to_i, day.to_i)
     @period_start = 3.months.ago(Time.at(@effective_date))
-    render :period, :status=>200
+    
+    render :period, :status => 200
   end
 
   # Accept a PQRI document and use it to define a new TestExecution on this ProductTest
