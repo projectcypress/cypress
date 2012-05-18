@@ -3,7 +3,7 @@ require 'measure_evaluator'
 class PatientsController < ApplicationController
 
   require 'builder'
-  require 'patient_zipper'
+  require 'create_download_zip'
   require 'remove_duplicate_patients'
   
   before_filter :authenticate_user!
@@ -94,26 +94,14 @@ class PatientsController < ApplicationController
     render 'table'
   end
 
-  # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format, patient to download by :id
-  # If no patient id is specified, we're downloading the entire Master Patient List  
+  #send user record associated with patient
   def download
-    if params[:id]
-      patients = Record.where("_id" => params[:id])
+    file = Cypress::CreateDownloadZip.create_patient_zip(params[:id],params[:format])
+    if params[:format] == 'csv'
+      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => "'patient_#{params[:id]}.csv"
     else
-      patients = Record.where("test_id" => nil)
+      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_#{params[:id]}_#{params[:format]}.zip"
     end
-    
-    file = Tempfile.new("patients-#{Time.now.to_i}")
-    format = params[:format]
-    
-    if format == 'csv'
-      Cypress::PatientZipper.flat_file(file, patients)
-      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => "'patients_csv.csv"
-    else
-      Cypress::PatientZipper.zip(file, patients, format.to_sym)
-      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "patients_#{format}.zip"
-    end
-    
     file.close
   end
 

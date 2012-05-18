@@ -20,7 +20,6 @@ class ProductTest
   field :measure_ids, type: Array
   field :population_creation_job, type: String
   field :result_calculation_jobs, type: Hash
-  field :download_filename, type: String
 
   validates_presence_of :name
   validates_presence_of :effective_date

@@ -1,5 +1,5 @@
 require 'measure_evaluator'
-require 'patient_zipper'
+require 'create_download_zip'
 require 'get_dependencies'
 require 'open-uri'
 require 'prawnto'
@@ -102,8 +102,7 @@ class ProductTestsController < ApplicationController
       test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)
       test.patient_population = PatientPopulation.where(:name => params[:product_test][:patient_population]).first
     end
-
-    test.download_filename = params[:download_filename]
+    
     test.save!
 
     redirect_to product_test_path(test)
@@ -195,25 +194,13 @@ class ProductTestsController < ApplicationController
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format
   def download
     test = current_user.product_tests.find(params[:id])
-    
-    file = Tempfile.new("patients-#{Time.now.to_i}")
-    patients = Record.where("test_id" => test.id)
-    
     format = params[:format]
-    filename = test.download_filename || "#{test.name}_html.zip"
-    if params[:format].nil? then
-      format = /(ccr|html|csv|c32)\.zip/.match(filename)[1]
-    else
-      original_format = /((ccr|html|csv|c32)\.zip)/.match(filename)[1]
-      filename = filename.sub(original_format,format)
-    end
+    file = Cypress::CreateDownloadZip.create_test_zip(test.id,format)
 
     if format == 'csv'
-      Cypress::PatientZipper.flat_file(file, patients)
-      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => filename
+      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => "Test_#{test.id}.csv"
     else
-      Cypress::PatientZipper.zip(file, patients, format.to_sym)
-      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => filename
+      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "Test_#{test.id}._#{format}.zip"
     end
     
     file.close

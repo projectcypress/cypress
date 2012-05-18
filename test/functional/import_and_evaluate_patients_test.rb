@@ -43,9 +43,9 @@ class ImportAndEvaluateTest < ActionController::TestCase
 
     Measure.installed.each do |measure|
       result = Cypress::MeasureEvaluator.eval_for_static_records(measure,false)
-      current_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["numerator"]:' + result['numerator'].to_s + "\n")
+      current_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["numerator"]:'   + result['numerator'].to_s + "\n")
       current_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["denominator"]:' + result['denominator'].to_s + "\n")
-      current_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["exclusions"]:' + result['exclusions'].to_s + "\n")
+      current_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["exclusions"]:'  + result['exclusions'].to_s + "\n")
     end
     assert current_results.count == expected_results.count
     
