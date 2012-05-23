@@ -8,11 +8,6 @@ class ProductTest
 
   embeds_many :notes, inverse_of: :product_test
 
-  # Proctor Details
-  field :proctor, type: String
-  field :proctor_tel, type: String
-  field :proctor_email, type: String
-
   # Test Details
   field :name, type: String
   field :description, type: String

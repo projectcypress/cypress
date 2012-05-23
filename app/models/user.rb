@@ -14,6 +14,9 @@ class User
   # Database authenticatable
   field :email, :type => String, :null => false
   field :encrypted_password, :type => String, :null => false
+  field :first_name, :type => String, :null => false
+  field :last_name, :type => String, :null => false
+  field :phone, :type => String, :null => false
 
   # Recoverable
   field :reset_password_token, :type => String

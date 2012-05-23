@@ -132,7 +132,7 @@
           <li class="ui-menu-item" role="menuitem">
             <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
-          <% if @test.proctor_email %>
+          <% if @test.user.email %>
             <li class="ui-menu-item" role="menuitem">
               <%= link_to "E-mail C32s", email_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
             </li>
@@ -163,9 +163,7 @@
         <dt>Product Version:</dt> <dd><%= @current_execution.product_version %></dd>
       </dl>
       <dl>
-        <dt>Proctor:</dt> <dd><%= @test.proctor %></dd>
-        <dt>E-mail:</dt> <dd><%= @test.proctor_email %></dd>
-        <dt>Phone:</dt> <dd><%= @test.proctor_tel %></dd>
+        <dt>Proctor email:</dt> <dd><%= @test.user.email %></dd>
       </dl>
       <dl>
         <dt>Description:</dt> <dd><%= @test.description %></dd>

@@ -2,7 +2,7 @@
 
 <div id="container">
   <%= render :partial=>"shared/header" %>
-
+<%= APP_CONFIG["mailer"]["openssl_verify_mode"] %>
   <div>
     <section class="tb">
       <%= link_to "Add EHR Vendor", new_vendor_path, {:class=>"cmd"} %>
