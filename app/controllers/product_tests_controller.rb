@@ -9,6 +9,7 @@ class ProductTestsController < ApplicationController
   
   def show
     @test = ProductTest.find(params[:id])
+    @default_format = params[:default_format] || 'c32'
     @product = @test.product
     @product.measure_map ||= Measure.default_map
     @vendor = @product.vendor
@@ -74,7 +75,8 @@ class ProductTestsController < ApplicationController
     test = current_user.product_tests.build(params[:product_test])
     test.effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
     test.save!
-
+    default_format = 'c32'
+    
     if params[:byod] && Rails.env != 'production'
       # If the user brought their own data, kick off a PatientImportJob. Store the file temporarily in /tmp
       uploaded_file = params[:byod].tempfile
@@ -95,6 +97,7 @@ class ProductTestsController < ApplicationController
       else
         test.population_creation_job = Cypress::PopulationCloneJob.create(:patient_ids => params[:patient_ids], :test_id => test.id)
       end
+      default_format = 'html'
     else
       # Otherwise we're making a subset of the Test Deck
       test.population_creation_job = Cypress::PopulationCloneJob.create(:subset_id => params[:product_test][:patient_population], :test_id => test.id)
@@ -102,8 +105,8 @@ class ProductTestsController < ApplicationController
     end
     
     test.save!
-
-    redirect_to product_test_path(test)
+    
+    redirect_to :action => 'show', :id => test.id, :default_format => default_format
   end
   
   def edit
