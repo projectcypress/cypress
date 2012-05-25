@@ -11,22 +11,8 @@ class ImportAndEvaluateTest < ActionController::TestCase
       return
     end
     ENV['MEASURE_PROPS'] = ENV['MEASURE_PROPS'] || ENV['MEASURE_DIR'] + '/measure_props'
-
-    Mongoid.database['records'].drop
-    Mongoid.database['measures'].drop
-    Mongoid.database['query_cache'].drop
-    Mongoid.database['patient_cache'].drop
-    
+    wipe_db_and_load_patients()
     loader = QME::Database::Loader.new('cypress_test')
-    mpl_dir = File.join(Rails.root, 'db', 'master_patient_list')
-    mpls = File.join(mpl_dir, '*')
-    Dir.glob(mpls) do |patient_file|
-      json = JSON.parse(File.read(patient_file))
-      if json['_id']
-        json['_id'] = BSON::ObjectId.from_string(json['_id'])
-      end
-      loader.save('records', json)
-    end
     loader.save_bundle(ENV['MEASURE_DIR'],'measures')
   end
   
@@ -49,13 +35,14 @@ class ImportAndEvaluateTest < ActionController::TestCase
     end
     assert current_results.count == expected_results.count
     
-    diff = current_results - expected_results
-    if diff.count != 0
-      puts 'Incorrect results:'
-      diff.each do |d|
-        puts d
+    correct = true
+    expected_results.zip(current_results) do |expected,current|
+      if expected != current
+        puts "Expected Result:   " + expected
+        puts "Calculated Result: "+ current
+        correct = false
       end
-      assert false, "Incorrect results calculated"
     end
+    assert correct, "Incorrect results calculated"
   end
 end

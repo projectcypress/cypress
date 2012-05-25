@@ -63,6 +63,23 @@ class ActiveSupport::TestCase
         Mongoid.database[collection].save(fixture_json, :safe => true)
       end
     end
+  def wipe_db_and_load_patients()
+    Mongoid.database['records'].drop
+    Mongoid.database['measures'].drop
+    Mongoid.database['query_cache'].drop
+    Mongoid.database['patient_cache'].drop
+    
+    loader = QME::Database::Loader.new('cypress_test')
+    mpl_dir = File.join(Rails.root, 'db', 'master_patient_list')
+    mpls = File.join(mpl_dir, '*')
+    Dir.glob(mpls) do |patient_file|
+      json = JSON.parse(File.read(patient_file))
+      if json['_id']
+        json['_id'] = BSON::ObjectId.from_string(json['_id'])
+      end
+      loader.save('records', json)
+    end
+  end
 end
 
 class ActionController::TestCase

@@ -12,22 +12,8 @@ class ExportAndReimportTest < ActionController::TestCase
       return
     end
     ENV['MEASURE_PROPS'] = ENV['MEASURE_PROPS'] || ENV['MEASURE_DIR'] + '/measure_props'
-    #TODO move this shared setup stuff to test helper
-    Mongoid.database['records'].drop
-    Mongoid.database['measures'].drop
-    Mongoid.database['query_cache'].drop
-    Mongoid.database['patient_cache'].drop
-    
+    wipe_db_and_load_patients()
     loader = QME::Database::Loader.new('cypress_test')
-    mpl_dir = File.join(Rails.root, 'db', 'master_patient_list')
-    mpls = File.join(mpl_dir, '*')
-    Dir.glob(mpls) do |patient_file|
-      json = JSON.parse(File.read(patient_file))
-      if json['_id']
-        json['_id'] = BSON::ObjectId.from_string(json['_id'])
-      end
-      loader.save('records', json)
-    end
     loader.save_bundle(ENV['MEASURE_DIR'],'measures')
     collection_fixtures('product_tests', '_id')
   end
@@ -40,7 +26,9 @@ class ExportAndReimportTest < ActionController::TestCase
     assert Record.count  == 225 , "Wrong number of records in DB before export"
     assert Measure.count == 78  , "Wrong number of measures in DB"
     ptest = ProductTest.find('4f58f8de1d41c851eb000478')
-    ptest.effective_date = Time.gm(2010,12,30).to_i
+    ptest.effective_date =  Time.gm(APP_CONFIG["effective_date"]["year"],
+                                    APP_CONFIG["effective_date"]["month"],
+                                    APP_CONFIG["effective_date"]["day"]).to_i
     zip = Cypress::CreateDownloadZip.create_zip(Record.where("test_id" => nil),'c32')
 
     pij = Cypress::PatientImportJob.new(UUID.generate,
@@ -48,10 +36,7 @@ class ExportAndReimportTest < ActionController::TestCase
       'test_id' => ptest.id,
       'format' => 'c32')
     pij.perform
-    #puts zip.path
     zip.close
-    #assert false
-    
 
     assert Record.count  == 450 , "Wrong number of records in DB after reimport"
 
