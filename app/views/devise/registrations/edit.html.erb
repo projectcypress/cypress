@@ -1,3 +1,4 @@
+<% require 'get_dependencies' %>
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put, :name=>"register_form"}) do |f| %>
 
       <div class="accountError">
@@ -38,8 +39,8 @@
       <!-- <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p> -->
 
       <div class="links info">
-          cypress v1.1<br>
-      </div>
+        Cypress <%= Cypress::Version.current %><br>
+        </div>
 
 
 <% end -%>

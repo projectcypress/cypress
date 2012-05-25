@@ -1,7 +1,7 @@
 <header>
   <h1>cypress</h1>
   <nav>
-    <span class="username">Welcome, <%= current_user.try(:email) || 'New User' %></span>
+    <span class="username">Welcome, <%= current_user.try(:first_name) || 'New User' %></span>
     <%= link_to "account", edit_user_registration_path %>
     <a href="/information/about">about</a>
     <a href="/information/feedback">feedback</a>

@@ -10,6 +10,12 @@ module Cypress
       deps["Quality-Measure-Engine"] = env.specs.to_hash["quality-measure-engine"].first.version.to_s
       return deps
     end
+
+    def self.version()
+      return APP_CONFIG["version"]
+    end
+
+
     
   end
 end
