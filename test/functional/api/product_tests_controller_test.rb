@@ -12,7 +12,7 @@ module Api
       collection_fixtures('product_tests','_id','product_id')
     
       @request.env["devise.mapping"] = Devise.mappings[:user]
-      @user = User.first(:conditions => {:username => 'bobbytables'})
+      @user = User.first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
       
       sign_in @user
     end

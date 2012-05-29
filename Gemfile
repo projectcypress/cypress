@@ -9,7 +9,8 @@ gem 'quality-measure-engine', '1.1.2'
 #gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
 gem 'health-data-standards', '0.8.0'
 
-gem 'bson_ext', :platforms => :mri
+gem 'bson', '1.5.1'
+gem 'bson_ext', '1.5.1'
 gem 'mongoid', '~> 2.0'
 
 gem 'devise', '~> 2.0'

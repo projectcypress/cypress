@@ -10,7 +10,7 @@ class VendorsControllerTest < ActionController::TestCase
     collection_fixtures('users',"_id","vendor_ids")
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    @user = User.first(:conditions => {:username => 'bobbytables'})
+    @user = User.first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
    
     sign_in @user
   end

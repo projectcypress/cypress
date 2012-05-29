@@ -32,9 +32,8 @@ GEM
     ansi (1.4.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bson (1.6.2)
-    bson_ext (1.6.2)
-      bson (~> 1.6.2)
+    bson (1.5.1)
+    bson_ext (1.5.1)
     builder (3.0.0)
     coderay (1.0.6)
     coffee-rails (3.2.2)
@@ -79,6 +78,8 @@ GEM
     minitest (3.0.1)
     mocha (0.11.4)
       metaclass (~> 0.0.1)
+    mongo (1.5.1)
+      bson (= 1.5.1)
     mongo (1.6.2)
       bson (~> 1.6.2)
     mongoid (2.4.10)
@@ -154,6 +155,7 @@ GEM
       uuid (>= 2.0.2)
     ruby-rc4 (0.1.5)
     rubyzip (0.9.8)
+    sass (3.1.18)
     sass (3.1.19)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -207,7 +209,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext
+  bson (= 1.5.1)
+  bson_ext (= 1.5.1)
   coffee-rails
   devise (~> 2.0)
   health-data-standards (= 0.8.0)

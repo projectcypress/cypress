@@ -17,7 +17,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal mail.to.first, test.product.vendor.email
     assert_equal mail.subject, "Cypress test patients for #{test.name}"
     assert_match(/Cypress Team/, mail.text_part.to_s) # Doesn't need to be exact for testing
-    assert_equal mail.reply_to.first, 'fred@example.com'
+    assert_equal mail.reply_to.first, 'bobby@tables.org'
   end
   
   test "send records forms e-mail with correct attachments" do

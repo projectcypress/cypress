@@ -1,0 +1,75 @@
+/* popHealth account stylesheet
+ * Author: Mike Nosal (mnosal@mitre.org)
+ * Version 1.0
+ * Last Modified Date: 2011-03-21
+ * 
+ * This was originally written in LESS, an alternative CSS grammar.
+ * For further information, see http://lesscss.org
+ *
+ * Converted to SCSS to jive with the Rails 3.1 asset pipeline: 2011-12-21
+ *
+ */
+	input.noted {margin-bottom:0}
+	p.note {color:#666;margin-bottom:20px}
+	label {
+		color: #666;
+		font-size:14px;
+		display:block;
+	}
+  p input {width:auto}
+  p label {display:inline;}
+	.actions {	
+		text-align:right;
+		padding:10px 0;
+	}
+	.links {
+		font-size:14px;
+		line-height:2em;
+		padding-right:3px;
+		padding:20px 0 0 0;
+		a {
+			color: #40afee;
+		}
+	}
+	.links.info {
+		font-size:12px;
+		text-align:right;
+		line-height:1.5em;
+		color:#666;
+		padding-top:30px;
+	}
+	p {
+		font-size:12px;
+	}
+	h1 {padding:10px 0;}
+}
+
+ul.register {
+	margin:0 0 20px 0;
+	
+    li {
+    	list-style-type: none;
+    	padding:0 0 15px 0;
+        input {
+          margin-bottom:0px;
+        }
+    }
+    p {
+    	color:#666;
+        font-size:11px;
+    }
+}
+
+#panelReset {
+	div {
+		input {margin-bottom:0}
+		p {margin-bottom:20px}
+	}
+}
+
+#regcheckbox {
+	padding:15px 0;
+    text-align:left;
+    input {width:auto;margin-right:5px;}
+    label {color:#000;font-size:100%;display:inline;cursor:pointer;}
+}

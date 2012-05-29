@@ -1,45 +1,52 @@
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put, :name=>"register_form"}) do |f| %>
+<% require 'get_dependencies' %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put, :name=>"register_form"}) do |f| %>
 
-      <div class="accountError">
-        <%= devise_error_messages! %>
-      </div>
+  <div class="accountError">
+    <%= devise_error_messages! %>
+  </div>
 
-      <ul class="register">
-        <li>
-          <%= f.label :email %>
-          <%= f.email_field :email %>
-        </li>
+  <ul class="register">
+    <li>
+      <%= f.label :first_name %>
+      <%= f.email_field :first_name %>
+      <%= f.label :last_name %>
+      <%= f.email_field :last_name %>
+    </li>
+    <li>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </li>
 
-        <li>
-          <%= f.label :password %>
-          <%= f.password_field :password %>
-          <p>Must be at least 5 characters long. (leave blank if you don't want to change it)</p>
-        </li>
+    <li>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+      <p>Must be at least 5 characters long. (leave blank if you don't want to change it)</p>
+    </li>
 
-        <li>
-          <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation %>
-        </li>
-        <li>
-          <%= f.label :current_password %>
-          <%= f.password_field :current_password %>
-          <p>(we need your current password to confirm your changes)</p>
-        </li>
-      </ul>
+    <li>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </li>
+    <li>
+      <%= f.label :current_password %>
+      <%= f.password_field :current_password %>
+      <p>(we need your current password to confirm your changes)</p>
+    </li>
+  </ul>
 
-      <div class="actions">
-          <a class="whitebutton" href="/"><span>Cancel</span></a>
-        <%= 
-          content_tag(:a,  {:href=>"#", :class=>"bluebutton", :onclick=>"submitRegisterform()"} ) do
-            content_tag(:span,"Update")
-          end %>
-      </div>
+  <div class="actions">
+    <a class="whitebutton" href="/"><span>Cancel</span></a>
+    <%=
+    content_tag(:a,  {:href=>"#", :class=>"bluebutton", :onclick=>"submitRegisterform()"} ) do
+      content_tag(:span,"Update")
+    end %>
+  </div>
 
-      <!-- <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p> -->
+        <!-- <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p> -->
 
-      <div class="links info">
-          cypress v1.1<br>
-      </div>
+  <div class="links info">
+    Cypress <%= Cypress::Version.current %><br>
+  </div>
 
 
 <% end -%>

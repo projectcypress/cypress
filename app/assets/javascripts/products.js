@@ -39,8 +39,6 @@ $(document).ready(function() {
             $(this).closest('dd').find('input:checkbox').prop('checked', true).change();
     });
 
-    //$("#measureMap input:checkbox").change();
-
     $(".expander").toggle(
         function() {
             $(this).addClass('open');
@@ -73,6 +71,10 @@ $(document).ready(function() {
             error.appendTo( $('#validationErrorMessages') );
         }
     });
+
+    // default to all measures enabled
+    toggleMeasures(true);
+
 });
 
 // Add functionality to buttons that check or uncheck all Measures by category in the form.

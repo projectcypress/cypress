@@ -132,7 +132,7 @@
           <li class="ui-menu-item" role="menuitem">
             <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
-          <% if @test.proctor_email %>
+          <% if @test.user.email %>
             <li class="ui-menu-item" role="menuitem">
               <%= link_to "E-mail C32s", email_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
             </li>
@@ -162,10 +162,11 @@
         <dt>Reporting Period:</dt> <dd><%= 3.months.ago(Time.at(@test.effective_date)).strftime("%m/%d/%Y") %> - <%= Time.at(@test.effective_date).strftime("%m/%d/%Y") %></dd>
         <dt>Product Version:</dt> <dd><%= @current_execution.product_version %></dd>
       </dl>
+      <br>
       <dl>
-        <dt>Proctor:</dt> <dd><%= @test.proctor %></dd>
-        <dt>E-mail:</dt> <dd><%= @test.proctor_email %></dd>
-        <dt>Phone:</dt> <dd><%= @test.proctor_tel %></dd>
+        <dt>Proctor:</dt> <dd><%= @test.user.first_name %> <%= @test.user.last_name %></dd>
+        <dt>Email:</dt> <dd><%= @test.user.email %></dd>
+        <dt>Telephone:</dt> <dd><%= @test.user.telephone %></dd>
       </dl>
       <dl>
         <dt>Description:</dt> <dd><%= @test.description %></dd>
