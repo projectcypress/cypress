@@ -28,8 +28,14 @@ a.whitebutton span {
 }
 
 .bluebutton:active, .whitebutton.active {
-  position:relative;
-  top:1px;
-  left:1px;
   outline: none; /* hide dotted outline in Firefox */
+}
+
+#container .btn {
+  color: #19b;
+  @include border-radius(15px);
+  padding: 3px 16px 2px;
+  line-height: 15px;
+  margin-left: 10px;
+  &.btn-primary {color:white;}
 }

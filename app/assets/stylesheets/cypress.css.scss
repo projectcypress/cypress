@@ -1,954 +1,109 @@
-/* cypress stylesheet
- * Author: Mike Nosal (mnosal@mitre.org)
- * Version 1.0a
- * Last Modified Date: 2011-05-25
- * 
- * This was originally written in LESS, an alternative CSS grammar.
- * For further information, see http://lesscss.org
+/*!
+ * Bootstrap v2.0.2
  *
- * Converted to SCSS to jive with the Rails 3.1 asset pipeline: 2011-12-21
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ * Ported to Sass by brajeshwar@gmail.com
  */
- 
 
-/* reset.css */
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
-article, aside, dialog, figure, footer, header, hgroup, nav, section {display:block;}
-body {line-height:1.5;}
-table {border-collapse:separate;border-spacing:0;}
-caption, th, td {text-align:left;font-weight:normal;}
-table, td, th {vertical-align:middle;}
-blockquote:before, blockquote:after, q:before, q:after {content:"";}
-blockquote, q {quotes:"" "";}
-a img {border:none;}
+// Core variables and mixins
+@import "bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
 
+$gridColumns:             12;
+$gridColumnWidth:         60px;
+$gridGutterWidth:         20px;
 
-/* Constant declarations */
-/* Colors */
+$basefont:                13px !default;
+$baseFontFamily:          "Myriad Pro", "Frutiger", Calibri,Thonburi, Helvetica, Arial, sans-serif;
+$linkColor:               #439fac;
 
-body {
-  width:100%;
-  font-family:"Helvetica Neue",Helvetica,Arial;
-  font-size:0.9em;
-  font-weight:300;
+// Sprite icons path
+$iconSpritePath:          "/assets/glyphicons-halflings.png";
+$iconWhiteSpritePath:     "/assets/glyphicons-halflings-white.png";
+
+@import "bootstrap/mixins";
+
+@mixin font-sans-serif($size: $baseFontSize, $weight: normal, $lineHeight: $baseLineHeight) {
+  font-family: "Myriad Pro", "Frutiger", Helvetica, Arial, sans-serif;
+  @include font-shorthand($size, $weight, $lineHeight);
 }
 
-a {
-  color:#000;
+// CSS Reset
+@import "bootstrap/reset";
+
+// Grid system and page structure
+@import "bootstrap/scaffolding";
+@import "bootstrap/grid";
+@import "bootstrap/layouts";
+
+// Base CSS
+@import "bootstrap/type";
+@import "bootstrap/code";
+@import "bootstrap/forms";
+@import "bootstrap/tables";
+
+// Components: common
+@import "bootstrap/sprites";
+@import "bootstrap/dropdowns";
+@import "bootstrap/wells";
+@import "bootstrap/component-animations";
+@import "bootstrap/close";
+
+// Components: Buttons & Alerts
+@import "bootstrap/buttons";
+@import "bootstrap/button-groups";
+@import "bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
+
+// Components: Nav
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
+@import "bootstrap/breadcrumbs";
+@import "bootstrap/pagination";
+@import "bootstrap/pager";
+
+// Components: Popovers
+@import "bootstrap/modals";
+@import "bootstrap/tooltip";
+@import "bootstrap/popovers";
+
+// Components: Misc
+@import "bootstrap/thumbnails";
+@import "bootstrap/labels";
+@import "bootstrap/progress-bars";
+@import "bootstrap/accordion";
+@import "bootstrap/carousel";
+@import "bootstrap/hero-unit";
+
+// Utility classes
+@import "bootstrap/utilities"; // Has to be last to override when necessary
+
+
+// Cypress specific component styles and overrides
+@import "cypress/mixins";
+@import "cypress/buttons";
+@import "cypress/account";
+
+html {height:100%}
+body {height:100%}
+
+#pageButtons {
+  margin:10px 10px 10px 25px;
+  form { float:right;margin:0}
 }
 
-@mixin bordered {
-  border:1px solid #aaaaaa;
-  -moz-border-radius:5px;
-  -webkit-border-radius:5px;
-  border-radius:5px;
-  behavior: url(/stylesheets/PIE.htc);
-} 
+.table-measure-detail.published-measures td:nth-child(4) {white-space:nowrap;}
 
-header {
-  position:relative;
-  padding:5px 20px;
-  border-bottom:1px solid #aaa;
-  h1 {
-    background:transparent url(/assets/cypress_logo.png) top left no-repeat;
-    text-indent:-9999pt;
-    width:169px;
-    height:40px;
-  }
-  nav {
-    position:absolute;
-    top:17px;
-    right:20px;
-  }
-  a {
-    text-decoration:underline;
-    margin-left:10px;
-  }
+.modal {-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
 }
+.modal-backdrop {background-color:rgba(255,255,255,0.8);}
 
-#container {
-  width:1000px;
-  margin:20px auto 20px auto;
-  border:1px solid #aaaaaa;
-  background-color:#fff;
-  -moz-border-radius:10px;
-  -webkit-border-radius:10px;
-  border-radius:10px;
-  -webkit-box-shadow: 2px 2px 8px #aaaaaa;
-  -moz-box-shadow: 2px 2px 8px #aaaaaa;
-  box-shadow: 2px 2px 8px #aaaaaa;
-  behavior: url(/stylesheets/PIE.htc);
-}
+.modal .form-stacked {margin-bottom:0}
 
-#container>div {padding:10px 20px 20px 20px;}
-#container>div.split {border-top:1px solid #ccc;}
-
-
-a.cmd {
-  padding:3px 10px;
-  text-align: center;
-  text-decoration:none;
-  background-color:#a7c98a + #444;
-  background-color:#fff;
-  border:1px solid #539309;
-  -moz-border-radius:5px;
-  -webkit-border-radius:5px;
-  border-radius:5px;
-  color:#539309;
-  cursor:pointer;
-  font-size:80%;
-  behavior: url(/assets/PIE.htc);
-  width:100px;
-  &.disabled { color: #aaa; border-color: #aaa; }
-  &.disabled:hover { background-color: #fff; cursor: default; }
-}
-
-a.cmd:hover {background-color:#a7c98a  + #444;}
-
-a.mailing_list {
-  color: #336633;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-div.stacked{
-  clear:both;
-  ul {
-    border: 1px red solid;
-  }
-}
-
-.dialog-menu {
-  display: none;
-  font-family: "Helvetica Neue", Helvetica, Arial;
-  font-size: 80%;
-}
-.dialog-menuwindow {
-  border: 1px solid #539309;
-  .ui-dialog-titlebar {
-    display: none;
-  }
-  .ui-menu-item:hover {
-    background-color: #a7c98a  + #444;
-  }
-}
-
-section.tb {
-  a.cmd {float:right;margin-left:15px;}
-}
-nav.breadcrumb {
-  font-size:80%;
-  text-transform:uppercase;
-  margin-bottom:12px;
-  
-  padding-top:4px;
-  a {
-    text-decoration:underline;
-    margin:0 5px;
-  }
-  a:hover {text-decoration:underline;}
-  a:first-child {margin-left:0;}
-  span {margin-left:5px;}
-}
-
-
-
-
-section.candidate, section.records, section.ctb_records, section.nqf {
-  padding:10px;
-  position:relative;
-  dl {
-    font-size:90%;
-    width:310px;
-    display:table-cell;
-  }
-  dt {
-    color:#666;
-    width:75px;
-    clear:both;
-    display:inline-block;
-    text-align:right;
-    margin-right:5px;
-    vertical-align:top;
-  }
-  dd {
-    width:225px;
-    display:inline-block;
-    address span {display:block;}
-  }
-  dl.vendor { 
-    dt {line-height:150%;vertical-align: baseline;width:100px}
-    dd {width:200px;}
-    dd:nth-child(2)  {font-size:150%}  
-  }
-}
-
-section#vendor {
-  @include bordered;
-  vertical-alignign:top;
-  h1 {
-    margin-top:20px;
-    background-color:#ecf3e8;
-    padding:2px 10px;
-    text-transform:uppercase;
-    span.header_commands {
-      display: inline;
-      font-size: 60%;
-    }
-  }
-  section {
-    padding:10px;
-    input {
-      padding:4px;
-      @include bordered;
-      }
-    }
-  h2 {
-    margin:5px 10px;
-    padding-top:5px;
-    color:#666;
-    border-top:1px solid #eee;
-    font-style:italic;
-  }
-  dl {
-    font-size:90%;
-    width:310px;
-    display:table-cell;
-    vertical-align:top;
-    line-height:2.5em;
-    }
-  dt {
-    color:#666;
-    width:140px;
-    clear:both;
-    display:inline-block;
-    text-align:right;
-    margin-right:5px;
-    vertical-align:top;
-    span.header_commands {
-      display: inline;
-      font-size: 85%;
-    }
-  }
-  dd {
-    width:160px;
-    display:inline-block;
-    address span {display:block;}
-  }
-  section#testMeasures {
-    padding-top:0;
-    span:nth-child(5n+6) {
-      margin-top:20px;
-    }
-    
-  }
-  a#vendor_submit {
-    display: block;
-    margin: 10px 10px;
-    width:100px;
-  }
-}
-
-section#testMeasures {
-  h2 {
-    margin:5px 10px;
-    padding-top:15px;
-    color:#666;
-    border-top:1px solid #eee;
-    font-style:italic;
-    padding-bottom:20px;
-  }
-  div { margin-top: 20px; }
-  dl {
-    font-size:90%;
-    width:925px;
-    display:table-cell;
-    vertical-align:top;
-    line-height:2.5em;
-    clear:both;
-  }
-  dt {
-    color:#666;
-    width:925px;
-    clear:both;
-    padding:3px;
-    text-align:left;
-    margin-right:5px;
-    vertical-align:top;
-    border-bottom:1px solid black;
-  }
-  dd {
-    margin-left: 10px;
-    width: 925px;
-    clear: both;
-    label:hover { cursor: pointer }
-    span { display: inline-block }
-    span.measure_expander {
-      margin-right: -12px;
-      cursor: pointer;
-      width: 8px; height: 8px;
-      background: url(/assets/closed.gif) no-repeat;
-      &.open {background:url(/assets/open.gif) no-repeat};
-    }
-    span.left {
-      margin-left: 15px;
-      input { margin: 0 }
-      width: 800px;
-    }
-    span.right {
-      text-align: right;
-      float: right;
-      margin-right: 10px;
-    }
-    address span { display: block }
-  }
-  dd.inactive {
-    color: #aaa;
-    input, label { color: #aaa }
-  }
-  dd.sub {
-    display: none;
-    margin-left: 13px;
-    border-left: 1px solid #656464;
-    span.left { margin-left: 11px }
-    span.right { margin-right: 14px }
-  }
-}
-section#measureMap {
-  h2 {
-    margin:5px 10px;
-    padding-top:5px;
-    color:#666;
-    border-top:1px solid #eee;
-    font-style:italic;
-    padding-bottom:20px;
-  }
-  div { margin-top: 5px; }
-  dl {
-    font-size:90%;
-    width:725px;
-    display:table-cell;
-    vertical-align:top;
-    line-height:2.5em;
-    clear:both;
-  }
-  dt {
-    color:#666;
-    width:725px;
-    clear:both;
-    padding:3px;
-    text-align:left;
-    margin-right:5px;
-    vertical-align:top;
-  }
-  dd {
-    margin-left: 10px;
-    width: 725px;
-    clear: both;
-    label:hover { cursor: pointer }
-    span { display: inline-block }
-    span.measure_expander {
-      margin-right: -12px;
-      cursor: pointer;
-      width: 8px; height: 8px;
-      background: url(/assets/closed.gif) no-repeat;
-      &.open {background:url(/assets/open.gif) no-repeat};
-    }
-    span.left {
-      margin-left: 15px;
-      input { margin: 0 }
-      width: 600px;
-    }
-    span.mapping {
-      display:none;
-      margin-left: .2em;
-    }
-    address span { display: block }
-  }
-  dd.inactive {
-    color: #aaa;
-    input, label { color: #aaa }
-  }
-  dd.sub {
-    display: none;
-    margin-left: 13px;
-    border-left: 1px solid #656464;
-    span.left { margin-left: 11px }
-    span.right { margin-right: 14px }
-  }
-}
-
-section.records {
-  line-height:2em;
-  padding:10px 0;
-  label {color:#666;}
-  textarea {
-    height:1em;
-    padding:6px;
-    @include bordered;
-  }
-  input[type=button] {
-    color:#666;
-    background-color:white;
-    @include bordered;
-  }
-  div {margin:0 0 10px 0}
-  time {color:#666}
-  a.cmd {line-height:1em;margin-right:10px}
-}
-
-section a.nav {
-  position:absolute;
-  bottom:10px;
-  right:10px;
-  background-color:white;
-  padding:2px;
-  text-indent:-9999pt;
-  width:30px;
-  height:30px;
-  @include bordered;
-}
-section.patient a.nav {top:auto;bottom:10px}
-section a.previous {
-  background:url(/assets/previous.png) 50% 50% no-repeat;
-  right:55px;
-}
-section a.advance {
-  background:url(/assets/advance.png) 50% 50% no-repeat;
-}
-
-section.candidate, section.measure, section.patient, section.ctb_records,section.nqf {
-  @include bordered;
-  padding:10px 10px 20px;
-  position:relative;
-  .sub_rows {
-      display: none;
-      margin-left: 7px;
-      border-left: 1px solid #656464;
-    }
-}
-
-section.nqf dl {width:600px;dt{text-align:left}dd{width:400px;}}
-section.nqf a.cmd {float:right;margin-left:10px}
-section.nqf h2 {font-size:1.5em;}
-section.nqf {padding-bottom:10px}
-
-section.legend {
-  padding:10px 10px 10px 0;
-  font-size:90%;
-  border-top:1px solid #aaa;
-  line-height:2em;
-  dt {color:#666; display:inline-block;}
-  dd {color:#666; display:inline-block; margin-left:25px; padding-left:20px}
-  dd.na {color:#666;background:url(/assets/insufficient.png) 0% 50% no-repeat;}
-  dd.pass {color:green;background:url(/assets/pass.png) 0 50% no-repeat;}
-  dd.fail {color:red;background:url(/assets/fail.png) 0 50% no-repeat;}
-}
-
-section table {
-  width:100%;
-  thead {
-    font-size:90%;
-    tr:first-child th {
-      text-align:center;
-      text-transform:uppercase;
-      border-bottom:1px solid #ccc;
-      padding-top:25px;
-    }
-  }
-  th, td {
-    padding:2px 4px;
-    vertical-align:top;
-    font-family:"Helvetica Neue",Helvetica,Arial;
-    font-weight:300;
-  }
-  th {
-    color:#666;
-  }
-  td.patient_entry {
-    width:45%;
-  }
-
-  tr.na td {color:#aaa}
-  tr:nth-child(2) th {font-size:90%;color:#999}
-  th span.fail {font-weight:bold;color:red;}
-  th span.pass {font-weight:bold;color:green;}
-  tr td a {text-decoration:none}
-  td div.na {background:url(/assets/insufficient.png) 0 50% no-repeat;
-    text-indent:-9999pt;width:16px;
-  }
-  td div.fail {background:url(/assets/fail.png) 0 50% no-repeat;
-    text-indent:-9999pt;width:16px;
-  } 
-  td div.pass {background:url(/assets/pass.png) 0 50% no-repeat;
-    text-indent:-9999pt;width:16px;
-  }
-  td.r {font-weight:bold}
-  td span.na {color:#999;font-style:italic}
-  td span.q {color:#999;}
-}
-section#quality_measures {
-  margin-bottom:40px;
-  table thead {
-    tr th:nth-child(-n+4) {text-align:center;}
-    tr th:first-child {text-align:left;}
-    tr th:nth-child(5) {text-align:left;}
-  }
-  tbody.fail td:nth-child(2) a {color:red;font-weight:bold;}
-  tbody.pass td:nth-child(2) a {color:green}
-  tbody.fail span.f {color:red;font-weight:bold;}
-  td:first-child {width:1em;}
-  td:nth-child(-n+5) {text-align:center}
-  td:nth-child(-n+2) {text-align:left}
-}
-#loading_progress {
-  margin-top: 30px;
-  .ui-progressbar-value { 
-    background: #EBFFCE;
-    border: 1px solid #539309;
-  }
-}
-
-section.measure {
-  margin-top:10px;
-  position:relative;
-  padding-bottom:0;
-  dl {
-    font-size:90%;
-    margin-bottom:10px;
-  }
-  dt {
-    color:#666;
-    width:120px;
-    display:inline-block;
-    text-align:right;
-    margin-right:5px;
-    vertical-align:top;
-  }
-  dt.measure_title {line-height:150%;vertical-align: baseline;}
-  dd.measure_title {font-size:150%}
-  dd.measure_desc {margin-left:130px;}
-  dd {
-    width:780px;
-    display:inline-block;
-    table {
-      width:600px;
-      td,th {padding:0 8px 0 0;}
-      th {font-style:italic;text-align:right;color:#000}
-      span.r {font-weight:bold}
-      span.fail {color:red;font-weight:bold;}
-    }
-  }
-  dd.pass {background:url(/assets/pass.png) 0 50% no-repeat;padding-left:20px;color:green}
-  dd.na   {background:url(/assets/insufficient.png) 0 50% no-repeat;padding-left:20px;color:#999}
-  dd.fail {background:url(/assets/fail.png) 0 50% no-repeat;padding-left:20px;color:red;font-weight:bold}
-}
-
-section.pqriValidation {
-  margin-top:10px;
-  position:relative;
-  padding-bottom:0;
-  
-  h2 { margin-top: 5px; }
-  
-  h2.fail{font-weight:bold;color:red;}
-  
-  h2.success{font-weight:bold;color:green;}
-  
-  div.pqriXmlError,div.baselinePqriXmlError{
-    margin-top:10px;
-    padding:3px 3px 3px 3px;
-    background-color:#F7E1E7;
-    border:1px solid #ff0000;
-    
-  }
-
-  tr.baselinepqri_results,tr.pqri_results{
-    display:none;
-  }
-
-  
-}
-
-section#vendor_patients {
-  margin-top:20px;
-  margin-bottom:40px;
-  #patient_controls {
-    @include bordered;
-    border:1px solid green;
-    width:140px;
-    text-align:center;
-    padding:0 10px;
-    float:left;
-    input {display:none}
-    label {
-      text-transform:uppercase;
-      display:block;
-      padding:5px;
-      margin:10px 0;
-      background-color:#f5f5f5;
-      border:1px solid #f5f5f5;
-      -moz-border-radius:5px;
-      -webkit-border-radius:5px;
-      border-radius:5px;
-      cursor:pointer;
-    }
-    label.selected {
-      background-color:#cde6bc;
-      border:1px solid #cde6bc;
-    }
-    label:hover {
-      border-color:green;
-    }
-  }
-  input.search {margin:0 0 15px 0;display:block;}
-}
-
-
-  table#patient_subset {
-    border-collapse:collapse;
-    thead tr:first-child th {padding-top:0}
-    tr.rot th div {
-      white-space: nowrap;
-      font-weight:500;
-      color:#000;
-      -webkit-transform: rotate(-45deg);  
-      -moz-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-      -o-transform: rotate(-45deg);
-      transform: rotate(-45deg);
-      font-size:80%;
-      display:inline-block;
-      width:1em;
-      behavior: url(/stylesheets/PIE.htc);
-    }
-  tr:hover td:nth-child(n+5) {background-color:#e6f3e8;}
-    colgroup {background-color:#fff;padding:0}
-    col {width:18px;}
-    td:nth-child(-n+4) {background:url(/assets/notincluded.png) 25% 25% no-repeat;}
-    thead {
-      tr th {
-        text-align:left;
-        border-bottom:none;
-        background-image:none;
-      }
-    }
-    th:nth-child(9), td:nth-child(9) {text-align:center}
-    td:nth-child(5) {width:10px;padding:0}
-    td {padding:0 4px;}
-    td:nth-child(n+5) {border:none}
-/*    tbody tr:nth-child(2n-1) td:nth-child(n+6) {
-      background-color:#f0f0f0;
-    } */
-    td.p {background:url(/assets/included.png) 25% 25% no-repeat;}
-  }
-
-
-section.patient {
-  margin-bottom:20px;
-  padding-bottom:10px;
-  display:inline-block;
-  width:780px;
-  strong {font-weight:bold;text-transform:uppercase;}
-  .patientname {margin-left:140px;position:relative;top:0}
-  div {position:relative;height:131px;width:550px;}
-  dl {position:absolute;bottom:0;left:140px;}
-  dt {display:inline-block;float:left;clear:left;}
-  dd {margin-left:10px;display:inline-block;font-weight:bold;float:left;}
-  span.age {font-style:italic}
-}
-
-section#patient_nqf {
-  padding-top:5px;
-  table {
-    display:block;
-    border-collapse:collapse;
-    float:left;
-    width:150px;
-    thead tr th {text-align:center;height:20px}
-    thead tr:first-child th {padding-top:0}
-    thead tr th:first-child {text-align:right;color:#000;border-bottom:none;}
-    tr.rot th+th div {
-      white-space: nowrap;
-      font-weight:500;
-      color:#000;
-      -webkit-transform: rotate(-45deg);  
-      -moz-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-      -o-transform: rotate(-45deg);
-      transform: rotate(-45deg);
-      font-size:80%;
-      display:inline-block;
-      width:1em;
-      behavior: url(/stylesheets/PIE.htc);
-  
-    }
-    colgroup {background-color:#fff;padding:0}
-    col {width:18px;}
-    td:nth-child(-n+5) {background:url(/assets/notincluded.png) 25% 25% no-repeat;}
-    td:first-child{background:none}
-    thead {
-    tr th {text-align:left;border-bottom:none;}
-    }
-    td {padding:0 4px;}
-    td.p {background:url(/assets/included.png) 25% 25% no-repeat;}
-    td.f {background:url(/assets/fail.png) 25% 25% no-repeat;}
-
-
-    tr td {
-      font-size:80%;
-      padding:0;
-      margin:0;
-      text-align:center;
-      height:1em;
-      width:1.4em;
-      width:5px; /* see if we can force IE to use less space */
-      }
-    tr td:first-child {padding:0 5px 0 0px;text-align:left;text-align:right;width:4em}
-    img {margin-top:3px}
-
-  }
-}
-
-section#first{
-  span.inline-span{
-   display:inline;
-  }
-}
-
-div#effectiveDate {
-  text-align:center;
-  font-style:italic;
-  position:relative;
-  bottom:5px;
-  }
-section#patient_characteristics {
-  width:800px;
-  vertical-align:top;
-  margin-bottom:40px;
-  margin-left:150px;
-  table {
-    width:800px;
-    tr th {
-      background-color:#f0f0f0;
-      color:#333;
-      text-transform:uppercase;
-      font-weight:bold;
-      font-size:85%;
-      }
-    td {padding: 0px;text-align:left}
-    tr td:first-child {width: 5px;}
-    tr td:last-child {text-align:right; padding-right: 10px;}
-    tr td:nth-child(2) {width:30%;}
-    tr td:nth-child(3) {width:40%;}
-    tr td:nth-child(4) {width:30%;}
-    /* add spacing between body sections in patient table */
-    tbody tr:last-child td {padding-bottom:1em} 
-    td.reason {text-align:right;font-style:italic;font-size:90%}
-    td.val, td em { font-weight:bold}
-    tbody tr:last-child td {padding-bottom:20px}
-    .sub_rows {
-      display: none;
-      margin-left: -7px;
-      border-left: 1px solid #656464;
-    }
-    span {
-      display: block;
-      margin-left: 6px;
-    }
-  }
-}
-
-section#patient_list {
-  width: 800px;
-  margin-top: 30px;
-  display: inline-block;
-  vertical-align: top;
- table#patient_subset {
-  margin-top:25px;
-  width:850px;
-   th {text-align:left}
-  th:nth-child(9) {text-align:center;}
- }
- section.measure {
-  dd {width:500px;}
-  th {text-align:left;width:3em}
-  }
-  input.search {margin-top:15px}
-}
-div.tabs {
-  margin-top:20px;
-  margin-right: 20px;
-  width:90px;
-  text-align:right;
-  display: inline-block;
-  
-  ul { border-right:1px solid #ddd;
-    list-style:none;
-    padding-top:10px;
-  }
-  li { text-align:right;
-  } 
-  a.selected {
-  text-decoration:none;
-    background-color:green;
-        font-weight:bold;
-        color:white;
-        border-color:green;
-      }
-
- a {
-        -moz-border-radius: 8px 0 0 8px;
-        -webkit-border-radius: 8px 0 0 8px;
-        border-radius: 8px 0 0 8px;
-        behavior :url(js/PIE.htc);
-  border:1px solid #ccc;
-  border-right:none;
-  
-  display: block;
-  margin: 0 0 2px 0;
- text-decoration: none;
- color:#555;
-
-  background-color: #fff;
-  padding: 5px 10px 3px 10px;
- }
- }
-section.ctb_records {
-  dl {line-height:2.54em}
-}
-
-section caption {font-weight:bold;text-transform:uppercase;}
-section#ehr_results {
-  margin-bottom:40px;
-  table {
-    thead tr th {text-align:left;}
-    tr:first-child th {text-transform:uppercase;border-bottom:1px solid #ccc;}
-    thead tr th:nth-child(2) {text-align:center}
-    thead tr th:nth-child(3) {text-align:center}
-    thead tr th:nth-child(4) {text-align:center}
-    thead tr th:nth-child(5) {text-align:right}
-    tr td:nth-child(1) {width: 20px; text-align:left}
-    tr td:nth-child(2) {width: 0px} 
-    tr td:nth-child(2).toggle {width: 10px; text-align:left}
-    tr td:nth-child(3) {width: 200px; text-align:left}
-    tr td:nth-child(4) {width: 300px; text-align:center}
-    tr td:nth-child(5) {width: 100px; text-align:center}
-    tr td:nth-child(6) {text-align:center}
-    tr td:nth-child(7) {text-align:right}
-    td.fail, td.fail a {color:red;}
-    td.pass, td.pass a {color:green}
-    td.incomplete, td.incomplete a {color:#666}
-    td.na, td.na a {color: #666}
-    
-    tbody td:nth-child(7) { text-align: right }
-  }
-  td span.pass {color:black}
-  td span.fail {color:red;}
-  td span.na {font-style:normal}
-  th.failing {
-    color:red;
-    font-weight:bold;
-    padding:10px 0;
-  }
-  th.passing {
-    color:green;
-    font-weight:bold;
-    padding:20px 0 10px;
-  }
-  .sub_rows {
-    display: none;
-    td:nth-child(2).na {color:#666;background:url(/assets/insufficient.png) 0% 50% no-repeat;}
-    td:nth-child(2).pass {color:green;background:url(/assets/pass.png) 0 50% no-repeat;}
-    td:nth-child(2).fail {color:red; background:url(/assets/fail.png) 0% 50% no-repeat;font-weight:bold;}
-    td:nth-child(2).incomplete {color:#666; background:url(/assets/insufficient.png) 0% 50% no-repeat;}
-  }
-}
-
-section#pqriValidation {
-    margin-bottom:40px;
-      table {
-        thead tr th {text-align:left;}
-        tr:first-child th {text-transform:uppercase;border-bottom:1px solid #ccc;}
-        thead tr th:nth-child(2) {text-align:center}
-        thead tr th:nth-child(3) {text-align:center}
-        thead tr th:nth-child(4) {text-align:center}
-        thead tr th:nth-child(5) {text-align:right}
-        tr td:nth-child(1) {width: 20px; text-align:left}
-        tr td:nth-child(2) {width: 0px} 
-        tr td:nth-child(2).toggle {width: 10px; text-align:left}
-        tr td:nth-child(3) {width: 200px; text-align:left}
-        tr td:nth-child(4) {width: 300px; text-align:center}
-        tr td:nth-child(5) {width: 100px; text-align:center}
-        tr td:nth-child(6) {text-align:center}
-        tr td:nth-child(7) {text-align:right} 
-        
-        tbody td:nth-child(7) { text-align: right }
-      } 
-  
-  .sub_rows {
-    display: none;
-    
-  }
-}
-
-footer#ccattribution {
-  clear:left;
-  text-align:right;
-  font-size:0.8em;
-  img {
-    margin:0 5px 0 20px;
-    vertical-align:middle;
-  }
-}
-
-#vendor form span {
-  display: block;
-}
-#vendor form.button_to div {
-  display: inline;
-}
-
-.expander {
-  cursor: pointer;
-  background: url(/assets/closed.gif) 4px 9px no-repeat;
-  &.open {background:url(/assets/open.gif) 4px 9px no-repeat;}
-}
-.code_expander {
-  cursor: pointer;
-  background: url(/assets/closed.gif) 0px 7px no-repeat;
-  &.open {background:url(/assets/open.gif) 0px 7px no-repeat;}
-}
-
-.free_text {
-  padding-top: 20px;
-  padding-bottom: 10px;
-  border-top: 1px solid #CCCCCC;
-}
-.free_text h2 { font-size: 1.5em; }
-.free_text p { margin-bottom: 10px; }
-.free_text ul { margin-left: 25px; }
-.directions { text-align: center; }
-.directions ol { padding-left: 200px }
-.directions ol li { text-align: left; }
-
-#services {
-  border-top: 1px solid #CCCCCC;
-}
-#validationErrorMessages {
-  text-align:center;
-}
-label.validationErrors {
-  color: red;
-  font-size: 1em;
-  font-weight:bold;
-  width: 40em;
-  margin-left: 0.5em;
-}
-input.required,textarea.required {background:#FFE9EC;}
-input.valid,textarea.valid {background:#DEFADE;}
-
-#download_dialog {
-  margin-top: 60px;
-  text-align: center;
-}

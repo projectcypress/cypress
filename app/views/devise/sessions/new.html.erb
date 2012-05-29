@@ -1,32 +1,21 @@
-<% require 'get_dependencies' %>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:name=>"login_form"}) do |f| %>
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+  <div class="fields">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <div class="fields">
+    <%= f.label :password %>
+    <%= f.password_field :password, {:onkeypress=>'return submitKeyPress(event);'} %>
+  </div>
 
-  <%= f.label :password %>
-  <%= f.password_field :password, {:onkeypress=>'return submitKeyPress(event);'} %>
-
-  <% if devise_mapping.rememberable? -%>
-    <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
-  <% end -%>
-
-
+  <div class="accountError">
+    <%= devise_error_messages! %>
+  </div>
   <div class="actions">
-    <%=
-    content_tag(:a,  {:href=>"#", :class=>"bluebutton", :onclick=>"submitLoginform()"} ) do
-      content_tag(:span,"Login")
-    end %>
+    <a class="bluebutton" href="#" onclick="submitLoginform();" ><span>Login</span></a>
   </div>
 
   <div class="links">
     <%= render :partial => "devise/shared/links" %>
   </div>
-
-
-  <div class="links info">
-    Cypress <%= Cypress::Version.current %><br>
-    <a href="http://www.hhs.gov/healthit/">Office of the National Coordinator for Health Information Technology</a> |
-    <a href="http://www.mitre.org" target="_blank">MITRE</a>
-  </div>
-
 <% end %>
