@@ -1,0 +1,24 @@
+html { height: 100%; }
+
+body {
+  width: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: 0.9em;
+  font-weight: 300;
+}
+
+#container {
+  width: 1000px;
+  margin: 20px auto 20px auto;
+  border: 1px solid #aaaaaa;
+  background-color: #fff;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 2px 2px 8px #aaaaaa;
+  -moz-box-shadow: 2px 2px 8px #aaaaaa;
+  box-shadow: 2px 2px 8px #aaaaaa;
+  behavior: url(/stylesheets/PIE.htc);
+}
+
+#container>div { padding: 10px 20px 20px 20px; }

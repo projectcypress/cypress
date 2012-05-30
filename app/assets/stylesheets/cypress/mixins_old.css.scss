@@ -19,12 +19,6 @@ $radius: 7px;
 
 $tab-radius: 7px 7px 0 0;
 
-@mixin rounded($radius) {
-  border-radius: $radius;
-  -moz-border-radius: $radius;
-  -webkit-border-radius: $radius;
-}
-
 $measure_heading: 1.2em;
 
 $top_heading-padding: 15px;
@@ -73,21 +67,3 @@ $active-tab_border: 3px solid $borderColor;
 $borderColor: #cccccc;
 $eligibilityParamGroup: #a4d9dd;
 $outcomeParamGroup: #cfe1a5;
-
-
-
-@mixin popPercentage($diameter, $font_size, $line_height, $border_radius, $margin) {
-  display: inline-block;
-  width: $diameter;
-  height: $diameter;
-  font-size: $font_size;
-  text-align: center;
-  vertical-align: middle;
-  background-color: $numerator;
-  color: white;
-  -moz-border-radius: $border_radius;
-  -webkit-border-radius: $border_radius;
-  border-radius: $border_radius;
-  line-height: $line_height;
-  margin-right: $margin;
-}

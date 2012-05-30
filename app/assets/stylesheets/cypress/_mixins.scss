@@ -1,6 +1,29 @@
-$accountBkgColor: #fafafa;
-$inputBkgColor: #fafafa;
-$borderColor: #dddddd;
-$errorMsgColor: #f50000;
+@mixin bordered($color) {
+  border:1px solid $color;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
+  behavior: url(/stylesheets/PIE.htc);
+}
 
-.align-right { text-align: right; }
+@mixin rounded($radius) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+@mixin popPercentage($diameter, $font_size, $line_height, $border_radius, $margin) {
+  display: inline-block;
+  width: $diameter;
+  height: $diameter;
+  font-size: $font_size;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $numerator;
+  color: white;
+  -moz-border-radius: $border_radius;
+  -webkit-border-radius: $border_radius;
+  border-radius: $border_radius;
+  line-height: $line_height;
+  margin-right: $margin;
+}

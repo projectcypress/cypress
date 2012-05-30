@@ -12,24 +12,8 @@
 // Core variables and mixins
 @import "bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
 
-$gridColumns:             12;
-$gridColumnWidth:         60px;
-$gridGutterWidth:         20px;
-
-$basefont:                13px !default;
-$baseFontFamily:          "Myriad Pro", "Frutiger", Calibri,Thonburi, Helvetica, Arial, sans-serif;
-$linkColor:               #439fac;
-
-// Sprite icons path
-$iconSpritePath:          "/assets/glyphicons-halflings.png";
-$iconWhiteSpritePath:     "/assets/glyphicons-halflings-white.png";
-
+// Bootstrap Mixins
 @import "bootstrap/mixins";
-
-@mixin font-sans-serif($size: $baseFontSize, $weight: normal, $lineHeight: $baseLineHeight) {
-  font-family: "Myriad Pro", "Frutiger", Helvetica, Arial, sans-serif;
-  @include font-shorthand($size, $weight, $lineHeight);
-}
 
 // CSS Reset
 @import "bootstrap/reset";
@@ -45,7 +29,7 @@ $iconWhiteSpritePath:     "/assets/glyphicons-halflings-white.png";
 @import "bootstrap/forms";
 @import "bootstrap/tables";
 
-// Components: common
+// Components: Common
 @import "bootstrap/sprites";
 @import "bootstrap/dropdowns";
 @import "bootstrap/wells";
@@ -80,30 +64,13 @@ $iconWhiteSpritePath:     "/assets/glyphicons-halflings-white.png";
 // Utility classes
 @import "bootstrap/utilities"; // Has to be last to override when necessary
 
-
 // Cypress specific component styles and overrides
+@import "cypress/variables"; // Defines reused SASS variables throughout our styles
 @import "cypress/mixins";
-@import "cypress/buttons";
+@import "cypress/buttons"; // Includes links that we treat as buttons
+@import "cypress/layout"; // Overarching elements like html, body, container, etc.
+@import "cypress/alerts"; // Not like javascript alerts. Think warnings, notifications, etc.
+@import "cypress/header";
 @import "cypress/account";
-
-html {height:100%}
-body {height:100%}
-
-#pageButtons {
-  margin:10px 10px 10px 25px;
-  form { float:right;margin:0}
-}
-
-.table-measure-detail.published-measures td:nth-child(4) {white-space:nowrap;}
-
-.modal {-webkit-touch-callout: none;
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-}
-.modal-backdrop {background-color:rgba(255,255,255,0.8);}
-
-.modal .form-stacked {margin-bottom:0}
-
+@import "cypress/dialog";
+@import "cypress/utilities"

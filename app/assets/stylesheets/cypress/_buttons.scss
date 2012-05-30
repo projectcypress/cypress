@@ -31,11 +31,20 @@ a.whitebutton span {
   outline: none; /* hide dotted outline in Firefox */
 }
 
-#container .btn {
-  color: #19b;
-  @include border-radius(15px);
-  padding: 3px 16px 2px;
-  line-height: 15px;
-  margin-left: 10px;
-  &.btn-primary {color:white;}
+a { color: $black }
+
+a.cmd {
+  @include bordered($btnBorderColor);
+  background-color: $btnBkgColor;
+  color: $btnColor;
+  font-size: $btnFontSize;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  behavior: url(/assets/PIE.htc);
+}
+
+a.cmd:hover {
+  background-color: $btnHoverBkg;
 }
