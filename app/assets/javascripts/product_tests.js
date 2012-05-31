@@ -121,20 +121,6 @@ $(document).ready(function() {
     // set the default choice by invoking a click on workflow 2
     $('label[for=wf2]').trigger("click");
 
-    $('#effective_date_end').datepicker({
-        onSelect: function(dateText, inst) {
-            var effective_date = dateText;
-            $.post("/product_tests/period", {
-                "effective_date": effective_date,
-                "persist": false
-            }, function(data){
-                $("#effective_date_start").html(data.start);
-            },"json");
-        }
-    }).css({
-        'width':'85px',
-        'text-align':'center'
-    });
 
     //
     var cache = {}; // caching inputs for the visited steps
