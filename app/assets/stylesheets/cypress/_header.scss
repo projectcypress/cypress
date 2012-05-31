@@ -23,8 +23,9 @@ nav.breadcrumb {
   font-size: 80%;
   text-transform: uppercase;
   margin-bottom: 12px;
-  
-  padding-top:4px;
+  background: none;
+  border: none;
+  padding-top: 4px;
   a {
     text-decoration: underline;
     margin: 0 5px;
@@ -35,7 +36,6 @@ nav.breadcrumb {
 }
 
 #pageButtons {
-  background: $bkgColor;
   a.cmd {
     float: right;
     margin-left: 15px;

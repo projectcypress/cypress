@@ -78,8 +78,6 @@ namespace :mpl do
     Rake::Task['mpl:eval'].invoke()
   end
 
-
-
   desc 'Collect a subset of "count" patients that meet the criteria for the given set of "measures"'
   task :subset => :setup do
     measures = ENV['measures'].split(',')

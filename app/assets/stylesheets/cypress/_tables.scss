@@ -1,0 +1,16 @@
+.table {
+  margin-top: 25px;
+  th {
+    font-size:90%;
+    font-weight: 300;
+    color: #666;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+  }
+  th, td { padding: 3px 4px; }
+  tbody tr:hover td, tbody tr:hover th { background-color: $containerBkgColor; }
+}
+
+.table-hover {
+  tbody tr:hover td, tbody tr:hover th { background-color: #e6f3e8; }
+}

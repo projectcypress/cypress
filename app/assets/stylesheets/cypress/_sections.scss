@@ -1,0 +1,32 @@
+section {
+  margin: 0;
+  p { padding: 10px; }
+  position: relative;
+  dl {
+    font-size: 90%;
+    width: 310px;
+    display: table-cell;
+  }
+  dt {
+    color: #666;
+    width: 75px;
+    clear: both;
+    display: inline-block;
+    text-align: right;
+    margin-right: 5px;
+    vertical-align: top;
+  }
+  dd {
+    width: 225px;
+    display: inline-block;
+    address span {display:block;}
+  }
+}
+
+section.legend {
+  padding: 10px 10px 10px 0;
+  font-size: 90%;
+  border-top: 1px solid $borderColor;
+  dl, dt, dd { width: auto; display: inline-block; }
+  dd { margin-left: 25px; }
+}

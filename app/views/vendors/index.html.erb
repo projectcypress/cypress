@@ -3,7 +3,7 @@
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section id="pageButtons">
       <%= link_to "Add EHR Vendor", new_vendor_path, {:class=>"cmd"} %>
       <%= link_to "Master Patient List", patients_path, {:class=>"cmd"} %>
@@ -12,20 +12,20 @@
       </nav>
     </section>
 
-    <section class="candidate">  
+    <section id="information" class="bordered">  
       <p>
         Welcome to Cypress! This is the Certification Dashboard that displays the names of the EHR vendors and the status of their products being tested.
         You can begin by adding an EHR vendor or simply explore the complete Cypress Test Deck by clicking on "Master Patient List" above.
       </p>
     </section>
 
-    <section id="ehr_results">
-      <table>
+    <section id="vendor_list">
+      <table class="table">
         <% vendors_by_status(@vendors).each do |result_status, result_vendors|
           next if result_vendors.empty? %>
           <thead>
             <tr>
-              <th colspan="3"><span class="<%= result_status %>"><%= result_status %>ing</span> EHR Vendors</th>
+              <th class="align-left" colspan="3"><span class="<%= result_status %>"><strong><%= result_status %>ing</strong></span> EHR Vendors</th>
               <th>Products</th>
               <th>POC</th>
               <th>Proctor</th>
@@ -35,16 +35,16 @@
           <% result_vendors.each do |vendor| %>
             <% success_rate = vendor.success_rate
             dot_color = result_status
-            dot_color = "na" if vendor.products.empty?
+            dot_color = "incomplete" if vendor.products.empty?
             if !vendor.products.empty? 
               first_td_class = 'expander toggle'
               dot_color = result_status
             else
-              dot_color = 'na'
+              dot_color = 'incomplete'
             end %>
             <tbody>
               <tr>
-                <td><div title="<%= success_rate %>%" class="<%= dot_color %>"><%= success_rate %></div></td>
+                <td class="<%= dot_color %>-icon"></td>
                 <td class="<%= first_td_class %>" data-code="<%= vendor.id %>"></td>
                 <td class="<%= result_status %>"><a href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a></td>
                 <td><span class="<%= dot_color %>"><%= vendor.count_passing %></span> <span class="q">/ <%= vendor.products.size %></span></td>
