@@ -12,7 +12,10 @@
 
     <section id="about">
       <div>
-        <section style="float:right;padding-right: 10px;">Version: <%= Cypress::Version.current %></section>
+        <section style="float:right;padding-right: 10px;">
+          Version: <%= Cypress::Version.current %><br>
+          Measures: <%= Cypress::Version.measures %>
+        </section>
         <section class="free_text">
           <h2>What is Cypress?</h2>
           <p>

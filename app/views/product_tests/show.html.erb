@@ -134,16 +134,16 @@
           </li>
           <% if @test.user.email %>
             <li class="ui-menu-item" role="menuitem">
-              <%= link_to "E-mail C32s", email_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+              <%= link_to "Email C32s", email_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
             </li>
             <li class="ui-menu-item" role="menuitem">
-              <%= link_to "E-mail CCRs", email_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+              <%= link_to "Email CCRs", email_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
             </li>
             <li class="ui-menu-item" role="menuitem">
-              <%= link_to "E-mail CSV", email_product_test_path(@test, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+              <%= link_to "Email CSV", email_product_test_path(@test, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
             </li>
             <li class="ui-menu-item" role="menuitem">
-              <%= link_to "E-mail HTML", email_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+              <%= link_to "Email HTML", email_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
             </li>
           <% end %>
         </ul>
@@ -193,7 +193,7 @@
             Below are the expected results for your patient population.  You must perform the following steps to complete your test:
           </p>
           <ol>
-            <li>Download these records in C32, CCR, CSV, or HTML format from the "Download" link above.</li>
+            <li>Download these records in C32, CCR, CSV, or HTML format from the "Share Patients" menu above.</li>
             <li>Input them into the quality measure calculator you wish to test.</li>
             <li>Export the results as a PQRI XML document.</li>
             <li>Return your results to Cypress for scoring using the "Upload Results" link above.</li>
@@ -215,7 +215,7 @@
         <% @test.notes.each do |note| %>
           <%= note.time.strftime('%m/%d/%Y') %>:
           <%= note.text %>
-          <%= button_to 'delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?' %>
+          <%= button_to 'Delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?' %>
           <br />
         <% end %>
       <% end %>

@@ -360,10 +360,13 @@ section#measureMap {
       width: 600px;
     }
     span.mapping {
-      display:none;
       margin-left: .2em;
     }
     address span { display: block }
+  }
+  span.mapping input[readonly] {
+    background:transparent;
+    border:1px solid transparent;
   }
   dd.inactive {
     color: #aaa;
