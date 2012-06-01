@@ -12,7 +12,7 @@
       </nav>
     </section>
 
-    <section id="information" class="bordered">  
+    <section class="information bordered">  
       <p>
         Welcome to Cypress! This is the Certification Dashboard that displays the names of the EHR vendors and the status of their products being tested.
         You can begin by adding an EHR vendor or simply explore the complete Cypress Test Deck by clicking on "Master Patient List" above.
@@ -25,18 +25,19 @@
           next if result_vendors.empty? %>
           <thead>
             <tr>
-              <th class="align-left" colspan="3"><span class="<%= result_status %>"><strong><%= result_status %>ing</strong></span> EHR Vendors</th>
+              <th class="align-left" colspan="3">
+                <span class="<%= result_status %>"><strong><%= result_status %>ing</strong></span> EHR Vendors
+              </th>
               <th>Products</th>
               <th>POC</th>
-              <th>Proctor</th>
-              <th></th>
+              <th colspan="2">Proctor</th>
             </tr>
           </thead>
           <% result_vendors.each do |vendor| %>
             <% success_rate = vendor.success_rate
             dot_color = result_status
             dot_color = "incomplete" if vendor.products.empty?
-            if !vendor.products.empty? 
+            if !vendor.products.empty?
               first_td_class = 'expander toggle'
               dot_color = result_status
             else
@@ -45,12 +46,16 @@
             <tbody>
               <tr>
                 <td class="<%= dot_color %>-icon"></td>
-                <td class="<%= first_td_class %>" data-code="<%= vendor.id %>"></td>
-                <td class="<%= result_status %>"><a href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a></td>
-                <td><span class="<%= dot_color %>"><%= vendor.count_passing %></span> <span class="q">/ <%= vendor.products.size %></span></td>
+                <td>
+                  <% unless vendor.products.empty? %>
+                    <div class="<%= first_td_class %>" data-code="<%= vendor.id %>"></div>
+                  <% end %>
+                  <a class="<%= result_status %>" href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a>
+                </td>
+                <td><strong class="<%= dot_color %>"><%= vendor.count_passing %></strong> <span class="result">/ <%= vendor.products.size %></span></td>
                 <td><%= vendor.poc %></td>
                 <td></td>
-                <td><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
+                <td class="align-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
               </tr>
               <% if !vendor.products.empty?
                 vendor.products.each do |product|
@@ -61,13 +66,12 @@
                   end %>
                   
                   <tr class="sub_rows <%= vendor.id %>">
-                    <td></td>
                     <td title="<%= product.success_rate %>%" class="<%= product_status %>"></td>
-                    <td class="<%= product_status %>"><a href="<%= product_path(product) %>"><%= product.name %></a></td>
-                    <td><span class="<%= product_status %>"><%= product.count_passing %><span class="q"> / <%= product.product_tests.size %> tests passed</span></td>
+                    <td><a class="<%= product_status %>" href="<%= product_path(product) %>"><%= product.name %></a></td>
+                    <td><strong class="<%= product_status %>"><%= product.count_passing %></strong><span class="result"> / <%= product.product_tests.size %> tests passed</span></td>
                     <td></td>
                     <td></td>
-                    <td><%= link_to 'delete', product_path(product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                    <td class="align-right"><%= link_to 'delete', product_path(product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               <% end %>

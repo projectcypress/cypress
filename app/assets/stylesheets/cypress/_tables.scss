@@ -7,7 +7,12 @@
     text-transform: uppercase;
     border-bottom: 1px solid #ccc;
   }
-  th, td { padding: 3px 4px; }
+  th, td {
+    padding: 3px 4px;
+    &.align-left { text-align: left; }
+    &.align-right { text-align: right; }
+  }
+  td, tbody + tbody { border: none; }
   tbody tr:hover td, tbody tr:hover th { background-color: $containerBkgColor; }
 }
 

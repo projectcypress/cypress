@@ -31,8 +31,16 @@ a.whitebutton span {
   outline: none; /* hide dotted outline in Firefox */
 }
 
-a { color: $black }
+a {
+  color: $black;
+  text-decoration: none;
+}
 
+a:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+  
 a.cmd {
   @include bordered($btnBorderColor);
   background-color: $btnBkgColor;
