@@ -74,7 +74,7 @@ $(document).ready(function() {
 
     // default to all measures enabled
     toggleMeasures(true);
-
+    
 });
 
 // Add functionality to buttons that check or uncheck all Measures by category in the form.
@@ -101,9 +101,9 @@ function toggleRow(row, toggleSetting) {
     }
 }
 
-function showMappings(category) {
-    var selector = "span.mapping." + category;
-    $(selector).toggle();
+function editMappings(category) {
+    var selector = "span.mapping." + category + ' input';
+    $(selector).prop('readonly', $(selector).prop('readonly') ? false : true);
 }
 
 function verify() {
