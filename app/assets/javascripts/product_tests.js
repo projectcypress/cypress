@@ -121,22 +121,6 @@ $(document).ready(function() {
     // set the default choice by invoking a click on workflow 2
     $('label[for=wf2]').trigger("click");
 
-    $('#effective_date_end').datepicker({
-        onSelect: function(dateText, inst) {
-            var effective_date = dateText;
-            $.post("/product_tests/period", {
-                "effective_date": effective_date,
-                "persist": false
-            }, function(data){
-                $("#effective_date_start").html(data.start);
-            },"json");
-        }
-    }).css({
-        'width':'85px',
-        'text-align':'center'
-    });
-
-    //
     var cache = {}; // caching inputs for the visited steps
 
     // Variables for the minimal patient set
@@ -171,10 +155,6 @@ $(document).ready(function() {
         validationOptions: {
             rules: {
                 "product_test[name]": "required",
-                "product_test[effective_date_end]": {
-                    required: true,
-                    date: true
-                },
                 "product_test[patient_population]": "required",
                 "product_test[measure_ids][]": "required",
                 "byod": "required"
@@ -183,14 +163,6 @@ $(document).ready(function() {
             messages: {
                 "product_test[name]": {
                     required:"The test needs a name."
-                },
-                "product_test[effective_date_start]": {
-                    required:"Specify the start of the reporting period.",
-                    date:"Correct date format: mm/dd/yyyy"
-                },
-                "product_test[effective_date_end]": {
-                    required:"Specify the end of the reporting period",
-                    date:"Correct date format: mm/dd/yyyy"
                 },
                 "product_test[patient_population]": {
                     required:"Choose a patient population."
