@@ -78,43 +78,40 @@ namespace :mpl do
     Rake::Task['mpl:eval'].invoke()
   end
   
-  
-     desc 'Roll the date of every aspect of each patient forward or backwards [years, months, days] depending on sign'
- task :roll, :years, :months, :days, :needs=> :setup do |t, args|
-	y = args[:years].to_i
-	m = args[:months].to_i
-	d = args[:days].to_i
-	Record.where('test_id' => nil).all.entries.each do |patient|
-		patient.measures.each do |ms|
-			ms= ms[1] 
-			ms.each_pair do |k,v|
+  desc 'Roll the date of every aspect of each patient forward or backwards [years, months, days] depending on sign'
+  task :roll, :years, :months, :days, :needs=> :setup do |t, args|
+	  y = args[:years].to_i
+  	m = args[:months].to_i
+  	d = args[:days].to_i
+	  Record.where('test_id' => nil).all.entries.each do |patient|
+		  patient.measures.each do |ms|
+			  ms = ms[1] 
+			  ms.each_pair do |k,v|
 			    v.each_with_index do |n, i|
-					if v[i].kind_of?  Bignum or v[i].kind_of?  Fixnum
-			            v[i] = Time.at(n).advance(:years => y, :months => m, :days => d).to_i
-					else
+					  if v[i].kind_of?  Bignum or v[i].kind_of?  Fixnum
+			        v[i] = Time.at(n).advance(:years => y, :months => m, :days => d).to_i
+					  else
 					    v[i]["date"] = Time.at(v[i]["date"]).advance(:years => y, :months => m, :days => d).to_i
-					end
-				end
-				ms[k] = v
+					  end
+				  end
+				  ms[k] = v
 		    end
-		end
+		  end
 	    patient.birthdate = Time.at(patient.birthdate).advance(:years => y, :months => m, :days => d)
-		patient_attributes = [patient.allergies, patient.care_goals,  patient.laboratory_tests, patient.encounters, patient.conditions, patient.procedures, patient.medications,  patient.social_history, patient.immunizations, patient.medical_equipment]	
-		patient_attributes.each do |a|
+		  patient_attributes = [patient.allergies, patient.care_goals,  patient.laboratory_tests, patient.encounters, patient.conditions, patient.procedures, patient.medications,  patient.social_history, patient.immunizations, patient.medical_equipment]	
+		  patient_attributes.each do |a|
 		    a.each do |v|
-				if v.time != nil
-			        v.time = Time.at(v.time).advance(:years => y, :months => m, :days => d)
-				end
-	        end
+				  if v.time != nil
+			      v.time = Time.at(v.time).advance(:years => y, :months => m, :days => d)
+				  end
+	      end
+	    end
+	    patient.save
 		end
-		patient.save
-	 end
-	 puts "Date rolled Successfully"
-  end
-
-
-
-
+		
+		puts "Patients rolled successfully"
+	end
+	
   desc 'Collect a subset of "count" patients that meet the criteria for the given set of "measures"'
   task :subset => :setup do
     measures = ENV['measures'].split(',')
