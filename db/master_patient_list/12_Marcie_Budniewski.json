@@ -1,5 +1,5 @@
 {
-  "_id": "4fa2ed43a9ffcc3a1f000f1f",
+  "_id": "4fce4e3ba9ffcc3e5f000f31",
   "patient_id": "12",
   "first": "Marcie",
   "last": "Budniewski",
@@ -62,6 +62,15 @@
       "hiv_screening_laboratory_test_performed": [
         1278734400
       ],
+      "prenatal_visit_encounter": [
+        1292994000,
+        1292562000,
+        1291784400,
+        1290661200,
+        1288411200,
+        1281931200,
+        1277870400
+      ],
       "estimated_date_of_conception_patient_characteristic": [
         1270094400
       ]
@@ -101,6 +110,15 @@
       ],
       "delivery_live_births_procedure_procedure_performed": [
         1293253200
+      ],
+      "prenatal_visit_encounter": [
+        1292994000,
+        1292562000,
+        1291784400,
+        1290661200,
+        1288411200,
+        1281931200,
+        1277870400
       ],
       "anti_d_immune_globulin_medication_administered": [
         1288411200
@@ -213,13 +231,6 @@
         1271304000
       ],
       "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1292994000,
-        1292562000,
-        1291784400,
-        1290661200,
-        1288411200,
-        1281931200,
-        1277870400,
         1274328000,
         1270008000
       ],
@@ -251,15 +262,6 @@
       ],
       "pap_test_laboratory_test_result": [
         1270008000
-      ],
-      "encounter_ob_gyn_encounter": [
-        1292994000,
-        1292562000,
-        1291784400,
-        1290661200,
-        1288411200,
-        1281931200,
-        1277870400
       ]
     },
     "0034": {
@@ -323,13 +325,6 @@
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1292994000,
-        1292562000,
-        1291784400,
-        1290661200,
-        1288411200,
-        1281931200,
-        1277870400,
         1274328000,
         1270008000
       ]
@@ -751,7 +746,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f20",
+      "_id": "4fce4e3ba9ffcc3e5f000f32",
       "_type": "Allergy",
       "time": 1263531600,
       "description": "IUD use",
@@ -774,7 +769,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f46",
+      "_id": "4fce4e3ba9ffcc3e5f000f58",
       "_type": "Condition",
       "time": 1293253200,
       "description": "Delivery Live Births-Diagnosis",
@@ -795,7 +790,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f47",
+      "_id": "4fce4e3ba9ffcc3e5f000f59",
       "_type": "Condition",
       "time": 1284091200,
       "description": "D(Rh) Negative",
@@ -816,7 +811,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f48",
+      "_id": "4fce4e3ba9ffcc3e5f000f5a",
       "_type": "Condition",
       "time": 1274328000,
       "description": "Pregnancy",
@@ -831,7 +826,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f49",
+      "_id": "4fce4e3ba9ffcc3e5f000f5b",
       "_type": "Condition",
       "time": 1270094400,
       "description": "Estimated date of conception",
@@ -847,7 +842,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f21",
+      "_id": "4fce4e3ba9ffcc3e5f000f33",
       "_type": "Encounter",
       "time": 1293512400,
       "description": "Encounter Inpatient Discharge",
@@ -861,7 +856,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f22",
+      "_id": "4fce4e3ba9ffcc3e5f000f34",
       "_type": "Encounter",
       "time": 1293253200,
       "description": "encounter acute inpt",
@@ -869,101 +864,143 @@
     },
     {
       "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
         "ICD-9-CM": [
-          "V72.3"
+          "V22.2"
         ]
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f23",
+      "_id": "4fce4e3ba9ffcc3e5f000f35",
       "_type": "Encounter",
       "time": 1292994000,
-      "description": "encounter ob/gyn",
-      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;"
+      "description": "prenatal visit",
+      "specifics": "C0451636:Pregnant state, incidental;"
     },
     {
       "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
         "ICD-9-CM": [
-          "V72.3"
+          "V22.2"
         ]
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f24",
+      "_id": "4fce4e3ba9ffcc3e5f000f36",
       "_type": "Encounter",
       "time": 1292562000,
-      "description": "encounter ob/gyn",
-      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;"
+      "description": "prenatal visit",
+      "specifics": "C0451636:Pregnant state, incidental;"
     },
     {
       "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
         "ICD-9-CM": [
-          "V72.3"
+          "V22.2"
         ]
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f25",
+      "_id": "4fce4e3ba9ffcc3e5f000f37",
       "_type": "Encounter",
       "time": 1291784400,
-      "description": "encounter ob/gyn",
-      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;"
+      "description": "prenatal visit",
+      "specifics": "C0451636:Pregnant state, incidental;"
     },
     {
       "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
         "ICD-9-CM": [
-          "V72.3"
+          "V22.2"
         ]
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f26",
+      "_id": "4fce4e3ba9ffcc3e5f000f38",
       "_type": "Encounter",
       "time": 1290661200,
-      "description": "encounter ob/gyn",
-      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;"
+      "description": "prenatal visit",
+      "specifics": "C0451636:Pregnant state, incidental;"
     },
     {
       "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
         "ICD-9-CM": [
-          "V72.3"
+          "V22.2"
         ]
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f27",
+      "_id": "4fce4e3ba9ffcc3e5f000f39",
       "_type": "Encounter",
       "time": 1288411200,
-      "description": "encounter ob/gyn",
-      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;"
+      "description": "prenatal visit",
+      "specifics": "C0451636:Pregnant state, incidental;"
     },
     {
       "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
         "ICD-9-CM": [
-          "V72.3"
+          "V22.2"
         ]
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f28",
+      "_id": "4fce4e3ba9ffcc3e5f000f3a",
       "_type": "Encounter",
       "time": 1281931200,
-      "description": "encounter ob/gyn",
-      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;"
+      "description": "prenatal visit",
+      "specifics": "C0451636:Pregnant state, incidental;"
     },
     {
       "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
         "ICD-9-CM": [
-          "V72.3"
+          "V22.2"
         ]
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f29",
+      "_id": "4fce4e3ba9ffcc3e5f000f3b",
       "_type": "Encounter",
       "time": 1277870400,
-      "description": "encounter ob/gyn",
-      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;"
+      "description": "prenatal visit",
+      "specifics": "C0451636:Pregnant state, incidental;"
     },
     {
       "codes": {
@@ -976,7 +1013,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f2a",
+      "_id": "4fce4e3ba9ffcc3e5f000f3c",
       "_type": "Encounter",
       "time": 1274328000,
       "description": "Encounter Outpatient",
@@ -993,7 +1030,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f2b",
+      "_id": "4fce4e3ba9ffcc3e5f000f3d",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "Encounter Outpatient",
@@ -1009,7 +1046,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f50",
+      "_id": "4fce4e3ba9ffcc3e5f000f62",
       "_type": "Medication",
       "time": 1270008000,
       "description": "contraceptives",
@@ -1023,7 +1060,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f51",
+      "_id": "4fce4e3ba9ffcc3e5f000f63",
       "_type": "Medication",
       "time": 1288411200,
       "description": "Anti-D Immune Globulin",
@@ -1042,7 +1079,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f4f",
+      "_id": "4fce4e3ba9ffcc3e5f000f61",
       "_type": "Procedure",
       "time": 1293253200,
       "description": "Delivery Live Births-Procedure",
@@ -1060,7 +1097,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f4a",
+      "_id": "4fce4e3ba9ffcc3e5f000f5c",
       "_type": "LabResult",
       "time": 1278734400,
       "description": "Rh Status Mother",
@@ -1082,7 +1119,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f4b",
+      "_id": "4fce4e3ba9ffcc3e5f000f5d",
       "_type": "LabResult",
       "time": 1278734400,
       "description": "HIV Screening",
@@ -1101,7 +1138,7 @@
         "scalar": "Postive",
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f4c",
+      "_id": "4fce4e3ba9ffcc3e5f000f5e",
       "_type": "LabResult",
       "time": 1274328000,
       "description": "Pregnancy Test",
@@ -1132,7 +1169,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f4d",
+      "_id": "4fce4e3ba9ffcc3e5f000f5f",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Pap Test",
@@ -1154,7 +1191,7 @@
         "scalar": "Normal",
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f4e",
+      "_id": "4fce4e3ba9ffcc3e5f000f60",
       "_type": "LabResult",
       "time": 1270008000,
       "description": "Chlamydia Screening",
@@ -1172,7 +1209,7 @@
         "scalar": null,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f2c",
+      "_id": "4fce4e3ba9ffcc3e5f000f3e",
       "_type": "SocialHistory",
       "time": 1270008000,
       "description": "Tobacco Non-User",
@@ -1190,7 +1227,7 @@
         "scalar": 138.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f2d",
+      "_id": "4fce4e3ba9ffcc3e5f000f3f",
       "_type": "VitalSign",
       "time": 1292994000,
       "description": "Systolic Blood Pressure",
@@ -1206,7 +1243,7 @@
         "scalar": 75.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f2e",
+      "_id": "4fce4e3ba9ffcc3e5f000f40",
       "_type": "VitalSign",
       "time": 1292994000,
       "description": "Diastolic Blood Pressure",
@@ -1222,7 +1259,7 @@
         "scalar": 136.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f2f",
+      "_id": "4fce4e3ba9ffcc3e5f000f41",
       "_type": "VitalSign",
       "time": 1292562000,
       "description": "Systolic Blood Pressure",
@@ -1238,7 +1275,7 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f30",
+      "_id": "4fce4e3ba9ffcc3e5f000f42",
       "_type": "VitalSign",
       "time": 1292562000,
       "description": "Diastolic Blood Pressure",
@@ -1254,7 +1291,7 @@
         "scalar": 132.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f31",
+      "_id": "4fce4e3ba9ffcc3e5f000f43",
       "_type": "VitalSign",
       "time": 1291784400,
       "description": "Systolic Blood Pressure",
@@ -1270,7 +1307,7 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f32",
+      "_id": "4fce4e3ba9ffcc3e5f000f44",
       "_type": "VitalSign",
       "time": 1291784400,
       "description": "Diastolic Blood Pressure",
@@ -1286,7 +1323,7 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f33",
+      "_id": "4fce4e3ba9ffcc3e5f000f45",
       "_type": "VitalSign",
       "time": 1290661200,
       "description": "Systolic Blood Pressure",
@@ -1302,7 +1339,7 @@
         "scalar": 80.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f34",
+      "_id": "4fce4e3ba9ffcc3e5f000f46",
       "_type": "VitalSign",
       "time": 1290661200,
       "description": "Diastolic Blood Pressure",
@@ -1318,7 +1355,7 @@
         "scalar": 132.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f35",
+      "_id": "4fce4e3ba9ffcc3e5f000f47",
       "_type": "VitalSign",
       "time": 1288411200,
       "description": "Systolic Blood Pressure",
@@ -1334,7 +1371,7 @@
         "scalar": 78.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f36",
+      "_id": "4fce4e3ba9ffcc3e5f000f48",
       "_type": "VitalSign",
       "time": 1288411200,
       "description": "Diastolic Blood Pressure",
@@ -1350,7 +1387,7 @@
         "scalar": 128.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f37",
+      "_id": "4fce4e3ba9ffcc3e5f000f49",
       "_type": "VitalSign",
       "time": 1281931200,
       "description": "Systolic Blood Pressure",
@@ -1366,7 +1403,7 @@
         "scalar": 76.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f38",
+      "_id": "4fce4e3ba9ffcc3e5f000f4a",
       "_type": "VitalSign",
       "time": 1281931200,
       "description": "Diastolic Blood Pressure",
@@ -1382,7 +1419,7 @@
         "scalar": 128.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f39",
+      "_id": "4fce4e3ba9ffcc3e5f000f4b",
       "_type": "VitalSign",
       "time": 1277870400,
       "description": "Systolic Blood Pressure",
@@ -1398,7 +1435,7 @@
         "scalar": 76.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f3a",
+      "_id": "4fce4e3ba9ffcc3e5f000f4c",
       "_type": "VitalSign",
       "time": 1277870400,
       "description": "Diastolic Blood Pressure",
@@ -1414,7 +1451,7 @@
         "scalar": 125.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f3b",
+      "_id": "4fce4e3ba9ffcc3e5f000f4d",
       "_type": "VitalSign",
       "time": 1274328000,
       "description": "Systolic Blood Pressure",
@@ -1430,7 +1467,7 @@
         "scalar": 70.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f3c",
+      "_id": "4fce4e3ba9ffcc3e5f000f4e",
       "_type": "VitalSign",
       "time": 1274328000,
       "description": "Diastolic Blood Pressure",
@@ -1449,7 +1486,7 @@
         "scalar": 32.44615384615385,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f3d",
+      "_id": "4fce4e3ba9ffcc3e5f000f4f",
       "_type": "VitalSign",
       "time": 1292994000,
       "description": "BMI",
@@ -1468,7 +1505,7 @@
         "scalar": 32.11337278106509,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f3e",
+      "_id": "4fce4e3ba9ffcc3e5f000f50",
       "_type": "VitalSign",
       "time": 1292562000,
       "description": "BMI",
@@ -1487,7 +1524,7 @@
         "scalar": 31.94698224852071,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f3f",
+      "_id": "4fce4e3ba9ffcc3e5f000f51",
       "_type": "VitalSign",
       "time": 1291784400,
       "description": "BMI",
@@ -1506,7 +1543,7 @@
         "scalar": 31.281420118343195,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f40",
+      "_id": "4fce4e3ba9ffcc3e5f000f52",
       "_type": "VitalSign",
       "time": 1290661200,
       "description": "BMI",
@@ -1525,7 +1562,7 @@
         "scalar": 30.782248520710063,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f41",
+      "_id": "4fce4e3ba9ffcc3e5f000f53",
       "_type": "VitalSign",
       "time": 1288411200,
       "description": "BMI",
@@ -1544,7 +1581,7 @@
         "scalar": 29.61751479289941,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f42",
+      "_id": "4fce4e3ba9ffcc3e5f000f54",
       "_type": "VitalSign",
       "time": 1281931200,
       "description": "BMI",
@@ -1563,7 +1600,7 @@
         "scalar": 29.284733727810654,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f43",
+      "_id": "4fce4e3ba9ffcc3e5f000f55",
       "_type": "VitalSign",
       "time": 1277870400,
       "description": "BMI",
@@ -1582,7 +1619,7 @@
         "scalar": 28.286390532544377,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f44",
+      "_id": "4fce4e3ba9ffcc3e5f000f56",
       "_type": "VitalSign",
       "time": 1274328000,
       "description": "BMI",
@@ -1601,7 +1638,7 @@
         "scalar": 28.619171597633134,
         "units": null
       },
-      "_id": "4fa2ed43a9ffcc3a1f000f45",
+      "_id": "4fce4e3ba9ffcc3e5f000f57",
       "_type": "VitalSign",
       "time": 1271304000,
       "description": "BMI",

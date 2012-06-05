@@ -1,5 +1,5 @@
 {
-  "_id": "4fa2ed3da9ffcc3a1f000af4",
+  "_id": "4fce4e35a9ffcc3e5f000afa",
   "patient_id": "33",
   "first": "Angie",
   "last": "Kriman",
@@ -245,6 +245,9 @@
         1271304000,
         1270008000
       ],
+      "pneumococcal_vaccination_procedure_performed": [
+        1288152000
+      ],
       "influenza_vaccine_medication_administered": [
         1288152000
       ]
@@ -255,6 +258,9 @@
         1275796800,
         1271304000,
         1270008000
+      ],
+      "pneumococcal_vaccination_all_ages_procedure_performed": [
+        1288152000
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1288152000
@@ -602,6 +608,15 @@
       "colon_cancer_diagnosis_active": [
         1275969600
       ],
+      "chemotherapy_for_colon_cancer_medication_intolerance": [
+        1277006400
+      ],
+      "chemotherapy_for_colon_cancer_medication_adverse_event": [
+        1277006400
+      ],
+      "chemotherapy_for_colon_cancer_medication_allergy": [
+        1277006400
+      ],
       "colon_cancer_stage_iii_procedure_result": [
         1275969600
       ],
@@ -681,6 +696,23 @@
       ]
     }
   },
+  "allergies": [
+    {
+      "codes": {
+        "RxNorm": [
+          "197862"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4fce4e35a9ffcc3e5f000afb",
+      "_type": "Allergy",
+      "time": 1277006400,
+      "description": "Chemotherapy for Colon Cancer",
+      "status": "active",
+      "specifics": "C0689324:Leucovorin 25 MG Oral Tablet;"
+    }
+  ],
   "care_goals": [
     {
       "codes": {
@@ -699,7 +731,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b1a",
+      "_id": "4fce4e35a9ffcc3e5f000b21",
       "_type": "Entry",
       "time": 1275796800,
       "description": "follow-up plan_BMI management",
@@ -721,7 +753,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b04",
+      "_id": "4fce4e35a9ffcc3e5f000b0b",
       "_type": "Condition",
       "time": 1275969600,
       "description": "Colon Cancer",
@@ -742,7 +774,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b05",
+      "_id": "4fce4e35a9ffcc3e5f000b0c",
       "_type": "Condition",
       "time": 1270008000,
       "description": "Asthma",
@@ -763,7 +795,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b06",
+      "_id": "4fce4e35a9ffcc3e5f000b0d",
       "_type": "Condition",
       "time": 1270008000,
       "description": "Hypertension",
@@ -784,7 +816,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b07",
+      "_id": "4fce4e35a9ffcc3e5f000b0e",
       "_type": "Condition",
       "time": 1270008000,
       "description": "low back pain",
@@ -799,7 +831,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b08",
+      "_id": "4fce4e35a9ffcc3e5f000b0f",
       "_type": "Condition",
       "time": 1274241600,
       "description": "Asthma Nighttime Symptoms",
@@ -813,7 +845,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b09",
+      "_id": "4fce4e35a9ffcc3e5f000b10",
       "_type": "Condition",
       "time": 1274241600,
       "description": "Asthma Daytime Symptoms Quantified",
@@ -832,7 +864,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000af5",
+      "_id": "4fce4e35a9ffcc3e5f000afc",
       "_type": "Encounter",
       "time": 1288152000,
       "description": "Encounter Outpatient",
@@ -846,7 +878,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000af6",
+      "_id": "4fce4e35a9ffcc3e5f000afd",
       "_type": "Encounter",
       "time": 1275969600,
       "description": "encounter acute inpt",
@@ -863,7 +895,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000af7",
+      "_id": "4fce4e35a9ffcc3e5f000afe",
       "_type": "Encounter",
       "time": 1275796800,
       "description": "Encounter Outpatient",
@@ -877,7 +909,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000af8",
+      "_id": "4fce4e35a9ffcc3e5f000aff",
       "_type": "Encounter",
       "time": 1274241600,
       "description": "encounter acute inpt",
@@ -891,7 +923,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000af9",
+      "_id": "4fce4e35a9ffcc3e5f000b00",
       "_type": "Encounter",
       "time": 1271304000,
       "description": "encounter office visit",
@@ -905,7 +937,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000afa",
+      "_id": "4fce4e35a9ffcc3e5f000b01",
       "_type": "Encounter",
       "time": 1270008000,
       "description": "encounter office visit",
@@ -921,7 +953,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b18",
+      "_id": "4fce4e35a9ffcc3e5f000b1f",
       "_type": "Immunization",
       "time": 1288152000,
       "description": "Influenza Vaccine",
@@ -938,7 +970,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b19",
+      "_id": "4fce4e35a9ffcc3e5f000b20",
       "_type": "Immunization",
       "time": 1288152000,
       "description": "Pneumococcal Vaccine all ages",
@@ -954,7 +986,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b14",
+      "_id": "4fce4e35a9ffcc3e5f000b1b",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Antihypertensive combinations",
@@ -968,7 +1000,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b15",
+      "_id": "4fce4e35a9ffcc3e5f000b1c",
       "_type": "Medication",
       "time": 1274328000,
       "description": "Short acting beta 2 agonist",
@@ -982,7 +1014,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b16",
+      "_id": "4fce4e35a9ffcc3e5f000b1d",
       "_type": "Medication",
       "time": 1270008000,
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
@@ -996,7 +1028,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b17",
+      "_id": "4fce4e35a9ffcc3e5f000b1e",
       "_type": "Medication",
       "time": 1276142400,
       "description": "ACE inhibitor or ARB",
@@ -1021,7 +1053,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b0e",
+      "_id": "4fce4e35a9ffcc3e5f000b15",
       "_type": "Procedure",
       "time": 1275796800,
       "description": "counseling for nutrition",
@@ -1041,7 +1073,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b0f",
+      "_id": "4fce4e35a9ffcc3e5f000b16",
       "_type": "Procedure",
       "time": 1275796800,
       "description": "counseling for physical activity",
@@ -1055,7 +1087,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b10",
+      "_id": "4fce4e35a9ffcc3e5f000b17",
       "_type": "Procedure",
       "time": 1242792000,
       "description": "Asthma Symptom Assessment Tool",
@@ -1081,7 +1113,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b11",
+      "_id": "4fce4e35a9ffcc3e5f000b18",
       "_type": "Procedure",
       "time": 1275796800,
       "description": "colonoscopy",
@@ -1095,7 +1127,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b12",
+      "_id": "4fce4e35a9ffcc3e5f000b19",
       "_type": "Procedure",
       "time": 1275969600,
       "description": "Colon Cancer Stage III",
@@ -1118,7 +1150,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b13",
+      "_id": "4fce4e35a9ffcc3e5f000b1a",
       "_type": "Procedure",
       "time": 1275796800,
       "description": "Colorectal Cancer",
@@ -1142,7 +1174,7 @@
         "scalar": "164mg/dL",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b0a",
+      "_id": "4fce4e35a9ffcc3e5f000b11",
       "_type": "LabResult",
       "time": 1275796800,
       "description": "Total Cholesterol",
@@ -1164,7 +1196,7 @@
         "scalar": "150mg/dL",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b0b",
+      "_id": "4fce4e35a9ffcc3e5f000b12",
       "_type": "LabResult",
       "time": 1275796800,
       "description": "Triglycerides",
@@ -1186,7 +1218,7 @@
         "scalar": "45mg/dL",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b0c",
+      "_id": "4fce4e35a9ffcc3e5f000b13",
       "_type": "LabResult",
       "time": 1275796800,
       "description": "High Density Lipoprotein (HDL)",
@@ -1208,7 +1240,7 @@
         "scalar": "69mg/dL",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b0d",
+      "_id": "4fce4e35a9ffcc3e5f000b14",
       "_type": "LabResult",
       "time": 1275796800,
       "description": "LDL",
@@ -1226,7 +1258,7 @@
         "scalar": null,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000afb",
+      "_id": "4fce4e35a9ffcc3e5f000b02",
       "_type": "SocialHistory",
       "time": 1275796800,
       "description": "Tobacco Non-User",
@@ -1244,7 +1276,7 @@
         "scalar": 102.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed3da9ffcc3a1f000afc",
+      "_id": "4fce4e35a9ffcc3e5f000b03",
       "_type": "VitalSign",
       "time": 1275796800,
       "description": "Systolic Blood Pressure",
@@ -1260,7 +1292,7 @@
         "scalar": 54.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed3da9ffcc3a1f000afd",
+      "_id": "4fce4e35a9ffcc3e5f000b04",
       "_type": "VitalSign",
       "time": 1275796800,
       "description": "Diastolic Blood Pressure",
@@ -1276,7 +1308,7 @@
         "scalar": 76.0,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000afe",
+      "_id": "4fce4e35a9ffcc3e5f000b05",
       "_type": "VitalSign",
       "time": 1275796800,
       "description": "Heart Rate",
@@ -1295,7 +1327,7 @@
         "scalar": 20.479785969084425,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aff",
+      "_id": "4fce4e35a9ffcc3e5f000b06",
       "_type": "VitalSign",
       "time": 1288152000,
       "description": "BMI",
@@ -1314,7 +1346,7 @@
         "scalar": 20.479785969084425,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b00",
+      "_id": "4fce4e35a9ffcc3e5f000b07",
       "_type": "VitalSign",
       "time": 1275796800,
       "description": "BMI",
@@ -1333,7 +1365,7 @@
         "scalar": 20.688763376932222,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b01",
+      "_id": "4fce4e35a9ffcc3e5f000b08",
       "_type": "VitalSign",
       "time": 1271304000,
       "description": "BMI",
@@ -1352,7 +1384,7 @@
         "scalar": 20.688763376932222,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b02",
+      "_id": "4fce4e35a9ffcc3e5f000b09",
       "_type": "VitalSign",
       "time": 1270008000,
       "description": "BMI",
@@ -1371,7 +1403,7 @@
         "scalar": 20.688763376932222,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000b03",
+      "_id": "4fce4e35a9ffcc3e5f000b0a",
       "_type": "VitalSign",
       "time": 1242792000,
       "description": "BMI",
