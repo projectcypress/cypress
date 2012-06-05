@@ -55,7 +55,7 @@ namespace :mpl do
     db = @loader.get_db
     Measure.installed.each do |measure|
       puts 'Evaluating measure: ' + measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + ' - ' + measure['name']
-      @evaluator.eval_for_static_records(measure)
+      @evaluator.eval_for_static_records(measure,false)
     end
   end
 
@@ -64,7 +64,7 @@ namespace :mpl do
     db = @loader.get_db
     current_results = File.new(Rails.root.join("public","current_mpl_results.txt"), "w+")
     Measure.installed.each do |measure|
-      result = @evaluator.eval_for_static_records(measure)
+      result = @evaluator.eval_for_static_records(measure,false)
       current_results.puts measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["numerator"]:' + result['numerator'].to_s 
       current_results.puts measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["denominator"]:' + result['denominator'].to_s 
       current_results.puts measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["exclusions"]:' + result['exclusions'].to_s 
