@@ -29,7 +29,6 @@ end
 namespace :measures do
 
   task :setup => :environment do  
-    binding.pry
     @importer = Measures::Importer.new(Mongoid.master)
     @version = ENV["M_VER"]
   end
@@ -48,7 +47,6 @@ namespace :measures do
   task :load_bundle => [:setup ] do
     zip = download_measures(@version)  
      puts "loading measures"
-     binding.pry
     @importer.import(zip)
   end
 
