@@ -22,13 +22,13 @@
         <dt>Version:</dt> <dd><%= @product.version %></dd>
       </dl>
       <dl>
-        <dt>description:</dt> <dd><%= @product.description %></dd>
+        <dt>Description:</dt> <dd><%= @product.description %></dd>
       </dl>
       <br/>
       <table>
         <tr >
           <td class="expander toggle" data-code="measure_details"></td>
-          <td> <h2>View Available Measures (NQF#)</h2></td>
+          <td> <h2>View CQMs pertinent to this product</h2></td>
         </tr>
         <tr class="sub_rows measure_details">
           <td colspan="2">
@@ -77,7 +77,7 @@
                 <td><%= test.description %></td>
                 <td><%= test.test_executions.size %></td>
                 <td></td>
-                <td><%= link_to 'delete', product_test_path(test), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                <td><%= link_to 'Delete', product_test_path(test), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
               </tr>
 
               <% if !test.test_executions.empty?

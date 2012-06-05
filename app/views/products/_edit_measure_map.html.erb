@@ -34,7 +34,7 @@
             <span class="header_commands">
               [<a href="javascript:void(0)" onclick="toggleMeasures('true','<%= category.tr(" '", "_") %>')">check all</a> |
               <a href="javascript:void(0)" onclick="toggleMeasures(0,'<%= category.tr(" '", "_") %>');">uncheck all</a> |
-              <a href="javascript:void(0)" onclick="showMappings('<%= category.tr(" '", "_") %>');">change labels</a>
+              <a href="javascript:void(0)" onclick="editMappings('<%= category.tr(" '", "_") %>');">edit labels</a>
               ]
             </span>
           </dt>
@@ -51,7 +51,7 @@
               <dd class='inactive <%= measure['id'].to_i %>'>
                 <span class="left">
                   <%= check_box_tag 'product[measure_map][]', sub_measure['id'], false, { "disabled" => false, "class" => "#{category.tr(" '", "_")}" } %>
-                  <span class="mapping <%= "#{category.tr(" '", "_")}" %>"><%= text_field sub_measure['id'], sub_measure['id'], :value => sub_measure['id'], :size => '5', :class => 'req' %></span>
+                  <span class="mapping <%= "#{category.tr(" '", "_")}" %>"><%= text_field sub_measure['id'], sub_measure['id'], :value => sub_measure['id'], :size => '5', :class => 'req', :readonly => true  %></span>
                   <%= label_tag 'sub_measure_name', measure['name'] + " - " + sub_measure['name'] %>
                 </span>
               </dd>

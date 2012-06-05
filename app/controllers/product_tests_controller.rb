@@ -71,7 +71,7 @@ class ProductTestsController < ApplicationController
   
   def create
     # Create a new test and save here so id is made. We'll use it while cloning Records to associate them back to this ProductTest.
-    test = current_user.product_tests.build(params[:product_test])    
+    test = current_user.product_tests.build(params[:product_test])
     test.effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
     test.save!
 

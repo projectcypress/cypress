@@ -2,11 +2,11 @@ pdf.text "Test Results Produced by Project Cypress #{Cypress::Version.current} -
 pdf.text "Candidate EHR: #{@vendor.name}" 
 pdf.text "Vendor ID: #{@vendor.vendor_id}" 
 pdf.text "EHR POC: #{@vendor.poc}"
-pdf.text "E-mail: #{@vendor.email}"
+pdf.text "Email: #{@vendor.email}"
 pdf.text "Phone: #{@vendor.tel}\n\n"
 
 pdf.text "Proctor: #{@test.user.first_name} #{@test.user.last_name}"
-pdf.text "E-mail: #{@test.user.email}"
+pdf.text "Email: #{@test.user.email}"
 pdf.text "Phone: #{@test.user.telephone}\n\n"
 
 pdf.text "Product: #{@product.name}"
