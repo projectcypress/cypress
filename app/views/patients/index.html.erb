@@ -124,20 +124,14 @@
     </div>
     
     <section id="patient_list">
-      <section class="measure">
       <% if @selected and !@showAll %>
+	  <section class="measure">
         <dl>
           <dt class="measure_title">Quality Measure:</dt>
           <dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
           <dd class="measure_desc"><%= @selected.description %></dd>
         </dl>
-      <% else %>
-        <dl>
-          <dt class="measure_title">Quality Measure:</dt>
-          <dd class="measure_title">N/A</dd>
-          <dd class="measure_desc">N/A</dd>
-        </dl>
-      <% end %>
+     
         <dl>
           <dt>Expected Reports:</dt>
           <dd>
@@ -156,7 +150,7 @@
           </dd>
         </dl>
       </section>
-    
+     <% end %>
       <section id="product_test_patients">
       </section>
     </section>

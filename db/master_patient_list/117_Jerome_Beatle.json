@@ -1,5 +1,5 @@
 {
-  "_id": "4fa2ed3da9ffcc3a1f000aa7",
+  "_id": "4fce5443a9ffcc4b0e000aac",
   "patient_id": "117",
   "first": "Jerome",
   "last": "Beatle",
@@ -287,6 +287,9 @@
         1273204800,
         1273204800
       ],
+      "pneumococcal_vaccination_procedure_performed": [
+        1283486400
+      ],
       "influenza_vaccine_medication_administered": [
         1283486400
       ]
@@ -298,6 +301,9 @@
         1279598400,
         1273204800,
         1273204800
+      ],
+      "pneumococcal_vaccination_all_ages_procedure_performed": [
+        1283486400
       ],
       "pneumococcal_vaccine_all_ages_medication_administered": [
         1283486400
@@ -320,6 +326,7 @@
     },
     "0052": {
       "cancer_diagnosis_active": [
+        1278734400,
         1278734400
       ],
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
@@ -658,6 +665,9 @@
       "colon_cancer_diagnosis_active": [
         1278734400
       ],
+      "metastatic_sites_common_to_colon_cancer_diagnosis_active": [
+        1278734400
+      ],
       "chemotherapy_for_colon_cancer_medication_order": [
         1279598400
       ],
@@ -689,6 +699,9 @@
       ]
     },
     "0387": {
+      "metastatic_sites_common_to_breast_cancer_diagnosis_active": [
+        1278734400
+      ],
       "encounter_office_visit_encounter": [
         1283486400,
         1282881600,
@@ -749,7 +762,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aa8",
+      "_id": "4fce5443a9ffcc4b0e000aad",
       "_type": "Allergy",
       "time": 1273204800,
       "description": "Allergy to Eggs",
@@ -775,7 +788,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ace",
+      "_id": "4fce5443a9ffcc4b0e000ad4",
       "_type": "Entry",
       "time": 1273204800,
       "description": "follow-up plan_BMI management",
@@ -797,7 +810,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab7",
+      "_id": "4fce5443a9ffcc4b0e000abc",
       "_type": "Condition",
       "time": 1278734400,
       "description": "Colon Cancer",
@@ -818,7 +831,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab8",
+      "_id": "4fce5443a9ffcc4b0e000abd",
       "_type": "Condition",
       "time": 1273204800,
       "description": "COPD",
@@ -839,11 +852,32 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab9",
+      "_id": "4fce5443a9ffcc4b0e000abe",
       "_type": "Condition",
       "time": 1273204800,
       "description": "Hypertension",
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
+      "status": "active"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "197.7"
+        ],
+        "ICD-10-CM": [
+          "C78.7"
+        ],
+        "SNOMED-CT": [
+          "94222008"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4fce5443a9ffcc4b0e000abf",
+      "_type": "Condition",
+      "time": 1278734400,
+      "description": "metastatic sites common to colon cancer",
+      "specifics": "C0153690:Secondary malignant neoplasm of bone;",
       "status": "active"
     }
   ],
@@ -859,7 +893,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aa9",
+      "_id": "4fce5443a9ffcc4b0e000aae",
       "_type": "Encounter",
       "time": 1283486400,
       "description": "Encounter outpatient",
@@ -876,7 +910,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aaa",
+      "_id": "4fce5443a9ffcc4b0e000aaf",
       "_type": "Encounter",
       "time": 1282881600,
       "description": "Encounter Outpatient",
@@ -890,7 +924,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aab",
+      "_id": "4fce5443a9ffcc4b0e000ab0",
       "_type": "Encounter",
       "time": 1279598400,
       "description": "Encounter Office Visit",
@@ -904,7 +938,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aac",
+      "_id": "4fce5443a9ffcc4b0e000ab1",
       "_type": "Encounter",
       "time": 1278734400,
       "description": "Encounter Inpatient Discharge",
@@ -918,7 +952,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aad",
+      "_id": "4fce5443a9ffcc4b0e000ab2",
       "_type": "Encounter",
       "time": 1278475200,
       "description": "encounter acute inpt",
@@ -932,7 +966,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aae",
+      "_id": "4fce5443a9ffcc4b0e000ab3",
       "_type": "Encounter",
       "time": 1273204800,
       "description": "Encounter Office Visit",
@@ -949,7 +983,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aaf",
+      "_id": "4fce5443a9ffcc4b0e000ab4",
       "_type": "Encounter",
       "time": 1273204800,
       "description": "Encounter Outpatient",
@@ -968,7 +1002,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000acc",
+      "_id": "4fce5443a9ffcc4b0e000ad2",
       "_type": "Immunization",
       "time": 1283486400,
       "description": "Pneumococcal Vaccine all ages",
@@ -982,7 +1016,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000acd",
+      "_id": "4fce5443a9ffcc4b0e000ad3",
       "_type": "Immunization",
       "time": 1283486400,
       "description": "Influenza Vaccine",
@@ -998,7 +1032,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac7",
+      "_id": "4fce5443a9ffcc4b0e000acd",
       "_type": "Medication",
       "time": 1273204800,
       "description": "Smoking Cessation Agents",
@@ -1012,7 +1046,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac8",
+      "_id": "4fce5443a9ffcc4b0e000ace",
       "_type": "Medication",
       "time": 1279598400,
       "description": "Chemotherapy for Colon Cancer",
@@ -1026,7 +1060,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac9",
+      "_id": "4fce5443a9ffcc4b0e000acf",
       "_type": "Medication",
       "time": 1273204800,
       "description": "Antihypertensive combinations",
@@ -1040,7 +1074,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aca",
+      "_id": "4fce5443a9ffcc4b0e000ad0",
       "_type": "Medication",
       "time": 1273204800,
       "description": "Long acting inhaled beta 2 agonist",
@@ -1054,7 +1088,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000acb",
+      "_id": "4fce5443a9ffcc4b0e000ad1",
       "_type": "Medication",
       "time": 1273204800,
       "description": "Short acting beta 2 agonist",
@@ -1079,7 +1113,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac1",
+      "_id": "4fce5443a9ffcc4b0e000ac7",
       "_type": "Procedure",
       "time": 1273204800,
       "description": "counseling for nutrition",
@@ -1096,7 +1130,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac2",
+      "_id": "4fce5443a9ffcc4b0e000ac8",
       "_type": "Procedure",
       "time": 1273204800,
       "description": "tobacco use cessation counseling",
@@ -1116,7 +1150,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac3",
+      "_id": "4fce5443a9ffcc4b0e000ac9",
       "_type": "Procedure",
       "time": 1273204800,
       "description": "counseling for physical activity",
@@ -1130,7 +1164,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac4",
+      "_id": "4fce5443a9ffcc4b0e000aca",
       "_type": "Procedure",
       "time": 1278561600,
       "description": "Colon Cancer Stage III",
@@ -1156,7 +1190,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac5",
+      "_id": "4fce5443a9ffcc4b0e000acb",
       "_type": "Procedure",
       "time": 1276142400,
       "description": "colonoscopy",
@@ -1173,7 +1207,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac6",
+      "_id": "4fce5443a9ffcc4b0e000acc",
       "_type": "Procedure",
       "time": 1273291200,
       "description": "X-ray Study",
@@ -1197,7 +1231,7 @@
         "scalar": "2.8 ng/ml",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000aba",
+      "_id": "4fce5443a9ffcc4b0e000ac0",
       "_type": "LabResult",
       "time": 1273291200,
       "description": "Prostate Specific Antigen Test",
@@ -1219,7 +1253,7 @@
         "scalar": "199 mg/dL",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000abb",
+      "_id": "4fce5443a9ffcc4b0e000ac1",
       "_type": "LabResult",
       "time": 1273291200,
       "description": "Total Cholesterol",
@@ -1241,7 +1275,7 @@
         "scalar": "150 mg/dL",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000abc",
+      "_id": "4fce5443a9ffcc4b0e000ac2",
       "_type": "LabResult",
       "time": 1273291200,
       "description": "Triglycerides",
@@ -1263,7 +1297,7 @@
         "scalar": "45mg/dL",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000abd",
+      "_id": "4fce5443a9ffcc4b0e000ac3",
       "_type": "LabResult",
       "time": 1273291200,
       "description": "High Density Lipoprotein (HDL)",
@@ -1285,7 +1319,7 @@
         "scalar": "124mg/dL",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000abe",
+      "_id": "4fce5443a9ffcc4b0e000ac4",
       "_type": "LabResult",
       "time": 1273291200,
       "description": "LDL",
@@ -1313,7 +1347,7 @@
         "scalar": "Postive",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000abf",
+      "_id": "4fce5443a9ffcc4b0e000ac5",
       "_type": "LabResult",
       "time": 1273204800,
       "description": "FOBT",
@@ -1327,7 +1361,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ac0",
+      "_id": "4fce5443a9ffcc4b0e000ac6",
       "_type": "LabResult",
       "time": 1278561600,
       "description": "Colon Cancer Stage III",
@@ -1345,7 +1379,7 @@
         "scalar": null,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab0",
+      "_id": "4fce5443a9ffcc4b0e000ab5",
       "_type": "SocialHistory",
       "time": 1273204800,
       "description": "Tobacco User",
@@ -1361,7 +1395,7 @@
         "scalar": "yes",
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab1",
+      "_id": "4fce5443a9ffcc4b0e000ab6",
       "_type": "SocialHistory",
       "time": 1273204800,
       "description": "Tobacco User",
@@ -1379,7 +1413,7 @@
         "scalar": 130.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab2",
+      "_id": "4fce5443a9ffcc4b0e000ab7",
       "_type": "VitalSign",
       "time": 1273204800,
       "description": "Systolic Blood Pressure",
@@ -1395,7 +1429,7 @@
         "scalar": 74.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab3",
+      "_id": "4fce5443a9ffcc4b0e000ab8",
       "_type": "VitalSign",
       "time": 1273204800,
       "description": "Diastolic Blood Pressure",
@@ -1411,7 +1445,7 @@
         "scalar": 86.0,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab4",
+      "_id": "4fce5443a9ffcc4b0e000ab9",
       "_type": "VitalSign",
       "time": 1273204800,
       "description": "Heart Rate",
@@ -1430,7 +1464,7 @@
         "scalar": 33.27810650887574,
         "units": null
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab5",
+      "_id": "4fce5443a9ffcc4b0e000aba",
       "_type": "VitalSign",
       "time": 1273204800,
       "description": "BMI",
@@ -1444,7 +1478,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed3da9ffcc3a1f000ab6",
+      "_id": "4fce5443a9ffcc4b0e000abb",
       "_type": "VitalSign",
       "time": 1278561600,
       "description": "Colon Cancer Stage III",

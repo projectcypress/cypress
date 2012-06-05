@@ -96,7 +96,7 @@
                     <td></td>
                     <td title="<%= execution.success_rate %>%" class="<%= execution_status %>"></td>
                         <td class="<%= execution_status %>"><a href="<%= product_test_path(test, :execution_id => execution.id) %>"><%= execution.pretty_date %></a></td>
-                    <td><span class="<%= execution_status %>"><%= execution.passing_measures.size %><span class="q"> / <%= execution.product_test.count_measures %> measures passed</span></td>
+                    <td><span class="<%= execution_status %>"><%= execution.passing_measures.size %><span class="q"> / <%= execution.product_test.measure_defs.size   %> measures passed</span></td>
                     <td></td>
                     <td></td>
                     <td><%= link_to 'delete', product_test_path(test, :execution_id => execution), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>

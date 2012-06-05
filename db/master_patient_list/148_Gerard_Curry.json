@@ -1,5 +1,5 @@
 {
-  "_id": "4fa2ed42a9ffcc3a1f000eb2",
+  "_id": "4fce5449a9ffcc4b0e000ec1",
   "patient_id": "148",
   "first": "Gerard",
   "last": "Curry",
@@ -37,6 +37,9 @@
       ]
     },
     "0004": {
+      "alcohol_or_drug_dependence_diagnosis_active": [
+        1286942400
+      ],
       "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
         1281412800,
         1272686400
@@ -59,6 +62,9 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1286942400
+      ]
     },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -75,6 +81,9 @@
       ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1286942400
+      ]
     },
     "0018": {
       "encounter_outpatient_encounter": [
@@ -428,7 +437,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ebc",
+      "_id": "4fce5449a9ffcc4b0e000ecb",
       "_type": "Condition",
       "time": 1272686400,
       "description": "Asthma",
@@ -449,11 +458,32 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ebd",
+      "_id": "4fce5449a9ffcc4b0e000ecc",
       "_type": "Condition",
       "time": 1281412800,
       "description": "Asthma",
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
+      "status": "active"
+    },
+    {
+      "codes": {
+        "ICD-10-CM": [
+          "F10"
+        ],
+        "ICD-9-CM": [
+          "305"
+        ],
+        "SNOMED-CT": [
+          "66590003"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4fce5449a9ffcc4b0e000ecd",
+      "_type": "Condition",
+      "time": 1286942400,
+      "description": "alcohol or drug dependence",
+      "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
       "status": "active"
     },
     {
@@ -464,7 +494,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ebe",
+      "_id": "4fce5449a9ffcc4b0e000ece",
       "_type": "Condition",
       "time": 1272686400,
       "description": "Asthma Daytime Symptoms",
@@ -478,7 +508,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ebf",
+      "_id": "4fce5449a9ffcc4b0e000ecf",
       "_type": "Condition",
       "time": 1272686400,
       "description": "Asthma Nighttime Symptoms",
@@ -494,7 +524,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000eb3",
+      "_id": "4fce5449a9ffcc4b0e000ec2",
       "_type": "Encounter",
       "time": 1286942400,
       "description": "encounter outpatient including orthopedics and chiropractics",
@@ -508,7 +538,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000eb4",
+      "_id": "4fce5449a9ffcc4b0e000ec3",
       "_type": "Encounter",
       "time": 1281412800,
       "description": "Encounter Office & Outpatient Consult",
@@ -522,7 +552,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000eb5",
+      "_id": "4fce5449a9ffcc4b0e000ec4",
       "_type": "Encounter",
       "time": 1272686400,
       "description": "Encounter Office & Outpatient Consult",
@@ -538,7 +568,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ec2",
+      "_id": "4fce5449a9ffcc4b0e000ed2",
       "_type": "Medication",
       "time": 1272686400,
       "description": "Long acting inhaled beta 2 agonist",
@@ -552,7 +582,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ec3",
+      "_id": "4fce5449a9ffcc4b0e000ed3",
       "_type": "Medication",
       "time": 1272686400,
       "description": "Short acting beta 2 agonist",
@@ -566,7 +596,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ec4",
+      "_id": "4fce5449a9ffcc4b0e000ed4",
       "_type": "Medication",
       "time": 1272686400,
       "description": "Smoking Cessation Agents",
@@ -580,7 +610,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ec5",
+      "_id": "4fce5449a9ffcc4b0e000ed5",
       "_type": "Medication",
       "time": 1281412800,
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
@@ -599,7 +629,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ec0",
+      "_id": "4fce5449a9ffcc4b0e000ed0",
       "_type": "Procedure",
       "time": 1272686400,
       "description": "tobacco use cessation counseling",
@@ -622,7 +652,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ec1",
+      "_id": "4fce5449a9ffcc4b0e000ed1",
       "_type": "Procedure",
       "time": 1272686400,
       "description": "counseling for nutrition",
@@ -640,7 +670,7 @@
         "scalar": null,
         "units": null
       },
-      "_id": "4fa2ed42a9ffcc3a1f000eb6",
+      "_id": "4fce5449a9ffcc4b0e000ec5",
       "_type": "SocialHistory",
       "time": 1272686400,
       "description": "Tobacco User",
@@ -658,7 +688,7 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed42a9ffcc3a1f000eb7",
+      "_id": "4fce5449a9ffcc4b0e000ec6",
       "_type": "VitalSign",
       "time": 1281412800,
       "description": "Systolic Blood Pressure",
@@ -674,7 +704,7 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed42a9ffcc3a1f000eb8",
+      "_id": "4fce5449a9ffcc4b0e000ec7",
       "_type": "VitalSign",
       "time": 1281412800,
       "description": "Diastolic Blood Pressure",
@@ -690,7 +720,7 @@
         "scalar": 112.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed42a9ffcc3a1f000eb9",
+      "_id": "4fce5449a9ffcc4b0e000ec8",
       "_type": "VitalSign",
       "time": 1272686400,
       "description": "Systolic Blood Pressure",
@@ -706,7 +736,7 @@
         "scalar": 74.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed42a9ffcc3a1f000eba",
+      "_id": "4fce5449a9ffcc4b0e000ec9",
       "_type": "VitalSign",
       "time": 1272686400,
       "description": "Diastolic Blood Pressure",
@@ -725,7 +755,7 @@
         "scalar": 24.87200832466181,
         "units": null
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ebb",
+      "_id": "4fce5449a9ffcc4b0e000eca",
       "_type": "VitalSign",
       "time": 1272686400,
       "description": "BMI",

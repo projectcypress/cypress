@@ -1,5 +1,5 @@
 {
-  "_id": "4fa2ed42a9ffcc3a1f000ec6",
+  "_id": "4fce5449a9ffcc4b0e000ed6",
   "patient_id": "138",
   "first": "Barbara",
   "last": "Nestle",
@@ -23,6 +23,9 @@
       ]
     },
     "0004": {
+      "alcohol_or_drug_dependence_diagnosis_active": [
+        1273723200
+      ],
       "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
         1278907200,
         1273723200
@@ -38,6 +41,9 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1273723200
+      ]
     },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -50,6 +56,9 @@
       ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1273723200
+      ]
     },
     "0018": {
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -255,11 +264,32 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ece",
+      "_id": "4fce5449a9ffcc4b0e000ede",
       "_type": "Condition",
       "time": 1273723200,
       "description": "Liver Disorders",
       "specifics": "C0156189:Cirrhosis and chronic liver disease;",
+      "status": "active"
+    },
+    {
+      "codes": {
+        "ICD-10-CM": [
+          "F10"
+        ],
+        "ICD-9-CM": [
+          "305"
+        ],
+        "SNOMED-CT": [
+          "66590003"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4fce5449a9ffcc4b0e000edf",
+      "_type": "Condition",
+      "time": 1273723200,
+      "description": "alcohol or drug dependence",
+      "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
       "status": "active"
     }
   ],
@@ -272,7 +302,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ec7",
+      "_id": "4fce5449a9ffcc4b0e000ed7",
       "_type": "Encounter",
       "time": 1278907200,
       "description": "encounter ED",
@@ -286,7 +316,7 @@
       },
       "value": {
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ec8",
+      "_id": "4fce5449a9ffcc4b0e000ed8",
       "_type": "Encounter",
       "time": 1273723200,
       "description": "encounter ED",
@@ -307,7 +337,7 @@
         "scalar": "Positive",
         "units": null
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ecf",
+      "_id": "4fce5449a9ffcc4b0e000ee0",
       "_type": "LabResult",
       "time": 1273723200,
       "description": "Pregnancy Test",
@@ -326,7 +356,7 @@
         "scalar": "Negative",
         "units": null
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ed0",
+      "_id": "4fce5449a9ffcc4b0e000ee1",
       "_type": "LabResult",
       "time": 1278907200,
       "description": "Pregnancy Test",
@@ -344,7 +374,7 @@
         "scalar": null,
         "units": null
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ec9",
+      "_id": "4fce5449a9ffcc4b0e000ed9",
       "_type": "SocialHistory",
       "time": 1273723200,
       "description": "Tobacco User",
@@ -362,7 +392,7 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed42a9ffcc3a1f000eca",
+      "_id": "4fce5449a9ffcc4b0e000eda",
       "_type": "VitalSign",
       "time": 1278907200,
       "description": "Systolic Blood Pressure",
@@ -378,7 +408,7 @@
         "scalar": 70.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ecb",
+      "_id": "4fce5449a9ffcc4b0e000edb",
       "_type": "VitalSign",
       "time": 1278907200,
       "description": "Diastolic Blood Pressure",
@@ -394,7 +424,7 @@
         "scalar": 112.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ecc",
+      "_id": "4fce5449a9ffcc4b0e000edc",
       "_type": "VitalSign",
       "time": 1273723200,
       "description": "Systolic Blood Pressure",
@@ -410,7 +440,7 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fa2ed42a9ffcc3a1f000ecd",
+      "_id": "4fce5449a9ffcc4b0e000edd",
       "_type": "VitalSign",
       "time": 1273723200,
       "description": "Diastolic Blood Pressure",
