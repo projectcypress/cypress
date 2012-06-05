@@ -5,6 +5,9 @@ require 'measure_evaluator'
 
 namespace :mpl do
 
+  task :tttt do
+     puts ENV.inspect
+  end
   task :setup => :environment do
     @loader = QME::Database::Loader.new()
     @mpl_dir = File.join(Rails.root, 'db', 'master_patient_list')
@@ -15,6 +18,8 @@ namespace :mpl do
   
   desc 'Drop all patients and cached query results'
   task :clear  => :setup do
+    @loader.drop_collection('bundles')
+    @loader.drop_collection("measures")
     @loader.drop_collection('records')
     @loader.drop_collection('query_cache')
     @loader.drop_collection('patient_cache')
@@ -34,6 +39,8 @@ namespace :mpl do
 
   desc 'Seed database with master patient list'
   task :load => [:setup, :clear] do
+    importer = Measures::Importer.new(Mongoid.master)
+    importer.import(File.new("./db/bundle.zip"))
     mpls = File.join(@mpl_dir, '*')
     Dir.glob(mpls) do |patient_file|
       json = JSON.parse(File.read(patient_file))
@@ -55,7 +62,7 @@ namespace :mpl do
     db = @loader.get_db
     Measure.installed.each do |measure|
       puts 'Evaluating measure: ' + measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + ' - ' + measure['name']
-      @evaluator.eval_for_static_records(measure)
+      @evaluator.eval_for_static_records(measure,false)
     end
   end
 

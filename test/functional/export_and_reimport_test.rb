@@ -1,69 +1,67 @@
 require 'test_helper'
 require 'create_download_zip'
 
+
 class ExportAndReimportTest < ActionController::TestCase
   
   setup do
-    if !ENV['MEASURE_DIR']
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts "Cannot run Export and Reimport test, missing environment variable MEASURE_DIR"
-      puts "Set MEASURE_DIR to the directory where the Measures project resides"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      return
-    end
-    ENV['MEASURE_PROPS'] = ENV['MEASURE_PROPS'] || ENV['MEASURE_DIR'] + '/measure_props'
+    puts "wiping db"
     wipe_db_and_load_patients()
-    loader = QME::Database::Loader.new('cypress_test')
-    loader.save_bundle(ENV['MEASURE_DIR'],'measures')
-    collection_fixtures('product_tests', '_id')
+    puts "loading measures"
+    load_measures()
+    collection_fixtures('vendors', '_id',"user_ids")
+    collection_fixtures('products','_id','vendor_id')
+    collection_fixtures('users',"_id", "vendor_ids")
+    collection_fixtures('product_tests', '_id','product_id',"user_id")
   end
   
   test "Export records, reimport them, then compare results" do
-    if !ENV['MEASURE_PROPS']
-      assert true
-      return
-    end
+
     assert Record.count  == 225 , "Wrong number of records in DB before export"
     assert Measure.count == 78  , "Wrong number of measures in DB"
     ptest = ProductTest.find('4f58f8de1d41c851eb000478')
     ptest.effective_date =  Time.gm(APP_CONFIG["effective_date"]["year"],
                                     APP_CONFIG["effective_date"]["month"],
                                     APP_CONFIG["effective_date"]["day"]).to_i
+    puts "creating zip"                                
     zip = Cypress::CreateDownloadZip.create_zip(Record.where("test_id" => nil),'c32')
 
+    puts "importing records"
     pij = Cypress::PatientImportJob.new(UUID.generate,
       'zip_file_location' => zip.path,
       'test_id' => ptest.id,
       'format' => 'c32')
     pij.perform
-    zip.close
+   
 
     assert Record.count  == 450 , "Wrong number of records in DB after reimport"
 
-    static_results  = []
-    imported_results = []
+   puts "Evaling measures"
     Measure.installed.each do |measure|
-      result = Cypress::MeasureEvaluator.eval_for_static_records(measure,false)
-      static_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["numerator"]:'   + result['numerator'].to_s + "\n")
-      static_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["denominator"]:' + result['denominator'].to_s + "\n")
-      static_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["exclusions"]:'  + result['exclusions'].to_s + "\n")
-
-      result = Cypress::MeasureEvaluator.eval(ptest,measure,false)
-      imported_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["numerator"]:'   + result['numerator'].to_s + "\n")
-      imported_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["denominator"]:' + result['denominator'].to_s + "\n")
-      imported_results.push(measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["exclusions"]:'  + result['exclusions'].to_s + "\n")
+      Cypress::MeasureEvaluator.eval_for_static_records(measure,false)
+      Cypress::MeasureEvaluator.eval(ptest,measure,false)
     end
-
-    assert static_results.count == imported_results.count
-
+    puts "querying records"
+    # there will be only 2 sets of values inthe query cache, the initail patients and those of the test so we can 
+    # group the results by measure_id and sub_id then check that all items in the group match
+    results =  Mongoid.master["query_cache"].group({key:[:measure_id, :sub_id],initial:{values:[]},reduce:"function(doc,out){out.values[out.values.length] = doc;}"})
+    assert_equal results.length, 78
     correct = true
-    static_results.zip(imported_results).each do |static,imported|
-      if static != imported
-        puts "Static records Result:   " + static
-        puts "Imported records Result: "+ imported
-        correct = false
+    results.each do |res|
+      if res.values.length != 2
+        correct == false
+        next
       end
+      r1 = values[0]
+      r2 = values[1]
+      
+      if r1["population"]  !=  r2["population"]  || r1["denominator"] != 	r2["denominator"] ||
+    			r1["numerator"]   != 	r2["numerator"]   || r1["exclusions"]  != 	r2["exclusions"]  then
+		     puts "#{r1.inspect }     #{r2.inspect}"
+		     correct = false
+      end                   
     end
+    
     assert correct , "Inconsistent results found"
   end
 end
