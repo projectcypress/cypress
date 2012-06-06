@@ -17,7 +17,7 @@
     </dl>
   </section>
 
-  <%= render :partial => 'edit_measure_map' if mode == :new %>
+  <%= render :partial => 'edit_measure_map' %>
   <div id="validationErrorMessages"></div>
   <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();" style="display: inline-block"><%= submit_text(@product) %></a>
 <% end %>
