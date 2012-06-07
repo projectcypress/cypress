@@ -62,7 +62,6 @@ end
 			   Record.where(:first => 'Rosa').first.procedures.second.time,
 			   Record.where(:first => 'Selena').first.medications.second.time,
 			   Record.where(:first => 'Rosa').first.immunizations.second.time]
-puts Time.at control[0]		
 	control.each_with_index do |t, i|
 	    control[i] = Time.at(t).to_date.advance(:years => 0, :months => -2, :days => 14).to_time.to_i
 	end
