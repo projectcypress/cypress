@@ -28,9 +28,11 @@ module Cypress
       else
         #The measure calculation job needs test.id to be a string,which it converts to an objectID
         #Giving it a straight objectID causes an error. Thus we call calculate on newreport, and the result is stored in the original report!
+       
         newreport = QME::QualityReport.new(measure['id'], measure.sub_id, 
         {'effective_date' => test.effective_date, 'test_id' => test.id.to_s})
         newreport.calculate(false)
+      
         result = report.result
       end
       test.save!
