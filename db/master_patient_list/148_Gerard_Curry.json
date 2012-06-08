@@ -1,5 +1,5 @@
 {
-  "_id": "4fce5449a9ffcc4b0e000ec1",
+  "_id": "4fd10aaea9ffcc2ba1000ec1",
   "patient_id": "148",
   "first": "Gerard",
   "last": "Curry",
@@ -38,7 +38,10 @@
     },
     "0004": {
       "alcohol_or_drug_dependence_diagnosis_active": [
-        1286942400
+        1272686400
+      ],
+      "alcohol_drug_rehab_and_detox_interventions_procedure_performed": [
+        1272686400
       ],
       "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
         1281412800,
@@ -63,7 +66,7 @@
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1286942400
+        1272686400
       ]
     },
     "0013": {
@@ -82,7 +85,7 @@
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1286942400
+        1272686400
       ]
     },
     "0018": {
@@ -437,7 +440,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ecb",
+      "_id": "4fd10aaea9ffcc2ba1000ecb",
       "_type": "Condition",
       "time": 1272686400,
       "description": "Asthma",
@@ -458,7 +461,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ecc",
+      "_id": "4fd10aaea9ffcc2ba1000ecc",
       "_type": "Condition",
       "time": 1281412800,
       "description": "Asthma",
@@ -479,9 +482,9 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ecd",
+      "_id": "4fd10aaea9ffcc2ba1000ecd",
       "_type": "Condition",
-      "time": 1286942400,
+      "time": 1272686400,
       "description": "alcohol or drug dependence",
       "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
       "status": "active"
@@ -494,7 +497,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ece",
+      "_id": "4fd10aaea9ffcc2ba1000ece",
       "_type": "Condition",
       "time": 1272686400,
       "description": "Asthma Daytime Symptoms",
@@ -508,7 +511,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ecf",
+      "_id": "4fd10aaea9ffcc2ba1000ecf",
       "_type": "Condition",
       "time": 1272686400,
       "description": "Asthma Nighttime Symptoms",
@@ -524,7 +527,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ec2",
+      "_id": "4fd10aaea9ffcc2ba1000ec2",
       "_type": "Encounter",
       "time": 1286942400,
       "description": "encounter outpatient including orthopedics and chiropractics",
@@ -538,7 +541,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ec3",
+      "_id": "4fd10aaea9ffcc2ba1000ec3",
       "_type": "Encounter",
       "time": 1281412800,
       "description": "Encounter Office & Outpatient Consult",
@@ -552,7 +555,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ec4",
+      "_id": "4fd10aaea9ffcc2ba1000ec4",
       "_type": "Encounter",
       "time": 1272686400,
       "description": "Encounter Office & Outpatient Consult",
@@ -568,7 +571,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ed2",
+      "_id": "4fd10aaea9ffcc2ba1000ed3",
       "_type": "Medication",
       "time": 1272686400,
       "description": "Long acting inhaled beta 2 agonist",
@@ -582,7 +585,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ed3",
+      "_id": "4fd10aaea9ffcc2ba1000ed4",
       "_type": "Medication",
       "time": 1272686400,
       "description": "Short acting beta 2 agonist",
@@ -596,7 +599,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ed4",
+      "_id": "4fd10aaea9ffcc2ba1000ed5",
       "_type": "Medication",
       "time": 1272686400,
       "description": "Smoking Cessation Agents",
@@ -610,7 +613,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ed5",
+      "_id": "4fd10aaea9ffcc2ba1000ed6",
       "_type": "Medication",
       "time": 1281412800,
       "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
@@ -629,7 +632,7 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ed0",
+      "_id": "4fd10aaea9ffcc2ba1000ed0",
       "_type": "Procedure",
       "time": 1272686400,
       "description": "tobacco use cessation counseling",
@@ -652,11 +655,28 @@
       },
       "value": {
       },
-      "_id": "4fce5449a9ffcc4b0e000ed1",
+      "_id": "4fd10aaea9ffcc2ba1000ed1",
       "_type": "Procedure",
       "time": 1272686400,
       "description": "counseling for nutrition",
       "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;"
+    },
+    {
+      "codes": {
+        "ICD-9-CM": [
+          "94.61"
+        ],
+        "SNOMED-CT": [
+          "35637008"
+        ]
+      },
+      "value": {
+      },
+      "_id": "4fd10aaea9ffcc2ba1000ed2",
+      "_type": "Procedure",
+      "time": 1272686400,
+      "description": "alcohol, drug rehab and detox interventions",
+      "specifics": "C0204598:Alcohol rehabilitation;"
     }
   ],
   "social_history": [
@@ -670,7 +690,7 @@
         "scalar": null,
         "units": null
       },
-      "_id": "4fce5449a9ffcc4b0e000ec5",
+      "_id": "4fd10aaea9ffcc2ba1000ec5",
       "_type": "SocialHistory",
       "time": 1272686400,
       "description": "Tobacco User",
@@ -688,7 +708,7 @@
         "scalar": 110.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fce5449a9ffcc4b0e000ec6",
+      "_id": "4fd10aaea9ffcc2ba1000ec6",
       "_type": "VitalSign",
       "time": 1281412800,
       "description": "Systolic Blood Pressure",
@@ -704,7 +724,7 @@
         "scalar": 72.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fce5449a9ffcc4b0e000ec7",
+      "_id": "4fd10aaea9ffcc2ba1000ec7",
       "_type": "VitalSign",
       "time": 1281412800,
       "description": "Diastolic Blood Pressure",
@@ -720,7 +740,7 @@
         "scalar": 112.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fce5449a9ffcc4b0e000ec8",
+      "_id": "4fd10aaea9ffcc2ba1000ec8",
       "_type": "VitalSign",
       "time": 1272686400,
       "description": "Systolic Blood Pressure",
@@ -736,7 +756,7 @@
         "scalar": 74.0,
         "units": "mm[Hg]"
       },
-      "_id": "4fce5449a9ffcc4b0e000ec9",
+      "_id": "4fd10aaea9ffcc2ba1000ec9",
       "_type": "VitalSign",
       "time": 1272686400,
       "description": "Diastolic Blood Pressure",
@@ -755,7 +775,7 @@
         "scalar": 24.87200832466181,
         "units": null
       },
-      "_id": "4fce5449a9ffcc4b0e000eca",
+      "_id": "4fd10aaea9ffcc2ba1000eca",
       "_type": "VitalSign",
       "time": 1272686400,
       "description": "BMI",
