@@ -176,9 +176,9 @@
         <% if @current_execution.required_modules %>
           <% (n,v) = @current_execution.required_modules.first%>
           <% @current_execution.required_modules.delete(n)%>
-          <dt>Modules:</dt><dd><%= n %>: v<%= v %></dd>
+          <dt>Modules:</dt><dd><%= n %>: <%= v %></dd>
           <% @current_execution.required_modules.each do |name,version| %>
-            <dt></dt><dd><%= name %>: v<%= version %></dd>
+            <dt></dt><dd><%= name %>: <%= version %></dd>
           <% end %>
           <% else %>
           <dt>Modules:</dt>

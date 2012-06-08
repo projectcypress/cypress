@@ -15,9 +15,9 @@ pdf.text "Product Version: #{@product.version}"
 if @current_execution.required_modules
   (n,v) = @current_execution.required_modules.first
   @current_execution.required_modules.delete(n)
-  modules="Modules: #{n}: v#{v}"
+  modules="Modules: #{n}: #{v}"
   @current_execution.required_modules.each do |name,version|
-    modules =  modules +", "+ name + ": v" + version
+    modules =  modules +", "+ name + ": " + version
   end
   pdf.text " #{modules}"
 else
