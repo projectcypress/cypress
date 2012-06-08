@@ -59,7 +59,6 @@ module Cypress
 		    end
 		patient.save
 	 end
-	 puts "Date rolled Successfully"
 		end   
       end
    end
