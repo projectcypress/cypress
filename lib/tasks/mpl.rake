@@ -1,13 +1,12 @@
 require 'quality-measure-engine'
 require 'measure_evaluator'
-
-
+require 'patient_roll'
 
 namespace :mpl do
-
   task :tttt do
      puts ENV.inspect
   end
+  
   task :setup => :environment do
     @loader = QME::Database::Loader.new()
     @mpl_dir = File.join(Rails.root, 'db', 'master_patient_list')
@@ -86,39 +85,16 @@ namespace :mpl do
   end
   
   desc 'Roll the date of every aspect of each patient forward or backwards [years, months, days] depending on sign'
-  task :roll, :years, :months, :days, :needs=> :setup do |t, args|
-	  y = args[:years].to_i
-  	m = args[:months].to_i
-  	d = args[:days].to_i
-	  Record.where('test_id' => nil).all.entries.each do |patient|
-		  patient.measures.each do |ms|
-			  ms = ms[1] 
-			  ms.each_pair do |k,v|
-			    v.each_with_index do |n, i|
-					  if v[i].kind_of?  Bignum or v[i].kind_of?  Fixnum
-			        v[i] = Time.at(n).advance(:years => y, :months => m, :days => d).to_i
-					  else
-					    v[i]["date"] = Time.at(v[i]["date"]).advance(:years => y, :months => m, :days => d).to_i
-					  end
-				  end
-				  ms[k] = v
-		    end
-		  end
-	    patient.birthdate = Time.at(patient.birthdate).advance(:years => y, :months => m, :days => d)
-		  patient_attributes = [patient.allergies, patient.care_goals,  patient.laboratory_tests, patient.encounters, patient.conditions, patient.procedures, patient.medications,  patient.social_history, patient.immunizations, patient.medical_equipment]	
-		  patient_attributes.each do |a|
-		    a.each do |v|
-				  if v.time != nil
-			      v.time = Time.at(v.time).advance(:years => y, :months => m, :days => d)
-				  end
-	      end
-	    end
-	    patient.save
-		end
-		
-		puts "Patients rolled successfully"
-	end
-	
+  task :roll, :years, :months, :days, :start_date, :needs=> :setup do |t, args|
+    @roll = Cypress::PatientRoll
+    args.with_defaults(:years => 0, :months => 0, :days =>0, :start_date => false)
+    if args[:start_date]
+      @roll.roll(args[:start_date])
+    else
+      @roll.roll(args[:years], args[:months], args[:days])
+    end
+  end
+
   desc 'Collect a subset of "count" patients that meet the criteria for the given set of "measures"'
   task :subset => :setup do
     measures = ENV['measures'].split(',')

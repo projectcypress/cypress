@@ -267,9 +267,11 @@
               <tr id='<%= "#{measure.id}" %>'>
                 <td><div title="<%= result_status %>" class="<%= result_status %>"><%= result_status %></div></td>
                 <td title="<%= "#{@product.measure_map[measure.key]} " %>">
+                  <a href="<%= product_test_measure_path(@test, measure, :execution => @current_execution) %>">
                     <%= "#{measure.key} " %>
                     <%= measure.name %>
-                    <%= " - #{measure.subtitle}" if measure.sub_id %></a>
+                    <%= " - #{measure.subtitle}" if measure.sub_id %>
+                  </a>
                 </td>
                 <% ['denominator', 'numerator', 'exclusions'].each do |bucket|
                   reported_class = result_class(reported_result[bucket], expected_result[bucket])
