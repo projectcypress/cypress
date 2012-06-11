@@ -1,18 +1,225 @@
 {
-  "_id": "4fd10ab3a9ffcc2ba100126f",
-  "patient_id": "103",
-  "first": "Ava",
-  "last": "Melvin",
-  "gender": "F",
+  "_id": "4fd62a01a9ffcca774001267",
   "birthdate": -987278400,
-  "race": {
-    "name": "Black or African American",
-    "code": "2054-5"
-  },
+  "care_goals": [
+    {
+      "_id": "4fd62a01a9ffcca774001287",
+      "codes": {
+        "CPT": [
+          "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ]
+      },
+      "description": "follow-up plan_BMI management",
+      "end_time": null,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
+      "value": {
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "_id": "4fd62a01a9ffcca774001273",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "250"
+        ],
+        "ICD-10-CM": [
+          "E11.9"
+        ],
+        "SNOMED-CT": [
+          "73211009"
+        ]
+      },
+      "description": "diabetes",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0011849:Diabetes Mellitus;",
+      "start_time": null,
+      "status": "active",
+      "time": 1277265600,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd62a01a9ffcca774001274",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "492"
+        ],
+        "ICD-10-CM": [
+          "J44"
+        ],
+        "SNOMED-CT": [
+          "87433001"
+        ]
+      },
+      "description": "emphysema",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0034067:Pulmonary Emphysema;",
+      "start_time": null,
+      "status": "active",
+      "time": 1277265600,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd62a01a9ffcca774001275",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "I06.0"
+        ],
+        "SNOMED-CT": [
+          "81552002"
+        ],
+        "ICD-9-CM": [
+          "395"
+        ]
+      },
+      "description": "Disease of aortic and mitral valves",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0155567:Rheumatic aortic stenosis;",
+      "start_time": null,
+      "status": "active",
+      "time": 1277265600,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd62a01a9ffcca774001276",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "230363006"
+        ]
+      },
+      "description": "progressive neurologic disorder",
+      "end_time": null,
+      "name": null,
+      "specifics": "",
+      "start_time": null,
+      "status": "active",
+      "time": 1277265600,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd62a01a9ffcca774001277",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370202007"
+        ]
+      },
+      "description": "Asthma Daytime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd62a01a9ffcca774001278",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370205009"
+        ]
+      },
+      "description": "Asthma Nighttime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd62a01a9ffcca774001268",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1288497600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd62a01a9ffcca774001269",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Not Hispanic or Latino",
     "code": "2186-5"
   },
+  "first": "Ava",
+  "gender": "F",
+  "languages": null,
+  "last": "Melvin",
   "measures": {
     "0001": {
       "asthma_daytime_symptoms_quantified_symptom_assessed": [
@@ -611,283 +818,208 @@
       ]
     }
   },
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba100128f",
-      "_type": "Entry",
-      "time": 1277265600,
-      "description": "follow-up plan_BMI management",
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ],
-        "ICD-10-CM": [
-          "E11.9"
-        ],
-        "SNOMED-CT": [
-          "73211009"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba100127b",
-      "_type": "Condition",
-      "time": 1277265600,
-      "description": "diabetes",
-      "specifics": "C0011849:Diabetes Mellitus;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "492"
-        ],
-        "ICD-10-CM": [
-          "J44"
-        ],
-        "SNOMED-CT": [
-          "87433001"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba100127c",
-      "_type": "Condition",
-      "time": 1277265600,
-      "description": "emphysema",
-      "specifics": "C0034067:Pulmonary Emphysema;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "I06.0"
-        ],
-        "SNOMED-CT": [
-          "81552002"
-        ],
-        "ICD-9-CM": [
-          "395"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba100127d",
-      "_type": "Condition",
-      "time": 1277265600,
-      "description": "Disease of aortic and mitral valves",
-      "specifics": "C0155567:Rheumatic aortic stenosis;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "230363006"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba100127e",
-      "_type": "Condition",
-      "time": 1277265600,
-      "description": "progressive neurologic disorder",
-      "specifics": "",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba100127f",
-      "_type": "Condition",
-      "time": 1277265600,
-      "description": "Asthma Daytime Symptoms Quantified",
-      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001280",
-      "_type": "Condition",
-      "time": 1277265600,
-      "description": "Asthma Nighttime Symptoms Quantified",
-      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001270",
-      "_type": "Encounter",
-      "time": 1288497600,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001271",
-      "_type": "Encounter",
-      "time": 1277265600,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    }
-  ],
+  "medical_record_number": null,
   "medications": [
     {
+      "_id": "4fd62a01a9ffcca774001283",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "861748"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Antidiabetic-combinations",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1277265600,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10ab3a9ffcc2ba100128b",
-      "_type": "Medication",
-      "time": 1277265600,
-      "description": "Antidiabetic-combinations",
-      "specifics": "C0977189:Glyburide 2.5 MG / Metformin hydrochloride 500 MG Oral Tablet;"
+      "vehicle": null
     },
     {
+      "_id": "4fd62a01a9ffcca774001284",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "318142"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Long acting inhaled beta 2 agonist",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C2731895:60 ACTUAT Fluticasone propionate 0.115 MG/ACTUAT / salmeterol 0.021 MG/ACTUAT Metered Dose Inhaler;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1277265600,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10ab3a9ffcc2ba100128c",
-      "_type": "Medication",
-      "time": 1277265600,
-      "description": "Long acting inhaled beta 2 agonist",
-      "specifics": "C2731895:60 ACTUAT Fluticasone propionate 0.115 MG/ACTUAT / salmeterol 0.021 MG/ACTUAT Metered Dose Inhaler;"
+      "vehicle": null
     },
     {
+      "_id": "4fd62a01a9ffcca774001285",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "309097"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Second generation cephalosporins",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0975418:Cefuroxime 250 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1277265600,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10ab3a9ffcc2ba100128d",
-      "_type": "Medication",
-      "time": 1277265600,
-      "description": "Second generation cephalosporins",
-      "specifics": "C0975418:Cefuroxime 250 MG Oral Tablet;"
+      "vehicle": null
     },
     {
+      "_id": "4fd62a01a9ffcca774001286",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "630208"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Short acting beta 2 agonist",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1277265600,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10ab3a9ffcc2ba100128e",
-      "_type": "Medication",
-      "time": 1277265600,
-      "description": "Short acting beta 2 agonist",
-      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;"
+      "vehicle": null
     }
   ],
+  "patient_id": "103",
   "procedures": [
     {
+      "_id": "4fd62a01a9ffcca774001280",
       "codes": {
         "SNOMED-CT": [
           "401191002"
         ]
       },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001288",
-      "_type": "Procedure",
+      "description": "Foot Exam",
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1303165:Diabetic foot examination;",
+      "start_time": null,
+      "status": null,
       "time": 1288497600,
-      "description": "Foot Exam",
-      "specifics": "C1303165:Diabetic foot examination;"
+      "type": null,
+      "value": {
+        "scalar": "Normal",
+        "units": null
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca774001281",
       "codes": {
         "SNOMED-CT": [
           "401191002"
         ]
       },
+      "description": "Foot Exam",
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1303165:Diabetic foot examination;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
+      "type": null,
       "value": {
         "scalar": "Normal",
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001289",
-      "_type": "Procedure",
-      "time": 1277265600,
-      "description": "Foot Exam",
-      "specifics": "C1303165:Diabetic foot examination;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca774001282",
       "codes": {
         "SNOMED-CT": [
           "401011001"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10ab3a9ffcc2ba100128a",
-      "_type": "Procedure",
-      "time": 1277265600,
       "description": "Asthma Symptom Assessment Tool",
-      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "Black or African American",
+    "code": "2054-5"
+  },
   "results": [
     {
+      "_id": "4fd62a01a9ffcca774001279",
       "codes": {
         "CPT": [
           "83036"
@@ -899,17 +1031,21 @@
           "43396009"
         ]
       },
+      "description": "HbA1c test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1288497600,
       "value": {
         "scalar": 8.6,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001281",
-      "_type": "LabResult",
-      "time": 1288497600,
-      "description": "HbA1c test",
-      "specifics": "C0474680:Hemoglobin A1c measurement;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400127a",
       "codes": {
         "CPT": [
           "83036"
@@ -921,17 +1057,21 @@
           "43396009"
         ]
       },
+      "description": "HbA1c test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": 8.5,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001282",
-      "_type": "LabResult",
-      "time": 1277265600,
-      "description": "HbA1c test",
-      "specifics": "C0474680:Hemoglobin A1c measurement;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400127b",
       "codes": {
         "CPT": [
           "83721"
@@ -943,17 +1083,21 @@
           "113079009"
         ]
       },
+      "description": "LDL",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": 99.0,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001283",
-      "_type": "LabResult",
-      "time": 1277265600,
-      "description": "LDL",
-      "specifics": "C0202117:Low density lipoprotein cholesterol measurement;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400127c",
       "codes": {
         "CPT": [
           "83701"
@@ -965,17 +1109,21 @@
           "28036006"
         ]
       },
+      "description": "High Density Lipoprotein (HDL)",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0392885:High density lipoprotein measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": 45.0,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001284",
-      "_type": "LabResult",
-      "time": 1277265600,
-      "description": "High Density Lipoprotein (HDL)",
-      "specifics": "C0392885:High density lipoprotein measurement;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400127d",
       "codes": {
         "CPT": [
           "82465"
@@ -987,17 +1135,21 @@
           "121868005"
         ]
       },
+      "description": "Total Cholesterol",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0546633:Cholesterol total measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": 172.0,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001285",
-      "_type": "LabResult",
-      "time": 1277265600,
-      "description": "Total Cholesterol",
-      "specifics": "C0546633:Cholesterol total measurement;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400127e",
       "codes": {
         "CPT": [
           "84478"
@@ -1009,17 +1161,21 @@
           "14740000"
         ]
       },
+      "description": "Triglycerides",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0202236:Triglycerides measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": 143.0,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001286",
-      "_type": "LabResult",
-      "time": 1277265600,
-      "description": "Triglycerides",
-      "specifics": "C0202236:Triglycerides measurement;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400127f",
       "codes": {
         "CPT": [
           "81003"
@@ -1031,133 +1187,165 @@
           "71628007"
         ]
       },
+      "description": "Urine Macroalbumin",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0001922:Abnormal presence of albumin;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001287",
-      "_type": "LabResult",
-      "time": 1277265600,
-      "description": "Urine Macroalbumin",
-      "specifics": "C0001922:Abnormal presence of albumin;"
+      }
     }
   ],
   "social_history": [
     {
+      "_id": "4fd62a01a9ffcca77400126a",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
+      "description": "Tobacco Non-User",
+      "end_time": null,
+      "specifics": "C0425311:Current non-smoker;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
+      "type": null,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001272",
-      "_type": "SocialHistory",
-      "time": 1277265600,
-      "description": "Tobacco Non-User",
-      "specifics": "C0425311:Current non-smoker;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd62a01a9ffcca77400126b",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1288497600,
       "value": {
         "scalar": 136.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001273",
-      "_type": "VitalSign",
-      "time": 1288497600,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400126c",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1288497600,
       "value": {
         "scalar": 86.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001274",
-      "_type": "VitalSign",
-      "time": 1288497600,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400126d",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1288497600,
       "value": {
         "scalar": 90.0,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001275",
-      "_type": "VitalSign",
-      "time": 1288497600,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400126e",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": 138.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001276",
-      "_type": "VitalSign",
-      "time": 1277265600,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca77400126f",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": 88.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001277",
-      "_type": "VitalSign",
-      "time": 1277265600,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca774001270",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": 92.0,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001278",
-      "_type": "VitalSign",
-      "time": 1277265600,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca774001271",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1166,17 +1354,21 @@
           "39156-5"
         ]
       },
-      "value": {
-        "scalar": 25.74462890625,
-        "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba1001279",
-      "_type": "VitalSign",
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
       "time": 1288497600,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      "value": {
+        "scalar": 25.74462890625,
+        "units": null
+      }
     },
     {
+      "_id": "4fd62a01a9ffcca774001272",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1185,15 +1377,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1277265600,
       "value": {
         "scalar": 25.74462890625,
         "units": null
-      },
-      "_id": "4fd10ab3a9ffcc2ba100127a",
-      "_type": "VitalSign",
-      "time": 1277265600,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }

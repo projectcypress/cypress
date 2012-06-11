@@ -1,18 +1,456 @@
 {
-  "_id": "4fd10a9fa9ffcc2ba100042b",
-  "patient_id": "165",
-  "first": "Kelly",
-  "last": "Bronson",
-  "gender": "F",
+  "_id": "4fd629eda9ffcca77400042b",
+  "allergies": [
+    {
+      "_id": "4fd629eda9ffcca77400042c",
+      "codes": {
+        "ICD-9-CM": [
+          "V15.03"
+        ],
+        "SNOMED-CT": [
+          "91930004"
+        ]
+      },
+      "description": "Allergy to Eggs",
+      "end_time": null,
+      "reaction": null,
+      "severity": null,
+      "specifics": "C0559469:Allergy to eggs;",
+      "start_time": null,
+      "status": "active",
+      "time": 1273032000,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
   "birthdate": 828248400,
-  "race": {
-    "name": "Other Race",
-    "code": "2131-1"
-  },
+  "conditions": [
+    {
+      "_id": "4fd629eda9ffcca774000448",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "J02"
+        ],
+        "SNOMED-CT": [
+          "363746003"
+        ],
+        "ICD-9-CM": [
+          "462"
+        ]
+      },
+      "description": "pharyngitis",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0001344:Acute pharyngitis;",
+      "start_time": null,
+      "status": "active",
+      "time": 1273032000,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca774000449",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "169961004"
+        ],
+        "ICD-9-CM": [
+          "65.621"
+        ],
+        "ICD-10-CM": [
+          "O30"
+        ]
+      },
+      "description": "Delivery Live Births-Diagnosis",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0032989:Multiple Pregnancy;",
+      "start_time": null,
+      "status": "active",
+      "time": 1288670400,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca77400044a",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "165746003"
+        ],
+        "ICD-10-CM": [
+          "O36.0120"
+        ],
+        "ICD-9-CM": [
+          "656.1"
+        ]
+      },
+      "description": "D(Rh) Negative",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0157105:Rhesus isoimmunisation, unspecified as to episode of care in pregnancy;",
+      "start_time": null,
+      "status": "active",
+      "time": 1281412800,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca77400044b",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
+        ]
+      },
+      "description": "Asthma",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
+      "start_time": null,
+      "status": "active",
+      "time": 1273032000,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca77400044c",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "F10"
+        ],
+        "ICD-9-CM": [
+          "305"
+        ],
+        "SNOMED-CT": [
+          "66590003"
+        ]
+      },
+      "description": "alcohol or drug dependence",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
+      "start_time": null,
+      "status": "active",
+      "time": 1273032000,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca77400044d",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "248986005"
+        ]
+      },
+      "description": "Estimated date of conception",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0425966:Estimated date of conception;",
+      "start_time": null,
+      "status": null,
+      "time": 1264741200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca77400044e",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "373899003"
+        ]
+      },
+      "description": "Asthma Daytime Symptoms",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1276804:Asthma daytime symptoms;",
+      "start_time": null,
+      "status": null,
+      "time": 1278561600,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca77400044f",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "395022009"
+        ]
+      },
+      "description": "Asthma Nighttime Symptoms",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1273489:Asthma night-time symptoms;",
+      "start_time": null,
+      "status": null,
+      "time": 1278561600,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629eda9ffcca77400042d",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99251"
+        ]
+      },
+      "description": "encounter acute inpt",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
+      "start_time": null,
+      "status": null,
+      "time": 1288670400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca77400042e",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
+        ]
+      },
+      "description": "Prenatal Visit",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0451636:Pregnant state, incidental;",
+      "start_time": null,
+      "status": null,
+      "time": 1287979200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca77400042f",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
+        ]
+      },
+      "description": "Prenatal Visit",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0451636:Pregnant state, incidental;",
+      "start_time": null,
+      "status": null,
+      "time": 1286683200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca774000430",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
+        ]
+      },
+      "description": "Prenatal Visit",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0451636:Pregnant state, incidental;",
+      "start_time": null,
+      "status": null,
+      "time": 1284091200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca774000431",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
+        ]
+      },
+      "description": "Prenatal Visit",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0451636:Pregnant state, incidental;",
+      "start_time": null,
+      "status": null,
+      "time": 1281412800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca774000432",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99241"
+        ]
+      },
+      "description": "Encounter Office & Outpatient Consult",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1280721600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca774000433",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99241"
+        ]
+      },
+      "description": "Encounter Office & Outpatient Consult",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1278561600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca774000434",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z34.9"
+        ],
+        "SNOMED-CT": [
+          "424619006"
+        ],
+        "ICD-9-CM": [
+          "V22.2"
+        ]
+      },
+      "description": "Prenatal Visit",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0451636:Pregnant state, incidental;",
+      "start_time": null,
+      "status": null,
+      "time": 1276142400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca774000435",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99241"
+        ]
+      },
+      "description": "encounter outpatient BH",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1273118400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eda9ffcca774000436",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99281"
+        ]
+      },
+      "description": "encounter ED",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
+      "start_time": null,
+      "status": null,
+      "time": 1273032000,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Hispanic or Latino",
     "code": "2135-2"
   },
+  "first": "Kelly",
+  "gender": "F",
+  "languages": null,
+  "last": "Bronson",
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -717,435 +1155,192 @@
       ]
     }
   },
-  "allergies": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V15.03"
-        ],
-        "SNOMED-CT": [
-          "91930004"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100042c",
-      "_type": "Allergy",
-      "time": 1273032000,
-      "description": "Allergy to Eggs",
-      "status": "active",
-      "specifics": "C0559469:Allergy to eggs;"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ],
-        "SNOMED-CT": [
-          "363746003"
-        ],
-        "ICD-9-CM": [
-          "462"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000448",
-      "_type": "Condition",
-      "time": 1273032000,
-      "description": "pharyngitis",
-      "specifics": "C0001344:Acute pharyngitis;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "169961004"
-        ],
-        "ICD-9-CM": [
-          "65.621"
-        ],
-        "ICD-10-CM": [
-          "O30"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000449",
-      "_type": "Condition",
-      "time": 1288670400,
-      "description": "Delivery Live Births-Diagnosis",
-      "specifics": "C0032989:Multiple Pregnancy;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "165746003"
-        ],
-        "ICD-10-CM": [
-          "O36.0120"
-        ],
-        "ICD-9-CM": [
-          "656.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100044a",
-      "_type": "Condition",
-      "time": 1281412800,
-      "description": "D(Rh) Negative",
-      "specifics": "C0157105:Rhesus isoimmunisation, unspecified as to episode of care in pregnancy;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100044b",
-      "_type": "Condition",
-      "time": 1273032000,
-      "description": "Asthma",
-      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "F10"
-        ],
-        "ICD-9-CM": [
-          "305"
-        ],
-        "SNOMED-CT": [
-          "66590003"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100044c",
-      "_type": "Condition",
-      "time": 1273032000,
-      "description": "alcohol or drug dependence",
-      "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "248986005"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100044d",
-      "_type": "Condition",
-      "time": 1264741200,
-      "description": "Estimated date of conception",
-      "specifics": "C0425966:Estimated date of conception;"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "373899003"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100044e",
-      "_type": "Condition",
-      "time": 1278561600,
-      "description": "Asthma Daytime Symptoms",
-      "specifics": "C1276804:Asthma daytime symptoms;"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "395022009"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100044f",
-      "_type": "Condition",
-      "time": 1278561600,
-      "description": "Asthma Nighttime Symptoms",
-      "specifics": "C1273489:Asthma night-time symptoms;"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100042d",
-      "_type": "Encounter",
-      "time": 1288670400,
-      "description": "encounter acute inpt",
-      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z34.9"
-        ],
-        "SNOMED-CT": [
-          "424619006"
-        ],
-        "ICD-9-CM": [
-          "V22.2"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100042e",
-      "_type": "Encounter",
-      "time": 1287979200,
-      "description": "Prenatal Visit",
-      "specifics": "C0451636:Pregnant state, incidental;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z34.9"
-        ],
-        "SNOMED-CT": [
-          "424619006"
-        ],
-        "ICD-9-CM": [
-          "V22.2"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba100042f",
-      "_type": "Encounter",
-      "time": 1286683200,
-      "description": "Prenatal Visit",
-      "specifics": "C0451636:Pregnant state, incidental;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z34.9"
-        ],
-        "SNOMED-CT": [
-          "424619006"
-        ],
-        "ICD-9-CM": [
-          "V22.2"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000430",
-      "_type": "Encounter",
-      "time": 1284091200,
-      "description": "Prenatal Visit",
-      "specifics": "C0451636:Pregnant state, incidental;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z34.9"
-        ],
-        "SNOMED-CT": [
-          "424619006"
-        ],
-        "ICD-9-CM": [
-          "V22.2"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000431",
-      "_type": "Encounter",
-      "time": 1281412800,
-      "description": "Prenatal Visit",
-      "specifics": "C0451636:Pregnant state, incidental;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000432",
-      "_type": "Encounter",
-      "time": 1280721600,
-      "description": "Encounter Office & Outpatient Consult",
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000433",
-      "_type": "Encounter",
-      "time": 1278561600,
-      "description": "Encounter Office & Outpatient Consult",
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z34.9"
-        ],
-        "SNOMED-CT": [
-          "424619006"
-        ],
-        "ICD-9-CM": [
-          "V22.2"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000434",
-      "_type": "Encounter",
-      "time": 1276142400,
-      "description": "Prenatal Visit",
-      "specifics": "C0451636:Pregnant state, incidental;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000435",
-      "_type": "Encounter",
-      "time": 1273118400,
-      "description": "encounter outpatient BH",
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000436",
-      "_type": "Encounter",
-      "time": 1273032000,
-      "description": "encounter ED",
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;"
-    }
-  ],
+  "medical_record_number": null,
   "medications": [
     {
+      "_id": "4fd629eda9ffcca774000456",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "351136"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1273032000,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10a9fa9ffcc2ba1000456",
-      "_type": "Medication",
-      "time": 1273032000,
-      "description": "Corticosteroid, Inhaled or Alternative Asthma Medication",
-      "specifics": "C1168688:Albuterol 0.417 MG/ML Inhalant Solution;"
+      "vehicle": null
     },
     {
+      "_id": "4fd629eda9ffcca774000457",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "309078"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Third generation cephalosporins",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0975386:cefpodoxime 200 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1273032000,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10a9fa9ffcc2ba1000457",
-      "_type": "Medication",
-      "time": 1273032000,
-      "description": "Third generation cephalosporins",
-      "specifics": "C0975386:cefpodoxime 200 MG Oral Tablet;"
+      "vehicle": null
     },
     {
+      "_id": "4fd629eda9ffcca774000458",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "630208"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000458",
-      "_type": "Medication",
-      "time": 1273032000,
+      "deliveryMethod": null,
       "description": "Short acting beta 2 agonist",
-      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;"
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1273032000,
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     },
     {
+      "_id": "4fd629eda9ffcca774000459",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "731378"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000459",
-      "_type": "Medication",
+      "deliveryMethod": null,
+      "description": "Anti-D Immune Globulin",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1965591:1 ML Rho(D) Immune Globulin 0.05 MG/ML Prefilled Syringe;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
       "time": 1283140800,
-      "description": "Anti-D Immune Globulin",
-      "specifics": "C1965591:1 ML Rho(D) Immune Globulin 0.05 MG/ML Prefilled Syringe;"
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     },
     {
+      "_id": "4fd629eda9ffcca77400045a",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "731378"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Anti-D Immune Globulin",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1965591:1 ML Rho(D) Immune Globulin 0.05 MG/ML Prefilled Syringe;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1284955200,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10a9fa9ffcc2ba100045a",
-      "_type": "Medication",
-      "time": 1284955200,
-      "description": "Anti-D Immune Globulin",
-      "specifics": "C1965591:1 ML Rho(D) Immune Globulin 0.05 MG/ML Prefilled Syringe;"
+      "vehicle": null
     }
   ],
+  "patient_id": "165",
   "procedures": [
     {
+      "_id": "4fd629eda9ffcca774000453",
       "codes": {
         "SNOMED-CT": [
           "401011001"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000453",
-      "_type": "Procedure",
-      "time": 1278561600,
       "description": "Asthma Symptom Assessment Tool",
-      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
+      "start_time": null,
+      "status": null,
+      "time": 1278561600,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000454",
       "codes": {
         "CPT": [
           "59410"
@@ -1154,15 +1349,20 @@
           "169961004"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000454",
-      "_type": "Procedure",
-      "time": 1288670400,
       "description": "Delivery Live Births-Procedure",
-      "specifics": "C1384485:Normal delivery;  There are two SNOMED codes for \"normal delivery;\" 48782003 is the other one"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1384485:Normal delivery;  There are two SNOMED codes for \"normal delivery;\" 48782003 is the other one",
+      "start_time": null,
+      "status": null,
+      "time": 1288670400,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000455",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -1171,17 +1371,26 @@
           "35637008"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000455",
-      "_type": "Procedure",
-      "time": 1273032000,
       "description": "Alcohol, drug rehab and detox interventions",
-      "specifics": "C0204598:Alcohol rehabilitation;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0204598:Alcohol rehabilitation;",
+      "start_time": null,
+      "status": null,
+      "time": 1273032000,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "Other Race",
+    "code": "2131-1"
+  },
   "results": [
     {
+      "_id": "4fd629eda9ffcca774000450",
       "codes": {
         "CPT": [
           "87430"
@@ -1193,17 +1402,21 @@
           "122245007"
         ]
       },
+      "description": "Group A Streptococcus Test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;",
+      "start_time": null,
+      "status": null,
+      "time": 1273032000,
       "value": {
         "scalar": "Positive",
         "units": null
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000450",
-      "_type": "LabResult",
-      "time": 1273032000,
-      "description": "Group A Streptococcus Test",
-      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000451",
       "codes": {
         "CPT": [
           "87536"
@@ -1215,17 +1428,21 @@
           "104332002"
         ]
       },
+      "description": "HIV Screening",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0523323:HIV p24 antigen test;",
+      "start_time": null,
+      "status": null,
+      "time": 1276142400,
       "value": {
         "scalar": "Negative",
         "units": null
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000451",
-      "_type": "LabResult",
-      "time": 1276142400,
-      "description": "HIV Screening",
-      "specifics": "C0523323:HIV p24 antigen test;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000452",
       "codes": {
         "CPT": [
           "84702"
@@ -1234,291 +1451,362 @@
           "2119-6"
         ]
       },
+      "description": "Pregnancy Test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1273032000,
       "value": {
         "scalar": "Positive",
         "units": null
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000452",
-      "_type": "LabResult",
-      "time": 1273032000,
-      "description": "Pregnancy Test",
-      "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;"
+      }
     }
   ],
   "social_history": [
     {
+      "_id": "4fd629eda9ffcca774000437",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
+      "description": "Tobacco Non-User",
+      "end_time": null,
+      "specifics": "C0425311:Current non-smoker;",
+      "start_time": null,
+      "status": null,
+      "time": 1273032000,
+      "type": null,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000437",
-      "_type": "SocialHistory",
-      "time": 1273032000,
-      "description": "Tobacco Non-User",
-      "specifics": "C0425311:Current non-smoker;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629eda9ffcca774000438",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1287979200,
       "value": {
         "scalar": 116.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000438",
-      "_type": "VitalSign",
-      "time": 1287979200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000439",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1287979200,
       "value": {
         "scalar": 72.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000439",
-      "_type": "VitalSign",
-      "time": 1287979200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca77400043a",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1286683200,
       "value": {
         "scalar": 114.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba100043a",
-      "_type": "VitalSign",
-      "time": 1286683200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca77400043b",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1286683200,
       "value": {
         "scalar": 70.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba100043b",
-      "_type": "VitalSign",
-      "time": 1286683200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca77400043c",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1284091200,
       "value": {
         "scalar": 118.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba100043c",
-      "_type": "VitalSign",
-      "time": 1284091200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca77400043d",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1284091200,
       "value": {
         "scalar": 72.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba100043d",
-      "_type": "VitalSign",
-      "time": 1284091200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca77400043e",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1281412800,
       "value": {
         "scalar": 116.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba100043e",
-      "_type": "VitalSign",
-      "time": 1281412800,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca77400043f",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1281412800,
       "value": {
         "scalar": 70.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba100043f",
-      "_type": "VitalSign",
-      "time": 1281412800,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000440",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1280721600,
       "value": {
         "scalar": 114.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000440",
-      "_type": "VitalSign",
-      "time": 1280721600,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000441",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1280721600,
       "value": {
         "scalar": 68.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000441",
-      "_type": "VitalSign",
-      "time": 1280721600,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000442",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1278561600,
       "value": {
         "scalar": 110.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000442",
-      "_type": "VitalSign",
-      "time": 1278561600,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000443",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1278561600,
       "value": {
         "scalar": 68.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000443",
-      "_type": "VitalSign",
-      "time": 1278561600,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000444",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1276142400,
       "value": {
         "scalar": 112.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000444",
-      "_type": "VitalSign",
-      "time": 1276142400,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000445",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1276142400,
       "value": {
         "scalar": 70.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000445",
-      "_type": "VitalSign",
-      "time": 1276142400,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000446",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1273032000,
       "value": {
         "scalar": 116.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000446",
-      "_type": "VitalSign",
-      "time": 1273032000,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eda9ffcca774000447",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1273032000,
       "value": {
         "scalar": 68.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10a9fa9ffcc2ba1000447",
-      "_type": "VitalSign",
-      "time": 1273032000,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     }
   ]
 }

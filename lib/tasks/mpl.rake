@@ -2,6 +2,12 @@ require 'quality-measure-engine'
 require 'measure_evaluator'
 require 'patient_roll'
 
+def download_patients(version)
+   puts "downloading patients https://github.com/projectcypress/test-deck/zipball/#{version}"
+   f =  open("https://github.com/projectcypress/test-deck/zipball/#{version}", :proxy=>ENV["http_proxy"])
+   return f
+end
+
 namespace :mpl do
   task :tttt do
      puts ENV.inspect
@@ -13,6 +19,53 @@ namespace :mpl do
     @template_dir = File.join(Rails.root, 'db', 'templates')
     @birthdate_dev = 60*60*24*7 # 7 days
     @evaluator = Cypress::MeasureEvaluator
+    @version = APP_CONFIG["mpl_version"]
+  end
+
+  desc 'Download and reload only the master patient list and recalculate with currently loaded measures'
+  task :mpl_safe_download_and_reload => [:setup,:mpl_safe_clear] do
+    puts "downloading master patient list"
+    zip = download_patients(@version) 
+    puts "unzipping master patient list"
+    Zip::ZipFile.open(zip.path) do |zipfile|
+     zipfile.each do |file|
+      file_name = File.join(@mpl_dir, File.basename(file.name))
+      if File.basename(file.name).include?(".json")        
+        puts file_name
+        zipfile.extract(file,file_name){true}
+      end
+     end
+    end
+    Rake::Task['mpl:mpl_safe_load'].invoke()
+    Rake::Task['mpl:eval'].invoke()
+    
+  end
+
+desc 'Remove the mpl currently loaded, drop query_cache and patient_cache'
+  task :mpl_safe_clear  => :setup do
+    puts "removing current master patient list from cypress"
+    db = @loader.get_db
+    db['records'].remove("test_id" => nil)
+    @loader.drop_collection('query_cache')
+    @loader.drop_collection('patient_cache')
+    
+  end
+
+desc 'Load only the mpl in the db directory'
+  task :mpl_safe_load  => [:setup,:mpl_safe_clear] do
+    puts "loading new master patient list into cypress"
+    importer = Measures::Importer.new(Mongoid.master)
+    importer.import(File.new("./db/bundle.zip"))
+    mpls = File.join(@mpl_dir, '*')
+    Dir.glob(mpls) do |patient_file|
+      json = JSON.parse(File.read(patient_file))
+      if json['_id']
+        json['_id'] = BSON::ObjectId.from_string(json['_id'])
+      end
+      @loader.save('records', json)
+    end
+
+    
   end
   
   desc 'Drop all patients and cached query results'
@@ -38,16 +91,7 @@ namespace :mpl do
 
   desc 'Seed database with master patient list'
   task :load => [:setup, :clear] do
-    importer = Measures::Importer.new(Mongoid.master)
-    importer.import(File.new("./db/bundle.zip"))
-    mpls = File.join(@mpl_dir, '*')
-    Dir.glob(mpls) do |patient_file|
-      json = JSON.parse(File.read(patient_file))
-      if json['_id']
-        json['_id'] = BSON::ObjectId.from_string(json['_id'])
-      end
-      @loader.save('records', json)
-    end
+    Rake::Task['mpl:mpl_safe_load'].invoke()
 
     # put a few standard patient populations in 
     @loader.save('patient_populations', {:name => "all", :patient_ids => Array.new(225) {|i| i.to_s},

@@ -1,18 +1,153 @@
 {
-  "_id": "4fd10aa8a9ffcc2ba1000a7b",
-  "patient_id": "142",
-  "first": "Shawn",
-  "last": "Shell",
-  "gender": "F",
+  "_id": "4fd629f6a9ffcca774000a78",
   "birthdate": -1091131200,
-  "race": {
-    "name": "White",
-    "code": "2106-3"
-  },
+  "conditions": [
+    {
+      "_id": "4fd629f6a9ffcca774000a8a",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "126838000"
+        ],
+        "ICD-9-CM": [
+          "153.9"
+        ],
+        "ICD-10-CM": [
+          "C18.9"
+        ]
+      },
+      "description": "Colon Cancer",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0007102:Malignant tumor of colon; C0346629:Malignant neoplasm of large intestine;",
+      "start_time": null,
+      "status": "active",
+      "time": 1285992000,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629f6a9ffcca774000a79",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99212"
+        ]
+      },
+      "description": "Encounter Office Visit",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1288411200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629f6a9ffcca774000a7a",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99212"
+        ]
+      },
+      "description": "Encounter Office Visit",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1283745600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629f6a9ffcca774000a7b",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1282708800,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Not Hispanic or Latino",
     "code": "2186-5"
   },
+  "first": "Shawn",
+  "gender": "F",
+  "immunizations": [
+    {
+      "_id": "4fd629f6a9ffcca774000a8e",
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "description": "Influenza Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
+      "start_time": null,
+      "status": null,
+      "time": 1288411200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629f6a9ffcca774000a8f",
+      "codes": {
+        "CVX": [
+          "100"
+        ],
+        "CPT": [
+          "90669"
+        ]
+      },
+      "description": "Pneumococcal Vaccine all ages",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;",
+      "start_time": null,
+      "status": null,
+      "time": 1288411200,
+      "value": {
+      }
+    }
+  ],
+  "languages": null,
+  "last": "Shell",
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -494,125 +629,30 @@
       ]
     }
   },
-  "conditions": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "126838000"
-        ],
-        "ICD-9-CM": [
-          "153.9"
-        ],
-        "ICD-10-CM": [
-          "C18.9"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a8d",
-      "_type": "Condition",
-      "time": 1285992000,
-      "description": "Colon Cancer",
-      "specifics": "C0007102:Malignant tumor of colon; C0346629:Malignant neoplasm of large intestine;",
-      "status": "active"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a7c",
-      "_type": "Encounter",
-      "time": 1288411200,
-      "description": "Encounter Office Visit",
-      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99212"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a7d",
-      "_type": "Encounter",
-      "time": 1283745600,
-      "description": "Encounter Office Visit",
-      "specifics": "C0374558:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 10 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a7e",
-      "_type": "Encounter",
-      "time": 1282708800,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a91",
-      "_type": "Immunization",
-      "time": 1288411200,
-      "description": "Influenza Vaccine",
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
-    },
-    {
-      "codes": {
-        "CVX": [
-          "100"
-        ],
-        "CPT": [
-          "90669"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a92",
-      "_type": "Immunization",
-      "time": 1288411200,
-      "description": "Pneumococcal Vaccine all ages",
-      "specifics": "C2724348:Pneumococcal conjugate vaccine, 7 valent, for intramuscular use;"
-    }
-  ],
+  "medical_record_number": null,
+  "patient_id": "142",
   "procedures": [
     {
+      "_id": "4fd629f6a9ffcca774000a8c",
       "codes": {
         "SNOMED-CT": [
           "369921003"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a8f",
-      "_type": "Procedure",
-      "time": 1285992000,
       "description": "Colon Cancer Stage III",
-      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
+      "start_time": null,
+      "status": null,
+      "time": 1285992000,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a8d",
       "codes": {
         "CPT": [
           "45378"
@@ -630,195 +670,248 @@
           "Z12.11"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a90",
-      "_type": "Procedure",
-      "time": 1283745600,
       "description": "colonoscopy",
-      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
+      "start_time": null,
+      "status": null,
+      "time": 1283745600,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
   "results": [
     {
+      "_id": "4fd629f6a9ffcca774000a8b",
       "codes": {
         "SNOMED-CT": [
           "369921003"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a8e",
-      "_type": "LabResult",
-      "time": 1285992000,
       "description": "Colon Cancer Stage III",
-      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;"
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
+      "start_time": null,
+      "status": null,
+      "time": 1285992000,
+      "value": {
+      }
     }
   ],
   "social_history": [
     {
+      "_id": "4fd629f6a9ffcca774000a7c",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
+      "description": "Tobacco Non-User",
+      "end_time": null,
+      "specifics": "C0425311:Current non-smoker;",
+      "start_time": null,
+      "status": null,
+      "time": 1282708800,
+      "type": null,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a7f",
-      "_type": "SocialHistory",
-      "time": 1282708800,
-      "description": "Tobacco Non-User",
-      "specifics": "C0425311:Current non-smoker;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629f6a9ffcca774000a7d",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1288411200,
       "value": {
         "scalar": 122.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a80",
-      "_type": "VitalSign",
-      "time": 1288411200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a7e",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1288411200,
       "value": {
         "scalar": 74.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a81",
-      "_type": "VitalSign",
-      "time": 1288411200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a7f",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1288411200,
       "value": {
         "scalar": 70.0,
         "units": null
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a82",
-      "_type": "VitalSign",
-      "time": 1288411200,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a80",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1283745600,
       "value": {
         "scalar": 120.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a83",
-      "_type": "VitalSign",
-      "time": 1283745600,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a81",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1283745600,
       "value": {
         "scalar": 70.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a84",
-      "_type": "VitalSign",
-      "time": 1283745600,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a82",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1283745600,
       "value": {
         "scalar": 68.0,
         "units": null
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a85",
-      "_type": "VitalSign",
-      "time": 1283745600,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a83",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1282708800,
       "value": {
         "scalar": 122.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a86",
-      "_type": "VitalSign",
-      "time": 1282708800,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a84",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1282708800,
       "value": {
         "scalar": 72.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a87",
-      "_type": "VitalSign",
-      "time": 1282708800,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a85",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1282708800,
       "value": {
         "scalar": 72.0,
         "units": null
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a88",
-      "_type": "VitalSign",
-      "time": 1282708800,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a86",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -827,17 +920,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1288411200,
       "value": {
         "scalar": 22.394519937625308,
         "units": null
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a89",
-      "_type": "VitalSign",
-      "time": 1288411200,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a87",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -846,17 +943,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1283745600,
       "value": {
         "scalar": 23.334150144798397,
         "units": null
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a8a",
-      "_type": "VitalSign",
-      "time": 1283745600,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a88",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -865,29 +966,36 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1282708800,
       "value": {
         "scalar": 23.177545110269545,
         "units": null
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a8b",
-      "_type": "VitalSign",
-      "time": 1282708800,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629f6a9ffcca774000a89",
       "codes": {
         "SNOMED-CT": [
           "369921003"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10aa8a9ffcc2ba1000a8c",
-      "_type": "VitalSign",
-      "time": 1285992000,
       "description": "Colon Cancer Stage III",
-      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;"
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
+      "start_time": null,
+      "status": null,
+      "time": 1285992000,
+      "value": {
+      }
     }
   ]
 }

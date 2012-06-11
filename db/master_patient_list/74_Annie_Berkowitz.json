@@ -1,18 +1,292 @@
 {
-  "_id": "4fd10ab0a9ffcc2ba1001065",
-  "patient_id": "74",
-  "first": "Annie",
-  "last": "Berkowitz",
-  "gender": "F",
+  "_id": "4fd629fea9ffcca77400105d",
   "birthdate": 255330000,
-  "race": {
-    "name": "Black or African American",
-    "code": "2054-5"
-  },
+  "care_goals": [
+    {
+      "_id": "4fd629fea9ffcca774001078",
+      "codes": {
+        "CPT": [
+          "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ]
+      },
+      "description": "follow-up plan_BMI management",
+      "end_time": null,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
+      "value": {
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "_id": "4fd629fea9ffcca77400106a",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "J45.42"
+        ],
+        "SNOMED-CT": [
+          "427295004"
+        ]
+      },
+      "description": "Asthma Persistent",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1960047:Moderate persistent asthma;",
+      "start_time": null,
+      "status": "active",
+      "time": 1273723200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fea9ffcca77400106b",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
+        ]
+      },
+      "description": "Asthma",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
+      "start_time": null,
+      "status": "active",
+      "time": 1273723200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fea9ffcca77400106c",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370202007"
+        ]
+      },
+      "description": "Asthma Daytime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fea9ffcca77400106d",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370205009"
+        ]
+      },
+      "description": "Asthma Nighttime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fea9ffcca77400106e",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370202007"
+        ]
+      },
+      "description": "Asthma Daytime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
+      "start_time": null,
+      "status": null,
+      "time": 1291093200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fea9ffcca77400106f",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370205009"
+        ]
+      },
+      "description": "Asthma Nighttime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
+      "start_time": null,
+      "status": null,
+      "time": 1291093200,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629fea9ffcca77400105e",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99241"
+        ]
+      },
+      "description": "Encounter Office & Outpatient Consult",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1291093200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fea9ffcca77400105f",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99396"
+        ]
+      },
+      "description": "Encounter Prev Med Services 18 and Older",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374637:Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 40-64 years;",
+      "start_time": null,
+      "status": null,
+      "time": 1286856000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fea9ffcca774001060",
+      "admitType": null,
+      "codes": {
+        "ICD-9-CM": [
+          "V72.3"
+        ]
+      },
+      "description": "encounter ob/gyn",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;",
+      "start_time": null,
+      "status": null,
+      "time": 1283832000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fea9ffcca774001061",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99241"
+        ]
+      },
+      "description": "Encounter Office & Outpatient Consult",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Not Hispanic or Latino",
     "code": "2186-5"
   },
+  "first": "Annie",
+  "gender": "F",
+  "immunizations": [
+    {
+      "_id": "4fd629fea9ffcca774001076",
+      "codes": {
+        "RxNorm": [
+          "854969"
+        ]
+      },
+      "description": "Pneumococcal Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
+      "start_time": null,
+      "status": null,
+      "time": 1286856000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fea9ffcca774001077",
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "description": "Influenza Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
+      "start_time": null,
+      "status": null,
+      "time": 1286856000,
+      "value": {
+      }
+    }
+  ],
+  "languages": null,
+  "last": "Berkowitz",
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -471,248 +745,77 @@
       ]
     }
   },
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001080",
-      "_type": "Entry",
-      "time": 1273723200,
-      "description": "follow-up plan_BMI management",
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J45.42"
-        ],
-        "SNOMED-CT": [
-          "427295004"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001072",
-      "_type": "Condition",
-      "time": 1273723200,
-      "description": "Asthma Persistent",
-      "specifics": "C1960047:Moderate persistent asthma;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001073",
-      "_type": "Condition",
-      "time": 1273723200,
-      "description": "Asthma",
-      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001074",
-      "_type": "Condition",
-      "time": 1273723200,
-      "description": "Asthma Daytime Symptoms Quantified",
-      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001075",
-      "_type": "Condition",
-      "time": 1273723200,
-      "description": "Asthma Nighttime Symptoms Quantified",
-      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001076",
-      "_type": "Condition",
-      "time": 1291093200,
-      "description": "Asthma Daytime Symptoms Quantified",
-      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001077",
-      "_type": "Condition",
-      "time": 1291093200,
-      "description": "Asthma Nighttime Symptoms Quantified",
-      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001066",
-      "_type": "Encounter",
-      "time": 1291093200,
-      "description": "Encounter Office & Outpatient Consult",
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99396"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001067",
-      "_type": "Encounter",
-      "time": 1286856000,
-      "description": "Encounter Prev Med Services 18 and Older",
-      "specifics": "C0374637:Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 40-64 years;"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "V72.3"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001068",
-      "_type": "Encounter",
-      "time": 1283832000,
-      "description": "encounter ob/gyn",
-      "specifics": "C1455986:Special investigations and examinations - Gynecological examination;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001069",
-      "_type": "Encounter",
-      "time": 1273723200,
-      "description": "Encounter Office & Outpatient Consult",
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "854969"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba100107e",
-      "_type": "Immunization",
-      "time": 1286856000,
-      "description": "Pneumococcal Vaccine",
-      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba100107f",
-      "_type": "Immunization",
-      "time": 1286856000,
-      "description": "Influenza Vaccine",
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
-    }
-  ],
+  "medical_record_number": null,
   "medications": [
     {
+      "_id": "4fd629fea9ffcca774001074",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "630208"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Short acting beta 2 agonist",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1273723200,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10ab0a9ffcc2ba100107c",
-      "_type": "Medication",
-      "time": 1273723200,
-      "description": "Short acting beta 2 agonist",
-      "specifics": "C1696556:Albuterol 0.83 MG/ML Inhalant Solution;"
+      "vehicle": null
     },
     {
+      "_id": "4fd629fea9ffcca774001075",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "318142"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Long acting inhaled beta 2 agonist",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C2731895:60 ACTUAT Fluticasone propionate 0.115 MG/ACTUAT / salmeterol 0.021 MG/ACTUAT Metered Dose Inhaler;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1273723200,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10ab0a9ffcc2ba100107d",
-      "_type": "Medication",
-      "time": 1273723200,
-      "description": "Long acting inhaled beta 2 agonist",
-      "specifics": "C2731895:60 ACTUAT Fluticasone propionate 0.115 MG/ACTUAT / salmeterol 0.021 MG/ACTUAT Metered Dose Inhaler;"
+      "vehicle": null
     }
   ],
+  "patient_id": "74",
   "procedures": [
     {
+      "_id": "4fd629fea9ffcca774001071",
       "codes": {
         "CPT": [
           "97802"
@@ -727,15 +830,20 @@
           "Z00.8"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001079",
-      "_type": "Procedure",
-      "time": 1273723200,
       "description": "counseling for nutrition",
-      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629fea9ffcca774001072",
       "codes": {
         "ICD-9-CM": [
           "V65.41"
@@ -747,31 +855,45 @@
           "Z71.3"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba100107a",
-      "_type": "Procedure",
-      "time": 1273723200,
       "description": "counseling for physical activity",
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629fea9ffcca774001073",
       "codes": {
         "SNOMED-CT": [
           "401011001"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10ab0a9ffcc2ba100107b",
-      "_type": "Procedure",
-      "time": 1273723200,
       "description": "Asthma Symptom Assessment Tool",
-      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "Black or African American",
+    "code": "2054-5"
+  },
   "results": [
     {
+      "_id": "4fd629fea9ffcca774001070",
       "codes": {
         "ICD-9-CM": [
           "V72.32"
@@ -792,133 +914,165 @@
           "440623000"
         ]
       },
+      "description": "Pap Test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
+      "start_time": null,
+      "status": null,
+      "time": 1283832000,
       "value": {
         "scalar": "Negative",
         "units": null
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001078",
-      "_type": "LabResult",
-      "time": 1283832000,
-      "description": "Pap Test",
-      "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;"
+      }
     }
   ],
   "social_history": [
     {
+      "_id": "4fd629fea9ffcca774001062",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
+      "description": "Tobacco Non-User",
+      "end_time": null,
+      "specifics": "C0425311:Current non-smoker;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
+      "type": null,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fd10ab0a9ffcc2ba100106a",
-      "_type": "SocialHistory",
-      "time": 1273723200,
-      "description": "Tobacco Non-User",
-      "specifics": "C0425311:Current non-smoker;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629fea9ffcca774001063",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1291093200,
       "value": {
         "scalar": 116.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10ab0a9ffcc2ba100106b",
-      "_type": "VitalSign",
-      "time": 1291093200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629fea9ffcca774001064",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1291093200,
       "value": {
         "scalar": 74.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10ab0a9ffcc2ba100106c",
-      "_type": "VitalSign",
-      "time": 1291093200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629fea9ffcca774001065",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1291093200,
       "value": {
         "scalar": 86.0,
         "units": null
-      },
-      "_id": "4fd10ab0a9ffcc2ba100106d",
-      "_type": "VitalSign",
-      "time": 1291093200,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629fea9ffcca774001066",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
       "value": {
         "scalar": 112.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10ab0a9ffcc2ba100106e",
-      "_type": "VitalSign",
-      "time": 1273723200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629fea9ffcca774001067",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
       "value": {
         "scalar": 72.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10ab0a9ffcc2ba100106f",
-      "_type": "VitalSign",
-      "time": 1273723200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629fea9ffcca774001068",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
       "value": {
         "scalar": 84.0,
         "units": null
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001070",
-      "_type": "VitalSign",
-      "time": 1273723200,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629fea9ffcca774001069",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -927,15 +1081,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1273723200,
       "value": {
         "scalar": 28.286390532544377,
         "units": null
-      },
-      "_id": "4fd10ab0a9ffcc2ba1001071",
-      "_type": "VitalSign",
-      "time": 1273723200,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }

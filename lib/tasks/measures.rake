@@ -22,7 +22,6 @@ def OpenURI.redirectable?(uri1, uri2) # :nodoc:
 def download_measures(version)
    puts "downloading measures https://github.com/downloads/pophealth/measures/bundle_#{version}.zip"
    f =  open("https://github.com/downloads/pophealth/measures/bundle_#{version}.zip", :proxy=>ENV["http_proxy"])
-puts "hey"
    return f
 end
 

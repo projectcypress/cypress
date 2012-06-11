@@ -1,18 +1,132 @@
 {
-  "_id": "4fd10aaea9ffcc2ba1000eaf",
-  "patient_id": "195",
-  "first": "Josh",
-  "last": "Potano",
-  "gender": "M",
+  "_id": "4fd629fba9ffcca774000ea7",
   "birthdate": 387090000,
-  "race": {
-    "name": "White",
-    "code": "2106-3"
-  },
+  "conditions": [
+    {
+      "_id": "4fd629fba9ffcca774000eb3",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "191912005"
+        ],
+        "ICD-9-CM": [
+          "305.51"
+        ]
+      },
+      "description": "IV drug abuse",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0154530:Opioid abuse, continuous use;",
+      "start_time": null,
+      "status": "active",
+      "time": 1273896000,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fba9ffcca774000eb4",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
+        ]
+      },
+      "description": "Hypertension",
+      "end_time": null,
+      "name": null,
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
+      "start_time": null,
+      "status": "active",
+      "time": 1274328000,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fba9ffcca774000eb5",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "F10"
+        ],
+        "ICD-9-CM": [
+          "305"
+        ],
+        "SNOMED-CT": [
+          "66590003"
+        ]
+      },
+      "description": "alcohol or drug dependence",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
+      "start_time": null,
+      "status": "active",
+      "time": 1273896000,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629fba9ffcca774000ea8",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99324"
+        ]
+      },
+      "description": "encounter non-acute inpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;",
+      "start_time": null,
+      "status": null,
+      "time": 1275364800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fba9ffcca774000ea9",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99281"
+        ]
+      },
+      "description": "encounter ED",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Not Hispanic or Latino",
     "code": "2186-5"
   },
+  "first": "Josh",
+  "gender": "M",
+  "languages": null,
+  "last": "Potano",
   "measures": {
     "0001": {
     },
@@ -356,116 +470,45 @@
       ]
     }
   },
-  "conditions": [
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "191912005"
-        ],
-        "ICD-9-CM": [
-          "305.51"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aaea9ffcc2ba1000ebb",
-      "_type": "Condition",
-      "time": 1273896000,
-      "description": "IV drug abuse",
-      "specifics": "C0154530:Opioid abuse, continuous use;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aaea9ffcc2ba1000ebc",
-      "_type": "Condition",
-      "time": 1274328000,
-      "description": "Hypertension",
-      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "F10"
-        ],
-        "ICD-9-CM": [
-          "305"
-        ],
-        "SNOMED-CT": [
-          "66590003"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aaea9ffcc2ba1000ebd",
-      "_type": "Condition",
-      "time": 1273896000,
-      "description": "alcohol or drug dependence",
-      "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
-      "status": "active"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99324"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb0",
-      "_type": "Encounter",
-      "time": 1275364800,
-      "description": "encounter non-acute inpatient",
-      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb1",
-      "_type": "Encounter",
-      "time": 1274328000,
-      "description": "encounter ED",
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;"
-    }
-  ],
+  "medical_record_number": null,
   "medications": [
     {
+      "_id": "4fd629fba9ffcca774000eb8",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "858828"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Antihypertensive combinations",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1274328000,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fd10aaea9ffcc2ba1000ec0",
-      "_type": "Medication",
-      "time": 1274328000,
-      "description": "Antihypertensive combinations",
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+      "vehicle": null
     }
   ],
+  "patient_id": "195",
   "procedures": [
     {
+      "_id": "4fd629fba9ffcca774000eb6",
       "codes": {
         "SNOMED-CT": [
           "384742004"
@@ -474,15 +517,20 @@
           "99406"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10aaea9ffcc2ba1000ebe",
-      "_type": "Procedure",
-      "time": 1274328000,
       "description": "tobacco use cessation counseling",
-      "specifics": "C1692317:Smoking cessation assistance;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1692317:Smoking cessation assistance;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000eb7",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -491,131 +539,168 @@
           "35637008"
         ]
       },
-      "value": {
-      },
-      "_id": "4fd10aaea9ffcc2ba1000ebf",
-      "_type": "Procedure",
-      "time": 1273896000,
       "description": "alcohol, drug rehab and detox interventions",
-      "specifics": "C0204598:Alcohol rehabilitation;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0204598:Alcohol rehabilitation;",
+      "start_time": null,
+      "status": null,
+      "time": 1273896000,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
   "social_history": [
     {
+      "_id": "4fd629fba9ffcca774000eaa",
       "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
+      "description": "Tobacco User",
+      "end_time": null,
+      "specifics": "C0459846:Moderate cigarette smoker;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
+      "type": null,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb2",
-      "_type": "SocialHistory",
-      "time": 1274328000,
-      "description": "Tobacco User",
-      "specifics": "C0459846:Moderate cigarette smoker;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629fba9ffcca774000eab",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1275364800,
       "value": {
         "scalar": 150.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb3",
-      "_type": "VitalSign",
-      "time": 1275364800,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000eac",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1275364800,
       "value": {
         "scalar": 96.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb4",
-      "_type": "VitalSign",
-      "time": 1275364800,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000ead",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1275364800,
       "value": {
         "scalar": 84.0,
         "units": null
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb5",
-      "_type": "VitalSign",
-      "time": 1275364800,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000eae",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
       "value": {
         "scalar": 146.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb6",
-      "_type": "VitalSign",
-      "time": 1274328000,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000eaf",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
       "value": {
         "scalar": 92.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb7",
-      "_type": "VitalSign",
-      "time": 1274328000,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000eb0",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
       "value": {
         "scalar": 86.0,
         "units": null
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb8",
-      "_type": "VitalSign",
-      "time": 1274328000,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000eb1",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -624,17 +709,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1275364800,
       "value": {
         "scalar": 20.61265432098765,
         "units": null
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eb9",
-      "_type": "VitalSign",
-      "time": 1275364800,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000eb2",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -643,15 +732,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
       "value": {
         "scalar": 20.341435185185187,
         "units": null
-      },
-      "_id": "4fd10aaea9ffcc2ba1000eba",
-      "_type": "VitalSign",
-      "time": 1274328000,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }
