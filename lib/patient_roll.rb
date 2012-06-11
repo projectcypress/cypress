@@ -1,17 +1,17 @@
 module Cypress
   class PatientRoll
-    def self.rollEffectiveDate(dateString)
+    def self.roll_effective_date(dateString)
 			effective_date = Date.new(APP_CONFIG["effective_date"]["year"],
                                 APP_CONFIG["effective_date"]["month"],
                                 APP_CONFIG["effective_date"]["day"])
-			start_date = Date.strptime dateString, '%m/%d/%Y'
+			start_date =  Date.strptime dateString , '%m/%d/%Y'
 			y = start_date.year - effective_date.year
 			m = start_date.month - effective_date.month
 			d = start_date.day - effective_date.day
 			roll(y,m,d)
 	  end
 	  
-	  def self.rollYearMonthDay(y,m,d)
+	  def self.roll_year_month_day(y,m,d)
 		  roll(y,m,d)
 	  end
 			
