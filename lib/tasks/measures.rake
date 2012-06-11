@@ -29,6 +29,7 @@ namespace :measures do
 
   task :setup => :environment do  
     @importer = Measures::Importer.new(Mongoid.master)
+     @loader = QME::Database::Loader.new()
     @version = ENV["M_VER"]
   end
   
@@ -47,6 +48,12 @@ namespace :measures do
     zip = download_measures(@version)  
      puts "loading measures"
     @importer.import(zip)
+  end
+
+desc 'Load the local bundle.zip'
+  task :load_local_bundle => [:setup ] do
+    @loader.drop_collection("measures")
+    @importer.import(File.new("./db/bundle.zip"))
   end
 
 

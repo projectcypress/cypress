@@ -54,8 +54,7 @@ desc 'Remove the mpl currently loaded, drop query_cache and patient_cache'
 desc 'Load only the mpl in the db directory'
   task :mpl_safe_load  => [:setup,:mpl_safe_clear] do
     puts "loading new master patient list into cypress"
-    importer = Measures::Importer.new(Mongoid.master)
-    importer.import(File.new("./db/bundle.zip"))
+   
     mpls = File.join(@mpl_dir, '*')
     Dir.glob(mpls) do |patient_file|
       json = JSON.parse(File.read(patient_file))
@@ -91,6 +90,9 @@ desc 'Load only the mpl in the db directory'
 
   desc 'Seed database with master patient list'
   task :load => [:setup, :clear] do
+    
+    Rake::Task['measures:load_local_bundle'].invoke()
+
     Rake::Task['mpl:mpl_safe_load'].invoke()
 
     # put a few standard patient populations in 
