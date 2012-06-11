@@ -8,24 +8,7 @@ $(document).ready(function() {
     $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
     $('#tabs').tabs("select",2)
 
-    $("#measureMap input:checkbox").change(function() {
-        var checkbox = $(this);
-        var toggleSetting = checkbox.prop('checked');
-
-        var row = checkbox.closest('dd');
-        toggleRow(row, toggleSetting);
-
-        // If this checkbox is the parent to others, cascade the effect
-        if (!row.hasClass("sub")) {
-            while ((row = row.closest("dd").next("dd")).hasClass("sub")) {
-                checkbox = row.find('input:checkbox');
-                checkbox.prop('checked', toggleSetting);
-
-                toggleRow(row, toggleSetting);
-            }
-        }
-        $('form').valid();
-    });
+    $("#measureMap input:checkbox").css('display','none');
 
     $("#measureMap label").click(function() {
         checkbox = $(this).prev('input:checkbox');
@@ -102,8 +85,9 @@ function toggleRow(row, toggleSetting) {
 }
 
 function editMappings(category) {
-    var selector = "span.mapping." + category + ' input';
+    var selector = "span.mapping input";
     $(selector).prop('readonly', $(selector).prop('readonly') ? false : true);
+    $('#editMode').html($('#editMode').html() == "edit" ? "view only" : "edit")
 }
 
 function verify() {
