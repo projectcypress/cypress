@@ -36,20 +36,6 @@ namespace :mpl do
     @evaluator = Cypress::MeasureEvaluator
     @version = APP_CONFIG["mpl_version"]
   end
-
-  desc 'Perform all tasks necessary for initializing a newly installed system'
-  task :initialize => :setup do
-    #clear out everything
-    Rake::Task['away:mpl_and_measures'].invoke()
-    #clear out the measures, reload from ./db/bundle.zip
-    Rake::Task['measures:reload_local_bundle'].invoke()
-    #load from ./db/master_patient_list
-    Rake::Task['mpl:init'].invoke()
-    Rake::Task['mpl:load'].invoke()
-    #create results for test data
-    Rake::Task['mpl:eval'].invoke()
-  end
-
   
   desc 'MPL setup tasks'
   task :init => [:setup] do
