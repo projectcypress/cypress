@@ -105,21 +105,31 @@
   <div>
     <section class="tb">
       <div class="stacked">
-        <%= link_to "Patient List", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "cmd" } %>
-        <%= link_to "Upload Results", "", {:id => 'upload_results_button', :class=>"cmd"} %>
-        <%= link_to 'Share Patients', '', {
+        <%= link_to "Results", '', {
+          :id => 'results_menu',
+          :class => "cmd",
+          :onmouseover => "$.cypress.showMenu($('#results_menu'), $('#results_options'));"
+        } %>
+        <%= link_to 'Patients', '', {
           :id => 'share_menu',
           :class => "cmd",
           :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
         } %>
         <%= link_to "Edit Test", edit_product_test_path(@test), { :class => "cmd" } %>
+        <ul id="results_options" style="display: none" role="listbox"
+            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Upload PQRI", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :id => 'upload_results_button', :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+        </ul>
         <ul id="share_options" style="display: none" role="listbox"
             class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-          <% if @current_execution.reported_results %>
-            <li class="ui-menu-item" role="menuitem">
-              <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
-            </li>
-          <% end %>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
           <li class="ui-menu-item" role="menuitem">
             <%= link_to "Download C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
