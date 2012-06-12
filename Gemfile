@@ -23,6 +23,8 @@ gem "prawnto_2", :require => "prawnto"
 gem 'pry'
 gem 'pry-nav'
 
+gem 'redis', '~> 2.2.2'
+
 # Windows doesn't have syslog, so need a gem to log to EventLog instead
 gem 'win32-eventlog', :platforms => [:mswin, :mingw]
 
