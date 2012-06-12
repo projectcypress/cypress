@@ -1,18 +1,133 @@
 {
-  "_id": "4fa2ed2ea9ffcc3a1f000102",
-  "patient_id": "68",
-  "first": "Jane",
-  "last": "Siegel",
-  "gender": "F",
+  "_id": "4fd629e6a9ffcca774000102",
   "birthdate": 973141200,
-  "race": {
-    "name": "Other Race",
-    "code": "2131-1"
-  },
+  "conditions": [
+    {
+      "_id": "4fd629e6a9ffcca77400010f",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
+        ]
+      },
+      "description": "Asthma",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
+      "start_time": null,
+      "status": "active",
+      "time": 1263618000,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629e6a9ffcca774000110",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "J02"
+        ],
+        "SNOMED-CT": [
+          "363746003"
+        ],
+        "ICD-9-CM": [
+          "462"
+        ]
+      },
+      "description": "pharyngitis",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0001344:Acute pharyngitis;",
+      "start_time": null,
+      "status": "active",
+      "time": 1284091200,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629e6a9ffcca774000103",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99241"
+        ]
+      },
+      "description": "Encounter Office & Outpatient Consult",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1289797200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629e6a9ffcca774000104",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1284091200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629e6a9ffcca774000105",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99241"
+        ]
+      },
+      "description": "Encounter Office & Outpatient Consult",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1276142400,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Not Hispanic or Latino",
     "code": "2186-5"
   },
+  "first": "Jane",
+  "gender": "F",
+  "languages": null,
+  "last": "Siegel",
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -480,129 +595,81 @@
       ]
     }
   },
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f00010f",
-      "_type": "Condition",
-      "time": 1263618000,
-      "description": "Asthma",
-      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ],
-        "SNOMED-CT": [
-          "363746003"
-        ],
-        "ICD-9-CM": [
-          "462"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f000110",
-      "_type": "Condition",
-      "time": 1284091200,
-      "description": "pharyngitis",
-      "specifics": "C0001344:Acute pharyngitis;",
-      "status": "active"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f000103",
-      "_type": "Encounter",
-      "time": 1289797200,
-      "description": "Encounter Office & Outpatient Consult",
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f000104",
-      "_type": "Encounter",
-      "time": 1284091200,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f000105",
-      "_type": "Encounter",
-      "time": 1276142400,
-      "description": "Encounter Office & Outpatient Consult",
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    }
-  ],
+  "medical_record_number": null,
   "medications": [
     {
+      "_id": "4fd629e6a9ffcca774000112",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "406524"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Tetracycline",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1331798:Doxycycline 75 MG Enteric Coated Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1284091200,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fa2ed2ea9ffcc3a1f000112",
-      "_type": "Medication",
-      "time": 1284091200,
-      "description": "Tetracycline",
-      "specifics": "C1331798:Doxycycline 75 MG Enteric Coated Tablet;"
+      "vehicle": null
     },
     {
+      "_id": "4fd629e6a9ffcca774000113",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "388681"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Antiasthmatic combinations",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1273882:Dyphylline 100 MG / Guaifenesin 100 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1276142400,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fa2ed2ea9ffcc3a1f000113",
-      "_type": "Medication",
-      "time": 1276142400,
-      "description": "Antiasthmatic combinations",
-      "specifics": "C1273882:Dyphylline 100 MG / Guaifenesin 100 MG Oral Tablet;"
+      "vehicle": null
     }
   ],
+  "patient_id": "68",
+  "race": {
+    "name": "Other Race",
+    "code": "2131-1"
+  },
   "results": [
     {
+      "_id": "4fd629e6a9ffcca774000111",
       "codes": {
         "CPT": [
           "87430"
@@ -614,115 +681,144 @@
           "122245007"
         ]
       },
+      "description": "Group A Streptococcus Test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;",
+      "start_time": null,
+      "status": null,
+      "time": 1284091200,
       "value": {
         "scalar": "Positive",
         "units": null
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f000111",
-      "_type": "LabResult",
-      "time": 1284091200,
-      "description": "Group A Streptococcus Test",
-      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629e6a9ffcca774000106",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1289797200,
       "value": {
         "scalar": 100.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f000106",
-      "_type": "VitalSign",
-      "time": 1289797200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629e6a9ffcca774000107",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1289797200,
       "value": {
         "scalar": 60.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f000107",
-      "_type": "VitalSign",
-      "time": 1289797200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629e6a9ffcca774000108",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1284091200,
       "value": {
         "scalar": 102.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f000108",
-      "_type": "VitalSign",
-      "time": 1284091200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629e6a9ffcca774000109",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1284091200,
       "value": {
         "scalar": 62.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f000109",
-      "_type": "VitalSign",
-      "time": 1284091200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629e6a9ffcca77400010a",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1276142400,
       "value": {
         "scalar": 98.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f00010a",
-      "_type": "VitalSign",
-      "time": 1276142400,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629e6a9ffcca77400010b",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1276142400,
       "value": {
         "scalar": 60.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f00010b",
-      "_type": "VitalSign",
-      "time": 1276142400,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629e6a9ffcca77400010c",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -731,17 +827,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1289797200,
       "value": {
         "scalar": 15.518117451062057,
         "units": null
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f00010c",
-      "_type": "VitalSign",
-      "time": 1289797200,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629e6a9ffcca77400010d",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -750,17 +850,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1284091200,
       "value": {
         "scalar": 15.561197916666668,
         "units": null
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f00010d",
-      "_type": "VitalSign",
-      "time": 1284091200,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629e6a9ffcca77400010e",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -769,15 +873,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1276142400,
       "value": {
         "scalar": 14.645833333333332,
         "units": null
-      },
-      "_id": "4fa2ed2ea9ffcc3a1f00010e",
-      "_type": "VitalSign",
-      "time": 1276142400,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }

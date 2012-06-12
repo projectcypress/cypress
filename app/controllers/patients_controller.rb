@@ -60,6 +60,7 @@ class PatientsController < ApplicationController
       @product.measure_map ||= Measure.default_map
       @vendor  = @product.vendor
     end
+    @effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
 
     @results = Result.all(:conditions => {'value.patient_id' => @patient.id}, :sort => [['value.measure_id', :asc], ['value.sub_id', :asc]])
   end

@@ -5,9 +5,9 @@ gem 'rails', '3.2.2'
 gem 'jquery-rails'
 gem 'rake'
 #gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop' 
-gem 'quality-measure-engine', '1.1.2'
+gem 'quality-measure-engine', '1.1.3'
 #gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
-gem 'health-data-standards', '0.8.0'
+gem 'health-data-standards', '0.8.1'
 
 gem 'bson', '1.5.1'
 gem 'bson_ext', '1.5.1'
@@ -22,6 +22,8 @@ gem "prawnto_2", :require => "prawnto"
 
 gem 'pry'
 gem 'pry-nav'
+
+gem 'redis', '~> 2.2.2'
 
 # Windows doesn't have syslog, so need a gem to log to EventLog instead
 gem 'win32-eventlog', :platforms => [:mswin, :mingw]

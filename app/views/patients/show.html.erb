@@ -62,8 +62,8 @@
           <% @results.each do |result| %>
             <% if result.value.population %>
               <tr>
-                <td title="<%= "#{@product.measure_map[result.value.measure_id + (result.value.sub_id.nil? ? "" : result.value.sub_id)] if @product}" %>">
-                  <%= "#{result.value.measure_id}#{result.value.sub_id}" %>
+				<td title="<%= "#{@product.measure_map[result.value.measure_id + (result.value.sub_id.nil? ? "" : result.value.sub_id)] if @product}" %>">
+                 <%= link_to "#{result.value.measure_id}#{result.value.sub_id}" %>
                 </td>
                 <td <%= raw result_to_class(result.value.denominator?) %>></td>
                 <td <%= raw result_to_class(result.value.numerator?) %>></td>
@@ -75,7 +75,7 @@
         </tbody>
       </table>
     </section>
-    <div id="effectiveDate">effective date: 03/31/11</div>
+    <div id="effectiveDate">effective date: <%= Time.at(@effective_date).strftime("%m/%d/%Y") %></div>
     <section class="patient">
       <div>
         <img src="<%= patient_picture(@patient) %>" width="120" height="130" style="position:absolute;top:0;left:0">

@@ -1,18 +1,238 @@
 {
-  "_id": "4fa2ed33a9ffcc3a1f0003f6",
-  "patient_id": "59",
-  "first": "Timothy",
-  "last": "Beck",
-  "gender": "M",
+  "_id": "4fd629eca9ffcca7740003f6",
   "birthdate": 807768000,
-  "race": {
-    "name": "Black or African American",
-    "code": "2054-5"
-  },
+  "conditions": [
+    {
+      "_id": "4fd629eca9ffcca774000408",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "J02"
+        ],
+        "SNOMED-CT": [
+          "363746003"
+        ],
+        "ICD-9-CM": [
+          "462"
+        ]
+      },
+      "description": "pharyngitis",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0001344:Acute pharyngitis;",
+      "start_time": null,
+      "status": "active",
+      "time": 1278475200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eca9ffcca774000409",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "493.92"
+        ],
+        "ICD-10-CM": [
+          "J45"
+        ],
+        "SNOMED-CT": [
+          "195979001"
+        ]
+      },
+      "description": "Asthma",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
+      "start_time": null,
+      "status": "active",
+      "time": 1270008000,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eca9ffcca77400040a",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370202007"
+        ]
+      },
+      "description": "Asthma Daytime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eca9ffcca77400040b",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370205009"
+        ]
+      },
+      "description": "Asthma Nighttime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eca9ffcca77400040c",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370202007"
+        ]
+      },
+      "description": "Asthma Daytime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;",
+      "start_time": null,
+      "status": null,
+      "time": 1278475200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eca9ffcca77400040d",
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "370205009"
+        ]
+      },
+      "description": "Asthma Nighttime Symptoms Quantified",
+      "end_time": null,
+      "name": null,
+      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);",
+      "start_time": null,
+      "status": null,
+      "time": 1278475200,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629eca9ffcca7740003f7",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1281240000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eca9ffcca7740003f8",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1278475200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eca9ffcca7740003f9",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1273118400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eca9ffcca7740003fa",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Not Hispanic or Latino",
     "code": "2186-5"
   },
+  "first": "Timothy",
+  "gender": "M",
+  "languages": null,
+  "last": "Beck",
   "measures": {
     "0001": {
       "asthma_diagnosis_active": [
@@ -585,224 +805,102 @@
       ]
     }
   },
-  "conditions": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ],
-        "SNOMED-CT": [
-          "363746003"
-        ],
-        "ICD-9-CM": [
-          "462"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000408",
-      "_type": "Condition",
-      "time": 1278475200,
-      "description": "pharyngitis",
-      "specifics": "C0001344:Acute pharyngitis;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "493.92"
-        ],
-        "ICD-10-CM": [
-          "J45"
-        ],
-        "SNOMED-CT": [
-          "195979001"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000409",
-      "_type": "Condition",
-      "time": 1270008000,
-      "description": "Asthma",
-      "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f00040a",
-      "_type": "Condition",
-      "time": 1270008000,
-      "description": "Asthma Daytime Symptoms Quantified",
-      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f00040b",
-      "_type": "Condition",
-      "time": 1270008000,
-      "description": "Asthma Nighttime Symptoms Quantified",
-      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370202007"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f00040c",
-      "_type": "Condition",
-      "time": 1278475200,
-      "description": "Asthma Daytime Symptoms Quantified",
-      "specifics": "C1288256:Asthma causes daytime symptoms 1 to 2 times per month;"
-    },
-    {
-      "codes": {
-        "SNOMED-CT": [
-          "370205009"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f00040d",
-      "_type": "Condition",
-      "time": 1278475200,
-      "description": "Asthma Nighttime Symptoms Quantified",
-      "specifics": "C1288255:Asthma causes night symptoms 1 to 2 times per month (finding);"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f0003f7",
-      "_type": "Encounter",
-      "time": 1281240000,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f0003f8",
-      "_type": "Encounter",
-      "time": 1278475200,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f0003f9",
-      "_type": "Encounter",
-      "time": 1273118400,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f0003fa",
-      "_type": "Encounter",
-      "time": 1270008000,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    }
-  ],
+  "medical_record_number": null,
   "medications": [
     {
+      "_id": "4fd629eca9ffcca774000410",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "197650"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Macrolides",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0688766:Erythromycin 500 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1278475200,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fa2ed33a9ffcc3a1f000410",
-      "_type": "Medication",
-      "time": 1278475200,
-      "description": "Macrolides",
-      "specifics": "C0688766:Erythromycin 500 MG Oral Tablet;"
+      "vehicle": null
     },
     {
+      "_id": "4fd629eca9ffcca774000411",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "388681"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Antiasthmatic combinations",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1273882:Dyphylline 100 MG / Guaifenesin 100 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1270008000,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fa2ed33a9ffcc3a1f000411",
-      "_type": "Medication",
-      "time": 1270008000,
-      "description": "Antiasthmatic combinations",
-      "specifics": "C1273882:Dyphylline 100 MG / Guaifenesin 100 MG Oral Tablet;"
+      "vehicle": null
     }
   ],
+  "patient_id": "59",
   "procedures": [
     {
+      "_id": "4fd629eca9ffcca77400040f",
       "codes": {
         "SNOMED-CT": [
           "401011001"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed33a9ffcc3a1f00040f",
-      "_type": "Procedure",
-      "time": 1270008000,
       "description": "Asthma Symptom Assessment Tool",
-      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1276011:Peak expiratory flow rate monitoring using diary;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "Black or African American",
+    "code": "2054-5"
+  },
   "results": [
     {
+      "_id": "4fd629eca9ffcca77400040e",
       "codes": {
         "CPT": [
           "87430"
@@ -814,165 +912,205 @@
           "122245007"
         ]
       },
+      "description": "Group A Streptococcus Test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;",
+      "start_time": null,
+      "status": null,
+      "time": 1278475200,
       "value": {
         "scalar": "Positive",
         "units": null
-      },
-      "_id": "4fa2ed33a9ffcc3a1f00040e",
-      "_type": "LabResult",
-      "time": 1278475200,
-      "description": "Group A Streptococcus Test",
-      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;"
+      }
     }
   ],
   "social_history": [
     {
+      "_id": "4fd629eca9ffcca7740003fb",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
+      "description": "Tobacco Non-User",
+      "end_time": null,
+      "specifics": "C0425311:Current non-smoker;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
+      "type": null,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fa2ed33a9ffcc3a1f0003fb",
-      "_type": "SocialHistory",
-      "time": 1270008000,
-      "description": "Tobacco Non-User",
-      "specifics": "C0425311:Current non-smoker;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629eca9ffcca7740003fc",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
       "value": {
         "scalar": 126.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed33a9ffcc3a1f0003fc",
-      "_type": "VitalSign",
-      "time": 1270008000,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eca9ffcca7740003fd",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
       "value": {
         "scalar": 78.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed33a9ffcc3a1f0003fd",
-      "_type": "VitalSign",
-      "time": 1270008000,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eca9ffcca7740003fe",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1273118400,
       "value": {
         "scalar": 124.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed33a9ffcc3a1f0003fe",
-      "_type": "VitalSign",
-      "time": 1273118400,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eca9ffcca7740003ff",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1273118400,
       "value": {
         "scalar": 76.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed33a9ffcc3a1f0003ff",
-      "_type": "VitalSign",
-      "time": 1273118400,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eca9ffcca774000400",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1278475200,
       "value": {
         "scalar": 128.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000400",
-      "_type": "VitalSign",
-      "time": 1278475200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eca9ffcca774000401",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1278475200,
       "value": {
         "scalar": 80.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000401",
-      "_type": "VitalSign",
-      "time": 1278475200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eca9ffcca774000402",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1281240000,
       "value": {
         "scalar": 126.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000402",
-      "_type": "VitalSign",
-      "time": 1281240000,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eca9ffcca774000403",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1281240000,
       "value": {
         "scalar": 76.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000403",
-      "_type": "VitalSign",
-      "time": 1281240000,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eca9ffcca774000404",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -981,17 +1119,21 @@
           "39156-5"
         ]
       },
-      "value": {
-        "scalar": 22.426346406455245,
-        "units": null
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000404",
-      "_type": "VitalSign",
-      "time": 1281240000,
       "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1281240000,
+      "value": {
+        "scalar": 22.426346406455245,
+        "units": null
+      }
     },
     {
+      "_id": "4fd629eca9ffcca774000405",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1000,17 +1142,21 @@
           "39156-5"
         ]
       },
-      "value": {
-        "scalar": 22.426346406455245,
-        "units": null
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000405",
-      "_type": "VitalSign",
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
       "time": 1278475200,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      "value": {
+        "scalar": 22.426346406455245,
+        "units": null
+      }
     },
     {
+      "_id": "4fd629eca9ffcca774000406",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1019,17 +1165,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1273118400,
       "value": {
         "scalar": 22.375578703703706,
         "units": null
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000406",
-      "_type": "VitalSign",
-      "time": 1273118400,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629eca9ffcca774000407",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1038,15 +1188,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
       "value": {
         "scalar": 21.697530864197528,
         "units": null
-      },
-      "_id": "4fa2ed33a9ffcc3a1f000407",
-      "_type": "VitalSign",
-      "time": 1270008000,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }

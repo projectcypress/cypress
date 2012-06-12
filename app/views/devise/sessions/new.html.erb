@@ -1,3 +1,5 @@
+<% require 'version' %>
+
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:name=>"login_form"}) do |f| %>
   <div class="fields">
     <%= f.label :email %>

@@ -1,0 +1,118 @@
+# Load RVM's capistrano plugin.    
+require "rvm/capistrano"
+require "bundler/capistrano" 
+require "capistrano-resque"
+
+
+
+##
+# Rake helper task.
+# http://pastie.org/255489
+# http://geminstallthat.wordpress.com/2008/01/27/rake-tasks-through-capistrano/
+# http://ananelson.com/said/on/2007/12/30/remote-rake-tasks-with-capistrano/
+def run_remote_rake(rake_cmd)
+  rake_args = ENV['RAKE_ARGS'].to_s.split(',')
+  cmd = "cd #{fetch(:latest_release)} && #{fetch(:rake, "rake")} RAILS_ENV=#{fetch(:rails_env, "production")} #{rake_cmd}"
+  cmd += "['#{rake_args.join("','")}']" unless rake_args.empty?
+  run cmd
+  set :rakefile, nil if exists?(:rakefile)
+end
+
+
+
+# Add RVM's lib directory to the load path.
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+set :rvm_type, :system  
+
+# set :rvm_ruby_string, '1.9.2p290'
+#set :rvm_type, :system  # Don't use system-wide RVM
+set :bundle_flags, ""
+
+set :application, "cypress"
+set :repository,  "http://github.com/projectcypress/cypress.git"
+set :deploy_to, "/var/www/rails_apps/#{application}"
+
+set :scm, :git
+# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :deploy_via, :remote_cache
+set :branch , :master
+
+
+server "server_name", :app, :web, :db, :primary => true
+
+# if you want to clean up old releases on each deploy uncomment this:
+set :keep_releases, 10
+after "deploy:restart", "deploy:cleanup"
+
+
+set :user, "user_name"
+set :use_sudo, false 
+
+
+
+# Resque workers 
+set :queue_name, "*"
+set :num_of_queues, 2
+
+set :rails_env, 'production'
+
+# if you're still using the script/reaper helper you will need
+# these http://github.com/rails/irs_process_scripts
+
+# If you are using Passenger mod_rails uncomment this:
+namespace :deploy do
+  task :start do 
+
+  end
+  task :stop do 
+
+  end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}" 
+  end
+  
+  desc "Restart Resque Workers"
+  task :restart_workers, :roles => :db do
+    run_remote_rake "resque:restart_workers"
+  end
+
+  desc "Restart Resque scheduler"
+  task :restart_scheduler, :roles => :db do
+    run_remote_rake "resque:restart_scheduler"
+  end
+  
+end
+
+
+namespace :remote do
+  desc "MPL Load"
+  task :mpl_load, :roles => :db do
+    run_remote_rake "mpl:load"
+  end
+  
+  desc "MPL clear"
+  task :mpl_clear, :roles => :db do
+    run_remote_rake "mpl:clear"
+  end
+  
+  desc "MPL eval"
+  task :mpl_eval, :roles => :db do
+    run_remote_rake "mpl:eval"
+  end
+  
+  desc "MPL eval"
+  task :mpl_init, :roles => :db do
+    run_remote_rake "mpl:initialize"
+  end
+  
+  
+  desc "Measures load"
+  task :measures_load, :roles => :db do
+    run_remote_rake "measures:load"
+  end
+      
+end
+
+after "deploy:create_symlink", "deploy:restart_workers"
+# after "deploy:restart_workers", "deploy:restart_scheduler"
+

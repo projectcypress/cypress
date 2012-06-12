@@ -24,18 +24,6 @@
       <dl>
         <dt>Description:</dt> <dd><%= @product.description %></dd>
       </dl>
-      <br/>
-      <table>
-        <tr >
-          <td class="expander toggle" data-code="measure_details"></td>
-          <td> <h2>View CQMs pertinent to this product</h2></td>
-        </tr>
-        <tr class="sub_rows measure_details">
-          <td colspan="2">
-            <%= @product.measure_map.select {|m| /[0-9]$/.match m}.keys.join ", " %>
-          </td>
-        </tr>
-      </table>
     </section>
     
     <section id="ehr_results">
@@ -96,10 +84,10 @@
                     <td></td>
                     <td title="<%= execution.success_rate %>%" class="<%= execution_status %>"></td>
                         <td class="<%= execution_status %>"><a href="<%= product_test_path(test, :execution_id => execution.id) %>"><%= execution.pretty_date %></a></td>
-                    <td><span class="<%= execution_status %>"><%= execution.passing_measures.size %><span class="q"> / <%= execution.product_test.count_measures %> measures passed</span></td>
+                    <td><span class="<%= execution_status %>"><%= execution.passing_measures.size %><span class="q"> / <%= execution.product_test.measure_defs.size   %> measures passed</span></td>
                     <td></td>
                     <td></td>
-                    <td><%= link_to 'delete', product_test_path(test, :execution_id => execution), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                    <td><%= link_to 'Delete', product_test_path(test, :execution_id => execution), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               <% end %>

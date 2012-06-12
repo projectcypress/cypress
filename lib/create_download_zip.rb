@@ -11,7 +11,7 @@ module Cypress
       create_zip(patients,format)
     end
 
-    def self.create_test_zip(test_id, format)
+    def self.create_test_zip(test_id, format="c32")
       create_zip(Record.where("test_id" => test_id),format)
     end
 

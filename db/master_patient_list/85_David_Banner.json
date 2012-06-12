@@ -1,18 +1,238 @@
 {
-  "_id": "4fa2ed45a9ffcc3a1f001116",
-  "patient_id": "85",
-  "first": "David",
-  "last": "Banner",
-  "gender": "M",
+  "_id": "4fd629ffa9ffcca774001123",
   "birthdate": -239745600,
-  "race": {
-    "name": "Other Race",
-    "code": "2131-1"
-  },
+  "conditions": [
+    {
+      "_id": "4fd629ffa9ffcca774001136",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "724.2"
+        ],
+        "ICD-10-CM": [
+          "M54.9"
+        ],
+        "SNOMED-CT": [
+          "279039007"
+        ]
+      },
+      "description": "low back pain",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0024031:Low Back Pain;",
+      "start_time": null,
+      "status": "active",
+      "time": 1270612800,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629ffa9ffcca774001137",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "365.10"
+        ],
+        "ICD-10-CM": [
+          "H40.13"
+        ],
+        "SNOMED-CT": [
+          "84494001"
+        ]
+      },
+      "description": "Primary Open Angle Glaucoma (POAG)",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0017612:Glaucoma, Open-Angle;",
+      "start_time": null,
+      "status": "active",
+      "time": 1278216000,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629ffa9ffcca774001124",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1292043600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629ffa9ffcca774001125",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "98940"
+        ]
+      },
+      "description": "encounter outpatient including orthopedics and chiropractics",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0519198:Chiropractic manipulative treatment (CMT); spinal, one to two regions;",
+      "start_time": null,
+      "status": null,
+      "time": 1283486400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629ffa9ffcca774001126",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99324"
+        ]
+      },
+      "description": "Encounter Domiciliary",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;",
+      "start_time": null,
+      "status": null,
+      "time": 1278302400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629ffa9ffcca774001127",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99324"
+        ]
+      },
+      "description": "Encounter Domiciliary",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;",
+      "start_time": null,
+      "status": null,
+      "time": 1281067200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629ffa9ffcca774001128",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "98940"
+        ]
+      },
+      "description": "encounter outpatient including orthopedics and chiropractics",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0519198:Chiropractic manipulative treatment (CMT); spinal, one to two regions;",
+      "start_time": null,
+      "status": null,
+      "time": 1276142400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629ffa9ffcca774001129",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1270612800,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Hispanic or Latino",
     "code": "2135-2"
   },
+  "first": "David",
+  "gender": "M",
+  "immunizations": [
+    {
+      "_id": "4fd629ffa9ffcca77400113c",
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "description": "Influenza Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
+      "start_time": null,
+      "status": null,
+      "time": 1292043600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629ffa9ffcca77400113d",
+      "codes": {
+        "RxNorm": [
+          "854969"
+        ]
+      },
+      "description": "Pneumococcal Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
+      "start_time": null,
+      "status": null,
+      "time": 1292043600,
+      "value": {
+      }
+    }
+  ],
+  "languages": null,
+  "last": "Banner",
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -512,174 +732,11 @@
       ]
     }
   },
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "724.2"
-        ],
-        "ICD-10-CM": [
-          "M54.9"
-        ],
-        "SNOMED-CT": [
-          "279039007"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001129",
-      "_type": "Condition",
-      "time": 1270612800,
-      "description": "low back pain",
-      "specifics": "C0024031:Low Back Pain;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "365.10"
-        ],
-        "ICD-10-CM": [
-          "H40.13"
-        ],
-        "SNOMED-CT": [
-          "84494001"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00112a",
-      "_type": "Condition",
-      "time": 1278216000,
-      "description": "Primary Open Angle Glaucoma (POAG)",
-      "specifics": "C0017612:Glaucoma, Open-Angle;",
-      "status": "active"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001117",
-      "_type": "Encounter",
-      "time": 1292043600,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "98940"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001118",
-      "_type": "Encounter",
-      "time": 1283486400,
-      "description": "encounter outpatient including orthopedics and chiropractics",
-      "specifics": "C0519198:Chiropractic manipulative treatment (CMT); spinal, one to two regions;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99324"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001119",
-      "_type": "Encounter",
-      "time": 1278302400,
-      "description": "Encounter Domiciliary",
-      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99324"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00111a",
-      "_type": "Encounter",
-      "time": 1281067200,
-      "description": "Encounter Domiciliary",
-      "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "98940"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00111b",
-      "_type": "Encounter",
-      "time": 1276142400,
-      "description": "encounter outpatient including orthopedics and chiropractics",
-      "specifics": "C0519198:Chiropractic manipulative treatment (CMT); spinal, one to two regions;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00111c",
-      "_type": "Encounter",
-      "time": 1270612800,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00112f",
-      "_type": "Immunization",
-      "time": 1292043600,
-      "description": "Influenza Vaccine",
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "854969"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001130",
-      "_type": "Immunization",
-      "time": 1292043600,
-      "description": "Pneumococcal Vaccine",
-      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;"
-    }
-  ],
+  "medical_record_number": null,
+  "patient_id": "85",
   "procedures": [
     {
+      "_id": "4fd629ffa9ffcca774001138",
       "codes": {
         "CPT": [
           "97802"
@@ -694,15 +751,20 @@
           "Z00.8"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00112b",
-      "_type": "Procedure",
-      "time": 1281067200,
       "description": "counseling for nutrition",
-      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
+      "start_time": null,
+      "status": null,
+      "time": 1281067200,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca774001139",
       "codes": {
         "SNOMED-CT": [
           "384742004"
@@ -711,29 +773,39 @@
           "99406"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00112c",
-      "_type": "Procedure",
-      "time": 1270612800,
       "description": "tobacco use cessation counseling",
-      "specifics": "C1692317:Smoking cessation assistance;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C1692317:Smoking cessation assistance;",
+      "start_time": null,
+      "status": null,
+      "time": 1270612800,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca77400113a",
       "codes": {
         "SNOMED-CT": [
           "36228007"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00112d",
-      "_type": "Procedure",
-      "time": 1278302400,
       "description": "Optic Nerve Head Evaluation",
-      "specifics": "C0200149:Ophthalmic examination and evaluation;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0200149:Ophthalmic examination and evaluation;",
+      "start_time": null,
+      "status": null,
+      "time": 1278302400,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca77400113b",
       "codes": {
         "CPT": [
           "45378"
@@ -751,179 +823,228 @@
           "Z12.11"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00112e",
-      "_type": "Procedure",
-      "time": 1297573200,
       "description": "colonoscopy",
-      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
+      "start_time": null,
+      "status": null,
+      "time": 1297573200,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "Other Race",
+    "code": "2131-1"
+  },
   "social_history": [
     {
+      "_id": "4fd629ffa9ffcca77400112a",
       "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
+      "description": "Tobacco User",
+      "end_time": null,
+      "specifics": "C0459846:Moderate cigarette smoker;",
+      "start_time": null,
+      "status": null,
+      "time": 1270612800,
+      "type": null,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00111d",
-      "_type": "SocialHistory",
-      "time": 1270612800,
-      "description": "Tobacco User",
-      "specifics": "C0459846:Moderate cigarette smoker;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629ffa9ffcca77400112b",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1292043600,
       "value": {
         "scalar": 126.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00111e",
-      "_type": "VitalSign",
-      "time": 1292043600,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca77400112c",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1292043600,
       "value": {
         "scalar": 64.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed45a9ffcc3a1f00111f",
-      "_type": "VitalSign",
-      "time": 1292043600,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca77400112d",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1292043600,
       "value": {
         "scalar": 80.0,
         "units": null
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001120",
-      "_type": "VitalSign",
-      "time": 1292043600,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca77400112e",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1281067200,
       "value": {
         "scalar": 124.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001121",
-      "_type": "VitalSign",
-      "time": 1281067200,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca77400112f",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1281067200,
       "value": {
         "scalar": 60.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001122",
-      "_type": "VitalSign",
-      "time": 1281067200,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca774001130",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1281067200,
       "value": {
         "scalar": 80.0,
         "units": null
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001123",
-      "_type": "VitalSign",
-      "time": 1281067200,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca774001131",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1270612800,
       "value": {
         "scalar": 128.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001124",
-      "_type": "VitalSign",
-      "time": 1270612800,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca774001132",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1270612800,
       "value": {
         "scalar": 60.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001125",
-      "_type": "VitalSign",
-      "time": 1270612800,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca774001133",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
+      "description": "Heart Rate",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0018810:heart rate;",
+      "start_time": null,
+      "status": null,
+      "time": 1270612800,
       "value": {
         "scalar": 70.0,
         "units": null
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001126",
-      "_type": "VitalSign",
-      "time": 1270612800,
-      "description": "Heart Rate",
-      "specifics": "C0018810:heart rate;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca774001134",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -932,17 +1053,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1270612800,
       "value": {
         "scalar": 18.442901234567902,
         "units": null
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001127",
-      "_type": "VitalSign",
-      "time": 1270612800,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629ffa9ffcca774001135",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -951,15 +1076,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1281067200,
       "value": {
         "scalar": 18.171682098765434,
         "units": null
-      },
-      "_id": "4fa2ed45a9ffcc3a1f001128",
-      "_type": "VitalSign",
-      "time": 1281067200,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }

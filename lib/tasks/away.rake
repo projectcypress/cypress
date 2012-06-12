@@ -20,6 +20,7 @@ namespace :away do
     loader.drop_collection('product_tests')
     loader.drop_collection('test_executions')
     loader.drop_collection('vendors')
+
   end
   
   desc 'Drop the collections related to records and measure calculation'
@@ -34,4 +35,16 @@ namespace :away do
     loader.drop_collection('patient_populations')
     loader.drop_collection('query_cache')
   end
+
+desc 'Drop the collections specific to the Cypress workflow'
+  task :mpl_and_measures  => :environment do
+    loader.drop_collection('bundles')
+    loader.drop_collection("measures")
+    loader.drop_collection('records')
+    loader.drop_collection('query_cache')
+    loader.drop_collection('patient_cache')
+    loader.drop_collection('patient_populations')
+  end
+
+
 end

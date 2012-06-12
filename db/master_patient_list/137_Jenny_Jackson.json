@@ -1,18 +1,153 @@
 {
-  "_id": "4fa2ed42a9ffcc3a1f000e82",
-  "patient_id": "137",
-  "first": "Jenny",
-  "last": "Jackson",
-  "gender": "F",
+  "_id": "4fd629fba9ffcca774000e83",
   "birthdate": 789282000,
-  "race": {
-    "name": "White",
-    "code": "2106-3"
-  },
+  "conditions": [
+    {
+      "_id": "4fd629fba9ffcca774000e8b",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "099.9"
+        ],
+        "SNOMED-CT": [
+          "8098009"
+        ],
+        "ICD-10-CM": [
+          "A64"
+        ]
+      },
+      "description": "sexually active woman",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0036916:Sexually Transmitted Diseases;",
+      "start_time": null,
+      "status": "active",
+      "time": 1281931200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fba9ffcca774000e8c",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "F10"
+        ],
+        "ICD-9-CM": [
+          "305"
+        ],
+        "SNOMED-CT": [
+          "66590003"
+        ]
+      },
+      "description": "alcohol or drug dependence",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
+      "start_time": null,
+      "status": "active",
+      "time": 1271736000,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629fba9ffcca774000e85",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1281931200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fba9ffcca774000e86",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99238"
+        ]
+      },
+      "description": "Encounter Inpatient Discharge",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
+      "start_time": null,
+      "status": null,
+      "time": 1278129600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fba9ffcca774000e87",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99251"
+        ]
+      },
+      "description": "encounter acute inpt",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
+      "start_time": null,
+      "status": null,
+      "time": 1271736000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fba9ffcca774000e88",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99281"
+        ]
+      },
+      "description": "encounter ED",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
+      "start_time": null,
+      "status": null,
+      "time": 1270094400,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Not Hispanic or Latino",
     "code": "2186-5"
   },
+  "first": "Jenny",
+  "gender": "F",
+  "languages": null,
+  "last": "Jackson",
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -26,15 +161,21 @@
       ]
     },
     "0004": {
+      "alcohol_or_drug_dependence_diagnosis_active": [
+        1271736000
+      ],
+      "alcohol_drug_rehab_and_detox_interventions_procedure_performed": [
+        1271736000
+      ],
       "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
         1281931200,
         1278129600,
-        1270180800,
+        1271736000,
         1270094400
       ],
       "encounter_acute_inpt_encounter": [
         1278129600,
-        1270180800
+        1271736000
       ],
       "encounter_ed_encounter": [
         1270094400
@@ -44,7 +185,7 @@
       ],
       "encounter_outpt_bh_req_pos_encounter": [
         1278129600,
-        1270180800
+        1271736000
       ]
     },
     "0027": {
@@ -53,6 +194,9 @@
       ]
     },
     "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1271736000
+      ]
     },
     "0013": {
       "encounter_outpatient_encounter": [
@@ -60,6 +204,9 @@
       ]
     },
     "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1271736000
+      ]
     },
     "0018": {
       "encounter_outpatient_encounter": [
@@ -137,7 +284,7 @@
       ],
       "encounter_acute_inpt_encounter": [
         1278129600,
-        1270180800
+        1271736000
       ],
       "encounter_ed_encounter": [
         1270094400
@@ -167,7 +314,7 @@
     "0055": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278129600,
-        1270180800,
+        1271736000,
         1270094400
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -177,7 +324,7 @@
     "0056": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278129600,
-        1270180800,
+        1271736000,
         1270094400
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -187,7 +334,7 @@
     "0059": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278129600,
-        1270180800,
+        1271736000,
         1270094400
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -197,7 +344,7 @@
     "0061": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278129600,
-        1270180800,
+        1271736000,
         1270094400
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -207,7 +354,7 @@
     "0062": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278129600,
-        1270180800,
+        1271736000,
         1270094400
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -217,7 +364,7 @@
     "0064": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278129600,
-        1270180800,
+        1271736000,
         1270094400
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -236,11 +383,11 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1281931200,
         1278129600,
-        1270180800
+        1271736000
       ],
       "encounter_acute_inpt_encounter": [
         1278129600,
-        1270180800
+        1271736000
       ],
       "encounter_outpatient_encounter": [
         1281931200
@@ -258,11 +405,11 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1281931200,
         1278129600,
-        1270180800
+        1271736000
       ],
       "encounter_acute_inpt_encounter": [
         1278129600,
-        1270180800
+        1271736000
       ],
       "encounter_outpatient_encounter": [
         1281931200
@@ -277,11 +424,11 @@
       "encounter_acute_inpt_and_outpt_encounter": [
         1281931200,
         1278129600,
-        1270180800
+        1271736000
       ],
       "encounter_acute_inpt_encounter": [
         1278129600,
-        1270180800
+        1271736000
       ],
       "encounter_outpatient_encounter": [
         1281931200
@@ -329,7 +476,7 @@
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1281931200,
         1278129600,
-        1270180800
+        1271736000
       ],
       "encounter_ed_encounter": [
         1270094400
@@ -356,7 +503,7 @@
     "0575": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278129600,
-        1270180800,
+        1271736000,
         1270094400
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
@@ -364,122 +511,48 @@
       ]
     }
   },
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "099.9"
-        ],
-        "SNOMED-CT": [
-          "8098009"
-        ],
-        "ICD-10-CM": [
-          "A64"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e8a",
-      "_type": "Condition",
-      "time": 1281931200,
-      "description": "sexually active woman",
-      "specifics": "C0036916:Sexually Transmitted Diseases;",
-      "status": "active"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e84",
-      "_type": "Encounter",
-      "time": 1281931200,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e85",
-      "_type": "Encounter",
-      "time": 1278129600,
-      "description": "Encounter Inpatient Discharge",
-      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99251"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e86",
-      "_type": "Encounter",
-      "time": 1270180800,
-      "description": "encounter acute inpt",
-      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99281"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e87",
-      "_type": "Encounter",
-      "time": 1270094400,
-      "description": "encounter ED",
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;"
-    }
-  ],
   "medical_equipment": [
     {
+      "_id": "4fd629fba9ffcca774000e84",
       "codes": {
         "SNOMED-CT": [
           "169491004"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e83",
-      "_type": "Entry",
-      "time": 1281931200,
       "description": "IUD use",
-      "specifics": "C2921403:Contraceptive IUD check (finding);"
+      "end_time": null,
+      "specifics": "C2921403:Contraceptive IUD check (finding);",
+      "start_time": null,
+      "status": null,
+      "time": 1281931200,
+      "value": {
+      }
     }
   ],
+  "medical_record_number": null,
+  "patient_id": "137",
   "procedures": [
     {
+      "_id": "4fd629fba9ffcca774000e8e",
       "codes": {
         "SNOMED-CT": [
           "44651004"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e8c",
-      "_type": "Procedure",
-      "time": 1281931200,
       "description": "contraceptive use education",
-      "specifics": "C0204948:Contraceptive use education;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0204948:Contraceptive use education;",
+      "start_time": null,
+      "status": null,
+      "time": 1281931200,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000e8f",
       "codes": {
         "CPT": [
           "97802"
@@ -494,15 +567,20 @@
           "Z00.8"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e8d",
-      "_type": "Procedure",
-      "time": 1281931200,
       "description": "counseling for nutrition",
-      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
+      "start_time": null,
+      "status": null,
+      "time": 1281931200,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629fba9ffcca774000e90",
       "codes": {
         "ICD-9-CM": [
           "V65.41"
@@ -514,17 +592,48 @@
           "Z71.3"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e8e",
-      "_type": "Procedure",
-      "time": 1281931200,
       "description": "counseling for physical activity",
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
+      "start_time": null,
+      "status": null,
+      "time": 1281931200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629fba9ffcca774000e91",
+      "codes": {
+        "ICD-9-CM": [
+          "94.61"
+        ],
+        "SNOMED-CT": [
+          "35637008"
+        ]
+      },
+      "description": "alcohol, drug rehab and detox interventions",
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0204598:Alcohol rehabilitation;",
+      "start_time": null,
+      "status": null,
+      "time": 1271736000,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
   "results": [
     {
+      "_id": "4fd629fba9ffcca774000e8d",
       "codes": {
         "CPT": [
           "87110"
@@ -536,37 +645,45 @@
           "121953005"
         ]
       },
+      "description": "Chlamydia Screening",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
+      "start_time": null,
+      "status": null,
+      "time": 1281931200,
       "value": {
         "scalar": "Negative",
         "units": null
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e8b",
-      "_type": "LabResult",
-      "time": 1281931200,
-      "description": "Chlamydia Screening",
-      "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;"
+      }
     }
   ],
   "social_history": [
     {
+      "_id": "4fd629fba9ffcca774000e89",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
+      "description": "Tobacco Non-User",
+      "end_time": null,
+      "specifics": "C0425311:Current non-smoker;",
+      "start_time": null,
+      "status": null,
+      "time": 1270094400,
+      "type": null,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e88",
-      "_type": "SocialHistory",
-      "time": 1270094400,
-      "description": "Tobacco Non-User",
-      "specifics": "C0425311:Current non-smoker;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629fba9ffcca774000e8a",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -575,15 +692,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1281931200,
       "value": {
         "scalar": 23.793846153846154,
         "units": null
-      },
-      "_id": "4fa2ed42a9ffcc3a1f000e89",
-      "_type": "VitalSign",
-      "time": 1281931200,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }

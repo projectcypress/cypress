@@ -105,21 +105,31 @@
   <div>
     <section class="tb">
       <div class="stacked">
-        <%= link_to "Patient List", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "cmd" } %>
-        <%= link_to "Upload Results", "", {:id => 'upload_results_button', :class=>"cmd"} %>
-        <%= link_to 'Share Patients', '', {
+        <%= link_to "Results", '', {
+          :id => 'results_menu',
+          :class => "cmd",
+          :onmouseover => "$.cypress.showMenu($('#results_menu'), $('#results_options'));"
+        } %>
+        <%= link_to 'Test Data', '', {
           :id => 'share_menu',
           :class => "cmd",
           :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
         } %>
         <%= link_to "Edit Test", edit_product_test_path(@test), { :class => "cmd" } %>
+        <ul id="results_options" style="display: none" role="listbox"
+            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Upload PQRI", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :id => 'upload_results_button', :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
+        </ul>
         <ul id="share_options" style="display: none" role="listbox"
             class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-          <% if @current_execution.reported_results %>
-            <li class="ui-menu-item" role="menuitem">
-              <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
-            </li>
-          <% end %>
+          <li class="ui-menu-item" role="menuitem">
+            <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
+          </li>
           <li class="ui-menu-item" role="menuitem">
             <%= link_to "Download C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
@@ -176,9 +186,9 @@
         <% if @current_execution.required_modules %>
           <% (n,v) = @current_execution.required_modules.first%>
           <% @current_execution.required_modules.delete(n)%>
-          <dt>Modules:</dt><dd><%= n %>: v<%= v %></dd>
+          <dt>Modules:</dt><dd><%= n %>: <%= v %></dd>
           <% @current_execution.required_modules.each do |name,version| %>
-            <dt></dt><dd><%= name %>: v<%= version %></dd>
+            <dt></dt><dd><%= name %>: <%= version %></dd>
           <% end %>
           <% else %>
           <dt>Modules:</dt>
@@ -193,7 +203,7 @@
             Below are the expected results for your patient population.  You must perform the following steps to complete your test:
           </p>
           <ol>
-            <li>Download these records in C32, CCR, CSV, or HTML format from the "Share Patients" menu above.</li>
+            <li>Download these records in C32, CCR, CSV, or HTML format from the "Test Data" menu above.</li>
             <li>Input them into the quality measure calculator you wish to test.</li>
             <li>Export the results as a PQRI XML document.</li>
             <li>Return your results to Cypress for scoring using the "Upload Results" link above.</li>
@@ -267,9 +277,11 @@
               <tr id='<%= "#{measure.id}" %>'>
                 <td><div title="<%= result_status %>" class="<%= result_status %>"><%= result_status %></div></td>
                 <td title="<%= "#{@product.measure_map[measure.key]} " %>">
+                  <a href="<%= product_test_measure_path(@test, measure, :execution => @current_execution) %>">
                     <%= "#{measure.key} " %>
                     <%= measure.name %>
-                    <%= " - #{measure.subtitle}" if measure.sub_id %></a>
+                    <%= " - #{measure.subtitle}" if measure.sub_id %>
+                  </a>
                 </td>
                 <% ['denominator', 'numerator', 'exclusions'].each do |bucket|
                   reported_class = result_class(reported_result[bucket], expected_result[bucket])
