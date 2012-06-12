@@ -1,3 +1,18 @@
+#to update just the measures from remote:
+#measures:reload_bundle M_VER=v1.4.2
+
+#to update just the patients from remote:
+#mpl:update
+
+#to update patients and measures from local:
+#measures:reload_local_bundle
+#mpl:clear
+#mpl:load
+
+#to wipe everything and reload from local:
+#mpl:initialize
+
+
 require 'quality-measure-engine'
 require 'measure_evaluator'
 require 'patient_roll'
@@ -12,7 +27,7 @@ namespace :mpl do
   task :tttt do
      puts ENV.inspect
   end
-  
+
   task :setup => :environment do
     @loader = QME::Database::Loader.new()
     @mpl_dir = File.join(Rails.root, 'db', 'master_patient_list')
@@ -22,8 +37,55 @@ namespace :mpl do
     @version = APP_CONFIG["mpl_version"]
   end
 
+  desc 'Perform all tasks necessary for initializing a newly installed system'
+  task :initialize => :setup do
+    #clear out everything
+    Rake::Task['away:mpl_and_measures'].invoke()
+    #clear out the measures, reload from ./db/bundle.zip
+    Rake::Task['measures:reload_local_bundle'].invoke()
+    #load from ./db/master_patient_list
+    Rake::Task['mpl:init'].invoke()
+    Rake::Task['mpl:load'].invoke()
+    #create results for test data
+    Rake::Task['mpl:eval'].invoke()
+  end
+
+  
+  desc 'MPL setup tasks'
+  task :init => [:setup] do
+    # put a few standard patient populations in 
+    @loader.save('patient_populations', {:name => "all", :patient_ids => Array.new(225) {|i| i.to_s},
+      :description => "Full Test Deck - 225 Records"})
+    @loader.save('patient_populations', {:name => "core20", :patient_ids => [201,92,20,176,30,109,82,28,5,31,189,58,57,173,188,46,55,72,81,26].collect {|x| x.to_s},
+      :description => "Core and Core Alternate Subset - 20 Records"})
+  end
+
+  desc 'Load only the mpl in the db directory'
+  task :load  => [:setup] do
+    puts "loading new master patient list into cypress"   
+    mpls = File.join(@mpl_dir, '*')
+    Dir.glob(mpls) do |patient_file|
+      json = JSON.parse(File.read(patient_file))
+      if json['_id']
+        json['_id'] = BSON::ObjectId.from_string(json['_id'])
+      end
+      @loader.save('records', json)
+    end    
+  end
+
+  desc 'Remove the mpl currently loaded, drop query_cache and patient_cache'
+  task :clear  => :setup do
+    puts "removing current master patient list from cypress"
+    db = @loader.get_db
+    db['records'].remove("test_id" => nil)
+    @loader.drop_collection('query_cache')
+    @loader.drop_collection('patient_cache')
+    
+  end
+  
+
   desc 'Download and reload only the master patient list and recalculate with currently loaded measures'
-  task :mpl_safe_download_and_reload => [:setup,:mpl_safe_clear] do
+  task :update => [:setup,:clear] do
     puts "downloading master patient list"
     zip = download_patients(@version) 
     puts "unzipping master patient list"
@@ -36,46 +98,11 @@ namespace :mpl do
       end
      end
     end
-    Rake::Task['mpl:mpl_safe_load'].invoke()
+    Rake::Task['mpl:load'].invoke()
     Rake::Task['mpl:eval'].invoke()
     
-  end
-
-desc 'Remove the mpl currently loaded, drop query_cache and patient_cache'
-  task :mpl_safe_clear  => :setup do
-    puts "removing current master patient list from cypress"
-    db = @loader.get_db
-    db['records'].remove("test_id" => nil)
-    @loader.drop_collection('query_cache')
-    @loader.drop_collection('patient_cache')
-    
-  end
-
-desc 'Load only the mpl in the db directory'
-  task :mpl_safe_load  => [:setup,:mpl_safe_clear] do
-    puts "loading new master patient list into cypress"
-   
-    mpls = File.join(@mpl_dir, '*')
-    Dir.glob(mpls) do |patient_file|
-      json = JSON.parse(File.read(patient_file))
-      if json['_id']
-        json['_id'] = BSON::ObjectId.from_string(json['_id'])
-      end
-      @loader.save('records', json)
-    end
-
-    
-  end
-  
-  desc 'Drop all patients and cached query results'
-  task :clear  => :setup do
-    @loader.drop_collection('bundles')
-    @loader.drop_collection("measures")
-    @loader.drop_collection('records')
-    @loader.drop_collection('query_cache')
-    @loader.drop_collection('patient_cache')
-    @loader.drop_collection('patient_populations')
-  end
+  end  
+ 
   
   desc 'Dump current contents of records collection to master patient list diretcory'
   task :dump => :setup do
@@ -88,19 +115,7 @@ desc 'Load only the mpl in the db directory'
     end
   end
 
-  desc 'Seed database with master patient list'
-  task :load => [:setup, :clear] do
-    
-    Rake::Task['measures:load_local_bundle'].invoke()
-
-    Rake::Task['mpl:mpl_safe_load'].invoke()
-
-    # put a few standard patient populations in 
-    @loader.save('patient_populations', {:name => "all", :patient_ids => Array.new(225) {|i| i.to_s},
-      :description => "Full Test Deck - 225 Records"})
-    @loader.save('patient_populations', {:name => "core20", :patient_ids => [201,92,20,176,30,109,82,28,5,31,189,58,57,173,188,46,55,72,81,26].collect {|x| x.to_s},
-      :description => "Core and Core Alternate Subset - 20 Records"})
-  end
+  
   
   desc 'Evaluate all measures for the entire master patient list'
   task :eval => :setup do
@@ -123,12 +138,7 @@ desc 'Load only the mpl in the db directory'
     end
   end
 
-  desc 'Perform all tasks necessary for initializing a newly installed system'
-  task :initialize => :setup do
-    Rake::Task['mpl:clear'].invoke()
-    Rake::Task['mpl:load'].invoke()
-    Rake::Task['mpl:eval'].invoke()
-  end
+ 
   
   desc 'Roll the date of every aspect of each patient forward or backwards [years, months, days] depending on sign'
   task :roll, :years, :months, :days, :start_date, :needs=> :setup do |t, args|
