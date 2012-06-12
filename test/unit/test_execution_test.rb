@@ -53,7 +53,8 @@ class TestExecutionTest < ActiveSupport::TestCase
   end
   
   test "Should pretty print execution date" do
-    assert @execution_passed.pretty_date == "03/08/2012 -  1:27:34 PM"
+    pretty_date = Time.at(@execution_passed.execution_date).strftime("%m/%d/%Y - %l:%M:%S %p")
+    assert @execution_passed.pretty_date == pretty_date
   end
   
   test "Should properly normalize measure test results" do
