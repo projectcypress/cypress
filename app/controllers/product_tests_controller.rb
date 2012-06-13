@@ -67,7 +67,7 @@ class ProductTestsController < ApplicationController
     end.group_by {|g| g.category}
 
     @effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
-    @period_start = 3.months.ago(Time.at(@effective_date))
+    @period_start = 3.months.ago(Time.at(@effective_date)).getgm
   end
   
   def create
@@ -114,7 +114,7 @@ class ProductTestsController < ApplicationController
     @product = @test.product
     @vendor = @product.vendor
     @effective_date = @test.effective_date
-    @period_start = 3.months.ago(Time.at(@effective_date))
+    @period_start = 3.months.ago(Time.at(@effective_date)).getgm
   end
   
   def update
@@ -145,7 +145,7 @@ class ProductTestsController < ApplicationController
   def period
     month, day, year = params[:effective_date].split('/')
     @effective_date = Time.gm(year.to_i, month.to_i, day.to_i)
-    @period_start = 3.months.ago(Time.at(@effective_date))
+    @period_start = 3.months.ago(Time.at(@effective_date)).getgm
     
     render :period, :status => 200
   end
