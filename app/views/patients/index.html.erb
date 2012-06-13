@@ -86,6 +86,23 @@
         <% end %>
       <% end %>
 	  
+	
+      var hiden  = true;
+	  $('#measureEditContainer').slideUp();
+	  
+	  $('.measure_definition').click(function(){
+	  if(hiden){
+	      $('#measureEditContainer').slideDown(500);
+		  $('#show_hide').text("Hide Definition");
+		  }		  
+	  else{
+	      $('#measureEditContainer').slideUp(500);
+		  $('#show_hide').text("Expand Definition");
+		  }
+		  hiden = !hiden;
+	  
+	  });
+	  
     });
   </script>
   
@@ -194,6 +211,10 @@
           <dt class="measure_title">Quality Measure:</dt>
           <dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
         </dl>
+		 <dl>
+          <dt class="measure_definition">Definition:</dt>
+          <dd class="measure_definition" id="show_hide">Expand Definition</dd>
+        
 		
 			  <div id="measureEditContainer">
       <div id="eligibilityMeasures">
@@ -216,7 +237,7 @@
         </div><!-- end measureBox -->
       </div><!-- end #outcomeMeasures -->
     </div><!-- end measureEditContainer -->
-        <dl>
+        </dl><dl>
           <dt>Expected Reports:</dt>
           <dd>
             <table>
