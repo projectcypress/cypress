@@ -15,6 +15,10 @@ Cypress::Application.routes.draw do
       end
     end
   end
+  
+   resources :measures do
+     get 'definition'
+   end
 
   resources :product_tests  do
     member do
