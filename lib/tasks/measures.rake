@@ -6,7 +6,7 @@ require 'resque'
 require 'rubygems'
 require 'open-uri'
 
-
+DOWNLOADS_ROOT = "https://api.github.com/repos/pophealth/measures/downloads"
 def OpenURI.redirectable?(uri1, uri2) # :nodoc:
    # This test is intended to forbid a redirection from http://... to
    # file:///etc/passwd, file:///dev/zero, etc.  CVE-2011-1521
@@ -18,42 +18,44 @@ def OpenURI.redirectable?(uri1, uri2) # :nodoc:
    
  end
  
- 
-def download_measures(version)
-   puts "downloading measures https://github.com/downloads/pophealth/measures/bundle_#{version}.zip"
-   f =  open("https://github.com/downloads/pophealth/measures/bundle_#{version}.zip", :proxy=>ENV["http_proxy"])
-   return f
-end
+
 
 namespace :measures do
 
   task :setup => :environment do  
-    @importer = Measures::Importer.new(Mongoid.master)
-     @loader = QME::Database::Loader.new()
-    @version = ENV["M_VER"]
+    @db =  Mongoid.master
+     @importer = Measures::Importer.new(@db)
   end
   
-  desc 'Remove the measures and bundles collection'
-  task :drop_bundle => :setup do
-    puts "dropping old measures"
-    @importer.drop_measures
-  end
 
-   
-  desc 'Remove all patient records and reload'
-  task :reload_bundle => [:setup ,:drop_bundle, :load_bundle] 
  
   desc 'Remove all patient records and reload'
-  task :load_bundle => [:setup ] do
-    zip = download_measures(@version)  
-     puts "loading measures"
-    @importer.import(zip)
-  end
+  task :update => [:setup ] do
+     
+    str = open("https://api.github.com/repos/pophealth/measures/downloads", :proxy=>ENV["http_proxy"]).read
+    json = JSON.parse(str)
+    json.sort! {|a,b|  
+        Date.parse(b["created_at"] ) <=> Date.parse(a["created_at"])
+    }
+    begin
+      
+      entry =  json[0]
+      if entry
+         puts "updating to measures #{entry['name']}"
+         f = open(entry['html_url'])
+         puts "importing measures"
 
-desc 'Load the local bundle.zip'
-  task :load_local_bundle => [:setup ] do
-    @loader.drop_collection("measures")
-    @importer.import(File.new("./db/bundle.zip"))
+         @importer.import(f)
+         @db['patient_cache'].remove({"test_id" => nil})
+         @db['query_cache'].remove({"test_id" => nil})
+         Rake::Task['mpl:eval'].invoke()
+      else
+        puts "No measures found"
+      end
+    rescue
+        puts $!.backtrace
+    end
+   
   end
 
 
