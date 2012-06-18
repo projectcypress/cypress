@@ -12,9 +12,9 @@
     </dt>
     <dd>
       <span class="wide">from
-        <span id="effective_date_start" class="inline-span"><%= Time.at(@period_start).strftime("%m/%d/%Y") %></span>
+        <span id="effective_date_start" class="inline-span"><%= display_time(@period_start)%></span>
         to
-        <span id="effective_date_end" class="inline-span"><%= Time.at(@effective_date).strftime("%m/%d/%Y") %></span>
+        <span id="effective_date_end" class="inline-span"><%= display_time(@effective_date) %></span>
       </span>
     </dd>
     <dt>

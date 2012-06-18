@@ -69,7 +69,7 @@
       <tr id="<%= patient[:_id] %>" class="patient">
         <td><%= patient[:last] %></td>
         <td><%= patient[:first] %></td>
-        <td style="text-align:center"><%= Time.at(patient.birthdate).strftime('%m/%d/%Y') %></td>
+        <td style="text-align:center"><%= display_time(patient.birthdate) %></td>
         <td style="text-align:center"><%= patient[:gender] %></td>
       </tr>
     <% end %>
