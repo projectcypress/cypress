@@ -187,7 +187,7 @@ class ProductTestsController < ApplicationController
     end
     execution.execution_date=Time.now.to_i
     execution.product_version=product.version
-    execution.required_modules=Cypress::GetDependencies::get_dependencies
+    execution.required_modules=Cypress::GetDependencies::get_dependencies(Measure.installed.first.bundle)
     
     execution.save!
     redirect_to :action => 'show', :execution_id=>execution._id
