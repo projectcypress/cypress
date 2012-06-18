@@ -19,6 +19,10 @@ class MeasuresController < ApplicationController
     end
   end
   
+  def definition
+    render :json => Measure.find(params[:measure_id])
+  end
+  
   def patients
    
     @vendor = @product.vendor
@@ -121,6 +125,8 @@ class MeasuresController < ApplicationController
       @execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
     end
   end
+  
+  
   
 
 

@@ -2,6 +2,7 @@ require 'test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
   setup do
+    collection_fixtures('users', '_id')
     collection_fixtures('records', '_id','test_id')
     collection_fixtures('vendors', '_id',"user_ids")
     collection_fixtures('products','_id','vendor_id', "user_id")

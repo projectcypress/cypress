@@ -1,6 +1,8 @@
 <% content_for :head do %>
+
   <script type="text/javascript">
     $(function() {
+	
       $('#loading_dialog').dialog({
         autoOpen: false,
         closeOnEscape: false,
@@ -13,12 +15,58 @@
         open: function(event, ui) { $(".ui-dialog-titlebar-close").hide()}
       });
     });
+	
+	var cypress = cypress || {};
+ 
+  cypress.renderMeasureJSON = function(data) {
+       var measure = data;
+        var elemParent;
+        var addParamItems = function(obj,elemParent,container) {
+          var items = obj['and'] || obj['or'];
+          if ($.isArray(items)) {
+            var conjunction = obj['and'] ? 'and' : 'or';
+            // add the grouping container
+            if (!container) {elemParent = $("#ph_tmpl_paramGroup").tmpl({}).appendTo(elemParent).find(".paramItem:last");}
+              $.each(items,function(i,node) {
+                addParamItems(node,elemParent);
+                if (i < items.length-1) {
+                  $(elemParent).append("<span class='"+conjunction+"'>"+conjunction+"</span>");
+                }
+              });
+            } else {
+              // we dont have a nested measure clause, add the item to the bottom of the list
+              if (!elemParent.hasClass("paramItem")) {
+                elemParent = $("#ph_tmpl_paramGroup").tmpl({}).appendTo(elemParent).find(".paramItem:last");
+              }
+              $("#ph_tmpl_paramItem").tmpl(obj).appendTo(elemParent);
+            }
+        } // end addParamItems
+
+        if (data.population) {
+         elemParent = $("#ph_tmpl_paramGroup").tmpl({}).appendTo("#eligibilityMeasureItems").find(".paramItem:last");
+         addParamItems(data.population,elemParent,elemParent);
+         elemParent.parent().addClass("population");
+       }
+
+        if (!$.isEmptyObject(data.denominator)) {
+          $("#eligibilityMeasureItems").append("<span class='and'>and</span>");
+          addParamItems(data.denominator,$("#eligibilityMeasureItems"));
+        }
+
+        if (data.numerator) {
+          addParamItems(data.numerator,$("#outcomeMeasureItems"));
+        }
+
+     }
     function openLoadingDialog(){
       $('#loading_dialog').dialog('open');
     }
     setTimeout("openLoadingDialog()",400);
 
     $(document).ready(function() {
+	<% if params[:measure_id] != nil %>
+	  $.getJSON("<%=measure_definition_url(:measure_id => params[:measure_id])%>", cypress.renderMeasureJSON);
+    <%end%>
       <% if @test %>
         <% if @result['numerator']=='?' %>
           $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id, :product_test_id => @test.id ) %>",
@@ -37,7 +85,41 @@
           $.cypress.updatePatientTable("<%= table_measure_patients_path(:measure_id => @selected.id) %>")
         <% end %>
       <% end %>
+	  
+	
+      var hiden  = true;
+	  $('#measureEditContainer').slideUp();
+	  
+	  $('.measure_definition').click(function(){
+	  if(hiden){
+	      $('#measureEditContainer').slideDown(500);
+		  $('#show_hide').text("Hide Definition");
+		  }		  
+	  else{
+	      $('#measureEditContainer').slideUp(500);
+		  $('#show_hide').text("Expand Definition");
+		  }
+		  hiden = !hiden;
+	  
+	  });
+	  
     });
+  </script>
+  
+  <script type="text/html" id="ph_tmpl_paramItem">
+    <div>
+      <!-- ${percentage=Math.round(Math.random()*100,2)} -->
+      {{if category}}<label>${category}</label>{{/if}}
+      ${title}
+    </div>
+  </script>
+  <script type="text/html" id="ph_tmpl_paramGroupContainer">
+    <div class="paramGroupContainer">
+    </div>
+  </script>
+  <script type="text/html" id="ph_tmpl_paramGroup">
+    <div class="paramGroup"><div class="paramItem">
+    </div></div>
   </script>
 <% end %>
 
@@ -122,17 +204,40 @@
         </ul>
       <% end %>
     </div>
-    
     <section id="patient_list">
       <% if @selected and !@showAll %>
 	  <section class="measure">
         <dl>
           <dt class="measure_title">Quality Measure:</dt>
           <dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
-          <dd class="measure_desc"><%= @selected.description %></dd>
         </dl>
-     
-        <dl>
+		 <dl>
+          <dt class="measure_definition">Definition:</dt>
+          <dd class="measure_definition" id="show_hide">Expand Definition</dd>
+        
+		
+			  <div id="measureEditContainer">
+      <div id="eligibilityMeasures">
+        <h3>Denominator</h3>
+        <div class="measureBox">
+          <div id="eligibilityMeasureItems">
+          </div><!-- end #eligibilityMeasureItems -->
+        </div><!-- end measureBox -->
+      </div><!-- end #eligibilityMeasures -->
+      <div id="outcomeMeasures">
+        <h3>Numerator</h3>
+        <div class="measureBox">
+          <div id="outcomeExclusionMarker" class="exclusionTab" style="display:none">
+            0 Exclusions
+          </div>
+          <div id="outcomeMeasureItems">
+          </div>
+          <div id="xexclusionMeasureItems">
+          </div>
+        </div><!-- end measureBox -->
+      </div><!-- end #outcomeMeasures -->
+    </div><!-- end measureEditContainer -->
+        </dl><dl>
           <dt>Expected Reports:</dt>
           <dd>
             <table>
