@@ -82,11 +82,11 @@ namespace :mpl do
   
      desc 'Roll the date of every aspect of each patient forward or backwards [years, months, days] depending on sign'
  task :roll, :years, :months, :days, :start_date, :needs=> :setup do |t, args|
-    args.with_defaults(:years => 0, :months => 0, :days =>0, :start_date => false)
+    args.with_defaults(:years => 0,  :start_date => false)
     if args[:start_date]
-        Cypress::PatientRoll.rollEffectiveDate(args[:start_date])
+        Cypress::PatientRoll.roll_effective_date(args[:start_date])
     else
-        Cypress::PatientRoll.rollYearMonthDay(args[:years], args[:months], args[:days])
+        Cypress::PatientRoll.roll_year(args[:years])
      end
   end
 
