@@ -376,8 +376,11 @@ section#measureMap {
       width: 600px;
     }
     span.mapping {
-      display:none;
       margin-left: .2em;
+    }
+    span.mapping input[readonly] {
+        background:transparent;
+        border:1px solid transparent;
     }
     address span { display: block }
   }
@@ -1083,6 +1086,10 @@ input.valid,textarea.valid {background:#DEFADE;}
       } 
     } 
   } 
+}
+
+#mm_edit {
+    text-align: center;
 }
 
 #outcomeMeasures {
