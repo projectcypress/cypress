@@ -1,9 +1,9 @@
 {
-  "_id": "4fd62a09a9ffcca7740017f2",
+  "_id": "4fe1ed03a9ffcc03cd0017f9",
   "birthdate": -962913600,
   "conditions": [
     {
-      "_id": "4fd62a09a9ffcca7740017fc",
+      "_id": "4fe1ed03a9ffcc03cd001803",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -17,8 +17,13 @@
         ]
       },
       "description": "Heart Failure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
       "start_time": null,
       "status": "active",
@@ -28,7 +33,7 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca7740017fd",
+      "_id": "4fe1ed03a9ffcc03cd001804",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -42,8 +47,13 @@
         ]
       },
       "description": "Hypertension",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "start_time": null,
       "status": "active",
@@ -57,7 +67,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fd62a09a9ffcca7740017f3",
+      "_id": "4fe1ed03a9ffcc03cd0017fa",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -69,8 +79,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -80,7 +92,7 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca7740017f4",
+      "_id": "4fe1ed03a9ffcc03cd0017fb",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -92,8 +104,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -134,17 +148,6 @@
         1273032000
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1276574400,
-        1273032000
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1273032000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1273032000
@@ -159,6 +162,11 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1276401600,
+        1273032000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1273032000
       ]
     },
@@ -206,6 +214,12 @@
         1273032000
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1276574400,
+        1273032000
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1276574400,
@@ -227,23 +241,13 @@
         1273032000
       ]
     },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1276574400,
-        1273032000
-      ]
-    },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1276574400,
-        1273032000
-      ],
-      "encounter_outpatient_encounter": [
-        1276574400,
-        1273032000
-      ]
-    },
     "0033": {
+      "encounter_outpatient_encounter": [
+        1276574400,
+        1273032000
+      ]
+    },
+    "0034": {
       "encounter_outpatient_encounter": [
         1276574400,
         1273032000
@@ -257,6 +261,16 @@
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
+        1276574400,
+        1273032000
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1276574400,
+        1273032000
+      ],
+      "encounter_outpatient_encounter": [
         1276574400,
         1273032000
       ]
@@ -508,14 +522,14 @@
         1273032000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1276574400,
         1273032000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1276574400,
         1273032000
       ]
@@ -559,7 +573,7 @@
   },
   "results": [
     {
-      "_id": "4fd62a09a9ffcca7740017fe",
+      "_id": "4fe1ed03a9ffcc03cd001805",
       "codes": {
         "CPT": [
           "83701"
@@ -572,8 +586,11 @@
         ]
       },
       "description": "High Density Lipoprotein (HDL)",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0392885:High density lipoprotein measurement;",
       "start_time": null,
@@ -585,7 +602,7 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca7740017ff",
+      "_id": "4fe1ed03a9ffcc03cd001806",
       "codes": {
         "CPT": [
           "83721"
@@ -598,8 +615,11 @@
         ]
       },
       "description": "LDL",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "start_time": null,
@@ -611,7 +631,7 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca774001800",
+      "_id": "4fe1ed03a9ffcc03cd001807",
       "codes": {
         "CPT": [
           "82465"
@@ -624,8 +644,11 @@
         ]
       },
       "description": "Total Cholesterol",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0546633:Cholesterol total measurement;",
       "start_time": null,
@@ -637,7 +660,7 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca774001801",
+      "_id": "4fe1ed03a9ffcc03cd001808",
       "codes": {
         "CPT": [
           "84478"
@@ -650,8 +673,11 @@
         ]
       },
       "description": "Triglycerides",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0202236:Triglycerides measurement;",
       "start_time": null,
@@ -663,15 +689,18 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca774001802",
+      "_id": "4fe1ed03a9ffcc03cd001809",
       "codes": {
         "SNOMED-CT": [
           "70822001"
         ]
       },
       "description": "Ejection Fraction",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0232174:Cardiac ejection fraction;",
       "start_time": null,
@@ -685,19 +714,21 @@
   ],
   "social_history": [
     {
-      "_id": "4fd62a09a9ffcca7740017f5",
+      "_id": "4fe1ed03a9ffcc03cd0017fc",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "description": "Tobacco Non-User",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0425311:Current non-smoker;",
       "start_time": null,
       "status": null,
       "time": 1273032000,
-      "type": null,
       "value": {
         "scalar": null,
         "units": null
@@ -707,15 +738,18 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fd62a09a9ffcca7740017f6",
+      "_id": "4fe1ed03a9ffcc03cd0017fd",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -727,15 +761,18 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca7740017f7",
+      "_id": "4fe1ed03a9ffcc03cd0017fe",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -747,15 +784,18 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca7740017f8",
+      "_id": "4fe1ed03a9ffcc03cd0017ff",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -767,15 +807,18 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca7740017f9",
+      "_id": "4fe1ed03a9ffcc03cd001800",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -787,7 +830,7 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca7740017fa",
+      "_id": "4fe1ed03a9ffcc03cd001801",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -797,8 +840,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -810,7 +856,7 @@
       }
     },
     {
-      "_id": "4fd62a09a9ffcca7740017fb",
+      "_id": "4fe1ed03a9ffcc03cd001802",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -820,8 +866,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,

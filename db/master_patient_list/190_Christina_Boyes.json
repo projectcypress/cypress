@@ -1,15 +1,18 @@
 {
-  "_id": "4fd629f2a9ffcca7740007a2",
+  "_id": "4fe1ecc6a9ffcc03cd0007a3",
   "allergies": [
     {
-      "_id": "4fd629f2a9ffcca7740007a3",
+      "_id": "4fe1ecc6a9ffcc03cd0007a4",
       "codes": {
         "RxNorm": [
           "759609"
         ]
       },
       "description": "VZV Vaccine",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "reaction": null,
       "severity": null,
       "specifics": "C1814392:Varicella Virus Vaccine Live (Oka-Merck) strain 29800 UNT/ML Injectable Suspension [Zostavax];",
@@ -24,7 +27,7 @@
   "birthdate": 612504000,
   "conditions": [
     {
-      "_id": "4fd629f2a9ffcca7740007ae",
+      "_id": "4fe1ecc6a9ffcc03cd0007af",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -38,8 +41,13 @@
         ]
       },
       "description": "leukemia",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": null,
+      "priority": null,
       "specifics": "C0023448:Lymphoid leukemia;",
       "start_time": null,
       "status": "inactive",
@@ -49,7 +57,7 @@
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007af",
+      "_id": "4fe1ecc6a9ffcc03cd0007b0",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -63,8 +71,13 @@
         ]
       },
       "description": "Nonrheumatic mitral (valve) disease",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0026265:Diseases of mitral valve;",
       "start_time": null,
       "status": "active",
@@ -78,7 +91,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fd629f2a9ffcca7740007a5",
+      "_id": "4fe1ecc6a9ffcc03cd0007a6",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -90,8 +103,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -101,7 +116,7 @@
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007a6",
+      "_id": "4fe1ecc6a9ffcc03cd0007a7",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -113,8 +128,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -155,20 +172,6 @@
         1273636800
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1286856000,
-        1273636800
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1273636800
-      ],
-      "tobacco_user_patient_characteristic": [
-        1273636800
-      ]
-    },
-    "0012": {
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1286856000,
@@ -182,6 +185,8 @@
         1286856000,
         1273636800
       ]
+    },
+    "0012": {
     },
     "0014": {
     },
@@ -221,6 +226,18 @@
         1273636800
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1273636800
+      ],
+      "tobacco_user_patient_characteristic": [
+        1273636800
+      ]
+    },
     "0028": {
       "encounter_office_visit_encounter": [
         1286856000,
@@ -248,22 +265,6 @@
         1273636800
       ]
     },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1286856000,
-        1273636800
-      ]
-    },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1286856000,
-        1273636800
-      ],
-      "encounter_outpatient_encounter": [
-        1286856000,
-        1273636800
-      ]
-    },
     "0033": {
       "chlamydia_screening_laboratory_test_result": [
         1273636800
@@ -288,6 +289,12 @@
         1273636800
       ]
     },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1286856000,
+        1273636800
+      ]
+    },
     "0036": {
       "encounter_outpatient_encounter": [
         1286856000,
@@ -300,6 +307,16 @@
         1273636800
       ],
       "vzv_vaccine_medication_allergy": [
+        1273636800
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1286856000,
+        1273636800
+      ],
+      "encounter_outpatient_encounter": [
+        1286856000,
         1273636800
       ]
     },
@@ -487,14 +504,14 @@
         1273636800
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1286856000,
         1273636800
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+    "0385": {
+      "encounter_office_visit_encounter": [
         1286856000,
         1273636800
       ]
@@ -532,14 +549,18 @@
   },
   "medical_equipment": [
     {
-      "_id": "4fd629f2a9ffcca7740007a4",
+      "_id": "4fe1ecc6a9ffcc03cd0007a5",
       "codes": {
         "SNOMED-CT": [
           "169491004"
         ]
       },
       "description": "IUD use",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "manufacturer": null,
+      "mood_code": "EVN",
       "specifics": "C2921403:Contraceptive IUD check (finding);",
       "start_time": null,
       "status": null,
@@ -552,7 +573,7 @@
   "patient_id": "190",
   "procedures": [
     {
-      "_id": "4fd629f2a9ffcca7740007b3",
+      "_id": "4fe1ecc6a9ffcc03cd0007b4",
       "codes": {
         "SNOMED-CT": [
           "384742004"
@@ -562,33 +583,37 @@
         ]
       },
       "description": "tobacco use cessation counseling",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C1692317:Smoking cessation assistance;",
       "start_time": null,
       "status": null,
       "time": 1273636800,
-      "type": null,
       "value": {
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007b4",
+      "_id": "4fe1ecc6a9ffcc03cd0007b5",
       "codes": {
         "SNOMED-CT": [
           "44651004"
         ]
       },
       "description": "contraceptive use education",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C0204948:Contraceptive use education;",
       "start_time": null,
       "status": null,
       "time": 1273636800,
-      "type": null,
       "value": {
       }
     }
@@ -599,7 +624,7 @@
   },
   "results": [
     {
-      "_id": "4fd629f2a9ffcca7740007b0",
+      "_id": "4fe1ecc6a9ffcc03cd0007b1",
       "codes": {
         "CPT": [
           "87110"
@@ -612,8 +637,11 @@
         ]
       },
       "description": "Chlamydia Screening",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1294429:Measurement of Chlamydia pneumoniae antibody;",
       "start_time": null,
@@ -625,7 +653,7 @@
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007b1",
+      "_id": "4fe1ecc6a9ffcc03cd0007b2",
       "codes": {
         "ICD-9-CM": [
           "V72.32"
@@ -647,8 +675,11 @@
         ]
       },
       "description": "Pap Test",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "start_time": null,
@@ -660,7 +691,7 @@
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007b2",
+      "_id": "4fe1ecc6a9ffcc03cd0007b3",
       "codes": {
         "CPT": [
           "84702"
@@ -670,8 +701,11 @@
         ]
       },
       "description": "Pregnancy Test",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;",
       "start_time": null,
@@ -685,19 +719,21 @@
   ],
   "social_history": [
     {
-      "_id": "4fd629f2a9ffcca7740007a7",
+      "_id": "4fe1ecc6a9ffcc03cd0007a8",
       "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
       "description": "Tobacco User",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0459846:Moderate cigarette smoker;",
       "start_time": null,
       "status": null,
       "time": 1273636800,
-      "type": null,
       "value": {
         "scalar": null,
         "units": null
@@ -707,15 +743,18 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fd629f2a9ffcca7740007a8",
+      "_id": "4fe1ecc6a9ffcc03cd0007a9",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -727,15 +766,18 @@
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007a9",
+      "_id": "4fe1ecc6a9ffcc03cd0007aa",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -747,15 +789,18 @@
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007aa",
+      "_id": "4fe1ecc6a9ffcc03cd0007ab",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -767,15 +812,18 @@
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007ab",
+      "_id": "4fe1ecc6a9ffcc03cd0007ac",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -787,7 +835,7 @@
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007ac",
+      "_id": "4fe1ecc6a9ffcc03cd0007ad",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -797,8 +845,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -810,7 +861,7 @@
       }
     },
     {
-      "_id": "4fd629f2a9ffcca7740007ad",
+      "_id": "4fe1ecc6a9ffcc03cd0007ae",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -820,8 +871,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,

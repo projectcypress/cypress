@@ -1,9 +1,9 @@
 {
-  "_id": "4fd629fba9ffcca774000ea7",
+  "_id": "4fe1ece0a9ffcc03cd000eae",
   "birthdate": 387090000,
   "conditions": [
     {
-      "_id": "4fd629fba9ffcca774000eb3",
+      "_id": "4fe1ece0a9ffcc03cd000eba",
       "causeOfDeath": null,
       "codes": {
         "SNOMED-CT": [
@@ -14,8 +14,13 @@
         ]
       },
       "description": "IV drug abuse",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0154530:Opioid abuse, continuous use;",
       "start_time": null,
       "status": "active",
@@ -25,7 +30,7 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000eb4",
+      "_id": "4fe1ece0a9ffcc03cd000ebb",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -39,8 +44,13 @@
         ]
       },
       "description": "Hypertension",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "start_time": null,
       "status": "active",
@@ -50,7 +60,7 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000eb5",
+      "_id": "4fe1ece0a9ffcc03cd000ebc",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -64,8 +74,13 @@
         ]
       },
       "description": "alcohol or drug dependence",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
       "start_time": null,
       "status": "active",
@@ -79,7 +94,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fd629fba9ffcca774000ea8",
+      "_id": "4fe1ece0a9ffcc03cd000eaf",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -88,8 +103,10 @@
       },
       "description": "encounter non-acute inpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C1610111:Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Physicians typically spend 20 minutes with the patient and/or family or caregiver.;",
       "start_time": null,
@@ -99,7 +116,7 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000ea9",
+      "_id": "4fe1ece0a9ffcc03cd000eb0",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -108,8 +125,10 @@
       },
       "description": "encounter ED",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "start_time": null,
@@ -154,20 +173,6 @@
         1275364800
       ]
     },
-    "0027": {
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1274328000
-      ],
-      "tobacco_user_patient_characteristic": [
-        1274328000
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1274328000,
-        1273896000
-      ]
-    },
     "0013": {
       "hypertension_diagnosis_active": [
         1274328000
@@ -182,6 +187,12 @@
       "systolic_blood_pressure_physical_exam_finding": [
         1275364800,
         1274328000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1274328000,
+        1273896000
       ]
     },
     "0014": {
@@ -221,6 +232,14 @@
         1274328000
       ]
     },
+    "0027": {
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1274328000
+      ],
+      "tobacco_user_patient_characteristic": [
+        1274328000
+      ]
+    },
     "0028": {
       "tobacco_user_patient_characteristic": [
         1274328000
@@ -233,7 +252,16 @@
     },
     "0032": {
     },
+    "0033": {
+    },
     "0034": {
+    },
+    "0036": {
+      "encounter_ed_encounter": [
+        1274328000
+      ]
+    },
+    "0038": {
     },
     "0041": {
       "encounter_influenza_encounter": [
@@ -242,15 +270,6 @@
       "encounter_outpatient_encounter": [
         1275364800
       ]
-    },
-    "0033": {
-    },
-    "0036": {
-      "encounter_ed_encounter": [
-        1274328000
-      ]
-    },
-    "0038": {
     },
     "0043": {
     },
@@ -432,8 +451,6 @@
         1275364800
       ]
     },
-    "0385": {
-    },
     "0105": {
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1275364800
@@ -441,6 +458,8 @@
       "encounter_ed_encounter": [
         1274328000
       ]
+    },
+    "0385": {
     },
     "0387": {
     },
@@ -473,7 +492,7 @@
   "medical_record_number": null,
   "medications": [
     {
-      "_id": "4fd629fba9ffcca774000eb8",
+      "_id": "4fe1ece0a9ffcc03cd000ebf",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -485,10 +504,13 @@
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
+      "element_name": null,
       "end_time": null,
       "freeTextSig": null,
+      "free_text": null,
       "fulfillmentInstructions": null,
       "indication": null,
+      "mood_code": "EVN",
       "patientInstructions": null,
       "productForm": null,
       "reaction": null,
@@ -508,7 +530,7 @@
   "patient_id": "195",
   "procedures": [
     {
-      "_id": "4fd629fba9ffcca774000eb6",
+      "_id": "4fe1ece0a9ffcc03cd000ebd",
       "codes": {
         "SNOMED-CT": [
           "384742004"
@@ -518,19 +540,21 @@
         ]
       },
       "description": "tobacco use cessation counseling",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C1692317:Smoking cessation assistance;",
       "start_time": null,
       "status": null,
       "time": 1274328000,
-      "type": null,
       "value": {
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000eb7",
+      "_id": "4fe1ece0a9ffcc03cd000ebe",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -540,14 +564,16 @@
         ]
       },
       "description": "alcohol, drug rehab and detox interventions",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C0204598:Alcohol rehabilitation;",
       "start_time": null,
       "status": null,
       "time": 1273896000,
-      "type": null,
       "value": {
       }
     }
@@ -558,19 +584,21 @@
   },
   "social_history": [
     {
-      "_id": "4fd629fba9ffcca774000eaa",
+      "_id": "4fe1ece0a9ffcc03cd000eb1",
       "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
       "description": "Tobacco User",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0459846:Moderate cigarette smoker;",
       "start_time": null,
       "status": null,
       "time": 1274328000,
-      "type": null,
       "value": {
         "scalar": null,
         "units": null
@@ -580,15 +608,18 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fd629fba9ffcca774000eab",
+      "_id": "4fe1ece0a9ffcc03cd000eb2",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -600,15 +631,18 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000eac",
+      "_id": "4fe1ece0a9ffcc03cd000eb3",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -620,15 +654,18 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000ead",
+      "_id": "4fe1ece0a9ffcc03cd000eb4",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
       "description": "Heart Rate",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0018810:heart rate;",
       "start_time": null,
@@ -640,15 +677,18 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000eae",
+      "_id": "4fe1ece0a9ffcc03cd000eb5",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -660,15 +700,18 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000eaf",
+      "_id": "4fe1ece0a9ffcc03cd000eb6",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -680,15 +723,18 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000eb0",
+      "_id": "4fe1ece0a9ffcc03cd000eb7",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
       "description": "Heart Rate",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0018810:heart rate;",
       "start_time": null,
@@ -700,7 +746,7 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000eb1",
+      "_id": "4fe1ece0a9ffcc03cd000eb8",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -710,8 +756,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -723,7 +772,7 @@
       }
     },
     {
-      "_id": "4fd629fba9ffcca774000eb2",
+      "_id": "4fe1ece0a9ffcc03cd000eb9",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -733,8 +782,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,

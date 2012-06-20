@@ -1,9 +1,9 @@
 {
-  "_id": "4fd629fca9ffcca774000ecf",
+  "_id": "4fe1ece1a9ffcc03cd000ed6",
   "birthdate": 360820800,
   "conditions": [
     {
-      "_id": "4fd629fca9ffcca774000ed7",
+      "_id": "4fe1ece1a9ffcc03cd000ede",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -17,8 +17,13 @@
         ]
       },
       "description": "Liver Disorders",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0156189:Cirrhosis and chronic liver disease;",
       "start_time": null,
       "status": "active",
@@ -28,7 +33,7 @@
       }
     },
     {
-      "_id": "4fd629fca9ffcca774000ed8",
+      "_id": "4fe1ece1a9ffcc03cd000edf",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -42,8 +47,13 @@
         ]
       },
       "description": "alcohol or drug dependence",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
       "start_time": null,
       "status": "active",
@@ -57,7 +67,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fd629fca9ffcca774000ed0",
+      "_id": "4fe1ece1a9ffcc03cd000ed7",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -66,8 +76,10 @@
       },
       "description": "encounter ED",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "start_time": null,
@@ -77,7 +89,7 @@
       }
     },
     {
-      "_id": "4fd629fca9ffcca774000ed1",
+      "_id": "4fe1ece1a9ffcc03cd000ed8",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -86,8 +98,10 @@
       },
       "description": "encounter ED",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "start_time": null,
@@ -130,16 +144,6 @@
         1273723200
       ]
     },
-    "0027": {
-      "tobacco_user_patient_characteristic": [
-        1273723200
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1273723200
-      ]
-    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1278907200,
@@ -147,6 +151,11 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1278907200,
+        1273723200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1273723200
       ]
     },
@@ -179,6 +188,11 @@
     },
     "0024": {
     },
+    "0027": {
+      "tobacco_user_patient_characteristic": [
+        1273723200
+      ]
+    },
     "0028": {
       "tobacco_user_patient_characteristic": [
         1273723200
@@ -187,10 +201,6 @@
     "0031": {
     },
     "0032": {
-    },
-    "0034": {
-    },
-    "0041": {
     },
     "0033": {
       "pregnancy_test_laboratory_test_performed": [
@@ -202,6 +212,8 @@
         1278907200
       ]
     },
+    "0034": {
+    },
     "0036": {
       "encounter_ed_encounter": [
         1278907200,
@@ -209,6 +221,8 @@
       ]
     },
     "0038": {
+    },
+    "0041": {
     },
     "0043": {
     },
@@ -323,13 +337,13 @@
     },
     "0089": {
     },
-    "0385": {
-    },
     "0105": {
       "encounter_ed_encounter": [
         1278907200,
         1273723200
       ]
+    },
+    "0385": {
     },
     "0387": {
     },
@@ -348,7 +362,7 @@
   "patient_id": "138",
   "procedures": [
     {
-      "_id": "4fd629fca9ffcca774000edb",
+      "_id": "4fe1ece1a9ffcc03cd000ee2",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -358,14 +372,16 @@
         ]
       },
       "description": "alcohol, drug rehab and detox interventions",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C0204598:Alcohol rehabilitation;",
       "start_time": null,
       "status": null,
       "time": 1273723200,
-      "type": null,
       "value": {
       }
     }
@@ -376,7 +392,7 @@
   },
   "results": [
     {
-      "_id": "4fd629fca9ffcca774000ed9",
+      "_id": "4fe1ece1a9ffcc03cd000ee0",
       "codes": {
         "CPT": [
           "84702"
@@ -386,8 +402,11 @@
         ]
       },
       "description": "Pregnancy Test",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;",
       "start_time": null,
@@ -399,7 +418,7 @@
       }
     },
     {
-      "_id": "4fd629fca9ffcca774000eda",
+      "_id": "4fe1ece1a9ffcc03cd000ee1",
       "codes": {
         "CPT": [
           "84702"
@@ -409,8 +428,11 @@
         ]
       },
       "description": "Pregnancy Test",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0364239:Choriogonadotropin:Substance Concentration:Point in time:Serum/Plasma:Quantitative;",
       "start_time": null,
@@ -424,19 +446,21 @@
   ],
   "social_history": [
     {
-      "_id": "4fd629fca9ffcca774000ed2",
+      "_id": "4fe1ece1a9ffcc03cd000ed9",
       "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
       "description": "Tobacco User",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0459846:Moderate cigarette smoker;",
       "start_time": null,
       "status": null,
       "time": 1273723200,
-      "type": null,
       "value": {
         "scalar": null,
         "units": null
@@ -446,15 +470,18 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fd629fca9ffcca774000ed3",
+      "_id": "4fe1ece1a9ffcc03cd000eda",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -466,15 +493,18 @@
       }
     },
     {
-      "_id": "4fd629fca9ffcca774000ed4",
+      "_id": "4fe1ece1a9ffcc03cd000edb",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -486,15 +516,18 @@
       }
     },
     {
-      "_id": "4fd629fca9ffcca774000ed5",
+      "_id": "4fe1ece1a9ffcc03cd000edc",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -506,15 +539,18 @@
       }
     },
     {
-      "_id": "4fd629fca9ffcca774000ed6",
+      "_id": "4fe1ece1a9ffcc03cd000edd",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
