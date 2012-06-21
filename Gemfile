@@ -6,7 +6,7 @@ gem 'jquery-rails'
 gem 'rake'
 #gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop' 
 gem 'quality-measure-engine', '1.1.3'
-#gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
+#gem 'health-data-standards', :path => '../health-data-standards'
 gem 'health-data-standards', '0.8.1'
 
 gem 'bson', '1.5.1'
