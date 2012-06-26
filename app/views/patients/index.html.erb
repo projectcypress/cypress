@@ -1,128 +1,6 @@
 <% content_for :head do %>
 
-  <script type="text/javascript">
-    $(function() {
-	
-      $('#loading_dialog').dialog({
-        autoOpen: false,
-        closeOnEscape: false,
-        draggable: false,
-        position: 'center',
-        width: 'auto',
-        height: '100',
-        modal: true,
-        resizable: false,
-        open: function(event, ui) { $(".ui-dialog-titlebar-close").hide()}
-      });
-    });
-	
-	var cypress = cypress || {};
- 
-  cypress.renderMeasureJSON = function(data) {
-       var measure = data;
-        var elemParent;
-        var addParamItems = function(obj,elemParent,container) {
-          var items = obj['and'] || obj['or'];
-          if ($.isArray(items)) {
-            var conjunction = obj['and'] ? 'and' : 'or';
-            // add the grouping container
-            if (!container) {elemParent = $("#ph_tmpl_paramGroup").tmpl({}).appendTo(elemParent).find(".paramItem:last");}
-              $.each(items,function(i,node) {
-                addParamItems(node,elemParent);
-                if (i < items.length-1) {
-                  $(elemParent).append("<span class='"+conjunction+"'>"+conjunction+"</span>");
-                }
-              });
-            } else {
-              // we dont have a nested measure clause, add the item to the bottom of the list
-              if (!elemParent.hasClass("paramItem")) {
-                elemParent = $("#ph_tmpl_paramGroup").tmpl({}).appendTo(elemParent).find(".paramItem:last");
-              }
-              $("#ph_tmpl_paramItem").tmpl(obj).appendTo(elemParent);
-            }
-        } // end addParamItems
-
-        if (data.population) {
-         elemParent = $("#ph_tmpl_paramGroup").tmpl({}).appendTo("#eligibilityMeasureItems").find(".paramItem:last");
-         addParamItems(data.population,elemParent,elemParent);
-         elemParent.parent().addClass("population");
-       }
-
-        if (!$.isEmptyObject(data.denominator)) {
-          $("#eligibilityMeasureItems").append("<span class='and'>and</span>");
-          addParamItems(data.denominator,$("#eligibilityMeasureItems"));
-        }
-
-        if (data.numerator) {
-          addParamItems(data.numerator,$("#outcomeMeasureItems"));
-        }
-
-     }
-    function openLoadingDialog(){
-      $('#loading_dialog').dialog('open');
-    }
-    setTimeout("openLoadingDialog()",400);
-
-    $(document).ready(function() {
-	<% if params[:measure_id] != nil %>
-	  $.getJSON("<%=measure_definition_url(:measure_id => params[:measure_id])%>", cypress.renderMeasureJSON);
-    <%end%>
-      <% if @test %>
-        <% if @result['numerator']=='?' %>
-          $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id, :product_test_id => @test.id ) %>",
-                            "<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution], :showAll => @showAll) %>")             
-        <% elsif @showAll%>
-          $.cypress.updatePatientTable("<%= table_all_patients_path(:product_test_id => @test.id,:execution=> params[:execution]) %>")
-        <% else %>
-          $.cypress.updatePatientTable("<%= table_measure_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution]) %>")
-        <% end %>
-      <% else %>
-        <% if @result['numerator']=='?' %>
-          $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id ) %>", "<%= table_patients_path(:measure_id => @selected.id, :showAll => @showAll) %>")
-        <% elsif @showAll == true%>
-          $.cypress.updatePatientTable("<%= table_all_patients_path() %>")
-        <% else %>
-          $.cypress.updatePatientTable("<%= table_measure_patients_path(:measure_id => @selected.id) %>")
-        <% end %>
-      <% end %>
-	  
-	
-      var hiden  = true;
-	  $('#measureEditContainer').slideUp();
-	  
-	  $('.measure_definition').click(function(){
-	  if(hiden){
-	      $('#measureEditContainer').slideDown(500);
-		  $('#show_hide').text("Hide Definition");
-		  }		  
-	  else{
-	      $('#measureEditContainer').slideUp(500);
-		  $('#show_hide').text("Expand Definition");
-		  }
-		  hiden = !hiden;
-	  
-	  });
-	  
-    });
-  </script>
-  
-  <script type="text/html" id="ph_tmpl_paramItem">
-    <div>
-      <!-- ${percentage=Math.round(Math.random()*100,2)} -->
-      {{if category}}<label>${category}</label>{{/if}}
-      ${title}
-    </div>
-  </script>
-  <script type="text/html" id="ph_tmpl_paramGroupContainer">
-    <div class="paramGroupContainer">
-    </div>
-  </script>
-  <script type="text/html" id="ph_tmpl_paramGroup">
-    <div class="paramGroup"><div class="paramItem">
-    </div></div>
-  </script>
-<% end %>
-
+<%end%>
 <div id="loading_dialog" title="Loading...">
   <p>Please wait while the patients are retrieved.</p>
 </div>
@@ -130,7 +8,7 @@
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section class="tb">
       <% if @test
         zip_c32_path = download_product_test_path(@test, :format => 'c32')
@@ -178,7 +56,7 @@
       </nav>
     </section>
     
-    <section class="nqf">
+    <section class="nqf bordered buffered">
       <h2>
         <% if @test %>
           <%= @test.name %> Patient List
@@ -240,7 +118,7 @@
         </dl><dl>
           <dt>Expected Reports:</dt>
           <dd>
-            <table>
+            <table class="table">
             <% if @selected %>
               <tr id='<%= "#{@selected.id}" %>'>
             <% else %>

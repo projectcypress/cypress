@@ -26,3 +26,15 @@ body {
 .bordered { @include bordered($borderColor); }
 
 #information { }
+
+#patientpicture {
+  width:120px;
+  height:130px;
+}
+
+.patientname{
+  strong {
+    font-weight:bold;
+    text-transform:uppercase;
+  }
+}

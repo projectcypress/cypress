@@ -19,3 +19,35 @@
 .table-hover {
   tbody tr:hover td, tbody tr:hover th { background-color: #e6f3e8; }
 }
+
+tr.sub_rows {
+  display:none;
+}
+
+#patient_characteristics th{
+ background-color:#F0F0F0;
+width:10px;
+  border:none;
+}
+
+td {//Status bubbles in top-left of new product test wizard
+  span.wizard {
+    width:16px;
+    text-indent:-9999pt;
+    display:block;
+  }
+
+  span.incomplete {
+    @extend span.wizard;
+    background:url(/assets/insufficient.png) 0 50% no-repeat;
+  }
+
+  span.complete {
+    @extend span.wizard;    
+    background:url(/assets/included.png) 0 50% no-repeat;
+  }
+  span.current {
+    @extend span.wizard;    
+    background:url(/assets/pass.png) 0 50% no-repeat;
+   }
+}

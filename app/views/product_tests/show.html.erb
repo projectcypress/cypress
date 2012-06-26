@@ -102,7 +102,7 @@
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class ="buffered">
     <section class="tb">
       <div class="stacked">
         <%= link_to "Results", '', {
@@ -166,7 +166,7 @@
       </nav>
     </section>
 
-    <section class="candidate">  
+    <section class="candidate bordered buffered">  
       <dl class="vendor">
         <dt>Test:</dt> <dd><%= @test.name %></dd>
         <dt>Reporting Period:</dt> <dd><%= 3.months.ago(Time.at(@test.effective_date)).strftime("%m/%d/%Y") %> - <%= Time.at(@test.effective_date).strftime("%m/%d/%Y") %></dd>
@@ -197,7 +197,7 @@
     </section>
 
     <% if @never_executed_before %>
-      <section class="free_text">
+      <section class="free_text dentered">
         <div class="directions">
           <p>
             Below are the expected results for your patient population.  You must perform the following steps to complete your test:

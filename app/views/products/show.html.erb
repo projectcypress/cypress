@@ -3,9 +3,9 @@
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section class="tb">
-      <div class="stacked">
+      <div class="stacked" id="pageButtons">
         <%= link_to "Add Test", new_product_test_path(:product => @product), { :class => "cmd" } %>
         <%= link_to "Edit Product", edit_product_path, { :class => "cmd" } %>
       </div>
@@ -16,8 +16,8 @@
       </nav>
     </section>
 
-    <section class="candidate">
-      <dl class="vendor">
+    <section class="candidate bordered buffered">
+      <dl class="vendor dl-horizontal"> <%#WILL WORK WHEN UPGRADED TO BOOTSRAP 2.0.2+%>
         <dt>Product:</dt> <dd><%= @product.name %></dd>
         <dt>Version:</dt> <dd><%= @product.version %></dd>
       </dl>
@@ -27,7 +27,7 @@
     </section>
     
     <section id="ehr_results">
-      <table>
+      <table class="table">
         <% product_tests_by_status(@product).each do |result_status, result_tests|
           next if result_tests.empty?
           if result_status == 'incomplete'
@@ -56,11 +56,11 @@
                 first_td_class = 'expander toggle'
                 dot_color = result_status
               else
-                dot_color = 'na'
+                dot_color = 'incomplete'
               end %>
               <tr>
-                <td><div title="<%= success_rate %>%" class="<%= dot_color %>"><%= success_rate %></div></td>
-                         <td class="<%= first_td_class %>" data-code="<%= test.id %>"></td>
+                <td class="<%=dot_color%>-icon"></td>
+                <td class="<%= first_td_class %>" data-code="<%= test.id %>"></td>
                 <td class="<%= result_status %>"><a href="<%= product_test_path(test) %>"><%= test.name %></a></td>
                 <td><%= test.description %></td>
                 <td><%= test.test_executions.size %></td>

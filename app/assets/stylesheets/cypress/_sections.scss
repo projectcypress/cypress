@@ -21,8 +21,14 @@ section {
     display: inline-block;
     address span {display:block;}
   }
+
+  
 }
 
+
+section.patient.patientname{
+    margin-left: 190px;
+  }
 section.information {
   font-size: 1em;
   line-height: 1.5em;
@@ -34,4 +40,8 @@ section.legend {
   border-top: 1px solid $borderColor;
   dl, dt, dd { width: auto; display: inline-block; }
   dd { margin-left: 25px; }
+}
+.patient_info{
+  position:relative;
+top:opx;
 }

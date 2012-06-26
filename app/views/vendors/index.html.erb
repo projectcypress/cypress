@@ -46,6 +46,7 @@
             <tbody>
               <tr>
                 <td class="<%= dot_color %>-icon"></td>
+                <td class="<%= first_td_class %>" data-code="<%= vendor.id %>"></td>
                 <td>
                   <% unless vendor.products.empty? %>
                     <div class="<%= first_td_class %>" data-code="<%= vendor.id %>"></div>
@@ -67,6 +68,7 @@
                   
                   <tr class="sub_rows <%= vendor.id %>">
                     <td title="<%= product.success_rate %>%" class="<%= product_status %>"></td>
+                    <td class="<%= product_status %>-icon"></td>
                     <td><a class="<%= product_status %>" href="<%= product_path(product) %>"><%= product.name %></a></td>
                     <td><strong class="<%= product_status %>"><%= product.count_passing %></strong><span class="result"> / <%= product.product_tests.size %> tests passed</span></td>
                     <td></td>

@@ -5,13 +5,13 @@
   
   <h1>Product Information</h1>
   <section id="vendorInfo">
-    <dl>
+    <dl class="dl-horizontal">
       <dt>Product Name:</dt>
       <dd><%= f.text_field :name, :size=>"20", :class=>"required" %></dd>
       <dt>Version:</dt>
       <dd><%= f.text_field :version, :size=>"20", :class=>"req" %></dd>
     </dl>
-    <dl>
+    <dl class="dl-horizontal">
       <dt>Description:</dt>
       <dd><%= f.text_field :description, :size=>"20", :class=>"req" %></dd>
     </dl>
