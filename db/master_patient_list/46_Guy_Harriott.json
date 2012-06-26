@@ -1,18 +1,188 @@
 {
-  "_id": "4fa2ed3ca9ffcc3a1f0009ec",
-  "patient_id": "46",
-  "first": "Guy",
-  "last": "Harriott",
-  "gender": "M",
+  "_id": "4fd629f5a9ffcca7740009ed",
   "birthdate": 1238040000,
-  "race": {
-    "name": "White",
-    "code": "2106-3"
-  },
+  "conditions": [
+    {
+      "_id": "4fd629f5a9ffcca7740009fb",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "J02"
+        ],
+        "SNOMED-CT": [
+          "363746003"
+        ],
+        "ICD-9-CM": [
+          "462"
+        ]
+      },
+      "description": "pharyngitis",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0001344:Acute pharyngitis;",
+      "start_time": null,
+      "status": "active",
+      "time": 1263963600,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629f5a9ffcca7740009ee",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1301112000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629f5a9ffcca7740009ef",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1285473600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629f5a9ffcca7740009f0",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1271304000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629f5a9ffcca7740009f1",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1269748800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629f5a9ffcca7740009f2",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1254110400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629f5a9ffcca7740009f3",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1248494400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629f5a9ffcca7740009f4",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1242964800,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Not Hispanic or Latino",
     "code": "2186-5"
   },
+  "first": "Guy",
+  "gender": "M",
+  "languages": null,
+  "last": "Harriott",
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -302,150 +472,49 @@
       ]
     }
   },
-  "conditions": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "J02"
-        ],
-        "SNOMED-CT": [
-          "363746003"
-        ],
-        "ICD-9-CM": [
-          "462"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009fa",
-      "_type": "Condition",
-      "time": 1263963600,
-      "description": "pharyngitis",
-      "specifics": "C0001344:Acute pharyngitis;",
-      "status": "active"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009ed",
-      "_type": "Encounter",
-      "time": 1301112000,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009ee",
-      "_type": "Encounter",
-      "time": 1285473600,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009ef",
-      "_type": "Encounter",
-      "time": 1271304000,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f0",
-      "_type": "Encounter",
-      "time": 1269748800,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f1",
-      "_type": "Encounter",
-      "time": 1254110400,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f2",
-      "_type": "Encounter",
-      "time": 1248494400,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f3",
-      "_type": "Encounter",
-      "time": 1242964800,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    }
-  ],
+  "medical_record_number": null,
   "medications": [
     {
+      "_id": "4fd629f5a9ffcca7740009fd",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "309078"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Third generation cephalosporins",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0975386:cefpodoxime 200 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1271304000,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fa2ed3ca9ffcc3a1f0009fc",
-      "_type": "Medication",
-      "time": 1271304000,
-      "description": "Third generation cephalosporins",
-      "specifics": "C0975386:cefpodoxime 200 MG Oral Tablet;"
+      "vehicle": null
     }
   ],
+  "patient_id": "46",
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
   "results": [
     {
+      "_id": "4fd629f5a9ffcca7740009fc",
       "codes": {
         "CPT": [
           "87430"
@@ -457,19 +526,24 @@
           "122245007"
         ]
       },
+      "description": "Group A Streptococcus Test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;",
+      "start_time": null,
+      "status": null,
+      "time": 1271304000,
       "value": {
         "scalar": "Positive",
         "units": null
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009fb",
-      "_type": "LabResult",
-      "time": 1271304000,
-      "description": "Group A Streptococcus Test",
-      "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629f5a9ffcca7740009f5",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -478,17 +552,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1301112000,
       "value": {
         "scalar": 17.358024691358025,
         "units": null
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f4",
-      "_type": "VitalSign",
-      "time": 1301112000,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629f5a9ffcca7740009f6",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -497,17 +575,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1285473600,
       "value": {
         "scalar": 19.22265625,
         "units": null
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f5",
-      "_type": "VitalSign",
-      "time": 1285473600,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629f5a9ffcca7740009f7",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -516,17 +598,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1269748800,
       "value": {
         "scalar": 18.746666666666666,
         "units": null
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f6",
-      "_type": "VitalSign",
-      "time": 1269748800,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629f5a9ffcca7740009f8",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -535,17 +621,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1254110400,
       "value": {
         "scalar": 19.75887573964497,
         "units": null
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f7",
-      "_type": "VitalSign",
-      "time": 1254110400,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629f5a9ffcca7740009f9",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -554,17 +644,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1248494400,
       "value": {
         "scalar": 15.7472,
         "units": null
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f8",
-      "_type": "VitalSign",
-      "time": 1248494400,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629f5a9ffcca7740009fa",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -573,15 +667,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1242964800,
       "value": {
         "scalar": 13.820793950850662,
         "units": null
-      },
-      "_id": "4fa2ed3ca9ffcc3a1f0009f9",
-      "_type": "VitalSign",
-      "time": 1242964800,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }

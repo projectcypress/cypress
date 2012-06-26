@@ -4,6 +4,7 @@ require_relative "./simplecov"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha'
+require 'measures/importer'
 
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
@@ -80,6 +81,14 @@ class ActiveSupport::TestCase
       loader.save('records', json)
     end
   end
+  
+  def load_measures
+    importer = Measures::Importer.new(Mongoid.master)
+    importer.drop_measures()
+    importer.import(File.new("./db/bundle.zip"))
+  end
+  
+  
 end
 
 class ActionController::TestCase

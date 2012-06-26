@@ -1,18 +1,866 @@
 {
-  "_id": "4fa2ed34a9ffcc3a1f0004e1",
-  "patient_id": "45",
-  "first": "Nelson",
-  "last": "Tuff",
-  "gender": "M",
+  "_id": "4fd629eea9ffcca7740004e3",
   "birthdate": 877492800,
-  "race": {
-    "name": "Other Race",
-    "code": "2131-1"
-  },
+  "care_goals": [
+    {
+      "_id": "4fd629eea9ffcca774000522",
+      "codes": {
+        "CPT": [
+          "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ]
+      },
+      "description": "follow-up plan_BMI management",
+      "end_time": null,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000523",
+      "codes": {
+        "CPT": [
+          "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ]
+      },
+      "description": "follow-up plan_BMI management",
+      "end_time": null,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
+      "start_time": null,
+      "status": null,
+      "time": 1295067600,
+      "value": {
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "_id": "4fd629eea9ffcca774000503",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "250"
+        ],
+        "ICD-10-CM": [
+          "E11.9"
+        ],
+        "SNOMED-CT": [
+          "73211009"
+        ]
+      },
+      "description": "diabetes",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0011849:Diabetes Mellitus;",
+      "start_time": null,
+      "status": "active",
+      "time": 1265778000,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629eea9ffcca7740004e4",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1295067600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004e5",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1285992000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004e6",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1278648000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004e7",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004e8",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004e9",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1202274000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004ea",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1159243200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004eb",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1140238800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004ec",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1131598800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004ed",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1124683200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004ee",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1108530000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004ef",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1103086800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004f0",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1099108800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004f1",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1093060800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca7740004f2",
+      "admitType": null,
+      "codes": {
+        "ICD-10-CM": [
+          "Z00.1"
+        ]
+      },
+      "description": "encounter outpatient-children",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;",
+      "start_time": null,
+      "status": null,
+      "time": 1089172800,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Hispanic or Latino",
     "code": "2135-2"
   },
+  "first": "Nelson",
+  "gender": "M",
+  "immunizations": [
+    {
+      "_id": "4fd629eea9ffcca77400050c",
+      "codes": {
+        "RxNorm": [
+          "798481"
+        ]
+      },
+      "description": "Hepatitis A Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;",
+      "start_time": null,
+      "status": null,
+      "time": 1159243200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca77400050d",
+      "codes": {
+        "RxNorm": [
+          "795926"
+        ]
+      },
+      "description": "DTAP Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C1697230:Diphtheria Toxoid Vaccine 13.4 UNT/ML / Tetanus Toxoid Vaccine 10 UNT/ML Injectable Solution;",
+      "start_time": null,
+      "status": null,
+      "time": 1140238800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca77400050e",
+      "codes": {
+        "CPT": [
+          "90713"
+        ],
+        "CVX": [
+          "10"
+        ]
+      },
+      "description": "IPV Vaccination",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "",
+      "start_time": null,
+      "status": null,
+      "time": 1140238800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca77400050f",
+      "codes": {
+        "RxNorm": [
+          "804186"
+        ]
+      },
+      "description": "MMR Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C0710716:Measles Virus Vaccine Live, Enders' attenuated Edmonston strain 2000 UNT/ML / Mumps Virus Vaccine Live, Jeryl Lynn Strain 25000 UNT/ML / Rubella Virus Vaccine Live (Wistar RA 27-3 Strain) 2000 UNT/ML Injectable Solution [M-M-R II];",
+      "start_time": null,
+      "status": null,
+      "time": 1131598800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000510",
+      "codes": {
+        "RxNorm": [
+          "759609"
+        ]
+      },
+      "description": "VZV Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C1814392:Varicella Virus Vaccine Live (Oka-Merck) strain 29800 UNT/ML Injectable Suspension [Zostavax];",
+      "start_time": null,
+      "status": null,
+      "time": 1131598800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000511",
+      "codes": {
+        "RxNorm": [
+          "798481"
+        ]
+      },
+      "description": "Hepatitis A Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;",
+      "start_time": null,
+      "status": null,
+      "time": 1131598800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000512",
+      "codes": {
+        "RxNorm": [
+          "854969"
+        ]
+      },
+      "description": "Pneumococcal Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
+      "start_time": null,
+      "status": null,
+      "time": 1124683200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000513",
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "description": "Influenza Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
+      "start_time": null,
+      "status": null,
+      "time": 1124683200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000514",
+      "codes": {
+        "RxNorm": [
+          "763313"
+        ]
+      },
+      "description": "Hepatitis B Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C1302891:0.5 ML Hepatitis B Vaccine 0.02 MG/ML Prefilled Syringe;",
+      "start_time": null,
+      "status": null,
+      "time": 1108530000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000515",
+      "codes": {
+        "RxNorm": [
+          "795926"
+        ]
+      },
+      "description": "DTAP Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C1697230:Diphtheria Toxoid Vaccine 13.4 UNT/ML / Tetanus Toxoid Vaccine 10 UNT/ML Injectable Solution;",
+      "start_time": null,
+      "status": null,
+      "time": 1108530000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000516",
+      "codes": {
+        "RxNorm": [
+          "854969"
+        ]
+      },
+      "description": "Pneumococcal Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
+      "start_time": null,
+      "status": null,
+      "time": 1108530000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000517",
+      "codes": {
+        "RxNorm": [
+          "857942"
+        ]
+      },
+      "description": "Influenza Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;",
+      "start_time": null,
+      "status": null,
+      "time": 1108530000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000518",
+      "codes": {
+        "RxNorm": [
+          "795926"
+        ]
+      },
+      "description": "DTAP Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C1697230:Diphtheria Toxoid Vaccine 13.4 UNT/ML / Tetanus Toxoid Vaccine 10 UNT/ML Injectable Solution;",
+      "start_time": null,
+      "status": null,
+      "time": 1103086800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000519",
+      "codes": {
+        "CPT": [
+          "90721"
+        ],
+        "CVX": [
+          "51"
+        ]
+      },
+      "description": "HiB Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "",
+      "start_time": null,
+      "status": null,
+      "time": 1103086800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca77400051a",
+      "codes": {
+        "RxNorm": [
+          "854969"
+        ]
+      },
+      "description": "Pneumococcal Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
+      "start_time": null,
+      "status": null,
+      "time": 1103086800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca77400051b",
+      "codes": {
+        "CPT": [
+          "90713"
+        ],
+        "CVX": [
+          "10"
+        ]
+      },
+      "description": "IPV Vaccination",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "",
+      "start_time": null,
+      "status": null,
+      "time": 1103086800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca77400051c",
+      "codes": {
+        "RxNorm": [
+          "795926"
+        ]
+      },
+      "description": "DTAP Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C1697230:Diphtheria Toxoid Vaccine 13.4 UNT/ML / Tetanus Toxoid Vaccine 10 UNT/ML Injectable Solution;",
+      "start_time": null,
+      "status": null,
+      "time": 1099108800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca77400051d",
+      "codes": {
+        "CPT": [
+          "90721"
+        ],
+        "CVX": [
+          "51"
+        ]
+      },
+      "description": "HiB Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "",
+      "start_time": null,
+      "status": null,
+      "time": 1099108800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca77400051e",
+      "codes": {
+        "RxNorm": [
+          "854969"
+        ]
+      },
+      "description": "Pneumococcal Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;",
+      "start_time": null,
+      "status": null,
+      "time": 1099108800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca77400051f",
+      "codes": {
+        "CPT": [
+          "90713"
+        ],
+        "CVX": [
+          "10"
+        ]
+      },
+      "description": "IPV Vaccination",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "",
+      "start_time": null,
+      "status": null,
+      "time": 1099108800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000520",
+      "codes": {
+        "RxNorm": [
+          "763313"
+        ]
+      },
+      "description": "Hepatitis B Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C1302891:0.5 ML Hepatitis B Vaccine 0.02 MG/ML Prefilled Syringe;",
+      "start_time": null,
+      "status": null,
+      "time": 1093060800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629eea9ffcca774000521",
+      "codes": {
+        "RxNorm": [
+          "763313"
+        ]
+      },
+      "description": "Hepatitis B Vaccine",
+      "end_time": null,
+      "performer_id": null,
+      "refusalInd": null,
+      "refusalReason": null,
+      "seriesNumber": null,
+      "specifics": "C1302891:0.5 ML Hepatitis B Vaccine 0.02 MG/ML Prefilled Syringe;",
+      "start_time": null,
+      "status": null,
+      "time": 1089172800,
+      "value": {
+      }
+    }
+  ],
+  "languages": null,
+  "last": "Tuff",
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -221,6 +1069,10 @@
       ]
     },
     "0038": {
+      "dtap_vaccination_procedure_performed": [
+        1103086800,
+        1099108800
+      ],
       "encounter_outpatient_w_pcp_obgyn_encounter": [
         1295067600,
         1285992000,
@@ -237,6 +1089,19 @@
         1099108800,
         1093060800,
         1089172800
+      ],
+      "hepatitis_b_vaccination_procedure_performed": [
+        1103086800,
+        1099108800
+      ],
+      "hib_vaccination_procedure_performed": [
+        1103086800,
+        1099108800
+      ],
+      "ipv_vaccination_procedure_performed": [
+        1140238800,
+        1103086800,
+        1099108800
       ],
       "dtap_vaccine_medication_administered": [
         1140238800,
@@ -761,688 +1626,121 @@
       ]
     }
   },
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000520",
-      "_type": "Entry",
-      "time": 1270008000,
-      "description": "follow-up plan_BMI management",
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000521",
-      "_type": "Entry",
-      "time": 1295067600,
-      "description": "follow-up plan_BMI management",
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "250"
-        ],
-        "ICD-10-CM": [
-          "E11.9"
-        ],
-        "SNOMED-CT": [
-          "73211009"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000501",
-      "_type": "Condition",
-      "time": 1265778000,
-      "description": "diabetes",
-      "specifics": "C0011849:Diabetes Mellitus;",
-      "status": "active"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004e2",
-      "_type": "Encounter",
-      "time": 1295067600,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004e3",
-      "_type": "Encounter",
-      "time": 1285992000,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004e4",
-      "_type": "Encounter",
-      "time": 1278648000,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004e5",
-      "_type": "Encounter",
-      "time": 1274328000,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004e6",
-      "_type": "Encounter",
-      "time": 1270008000,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004e7",
-      "_type": "Encounter",
-      "time": 1202274000,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004e8",
-      "_type": "Encounter",
-      "time": 1159243200,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004e9",
-      "_type": "Encounter",
-      "time": 1140238800,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004ea",
-      "_type": "Encounter",
-      "time": 1131598800,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004eb",
-      "_type": "Encounter",
-      "time": 1124683200,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004ec",
-      "_type": "Encounter",
-      "time": 1108530000,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004ed",
-      "_type": "Encounter",
-      "time": 1103086800,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004ee",
-      "_type": "Encounter",
-      "time": 1099108800,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004ef",
-      "_type": "Encounter",
-      "time": 1093060800,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    },
-    {
-      "codes": {
-        "ICD-10-CM": [
-          "Z00.1"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f0",
-      "_type": "Encounter",
-      "time": 1089172800,
-      "description": "encounter outpatient-children",
-      "specifics": "C2910449:Encounter for newborn, infant and child health examinations;"
-    }
-  ],
-  "immunizations": [
-    {
-      "codes": {
-        "RxNorm": [
-          "798481"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00050a",
-      "_type": "Immunization",
-      "time": 1159243200,
-      "description": "Hepatitis A Vaccine",
-      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "795926"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00050b",
-      "_type": "Immunization",
-      "time": 1140238800,
-      "description": "DTAP Vaccine",
-      "specifics": "C1697230:Diphtheria Toxoid Vaccine 13.4 UNT/ML / Tetanus Toxoid Vaccine 10 UNT/ML Injectable Solution;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "90713"
-        ],
-        "CVX": [
-          "10"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00050c",
-      "_type": "Immunization",
-      "time": 1140238800,
-      "description": "IPV Vaccination",
-      "specifics": ""
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "804186"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00050d",
-      "_type": "Immunization",
-      "time": 1131598800,
-      "description": "MMR Vaccine",
-      "specifics": "C0710716:Measles Virus Vaccine Live, Enders' attenuated Edmonston strain 2000 UNT/ML / Mumps Virus Vaccine Live, Jeryl Lynn Strain 25000 UNT/ML / Rubella Virus Vaccine Live (Wistar RA 27-3 Strain) 2000 UNT/ML Injectable Solution [M-M-R II];"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "759609"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00050e",
-      "_type": "Immunization",
-      "time": 1131598800,
-      "description": "VZV Vaccine",
-      "specifics": "C1814392:Varicella Virus Vaccine Live (Oka-Merck) strain 29800 UNT/ML Injectable Suspension [Zostavax];"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "798481"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00050f",
-      "_type": "Immunization",
-      "time": 1131598800,
-      "description": "Hepatitis A Vaccine",
-      "specifics": "C0995082:0.5 ML Hepatitis A Vaccine (Inactivated) Strain HM175 1440 UNT/ML Prefilled Syringe;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "854969"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000510",
-      "_type": "Immunization",
-      "time": 1124683200,
-      "description": "Pneumococcal Vaccine",
-      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000511",
-      "_type": "Immunization",
-      "time": 1124683200,
-      "description": "Influenza Vaccine",
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "763313"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000512",
-      "_type": "Immunization",
-      "time": 1108530000,
-      "description": "Hepatitis B Vaccine",
-      "specifics": "C1302891:0.5 ML Hepatitis B Vaccine 0.02 MG/ML Prefilled Syringe;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "795926"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000513",
-      "_type": "Immunization",
-      "time": 1108530000,
-      "description": "DTAP Vaccine",
-      "specifics": "C1697230:Diphtheria Toxoid Vaccine 13.4 UNT/ML / Tetanus Toxoid Vaccine 10 UNT/ML Injectable Solution;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "854969"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000514",
-      "_type": "Immunization",
-      "time": 1108530000,
-      "description": "Pneumococcal Vaccine",
-      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "857942"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000515",
-      "_type": "Immunization",
-      "time": 1108530000,
-      "description": "Influenza Vaccine",
-      "specifics": "C2718407:Influenza Virus Vaccine, Inactivated A-Brisbane-59-2007, IVR-148 (H1N1) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated A-Uruguay-716-2007, NYMC X-175C (H3N2) strain 0.03 MG/ML / Influenza Virus Vaccine, Inactivated B-Brisbane-60-2008 strain 0.03 MG/ML Injectable Suspension;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "795926"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000516",
-      "_type": "Immunization",
-      "time": 1103086800,
-      "description": "DTAP Vaccine",
-      "specifics": "C1697230:Diphtheria Toxoid Vaccine 13.4 UNT/ML / Tetanus Toxoid Vaccine 10 UNT/ML Injectable Solution;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "90721"
-        ],
-        "CVX": [
-          "51"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000517",
-      "_type": "Immunization",
-      "time": 1103086800,
-      "description": "HiB Vaccine",
-      "specifics": ""
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "854969"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000518",
-      "_type": "Immunization",
-      "time": 1103086800,
-      "description": "Pneumococcal Vaccine",
-      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "90713"
-        ],
-        "CVX": [
-          "10"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000519",
-      "_type": "Immunization",
-      "time": 1103086800,
-      "description": "IPV Vaccination",
-      "specifics": ""
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "795926"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00051a",
-      "_type": "Immunization",
-      "time": 1099108800,
-      "description": "DTAP Vaccine",
-      "specifics": "C1697230:Diphtheria Toxoid Vaccine 13.4 UNT/ML / Tetanus Toxoid Vaccine 10 UNT/ML Injectable Solution;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "90721"
-        ],
-        "CVX": [
-          "51"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00051b",
-      "_type": "Immunization",
-      "time": 1099108800,
-      "description": "HiB Vaccine",
-      "specifics": ""
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "854969"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00051c",
-      "_type": "Immunization",
-      "time": 1099108800,
-      "description": "Pneumococcal Vaccine",
-      "specifics": "C2709773:pneumococcal capsular polysaccharide type 7F vaccine 0.05 MG/ML;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "90713"
-        ],
-        "CVX": [
-          "10"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00051d",
-      "_type": "Immunization",
-      "time": 1099108800,
-      "description": "IPV Vaccination",
-      "specifics": ""
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "763313"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00051e",
-      "_type": "Immunization",
-      "time": 1093060800,
-      "description": "Hepatitis B Vaccine",
-      "specifics": "C1302891:0.5 ML Hepatitis B Vaccine 0.02 MG/ML Prefilled Syringe;"
-    },
-    {
-      "codes": {
-        "RxNorm": [
-          "763313"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f00051f",
-      "_type": "Immunization",
-      "time": 1089172800,
-      "description": "Hepatitis B Vaccine",
-      "specifics": "C1302891:0.5 ML Hepatitis B Vaccine 0.02 MG/ML Prefilled Syringe;"
-    }
-  ],
+  "medical_record_number": null,
   "medications": [
     {
+      "_id": "4fd629eea9ffcca77400050a",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "744863"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Antidiabetic agents",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1270008000,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fa2ed34a9ffcc3a1f000508",
-      "_type": "Medication",
-      "time": 1270008000,
-      "description": "Antidiabetic agents",
-      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;"
+      "vehicle": null
     },
     {
+      "_id": "4fd629eea9ffcca77400050b",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "744863"
         ]
       },
+      "deliveryMethod": null,
+      "description": "Antidiabetic agents",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1295067600,
+      "typeOfMedication": null,
       "value": {
       },
-      "_id": "4fa2ed34a9ffcc3a1f000509",
-      "_type": "Medication",
-      "time": 1295067600,
-      "description": "Antidiabetic agents",
-      "specifics": "C1635056:exenatide 0.25 MG/ML Injectable Solution;"
+      "vehicle": null
     }
   ],
+  "patient_id": "45",
   "procedures": [
     {
+      "_id": "4fd629eea9ffcca774000508",
       "codes": {
         "SNOMED-CT": [
           "103699006"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000506",
-      "_type": "Procedure",
-      "time": 1270008000,
       "description": "dietary consultation order",
-      "specifics": "C0420347:Patient referral to dietitian;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0420347:Patient referral to dietitian;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629eea9ffcca774000509",
       "codes": {
         "SNOMED-CT": [
           "103699006"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000507",
-      "_type": "Procedure",
-      "time": 1295067600,
       "description": "dietary consultation order",
-      "specifics": "C0420347:Patient referral to dietitian;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0420347:Patient referral to dietitian;",
+      "start_time": null,
+      "status": null,
+      "time": 1295067600,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "Other Race",
+    "code": "2131-1"
+  },
   "results": [
     {
+      "_id": "4fd629eea9ffcca774000504",
       "codes": {
         "CPT": [
           "83036"
@@ -1454,17 +1752,21 @@
           "43396009"
         ]
       },
+      "description": "HbA1c test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1295067600,
       "value": {
         "scalar": 8.1,
         "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000502",
-      "_type": "LabResult",
-      "time": 1295067600,
-      "description": "HbA1c test",
-      "specifics": "C0474680:Hemoglobin A1c measurement;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca774000505",
       "codes": {
         "CPT": [
           "83036"
@@ -1476,17 +1778,21 @@
           "43396009"
         ]
       },
+      "description": "HbA1c test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1285992000,
       "value": {
         "scalar": 7.3,
         "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000503",
-      "_type": "LabResult",
-      "time": 1285992000,
-      "description": "HbA1c test",
-      "specifics": "C0474680:Hemoglobin A1c measurement;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca774000506",
       "codes": {
         "CPT": [
           "83036"
@@ -1498,17 +1804,21 @@
           "43396009"
         ]
       },
+      "description": "HbA1c test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1278648000,
       "value": {
         "scalar": 7.5,
         "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000504",
-      "_type": "LabResult",
-      "time": 1278648000,
-      "description": "HbA1c test",
-      "specifics": "C0474680:Hemoglobin A1c measurement;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca774000507",
       "codes": {
         "CPT": [
           "83036"
@@ -1520,227 +1830,284 @@
           "43396009"
         ]
       },
+      "description": "HbA1c test",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0474680:Hemoglobin A1c measurement;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
       "value": {
         "scalar": 8.6,
         "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000505",
-      "_type": "LabResult",
-      "time": 1270008000,
-      "description": "HbA1c test",
-      "specifics": "C0474680:Hemoglobin A1c measurement;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629eea9ffcca7740004f3",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1295067600,
       "value": {
         "scalar": 126.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f1",
-      "_type": "VitalSign",
-      "time": 1295067600,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004f4",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1295067600,
       "value": {
         "scalar": 82.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f2",
-      "_type": "VitalSign",
-      "time": 1295067600,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004f5",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1285992000,
       "value": {
         "scalar": 124.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f3",
-      "_type": "VitalSign",
-      "time": 1285992000,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004f6",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1285992000,
       "value": {
         "scalar": 80.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f4",
-      "_type": "VitalSign",
-      "time": 1285992000,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004f7",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1278648000,
       "value": {
         "scalar": 128.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f5",
-      "_type": "VitalSign",
-      "time": 1278648000,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004f8",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1278648000,
       "value": {
         "scalar": 82.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f6",
-      "_type": "VitalSign",
-      "time": 1278648000,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004f9",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
       "value": {
         "scalar": 126.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f7",
-      "_type": "VitalSign",
-      "time": 1274328000,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004fa",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1274328000,
       "value": {
         "scalar": 84.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f8",
-      "_type": "VitalSign",
-      "time": 1274328000,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004fb",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
       "value": {
         "scalar": 124.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004f9",
-      "_type": "VitalSign",
-      "time": 1270008000,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004fc",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
       "value": {
         "scalar": 80.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004fa",
-      "_type": "VitalSign",
-      "time": 1270008000,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004fd",
       "codes": {
         "SNOMED-CT": [
           "401191002"
         ]
       },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004fb",
-      "_type": "VitalSign",
+      "description": "Foot Exam",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1303165:Diabetic foot examination;",
+      "start_time": null,
+      "status": null,
       "time": 1295067600,
-      "description": "Foot Exam",
-      "specifics": "C1303165:Diabetic foot examination;"
+      "value": {
+        "scalar": "Normal",
+        "units": null
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004fe",
       "codes": {
         "SNOMED-CT": [
           "401191002"
         ]
       },
-      "value": {
-        "scalar": "Normal",
-        "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004fc",
-      "_type": "VitalSign",
+      "description": "Foot Exam",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1303165:Diabetic foot examination;",
+      "start_time": null,
+      "status": null,
       "time": 1278648000,
-      "description": "Foot Exam",
-      "specifics": "C1303165:Diabetic foot examination;"
+      "value": {
+        "scalar": "Normal",
+        "units": null
+      }
     },
     {
+      "_id": "4fd629eea9ffcca7740004ff",
       "codes": {
         "SNOMED-CT": [
           "401191002"
         ]
       },
+      "description": "Foot Exam",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1303165:Diabetic foot examination;",
+      "start_time": null,
+      "status": null,
+      "time": 1265778000,
       "value": {
         "scalar": "Normal",
         "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004fd",
-      "_type": "VitalSign",
-      "time": 1265778000,
-      "description": "Foot Exam",
-      "specifics": "C1303165:Diabetic foot examination;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca774000500",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1749,17 +2116,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1295067600,
       "value": {
         "scalar": 29.256837098692035,
         "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004fe",
-      "_type": "VitalSign",
-      "time": 1295067600,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca774000501",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1768,17 +2139,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1285992000,
       "value": {
         "scalar": 29.210526315789473,
         "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f0004ff",
-      "_type": "VitalSign",
-      "time": 1285992000,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629eea9ffcca774000502",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1787,15 +2162,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1270008000,
       "value": {
         "scalar": 28.777777777777775,
         "units": null
-      },
-      "_id": "4fa2ed34a9ffcc3a1f000500",
-      "_type": "VitalSign",
-      "time": 1270008000,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }

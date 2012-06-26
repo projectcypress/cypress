@@ -1,18 +1,232 @@
 {
-  "_id": "4fa2ed2fa9ffcc3a1f00012e",
-  "patient_id": "149",
-  "first": "Gerald",
-  "last": "Meister",
-  "gender": "M",
+  "_id": "4fd629e7a9ffcca77400012e",
   "birthdate": -217278000,
-  "race": {
-    "name": "White",
-    "code": "2106-3"
-  },
+  "care_goals": [
+    {
+      "_id": "4fd629e7a9ffcca774000148",
+      "codes": {
+        "CPT": [
+          "97804"
+        ],
+        "HCPCS": [
+          "S9470"
+        ],
+        "SNOMED-CT": [
+          "305849009"
+        ],
+        "ICD-9-CM": [
+          "V65.3"
+        ]
+      },
+      "description": "follow-up plan_BMI management",
+      "end_time": null,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
+      "start_time": null,
+      "status": null,
+      "time": 1272600000,
+      "value": {
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "_id": "4fd629e7a9ffcca77400013c",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "296.30"
+        ],
+        "ICD-10-CM": [
+          "F33.9"
+        ],
+        "SNOMED-CT": [
+          "268621008"
+        ]
+      },
+      "description": "Major Depression",
+      "end_time": null,
+      "name": null,
+      "specifics": "C0154409:Major Depressive Disorder, Recurrent, Unspecified;",
+      "start_time": null,
+      "status": "active",
+      "time": 1280635200,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629e7a9ffcca77400013d",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "401.9"
+        ],
+        "ICD-10-CM": [
+          "I10"
+        ],
+        "SNOMED-CT": [
+          "59621000"
+        ]
+      },
+      "description": "hypertension",
+      "end_time": null,
+      "name": null,
+      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
+      "start_time": null,
+      "status": "active",
+      "time": 1272600000,
+      "type": null,
+      "value": {
+      }
+    }
+  ],
+  "deathdate": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "4fd629e7a9ffcca77400012f",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1304222400,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629e7a9ffcca774000130",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1288584000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629e7a9ffcca774000131",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1280635200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629e7a9ffcca774000132",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1273896000,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629e7a9ffcca774000133",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99251"
+        ]
+      },
+      "description": "encounter acute inpt",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
+      "start_time": null,
+      "status": null,
+      "time": 1280635200,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fd629e7a9ffcca774000134",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99213"
+        ],
+        "ICD-9-CM": [
+          "V70.0"
+        ]
+      },
+      "description": "Encounter Outpatient",
+      "dischargeDisposition": null,
+      "end_time": null,
+      "free_text": null,
+      "performer_id": null,
+      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "start_time": null,
+      "status": null,
+      "time": 1272600000,
+      "value": {
+      }
+    }
+  ],
   "ethnicity": {
     "name": "Not Hispanic or Latino",
     "code": "2186-5"
   },
+  "first": "Gerald",
+  "gender": "M",
+  "languages": null,
+  "last": "Meister",
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
@@ -20,7 +234,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -30,7 +243,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -40,16 +252,21 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
+        1280635200,
         1272600000
+      ],
+      "encounter_acute_inpt_encounter": [
+        1280635200
       ],
       "encounter_outpatient_bh_encounter": [
         1304222400,
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
+      ],
+      "encounter_outpt_bh_req_pos_encounter": [
+        1280635200
       ]
     },
     "0027": {
@@ -58,7 +275,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -80,7 +296,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ],
       "systolic_blood_pressure_physical_exam_finding": [
@@ -102,7 +317,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -142,7 +356,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -164,7 +377,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -174,7 +386,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -184,7 +395,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -194,7 +404,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ],
       "encounter_outpatient_encounter": [
@@ -202,7 +411,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -212,7 +420,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -222,8 +429,10 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
+      ],
+      "encounter_acute_inpt_encounter": [
+        1280635200
       ]
     },
     "0038": {
@@ -232,7 +441,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -242,7 +450,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -252,7 +459,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -262,47 +468,54 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
     "0055": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1280635200
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1304222400,
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
     "0056": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1280635200
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1304222400,
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
     "0059": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1280635200
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1304222400,
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
     "0061": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1280635200
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1304222400,
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -336,22 +549,26 @@
       "ace_inhibitors_arbs_medication_active": [
         1272600000
       ],
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1280635200
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1304222400,
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
     "0064": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1280635200
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1304222400,
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -361,7 +578,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -371,8 +587,11 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
+        1280635200,
         1272600000
+      ],
+      "encounter_acute_inpt_encounter": [
+        1280635200
       ],
       "encounter_outpatient_encounter": [
         1304222400,
@@ -388,7 +607,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -398,7 +616,7 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
+        1280635200,
         1272600000
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -410,6 +628,9 @@
           "date": 1272600000,
           "value": 126.0
         }
+      ],
+      "encounter_acute_inpt_encounter": [
+        1280635200
       ],
       "encounter_outpatient_encounter": [
         1304222400,
@@ -435,7 +656,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -445,8 +665,11 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
+        1280635200,
         1272600000
+      ],
+      "encounter_acute_inpt_encounter": [
+        1280635200
       ],
       "encounter_outpatient_encounter": [
         1304222400,
@@ -468,7 +691,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -478,7 +700,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -488,7 +709,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -498,7 +718,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -508,7 +727,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -518,7 +736,6 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     },
@@ -533,18 +750,18 @@
     },
     "0105": {
       "depression_diagnosis_active": [
-        1272686400
+        1280635200
       ],
       "major_depression_diagnosis_active": [
-        1272686400
+        1280635200
       ],
       "antidepressant_medications_medication_dispensed": [
-        1272686400,
-        1272686400,
-        1272686400,
-        1273896000,
-        1273896000,
-        1273896000,
+        1279684800,
+        1279684800,
+        1279684800,
+        1281412800,
+        1281412800,
+        1281412800,
         1288584000
       ],
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
@@ -552,25 +769,25 @@
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
+        1280635200,
         1272600000
       ],
       "antidepressant_medications_medication_order": [
-        1272686400,
-        1272686400,
-        1272686400,
-        1273896000,
-        1273896000,
-        1273896000,
+        1279684800,
+        1279684800,
+        1279684800,
+        1281412800,
+        1281412800,
+        1281412800,
         1288584000
       ],
       "antidepressant_medications_medication_active": [
-        1272686400,
-        1272686400,
-        1272686400,
-        1273896000,
-        1273896000,
-        1273896000,
+        1279684800,
+        1279684800,
+        1279684800,
+        1281412800,
+        1281412800,
+        1281412800,
         1288584000
       ]
     },
@@ -608,302 +825,281 @@
       ]
     },
     "0575": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1280635200
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1304222400,
         1288584000,
         1280635200,
         1273896000,
-        1272686400,
         1272600000
       ]
     }
   },
-  "care_goals": [
-    {
-      "codes": {
-        "CPT": [
-          "97804"
-        ],
-        "HCPCS": [
-          "S9470"
-        ],
-        "SNOMED-CT": [
-          "305849009"
-        ],
-        "ICD-9-CM": [
-          "V65.3"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000148",
-      "_type": "Entry",
-      "time": 1272600000,
-      "description": "follow-up plan_BMI management",
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
-    }
-  ],
-  "conditions": [
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "296.30"
-        ],
-        "ICD-10-CM": [
-          "F33.9"
-        ],
-        "SNOMED-CT": [
-          "268621008"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f00013c",
-      "_type": "Condition",
-      "time": 1272686400,
-      "description": "Major Depression",
-      "specifics": "C0154409:Major Depressive Disorder, Recurrent, Unspecified;",
-      "status": "active"
-    },
-    {
-      "codes": {
-        "ICD-9-CM": [
-          "401.9"
-        ],
-        "ICD-10-CM": [
-          "I10"
-        ],
-        "SNOMED-CT": [
-          "59621000"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f00013d",
-      "_type": "Condition",
-      "time": 1272600000,
-      "description": "hypertension",
-      "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
-      "status": "active"
-    }
-  ],
-  "encounters": [
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f00012f",
-      "_type": "Encounter",
-      "time": 1304222400,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000130",
-      "_type": "Encounter",
-      "time": 1288584000,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000131",
-      "_type": "Encounter",
-      "time": 1280635200,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000132",
-      "_type": "Encounter",
-      "time": 1273896000,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99241"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000133",
-      "_type": "Encounter",
-      "time": 1272686400,
-      "description": "encounter outpatient BH",
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    },
-    {
-      "codes": {
-        "CPT": [
-          "99213"
-        ],
-        "ICD-9-CM": [
-          "V70.0"
-        ]
-      },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000134",
-      "_type": "Encounter",
-      "time": 1272600000,
-      "description": "Encounter Outpatient",
-      "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;"
-    }
-  ],
+  "medical_record_number": null,
   "medications": [
     {
+      "_id": "4fd629e7a9ffcca774000140",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "858828"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000140",
-      "_type": "Medication",
-      "time": 1272600000,
+      "deliveryMethod": null,
       "description": "Antihypertensive combinations",
-      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;"
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0976596:Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1272600000,
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     },
     {
+      "_id": "4fd629e7a9ffcca774000141",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "903884"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000141",
-      "_type": "Medication",
-      "time": 1272686400,
+      "deliveryMethod": null,
       "description": "SSRI antidepressants",
-      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;"
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1279684800,
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     },
     {
+      "_id": "4fd629e7a9ffcca774000142",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "903884"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000142",
-      "_type": "Medication",
-      "time": 1272686400,
+      "deliveryMethod": null,
       "description": "SSRI antidepressants",
-      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;"
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1279684800,
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     },
     {
+      "_id": "4fd629e7a9ffcca774000143",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "903884"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000143",
-      "_type": "Medication",
-      "time": 1272686400,
+      "deliveryMethod": null,
       "description": "SSRI antidepressants",
-      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;"
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1279684800,
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     },
     {
+      "_id": "4fd629e7a9ffcca774000144",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "903884"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000144",
-      "_type": "Medication",
-      "time": 1273896000,
+      "deliveryMethod": null,
       "description": "SSRI antidepressants",
-      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;"
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1281412800,
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     },
     {
+      "_id": "4fd629e7a9ffcca774000145",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "903884"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000145",
-      "_type": "Medication",
-      "time": 1273896000,
+      "deliveryMethod": null,
       "description": "SSRI antidepressants",
-      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;"
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1281412800,
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     },
     {
+      "_id": "4fd629e7a9ffcca774000146",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "903884"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000146",
-      "_type": "Medication",
-      "time": 1273896000,
+      "deliveryMethod": null,
       "description": "SSRI antidepressants",
-      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;"
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
+      "time": 1281412800,
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     },
     {
+      "_id": "4fd629e7a9ffcca774000147",
+      "administrationTiming": null,
       "codes": {
         "RxNorm": [
           "903884"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000147",
-      "_type": "Medication",
+      "deliveryMethod": null,
+      "description": "SSRI antidepressants",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "indication": null,
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "route": null,
+      "site": null,
+      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;",
+      "start_time": null,
+      "status": null,
+      "statusOfMedication": null,
       "time": 1288584000,
-      "description": "SSRI antidepressants",
-      "specifics": "C0977007:Fluvoxamine Maleate 100 MG Oral Tablet;"
+      "typeOfMedication": null,
+      "value": {
+      },
+      "vehicle": null
     }
   ],
+  "patient_id": "149",
   "procedures": [
     {
+      "_id": "4fd629e7a9ffcca77400013e",
       "codes": {
         "CPT": [
           "97802"
@@ -918,15 +1114,20 @@
           "Z00.8"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f00013e",
-      "_type": "Procedure",
-      "time": 1272600000,
       "description": "counseling for nutrition",
-      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
+      "start_time": null,
+      "status": null,
+      "time": 1272600000,
+      "type": null,
+      "value": {
+      }
     },
     {
+      "_id": "4fd629e7a9ffcca77400013f",
       "codes": {
         "ICD-9-CM": [
           "V65.41"
@@ -938,99 +1139,128 @@
           "Z71.3"
         ]
       },
-      "value": {
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f00013f",
-      "_type": "Procedure",
-      "time": 1272600000,
       "description": "counseling for physical activity",
-      "specifics": "C0260823:Encounter for dietary surveillance and counseling;"
+      "end_time": null,
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
+      "start_time": null,
+      "status": null,
+      "time": 1272600000,
+      "type": null,
+      "value": {
+      }
     }
   ],
+  "race": {
+    "name": "White",
+    "code": "2106-3"
+  },
   "social_history": [
     {
+      "_id": "4fd629e7a9ffcca774000135",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
+      "description": "Tobacco Non-User",
+      "end_time": null,
+      "specifics": "C0425311:Current non-smoker;",
+      "start_time": null,
+      "status": null,
+      "time": 1272600000,
+      "type": null,
       "value": {
         "scalar": null,
         "units": null
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000135",
-      "_type": "SocialHistory",
-      "time": 1272600000,
-      "description": "Tobacco Non-User",
-      "specifics": "C0425311:Current non-smoker;"
+      }
     }
   ],
+  "test_id": null,
   "vital_signs": [
     {
+      "_id": "4fd629e7a9ffcca774000136",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1291179600,
       "value": {
         "scalar": 130.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000136",
-      "_type": "VitalSign",
-      "time": 1291179600,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629e7a9ffcca774000137",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1292043600,
       "value": {
         "scalar": 80.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000137",
-      "_type": "VitalSign",
-      "time": 1292043600,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629e7a9ffcca774000138",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
+      "description": "Systolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0871470:Systolic Pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1272600000,
       "value": {
         "scalar": 126.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000138",
-      "_type": "VitalSign",
-      "time": 1272600000,
-      "description": "Systolic Blood Pressure",
-      "specifics": "C0871470:Systolic Pressure;"
+      }
     },
     {
+      "_id": "4fd629e7a9ffcca774000139",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
+      "description": "Diastolic Blood Pressure",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C0428883:Diastolic blood pressure;",
+      "start_time": null,
+      "status": null,
+      "time": 1272600000,
       "value": {
         "scalar": 76.0,
         "units": "mm[Hg]"
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f000139",
-      "_type": "VitalSign",
-      "time": 1272600000,
-      "description": "Diastolic Blood Pressure",
-      "specifics": "C0428883:Diastolic blood pressure;"
+      }
     },
     {
+      "_id": "4fd629e7a9ffcca77400013a",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1039,17 +1269,21 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1291179600,
       "value": {
         "scalar": 26.578449905482042,
         "units": null
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f00013a",
-      "_type": "VitalSign",
-      "time": 1291179600,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     },
     {
+      "_id": "4fd629e7a9ffcca77400013b",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1058,15 +1292,18 @@
           "39156-5"
         ]
       },
+      "description": "BMI",
+      "end_time": null,
+      "interpretation": null,
+      "referenceRange": null,
+      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
+      "start_time": null,
+      "status": null,
+      "time": 1272600000,
       "value": {
         "scalar": 28.793320730938877,
         "units": null
-      },
-      "_id": "4fa2ed2fa9ffcc3a1f00013b",
-      "_type": "VitalSign",
-      "time": 1272600000,
-      "description": "BMI",
-      "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;"
+      }
     }
   ]
 }

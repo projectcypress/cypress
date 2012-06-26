@@ -22,12 +22,12 @@
     any populations that you have previously defined will be available for reuse.<br/><br/>
     <dl>
       <dt>
-        population:
+        Population:
       </dt>
       <dd>
         <%= f.collection_select(:patient_population, @patient_populations, :name, :description, {:selected => 'all'}) %>
       </dd>
-      <dt>download as:</dt>
+      <dt>Download as:</dt>
       <dd>
         <span class="wide">
           <input type="radio" name="download_format" id="c32" value="c32" checked/>
@@ -39,7 +39,7 @@
         </span>
       </dd>
       <dt>
-        patient test mode:
+        Patient test mode:
       </dt>
       <dd>
         <select>
@@ -51,14 +51,18 @@
 </section>
 
 <section id="wizard-patients-manual-screen" class="step submit_step">
-  <h2 class="ui-widget-title" style="margin-top: 20px;">Patient records that satisfy your chosen quality measures...</h2>
+  <h2 class="ui-widget-title" style="margin-top: 20px;">Patient records to use for testing your chosen quality measures...</h2>
   <div id="measure_coverage" style="overflow:hidden;">
   </div>
-  <section id="save_population" style="text-align:center">
+  <section id="save_population">
     <p>If you would like to save this patient population
       for use in other tests, please give it a name and a brief description</p>
-    <p>Name: <input type="text" name="population_name"/></p>
-    <p>Description: <input type="text" name="population_description" size="80"/></p>
+    <dl>
+      <dt>Name:</dt>
+      <dd><input type="text" name="population_name"/></dd>
+      <dt>Description:</dt>
+      <dd><input type="text" name="population_description" size="80"/></dd>
+    </dl>
   </section>
 </section>
 
