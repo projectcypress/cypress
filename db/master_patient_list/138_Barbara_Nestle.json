@@ -1,9 +1,9 @@
 {
-  "_id": "4fe1ece1a9ffcc03cd000ed6",
+  "_id": "4fea3768a9ffccb429000eda",
   "birthdate": 360820800,
   "conditions": [
     {
-      "_id": "4fe1ece1a9ffcc03cd000ede",
+      "_id": "4fea3768a9ffccb429000ee2",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -33,7 +33,7 @@
       }
     },
     {
-      "_id": "4fe1ece1a9ffcc03cd000edf",
+      "_id": "4fea3768a9ffccb429000ee3",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -67,7 +67,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fe1ece1a9ffcc03cd000ed7",
+      "_id": "4fea3768a9ffccb429000edb",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -89,7 +89,7 @@
       }
     },
     {
-      "_id": "4fe1ece1a9ffcc03cd000ed8",
+      "_id": "4fea3768a9ffccb429000edc",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -144,6 +144,16 @@
         1273723200
       ]
     },
+    "0027": {
+      "tobacco_user_patient_characteristic": [
+        1273723200
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1273723200
+      ]
+    },
     "0013": {
       "diastolic_blood_pressure_physical_exam_finding": [
         1278907200,
@@ -151,11 +161,6 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1278907200,
-        1273723200
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
         1273723200
       ]
     },
@@ -188,11 +193,6 @@
     },
     "0024": {
     },
-    "0027": {
-      "tobacco_user_patient_characteristic": [
-        1273723200
-      ]
-    },
     "0028": {
       "tobacco_user_patient_characteristic": [
         1273723200
@@ -201,6 +201,10 @@
     "0031": {
     },
     "0032": {
+    },
+    "0034": {
+    },
+    "0041": {
     },
     "0033": {
       "pregnancy_test_laboratory_test_performed": [
@@ -212,8 +216,6 @@
         1278907200
       ]
     },
-    "0034": {
-    },
     "0036": {
       "encounter_ed_encounter": [
         1278907200,
@@ -221,8 +223,6 @@
       ]
     },
     "0038": {
-    },
-    "0041": {
     },
     "0043": {
     },
@@ -300,11 +300,11 @@
       "diastolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1278907200,
-          "value": 110.0
+          "value": 70.0
         },
         {
           "date": 1273723200,
-          "value": 112.0
+          "value": 72.0
         }
       ],
       "systolic_blood_pressure_physical_exam_finding": [
@@ -345,9 +345,9 @@
     },
     "0385": {
     },
-    "0387": {
-    },
     "0389": {
+    },
+    "0387": {
     },
     "0421": {
     },
@@ -362,7 +362,7 @@
   "patient_id": "138",
   "procedures": [
     {
-      "_id": "4fe1ece1a9ffcc03cd000ee2",
+      "_id": "4fea3768a9ffccb429000ee6",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -392,7 +392,7 @@
   },
   "results": [
     {
-      "_id": "4fe1ece1a9ffcc03cd000ee0",
+      "_id": "4fea3768a9ffccb429000ee4",
       "codes": {
         "CPT": [
           "84702"
@@ -418,7 +418,7 @@
       }
     },
     {
-      "_id": "4fe1ece1a9ffcc03cd000ee1",
+      "_id": "4fea3768a9ffccb429000ee5",
       "codes": {
         "CPT": [
           "84702"
@@ -446,7 +446,7 @@
   ],
   "social_history": [
     {
-      "_id": "4fe1ece1a9ffcc03cd000ed9",
+      "_id": "4fea3768a9ffccb429000edd",
       "codes": {
         "SNOMED-CT": [
           "230062009"
@@ -470,7 +470,7 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fe1ece1a9ffcc03cd000eda",
+      "_id": "4fea3768a9ffccb429000ede",
       "codes": {
         "SNOMED-CT": [
           "271649006"
@@ -493,7 +493,7 @@
       }
     },
     {
-      "_id": "4fe1ece1a9ffcc03cd000edb",
+      "_id": "4fea3768a9ffccb429000edf",
       "codes": {
         "SNOMED-CT": [
           "271650006"
@@ -516,7 +516,7 @@
       }
     },
     {
-      "_id": "4fe1ece1a9ffcc03cd000edc",
+      "_id": "4fea3768a9ffccb429000ee0",
       "codes": {
         "SNOMED-CT": [
           "271649006"
@@ -539,7 +539,7 @@
       }
     },
     {
-      "_id": "4fe1ece1a9ffcc03cd000edd",
+      "_id": "4fea3768a9ffccb429000ee1",
       "codes": {
         "SNOMED-CT": [
           "271650006"

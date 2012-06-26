@@ -1,9 +1,9 @@
 {
-  "_id": "4fe1ecafa9ffcc03cd000168",
+  "_id": "4fea3736a9ffccb429000168",
   "birthdate": -851716800,
   "care_goals": [
     {
-      "_id": "4fe1ecafa9ffcc03cd000181",
+      "_id": "4fea3736a9ffccb429000181",
       "codes": {
         "CPT": [
           "97804"
@@ -33,7 +33,7 @@
   ],
   "conditions": [
     {
-      "_id": "4fe1ecafa9ffcc03cd000174",
+      "_id": "4fea3736a9ffccb429000174",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -57,13 +57,13 @@
       "specifics": "C0154409:Major Depressive Disorder, Recurrent, Unspecified;",
       "start_time": null,
       "status": "active",
-      "time": 1281844800,
+      "time": 1268625600,
       "type": null,
       "value": {
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd000175",
+      "_id": "4fea3736a9ffccb429000175",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -93,7 +93,7 @@
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd000176",
+      "_id": "4fea3736a9ffccb429000176",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -127,7 +127,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fe1ecafa9ffcc03cd000169",
+      "_id": "4fea3736a9ffccb429000169",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -152,7 +152,7 @@
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00016a",
+      "_id": "4fea3736a9ffccb42900016a",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -177,7 +177,7 @@
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00016b",
+      "_id": "4fea3736a9ffccb42900016b",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -202,29 +202,29 @@
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00016c",
+      "_id": "4fea3736a9ffccb42900016c",
       "admitType": null,
       "codes": {
         "CPT": [
-          "99241"
+          "99251"
         ]
       },
-      "description": "encounter outpatient BH",
+      "description": "encounter acute inpt",
       "dischargeDisposition": null,
       "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
       "performer_id": null,
-      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "start_time": null,
       "status": null,
-      "time": 1281844800,
+      "time": 1268625600,
       "value": {
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00016d",
+      "_id": "4fea3736a9ffccb42900016d",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -263,7 +263,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -272,7 +271,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -281,14 +279,38 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
+        1268625600,
         1277956800
+      ],
+      "encounter_acute_inpt_encounter": [
+        1268625600
       ],
       "encounter_outpatient_bh_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
+        1277956800
+      ],
+      "encounter_outpt_bh_req_pos_encounter": [
+        1268625600
+      ]
+    },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1297573200,
+        1289883600,
+        1284523200,
+        1277956800
+      ],
+      "tobacco_use_cessation_counseling_communication_to_patient": [
+        1277956800
+      ],
+      "tobacco_user_patient_characteristic": [
+        1277956800
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
         1277956800
       ]
     },
@@ -304,16 +326,10 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1289883600,
-        1277956800
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
         1277956800
       ]
     },
@@ -330,7 +346,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -362,22 +377,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
-        1277956800
-      ]
-    },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1297573200,
-        1289883600,
-        1284523200,
-        1281844800,
-        1277956800
-      ],
-      "tobacco_use_cessation_counseling_communication_to_patient": [
-        1277956800
-      ],
-      "tobacco_user_patient_characteristic": [
         1277956800
       ]
     },
@@ -400,7 +399,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -409,16 +407,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
-        1277956800
-      ]
-    },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1297573200,
-        1289883600,
-        1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -427,25 +415,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
-        1277956800
-      ]
-    },
-    "0036": {
-      "encounter_outpatient_encounter": [
-        1297573200,
-        1289883600,
-        1284523200,
-        1281844800,
-        1277956800
-      ]
-    },
-    "0038": {
-      "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1297573200,
-        1289883600,
-        1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -454,14 +423,39 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ],
       "encounter_outpatient_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
+        1277956800
+      ]
+    },
+    "0033": {
+      "encounter_outpatient_encounter": [
+        1297573200,
+        1289883600,
+        1284523200,
+        1277956800
+      ]
+    },
+    "0036": {
+      "encounter_outpatient_encounter": [
+        1297573200,
+        1289883600,
+        1284523200,
+        1277956800
+      ],
+      "encounter_acute_inpt_encounter": [
+        1268625600
+      ]
+    },
+    "0038": {
+      "encounter_outpatient_w_pcp_obgyn_encounter": [
+        1297573200,
+        1289883600,
+        1284523200,
         1277956800
       ]
     },
@@ -470,7 +464,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -479,7 +472,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -488,43 +480,50 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
     "0055": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1268625600
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
     "0056": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1268625600
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
     "0059": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1268625600
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
     "0061": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1268625600
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -555,23 +554,24 @@
       "ace_inhibitors_arbs_medication_dispensed": [
         1277956800
       ],
-      "ace_inhibitors_arbs_medication_active": [
-        1277956800
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1268625600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
     "0064": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1268625600
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -580,7 +580,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -589,8 +588,11 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
+        1268625600,
         1277956800
+      ],
+      "encounter_acute_inpt_encounter": [
+        1268625600
       ],
       "encounter_outpatient_encounter": [
         1297573200,
@@ -610,7 +612,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -619,18 +620,21 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
+        1268625600,
         1277956800
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1289883600,
-          "value": 124.0
+          "value": 76.0
         },
         {
           "date": 1277956800,
-          "value": 132.0
+          "value": 84.0
         }
+      ],
+      "encounter_acute_inpt_encounter": [
+        1268625600
       ],
       "encounter_outpatient_encounter": [
         1297573200,
@@ -654,7 +658,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -663,8 +666,11 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
+        1268625600,
         1277956800
+      ],
+      "encounter_acute_inpt_encounter": [
+        1268625600
       ],
       "encounter_outpatient_encounter": [
         1297573200,
@@ -687,14 +693,7 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
-      ],
-      "lvf_assmt_diagnostic_study_result": [
-        {
-          "date": 1277956800,
-          "value": 35.0
-        }
       ]
     },
     "0083": {
@@ -711,14 +710,7 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
-      ],
-      "lvf_assmt_diagnostic_study_result": [
-        {
-          "date": 1277956800,
-          "value": 35.0
-        }
       ]
     },
     "0084": {
@@ -729,7 +721,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -738,7 +729,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -747,7 +737,6 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
@@ -756,53 +745,52 @@
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     },
     "0105": {
       "depression_diagnosis_active": [
-        1281844800
+        1268625600
       ],
       "major_depression_diagnosis_active": [
-        1281844800
+        1268625600
       ],
       "antidepressant_medications_medication_dispensed": [
-        1281844800,
-        1281844800,
-        1281844800,
-        1283313600,
-        1283313600,
-        1283313600
+        1267419600,
+        1267419600,
+        1267419600,
+        1269403200,
+        1269403200,
+        1269403200
       ],
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
+        1268625600,
         1277956800
       ],
       "antidepressant_medications_medication_order": [
-        1281844800,
-        1281844800,
-        1281844800,
-        1283313600,
-        1283313600,
-        1283313600
+        1267419600,
+        1267419600,
+        1267419600,
+        1269403200,
+        1269403200,
+        1269403200
       ],
       "antidepressant_medications_medication_active": [
-        1281844800,
-        1281844800,
-        1281844800,
-        1283313600,
-        1283313600,
-        1283313600
+        1267419600,
+        1267419600,
+        1267419600,
+        1269403200,
+        1269403200,
+        1269403200
       ],
       "depression_diagnosis_active_priority_principal": [
-        1281844800
+        1268625600
       ],
       "major_depression_diagnosis_active_priority_principal": [
-        1281844800
+        1268625600
       ]
     },
     "0385": {
@@ -813,6 +801,8 @@
         1277956800
       ]
     },
+    "0389": {
+    },
     "0387": {
       "encounter_office_visit_encounter": [
         1297573200,
@@ -820,8 +810,6 @@
         1284523200,
         1277956800
       ]
-    },
-    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -841,11 +829,13 @@
       ]
     },
     "0575": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1268625600
+      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1297573200,
         1289883600,
         1284523200,
-        1281844800,
         1277956800
       ]
     }
@@ -853,7 +843,7 @@
   "medical_record_number": null,
   "medications": [
     {
-      "_id": "4fe1ecafa9ffcc03cd000179",
+      "_id": "4fea3736a9ffccb429000179",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -888,7 +878,7 @@
       "vehicle": null
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00017a",
+      "_id": "4fea3736a9ffccb42900017a",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -923,7 +913,7 @@
       "vehicle": null
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00017b",
+      "_id": "4fea3736a9ffccb42900017b",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -951,14 +941,14 @@
       "start_time": null,
       "status": null,
       "statusOfMedication": null,
-      "time": 1281844800,
+      "time": 1267419600,
       "typeOfMedication": null,
       "value": {
       },
       "vehicle": null
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00017c",
+      "_id": "4fea3736a9ffccb42900017c",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -986,14 +976,14 @@
       "start_time": null,
       "status": null,
       "statusOfMedication": null,
-      "time": 1281844800,
+      "time": 1267419600,
       "typeOfMedication": null,
       "value": {
       },
       "vehicle": null
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00017d",
+      "_id": "4fea3736a9ffccb42900017d",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -1021,14 +1011,14 @@
       "start_time": null,
       "status": null,
       "statusOfMedication": null,
-      "time": 1281844800,
+      "time": 1267419600,
       "typeOfMedication": null,
       "value": {
       },
       "vehicle": null
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00017e",
+      "_id": "4fea3736a9ffccb42900017e",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -1056,14 +1046,14 @@
       "start_time": null,
       "status": null,
       "statusOfMedication": null,
-      "time": 1283313600,
+      "time": 1269403200,
       "typeOfMedication": null,
       "value": {
       },
       "vehicle": null
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd00017f",
+      "_id": "4fea3736a9ffccb42900017f",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -1091,14 +1081,14 @@
       "start_time": null,
       "status": null,
       "statusOfMedication": null,
-      "time": 1283313600,
+      "time": 1269403200,
       "typeOfMedication": null,
       "value": {
       },
       "vehicle": null
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd000180",
+      "_id": "4fea3736a9ffccb429000180",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -1126,7 +1116,7 @@
       "start_time": null,
       "status": null,
       "statusOfMedication": null,
-      "time": 1283313600,
+      "time": 1269403200,
       "typeOfMedication": null,
       "value": {
       },
@@ -1136,7 +1126,7 @@
   "patient_id": "180",
   "procedures": [
     {
-      "_id": "4fe1ecafa9ffcc03cd000178",
+      "_id": "4fea3736a9ffccb429000177",
       "codes": {
         "SNOMED-CT": [
           "384742004"
@@ -1158,15 +1148,9 @@
       "time": 1277956800,
       "value": {
       }
-    }
-  ],
-  "race": {
-    "name": "American Indian Or Alaska Native",
-    "code": null
-  },
-  "results": [
+    },
     {
-      "_id": "4fe1ecafa9ffcc03cd000177",
+      "_id": "4fea3736a9ffccb429000178",
       "codes": {
         "CPT": [
           "93543"
@@ -1176,22 +1160,24 @@
       "element_name": null,
       "end_time": null,
       "free_text": null,
-      "interpretation": null,
       "mood_code": "EVN",
-      "referenceRange": null,
+      "performer_id": null,
+      "site": null,
       "specifics": "C0202857:Angiocardiography of left heart;",
       "start_time": null,
       "status": null,
       "time": 1277956800,
       "value": {
-        "scalar": 35.0,
-        "units": "%"
       }
     }
   ],
+  "race": {
+    "name": "American Indian Or Alaska Native",
+    "code": null
+  },
   "social_history": [
     {
-      "_id": "4fe1ecafa9ffcc03cd00016e",
+      "_id": "4fea3736a9ffccb42900016e",
       "codes": {
         "SNOMED-CT": [
           "230062009"
@@ -1215,7 +1201,7 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fe1ecafa9ffcc03cd00016f",
+      "_id": "4fea3736a9ffccb42900016f",
       "codes": {
         "SNOMED-CT": [
           "271649006"
@@ -1238,7 +1224,7 @@
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd000170",
+      "_id": "4fea3736a9ffccb429000170",
       "codes": {
         "SNOMED-CT": [
           "271650006"
@@ -1261,7 +1247,7 @@
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd000171",
+      "_id": "4fea3736a9ffccb429000171",
       "codes": {
         "SNOMED-CT": [
           "271649006"
@@ -1284,7 +1270,7 @@
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd000172",
+      "_id": "4fea3736a9ffccb429000172",
       "codes": {
         "SNOMED-CT": [
           "271650006"
@@ -1307,7 +1293,7 @@
       }
     },
     {
-      "_id": "4fe1ecafa9ffcc03cd000173",
+      "_id": "4fea3736a9ffccb429000173",
       "codes": {
         "SNOMED-CT": [
           "60621009"

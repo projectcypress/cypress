@@ -1,9 +1,9 @@
 {
-  "_id": "4fe1ece0a9ffcc03cd000e8a",
+  "_id": "4fea3767a9ffccb429000e8a",
   "birthdate": 789282000,
   "conditions": [
     {
-      "_id": "4fe1ece0a9ffcc03cd000e92",
+      "_id": "4fea3767a9ffccb429000e92",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -33,7 +33,7 @@
       }
     },
     {
-      "_id": "4fe1ece0a9ffcc03cd000e93",
+      "_id": "4fea3767a9ffccb429000e93",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -57,7 +57,67 @@
       "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
       "start_time": null,
       "status": "active",
-      "time": 1271736000,
+      "time": 1269057600,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fea3767a9ffccb429000e94",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "F10"
+        ],
+        "ICD-9-CM": [
+          "305"
+        ],
+        "SNOMED-CT": [
+          "66590003"
+        ]
+      },
+      "description": "alcohol or drug dependence",
+      "element_name": null,
+      "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
+      "name": null,
+      "ordinality": "principal",
+      "priority": null,
+      "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
+      "start_time": null,
+      "status": "active",
+      "time": 1269921600,
+      "type": null,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fea3767a9ffccb429000e95",
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "F10"
+        ],
+        "ICD-9-CM": [
+          "305"
+        ],
+        "SNOMED-CT": [
+          "66590003"
+        ]
+      },
+      "description": "alcohol or drug dependence",
+      "element_name": null,
+      "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
+      "name": null,
+      "ordinality": "principal",
+      "priority": null,
+      "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
+      "start_time": null,
+      "status": "active",
+      "time": 1270872000,
       "type": null,
       "value": {
       }
@@ -67,7 +127,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fe1ece0a9ffcc03cd000e8c",
+      "_id": "4fea3767a9ffccb429000e8c",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -92,29 +152,7 @@
       }
     },
     {
-      "_id": "4fe1ece0a9ffcc03cd000e8d",
-      "admitType": null,
-      "codes": {
-        "CPT": [
-          "99238"
-        ]
-      },
-      "description": "Encounter Inpatient Discharge",
-      "dischargeDisposition": null,
-      "element_name": null,
-      "end_time": null,
-      "free_text": null,
-      "mood_code": "EVN",
-      "performer_id": null,
-      "specifics": "C0374572:Hospital discharge day management; 30 minutes or less;",
-      "start_time": null,
-      "status": null,
-      "time": 1278129600,
-      "value": {
-      }
-    },
-    {
-      "_id": "4fe1ece0a9ffcc03cd000e8e",
+      "_id": "4fea3767a9ffccb429000e8d",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -131,29 +169,51 @@
       "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
       "start_time": null,
       "status": null,
-      "time": 1271736000,
+      "time": 1270612800,
       "value": {
       }
     },
     {
-      "_id": "4fe1ece0a9ffcc03cd000e8f",
+      "_id": "4fea3767a9ffccb429000e8e",
       "admitType": null,
       "codes": {
         "CPT": [
-          "99281"
+          "99241"
         ]
       },
-      "description": "encounter ED",
+      "description": "encounter outpatient BH",
       "dischargeDisposition": null,
       "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
       "performer_id": null,
-      "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
+      "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
       "status": null,
-      "time": 1270094400,
+      "time": 1269921600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fea3767a9ffccb429000e8f",
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99251"
+        ]
+      },
+      "description": "encounter acute inpt",
+      "dischargeDisposition": null,
+      "element_name": null,
+      "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
+      "performer_id": null,
+      "specifics": "C0374574:Inpatient consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 20 minutes at the bedside and on the patient's hospital floor or unit.;",
+      "start_time": null,
+      "status": null,
+      "time": 1269057600,
       "value": {
       }
     }
@@ -169,61 +229,76 @@
   "measures": {
     "0001": {
       "encounter_office_outpatient_consult_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0002": {
       "encounter_ambulatory_including_pediatrics_encounter": [
         1281931200,
-        1270094400
+        1269921600
       ]
     },
     "0004": {
       "alcohol_or_drug_dependence_diagnosis_active": [
-        1271736000
+        1269057600,
+        1269921600,
+        1270872000
       ],
       "alcohol_drug_rehab_and_detox_interventions_procedure_performed": [
-        1271736000
+        1270612800,
+        1269921600,
+        1269057600
       ],
       "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
         1281931200,
-        1278129600,
-        1271736000,
-        1270094400
+        1270612800,
+        1269921600,
+        1269057600
       ],
       "encounter_acute_inpt_encounter": [
-        1278129600,
-        1271736000
-      ],
-      "encounter_ed_encounter": [
-        1270094400
+        1270612800,
+        1269057600
       ],
       "encounter_outpatient_bh_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ],
       "encounter_outpt_bh_req_pos_encounter": [
-        1278129600,
-        1271736000
+        1270612800,
+        1269057600
       ]
     },
-    "0013": {
+    "0027": {
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0012": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1271736000
+        1269057600,
+        1269921600,
+        1270872000
+      ]
+    },
+    "0013": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
       ]
     },
     "0014": {
       "delivery_live_births_diagnosis_diagnosis_active": [
-        1271736000
+        1269057600,
+        1269921600,
+        1270872000
       ]
     },
     "0018": {
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0024": {
@@ -237,12 +312,8 @@
         1281931200
       ],
       "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1281931200
-      ]
-    },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0028": {
@@ -255,12 +326,30 @@
     },
     "0031": {
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0032": {
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1281931200,
+        1269921600
+      ],
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
       ]
     },
     "0033": {
@@ -268,7 +357,8 @@
         1281931200
       ],
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ],
       "sexually_active_woman_diagnosis_active": [
         1281931200
@@ -283,151 +373,136 @@
         1281931200
       ]
     },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1281931200
-      ]
-    },
     "0036": {
       "encounter_outpatient_encounter": [
         1281931200
       ],
       "encounter_acute_inpt_encounter": [
-        1278129600,
-        1271736000
-      ],
-      "encounter_ed_encounter": [
-        1270094400
+        1270612800,
+        1269057600
       ]
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1281931200
-      ]
-    },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1281931200
-      ],
-      "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0043": {
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0047": {
       "encounter_office_outpatient_consult_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0052": {
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
         1281931200,
-        1270094400
+        1269921600
       ]
     },
     "0055": {
       "encounter_acute_inpatient_or_ed_encounter": [
-        1278129600,
-        1271736000,
-        1270094400
+        1270612800,
+        1269057600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0056": {
       "encounter_acute_inpatient_or_ed_encounter": [
-        1278129600,
-        1271736000,
-        1270094400
+        1270612800,
+        1269057600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0059": {
       "encounter_acute_inpatient_or_ed_encounter": [
-        1278129600,
-        1271736000,
-        1270094400
+        1270612800,
+        1269057600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0061": {
       "encounter_acute_inpatient_or_ed_encounter": [
-        1278129600,
-        1271736000,
-        1270094400
+        1270612800,
+        1269057600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0062": {
       "encounter_acute_inpatient_or_ed_encounter": [
-        1278129600,
-        1271736000,
-        1270094400
+        1270612800,
+        1269057600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0064": {
       "encounter_acute_inpatient_or_ed_encounter": [
-        1278129600,
-        1271736000,
-        1270094400
+        1270612800,
+        1269057600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0067": {
-      "encounter_inpatient_discharge_encounter": [
-        1278129600
-      ],
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0068": {
       "encounter_acute_inpt_and_outpt_encounter": [
         1281931200,
-        1278129600,
-        1271736000
+        1270612800,
+        1269921600,
+        1269057600
       ],
       "encounter_acute_inpt_encounter": [
-        1278129600,
-        1271736000
+        1270612800,
+        1269057600
       ],
       "encounter_outpatient_encounter": [
         1281931200
       ]
     },
     "0070": {
-      "encounter_inpatient_discharge_encounter": [
-        1278129600
-      ],
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0073": {
       "encounter_acute_inpt_and_outpt_encounter": [
         1281931200,
-        1278129600,
-        1271736000
+        1270612800,
+        1269921600,
+        1269057600
       ],
       "encounter_acute_inpt_encounter": [
-        1278129600,
-        1271736000
+        1270612800,
+        1269057600
       ],
       "encounter_outpatient_encounter": [
         1281931200
@@ -435,64 +510,67 @@
     },
     "0074": {
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0075": {
       "encounter_acute_inpt_and_outpt_encounter": [
         1281931200,
-        1278129600,
-        1271736000
+        1270612800,
+        1269921600,
+        1269057600
       ],
       "encounter_acute_inpt_encounter": [
-        1278129600,
-        1271736000
+        1270612800,
+        1269057600
       ],
       "encounter_outpatient_encounter": [
         1281931200
       ]
     },
     "0081": {
-      "encounter_inpatient_discharge_encounter": [
-        1278129600
-      ],
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0083": {
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0084": {
       "encounter_outpatient_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0086": {
       "encounter_office_outpatient_consult_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0088": {
       "encounter_office_outpatient_consult_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0089": {
       "encounter_office_outpatient_consult_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     },
     "0105": {
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1281931200,
-        1278129600,
-        1271736000
-      ],
-      "encounter_ed_encounter": [
-        1270094400
+        1270612800,
+        1269921600,
+        1269057600
       ]
     },
     "0385": {
@@ -500,12 +578,12 @@
         1281931200
       ]
     },
+    "0389": {
+    },
     "0387": {
       "encounter_office_visit_encounter": [
         1281931200
       ]
-    },
-    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -520,18 +598,18 @@
     },
     "0575": {
       "encounter_acute_inpatient_or_ed_encounter": [
-        1278129600,
-        1271736000,
-        1270094400
+        1270612800,
+        1269057600
       ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200
+        1281931200,
+        1269921600
       ]
     }
   },
   "medical_equipment": [
     {
-      "_id": "4fe1ece0a9ffcc03cd000e8b",
+      "_id": "4fea3767a9ffccb429000e8b",
       "codes": {
         "SNOMED-CT": [
           "169491004"
@@ -555,7 +633,7 @@
   "patient_id": "137",
   "procedures": [
     {
-      "_id": "4fe1ece0a9ffcc03cd000e95",
+      "_id": "4fea3767a9ffccb429000e97",
       "codes": {
         "SNOMED-CT": [
           "44651004"
@@ -576,7 +654,7 @@
       }
     },
     {
-      "_id": "4fe1ece0a9ffcc03cd000e96",
+      "_id": "4fea3767a9ffccb429000e98",
       "codes": {
         "CPT": [
           "97802"
@@ -606,7 +684,7 @@
       }
     },
     {
-      "_id": "4fe1ece0a9ffcc03cd000e97",
+      "_id": "4fea3767a9ffccb429000e99",
       "codes": {
         "ICD-9-CM": [
           "V65.41"
@@ -633,7 +711,7 @@
       }
     },
     {
-      "_id": "4fe1ece0a9ffcc03cd000e98",
+      "_id": "4fea3767a9ffccb429000e9a",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -652,7 +730,55 @@
       "specifics": "C0204598:Alcohol rehabilitation;",
       "start_time": null,
       "status": null,
-      "time": 1271736000,
+      "time": 1270612800,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fea3767a9ffccb429000e9b",
+      "codes": {
+        "ICD-9-CM": [
+          "94.61"
+        ],
+        "SNOMED-CT": [
+          "35637008"
+        ]
+      },
+      "description": "alcohol, drug rehab and detox interventions",
+      "element_name": null,
+      "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0204598:Alcohol rehabilitation;",
+      "start_time": null,
+      "status": null,
+      "time": 1269921600,
+      "value": {
+      }
+    },
+    {
+      "_id": "4fea3767a9ffccb429000e9c",
+      "codes": {
+        "ICD-9-CM": [
+          "94.61"
+        ],
+        "SNOMED-CT": [
+          "35637008"
+        ]
+      },
+      "description": "alcohol, drug rehab and detox interventions",
+      "element_name": null,
+      "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
+      "performer_id": null,
+      "site": null,
+      "specifics": "C0204598:Alcohol rehabilitation;",
+      "start_time": null,
+      "status": null,
+      "time": 1269057600,
       "value": {
       }
     }
@@ -663,7 +789,7 @@
   },
   "results": [
     {
-      "_id": "4fe1ece0a9ffcc03cd000e94",
+      "_id": "4fea3767a9ffccb429000e96",
       "codes": {
         "CPT": [
           "87110"
@@ -694,7 +820,7 @@
   ],
   "social_history": [
     {
-      "_id": "4fe1ece0a9ffcc03cd000e90",
+      "_id": "4fea3767a9ffccb429000e90",
       "codes": {
         "SNOMED-CT": [
           "160618006"
@@ -718,7 +844,7 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fe1ece0a9ffcc03cd000e91",
+      "_id": "4fea3767a9ffccb429000e91",
       "codes": {
         "SNOMED-CT": [
           "60621009"

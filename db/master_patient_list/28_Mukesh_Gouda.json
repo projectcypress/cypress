@@ -1,9 +1,9 @@
 {
-  "_id": "4fe1ed03a9ffcc03cd0017f9",
+  "_id": "4fea378ba9ffccb4290017fd",
   "birthdate": -962913600,
   "conditions": [
     {
-      "_id": "4fe1ed03a9ffcc03cd001803",
+      "_id": "4fea378ba9ffccb429001807",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -33,7 +33,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd001804",
+      "_id": "4fea378ba9ffccb429001808",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -67,7 +67,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fe1ed03a9ffcc03cd0017fa",
+      "_id": "4fea378ba9ffccb4290017fe",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -92,7 +92,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd0017fb",
+      "_id": "4fea378ba9ffccb4290017ff",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -148,6 +148,17 @@
         1273032000
       ]
     },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1276574400,
+        1273032000
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1273032000
+      ]
+    },
     "0013": {
       "hypertension_diagnosis_active": [
         1273032000
@@ -162,11 +173,6 @@
       ],
       "systolic_blood_pressure_physical_exam_finding": [
         1276401600,
-        1273032000
-      ]
-    },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
         1273032000
       ]
     },
@@ -214,12 +220,6 @@
         1273032000
       ]
     },
-    "0027": {
-      "encounter_outpatient_encounter": [
-        1276574400,
-        1273032000
-      ]
-    },
     "0028": {
       "encounter_office_visit_encounter": [
         1276574400,
@@ -241,13 +241,23 @@
         1273032000
       ]
     },
-    "0033": {
+    "0034": {
       "encounter_outpatient_encounter": [
         1276574400,
         1273032000
       ]
     },
-    "0034": {
+    "0041": {
+      "encounter_influenza_encounter": [
+        1276574400,
+        1273032000
+      ],
+      "encounter_outpatient_encounter": [
+        1276574400,
+        1273032000
+      ]
+    },
+    "0033": {
       "encounter_outpatient_encounter": [
         1276574400,
         1273032000
@@ -261,16 +271,6 @@
     },
     "0038": {
       "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1276574400,
-        1273032000
-      ]
-    },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1276574400,
-        1273032000
-      ],
-      "encounter_outpatient_encounter": [
         1276574400,
         1273032000
       ]
@@ -389,11 +389,11 @@
       "diastolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1276401600,
-          "value": 150.0
+          "value": 88.0
         },
         {
           "date": 1273032000,
-          "value": 154.0
+          "value": 90.0
         }
       ],
       "encounter_outpatient_encounter": [
@@ -534,13 +534,13 @@
         1273032000
       ]
     },
+    "0389": {
+    },
     "0387": {
       "encounter_office_visit_encounter": [
         1276574400,
         1273032000
       ]
-    },
-    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -573,7 +573,7 @@
   },
   "results": [
     {
-      "_id": "4fe1ed03a9ffcc03cd001805",
+      "_id": "4fea378ba9ffccb429001809",
       "codes": {
         "CPT": [
           "83701"
@@ -602,7 +602,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd001806",
+      "_id": "4fea378ba9ffccb42900180a",
       "codes": {
         "CPT": [
           "83721"
@@ -631,7 +631,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd001807",
+      "_id": "4fea378ba9ffccb42900180b",
       "codes": {
         "CPT": [
           "82465"
@@ -660,7 +660,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd001808",
+      "_id": "4fea378ba9ffccb42900180c",
       "codes": {
         "CPT": [
           "84478"
@@ -689,7 +689,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd001809",
+      "_id": "4fea378ba9ffccb42900180d",
       "codes": {
         "SNOMED-CT": [
           "70822001"
@@ -714,7 +714,7 @@
   ],
   "social_history": [
     {
-      "_id": "4fe1ed03a9ffcc03cd0017fc",
+      "_id": "4fea378ba9ffccb429001800",
       "codes": {
         "SNOMED-CT": [
           "160618006"
@@ -738,7 +738,7 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fe1ed03a9ffcc03cd0017fd",
+      "_id": "4fea378ba9ffccb429001801",
       "codes": {
         "SNOMED-CT": [
           "271649006"
@@ -761,7 +761,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd0017fe",
+      "_id": "4fea378ba9ffccb429001802",
       "codes": {
         "SNOMED-CT": [
           "271650006"
@@ -784,7 +784,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd0017ff",
+      "_id": "4fea378ba9ffccb429001803",
       "codes": {
         "SNOMED-CT": [
           "271649006"
@@ -807,7 +807,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd001800",
+      "_id": "4fea378ba9ffccb429001804",
       "codes": {
         "SNOMED-CT": [
           "271650006"
@@ -830,7 +830,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd001801",
+      "_id": "4fea378ba9ffccb429001805",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -856,7 +856,7 @@
       }
     },
     {
-      "_id": "4fe1ed03a9ffcc03cd001802",
+      "_id": "4fea378ba9ffccb429001806",
       "codes": {
         "SNOMED-CT": [
           "60621009"
