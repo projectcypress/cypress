@@ -135,6 +135,30 @@ namespace :mpl do
         Cypress::PatientRoll.roll_year(args[:years])
      end
   end
+  
+     desc 'Create CSV matrix of patients and their measures'
+task :report => :setup do
+    outfile = File.new("report.csv", "w")
+    outfile.write "Patient Name"
+  Record.where('test_id' => nil).first.measures.each do |measure|
+    outfile.write ",#{measure.first}"
+    
+    binding.pry   
+  end
+  outfile.write "\n"
+  Record.where('test_id' => nil).all.entries.each do |patient|
+    outfile.write "#{patient.first} #{patient.last}"
+    patient.measures.each do |measure|
+      if measure.second == {}
+        outfile.write ",0"
+      else
+        outfile.write",1"
+      end
+    end
+    outfile.write "\n"
+  end
+  outfile.close
+end
 
   desc 'Collect a subset of "count" patients that meet the criteria for the given set of "measures"'
   task :subset => :setup do
