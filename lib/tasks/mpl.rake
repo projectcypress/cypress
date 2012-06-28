@@ -142,8 +142,6 @@ task :report => :setup do
     outfile.write "Patient Name"
   Record.where('test_id' => nil).first.measures.each do |measure|
     outfile.write ",#{measure.first}"
-    
-    binding.pry   
   end
   outfile.write "\n"
   Record.where('test_id' => nil).all.entries.each do |patient|
