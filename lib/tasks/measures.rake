@@ -63,7 +63,7 @@ namespace :measures do
   task :load_local_bundle, [:bundle_name] => [:setup ] do |t, args|
     bundle_name = args[:bundle_name] || 'bundle'
     @loader.drop_collection("measures")
-    @importer.import(File.new("./db/" + undle_name + ".zip"))
+    @importer.import(File.new("./db/" + bundle_name + ".zip"))
   end
 
 
