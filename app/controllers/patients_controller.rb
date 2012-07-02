@@ -4,7 +4,6 @@ class PatientsController < ApplicationController
 
   require 'builder'
   require 'create_download_zip'
-  require 'remove_duplicate_patients'
   
   before_filter :authenticate_user!
 
