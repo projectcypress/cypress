@@ -19,6 +19,18 @@
 .table-hover {
   tbody tr:hover td, tbody tr:hover th { background-color: #e6f3e8; }
 }
+.dot {
+width:20px;
+}
+.tog{
+width:10px;
+}
+.name {
+width:200px;
+}
+.info {
+width:300px;
+}
 
 tr.sub_rows {
   display:none;
@@ -30,7 +42,7 @@ width:10px;
   border:none;
 }
 
-td {//Status bubbles in top-left of new product test wizard
+.steps td {//Status bubbles in top-left of new product test wizard
   span.wizard {
     width:16px;
     text-indent:-9999pt;

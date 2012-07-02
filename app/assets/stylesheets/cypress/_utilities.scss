@@ -5,10 +5,10 @@
 .align-block { text-align: block; }
 
 // Passing, failing, incomplete persistent styles
-.fail { color: $failColor; }
-.pass { color: $passColor; }
-.incomplete { color: $incompleteColor; }
-.result { color: $resultColor; }
+.fail { color: $failColor;}
+.pass { color: $passColor; font-weight:$fontWeight; }
+.incomplete { color: $incompleteColor; font-weight:$fontWeight;}
+.result { color: $resultColor; font-weight:$fontWeight; }
 
 .fail-icon, .pass-icon, .incomplete-icon { padding-left: 20px; }
 .fail-icon { background: url(/assets/fail.png) 0% 50% no-repeat; }

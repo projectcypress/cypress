@@ -9,25 +9,40 @@ font-size: $fontSize*2;
 font-weight:$fontWeight;
 }
 
-
-.dl-horizontal dt {
-  float: left;
-  width: 190px;
-  overflow: hidden;
-  clear: left;
-  text-align: right;
-  white-space: nowrap;
-  color:#666;
-  font-size: $fontSize;
-  font-weight: $fontWeight;
+.dl-horizontal{
+  padding-top:10px;
+  padding-bottom: 15px;
+   dt {
+    float:left;
+    width: 120px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    white-space: nowrap;
+    color:#666;
+    font-weight: $fontWeight;
+    display:inline;
+    height:21px;
+  }
+  dd { 
+    font-size: $fontSize*1.5;
+    text-overflow:ellipsis;
+    display:inline;
+    text-align:left;
+  }
+  
+}
+.quality-measures {
+    dd {
+    width:600px;
 }
 
-.dl-horizontal dd {
-  margin-left: 250px;
-  text-align:left;
-  font-size: $fontSize*1.5;
-font-weight:bold;
+  }
+
+.patient dt {
+width: 50px;;
 }
+
 
 .inline-span {
   font-size:$fontSize;

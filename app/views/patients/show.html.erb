@@ -76,17 +76,21 @@
       </table>
     </section>
     <div id="effectiveDate">effective date: <%= Time.at(@effective_date).strftime("%m/%d/%Y") %></div>
-    <section class="patient bordered buffered">
-      <div class="span2">
-        <img src="<%= patient_picture(@patient) %>" id="patientpicture">
+    <section class="patient bordered buffered"  >
+	<div class="span2">
+        
+         <img src="<%= patient_picture(@patient) %>" id="patientpicture">
 </div>
-        <span class="patientname" style="position:absolute; left: 150px;"><strong><%= @patient.last %></strong>, <%= @patient.first %></span><br>
-        <dl class="dl-horizontal" style="position:static; top:0;">
+  
+        <div class="offset2">
+        <span class="patientname" ><strong><%= @patient.last %></strong>, <%= @patient.first %></span><br>
+        <dl class="dl-horizontal patient">
           <dt>Gender</dt><dd><%= @patient.gender %></dd>
           <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>
           <dt>Race</dt><dd><%= race(@patient) %></dd>
           <dt>Ethnicity</dt><dd><%= ethnicity(@patient) %></dd>
         </dl>
+     </div>
     </section>
 
     <% patient_characteristics = {

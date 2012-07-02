@@ -28,7 +28,7 @@
               <th class="align-left" colspan="3">
                 <span class="<%= result_status %>"><strong><%= result_status %>ing</strong></span> EHR Vendors
               </th>
-              <th>Products</th>
+              <th colspan="1">Products</th>
               <th>POC</th>
               <th colspan="2">Proctor</th>
             </tr>
@@ -45,18 +45,15 @@
             end %>
             <tbody>
               <tr>
-                <td class="<%= dot_color %>-icon"></td>
-                <td class="<%= first_td_class %>" data-code="<%= vendor.id %>"></td>
-                <td>
-                  <% unless vendor.products.empty? %>
-                    <div class="<%= first_td_class %>" data-code="<%= vendor.id %>"></div>
-                  <% end %>
+                <td class="<%= dot_color %>-icon dot"></td>
+                <td class="<%= first_td_class %> tog" data-code="<%= vendor.id %>"></td>
+                <td class="name">
                   <a class="<%= result_status %>" href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a>
                 </td>
-                <td><strong class="<%= dot_color %>"><%= vendor.count_passing %></strong> <span class="result">/ <%= vendor.products.size %></span></td>
+                <td class="info"><strong class="<%= dot_color %>"><%= vendor.count_passing %></strong> <span class="result">/ <%= vendor.products.size %></span></td>
                 <td><%= vendor.poc %></td>
                 <td></td>
-                <td class="align-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' %></td>
+                <td class="align-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' %></td>
               </tr>
               <% if !vendor.products.empty?
                 vendor.products.each do |product|
@@ -73,7 +70,7 @@
                     <td><strong class="<%= product_status %>"><%= product.count_passing %></strong><span class="result"> / <%= product.product_tests.size %> tests passed</span></td>
                     <td></td>
                     <td></td>
-                    <td class="align-right"><%= link_to 'delete', product_path(product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                    <td class="align-right"><%= link_to 'delete', product_path(product), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               <% end %>

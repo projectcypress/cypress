@@ -27,7 +27,7 @@
         :class => "cmd",
         :onmouseover => "$.cypress.showMenu($('#download_menu'), $('#download_options'));"
       } %>
-      <ul id="download_options" style="display: none" role="listbox"
+      <ul id="download_options" role="listbox"
         class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
         <li class="ui-menu-item" role="menuitem">
           <%= link_to "Patients as C32s", zip_c32_path, { :class => "ui-corner-all", :tabindex => "-1" } %>
@@ -84,15 +84,14 @@
     </div>
     <section id="patient_list">
       <% if @selected and !@showAll %>
-	  <section class="measure">
-        <dl>
+	  <section class="measure bordered buffered">
+        <dl class="dl-horizontal quality-measures">
           <dt class="measure_title">Quality Measure:</dt>
           <dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
-        </dl>
-		 <dl>
+
           <dt class="measure_definition">Definition:</dt>
           <dd class="measure_definition" id="show_hide">Expand Definition</dd>
-        
+        </dl>
 		
 			  <div id="measureEditContainer">
       <div id="eligibilityMeasures">
@@ -105,9 +104,6 @@
       <div id="outcomeMeasures">
         <h3>Numerator</h3>
         <div class="measureBox">
-          <div id="outcomeExclusionMarker" class="exclusionTab" style="display:none">
-            0 Exclusions
-          </div>
           <div id="outcomeMeasureItems">
           </div>
           <div id="xexclusionMeasureItems">

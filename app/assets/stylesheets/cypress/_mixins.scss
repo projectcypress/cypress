@@ -12,6 +12,12 @@
   -webkit-border-radius: $radius;
 }
 
+@mixin leftRounded($radius) {
+  border-radius: $radius 0 0 $radius;
+  -moz-border-radius: $radius 0 0 $radius;
+  -webkit-border-radius: $radius 0 0 $radius;
+}
+
 @mixin popPercentage($diameter, $font_size, $line_height, $border_radius, $margin) {
   display: inline-block;
   width: $diameter;

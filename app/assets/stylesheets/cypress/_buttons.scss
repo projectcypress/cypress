@@ -40,7 +40,7 @@ a:hover {
   color: inherit;
   text-decoration: inherit;
 }
-  
+ 
 a.cmd {
   @include bordered($btnBorderColor);
   background-color: $btnBkgColor;
@@ -52,13 +52,21 @@ a.cmd {
   cursor: pointer;
   behavior: url(/assets/PIE.htc);
 }
-
 a.cmd:hover {
   background-color: $btnHoverBkg;
 }
 a.mailing_list {
   color:$mailing_listColor;
   font-weight:bold;
+}
+
+a.del {
+@include bordered($dltColor);
+color: $dltColor;
+}
+
+a.del:hover {
+background-color: $dltHoverBkg;
 }
 
 
