@@ -9,7 +9,8 @@ module Cypress
       deps["Measures"] = 'v' + bundle['version']
       deps["Health-Data-Standards"] = 'v' + env.specs.to_hash["health-data-standards"].first.version.to_s
       deps["Quality-Measure-Engine"]= 'v' + env.specs.to_hash["quality-measure-engine"].first.version.to_s
-
+      deps["Master Patient List"] = APP_CONFIG["mpl_version"]
+      
       return deps
     end
 

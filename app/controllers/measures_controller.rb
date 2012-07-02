@@ -30,12 +30,6 @@ class MeasuresController < ApplicationController
     
     @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure['id'])
     .where("value.sub_id" => @measure.sub_id)
-    if params[:search] && params[:search].size>0
-      @search_term = params[:search]
-      regex = Regexp.new('^'+params[:search], Regexp::IGNORECASE)
-      patient_ids = Record.any_of({"first" => regex}, {"last" => regex}).collect {|p| p.id}
-      @patients = @patients.any_in("value.patient_id" => patient_ids)
-    end
 
     @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
   end
