@@ -1,9 +1,9 @@
 {
-  "_id": "4fd62a0ea9ffcca774001be6",
+  "_id": "4ff7482a1d41c8778e00152e",
   "birthdate": -1090267200,
   "care_goals": [
     {
-      "_id": "4fd62a0ea9ffcca774001c06",
+      "_id": "4ff7482a1d41c8778e00154e",
       "codes": {
         "CPT": [
           "97804"
@@ -20,6 +20,8 @@
       },
       "description": "follow-up plan_BMI management",
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "start_time": null,
       "status": null,
@@ -30,7 +32,7 @@
   ],
   "conditions": [
     {
-      "_id": "4fd62a0ea9ffcca774001bf5",
+      "_id": "4ff7482a1d41c8778e00153d",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -45,7 +47,10 @@
       },
       "description": "diabetes",
       "end_time": null,
-      "name": null,
+      "free_text": null,
+      "mood_code": "EVN",
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0011849:Diabetes Mellitus;",
       "start_time": null,
       "status": "active",
@@ -55,7 +60,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bf6",
+      "_id": "4ff7482a1d41c8778e00153e",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -70,7 +75,10 @@
       },
       "description": "Diabetic Retinopathy",
       "end_time": null,
-      "name": null,
+      "free_text": null,
+      "mood_code": "EVN",
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C2874088:Type 2 diabetes mellitus with moderate nonproliferative diabetic retinopathy with macular edema;",
       "start_time": null,
       "status": "active",
@@ -84,7 +92,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fd62a0ea9ffcca774001be7",
+      "_id": "4ff7482a1d41c8778e00152f",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -98,6 +106,7 @@
       "dischargeDisposition": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -107,7 +116,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001be8",
+      "_id": "4ff7482a1d41c8778e001530",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -118,6 +127,7 @@
       "dischargeDisposition": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "start_time": null,
@@ -127,7 +137,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001be9",
+      "_id": "4ff7482a1d41c8778e001531",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -141,6 +151,7 @@
       "dischargeDisposition": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -150,7 +161,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bea",
+      "_id": "4ff7482a1d41c8778e001532",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -161,6 +172,7 @@
       "dischargeDisposition": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "start_time": null,
@@ -178,7 +190,7 @@
   "gender": "F",
   "immunizations": [
     {
-      "_id": "4fd62a0ea9ffcca774001c04",
+      "_id": "4ff7482a1d41c8778e00154c",
       "codes": {
         "RxNorm": [
           "857942"
@@ -186,6 +198,8 @@
       },
       "description": "Influenza Vaccine",
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "refusalInd": null,
       "refusalReason": null,
@@ -198,7 +212,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001c05",
+      "_id": "4ff7482a1d41c8778e00154d",
       "codes": {
         "CVX": [
           "100"
@@ -209,6 +223,8 @@
       },
       "description": "Pneumococcal Vaccine all ages",
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "refusalInd": null,
       "refusalReason": null,
@@ -223,27 +239,52 @@
   ],
   "languages": null,
   "last": "Roth",
+  "marital_status": null,
   "measures": {
-    "0001": {
-      "encounter_office_outpatient_consult_encounter": [
+    "0036": {
+      "encounter_outpatient_encounter": [
         1291698000,
         1279512000
       ]
     },
-    "0002": {
-      "encounter_ambulatory_including_pediatrics_encounter": [
+    "0012": {
+    },
+    "0033": {
+      "encounter_outpatient_encounter": [
         1291698000,
         1279512000
       ]
     },
-    "0004": {
-      "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
+    "0024": {
+      "bmi_percentile_physical_exam_finding": [
+        1291698000,
+        1279512000,
+        1270008000
+      ],
+      "encounter_outpatient_w_pcp_obgyn_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0068": {
+      "encounter_acute_inpt_and_outpt_encounter": [
         1291698000,
         1279512000
       ],
-      "encounter_outpatient_bh_encounter": [
+      "encounter_outpatient_encounter": [
         1291698000,
         1279512000
+      ]
+    },
+    "0014": {
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1270008000
       ]
     },
     "0027": {
@@ -252,25 +293,46 @@
         1279512000
       ]
     },
-    "0012": {
-    },
-    "0013": {
-      "diastolic_blood_pressure_physical_exam_finding": [
+    "0575": {
+      "diabetes_diagnosis_active": [
+        1270008000,
+        1270008000
+      ],
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1291698000,
+        1284609600,
         1279512000,
         1270008000
       ],
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
+      "hba1c_test_laboratory_test_result": [
+        {
+          "date": 1291698000,
+          "value": 7.3
+        },
+        {
+          "date": 1279512000,
+          "value": 7.5
+        },
+        {
+          "date": 1270008000,
+          "value": 7.1
+        }
       ],
-      "systolic_blood_pressure_physical_exam_finding": [
-        1291698000,
-        1279512000,
+      "medications_indicative_of_diabetes_medication_dispensed": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_order": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1270008000
       ]
     },
-    "0014": {
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+        1291698000,
+        1279512000
+      ]
     },
     "0018": {
       "encounter_outpatient_encounter": [
@@ -306,133 +368,61 @@
         }
       ]
     },
-    "0024": {
-      "bmi_percentile_physical_exam_finding": [
-        1291698000,
-        1279512000,
-        1270008000
-      ],
-      "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0028": {
+    "0385": {
       "encounter_office_visit_encounter": [
         1291698000,
         1279512000
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270008000
       ]
     },
-    "0031": {
+    "0075": {
+      "encounter_acute_inpt_and_outpt_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "high_density_lipoprotein_hdl_laboratory_test_performed": [
+        {
+          "date": 1270008000,
+          "value": 150.0
+        },
+        {
+          "date": 1270008000,
+          "value": 45.0
+        }
+      ],
+      "ldl_test_laboratory_test_performed": [
+        {
+          "date": 1270008000,
+          "value": 75.0
+        },
+        {
+          "date": 1270008000,
+          "value": 45.0
+        }
+      ],
+      "total_cholesterol_laboratory_test_performed": [
+        {
+          "date": 1270008000,
+          "value": 150.0
+        }
+      ],
+      "triglycerides_laboratory_test_performed": [
+        {
+          "date": 1270008000,
+          "value": 140.0
+        }
+      ],
       "encounter_outpatient_encounter": [
         1291698000,
         1279512000
       ]
     },
-    "0032": {
+    "0081": {
       "encounter_outpatient_encounter": [
         1291698000,
         1279512000
       ]
     },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "influenza_vaccine_medication_administered": [
-        1291698000
-      ]
-    },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0036": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0038": {
-      "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "pneumococcal_vaccination_procedure_performed": [
-        1291698000
-      ],
-      "influenza_vaccine_medication_administered": [
-        1291698000
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "pneumococcal_vaccination_all_ages_procedure_performed": [
-        1291698000
-      ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
-        1291698000
-      ]
-    },
-    "0047": {
-      "encounter_office_outpatient_consult_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0052": {
-      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0055": {
-      "diabetes_diagnosis_active": [
-        1270008000,
-        1270008000
-      ],
-      "diabetic_retinopathy_diagnosis_active": [
-        1270008000
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1291698000,
-        1284609600,
-        1279512000,
-        1270008000
-      ],
-      "eye_exam_procedure_performed": [
-        1270008000
-      ],
-      "medications_indicative_of_diabetes_medication_dispensed": [
-        1270008000
-      ],
-      "medications_indicative_of_diabetes_medication_order": [
-        1270008000
-      ],
-      "medications_indicative_of_diabetes_medication_active": [
-        1270008000
-      ]
-    },
-    "0056": {
+    "0064": {
       "diabetes_diagnosis_active": [
         1270008000,
         1270008000
@@ -443,18 +433,23 @@
         1279512000,
         1270008000
       ],
-      "medications_indicative_of_diabetes_medication_dispensed": [
-        1270008000
+      "ldl_test_laboratory_test_result": [
+        {
+          "date": 1270008000,
+          "value": 75.0
+        },
+        {
+          "date": 1270008000,
+          "value": 45.0
+        }
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1270008000
       ],
-      "medications_indicative_of_diabetes_medication_active": [
+      "medications_indicative_of_diabetes_medication_dispensed": [
         1270008000
       ],
-      "foot_exam_physical_exam_performed": [
-        1291698000,
-        1279512000,
+      "medications_indicative_of_diabetes_medication_active": [
         1270008000
       ]
     },
@@ -491,6 +486,62 @@
       ],
       "medications_indicative_of_diabetes_medication_active": [
         1270008000
+      ]
+    },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0032": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0089": {
+      "diabetic_retinopathy_diagnosis_active": [
+        1270008000
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1284609600,
+        1270008000
+      ]
+    },
+    "0067": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0088": {
+      "diabetic_retinopathy_diagnosis_active": [
+        1270008000
+      ],
+      "encounter_office_outpatient_consult_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "encounter_ophthalmological_services_encounter": [
+        1284609600,
+        1270008000
+      ]
+    },
+    "0052": {
+      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
       ]
     },
     "0061": {
@@ -542,6 +593,70 @@
         }
       ]
     },
+    "0004": {
+      "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "encounter_outpatient_bh_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0083": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0389": {
+    },
+    "0084": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0001": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0013": {
+      "diastolic_blood_pressure_physical_exam_finding": [
+        1291698000,
+        1279512000,
+        1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "systolic_blood_pressure_physical_exam_finding": [
+        1291698000,
+        1279512000,
+        1270008000
+      ]
+    },
+    "0074": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "ldl_laboratory_test_laboratory_test_result": [
+        {
+          "date": 1270008000,
+          "value": 75.0
+        }
+      ]
+    },
+    "0070": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
     "0062": {
       "diabetes_diagnosis_active": [
         1270008000,
@@ -566,169 +681,6 @@
         1270008000
       ]
     },
-    "0064": {
-      "diabetes_diagnosis_active": [
-        1270008000,
-        1270008000
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1291698000,
-        1284609600,
-        1279512000,
-        1270008000
-      ],
-      "ldl_test_laboratory_test_result": [
-        {
-          "date": 1270008000,
-          "value": 75.0
-        },
-        {
-          "date": 1270008000,
-          "value": 45.0
-        }
-      ],
-      "medications_indicative_of_diabetes_medication_order": [
-        1270008000
-      ],
-      "medications_indicative_of_diabetes_medication_dispensed": [
-        1270008000
-      ],
-      "medications_indicative_of_diabetes_medication_active": [
-        1270008000
-      ]
-    },
-    "0067": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0068": {
-      "encounter_acute_inpt_and_outpt_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0070": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0073": {
-      "encounter_acute_inpt_and_outpt_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "diastolic_blood_pressure_physical_exam_finding": [
-        {
-          "date": 1291698000,
-          "value": 130.0
-        },
-        {
-          "date": 1279512000,
-          "value": 118.0
-        },
-        {
-          "date": 1270008000,
-          "value": 126.0
-        }
-      ],
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "systolic_blood_pressure_physical_exam_finding": [
-        {
-          "date": 1291698000,
-          "value": 130.0
-        },
-        {
-          "date": 1279512000,
-          "value": 118.0
-        },
-        {
-          "date": 1270008000,
-          "value": 126.0
-        }
-      ]
-    },
-    "0074": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "ldl_laboratory_test_laboratory_test_result": [
-        {
-          "date": 1270008000,
-          "value": 75.0
-        }
-      ]
-    },
-    "0075": {
-      "encounter_acute_inpt_and_outpt_encounter": [
-        1291698000,
-        1279512000
-      ],
-      "high_density_lipoprotein_hdl_laboratory_test_performed": [
-        {
-          "date": 1270008000,
-          "value": 150.0
-        },
-        {
-          "date": 1270008000,
-          "value": 45.0
-        }
-      ],
-      "ldl_test_laboratory_test_performed": [
-        {
-          "date": 1270008000,
-          "value": 75.0
-        },
-        {
-          "date": 1270008000,
-          "value": 45.0
-        }
-      ],
-      "total_cholesterol_laboratory_test_performed": [
-        {
-          "date": 1270008000,
-          "value": 150.0
-        }
-      ],
-      "triglycerides_laboratory_test_performed": [
-        {
-          "date": 1270008000,
-          "value": 140.0
-        }
-      ],
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0081": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0083": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0084": {
-      "encounter_outpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
     "0086": {
       "encounter_office_outpatient_consult_encounter": [
         1291698000,
@@ -739,51 +691,76 @@
         1270008000
       ]
     },
-    "0088": {
+    "0056": {
+      "diabetes_diagnosis_active": [
+        1270008000,
+        1270008000
+      ],
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+        1291698000,
+        1284609600,
+        1279512000,
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_dispensed": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_order": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
+        1270008000
+      ],
+      "foot_exam_physical_exam_performed": [
+        1291698000,
+        1279512000,
+        1270008000
+      ]
+    },
+    "0038": {
+      "encounter_outpatient_w_pcp_obgyn_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "pneumococcal_vaccination_procedure_performed": [
+        1291698000
+      ],
+      "influenza_vaccine_medication_administered": [
+        1291698000
+      ]
+    },
+    "0055": {
+      "diabetes_diagnosis_active": [
+        1270008000,
+        1270008000
+      ],
       "diabetic_retinopathy_diagnosis_active": [
         1270008000
       ],
-      "encounter_office_outpatient_consult_encounter": [
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1291698000,
-        1279512000
-      ],
-      "encounter_ophthalmological_services_encounter": [
         1284609600,
-        1270008000
-      ]
-    },
-    "0089": {
-      "diabetic_retinopathy_diagnosis_active": [
+        1279512000,
         1270008000
       ],
-      "encounter_office_outpatient_consult_encounter": [
-        1291698000,
-        1279512000
+      "eye_exam_procedure_performed": [
+        1270008000
       ],
-      "encounter_ophthalmological_services_encounter": [
-        1284609600,
+      "medications_indicative_of_diabetes_medication_dispensed": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_order": [
+        1270008000
+      ],
+      "medications_indicative_of_diabetes_medication_active": [
         1270008000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
+    "0002": {
+      "encounter_ambulatory_including_pediatrics_encounter": [
         1291698000,
         1279512000
       ]
-    },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0387": {
-      "encounter_office_visit_encounter": [
-        1291698000,
-        1279512000
-      ]
-    },
-    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -808,46 +785,86 @@
         }
       ]
     },
-    "0575": {
-      "diabetes_diagnosis_active": [
-        1270008000,
-        1270008000
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+    "0073": {
+      "encounter_acute_inpt_and_outpt_encounter": [
         1291698000,
-        1284609600,
-        1279512000,
-        1270008000
+        1279512000
       ],
-      "hba1c_test_laboratory_test_result": [
+      "diastolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1291698000,
-          "value": 7.3
+          "value": 78.0
         },
         {
           "date": 1279512000,
-          "value": 7.5
+          "value": 72.0
         },
         {
           "date": 1270008000,
-          "value": 7.1
+          "value": 80.0
         }
       ],
-      "medications_indicative_of_diabetes_medication_dispensed": [
-        1270008000
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
       ],
-      "medications_indicative_of_diabetes_medication_order": [
-        1270008000
+      "systolic_blood_pressure_physical_exam_finding": [
+        {
+          "date": 1291698000,
+          "value": 130.0
+        },
+        {
+          "date": 1279512000,
+          "value": 118.0
+        },
+        {
+          "date": 1270008000,
+          "value": 126.0
+        }
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
       ],
-      "medications_indicative_of_diabetes_medication_active": [
-        1270008000
+      "pneumococcal_vaccination_all_ages_procedure_performed": [
+        1291698000
+      ],
+      "pneumococcal_vaccine_all_ages_medication_administered": [
+        1291698000
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "encounter_outpatient_encounter": [
+        1291698000,
+        1279512000
+      ],
+      "influenza_vaccine_medication_administered": [
+        1291698000
+      ]
+    },
+    "0047": {
+      "encounter_office_outpatient_consult_encounter": [
+        1291698000,
+        1279512000
+      ]
+    },
+    "0387": {
+      "encounter_office_visit_encounter": [
+        1291698000,
+        1279512000
       ]
     }
   },
   "medical_record_number": null,
   "medications": [
     {
-      "_id": "4fd62a0ea9ffcca774001c03",
+      "_id": "4ff7482a1d41c8778e00154b",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -861,8 +878,10 @@
       "doseRestriction": null,
       "end_time": null,
       "freeTextSig": null,
+      "free_text": null,
       "fulfillmentInstructions": null,
       "indication": null,
+      "mood_code": "EVN",
       "patientInstructions": null,
       "productForm": null,
       "reaction": null,
@@ -882,7 +901,7 @@
   "patient_id": "101",
   "procedures": [
     {
-      "_id": "4fd62a0ea9ffcca774001bff",
+      "_id": "4ff7482a1d41c8778e001547",
       "codes": {
         "SNOMED-CT": [
           "401191002"
@@ -890,20 +909,21 @@
       },
       "description": "Foot Exam",
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C1303165:Diabetic foot examination;",
       "start_time": null,
       "status": null,
       "time": 1291698000,
-      "type": null,
       "value": {
         "scalar": "sensor polyneuropathy present",
         "units": null
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001c00",
+      "_id": "4ff7482a1d41c8778e001548",
       "codes": {
         "SNOMED-CT": [
           "401191002"
@@ -911,20 +931,21 @@
       },
       "description": "Foot Exam",
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C1303165:Diabetic foot examination;",
       "start_time": null,
       "status": null,
       "time": 1279512000,
-      "type": null,
       "value": {
         "scalar": "sensor polyneuropathy present",
         "units": null
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001c01",
+      "_id": "4ff7482a1d41c8778e001549",
       "codes": {
         "SNOMED-CT": [
           "401191002"
@@ -932,20 +953,21 @@
       },
       "description": "Foot Exam",
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C1303165:Diabetic foot examination;",
       "start_time": null,
       "status": null,
       "time": 1270008000,
-      "type": null,
       "value": {
         "scalar": "sensor polyneuropathy present",
         "units": null
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001c02",
+      "_id": "4ff7482a1d41c8778e00154a",
       "codes": {
         "HCPCS": [
           "S0621"
@@ -962,13 +984,14 @@
       },
       "description": "eye exam",
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "start_time": null,
       "status": null,
       "time": 1270008000,
-      "type": null,
       "value": {
       }
     }
@@ -977,9 +1000,10 @@
     "name": "Other Race",
     "code": "2131-1"
   },
+  "religious_affilication": null,
   "results": [
     {
-      "_id": "4fd62a0ea9ffcca774001bf7",
+      "_id": "4ff7482a1d41c8778e00153f",
       "codes": {
         "CPT": [
           "83036"
@@ -993,7 +1017,9 @@
       },
       "description": "HbA1c test",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0474680:Hemoglobin A1c measurement;",
       "start_time": null,
@@ -1005,7 +1031,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bf8",
+      "_id": "4ff7482a1d41c8778e001540",
       "codes": {
         "CPT": [
           "83036"
@@ -1019,7 +1045,9 @@
       },
       "description": "HbA1c test",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0474680:Hemoglobin A1c measurement;",
       "start_time": null,
@@ -1031,7 +1059,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bf9",
+      "_id": "4ff7482a1d41c8778e001541",
       "codes": {
         "CPT": [
           "83036"
@@ -1045,7 +1073,9 @@
       },
       "description": "HbA1c test",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0474680:Hemoglobin A1c measurement;",
       "start_time": null,
@@ -1057,7 +1087,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bfa",
+      "_id": "4ff7482a1d41c8778e001542",
       "codes": {
         "CPT": [
           "83721"
@@ -1071,7 +1101,9 @@
       },
       "description": "LDL",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "start_time": null,
@@ -1083,7 +1115,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bfb",
+      "_id": "4ff7482a1d41c8778e001543",
       "codes": {
         "CPT": [
           "82465"
@@ -1097,7 +1129,9 @@
       },
       "description": "Total Cholesterol",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0546633:Cholesterol total measurement;",
       "start_time": null,
@@ -1109,7 +1143,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bfc",
+      "_id": "4ff7482a1d41c8778e001544",
       "codes": {
         "CPT": [
           "84478"
@@ -1123,7 +1157,9 @@
       },
       "description": "Triglycerides",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0202236:Triglycerides measurement;",
       "start_time": null,
@@ -1135,7 +1171,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bfd",
+      "_id": "4ff7482a1d41c8778e001545",
       "codes": {
         "CPT": [
           "83701"
@@ -1149,7 +1185,9 @@
       },
       "description": "High Density Lipoprotein (HDL)",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0392885:High density lipoprotein measurement;",
       "start_time": null,
@@ -1161,7 +1199,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bfe",
+      "_id": "4ff7482a1d41c8778e001546",
       "codes": {
         "LOINC": [
           "1754-1"
@@ -1175,7 +1213,9 @@
       },
       "description": "Nephropathy Screening",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0740222:Nephropathy screen;",
       "start_time": null,
@@ -1189,7 +1229,7 @@
   ],
   "social_history": [
     {
-      "_id": "4fd62a0ea9ffcca774001beb",
+      "_id": "4ff7482a1d41c8778e001533",
       "codes": {
         "SNOMED-CT": [
           "160618006"
@@ -1197,11 +1237,12 @@
       },
       "description": "Tobacco Non-User",
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0425311:Current non-smoker;",
       "start_time": null,
       "status": null,
       "time": 1270008000,
-      "type": null,
       "value": {
         "scalar": null,
         "units": null
@@ -1209,17 +1250,23 @@
     }
   ],
   "test_id": null,
+  "title": null,
   "vital_signs": [
     {
-      "_id": "4fd62a0ea9ffcca774001bec",
+      "_id": "4ff7482a1d41c8778e001534",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -1231,15 +1278,20 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bed",
+      "_id": "4ff7482a1d41c8778e001535",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -1251,15 +1303,20 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bee",
+      "_id": "4ff7482a1d41c8778e001536",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -1271,15 +1328,20 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bef",
+      "_id": "4ff7482a1d41c8778e001537",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -1291,15 +1353,20 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bf0",
+      "_id": "4ff7482a1d41c8778e001538",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -1311,15 +1378,20 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bf1",
+      "_id": "4ff7482a1d41c8778e001539",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -1331,7 +1403,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bf2",
+      "_id": "4ff7482a1d41c8778e00153a",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1342,7 +1414,9 @@
       },
       "description": "BMI",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -1354,7 +1428,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bf3",
+      "_id": "4ff7482a1d41c8778e00153b",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1365,7 +1439,9 @@
       },
       "description": "BMI",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -1377,7 +1453,7 @@
       }
     },
     {
-      "_id": "4fd62a0ea9ffcca774001bf4",
+      "_id": "4ff7482a1d41c8778e00153c",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1388,7 +1464,9 @@
       },
       "description": "BMI",
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
