@@ -167,18 +167,18 @@
     </section>
 
     <section class="candidate bordered buffered">  
-      <dl class="vendor">
+      <dl class="vendor dl-horizontal">
         <dt>Test:</dt> <dd><%= @test.name %></dd>
         <dt>Reporting Period:</dt> <dd><%= 3.months.ago(Time.at(@test.effective_date)).strftime("%m/%d/%Y") %> - <%= Time.at(@test.effective_date).strftime("%m/%d/%Y") %></dd>
         <dt>Product Version:</dt> <dd><%= @current_execution.product_version %></dd>
       </dl>
       <br>
-      <dl>
+      <dl class="dl-horizontal">
         <dt>Proctor:</dt> <dd><%= @test.user.first_name %> <%= @test.user.last_name %></dd>
         <dt>Email:</dt> <dd><%= @test.user.email %></dd>
         <dt>Telephone:</dt> <dd><%= @test.user.telephone %></dd>
       </dl>
-      <dl>
+      <dl class="dl-horizontal">
         <dt>Description:</dt> <dd><%= @test.description %></dd>
         <% if !@never_executed_before %>
           <dt>Run on:</dt> <dd><%= @current_execution.pretty_date %></dd>
@@ -239,7 +239,7 @@
           This is NOT a CMS published XSD.
         </h3>
  
-        <table>
+        <table class="table">
           
           <%= render partial: "pqri_errors", locals: {pqri_errors:@current_execution.validation_errors,title:"View PQRI Errors", data_code:"pqri_results" }%>
           <%= render partial: "pqri_errors", locals: {pqri_errors:@current_execution.baseline_validation_errors,title:"View Baseline PQRI Errors", data_code:"baselinepqri_results" }%>
@@ -249,11 +249,10 @@
     </section>
 
     <section id="quality_measures">
-      <table>
+      <table class="table">
         <% @measures.each do |result_status, result_measures|
           next if result_measures.empty?
           if result_status == 'incomplete'
-            result_status = 'na'
             title = 'Incomplete'
           else
             title = "#{result_status}ing"
@@ -272,10 +271,10 @@
               result_measures.each do |measure|
               expected_result = @current_execution.expected_result(measure)
               reported_result = @current_execution.reported_result(measure.key)
-              result_status = 'na' if reported_result['numerator'].class == String %>
+              result_status = 'incomplete' if reported_result['numerator'].class == String %>
 
               <tr id='<%= "#{measure.id}" %>'>
-                <td><div title="<%= result_status %>" class="<%= result_status %>"><%= result_status %></div></td>
+                <td class="<%= result_status %>-icon"><div title="<%= result_status %>" class="<%= result_status %>-icon"></div></td>
                 <td title="<%= "#{@product.measure_map[measure.key]} " %>">
                   <a href="<%= product_test_measure_path(@test, measure, :execution => @current_execution) %>">
                     <%= "#{measure.key} " %>

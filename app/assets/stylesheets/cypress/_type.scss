@@ -21,26 +21,37 @@ font-weight:$fontWeight;
     white-space: nowrap;
     color:#666;
     font-weight: $fontWeight;
-    display:inline;
+    display:table-cell;
     height:21px;
   }
   dd { 
+    padding-left:10px;
     font-size: $fontSize*1.5;
     text-overflow:ellipsis;
-    display:inline;
+    display:table-cell;
     text-align:left;
+    height:21px;
   }
-  
-}
-.quality-measures {
-    dd {
-    width:600px;
 }
 
+dl.measure {
+  display:inline-block;
+  width:750px;
+  margin: 0px;
+  padding:0px;
+  dt {
+    width:120px;
   }
+ dd {
+    width:600px;
+  }
+  dd.measure_desc {
+  font-size:$fontSize*10/9;
+  }
+}
 
 .patient dt {
-width: 50px;;
+width: 50px;
 }
 
 

@@ -86,13 +86,9 @@
       <% if @selected and !@showAll %>
 	  <section class="measure bordered buffered">
         <dl class="dl-horizontal quality-measures">
-          <dt class="measure_title">Quality Measure:</dt>
-          <dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
-
-          <dt class="measure_definition">Definition:</dt>
-          <dd class="measure_definition" id="show_hide">Expand Definition</dd>
+          <dt class="measure_title">Quality Measure:</dt><dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
+          <dt class="measure_definition"></dt><dd class="measure_desc" id="show_hide"> Expand Definition</dd>
         </dl>
-		
 			  <div id="measureEditContainer">
       <div id="eligibilityMeasures">
         <h3>Denominator</h3>
@@ -111,10 +107,11 @@
         </div><!-- end measureBox -->
       </div><!-- end #outcomeMeasures -->
     </div><!-- end measureEditContainer -->
-        </dl><dl>
+        </dl>
+          <dl class=" dl-horizontal measure">
           <dt>Expected Reports:</dt>
           <dd>
-            <table class="table">
+            <table class="measure">
             <% if @selected %>
               <tr id='<%= "#{@selected.id}" %>'>
             <% else %>

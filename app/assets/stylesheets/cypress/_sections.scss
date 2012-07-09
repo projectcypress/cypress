@@ -4,9 +4,13 @@ section {
   position: relative;
   dl {
     font-size: 90%;
-    width: 310px;
+    width: 360px;
     display: table-cell;
   }
+dl.quality-measures {
+ display:relative;
+ width:700px;
+}
   
 }
 section#patient_list{
@@ -16,7 +20,29 @@ padding:0px;
   display: inline-block;
   vertical-align: top;
 }
-
+section.measure {
+  dd.na {
+    background: url(/assets/insufficient.png) 10px 50% no-repeat;
+    padding-left: 30px;
+    color: #999
+  }
+  dd.pass {
+    background: url(/assets/pass.png) 10px 50% no-repeat;
+    padding-left: 30px;
+   color: green;
+  }
+  dd.fail {
+    background: url(/assets/fail.png) 10px 50% no-repeat;
+    padding-left: 30px;
+    color: #FF0000;
+    font-weight:bold;
+  }
+  dd table{
+    width:600px;
+font-size:75%;
+    th{font-weight: $fontWeight; font-style: italic;}
+  }
+}
 section.patient.patientname{
     margin-left: 190px;
   }
@@ -34,5 +60,5 @@ section.legend {
 }
 .patient_info{
   position:relative;
-top:opx;
+top:0px;
 }

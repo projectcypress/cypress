@@ -18,6 +18,14 @@
   -webkit-border-radius: $radius 0 0 $radius;
 }
 
+@mixin rotated($angle) {
+-webkit-transform: rotate($angle);
+-moz-transform: rotate($angle);
+-ms-transform: rotate($angle);
+-o-transform: rotate($angle);
+transform: rotate($angle);
+}
+
 @mixin popPercentage($diameter, $font_size, $line_height, $border_radius, $margin) {
   display: inline-block;
   width: $diameter;

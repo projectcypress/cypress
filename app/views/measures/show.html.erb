@@ -13,7 +13,7 @@
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section class="tb">
       <%= link_to "Master Patient List", patients_path, {:class=>"cmd"} %>
       <nav class="breadcrumb">
@@ -24,14 +24,14 @@
       </nav>
     </section>
 
-    <section class="candidate">
-      <dl>
+    <section class="candidate  bordered">
+      <dl class="dl-horizontal">
         <dt class="vendor">EHR Vendor</dt><dd class="vendor"><%= @vendor.name %></dd>
       </dl>
-      <dl>
+      <dl class="dl-horizontal">
         <dt>Product</dt> <dd><%= @product.name %></dd>
       </dl>
-      <dl>
+      <dl class="dl-horizontal">
         <dt>Test</dt> <dd><%= @test.name %></dd>
       </dl>
     </section>
@@ -54,15 +54,15 @@
     </div>
 
     <section id="patient_list">
-      <section class="measure">
-        <dl>
+      <section class="measure bordered buffered">
+        <dl class="dl-horizontal measure">
           <dt class="measure_title">Quality Measure:</dt>
-          <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
+          <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd><dt></d>
           <dd class="measure_desc"><%= @measure.description %></dd>
         </dl>
         <% expected_result = @execution.expected_result(@measure) %>
         <% reported_result = @execution.reported_result(@measure.key) %>
-        <dl>
+        <dl class="dl-horizontal measure">
           <dt>Measure Status:</dt>
           <% if reported_result['denominator'].class == String %>
             <dd class="na">N/A</dd>
@@ -72,12 +72,13 @@
             <dd class="fail">Fail</dd>
           <% end %>
         </dl>
-        <dl>
+        <dl class="dl-horizontal measure">
           <dt>Reporting Statistics:</dt>
           <dd>
-            <table>
+            <table >
               <tr id='<%= "#{@measure.id}" %>'>
-                <td><span class="r">reported</span> / expected</td>
+                <td><strong class="r">reported</strong> / expected</td>
+                <td/>
                 <th>DEN:</th>
                 <td>
                   <span class="r <%= measure_result_class(expected_result, reported_result, 'denominator') %>"><%= reported_result['denominator'] %></span>
