@@ -1,9 +1,9 @@
 {
-  "_id": "4fd629f7a9ffcca774000b1e",
+  "_id": "4fea375ba9ffccb429000b22",
   "birthdate": -460497600,
   "care_goals": [
     {
-      "_id": "4fd629f7a9ffcca774000b3b",
+      "_id": "4fea375ba9ffccb429000b3f",
       "codes": {
         "CPT": [
           "97804"
@@ -19,7 +19,10 @@
         ]
       },
       "description": "follow-up plan_BMI management",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "start_time": null,
       "status": null,
@@ -30,7 +33,7 @@
   ],
   "conditions": [
     {
-      "_id": "4fd629f7a9ffcca774000b30",
+      "_id": "4fea375ba9ffccb429000b34",
       "causeOfDeath": null,
       "codes": {
         "SNOMED-CT": [
@@ -47,8 +50,13 @@
         ]
       },
       "description": "Colorectal Cancer",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "Pet imaging whole body; diagnosis; colorectal",
       "start_time": null,
       "status": "active",
@@ -58,7 +66,7 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b31",
+      "_id": "4fea375ba9ffccb429000b35",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -72,8 +80,13 @@
         ]
       },
       "description": "Hypertension",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "start_time": null,
       "status": "active",
@@ -87,7 +100,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fd629f7a9ffcca774000b1f",
+      "_id": "4fea375ba9ffccb429000b23",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -96,8 +109,10 @@
       },
       "description": "Encounter Prev Med 40 and Older",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374637:Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 40-64 years;",
       "start_time": null,
@@ -107,7 +122,7 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b20",
+      "_id": "4fea375ba9ffccb429000b24",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -116,8 +131,10 @@
       },
       "description": "Encounter Prev Med Services 18 and Older",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374637:Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 40-64 years;",
       "start_time": null,
@@ -127,7 +144,7 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b21",
+      "_id": "4fea375ba9ffccb429000b25",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -139,8 +156,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -150,7 +169,7 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b22",
+      "_id": "4fea375ba9ffccb429000b26",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -162,8 +181,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -181,14 +202,17 @@
   "gender": "M",
   "immunizations": [
     {
-      "_id": "4fd629f7a9ffcca774000b39",
+      "_id": "4fea375ba9ffccb429000b3d",
       "codes": {
         "RxNorm": [
           "854981"
         ]
       },
       "description": "Pneumococcal Vaccine ages 2 and older",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "refusalInd": null,
       "refusalReason": null,
@@ -201,14 +225,17 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b3a",
+      "_id": "4fea375ba9ffccb429000b3e",
       "codes": {
         "RxNorm": [
           "857942"
         ]
       },
       "description": "Influenza Vaccine",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "refusalInd": null,
       "refusalReason": null,
@@ -415,8 +442,6 @@
     },
     "0036": {
       "encounter_outpatient_encounter": [
-        1288065600,
-        1281931200,
         1274328000,
         1270008000
       ]
@@ -527,9 +552,6 @@
       "ace_inhibitors_arbs_medication_dispensed": [
         1270008000
       ],
-      "ace_inhibitors_arbs_medication_active": [
-        1270008000
-      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1288065600,
         1281931200,
@@ -593,15 +615,15 @@
       "diastolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1281931200,
-          "value": 136.0
+          "value": 76.0
         },
         {
           "date": 1274328000,
-          "value": 134.0
+          "value": 72.0
         },
         {
           "date": 1270008000,
-          "value": 138.0
+          "value": 78.0
         }
       ],
       "encounter_outpatient_encounter": [
@@ -688,6 +710,14 @@
         1270008000
       ]
     },
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+        1288065600,
+        1281931200,
+        1274328000,
+        1270008000
+      ]
+    },
     "0385": {
       "colon_cancer_diagnosis_active": [
         1273118400
@@ -708,21 +738,13 @@
         1270008000
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
-        1288065600,
-        1281931200,
-        1274328000,
-        1270008000
-      ]
+    "0389": {
     },
     "0387": {
       "encounter_office_visit_encounter": [
         1274328000,
         1270008000
       ]
-    },
-    "0389": {
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -758,7 +780,7 @@
   "medical_record_number": null,
   "medications": [
     {
-      "_id": "4fd629f7a9ffcca774000b37",
+      "_id": "4fea375ba9ffccb429000b3b",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -770,10 +792,13 @@
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
+      "element_name": null,
       "end_time": null,
       "freeTextSig": null,
+      "free_text": null,
       "fulfillmentInstructions": null,
       "indication": null,
+      "mood_code": "EVN",
       "patientInstructions": null,
       "productForm": null,
       "reaction": null,
@@ -790,7 +815,7 @@
       "vehicle": null
     },
     {
-      "_id": "4fd629f7a9ffcca774000b38",
+      "_id": "4fea375ba9ffccb429000b3c",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -802,10 +827,13 @@
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
+      "element_name": null,
       "end_time": null,
       "freeTextSig": null,
+      "free_text": null,
       "fulfillmentInstructions": null,
       "indication": null,
+      "mood_code": "EVN",
       "patientInstructions": null,
       "productForm": null,
       "reaction": null,
@@ -825,45 +853,49 @@
   "patient_id": "114",
   "procedures": [
     {
-      "_id": "4fd629f7a9ffcca774000b34",
+      "_id": "4fea375ba9ffccb429000b38",
       "codes": {
         "SNOMED-CT": [
           "103699006"
         ]
       },
       "description": "dietary consultation order",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C0420347:Patient referral to dietitian;",
       "start_time": null,
       "status": null,
       "time": 1274328000,
-      "type": null,
       "value": {
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b35",
+      "_id": "4fea375ba9ffccb429000b39",
       "codes": {
         "SNOMED-CT": [
           "369921003"
         ]
       },
       "description": "Colon Cancer Stage III",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
       "start_time": null,
       "status": null,
       "time": 1272859200,
-      "type": null,
       "value": {
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b36",
+      "_id": "4fea375ba9ffccb429000b3a",
       "codes": {
         "CPT": [
           "45378"
@@ -882,14 +914,16 @@
         ]
       },
       "description": "colonoscopy",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "start_time": null,
       "status": null,
       "time": 1270180800,
-      "type": null,
       "value": {
       }
     }
@@ -900,7 +934,7 @@
   },
   "results": [
     {
-      "_id": "4fd629f7a9ffcca774000b32",
+      "_id": "4fea375ba9ffccb429000b36",
       "codes": {
         "CPT": [
           "82274"
@@ -919,8 +953,11 @@
         ]
       },
       "description": "FOBT",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0878742:Encounter for screening for malignant neoplasms of colon;",
       "start_time": null,
@@ -932,15 +969,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b33",
+      "_id": "4fea375ba9ffccb429000b37",
       "codes": {
         "SNOMED-CT": [
           "369921003"
         ]
       },
       "description": "Colon Cancer Stage III",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
       "start_time": null,
@@ -952,19 +992,21 @@
   ],
   "social_history": [
     {
-      "_id": "4fd629f7a9ffcca774000b23",
+      "_id": "4fea375ba9ffccb429000b27",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "description": "Tobacco Non-User",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0425311:Current non-smoker;",
       "start_time": null,
       "status": null,
       "time": 1270008000,
-      "type": null,
       "value": {
         "scalar": null,
         "units": null
@@ -974,15 +1016,18 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fd629f7a9ffcca774000b24",
+      "_id": "4fea375ba9ffccb429000b28",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -994,15 +1039,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b25",
+      "_id": "4fea375ba9ffccb429000b29",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -1014,15 +1062,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b26",
+      "_id": "4fea375ba9ffccb429000b2a",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
       "description": "Heart Rate",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0018810:heart rate;",
       "start_time": null,
@@ -1034,15 +1085,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b27",
+      "_id": "4fea375ba9ffccb429000b2b",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -1054,15 +1108,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b28",
+      "_id": "4fea375ba9ffccb429000b2c",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -1074,15 +1131,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b29",
+      "_id": "4fea375ba9ffccb429000b2d",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
       "description": "Heart Rate",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0018810:heart rate;",
       "start_time": null,
@@ -1094,15 +1154,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b2a",
+      "_id": "4fea375ba9ffccb429000b2e",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -1114,15 +1177,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b2b",
+      "_id": "4fea375ba9ffccb429000b2f",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -1134,15 +1200,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b2c",
+      "_id": "4fea375ba9ffccb429000b30",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
       "description": "Heart Rate",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0018810:heart rate;",
       "start_time": null,
@@ -1154,7 +1223,7 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b2d",
+      "_id": "4fea375ba9ffccb429000b31",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1164,8 +1233,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -1177,7 +1249,7 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b2e",
+      "_id": "4fea375ba9ffccb429000b32",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1187,8 +1259,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -1200,15 +1275,18 @@
       }
     },
     {
-      "_id": "4fd629f7a9ffcca774000b2f",
+      "_id": "4fea375ba9ffccb429000b33",
       "codes": {
         "SNOMED-CT": [
           "369921003"
         ]
       },
       "description": "Colon Cancer Stage III",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1276570:T3: Colon/rectum tumor invades through the muscularis propria into the subserosa or the nonperitonealized pericolic or perirectal soft tissues;",
       "start_time": null,

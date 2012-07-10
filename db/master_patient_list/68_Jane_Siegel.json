@@ -1,9 +1,9 @@
 {
-  "_id": "4fd629e6a9ffcca774000102",
+  "_id": "4fea3734a9ffccb429000102",
   "birthdate": 973141200,
   "conditions": [
     {
-      "_id": "4fd629e6a9ffcca77400010f",
+      "_id": "4fea3734a9ffccb42900010f",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -17,8 +17,13 @@
         ]
       },
       "description": "Asthma",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0340062:Hyperreactive airway disease; C0004096:Asthma;",
       "start_time": null,
       "status": "active",
@@ -28,7 +33,7 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca774000110",
+      "_id": "4fea3734a9ffccb429000110",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -42,8 +47,13 @@
         ]
       },
       "description": "pharyngitis",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0001344:Acute pharyngitis;",
       "start_time": null,
       "status": "active",
@@ -57,7 +67,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fd629e6a9ffcca774000103",
+      "_id": "4fea3734a9ffccb429000103",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -66,8 +76,10 @@
       },
       "description": "Encounter Office & Outpatient Consult",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -77,7 +89,7 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca774000104",
+      "_id": "4fea3734a9ffccb429000104",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -89,8 +101,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -100,7 +114,7 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca774000105",
+      "_id": "4fea3734a9ffccb429000105",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -109,8 +123,10 @@
       },
       "description": "Encounter Office & Outpatient Consult",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0199299:Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -298,9 +314,7 @@
         1263618000
       ],
       "encounter_outpatient_encounter": [
-        1289797200,
-        1284091200,
-        1276142400
+        1284091200
       ],
       "antiasthmatic_combinations_medication_active": [
         1276142400
@@ -458,15 +472,15 @@
       "diastolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1289797200,
-          "value": 100.0
+          "value": 60.0
         },
         {
           "date": 1284091200,
-          "value": 102.0
+          "value": 62.0
         },
         {
           "date": 1276142400,
-          "value": 98.0
+          "value": 60.0
         }
       ],
       "encounter_outpatient_encounter": [
@@ -549,11 +563,6 @@
         1276142400
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1284091200
-      ]
-    },
     "0105": {
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1289797200,
@@ -561,12 +570,17 @@
         1276142400
       ]
     },
-    "0387": {
+    "0385": {
       "encounter_office_visit_encounter": [
         1284091200
       ]
     },
     "0389": {
+    },
+    "0387": {
+      "encounter_office_visit_encounter": [
+        1284091200
+      ]
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -598,7 +612,7 @@
   "medical_record_number": null,
   "medications": [
     {
-      "_id": "4fd629e6a9ffcca774000112",
+      "_id": "4fea3734a9ffccb429000112",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -610,10 +624,13 @@
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
+      "element_name": null,
       "end_time": null,
       "freeTextSig": null,
+      "free_text": null,
       "fulfillmentInstructions": null,
       "indication": null,
+      "mood_code": "EVN",
       "patientInstructions": null,
       "productForm": null,
       "reaction": null,
@@ -630,7 +647,7 @@
       "vehicle": null
     },
     {
-      "_id": "4fd629e6a9ffcca774000113",
+      "_id": "4fea3734a9ffccb429000113",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -642,10 +659,13 @@
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
+      "element_name": null,
       "end_time": null,
       "freeTextSig": null,
+      "free_text": null,
       "fulfillmentInstructions": null,
       "indication": null,
+      "mood_code": "EVN",
       "patientInstructions": null,
       "productForm": null,
       "reaction": null,
@@ -669,7 +689,7 @@
   },
   "results": [
     {
-      "_id": "4fd629e6a9ffcca774000111",
+      "_id": "4fea3734a9ffccb429000111",
       "codes": {
         "CPT": [
           "87430"
@@ -682,8 +702,11 @@
         ]
       },
       "description": "Group A Streptococcus Test",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1294564:Measurement of Streptococcus pyogenes enzyme antibody;",
       "start_time": null,
@@ -698,15 +721,18 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fd629e6a9ffcca774000106",
+      "_id": "4fea3734a9ffccb429000106",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -718,15 +744,18 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca774000107",
+      "_id": "4fea3734a9ffccb429000107",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -738,15 +767,18 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca774000108",
+      "_id": "4fea3734a9ffccb429000108",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -758,15 +790,18 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca774000109",
+      "_id": "4fea3734a9ffccb429000109",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -778,15 +813,18 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca77400010a",
+      "_id": "4fea3734a9ffccb42900010a",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -798,15 +836,18 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca77400010b",
+      "_id": "4fea3734a9ffccb42900010b",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -818,7 +859,7 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca77400010c",
+      "_id": "4fea3734a9ffccb42900010c",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -828,8 +869,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -841,7 +885,7 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca77400010d",
+      "_id": "4fea3734a9ffccb42900010d",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -851,8 +895,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -864,7 +911,7 @@
       }
     },
     {
-      "_id": "4fd629e6a9ffcca77400010e",
+      "_id": "4fea3734a9ffccb42900010e",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -874,8 +921,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
