@@ -23,6 +23,11 @@ def download_patients(version)
    return f
 end
 
+def load_bundle(db, bundle_def)
+  db['bundles'] << JSON.parse(bundle_def)
+end
+
+
 namespace :mpl do
   task :tttt do
      puts ENV.inspect
@@ -64,6 +69,7 @@ namespace :mpl do
     puts "removing current master patient list from cypress"
     db = @loader.get_db
     db['records'].remove("test_id" => nil)
+    db['bundles'].remove("name" => "Meaningful Use Stage 1 Test Deck")
     @loader.drop_collection('query_cache')
     @loader.drop_collection('patient_cache')
     
@@ -75,18 +81,23 @@ namespace :mpl do
     puts "downloading master patient list"
     zip = download_patients(@version) 
     puts "unzipping master patient list"
+    bundle_def = '{"name":"Meaningful Use Stage 1 Test Deck","version" : "Unknown"}'
     Zip::ZipFile.open(zip.path) do |zipfile|
      zipfile.each do |file|
       file_name = File.join(@mpl_dir, File.basename(file.name))
-      if File.basename(file.name).include?(".json")        
-        puts file_name
-        zipfile.extract(file,file_name){true}
+      if File.basename(file.name).include?(".json")
+        if File.basename(file.name).include?("bundle.json")
+          bundle_def = zipfile.read(file)
+        else
+          puts file_name
+          zipfile.extract(file,file_name){true}
+        end
       end
      end
     end
+    load_bundle(@loader.get_db, bundle_def)
     Rake::Task['mpl:load'].invoke()
     Rake::Task['mpl:eval'].invoke()
-    
   end  
  
   

@@ -1,8 +1,8 @@
 {
-  "_id": "4fea3748a9ffccb42900065d",
+  "_id": "4ff748021d41c8778e000a64",
   "allergies": [
     {
-      "_id": "4fea3748a9ffccb42900065e",
+      "_id": "4ff748021d41c8778e000a65",
       "codes": {
         "ICD-9-CM": [
           "V15.03"
@@ -12,7 +12,6 @@
         ]
       },
       "description": "Allergy to Eggs",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -32,7 +31,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fea3748a9ffccb42900065f",
+      "_id": "4ff748021d41c8778e000a66",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -41,7 +40,6 @@
       },
       "description": "Encounter Office Visit",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -54,7 +52,7 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000660",
+      "_id": "4ff748021d41c8778e000a67",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -66,7 +64,6 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -79,7 +76,7 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000661",
+      "_id": "4ff748021d41c8778e000a68",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -88,7 +85,6 @@
       },
       "description": "Encounter Office Visit",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -101,7 +97,7 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000662",
+      "_id": "4ff748021d41c8778e000a69",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -113,7 +109,6 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -126,7 +121,7 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000663",
+      "_id": "4ff748021d41c8778e000a6a",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -135,7 +130,6 @@
       },
       "description": "encounter ED",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -156,7 +150,7 @@
   "gender": "M",
   "immunizations": [
     {
-      "_id": "4fea3748a9ffccb429000673",
+      "_id": "4ff748021d41c8778e000a7a",
       "codes": {
         "CVX": [
           "100"
@@ -166,7 +160,6 @@
         ]
       },
       "description": "Pneumococcal Vaccine all ages",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -184,39 +177,65 @@
   ],
   "languages": null,
   "last": "Ogles",
+  "marital_status": null,
   "measures": {
-    "0001": {
-      "encounter_office_outpatient_consult_encounter": [
+    "0036": {
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ],
+      "encounter_ed_encounter": [
+        1248926400
+      ]
+    },
+    "0012": {
+    },
+    "0033": {
+      "encounter_outpatient_encounter": [
         1290747600,
         1286337600,
         1278475200,
         1270008000
       ]
     },
-    "0002": {
-      "encounter_ambulatory_including_pediatrics_encounter": [
+    "0024": {
+      "bmi_percentile_physical_exam_finding": [
+        1290747600,
+        1286337600,
+        1273204800,
+        1270008000
+      ],
+      "encounter_outpatient_w_pcp_obgyn_encounter": [
         1290747600,
         1286337600,
         1278475200,
-        1270008000,
-        1248926400
+        1270008000
       ]
     },
-    "0004": {
-      "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
+    "0068": {
+      "encounter_acute_inpt_and_outpt_encounter": [
         1290747600,
         1286337600,
         1278475200,
-        1270008000,
-        1248926400
+        1270008000
       ],
-      "encounter_ed_encounter": [
-        1248926400
-      ],
-      "encounter_outpatient_bh_encounter": [
+      "encounter_outpatient_encounter": [
+        1286337600,
+        1270008000
+      ]
+    },
+    "0014": {
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
         1290747600,
         1286337600,
         1278475200,
+        1270008000
+      ],
+      "tobacco_non_user_patient_characteristic": [
         1270008000
       ]
     },
@@ -228,29 +247,27 @@
         1270008000
       ]
     },
-    "0012": {
-    },
-    "0013": {
-      "diastolic_blood_pressure_physical_exam_finding": [
+    "0575": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1248926400
+      ],
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1290747600,
         1286337600,
-        1273204800,
+        1278475200,
         1270008000
-      ],
-      "encounter_outpatient_encounter": [
+      ]
+    },
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1290747600,
         1286337600,
         1278475200,
         1270008000
       ],
-      "systolic_blood_pressure_physical_exam_finding": [
-        1290747600,
-        1286337600,
-        1273204800,
-        1270008000
+      "encounter_ed_encounter": [
+        1248926400
       ]
-    },
-    "0014": {
     },
     "0018": {
       "encounter_outpatient_encounter": [
@@ -296,32 +313,27 @@
         }
       ]
     },
-    "0024": {
-      "bmi_percentile_physical_exam_finding": [
-        1290747600,
-        1286337600,
-        1273204800,
-        1270008000
-      ],
-      "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0028": {
+    "0385": {
       "encounter_office_visit_encounter": [
         1290747600,
         1286337600,
         1278475200,
         1270008000
+      ]
+    },
+    "0075": {
+      "encounter_acute_inpt_and_outpt_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
       ],
-      "tobacco_non_user_patient_characteristic": [
+      "encounter_outpatient_encounter": [
+        1286337600,
         1270008000
       ]
     },
-    "0031": {
+    "0081": {
       "encounter_outpatient_encounter": [
         1290747600,
         1286337600,
@@ -329,114 +341,7 @@
         1270008000
       ]
     },
-    "0032": {
-      "encounter_outpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ],
-      "fobt_laboratory_test_performed": [
-        1290747600,
-        1248926400
-      ]
-    },
-    "0041": {
-      "allergy_to_eggs_substance_allergy": [
-        1286337600
-      ],
-      "encounter_influenza_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ],
-      "encounter_outpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0036": {
-      "encounter_outpatient_encounter": [
-        1286337600,
-        1270008000
-      ],
-      "encounter_ed_encounter": [
-        1248926400
-      ]
-    },
-    "0038": {
-      "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ],
-      "pneumococcal_vaccination_procedure_performed": [
-        1286337600
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ],
-      "pneumococcal_vaccination_all_ages_procedure_performed": [
-        1286337600
-      ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
-        1286337600
-      ]
-    },
-    "0047": {
-      "encounter_office_outpatient_consult_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0052": {
-      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000,
-        1248926400
-      ]
-    },
-    "0055": {
-      "encounter_acute_inpatient_or_ed_encounter": [
-        1248926400
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0056": {
+    "0064": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1248926400
       ],
@@ -456,6 +361,67 @@
         1286337600,
         1278475200,
         1270008000
+      ]
+    },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0032": {
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0089": {
+      "encounter_office_outpatient_consult_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0067": {
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0088": {
+      "encounter_office_outpatient_consult_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0052": {
+      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000,
+        1248926400
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ],
+      "fobt_laboratory_test_performed": [
+        1290747600,
+        1248926400
       ]
     },
     "0061": {
@@ -505,6 +471,86 @@
         }
       ]
     },
+    "0004": {
+      "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000,
+        1248926400
+      ],
+      "encounter_ed_encounter": [
+        1248926400
+      ],
+      "encounter_outpatient_bh_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0083": {
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0389": {
+    },
+    "0084": {
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0001": {
+      "encounter_office_outpatient_consult_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0013": {
+      "diastolic_blood_pressure_physical_exam_finding": [
+        1290747600,
+        1286337600,
+        1273204800,
+        1270008000
+      ],
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ],
+      "systolic_blood_pressure_physical_exam_finding": [
+        1290747600,
+        1286337600,
+        1273204800,
+        1270008000
+      ]
+    },
+    "0074": {
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0070": {
+      "encounter_outpatient_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
     "0062": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1248926400
@@ -516,7 +562,15 @@
         1270008000
       ]
     },
-    "0064": {
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000
+      ]
+    },
+    "0056": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1248926400
       ],
@@ -527,32 +581,61 @@
         1270008000
       ]
     },
-    "0067": {
-      "encounter_outpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0068": {
-      "encounter_acute_inpt_and_outpt_encounter": [
+    "0038": {
+      "encounter_outpatient_w_pcp_obgyn_encounter": [
         1290747600,
         1286337600,
         1278475200,
         1270008000
       ],
-      "encounter_outpatient_encounter": [
+      "pneumococcal_vaccination_procedure_performed": [
+        1286337600
+      ]
+    },
+    "0055": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1248926400
+      ],
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+        1290747600,
         1286337600,
+        1278475200,
         1270008000
       ]
     },
-    "0070": {
+    "0002": {
+      "encounter_ambulatory_including_pediatrics_encounter": [
+        1290747600,
+        1286337600,
+        1278475200,
+        1270008000,
+        1248926400
+      ]
+    },
+    "0421": {
       "encounter_outpatient_encounter": [
         1290747600,
         1286337600,
         1278475200,
         1270008000
+      ],
+      "bmi_physical_exam_finding": [
+        {
+          "date": 1290747600,
+          "value": 23.85526315789474
+        },
+        {
+          "date": 1286337600,
+          "value": 24.342105263157897
+        },
+        {
+          "date": 1273204800,
+          "value": 23.733552631578945
+        },
+        {
+          "date": 1270008000,
+          "value": 23.85526315789474
+        }
       ]
     },
     "0073": {
@@ -603,134 +686,47 @@
         }
       ]
     },
-    "0074": {
+    "0043": {
       "encounter_outpatient_encounter": [
         1290747600,
         1286337600,
         1278475200,
         1270008000
+      ],
+      "pneumococcal_vaccination_all_ages_procedure_performed": [
+        1286337600
+      ],
+      "pneumococcal_vaccine_all_ages_medication_administered": [
+        1286337600
       ]
     },
-    "0075": {
-      "encounter_acute_inpt_and_outpt_encounter": [
+    "0041": {
+      "allergy_to_eggs_substance_allergy": [
+        1286337600
+      ],
+      "encounter_influenza_encounter": [
         1290747600,
         1286337600,
         1278475200,
         1270008000
       ],
       "encounter_outpatient_encounter": [
-        1286337600,
-        1270008000
-      ]
-    },
-    "0081": {
-      "encounter_outpatient_encounter": [
         1290747600,
         1286337600,
         1278475200,
         1270008000
       ]
     },
-    "0083": {
-      "encounter_outpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0084": {
-      "encounter_outpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0086": {
+    "0047": {
       "encounter_office_outpatient_consult_encounter": [
         1290747600,
         1286337600,
         1278475200,
         1270008000
       ]
-    },
-    "0088": {
-      "encounter_office_outpatient_consult_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0089": {
-      "encounter_office_outpatient_consult_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ],
-      "encounter_ed_encounter": [
-        1248926400
-      ]
-    },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0389": {
     },
     "0387": {
       "encounter_office_visit_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ]
-    },
-    "0421": {
-      "encounter_outpatient_encounter": [
-        1290747600,
-        1286337600,
-        1278475200,
-        1270008000
-      ],
-      "bmi_physical_exam_finding": [
-        {
-          "date": 1290747600,
-          "value": 23.85526315789474
-        },
-        {
-          "date": 1286337600,
-          "value": 24.342105263157897
-        },
-        {
-          "date": 1273204800,
-          "value": 23.733552631578945
-        },
-        {
-          "date": 1270008000,
-          "value": 23.85526315789474
-        }
-      ]
-    },
-    "0575": {
-      "encounter_acute_inpatient_or_ed_encounter": [
-        1248926400
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1290747600,
         1286337600,
         1278475200,
@@ -744,9 +740,10 @@
     "name": "White",
     "code": "2106-3"
   },
+  "religious_affilication": null,
   "results": [
     {
-      "_id": "4fea3748a9ffccb429000671",
+      "_id": "4ff748021d41c8778e000a78",
       "codes": {
         "CPT": [
           "82274"
@@ -765,7 +762,6 @@
         ]
       },
       "description": "FOBT",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -781,7 +777,7 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000672",
+      "_id": "4ff748021d41c8778e000a79",
       "codes": {
         "CPT": [
           "82274"
@@ -800,7 +796,6 @@
         ]
       },
       "description": "FOBT",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -818,14 +813,13 @@
   ],
   "social_history": [
     {
-      "_id": "4fea3748a9ffccb429000664",
+      "_id": "4ff748021d41c8778e000a6b",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "description": "Tobacco Non-User",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -840,16 +834,19 @@
     }
   ],
   "test_id": null,
+  "title": null,
   "vital_signs": [
     {
-      "_id": "4fea3748a9ffccb429000665",
+      "_id": "4ff748021d41c8778e000a6c",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -865,14 +862,16 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000666",
+      "_id": "4ff748021d41c8778e000a6d",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -888,14 +887,16 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000667",
+      "_id": "4ff748021d41c8778e000a6e",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -911,14 +912,16 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000668",
+      "_id": "4ff748021d41c8778e000a6f",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -934,14 +937,16 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000669",
+      "_id": "4ff748021d41c8778e000a70",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -957,14 +962,16 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb42900066a",
+      "_id": "4ff748021d41c8778e000a71",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -980,14 +987,16 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb42900066b",
+      "_id": "4ff748021d41c8778e000a72",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1003,14 +1012,16 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb42900066c",
+      "_id": "4ff748021d41c8778e000a73",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1026,7 +1037,7 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb42900066d",
+      "_id": "4ff748021d41c8778e000a74",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1036,7 +1047,6 @@
         ]
       },
       "description": "BMI",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1052,7 +1062,7 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb42900066e",
+      "_id": "4ff748021d41c8778e000a75",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1062,7 +1072,6 @@
         ]
       },
       "description": "BMI",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1078,7 +1087,7 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb42900066f",
+      "_id": "4ff748021d41c8778e000a76",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1088,7 +1097,6 @@
         ]
       },
       "description": "BMI",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1104,7 +1112,7 @@
       }
     },
     {
-      "_id": "4fea3748a9ffccb429000670",
+      "_id": "4ff748021d41c8778e000a77",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1114,7 +1122,6 @@
         ]
       },
       "description": "BMI",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,

@@ -1,9 +1,9 @@
 {
-  "_id": "4fea3768a9ffccb429000eda",
+  "_id": "4ff7483a1d41c8778e00196c",
   "birthdate": 360820800,
   "conditions": [
     {
-      "_id": "4fea3768a9ffccb429000ee2",
+      "_id": "4ff7483a1d41c8778e001974",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -17,11 +17,9 @@
         ]
       },
       "description": "Liver Disorders",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
-      "name": null,
       "ordinality": "principal",
       "priority": null,
       "specifics": "C0156189:Cirrhosis and chronic liver disease;",
@@ -33,7 +31,7 @@
       }
     },
     {
-      "_id": "4fea3768a9ffccb429000ee3",
+      "_id": "4ff7483a1d41c8778e001975",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -47,11 +45,9 @@
         ]
       },
       "description": "alcohol or drug dependence",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
-      "name": null,
       "ordinality": "principal",
       "priority": null,
       "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
@@ -67,7 +63,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fea3768a9ffccb429000edb",
+      "_id": "4ff7483a1d41c8778e00196d",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -76,7 +72,6 @@
       },
       "description": "encounter ED",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -89,7 +84,7 @@
       }
     },
     {
-      "_id": "4fea3768a9ffccb429000edc",
+      "_id": "4ff7483a1d41c8778e00196e",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -98,7 +93,6 @@
       },
       "description": "encounter ED",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -119,33 +113,11 @@
   "gender": "F",
   "languages": null,
   "last": "Nestle",
+  "marital_status": null,
   "measures": {
-    "0001": {
-    },
-    "0002": {
-      "encounter_ambulatory_including_pediatrics_encounter": [
-        1278907200,
-        1273723200
-      ]
-    },
-    "0004": {
-      "alcohol_or_drug_dependence_diagnosis_active": [
-        1273723200
-      ],
-      "alcohol_drug_rehab_and_detox_interventions_procedure_performed": [
-        1273723200
-      ],
-      "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
-        1278907200,
-        1273723200
-      ],
+    "0036": {
       "encounter_ed_encounter": [
         1278907200,
-        1273723200
-      ]
-    },
-    "0027": {
-      "tobacco_user_patient_characteristic": [
         1273723200
       ]
     },
@@ -154,18 +126,44 @@
         1273723200
       ]
     },
-    "0013": {
-      "diastolic_blood_pressure_physical_exam_finding": [
-        1278907200,
-        1273723200
+    "0033": {
+      "pregnancy_test_laboratory_test_performed": [
+        1273723200,
+        1278907200
       ],
-      "systolic_blood_pressure_physical_exam_finding": [
+      "pregnancy_test_laboratory_test_result": [
+        1273723200,
+        1278907200
+      ]
+    },
+    "0024": {
+    },
+    "0068": {
+    },
+    "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1273723200
+      ]
+    },
+    "0028": {
+      "tobacco_user_patient_characteristic": [
+        1273723200
+      ]
+    },
+    "0027": {
+      "tobacco_user_patient_characteristic": [
+        1273723200
+      ]
+    },
+    "0575": {
+      "encounter_acute_inpatient_or_ed_encounter": [
         1278907200,
         1273723200
       ]
     },
-    "0014": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
+    "0105": {
+      "encounter_ed_encounter": [
+        1278907200,
         1273723200
       ]
     },
@@ -191,56 +189,13 @@
         }
       ]
     },
-    "0024": {
+    "0385": {
     },
-    "0028": {
-      "tobacco_user_patient_characteristic": [
-        1273723200
-      ]
+    "0075": {
     },
-    "0031": {
+    "0081": {
     },
-    "0032": {
-    },
-    "0034": {
-    },
-    "0041": {
-    },
-    "0033": {
-      "pregnancy_test_laboratory_test_performed": [
-        1273723200,
-        1278907200
-      ],
-      "pregnancy_test_laboratory_test_result": [
-        1273723200,
-        1278907200
-      ]
-    },
-    "0036": {
-      "encounter_ed_encounter": [
-        1278907200,
-        1273723200
-      ]
-    },
-    "0038": {
-    },
-    "0043": {
-    },
-    "0047": {
-    },
-    "0052": {
-      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
-        1278907200,
-        1273723200
-      ]
-    },
-    "0055": {
-      "encounter_acute_inpatient_or_ed_encounter": [
-        1278907200,
-        1273723200
-      ]
-    },
-    "0056": {
+    "0064": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278907200,
         1273723200
@@ -251,6 +206,24 @@
         1278907200,
         1273723200
       ]
+    },
+    "0031": {
+    },
+    "0032": {
+    },
+    "0089": {
+    },
+    "0067": {
+    },
+    "0088": {
+    },
+    "0052": {
+      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
+        1278907200,
+        1273723200
+      ]
+    },
+    "0034": {
     },
     "0061": {
       "encounter_acute_inpatient_or_ed_encounter": [
@@ -278,23 +251,76 @@
         }
       ]
     },
+    "0004": {
+      "alcohol_or_drug_dependence_diagnosis_active": [
+        1273723200
+      ],
+      "alcohol_drug_rehab_and_detox_interventions_procedure_performed": [
+        1273723200
+      ],
+      "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
+        1278907200,
+        1273723200
+      ],
+      "encounter_ed_encounter": [
+        1278907200,
+        1273723200
+      ]
+    },
+    "0083": {
+    },
+    "0389": {
+    },
+    "0084": {
+      "liver_disorders_diagnosis_active": [
+        1273723200
+      ]
+    },
+    "0001": {
+    },
+    "0013": {
+      "diastolic_blood_pressure_physical_exam_finding": [
+        1278907200,
+        1273723200
+      ],
+      "systolic_blood_pressure_physical_exam_finding": [
+        1278907200,
+        1273723200
+      ]
+    },
+    "0074": {
+    },
+    "0070": {
+    },
     "0062": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278907200,
         1273723200
       ]
     },
-    "0064": {
+    "0086": {
+    },
+    "0056": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1278907200,
         1273723200
       ]
     },
-    "0067": {
+    "0038": {
     },
-    "0068": {
+    "0055": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1278907200,
+        1273723200
+      ]
     },
-    "0070": {
+    "0002": {
+      "encounter_ambulatory_including_pediatrics_encounter": [
+        1278907200,
+        1273723200
+      ]
+    },
+    "0421": {
     },
     "0073": {
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -318,51 +344,20 @@
         }
       ]
     },
-    "0074": {
+    "0043": {
     },
-    "0075": {
+    "0041": {
     },
-    "0081": {
-    },
-    "0083": {
-    },
-    "0084": {
-      "liver_disorders_diagnosis_active": [
-        1273723200
-      ]
-    },
-    "0086": {
-    },
-    "0088": {
-    },
-    "0089": {
-    },
-    "0105": {
-      "encounter_ed_encounter": [
-        1278907200,
-        1273723200
-      ]
-    },
-    "0385": {
-    },
-    "0389": {
+    "0047": {
     },
     "0387": {
-    },
-    "0421": {
-    },
-    "0575": {
-      "encounter_acute_inpatient_or_ed_encounter": [
-        1278907200,
-        1273723200
-      ]
     }
   },
   "medical_record_number": null,
   "patient_id": "138",
   "procedures": [
     {
-      "_id": "4fea3768a9ffccb429000ee6",
+      "_id": "4ff7483a1d41c8778e001978",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -372,7 +367,6 @@
         ]
       },
       "description": "alcohol, drug rehab and detox interventions",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -390,9 +384,10 @@
     "name": "White",
     "code": "2106-3"
   },
+  "religious_affilication": null,
   "results": [
     {
-      "_id": "4fea3768a9ffccb429000ee4",
+      "_id": "4ff7483a1d41c8778e001976",
       "codes": {
         "CPT": [
           "84702"
@@ -402,7 +397,6 @@
         ]
       },
       "description": "Pregnancy Test",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -418,7 +412,7 @@
       }
     },
     {
-      "_id": "4fea3768a9ffccb429000ee5",
+      "_id": "4ff7483a1d41c8778e001977",
       "codes": {
         "CPT": [
           "84702"
@@ -428,7 +422,6 @@
         ]
       },
       "description": "Pregnancy Test",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -446,14 +439,13 @@
   ],
   "social_history": [
     {
-      "_id": "4fea3768a9ffccb429000edd",
+      "_id": "4ff7483a1d41c8778e00196f",
       "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
       "description": "Tobacco User",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -468,16 +460,19 @@
     }
   ],
   "test_id": null,
+  "title": null,
   "vital_signs": [
     {
-      "_id": "4fea3768a9ffccb429000ede",
+      "_id": "4ff7483a1d41c8778e001970",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -493,14 +488,16 @@
       }
     },
     {
-      "_id": "4fea3768a9ffccb429000edf",
+      "_id": "4ff7483a1d41c8778e001971",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -516,14 +513,16 @@
       }
     },
     {
-      "_id": "4fea3768a9ffccb429000ee0",
+      "_id": "4ff7483a1d41c8778e001972",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -539,14 +538,16 @@
       }
     },
     {
-      "_id": "4fea3768a9ffccb429000ee1",
+      "_id": "4ff7483a1d41c8778e001973",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
