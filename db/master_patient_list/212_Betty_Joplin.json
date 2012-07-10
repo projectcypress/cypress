@@ -1,9 +1,9 @@
 {
-  "_id": "4fd62a0ba9ffcca774001964",
+  "_id": "4fea3791a9ffccb429001970",
   "birthdate": -998856000,
   "care_goals": [
     {
-      "_id": "4fd62a0ba9ffcca77400197d",
+      "_id": "4fea3791a9ffccb429001989",
       "codes": {
         "CPT": [
           "97804"
@@ -19,7 +19,10 @@
         ]
       },
       "description": "follow-up plan_BMI management",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "start_time": null,
       "status": null,
@@ -30,7 +33,7 @@
   ],
   "conditions": [
     {
-      "_id": "4fd62a0ba9ffcca774001970",
+      "_id": "4fea3791a9ffccb42900197c",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -44,8 +47,13 @@
         ]
       },
       "description": "Heart Failure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0018801:Heart failure; C1959583:Myocardial Failure;",
       "start_time": null,
       "status": "active",
@@ -55,7 +63,7 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca774001971",
+      "_id": "4fea3791a9ffccb42900197d",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -69,8 +77,13 @@
         ]
       },
       "description": "Hypertension",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C2882073:hypertension (arterial) (benign) (essential) (malignant) (primary) (systemic); C0020538:Hypertensive disease; C0085580:Essential Hypertension;",
       "start_time": null,
       "status": "active",
@@ -84,7 +97,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fd62a0ba9ffcca774001965",
+      "_id": "4fea3791a9ffccb429001971",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -96,8 +109,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -107,7 +122,7 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca774001966",
+      "_id": "4fea3791a9ffccb429001972",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -119,8 +134,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -138,14 +155,17 @@
   "gender": "F",
   "immunizations": [
     {
-      "_id": "4fd62a0ba9ffcca77400197b",
+      "_id": "4fea3791a9ffccb429001987",
       "codes": {
         "RxNorm": [
           "857942"
         ]
       },
       "description": "Influenza Vaccine",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "refusalInd": null,
       "refusalReason": null,
@@ -158,7 +178,7 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca77400197c",
+      "_id": "4fea3791a9ffccb429001988",
       "codes": {
         "CVX": [
           "100"
@@ -168,7 +188,10 @@
         ]
       },
       "description": "Pneumococcal Vaccine all ages",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "refusalInd": null,
       "refusalReason": null,
@@ -423,9 +446,6 @@
       "ace_inhibitors_arbs_medication_dispensed": [
         1284177600
       ],
-      "ace_inhibitors_arbs_medication_active": [
-        1284177600
-      ],
       "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1284177600,
         1281240000
@@ -487,11 +507,11 @@
       "diastolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1284177600,
-          "value": 156.0
+          "value": 90.0
         },
         {
           "date": 1281240000,
-          "value": 158.0
+          "value": 92.0
         }
       ],
       "encounter_outpatient_encounter": [
@@ -636,25 +656,25 @@
         1281240000
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1284177600,
-        1281240000
-      ]
-    },
     "0105": {
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1284177600,
         1281240000
       ]
     },
-    "0387": {
+    "0385": {
       "encounter_office_visit_encounter": [
         1284177600,
         1281240000
       ]
     },
     "0389": {
+    },
+    "0387": {
+      "encounter_office_visit_encounter": [
+        1284177600,
+        1281240000
+      ]
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -685,7 +705,7 @@
   "medical_record_number": null,
   "medications": [
     {
-      "_id": "4fd62a0ba9ffcca774001979",
+      "_id": "4fea3791a9ffccb429001985",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -697,10 +717,13 @@
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
+      "element_name": null,
       "end_time": null,
       "freeTextSig": null,
+      "free_text": null,
       "fulfillmentInstructions": null,
       "indication": null,
+      "mood_code": "EVN",
       "patientInstructions": null,
       "productForm": null,
       "reaction": null,
@@ -717,7 +740,7 @@
       "vehicle": null
     },
     {
-      "_id": "4fd62a0ba9ffcca77400197a",
+      "_id": "4fea3791a9ffccb429001986",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -729,10 +752,13 @@
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
+      "element_name": null,
       "end_time": null,
       "freeTextSig": null,
+      "free_text": null,
       "fulfillmentInstructions": null,
       "indication": null,
+      "mood_code": "EVN",
       "patientInstructions": null,
       "productForm": null,
       "reaction": null,
@@ -752,7 +778,7 @@
   "patient_id": "212",
   "procedures": [
     {
-      "_id": "4fd62a0ba9ffcca774001977",
+      "_id": "4fea3791a9ffccb429001983",
       "codes": {
         "CPT": [
           "97802"
@@ -768,19 +794,21 @@
         ]
       },
       "description": "counseling for nutrition",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C2910467:Encounter for other general examination; C2910466:Encounter for health examination in population surveys;",
       "start_time": null,
       "status": null,
       "time": 1281240000,
-      "type": null,
       "value": {
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca774001978",
+      "_id": "4fea3791a9ffccb429001984",
       "codes": {
         "ICD-9-CM": [
           "V65.41"
@@ -793,14 +821,16 @@
         ]
       },
       "description": "counseling for physical activity",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C0260823:Encounter for dietary surveillance and counseling;",
       "start_time": null,
       "status": null,
       "time": 1281240000,
-      "type": null,
       "value": {
       }
     }
@@ -811,7 +841,7 @@
   },
   "results": [
     {
-      "_id": "4fd62a0ba9ffcca774001972",
+      "_id": "4fea3791a9ffccb42900197e",
       "codes": {
         "CPT": [
           "83701"
@@ -824,8 +854,11 @@
         ]
       },
       "description": "High Density Lipoprotein (HDL)",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0392885:High density lipoprotein measurement;",
       "start_time": null,
@@ -837,7 +870,7 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca774001973",
+      "_id": "4fea3791a9ffccb42900197f",
       "codes": {
         "CPT": [
           "83721"
@@ -850,8 +883,11 @@
         ]
       },
       "description": "LDL",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0202117:Low density lipoprotein cholesterol measurement;",
       "start_time": null,
@@ -863,7 +899,7 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca774001974",
+      "_id": "4fea3791a9ffccb429001980",
       "codes": {
         "CPT": [
           "84478"
@@ -876,8 +912,11 @@
         ]
       },
       "description": "Triglycerides",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0202236:Triglycerides measurement;",
       "start_time": null,
@@ -889,7 +928,7 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca774001975",
+      "_id": "4fea3791a9ffccb429001981",
       "codes": {
         "CPT": [
           "82465"
@@ -902,8 +941,11 @@
         ]
       },
       "description": "Total Cholesterol",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0546633:Cholesterol total measurement;",
       "start_time": null,
@@ -915,15 +957,18 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca774001976",
+      "_id": "4fea3791a9ffccb429001982",
       "codes": {
         "SNOMED-CT": [
           "70822001"
         ]
       },
       "description": "Ejection Fraction",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0232174:Cardiac ejection fraction;",
       "start_time": null,
@@ -937,19 +982,21 @@
   ],
   "social_history": [
     {
-      "_id": "4fd62a0ba9ffcca774001967",
+      "_id": "4fea3791a9ffccb429001973",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "description": "Tobacco Non-User",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0425311:Current non-smoker;",
       "start_time": null,
       "status": null,
       "time": 1281240000,
-      "type": null,
       "value": {
         "scalar": null,
         "units": null
@@ -959,15 +1006,18 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fd62a0ba9ffcca774001968",
+      "_id": "4fea3791a9ffccb429001974",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -979,15 +1029,18 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca774001969",
+      "_id": "4fea3791a9ffccb429001975",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -999,15 +1052,18 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca77400196a",
+      "_id": "4fea3791a9ffccb429001976",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
       "description": "Heart Rate",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0018810:heart rate;",
       "start_time": null,
@@ -1019,15 +1075,18 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca77400196b",
+      "_id": "4fea3791a9ffccb429001977",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -1039,15 +1098,18 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca77400196c",
+      "_id": "4fea3791a9ffccb429001978",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -1059,15 +1121,18 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca77400196d",
+      "_id": "4fea3791a9ffccb429001979",
       "codes": {
         "SNOMED-CT": [
           "364075005"
         ]
       },
       "description": "Heart Rate",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0018810:heart rate;",
       "start_time": null,
@@ -1079,7 +1144,7 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca77400196e",
+      "_id": "4fea3791a9ffccb42900197a",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1089,8 +1154,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -1102,7 +1170,7 @@
       }
     },
     {
-      "_id": "4fd62a0ba9ffcca77400196f",
+      "_id": "4fea3791a9ffccb42900197b",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1112,8 +1180,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,

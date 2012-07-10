@@ -1,9 +1,9 @@
 {
-  "_id": "4fd62a04a9ffcca7740014ce",
+  "_id": "4fea377fa9ffccb4290014d9",
   "birthdate": -142200000,
   "conditions": [
     {
-      "_id": "4fd62a04a9ffcca7740014d9",
+      "_id": "4fea377fa9ffccb4290014e4",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -17,8 +17,13 @@
         ]
       },
       "description": "diabetes",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "name": null,
+      "ordinality": "principal",
+      "priority": null,
       "specifics": "C0011849:Diabetes Mellitus;",
       "start_time": null,
       "status": "active",
@@ -32,7 +37,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fd62a04a9ffcca7740014cf",
+      "_id": "4fea377fa9ffccb4290014da",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -44,8 +49,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -55,7 +62,7 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014d0",
+      "_id": "4fea377fa9ffccb4290014db",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -64,8 +71,10 @@
       },
       "description": "encounter ED",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374582:Emergency department visit for the evaluation and management of a patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor.;",
       "start_time": null,
@@ -75,7 +84,7 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014d1",
+      "_id": "4fea377fa9ffccb4290014dc",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -87,8 +96,10 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
+      "element_name": null,
       "end_time": null,
       "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "specifics": "C0374559:Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other providers or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Physicians typically spend 15 minutes face-to-face with the patient and/or family.;",
       "start_time": null,
@@ -327,9 +338,6 @@
       "medications_indicative_of_diabetes_medication_order": [
         1272686400
       ],
-      "medications_indicative_of_diabetes_medication_active": [
-        1272686400
-      ],
       "foot_exam_physical_exam_performed": [
         1289102400,
         1272686400
@@ -361,9 +369,6 @@
       ],
       "medications_indicative_of_diabetes_medication_order": [
         1272686400
-      ],
-      "medications_indicative_of_diabetes_medication_active": [
-        1272686400
       ]
     },
     "0061": {
@@ -381,9 +386,6 @@
         1272686400
       ],
       "medications_indicative_of_diabetes_medication_order": [
-        1272686400
-      ],
-      "medications_indicative_of_diabetes_medication_active": [
         1272686400
       ],
       "diastolic_blood_pressure_physical_exam_finding": [
@@ -422,9 +424,6 @@
         1272686400
       ],
       "medications_indicative_of_diabetes_medication_order": [
-        1272686400
-      ],
-      "medications_indicative_of_diabetes_medication_active": [
         1272686400
       ]
     },
@@ -489,11 +488,11 @@
       "diastolic_blood_pressure_physical_exam_finding": [
         {
           "date": 1289102400,
-          "value": 128.0
+          "value": 70.0
         },
         {
           "date": 1272686400,
-          "value": 132.0
+          "value": 76.0
         }
       ],
       "encounter_outpatient_encounter": [
@@ -601,12 +600,6 @@
         1272686400
       ]
     },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1289102400,
-        1272686400
-      ]
-    },
     "0105": {
       "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
         1289102400,
@@ -616,13 +609,19 @@
         1282190400
       ]
     },
-    "0387": {
+    "0385": {
       "encounter_office_visit_encounter": [
         1289102400,
         1272686400
       ]
     },
     "0389": {
+    },
+    "0387": {
+      "encounter_office_visit_encounter": [
+        1289102400,
+        1272686400
+      ]
     },
     "0421": {
       "encounter_outpatient_encounter": [
@@ -675,7 +674,7 @@
   "medical_record_number": null,
   "medications": [
     {
-      "_id": "4fd62a04a9ffcca7740014e6",
+      "_id": "4fea377fa9ffccb4290014f1",
       "administrationTiming": null,
       "codes": {
         "RxNorm": [
@@ -687,10 +686,13 @@
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
+      "element_name": null,
       "end_time": null,
       "freeTextSig": null,
+      "free_text": null,
       "fulfillmentInstructions": null,
       "indication": null,
+      "mood_code": "EVN",
       "patientInstructions": null,
       "productForm": null,
       "reaction": null,
@@ -710,49 +712,53 @@
   "patient_id": "99",
   "procedures": [
     {
-      "_id": "4fd62a04a9ffcca7740014e1",
+      "_id": "4fea377fa9ffccb4290014ec",
       "codes": {
         "SNOMED-CT": [
           "401191002"
         ]
       },
       "description": "Foot Exam",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C1303165:Diabetic foot examination;",
       "start_time": null,
       "status": null,
       "time": 1289102400,
-      "type": null,
       "value": {
         "scalar": "Normal",
         "units": null
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014e2",
+      "_id": "4fea377fa9ffccb4290014ed",
       "codes": {
         "SNOMED-CT": [
           "401191002"
         ]
       },
       "description": "Foot Exam",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C1303165:Diabetic foot examination;",
       "start_time": null,
       "status": null,
       "time": 1272686400,
-      "type": null,
       "value": {
         "scalar": "Normal",
         "units": null
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014e3",
+      "_id": "4fea377fa9ffccb4290014ee",
       "codes": {
         "SNOMED-CT": [
           "384742004"
@@ -762,19 +768,21 @@
         ]
       },
       "description": "tobacco use cessation counseling",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C1692317:Smoking cessation assistance;",
       "start_time": null,
       "status": null,
       "time": 1272686400,
-      "type": null,
       "value": {
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014e4",
+      "_id": "4fea377fa9ffccb4290014ef",
       "codes": {
         "HCPCS": [
           "S0621"
@@ -790,19 +798,21 @@
         ]
       },
       "description": "eye exam",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C0374194:Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient;",
       "start_time": null,
       "status": null,
       "time": 1286769600,
-      "type": null,
       "value": {
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014e5",
+      "_id": "4fea377fa9ffccb4290014f0",
       "codes": {
         "CPT": [
           "77057"
@@ -821,14 +831,16 @@
         ]
       },
       "description": "breast cancer screening",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "performer_id": null,
       "site": null,
       "specifics": "C0203028:Screening mammography;",
       "start_time": null,
       "status": null,
       "time": 1286769600,
-      "type": null,
       "value": {
       }
     }
@@ -839,7 +851,7 @@
   },
   "results": [
     {
-      "_id": "4fd62a04a9ffcca7740014da",
+      "_id": "4fea377fa9ffccb4290014e5",
       "codes": {
         "ICD-9-CM": [
           "V72.32"
@@ -861,8 +873,11 @@
         ]
       },
       "description": "Pap Test",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C2585782:Microscopic examination of cervical Papanicolaou smear;",
       "start_time": null,
@@ -874,7 +889,7 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014db",
+      "_id": "4fea377fa9ffccb4290014e6",
       "codes": {
         "CPT": [
           "83036"
@@ -887,8 +902,11 @@
         ]
       },
       "description": "HbA1c test",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0474680:Hemoglobin A1c measurement;",
       "start_time": null,
@@ -900,15 +918,18 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014dc",
+      "_id": "4fea377fa9ffccb4290014e7",
       "codes": {
         "LOINC": [
           "2089-1"
         ]
       },
       "description": "LDL Laboratory Test",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0364225:Cholesterol.in LDL:Mass Concentration:Point in time:Serum/Plasma:Quantitative;",
       "start_time": null,
@@ -920,7 +941,7 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014dd",
+      "_id": "4fea377fa9ffccb4290014e8",
       "codes": {
         "CPT": [
           "83701"
@@ -933,8 +954,11 @@
         ]
       },
       "description": "High Density Lipoprotein (HDL)",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0392885:High density lipoprotein measurement;",
       "start_time": null,
@@ -946,7 +970,7 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014de",
+      "_id": "4fea377fa9ffccb4290014e9",
       "codes": {
         "CPT": [
           "82465"
@@ -959,8 +983,11 @@
         ]
       },
       "description": "Total Cholesterol",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0546633:Cholesterol total measurement;",
       "start_time": null,
@@ -972,7 +999,7 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014df",
+      "_id": "4fea377fa9ffccb4290014ea",
       "codes": {
         "CPT": [
           "84478"
@@ -985,8 +1012,11 @@
         ]
       },
       "description": "Triglycerides",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0202236:Triglycerides measurement;",
       "start_time": null,
@@ -998,7 +1028,7 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014e0",
+      "_id": "4fea377fa9ffccb4290014eb",
       "codes": {
         "CPT": [
           "83036"
@@ -1011,8 +1041,11 @@
         ]
       },
       "description": "HbA1c test",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0474680:Hemoglobin A1c measurement;",
       "start_time": null,
@@ -1026,19 +1059,21 @@
   ],
   "social_history": [
     {
-      "_id": "4fd62a04a9ffcca7740014d2",
+      "_id": "4fea377fa9ffccb4290014dd",
       "codes": {
         "SNOMED-CT": [
           "230062009"
         ]
       },
       "description": "Tobacco User",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
+      "mood_code": "EVN",
       "specifics": "C0459846:Moderate cigarette smoker;",
       "start_time": null,
       "status": null,
       "time": 1272686400,
-      "type": null,
       "value": {
         "scalar": null,
         "units": null
@@ -1048,15 +1083,18 @@
   "test_id": null,
   "vital_signs": [
     {
-      "_id": "4fd62a04a9ffcca7740014d3",
+      "_id": "4fea377fa9ffccb4290014de",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -1068,15 +1106,18 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014d4",
+      "_id": "4fea377fa9ffccb4290014df",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -1088,15 +1129,18 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014d5",
+      "_id": "4fea377fa9ffccb4290014e0",
       "codes": {
         "SNOMED-CT": [
           "271649006"
         ]
       },
       "description": "Systolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0871470:Systolic Pressure;",
       "start_time": null,
@@ -1108,15 +1152,18 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014d6",
+      "_id": "4fea377fa9ffccb4290014e1",
       "codes": {
         "SNOMED-CT": [
           "271650006"
         ]
       },
       "description": "Diastolic Blood Pressure",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C0428883:Diastolic blood pressure;",
       "start_time": null,
@@ -1128,7 +1175,7 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014d7",
+      "_id": "4fea377fa9ffccb4290014e2",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1138,8 +1185,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
@@ -1151,7 +1201,7 @@
       }
     },
     {
-      "_id": "4fd62a04a9ffcca7740014d8",
+      "_id": "4fea377fa9ffccb4290014e3",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1161,8 +1211,11 @@
         ]
       },
       "description": "BMI",
+      "element_name": null,
       "end_time": null,
+      "free_text": null,
       "interpretation": null,
+      "mood_code": "EVN",
       "referenceRange": null,
       "specifics": "C1542867:Body mass index:Relative Density:Point in time:^Patient:Quantitative;",
       "start_time": null,
