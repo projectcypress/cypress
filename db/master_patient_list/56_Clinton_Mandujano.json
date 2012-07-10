@@ -1,15 +1,14 @@
 {
-  "_id": "4fea374fa9ffccb42900082a",
+  "_id": "4ff748141d41c8778e000f7d",
   "allergies": [
     {
-      "_id": "4fea374fa9ffccb42900082b",
+      "_id": "4ff748141d41c8778e000f7e",
       "codes": {
         "RxNorm": [
           "C2729553"
         ]
       },
       "description": "Polymyxin",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -27,7 +26,7 @@
   "birthdate": -529959600,
   "conditions": [
     {
-      "_id": "4fea374fa9ffccb429000841",
+      "_id": "4ff748141d41c8778e000f94",
       "causeOfDeath": null,
       "codes": {
         "SNOMED-CT": [
@@ -41,11 +40,9 @@
         ]
       },
       "description": "Bradycardia",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
-      "name": null,
       "ordinality": "principal",
       "priority": null,
       "specifics": "C0085610:Sinus bradycardia; C2910381:Sinoatrial bradycardia; C0428977:Bradycardia; C0232190:Vagal autonomic bradycardia;",
@@ -61,7 +58,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fea374fa9ffccb42900082c",
+      "_id": "4ff748141d41c8778e000f7f",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -73,7 +70,6 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -86,7 +82,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb42900082d",
+      "_id": "4ff748141d41c8778e000f80",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -95,7 +91,6 @@
       },
       "description": "Encounter Office Visit",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -108,7 +103,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb42900082e",
+      "_id": "4ff748141d41c8778e000f81",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -120,7 +115,6 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -133,7 +127,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb42900082f",
+      "_id": "4ff748141d41c8778e000f82",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -142,7 +136,6 @@
       },
       "description": "Encounter Office Visit",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -163,14 +156,13 @@
   "gender": "M",
   "immunizations": [
     {
-      "_id": "4fea374fa9ffccb429000848",
+      "_id": "4ff748141d41c8778e000f9b",
       "codes": {
         "RxNorm": [
           "857942"
         ]
       },
       "description": "Influenza Vaccine",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -186,7 +178,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000849",
+      "_id": "4ff748141d41c8778e000f9c",
       "codes": {
         "CVX": [
           "100"
@@ -196,7 +188,6 @@
         ]
       },
       "description": "Pneumococcal Vaccine all ages",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -214,35 +205,63 @@
   ],
   "languages": null,
   "last": "Mandujano",
+  "marital_status": null,
   "measures": {
-    "0001": {
-      "encounter_office_outpatient_consult_encounter": [
+    "0036": {
+      "encounter_outpatient_encounter": [
         1286769600,
         1277006400,
         1274846400,
         1239854400
       ]
     },
-    "0002": {
-      "encounter_ambulatory_including_pediatrics_encounter": [
+    "0012": {
+    },
+    "0033": {
+      "encounter_outpatient_encounter": [
         1286769600,
         1277006400,
         1274846400,
         1239854400
       ]
     },
-    "0004": {
-      "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
+    "0024": {
+      "bmi_percentile_physical_exam_finding": [
         1286769600,
         1277006400,
         1274846400,
         1239854400
       ],
-      "encounter_outpatient_bh_encounter": [
+      "encounter_outpatient_w_pcp_obgyn_encounter": [
         1286769600,
         1277006400,
         1274846400,
         1239854400
+      ]
+    },
+    "0068": {
+      "encounter_acute_inpt_and_outpt_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1274846400
+      ]
+    },
+    "0014": {
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1274846400
       ]
     },
     "0027": {
@@ -253,29 +272,21 @@
         1239854400
       ]
     },
-    "0012": {
-    },
-    "0013": {
-      "diastolic_blood_pressure_physical_exam_finding": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "systolic_blood_pressure_physical_exam_finding": [
+    "0575": {
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1286769600,
         1277006400,
         1274846400,
         1239854400
       ]
     },
-    "0014": {
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
     },
     "0018": {
       "encounter_outpatient_encounter": [
@@ -321,345 +332,12 @@
         }
       ]
     },
-    "0024": {
-      "bmi_percentile_physical_exam_finding": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0028": {
+    "0385": {
       "encounter_office_visit_encounter": [
         1286769600,
         1277006400,
         1274846400,
         1239854400
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1274846400
-      ]
-    },
-    "0031": {
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0032": {
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0034": {
-      "colonoscopy_procedure_performed": [
-        1274846400
-      ],
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "influenza_vaccine_medication_administered": [
-        1286769600
-      ]
-    },
-    "0033": {
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0036": {
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1274846400
-      ]
-    },
-    "0038": {
-      "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "pneumococcal_vaccination_procedure_performed": [
-        1286769600
-      ],
-      "influenza_vaccine_medication_administered": [
-        1286769600
-      ],
-      "polymyxin_medication_allergy": [
-        1239854400
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "pneumococcal_vaccination_all_ages_procedure_performed": [
-        1286769600
-      ],
-      "pneumococcal_vaccine_all_ages_medication_administered": [
-        1286769600
-      ]
-    },
-    "0047": {
-      "encounter_office_outpatient_consult_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0052": {
-      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0055": {
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0056": {
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0059": {
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0061": {
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "diastolic_blood_pressure_physical_exam_finding": [
-        {
-          "date": 1286769600,
-          "value": 60.0
-        },
-        {
-          "date": 1277006400,
-          "value": 62.0
-        },
-        {
-          "date": 1274846400,
-          "value": 62.0
-        },
-        {
-          "date": 1239854400,
-          "value": 66.0
-        }
-      ],
-      "systolic_blood_pressure_physical_exam_finding": [
-        {
-          "date": 1286769600,
-          "value": 106.0
-        },
-        {
-          "date": 1277006400,
-          "value": 110.0
-        },
-        {
-          "date": 1274846400,
-          "value": 100.0
-        },
-        {
-          "date": 1239854400,
-          "value": 110.0
-        }
-      ]
-    },
-    "0062": {
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0064": {
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "ldl_test_laboratory_test_result": [
-        {
-          "date": 1274846400,
-          "value": 54.0
-        },
-        {
-          "date": 1274846400,
-          "value": 70.0
-        }
-      ]
-    },
-    "0067": {
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0068": {
-      "encounter_acute_inpt_and_outpt_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1274846400
-      ]
-    },
-    "0070": {
-      "arrhythmia_diagnosis_active": [
-        1277006400
-      ],
-      "bradycardia_diagnosis_active": [
-        1277006400
-      ],
-      "cardiac_monitoring_procedure_performed": [
-        1277006400
-      ],
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "heart_rate_physical_exam_finding": [
-        {
-          "date": 1286769600,
-          "value": 54.0
-        },
-        {
-          "date": 1277006400,
-          "value": 56.0
-        },
-        {
-          "date": 1274846400,
-          "value": 52.0
-        },
-        {
-          "date": 1239854400,
-          "value": 62.0
-        }
-      ]
-    },
-    "0073": {
-      "encounter_acute_inpt_and_outpt_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "diastolic_blood_pressure_physical_exam_finding": [
-        {
-          "date": 1286769600,
-          "value": 60.0
-        },
-        {
-          "date": 1277006400,
-          "value": 62.0
-        },
-        {
-          "date": 1274846400,
-          "value": 62.0
-        },
-        {
-          "date": 1239854400,
-          "value": 66.0
-        }
-      ],
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1274846400
-      ],
-      "systolic_blood_pressure_physical_exam_finding": [
-        {
-          "date": 1286769600,
-          "value": 106.0
-        },
-        {
-          "date": 1277006400,
-          "value": 110.0
-        },
-        {
-          "date": 1274846400,
-          "value": 100.0
-        },
-        {
-          "date": 1239854400,
-          "value": 110.0
-        }
-      ]
-    },
-    "0074": {
-      "encounter_outpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ],
-      "ldl_laboratory_test_laboratory_test_result": [
-        {
-          "date": 1274846400,
-          "value": 54.0
-        }
       ]
     },
     "0075": {
@@ -714,6 +392,149 @@
         1239854400
       ]
     },
+    "0064": {
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "ldl_test_laboratory_test_result": [
+        {
+          "date": 1274846400,
+          "value": 54.0
+        },
+        {
+          "date": 1274846400,
+          "value": 70.0
+        }
+      ]
+    },
+    "0059": {
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0032": {
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0089": {
+      "encounter_office_outpatient_consult_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0067": {
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0088": {
+      "encounter_office_outpatient_consult_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0052": {
+      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0034": {
+      "colonoscopy_procedure_performed": [
+        1274846400
+      ],
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0061": {
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "diastolic_blood_pressure_physical_exam_finding": [
+        {
+          "date": 1286769600,
+          "value": 60.0
+        },
+        {
+          "date": 1277006400,
+          "value": 62.0
+        },
+        {
+          "date": 1274846400,
+          "value": 62.0
+        },
+        {
+          "date": 1239854400,
+          "value": 66.0
+        }
+      ],
+      "systolic_blood_pressure_physical_exam_finding": [
+        {
+          "date": 1286769600,
+          "value": 106.0
+        },
+        {
+          "date": 1277006400,
+          "value": 110.0
+        },
+        {
+          "date": 1274846400,
+          "value": 100.0
+        },
+        {
+          "date": 1239854400,
+          "value": 110.0
+        }
+      ]
+    },
+    "0004": {
+      "encounter_inpt_ed_non_acute_inpatient_bh_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "encounter_outpatient_bh_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
     "0083": {
       "arrhythmia_diagnosis_active": [
         1277006400
@@ -734,8 +555,95 @@
         1239854400
       ]
     },
+    "0389": {
+    },
     "0084": {
       "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0001": {
+      "encounter_office_outpatient_consult_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0013": {
+      "diastolic_blood_pressure_physical_exam_finding": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "systolic_blood_pressure_physical_exam_finding": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0074": {
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "ldl_laboratory_test_laboratory_test_result": [
+        {
+          "date": 1274846400,
+          "value": 54.0
+        }
+      ]
+    },
+    "0070": {
+      "arrhythmia_diagnosis_active": [
+        1277006400
+      ],
+      "bradycardia_diagnosis_active": [
+        1277006400
+      ],
+      "cardiac_monitoring_procedure_performed": [
+        1277006400
+      ],
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "heart_rate_physical_exam_finding": [
+        {
+          "date": 1286769600,
+          "value": 54.0
+        },
+        {
+          "date": 1277006400,
+          "value": 56.0
+        },
+        {
+          "date": 1274846400,
+          "value": 52.0
+        },
+        {
+          "date": 1239854400,
+          "value": 62.0
+        }
+      ]
+    },
+    "0062": {
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1286769600,
         1277006400,
         1274846400,
@@ -750,42 +658,41 @@
         1239854400
       ]
     },
-    "0088": {
-      "encounter_office_outpatient_consult_encounter": [
+    "0056": {
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1286769600,
         1277006400,
         1274846400,
         1239854400
       ]
     },
-    "0089": {
-      "encounter_office_outpatient_consult_encounter": [
+    "0038": {
+      "encounter_outpatient_w_pcp_obgyn_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "pneumococcal_vaccination_procedure_performed": [
+        1286769600
+      ],
+      "influenza_vaccine_medication_administered": [
+        1286769600
+      ],
+      "polymyxin_medication_allergy": [
+        1239854400
+      ]
+    },
+    "0055": {
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1286769600,
         1277006400,
         1274846400,
         1239854400
       ]
     },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1286769600,
-        1277006400,
-        1274846400,
-        1239854400
-      ]
-    },
-    "0389": {
-    },
-    "0387": {
-      "encounter_office_visit_encounter": [
+    "0002": {
+      "encounter_ambulatory_including_pediatrics_encounter": [
         1286769600,
         1277006400,
         1274846400,
@@ -818,8 +725,95 @@
         }
       ]
     },
-    "0575": {
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+    "0073": {
+      "encounter_acute_inpt_and_outpt_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "diastolic_blood_pressure_physical_exam_finding": [
+        {
+          "date": 1286769600,
+          "value": 60.0
+        },
+        {
+          "date": 1277006400,
+          "value": 62.0
+        },
+        {
+          "date": 1274846400,
+          "value": 62.0
+        },
+        {
+          "date": 1239854400,
+          "value": 66.0
+        }
+      ],
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1274846400
+      ],
+      "systolic_blood_pressure_physical_exam_finding": [
+        {
+          "date": 1286769600,
+          "value": 106.0
+        },
+        {
+          "date": 1277006400,
+          "value": 110.0
+        },
+        {
+          "date": 1274846400,
+          "value": 100.0
+        },
+        {
+          "date": 1239854400,
+          "value": 110.0
+        }
+      ]
+    },
+    "0043": {
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "pneumococcal_vaccination_all_ages_procedure_performed": [
+        1286769600
+      ],
+      "pneumococcal_vaccine_all_ages_medication_administered": [
+        1286769600
+      ]
+    },
+    "0041": {
+      "encounter_influenza_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "encounter_outpatient_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ],
+      "influenza_vaccine_medication_administered": [
+        1286769600
+      ]
+    },
+    "0047": {
+      "encounter_office_outpatient_consult_encounter": [
+        1286769600,
+        1277006400,
+        1274846400,
+        1239854400
+      ]
+    },
+    "0387": {
+      "encounter_office_visit_encounter": [
         1286769600,
         1277006400,
         1274846400,
@@ -831,7 +825,7 @@
   "patient_id": "56",
   "procedures": [
     {
-      "_id": "4fea374fa9ffccb429000846",
+      "_id": "4ff748141d41c8778e000f99",
       "codes": {
         "CPT": [
           "45378"
@@ -850,7 +844,6 @@
         ]
       },
       "description": "colonoscopy",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -864,14 +857,13 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000847",
+      "_id": "4ff748141d41c8778e000f9a",
       "codes": {
         "SNOMED-CT": [
           "23852006"
         ]
       },
       "description": "Cardiac Monitoring",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -889,9 +881,10 @@
     "name": "Other Race",
     "code": "2131-1"
   },
+  "religious_affilication": null,
   "results": [
     {
-      "_id": "4fea374fa9ffccb429000842",
+      "_id": "4ff748141d41c8778e000f95",
       "codes": {
         "CPT": [
           "83721"
@@ -904,7 +897,6 @@
         ]
       },
       "description": "LDL",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -920,7 +912,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000843",
+      "_id": "4ff748141d41c8778e000f96",
       "codes": {
         "CPT": [
           "83701"
@@ -933,7 +925,6 @@
         ]
       },
       "description": "High Density Lipoprotein (HDL)",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -949,7 +940,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000844",
+      "_id": "4ff748141d41c8778e000f97",
       "codes": {
         "CPT": [
           "82465"
@@ -962,7 +953,6 @@
         ]
       },
       "description": "Total Cholesterol",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -978,7 +968,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000845",
+      "_id": "4ff748141d41c8778e000f98",
       "codes": {
         "CPT": [
           "84478"
@@ -991,7 +981,6 @@
         ]
       },
       "description": "Triglycerides",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1009,14 +998,13 @@
   ],
   "social_history": [
     {
-      "_id": "4fea374fa9ffccb429000830",
+      "_id": "4ff748141d41c8778e000f83",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "description": "Tobacco Non-User",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -1031,16 +1019,19 @@
     }
   ],
   "test_id": null,
+  "title": null,
   "vital_signs": [
     {
-      "_id": "4fea374fa9ffccb429000831",
+      "_id": "4ff748141d41c8778e000f84",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1056,14 +1047,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000832",
+      "_id": "4ff748141d41c8778e000f85",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1079,14 +1072,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000833",
+      "_id": "4ff748141d41c8778e000f86",
       "codes": {
         "SNOMED-CT": [
           "364075005"
+        ],
+        "LOINC": [
+          "8867-4"
         ]
       },
       "description": "Heart Rate",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1102,14 +1097,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000834",
+      "_id": "4ff748141d41c8778e000f87",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1125,14 +1122,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000835",
+      "_id": "4ff748141d41c8778e000f88",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1148,14 +1147,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000836",
+      "_id": "4ff748141d41c8778e000f89",
       "codes": {
         "SNOMED-CT": [
           "364075005"
+        ],
+        "LOINC": [
+          "8867-4"
         ]
       },
       "description": "Heart Rate",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1171,14 +1172,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000837",
+      "_id": "4ff748141d41c8778e000f8a",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1194,14 +1197,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000838",
+      "_id": "4ff748141d41c8778e000f8b",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1217,14 +1222,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000839",
+      "_id": "4ff748141d41c8778e000f8c",
       "codes": {
         "SNOMED-CT": [
           "364075005"
+        ],
+        "LOINC": [
+          "8867-4"
         ]
       },
       "description": "Heart Rate",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1240,14 +1247,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb42900083a",
+      "_id": "4ff748141d41c8778e000f8d",
       "codes": {
         "SNOMED-CT": [
           "271649006"
+        ],
+        "LOINC": [
+          "8480-6"
         ]
       },
       "description": "Systolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1263,14 +1272,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb42900083b",
+      "_id": "4ff748141d41c8778e000f8e",
       "codes": {
         "SNOMED-CT": [
           "271650006"
+        ],
+        "LOINC": [
+          "8462-4"
         ]
       },
       "description": "Diastolic Blood Pressure",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1286,14 +1297,16 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb42900083c",
+      "_id": "4ff748141d41c8778e000f8f",
       "codes": {
         "SNOMED-CT": [
           "364075005"
+        ],
+        "LOINC": [
+          "8867-4"
         ]
       },
       "description": "Heart Rate",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1309,7 +1322,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb42900083d",
+      "_id": "4ff748141d41c8778e000f90",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1319,7 +1332,6 @@
         ]
       },
       "description": "BMI",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1335,7 +1347,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb42900083e",
+      "_id": "4ff748141d41c8778e000f91",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1345,7 +1357,6 @@
         ]
       },
       "description": "BMI",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1361,7 +1372,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb42900083f",
+      "_id": "4ff748141d41c8778e000f92",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1371,7 +1382,6 @@
         ]
       },
       "description": "BMI",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -1387,7 +1397,7 @@
       }
     },
     {
-      "_id": "4fea374fa9ffccb429000840",
+      "_id": "4ff748141d41c8778e000f93",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -1397,7 +1407,6 @@
         ]
       },
       "description": "BMI",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
