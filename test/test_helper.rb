@@ -69,7 +69,7 @@ class ActiveSupport::TestCase
     Mongoid.database['measures'].drop
     Mongoid.database['query_cache'].drop
     Mongoid.database['patient_cache'].drop
-    
+    patient_count = 0
     loader = QME::Database::Loader.new('cypress_test')
     mpl_dir = File.join(Rails.root, 'db', 'master_patient_list')
     mpls = File.join(mpl_dir, '*')
@@ -79,7 +79,10 @@ class ActiveSupport::TestCase
         json['_id'] = BSON::ObjectId.from_string(json['_id'])
       end
       loader.save('records', json)
+      patient_count += 1
     end
+    
+    return patient_count
   end
   
   def load_measures
