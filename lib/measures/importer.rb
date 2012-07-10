@@ -60,7 +60,11 @@ module Measures
     end
     
     def drop_collection(collection)
-       @db[collection].drop
+      if collection == 'bundles'
+        @db[collection].remove({"name" => "Meaningful Use Stage 1 Clinical Quality Measures"})
+      else
+        @db[collection].drop
+      end
     end
     
     def save_system_js_fn(name, fn)

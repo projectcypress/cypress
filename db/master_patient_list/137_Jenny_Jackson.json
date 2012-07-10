@@ -1,9 +1,9 @@
 {
-  "_id": "4fea3767a9ffccb429000e8a",
+  "_id": "4ff7480c1d41c8778e000d4a",
   "birthdate": 789282000,
   "conditions": [
     {
-      "_id": "4fea3767a9ffccb429000e92",
+      "_id": "4ff7480c1d41c8778e000d52",
       "causeOfDeath": null,
       "codes": {
         "ICD-9-CM": [
@@ -17,11 +17,9 @@
         ]
       },
       "description": "sexually active woman",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
-      "name": null,
       "ordinality": "principal",
       "priority": null,
       "specifics": "C0036916:Sexually Transmitted Diseases;",
@@ -33,7 +31,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e93",
+      "_id": "4ff7480c1d41c8778e000d53",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -47,11 +45,9 @@
         ]
       },
       "description": "alcohol or drug dependence",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
-      "name": null,
       "ordinality": "principal",
       "priority": null,
       "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
@@ -63,7 +59,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e94",
+      "_id": "4ff7480c1d41c8778e000d54",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -77,11 +73,9 @@
         ]
       },
       "description": "alcohol or drug dependence",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
-      "name": null,
       "ordinality": "principal",
       "priority": null,
       "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
@@ -93,7 +87,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e95",
+      "_id": "4ff7480c1d41c8778e000d55",
       "causeOfDeath": null,
       "codes": {
         "ICD-10-CM": [
@@ -107,17 +101,15 @@
         ]
       },
       "description": "alcohol or drug dependence",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
-      "name": null,
       "ordinality": "principal",
       "priority": null,
       "specifics": "C0001973:Alcoholic Intoxication, Chronic;",
       "start_time": null,
       "status": "active",
-      "time": 1270872000,
+      "time": 1270612800,
       "type": null,
       "value": {
       }
@@ -127,7 +119,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "4fea3767a9ffccb429000e8c",
+      "_id": "4ff7480c1d41c8778e000d4c",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -139,7 +131,6 @@
       },
       "description": "Encounter Outpatient",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -152,7 +143,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e8d",
+      "_id": "4ff7480c1d41c8778e000d4d",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -161,7 +152,6 @@
       },
       "description": "encounter acute inpt",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -174,7 +164,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e8e",
+      "_id": "4ff7480c1d41c8778e000d4e",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -183,7 +173,6 @@
       },
       "description": "encounter outpatient BH",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -196,7 +185,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e8f",
+      "_id": "4ff7480c1d41c8778e000d4f",
       "admitType": null,
       "codes": {
         "CPT": [
@@ -205,7 +194,6 @@
       },
       "description": "encounter acute inpt",
       "dischargeDisposition": null,
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -226,15 +214,215 @@
   "gender": "F",
   "languages": null,
   "last": "Jackson",
+  "marital_status": null,
   "measures": {
-    "0001": {
+    "0036": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ],
+      "encounter_acute_inpt_encounter": [
+        1270612800,
+        1269057600
+      ]
+    },
+    "0012": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1269057600,
+        1269921600,
+        1270612800
+      ]
+    },
+    "0033": {
+      "chlamydia_screening_laboratory_test_result": [
+        1281931200
+      ],
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ],
+      "sexually_active_woman_diagnosis_active": [
+        1281931200
+      ],
+      "chlamydia_screening_laboratory_test_performed": [
+        1281931200
+      ],
+      "contraceptive_use_education_communication_to_patient": [
+        1281931200
+      ],
+      "iud_use_device_applied": [
+        1281931200
+      ]
+    },
+    "0024": {
+      "bmi_percentile_physical_exam_finding": [
+        1281931200
+      ],
+      "counseling_for_nutrition_communication_to_patient": [
+        1281931200
+      ],
+      "counseling_for_physical_activity_communication_to_patient": [
+        1281931200
+      ],
+      "encounter_outpatient_w_pcp_obgyn_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0068": {
+      "encounter_acute_inpt_and_outpt_encounter": [
+        1281931200,
+        1270612800,
+        1269921600,
+        1269057600
+      ],
+      "encounter_acute_inpt_encounter": [
+        1270612800,
+        1269057600
+      ],
+      "encounter_outpatient_encounter": [
+        1281931200
+      ]
+    },
+    "0014": {
+      "delivery_live_births_diagnosis_diagnosis_active": [
+        1269057600,
+        1269921600,
+        1270612800
+      ]
+    },
+    "0028": {
+      "encounter_office_visit_encounter": [
+        1281931200
+      ],
+      "tobacco_non_user_patient_characteristic": [
+        1270094400
+      ]
+    },
+    "0027": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0575": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1270612800,
+        1269057600
+      ],
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0105": {
+      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
+        1281931200,
+        1270612800,
+        1269921600,
+        1269057600
+      ]
+    },
+    "0018": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0385": {
+      "encounter_office_visit_encounter": [
+        1281931200
+      ]
+    },
+    "0075": {
+      "encounter_acute_inpt_and_outpt_encounter": [
+        1281931200,
+        1270612800,
+        1269921600,
+        1269057600
+      ],
+      "encounter_acute_inpt_encounter": [
+        1270612800,
+        1269057600
+      ],
+      "encounter_outpatient_encounter": [
+        1281931200
+      ]
+    },
+    "0081": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0064": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1270612800,
+        1269057600
+      ],
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0059": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1270612800,
+        1269057600
+      ],
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0031": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0032": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0089": {
       "encounter_office_outpatient_consult_encounter": [
         1281931200,
         1269921600
       ]
     },
-    "0002": {
-      "encounter_ambulatory_including_pediatrics_encounter": [
+    "0067": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0088": {
+      "encounter_office_outpatient_consult_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0052": {
+      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0034": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0061": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1270612800,
+        1269057600
+      ],
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1281931200,
         1269921600
       ]
@@ -243,7 +431,7 @@
       "alcohol_or_drug_dependence_diagnosis_active": [
         1269057600,
         1269921600,
-        1270872000
+        1270612800
       ],
       "alcohol_drug_rehab_and_detox_interventions_procedure_performed": [
         1270612800,
@@ -269,17 +457,24 @@
         1269057600
       ]
     },
-    "0027": {
+    "0083": {
       "encounter_outpatient_encounter": [
         1281931200,
         1269921600
       ]
     },
-    "0012": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1269057600,
-        1269921600,
-        1270872000
+    "0389": {
+    },
+    "0084": {
+      "encounter_outpatient_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0001": {
+      "encounter_office_outpatient_consult_encounter": [
+        1281931200,
+        1269921600
       ]
     },
     "0013": {
@@ -288,160 +483,14 @@
         1269921600
       ]
     },
-    "0014": {
-      "delivery_live_births_diagnosis_diagnosis_active": [
-        1269057600,
-        1269921600,
-        1270872000
-      ]
-    },
-    "0018": {
+    "0074": {
       "encounter_outpatient_encounter": [
         1281931200,
         1269921600
       ]
     },
-    "0024": {
-      "bmi_percentile_physical_exam_finding": [
-        1281931200
-      ],
-      "counseling_for_nutrition_communication_to_patient": [
-        1281931200
-      ],
-      "counseling_for_physical_activity_communication_to_patient": [
-        1281931200
-      ],
-      "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0028": {
-      "encounter_office_visit_encounter": [
-        1281931200
-      ],
-      "tobacco_non_user_patient_characteristic": [
-        1270094400
-      ]
-    },
-    "0031": {
+    "0070": {
       "encounter_outpatient_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0032": {
-      "encounter_outpatient_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0034": {
-      "encounter_outpatient_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0041": {
-      "encounter_influenza_encounter": [
-        1281931200,
-        1269921600
-      ],
-      "encounter_outpatient_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0033": {
-      "chlamydia_screening_laboratory_test_result": [
-        1281931200
-      ],
-      "encounter_outpatient_encounter": [
-        1281931200,
-        1269921600
-      ],
-      "sexually_active_woman_diagnosis_active": [
-        1281931200
-      ],
-      "chlamydia_screening_laboratory_test_performed": [
-        1281931200
-      ],
-      "contraceptive_use_education_communication_to_patient": [
-        1281931200
-      ],
-      "iud_use_device_applied": [
-        1281931200
-      ]
-    },
-    "0036": {
-      "encounter_outpatient_encounter": [
-        1281931200
-      ],
-      "encounter_acute_inpt_encounter": [
-        1270612800,
-        1269057600
-      ]
-    },
-    "0038": {
-      "encounter_outpatient_w_pcp_obgyn_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0043": {
-      "encounter_outpatient_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0047": {
-      "encounter_office_outpatient_consult_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0052": {
-      "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0055": {
-      "encounter_acute_inpatient_or_ed_encounter": [
-        1270612800,
-        1269057600
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0056": {
-      "encounter_acute_inpatient_or_ed_encounter": [
-        1270612800,
-        1269057600
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0059": {
-      "encounter_acute_inpatient_or_ed_encounter": [
-        1270612800,
-        1269057600
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0061": {
-      "encounter_acute_inpatient_or_ed_encounter": [
-        1270612800,
-        1269057600
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1281931200,
         1269921600
       ]
@@ -456,7 +505,13 @@
         1269921600
       ]
     },
-    "0064": {
+    "0086": {
+      "encounter_office_outpatient_consult_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0056": {
       "encounter_acute_inpatient_or_ed_encounter": [
         1270612800,
         1269057600
@@ -466,31 +521,37 @@
         1269921600
       ]
     },
-    "0067": {
-      "encounter_outpatient_encounter": [
+    "0038": {
+      "encounter_outpatient_w_pcp_obgyn_encounter": [
         1281931200,
         1269921600
       ]
     },
-    "0068": {
-      "encounter_acute_inpt_and_outpt_encounter": [
+    "0055": {
+      "encounter_acute_inpatient_or_ed_encounter": [
+        1270612800,
+        1269057600
+      ],
+      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
         1281931200,
-        1270612800,
-        1269921600,
-        1269057600
-      ],
-      "encounter_acute_inpt_encounter": [
-        1270612800,
-        1269057600
-      ],
+        1269921600
+      ]
+    },
+    "0002": {
+      "encounter_ambulatory_including_pediatrics_encounter": [
+        1281931200,
+        1269921600
+      ]
+    },
+    "0421": {
       "encounter_outpatient_encounter": [
         1281931200
-      ]
-    },
-    "0070": {
-      "encounter_outpatient_encounter": [
-        1281931200,
-        1269921600
+      ],
+      "bmi_physical_exam_finding": [
+        {
+          "date": 1281931200,
+          "value": 23.793846153846154
+        }
       ]
     },
     "0073": {
@@ -508,115 +569,43 @@
         1281931200
       ]
     },
-    "0074": {
+    "0043": {
       "encounter_outpatient_encounter": [
         1281931200,
         1269921600
       ]
     },
-    "0075": {
-      "encounter_acute_inpt_and_outpt_encounter": [
+    "0041": {
+      "encounter_influenza_encounter": [
         1281931200,
-        1270612800,
-        1269921600,
-        1269057600
-      ],
-      "encounter_acute_inpt_encounter": [
-        1270612800,
-        1269057600
+        1269921600
       ],
       "encounter_outpatient_encounter": [
-        1281931200
-      ]
-    },
-    "0081": {
-      "encounter_outpatient_encounter": [
         1281931200,
         1269921600
       ]
     },
-    "0083": {
-      "encounter_outpatient_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0084": {
-      "encounter_outpatient_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0086": {
+    "0047": {
       "encounter_office_outpatient_consult_encounter": [
         1281931200,
         1269921600
       ]
-    },
-    "0088": {
-      "encounter_office_outpatient_consult_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0089": {
-      "encounter_office_outpatient_consult_encounter": [
-        1281931200,
-        1269921600
-      ]
-    },
-    "0105": {
-      "patient_encounter_bh_bh_req_pos_encounter_point_non_acute_inpatient_inpatient_encounter": [
-        1281931200,
-        1270612800,
-        1269921600,
-        1269057600
-      ]
-    },
-    "0385": {
-      "encounter_office_visit_encounter": [
-        1281931200
-      ]
-    },
-    "0389": {
     },
     "0387": {
       "encounter_office_visit_encounter": [
         1281931200
       ]
-    },
-    "0421": {
-      "encounter_outpatient_encounter": [
-        1281931200
-      ],
-      "bmi_physical_exam_finding": [
-        {
-          "date": 1281931200,
-          "value": 23.793846153846154
-        }
-      ]
-    },
-    "0575": {
-      "encounter_acute_inpatient_or_ed_encounter": [
-        1270612800,
-        1269057600
-      ],
-      "encounter_non_acute_inpatient_outpatient_or_ophthalmology_encounter": [
-        1281931200,
-        1269921600
-      ]
     }
   },
   "medical_equipment": [
     {
-      "_id": "4fea3767a9ffccb429000e8b",
+      "_id": "4ff7480c1d41c8778e000d4b",
       "codes": {
         "SNOMED-CT": [
           "169491004"
         ]
       },
       "description": "IUD use",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "manufacturer": null,
@@ -633,14 +622,13 @@
   "patient_id": "137",
   "procedures": [
     {
-      "_id": "4fea3767a9ffccb429000e97",
+      "_id": "4ff7480c1d41c8778e000d57",
       "codes": {
         "SNOMED-CT": [
           "44651004"
         ]
       },
       "description": "contraceptive use education",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -654,7 +642,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e98",
+      "_id": "4ff7480c1d41c8778e000d58",
       "codes": {
         "CPT": [
           "97802"
@@ -670,7 +658,6 @@
         ]
       },
       "description": "counseling for nutrition",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -684,7 +671,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e99",
+      "_id": "4ff7480c1d41c8778e000d59",
       "codes": {
         "ICD-9-CM": [
           "V65.41"
@@ -697,7 +684,6 @@
         ]
       },
       "description": "counseling for physical activity",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -711,7 +697,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e9a",
+      "_id": "4ff7480c1d41c8778e000d5a",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -721,7 +707,6 @@
         ]
       },
       "description": "alcohol, drug rehab and detox interventions",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -735,7 +720,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e9b",
+      "_id": "4ff7480c1d41c8778e000d5b",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -745,7 +730,6 @@
         ]
       },
       "description": "alcohol, drug rehab and detox interventions",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -759,7 +743,7 @@
       }
     },
     {
-      "_id": "4fea3767a9ffccb429000e9c",
+      "_id": "4ff7480c1d41c8778e000d5c",
       "codes": {
         "ICD-9-CM": [
           "94.61"
@@ -769,7 +753,6 @@
         ]
       },
       "description": "alcohol, drug rehab and detox interventions",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -787,9 +770,10 @@
     "name": "White",
     "code": "2106-3"
   },
+  "religious_affilication": null,
   "results": [
     {
-      "_id": "4fea3767a9ffccb429000e96",
+      "_id": "4ff7480c1d41c8778e000d56",
       "codes": {
         "CPT": [
           "87110"
@@ -802,7 +786,6 @@
         ]
       },
       "description": "Chlamydia Screening",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
@@ -820,14 +803,13 @@
   ],
   "social_history": [
     {
-      "_id": "4fea3767a9ffccb429000e90",
+      "_id": "4ff7480c1d41c8778e000d50",
       "codes": {
         "SNOMED-CT": [
           "160618006"
         ]
       },
       "description": "Tobacco Non-User",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "mood_code": "EVN",
@@ -842,9 +824,10 @@
     }
   ],
   "test_id": null,
+  "title": null,
   "vital_signs": [
     {
-      "_id": "4fea3767a9ffccb429000e91",
+      "_id": "4ff7480c1d41c8778e000d51",
       "codes": {
         "SNOMED-CT": [
           "60621009"
@@ -854,7 +837,6 @@
         ]
       },
       "description": "BMI",
-      "element_name": null,
       "end_time": null,
       "free_text": null,
       "interpretation": null,
