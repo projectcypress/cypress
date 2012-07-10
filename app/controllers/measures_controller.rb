@@ -57,7 +57,7 @@ class MeasuresController < ApplicationController
     
     # Use the relevant results to build @coverage of each measure
     @coverage = {}
-    buckets = ["numerator", "denominator", "antinumerator", "exclusions"]
+    buckets = ["denominator", "numerator", "exclusions", "antinumerator"]
     results.each do |result|
       # Skip results that don't fall into any of the buckets
       next if !result.value['numerator'] && !result.value['denominator'] && !result.value['antinumerator'] && !result.value['exclusions']

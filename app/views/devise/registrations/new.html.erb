@@ -6,13 +6,13 @@
   </div>
   <ul class="register">
     <li>
-      <%= f.label :first_name %>
+      <span style="float:left;" id="required_asterisk">*</span><%= f.label :first_name %>
       <%= f.email_field :first_name %>
-      <%= f.label :last_name %>
+      <span style="float:left;" id="required_asterisk">*</span><%= f.label :last_name %>
       <%= f.email_field :last_name %>
     </li>
     <li>
-      <%= f.label :email %>
+      <span style="float:left;" id="required_asterisk">*</span><%= f.label :email %>
       <%= f.email_field :email %>
     </li>
     <li>
@@ -20,12 +20,12 @@
       <%= f.email_field :telephone %>
     </li>
     <li>
-      <%= f.label :password %>
+      <span style="float:left;" id="required_asterisk">*</span><%= f.label :password %>
       <%= f.password_field :password %>
       <p>Must be at least 5 characters long.</p>
     </li>
     <li>
-      <%= f.label :password_confirmation %>
+      <span style="float:left;" id="required_asterisk">*</span><%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation %>
     </li>
   </ul>
