@@ -3,7 +3,7 @@
   <h1>Vendor Information</h1>
   <section id="vendorInfo">
     <dl>
-      <dt>Vendor Name:</dt>
+      <dt><span style="float:right;">Vendor Name:</span><span id="required_asterisk">*</span></dt>
       <dd><%= f.text_field :name, :size=>"20", :class=>"required" %></dd>
       <dt>Vendor ID:</dt>
       <dd><%= f.text_field :vendor_id, :size=>"20", :class=>"req" %></dd>

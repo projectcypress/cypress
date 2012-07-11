@@ -9,12 +9,19 @@
         <span>about</span>
       </nav>
     </section>
-
+    <% @deps = Cypress::GetDependencies::get_dependencies() %>
     <section id="about">
       <div>
-        <section style="float:right;padding-right: 10px;">
+        <section style="float:right;padding-right: 30px;">
+          Master Patient List: <%= @deps['Master Patient List'] %><br>
+        </section>
+        <section style="float:right;padding-right: 30px;">
+          Health Data Standards: <%= @deps['Health-Data-Standards'] %><br>
+          Quality Measure Engine: <%= @deps['Quality-Measure-Engine'] %>
+        </section>
+        <section style="float:right;padding-right: 30px;">
           Version: <%= Cypress::Version.current %><br>
-          Measures: <%= Cypress::Version.measures %>
+          Measures: <%= @deps['Measures'] %>
         </section>
         <section class="free_text">
           <h2>What is Cypress?</h2>
