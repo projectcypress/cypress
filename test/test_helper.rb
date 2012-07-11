@@ -79,10 +79,10 @@ class ActiveSupport::TestCase
         json['_id'] = BSON::ObjectId.from_string(json['_id'])
       end
       loader.save('records', json)
-      patient_count += 1
+      patient_count = patient_count + 1
     end
     
-    return patient_count
+    patient_count
   end
   
   def load_measures
