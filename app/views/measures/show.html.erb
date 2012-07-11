@@ -1,12 +1,47 @@
 <% content_for :head do %>
   <script type="text/javascript">
     $(document).ready(function() {
-  <% if @execution.expected_result(@measure)['numerator']=='?' %>
-        $.cypress.addPoll("<%= product_test_measure_path(@test, @measure) %>", "<%= patients_product_test_measure_path(@test, @measure) %>")
-  <% else %>
-        $.cypress.updatePatientTable("<%= patients_product_test_measure_path(@test, @measure) %>")
-  <% end %>
+      <% if @measure.id != nil %>
+        $.getJSON("<%=measure_definition_url(:measure_id => @measure.id)%>", $.cypress.renderMeasureJSON);
+      <% end %>
+      
+      <% if @execution.expected_result(@measure)['numerator']=='?' %>
+            $.cypress.addPoll("<%= product_test_measure_path(@test, @measure) %>", "<%= patients_product_test_measure_path(@test, @measure) %>")
+      <% else %>
+            $.cypress.updatePatientTable("<%= patients_product_test_measure_path(@test, @measure) %>")
+      <% end %>
+
+      var hidden  = true;
+      $('#measureEditContainer').slideUp();
+      
+      $('.measure_definition').click(function(){
+        if(hidden){
+          $('#measureEditContainer').slideDown(500);
+          $('#show_hide').text("Hide Definition");
+        }
+        else{
+          $('#measureEditContainer').slideUp(500);
+          $('#show_hide').text("Expand Definition");
+        }
+        hidden = !hidden;
+      });
+
     });
+  </script>
+  <script type="text/html" id="ph_tmpl_paramItem">
+    <div>
+      <!-- ${percentage=Math.round(Math.random()*100,2)} -->
+      {{if category}}<label>${category}</label>{{/if}}
+      ${title}
+    </div>
+  </script>
+  <script type="text/html" id="ph_tmpl_paramGroupContainer">
+    <div class="paramGroupContainer">
+    </div>
+  </script>
+  <script type="text/html" id="ph_tmpl_paramGroup">
+    <div class="paramGroup"><div class="paramItem">
+    </div></div>
   </script>
 <% end %>
 
@@ -71,6 +106,31 @@
           <% else %>
             <dd class="fail">Fail</dd>
           <% end %>
+        </dl>
+        <dl>
+          <dt class="measure_definition">Definition:</dt>
+          <dd class="measure_definition" id="show_hide">Expand Definition</dd>
+          <div id="measureEditContainer">
+            <div id="eligibilityMeasures">
+              <h3>Denominator</h3>
+              <div class="measureBox">
+                <div id="eligibilityMeasureItems">
+                </div><!-- end #eligibilityMeasureItems -->
+              </div><!-- end measureBox -->
+            </div><!-- end #eligibilityMeasures -->
+            <div id="outcomeMeasures">
+              <h3>Numerator</h3>
+              <div class="measureBox">
+                <div id="outcomeExclusionMarker" class="exclusionTab" style="display:none">
+                  0 Exclusions
+                </div>
+                <div id="outcomeMeasureItems">
+                </div>
+                <div id="exclusionMeasureItems">
+                </div>
+              </div><!-- end measureBox -->
+            </div><!-- end #outcomeMeasures -->
+          </div><!-- end measureEditContainer -->
         </dl>
         <dl>
           <dt>Reporting Statistics:</dt>
