@@ -1,6 +1,6 @@
 module Cypress
   class MeasureEvaluator
-    STATIC_EFFECTIVE_DATE = Time.gm(APP_CONFIG["effective_date"]["year"],
+    STATIC_EFFECTIVE_DATE = Time.new(APP_CONFIG["effective_date"]["year"],
                                     APP_CONFIG["effective_date"]["month"],
                                     APP_CONFIG["effective_date"]["day"]).to_i
   
