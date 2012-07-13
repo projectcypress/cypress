@@ -57,16 +57,7 @@
 
 <%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
   <%= f.hidden_field :product_id, :value => @product.id %>
-  <div id="progress_bar" style="float:right;">
-    <table><tr>
-        <td>completed:</td>
-        <td><span class="current" id="step1">1</span></td>
-        <td><span class="incomplete" id="step2">2</span></td>
-        <td><span class="incomplete" id="step3">3</span></td>
-        <td><span class="incomplete" id="step4">4</span></td>
-      </tr>
-    </table>
-  </div>
+  <div id="progress_bar">Step <b id="currentStep">1</b> of 4</div>
 
   <%= render :partial => "product_tests/wizard_screens/home", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/measures", :locals => {:f => f} %>

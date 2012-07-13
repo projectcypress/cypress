@@ -43,25 +43,20 @@
     };
 
     $.testWizard.updateProgressBar = function(screen) {
-        $('#step1,#step2,#step3,#step4').removeClass('complete current incomplete').addClass('incomplete');
         switch (screen) {
             case "first":
-                $('#step1').removeClass('incomplete').addClass('current');
+                $('#currentStep').html(1);
                 break;
             case "wizard-measures-screen":
-                $('#step1').removeClass('incomplete').addClass('complete');
-                $('#step2').removeClass('incomplete').addClass('current');
+                $('#currentStep').html(2);
                 break;
             case "wizard-workflow-screen":
-                $('#step1,#step2').removeClass('incomplete').addClass('complete');
-                $('#step3').removeClass('incomplete').addClass('current');
+                $('#currentStep').html(3);
                 break;
-
             case "wizard-patients-automated-screen":
             case "wizard-patients-manual-screen":
             case "wizard-patients-byod-screen":
-                $('#step1,#step2,#step3').removeClass('incomplete').addClass('complete');
-                $('#step4').removeClass('incomplete').addClass('current');
+                $('#currentStep').html(4);
                 break;
         }
     }
