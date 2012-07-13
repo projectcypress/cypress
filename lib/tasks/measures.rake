@@ -24,6 +24,7 @@ namespace :measures do
 
   task :setup => :environment do  
     @db =  Mongoid.master
+    @loader = QME::Database::Loader.new()
      @importer = Measures::Importer.new(@db)
   end
   
@@ -56,6 +57,13 @@ namespace :measures do
         puts $!.backtrace
     end
    
+  end
+
+  desc 'Load the local bundle.zip'
+  task :load_local_bundle, [:bundle_name] => [:setup ] do |t, args|
+    bundle_name = args[:bundle_name] || 'bundle'
+    @loader.drop_collection("measures")
+    @importer.import(File.new("./db/" + bundle_name + ".zip"))
   end
 
 

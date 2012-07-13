@@ -18,11 +18,16 @@ namespace :cypress do
   end
 
   desc 'Perform all tasks necessary for initializing a newly installed system'
-  task :initialize => :setup do
+  task :initialize, [:measure_source] => :setup do |t, args|
+    measure_source = args[:measure_source] || 'remote'
     #clear out everything
     Rake::Task['away:mpl_and_measures'].invoke()
     #clear out the measures, reload from ./db/bundle.zip
-    Rake::Task['measures:reload_local_bundle'].invoke()
+    if measure_source == "remote"
+       Rake::Task['measures:update'].invoke()
+    else
+       Rake::Task['measures:load_local_bundle'].invoke()
+    end
     #load from ./db/master_patient_list
     Rake::Task['mpl:init'].invoke()
     Rake::Task['mpl:load'].invoke()

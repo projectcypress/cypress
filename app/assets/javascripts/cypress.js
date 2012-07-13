@@ -101,6 +101,47 @@
       function() { dialog.dialog('close'); }
     );
   }
-  
+
+    $.cypress.renderMeasureJSON = function(data) {
+      var measure = data;
+      var elemParent;
+      var addParamItems = function(obj,elemParent,container) {
+        var items = obj['and'] || obj['or'];
+        if ($.isArray(items)) {
+          var conjunction = obj['and'] ? 'and' : 'or';
+          // add the grouping container
+          if (!container) {elemParent = $("#ph_tmpl_paramGroup").tmpl({}).appendTo(elemParent).find(".paramItem:last");}
+            $.each(items,function(i,node) {
+              addParamItems(node,elemParent);
+              if (i < items.length-1) {
+                $(elemParent).append("<span class='"+conjunction+"'>"+conjunction+"</span>");
+              }
+            });
+        } 
+        else {
+          // we dont have a nested measure clause, add the item to the bottom of the list
+          if (!elemParent.hasClass("paramItem")) {
+            elemParent = $("#ph_tmpl_paramGroup").tmpl({}).appendTo(elemParent).find(".paramItem:last");
+          }
+          $("#ph_tmpl_paramItem").tmpl(obj).appendTo(elemParent);
+        }
+      } // end addParamItems
+
+      if (data.population) {
+        elemParent = $("#ph_tmpl_paramGroup").tmpl({}).appendTo("#eligibilityMeasureItems").find(".paramItem:last");
+        addParamItems(data.population,elemParent,elemParent);
+        elemParent.parent().addClass("population");
+      }
+
+      if (!$.isEmptyObject(data.denominator)) {
+        $("#eligibilityMeasureItems").append("<span class='and'>and</span>");
+        addParamItems(data.denominator,$("#eligibilityMeasureItems"));
+      }
+
+      if (data.numerator) {
+        addParamItems(data.numerator,$("#outcomeMeasureItems"));
+      }
+
+    }
 })( jQuery );
 

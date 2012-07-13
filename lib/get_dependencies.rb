@@ -1,12 +1,20 @@
 module Cypress
   class GetDependencies
 
-    def self.get_dependencies(bundle_id)
+    def self.get_dependencies(bundle_id=nil)
       deps = Hash.new
       env = Bundler::environment
-
-      bundle = Mongoid.database['bundles'].find({'_id' => bundle_id}).first
-      deps["Measures"] = 'v' + bundle['version']
+      measure_bundle = 'Unknown'
+      
+      if bundle_id.nil?
+        measure_bundle = Mongoid.database['bundles'].find({'name' => 'Meaningful Use Stage 1 Clinical Quality Measures'}).first
+      else
+        measure_bundle = Mongoid.database['bundles'].find({'_id' => bundle_id}).first
+      end
+      
+      mpl_bundle = Mongoid.database['bundles'].find({'name' => 'Meaningful Use Stage 1 Test Deck'}).first
+      deps["Measures"] = 'v' + measure_bundle['version']
+      deps["Master Patient List"] = 'v' + mpl_bundle['version']
       deps["Health-Data-Standards"] = 'v' + env.specs.to_hash["health-data-standards"].first.version.to_s
       deps["Quality-Measure-Engine"]= 'v' + env.specs.to_hash["quality-measure-engine"].first.version.to_s
 

@@ -2,6 +2,9 @@ require 'test_helper'
 
 class InformationControllerTest < ActionController::TestCase
   
+  setup do
+    collection_fixtures('bundles','_id')
+  end
   
   test "about" do
     get :about 

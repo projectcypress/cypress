@@ -6,7 +6,8 @@ include Devise::TestHelpers
   setup do
     collection_fixtures('query_cache', 'test_id')
     collection_fixtures('users',"_id", "product_ids","product_test_ids")
-    collection_fixtures('measures')
+    collection_fixtures('measures','bundle')
+    collection_fixtures('bundles','_id')
     collection_fixtures('products','_id','vendor_id', "user_id")
     collection_fixtures('records', '_id','test_id')
     collection_fixtures('product_tests', '_id','product_id',"user_id")
