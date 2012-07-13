@@ -23,6 +23,11 @@ def download_patients(version)
    return f
 end
 
+def load_bundle(db, bundle_def)
+  db['bundles'] << JSON.parse(bundle_def)
+end
+
+
 namespace :mpl do
   task :tttt do
      puts ENV.inspect
@@ -64,6 +69,7 @@ namespace :mpl do
     puts "removing current master patient list from cypress"
     db = @loader.get_db
     db['records'].remove("test_id" => nil)
+    db['bundles'].remove("name" => "Meaningful Use Stage 1 Test Deck")
     @loader.drop_collection('query_cache')
     @loader.drop_collection('patient_cache')
     
@@ -75,18 +81,23 @@ namespace :mpl do
     puts "downloading master patient list"
     zip = download_patients(@version) 
     puts "unzipping master patient list"
+    bundle_def = '{"name":"Meaningful Use Stage 1 Test Deck","version" : "Unknown"}'
     Zip::ZipFile.open(zip.path) do |zipfile|
      zipfile.each do |file|
       file_name = File.join(@mpl_dir, File.basename(file.name))
-      if File.basename(file.name).include?(".json")        
-        puts file_name
-        zipfile.extract(file,file_name){true}
+      if File.basename(file.name).include?(".json")
+        if File.basename(file.name).include?("bundle.json")
+          bundle_def = zipfile.read(file)
+        else
+          puts file_name
+          zipfile.extract(file,file_name){true}
+        end
       end
      end
     end
+    load_bundle(@loader.get_db, bundle_def)
     Rake::Task['mpl:load'].invoke()
     Rake::Task['mpl:eval'].invoke()
-    
   end  
  
   
@@ -128,12 +139,34 @@ namespace :mpl do
   
   desc 'Roll the date of every aspect of each patient forward or backwards [years, months, days] depending on sign'
   task :roll, :years, :months, :days, :start_date, :needs=> :setup do |t, args|
-    args.with_defaults(:years => 0, :months => 0, :days =>0, :start_date => false)
+    args.with_defaults(:years => 0,  :start_date => false)
     if args[:start_date]
-      Cypress::PatientRoll.rollEffectiveDate(args[:start_date])
+      Cypress::PatientRoll.roll_effective_date(args[:start_date])
     else
-      Cypress::PatientRoll.rollYearMonthDay(args[:years], args[:months], args[:days])
+      Cypress::PatientRoll.roll_year(args[:years])
     end
+  end
+  
+  desc 'Create CSV matrix of patients and their measures'
+  task :report => :setup do
+    outfile = File.new("report.csv", "w")
+    outfile.write "Patient Name"
+    Record.where('test_id' => nil).first.measures.each do |measure|
+      outfile.write ",#{measure.first}"
+    end
+    outfile.write "\n"
+    Record.where('test_id' => nil).all.entries.each do |patient|
+      outfile.write "#{patient.first} #{patient.last}"
+      patient.measures.each do |measure|
+        if measure.second == {}
+          outfile.write ",0"
+        else
+          outfile.write",1"
+        end
+      end
+      outfile.write "\n"
+    end
+    outfile.close
   end
 
   desc 'Collect a subset of "count" patients that meet the criteria for the given set of "measures"'

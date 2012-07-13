@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "cypress-dev-list@lists.mitre.org"
+  default from: APP_CONFIG["mailer"]["from"]
   
   # Send all of the Records for a given ProductTest in a particular file format
   def send_records(test, format)
