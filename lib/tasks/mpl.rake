@@ -139,23 +139,60 @@ namespace :mpl do
      desc 'Create CSV matrix of patients and their measures'
 task :report => :setup do
     outfile = File.new("report.csv", "w")
-    outfile.write "Patient Name"
-  Record.where('test_id' => nil).first.measures.each do |measure|
-    outfile.write ",#{measure.first}"
-  end
-  outfile.write "\n"
-  Record.where('test_id' => nil).all.entries.each do |patient|
-    outfile.write "#{patient.first} #{patient.last}"
+    line1 =  "Patient Name"
+    line2 = ","
+    patient =  Record.where('test_id' => nil).first
     patient.measures.each do |measure|
-      if measure.second == {}
-        outfile.write ",0"
+      result = Result.where("value.measure_id" => measure.first).where("value.patient_id" =>  patient.id)
+      sub_id = ''
+      if !result.first.nil? && !result.first.value.sub_id.nil?
+        sub = 0
+        sub_id = 'a'
+        result.each do |res|
+           sub = sub + 1
+        end
+      end
+      if sub == nil
+        line1 = line1 + ",#{measure.first},,,,"
+        line2 = line2 + "population, denominator, numerator, antinumerator, exclusions,"
       else
-        outfile.write",1"
+        for i in 1..sub
+          line1 = line1 + ",#{measure.first}#{sub_id},,,,"
+          line2 = line2 + "population, denominator, numerator, antinumerator, exclusions,"
+          sub_id = sub_id.next
+        end
+      end
+    end
+  outfile.write "#{line1}\n#{line2}\n"
+  Record.where('test_id' => nil).all.entries.each do |patient|
+    outfile.write "#{patient.first} #{patient.last},"
+    patient.measures.each do |measure|
+      result = Result.where("value.measure_id" => measure.first).where("value.patient_id" => patient.id)
+      if !result.first.nil?
+        if result.first.value.sub_id.nil?
+          write_measure(result.first, outfile)
+        else
+          result.all.each do |res|
+            write_measure(res, outfile)
+          end
+        end
+      else
+        outfile.write(',,,,,')
       end
     end
     outfile.write "\n"
   end
   outfile.close
+end
+
+def write_measure (result, outfile)
+    category = [result.value.population, result.value.denominator, result.value.numerator, result.value.antinumerator, result.value.exclusions]
+    category.each do |c|
+      if c
+        outfile.write("1")
+      end
+      outfile.write(',')
+    end
 end
 
   desc 'Collect a subset of "count" patients that meet the criteria for the given set of "measures"'
