@@ -150,7 +150,7 @@ div.stacked{
 }
 
 section.tb {
-  a.cmd {float:right;margin-left:15px;}
+  a.cmd {float:right;margin-left:15px;width:102px;}
 }
 nav.breadcrumb {
   font-size:80%;
@@ -1099,10 +1099,6 @@ input.valid,textarea.valid {background:#DEFADE;}
 #mm_edit {
     text-align: center;
 }
-#progress_bar {
-    float:right;
-    padding-right:10px;
-}
 #outcomeMeasures {
   width: 500px;
   display: table-cell;
@@ -1124,3 +1120,10 @@ input.valid,textarea.valid {background:#DEFADE;}
       width: auto;
       .paramGroup {
         background-color: #68822c; } } } }
+
+#wizard-workflow-screen label {
+    font-weight:bold;
+}
+#wizard-workflow-screen .description {
+    margin-left: 3em;
+}

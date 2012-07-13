@@ -46,9 +46,11 @@
         switch (screen) {
             case "first":
                 $('#currentStep').html(1);
+                $('#back').addClass('disabled').find('input').attr('disabled',true).css("color","silver");
                 break;
             case "wizard-measures-screen":
                 $('#currentStep').html(2);
+                $('#back').removeClass('disabled').find('input').removeAttr('disabled').css("color","green");
                 break;
             case "wizard-workflow-screen":
                 $('#currentStep').html(3);
@@ -87,32 +89,6 @@ $(document).ready(function() {
         $('[name=population_name]').addClass("required");
     });
 
-    // for choosing the workflow option
-    $('label').hover(function(){
-        $(this).parent().addClass('highlight')
-    },
-    function(){
-        $(this).parent().removeClass('highlight')
-    }
-    ).click(function(){
-        var self = this;
-        $.each(['wf1','wf2','wf3'], function(i,e) {
-            $('.'+e+'_container').removeClass('selectedWorkflow');
-        });
-        $(this).parent().addClass('selectedWorkflow');
-    });
-
-    // for determining the download filename
-    $('#wf2').click(function(){
-        $('#html,label[for="html"]').hide();
-        $('#c32').attr('checked',true);
-        $('#c32,#ccr,label[for="c32"],label[for="ccr"]').show();
-    });
-    $('#wf1').click(function(){
-        $('#c32,#ccr,label[for="c32"],label[for="ccr"]').hide();
-        $('#html').attr('checked',true);
-        $('#html,label[for="html"]').show();
-    });
     // set the default choice by invoking a click on workflow 2
     $('label[for=wf2]').trigger("click");
 
@@ -151,8 +127,7 @@ $(document).ready(function() {
             rules: {
                 "product_test[name]": "required",
                 "product_test[patient_population]": "required",
-                "product_test[measure_ids][]": "required",
-                "byod": "required"
+                "product_test[measure_ids][]": "required"
             },
             errorClass: "validationErrors",
             messages: {
@@ -164,9 +139,6 @@ $(document).ready(function() {
                 },
                 "product_test[measure_ids][]": {
                     required:"You must choose at least one quality measure."
-                },
-                "byod": {
-                    required:"You must provide a .zip file containing your patient records."
                 }
             },
             errorPlacement: function(error, element) {
@@ -201,6 +173,7 @@ $(document).ready(function() {
             cache = {}; // empty the cache again
         }
     });
+    $.testWizard.updateProgressBar("first");
     $('.edit_product_test').validate({
         rules: {
             "product_test[name]": "required"
