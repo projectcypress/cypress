@@ -1,3 +1,5 @@
+require 'measure_evaluator'
+
 class TestExecution
   include Mongoid::Document
 
