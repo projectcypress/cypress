@@ -147,25 +147,43 @@ namespace :mpl do
     end
   end
   
+  # Depends on MPL being loaded and evaluated for measures
   desc 'Create CSV matrix of patients and their measures'
   task :report => :setup do
-    outfile = File.new("report.csv", "w")
-    outfile.write "Patient Name"
-    Record.where('test_id' => nil).first.measures.each do |measure|
-      outfile.write ",#{measure.first}"
+    outfile = File.new("./tmp/mpl_report.csv", "w")
+    
+    # Sort all of our measures in advance by ID and sub-ID
+    sorted_measures = Measure.all.entries.sort{|m1, m2| "#{m1['id']}#{m1.sub_id}" <=> "#{m2['id']}#{m2.sub_id}"}
+    populations = ["population", "denominator", "numerator", "antinumerator", "exclusions"]
+    
+    # First write out a title line to label columns with measures
+    titles = sorted_measures.collect do |measure|
+      # Include a column for each population for each measure
+      title = "#{measure['id']}#{measure.sub_id}"
+      populations.map{|population| "#{title} #{population}"}.join(",")
     end
-    outfile.write "\n"
-    Record.where('test_id' => nil).all.entries.each do |patient|
-      outfile.write "#{patient.first} #{patient.last}"
-      patient.measures.each do |measure|
-        if measure.second == {}
-          outfile.write ",0"
-        else
-          outfile.write",1"
+    titles = titles.join(",")
+    outfile.write "Patient,#{titles}\n"
+    
+    # Print out the results for each patient per measure and population. Here a row represents a patient
+    sorted_patients = Record.where("test_id" => nil).entries.sort{|p1, p2| "#{p1.last}#{p1.first}" <=> "#{p2.last}#{p2.first}"}
+    sorted_patients.each do |patient|
+      row = ["#{patient.first} #{patient.last}"]
+      
+      # Sort the results by measure ID and sub-ID so that it matches the columns
+      results = Result.where("value.patient_id" => patient.id).entries
+      sorted_results = results.sort{|r1, r2| "#{r1.value.measure_id}#{r1.value.sub_id}" <=> "#{r2.value.measure_id}#{r2.value.sub_id}"}
+      
+      # For each measure, add a 1 to the row for each population the given patient fits in. Otherwise, add a 0.
+      sorted_results.each do |result|
+        populations.each do |population|
+          result.value[population] ? row << 1 : row << 0
         end
       end
-      outfile.write "\n"
+      
+      outfile.write "#{row.join(',')}\n"
     end
+    
     outfile.close
   end
 
