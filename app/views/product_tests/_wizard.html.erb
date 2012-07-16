@@ -2,18 +2,16 @@
   <style type="text/css">
     /* formwizard and validation */
     .navigation_button {
-      width : 70px;
+      width : 0px;
     }
     .highlight {background:#DEFADE;}
-    .step {height:37em;}
-    
+
     td {vertical-align: top;}
     p {padding:5px;}
     #navigation {
-      margin-top : 0.5em;
-      margin-right : 1em;
-      text-align: center;
-      padding-bottom: 1em;
+      padding-top: .2em;
+      text-align:right;
+      width:100%;
     }
     textarea {
       -moz-border-radius: 5px;
@@ -22,11 +20,18 @@
       padding: 4px;
       border: 1px solid #AAAAAA;
     }
-    #navigation .noborder {border: 0;color:green;background:transparent;}
-    .link {
-      height:5em;
-      padding:1em;
+    #navigation input.noborder {
+      border: 0;
+      color:green;
+      background:transparent;
+      display:inline;
     }
+    /* need to override the CSS rule for spans that occur within forms
+       which is set to block (?!)
+    */
+    #navigation span.status {
+      display:inline;
+}
     .left {float: left;clear:left;}
     .right {float: right;clear:right;}
 
@@ -34,7 +39,7 @@
     dd.wide, span.wide {
       width: 45em;
     }
-   /* vertical tabs */
+    /* vertical tabs */
     .ui-tabs-vertical { width: 55em; }
     .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
     .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
@@ -42,40 +47,21 @@
     .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
     .ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 47em;}
 
-    td span.incomplete {background:url(/assets/insufficient.png) 0 50% no-repeat;
-                        text-indent:-9999pt;width:16px;
-    }
-    td span.complete {background:url(/assets/included.png) 0 50% no-repeat;
-                      text-indent:-9999pt;width:16px;
-    }
-    td span.current {background:url(/assets/pass.png) 0 50% no-repeat;
-                     text-indent:-9999pt;width:16px;
-    }
-
   </style>
 <% end %>
 
 <%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
   <%= f.hidden_field :product_id, :value => @product.id %>
-  <div id="progress_bar" style="float:right;">
-    <table><tr>
-        <td>completed:</td>
-        <td><span class="current" id="step1">1</span></td>
-        <td><span class="incomplete" id="step2">2</span></td>
-        <td><span class="incomplete" id="step3">3</span></td>
-        <td><span class="incomplete" id="step4">4</span></td>
-      </tr>
-    </table>
+  <div id="navigation">
+    <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
+    <span class="status">Step <b id="currentStep">1</b> of 4</span>
+    <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /></a>
   </div>
+  <div id="validationErrorMessages"></div>
 
   <%= render :partial => "product_tests/wizard_screens/home", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/measures", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/workflow", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
 
-  <div id="validationErrorMessages"></div>
-  <div id="navigation">
-    <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
-    <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /> </a>
-  </div>
 <% end %>
