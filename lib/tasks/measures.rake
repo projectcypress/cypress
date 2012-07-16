@@ -39,7 +39,8 @@ namespace :measures do
         Date.parse(b["created_at"] ) <=> Date.parse(a["created_at"])
     }
     begin
-      
+       @loader.drop_collection("bundles")
+       @loader.drop_collection("measures")
       entry =  json[0]
       if entry
          puts "updating to measures #{entry['name']}"
@@ -63,7 +64,7 @@ namespace :measures do
   task :load_local_bundle, [:bundle_name] => [:setup ] do |t, args|
     bundle_name = args[:bundle_name] || 'bundle'
     @loader.drop_collection("measures")
-    @importer.import(File.new("./db/" + bundle_name + ".zip"))
+    @importer.import(open("./db/" + bundle_name + ".zip"))
   end
 
 
