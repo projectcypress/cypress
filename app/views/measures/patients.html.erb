@@ -31,8 +31,8 @@
           <td></td>
           <td><%= link_to patient.value.patient.last, patient_url(patient.value.patient.id) %></td>
           <td><%= link_to patient.value.patient.first, patient_url(patient.value.patient.id) %></td>
-          <td><time datetime="<%= Time.at(patient.value.patient.birthdate).strftime('%Y-%m-%d') %>">
-            <%= Time.at(patient.value.patient.birthdate).strftime('%m/%d/%Y') %>
+          <td><time datetime="<%= display_time(patient.value.patient.birthdate) %>">
+            <%= display_time(patient.value.patient.birthdate) %>
           </time></td>
           <td><%= patient.value.patient.gender %></td>
         </tr>

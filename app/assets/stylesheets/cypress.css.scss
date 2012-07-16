@@ -150,7 +150,7 @@ div.stacked{
 }
 
 section.tb {
-  a.cmd {float:right;margin-left:15px;}
+  a.cmd {float:right;margin-left:15px;width:102px;}
 }
 nav.breadcrumb {
   font-size:80%;
@@ -549,6 +549,7 @@ section.measure {
   dt.measure_title {line-height:150%;vertical-align: baseline;}
   dd.measure_title {font-size:150%}
   dd.measure_desc {margin-left:130px;}
+  dd.measure_definition {cursor: pointer;}
   dd {
     width:780px;
     display:inline-block;
@@ -1099,7 +1100,6 @@ input.valid,textarea.valid {background:#DEFADE;}
 #mm_edit {
     text-align: center;
 }
-
 #outcomeMeasures {
   width: 500px;
   display: table-cell;
@@ -1121,3 +1121,10 @@ input.valid,textarea.valid {background:#DEFADE;}
       width: auto;
       .paramGroup {
         background-color: #68822c; } } } }
+
+#wizard-workflow-screen label {
+    font-weight:bold;
+}
+#wizard-workflow-screen .description {
+    margin-left: 3em;
+}

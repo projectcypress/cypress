@@ -1,5 +1,5 @@
 <section id="first" class="step" style="width: 100%; overflow:auto;">
-  <h2 class="ui-widget-title" style="margin-top: 20px;">Describe the test...</h2>
+  <h2 class="ui-widget-title">Describe the test...</h2>
   <dl>
     <dt>
       <span style="float:right;">Test Name:</span><span id="required_asterisk">* </span>
@@ -12,9 +12,9 @@
     </dt>
     <dd>
       <span class="wide">from
-        <span id="effective_date_start" class="inline-span"><%= Time.at(@period_start).strftime("%m/%d/%Y") %></span>
+        <span id="effective_date_start" class="inline-span"><%= display_time(@period_start)%></span>
         to
-        <span id="effective_date_end" class="inline-span"><%= Time.at(@effective_date).strftime("%m/%d/%Y") %></span>
+        <span id="effective_date_end" class="inline-span"><%= display_time(@effective_date) %></span>
       </span>
     </dd>
     <dt>
