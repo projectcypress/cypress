@@ -51,6 +51,7 @@ a.cmd {
   text-decoration: none;
   cursor: pointer;
   behavior: url(/assets/PIE.htc);
+  
 }
 a.cmd:hover {
   background-color: $btnHoverBkg;
@@ -81,4 +82,27 @@ box-shadow:none;
 background-color:transparent;
 border-color:transparent;
 box-shadow:none;
+}
+
+#download_menu {
+    width:100px;
+  }
+#share_menu {
+    width:100px;
+  }
+#results_menu {
+    width:100px;
+  }
+
+ul#download_options {
+font-size:$fontSize*.8;
+  
+}
+ul#share_options {
+font-size:$fontSize*.8;
+  
+}
+ul#results_options {
+font-size:$fontSize*.8;
+  
 }

@@ -51,6 +51,39 @@ tr.sub_rows {
 width:10px;
   border:none;
 }
+#patient_measures{
+float:left;
+  width:100px;
+  td:nth-child(-n+5) {
+width:10px;
+padding:0px;
+    background: url(/assets/notincluded.png) 25% 25% no-repeat;
+    width:10px;
+  }
+td:first-child{
+background: none;
+}
+
+  td.p{
+    background: url(/assets/included.png) 25% 25% no-repeat;
+  }
+  tr.rot  {
+    th.first-child {width:50px;}
+     th {
+      +th div{ 
+        @include rotated(-45deg);}
+	  td{width:10px;}
+      border:none;
+      div {
+        font-size: 70%;
+        text-align:center;
+        color: #000;
+        width:10px;
+        font-weight: $fontWeight+200;
+      }
+    }
+  }
+}
 #patient_subset  {
   width:850px;
   td:nth-child(-n+4) {
