@@ -88,7 +88,7 @@ class ActiveSupport::TestCase
   def load_measures
     importer = Measures::Importer.new(Mongoid.master)
     importer.drop_measures()
-    importer.import(File.new("./db/bundle.zip"))
+    importer.import(File.new(File.join(Rails.root, "db", "measures", "bundle_#{APP_CONFIG["measures_version"]}.zip")))
   end
   
   

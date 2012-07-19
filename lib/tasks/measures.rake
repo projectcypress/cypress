@@ -1,71 +1,80 @@
-path = File.dirname(__FILE__)
-path = path.index('lib') == 0 ? "./#{path}" : path
-require 'mongo'
-require 'json'
-require 'resque'
-require 'rubygems'
+require 'quality-measure-engine'
+require 'fileutils'
 require 'open-uri'
 
-DOWNLOADS_ROOT = "https://api.github.com/repos/pophealth/measures/downloads"
-def OpenURI.redirectable?(uri1, uri2) # :nodoc:
-   # This test is intended to forbid a redirection from http://... to
-   # file:///etc/passwd, file:///dev/zero, etc.  CVE-2011-1521
-   # https to http redirect is also forbidden intentionally.
-   # It avoids sending secure cookie or referer by non-secure HTTP protocol.
-   # (RFC 2109 4.3.1, RFC 2965 3.3, RFC 2616 15.1.3)
-   # However this is ad hoc.  It should be extensible/configurable.
-   true
-   
- end
- 
+def OpenURI.redirectable?(uri1, uri2)
+  true
+end
 
+# This function is used for selecting the appropriate download option for the mpl and measures
+def choose_bundle(bundles, version)
+  if version.nil?
+    bundles.sort! {|a,b| Date.parse(b["created_at"] ) <=> Date.parse(a["created_at"])}
+    bundles.first
+  else
+    matches = bundles.select {|bundle| bundle["name"].include?(version)}
+    matches.first
+  end
+end
 
 namespace :measures do
-
-  task :setup => :environment do  
-    @db =  Mongoid.master
+  task :setup => :environment do
     @loader = QME::Database::Loader.new()
-     @importer = Measures::Importer.new(@db)
+    @measures_dir = File.join(Rails.root, "db", "measures")
+    
+    @local_installation = ENV["local_installation"] ? true : false
+    @measures_version = ENV["measures_version"]
+    @measures_version ||= APP_CONFIG["measures_version"]
   end
   
-
- 
-  desc 'Remove all patient records and reload'
-  task :update => [:setup ] do
-     
-    str = open("https://api.github.com/repos/pophealth/measures/downloads", :proxy=>ENV["http_proxy"]).read
-    json = JSON.parse(str)
-    json.sort! {|a,b|  
-        Date.parse(b["created_at"] ) <=> Date.parse(a["created_at"])
-    }
-    begin
-       @loader.drop_collection("bundles")
-       @loader.drop_collection("measures")
-      entry =  json[0]
-      if entry
-         puts "updating to measures #{entry['name']}"
-         f = open(entry['html_url'])
-         puts "importing measures"
-
-         @importer.import(f)
-         @db['patient_cache'].remove({"test_id" => nil})
-         @db['query_cache'].remove({"test_id" => nil})
-         Rake::Task['mpl:eval'].invoke()
-      else
-        puts "No measures found"
-      end
-    rescue
-        puts $!.backtrace
+  desc "Download, install, and evaluate all measures. Use measures_version (default in config/cypress.yml) and local_installation (default: false) environment variables to configure."
+  task :initialize => :setup do
+    task("measures:download").execute unless @local_installation
+    task("measures:install").execute
+    task("mpl:evaluate").execute
+  end
+  
+  desc "Download the measures and unzip the files to the measures directory."
+  task :download => :setup do
+    puts "Searching for measures v#{@measures_version}"
+    
+    # Pull down the list of bundles and download the version we're looking for
+    measures_repo = "https://api.github.com/repos/pophealth/measures/downloads"
+    bundles = open(measures_repo, :proxy => ENV["http_proxy"]).read
+    bundles = JSON.parse(bundles)
+    bundle = choose_bundle(bundles, @measures_version)
+    
+    # Download the measures or throw an error if the requested version cannot be found
+    unless bundle.nil?
+      zip = open(bundle['html_url'], :proxy => ENV["http_proxy"])
+    else
+      puts "ERROR: Unable to download measures v#{@measures_version}"
+      next
     end
-   
+    puts "Downloading and saving measures to #{@measures_dir}"
+    
+    # Save the bundle to the measures directory
+    FileUtils.mkdir_p @measures_dir
+    FileUtils.mv(zip.path, File.join(@measures_dir, "bundle_#{@measures_version}.zip"))
   end
-
-  desc 'Load the local bundle.zip'
-  task :load_local_bundle, [:bundle_name] => [:setup ] do |t, args|
-    bundle_name = args[:bundle_name] || 'bundle'
-    @loader.drop_collection("measures")
-    @importer.import(open("./db/" + bundle_name + ".zip"))
+  
+  desc "Install the measures from the local db directory to the database and clear out the old ones."
+  task :install => :setup do
+    # Throw an error if we cannot find the requested version
+    measures_file = File.join(@measures_dir, "bundle_#{@measures_version}.zip")
+    if !File.exists?(measures_file)
+      puts "ERROR: Unable to find measures #{@measures_version} for installation"
+      next
+    end
+    puts "Installing measures from #{measures_file} to database"
+    
+    
+    # Clear out all current measure data
+    @loader.get_db['bundles'].remove("name" => "Meaningful Use Stage 1 Clinical Quality Measures")
+    Measure.destroy_all
+    
+    # Load the measures file
+    measures_file = open(measures_file)
+    Measures::Importer.new(@loader.get_db).import(measures_file)
   end
-
-
 end
