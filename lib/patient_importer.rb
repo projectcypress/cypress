@@ -12,7 +12,7 @@ module Cypress
     # Reads an MPL bundle downloaded from the test-deck repository and stores the Records in the DB
     #
     # @param [File] zip The bundle file that we are importing
-    def import(zip)
+    def import(zip, test_id=nil)
       # Read the zip
       Zip::ZipFile.open(zip.path) do |zipfile|
         zipfile.each do |file|
@@ -23,6 +23,7 @@ module Cypress
             else
               patient = JSON.parse(zipfile.read(file))
               patient['_id'] = BSON::ObjectId.from_string(patient['_id']) if patient['_id']
+              patient['test_id'] = test_id if !test_id.nil?
               Record.new(patient).save
             end
           end
