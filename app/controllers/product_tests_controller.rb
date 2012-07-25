@@ -20,7 +20,8 @@ class ProductTestsController < ApplicationController
       @current_execution = TestExecution.find(params[:execution_id])   
     else
       @never_executed_before = true
-      @current_execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
+      @current_execution = TestExecution.new({:product_test => @test, :execution_date => Time.now,\
+                                              :required_modules => Cypress::GetDependencies::get_dependencies(Measure.installed.first.bundle)})
     end
     
     # Calculate and categorize the passing and failing measures
