@@ -10,7 +10,7 @@ namespace :cypress do
   desc 'Perform all tasks necessary for initializing a newly installed system'
   task :initialize => :setup do
     # Only use one of the initialize commands so we don't accidentally double evaluate all of the measures
-    task("measures:download").invoke
+    task("measures:download").invoke unless @local_installation
     task("measures:install").invoke
     task("mpl:initialize").invoke
   end
