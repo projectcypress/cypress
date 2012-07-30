@@ -77,14 +77,15 @@ namespace :mpl do
     args.with_defaults(:export_to_file => false)
     next if Measure.all.empty? || Record.all.empty?
 
+    export_to_file = args[:export_to_file] == 'true'
     # Clear out the cached result data
     @loader.drop_collection('query_cache')
     @loader.drop_collection('patient_cache')
-
+    current_results = File.new(Rails.root.join("public","current_mpl_results.txt"), "w+") if export_to_file
     puts "Evaluating all measures for the MPL"    
     Measure.installed.each do |measure|
       result = Cypress::MeasureEvaluator.eval_for_static_records(measure, false)
-      if args[:export_to_file]
+      if export_to_file
         current_results.puts measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["numerator"]:' + result['numerator'].to_s 
         current_results.puts measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["denominator"]:' + result['denominator'].to_s 
         current_results.puts measure['id'] + (measure['sub_id'] ? measure['sub_id'] : '') + '["exclusions"]:' + result['exclusions'].to_s
