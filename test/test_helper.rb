@@ -5,7 +5,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha'
 require 'measures/importer'
-
+require 'active_support/testing/pending'
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   
