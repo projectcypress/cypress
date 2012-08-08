@@ -1,31 +1,3 @@
-# Start a worker with proper env vars and output redirection
-def run_worker(queue, count = 1)
-  puts "Starting #{count} worker(s) with QUEUE: #{queue}"
-  ops = {:pgroup => true, :err => [(Rails.root + "log/workers_error.log").to_s, "a"], 
-                          :out => [(Rails.root + "log/workers.log").to_s, "a"]}
-  env_vars = {"QUEUE" => queue.to_s}
-  count.times {
-    ## Using Kernel.spawn and Process.detach because regular system() call would
-    ## cause the processes to quit when capistrano finishes
-    pid = spawn(env_vars, "rake resque:work", ops)
-    Process.detach(pid)
-  }
-end
-
-# Start a scheduler, requires resque_scheduler >= 2.0.0.f
-def run_scheduler
-  puts "Starting resque scheduler"
-  env_vars = {
-    "BACKGROUND" => "1",
-    "PIDFILE" => (Rails.root + "tmp/pids/resque_scheduler.pid").to_s,
-    "VERBOSE" => "1"
-  }
-  ops = {:pgroup => true, :err => [(Rails.root + "log/scheduler_error.log").to_s, "a"],
-                          :out => [(Rails.root + "log/scheduler.log").to_s, "a"]}
-  pid = spawn(env_vars, "rake resque:scheduler", ops)
-  Process.detach(pid)
-end
-
 namespace :resque do
   task :setup => :environment
 
@@ -93,4 +65,32 @@ namespace :resque do
       system(syscmd)
     end
   end
+end
+
+# Start a worker with proper env vars and output redirection
+def run_worker(queue, count = 1)
+  puts "Starting #{count} worker(s) with QUEUE: #{queue}"
+  ops = {:pgroup => true, :err => [(Rails.root + "log/workers_error.log").to_s, "a"], 
+                          :out => [(Rails.root + "log/workers.log").to_s, "a"]}
+  env_vars = {"QUEUE" => queue.to_s}
+  count.times {
+    ## Using Kernel.spawn and Process.detach because regular system() call would
+    ## cause the processes to quit when capistrano finishes
+    pid = spawn(env_vars, "rake resque:work", ops)
+    Process.detach(pid)
+  }
+end
+
+# Start a scheduler, requires resque_scheduler >= 2.0.0.f
+def run_scheduler
+  puts "Starting resque scheduler"
+  env_vars = {
+    "BACKGROUND" => "1",
+    "PIDFILE" => (Rails.root + "tmp/pids/resque_scheduler.pid").to_s,
+    "VERBOSE" => "1"
+  }
+  ops = {:pgroup => true, :err => [(Rails.root + "log/scheduler_error.log").to_s, "a"],
+                          :out => [(Rails.root + "log/scheduler.log").to_s, "a"]}
+  pid = spawn(env_vars, "rake resque:scheduler", ops)
+  Process.detach(pid)
 end

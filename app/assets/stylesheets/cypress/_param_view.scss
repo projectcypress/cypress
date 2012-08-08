@@ -1,0 +1,138 @@
+#measureEditContainer {
+  border-top: 1px solid $measureBorderColor;
+  clear: left;
+  position: relative;
+  padding-left: $main_padding-left;
+  span {
+    margin: 5px 0;
+    padding: 1px 3px;
+    text-align: center;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; 
+  }
+  span.and {
+    display: block;
+    width: 3em;
+    background-color: $eligibilityParamGroup; 
+  }
+  span.or {
+    display: block;
+    width: 2em;
+    background-color: #dddddd; 
+  }
+  .paramGroup {
+    margin: 10px 0 10px 0px;
+    border-radius: $radius;
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    padding: 2px;
+    display: table; 
+  }
+  .paramGroup.population {
+    background-color: #cccccc;
+    .paramGroup {
+      background-color: #cccccc;
+      .paramGroup {
+        background-color: #cccccc; 
+      } 
+    }
+    .and {
+      background-color: #dddddd; 
+    }
+  }
+  .paramGroupToggle {
+    margin: 0 0 0 20px; 
+  }
+  .paramItem {
+    background-color: white;
+    border-radius: $radius;
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    padding: 1px 4px 0;
+    display: table;
+    margin-left: 10px;
+    color: black;
+    text-transform: lowercase;
+    .paramBar {
+      margin-left: 5px;
+      background-color: $barValueBkg;
+      width: 100px;
+      display: inline-block; 
+    }
+    .paramBarVal {
+      background-color: $barValueColor;
+      color: $barValueText;
+      height: 100%;
+      padding-left: 0px;
+      font-size: 0.95em;
+      position: relative;
+      span {
+        margin-left: 5px; 
+      }
+      span.short {
+        position: relative;
+        right: -100%;
+        color: black; 
+      }
+    }
+    label {
+      color: black;
+      font-weight: bold;
+      padding-right: 4px; 
+    }
+  } 
+}
+#eligibilityMeasures {
+  width: 500px;
+  display: table-cell;
+  padding-right: 20px;
+  h3 {
+    font-size: 2.0em;
+	font-weight: bold;
+    padding: 5px 20px;
+    display: inline-block;
+    margin: 10px 0 0 0;
+    color: $eligibleHdr;
+    em {
+      font-style: italic; 
+    } 
+  }
+  .paramGroup {
+    background-color: $eligibilityParamGroup;
+    .paramGroup {
+      margin-left: 10px;
+      background-color: #51b2bc;
+      width: auto;
+      .paramGroup {
+        margin-left: 10px;
+        background-color: #37696e; 
+      } 
+    } 
+  } 
+}
+
+#mm_edit {
+    text-align: center;
+}
+#outcomeMeasures {
+  width: 500px;
+  display: table-cell;
+  h3 {
+    font-size: 2.0em;
+	font-weight: bold;
+    padding: 5px 20px;
+    display: inline-block;
+    margin: 10px 0 0 0px;
+    color: $outcomeHdr;
+    em {
+      font-style: italic; } }
+  .paramGroup {
+    background-color: $outcomeParamGroup;
+    .and {
+      background-color: $outcomeParamGroup; }
+    .paramGroup {
+      background-color: #9db26d;
+      width: auto;
+      .paramGroup {
+        background-color: #68822c; } } } }

@@ -14,7 +14,7 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.send_records(test, 'c32')
 
     # Several fields like from/to are arrays since there could be multiple targets. We always only have one.
-    assert_equal mail.from.first, 'cypress-dev-list@lists.mitre.org'
+    assert_equal mail.from.first, APP_CONFIG["mailer"]["from"]
     assert_equal mail.to.first, test.product.vendor.email
     assert_equal mail.subject, "Cypress test patients for #{test.name}"
     assert_match(/Cypress Team/, mail.text_part.to_s) # Doesn't need to be exact for testing

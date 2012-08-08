@@ -59,10 +59,12 @@
 @import "cypress/utilities";
 @import "cypress/buttons"; // Includes links that we treat as buttons
 @import "cypress/tables";
+@import "cypress/forms";
 @import "cypress/layout"; // Overarching elements like html, body, container, etc.
 @import "cypress/sections"; // Inner content like vendor lists or test results
 @import "cypress/alerts"; // Not like javascript alerts. Think warnings, notifications, etc.
 @import "cypress/header"; // Includes top logo and navigation
 @import "cypress/account";
+@import "cypress/param_view";
 @import "cypress/dialog";
 @import "cypress/type";

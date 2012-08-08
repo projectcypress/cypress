@@ -11,9 +11,9 @@ module Cypress
 			roll(y,m,d)
 	  end
 	  
-	  def self.roll_year_month_day(y,m,d)
-		  roll(y,m,d)
-	  end
+	def self.roll_year(y)
+		        roll(y.to_i,0,0)
+	end
 			
 	  def self.roll(y,m,d)		
 	    Record.where('test_id' => nil).all.entries.each do |patient|

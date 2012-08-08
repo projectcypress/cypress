@@ -75,14 +75,12 @@
         </tbody>
       </table>
     </section>
-    <div id="effectiveDate">effective date: <%= Time.at(@effective_date).strftime("%m/%d/%Y") %></div>
-    <section class="patient bordered buffered"  >
-	<div class="span2">
-        
-         <img src="<%= patient_picture(@patient) %>" id="patientpicture">
-</div>
-  
-        <div class="offset2">
+    <div id="effectiveDate">effective date: <%= display_time(@effective_date) %></div>
+    <section class="patient bordered buffered">
+	    <div class="span2">
+       <img src="<%= patient_picture(@patient) %>" id="patientpicture">
+      </div>
+      <div class="offset2">
         <span class="patientname" ><strong><%= @patient.last %></strong>, <%= @patient.first %></span><br>
         <dl class="dl-horizontal patient">
           <dt>Gender</dt><dd><%= @patient.gender %></dd>

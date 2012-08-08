@@ -1,55 +1,24 @@
 <% content_for :head do %>
-  <style type="text/css">
-    p.workflow {
-      border:1px solid #539309;
-      -moz-border-radius:5px;
-      -webkit-border-radius:5px;
-      border-radius:5px;
-      color:#539309;
-      cursor:pointer;
-      font-size:110%;
-      text-align:center;
-      width: 80%;
-      margin-left:10%;
-    }
-    p.selectedWorkflow {
-      font-weight:bold;
-      background:#DEFADE;
-      border:1px solid green;
-    }
-    #wizard-workflow-screen label {
-      padding: 2em;
-    }
-
-    .wf1_container, .wf2_container, .wf3_container {
-      position:relative;
-    }
-  </style>
-
 <% end %>
-<section id="wizard-workflow-screen" class="step buffered bordered">
-  <h2 style="margin-top: 20px;">Please select a workflow option...</h2>
-  <section>
-    <p class="wf2_container workflow">
-      <input type="radio" id="wf2" name="workflow" class="link" value="wizard-patients-automated-screen" style="display:none;"/>
-      <label for="wf2"><em>C32/CCR Export</em><br/>
-        The Cypress Test Deck will be exported in HITSP C32 or ASTM CCR XML format and imported into an EHR software product or module.
-      </label>
-    </p>
-    <br/>
-    <p class="wf1_container workflow">
-      <input type="radio" id="wf1" name="workflow" class="link" value="wizard-patients-manual-screen" style="display:none;"/>
-      <label for="wf1"><em>HTML Export</em><br/>
-        The Cypress Test Deck will be exported in HTML format and input into an EHR software product or module.
-      </label>
-    </p>
-    <br/>
-    <p class="wf3_container workflow">
-      <input type="radio" id="wf3" name="workflow" class="link" value="wizard-patients-byod-screen" style="display:none;"/>
-      <label for="wf3"><em>C32/CCR Upload</em><br/>
-        Exported HITSP C32 or ASTM CCR XML formatted patient records will be uploaded to Cypress in lieu of the Test Deck for this test.
-      </label>
-    </p>
-  </section>
-</section>
 
+<section id="wizard-workflow-screen" class="step">
+  <h2>Please select a workflow option...</h2>
+  <p>
+    <input type="radio" id="wf2" class="link" name="workflow" value="wizard-patients-automated-screen"/>
+    <label for="wf2">The patient data will be <em>imported</em> by the EHR</label>
+  </p>
+  <p class="description">
+    Cypress will export the Test Deck patient records in HITSP C32 or ASTM CCR XML format so that you can
+    import them with your EHR software product or module.  Select this option if the software you'll be testing
+    supports an automated import of patient data.
+  </p>
+  <p>
+    <input type="radio" id="wf1" class="link" name="workflow" value="wizard-patients-manual-screen"/>
+    <label for="wf1">The patient data will be entered <em>by hand</em></label>
+  </p>
+  <p class="description">
+    Cypress will export the Test Deck patient records in HTML format so that you can reference them
+    when doing the data entry to an EHR software product or module.  Select this option if someone
+    on your team will need to enter the data manually.
+  </p>
+</section>

@@ -26,11 +26,14 @@ module Measures
         end
       end
       
+      bundle_def = JSON.parse(entries_by_type[:bundle])
+      bundle_def["extensions"] ||=[]
       entries_by_type[:libraries].each do |key,contents|
+        bundle_def["extensions"] <<key
         save_system_js_fn(key, contents)
       end
 
-      bundle_def = JSON.parse(entries_by_type[:bundle])
+     
       bundle_def["measures"] ||= []
       measure_defs = []
       entries_by_type[:json].each do |key, contents|
@@ -60,7 +63,11 @@ module Measures
     end
     
     def drop_collection(collection)
-       @db[collection].drop
+      if collection == 'bundles'
+        @db[collection].remove({"name" => "Meaningful Use Stage 1 Clinical Quality Measures"})
+      else
+        @db[collection].drop
+      end
     end
     
     def save_system_js_fn(name, fn)

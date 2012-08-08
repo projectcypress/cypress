@@ -150,7 +150,7 @@ div.stacked{
 }
 
 section.tb {
-  a.cmd {float:right;margin-left:15px;}
+  a.cmd {float:right;margin-left:15px;width:102px;}
 }
 nav.breadcrumb {
   font-size:80%;
@@ -376,8 +376,11 @@ section#measureMap {
       width: 600px;
     }
     span.mapping {
-      display:none;
       margin-left: .2em;
+    }
+    span.mapping input[readonly] {
+        background:transparent;
+        border:1px solid transparent;
     }
     address span { display: block }
   }
@@ -546,6 +549,7 @@ section.measure {
   dt.measure_title {line-height:150%;vertical-align: baseline;}
   dd.measure_title {font-size:150%}
   dd.measure_desc {margin-left:130px;}
+  dd.measure_definition {cursor: pointer;}
   dd {
     width:780px;
     display:inline-block;
@@ -966,6 +970,14 @@ label.validationErrors {
 input.required,textarea.required {background:#FFE9EC;}
 input.valid,textarea.valid {background:#DEFADE;}
 
+#required_asterisk{
+  color:red;
+  float:right;
+  font-weight:bold;
+  font-size:1.2em;
+  padding-right:.2em;
+}
+
 #download_dialog {
   margin-top: 60px;
   text-align: center;
@@ -1085,6 +1097,9 @@ input.valid,textarea.valid {background:#DEFADE;}
   } 
 }
 
+#mm_edit {
+    text-align: center;
+}
 #outcomeMeasures {
   width: 500px;
   display: table-cell;
@@ -1106,3 +1121,10 @@ input.valid,textarea.valid {background:#DEFADE;}
       width: auto;
       .paramGroup {
         background-color: #68822c; } } } }
+
+#wizard-workflow-screen label {
+    font-weight:bold;
+}
+#wizard-workflow-screen .description {
+    margin-left: 3em;
+}
