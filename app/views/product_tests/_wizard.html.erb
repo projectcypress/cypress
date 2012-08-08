@@ -1,24 +1,69 @@
+<% content_for :head do %>
+  <style type="text/css">
+    /* formwizard and validation */
+    .navigation_button {
+      width : 0px;
+    }
+    .highlight {background:#DEFADE;}
+
+    td {vertical-align: top;}
+    p {padding:5px;}
+    #navigation {
+      padding-top: .2em;
+      text-align:right;
+      width:100%;
+    }
+    textarea {
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      padding: 4px;
+      border: 1px solid #AAAAAA;
+    }
+    #navigation input.noborder {
+      border: 0;
+      color:green;
+      background:transparent;
+      display:inline;
+    }
+    /* need to override the CSS rule for spans that occur within forms
+       which is set to block (?!)
+    */
+    #navigation span.status {
+      display:inline;
+  }
+    .left {float: left;clear:left;}
+    .right {float: right;clear:right;}
+
+    input[type=radio] {display:inline-block;}
+    dd.wide, span.wide {
+      width: 45em;
+    }
+    /* vertical tabs */
+    .ui-tabs-vertical { width: 55em; }
+    .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+    .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+    .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+    .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+    .ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 47em;}
+    .ui-tabs-vertical .ui-tabs-panel dl { width: 100% }
+    .ui-tabs-vertical .ui-tabs-panel label { display: inline-block; }
+    .ui-tabs-vertical .ui-tabs-panel input[type=text] { width: 45px; display: inline-block; }
+  </style>
+<% end %>
+
 <%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
   <%= f.hidden_field :product_id, :value => @product.id %>
-  <div id="progress_bar" style="float:right;">
-    <table class="steps"><tr>
-        <td>completed:</td>
-        <td><span class="current" id="step1">1</span></td>
-        <td><span class="incomplete" id="step2">2</span></td>
-        <td><span class="incomplete" id="step3">3</span></td>
-        <td><span class="incomplete" id="step4">4</span></td>
-      </tr>
-    </table>
+  <div id="navigation">
+    <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
+    <span class="status">Step <b id="currentStep">1</b> of 4</span>
+    <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /></a>
   </div>
-
+  
+  <div id="validationErrorMessages"></div>
+  
   <%= render :partial => "product_tests/wizard_screens/home", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/measures", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/workflow", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
-
-  <div id="validationErrorMessages"></div>
-  <div id="navigation">
-    <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
-    <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /> </a>
-  </div>
 <% end %>

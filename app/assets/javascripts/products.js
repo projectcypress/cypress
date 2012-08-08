@@ -8,8 +8,6 @@ $(document).ready(function() {
     $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
     $('#tabs').tabs("select",2)
 
-    $("#measureMap input:checkbox").css('display','none');
-
     $("#measureMap label").click(function() {
         checkbox = $(this).prev('input:checkbox');
         checkbox.prop('checked', !checkbox.prop('checked')).change();

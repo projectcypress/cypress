@@ -169,7 +169,7 @@
     <section class="candidate bordered buffered">  
       <dl class="vendor dl-horizontal">
         <dt>Test:</dt> <dd><%= @test.name %></dd>
-        <dt>Reporting Period:</dt> <dd><%= 3.months.ago(Time.at(@test.effective_date)).strftime("%m/%d/%Y") %> - <%= Time.at(@test.effective_date).strftime("%m/%d/%Y") %></dd>
+        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
         <dt>Product Version:</dt> <dd><%= @current_execution.product_version %></dd>
       </dl>
       <br>

@@ -30,12 +30,6 @@ class MeasuresController < ApplicationController
     
     @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure['id'])
     .where("value.sub_id" => @measure.sub_id)
-    if params[:search] && params[:search].size>0
-      @search_term = params[:search]
-      regex = Regexp.new('^'+params[:search], Regexp::IGNORECASE)
-      patient_ids = Record.any_of({"first" => regex}, {"last" => regex}).collect {|p| p.id}
-      @patients = @patients.any_in("value.patient_id" => patient_ids)
-    end
 
     @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
   end
@@ -63,7 +57,7 @@ class MeasuresController < ApplicationController
     
     # Use the relevant results to build @coverage of each measure
     @coverage = {}
-    buckets = ["numerator", "denominator", "antinumerator", "exclusions"]
+    buckets = ["denominator", "numerator", "exclusions", "antinumerator"]
     results.each do |result|
       # Skip results that don't fall into any of the buckets
       next if !result.value['numerator'] && !result.value['denominator'] && !result.value['antinumerator'] && !result.value['exclusions']

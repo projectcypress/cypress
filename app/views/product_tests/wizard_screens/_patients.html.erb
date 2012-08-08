@@ -15,7 +15,7 @@
 <% end %>
 
 <section id="wizard-patients-automated-screen" class="step submit_step bordered buffered">
-  <h2 class="ui-widget-title" style="margin-top: 20px;">Select patient records to use...</h2>
+  <h2 class="ui-widget-title">Select patient records to use...</h2>
   <section>
     Cypress has two predefined patient populations to choose from - the full 225 or a subset of 20
     designed to test the core and core alternate Stage 1 Clinical Quality Measures.  In addition,
@@ -51,9 +51,7 @@
 </section>
 
 <section id="wizard-patients-manual-screen" class="step submit_step">
-  <h2 class="ui-widget-title" style="margin-top: 20px;">Patient records to use for testing your chosen quality measures...</h2>
-  <div id="measure_coverage" style="overflow:hidden;">
-  </div>
+  <h2 class="ui-widget-title">Patient records to use for testing your chosen quality measures...</h2>
   <section id="save_population">
     <p>If you would like to save this patient population
       for use in other tests, please give it a name and a brief description</p>
@@ -64,22 +62,6 @@
       <dd><input type="text" name="population_description" size="80"/></dd>
     </dl>
   </section>
-</section>
-
-<section id="wizard-patients-byod-screen" class="step submit_step">
-  <h2 class="ui-widget-title" style="margin-top: 20px;">Bring your own records...</h2>
-  <dl>
-    <dt><%= label_tag :byod_label, "upload .zip of records:" %></dt>
-    <dd><%= file_field_tag :byod %></dd>
-  </dl>
-  <dl>
-    <dt>as:</dt>
-    <dd>
-      <%= f.radio_button :upload_format, "c32",
-        :checked => (@test[:upload_format] == nil || @test[:upload_format] == "c32") %>
-      <%= f.label :upload_format_c32, "C32" %>
-      <%= f.radio_button :upload_format, "ccr", :checked => @test[:upload_format] == "ccr"%>
-      <%= f.label :upload_format_ccr, "CCR" %>
-    </dd>
-  </dl>
+  <div id="measure_coverage" style="overflow:hidden;">
+  </div>
 </section>

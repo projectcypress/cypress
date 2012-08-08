@@ -23,15 +23,15 @@ pdf.formatted_text_box [
 if @current_execution.required_modules
   (n,v) = @current_execution.required_modules.first
   @current_execution.required_modules.delete(n)
-  modules="Modules: #{n}: v#{v}"
+  modules="Modules: #{n}: #{v}"
   @current_execution.required_modules.each do |name,version|
-    modules =  modules +", "+ name + ": v" + version
+    modules =  modules +", "+ name + ": " + version
   end
 else
   modules = "Modules:"
 end 
 
-pdf.stroke_rounded_rectangle [0,525], 540, 60 , 8
+pdf.stroke_rounded_rectangle [0,525], 540, 65 , 8
 pdf.formatted_text_box [
   {:text =>"Product:", :color => '666666', :size => 10},{ :text =>" #{@product.name}\n"},
   {:text => "Product Version:", :color => '666666', :size => 10},{ :text =>" #{@product.version}\n"},
@@ -42,7 +42,7 @@ pdf.formatted_text_box [
 pdf.stroke_rounded_rectangle [0,450], 540, 45 , 8
 pdf.formatted_text_box [
   {:text =>"Test:", :color => '666666', :size => 10},{ :text =>" #{@test.name}\n"},
-  {:text =>"Run at:", :color => '666666', :size => 10},{ :text =>" ##{@current_execution.pretty_date}\n" }
+  {:text =>"Run at:", :color => '666666', :size => 10},{ :text =>" #{@current_execution.pretty_date}\n" }
 ], :at=> [10, 440]
 
 if @test.notes

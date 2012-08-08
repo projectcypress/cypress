@@ -5,7 +5,7 @@
   <h1>Test Information</h1>
   <section id="vendorInfo">
     <dl>
-      <dt>Test Name:</dt>
+      <dt><span style="float:right;">Test Name:</span><span id="required_asterisk">* </span></dt>
       <dd><%= f.text_field :name, :size=>"20", :class=>"required" %></dd>
       <dt>Description:</dt>
       <dd><%= f.text_field :description, :size=>"20", :class=>"req" %></dd>
