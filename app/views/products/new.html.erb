@@ -1,7 +1,7 @@
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section class="tb">
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
@@ -10,7 +10,7 @@
       </nav>
     </section>
 
-    <section id="vendor">
+    <section class="bordered buffered" id="vendor">
       <%= render :partial => 'product_details' , :locals => {:mode => :new} %>
     </section>
   </div>

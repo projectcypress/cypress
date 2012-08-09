@@ -5,18 +5,11 @@
   <link rel="shortcut icon" href="/assets/favicon.ico"/>
   <%= stylesheet_link_tag :application %>
   <%= javascript_include_tag :application %>
-  <!--[if (gte IE 6)&(lte IE 8)]>
-    <%= javascript_include_tag "html5.js" %>
-    <%= javascript_include_tag "selectivizr-min.js" %>
-    <%= stylesheet_link_tag "ie8.css" %>
-  <![endif]-->
 
   <%= csrf_meta_tag %>
   <%= yield :head %>
 </head>
 <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-<%= yield %>
+  <%= yield %>
 </body>
 </html>

@@ -9,6 +9,8 @@
     <li>
       <%= f.label :first_name %>
       <%= f.email_field :first_name %>
+    </li>
+    <li>	
       <%= f.label :last_name %>
       <%= f.email_field :last_name %>
     </li>
@@ -35,9 +37,9 @@
   </ul>
 
   <div class="actions">
-    <a class="whitebutton" href="/"><span>Cancel</span></a>
+    <a class="btn" href="/"><span>Cancel</span></a>
     <%=
-    content_tag(:a,  {:href=>"#", :class=>"bluebutton", :onclick=>"submitRegisterform()"} ) do
+    content_tag(:a,  {:href=>"#", :class=>"btn btn-success", :onclick=>"submitRegisterform()"} ) do
       content_tag(:span,"Update")
     end %>
   </div>

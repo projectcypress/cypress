@@ -6,6 +6,8 @@
     }
     .highlight {background:#DEFADE;}
 
+    .step label {display: inline-block;}
+
     td {vertical-align: top;}
     p {padding:5px;}
     #navigation {
@@ -31,7 +33,7 @@
     */
     #navigation span.status {
       display:inline;
-}
+  }
     .left {float: left;clear:left;}
     .right {float: right;clear:right;}
 
@@ -45,8 +47,11 @@
     .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
     .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
     .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
-    .ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 47em;}
-
+    .ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 37em;}
+    .ui-tabs-vertical .ui-tabs-panel label { display: inline-block; }
+    .ui-tabs-vertical .ui-tabs-panel input[type=text] { width: 45px; display: inline-block; }
+    
+    #first dl { width : 800px; }
   </style>
 <% end %>
 
@@ -57,11 +62,11 @@
     <span class="status">Step <b id="currentStep">1</b> of 4</span>
     <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /></a>
   </div>
+  
   <div id="validationErrorMessages"></div>
-
+  
   <%= render :partial => "product_tests/wizard_screens/home", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/measures", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/workflow", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
-
 <% end %>

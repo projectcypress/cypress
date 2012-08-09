@@ -1,8 +1,8 @@
-<section id="first" class="step" style="width: 100%; overflow:auto;">
-  <h2 class="ui-widget-title">Describe the test...</h2>
-  <dl>
+<section id="first" class="step bordered" style="width: 100%; overflow: auto;">
+  <h5 class="ui-widget-title">Describe the test...</h5>
+  <dl class="dl-horizontal">
     <dt>
-      <span style="float:right;">Test Name:</span><span id="required_asterisk">* </span>
+      <span class="field_comment error">*</span>Test Name:
     </dt>
     <dd>
       <%= f.text_field :name, :size => 87, :class => 'required' %>
@@ -11,14 +11,13 @@
       Reporting Period:
     </dt>
     <dd>
-      <span class="wide">from
-        <span id="effective_date_start" class="inline-span"><%= display_time(@period_start)%></span>
-        to
-        <span id="effective_date_end" class="inline-span"><%= display_time(@effective_date) %></span>
+      <span class="wide">
+        from <span id="effective_date_start"><%= display_time(@period_start)%></span>
+        to <span id="effective_date_end"><%= display_time(@effective_date) %></span>
       </span>
     </dd>
     <dt>
-      <%= f.label :description, "Description:" %>
+      Description:
     </dt>
     <dd>
       <%= f.text_area :description, :cols => 75, :rows => 3 %>

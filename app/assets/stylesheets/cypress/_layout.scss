@@ -1,0 +1,89 @@
+html { height: 100%; }
+
+body {
+  width: 100%;
+  background-color: $bkgColor;
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+}
+
+#container {
+  width: 1000px;
+  margin: 20px auto 20px auto;
+  border: 1px solid $borderColor;
+  background-color: $containerBkgColor;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 2px 2px 8px $borderColor;
+  -moz-box-shadow: 2px 2px 8px $borderColor;
+  box-shadow: 2px 2px 8px $borderColor;
+  behavior: url(/stylesheets/PIE.htc);
+}
+
+.buffered { padding: 10px 20px 20px 20px; }
+.bordered { @include bordered($borderColor); }
+
+#information { }
+
+#patientpicture {
+  width:120px;
+  height:130px;
+}
+
+.patientname{
+  strong {
+    font-weight:bold;
+    text-transform:uppercase;
+  }
+}
+
+div.tabs { 
+width:90px;
+text-align:right;
+margin: 20px 20px 0 0 ;
+display:inline-block;
+}
+
+.tabs {
+ul{
+margin:0;
+border-right: 1px solid #ddd;
+list-style: none;
+padding-top: 10px;
+}
+a { 
+padding:5px;
+display:block;
+list-style:none;
+@include bordered($borderColor);
+ @include leftRounded(8px);
+ margin-bottom:2px;
+border-right:none;
+color: #555;
+line-height:1.5;
+}
+a.selected {
+background-color: green;
+font-weight: bold;
+color: white;
+border-color: green;
+}
+a:hover{
+background-color: #CCC;
+}
+a.selected:hover{
+background-color: green;
+}
+
+
+}
+
+ul#download_options {
+ display:none;
+}
+div#eligibilityMeasures { 
+border-top-width: 1px;
+border-top-color: #E9E9E9;
+}
