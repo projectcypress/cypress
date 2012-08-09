@@ -1,12 +1,14 @@
 <% content_for :head do %>
   <style type="text/css">
-    .measure_group {margin-left:.5em;}
-    .measure_group label {text-indent:5em;}
+    .header_commands label {display: inline-block; }
+    .measure_group {margin-left:.2em;}
+    .measure_group label {text-indent:1em; display: inline-block;}
+    .measure_group span { display: block; }
   </style>
 <% end %>
 
 <section id="wizard-measures-screen" class="step bordered buffered">
-  <h2 class="ui-widget-title">Identify <strong>at least one</strong> quality measure to test from the list of available measures for this product...</h2>
+  <h5 class="ui-widget-title">Identify <strong>at least one</strong> quality measure to test from the list of available measures for this product...</h5>
   <span class="header_commands" style="text-align:center;"><input type="checkbox" id="all_measures"/><label for="all_measures">all quality measures</label></span>
   <div id="tabs">
     <!-- set up a tab header for each measure group -->
