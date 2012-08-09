@@ -1,0 +1,108 @@
+a.bluebutton, a.whitebutton {
+  background: transparent url('/assets/blue_right.png') no-repeat scroll top right;
+  color: #787878;
+  display: inline-block;
+  font-weight:bold;
+  font-size:10px;
+  margin-left: 6px;
+  padding-right: 16px; /* sliding doors padding */
+  text-decoration: none;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  z-index:100;
+}
+
+a.whitebutton {
+    background: transparent url('/assets/white_right.png') no-repeat scroll top right;
+}
+
+a.bluebutton span, a.whitebutton span {
+    background: transparent url('/assets/blue_left.png') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 8px 10px 8px 28px;
+}
+
+a.whitebutton span {
+    background: transparent url('/assets/white_left.png') no-repeat;
+}
+
+.bluebutton:active, .whitebutton.active {
+  outline: none; /* hide dotted outline in Firefox */
+}
+
+a {
+  color: $black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+ 
+a.cmd {
+  @include bordered($btnBorderColor);
+  background-color: $btnBkgColor;
+  color: $btnColor;
+  font-size: $btnFontSize;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  behavior: url(/assets/PIE.htc);
+  
+}
+a.cmd:hover {
+  background-color: $btnHoverBkg;
+}
+a.mailing_list {
+  color:$mailing_listColor;
+  font-weight:bold;
+}
+
+a.del {
+@include bordered($dltColor);
+color: $dltColor;
+}
+
+a.del:hover {
+background-color: $dltHoverBkg;
+}
+
+
+.ui-formwizard-button {
+background-color:transparent;
+border-color:transparent;
+
+box-shadow:none;
+}
+
+.ui-formwizard-button:disabled {
+background-color:transparent;
+border-color:transparent;
+box-shadow:none;
+}
+
+#download_menu {
+    width:100px;
+  }
+#share_menu {
+    width:100px;
+  }
+#results_menu {
+    width:100px;
+  }
+
+ul#download_options {
+font-size:$fontSize*.8;
+  
+}
+ul#share_options {
+font-size:$fontSize*.8;
+  
+}
+ul#results_options {
+font-size:$fontSize*.8;
+  
+}

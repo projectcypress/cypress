@@ -5,8 +5,7 @@
   <meta http-equiv="refresh" content="1200" />
   <title>Cypress: An Open Source EHR Quality Measure Testing Framework</title>
   <link rel="shortcut icon" href="/assets/favicon.ico"/>
-  <%= stylesheet_link_tag "cypress" %>
-  <%= stylesheet_link_tag "account" %>
+  <%= stylesheet_link_tag :application %>
 
   <%= javascript_include_tag :application %>
   <%= javascript_include_tag "account" %>
@@ -14,13 +13,13 @@
 </head>
 <body class="login">
 
-<div id="login">
+<div id="login_dialog">
   <div id="cap-top"></div>
   <div id="cap-body">
     <div id="branding">
       <%= image_tag("/assets/cypress_big_logo.png", :id => 'imgLogo', :title => 'Cypress welcomes you!', :alt => 'cypress logo') %>
     </div>
-    <div id="panelLogin" class="panel">
+    <div class="panel">
       <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
       <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
       <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
@@ -28,7 +27,7 @@
     </div>
   </div>
   <div id="cap-bottom"></div>
-</div><!-- END #login -->
+</div>
 
 </body>
 </html>
