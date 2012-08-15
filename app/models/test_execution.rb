@@ -4,21 +4,13 @@ class TestExecution
   include Mongoid::Document
 
   belongs_to :product_test
-
+  embeds_many :errors
 
   field :execution_date, type: Integer
-  field :product_version, type: String
-  field :baseline_results, type: Hash
-  field :reported_results, type: Hash
-  field :required_modules, type: Hash
-  field :validation_errors, type: Array
-  field :baseline_validation_errors, type: Array
-  
-  validates_presence_of :execution_date
-  # A TestExecution is passing if the number of p
-  def passing?
-    return self.expected_results.size == self.count_passing
-  end
+  field :expected_results, :type Hash
+  field :status, :type Symbol
+ 
+  scope :ordered_by_date, order_by(:execution_date => :desc)
 
   # A TestExecution is incomplete if no reported results
   def incomplete?
@@ -88,10 +80,7 @@ class TestExecution
     Cypress::MeasureEvaluator.eval(self.product_test, measure)
   end
   
-  # A prettier version of the execution_date field
-  def pretty_date
-    return Time.at(self.execution_date).strftime("%m/%d/%Y - %l:%M:%S %p")
-  end
+
   
   # The percentage of passing measures. Returns 0 if this is a new, yet to be run TestExecution
   def success_rate
