@@ -15,11 +15,11 @@ module Cypress
 
       if options['patient_ids']
         # clone each of the patients identified in the :patient_ids parameter
-        ama_patients = Record.where(:test_id => nil).where(:patient_id.in => options['patient_ids'])
+        ama_patients = Record.where(:test_id => nil).where(:_id.in => options['patient_ids'])
       elsif options['subset_id'] != "all"
         # If we're using one of the predefined patient populations, use the patients identified therein
         patient_population = PatientPopulation.where(:name => options['subset_id']).first
-        ama_patients = Record.where(:patient_id.in => patient_population.patient_ids)
+        ama_patients = Record.where(:_id.in => patient_population.patient_ids)
       else
         # For randomness, when a user requests to use the full test deck, we add up to 10% duplicate records
         #additional_patient_count = Random.rand(ama_patients.size * 0.1).to_i

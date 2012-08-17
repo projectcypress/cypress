@@ -1,4 +1,6 @@
-require 'pqri_utility'
+MONGO_DB = Mongoid.database
+
+require 'cypress'
 require 'validation'
 require 'validation_error'
 require 'validators/schema_validator'

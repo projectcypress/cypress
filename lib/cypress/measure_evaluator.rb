@@ -1,4 +1,38 @@
 module Cypress
+  
+  class  MeasureEvaluationJob < Resque::JobWithStatus
+    
+    def perform
+       t = CalculatedProductTest.find(options["test_id"])
+       results = {}
+       t.measures.each do |measure|
+           qr = QME::QualityReport.new(measure["id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'])
+           result = nil
+           if qr.calculated?
+             result=qr.result
+             completed("#{options['measure_id']}#{options['sub_id']} has already been calculated") if respond_to? :completed
+           else
+             map = QME::MapReduce::Executor.new(measure["id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], 'start_time' => Time.now.to_i)
+
+             if !qr.patients_cached?           
+               map.map_records_into_measure_groups
+             end
+             result = map.count_records_in_measure_groups
+           end
+          
+         result = qr.result
+         result['measure_id'] = measure.id.to_s
+         result['key'] = measure.key
+         results[measure.id.to_s] = result
+       end
+       
+       t.expected_results = results
+       t.save
+       t.ready
+    end
+    
+  end
+  
   class MeasureEvaluator
     STATIC_EFFECTIVE_DATE = Time.new(APP_CONFIG["effective_date"]["year"],
                                     APP_CONFIG["effective_date"]["month"],
