@@ -13,48 +13,45 @@ class ProductTest
   field :description, type: String
   field :effective_date, type: Integer
   field :measure_ids, type: Array
-
-  field :population_creation_job, type: String
-  field :result_calculation_jobs, type: Hash
-  field :expected_results, :type Hash
+  field :expected_results, type: Hash
   
   validates_presence_of :name
   validates_presence_of :effective_date
 
-
-  def self.generate_records_for_measures(measures_ids)
-     raise NotImplementedError
-  end
   
-  def self.generate_expected_results
+  state_machine :state, :initial => :pending  do      
+    event :ready do
+      transition all => :ready
+    end  
+    
+    event :errored do
+      transition all => :error
+    end
     
   end
   
   
-  def self.measures
-    raise NotImplementedError
-  end
-  
 
   # Returns true if this ProductTests most recent TestExecution is passing
-  def execution_status
+  def execution_state
     return :pending if self.test_executions.empty?   
-    most_recent_execution = self.ordered_executions.first.status
+    most_recent_execution = self.ordered_executions.first.state
   end
   
 
   
   # Return all measures that are selected for this particular ProductTest
-  def measure_defs
+  def measures
     return [] if !measure_ids
-    
     self.measure_ids.collect do |measure_id|
       Measure.where(id: measure_id).order_by([[:sub_id, :asc]]).all()
     end.flatten
   end
   
 
-
+  def records
+    Record.where(:test_id => self.id)
+  end
 
   def destroy
     # Gather all records and their IDs so we can delete them along with every associated entry in the patient cache

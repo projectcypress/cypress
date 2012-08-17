@@ -1,4 +1,3 @@
-require 'measure_evaluator'
 
 class MeasuresController < ApplicationController
   before_filter :authenticate_user!

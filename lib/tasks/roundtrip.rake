@@ -1,7 +1,4 @@
 require 'quality-measure-engine'
-require 'measure_evaluator'
-require 'patient_zipper'
-require 'pqri_utility'
 
 namespace :test do
   namespace :round_trip do

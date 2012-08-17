@@ -11,29 +11,26 @@ class Product
   field :description, type: String
   field :measure_map, type: Hash
   validates_presence_of :name
-  # If all of the ProductTests passed, then this Product will be considered passing
-  def passing?
-    return (self.product_tests.size > 0) && (self.product_tests.size == self.count_passing)
-  end
+ 
   
   # Get the tests owned by this product that are failing
   def failing_tests
     return self.product_tests.select do |test|
-      !test.passing?
+       test.execution_state == :failed
     end
   end
 
   # Get the tests owned by this product that are incomplete
   def incomplete_tests
     return self.product_tests.select do |test|
-      test.reported_results.nil?
+      test.execution_state == :pending
     end
   end
   
   # Get the tests owned by this product that are passing
   def passing_tests
     return self.product_tests.select do |test|
-      test.passing?
+       test.execution_state == :passed
     end
   end
   

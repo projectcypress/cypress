@@ -1,6 +1,4 @@
-require 'measure_evaluator'
-require 'create_download_zip'
-require 'get_dependencies'
+
 require 'open-uri'
 require 'prawnto'
 
@@ -74,60 +72,6 @@ private
     params[:type].constintize
   end
 
-  #calculates the period for reporting based on effective date (end date)
-  def period
-    month, day, year = params[:effective_date].split('/')
-    @effective_date = Time.gm(year.to_i, month.to_i, day.to_i)
-    @period_start = 3.months.ago(Time.at(@effective_date)).getgm
-    
-    render :period, :status => 200
-  end
-
-  # Accept a PQRI document and use it to define a new TestExecution on this ProductTest
-  def process_pqri
-    test = current_user.product_tests.find(params[:id])
-    product = test.product
-    test_data = params[:product_test] || {}
-
-    baseline = test_data[:baseline]
-    pqri = test_data[:pqri]
-    product = test.product
-    measure_map = product.measure_map if product
-
-    if !params[:execution_id].empty?
-      execution = TestExecution.find(params[:execution_id])
-    else
-      execution = TestExecution.new({:product_test => test, :execution_date => Time.now, :product_version=>product.version})
-    end
-    
-    # If a vendor cannot run their measures in a vacuum (i.e. calculate measures with just the patient test deck) then
-    # we will first import their measure results with their own patients so we can establish a baseline in order
-    # to normalize with a second PQRI with results that include the test deck.
-
-    if baseline
-      doc = Nokogiri::XML(baseline.open)
-      execution.baseline_results = Cypress::PqriUtility.extract_results(doc, measure_map)
-      execution.baseline_validation_errors = Cypress::PqriUtility.validate(doc)          
-    end
-
-    if pqri
-      doc = Nokogiri::XML(pqri.open)
-      execution.reported_results = Cypress::PqriUtility.extract_results(doc, measure_map)
-      execution.validation_errors = Cypress::PqriUtility.validate(doc)
-      if execution.baseline_results
-        execution.normalize_results_with_baseline
-      end      
-    end
-    execution.execution_date=Time.now.to_i
-    execution.product_version=product.version
-    execution.required_modules=Cypress::GetDependencies::get_dependencies(Measure.installed.first.bundle)
-    
-    execution.save!
-    redirect_to :action => 'show', :execution_id=>execution._id
-  end
-
  
- 
-  
 
 end

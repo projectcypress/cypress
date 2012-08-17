@@ -1,6 +1,4 @@
 require 'quality-measure-engine'
-require 'measure_evaluator'
-require 'patient_roll'
 require 'fileutils'
 
 def OpenURI.redirectable?(uri1, uri2)

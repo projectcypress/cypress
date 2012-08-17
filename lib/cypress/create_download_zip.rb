@@ -1,6 +1,6 @@
 module Cypress
   class CreateDownloadZip
-    require 'patient_zipper'
+
 
     def self.create_patient_zip(record_id, format)
       if record_id

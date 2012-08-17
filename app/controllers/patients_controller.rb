@@ -1,9 +1,8 @@
-require 'measure_evaluator'
 
 class PatientsController < ApplicationController
 
   require 'builder'
-  require 'create_download_zip'
+
   
   before_filter :authenticate_user!
 
