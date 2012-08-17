@@ -4,7 +4,6 @@ module Measures
   class Importer
    
     # Create a new Importer.
-    # @param [String] db_name the name of the database to use
     def initialize(db)
      @db = db
     end
@@ -28,16 +27,16 @@ module Measures
       
       bundle_def = JSON.parse(entries_by_type[:bundle])
       bundle_def["extensions"] ||=[]
+      bundle_def["measures"] ||=[]
+
       entries_by_type[:libraries].each do |key,contents|
-        bundle_def["extensions"] <<key
+        bundle_def["extensions"] << key
         save_system_js_fn(key, contents)
       end
 
-     
-      bundle_def["measures"] ||= []
       measure_defs = []
       entries_by_type[:json].each do |key, contents|
-        measure_def = JSON.parse(contents)
+        measure_def = JSON.parse(contents, {:max_nesting => 100})
         measure_def["_id"] = @db['measures'] << measure_def
         bundle_def['measures'] << measure_def["_id"]
         measure_defs << measure_def
@@ -59,7 +58,6 @@ module Measures
       drop_collection('measures')
       drop_collection('patient_cache')
       drop_collection('query_cache')
-
     end
     
     def drop_collection(collection)
@@ -71,7 +69,9 @@ module Measures
     end
     
     def save_system_js_fn(name, fn)
-      
+
+      fn = "function () {\n #{fn} \n }"
+
       @db['system.js'].save(
         {
           "_id" => name,
