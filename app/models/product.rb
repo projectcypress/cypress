@@ -12,6 +12,14 @@ class Product
   field :measure_map, type: Hash
   validates_presence_of :name
  
+ 
+  def passing?
+    pass=true
+    self.product_tests.each do |p|
+      pass = pass && p.execution_state != :failed
+    end
+    pass
+  end
   
   # Get the tests owned by this product that are failing
   def failing_tests

@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'patient_roll'
+
 
 class PatientRollTest< ActiveSupport::TestCase
   setup do

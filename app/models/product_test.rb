@@ -35,7 +35,7 @@ class ProductTest
   # Returns true if this ProductTests most recent TestExecution is passing
   def execution_state
     return :pending if self.test_executions.empty?   
-    most_recent_execution = self.ordered_executions.first.state
+    most_recent_execution = self.test_executions.ordered_by_date.first.state
   end
   
 
@@ -62,5 +62,22 @@ class ProductTest
     self.delete
   end
   
+  
+  
+  # Used for downloading and e-mailing the records associated with this test.
+   #
+   # Returns a file that represents the test's patients given the requested format.
+   def generate_records_file(format)
+     file = Tempfile.new("patients-#{Time.now.to_i}")
+     patients = Record.where("test_id" => self.id)
+
+     if format == 'csv'
+       Cypress::PatientZipper.flat_file(file, patients)
+     else
+       Cypress::PatientZipper.zip(file, patients, format.to_sym)
+     end
+
+     file
+   end
  
 end
