@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'patient_importer'
+
 
 class PatientImporterTest < ActiveSupport::TestCase
   def test_patient_import

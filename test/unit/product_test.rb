@@ -16,8 +16,7 @@ class ProducTest < ActiveSupport::TestCase
   end
 
   test "Should know if its passing" do
-    prod3 = Product.new()
-    assert !prod3.passing?, "Empty Product reporting as passing"
+
     assert !@product1.passing? , "Failing product reporting as passing"
     assert  @product2.passing? , "Passing product reporting as failing"
   end
@@ -26,30 +25,29 @@ class ProducTest < ActiveSupport::TestCase
     failing1 = @product1.failing_tests
     failing2 = @product2.failing_tests
 
-    assert failing2.count == 0 , "Product2 reports wrong # of failing tests"
-    assert failing1.count == 1 , "Product1 reports wrong # of failing tests"
-    assert failing1[0]._id.to_s == "4f5a606b1d41c851eb000484" ,"Product1 reports wrong test as failing"
+    assert_equal 0, failing2.count, "Product2 reports wrong # of failing tests"
+    assert_equal 1 , failing1.count  , "Product1 reports wrong # of failing tests"
+    assert_equal "4f5a606b1d41c851eb000484", failing1[0]._id.to_s   ,"Product1 reports wrong test as failing"
   end
 
   test "Should return passing tests" do
    passing1 = @product1.passing_tests
    passing2 = @product2.passing_tests
 
-   assert passing2.count == 1 , "Product2 reports wrong # of passing tests"
-   assert passing1.count == 1 , "Product1 reports wrong # of passing tests"
-   assert passing1[0]._id.to_s == "4f58f8de1d41c851eb000478" , "Product1 reports wrong test as passing"
-   assert passing2[0]._id.to_s == "4f636b3f1d41c851eb000491" , "Product2 reports wrong test as passing"
+   assert_equal 1,passing2.count  , "Product2 reports wrong # of passing tests"
+   assert_equal 1, passing1.count  , "Product1 reports wrong # of passing tests"
+   assert_equal "4f58f8de1d41c851eb000478", passing1[0]._id.to_s ,"Product1 reports wrong test as passing"
+   assert_equal  "4f636b3f1d41c851eb000491" , passing2[0]._id.to_s , "Product2 reports wrong test as passing"
   end
 
   test "Should count passing tests" do
-    assert @product1.count_passing == 1
-    assert @product2.count_passing == 1
+    assert_equal 1, @product1.count_passing 
+    assert_equal 1, @product2.count_passing 
   end
   
   test "Should report success rate" do
-    assert Product.new().success_rate == 0
-    assert @product1.success_rate == 0.5
-    assert @product2.success_rate == 1
+    assert_equal 0.5, @product1.success_rate 
+    assert_equal 1, @product2.success_rate 
   end
 
  

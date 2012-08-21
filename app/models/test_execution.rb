@@ -22,6 +22,21 @@ class TestExecution
       transition :pending => :passed
     end
     
+    
+    event :force_pass do
+      transition all => :passed
+    end
+    
+    
+    event :force_fail do
+      transition all => :failed
+    end
+
+    event :reset do
+      transition all => :pending
+    end
+    
+    
   end
 
   def count_errors
