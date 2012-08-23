@@ -1,17 +1,31 @@
 
 require 'open-uri'
 require 'prawnto'
-
+require 'active_support'
 class ProductTestsController < ApplicationController
   before_filter :authenticate_user!
   
+  class TypeNotFound < StandardError
+  end
+  
+  rescue_from TypeNotFound do |exception|
+    render :text => exception, :status => 500
+  end
+  
+  
+  
+  def index 
+    @product_tests = ProductTest.where({product_id: params[:product_id]}).order_by_type
+  end
+
+    
   def show
     @test = ProductTest.find(params[:id])
   end
   
   def new
     @test = ProductTest.new
-    @product = Product.find(params[:product])
+    @product = Product.find(params[:product_id])
     @vendor = @product.vendor
     @effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
     @period_start = 3.months.ago(Time.at(@effective_date)).getgm
@@ -20,11 +34,13 @@ class ProductTestsController < ApplicationController
   def create
     test = test_type.new(params[:product_test])
     test.save!
-    redirect_to :action => 'show', :id => test.id, :default_format => default_format
+    redirect_to :action => 'show', :id => test.id
   end
   
   def edit
-    @test = current_user.product_tests.find(params[:id])
+    @product = Product.find(params[:product_id])
+    @vendor = @product.vendor
+    @test = @product.product_tests.find(params[:id])
   end
   
   def update
@@ -36,6 +52,7 @@ class ProductTestsController < ApplicationController
   
   def destroy
     test = current_user.product_tests.find(params[:id])
+    product = test.product
     test.destroy
     redirect_to product_path(product)
   end
@@ -65,11 +82,33 @@ class ProductTestsController < ApplicationController
      file.close
    end
 
+
+  
+  def delete_note
+     test = ProductTest.find(params[:id])
+     note = test.notes.find(params[:note][:id])
+     note.destroy
+
+     redirect_to :action => 'show', :execution_id => params[:execution_id]
+   end
+
+   def add_note
+     test = ProductTest.find(params[:id])
+
+     note = Note.new(params[:note])
+     note.time = Time.now.getgm
+
+     test.notes << note
+     test.save!
+     redirect_to :action => 'show', :execution_id => params[:execution_id]
+   end
+   
   
 private
 
   def test_type
-    params[:type].constintize
+    raise TypeNotFound.new if params[:type].nil?
+    params[:type].constantize
   end
 
  

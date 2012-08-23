@@ -1,4 +1,4 @@
-class QRDAProductTest < ProductTest
+class InpatientProductTest < ProductTest
   
   state_machine :state do
     
@@ -9,7 +9,7 @@ class QRDAProductTest < ProductTest
         
     after_transition any => :calculating_expected_results do |test|
       #calculate the results
-      test.ready
+       test.ready
     end
         
     event :generate_population do

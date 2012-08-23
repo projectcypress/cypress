@@ -15,9 +15,11 @@ class ProductTest
   field :measure_ids, type: Array
   field :expected_results, type: Hash
   
+  
   validates_presence_of :name
   validates_presence_of :effective_date
 
+  scope :order_by_type, order_by(:_type => :desc)
   
   state_machine :state, :initial => :pending  do      
     event :ready do
@@ -28,6 +30,16 @@ class ProductTest
       transition all => :error
     end
     
+  end
+  
+  
+  def self.inherited(child)  
+    child.instance_eval do
+      def model_name
+        ProductTest.model_name
+      end
+    end
+    super 
   end
   
   
@@ -79,5 +91,5 @@ class ProductTest
 
      file
    end
- 
+
 end

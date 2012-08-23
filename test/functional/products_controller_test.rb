@@ -18,6 +18,15 @@ class ProductsControllerTest < ActionController::TestCase
   
   
   
+  test "index" do
+    v = Vendor.first
+    get :index, {vendor_id: v.id}
+    assert_response :success
+    assert assigns(:products), "Vendor -> Products -> index should assign products"
+
+  end
+  
+  
   test "create" do
     v = Vendor.first
     count = v.products.count
