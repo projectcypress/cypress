@@ -38,4 +38,9 @@ class CalculatedProductTest < ProductTest
   
 
   
+   
+   def expected_Results(mesasure_id) 
+     (expected_results ||{})[measure_id]
+   end
+  
 end

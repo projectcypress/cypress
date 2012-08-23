@@ -25,6 +25,12 @@ class ProductTestTest < ActiveSupport::TestCase
     assert defs[1].key == "0002"
   end
   
+  
+  test "should be able to retrieve patient records to evaluate against" do
+    
+  end
+  
+  
   test "Should know how many measures its testing" do
     assert @test1.measures.count == 2
   end
