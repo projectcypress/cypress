@@ -66,8 +66,7 @@ namespace :measures do
       puts "ERROR: Unable to find measures #{@measures_version} for installation"
       next
     end
-    puts "Installing measures from #{measures_file} to database"
-    
+    puts "Installing measures from #{measures_file} to database #{@loader.get_db.name}"
     
     # Clear out all current measure data
     @loader.get_db['bundles'].remove("name" => "Meaningful Use Stage 1 Clinical Quality Measures")
