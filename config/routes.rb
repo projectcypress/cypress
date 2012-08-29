@@ -5,7 +5,6 @@ Cypress::Application.routes.draw do
   
   resources :vendors, :products
 
-  namespace :api do
     resources :vendors do
       resources :products do
         resources :product_tests do
@@ -14,8 +13,7 @@ Cypress::Application.routes.draw do
         end
       end
     end
-  end
-  
+   
    resources :measures do
      get 'definition'
    end
