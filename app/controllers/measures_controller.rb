@@ -8,12 +8,12 @@ class MeasuresController < ApplicationController
   def show
     
     @vendor = @product.vendor  
-    @measures = @test.measure_defs
+    @measures = @test.measures
     @measures_categories = @measures.group_by { |t| t.category }
     @product.measure_map ||= Measure.default_map
 
     respond_to do |format|
-      format.json { render :json => @execution.expected_result(@measure) }
+      format.json { render :json => @execution.expected_results }
       format.html { render :action => "show" }
     end
   end
