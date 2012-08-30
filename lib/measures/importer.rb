@@ -18,10 +18,10 @@ module Measures
       
        Zip::ZipFile.open(zip.path) do |zipfile|
         zipfile.entries.each do |entry|
-          next if entry.directory? 
-          entries_by_type[:libraries][entry_key(entry.name,"js")] = zipfile.read(entry.name) if entry.name.match /libraries/
-          entries_by_type[:json][entry_key(entry.name,"json")] = zipfile.read(entry.name) if entry.name.match /\/json\//
-          entries_by_type[:bundle] = zipfile.read(entry.name) if entry.name.match /bundle/
+          next if entry.directory?
+          entries_by_type[:libraries][entry_key(entry.name,"js")] = zipfile.read(entry.name) if entry.name.match /libraries\// 
+          entries_by_type[:json][entry_key(entry.name,"json")] = zipfile.read(entry.name) if entry.name.match /json\// 
+          entries_by_type[:bundle] = zipfile.read(entry.name) if entry.name.match /bundle/ 
         end
       end
       

@@ -1,0 +1,2707 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="qrda.xsl"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="urn:hl7-org:v3 ../../CDASchema/CDA.xsd"
+ xmlns="urn:hl7-org:v3"
+ xmlns:voc="urn:hl7-org:v3/voc">
+	<!-- 
+		Title: Example Category III Sample File
+		Original Filename: CDAR2_IG_QRDA_CATIII_RI_AUG.xml
+		Version: 1.0
+		Revision History:
+		     08/11/2012 GD/BD created
+		     08/13/2012 LW added measure details
+		     08/16/2012 LW Changes for new requirements
+		     08/19/2012 BD Reviewed and added new templates
+		Description: This sample file was developed to show the various types of measure scoring as currently used in HQMF eMeasures,  
+		including proportion and continuous variable. The two measures used as examples are
+		NQF 0436: Anticoagulation Therapy for Atrial Fibrillation/Flutter, a proportion eMeasure
+		NQF 0496: Median Time from ED Arrival to ED Departure for Discharged ED Patients, a continuous variable eMeasure
+	
+	-->
+	<!-- 
+		********************************************************
+		CDA Header
+		********************************************************
+	-->
+	<realmCode code="US"/>
+	<typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+	<!-- QRDA Category III Release 1 template ID (this template ID differs from QRDA III comment only template ID). -->
+	<templateId root="2.16.840.1.113883.10.20.27.1.1"/>
+	<id root="88414c01-715a-45bb-83bb-db7ac860fe9d"/>
+	<!-- SHALL QRDA III document type code -->
+	<code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
+		displayName="Quality Reporting Document Architecture Calculated Summary Report"/>
+	<!-- SHALL Title, SHOULD have this content -->
+	<title>QRDA Calculated Summary Report</title>
+	<!-- SHALL  -->
+	<effectiveTime value="20120513"/>
+	<confidentialityCode codeSystem="2.16.840.1.113883.5.25" code="N"/>
+	<languageCode code="en-US"/>
+	<!-- SHOULD The version of the file being submitted. -->
+	<versionNumber value="1"/>
+	<!-- SHALL contain recordTarget and ID - but ID is nulled to NA. This is an aggregate summary report. Therefore CDA's required patient identifier is nulled. -->
+	<recordTarget>
+		<patientRole>
+			<id nullFlavor="NA"/>
+		</patientRole>
+	</recordTarget>
+	<!-- SHALL have 1..* author. MAY be device or person. 
+		The author of the CDA document in this example is a device at a data submission vendor/registry. -->
+	<author>
+		<time value="20120811"/>
+		<assignedAuthor>
+			<!-- Registry author ID -->
+			<id extension="KP00017dev" root="2.16.840.1.113883.19.5"/>
+			<assignedAuthoringDevice>
+				<softwareName>Registry Data Aggregator Transform Tool 53421dev </softwareName>
+			</assignedAuthoringDevice>
+			<representedOrganization>
+				<!-- Represents unique registry organization TIN -->
+				<id root="2.16.840.1.113883.4.2" extension="1234567"/>
+				<!-- Contains name - specific registry not required-->
+				<name>Registry Organization</name>
+			</representedOrganization>
+		</assignedAuthor>
+	</author>
+	<!-- The custodian of the CDA document is the same as the legal authenticator in this 
+	example and represents the reporting organization. -->
+	<!-- SHALL -->
+	<custodian>
+		<assignedCustodian>
+			<representedCustodianOrganization>
+				<!-- SHALL have an id - This is an example root -->
+				<id root="2.16.840.1.113883.19.5"/>
+				<!-- SHOULD Name not required -->
+				<name>Good Health Hospital</name>
+			</representedCustodianOrganization>
+		</assignedCustodian>
+	</custodian>
+	<!-- The legal authenticator of the CDA document is a single person who is at the 
+		same organization as the custodian in this example. This element must be present. -->
+	<!-- SHALL -->
+	<legalAuthenticator>
+		<!-- SHALL -->
+		<time value="20120811"/>
+		<!-- SHALL -->
+		<signatureCode code="S"/>
+		<assignedEntity>
+			<!-- SHALL ID -->
+			<id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
+			<!-- SHALL -->
+			<representedOrganization>
+				<!-- SHALL Id -->
+				<!-- example root -->
+				<id root="2.16.840.1.113883.19.5"/>
+			</representedOrganization>
+		</assignedEntity>
+	</legalAuthenticator>
+	<!-- MAY - Device Participant Medical Record Device - Office of the National Coordinator for Health IT (ONC). 
+		EHR Certification Number, represented by RGPR = regulated product: A product regulated by some governmental orgnization.  -->
+	<participant typeCode="DEV">
+		<associatedEntity classCode="RGPR">
+			<!-- SHOULD have id, represents unique security Code for a CMS qualified EHR vendor application
+				In this example, Fake Id root - would need specific CMS root OID-->
+			<id root="2.16.840.1.113883.3.249.21" extension="98765" assigningAuthorityName="CMS"/>
+			<!-- SHOULD have id, ID represents the certified EHR identifier-->
+			<id root="2.16.840.1.113883.3.2074.1" extension="1a2b3c" assigningAuthorityName="ONC"/>
+			<code code="129465004" displayName="Medical Record (Electronic)"
+				codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+		</associatedEntity>
+	</participant>
+	<!-- MAY: information about the service provider -->
+	<documentationOf typeCode="DOC">
+		<serviceEvent classCode="PCPR">
+			<!-- care provision -->
+			<effectiveTime>
+				<low value="20100601"/>
+				<high value="20100915"/>
+			</effectiveTime>
+			<!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
+			<performer typeCode="PRF">
+				<time>
+					<low value="20120101"/>
+					<high value="20120331"/>
+				</time>
+				<assignedEntity>
+					<!-- This is the provider NPI -->
+					<id root="2.16.840.1.113883.4.6" extension="111111111"
+						assigningAuthorityName="NPI"/>
+					<!-- MAY: The email address of the provider's data submitted -->
+					<telecom value="mailto:user@hostname"/>
+					<representedOrganization>
+						<!-- This is the organization TIN -->
+						<id root="2.16.840.1.113883.4.2" extension="1234567"
+							assigningAuthorityName="TIN"/>
+						<!-- This is the organization CCN -->
+						<id root="2.16.840.1.113883.4.336" extension="54321"
+							assigningAuthorityName="CCN"/>
+					</representedOrganization>
+				</assignedEntity>
+			</performer>
+		</serviceEvent>
+	</documentationOf>
+	<!--   MAY: participation waiver indicates the eligible professional has given the DSV (data submission vendor) 
+		permission to submit data on their behalf-->
+	<authorization>
+		<consent>
+			<id root="84613250-e75e-11e1-aff1-0800200c9a66"/>
+			<!-- SHALL single value binding -->
+			<code code="425691002" displayName="consent given for electronic record sharing"
+				codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+			<statusCode code="completed"/>
+		</consent>
+	</authorization>
+	<!-- 
+********************************************************
+CDA Body
+********************************************************
+-->
+	<component>
+		<structuredBody>
+			<!-- 
+********************************************************
+QRDA Category III Reporting Parameters 
+********************************************************
+-->
+
+			<component>
+				<section>
+					<!-- Reporting Parameters templateId -->
+					<templateId root="2.16.840.1.113883.10.20.17.2.1"/>
+					<!-- QRDA Category III Reporting Parameters templateId -->
+					<templateId root="2.16.840.1.113883.10.20.27.2.2"/>
+					<code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
+					<title>Reporting Parameters</title>
+					<text>
+						<list>
+							<item>Reporting period: 01 January 2012 - 31 March 2012</item>
+							<item>First encounter: 05 January 2012</item>
+							<item>Last encounter: 24 March 2012</item>
+						</list>
+					</text>
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+							<id root="55a43e20-6463-46eb-81c3-9a3a1ad41225"/>
+							<code code="252116004" codeSystem="2.16.840.1.113883.6.96"
+								displayName="Observation Parameters"/>
+							<!-- This reporting period shows that Good Health Clinic is sending data for the first quarter of the year.
+							The referenced measure definition may be valid for the entire year or more-->
+							<effectiveTime>
+								<low value="20120101"/>
+								<!-- The first day of the period reported. -->
+								<high value="20120331"/>
+								<!-- The last day of the period reported. -->
+							</effectiveTime>
+						</act>
+					</entry>
+					<entry>
+						<encounter classCode="ENC" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.10.20.27.3.11"/>
+							<!-- The month, day and year of the first service
+				        encounter of the reporting period (From date) -->
+							<effectiveTime>
+								<low value="20120105"/>
+							</effectiveTime>
+						</encounter>
+					</entry>
+					<entry>
+						<encounter classCode="ENC" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.10.20.27.3.12"/>
+							<!-- The month, day and year of the last service
+				        encounter of the reporting period (To date) -->
+							<effectiveTime>
+								<low nullFlavor="NI"/>
+								<high value="20120324"/>
+							</effectiveTime>
+						</encounter>
+					</entry>
+				</section>
+			</component>
+			<!-- 
+********************************************************
+Measure Section
+********************************************************
+-->
+			<component>
+				<section>
+					<!-- Implied template Measure Section templateId -->
+					<templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+					<!-- In this case the query is using an eMeasure -->
+					<!-- QRDA Category III Measure Section template -->
+					<templateId root="2.16.840.1.113883.10.20.27.2.1"/>
+					<code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+					<title>QRDA Category III Measure Section</title>
+					<text>
+						<!-- Proportion Measure -->
+						<table border="1" width="100%">
+							<thead>
+								<tr>
+									<th>eMeasure Title</th>
+									<th>Version neutral identifier</th>
+									<th>eMeasure Version Number</th>
+									<th>NQF eMeasure Number</th>
+									<th>eMeasure Identifier (MAT)</th>
+									<th>Version specific identifier</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Anticoagulation Therapy for Atrial Fibrillation/Flutter</td>
+									<td>03876d69-085b-415c-ae9d-9924171040c2</td>
+									<td>1</td>
+									<td>0436</td>
+									<td>71</td>
+									<td>8a4d92b2-36af-5758-0136-ea8c43244986</td>
+								</tr>
+							</tbody>
+						</table>
+						<content styleCode="Bold">Member of Measure Set: Clinical Quality Measure
+							Set 2011-2012 - b6ac13e2-beb8-4e4f-94ed-fcc397406cd8</content>
+						<list>
+							<item><content styleCode="Bold">Performance Rate</content>: 83% (Predicted = 62%)</item>
+							<item><content styleCode="Bold">Reporting Rate</content>: 84%</item>
+							<item><content styleCode="Bold">Initial Patient Population</content>:
+								1000 <list>
+									<item><content styleCode="Bold">Male</content>: 400</item>
+									<item><content styleCode="Bold">Female</content>: 600</item>
+									<item><content styleCode="Bold">Not Hispanic or
+										Latino</content>: 350</item>
+									<item><content styleCode="Bold">Hispanic or Latino</content>:
+										650</item>
+									<item><content styleCode="Bold">Black</content>: 300</item>
+									<item><content styleCode="Bold">White</content>: 350</item>
+									<item><content styleCode="Bold">Asian</content>: 350</item>
+									<item><content styleCode="Bold">Payer - Medicare</content>:
+										250</item>
+									<item><content styleCode="Bold">Payer - Medicaid</content>:
+										550</item>
+									<item><content styleCode="Bold">Zipcode 92543</content>:
+										15</item>
+								</list>
+							</item>
+							<item><content styleCode="Bold">Denominator</content>: 500 <list>
+									<item><content styleCode="Bold">Male</content>: 200</item>
+									<item><content styleCode="Bold">Female</content>: 300</item>
+									<item><content styleCode="Bold">Not Hispanic or
+										Latino</content>: 175</item>
+									<item><content styleCode="Bold">Hispanic or Latino</content>:
+										325</item>
+									<item><content styleCode="Bold">Black</content>: 150</item>
+									<item><content styleCode="Bold">White</content>: 175</item>
+									<item><content styleCode="Bold">Asian</content>: 175</item>
+									<item><content styleCode="Bold">Payer - Medicare</content>:
+										125</item>
+									<item><content styleCode="Bold">Payer - Medicaid</content>:
+										275</item>
+									<item><content styleCode="Bold">Zipcode 92543</content>:
+										15</item>
+								</list>
+							</item>
+							<item><content styleCode="Bold">Numerator</content>: 400 (predicted=300)<list>
+									<item><content styleCode="Bold">Male</content>: 100</item>
+									<item><content styleCode="Bold">Female</content>: 300</item>
+									<item><content styleCode="Bold">Not Hispanic or
+										Latino</content>: 140</item>
+									<item><content styleCode="Bold">Hispanic or Latino</content>:
+										260</item>
+									<item><content styleCode="Bold">Black</content>: 120</item>
+									<item><content styleCode="Bold">White</content>: 140</item>
+									<item><content styleCode="Bold">Asian</content>: 140</item>
+									<item><content styleCode="Bold">Payer - Medicare</content>:
+										100</item>
+									<item><content styleCode="Bold">Payer - Medicaid</content>:
+										220</item>
+									<item><content styleCode="Bold">Zipcode 92543</content>:
+										6</item>
+								</list>
+							</item>
+							<item><content styleCode="Bold">Denominator Exclusions</content>: 20 <list>
+									<item><content styleCode="Bold">Male</content>: 8</item>
+									<item><content styleCode="Bold">Female</content>: 12</item>
+									<item><content styleCode="Bold">Not Hispanic or
+										Latino</content>: 7</item>
+									<item><content styleCode="Bold">Hispanic or Latino</content>:
+										13</item>
+									<item><content styleCode="Bold">Black</content>: 6</item>
+									<item><content styleCode="Bold">White</content>: 7</item>
+									<item><content styleCode="Bold">Asian</content>: 7</item>
+									<item><content styleCode="Bold">Payer - Medicare</content>:
+										5</item>
+									<item><content styleCode="Bold">Payer - Medicaid</content>:
+										11</item>
+									<item><content styleCode="Bold">Zipcode 92543</content>:
+										0</item>
+								</list>
+							</item>
+						</list>
+						<!-- Continuous Variable Measure -->
+						<table border="1" width="100%">
+							<thead>
+								<tr>
+									<th>eMeasure Title</th>
+									<th>Version neutral identifier</th>
+									<th>eMeasure Version Number</th>
+									<th>NQF eMeasure Number</th>
+									<th>eMeasure Identifier (MAT)</th>
+									<th>Version specific identifier</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Median Time from ED Arrival to ED Departure for Discharged
+										ED Patients</td>
+									<td>3fd13096-2c8f-40b5-9297-b714e8de9133</td>
+									<td>1</td>
+									<td>0496</td>
+									<td>32</td>
+									<td>8a4d92b2-37d1-f95b-0137-dd4b0eb62de6</td>
+								</tr>
+							</tbody>
+						</table>
+						<list>
+							<item><content styleCode="Bold">Initial Patient Population</content>:
+								1000 <list>
+									<item><content styleCode="Bold">Reporting Stratum 1</content>:
+										200</item>
+									<item><content styleCode="Bold">Reporting Stratum 2</content>:
+										250</item>
+									<item><content styleCode="Bold">Reporting Stratum 3</content>:
+										250</item>
+									<item><content styleCode="Bold">Reporting Stratum 4</content>:
+										150</item>
+									<item><content styleCode="Bold">Reporting Stratum 5</content>:
+										150</item>
+									<item><content styleCode="Bold">Male</content>: 400</item>
+									<item><content styleCode="Bold">Female</content>: 600</item>
+									<item><content styleCode="Bold">Not Hispanic or
+										Latino</content>: 350</item>
+									<item><content styleCode="Bold">Hispanic or Latino</content>:
+										650</item>
+									<item><content styleCode="Bold">Black</content>: 300</item>
+									<item><content styleCode="Bold">White</content>: 350</item>
+									<item><content styleCode="Bold">Asian</content>: 350</item>
+									<item><content styleCode="Bold">Payer - Medicare</content>:
+										250</item>
+									<item><content styleCode="Bold">Payer - Medicaid</content>:
+										550</item>
+									<item><content styleCode="Bold">Zipcode 92543</content>:
+										15</item>
+								</list>
+							</item>
+							<item><content styleCode="Bold">Measure Population</content>: 500 <list>
+									<item><content styleCode="Bold">Reporting Stratum 1</content>:
+										150</item>
+									<item><content styleCode="Bold">Reporting Stratum 2</content>:
+										150</item>
+									<item><content styleCode="Bold">Reporting Stratum 3</content>:
+										100</item>
+									<item><content styleCode="Bold">Reporting Stratum 4</content>:
+										50</item>
+									<item><content styleCode="Bold">Reporting Stratum 5</content>:
+										50</item>
+									<item><content styleCode="Bold">Male</content>: 200</item>
+									<item><content styleCode="Bold">Female</content>: 300</item>
+									<item><content styleCode="Bold">Not Hispanic or
+										Latino</content>: 350</item>
+									<item><content styleCode="Bold">Hispanic or Latino</content>:
+										150</item>
+									<item><content styleCode="Bold">Black</content>: 300</item>
+									<item><content styleCode="Bold">White</content>: 100</item>
+									<item><content styleCode="Bold">Asian</content>: 100</item>
+									<item><content styleCode="Bold">Payer - Medicare</content>:
+										250</item>
+									<item><content styleCode="Bold">Payer - Medicaid</content>:
+										250</item>
+									<item><content styleCode="Bold">Zipcode 92543</content>:
+										1</item>
+									<item><content styleCode="Bold">Median Admit Decision Time to ED
+											Departure Time for Admitted Patients</content>: 55 min (Predicted = 60 min)</item>
+								</list>
+							</item>
+						</list>
+					</text>
+					<!-- 
+						Proportion measure example 
+					-->
+					<entry>
+						<organizer classCode="CLUSTER" moodCode="EVN">
+							<!-- Implied template Measure Reference templateId -->
+							<templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+							<!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+							<templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+							<statusCode code="completed"/>
+							<reference typeCode="REFR">
+								<externalDocument classCode="DOC" moodCode="EVN">
+									<!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+									<!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+									<id root="8a4d92b2-36af-5758-0136-ea8c43244986"/>
+									<!-- SHOULD: This is the NQF Number, root is an NQF OID and for eMeasure Number and extension is the eMeasure's NQF number -->
+									<id root="2.16.840.1.113883.3.560.1" extension="0436"/>
+									<!-- SHOULD: eMeasure Measure Authoring Tool Identifier -->
+									<id root="2.16.840.1.113883.3.560.101.2" extension="71"/>
+									<!-- SHOULD This is the title of the eMeasure -->
+									<text>Anticoagulation Therapy for Atrial
+										Fibrillation/Flutter</text>
+									<!-- SHOULD: setId is the eMeasure version neutral id  -->
+									<setId root="03876d69-085b-415c-ae9d-9924171040c2"/>
+									<!-- This is the sequential eMeasure Version number -->
+									<versionNumber value="1"/>
+								</externalDocument>
+							</reference>
+							<!-- SHOULD Reference the measure set it is a member of-->
+							<reference typeCode="REFR">
+								<externalObservation>
+									<!-- SHALL contain  id -->
+									<id root="b6ac13e2-beb8-4e4f-94ed-fcc397406cd8"/>
+									<!-- SHALL single value binding -->
+									<code code="55185-3" displayName="measure set"
+										codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<!-- SHALL text which should be the title of the measures set -->
+									<text>Clinical Quality Measure Set 2011-2012</text>
+								</externalObservation>
+							</reference>
+							<!-- SHALL 1..* (one for each population) Measure Data template -->
+							<!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+								observation at the top within the measure data template.  There are other external references contained within the 
+								entryRelationships below.  -->
+							<!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+							populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- MAY 0..1 Performance Rate for Proportion Measure template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.14"/>
+									<code code="PERFR-X" codeSystem="2.16.840.1.113883.6.1"
+										displayName="Performance Rate (proportion measure)" codeSystemName="2.16.840.1.113883.6.1"/>
+									<statusCode code="completed"/>
+									<value xsi:type="REAL" value="0.833"/>
+									<!-- MAY 0..1 Used to represent the predicted rate based on the measure’s risk-adjustment model. -->
+									<referenceRange>
+										<observationRange>
+											<value xsi:type="REAL" value="0.625"/>
+										</observationRange>
+									</referenceRange>
+								</observation>
+							</component>
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- MAY 0..1 Reporting Rate for Proportion Measure template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.15"/>
+									<code code="REPR-X" codeSystem="2.16.840.1.113883.6.1"
+										displayName="Reporting Rate (proportion measure)" codeSystemName="2.16.840.1.113883.6.1"/>
+									<statusCode code="completed"/>
+									<value xsi:type="REAL" value="0.84"/>
+								</observation>
+							</component>
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Measure Data template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+									<code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+										displayName="Assertion" codeSystemName="ActCode"/>
+									<statusCode code="completed"/>
+									<!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"	
+										valueSetOid="2.16.840.1.113883.1.11.20369"	Binding: Dynamic
+									-->
+									<value xsi:type="CD" code="IPP"
+										codeSystem="2.16.840.1.113883.5.1063"
+										displayName="initial patient population"
+										codeSystemName="ObservationValue"/>
+									<!-- SHALL contain aggregate count template -->
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Aggregate Count template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+											<!-- SHALL single value binding -->
+											<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<!--  SHALL value xsi:type="INT"-->
+											<value xsi:type="INT" value="1000"/>
+										</observation>
+									</entryRelationship>
+									<!-- MAY 0..* Reporting Stratum template -->
+									<!-- This eMeasure doesn't have any reporting strata so leave this template out -->
+									<!-- MAY 0..* entryRelationship Supplemental Data Element templates for Sex (Ethnicity | Race | Payer | Zipcode) Supplemental Data Element template -->
+									<entryRelationship typeCode="COMP">
+										<!-- Postal Code Supplemental Data Element (2.16.840.1.113883.10.20.27.3.10)-->
+										<!-- Repeat for each postal code that has any data -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Postal Code Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.10"/>
+											<!-- SHALL single value binding -->
+											<code code="184102003" displayName="patient postal code"
+												codeSystem="SNOMED-CT"
+												codeSystemName="2.16.840.1.113883.6.96"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be xsi:type="ST"-->
+											<value xsi:type="ST">92543</value>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="15"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<!-- SHALL single value binding -->
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Not hispanic -->
+											<value xsi:type="CD" code="2186-5"
+												displayName="Not Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="350"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Hispanic -->
+											<value xsi:type="CD" code="2135-2"
+												displayName="Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="650"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2054-5"
+												displayName="Black or African American"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="300"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2131-1" displayName="White"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="350"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2028-9" displayName="Asian"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="350"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<!-- Female -->
+											<value xsi:type="CD" code="F"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="600"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<!-- Male -->
+											<value xsi:type="CD" code="M"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="400"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="1"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicare"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="250"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="2"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicaid"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="250"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+										observation at the top within the measure data template-->
+									<reference typeCode="REFR">
+										<!-- reference to the relevant population in the eMeasure -->
+										<externalObservation classCode="OBS" moodCode="EVN">
+											<id root="D77106C4-8ED0-4C5D-B29E-13DBF255B9FF"/>
+										</externalObservation>
+									</reference>
+								</observation>
+							</component>
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Measure Data template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+									<code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+										displayName="Assertion" codeSystemName="ActCode"/>
+									<statusCode code="completed"/>
+									<!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion "	valueSetOid="2.16.840.1.113883.1.11.20369"	Binding: Dynamic
+									-->
+									<value xsi:type="CD" code="DENOM"
+										codeSystem="2.16.840.1.113883.5.1063"
+										displayName="Denominator" codeSystemName="ObservationValue"/>
+									<!-- SHALL contain aggregate count template -->
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Aggregate Count template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+											<!-- SHALL single value binding -->
+											<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<!--  SHALL value xsi:type="INT"-->
+											<value xsi:type="INT" value="500"/>
+										</observation>
+									</entryRelationship>
+									<!-- MAY 0..* Reporting Stratum template -->
+									<!-- This eMeasure doesn't have reporting strata so leave it out -->
+									<!-- MAY 0..* entryRelationship Supplemental Data Element templates for Sex (Ethnicity | Race | Payer | Zipcode) Supplemental Data Element template -->
+									<entryRelationship typeCode="COMP">
+										<!-- Postal Code Supplemental Data Element (2.16.840.1.113883.10.20.27.3.10)-->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Postal Code Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.10"/>
+											<!-- SHALL single value binding -->
+											<code code="184102003" displayName="patient postal code"
+												codeSystem="SNOMED-CT"
+												codeSystemName="2.16.840.1.113883.6.96"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be xsi:type="ST"-->
+											<value xsi:type="ST">92543</value>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="15"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<!-- SHALL single value binding -->
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Not hispanic -->
+											<value xsi:type="CD" code="2186-5"
+												displayName="Not Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="175"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Hispanic -->
+											<value xsi:type="CD" code="2135-2"
+												displayName="Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="325"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2054-5"
+												displayName="Black or African American"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="150"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2131-1" displayName="White"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="175"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2028-9" displayName="Asian"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="175"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<!-- Example female -->
+											<value xsi:type="CD" code="F"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="300"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<value xsi:type="CD" code="M"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="200"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="1"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicare"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="125"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="2"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicaid"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="275"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+										observation at the top within the measure data template-->
+									<reference typeCode="REFR">
+										<!-- reference to the relevant population in the eMeasure -->
+										<externalObservation classCode="OBS" moodCode="EVN">
+											<id root="8B0FA80F-8FFE-494C-958A-191C1BB36DBF"/>
+										</externalObservation>
+									</reference>
+								</observation>
+							</component>
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Measure Data template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+									<code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+										displayName="Assertion" codeSystemName="ActCode"/>
+									<statusCode code="completed"/>
+									<!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion "	valueSetOid="2.16.840.1.113883.1.11.20369"	Binding: Dynamic
+									-->
+									<value xsi:type="CD" code="NUMER"
+										codeSystem="2.16.840.1.113883.5.1063"
+										displayName="Numerator" codeSystemName="ObservationValue"/>
+									<!-- SHALL contain aggregate count template -->
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Aggregate Count template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+											<!-- SHALL single value binding -->
+											<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<!--  SHALL value xsi:type="INT"-->
+											<value xsi:type="INT" value="400"/>
+											<!-- MAY 0..1 Used to represent the predicted count based on the measure’s risk-adjustment model. -->
+											<referenceRange>
+												<observationRange>
+													<value xsi:type="INT" value="300"/>
+												</observationRange>
+											</referenceRange>
+										</observation>
+									</entryRelationship>
+									<!-- MAY 0..* Reporting Stratum template -->
+									<!-- This eMeasure doesn't have reporting strata so leave this out -->
+									<!-- MAY 0..* entryRelationship Supplemental Data Element templates for Sex (Ethnicity | Race | Payer | Zipcode) Supplemental Data Element template -->
+									<entryRelationship typeCode="COMP">
+										<!-- Postal Code Supplemental Data Element (2.16.840.1.113883.10.20.27.3.10)-->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Postal Code Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.10"/>
+											<!-- SHALL single value binding -->
+											<code code="184102003" displayName="patient postal code"
+												codeSystem="SNOMED-CT"
+												codeSystemName="2.16.840.1.113883.6.96"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be xsi:type="ST"-->
+											<value xsi:type="ST">92543</value>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="6"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<!-- SHALL single value binding -->
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Not hispanic -->
+											<value xsi:type="CD" code="2186-5"
+												displayName="Not Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="140"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Hispanic -->
+											<value xsi:type="CD" code="2135-2"
+												displayName="Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="260"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2054-5"
+												displayName="Black or African American"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="120"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2131-1" displayName="White"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="140"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2028-9" displayName="Asian"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="140"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<!-- Example female -->
+											<value xsi:type="CD" code="F"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="300"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<value xsi:type="CD" code="M"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="100"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="1"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicare"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="100"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="2"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicaid"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="220"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+										observation at the top within the measure data template-->
+									<reference typeCode="REFR">
+										<!-- reference to the relevant population in the eMeasure -->
+										<externalObservation classCode="OBS" moodCode="EVN">
+											<id root="9363135E-A816-451F-8022-96CDA7E540DD"/>
+										</externalObservation>
+									</reference>
+								</observation>
+							</component>
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Measure Data template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+									<code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+										displayName="Assertion" codeSystemName="ActCode"/>
+									<statusCode code="completed"/>
+									<!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion "	valueSetOid="2.16.840.1.113883.1.11.20369"	Binding: Dynamic
+									-->
+									<value xsi:type="CD" code="DENEX"
+										codeSystem="2.16.840.1.113883.5.1063"
+										displayName="Denominator Exclusions"
+										codeSystemName="ObservationValue"/>
+									<!-- SHALL contain aggregate count template -->
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Aggregate Count template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+											<!-- SHALL single value binding -->
+											<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<!--  SHALL value xsi:type="INT"-->
+											<value xsi:type="INT" value="20"/>
+										</observation>
+									</entryRelationship>
+									<!-- MAY 0..* Reporting Stratum template -->
+									<!-- This eMeasure doesn't have reporting strata so leave it out -->
+									<!-- MAY 0..* entryRelationship Supplemental Data Element templates for Sex (Ethnicity | Race | Payer | Zipcode) Supplemental Data Element template -->
+									<entryRelationship typeCode="COMP">
+										<!-- Postal Code Supplemental Data Element (2.16.840.1.113883.10.20.27.3.10)-->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Postal Code Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.10"/>
+											<!-- SHALL single value binding -->
+											<code code="184102003" displayName="patient postal code"
+												codeSystem="SNOMED-CT"
+												codeSystemName="2.16.840.1.113883.6.96"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be xsi:type="ST"-->
+											<value xsi:type="ST">92543</value>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="0"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<!-- SHALL single value binding -->
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Not hispanic -->
+											<value xsi:type="CD" code="2186-5"
+												displayName="Not Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="7"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Hispanic -->
+											<value xsi:type="CD" code="2135-2"
+												displayName="Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="13"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2054-5"
+												displayName="Black or African American"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="6"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2131-1" displayName="White"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="7"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2028-9" displayName="Asian"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="7"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<!-- Example female -->
+											<value xsi:type="CD" code="F"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="12"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<value xsi:type="CD" code="M"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="8"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="1"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicare"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="5"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="2"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicaid"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="11"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+										observation at the top within the measure data template-->
+									<reference typeCode="REFR">
+										<!-- reference to the relevant population in the eMeasure -->
+										<externalObservation classCode="OBS" moodCode="EVN">
+											<id root="11E8FA8F-725E-413B-A4E8-00BBD7CD382A"/>
+										</externalObservation>
+									</reference>
+								</observation>
+							</component>
+							<!-- No denominator exceptions or numerator exclusions, so no component for them. -->
+						</organizer>
+					</entry>
+					<!-- ********************************************************************************************************************************
+						Continuous Variable measure example  
+						**********************************************************************************************************************************
+					-->
+					<entry>
+						<organizer classCode="CLUSTER" moodCode="EVN">
+							<!-- Measure Reference and Results template -->
+							<templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+							<statusCode code="completed"/>
+							<reference typeCode="REFR">
+								<externalDocument classCode="DOC" moodCode="EVN">
+									<!-- The example eMeasure is 0496 -->
+									<!-- SHALL: This is the version specific identifier for eMeasure: QualityMeasureDocument/id	it is a GUID-->
+									<id root="8a4d92b2-37d1-f95b-0137-dd4b0eb62de6"/>
+									<!-- SHOULD: This is the NQF Number, root is an NQF OID and for eMeasure Number and extension is the eMeasure's NQF number -->
+									<id root="2.16.840.1.113883.3.560.1" extension="0496"/>
+									<!-- SHOULD: eMeasure Measure Authoring Tool Identifier -->
+									<id root="2.16.840.1.113883.3.560.101.2" extension="32"/>
+									<!-- SHOULD This is the title of the eMeasure -->
+									<text>Median Admit Decision Time to ED Departure Time for
+										Admitted Patients</text>
+									<!-- SHOULD: setId is the eMeasure version neutral id  -->
+									<setId root="3fd13096-2c8f-40b5-9297-b714e8de9133"/>
+									<!-- This is the sequential eMeasure Version number -->
+									<versionNumber value="1"/>
+								</externalDocument>
+							</reference>
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Measure Data template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+									<code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+										displayName="Assertion" codeSystemName="ActCode"/>
+									<statusCode code="completed"/>
+									<value xsi:type="CD" code="MSRPOPL"
+										codeSystem="2.16.840.1.113883.5.1063"
+										displayName="Measure Population"
+										codeSystemName="ObservationValue"/>
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Aggregate Count template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+											<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<value xsi:type="INT" value="500"/>
+											<!-- validate entries against narrative -->
+										</observation>
+									</entryRelationship>
+									<!-- MAY 0..* Reporting Stratum template-->
+									<!-- The strata are defined once in the HQMF, with one ID. Copy the 
+									reference in each population, for IPP, etc. -->
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="150"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the first defined Stratum -->
+												<id root="3B9ADA1B-AFEA-4A9F-BF56-24247FFE0BA5"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="150"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the second defined Stratum -->
+												<id root="B6A659C9-5F7C-4FBF-9A16-37A5982869DF"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="200"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the third defined Stratum -->
+												<id root="2C8FF3BE-9E39-4677-AB9B-8B0DCF9DEACC"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="50"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the fourth defined Stratum -->
+												<id root="4272A422-2605-46A4-AD5C-CA414CC3D162"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="50"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the fifth defined Stratum -->
+												<id root="5BB34B00-FF71-404F-B301-978D71BD4580"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Postal Code Supplemental Data Element (2.16.840.1.113883.10.20.27.3.10)-->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Postal Code Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.10"/>
+											<!-- SHALL single value binding -->
+											<code code="184102003" displayName="patient postal code"
+												codeSystem="SNOMED-CT"
+												codeSystemName="2.16.840.1.113883.6.96"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be xsi:type="ST"-->
+											<value xsi:type="ST">92543</value>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="1"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<!-- SHALL single value binding -->
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<value xsi:type="CD" code="2186-5"
+												displayName="Not Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="350"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Hispanic -->
+											<value xsi:type="CD" code="2135-2"
+												displayName="Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="150"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2054-5"
+												displayName="Black or African American"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="300"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2131-1" displayName="White"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="100"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2028-9" displayName="Asian"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="100"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<value xsi:type="CD" code="F"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="300"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<value xsi:type="CD" code="M"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="200"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="1"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicare"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="250"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="2"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicaid"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="250"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<!-- MAY 0..* Continuous Variable Measure Value template -->
+									<entryRelationship typeCode="COMP">
+										<!-- Continuous Variable Measure Value template -->
+										<templateId root="2.16.840.1.113883.10.20.27.3.2"/>
+										<observation classCode="OBS" moodCode="EVN">
+											<code nullFlavor="OTH">
+												<originalText>Time Difference</originalText>
+											</code>
+											<statusCode code="completed"/>
+											<value xsi:type="PQ" value="55" unit="min"/>
+											<!-- drawn from  ObservationMeasureAggregate value set, with a SHALL Dynamic binding -->
+											<methodCode code="MEDIAN" displayName="Median"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant measure observation in the eMeasure,
+												in this case the median method is applied to the time difference
+												referenced by this identifier -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<id root="ecd9156f-370b-40d9-86b6-5c00f0ff9629"/>
+												</externalObservation>
+											</reference>
+											<!-- MAY 0..1 Used to represent the predicted continuous variable value based on the measure’s risk-adjustment model. -->
+											<referenceRange>
+												<observationRange>
+													<value xsi:type="PQ" value="60" unit="min"/>
+												</observationRange>
+											</referenceRange>
+										</observation>
+									</entryRelationship>
+									<reference typeCode="REFR">
+										<!-- reference to the relevant population (MSRPOPL) in the eMeasure -->
+										<externalObservation classCode="OBS" moodCode="EVN">
+											<id root="1A09812C-D22A-4584-B8A7-DB6D1316D75A"/>
+										</externalObservation>
+									</reference>
+								</observation>
+							</component>
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Measure Data template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+									<code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+										displayName="Assertion" codeSystemName="ActCode"/>
+									<statusCode code="completed"/>
+									<value xsi:type="CD" code="IPP"
+										codeSystem="2.16.840.1.113883.5.1063"
+										displayName="Initial Patient Population"
+										codeSystemName="ObservationValue"/>
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Aggregate Count template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+											<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<value xsi:type="INT" value="1000"/>
+											<!-- validate entries against narrative -->
+										</observation>
+									</entryRelationship>
+									<!-- MAY 0..* Reporting Stratum template-->
+									<!-- The strata are defined once in the HQMF, with one ID. Copy the 
+									reference in each population, for IPP, etc. -->
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="300"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the first defined Stratum -->
+												<id root="3B9ADA1B-AFEA-4A9F-BF56-24247FFE0BA5"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="350"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the second defined Stratum -->
+												<id root="B6A659C9-5F7C-4FBF-9A16-37A5982869DF"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="350"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the third defined Stratum -->
+												<id root="2C8FF3BE-9E39-4677-AB9B-8B0DCF9DEACC"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="150"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the fourth defined Stratum -->
+												<id root="4272A422-2605-46A4-AD5C-CA414CC3D162"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="150"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the fifth defined Stratum -->
+												<id root="5BB34B00-FF71-404F-B301-978D71BD4580"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Postal Code Supplemental Data Element (2.16.840.1.113883.10.20.27.3.10)-->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Postal Code Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.10"/>
+											<!-- SHALL single value binding -->
+											<code code="184102003" displayName="patient postal code"
+												codeSystem="SNOMED-CT"
+												codeSystemName="2.16.840.1.113883.6.96"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be xsi:type="ST"-->
+											<value xsi:type="ST">92543</value>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="15"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<!-- SHALL single value binding -->
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<value xsi:type="CD" code="2186-5"
+												displayName="Not Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="350"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Ethnicity Supplemental Data Element (2.16.840.1.113883.10.20.27.3.7) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Ethnicity Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Ethnicity group Value Set OID 2.16.840.1.114222.4.11.837 - dynamic -->
+											<!-- Hispanic -->
+											<value xsi:type="CD" code="2135-2"
+												displayName="Hispanic or Latino"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<!-- SHALL 1..1 Aggregate Count template -->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="650"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2054-5"
+												displayName="Black or African American"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="300"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2131-1" displayName="White"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="350"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Race Supplemental Data Element (2.16.840.1.113883.10.20.27.3.8) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<code code="ASSERTION" displayName="Assertion"
+												codeSystem="ActCode"
+												codeSystemName="2.16.840.1.113883.5.4"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be bound to CDC Race Category Value Set OID 2.16.840.1.114222.4.11.836 - dynamic -->
+											<value xsi:type="CD" code="2028-9" displayName="Asian"
+												codeSystem="2.16.840.1.113883.6.238"
+												codeSystemName="Race &amp; Ethnicity - CDC"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="350"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<value xsi:type="CD" code="F"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="600"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Sex Supplemental Data Element (2.16.840.1.113883.10.20.27.3.6) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Sex Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="184100006" displayName="patient sex"
+												codeSystem="2.16.840.1.113883.6.96"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 DYNAMIC-->
+											<value xsi:type="CD" code="M"
+												codeSystem="2.16.840.1.113883.5.1"
+												codeSystemName="HL7AdministrativeGenderCode"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="400"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="1"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicare"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="250"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<!-- Payer Supplemental Data Element (2.16.840.1.113883.10.20.27.3.9) -->
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Conforms to Patient Characteristic Payer -->
+											<templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+											<!-- Payer Supplemental Data Element template ID -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.9"/>
+											<!-- SHALL be single value binding to: -->
+											<code code="48768-6" displayName="Payment source"
+												codeSystem="2.16.840.1.113883.6.1"
+												codeSystemName="SNOMED-CT"/>
+											<statusCode code="completed"/>
+											<!-- SHALL be drawn from  Value Set: PHDSC Source of Payment Typology 2.16.840.1.114222.4.11.3591 DYNAMIC-->
+											<value xsi:type="CD" code="2"
+												codeSystem="2.16.840.1.113883.3.221.5"
+												codeSystemName="Source of Payment Typology"
+												displayName="Medicaid"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+												<code code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<value xsi:type="INT" value="550"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<reference typeCode="REFR">
+										<!-- reference to the relevant population in the eMeasure -->
+										<externalObservation classCode="OBS" moodCode="EVN">
+											<id root="6F906D83-0307-48D1-A1B8-427CE8DC01C7"/>
+											<!-- validate the referenced IDs -->
+										</externalObservation>
+									</reference>
+								</observation>
+							</component>
+						</organizer>
+					</entry>
+				</section>
+			</component>
+		</structuredBody>
+	</component>
+</ClinicalDocument>
