@@ -23,5 +23,6 @@ class CalculatedProductTestControllerTest < ActionController::TestCase
   end
   
 
+ 
   
 end

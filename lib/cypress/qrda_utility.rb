@@ -4,11 +4,8 @@ module Cypress
 
     # Extract and return measure results from a PQRI document and add to the reported results
     # for this test.
-    def self.extract_results(doc, id_map)
-      # the measure IDs in the report must be a subset of what the product is
-      # allowed to test (in the measure_map)
-      # reverse the hash of nqf#=>product-specific-measure-id
-      measure_map = id_map.invert if id_map
+    def self.extract_results(doc)
+
       doc = (doc.kind_of? String )? Nokogiri::XML::Document.new(doc) : doc
       
       #the nodes we want will have a child "templateId" with root = 2.16.840.1.113883.10.20.27.3.1
@@ -16,7 +13,7 @@ module Cypress
       results ||= {}
       result_nodes.each do |result_node|
         key = result_node.at_xpath('xmlns:reference/xmlns:externalDocument/xmlns:id[@root = "2.16.840.1.113883.3.560.1"]')['extension']
-        key = measure_map[key] if id_map
+       
 
         numerator   = get_measure_attr(result_node,'NUMER')
         denominator = get_measure_attr(result_node,'DENOM')
@@ -34,6 +31,36 @@ module Cypress
       
       return results
     end
+    
+    
+
+    
+    def self.validate_cat3_document(file)
+	    
+    end
+    
+    def self.validate_zip(file)
+      file_errors = {}
+      Zip::ZipFile.open(file.path) do |zipfile|
+       zipfile.entries.each do |entry|
+        file_errors[entry.name] = []
+         # validate that each file in the zip contains a valid QRDA Cat I document.
+         # We may in the future have to support looking in the contents of the test 
+         # patient records to match agaist QRDA Cat I documents
+         
+         # First validate the schema correctness
+          schema_validator = get_schema_validator
+          file_errors[entry.name].concat schema_validator.validate(entry, msg_type: :error)
+          
+          schematron_validator = get_schematron_validator
+          file_errors[entry.name].concat schematron_validator.validate(entry, {phase: :errors}, msg_type: :error)
+          file_errors[entry.name].concat schematron_validator.validate(entry, {phase: :errors}, msg_type: :warning )
+            
+       end
+     end
+     file_errors
+    end
+    
 
     private
     def self.get_measure_attr(node, name)
@@ -42,7 +69,7 @@ module Cypress
       if !result.nil?
         return result['value'].to_i
       else
-        return '-'
+        return ''
       end
     end
 

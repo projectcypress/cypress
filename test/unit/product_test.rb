@@ -46,7 +46,7 @@ class ProducTest < ActiveSupport::TestCase
   end
   
   test "Should report success rate" do
-    assert_equal 0.5, @product1.success_rate 
+    assert_equal 1.0/3.0, @product1.success_rate 
     assert_equal 1, @product2.success_rate 
   end
 

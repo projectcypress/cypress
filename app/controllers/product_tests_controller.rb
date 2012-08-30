@@ -12,13 +12,7 @@ class ProductTestsController < ApplicationController
     render :text => exception, :status => 500
   end
   
-  
-  
-  def index 
-    @product_tests = ProductTest.where({product_id: params[:product_id]}).order_by_type
-  end
 
-    
   def show
     @test = ProductTest.find(params[:id])
   end
