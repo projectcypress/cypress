@@ -11,7 +11,7 @@ module Validators
       end
       
       # Validate the document against the configured schema
-      def validate(patient_data, document)
+      def validate(document)
           errors = []
           @xsd.validate(document).each do |error|
              errors << Cypress::ValidationError.new(

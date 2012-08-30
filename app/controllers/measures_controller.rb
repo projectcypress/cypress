@@ -5,6 +5,13 @@ class MeasuresController < ApplicationController
   before_filter :find_measure, only: [:show,:patients]
   before_filter :find_product, only: [:show,:patients,:minimal_set]
 
+  def by_type
+    @measures = Measure.where(type: params[:type])
+    @measures_categories = @measures.group_by { |t| t.category }
+    render json: {measures: @measures, measures_categories: @measures_categories}
+  end
+  
+  
   def show
     
     @vendor = @product.vendor  

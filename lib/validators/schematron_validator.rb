@@ -28,20 +28,18 @@ module Validators
            end
            errors
       end
-        
-        
+                
         # stubbed method needed to obtain validation  stylesheet
       def get_schematron_processor
         raise "Implement me damn it"
-      end
-          
+      end       
       
     end
     
     
     class UncompiledValidator < BaseValidator
       
-      attr_accessor :schematron_file, :stylesheet, :cache, :name
+      attr_accessor :schematron_file, :stylesheet, :cache, :name, :phase, :msg_type
       
       # create a new UnCompiledValidator
       # schematron_file - the base schematron rule set that will be used to create the XSLT stylesheet used to perform the validation

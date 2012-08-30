@@ -46,8 +46,9 @@ class ProductTest
 
   # Returns true if this ProductTests most recent TestExecution is passing
   def execution_state
-    return :pending if self.test_executions.empty?   
-    most_recent_execution = self.test_executions.ordered_by_date.first.state
+    return :pending if self.test_executions.empty? 
+
+    self.test_executions.ordered_by_date.to_a.last.state
   end
   
 
@@ -74,7 +75,10 @@ class ProductTest
     self.delete
   end
   
-  
+  # Get the expected result for a particular measure
+  def expected_result(measure)
+   expected_results[measure.id]
+  end
   
   # Used for downloading and e-mailing the records associated with this test.
    #

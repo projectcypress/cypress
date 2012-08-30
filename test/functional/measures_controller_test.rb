@@ -20,21 +20,22 @@ include Devise::TestHelpers
   
   
   test "show" do
-    m1 = Measure.where(:id => '0001').first
-    pt = ProductTest.find("4f58f8de1d41c851eb000478")
-    get :show, {:product_test_id=> pt.id,:id => m1.id,:format=>"html"}
-    assert_response :success
-    test = assigns[:test]
-    product = assigns[:product]
-    vendor  = assigns[:vendor]
-    measures = assigns[:measures]
+    pending "wrong place for this to be. needs to be reimplemented in product_execution not measure controller" do
+      m1 = Measure.where(:id => '0001').first
+      pt = ProductTest.find("4f58f8de1d41c851eb000478")
+      get :show, {:product_test_id=> pt.id,:id => m1.id,:format=>"html"}
+      assert_response :success
+      test = assigns[:test]
+      product = assigns[:product]
+      vendor  = assigns[:vendor]
+      measures = assigns[:measures]
    
 
-    assert test.id.to_s   == "4f58f8de1d41c851eb000478"
-    assert product.id.to_s== "4f57a88a1d41c851eb000004"
-    assert vendor.id.to_s == "4f57a8791d41c851eb000002"
-    assert measures.count  == pt.count_measures
-
+      assert test.id.to_s   == "4f58f8de1d41c851eb000478"
+      assert product.id.to_s== "4f57a88a1d41c851eb000004"
+      assert vendor.id.to_s == "4f57a8791d41c851eb000002"
+      assert measures.count  == pt.count_measures
+   end
   end
 
 
@@ -50,6 +51,13 @@ include Devise::TestHelpers
     coverage = assigns[:coverage] 
     assert coverage.count == 0
 
+  end
+  
+  
+  test "shopuld be able to retreive measures for a given test type" do
+    pending "need to implement type in measures" do
+      fail "to do"
+    end
   end
 
   
