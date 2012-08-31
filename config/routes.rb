@@ -57,6 +57,7 @@ Cypress::Application.routes.draw do
   post '/services/validate_pqri'
 
   match '/measures/minimal_set' => 'measures#minimal_set'
+  match '/measures/by_type' => 'measures#by_type'
   match '/product_tests/period', :to=>'product_tests#period', :as => :period, :via=> :post
   
   unless Rails.application.config.consider_all_requests_local
