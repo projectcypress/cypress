@@ -59,7 +59,7 @@
   <%= f.hidden_field :product_id, :value => @product.id %>
   <div id="navigation">
     <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
-    <span class="status">Step <b id="currentStep">1</b> of 4</span>
+    <span class="status">Step <b id="currentStep">1</b> of 2</span>
     <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /></a>
   </div>
   
@@ -67,6 +67,6 @@
   
   <%= render :partial => "product_tests/wizard_screens/home", :locals => {:f => f} %>
   <%= render :partial => "product_tests/wizard_screens/measures", :locals => {:f => f} %>
-  <%= render :partial => "product_tests/wizard_screens/workflow", :locals => {:f => f} %>
-  <%= render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
+  <%# render :partial => "product_tests/wizard_screens/workflow", :locals => {:f => f} %>
+  <%# render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
 <% end %>
