@@ -6,10 +6,12 @@ class MeasuresController < ApplicationController
   before_filter :find_product, only: [:show,:patients,:minimal_set]
 
   def by_type
+
     @measures = Measure.top_level
     #uncomment this when we have measures of different types
     #    @measures = Measure.where(type: params[:type])
     @measures_categories = @measures.group_by { |t| t.category }
+
     respond_to do |format|
       format.js { render :layout => false }
       format.json {render :json => {:measures => @measures, :measures_categories => @measures_categories}}
