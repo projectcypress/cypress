@@ -18,6 +18,9 @@ class ProductsControllerTest < ActionController::TestCase
   
   
   
+
+  
+  
   test "create" do
     v = Vendor.first
     count = v.products.count

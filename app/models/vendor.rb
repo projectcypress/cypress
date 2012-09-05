@@ -30,20 +30,21 @@ class Vendor
   # Get the products owned by this vendor that are failing
   def failing_products
     return self.products.select do |product|
-      product.product_tests.empty? || !product.passing?
+      !product.passing?
     end
   end
   
   # Get the products owned by this vendor that are passing
   def passing_products
     return self.products.select do |product|
-      !product.product_tests.empty? && product.passing?
+      product.passing?
     end
   end
   
+  
   # Returns true if all associated Products are passing
   def passing?
-    return (self.products.size > 0)&&(self.passing_products.size == self.products.size)
+    return (self.products.size > 0) ? (self.failing_products.size == 0) : true
   end
   
   # Return the number of currently passing Products

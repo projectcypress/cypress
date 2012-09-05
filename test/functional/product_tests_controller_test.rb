@@ -19,89 +19,102 @@ include Devise::TestHelpers
     @user = User.first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
     sign_in @user
   end
+  
+
+
 
   test "show" do
-    pt = ProductTest.find("4f58f8de1d41c851eb000478")
-    ex  = TestExecution.where(:product_test_id => pt.id).first
-    get :show, {:id => pt.id.to_s}
+    pending "Waiting for new screens to be implemented" do
+      pt = ProductTest.find("4f58f8de1d41c851eb000478")
+      ex  = TestExecution.where(:product_test_id => pt.id).first
+      get :show, {:id => pt.id.to_s}
 
-    assert_response :success
-    assert assigns[:never_executed_before]
-    assert assigns[:test].id    == pt.id
-    assert assigns[:product].id == pt.product_id
-    assert assigns[:vendor].id.to_s == "4f57a8791d41c851eb000002"
-    assert assigns[:patients].count == 1
-    assert assigns[:measures].count == 2
-    assert assigns[:measures]['fail'].count == 2
+      assert_response :success
+      assert assigns[:never_executed_before]
+      assert assigns[:test].id    == pt.id
+      assert assigns[:product].id == pt.product_id
+      assert assigns[:vendor].id.to_s == "4f57a8791d41c851eb000002"
+      assert assigns[:patients].count == 1
+      assert assigns[:measures].count == 2
+      assert assigns[:measures]['fail'].count == 2
     
-    get :show, {:id => pt.id, :execution_id => ex.id}
+      get :show, {:id => pt.id, :execution_id => ex.id}
 
-    assert assigns[:current_execution].id == ex.id
-    assert assigns[:test].id    == pt.id
-    assert assigns[:product].id == pt.product_id
-    assert assigns[:vendor].id.to_s == "4f57a8791d41c851eb000002"
-    assert assigns[:patients].count == 1
-    assert assigns[:measures].count == 2
-    assert assigns[:measures]['fail'].count == 1
-    assert assigns[:measures]['pass'].count == 1
-    #test json here?
-    #test pdf here?
+      assert assigns[:current_execution].id == ex.id
+      assert assigns[:test].id    == pt.id
+      assert assigns[:product].id == pt.product_id
+      assert assigns[:vendor].id.to_s == "4f57a8791d41c851eb000002"
+      assert assigns[:patients].count == 1
+      assert assigns[:measures].count == 2
+      assert assigns[:measures]['fail'].count == 1
+      assert assigns[:measures]['pass'].count == 1
+      #test json here?
+      #test pdf here?
+    end
   end
 
   test "new" do
-    p1 = Product.first
-    get :new, {:product => p1.id }
+    pending "Waiting on new test creation wizard screens to be imp[lemented] " do
+      p1 = Product.first
+      get :new, {:product_id => p1.id }
 
-    assert_response :success
-    assert !assigns[:test].nil?
-    assert assigns[:product].id == p1.id
-    assert assigns[:vendor].id  == p1.vendor.id
-    assert assigns[:measures].count == 3
-    assert assigns[:patient_populations].count == 3
-    assert assigns[:measures_categories].count == 2
+      assert_response :success
+      assert !assigns[:test].nil?
+      assert assigns[:product].id == p1.id
+      assert assigns[:vendor].id  == p1.vendor.id
+    end
   end
 
   test "create" do
-    Cypress::PopulationCloneJob.stubs(:create).returns("JOB_ID")
-    pt1 = {:name =>'new1', :effective_date_end =>'12/21/2011' , :upload_format =>'c32', :patient_population =>'test'}
-    pt2 = {:name =>'new2', :effective_date_end =>'12/21/2011' , :upload_format =>'ccr', :patient_population =>'test'}
-    pt3 = {:name =>'new3', :effective_date_end =>'12/21/2011' , :upload_format =>'csv', :patient_population =>'test'}
-    pt4 = {:name =>'new4', :effective_date_end =>'12/21/2011' , :upload_format =>'c32'}
+    pending "Needs to be rewritten with a way to handle testing mulptiple test types in a consistent fashion" do
+        Cypress::PopulationCloneJob.stubs(:create).returns("JOB_ID")
+        pt1 = {:name =>'new1', :effective_date_end =>'12/21/2011' , :upload_format =>'c32', :patient_population =>'test'}
+        pt2 = {:name =>'new2', :effective_date_end =>'12/21/2011' , :upload_format =>'ccr', :patient_population =>'test'}
+        pt3 = {:name =>'new3', :effective_date_end =>'12/21/2011' , :upload_format =>'csv', :patient_population =>'test'}
+        pt4 = {:name =>'new4', :effective_date_end =>'12/21/2011' , :upload_format =>'c32'}
 
-    get :create, {:product_test => pt1 }
-    assert_response :redirect
-    newTest = ProductTest.where({:name => 'new1'})
-    assert newTest.count == 1
+        get :create, {:product_test => pt1 }
+        assert_response :redirect
+        newTest = ProductTest.where({:name => 'new1'})
+        assert newTest.count == 1
 
-    get :create, {:product_test => pt2, :download_filename => 'pt2file', :patient_ids => ['19','20','21'] }
-    assert_response :redirect
-    assert ProductTest.where({:name => 'new2'}).count == 1
+        get :create, {:product_test => pt2, :download_filename => 'pt2file', :patient_ids => ['19','20','21'] }
+        assert_response :redirect
+        assert ProductTest.where({:name => 'new2'}).count == 1
 
-    get :create, {:product_test => pt3, :download_filename => 'pt3file', :patient_ids => ['19','20','21'] ,:population_description => 'minimal set',:population_name => 'minset'}
-    assert_response :redirect
-    assert ProductTest.where({:name => 'new3'}).count == 1
-    assert PatientPopulation.where({:name => 'minset'}).count == 1
+        get :create, {:product_test => pt3, :download_filename => 'pt3file', :patient_ids => ['19','20','21'] ,:population_description => 'minimal set',:population_name => 'minset'}
+        assert_response :redirect
+        assert ProductTest.where({:name => 'new3'}).count == 1
+        assert PatientPopulation.where({:name => 'minset'}).count == 1
 
-    get :create, {:product_test => pt4, :patient_ids => ['19','20','21'], :measure_ids => ["0013","0028","0421","" ] }
-    assert_response :redirect
-    assert ProductTest.where({:name => 'new4'}).count == 1
+        get :create, {:product_test => pt4, :patient_ids => ['19','20','21'], :measure_ids => ["0013","0028","0421","" ] }
+        assert_response :redirect
+        assert ProductTest.where({:name => 'new4'}).count == 1
+    end
   end
+  
+  test "create without product test type " do  
+    pt1 = {:name =>'new1', :effective_date_end =>'12/21/2011' , :upload_format =>'c32', :patient_population =>'test'}
+    put :create, {:product_test => pt1 }
+    assert_response 500, "Create without type should raise an error"
+  end
+  
 
   test "edit" do
     pt = ProductTest.first
-    get :edit, {:id => pt.id}
+    get :edit, {product_id: pt.product.id, id: pt.id}
     assert_response :success
-
+    
     assert assigns[:test].id == pt.id
     assert assigns[:product].id == pt.product.id
     assert assigns[:vendor].id  == pt.product.vendor.id
-    assert assigns[:effective_date] == pt.effective_date
+
   end
 
   test "update" do
     pt = ProductTest.first
     updated_attributes = {:name => 'Updated test name', :description => 'Updated Description'}
-    get :update, {:id => pt.id, :product_test => updated_attributes}
+    post :update, {:id => pt.id, :product_test => updated_attributes}
 
     assert_response :redirect
     pt_updated = ProductTest.find(pt.id)
@@ -111,70 +124,56 @@ include Devise::TestHelpers
 
   test "destroy" do
     pt = ProductTest.first
-    ex = TestExecution.first
-
-    get :destroy, {:id => pt.id, :execution_id => ex.id}
-
+    delete :destroy, {:id => pt.id}
     assert_response :redirect
-    destroyed = TestExecution.where(:id => ex.id)
-    assert destroyed.count == 0
-
-    get :destroy, {:id => pt.id}
-
     destroyed = ProductTest.where(:id => pt.id)
-    assert destroyed.count == 0
-  end
-
-  test "period" do
-    @request.accept = "text/javascript"
-    get :period, {:effective_date => '12/21/2011'}
-
-    assert_response :success
-    assert_equal assigns[:effective_date], '2011-12-21 00:00:00 UTC'
-    assert_equal assigns[:period_start], '2011-09-21 00:00:00 UTC'
+    assert_equal 0,  destroyed.count, "There shouldn't be a ProductTest in the db with the id of the one just destroyed"
   end
 
   test "process_pqri" do
-    pt1 = ProductTest.find("4f58f8de1d41c851eb000478")
-    pt2 = ProductTest.new
-    pt3 = ProductTest.find("4fa3f10d824eb96b51000005")
+    pending "Need to reimplement with QRDA Cat 3 when available" do 
+      pt1 = ProductTest.find("4f58f8de1d41c851eb000478")
+      pt2 = ProductTest.new
+      pt3 = ProductTest.find("4fa3f10d824eb96b51000005")
 
-    ex  = TestExecution.where(:product_test_id => pt1.id).first
-    ex_count = TestExecution.where(:product_test_id => pt1.id).count
-    baseline = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_baseline.xml'), "application/xml")
-    pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")
-    pqri_with_mapped_measures = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_with_mapped_measures.xml'), "application/xml")
+      ex  = TestExecution.where(:product_test_id => pt1.id).first
+      ex_count = TestExecution.where(:product_test_id => pt1.id).count
+      baseline = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_baseline.xml'), "application/xml")
+      pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")
+      pqri_with_mapped_measures = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_with_mapped_measures.xml'), "application/xml")
     
-    pt2.name = 'Product test with no executions'
-    pt2.effective_date = 1324443600
-    pt2.product_id = pt1.product_id
-    pt2.user=@user
-    pt2.save!
+      pt2.name = 'Product test with no executions'
+      pt2.effective_date = 1324443600
+      pt2.product_id = pt1.product_id
+      pt2.user=@user
+      pt2.save!
 
-    pt3.name = 'Product test mapped measures'
-    pt3.effective_date = 1324443600
-    pt3.save!
+      pt3.name = 'Product test mapped measures'
+      pt3.effective_date = 1324443600
+      pt3.save!
 
-    post :process_pqri, {:id => pt1.id.to_s , :product_test => {:pqri => pqri}, :execution_id => ex.id}
-    assert_response :redirect
-    ex_updated = TestExecution.find(ex.id)
-    assert ex_updated.reported_results['0001']['denominator'] == 56
-    assert TestExecution.where(:product_test_id => pt1.id).count == ex_count
+      post :process_pqri, {:id => pt1.id.to_s , :product_test => {:pqri => pqri}, :execution_id => ex.id}
+      assert_response :redirect
+      ex_updated = TestExecution.find(ex.id)
+      assert ex_updated.reported_results['0001']['denominator'] == 56
+      assert TestExecution.where(:product_test_id => pt1.id).count == ex_count
 
-    pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")    
+      pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")    
 
-    post :process_pqri, {:id => pt2.id , :product_test => {:pqri => pqri, :baseline => baseline}, :execution_id => {}}
+      post :process_pqri, {:id => pt2.id , :product_test => {:pqri => pqri, :baseline => baseline}, :execution_id => {}}
 
-    new_ex = TestExecution.where(:product_test_id => pt2.id).first
-    assert new_ex.reported_results['0001']['denominator'] == 50
-    assert TestExecution.where(:product_test_id => pt2.id).count == 1
+      new_ex = TestExecution.where(:product_test_id => pt2.id).first
+      assert new_ex.reported_results['0001']['denominator'] == 50
+      assert TestExecution.where(:product_test_id => pt2.id).count == 1
 
-    post :process_pqri, {:id => pt3.id , :product_test => {:pqri => pqri_with_mapped_measures}, :execution_id => {}}
-    new_ex = TestExecution.where(:product_test_id => pt3.id).first
+      post :process_pqri, {:id => pt3.id , :product_test => {:pqri => pqri_with_mapped_measures}, :execution_id => {}}
+      new_ex = TestExecution.where(:product_test_id => pt3.id).first
 
-    assert new_ex.reported_results['0001']['denominator'] == 35
-    assert new_ex.reported_results['0002']['denominator'] == 8
-    assert TestExecution.where(:product_test_id => pt3.id).count == 1
+      assert new_ex.reported_results['0001']['denominator'] == 35
+      assert new_ex.reported_results['0002']['denominator'] == 8
+      assert TestExecution.where(:product_test_id => pt3.id).count == 1
+    end
+    
   end
 
   test "download" do

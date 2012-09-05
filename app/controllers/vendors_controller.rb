@@ -37,7 +37,7 @@ class VendorsController < ApplicationController
   end
   
   def edit
-    
+   # binding.pry
   end
 
   def destroy

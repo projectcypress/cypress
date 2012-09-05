@@ -1,7 +1,7 @@
 <div id="container">
   <%= render :partial=>"shared/header" %>
   
-  <div>
+  <div class="buffered">
     <section class="tb">
       <nav class="breadcrumb">
         <a href="<%= vendors_path %>">Certification Dashboard</a> &raquo;
@@ -9,7 +9,7 @@
       </nav>
     </section>
     
-    <section id="vendor">
+    <section id="vendor" class="bordered buffered">
       <%= render :partial => 'vendor_details' %>
     </section>
   </div>

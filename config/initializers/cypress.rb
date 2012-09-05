@@ -1,4 +1,12 @@
-require 'pqri_utility'
+MONGO_DB = Mongoid.database
+
+require 'cypress'
+require 'validation'
+require 'validation_error'
+require 'validators/schema_validator'
+require 'validators/schematron_validator'
+
+XML_VALIDATION_INSPECTION="XmlValidationInspection"
 
 MONGO_DB = Mongoid.database
 # insert races and ethnicities

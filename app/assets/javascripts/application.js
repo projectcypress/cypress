@@ -8,8 +8,4 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require cypress
-//= require jquery.calendrical
-//= require jquery.validate.min
-//= require jquery.form
-//= require jquery.form.wizard
-//= require jquery.tmpl
+//= require externals

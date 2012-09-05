@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
     render :template => "products/edit"
   end
    
+ 
   def show
     @product = Product.find(params[:id])
     @product.measure_map ||= Measure.default_map
@@ -57,6 +58,8 @@ class ProductsController < ApplicationController
     product.destroy
     redirect_to vendor_path(vendor)
   end
+  
+  
   
   
 end

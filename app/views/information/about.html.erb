@@ -1,7 +1,7 @@
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section class="tb">
       <%= link_to "Master Patient List", patients_path, { :class => "cmd" } %>
       <nav class="breadcrumb">
@@ -9,8 +9,8 @@
         <span>about</span>
       </nav>
     </section>
+    <section id="about" class="bordered buffered">
     <% @deps = Cypress::GetDependencies::get_dependencies() %>
-    <section id="about">
       <div>
         <section style="float:right;padding-right: 30px;">
           Master Patient List: <%= @deps['Master Patient List'] %><br>

@@ -1,9 +1,8 @@
-require 'measure_evaluator'
 
 class PatientsController < ApplicationController
 
   require 'builder'
-  require 'create_download_zip'
+
   
   before_filter :authenticate_user!
 
@@ -14,7 +13,7 @@ class PatientsController < ApplicationController
       @product = @test.product
       @product.measure_map ||= Measure.default_map
       @vendor  = @product.vendor
-      @measures = @test.measure_defs
+      @measures = @test.measures
     else
       @measures = Measure.installed
     end
