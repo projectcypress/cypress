@@ -56,6 +56,7 @@
 <% end %>
 
 <%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
+  <input type="hidden" name="type" value="calculated_product_test" >
   <%= f.hidden_field :product_id, :value => @product.id %>
   <div id="navigation">
     <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
@@ -66,7 +67,9 @@
   <div id="validationErrorMessages"></div>
   
   <%= render :partial => "product_tests/wizard_screens/home", :locals => {:f => f} %>
+
   <%= render :partial => "product_tests/wizard_screens/measures", :locals => {:f => f} %>
   <%# render :partial => "product_tests/wizard_screens/workflow", :locals => {:f => f} %>
   <%# render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
+
 <% end %>

@@ -14,7 +14,7 @@ gem 'bson', '1.5.1'
 gem 'bson_ext', '1.5.1'
 gem 'mongoid', '~> 2.0'
 gem 'state_machine'
-gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
+
 
 gem 'devise', '~> 2.0'
 gem 'simple_form'

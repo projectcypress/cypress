@@ -60,15 +60,15 @@
         });
 
   <% poll_for_updates = false
-  if @patients.size < 1 || @percent_completed < 100
-    poll_for_updates = true
-  end
+ # if @patients.size < 1 || @percent_completed < 100
+ #   poll_for_updates = true
+ # end
 
-  !@current_execution.nil? && @current_execution.expected_results.each do |result|
-    if result['numerator']=='?'
-      poll_for_updates = true
-    end
-  end
+  #!@current_execution.nil? && @current_execution.expected_results.each do |result|
+ #   if result['numerator']=='?'
+ #     poll_for_updates = true
+ #   end
+ # end
 
   if poll_for_updates %>
         $('#loading_progress').progressbar({ value: <%= @percent_completed %>, color: 'red' });
