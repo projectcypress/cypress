@@ -28,6 +28,7 @@ class ProductTestsController < ApplicationController
   
   def create
     test = test_type.new(params[:product_test])
+    test.user = current_user
     test.save!
     redirect_to product_path(test.product)
   end
