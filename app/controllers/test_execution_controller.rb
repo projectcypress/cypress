@@ -2,12 +2,12 @@ class TestExecutionsController < ApplicationController
   
   def new
     @te = TestExecution.new
-    render template: "test_execution/#{te.product_test.class.to_s.underscore}/new.html"
+    render template: "test_execution/#{template_name(te)}/new.html"
   end
   
   def show
     @te = TestExecution.find(params[:id])
-    render template: "test_execution/#{te.product_test.class.to_s.underscore}/show.html"
+    render template: "test_execution/#{template_name(te)}/show.html"
   end
   
   def create
@@ -26,5 +26,11 @@ class TestExecutionsController < ApplicationController
     
   end
   
+  
+  private 
+  
+  def template_name(te)
+    te.product_test.class.to_s.underscore
+  end
   
 end

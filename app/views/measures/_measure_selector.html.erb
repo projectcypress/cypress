@@ -1,0 +1,20 @@
+<span class="header_commands"><input type="checkbox" id="all_measures"/><label for="all_measures">all quality measures</label></span>
+<div id="tabs">
+  <!-- set up a tab header for each measure group -->
+  <ul>
+    <% @measures_categories.sort.each do |category, measures| %>
+      <li>
+        <a href="#<%= category.tr(" '", "_") %>"><%= category %></a><span id="<%= category.tr(" '", "_") %>_group_total"></span></li>
+    <% end %>
+  </ul>
+
+  <% @measures_categories.sort.each do |category, measures| %>
+    <!-- set up a checkbox for each top-level measure in the group -->
+    <div id="<%= category.tr(" '", "_")%>" class="measure_group"> <span class="header_commands"><input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all"/><label for="<%= category.tr(" '", "_")%>_group">all <%= category %> measures</label></span><br/>
+        <% measures.each do |m| %>
+        <input type="checkbox" name="product_test[measure_ids][]" value="<%= m['id'] %>" class="measure_cb"/><%= m.display_name %><br/>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>

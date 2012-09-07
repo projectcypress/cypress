@@ -3,23 +3,27 @@
 
     $.testWizard = {};
   
-    $.testWizard.tallyMeasureGroups = function() {
-        var grandTotal = 0;
-        $.each($('.measure_group'), function(index, item){
-            var total = Math.max(0,$(this).find('input.measure_cb:checked').length);
-            $('#' + $(item).attr('id') +'_group').prop('checked', $(this).find('input.measure_cb').length == total);
-            grandTotal += total;
-            $('#' + $(item).attr('id') +'_group_total').empty().html(total > 0 ? total : '');
+    $.testWizard.updateMeasureSet = function(testType) {
+        $('#measures').empty().html('<div class="busy">Finding measures for test type ' + testType + '...</h3>');
+        var ids = [];
+        // get the measures for this type of test
+        $.ajax({
+            url: "/measures/by_type",
+            type: "POST",
+            data: {
+                type: testType
+            },
+            dataType: 'script',
+            error: function(xhr, err) {
+                alert("Sorry, we can't currently produce measures by type:'" + testType + "'\n" + err);
+            }
         });
-        $('#all_measures').prop('checked',$('#wizard-measures-screen input.measure_cb').length == grandTotal)
-        // clear the coverage map
-        $('#measure_coverage').empty()
-        $('form').valid();
     };
 
-
   
-    $.testWizard.updateMinimalPatientSet = function() {
+/*    commented out functionality related to the minimal patient set since
+ *    that screen is no longer part of the wizard sequence
+     $.testWizard.updateMinimalPatientSet = function() {
         $('#measure_coverage').empty().html('<div class="busy">Finding appropriate patients...</h3>');
         var ids = [];
         $('.measure_cb:checked').each(function(i,e) {
@@ -41,7 +45,7 @@
             }
         });
     };
-
+*/
     $.testWizard.updateProgressBar = function(screen) {
         switch (screen) {
             case "first":
@@ -52,64 +56,42 @@
                 $('#currentStep').html(2);
                 $('#back').removeClass('disabled').find('input').removeAttr('disabled').css("color","green");
                 break;
-            case "wizard-workflow-screen":
-                $('#currentStep').html(3);
-                break;
-            case "wizard-patients-automated-screen":
-            case "wizard-patients-manual-screen":
-            case "wizard-patients-byod-screen":
-                $('#currentStep').html(4);
-                break;
+//            case "wizard-workflow-screen":
+//                $('#currentStep').html(3);
+//                break;
+//            case "wizard-patients-automated-screen":
+//            case "wizard-patients-manual-screen":
+//            case "wizard-patients-byod-screen":
+//                $('#currentStep').html(4);
+//                break;
         }
     }
   
 })( jQuery );
 
 $(document).ready(function() {
-    // for handling the selection of measures from groups
-    $('#all_measures').click(function () {
-        $('#wizard-measures-screen input:checkbox').prop('checked', $(this).prop('checked'));
-        $('.measure_group').prop('checked', $(this).prop('checked'));
-        $.testWizard.tallyMeasureGroups();
-    });
-    $('.measure_group_all').click(function () {
-        var groupName = $(this).attr('id');
-        $(this).closest('div').find('input:checkbox').prop('checked', $(this).prop('checked'));
-        $.testWizard.tallyMeasureGroups();
-    });
-
-    $('.measure_cb').change(function() {
-        $.testWizard.tallyMeasureGroups();
-    });
-
-    $('[name=population_name]').change(function() {
-        $('[name=population_description]').addClass("required");
-    });
-    $('[name=population_description]').change(function() {
-        $('[name=population_name]').addClass("required");
-    });
+//    $('[name=population_name]').change(function() {
+//        $('[name=population_description]').addClass("required");
+//    });
+//    $('[name=population_description]').change(function() {
+//        $('[name=population_name]').addClass("required");
+//    });
 
     // set the default choice by invoking a click on workflow 2
-    $('label[for=wf2]').trigger("click");
+//    $('label[for=wf2]').trigger("click");
 
     var cache = {}; // caching inputs for the visited steps
 
     // Variables for the minimal patient set
-    var minimalCount = 0;
-    var minimalPatients = [];
-    var usedOverflow = [];
-    var coverage = [];
+//    var minimalCount = 0;
+//    var minimalPatients = [];
+//    var usedOverflow = [];
+//    var coverage = [];
 
 
     $.fx.off = true; // disable the annoying animations the wizard uses
-    // for styling the vertical tabs
-    $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix').css({
-        "width":"90%",
-        "margin-left":"5%"
-    });
-    $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
-    $('#tabs').tabs("select",2)
-    // establish the form wizard
+
+// establish the form wizard
     $('#new_product_test').formwizard({
         // !important - otherwise the rails form processing
         // doesn't redirect properly.  set formPluginEnabled to false
@@ -126,7 +108,7 @@ $(document).ready(function() {
         validationOptions: {
             rules: {
                 "product_test[name]": "required",
-                "product_test[patient_population]": "required",
+//                "product_test[patient_population]": "required",
                 "product_test[measure_ids][]": "required"
             },
             errorClass: "validationErrors",
@@ -134,9 +116,9 @@ $(document).ready(function() {
                 "product_test[name]": {
                     required:"The test needs a name."
                 },
-                "product_test[patient_population]": {
-                    required:"Choose a patient population."
-                },
+//                "product_test[patient_population]": {
+//                    required:"Choose a patient population."
+//                },
                 "product_test[measure_ids][]": {
                     required:"You must choose at least one quality measure."
                 }
@@ -147,9 +129,12 @@ $(document).ready(function() {
         }
     }).bind("step_shown", function(event,data){ //TODO still need to hook up validation
         // do screen-specific functions here
-        if (data.currentStep == "wizard-patients-manual-screen") {
-            $.testWizard.updateMinimalPatientSet();
+        if (data.currentStep == "wizard-measures-screen") {
+            $.testWizard.updateMeasureSet($('[name=type]').val());
         }
+//        if (data.currentStep == "wizard-patients-manual-screen") {
+//            $.testWizard.updateMinimalPatientSet();
+//        }
         // update the progress indicator
         $.testWizard.updateProgressBar(data.currentStep);
 
