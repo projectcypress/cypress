@@ -5,15 +5,15 @@
   </div>
   <ul class="register">
     <li>
-      <span class="field_comment error">*</span><%= f.label :first_name %>
+      <span class="required">*</span><%= f.label :first_name %>
       <%= f.email_field :first_name %>
     </li>
     <li>
-      <span class="field_comment error">*</span><%= f.label :last_name %>
+      <span class="required">*</span><%= f.label :last_name %>
       <%= f.email_field :last_name %>
     </li>
     <li>
-      <span class="field_comment error">*</span><%= f.label :email %>
+      <span class="required">*</span><%= f.label :email %>
       <%= f.email_field :email %>
     </li>
     <li>
@@ -21,12 +21,12 @@
       <%= f.text_field :telephone %>
     </li>
     <li>
-      <span class="field_comment error">*</span><%= f.label :password %>
+      <span class="required">*</span><%= f.label :password %>
       <%= f.password_field :password %>
       <p>Must be at least 5 characters long.</p>
     </li>
     <li>
-      <span class="field_comment error">*</span><%= f.label :password_confirmation %>
+      <span class="required">*</span><%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation %>
     </li>
   </ul>
