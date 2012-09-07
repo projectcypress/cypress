@@ -9,8 +9,9 @@ body {
 }
 
 #container {
-  width: 1000px;
-  margin: 20px auto 20px auto;
+  // width: 1000px;
+  margin-top:20px;
+  margin-bottom:20px; 
   border: 1px solid $borderColor;
   background-color: $containerBkgColor;
   -moz-border-radius: 10px;
@@ -25,14 +26,12 @@ body {
 .buffered { padding: 10px 20px 20px 20px; }
 .bordered { @include bordered($borderColor); }
 
-#information { }
-
 #patientpicture {
   width:120px;
   height:130px;
 }
 
-.patientname{
+.patientname {
   strong {
     font-weight:bold;
     text-transform:uppercase;
@@ -40,50 +39,51 @@ body {
 }
 
 div.tabs { 
-width:90px;
-text-align:right;
-margin: 20px 20px 0 0 ;
-display:inline-block;
+  width:90px;
+  text-align:right;
+  margin: 20px 20px 0 0 ;
+  display:inline-block;
+  color:red;
 }
 
 .tabs {
-ul{
-margin:0;
-border-right: 1px solid #ddd;
-list-style: none;
-padding-top: 10px;
-}
-a { 
-padding:5px;
-display:block;
-list-style:none;
-@include bordered($borderColor);
- @include leftRounded(8px);
- margin-bottom:2px;
-border-right:none;
-color: #555;
-line-height:1.5;
-}
-a.selected {
-background-color: green;
-font-weight: bold;
-color: white;
-border-color: green;
-}
-a:hover{
-background-color: #CCC;
-}
-a.selected:hover{
-background-color: green;
+  ul {
+    margin:0;
+    border-right: 1px solid #ddd;
+    list-style: none;
+    padding-top: 10px;
+  }
+  a { 
+    padding:5px;
+    display:block;
+    list-style:none;
+    @include bordered($borderColor);
+    @include leftRounded(8px);
+     margin-bottom:2px;
+    border-right:none;
+    color: #555;
+    line-height:1.5;
+  }
+  a.selected {
+    background-color: green;
+    font-weight: bold;
+    color: white;
+    border-color: green;
+  }
+  a:hover{
+    background-color: #CCC;
+  }
+  a.selected:hover{
+    background-color: green;
+  }
+  
+
 }
 
-
-}
-
-ul#download_options {
+#download_options {
  display:none;
 }
-div#eligibilityMeasures { 
-border-top-width: 1px;
-border-top-color: #E9E9E9;
+#eligibilityMeasures { 
+  border-top-width: 1px;
+  border-top-color: #E9E9E9;
 }
