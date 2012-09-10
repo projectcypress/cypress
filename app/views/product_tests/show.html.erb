@@ -46,7 +46,7 @@
             Below are the expected results for your patient population.  You must perform the following steps to complete your test:
           </p>
           <ol >
-            <li>Download these records in C32, CCR, CSV, or HTML format from the "Test Data" menu above.
+            <li>Download Test Data
 	             <%= link_to 'Test Data', '', {
 		          :id => 'share_menu',
 		          :class => "cmd",
@@ -85,9 +85,9 @@
 			          <% end %>
 			        </ul>
 			</li>
-            <li>Input them into the quality measure calculator you wish to test.</li>
+            <li>Load Test Data into your quality measure calculator</li>
 
-            <li>Return your results to Cypress for scoring using the "Upload Results" link above. 
+            <li>Upload Results
 				 <%= link_to "Results", '', {
 			          :id => 'results_menu',
 			          :class => "cmd",
@@ -98,9 +98,7 @@
 			          <li class="ui-menu-item" role="menuitem">
 			            <%= link_to "Upload PQRI", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :id => 'upload_results_button', :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
+
 			        </ul>
 	
 	</li>
