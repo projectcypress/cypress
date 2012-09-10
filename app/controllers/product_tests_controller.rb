@@ -34,9 +34,9 @@ class ProductTestsController < ApplicationController
   end
   
   def edit
-    @product = Product.find(params[:product_id])
+    @test = ProductTest.find(params[:id])
+    @product = @test.product
     @vendor = @product.vendor
-    @test = @product.product_tests.find(params[:id])
   end
   
   def update
