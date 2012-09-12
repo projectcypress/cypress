@@ -1,5 +1,5 @@
 <% content_for :head do -%>
-  
+
 <% end %>
 
 <div id="container">
@@ -8,10 +8,10 @@
   <div class ="buffered">
     <section class="tb">
       <div class="stacked">
-       
+
         <%= link_to "Edit Test", edit_product_test_path(@test), { :class => "cmd" } %>
-        
-        
+
+
       </div>
 
       <nav class="breadcrumb">
@@ -23,19 +23,22 @@
 
     <section class="candidate bordered buffered">  
       <dl class="vendor dl-horizontal">
-        <dt>Test:</dt> <dd><%= @test.name %></dd>
-        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
-        <dt>Product Version:</dt> <dd><%= @test.product.version %></dd>
+        <dt>Test Name:</dt> <dd><%= @test.name %></dd>
+        <dt>Test Type:</dt> <dd><%= "Unknown" %></dd>
+        <dt>Product:</dt> <dd><%= @test.product.name %></dd>
+        <dt>Version:</dt> <dd><%= @test.product.version %></dd>
       </dl>
-      <br>
+
+      <dl class="dl-horizontal">
+        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
+        <dt>Description:</dt> <dd><%= @test.description %></dd>
+        <!--<dt>Modules:</dt>-->
+      </dl>
+
       <dl class="dl-horizontal">
         <dt>Proctor:</dt> <dd><%= @test.user.first_name %> <%= @test.user.last_name %></dd>
         <dt>Email:</dt> <dd><%= @test.user.email %></dd>
         <dt>Telephone:</dt> <dd><%= @test.user.telephone %></dd>
-      </dl>
-      <dl class="dl-horizontal">
-        <dt>Description:</dt> <dd><%= @test.description %></dd>
-          <dt>Modules:</dt>
       </dl>
     </section> 
 
@@ -43,72 +46,79 @@
       <section class="free_text dentered">
         <div class="stacked">
           <p>
-            Below are the expected results for your patient population.  You must perform the following steps to complete your test:
+            You must perform the following steps to execute your test:
           </p>
-          <ol >
-            <li>Download these records in C32, CCR, CSV, or HTML format from the "Test Data" menu above.
-	             <%= link_to 'Test Data', '', {
-		          :id => 'share_menu',
-		          :class => "cmd",
-		          :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
-		        } %>
-			  	 <ul id="share_options" style="display: none" role="listbox"
-			            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download CCRs", download_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download CSV", download_product_test_path(@test, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <% if @test.user.email %>
-			            <li class="ui-menu-item" role="menuitem">
-			              <%= link_to "Email C32s", email_product_test_path(@test, :format => 'c32'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-			            </li>
-			            <li class="ui-menu-item" role="menuitem">
-			              <%= link_to "Email CCRs", email_product_test_path(@test, :format => 'ccr'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-			            </li>
-			            <li class="ui-menu-item" role="menuitem">
-			              <%= link_to "Email CSV", email_product_test_path(@test, :format => 'csv'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-			            </li>
-			            <li class="ui-menu-item" role="menuitem">
-			              <%= link_to "Email HTML", email_product_test_path(@test, :format => 'html'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-			            </li>
-			          <% end %>
-			        </ul>
-			</li>
-            <li>Input them into the quality measure calculator you wish to test.</li>
-
-            <li>Return your results to Cypress for scoring using the "Upload Results" link above. 
-				 <%= link_to "Results", '', {
-			          :id => 'results_menu',
-			          :class => "cmd",
-			          :onmouseover => "$.cypress.showMenu($('#results_menu'), $('#results_options'));"
-			        } %>
-					<ul id="results_options" style="display: none" role="listbox"
-			            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Upload PQRI", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :id => 'upload_results_button', :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			        </ul>
-	
-	</li>
-          </ol>
+          <table>
+            <tbody>
+              <tr>
+                <td style="width:25%;">
+                  1. Download Test Data Records<br/>
+                  <%= link_to 'Download Test Data', '', {
+                    :id => 'share_menu',
+                    :class => "cmd",
+                    :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
+                  } %>
+                  <ul id="share_options" style="display: none" role="listbox"
+                      class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+                    <li class="ui-menu-item" role="menuitem">
+                      <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
+                    </li>
+                    <li class="ui-menu-item" role="menuitem">
+                      <%= link_to "Download C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+                    </li>
+                    <li class="ui-menu-item" role="menuitem">
+                      <%= link_to "Download CCRs", download_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+                    </li>
+                    <li class="ui-menu-item" role="menuitem">
+                      <%= link_to "Download CSV", download_product_test_path(@test, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+                    </li>
+                    <li class="ui-menu-item" role="menuitem">
+                      <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+                    </li>
+                    <% if @test.user.email %>
+                      <li class="ui-menu-item" role="menuitem">
+                        <%= link_to "Email C32s", email_product_test_path(@test, :format => 'c32'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
+                      </li>
+                      <li class="ui-menu-item" role="menuitem">
+                        <%= link_to "Email CCRs", email_product_test_path(@test, :format => 'ccr'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
+                      </li>
+                      <li class="ui-menu-item" role="menuitem">
+                        <%= link_to "Email CSV", email_product_test_path(@test, :format => 'csv'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
+                      </li>
+                      <li class="ui-menu-item" role="menuitem">
+                        <%= link_to "Email HTML", email_product_test_path(@test, :format => 'html'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </td>
+                <td style="width:35%;">
+                  2. Load the test data into the quality measure calculator you wish to test, and
+                  export the results as a PQRI XML document.
+                </td>
+                <td style="width:25%;">
+                  3. Upload PQRI Test Results<br/>
+                  <%= link_to "Upload Results", '', {
+                    :id => 'results_menu',
+                    :class => "cmd",
+                    :onmouseover => "$.cypress.showMenu($('#results_menu'), $('#results_options'));"
+                  } %>
+                  <ul id="results_options" style="display: none" role="listbox"
+                      class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+                    <li class="ui-menu-item" role="menuitem">
+                      <%= link_to "Upload PQRI", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :id => 'upload_results_button', :class => "ui-corner-all", :tabindex => "-1" } %>
+                    </li>
+                    <li class="ui-menu-item" role="menuitem">
+                      <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     <% end %>
-    
+
     <section class="records">
       <label>Notes:</label>
       <% note = Note.new %>
@@ -127,43 +137,43 @@
       <% end %>
     </section>
 
-   <section>
-	<div>
-		
-	</div>
-   </section>
+    <section>
+      <div>
 
-    <section class"executions">
-	<table class="table">
-		 <thead>
-            <tr>
-              <th class="align-left" colspan="3">
-                <span class=""><strong>Test Executions</strong></span> 
-              </th>
-              <th colspan="1">Description</th>
-              <th>Notes</th>
-              <th colspan="2">Results</th>
-            </tr>
-          </thead>
-	</table>
-	</section>
-	
-    <section class"execution">
-	    <table class="table">
-			 <thead>
-	            <tr>
-	              <th class="align-left" colspan="100%">
-	                <span class=""><strong>Test Results</strong></span> 
-	              </th>
-	            </tr>
-	          </thead>
-		</table>
-		
-		
-		<div id="execution_results">
-			
-	    </div>
-	</section>
+      </div>
+    </section>
+
+    <section class="executions">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="align-left" colspan="3">
+              <span class=""><strong>Test Executions</strong></span>
+            </th>
+            <th colspan="1">Description</th>
+            <th>Notes</th>
+            <th colspan="2">Results</th>
+          </tr>
+        </thead>
+      </table>
+    </section>
+
+    <section class="execution">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="align-left" colspan="100%">
+              <span class=""><strong>Test Results</strong></span>
+            </th>
+          </tr>
+        </thead>
+      </table>
+
+
+      <div id="execution_results">
+
+      </div>
+    </section>
 
 
     <%= render :partial=>"shared/legend" %>

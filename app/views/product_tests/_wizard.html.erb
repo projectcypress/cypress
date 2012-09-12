@@ -56,7 +56,6 @@
 <% end %>
 
 <%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
-  <input type="hidden" name="type" value="calculated_product_test" >
   <%= f.hidden_field :product_id, :value => @product.id %>
   <div id="navigation">
     <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
