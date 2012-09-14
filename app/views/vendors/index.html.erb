@@ -53,7 +53,7 @@
                 <td><span class="<% if vendor.count_passing > 0 %> pass <% end %> product"><%= passing %></span></td>
                 <td><span class="<% if vendor.count_tested - vendor.count_passing > 0 %> fail <% end %> product"><%= failing %></span></td>
                 <td><!-- last executed intentionally blank --></td>
-                <td class="align-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' %></td>
+                <td class="pull-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' %></td>
               </tr>
               <% if !vendor.products.empty?
                 vendor.products.each do |product|
