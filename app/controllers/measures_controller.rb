@@ -9,9 +9,11 @@ class MeasuresController < ApplicationController
 
     measure_type = nil
     measure_type = 'EP' if params[:type] == 'CalculatedProductTest'
-    measure_type = 'EH' if params[:type] == 'InpatientProductTest'
-    measure_type = 'QRDA' if params[:type] == 'QRDAProductTest'
-    @measures = Measure.where(:type => measure_type)
+    measure_type = 'EH' if params[:type] == 'InpatientProductTest' || params[:type] == 'QRDAProductTest'
+
+    @measures = Measure.installed.select do |measure|
+      measure['type'] == measure_type && (!measure.sub_id || measure.sub_id=='a')
+    end
     @measures_categories = @measures.group_by { |t| t.category }
 
     respond_to do |format|
