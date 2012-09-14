@@ -53,7 +53,7 @@ class TestExecution
   
   
   def passing?
-    state == :pass
+    state == :passed
   end
   
   def failing
