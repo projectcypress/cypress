@@ -52,6 +52,13 @@ class ProductTestsController < ApplicationController
     test.destroy
     redirect_to product_path(product)
   end
+  
+  def execute
+    
+    @product_Test = ProductTest.find(params[:product_test_id])
+    @te=@product_Test.execute(params)
+    redirect_to action: :show, id: @te
+  end
 
   # Send an e-mail to the Vendor POC with an attachment that contains all of the Records included in this test
   def email
@@ -79,6 +86,7 @@ class ProductTestsController < ApplicationController
    end
 
 
+
   
   def delete_note
      test = ProductTest.find(params[:id])
@@ -103,7 +111,6 @@ class ProductTestsController < ApplicationController
 private
 
   def test_type
-
     raise TypeNotFound.new if params[:type].nil?
     params[:type].camelize.constantize
   end

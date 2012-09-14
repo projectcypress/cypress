@@ -11,8 +11,9 @@ class TestExecutionsController < ApplicationController
   end
   
   def create
-    @product_Test = ProductTest.find(params[:product_test_id])
-    @te=@product_Test.execute(params)
+  
+    @product_test = ProductTest.find(params[:product_test_id])
+    @te=@product_test.execute(params[:test_execution])
     redirect_to action: :show, id: @te
   end
   
