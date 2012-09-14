@@ -19,7 +19,7 @@ class QRDAProductTest < ProductTest
   
   def execute(params)
     file = params[:results]
-    te = self.test_executions.build(expected_results: self.expected_results)
+    te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i)
     te.execution_errors = Cypress::QRDAUtility.validate_zip(file)
     
     ids = Cypress::ArtifactManager.save_artifacts(file,te)

@@ -32,13 +32,13 @@
             <th></th>
           </tr>
         </thead>
-        <% @vendors.each do |vendor|
+        <% @vendors.each do |vendor| %>
 
             <tbody>
               <tr>
                 <td class="<%= vendor.products.empty? ?  '' : 'expander toggle tog'%>" data-code="<%= vendor.id %>"></td>
                 <td class="vendorname"><%= link_to vendor.name, vendor_path(vendor.id) %></td>
-                <td><%= tested %></td>
+                <td><%= display_tested_products(vendor) %></td>
                 <td><span class="pass product"><%= display_passing_products(vendor) %></span></td>
                 <td><span class="fail product"><%= display_failing_products(vendor) %></span></td>
                 <td><!-- last executed intentionally blank --></td>
@@ -50,18 +50,17 @@
 
                   <tr class="sub_rows <%= vendor.id %>">
                     <td><!-- expando intentionally blank --></td>
-                    <td><span class="<%= product.execution_state.to_s %>-icon"><%= link_to product.name, product_path(product) %></span></td>
+                    <td><span class="-icon"><%= link_to product.name, product_path(product) %></span></td>
                     <td><span class="version"><%= product.version %> </span></td>
-                    <td><span class="pass  test-score"><%= display_tests_passing(product) %></span></td>
-                    <td><span class=" fail test-score"><%= display_tests_failing(product) %></span></td>
+                    <td><span class="pass  test-score"><%= display_passing_tests(product) %></span></td>
+                    <td><span class=" fail test-score"><%= display_failing_tests(product) %></span></td>
                     <td><%= display_last_execution(product) %></td>
                     <td><!-- delete intentionally blank --></td>
                   </tr>
                 <% end %>
               <% end %>
             </tbody>
-          <% end %>
-        <% end %>
+
       </table>
     </section>
 
