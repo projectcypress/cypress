@@ -7,9 +7,14 @@ class MeasuresController < ApplicationController
 
   def by_type
 
-    @measures = Measure.top_level
-    #uncomment this when we have measures of different types
-    #    @measures = Measure.where(type: params[:type])
+    measure_type = nil
+#    measure_type = 'EP' if params[:type] == 'CalculatedProductTest'
+    measure_type = nil if params[:type] == 'CalculatedProductTest'
+    measure_type = 'EH' if params[:type] == 'InpatientProductTest' || params[:type] == 'QRDAProductTest'
+
+    @measures = Measure.installed.select do |measure|
+      measure['type'] == measure_type && (!measure.sub_id || measure.sub_id=='a')
+    end
     @measures_categories = @measures.group_by { |t| t.category }
 
     respond_to do |format|
