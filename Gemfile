@@ -4,17 +4,17 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.2'
 gem 'jquery-rails'
 gem 'rake'
-#gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop' 
-gem 'quality-measure-engine', '1.1.5'
-#gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
-gem 'health-data-standards', '1.0.1'
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop' 
+#gem 'quality-measure-engine', '1.1.5'
+gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
+#gem 'health-data-standards', '1.0.1'
 #gem 'health-data-standards', path: '../shared/health-data-standards'
 
 gem 'bson', '1.5.1'
 gem 'bson_ext', '1.5.1'
 gem 'mongoid', '~> 2.0'
 gem 'state_machine'
-gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
+
 
 gem 'devise', '~> 2.0'
 gem 'simple_form'

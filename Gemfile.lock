@@ -1,3 +1,28 @@
+GIT
+  remote: https://github.com/pophealth/quality-measure-engine.git
+  revision: 9f2db6494114130f2c19b4fc4f383f56a423bc15
+  branch: develop
+  specs:
+    quality-measure-engine (1.1.5)
+      mongo (~> 1.3)
+      nokogiri (>= 1.4.4)
+      redis (~> 2.2.2)
+      resque (~> 1.15.0)
+      resque-status (~> 0.2.3)
+      rubyzip (~> 0.9.4)
+
+GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 77dee05266d49b673d3c99d7c8de804fdd1f6fd9
+  branch: develop
+  specs:
+    health-data-standards (1.0.1)
+      builder (~> 3.0.0)
+      erubis (~> 2.6)
+      mongoid (~> 2.4.2)
+      nokogiri (>= 1.4.4)
+      uuid (~> 2.3.4)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -51,12 +76,6 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    health-data-standards (1.0.1)
-      builder (~> 3.0.0)
-      erubis (~> 2.6)
-      mongoid (~> 2.4.2)
-      nokogiri (>= 1.4.4)
-      uuid (~> 2.3.4)
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.3)
@@ -103,13 +122,6 @@ GEM
       slop (>= 2.4.4, < 3)
     pry-nav (0.2.1)
       pry (~> 0.9.9)
-    quality-measure-engine (1.1.5)
-      mongo (~> 1.3)
-      nokogiri (>= 1.4.4)
-      redis (~> 2.2.2)
-      resque (~> 1.15.0)
-      resque-status (~> 0.2.3)
-      rubyzip (~> 0.9.4)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -152,7 +164,6 @@ GEM
       redisk (>= 0.2.1)
       resque (>= 1.3.1)
       uuid (>= 2.0.2)
-    ruby-graphviz (1.0.8)
     ruby-rc4 (0.1.5)
     rubyzip (0.9.9)
     sass (3.1.19)
@@ -167,7 +178,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sinatra (1.3.2)
+    sinatra (1.3.3)
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
@@ -177,7 +188,7 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     state_machine (1.1.2)
-    systemu (2.5.1)
+    systemu (2.5.2)
     tailor (1.1.2)
       log_switch (>= 0.3.0)
       term-ansicolor (>= 1.0.5)
@@ -213,7 +224,7 @@ DEPENDENCIES
   bson_ext (= 1.5.1)
   coffee-rails
   devise (~> 2.0)
-  health-data-standards (= 1.0.1)
+  health-data-standards!
   jquery-rails
   minitest
   mocha
@@ -223,11 +234,10 @@ DEPENDENCIES
   prawnto_2
   pry
   pry-nav
-  quality-measure-engine (= 1.1.5)
+  quality-measure-engine!
   rails (= 3.2.2)
   rake
   redis (~> 2.2.2)
-  ruby-graphviz
   sass-rails
   simple_form
   simplecov

@@ -52,6 +52,9 @@ class ProductTest
   end
   
 
+  def passing?
+    execution_state == :pass
+  end
   
   # Return all measures that are selected for this particular ProductTest
   def measures

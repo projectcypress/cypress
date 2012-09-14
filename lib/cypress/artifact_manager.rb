@@ -10,13 +10,13 @@ module Cypress
 
       ids = []
       artifacts.each do |a|
-       ids << grid.put(a.read, :filename => File.basename(a.path), :metadata => {'execution_id' => @execution_id, 'product_test_id' => @test_id})
+       ids << grid.put(a.read, :filename => File.basename(a.path), :metadata => {'execution_id' => test_execution.id, 'product_test_id' => test_execution.product_test_id})
       end
       ids
     end
 
-    def self.del_artifacts(test_exection)
-      artifacts = @collection.find(:metadata => {'execution_id' => test_exection.id})
+    def self.del_artifacts(test_execution)
+      artifacts = @collection.find(:metadata => {'execution_id' => test_execution.id})
       artifacts.each do |a|
         grid.delete(a['_id'])
       end

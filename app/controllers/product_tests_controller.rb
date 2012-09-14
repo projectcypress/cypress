@@ -18,17 +18,19 @@ class ProductTestsController < ApplicationController
   end
   
   def new
-    @test = ProductTest.new
+   
     @product = Product.find(params[:product_id])
     @vendor = @product.vendor
+    @test =  @product.product_tests.build
     @effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
     @period_start = 3.months.ago(Time.at(@effective_date)).getgm
   end
   
   def create
     test = test_type.new(params[:product_test])
+    test.user = current_user
     test.save!
-    redirect_to :action => 'show', :id => test.id
+    redirect_to product_path(test.product)
   end
   
   def edit
@@ -45,7 +47,7 @@ class ProductTestsController < ApplicationController
   end
   
   def destroy
-    test = current_user.product_tests.find(params[:id])
+    test = ProductTest.find(params[:id])
     product = test.product
     test.destroy
     redirect_to product_path(product)
@@ -101,8 +103,9 @@ class ProductTestsController < ApplicationController
 private
 
   def test_type
+
     raise TypeNotFound.new if params[:type].nil?
-    params[:type].constantize
+    params[:type].camelize.constantize
   end
 
  
