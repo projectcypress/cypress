@@ -40,11 +40,18 @@ class Vendor
       product.passing?
     end
   end
-  
+
+  # Get the products owned by this vendor that have tests that have been executed
+  def tested_products
+    return self.products.select do |product|
+      product.incomplete_tests == 0
+    end
+  end
+
   
   # Returns true if all associated Products are passing
   def passing?
-    return (self.products.size > 0) ? (self.failing_products.size == 0) : true
+    return (self.products.size > 0) ? (self.passing_products.size == self.products.size) : true
   end
   
   # Return the number of currently passing Products
@@ -52,6 +59,16 @@ class Vendor
     return self.passing_products.size
   end
   
+  # Return the number of currently not_passing Products
+  def count_failing
+    return self.failing_products.size
+  end
+
+  # Return the number of currently tested Products
+  def count_tested
+    return self.tested_products.size
+  end
+
   # The percentage of passing products. Returns 0 if no products
   def success_rate
     return 0 if self.products.empty?

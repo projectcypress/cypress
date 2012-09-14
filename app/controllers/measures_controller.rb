@@ -9,8 +9,7 @@ class MeasuresController < ApplicationController
 
     test = test_type
     @measures = test.measures
-    #uncomment this when we have measures of different types
-    #    @measures = Measure.where(type: params[:type])
+
     @measures_categories = @measures.group_by { |t| t.category }
 
     respond_to do |format|

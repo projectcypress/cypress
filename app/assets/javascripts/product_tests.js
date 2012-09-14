@@ -130,7 +130,7 @@ $(document).ready(function() {
     }).bind("step_shown", function(event,data){ //TODO still need to hook up validation
         // do screen-specific functions here
         if (data.currentStep == "wizard-measures-screen") {
-            $.testWizard.updateMeasureSet($('[name=type]').val());
+            $.testWizard.updateMeasureSet($('[name=type]:checked').val());
         }
 //        if (data.currentStep == "wizard-patients-manual-screen") {
 //            $.testWizard.updateMinimalPatientSet();
