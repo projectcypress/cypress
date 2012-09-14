@@ -1,5 +1,35 @@
 <% content_for :head do -%>
-  
+  <script>
+	$(document).ready(function() {
+	      $('#upload_results').dialog({
+	        title: 'Upload Results',
+	        autoOpen: false,
+	        closeOnEscape: true,
+	        draggable: true,
+	        position: 'center',
+	        width: 'auto',
+	        height: 'auto',
+	        modal: true,
+	        show: 'fade',
+	        hide: 'fade',
+	        resizable: false,
+	        buttons: {
+	          Upload: function() {
+	            $('#new_test_execution').submit();
+	            $(this).dialog('close');
+	          },
+	          Cancel: function() {
+	            $(this).dialog('close');
+	          }
+	        }
+	      });
+
+	      $('#results_menu').click(function(event) {
+	        $('#upload_results').dialog('open');
+	        event.preventDefault();
+	      });
+	});
+	</script>
 <% end %>
 
 <div id="container">
@@ -90,13 +120,12 @@
             <li>Upload Results
 				 <%= link_to "Results", '', {
 			          :id => 'results_menu',
-			          :class => "cmd",
-			          :onmouseover => "$.cypress.showMenu($('#results_menu'), $('#results_options'));"
+			          :class => "cmd"
 			        } %>
 					<ul id="results_options" style="display: none" role="listbox"
 			            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
 			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Upload PQRI", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :id => 'upload_results_button', :class => "ui-corner-all", :tabindex => "-1" } %>
+			           
 			          </li>
 
 			        </ul>
@@ -163,6 +192,32 @@
 	    </div>
 	</section>
 
+
+
+	<div id="upload_results">
+	  <%= form_for(TestExecution.new, :html => {:method => :post, :multipart => true}) do |f| %>
+	    <table>
+	      <tbody>
+
+	        <tr id="advanced_options" class="hidden">
+	          <td>1. </td>
+	          <td><%= f.label '', "Results File", :for => :results %></td>
+	          <td>&nbsp;<td>
+	          <td><%= f.file_field :results %></td>
+	          <%= hidden_field_tag(:product_test_id, @test.id) %>
+	        </tr>
+
+	        <tr><td>&nbsp;<td></tr>
+	        <tr id="advanced_options" class="hidden">
+	          <td></td>
+	          <td></td>
+	          <td><td>
+
+	        </tr>
+	      </tbody>
+	    </table>
+	  <% end %>
+	</div>
 
     <%= render :partial=>"shared/legend" %>
   </div>

@@ -8,10 +8,9 @@ class InpatientProductTest < ProductTest
   after_create :generate_population
   
   def generate_population
-    Record.delete_all({test_id: self.id})
     expected_results = {}
     measures.each do |measure|
-      Record.where({test_id: nil, measure_id: measure.id, type: :eh}).each do |rec|
+      Record.where({test_id: nil, measure_id: measure["id"], type: :eh}).each do |rec|
         cloned = rec.clone
         cloned.test_id = self.id
         cloned.save
@@ -35,6 +34,10 @@ class InpatientProductTest < ProductTest
   
   def validate_results(expected,reported)
     
+  end
+  
+  def self.measures
+    Measure.top_level
   end
   
 end

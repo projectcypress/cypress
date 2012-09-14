@@ -69,7 +69,7 @@
               </tr>
 
               <% if !test.test_executions.empty?
-                test.ordered_executions.each do |execution|
+                test.test_executions.ordered_by_date.each do |execution|
                   if execution.passing?
                     execution_status = 'pass'
                   else
@@ -82,12 +82,10 @@
 
                   <tr class="sub_rows <%= test.id %>">
                     <td></td>
-                    <td title="<%= execution.success_rate %>%" class="<%= execution_status %>"></td>
-                        <td><a class="<%= execution_status %>" href="<%= product_test_path(test, :execution_id => execution.id) %>"><%= execution.pretty_date %></a></td>
-                    <td><span class="<%= execution_status %>"><%= execution.passing_measures.size %><span class="q"> / <%= execution.product_test.measure_defs.size   %> measures passed</span></td>
+                   
                     <td></td>
                     <td></td>
-                    <td class="align-right"><%= link_to 'Delete', product_test_path(test, :execution_id => execution), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                    <td class="align-right"><%= link_to 'Delete', test_execution_path(execution), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               <% end %>
