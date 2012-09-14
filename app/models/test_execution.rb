@@ -39,11 +39,11 @@ class TestExecution
   end
 
   def count_errors
-    errors.where({:msg_type=>:error}).count
+    execution_errors.where({:msg_type=>:error}).count
   end
   
   def count_warnings
-     errors.where({:msg_type=>:warning}).count
+     execution_errors.where({:msg_type=>:warning}).count
   end
 
   # Get the expected result for a particular measure
@@ -51,4 +51,16 @@ class TestExecution
     (expected_results || {})[measure.id]
   end
   
+  
+  def passing?
+    state == :passed
+  end
+  
+  def failing
+    state == :failed
+  end
+  
+  def incomplete?
+    (!passing? && !failing)
+  end
 end

@@ -17,7 +17,7 @@ Cypress::Application.routes.draw do
    resources :measures do
      get 'definition'
    end
-
+  resources :test_executions
   resources :product_tests  do
     member do
       get 'download'

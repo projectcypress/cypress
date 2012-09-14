@@ -7,9 +7,9 @@ class MeasuresController < ApplicationController
 
   def by_type
 
-    @measures = Measure.top_level
-    #uncomment this when we have measures of different types
-    #    @measures = Measure.where(type: params[:type])
+    test = test_type
+    @measures = test.measures
+
     @measures_categories = @measures.group_by { |t| t.category }
 
     respond_to do |format|
@@ -107,6 +107,12 @@ class MeasuresController < ApplicationController
   
   
   private
+  
+  def test_type
+    raise TypeNotFound.new if params[:type].nil?
+    params[:type].camelize.constantize
+  end
+  
   
   def find_product
     if @test.nil?

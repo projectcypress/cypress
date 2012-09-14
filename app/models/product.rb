@@ -14,13 +14,15 @@ class Product
  
  
   def passing?
+    return false if self.product_tests.empty?
+    
     pass=true
     self.product_tests.each do |p|
-      pass = pass && p.execution_state != :failed
+      pass = pass && p.execution_state == :passed
     end
     pass
   end
-  
+
   # Get the tests owned by this product that are failing
   def failing_tests
     return self.product_tests.select do |test|
@@ -47,6 +49,16 @@ class Product
     return self.passing_tests.size
   end
   
+  # Count the number of associated ProductTests that are failing
+  def count_failing
+    return self.failing_tests.size
+  end
+
+  # Count the number of associated ProductTests that are incomplete
+  def count_incomplete
+    return self.incomplete_tests.size
+  end
+
   # The percentage of passing tests. Returns 0 if no products
   def success_rate
     return 0 if self.product_tests.empty?

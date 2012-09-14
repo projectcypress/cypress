@@ -5,12 +5,12 @@ class QRDAProductTest < ProductTest
   after_create :generate_population
   
   def generate_population
-    Record.delete_all({test_id: self.id})
-    measures.each do |m|
-      rec =  Record.first({test_id: nil, measure_id: measure.id, type: :qrda})
-      cloned = rec.clone
-      cloned.test_id = self.id
-      cloned.save
+    measures.each do |measure|
+      Record.where({test_id: nil, measure_id: measure["id"], type: :qrda}).each do |rec|
+        cloned = rec.clone
+        cloned.test_id = self.id
+        cloned.save
+      end
     end
     
   end
@@ -18,13 +18,22 @@ class QRDAProductTest < ProductTest
   
   
   def execute(params)
-    file = params[:qrda]
-    te = self.test_executions.build(expected_results: self.expected_results)
-    te.execution_errors = Cypress::QRDAUtil.validate_zip(file)
+    file = params[:results]
+    te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i)
+    te.execution_errors = Cypress::QRDAUtility.validate_zip(file)
+    
+    ids = Cypress::ArtifactManager.save_artifacts(file,te)
+    te.files = ids
     te.save
-    (te.executions_errors.count > 0) ? te.failed : te.pass
+
+    (te.count_errors > 0) ? te.failed : te.pass
     te
     
+  end
+  
+  
+  def self.measures
+    Measure.top_level
   end
   
 end

@@ -1,17 +1,4 @@
 GIT
-  remote: https://github.com/pophealth/quality-measure-engine.git
-  revision: 9f2db6494114130f2c19b4fc4f383f56a423bc15
-  branch: develop
-  specs:
-    quality-measure-engine (1.1.5)
-      mongo (~> 1.3)
-      nokogiri (>= 1.4.4)
-      redis (~> 2.2.2)
-      resque (~> 1.15.0)
-      resque-status (~> 0.2.3)
-      rubyzip (~> 0.9.4)
-
-GIT
   remote: https://github.com/projectcypress/health-data-standards.git
   revision: 77dee05266d49b673d3c99d7c8de804fdd1f6fd9
   branch: develop
@@ -22,6 +9,17 @@ GIT
       mongoid (~> 2.4.2)
       nokogiri (>= 1.4.4)
       uuid (~> 2.3.4)
+
+PATH
+  remote: ../shared/quality-measure-engine
+  specs:
+    quality-measure-engine (1.1.5)
+      mongo (~> 1.3)
+      nokogiri (>= 1.4.4)
+      redis (~> 2.2.2)
+      resque (~> 1.15.0)
+      resque-status (~> 0.2.3)
+      rubyzip (~> 0.9.4)
 
 GEM
   remote: http://rubygems.org/

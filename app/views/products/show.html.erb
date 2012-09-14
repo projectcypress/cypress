@@ -39,6 +39,7 @@
           <thead>
             <tr>
               <th colspan="3"><span class="<%= result_status %>"><%= title %></span> Tests</th>
+              <th>Type</th>
               <th>Description</th>
               <th>Executions</th>
               <th></th>
@@ -57,11 +58,20 @@
                 dot_color = result_status
               else
                 dot_color = 'incomplete'
-              end %>
+              end
+              if test['_type'] == 'CalculatedProductTest'
+                type = 'EP'
+              elsif test['_type'] == 'InpatientProductTest'
+                  type = 'EH'
+              else
+                type = 'QRDA Cat I'
+              end
+            %>
               <tr>
                 <td class="<%=dot_color%>-icon dot"></td>
                 <td class="<%= first_td_class %> tog" data-code="<%= test.id %>"></td>
                 <td class="name"><a class="<%= result_status %>" href="<%= product_test_path(test) %>"><%= test.name %></a></td>
+                <td class="type"><%= type %></td>
                 <td class="info"><%= test.description %></td>
                 <td><%= test.test_executions.size %></td>
                 <td></td>
@@ -69,7 +79,7 @@
               </tr>
 
               <% if !test.test_executions.empty?
-                test.ordered_executions.each do |execution|
+                test.test_executions.ordered_by_date.each do |execution|
                   if execution.passing?
                     execution_status = 'pass'
                   else
@@ -82,12 +92,10 @@
 
                   <tr class="sub_rows <%= test.id %>">
                     <td></td>
-                    <td title="<%= execution.success_rate %>%" class="<%= execution_status %>"></td>
-                        <td><a class="<%= execution_status %>" href="<%= product_test_path(test, :execution_id => execution.id) %>"><%= execution.pretty_date %></a></td>
-                    <td><span class="<%= execution_status %>"><%= execution.passing_measures.size %><span class="q"> / <%= execution.product_test.measure_defs.size   %> measures passed</span></td>
+                   
                     <td></td>
                     <td></td>
-                    <td class="align-right"><%= link_to 'Delete', product_test_path(test, :execution_id => execution), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                    <td class="align-right"><%= link_to 'Delete', test_execution_path(execution), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               <% end %>

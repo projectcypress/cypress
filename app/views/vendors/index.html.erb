@@ -21,162 +21,46 @@
 
     <section id="vendor_list">
       <table class="table">
-      <thead>
-        <tr>
-          <th><!-- expander toggle column --></th>
-          <th>EHR Vendor Name</th>
-          <th>Products Tested</th>
-          <th>Passing</th>
-          <th>Not Passing</th>
-          <th>Date of Last Test</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td></td><!-- no products defined for this vendor so no expander -->
-          <td class="vendorname">Minervahealth</td>
-          <td><span class="na">--</span></td>
-          <td><span class="na">--</span></td>
-          <td><span class="na">--</span></td>
-          <td><span class="na">--</span></td>
-          <td class="pull-right"><a href="#" class="cmd del" data-confirm="Are you sure?" data-method="delete" rel="nofollow">delete</a></td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td class="expander toggle tog open"></td>
-          <td class="vendorname">HF Centricity</td>
-          <td>1 / 1 products</td>
-          <td><span class="pass product">1 product</span></td>
-          <td><span class="product">0 products</span></td>
-          <td></td>
-          <td class="pull-right"><a href="#" class="cmd del" data-confirm="Are you sure?" data-method="delete" rel="nofollow">delete</a></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><span class="pass-icon">HF EHR Product</span></td>
-          <td><span class="version">10.7.4</span></td>
-          <td><span class="pass test-score">3 / 3 tests</span></td>
-          <td><span class="test-score">0 / 3 tests</span></td>
-          <td>Aug 12, 2012 4:50pm</td>
-          <td></td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td class="expander toggle tog open"></td>
-          <td class="vendorname">A4 Health Systems</td>
-          <td>4 / 5 products</td>
-          <td><span class="pass product">2 products</span></td>
-          <td><span class="fail product">2 products</span></td>
-          <td></td>
-          <td class="pull-right"><a href="#" class="cmd del" data-confirm="Are you sure?" data-method="delete" rel="nofollow">delete</a></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><span class="pass-icon">A4 Product Alpha</span></td>
-          <td><span class="version">v1.1.9</span></td>
-          <td><span class="pass test-score">1 / 1 tests</span></td>
-          <td><span class="test-score">0 / 1 tests</span></td>
-          <td>Jul 26, 2012 1:14pm</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><span class="fail fail-icon">A4 Product Delta</span></td>
-          <td><span class="version">v1.1.2</span></td>
-          <td><span class="test-score">13 / 15 tests</span></td>
-          <td><span class="fail test-score">2 / 15 tests</span></td>
-          <td><span class="">Aug 4, 2012 8:41am</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><span class="incomplete-icon">A4 Product Epsilon</span></td>
-          <td><span class="version">v1.1.3</span></td>
-          <td><span class="na test-score">--</span></td>
-          <td><span class="na test-score">--</span></td>
-          <td><span class="na">--</span></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><span class="fail fail-icon">A4 Product Beta</span></td>
-          <td><span class="version">v1.1.5</span></td>
-          <td><span class="test-score">0 / 2 tests</span></td>
-          <td><span class="fail test-score">2 / 2 tests</span></td>
-          <td><span class="fail">Aug 26, 2012 11:39am</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><span class="pass-icon">A4 Product Gamma</span></td>
-          <td><span class="version">v1.1.3</span></td>
-          <td><span class="pass test-score">2 / 2 tests</span></td>
-          <td><span class="test-score">0 / 2 tests</span></td>
-          <td>Jul 22, 2012 3:39pm</td>
-          <td></td>
-        </tr>
-      </tbody>
-      </table>
-      <table class="table">
-        <% vendors_by_status(@vendors).each do |result_status, result_vendors|
-          next if result_vendors.empty? %>
-          <thead>
-            <tr>
-              <th class="align-left" colspan="3">
-                <span class="<%= result_status %>"><strong><%= result_status %>ing</strong></span> EHR Vendors
-              </th>
-              <th colspan="1">Products</th>
-              <th>POC</th>
-              <th colspan="2">Proctor</th>
-            </tr>
-          </thead>
-          <% result_vendors.each do |vendor| %>
-            <% success_rate = vendor.success_rate
-            dot_color = result_status
-            dot_color = "incomplete" if vendor.products.empty?
-            if !vendor.products.empty?
-              first_td_class = 'expander toggle'
-              dot_color = result_status
-            else
-              dot_color = 'incomplete'
-            end %>
+        <thead>
+          <tr>
+            <th><!-- expander toggle column --></th>
+            <th>EHR Vendor Name</th>
+            <th>Products Tested</th>
+            <th>Passing</th>
+            <th>Not Passing</th>
+            <th>Date of Last Test</th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @vendors.each do |vendor| %>
+
             <tbody>
               <tr>
-                <td class="<%= dot_color %>-icon dot"></td>
-                <td class="<%= first_td_class %> tog" data-code="<%= vendor.id %>"></td>
-                <td class="name">
-                  <a class="<%= result_status %>" href="<%= vendor_path(vendor.id) %>"><%= vendor.name %></a>
-                </td>
-                <td class="info"><strong class="<%= dot_color %>"><%= vendor.count_passing %></strong> <span class="result">/ <%= vendor.products.size %></span></td>
-                <td><%= vendor.poc %></td>
-                <td></td>
-                <td class="align-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' %></td>
+                <td class="<%= vendor.products.empty? ?  '' : 'expander toggle tog'%>" data-code="<%= vendor.id %>"></td>
+                <td class="vendorname"><%= link_to vendor.name, vendor_path(vendor.id) %></td>
+                <td><%= display_tested_products(vendor) %></td>
+                <td><span class="pass product"><%= display_passing_products(vendor) %></span></td>
+                <td><span class="fail product"><%= display_failing_products(vendor) %></span></td>
+                <td><!-- last executed intentionally blank --></td>
+                <td class="pull-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' %></td>
               </tr>
-              <% if !vendor.products.empty?
+              <% 
                 vendor.products.each do |product|
-                  if product.passing?
-                    product_status = 'pass'
-                  else
-                    product_status = 'fail'
-                  end %>
-                  
+                %>
+
                   <tr class="sub_rows <%= vendor.id %>">
-                    <td title="<%= product.success_rate %>%" class="<%= product_status %>"></td>
-                    <td class="<%= product_status %>-icon"></td>
-                    <td><a class="<%= product_status %>" href="<%= product_path(product) %>"><%= product.name %></a></td>
-                    <td><strong class="<%= product_status %>"><%= product.count_passing %></strong><span class="result"> / <%= product.product_tests.size %> tests passed</span></td>
-                    <td></td>
-                    <td></td>
-                    <td class="align-right"><%= link_to 'delete', product_path(product), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                    <td><!-- expando intentionally blank --></td>
+                    <td><span class="-icon"><%= link_to product.name, product_path(product) %></span></td>
+                    <td><span class="version"><%= product.version %> </span></td>
+                    <td><span class="pass  test-score"><%= display_passing_tests(product) %></span></td>
+                    <td><span class=" fail test-score"><%= display_failing_tests(product) %></span></td>
+                    <td><%= display_last_execution(product) %></td>
+                    <td><!-- delete intentionally blank --></td>
                   </tr>
                 <% end %>
               <% end %>
             </tbody>
-          <% end %>
-        <% end %>
+
       </table>
     </section>
 
