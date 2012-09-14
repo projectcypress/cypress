@@ -1,4 +1,5 @@
 <% content_for :head do -%>
+
   <script>
 	$(document).ready(function() {
 	      $('#upload_results').dialog({
@@ -30,6 +31,7 @@
 	      });
 	});
 	</script>
+
 <% end %>
 
 <div id="container">
@@ -38,10 +40,10 @@
   <div class ="buffered">
     <section class="tb">
       <div class="stacked">
-       
+
         <%= link_to "Edit Test", edit_product_test_path(@test), { :class => "cmd" } %>
-        
-        
+
+
       </div>
 
       <nav class="breadcrumb">
@@ -53,19 +55,22 @@
 
     <section class="candidate bordered buffered">  
       <dl class="vendor dl-horizontal">
-        <dt>Test:</dt> <dd><%= @test.name %></dd>
-        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
-        <dt>Product Version:</dt> <dd><%= @test.product.version %></dd>
+        <dt>Test Name:</dt> <dd><%= @test.name %></dd>
+        <dt>Test Type:</dt> <dd><%= "Unknown" %></dd>
+        <dt>Product:</dt> <dd><%= @test.product.name %></dd>
+        <dt>Version:</dt> <dd><%= @test.product.version %></dd>
       </dl>
-      <br>
+
+      <dl class="dl-horizontal">
+        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
+        <dt>Description:</dt> <dd><%= @test.description %></dd>
+        <!--<dt>Modules:</dt>-->
+      </dl>
+
       <dl class="dl-horizontal">
         <dt>Proctor:</dt> <dd><%= @test.user.first_name %> <%= @test.user.last_name %></dd>
         <dt>Email:</dt> <dd><%= @test.user.email %></dd>
         <dt>Telephone:</dt> <dd><%= @test.user.telephone %></dd>
-      </dl>
-      <dl class="dl-horizontal">
-        <dt>Description:</dt> <dd><%= @test.description %></dd>
-          <dt>Modules:</dt>
       </dl>
     </section> 
 
@@ -73,8 +78,9 @@
       <section class="free_text dentered">
         <div class="stacked">
           <p>
-            Below are the expected results for your patient population.  You must perform the following steps to complete your test:
+            You must perform the following steps to execute your test:
           </p>
+
           <ol >
             <li>Download Test Data
 	             <%= link_to 'Test Data', '', {
@@ -132,10 +138,11 @@
 	
 	</li>
           </ol>
+
         </div>
       </section>
     <% end %>
-    
+
     <section class="records">
       <label>Notes:</label>
       <% note = Note.new %>
@@ -154,43 +161,43 @@
       <% end %>
     </section>
 
-   <section>
-	<div>
-		
-	</div>
-   </section>
+    <section>
+      <div>
 
-    <section class"executions">
-	<table class="table">
-		 <thead>
-            <tr>
-              <th class="align-left" colspan="3">
-                <span class=""><strong>Test Executions</strong></span> 
-              </th>
-              <th colspan="1">Description</th>
-              <th>Notes</th>
-              <th colspan="2">Results</th>
-            </tr>
-          </thead>
-	</table>
-	</section>
-	
-    <section class"execution">
-	    <table class="table">
-			 <thead>
-	            <tr>
-	              <th class="align-left" colspan="100%">
-	                <span class=""><strong>Test Results</strong></span> 
-	              </th>
-	            </tr>
-	          </thead>
-		</table>
-		
-		
-		<div id="execution_results">
-			
-	    </div>
-	</section>
+      </div>
+    </section>
+
+    <section class="executions">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="align-left" colspan="3">
+              <span class=""><strong>Test Executions</strong></span>
+            </th>
+            <th colspan="1">Description</th>
+            <th>Notes</th>
+            <th colspan="2">Results</th>
+          </tr>
+        </thead>
+      </table>
+    </section>
+
+    <section class="execution">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="align-left" colspan="100%">
+              <span class=""><strong>Test Results</strong></span>
+            </th>
+          </tr>
+        </thead>
+      </table>
+
+
+      <div id="execution_results">
+
+      </div>
+    </section>
 
 
 
