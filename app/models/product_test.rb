@@ -42,7 +42,9 @@ class ProductTest
     super 
   end
   
-  
+  def last_execution_date
+
+  end
 
   # Returns true if this ProductTests most recent TestExecution is passing
   def execution_state
@@ -51,7 +53,6 @@ class ProductTest
     self.test_executions.ordered_by_date.to_a.last.state
   end
   
-
   def passing?
     execution_state == :passed
   end
@@ -75,7 +76,7 @@ class ProductTest
     record_ids = records.map { _id }
     MONGO_DB.collection('patient_cache').remove({'value.patient_id' => {"$in" => record_ids}})
     records.destroy
-    self.delete
+    self.destroy
   end
   
   # Get the expected result for a particular measure
