@@ -8,7 +8,8 @@ class MeasuresController < ApplicationController
   def by_type
 
     measure_type = nil
-    measure_type = 'EP' if params[:type] == 'CalculatedProductTest'
+#    measure_type = 'EP' if params[:type] == 'CalculatedProductTest'
+    measure_type = nil if params[:type] == 'CalculatedProductTest'
     measure_type = 'EH' if params[:type] == 'InpatientProductTest' || params[:type] == 'QRDAProductTest'
 
     @measures = Measure.installed.select do |measure|
