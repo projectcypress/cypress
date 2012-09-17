@@ -22,4 +22,11 @@ module ApplicationHelper
   def javascript(*files)
     content_for(:head) { javascript_include_tag(*files) }
   end
+  
+  def test_execution_template(te)
+    type =  te.product_test.class.to_s.underscore
+    "test_executions/#{type}/show"
+  end
+  
+  
 end

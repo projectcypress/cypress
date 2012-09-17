@@ -76,7 +76,7 @@ class CalculatedProductTest < ProductTest
   
   
   
-  def self.measures
+  def self.product_type_measures
     Measure.top_level
   end
   

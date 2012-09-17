@@ -183,7 +183,7 @@
 
          <tr>
            <td class="align-left" colspan="3">
-             <span class=""><strong><%= te.execution_date %></strong></span>
+             <span class=""><strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true %></strong></span>
            </td>
            <td colspan="1"> </td>
            <td>execution notes</td>
@@ -207,7 +207,9 @@
 
 
       <div id="execution_results">
-
+		<% if @test_execution %>
+			<%= render :partial=>test_execution_template(@te) , :locals=>{:test_execution=>@test_execution}%>
+		<% end %>
       </div>
     </section>
 

@@ -43,7 +43,7 @@ class Measure
   end
 
   def display_name
-    "#{self['id']} - #{name}"
+    "#{self['nqf_id']} - #{name}"
   end
   
   def measure_id

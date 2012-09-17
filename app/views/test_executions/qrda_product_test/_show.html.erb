@@ -1,0 +1,66 @@
+<ol id="error_report_toc">
+    <li class="current"><a href="#test_summary">Summary</a></li>
+    <li><a href="#xml_validation">XML Validation</a></li>
+    <li><a href="#content_inspection">Content Inspection</a></li>
+    <li><a href="#umls_validation">UMLS Validation</a></li>
+</ol>
+
+<div id="test_summary" class="test_results">
+      <div class="column span-11 first">
+        <div id="test_summary_meta">
+          <p><strong>Test Date:</strong> <%= test_execution.created_at %></p>
+          <h3>Inspection ID: <%= test_execution.product_test.product.vendor.name %></h3>
+          <h3>Document Type: </h3>
+        </div><!--END TEST SUMMARY META--> 
+        <div id="test_summary_breakdown">
+          <div class="inspection_result_header <%# test_plan_results_class(@test_plan) %>">
+            <h3>Test Result Summary: <span>test plan results heading </span></h3>
+          </div>
+          <div id="xml_validation_summary" class="inspection-summary widget">
+            <div class="error-count column">
+              <span class="number"><%= test_execution.count_errors %></span> <a href="#xml_validation">XML Validation Errors</a>
+            </div>
+             error partial
+            <% #render :partial => 'errors_breakout', :locals => { :errors => @test_plan.xml_validation_errors, :inspection => :xml_validation } %> 
+          </div>
+          
+  
+          <div>
+            <small><strong>Validation Notes:</strong><br />
+            Content discrepancies between patient record assigned to test and C32 under validation will be flagged as warnings. Patient summary content will be validated by visual inspection of the xml and using a stylesheet. UMLS validation errors will be visually inspected and verified. Neither content inspection warnings nor UMLS validation errors automatically determine PASS/FAIL status.
+            </small>
+          </div>
+        </div><!-- End test summary breakdown-->
+      </div>
+      <div class="column span-8 prepend-2 last">
+        <div style="float: right;">
+			print preview partial
+          <% #render :partial => 'print_preview' %>
+        </div>
+		state partial
+        <% #render :partial => 'assign_test_state_manually' %>
+        <table id="details">
+       
+          <tr>
+            <td class="lighttext">UMLS Coded Value Testing</td>
+            <td>Disabled</td>
+        </table>
+      </div>
+</div>
+
+<div id="xml_validation" class="test_results">
+  <div id="xml_validation_inner" class="section-errors-inner-wrap">
+    <% #render :partial => "content_inspection_results", :locals => { :inspection => :xml_validation, :errors => @test_plan.xml_validation_errors } %>
+  </div>
+</div>
+
+<div class="column span-21 first" id="xml_frame">
+  <h3>Vendor Generated XML</h3>
+  <% #render :partial => "node" , :locals => {:doc => @xml_document} %>
+</div>
+
+<%- if @print_preview %>
+<div class="column span-21 first" id="print-preview-error-list">
+  <% #render :partial => "simple_error_list", :locals => { :errors => @test_plan.content_errors } %>
+</div>
+<%- end -%>
