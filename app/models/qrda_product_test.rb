@@ -6,7 +6,7 @@ class QRDAProductTest < ProductTest
   
   def generate_population
     measures.each do |measure|
-      Record.where({test_id: nil, measure_id: measure["id"], type: :qrda}).each do |rec|
+      Record.where({test_id: nil, measure_id: measure.id, type: :qrda}).each do |rec|
         cloned = rec.clone
         cloned.test_id = self.id
         cloned.save
