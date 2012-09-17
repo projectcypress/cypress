@@ -70,7 +70,7 @@ class ProductTest
     Record.where(:test_id => self.id)
   end
 
-  def destroy
+  def delete
     # Gather all records and their IDs so we can delete them along with every associated entry in the patient cache
     records = Record.where(:test_id => self.id)
     record_ids = records.map { _id }
