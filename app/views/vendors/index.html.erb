@@ -39,8 +39,8 @@
                 <td class="<%= vendor.products.empty? ?  '' : 'expander toggle tog'%>" data-code="<%= vendor.id %>"></td>
                 <td class="vendorname"><%= link_to vendor.name, vendor_path(vendor.id) %></td>
                 <td><%= display_tested_products(vendor) %></td>
-                <td><span class="pass product"><%= display_passing_products(vendor) %></span></td>
-                <td><span class="fail product"><%= display_failing_products(vendor) %></span></td>
+                <td><span class="<% if vendor.count_passing > 0 %> pass <% end %> product"><%= display_passing_products(vendor) %></span></td>
+                <td><span class="<% if vendor.count_tested - vendor.count_passing > 0 %> fail <% end %> product"><%= display_failing_products(vendor) %></span></td>
                 <td><!-- last executed intentionally blank --></td>
                 <td class="pull-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' %></td>
               </tr>
@@ -52,8 +52,8 @@
                     <td><!-- expando intentionally blank --></td>
                     <td><span class="-icon"><%= link_to product.name, product_path(product) %></span></td>
                     <td><span class="version"><%= product.version %> </span></td>
-                    <td><span class="pass  test-score"><%= display_passing_tests(product) %></span></td>
-                    <td><span class=" fail test-score"><%= display_failing_tests(product) %></span></td>
+                    <td><span class="<% if product.count_passing > 0 %> pass <% end %> test-score"><%= display_passing_tests(product) %></span></td>
+                    <td><span class="<% if product.count_failing > 0 %> fail <% end %> test-score"><%= display_failing_tests(product) %></span></td>
                     <td><%= display_last_execution(product) %></td>
                     <td><!-- delete intentionally blank --></td>
                   </tr>
