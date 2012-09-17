@@ -80,20 +80,12 @@
 
               <% if !test.test_executions.empty?
                 test.test_executions.ordered_by_date.each do |execution|
-                  if execution.passing?
-                    execution_status = 'pass'
-                  else
-                    if execution.incomplete?
-                      execution_status='incomplete'
-                    else
-                      execution_status = 'fail'
-                    end
-                  end %>
+                 %>
 
                   <tr class="sub_rows <%= test.id %>">
                     <td></td>
                    
-                    <td></td>
+                    <td class="<%= execution.state %>"><%= execution.execution_date%> </td>
                     <td></td>
                     <td class="align-right"><%= link_to 'Delete', test_execution_path(execution), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
                   </tr>

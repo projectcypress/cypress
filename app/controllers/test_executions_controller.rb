@@ -2,16 +2,19 @@ class TestExecutionsController < ApplicationController
   
   def new
     @te = TestExecution.new
-    render template: "test_execution/#{template_name(te)}/new.html"
+    render template: "test_executions/#{template_name(te)}/new.html"
   end
   
   def show
-    @te = TestExecution.find(params[:id])
-    render template: "test_execution/#{template_name(te)}/show.html"
+    @test_execution = TestExecution.find(params[:id])
+    # respond_to do | format |  
+    #            format.js {render :layout => false,template: "test_executions/#{template_name(@te)}/show"}  
+    #            format.html {render template: "test_executions/#{template_name(@te)}/show"}
+    #        end
+    
   end
   
   def create
-  
     @product_test = ProductTest.find(params[:product_test_id])
     @te=@product_test.execute(params[:test_execution])
     redirect_to action: :show, id: @te

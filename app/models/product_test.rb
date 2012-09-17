@@ -60,9 +60,7 @@ class ProductTest
   # Return all measures that are selected for this particular ProductTest
   def measures
     return [] if !measure_ids
-    self.measure_ids.collect do |measure_id|
-      Measure.where(id: measure_id).order_by([[:sub_id, :asc]]).all()
-    end.flatten
+    Measure.order_by([[:nqf_id, :asc],[:sub_id, :asc]]).find(measure_ids)
   end
   
 

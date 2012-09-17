@@ -8,6 +8,8 @@ class TestExecution
 
   field :execution_date, type: Integer
   field :expected_results, type: Hash
+  field :reported_results, type: Hash
+  
   field :status, type: Symbol
   field :state, type: Symbol
   field :files, type: Array
@@ -48,9 +50,13 @@ class TestExecution
 
   # Get the expected result for a particular measure
   def expected_result(measure)
-    (expected_results || {})[measure.id]
+    (expected_results || {})[measure.id] || {}
   end
   
+  # Get the expected result for a particular measure
+  def reported_result(measure)
+    (reported_results || {})[measure.id] || {}
+  end
   
   def passing?
     state == :passed
