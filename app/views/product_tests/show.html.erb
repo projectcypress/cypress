@@ -208,7 +208,7 @@
 
       <div id="execution_results">
 		<% if @test_execution %>
-			<%= render :partial=>test_execution_template(@te) , :locals=>{:test_execution=>@test_execution}%>
+			<%= render :partial=>test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution}%>
 		<% end %>
       </div>
     </section>

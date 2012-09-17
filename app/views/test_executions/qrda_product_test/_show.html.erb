@@ -20,8 +20,8 @@
             <div class="error-count column">
               <span class="number"><%= test_execution.count_errors %></span> <a href="#xml_validation">XML Validation Errors</a>
             </div>
-             error partial
-            <% #render :partial => 'errors_breakout', :locals => { :errors => @test_plan.xml_validation_errors, :inspection => :xml_validation } %> 
+            
+            <% #render :partial => 'test_executions/qrda_product_test/errors', :locals => { :errors => test_execution.execution_errors, :inspection => :xml_validation } %> 
           </div>
           
   
