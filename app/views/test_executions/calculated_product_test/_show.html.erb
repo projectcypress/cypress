@@ -1,0 +1,56 @@
+<section class="pqriValidation">
+     <% if !test_execution.execution_errors.try(:empty?)  %>
+       <h2 class="fail">PQRI Validation Errors</h2>
+       <h3>Cypress uses Northwestern Medical's XSD interpretation of
+         <a href="/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
+         This is NOT a CMS published XSD.
+       </h3>
+
+       <table class="table">
+         
+         <%= render partial: "test_executions/calculated_product_test/pqri_errors", locals: {pqri_errors:test_execution.execution_errors,title:"View PQRI Errors", data_code:"pqri_results" }%>
+         
+     </table>
+      <% end %>
+   </section>
+
+   <section id="quality_measures">
+     <table class="table">
+      
+
+         <thead class="">
+           <tr>
+             <th colspan="2"><span class="<%= "result_status" %>"><%= "title" %></span> Measures</th>
+             <th>Denominator</th>
+             <th>Numerator</th>
+             <th>Exclusions</th>
+           </tr>
+         </thead>
+         <tbody class="<%= "result_status" %>">
+		
+           <% test_execution.product_test.measures.each do | measure| 
+			 
+             expected_result = test_execution.expected_result(measure)
+             reported_result = test_execution.reported_result(measure)
+             result_status = 'incomplete' if reported_result['numerator'].class == String %>
+		
+             <tr id='<%= "#{measure.id}" %>'>
+               <td class="<%= result_status %>-icon"><div title="<%= "result_status" %>" class="<%= "result_status" %>-icon"></div></td>
+               <td title="">
+                 <a href="">
+                   <%= "#{measure.key} " %>
+                   <%= measure.name %>
+                   <%= " - #{measure.subtitle}" if measure.sub_id %>
+                 </a>
+               </td>
+               <% ['denominator', 'numerator', 'exclusions'].each do |bucket|
+                 reported_class = result_class(reported_result[bucket], expected_result[bucket])
+                 expected_class = bucket.slice(0,3) %>
+                 <td><span class="<%= reported_class %>"><%= reported_result[bucket]%></span> / <span class="q <%= expected_class %>"><%= expected_result[bucket] %></span></td>
+               <% end %>
+             </tr>
+           <% end %>
+         </tbody>
+
+     </table>
+   </section>

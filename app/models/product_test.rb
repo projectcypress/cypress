@@ -42,7 +42,9 @@ class ProductTest
     super 
   end
   
-  
+  def last_execution_date
+
+  end
 
   # Returns true if this ProductTests most recent TestExecution is passing
   def execution_state
@@ -51,17 +53,14 @@ class ProductTest
     self.test_executions.ordered_by_date.to_a.last.state
   end
   
-
   def passing?
-    execution_state == :pass
+    execution_state == :passed
   end
   
   # Return all measures that are selected for this particular ProductTest
   def measures
     return [] if !measure_ids
-    self.measure_ids.collect do |measure_id|
-      Measure.where(id: measure_id).order_by([[:sub_id, :asc]]).all()
-    end.flatten
+    Measure.order_by([[:nqf_id, :asc],[:sub_id, :asc]]).find(measure_ids)
   end
   
 
@@ -69,13 +68,13 @@ class ProductTest
     Record.where(:test_id => self.id)
   end
 
-  def destroy
+  def delete
     # Gather all records and their IDs so we can delete them along with every associated entry in the patient cache
     records = Record.where(:test_id => self.id)
     record_ids = records.map { _id }
     MONGO_DB.collection('patient_cache').remove({'value.patient_id' => {"$in" => record_ids}})
     records.destroy
-    self.delete
+    self.destroy
   end
   
   # Get the expected result for a particular measure
