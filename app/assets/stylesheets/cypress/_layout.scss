@@ -9,8 +9,9 @@ body {
 }
 
 #container {
-  width: 1000px;
-  margin: 20px auto 20px auto;
+  // width: 1000px;
+  margin-top:20px;
+  margin-bottom:20px; 
   border: 1px solid $borderColor;
   background-color: $containerBkgColor;
   -moz-border-radius: 10px;
@@ -25,14 +26,12 @@ body {
 .buffered { padding: 10px 20px 20px 20px; }
 .bordered { @include bordered($borderColor); }
 
-#information { }
-
 #patientpicture {
   width:120px;
   height:130px;
 }
 
-.patientname{
+.patientname {
   strong {
     font-weight:bold;
     text-transform:uppercase;
@@ -40,63 +39,64 @@ body {
 }
 
 div.tabs { 
-width:90px;
-text-align:right;
-margin: 20px 20px 0 0 ;
-display:inline-block;
+  width:90px;
+  text-align:right;
+  margin: 20px 20px 0 0 ;
+  display:inline-block;
+  color:red;
 }
 
 .tabs {
-ul{
-margin:0;
-border-right: 1px solid #ddd;
-list-style: none;
-padding-top: 10px;
-}
-a { 
-padding:5px;
-display:block;
-list-style:none;
-@include bordered($borderColor);
- @include leftRounded(8px);
- margin-bottom:2px;
-border-right:none;
-color: #555;
-line-height:1.5;
-}
-a.selected {
-background-color: green;
-font-weight: bold;
-color: white;
-border-color: green;
-}
-a:hover{
-background-color: #CCC;
-}
-a.selected:hover{
-background-color: green;
+  ul {
+    margin:0;
+    border-right: 1px solid #ddd;
+    list-style: none;
+    padding-top: 10px;
+  }
+  a { 
+    padding:5px;
+    display:block;
+    list-style:none;
+    @include bordered($borderColor);
+    @include leftRounded(8px);
+     margin-bottom:2px;
+    border-right:none;
+    color: #555;
+    line-height:1.5;
+  }
+  a.selected {
+    background-color: green;
+    font-weight: bold;
+    color: white;
+    border-color: green;
+  }
+  a:hover{
+    background-color: #CCC;
+  }
+  a.selected:hover{
+    background-color: green;
+  }
+  
+
 }
 
-
-}
-
-ul#download_options {
+#download_options {
  display:none;
 }
-div#eligibilityMeasures { 
-border-top-width: 1px;
-border-top-color: #E9E9E9;
+#eligibilityMeasures { 
+  border-top-width: 1px;
+  border-top-color: #E9E9E9;
 }
 .header_commands label {display: inline-block; }
 .measure_group {margin-left:.2em;}
-.measure_group label {text-indent:1em; display: inline-block;}
-.measure_group span { display: block; }
+.measure_group label {text-indent:1.5em; display: inline-block;}
+.measure_group span { display: inline-block;}
 /* vertical tabs */
 .ui-tabs-vertical { width: 55em; }
 .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
 .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
 .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
 .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
-.ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 37em;}
+.ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 52em;}
 .ui-tabs-vertical .ui-tabs-panel label { display: inline-block; }
 .ui-tabs-vertical .ui-tabs-panel input[type=text] { width: 45px; display: inline-block; }

@@ -39,14 +39,15 @@ class CalculatedProductTest < ProductTest
 
 
   def execute(params)
-    pqri_file = params[:pqri]
+
+    pqri_file = params[:results]
     data = pqri_file.open.read
     reported_results = Cypress::PqriUtility.extract_results(data,nil)  
     pqri_errors = Cypress::PqriUtility.validate(data)  
     
     validation_errors = []
     pqri_errors.each do |e|
-      validation_errors << ExecutionError.new(msg: e, msg_type: :warning)
+      validation_errors << ExecutionError.new(message: e, msg_type: :warning)
     end
 
     expected_results.each_pair do |key,expected_result|
@@ -58,7 +59,7 @@ class CalculatedProductTest < ProductTest
         end
       end
       if errs
-        validation_errors << ExecutionError.new(msg: errs.join(",  "), msg_type: :error, measure_id: key )
+        validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: key )
       end
     end    
 
@@ -71,6 +72,12 @@ class CalculatedProductTest < ProductTest
     
     (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
     te
+  end
+  
+  
+  
+  def self.product_type_measures
+    Measure.top_level
   end
   
   

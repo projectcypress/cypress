@@ -3,15 +3,16 @@ module Validators
     NAMESPACE = {"svrl" => "http://purl.oclc.org/dsdl/svrl"}
     # base validator class, handles the acutal validation process as it's common between the compiled (XSLT pre computed) 
     # and the uncompiled (Do a transform of the schematron rules resulting in a stylesheet and use that stylesheet to do the validation)
-    class BaseValidator < Validation::BaseValidator
+    class BaseValidator 
 
       # validate the document, This performs the XSLT transform on the document and then looks for any errors in the 
       # resulting doc, errors show up as failed-assert elements in the result.
-      def validate(patient_data,document)
+      def validate(document,data = {})
+ 
            errors = []
            style = get_schematron_processor
            # process the document
-           report = style.transform(document)
+           report = style.transform(document,{"phase" => (data[:phase] || :all).to_s})
            # create an REXML::Document form the results
            # report = Nokogiri::XML(result)
            # loop over failed assertions 
@@ -22,7 +23,8 @@ module Validators
                :location => el["location"],
                :message => el.xpath('svrl:text',NAMESPACE).text,
                :validator => name,
-               :inspection_type => ::XML_VALIDATION_INSPECTION
+               :msg_type=>(data[:msg_type] || :error),
+               :file_name => data[:file_name]
              )
 
            end
@@ -84,6 +86,7 @@ module Validators
 
       # return the cached xsl processor or create a new one and cache it in the instance variable
       def get_schematron_processor
+        
         return @schematron_processor if @schematron_processor
         @schematron_processor =  Nokogiri::XSLT(File.open(@stylesheet))      
       end

@@ -1,6 +1,6 @@
 module Validators
   module Schema
-    class Validator < Validation::BaseValidator
+    class Validator 
       
       attr_accessor :validator_name
       
@@ -11,15 +11,17 @@ module Validators
       end
       
       # Validate the document against the configured schema
-      def validate(document)
+      def validate(document,data={})
           errors = []
-          @xsd.validate(document).each do |error|
+          doc = (document.kind_of? Nokogiri::XML::Document)? document : Nokogiri::XML(document.to_s)
+          @xsd.validate(doc).each do |error|
              errors << Cypress::ValidationError.new(
                 :message => error.message,
                 :validator => @validator_name,
-                :inspection_type=>::XML_VALIDATION_INSPECTION
+                :msg_type=>(data[:msg_type] || :error),
+                :file_name => data[:file_name]
               )
-            puts error.message
+            
           end
        errors
       end

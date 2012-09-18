@@ -23,5 +23,16 @@ module VendorsHelper
   end  
   
 
+  def display_passing_products(vendor)
+    "#{vendor.count_passing} products"
+  end
+
+  def display_failing_products(vendor)
+    "#{vendor.count_failing} products"
+  end
+
+  def display_tested_products(vendor)
+    "#{vendor.count_tested.to_s} / #{vendor.products.size.to_s } products"
+  end
   
 end

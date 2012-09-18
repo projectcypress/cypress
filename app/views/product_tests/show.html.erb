@@ -1,5 +1,37 @@
 <% content_for :head do -%>
-  
+
+  <script>
+	$(document).ready(function() {
+	      $('#upload_results').dialog({
+	        title: 'Upload Results',
+	        autoOpen: false,
+	        closeOnEscape: true,
+	        draggable: true,
+	        position: 'center',
+	        width: 'auto',
+	        height: 'auto',
+	        modal: true,
+	        show: 'fade',
+	        hide: 'fade',
+	        resizable: false,
+	        buttons: {
+	          Upload: function() {
+	            $('#new_test_execution').submit();
+	            $(this).dialog('close');
+	          },
+	          Cancel: function() {
+	            $(this).dialog('close');
+	          }
+	        }
+	      });
+
+	      $('#results_menu').click(function(event) {
+	        $('#upload_results').dialog('open');
+	        event.preventDefault();
+	      });
+	});
+	</script>
+
 <% end %>
 
 <div id="container">
@@ -8,10 +40,10 @@
   <div class ="buffered">
     <section class="tb">
       <div class="stacked">
-       
+
         <%= link_to "Edit Test", edit_product_test_path(@test), { :class => "cmd" } %>
-        
-        
+
+
       </div>
 
       <nav class="breadcrumb">
@@ -23,19 +55,22 @@
 
     <section class="candidate bordered buffered">  
       <dl class="vendor dl-horizontal">
-        <dt>Test:</dt> <dd><%= @test.name %></dd>
-        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
-        <dt>Product Version:</dt> <dd><%= @test.product.version %></dd>
+        <dt>Test Name:</dt> <dd><%= @test.name %></dd>
+        <dt>Test Type:</dt> <dd><%= "Unknown" %></dd>
+        <dt>Product:</dt> <dd><%= @test.product.name %></dd>
+        <dt>Version:</dt> <dd><%= @test.product.version %></dd>
       </dl>
-      <br>
+
+      <dl class="dl-horizontal">
+        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
+        <dt>Description:</dt> <dd><%= @test.description %></dd>
+        <!--<dt>Modules:</dt>-->
+      </dl>
+
       <dl class="dl-horizontal">
         <dt>Proctor:</dt> <dd><%= @test.user.first_name %> <%= @test.user.last_name %></dd>
         <dt>Email:</dt> <dd><%= @test.user.email %></dd>
         <dt>Telephone:</dt> <dd><%= @test.user.telephone %></dd>
-      </dl>
-      <dl class="dl-horizontal">
-        <dt>Description:</dt> <dd><%= @test.description %></dd>
-          <dt>Modules:</dt>
       </dl>
     </section> 
 
@@ -43,10 +78,11 @@
       <section class="free_text dentered">
         <div class="stacked">
           <p>
-            Below are the expected results for your patient population.  You must perform the following steps to complete your test:
+            You must perform the following steps to execute your test:
           </p>
+
           <ol >
-            <li>Download these records in C32, CCR, CSV, or HTML format from the "Test Data" menu above.
+            <li>Download Test Data
 	             <%= link_to 'Test Data', '', {
 		          :id => 'share_menu',
 		          :class => "cmd",
@@ -85,30 +121,28 @@
 			          <% end %>
 			        </ul>
 			</li>
-            <li>Input them into the quality measure calculator you wish to test.</li>
+            <li>Load Test Data into your quality measure calculator</li>
 
-            <li>Return your results to Cypress for scoring using the "Upload Results" link above. 
+            <li>Upload Results
 				 <%= link_to "Results", '', {
 			          :id => 'results_menu',
-			          :class => "cmd",
-			          :onmouseover => "$.cypress.showMenu($('#results_menu'), $('#results_options'));"
+			          :class => "cmd"
 			        } %>
 					<ul id="results_options" style="display: none" role="listbox"
 			            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
 			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Upload PQRI", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :id => 'upload_results_button', :class => "ui-corner-all", :tabindex => "-1" } %>
+			           
 			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
+
 			        </ul>
 	
 	</li>
           </ol>
+
         </div>
       </section>
     <% end %>
-    
+
     <section class="records">
       <label>Notes:</label>
       <% note = Note.new %>
@@ -127,44 +161,84 @@
       <% end %>
     </section>
 
-   <section>
-	<div>
-		
+    <section>
+      <div>
+
+      </div>
+    </section>
+
+    <section class="executions">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="align-left" colspan="3">
+              <span class=""><strong>Test Executions</strong></span>
+            </th>
+            <th colspan="1">Description</th>
+            <th>Notes</th>
+            <th colspan="2">Results</th>
+          </tr>
+        </thead>
+         <% @test.test_executions.each do |te| %>
+
+         <tr>
+           <td class="align-left" colspan="3">
+             <span class=""><strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true %></strong></span>
+           </td>
+           <td colspan="1"> </td>
+           <td>execution notes</td>
+           <td colspan="2">execution results</td>
+         </tr>
+
+         <% end %>
+      </table>
+    </section>
+
+    <section class="execution">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="align-left" colspan="100%">
+              <span class=""><strong>Test Results</strong></span>
+            </th>
+          </tr>
+        </thead>
+      </table>
+
+
+      <div id="execution_results">
+		<% if @test_execution %>
+			<%= render :partial=>test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution}%>
+		<% end %>
+      </div>
+    </section>
+
+
+
+	<div id="upload_results">
+	  <%= form_for(TestExecution.new, :html => {:method => :post, :multipart => true}) do |f| %>
+	    <table>
+	      <tbody>
+
+	        <tr id="advanced_options" class="hidden">
+	          <td>1. </td>
+	          <td><%= f.label '', "Results File", :for => :results %></td>
+	          <td>&nbsp;<td>
+	          <td><%= f.file_field :results %></td>
+	          <%= hidden_field_tag(:product_test_id, @test.id) %>
+	        </tr>
+
+	        <tr><td>&nbsp;<td></tr>
+	        <tr id="advanced_options" class="hidden">
+	          <td></td>
+	          <td></td>
+	          <td><td>
+
+	        </tr>
+	      </tbody>
+	    </table>
+	  <% end %>
 	</div>
-   </section>
-
-    <section class"executions">
-	<table class="table">
-		 <thead>
-            <tr>
-              <th class="align-left" colspan="3">
-                <span class=""><strong>Test Executions</strong></span> 
-              </th>
-              <th colspan="1">Description</th>
-              <th>Notes</th>
-              <th colspan="2">Results</th>
-            </tr>
-          </thead>
-	</table>
-	</section>
-	
-    <section class"execution">
-	    <table class="table">
-			 <thead>
-	            <tr>
-	              <th class="align-left" colspan="100%">
-	                <span class=""><strong>Test Results</strong></span> 
-	              </th>
-	            </tr>
-	          </thead>
-		</table>
-		
-		
-		<div id="execution_results">
-			
-	    </div>
-	</section>
-
 
     <%= render :partial=>"shared/legend" %>
   </div>
