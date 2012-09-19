@@ -28,6 +28,7 @@
 
     });
   </script>
+
   <script type="text/html" id="ph_tmpl_paramItem">
     <div>
       <!-- ${percentage=Math.round(Math.random()*100,2)} -->
@@ -41,9 +42,18 @@
   </script>
   <script type="text/html" id="ph_tmpl_paramGroup">
     <div class="paramGroup"><div class="paramItem">
-    </div></div>
+    </div>
   </script>
+  <script type="text/html" id="ph_tmpl_data_criteria_logic">
+    <div class='paramText logicLeaf' {{if id}}id='${id}'{{/if}}>
+      {{if operator}}<label>${operator}</label>{{/if}}
+      {{if category}}<label>${category}</label>{{/if}}{{if standard_category}}<label>${popHealth.humanizeCategory(standard_category)}</label>{{/if}}
+      ${title} ${temporalText}
+    </div>
+  </script>
+  
 <% end %>
+
 
 <div id="container">
   <%= render :partial=>"shared/header" %>
@@ -96,7 +106,7 @@
           <dd class="measure_desc"><%= @measure.description %></dd>
         </dl>
         <% expected_result = @execution.expected_result(@measure) %>
-        <% reported_result = @execution.reported_result(@measure.key) %>
+        <% reported_result = @execution.reported_result(@measure) %>
         <dl class="dl-horizontal measure">
           <dt>Measure Status:</dt>
           <% if reported_result['denominator'].class == String %>
