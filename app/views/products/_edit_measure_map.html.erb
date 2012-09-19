@@ -1,24 +1,11 @@
-<% content_for :head do %>
-  <style>
-    /* vertical tabs */
-    .ui-tabs-vertical { width: 55em; font-size: .9em; }
-    .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
-    .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
-    .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
-    .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
-    .ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 47em;}
-    .ui-tabs-vertical .ui-tabs-panel dl { width: 100% }
-    .ui-tabs-vertical .ui-tabs-panel label { display: inline-block; }
-    .ui-tabs-vertical .ui-tabs-panel input[type=text] { width: 45px; display: inline-block; }
-  </style>
-<% end %><h1>Measure Mapping</h1>
+<h1>Measure Mapping</h1>
 <section id="measureMap">
   As PQRI measure numbers may vary by author, below is a list of how Cypress labels Stage 1 CQM. If the numbers do not match your PQRI formatting, please
   replace the values with your labeling scheme and Cypress will remember it for later.
   <div id="mm_edit">
     switch to <a href="javascript:void(0)" id="editMode" onclick="editMappings();">edit</a> mode
   </div>
-  <div id="tabs">
+  <div id="tabs" class="ui-tabs-vertical ui-helper-clearfix">
     <!-- set up a tab header for each measure group -->
     <ul>
       <% measure_categories(:all_by_measure).sort.each do |category, measures| %>
@@ -29,29 +16,33 @@
 
     <% measure_categories(:all_by_measure).sort.each do |category, measures| %>
       <div id="<%= category.tr(" '", "_")%>" class="measure_group">
-        <dl>
+      
+        <dl class="form-inline">
           <dt>
           </dt>
           <% measures.each do |measure|
             mapped_id = measure['id']
             mapped_id = @product.measure_map[measure['id']] if @product.measure_map %>
-            <dd>
+            <dd class="control-group" style="display:none">
               <span class="left" title="<%= "NQF# #{measure['id']}"%>">
                 <%= check_box_tag 'product[measure_map][]', measure['id'], false, { "class" => "#{category.tr(" '", "_")}" } %>
                 <span class="mapping <%= "#{category.tr(" '", "_")}" %>"><%= text_field measure['id'], measure['id'], :value => mapped_id, :size => '5', :class => 'req', :readonly => true %></span>
                 <%= label_tag 'measure_name', measure['name'] %>
               </span>
             </dd>
+            <dd  class="control-group" title="<%= "NQF# #{measure['id']}"%>">
 
+                <%= check_box_tag 'product[measure_map][]', measure['id'], false, { "class" => "#{category.tr(" '", "_")}" } %>
+                <span class="mapping <%= "#{category.tr(" '", "_")}" %>"><%= text_field measure['id'], measure['id'], :value => mapped_id, :size => '5', :readonly => true %></span>
+                <%= label_tag 'measure_name', measure['name'], :class=>'inline' %>
+            </dd>
             <% measure['subs'].each do |sub_measure|
               mapped_sub_id = sub_measure['id']
               mapped_sub_id = @product.measure_map[sub_measure['id']] if @product.measure_map %>
-              <dd class='<%= measure['id'].to_i %>'>
-                <span class="left" title="<%= "NQF# #{sub_measure['id']}"%>">
+              <dd class='control-group <%= measure['id'].to_i %>' title="<%= "NQF# #{sub_measure['id']}"%>">
                   <%= check_box_tag 'product[measure_map][]', sub_measure['id'], false, { "disabled" => false, "class" => "#{category.tr(" '", "_")}" } %>
-                  <span class="mapping <%= "#{category.tr(" '", "_")}" %>"><%= text_field sub_measure['id'], sub_measure['id'], :value => mapped_sub_id, :size => '5', :class => 'req', :readonly => true  %></span>
-                  <%= label_tag 'sub_measure_name', measure['name'] + " - " + sub_measure['name'] %>
-                </span>
+                  <span class="mapping <%= "#{category.tr(" '", "_")}" %>"><%= text_field sub_measure['id'], sub_measure['id'], :value => mapped_sub_id, :size => '5', :readonly => true  %></span>
+                  <%= label_tag 'sub_measure_name', measure['name'] + " - " + sub_measure['name'], :class=>'inline' %>
               </dd>
             <% end %>
           <% end %>
