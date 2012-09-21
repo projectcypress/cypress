@@ -11,8 +11,10 @@
              <th colspan="2"></span>Measures included in this test</th>
              <th>Patients</th>
              <th>Denominator</th>
+             <th>Den. Exclusions</th>
              <th>Numerator</th>
-             <th>Exclusions</th>
+             <th>Num. Exclusions</th>
+             <th>Exceptions</th>
            </tr>
          </thead>
          <tbody>
@@ -31,7 +33,7 @@
                <td>
                 <span><%=expected_result[:ipp]%></span>
                </td>
-                <%[:den, :num,:denex].each do |bucket|
+                <%[:den,:denex,:num,:numex,:excep].each do |bucket|
                  reported_class = result_class(reported_result[bucket], expected_result[bucket])
                 %>
                  <td>
