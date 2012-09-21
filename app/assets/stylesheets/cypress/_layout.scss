@@ -88,21 +88,25 @@ div#eligibilityMeasures {
   border-top-width: 1px;
   border-top-color: #E9E9E9;
 }
-.header_commands label {display: inline-block; }
+.header_commands {
+  margin-left:10px;
+  label {display:inline-block}
+}
+.ui-tabs-panel span.header_commands label {padding-left:0}
 
 .measure_group {margin-left:.2em;}
 
-.measure_group dl {width:auto;}
-
+.measure_group dl {width:auto;margin-left:165px;display:block;margin-top:9px}
+.measure-count {float:right}
 .measure_group span { display: inline-block;}
 
 /* vertical tabs */
-.ui-tabs-vertical { width: 55em; }
+// .ui-tabs-vertical { width: 55em; }
 .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
 .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
-.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; width:150px;padding-right:0.5em}
 .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
 //.ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 52em;}
-.ui-tabs-vertical .ui-tabs-panel label { display: inline-block; vertical-align:middle; width:36em; }
+.ui-tabs-vertical .ui-tabs-panel label { display: inline-block; vertical-align:middle; width:36em; padding-left:10px;margin-bottom:0;}
 .ui-tabs-vertical .ui-tabs-panel input[type=text] { width: 45px; display: inline-block; }
 
