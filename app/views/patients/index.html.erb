@@ -74,7 +74,14 @@
   </script>
   <script type="text/html" id="ph_tmpl_paramGroup">
     <div class="paramGroup"><div class="paramItem">
-    </div></div>
+    </div>
+  </script>
+  <script type="text/html" id="ph_tmpl_data_criteria_logic">
+    <div class='paramText logicLeaf' {{if id}}id='${id}'{{/if}}>
+      {{if operator}}<label>${operator}</label>{{/if}}
+      {{if category}}<label>${category}</label>{{/if}}{{if standard_category}}<label>${popHealth.humanizeCategory(standard_category)}</label>{{/if}}
+      ${title} ${temporalText}
+    </div>
   </script>
 <% end %>
 
