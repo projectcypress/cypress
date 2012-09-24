@@ -1,11 +1,11 @@
 module ProductTestHelper
   def result_class(expected, reported)
-    if expected.class == String
+    if expected.class == String || expected.nil?
       return 'na'
     elsif expected != reported
-      return 'f'
+      return 'fail'
     else
-      return ''
+      return 'pass'
     end
   end
 end
