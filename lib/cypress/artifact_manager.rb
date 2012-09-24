@@ -26,5 +26,10 @@ module Cypress
       grid.delete(artifact_id)
     end
 
+
+    def self.get_artifacts(test_execution_id)
+      artifacts = @collection.find(:metadata => {'execution_id' => test_execution.id})
+    end
+    
   end
 end

@@ -8,7 +8,7 @@ class MeasuresController < ApplicationController
   def by_type
 
     test = test_type
-    @measures = test.measures
+    @measures = test.product_type_measures
 
     @measures_categories = @measures.group_by { |t| t.category }
 
