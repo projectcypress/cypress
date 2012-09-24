@@ -37,15 +37,11 @@ $(document).ready(function() {
     $('#new_product,.edit_product').validate({
         rules: {
             "product[name]": "required",
-            "product[measure_map][]": "required"
         },
         errorClass: "validationErrors",
         messages: {
             "product[name]": {
                 required:"The product needs a name."
-            },
-            "product[measure_map][]": {
-                required:"You must choose at least one quality measure.  If you aren't sure how to choose, select them all."
             }
         },
         errorPlacement: function(error, element) {

@@ -25,7 +25,7 @@ class MeasuresController < ApplicationController
     @vendor = @product.vendor  
     @measures = @test.measures
     @measures_categories = @measures.group_by { |t| t.category }
-    @product.measure_map ||= Measure.default_map
+   
 
     respond_to do |format|
       format.json { render :json => @execution.expected_results }

@@ -44,7 +44,7 @@ class Vendor
   # Get the products owned by this vendor that have tests that have been executed
   def tested_products
     return self.products.select do |product|
-      product.incomplete_tests == 0
+      product.incomplete_tests.count == 0
     end
   end
 

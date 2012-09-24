@@ -6,7 +6,15 @@ class Measure
   field :name, type: String
   field :subtitle, type: String
   field :short_subtitle, type: String
+  field :hqmf_id, type: String
+  field :set_id, type: String
+  field :nqf_id, type: String
+  field :type, type: String
+
+  scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
+  scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})
   
+
   validates_presence_of :id
   validates_presence_of :name
   
@@ -18,17 +26,6 @@ class Measure
     Measure.order_by([["id", :asc],["sub_id", :asc]]).to_a
   end
   
-  def self.top_level
-    Measure.installed.select do |measure|
-      !measure.sub_id || measure.sub_id=='a'
-    end
-  end
-
-  def self.default_map
-    map = {}
-    Measure.top_level.each {|measure| map[measure.key] = measure.key }
-    map
-  end
 
   # Finds all measures and groups the sub measures
   # @return Array - This returns an Array of Hashes. Each Hash will represent a top level measure with an ID, name, and category.

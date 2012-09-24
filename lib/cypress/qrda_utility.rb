@@ -1,7 +1,7 @@
 require 'validators/schema_validator'
 require 'validators/schematron_validator'
 module Cypress
-  class QRDAUtility
+  class QrdaUtility
     QRDA_CAT1_ROOT="./resources/qrda_cat_1"
     QRDA_CAT1_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("QRDA Cat I schema validator", "#{QRDA_CAT1_ROOT}/qrda_cat_1.xsd")
     QRDA_CAT1_SCHEMATRON_VALIDATOR = Validators::Schematron::CompiledValidator.new("QRDA Cat I schema validator",  "#{QRDA_CAT1_ROOT}/qrda_cat_1.xsl")

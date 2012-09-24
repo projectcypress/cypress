@@ -8,13 +8,14 @@ class VendorTest < ActiveSupport::TestCase
     collection_fixtures('test_executions', '_id', "product_test_id")
     collection_fixtures('products', '_id','vendor_id')
     collection_fixtures('product_tests', '_id','product_id')
-    collection_fixtures('measures')
+    collection_fixtures('measures', '_id')
     collection_fixtures('query_cache','_id','test_id')
     collection_fixtures('patient_cache','_id')
     
     @vendor1 = Vendor.find("4f57a8791d41c851eb000002")
     @vendor2 = Vendor.find("4f636aba1d41c851eb00048c")
     @emptyVendor = Vendor.new()
+  
   end
 
   test "Should return failing products" do
@@ -40,12 +41,7 @@ class VendorTest < ActiveSupport::TestCase
     assert_equal "4f636ae01d41c851eb00048e",  passing2[0]._id.to_s  , "Vendor reporting wrong passing product"
   end
   
-  test "Should know if all products are passing" do
 
-    assert !@vendor1.passing? , "Failing vendor reporting as passing"
-    assert @vendor2.passing? , "Passing vendor reporting as failing"
-
-  end
   
   test "Should know how many products are passing" do
 

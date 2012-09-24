@@ -4,6 +4,7 @@ module Cypress
     
     def perform
        t = CalculatedProductTest.find(options["test_id"])
+
        results = {}
        t.measures.each do |measure|
            qr = QME::QualityReport.new(measure["id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'])

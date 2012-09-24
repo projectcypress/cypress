@@ -79,7 +79,7 @@
           <% measures.each do |measure_def| %>
             <li>
               <a href="<%= product_test_measure_path(@test, measure_def,:execution=> params[:execution]) %>"
-                 title="<%= "(#{@product.measure_map[measure_def.key]}) #{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
+                 title="<%= " #{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
                  class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def.key}" %>
               </a>
             </li>

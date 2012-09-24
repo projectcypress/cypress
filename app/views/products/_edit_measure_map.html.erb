@@ -33,8 +33,7 @@
           <dt>
           </dt>
           <% measures.each do |measure|
-            mapped_id = measure['id']
-            mapped_id = @product.measure_map[measure['id']] if @product.measure_map %>
+            mapped_id = measure['id'] %>
             <dd>
               <span class="left" title="<%= "NQF# #{measure['id']}"%>">
                 <%= check_box_tag 'product[measure_map][]', measure['id'], false, { "class" => "#{category.tr(" '", "_")}" } %>

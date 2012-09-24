@@ -69,4 +69,9 @@ class TestExecution
   def incomplete?
     (!passing? && !failing)
   end
+  
+  def files
+    
+  end
+  
 end

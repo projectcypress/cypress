@@ -8,7 +8,7 @@ module Validators
       # validate the document, This performs the XSLT transform on the document and then looks for any errors in the 
       # resulting doc, errors show up as failed-assert elements in the result.
       def validate(document,data = {})
- 
+           document = Nokogiri::XML(document.to_s) unless document.kind_of?(Nokogiri::XML::Document) 
            errors = []
            style = get_schematron_processor
            # process the document
