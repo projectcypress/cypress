@@ -26,6 +26,7 @@ padding:0px;
 section#measureMap {
   margin:10px 0;
   }
+  
 section.measure {
   dd.na {
     background: url(/assets/insufficient.png) 10px 50% no-repeat;
@@ -68,7 +69,21 @@ section#patient_characteristics{
   display:inline-block;
 }
 
-
+section.instructions {
+  p {
+    padding:10px 0 5px 0;
+    margin:0;
+    }
+  }
+section.records {
+  margin-top:20px;
+  form {margin-bottom:5px;}
+  table {margin-top:0;}
+  span.date {font-weight:bold;}
+}
+section.execution {
+  margin-bottom:25px;
+  }
 section.legend {
   padding: 10px 10px 10px 0;
   x-font-size: 90%;

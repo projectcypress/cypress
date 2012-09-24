@@ -75,19 +75,20 @@
     </section> 
 
     <% if true %>
-      <section class="free_text dentered">
-        <div class="stacked">
-          <p>
-            You must perform the following steps to execute your test:
-          </p>
-
-          <ol >
-            <li>Download Test Data
-	             <%= link_to 'Test Data', '', {
+      <section class="instructions">
+        <div class="row">
+          <div class="span12">
+            <p>You must perform the following steps to execute your test:</p>
+          </div>
+          <div class="span3">
+            <p>
+            1. Download Test Data
+            </p><p>
+            <%= link_to 'Test Data', '', {
 		          :id => 'share_menu',
 		          :class => "cmd",
 		          :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
-		        } %>
+		        } %></p>
 			  	 <ul id="share_options" style="display: none" role="listbox"
 			            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
 			          <li class="ui-menu-item" role="menuitem">
@@ -120,43 +121,48 @@
 			            </li>
 			          <% end %>
 			        </ul>
-			</li>
-            <li>Load Test Data into your quality measure calculator</li>
-
-            <li>Upload Results
+			</div>
+			<div class="span3">
+			  <p>
+			    2. Load Test Data into your quality measure calculator
+			  </p>
+      </div>
+      <div class="span3">
+        <p>
+          3. Upload Results
+        </p>
+        <p>
 				 <%= link_to "Results", '', {
 			          :id => 'results_menu',
 			          :class => "cmd"
 			        } %>
-					<ul id="results_options" style="display: none" role="listbox"
-			            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-			          <li class="ui-menu-item" role="menuitem">
-			           
-			          </li>
-
-			        </ul>
-	
-	</li>
-          </ol>
-
-        </div>
-      </section>
+			  </p>
+				<ul id="results_options" style="display: none" role="listbox"
+			      class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+			    <li class="ui-menu-item" role="menuitem"></li>
+        </ul>
+    	</div>
+    </div>
+    </section>
     <% end %>
 
     <section class="records">
       <label>Notes:</label>
       <% note = Note.new %>
       <%= simple_form_for note, :url => add_note_product_test_path(:execution_id => @current_execution) do |f| %>
-        <%= f.input_field :text, :as => :text, :rows => 1, :columns => 80 %>
-        <%= f.button :submit, :value => 'add', :class => "cmd" %>
+        <%= f.input_field :text, :as => :text, :rows => 1, :class => 'input input-xxlarge' %>
+        <%= f.button :submit, :value => 'add note', :class => "cmd" %>
       <% end %>
 
       <% if @test.notes %>
+        <table class="table">
+        
         <% @test.notes.each do |note| %>
-          <%= note.time.strftime('%m/%d/%Y') %>:
-          <%= note.text %>
-          <%= button_to 'Delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?' %>
-          <br />
+          <tr>
+          <td><span class="date"><%= note.time.strftime('%m/%d/%Y') %></span></td>
+          <td><%= note.text %></td>
+          <td><%= button_to 'Delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?' %></td>
+          </tr>
         <% end %>
       <% end %>
     </section>
