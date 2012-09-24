@@ -1,6 +1,6 @@
 <%= javascript 'vendors' %>
 
-<div id="container">
+<div id="container" class="container">
   <%= render :partial=>"shared/header" %>
 
   <div class="buffered">
@@ -14,18 +14,19 @@
         <%= link_to "Certification Dashboard", root_path %>
       </nav>
     </section>
-    
     <section class="candidate bordered buffered">
-      <dl class="vendor dl-horizontal"> <%#WILL WORK WHEN UPGRADED TO BOOTSRAP 2.0.2+%>
+      <div class="row">
+      <dl class="vendor span4 dl-horizontal"> <%#WILL WORK WHEN UPGRADED TO BOOTSRAP 2.0.2+%>
         <dt>Candidate EHR:</dt> <dd><%= @vendor.name %></dd>
         <dt>Vendor ID:</dt> <dd><%= @vendor.vendor_id %></dd>
         <dt>URL:</dt> <dd><a href="<%= @vendor['url'] %>"><%= @vendor['url'] %></a></dd>
       </dl>
-      <dl class="vendor dl-horizontal">
+      <dl class="vendor span4 dl-horizontal">
         <dt>EHR POC:</dt> <dd><%= @vendor.poc %></dd>
         <dt>Email:</dt> <dd><%= @vendor.email %></dd>
         <dt>Phone:</dt> <dd><%= @vendor.tel %></dd>
       </dl>
+      </div>
     </section>
 
     <section id="ehr_results">

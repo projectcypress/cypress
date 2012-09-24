@@ -3,9 +3,12 @@ section {
   p { padding: 10px; }
   position: relative;
   dl {
-    font-size: 90%;
+    x-font-size: 90%;
     width: 360px;
     display: table-cell;
+  }
+  dt {
+    font-weight:normal;
   }
 dl.quality-measures {
  display:relative;
@@ -20,6 +23,10 @@ padding:0px;
   display: inline-block;
   vertical-align: top;
 }
+section#measureMap {
+  margin:10px 0;
+  }
+  
 section.measure {
   dd.na {
     background: url(/assets/insufficient.png) 10px 50% no-repeat;
@@ -62,10 +69,24 @@ section#patient_characteristics{
   display:inline-block;
 }
 
-
+section.instructions {
+  p {
+    padding:10px 0 5px 0;
+    margin:0;
+    }
+  }
+section.records {
+  margin-top:20px;
+  form {margin-bottom:5px;}
+  table {margin-top:0;}
+  span.date {font-weight:bold;}
+}
+section.execution {
+  margin-bottom:25px;
+  }
 section.legend {
   padding: 10px 10px 10px 0;
-  font-size: 90%;
+  x-font-size: 90%;
   border-top: 1px solid $borderColor;
   dl, dt, dd { width: auto; display: inline-block; }
   dd { margin-left: 25px; }

@@ -74,10 +74,47 @@ class CalculatedProductTest < ProductTest
     te
   end
   
+
+  def execute_cat_3(params)
+
+    qrda_file = params[:results]
+    data = pqri_file.open.read
+    reported_results = Cypress::QrdaUtility.extract_results(data,nil)  
+    qrda_errors = Cypress::QrdaUtility.validate(data)  
+    
+    validation_errors = []
+    qrda_errors.each do |e|
+      validation_errors << ExecutionError.new(message: e, msg_type: :warning)
+    end
+
+    expected_results.each_pair do |key,expected_result|
+      reported_result = reported_results[key] || {}
+      errs = []
+
+      expected_result.each_pair do |component, value|
+        if reported_result[component] != value
+         errs << "expected #{component} value #{value} does not match reported value #{reported_result[component]}"
+        end
+      end
+      if errs
+        validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: key )
+      end
+    end    
+
+    te = self.test_executions.build(expected_results:self.expected_results, execution_date: Time.now.to_i, reported_results: reported_results, execution_errors: validation_errors)
+    
+    te.save
+    ids = Cypress::ArtifactManager.save_artifacts(qrda_file,te)
+    te.files = ids
+    te.save
+    
+    (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
+    te
+  end
   
   
   def self.product_type_measures
-    Measure.top_level
+    Measure.top_level_by_type("ep")
   end
   
   

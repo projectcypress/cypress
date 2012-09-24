@@ -1,4 +1,5 @@
 <section id="first" class="step bordered" style="width: 100%; overflow: auto;">
+  <div class="span8 buffered">
   <!-- always move to the measures screen -->
   <input type="hidden" class="link" value="wizard-measures-screen"/>
   <h5 class="ui-widget-title">Describe the test...</h5>
@@ -24,18 +25,14 @@
       Description:
     </dt>
     <dd>
-      <%= f.text_area :description, :cols => 75, :rows => 3 %>
+      <%= f.text_area :description, :class=>'input-xlarge', :rows => 3 %>
     </dd>
     <dt>Test Type:</dt>
-    <dd>
-      <input type="radio" id="outpatient" name="type" value="CalculatedProductTest"/>
-      <label for="outpatient">Outpatient - to test quality measures for Eligible Professionals (EP)</label>
-      <br/>
-      <input type="radio" id="inpatient" name="type" value="InpatientProductTest"/>
-      <label for="inpatient">Inpatient - to test quality measures for Eligible Hospitals (EH)</label>
-      <br/>
-      <input type="radio" id="qrda" name="type" value="QRDAProductTest"/>
-      <label for="qrda">QRDA Category I - to test using the QRDA Category I format</label>
+    <dd class="controls">
+      <label for="outpatient" class="radio"><input type="radio" id="outpatient" name="type" value="CalculatedProductTest" class="input"/> Outpatient - to test quality measures for Eligible Professionals (EP)</label>
+      <label for="inpatient" class="radio"><input type="radio" id="inpatient" name="type" value="InpatientProductTest"/> Inpatient - to test quality measures for Eligible Hospitals (EH) </label>
+      <label for="qrda" class="radio"><input type="radio" id="qrda" name="type" value="QRDAProductTest"/> QRDA Category I - to test using the QRDA Category I format</label>
     </dd>
   </dl>
+  </div>
 </section>

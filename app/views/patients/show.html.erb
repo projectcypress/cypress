@@ -62,7 +62,7 @@
           <% @results.each do |result| %>
             <% if result.value.population %>
               <tr>
-				<td title="<%= "#{(result.value.sub_id.nil? ? "" : result.value.sub_id)] if @product}" %>">
+				<td title="<%= "#{(result.value.sub_id.nil? ? "" : result.value.sub_id) if @product}" %>">
                  <%= link_to "#{result.value.measure_id}#{result.value.sub_id}" %>
                 </td>
                 <td <%= raw result_to_class(result.value.denominator?) %>></td>
