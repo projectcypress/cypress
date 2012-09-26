@@ -15,15 +15,6 @@ namespace :cypress do
     task("mpl:initialize").invoke
   end
   
-  desc 'Load a quality bundle into the database'
-  task :import_bundle, [:bundle_path, :delete_existing] do |task, args|
-    raise "The path to the measures zip file must be specified" unless args.bundle_path
-    
-    bundle = File.open(args.bundle_path)
-    importer = QME::Bundle::Importer.new(args.db_name)
-    importer.import(bundle, args.delete_existing)
-  end
-  
   desc "Delete all collections from the database related to the Cypress workflow (e.g. vendors, products, etc)"
   task :reset => :setup do
     # From the model dependencies, this will delete all Products, ProductTests, TestExecutions, and related Records

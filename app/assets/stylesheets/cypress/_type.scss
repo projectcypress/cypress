@@ -10,8 +10,8 @@ font-weight:$fontWeight;
 }
 
 .dl-horizontal{
-  padding-top:10px;
-  padding-bottom: 15px;
+  x-padding-top:10px;
+  x-padding-bottom: 15px;
    dt {
     float:left;
     width: 120px;
@@ -26,7 +26,7 @@ font-weight:$fontWeight;
   }
   dd { 
     padding-left:10px;
-    font-size: $fontSize*1.5;
+    font-size: $fontSize;
     text-overflow:ellipsis;
     display:table-cell;
     text-align:left;

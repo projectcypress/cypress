@@ -65,8 +65,8 @@ class InpatientProductTest < ProductTest
     
   end
   
-  def self.product_type_measures
-    Measure.top_level
+   def self.product_type_measures
+    Measure.top_level_by_type("eh")
   end
   
 end
