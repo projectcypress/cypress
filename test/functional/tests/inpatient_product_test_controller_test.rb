@@ -12,7 +12,7 @@ class InPatientProductTestControllerTest < ActionController::TestCase
      collection_fixtures('records', '_id')
 
      @request.env["devise.mapping"] = Devise.mappings[:user]
-     @user = User.first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
+     @user = User.where({}).first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
      sign_in @user
    end
 

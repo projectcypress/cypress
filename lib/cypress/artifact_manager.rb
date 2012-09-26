@@ -3,20 +3,20 @@ module Cypress
 
     #Helper that stores files like PQRIs and associates them with a test execution
     def self.grid()
-        @@grid ||=  Mongo::Grid.new(Mongoid.database, fs_name='artifacts')
+        Mongoid::GridFS
     end
 
     def self.save_artifacts(*artifacts, test_execution)
 
       ids = []
       artifacts.each do |a|
-       ids << grid.put(a.read, :filename => File.basename(a.path), :metadata => {'execution_id' => test_execution.id, 'product_test_id' => test_execution.product_test_id})
+       ids << grid.put(a.open, :filename => File.basename(a.path), :metadata => {'execution_id' => test_execution.id.to_s}).id
       end
       ids
     end
 
     def self.del_artifacts(test_execution)
-      artifacts = @collection.find(:metadata => {'execution_id' => test_execution.id})
+      artifacts = grid.find(:metadata => {'execution_id' => test_execution.id.to_s})
       artifacts.each do |a|
         grid.delete(a['_id'])
       end
@@ -28,7 +28,7 @@ module Cypress
 
 
     def self.get_artifacts(test_execution_id)
-      artifacts = @collection.find(:metadata => {'execution_id' => test_execution.id})
+      artifacts = grid.find(:metadata => {'execution_id' => test_execution.id.to_s})
     end
     
   end

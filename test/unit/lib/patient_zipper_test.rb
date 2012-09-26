@@ -4,6 +4,7 @@ require 'fileutils'
 class PatientZipperTest < ActiveSupport::TestCase
 
   setup do
+
     collection_fixtures('records','_id')
     @patients = Record.where("gender" => "F")
   end

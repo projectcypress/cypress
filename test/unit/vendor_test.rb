@@ -3,7 +3,7 @@ require 'test_helper'
 class VendorTest < ActiveSupport::TestCase
 
   setup do
-    
+
     collection_fixtures('vendors', '_id')
     collection_fixtures('test_executions', '_id', "product_test_id")
     collection_fixtures('products', '_id','vendor_id')

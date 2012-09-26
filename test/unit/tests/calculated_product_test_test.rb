@@ -49,8 +49,8 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
 #    binding.pry
     pt1 = ProductTest.find("4f58f8de1d41c851eb000999")
     ex_count = TestExecution.where(:product_test_id => pt1.id).count
+
     pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")
- 
     te = pt1.execute({results: pqri})
    end
   

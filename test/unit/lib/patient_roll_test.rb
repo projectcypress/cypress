@@ -3,6 +3,7 @@ require 'test_helper'
 
 class PatientRollTest< ActiveSupport::TestCase
   setup do
+ 
   	collection_fixtures('records','_id','test_id')
 
   	rosa = Record.where(:first => 'Rosa').first

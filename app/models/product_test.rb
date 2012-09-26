@@ -1,6 +1,6 @@
 class ProductTest
   include Mongoid::Document
-
+  
   belongs_to :product
   has_one :patient_population
   has_many :test_executions, dependent: :delete

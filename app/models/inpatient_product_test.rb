@@ -48,7 +48,7 @@ class InpatientProductTest < ProductTest
       end
     end    
 
-    te = self.test_executions.build(expected_results:self.expected_results, execution_date: Time.now.to_i, reported_results: reported_results, execution_errors: validation_errors)
+    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results, execution_errors: validation_errors)
     
     te.save
     ids = Cypress::ArtifactManager.save_artifacts(pqri_file,te)

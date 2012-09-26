@@ -11,23 +11,24 @@ gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-d
 #gem 'health-data-standards', '1.0.1'
 #gem 'health-data-standards', path: '../shared/health-data-standards'
 
-gem 'bson', '1.5.1'
-gem 'bson_ext', '1.5.1'
-gem 'mongoid', '~> 2.0'
+gem 'bson'
+gem 'bson_ext'
+
 gem 'state_machine'
 
 
 gem 'devise', '~> 2.0'
 gem 'simple_form'
-gem 'nokogiri', '~> 1.4.4'
 
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
 
 gem 'pry'
-gem 'pry-nav'
+gem 'pry-debugger'
 
 gem 'redis', '~> 2.2.2'
+
+gem 'mongoid-grid_fs', :git=>'https://github.com/ahoward/mongoid-grid_fs.git'
 
 # Windows doesn't have syslog, so need a gem to log to EventLog instead
 gem 'win32-eventlog', :platforms => [:mswin, :mingw]

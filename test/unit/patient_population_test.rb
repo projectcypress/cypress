@@ -3,6 +3,7 @@ require 'test_helper'
 class PatientPopulationTest < ActiveSupport::TestCase
 
   setup do
+  
     collection_fixtures('patient_populations','_id')
     collection_fixtures('patient_cache','_id')
     

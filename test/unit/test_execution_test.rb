@@ -3,6 +3,7 @@ require 'test_helper'
 class TestExecutionTest < ActiveSupport::TestCase
 
   setup do
+ 
     collection_fixtures('test_executions', '_id')
     collection_fixtures('products', '_id','vendor_id')
     collection_fixtures('product_tests', '_id','product_id')

@@ -4,6 +4,7 @@ require 'fileutils'
 class PopulationCloneJobTest < ActiveSupport::TestCase
 
   setup do 
+  
   	collection_fixtures('patient_populations','_id')
   	collection_fixtures('records','_id','test_id')
   end

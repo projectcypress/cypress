@@ -4,9 +4,10 @@ class Record
   include Mongoid::Document
   
   has_and_belongs_to_many :patient_population
-  
+   
   field :measures, type: Hash
-  
+  field :race
+  field :ethnicity
   
   def self.minimal_set(measure_ids)
 
