@@ -1,6 +1,10 @@
 class CalculatedProductTestTest < ActiveSupport::TestCase
 
-
+  setup do
+    
+    collection_fixtures('test_executions', '_id', "product_test_id")
+    collection_fixtures('product_tests', '_id')
+  end
 
   test "Should generate minimal set of records on create " do 
     pending "Need measures and patients that work together so we can determine outcome"  do

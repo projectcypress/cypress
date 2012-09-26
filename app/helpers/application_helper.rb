@@ -8,11 +8,11 @@ module ApplicationHelper
   end
 
   def submit_method(model)
-    model.new? ? "post" : "put"
+    model.new_record ? "post" : "put"
   end
   
   def submit_text(model)
-    model.new? ? "Create" : "Save"
+    model.new_record ? "Create" : "Save"
   end
   
   def error_messages_for(model)    

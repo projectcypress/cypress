@@ -6,7 +6,7 @@ include Devise::TestHelpers
   setup do
     collection_fixtures('query_cache', 'test_id')
     collection_fixtures('users',"_id", "product_ids","product_test_ids")
-    collection_fixtures('measures','bundle')
+    collection_fixtures('measures','bundle', "_id")
     collection_fixtures('bundles','_id')
     collection_fixtures('products','_id','vendor_id', "user_id")
     collection_fixtures('records', '_id','test_id')
@@ -16,7 +16,7 @@ include Devise::TestHelpers
     collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    @user = User.first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
+    @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
   end
   
@@ -54,44 +54,16 @@ include Devise::TestHelpers
   end
 
   test "new" do
-    pending "Waiting on new test creation wizard screens to be imp[lemented] " do
-      p1 = Product.first
+      p1 = Product.where({}).first
       get :new, {:product_id => p1.id }
 
       assert_response :success
       assert !assigns[:test].nil?
       assert assigns[:product].id == p1.id
       assert assigns[:vendor].id  == p1.vendor.id
-    end
   end
 
-  test "create" do
-    pending "Needs to be rewritten with a way to handle testing mulptiple test types in a consistent fashion" do
-        Cypress::PopulationCloneJob.stubs(:create).returns("JOB_ID")
-        pt1 = {:name =>'new1', :effective_date_end =>'12/21/2011' , :upload_format =>'c32', :patient_population =>'test'}
-        pt2 = {:name =>'new2', :effective_date_end =>'12/21/2011' , :upload_format =>'ccr', :patient_population =>'test'}
-        pt3 = {:name =>'new3', :effective_date_end =>'12/21/2011' , :upload_format =>'csv', :patient_population =>'test'}
-        pt4 = {:name =>'new4', :effective_date_end =>'12/21/2011' , :upload_format =>'c32'}
-
-        get :create, {:product_test => pt1 }
-        assert_response :redirect
-        newTest = ProductTest.where({:name => 'new1'})
-        assert newTest.count == 1
-
-        get :create, {:product_test => pt2, :download_filename => 'pt2file', :patient_ids => ['19','20','21'] }
-        assert_response :redirect
-        assert ProductTest.where({:name => 'new2'}).count == 1
-
-        get :create, {:product_test => pt3, :download_filename => 'pt3file', :patient_ids => ['19','20','21'] ,:population_description => 'minimal set',:population_name => 'minset'}
-        assert_response :redirect
-        assert ProductTest.where({:name => 'new3'}).count == 1
-        assert PatientPopulation.where({:name => 'minset'}).count == 1
-
-        get :create, {:product_test => pt4, :patient_ids => ['19','20','21'], :measure_ids => ["0013","0028","0421","" ] }
-        assert_response :redirect
-        assert ProductTest.where({:name => 'new4'}).count == 1
-    end
-  end
+  
   
   test "create without product test type " do  
     pt1 = {:name =>'new1', :effective_date_end =>'12/21/2011' , :upload_format =>'c32', :patient_population =>'test'}
@@ -101,7 +73,7 @@ include Devise::TestHelpers
   
 
   test "edit" do
-    pt = ProductTest.first
+    pt = ProductTest.where({}).first
     get :edit, {product_id: pt.product.id, id: pt.id}
     assert_response :success
     
@@ -112,7 +84,7 @@ include Devise::TestHelpers
   end
 
   test "update" do
-    pt = ProductTest.first
+    pt = ProductTest.where({}).first
     updated_attributes = {:name => 'Updated test name', :description => 'Updated Description'}
     post :update, {:id => pt.id, :product_test => updated_attributes}
 
@@ -123,7 +95,7 @@ include Devise::TestHelpers
   end
 
   test "destroy" do
-    pt = ProductTest.first
+    pt = ProductTest.where({}).first
     delete :destroy, {:id => pt.id}
     assert_response :redirect
     destroyed = ProductTest.where(:id => pt.id)
@@ -205,7 +177,7 @@ include Devise::TestHelpers
     assert_equal test.notes.size, 1
     
     # BSONify the ID of the note connected to this ProductTest so that it's findable during deletion
-    test.notes.first["_id"] = BSON::ObjectId.from_string(test.notes.first["_id"])
+    test.notes.first["_id"] = Moped::BSON::ObjectId(test.notes.first["_id"])
     test.save
     
     delete(:delete_note, {:id => "4f6b78801d41c851eb0004a7", "note" => {"id" => "4fa287f99e8f54e9e9000038"}})

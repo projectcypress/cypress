@@ -3,12 +3,18 @@ require 'validation'
 require 'validation_error'
 require 'validators/schema_validator'
 require 'validators/schematron_validator'
+require 'mongoid'
 require 'mongo'
 require 'mongoid-grid_fs'
 XML_VALIDATION_INSPECTION="XmlValidationInspection"
 
+begin
 connection  = Mongo::Connection.new
 MONGO_DB = connection[Mongoid.default_session.options[:database]]
+rescue
+connection  = Mongo::Connection.new
+MONGO_DB = connection["test"]
+end
 # insert races and ethnicities
 (
   MONGO_DB['races'].drop() if MONGO_DB['races']

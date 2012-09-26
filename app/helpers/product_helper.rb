@@ -14,7 +14,7 @@ module ProductHelper
 
   def display_last_execution(product)
     ex = last_execution(product)	
-    ex.nil? ? '' : Time.new(ex.execution_date).to_s
+    (ex.nil? || ex.execution_date.nil?) ? '' : ex.execution_date.to_s
   end
 
   def display_passing_tests(product)
