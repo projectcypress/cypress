@@ -30,7 +30,7 @@ class Vendor
   # Get the products owned by this vendor that are failing
   def failing_products
     return self.products.select do |product|
-      !product.passing?
+      product.failing?
     end
   end
   
