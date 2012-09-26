@@ -5,7 +5,7 @@
     <section class="tb">
       <nav class="breadcrumb">
         <a href="<%= vendors_path %>">Certification Dashboard</a> &raquo;
-        <a href="<%= vendors_path(@product.vendor) %>"><%= @product.vendor.name %></a> &raquo;
+        <%= link_to @product.vendor.name, vendor_path(@product.vendor) %> &raquo;
         <span>Edit <%= @product.name %></span>
       </nav>
     </section>
