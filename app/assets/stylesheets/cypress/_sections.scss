@@ -77,8 +77,13 @@ section.instructions {
   }
 section.records {
   margin-top:20px;
-  form {margin-bottom:5px;}
-  table {margin-top:0;}
+  form {margin-bottom:0;}
+  table {margin-top:0;
+    input[type='submit'] {
+      margin-bottom:0;
+    }
+  }
+  
   span.date {font-weight:bold;}
 }
 section.execution {
