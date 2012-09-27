@@ -12,11 +12,11 @@ class User
          :validatable
          
   # Database authenticatable
-  field :email, :type => String, :null => false
-  field :encrypted_password, :type => String, :null => false
-  field :first_name, :type => String, :null => false
-  field :last_name, :type => String, :null => false
-  field :telephone, :type => String, :null => false
+  field :email, :type => String
+  field :encrypted_password, :type => String
+  field :first_name, :type => String
+  field :last_name, :type => String
+  field :telephone, :type => String
 
   validates_presence_of :email
   validates_presence_of :first_name

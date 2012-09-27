@@ -14,14 +14,22 @@ class Product
  
  
   def passing?
-    return false if self.product_tests.empty?
-    
-    pass=true
-    self.product_tests.each do |p|
-      pass = pass && p.execution_state == :passed
+    return true if self.product_tests.empty?
+
+    passing = self.product_tests.select do |p|
+      p.execution_state == :passed
     end
-    pass
+    passing.length == product_tests.length
   end
+  #failing if at least one of the tests is failing
+  def failing?
+    return false if self.product_tests.empty? 
+    failing = self.product_tests.select do |p|
+       p.execution_state == :failed
+    end
+    failing.length > 0
+  end
+
 
   # Get the tests owned by this product that are failing
   def failing_tests

@@ -7,6 +7,7 @@ require 'nokogiri'
 class CCRExportTest < ActiveSupport::TestCase
 
   setup do
+
     collection_fixtures('records', '_id')
   end
 

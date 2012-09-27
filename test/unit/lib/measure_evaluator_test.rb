@@ -3,14 +3,16 @@ require 'test_helper'
 class MeasureEvaluatorTest < ActiveSupport::TestCase
 
   setup do
+ 
     collection_fixtures('test_executions', '_id')
     collection_fixtures('products', '_id','vendor_id')
     collection_fixtures('product_tests', '_id','product_id')
-    collection_fixtures('measures')
+    collection_fixtures('measures', "_id")
 	  collection_fixtures('query_cache','_id','test_id')
     collection_fixtures('patient_cache','_id')
 
-    @measure = Measure.where({:id => '0001'}).first
+    @measure = Measure.where({:hqmf_id => '0001'}).first
+
     @result = {"measure_id" => @measure['id'],
                "effective_date" => 1293753600,
                "denominator" => 48,

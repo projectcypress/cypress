@@ -6,7 +6,6 @@ class TestExecution
   belongs_to :product_test
   embeds_many :execution_errors
 
-  field :execution_date, type: Integer
   field :expected_results, type: Hash
   field :reported_results, type: Hash
   
@@ -38,6 +37,10 @@ class TestExecution
       transition all => :pending
     end
        
+  end
+
+  def execution_date
+    self.created_at
   end
 
   def count_errors

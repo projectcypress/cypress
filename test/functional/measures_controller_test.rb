@@ -5,7 +5,7 @@ include Devise::TestHelpers
 
   setup do
     collection_fixtures('query_cache', 'test_id')
-    collection_fixtures('measures')
+    collection_fixtures('measures',"_id")
     collection_fixtures('products','_id','vendor_id')
     collection_fixtures('records', '_id','test_id')
     collection_fixtures('product_tests', '_id')
@@ -14,7 +14,7 @@ include Devise::TestHelpers
     collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    @user = User.first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
+    @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
   end
   
@@ -40,13 +40,13 @@ include Devise::TestHelpers
 
 
    test "minimal_set" do
-    m1 = Measure.where(:id => '0001').first
-    m2 = Measure.where(:id => '0002').first
+    m1 = Measure.where(:hqmf_id => '0001').first
+    m2 = Measure.where(:hqmf_id => '0002').first
     get :minimal_set, {:measure_ids => [m1.id,m2.id], :format=>"json"}
     coverage = assigns[:coverage]  
     assert coverage.count == 0
 
-    m3 = Measure.where(:id => '0348').first
+    m3 = Measure.where(:hqmf_id => '0348').first
     get :minimal_set, {:measure_ids => [m1.id,m2.id,m3.id], :format=>"json"}
     coverage = assigns[:coverage] 
     assert coverage.count == 0
@@ -55,9 +55,9 @@ include Devise::TestHelpers
   
   
   test "shopuld be able to retreive measures for a given test type" do
-    pending "need to implement type in measures" do
-      fail "to do"
-    end
+      Measure.where({:type=>"ep"}).count
+      get :by_type , {:type=>"CalculatedProductTest",:format=>:js}
+      assert_response :success
   end
 
   

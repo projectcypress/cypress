@@ -58,7 +58,7 @@ class PatientsController < ApplicationController
     end
     @effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
 
-    @results = Result.all(:conditions => {'value.patient_id' => @patient.id}, :sort => [['value.measure_id', :asc], ['value.sub_id', :asc]])
+    @results = Result.where({'value.patient_id' => @patient.id}).order_by([['value.measure_id', :asc], ['value.sub_id', :asc]])
   end
 
   def table_measure

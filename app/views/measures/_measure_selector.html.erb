@@ -16,7 +16,7 @@
       <dt></dt>
       <% measures.each do |m| %>
         <dd class="control-group">
-        <input type="checkbox" name="product_test[measure_ids][]" id="<%= m.id %>" value="<%= m.id%>" class="measure_cb checkbox"/><label for="<%= m.id %>" class="inline"> <%= m.display_name %></label>
+        <input type="checkbox" name="product_test[measure_ids][]" id="<%= m.hqmf_id %>" value="<%= m.hqmf_id%>" class="measure_cb checkbox"/><label for="<%= m.hqmf_id %>" class="inline"> <%= m.display_name %></label>
         </dd>
       <% end %>
     </div>

@@ -1,6 +1,10 @@
 class CalculatedProductTestTest < ActiveSupport::TestCase
 
-
+  setup do
+    
+    collection_fixtures('test_executions', '_id', "product_test_id")
+    collection_fixtures('product_tests', '_id')
+  end
 
   test "Should generate minimal set of records on create " do 
     pending "Need measures and patients that work together so we can determine outcome"  do
@@ -49,8 +53,8 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
 #    binding.pry
     pt1 = ProductTest.find("4f58f8de1d41c851eb000999")
     ex_count = TestExecution.where(:product_test_id => pt1.id).count
+
     pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")
- 
     te = pt1.execute({results: pqri})
    end
   

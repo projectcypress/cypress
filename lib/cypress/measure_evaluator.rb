@@ -7,13 +7,13 @@ module Cypress
 
        results = {}
        t.measures.each do |measure|
-           qr = QME::QualityReport.new(measure["id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'])
+           qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id.to_s, 'filters' => options['filters'])
            result = nil
            if qr.calculated?
              result=qr.result
              completed("#{options['measure_id']}#{options['sub_id']} has already been calculated") if respond_to? :completed
            else
-             map = QME::MapReduce::Executor.new(measure["id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], 'start_time' => Time.now.to_i)
+             map = QME::MapReduce::Executor.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id.to_s, 'filters' => options['filters'], 'start_time' => Time.now.to_i)
 
              if !qr.patients_cached?           
                map.map_records_into_measure_groups
@@ -41,8 +41,8 @@ module Cypress
   
     # Evaluates the supplied measure for a particular vendor
     def self.eval(test, measure, asynchronous = true)
-      report = QME::QualityReport.new(measure['id'], measure.sub_id, 
-        {'effective_date' => test.effective_date, 'test_id' => test.id})
+      report = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
+        {'effective_date' => test.effective_date, 'test_id' => test.id.to_s})
       result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
       
       test.result_calculation_jobs = {} if test.result_calculation_jobs.nil?
@@ -64,7 +64,7 @@ module Cypress
         #The measure calculation job needs test.id to be a string,which it converts to an objectID
         #Giving it a straight objectID causes an error. Thus we call calculate on newreport, and the result is stored in the original report!
        
-        newreport = QME::QualityReport.new(measure['id'], measure.sub_id, 
+        newreport = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
         {'effective_date' => test.effective_date, 'test_id' => test.id.to_s})
         newreport.calculate(false)
       
@@ -80,7 +80,7 @@ module Cypress
 
     # Evaluates the supplied measure for the static patients
     def self.eval_for_static_records(measure, asynchronous = true)
-      report = QME::QualityReport.new(measure['id'], measure.sub_id, 
+      report = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
         {'effective_date' => STATIC_EFFECTIVE_DATE, 'test_id' => nil})
       result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
       

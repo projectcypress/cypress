@@ -44,7 +44,7 @@ class CalculatedProductTest < ProductTest
     data = pqri_file.open.read
     reported_results = Cypress::PqriUtility.extract_results(data,nil)  
     pqri_errors = Cypress::PqriUtility.validate(data)  
-    
+
     validation_errors = []
     pqri_errors.each do |e|
       validation_errors << ExecutionError.new(message: e, msg_type: :warning)
@@ -63,11 +63,12 @@ class CalculatedProductTest < ProductTest
       end
     end    
 
-    te = self.test_executions.build(expected_results:self.expected_results, execution_date: Time.now.to_i, reported_results: reported_results, execution_errors: validation_errors)
+    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results, execution_errors: validation_errors)
     
     te.save
     ids = Cypress::ArtifactManager.save_artifacts(pqri_file,te)
     te.files = ids
+
     te.save
     
     (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
