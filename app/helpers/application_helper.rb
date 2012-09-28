@@ -27,6 +27,7 @@ module ApplicationHelper
     type =  te.product_test.class.to_s.underscore
     "test_executions/#{type}/show"
   end
+
   
   
 end

@@ -15,6 +15,23 @@ class ApplicationController < ActionController::Base
 
   protected
 
+
+  class TypeNotFound < StandardError
+  end
+  
+  rescue_from TypeNotFound do |exception|
+    render :text => exception, :status => 500
+  end
+
+
+
+
+  def test_type(type)
+    raise TypeNotFound.new if type.nil?
+    type.camelize.constantize
+  end
+
+
   def layout_by_resource
     if devise_controller?
       "devise"
@@ -23,23 +40,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def find_product_test
-    find_product unless @product
-    @product_test = @product.product_tests.find(params[:product_test_id])
-  end
-  
-  def find_test_execution
-    find_product_test unless @product_test
-    @test_execution = @product_test.test_executions.find(params[:test_execution_id])
-  end
-  
-  def find_measure
-    @measure = Measure.find(params[:mesure_id])
-  end
-  
-  def find_patient_population
-    @patient_population = PatientPopulation.find(params[:patient_population_id])
-  end
   
   def render_404(exception)
     @not_found_path = exception.message

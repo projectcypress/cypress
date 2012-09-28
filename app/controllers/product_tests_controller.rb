@@ -5,12 +5,7 @@ require 'active_support'
 class ProductTestsController < ApplicationController
   before_filter :authenticate_user!
   
-  class TypeNotFound < StandardError
-  end
-  
-  rescue_from TypeNotFound do |exception|
-    render :text => exception, :status => 500
-  end
+
   
 
   def show
@@ -28,7 +23,7 @@ class ProductTestsController < ApplicationController
   end
   
   def create
-    test = test_type.new(params[:product_test])
+    test = test_type(params[:type]).new(params[:product_test])
     test.user = current_user
     test.save!
     redirect_to product_path(test.product)
@@ -111,10 +106,6 @@ class ProductTestsController < ApplicationController
   
 private
 
-  def test_type
-    raise TypeNotFound.new if params[:type].nil?
-    params[:type].camelize.constantize
-  end
 
  
 

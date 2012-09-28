@@ -12,7 +12,7 @@ class Product
 
   validates_presence_of :name
  
- 
+ # a product is only passing if all of it's tests have passed
   def passing?
     return true if self.product_tests.empty?
 
@@ -21,6 +21,7 @@ class Product
     end
     passing.length == product_tests.length
   end
+
   #failing if at least one of the tests is failing
   def failing?
     return false if self.product_tests.empty? 

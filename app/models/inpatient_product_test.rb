@@ -2,12 +2,7 @@ class InpatientProductTest < ProductTest
    
   #after the test is created generate the population
   after_create :generate_population
-  after_create :fake_expected_results
-  
-  def fake_expected_results
-    self.expected_results = {}
-    self.save!
-  end
+
   
   def generate_population
     expected_results = {}
@@ -20,6 +15,8 @@ class InpatientProductTest < ProductTest
       # todo implement this
       expected_results[measure.id] = {}
     end
+    self.save
+    self.ready
   end
   
 

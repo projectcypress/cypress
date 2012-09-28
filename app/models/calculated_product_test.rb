@@ -119,28 +119,4 @@ class CalculatedProductTest < ProductTest
   end
   
   
-  private
-  
-  # The Measures that are failing for this TestExecution that were selected for the associated ProductTest
-   def failing_measures()
-     return self.measures.select do |measure|
-       !self.passed?(self.expected_result(measure))
-     end
-   end
-
-  # Compare the supplied expected result to the reported result and return true
-  # if all figures match, false otherwise
-  def passed?(expected_result)
-   reported_result = reported_result(expected_result['key'])
-   ['denominator', 'numerator', 'exclusions'].each do |component|
-     if reported_result[component] != expected_result[component]
-       #puts "reported: #{reported_result[component]} , expected: #{expected_result[component]}"
-       return false
-     end
-   end
-
-   return true
-  end
-
-  
 end

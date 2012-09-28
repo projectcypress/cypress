@@ -3,6 +3,7 @@ module Cypress
   class  MeasureEvaluationJob < Resque::JobWithStatus
     
     def perform
+ 
        t = CalculatedProductTest.find(options["test_id"])
 
        results = {}
@@ -26,7 +27,7 @@ module Cypress
          result['key'] = measure.key
          results[measure.id.to_s] = result
        end
-       
+       binding.pry
        t.expected_results = results
        t.save
        t.ready
