@@ -108,7 +108,7 @@ class MeasuresController < ApplicationController
   
   private
   
-
+  
   
   def find_product
     if @test.nil?

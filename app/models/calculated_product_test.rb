@@ -38,50 +38,14 @@ class CalculatedProductTest < ProductTest
   end
 
 
-  def execute(params)
-
-    pqri_file = params[:results]
-    data = pqri_file.open.read
-    reported_results = Cypress::PqriUtility.extract_results(data,nil)  
-    pqri_errors = Cypress::PqriUtility.validate(data)  
-
-    validation_errors = []
-    pqri_errors.each do |e|
-      validation_errors << ExecutionError.new(message: e, msg_type: :warning)
-    end
-
-    expected_results.each_pair do |key,expected_result|
-      reported_result = reported_results[key] || {}
-      errs = []
-      ['denominator', 'numerator', 'exclusions'].each do |component|
-        if reported_result[component] != expected_result[component]
-         errs << "expected #{component} value #{expected_result[component]} does not match reported value #{reported_result[component]}"
-        end
-      end
-      if errs
-        validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: key )
-      end
-    end    
-
-    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results, execution_errors: validation_errors)
-    
-    te.save
-    ids = Cypress::ArtifactManager.save_artifacts(pqri_file,te)
-    te.files = ids
-
-    te.save
-    
-    (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
-    te
-  end
   
 
-  def execute_cat_3(params)
+  def execute(params)
 
     qrda_file = params[:results]
-    data = pqri_file.open.read
-    reported_results = Cypress::QrdaUtility.extract_results(data,nil)  
-    qrda_errors = Cypress::QrdaUtility.validate(data)  
+    data = qrda_file.open.read
+    reported_results = Cypress::QrdaUtility.extract_results(data)  
+    qrda_errors = Cypress::QrdaUtility.validate_cat3(data)  
     
     validation_errors = []
     qrda_errors.each do |e|
@@ -102,11 +66,11 @@ class CalculatedProductTest < ProductTest
       end
     end    
 
-    te = self.test_executions.build(expected_results:self.expected_results, execution_date: Time.now.to_i, reported_results: reported_results, execution_errors: validation_errors)
+    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results, execution_errors: validation_errors)
     
     te.save
     ids = Cypress::ArtifactManager.save_artifacts(qrda_file,te)
-    te.files = ids
+    te.file_ids = ids
     te.save
     
     (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed

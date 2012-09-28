@@ -20,13 +20,13 @@ class InpatientProductTest < ProductTest
   end
   
 
-  def execute(params)
+def execute(params)
 
     pqri_file = params[:results]
     data = pqri_file.open.read
     reported_results = Cypress::PqriUtility.extract_results(data,nil)  
     pqri_errors = Cypress::PqriUtility.validate(data)  
-    
+
     validation_errors = []
     pqri_errors.each do |e|
       validation_errors << ExecutionError.new(message: e, msg_type: :warning)
@@ -49,20 +49,17 @@ class InpatientProductTest < ProductTest
     
     te.save
     ids = Cypress::ArtifactManager.save_artifacts(pqri_file,te)
-    te.files = ids
+    te.file_ids = ids
+
     te.save
     
     (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
     te
   end
-
   
   
-  def validate_results(expected,reported)
-    
-  end
   
-   def self.product_type_measures
+  def self.product_type_measures
     Measure.top_level_by_type("eh")
   end
   

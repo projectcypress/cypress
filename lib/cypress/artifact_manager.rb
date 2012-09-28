@@ -5,12 +5,13 @@ module Cypress
     def self.grid()
         Mongoid::GridFS
     end
-
     def self.save_artifacts(*artifacts, test_execution)
 
       ids = []
       artifacts.each do |a|
-       ids << grid.put(a.open, :filename => File.basename(a.path), :metadata => {'execution_id' => test_execution.id.to_s}).id
+       fs = grid.put(a.open, :filename => File.basename(a.path))
+       fs.attributes[:metadata] =  {:metadata => {'execution_id' => test_execution.id.to_s}}
+       fs.save
       end
       ids
     end
