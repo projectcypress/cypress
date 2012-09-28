@@ -11,18 +11,27 @@ module Cypress
     def self.extract_results(doc)
       doc = (doc.kind_of? String )? Nokogiri::XML::Document.new(doc) : doc
       #the nodes we want will have a child "templateId" with root = 2.16.840.1.113883.10.20.27.3.1
-      xpath_results = '/xmlns:ClinicalDocument/xmlns:component/xmlns:structuredBody/xmlns:component/xmlns:section/xmlns:entry/xmlns:organizer/xmlns:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]/parent::*'
-      xpath_measure_id = 'xmlns:reference/xmlns:externalDocument/xmlns:id'
-      xpath_set_id = 'xmlns:reference/xmlns:externalDocument/xmlns:setId'
+      xpath_measures = '/xmlns:ClinicalDocument/xmlns:component/xmlns:structuredBody/xmlns:component/xmlns:section/xmlns:entry/xmlns:organizer/xmlns:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]/parent::*'
       
       results ||= {}
-      result_nodes = doc.xpath(xpath_results)
+      result_nodes = doc.xpath(xpath_measures)
       result_nodes.each do |result_node|
-        measure_data = get_measure_data(result_node)
-        measure_data[:measure_id] = result_node.at_xpath(xpath_measure_id)['root']
-        measure_data[:set_id] = result_node.at_xpath(xpath_set_id)['root']
-        keys = generate_keys(measure_data)
-        results.merge!(populate_results(keys, measure_data))
+        results.merge!(extract_measure_results(result_node))
+      end
+      results
+    end
+
+    #takes a document and a list of 1 or more id hashes, e.g.:
+    #[{measure_id:"8a4d92b2-36af-5758-0136-ea8c43244986", set_id:"03876d69-085b-415c-ae9d-9924171040c2", ipp:"D77106C4-8ED0-4C5D-B29E-13DBF255B9FF", den:"8B0FA80F-8FFE-494C-958A-191C1BB36DBF", num:"9363135E-A816-451F-8022-96CDA7E540DD"}]
+    #returns an empty hash if nothing matching is found
+    def self.extract_results_by_ids(doc, ids)
+      doc = (doc.kind_of? String )? Nokogiri::XML::Document.new(doc) : doc
+      results = {}
+      ids.each do |id|
+        xpath_measure = '/xmlns:ClinicalDocument/xmlns:component/xmlns:structuredBody/xmlns:component/xmlns:section/xmlns:entry/xmlns:organizer/xmlns:reference[xmlns:externalDocument[xmlns:id[@root="'+id[:measure_id]+'"] and xmlns:setId[@root="'+id[:set_id]+'"]]]/parent::*'
+
+        match = extract_measure_results(doc.at_xpath(xpath_measure), [id])
+        results.merge!(match) if check_result(id, match[id])
       end
       results
     end
@@ -37,10 +46,9 @@ module Cypress
        zipfile.entries.each do |entry|
         file_errors.concat (self.validate_cat_1(entry.name, zipfile.read(entry)) )          
        end
-     end
-     file_errors
+      end
+      file_errors
     end
-
 
     def self.validate_cat_1(name, data)
       file_errors = []
@@ -64,9 +72,35 @@ module Cypress
     end
     
     private
-    
+
+
     def self.get_schematron_measure_validator(measure)
       MEASURE_VALIDATORS[measure.key] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.key} Measure Validator", "#{QRDA_CAT1_ROOT}/#{measure.key}.xls")
+    end
+
+    #checks if a hash of values has a value for every field in a key
+    def self.check_result(keys, values)
+      keys.each do |name, ref|
+        #skip special case of measure ids
+        next if name == :measure_id || name == :set_id
+        return false if values[name].nil?
+      end
+      true
+    end
+
+    #extract all the data from a measure node, keys is an optional list of
+    #key hashes. if not given, will create all possible key permutations based on the measure data
+    def self.extract_measure_results(measure_node, keys = nil)
+      xpath_measure_id = 'xmlns:reference/xmlns:externalDocument/xmlns:id'
+      xpath_set_id = 'xmlns:reference/xmlns:externalDocument/xmlns:setId'
+
+      measure_data = get_measure_data(measure_node)
+      measure_data[:measure_id] = measure_node.at_xpath(xpath_measure_id)['root']
+      measure_data[:set_id] = measure_node.at_xpath(xpath_set_id)['root']
+      keys = generate_keys(measure_data) if keys.nil?
+      results = populate_results(keys, measure_data)
+      
+      results
     end
 
     #given a set of keys and the measure data, build a hash mapping the keys to the right data
@@ -91,8 +125,14 @@ module Cypress
         if strata_hash
           result[:strata] = strata_hash[k[:strata]]
         end
+
+        #This code will alter the key to add all the continuous values
         if continuous_values
-          result[:continuous_values] = continuous_values
+          continuous_values.each do |reference,values|
+            code = values['code'].to_sym
+            k[code] = reference
+            result[code] = values['value']
+          end
         end
 
         results[k] = result
@@ -109,7 +149,7 @@ module Cypress
       elsif exceptions.include?(field)
         result[field] = mdata[field].values[0][:value] if mdata[field]
       else
-        result[field] = mdata[field][key[field]][:value] if key[field]
+        result[field] = mdata[field][key[field]][:value] if mdata[field] && mdata[field][key[field]]
       end
     end
 
@@ -232,8 +272,7 @@ module Cypress
     end
 
     def self.get_strata(node)
-      template_id = '2.16.840.1.113883.10.20.27.3.4'
-      xpath_observations = 'xmlns:entryRelationship[@typeCode="COMP"]/xmlns:observation/xmlns:templateId[@root = "'+ template_id +'"]/parent::*'
+      xpath_observations = 'xmlns:entryRelationship[@typeCode="COMP"]/xmlns:observation/xmlns:templateId[@root = "2.16.840.1.113883.10.20.27.3.4"]/parent::*'
 
       observation_nodes = node.xpath(xpath_observations)
       list_stratum = {}
