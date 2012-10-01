@@ -18,37 +18,26 @@ class QRDAProductTest < ProductTest
     
   end
   
-  
-  
   def execute(params)
     file = params[:results]
-
     te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i)
     te.execution_errors = Cypress::QRDAUtility.validate_cat_1("results",file.open.read)
-    
     ids = Cypress::ArtifactManager.save_artifacts(file,te)
-    te.files = ids
+    te.file_ids = ids
     te.save
-
     (te.count_errors > 0) ? te.failed : te.pass
     te
     
   end
   
-  
   def self.product_type_measures
     Measure.top_level
   end
-  
-  
-  
-  
+
   # method used to mark the elements in the document that have errors so they 
   # can be linked to
-  def match_errors(name)
-    zp =  Cypress::ArtifactManager.save_artifacts(file,te)
-    #read in the appropriate file entry
-    file = zp.read_entry(name)
+  def match_errors(test_execution)
+    file = test_execution.files[0]
     doc = Nokogiri::XML(file.read)
     error_map = {}
     error_id = 0

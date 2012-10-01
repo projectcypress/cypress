@@ -19,15 +19,7 @@ module Cypress
           elsif format==:html
             #http://iweb.dl.sourceforge.net/project/ccr-resources/ccr-xslt-html/CCR%20XSL%20V2.0/ccr.xsl
              z.put_next_entry("#{next_entry_path}.html")
-             doc = Nokogiri::XML::Document.parse(HealthDataStandards::Export::C32.export(patient))
-             
-             xml = xslt.apply_to(doc)
-            
-             html=HealthDataStandards::Export::HTML.export(patient)
-             transformed = Nokogiri::HTML::Document.parse(xml)
-             transformed.at_css('ul').after(html)
-             
-             z << transformed.to_html
+             z << HealthDataStandards::Export::HTML.export(patient)
             
           else
             z.put_next_entry("#{next_entry_path}.xml")

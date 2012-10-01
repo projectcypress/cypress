@@ -1,7 +1,7 @@
 require 'validators/schema_validator'
 require 'validators/schematron_validator'
 module Cypress
-  class QRDAUtility
+  class QrdaUtility
     QRDA_CAT1_ROOT="./resources/qrda_cat_1"
     QRDA_CAT1_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("QRDA Cat I schema validator", "#{QRDA_CAT1_ROOT}/qrda_cat_1.xsd")
     QRDA_CAT1_SCHEMATRON_VALIDATOR = Validators::Schematron::CompiledValidator.new("QRDA Cat I schema validator",  "#{QRDA_CAT1_ROOT}/qrda_cat_1.xsl")
@@ -9,7 +9,7 @@ module Cypress
     # Extract and return measure results from a QRDA CATIII document and add to the reported results
     # for this test.
     def self.extract_results(doc)
-      doc = (doc.kind_of? String )? Nokogiri::XML::Document.new(doc) : doc
+      doc = (doc.kind_of? String )? Nokogiri::XML(doc) : doc
       #the nodes we want will have a child "templateId" with root = 2.16.840.1.113883.10.20.27.3.1
       xpath_results = '/xmlns:ClinicalDocument/xmlns:component/xmlns:structuredBody/xmlns:component/xmlns:section/xmlns:entry/xmlns:organizer/xmlns:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]/parent::*'
       xpath_measure_id = 'xmlns:reference/xmlns:externalDocument/xmlns:id'
@@ -27,22 +27,12 @@ module Cypress
       results
     end
 
-    def self.validate_cat3_document(file)
-	    
-    end
-
-    def self.validate_zip(file)
-      file_errors = []
-      Zip::ZipFile.open(file.path) do |zipfile|
-       zipfile.entries.each do |entry|
-        file_errors.concat (self.validate_cat_1(entry.name, zipfile.read(entry)) )          
-       end
-     end
-     file_errors
+    def self.validate_cat3(file)
+	    []
     end
 
 
-    def self.validate_cat_1(name, data)
+    def self.validate_cat_1(file,measures=[])
       file_errors = []
       doc = Nokogiri::XML(data)
 
@@ -52,21 +42,24 @@ module Cypress
        
        # First validate the schema correctness
        
-        file_errors.concat QRDA_CAT1_SCHEMA_VALIDATOR.validate(doc, {msg_type: :error, file_name: name})
+        file_errors.concat QRDA_CAT1_SCHEMA_VALIDATOR.validate(doc, {msg_type: :error})
 
         file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :error, file_name: name})
         file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :warning, file_name: name })
         
-        # schematron_validator = get_schematron_measure_validator
-        #         file_errors[entry.name].concat schematron_validator.validate(entry, {phase: :errors, msg_type: :error})
-        #         file_errors[entry.name].concat schematron_validator.validate(entry, {phase: :errors, msg_type: :warning })
-     file_errors
+        measures.each do |measure|
+           schematron_validator = get_schematron_measure_validator(measure)
+           file_errors.concat schematron_validator.validate(entry, {phase: :errors, msg_type: :error})
+           file_errors.concat schematron_validator.validate(entry, {phase: :errors, msg_type: :warning }) 
+        end
+
+        file_errors
     end
     
     private
     
     def self.get_schematron_measure_validator(measure)
-      MEASURE_VALIDATORS[measure.key] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.key} Measure Validator", "#{QRDA_CAT1_ROOT}/#{measure.key}.xls")
+      MEASURE_VALIDATORS[measure.key] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.key} Measure Validator", "#{QRDA_CAT1_ROOT}/#{measure.hqmf_id.downcase}.xslt")
     end
 
     #given a set of keys and the measure data, build a hash mapping the keys to the right data

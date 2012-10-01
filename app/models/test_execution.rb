@@ -11,7 +11,8 @@ class TestExecution
   
   field :status, type: Symbol
   field :state, type: Symbol
-  field :files, type: Array
+  field :file_ids, type: Array
+
   scope :ordered_by_date, order_by(:created_at => :desc)
   scope :order_by_state, order_by(:state => :asc)
 
@@ -74,7 +75,7 @@ class TestExecution
   end
   
   def files
-    
+     Cypress::ArtifactManager.get_artifacts(test_execution.file_ids)
   end
   
 end

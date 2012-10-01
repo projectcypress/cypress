@@ -10,5 +10,13 @@ class Bundle
   
   validates_presence_of :name
   validates_presence_of :version
+
+  def measure_defs
+  	Measures.where(:bundle_id=>self.id)
+  end
+
+  def records
+  	Record.where(:bundle_id=>self.id)
+  end
   
 end
