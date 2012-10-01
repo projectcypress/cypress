@@ -30,13 +30,29 @@
     </section>
 
     <section id="ehr_results">
+      <% if @vendor.products.empty? %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Products</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding-top:15px">
+                There are no products for this vendor. <%= link_to "Add Product", new_product_path(:vendor => @vendor), { :class => "cmd" } %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <% else %>
       <table class="table">
         <% products_by_status(@vendor).each do |result_status, result_products|
           next if result_products.empty? %>
           <thead>
             <tr>
               <th class="span1" colspan="3"><span class="<%= result_status %>"><%= result_status %>ing</span> Products</th>
-              <th colspan="1">Description</th>
+              <th>Description</th>
               <th>Tests</th>
               <th></th>
               <th></th>
@@ -89,6 +105,7 @@
           <% end %>
         <% end %>
       </table>
+      <% end %>
     </section>
 
     <%= render :partial => "shared/legend" %>

@@ -50,11 +50,11 @@
         switch (screen) {
             case "first":
                 $('#currentStep').html(1);
-                $('#back').addClass('disabled').find('input').attr('disabled',true).css("color","silver");
+                $('#back').addClass('disabled').attr('disabled',true);
                 break;
             case "wizard-measures-screen":
                 $('#currentStep').html(2);
-                $('#back').removeClass('disabled').find('input').removeAttr('disabled').css("color","green");
+                $('#back').removeClass('disabled').removeAttr('disabled');
                 break;
 //            case "wizard-workflow-screen":
 //                $('#currentStep').html(3);
@@ -158,6 +158,9 @@ $(document).ready(function() {
             cache = {}; // empty the cache again
         }
     });
+    // disableUIStyles doesn't prevent these classes from being added to the buttons. 
+    // we'll remove them here instead of overriding in the stylesheets.
+    $("#navigation input").removeClass("ui-formwizard-button ui-wizard-content");
     $.testWizard.updateProgressBar("first");
     $('.edit_product_test').validate({
         rules: {

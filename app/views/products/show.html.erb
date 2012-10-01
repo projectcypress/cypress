@@ -21,28 +21,26 @@
         <dt>Product:</dt> <dd><%= @product.name %></dd>
         <dt>Version:</dt> <dd><%= @product.version %></dd>
       </dl>
-      <dl class=" dl-horizontal">
+      <dl class=" dl-horizontal" style="width:480px">
         <dt>Description:</dt> <dd><%= @product.description %></dd>
       </dl>
     </section>
 
     <section id="ehr_results">
       <table class="table">
-        <!-- IF THERE ARE NO PRODUCT TESTS THEN DISPLAY MESSAGE -->
+        <% if @product.product_tests.empty? %>
           <thead>
             <tr>
-              <th colspan="3">Tests</th>
+              <th>Tests</th>
               <th>Type</th>
               <th>Description</th>
               <th>Executions</th>
-              <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="3" style="padding-top:15px">There are no tests for this product. <%= link_to "Add Test", new_product_test_path(:product_id => @product), { :class => "cmd" } %></td></tr>
+            <tr><td colspan="4" style="padding-top:15px">There are no tests for this product. <%= link_to "Add Test", new_product_test_path(:product_id => @product), { :class => "cmd" } %></td></tr>
           </tbody>
-        <!-- END NO TESTS -->
+        <% else %>
         <% product_tests_by_status(@product).each do |result_status, result_tests|
           next if result_tests.empty?
           if result_status == 'incomplete'
@@ -109,7 +107,8 @@
             </tbody>
           <% end %>
         <% end %>
-      </table>
+       <% end %>
+     </table>
     </section>
 
     <%= render :partial => "shared/legend" %>

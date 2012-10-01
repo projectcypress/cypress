@@ -11,7 +11,7 @@
     td {vertical-align: top;}
     p {padding:5px;}
     #navigation {
-      padding-top: .2em;
+      padding: 10px 0;
       text-align:right;
       width:100%;
     }
@@ -32,7 +32,7 @@
        which is set to block (?!)
     */
     #navigation span.status {
-      display:inline;
+      display:inline; margin:0 10px;
   }
     .left {float: left;clear:left;}
     .right {float: right;clear:right;}
@@ -48,9 +48,9 @@
 <%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
   <%= f.hidden_field :product_id, :value => @product.id %>
   <div id="navigation">
-    <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
+    <input class="btn" value="Back" type="reset" id="back"/>
     <span class="status">Step <b id="currentStep">1</b> of 2</span>
-    <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /></a>
+    <input class="btn" value="Next" type="submit" id="next"/>
   </div>
   
   <div id="validationErrorMessages"></div>
