@@ -23,11 +23,8 @@ module Cypress
            end
           
          result = qr.result
-         result['measure_id'] = measure.hqmf_id
-         result['key'] = measure.key
-         results[measure.hqmf_id] = result
+         results[measure.key] = result
        end
-       binding.pry
        t.expected_results = results
        t.save
        t.ready

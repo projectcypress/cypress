@@ -40,7 +40,7 @@ module Cypress
             entry = nil
             break
           end
-          entry[k] = val
+          entry[k.to_s] = val
 
         end
         if entry
@@ -48,7 +48,20 @@ module Cypress
           break
         end
       end  
-       {ids.dup => results}
+      return nil unless results
+
+       code_mapping = {'NUMER' => :numerator, 'DENOM' => :denominator,'IPP' => :population, 'MSRPOPL' => :msr_popl , 
+                      'NUMEX' => :numex, 'DENEX' => :exclusions,'DENEXCEP' => :exceptions}
+        if results
+          code_mapping.each_pair do |k,v|
+            if results[k]
+              results[v] = results[k]
+              results.delete(k)
+            end
+        end
+      end
+      results[:population_ids] = ids.dup
+      results
     end
 
 

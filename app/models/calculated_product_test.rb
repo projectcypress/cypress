@@ -33,42 +33,52 @@ class CalculatedProductTest < ProductTest
   #after the test is created generate the population
   after_create :generate_population
 
-  def expected_Results(mesasure_id) 
+  def expected_result(mesasure_id) 
    (expected_results ||{})[measure_id]
   end
-
-
-  
 
   def execute(params)
 
     qrda_file = params[:results]
     data = qrda_file.open.read
-    reported_results = Cypress::QrdaUtility.extract_results(data)  
-    qrda_errors = Cypress::QrdaUtility.validate_cat3(data)  
+    doc = Nokogiri::XML(data)
     
-    validation_errors = []
-    qrda_errors.each do |e|
-      validation_errors << ExecutionError.new(message: e, msg_type: :warning)
-    end
-
+    matched_results = {}
+    reported_results = {}
+    
+    validation_errors = Cypress::QrdaUtility.validate_cat3(data) || [] 
+ 
+   
+    
     expected_results.each_pair do |key,expected_result|
-      reported_result = reported_results[key] || {}
-      errs = []
+      result_key = expected_result["population_ids"].dup
+      reported_result = Cypress::QrdaUtility.extract_results_by_ids(doc,expected_result["measure_id"], result_key) 
+      reported_results[key] = reported_result 
 
-      expected_result.each_pair do |component, value|
-        if reported_result[component] != value
-         errs << "expected #{component} value #{value} does not match reported value #{reported_result[component]}"
-        end
+      if reported_result.nil?
+         validation_errors << ExecutionError.new(message: "Could not find entry for measure #{key} ", msg_type: :error, measure_id: key )
       end
-      if errs
+
+      matched_result = {measure_id: expected_result["measure_id"], sub_id: expected_results["sub_id"]}
+      matched_results[key] = matched_result
+      reported_result = {}
+      errs = []
+      ["denonminator", "numerator", "exceptions", "denex", "numex", "population", "msr_popl" ].each do |key|
+        if expected_result[key]
+          matched_result[key] = {:expected=>expected_result[key], :reported=>reported_result[:key]}
+          # only add the error that they dont match if there was an actual result
+          if (expected_result[key] != reported_results[key]) && !reported_result.empty?
+
+           errs << "expected #{key} value #{expected_result[key]} does not match reported value #{reported_result[key]}"
+          end
+        end 
+      end
+      if !errs.empty?
         validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: key )
       end
     end    
 
-    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results, execution_errors: validation_errors)
-    
-    te.save
+    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results,  matched_results: matched_results, execution_errors: validation_errors)
     ids = Cypress::ArtifactManager.save_artifacts(qrda_file,te)
     te.file_ids = ids
     te.save
