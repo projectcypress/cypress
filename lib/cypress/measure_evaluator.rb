@@ -23,6 +23,7 @@ module Cypress
            end
           
          result = qr.result
+         result.delete("_id")
          results[measure.key] = result
        end
        t.expected_results = results

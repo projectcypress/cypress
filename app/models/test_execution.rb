@@ -55,12 +55,12 @@ class TestExecution
 
   # Get the expected result for a particular measure
   def expected_result(measure)
-    (expected_results || {})[measure.id] || {}
+    (expected_results || {})[measure.key] || {}
   end
   
   # Get the expected result for a particular measure
   def reported_result(measure)
-    (reported_results || {})[measure.id] || {}
+    (reported_results || {})[measure.key] || {}
   end
   
   def passing?

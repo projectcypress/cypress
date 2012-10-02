@@ -33,9 +33,6 @@ class CalculatedProductTest < ProductTest
   #after the test is created generate the population
   after_create :generate_population
 
-  def expected_result(mesasure_id) 
-   (expected_results ||{})[measure_id]
-  end
 
   def execute(params)
 
