@@ -10,22 +10,75 @@ module Cypress
     # for this test.
     def self.extract_results(doc)
       doc = (doc.kind_of? String )? Nokogiri::XML(doc) : doc
+      doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
       #the nodes we want will have a child "templateId" with root = 2.16.840.1.113883.10.20.27.3.1
-      xpath_results = '/xmlns:ClinicalDocument/xmlns:component/xmlns:structuredBody/xmlns:component/xmlns:section/xmlns:entry/xmlns:organizer/xmlns:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]/parent::*'
-      xpath_measure_id = 'xmlns:reference/xmlns:externalDocument/xmlns:id'
-      xpath_set_id = 'xmlns:reference/xmlns:externalDocument/xmlns:setId'
+      xpath_measures = '/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer/cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]/parent::*'
       
       results ||= {}
-      result_nodes = doc.xpath(xpath_results)
+      result_nodes = doc.xpath(xpath_measures)
       result_nodes.each do |result_node|
-        measure_data = get_measure_data(result_node)
-        measure_data[:measure_id] = result_node.at_xpath(xpath_measure_id)['root']
-        measure_data[:set_id] = result_node.at_xpath(xpath_set_id)['root']
-        keys = generate_keys(measure_data)
-        results.merge!(populate_results(keys, measure_data))
+        results.merge!(extract_measure_results(result_node))
       end
       results
     end
+
+    #takes a document and a list of 1 or more id hashes, e.g.:
+    #[{measure_id:"8a4d92b2-36af-5758-0136-ea8c43244986", set_id:"03876d69-085b-415c-ae9d-9924171040c2", ipp:"D77106C4-8ED0-4C5D-B29E-13DBF255B9FF", den:"8B0FA80F-8FFE-494C-958A-191C1BB36DBF", num:"9363135E-A816-451F-8022-96CDA7E540DD"}]
+    #returns an empty hash if nothing matching is found
+    def self.extract_results_by_ids(doc, measure_id,  ids)
+      doc = (doc.kind_of? String )? Nokogiri::XML(doc) : doc
+      doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
+      results = nil
+      _ids = ids.dup
+      stratification = _ids.delete(:stratification)
+        
+      find_measure_nodes(doc,measure_id).each do |n|
+        entry = {}
+        _ids.each_pair do |k,v|
+          val = extract_component_value(n,k,v,stratification)
+          if val.nil?
+            entry = nil
+            break
+          end
+          entry[k] = val
+
+        end
+        if entry
+          results = entry 
+          break
+        end
+      end  
+       {ids.dup => results}
+    end
+
+
+  def self.find_measure_nodes(doc,id)
+     xpath_measures = %{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"] and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
+     return doc.xpath(xpath_measures)  || []
+  end
+
+  def self.translate(id)
+    %{translate(#{id}, "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ")}
+  end
+
+
+  def self.extract_component_value(node, code,id,strata = nil)
+    xpath_observation = %{ cda:component/cda:observation[./cda:value[@code = "#{code}"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{id.upcase}']]}
+    cv = node.at_xpath(xpath_observation)
+    return nil unless cv
+    val = nil
+    if strata
+       strata_path = %{ cda:entryRelationship[@typeCode="COMP"]/cda:observation[./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.4"]  and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{strata.upcase}']]}
+       n = cv.xpath(strata_path)
+       val = get_aggregate_count(n) if n
+    else
+      val = get_aggregate_count(cv)
+    end
+    return val
+  end
+
+
+
 
     def self.validate_cat3(file)
 	    []
@@ -33,6 +86,7 @@ module Cypress
 
 
     def self.validate_cat_1(file,measures=[])
+
       file_errors = []
       doc = Nokogiri::XML(data)
 
@@ -57,14 +111,69 @@ module Cypress
     end
     
     private
-    
+
+
     def self.get_schematron_measure_validator(measure)
       MEASURE_VALIDATORS[measure.key] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.key} Measure Validator", "#{QRDA_CAT1_ROOT}/#{measure.hqmf_id.downcase}.xslt")
     end
 
+    #checks if a hash of values has a value for every field in a key
+    def self.check_result(keys, values)
+      keys.each do |name, ref|
+        #skip special case of measure ids
+        next if name == :measure_id || name == :set_id
+        return false if values[name].nil?
+      end
+      true
+    end
+
+    #extract all the data from a measure node, keys is an optional list of
+    #key hashes. if not given, will create all possible key permutations based on the measure data
+    def self.extract_measure_results(measure_node, keys = nil)
+      xpath_measure_id = 'cda:reference/cda:externalDocument/cda:id'
+      xpath_set_id = 'cda:reference/cda:externalDocument/cda:setId'
+
+      measure_data = get_measure_data(measure_node)
+      measure_data[:measure_id] = measure_node.at_xpath(xpath_measure_id)['root']
+     # measure_data[:set_id] = measure_node.at_xpath(xpath_set_id)['root']
+      keys = generate_keys(measure_data) if keys.nil?
+      results = populate_results(keys, measure_data)
+
+      ## this is here to map this to what is really needed.  THe code below that handles this needs
+      # to be refactored and is just way more complicated than it needs to be.  This is a simple stop
+      # gap without needing to go in and figure out what that is doing.
+      res = {}
+      results.each_pair do |k,v|
+        code_mapping = {'NUMER' => :num, 'DENOM' => :den,'IPP' => :ipp, 'MSRPOPL' => :msr_popl , 
+                      'NUMEX' => :numex, 'DENEX' => :denex,'EXCEP' => :excep, "stratification" => :strata}
+        nkey = {}             
+        code_mapping.each_pair do |code,name|
+          k.delete(:set_id)
+          if k[name]
+            k[code] = k[name]
+            k.delete(name)
+          end
+        end
+
+        {den: :denominator, num: :numerator}.each_pair do |old,n|
+          if v[old]
+            v[n] = v[old]
+            v.delete(old)
+          end
+
+        end
+
+      end
+
+      results
+    end
+
+
+
     #given a set of keys and the measure data, build a hash mapping the keys to the right data
     def self.populate_results(keys, mdata)
       results = {}
+
       keys.each do |k|
         result = {}
         k.each do |field, reference|
@@ -73,7 +182,7 @@ module Cypress
         load_value(mdata, k, :excep, result)
         load_value(mdata, k, :denex, result)
         load_value(mdata, k, :numex, result)
-
+     
         if result[:ipp]
           strata_hash = mdata[:ipp][k[:ipp]][:strata]
         elsif result[:msr_popl]
@@ -84,8 +193,14 @@ module Cypress
         if strata_hash
           result[:strata] = strata_hash[k[:strata]]
         end
+
+        #This code will alter the key to add all the continuous values
         if continuous_values
-          result[:continuous_values] = continuous_values
+          continuous_values.each do |reference,values|
+            code = values['code'].to_sym
+            k[code] = reference
+            result[code] = values['value']
+          end
         end
 
         results[k] = result
@@ -102,7 +217,7 @@ module Cypress
       elsif exceptions.include?(field)
         result[field] = mdata[field].values[0][:value] if mdata[field]
       else
-        result[field] = mdata[field][key[field]][:value] if key[field]
+        result[field] = mdata[field][key[field]][:value] if mdata[field] && mdata[field][key[field]]
       end
     end
 
@@ -144,11 +259,12 @@ module Cypress
     end
 
     def self.generate_keys(mdata)
-      key_fields = [:measure_id, :set_id, :ipp, :msr_popl, :den, :num, :strata]
+      key_fields = [:measure_id, :set_id, :ipp, :msr_popl, :den,  :num, :denex, :numex, :excep,:strata]
       keys = []
+       
       ids = get_ids(mdata)
-      ipp_ids = [ids[:measure_id], ids[:set_id], ids[:ipp][:id], [''], ids[:den], ids[:num], ids[:ipp][:strata]]
-      msr_popl_ids = [ids[:measure_id], ids[:set_id], [''], ids[:msr_popl][:id], ids[:den], ids[:num], ids[:msr_popl][:strata]]
+      ipp_ids = [ids[:measure_id], ids[:set_id], ids[:ipp][:id], [''], ids[:den], ids[:num], ids[:denex], ids[:numex],  ids[:excep], ids[:ipp][:strata]]
+      msr_popl_ids = [ids[:measure_id], ids[:set_id], [''], ids[:msr_popl][:id], ids[:den], ids[:num],ids[:denex], ids[:numex],  ids[:excep], ids[:msr_popl][:strata]]
 
       permutations = generate_permutations(ipp_ids) + generate_permutations(msr_popl_ids)
       permutations.each do |p|
@@ -177,10 +293,10 @@ module Cypress
       measure_data = {}
       code_mapping.each do |code, name|
         entry_list = {}
-        xpath_value    = 'xmlns:observation/xmlns:value'
-        xpath_expected = 'xmlns:observation/xmlns:referenceRange/xmlns:observationRange/xmlns:value'
-        xpath_observations = 'xmlns:component/xmlns:observation/xmlns:value[@code = "'+ code +'"]/parent::*'
-        xpath_entryRelationship = 'xmlns:value[@code = "'+ code +'"]/following-sibling::xmlns:entryRelationship'
+        xpath_value    = 'cda:observation/cda:value'
+        xpath_expected = 'cda:observation/cda:referenceRange/cda:observationRange/cda:value'
+        xpath_observations = 'cda:component/cda:observation/cda:value[@code = "'+ code +'"]/parent::*'
+        xpath_entryRelationship = 'cda:value[@code = "'+ code +'"]/following-sibling::cda:entryRelationship'
 
         observation_nodes = measure_node.xpath(xpath_observations)
         observation_nodes.each do |n|
@@ -201,15 +317,16 @@ module Cypress
         entry_list = nil if entry_list.empty?
         measure_data[name] = entry_list
       end
+      binding
       measure_data
     end
 
     #get all continuous values within a measure data (numerator, denominator, etc) node
     def self.get_continuous_values(node)
-      xpath_observations = 'xmlns:entryRelationship[@typeCode="COMP"]/xmlns:templateId[@root = "2.16.840.1.113883.10.20.27.3.2"]/following-sibling::xmlns:observation'
-      xpath_expected = 'xmlns:referenceRange/xmlns:observationRange/xmlns:value'
-      xpath_code  = 'xmlns:methodCode'
-      xpath_value = 'xmlns:value'
+      xpath_observations = 'cda:entryRelationship[@typeCode="COMP"]/cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.2"]/following-sibling::cda:observation'
+      xpath_expected = 'cda:referenceRange/cda:observationRange/cda:value'
+      xpath_code  = 'cda:methodCode'
+      xpath_value = 'cda:value'
       
       list_values = {}
       observation_nodes = node.xpath(xpath_observations)
@@ -225,8 +342,7 @@ module Cypress
     end
 
     def self.get_strata(node)
-      template_id = '2.16.840.1.113883.10.20.27.3.4'
-      xpath_observations = 'xmlns:entryRelationship[@typeCode="COMP"]/xmlns:observation/xmlns:templateId[@root = "'+ template_id +'"]/parent::*'
+      xpath_observations = 'cda:entryRelationship[@typeCode="COMP"]/cda:observation/cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.4"]/parent::*'
 
       observation_nodes = node.xpath(xpath_observations)
       list_stratum = {}
@@ -240,17 +356,16 @@ module Cypress
 
     #given an observation node with an aggregate count node, return the reported and expected value within the count node
     def self.get_aggregate_count(node)
-      xpath_value = 'xmlns:entryRelationship/xmlns:observation/xmlns:value'
-      xpath_expected = 'xmlns:entryRelationship/xmlns:observation/xmlns:referenceRange/xmlns:observationRange/xmlns:value'
-
+      xpath_value = 'cda:entryRelationship/cda:observation[./cda:templateId[@root="2.16.840.1.113883.10.20.27.3.3"]]/cda:value'
+      
       value_node = node.at_xpath(xpath_value)
       value = convert_value(value_node) if value_node
-      value ||= ''
+      value
     end
 
     #given an observation node with a reference, gets the reference 
     def self.get_reference(node)
-      xpath_reference = 'xmlns:reference/xmlns:externalObservation/xmlns:id'
+      xpath_reference = 'cda:reference/cda:externalObservation/cda:id'
       reference_node  =  node.at_xpath(xpath_reference)
       reference = reference_node['root'] if reference_node
       reference ||= ''
