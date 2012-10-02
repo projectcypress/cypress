@@ -8,6 +8,7 @@ class TestExecution
 
   field :expected_results, type: Hash
   field :reported_results, type: Hash
+  field :matched_results, type: Hash
   
   field :status, type: Symbol
   field :state, type: Symbol
