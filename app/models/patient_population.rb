@@ -22,12 +22,13 @@ class PatientPopulation
   end
   
   def self.min_coverage(measures)
-    # Get a hash of all measures requested, each with its own list of patients who are in that measure's numerator
-    measures_to_patients = MONGO_DB['patient_cache'].group(:key => ["value.measure_id", "value.sub_id", "value.test_id"], 
-                              :cond => {"value.test_id"=>nil, "value.numerator"=>true,"value.measure_id"=>{"$in"=>measures}},
-                              :initial => {:patients => []},
-                              :reduce => 'function(o,prev){prev.patients.push(o.value.patient_id);}')
 
+    # Get a hash of all measures requested, each with its own list of patients who are in that measure's numerator
+   measures_to_patients = MONGO_DB.command(:group=>{:ns=>'patient_cache', 
+                                           :key => {"value.measure_id"=>1, "value.sub_id"=>1, "value.test_id"=>1}, 
+                                           :cond => {"value.test_id"=>nil, "value.numerator"=>true,"value.measure_id"=>{"$in"=>measures}},
+                                           :initial => {:patients => []},
+                                           "$reduce"=> 'function(o,prev){prev.patients.push(o.value.patient_id);}'})["retval"]
     # Order the measures by the amount of related patients, fewest to most
     measures_to_patients.sort! {|a,b| 
       al = a ? a['patients'].length : 0

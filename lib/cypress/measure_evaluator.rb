@@ -8,13 +8,13 @@ module Cypress
 
        results = {}
        t.measures.each do |measure|
-           qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id.to_s, 'filters' => options['filters'])
+           qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'])
            result = nil
            if qr.calculated?
              result=qr.result
              completed("#{options['measure_id']}#{options['sub_id']} has already been calculated") if respond_to? :completed
            else
-             map = QME::MapReduce::Executor.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id.to_s, 'filters' => options['filters'], 'start_time' => Time.now.to_i)
+             map = QME::MapReduce::Executor.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], 'start_time' => Time.now.to_i)
 
              if !qr.patients_cached?           
                map.map_records_into_measure_groups

@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/pophealth/quality-measure-engine.git
-  revision: 4f53371045fe99459d7250cd3bcbc5a41ddcee64
+  revision: c1dea63065fcc3e92be2c35f4e599a4caf15f8ea
   branch: develop
   specs:
     quality-measure-engine (1.1.5)
@@ -66,8 +66,6 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bson (1.7.0)
-    bson_ext (1.7.0)
-      bson (~> 1.7.0)
     builder (3.0.3)
     coderay (1.0.7)
     coffee-rails (3.2.2)
@@ -243,8 +241,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson
-  bson_ext
   coffee-rails
   devise (~> 2.0)
   health-data-standards!
