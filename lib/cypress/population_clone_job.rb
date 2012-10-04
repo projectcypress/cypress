@@ -11,15 +11,16 @@ module Cypress
   class PopulationCloneJob < Resque::JobWithStatus
     def perform
       # Clone AMA records from Mongo
-      ama_patients = Record.where(:test_id => nil)
 
+      ama_patients = Record.where(:test_id => nil)
+      binding.pry
       if options['patient_ids']
         # clone each of the patients identified in the :patient_ids parameter
-        ama_patients = Record.where(:test_id => nil).where(:_id.in => options['patient_ids'])
+        ama_patients = Record.where(:test_id => nil).in(medical_record_number: options['patient_ids'])
       elsif options['subset_id'] != "all"
         # If we're using one of the predefined patient populations, use the patients identified therein
         patient_population = PatientPopulation.where(:name => options['subset_id']).first
-        ama_patients = Record.where(:_id.in => patient_population.patient_ids)
+        ama_patients = Record.in(medical_record_number: patient_population.patient_ids)
       else
         # For randomness, when a user requests to use the full test deck, we add up to 10% duplicate records
         #additional_patient_count = Random.rand(ama_patients.size * 0.1).to_i
@@ -31,7 +32,7 @@ module Cypress
       rand_prefix = Time.new.to_i
       ama_patients.each_with_index do |patient, index|
         cloned_patient = patient.clone
-        cloned_patient.patient_id = "#{rand_prefix}#{index}"
+        cloned_patient.medical_record_number = "#{rand_prefix}#{index}"
         cloned_patient.first = APP_CONFIG["randomization"]["names"]["first"][cloned_patient.gender].sample
         cloned_patient.last = APP_CONFIG["randomization"]["names"]["last"].sample
         cloned_patient.test_id = options['test_id']

@@ -28,7 +28,7 @@ class PatientPopulation
                                            :key => {"value.measure_id"=>1, "value.sub_id"=>1, "value.test_id"=>1}, 
                                            :cond => {"value.test_id"=>nil, "value.numerator"=>true,"value.measure_id"=>{"$in"=>measures}},
                                            :initial => {:patients => []},
-                                           "$reduce"=> 'function(o,prev){prev.patients.push(o.value.patient_id);}'})["retval"]
+                                           "$reduce"=> 'function(o,prev){prev.patients.push(o.value.medical_record_id);}'})["retval"]
     # Order the measures by the amount of related patients, fewest to most
     measures_to_patients.sort! {|a,b| 
       al = a ? a['patients'].length : 0
