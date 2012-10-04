@@ -11,8 +11,6 @@ gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-d
 #gem 'health-data-standards', '1.0.1'
 #gem 'health-data-standards', path: '../shared/health-data-standards'
 
-
-
 gem 'state_machine'
 
 
