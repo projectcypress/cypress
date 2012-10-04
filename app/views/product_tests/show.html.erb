@@ -151,7 +151,7 @@
       <% note = Note.new %>
       <%= simple_form_for note, :url => add_note_product_test_path(:execution_id => @current_execution) do |f| %>
         <%= f.input_field :text, :as => :text, :rows => 1, :class => 'input input-xxlarge' %>
-        <%= f.button :submit, :value => 'add note', :class => "cmd" %>
+        <%= f.button :submit, :value => 'add note', :class => "btn cmd" %>
       <% end %>
 
       <% if @test.notes %>
@@ -167,12 +167,6 @@
       <% end %>
     </section>
 
-    <section>
-      <div>
-
-      </div>
-    </section>
-
     <section class="executions">
       <table class="table">
         <thead>
@@ -180,7 +174,7 @@
             <th class="align-left" colspan="3">
               <span class=""><strong>Test Executions</strong></span>
             </th>
-            <th colspan="1">Description</th>
+            <th>Description</th>
             <th>Notes</th>
             <th colspan="2">Results</th>
           </tr>
@@ -191,16 +185,23 @@
            <td class="align-left" colspan="3">
              <span class=""><strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true %></strong></span>
            </td>
-           <td colspan="1"> </td>
+           <td> </td>
            <td>execution notes</td>
            <td colspan="2">execution results</td>
          </tr>
 
          <% end %>
+         <% if @test.test_executions.empty? %>
+          <tr>
+            <td colspan="6">
+              There are no test executions
+            </td>
+          </tr>
+         <% end %>
       </table>
     </section>
 
-    <section class="execution">
+    <section class="execution" <% if @test.test_executions.empty? %>style="display:none"<% end %>>
       <table class="table">
         <thead>
           <tr>
@@ -211,11 +212,10 @@
         </thead>
       </table>
 
-
       <div id="execution_results">
-		<% if @test_execution %>
-			<%= render :partial=>test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution}%>
-		<% end %>
+        <% if @test_execution %>
+          <%= render :partial=>test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution}%>
+        <% end %>
       </div>
     </section>
 
