@@ -36,7 +36,7 @@ class Measure
                   prev.subs.push({id : obj.id + obj.sub_id, name : obj.subtitle});
               }'
     
-    MONGO_DB['measures'].group(:key => [:id, :name, :category], :initial => {:subs => []}, :reduce => reduce)
+    MONGO_DB.command( :group=> {:ns=>"measures", :key => {:id=>1, :name=>1, :category=>1}, :initial => {:subs => []}, "$reduce" => reduce})["retval"]
   end
 
   def display_name

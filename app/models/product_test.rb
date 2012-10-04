@@ -79,7 +79,7 @@ class ProductTest
   
   # Get the expected result for a particular measure
   def expected_result(measure)
-   expected_results[measure.id]
+   (expected_results || {})[measure.key]
   end
   
   # Used for downloading and e-mailing the records associated with this test.

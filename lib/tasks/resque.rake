@@ -1,7 +1,7 @@
 require 'mongoid/railtie'
 namespace :resque do
   task :setup => :environment do
-    binding.pry
+
   end
 
   desc "Restart running workers"

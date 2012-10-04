@@ -19,25 +19,32 @@
          </thead>
          <tbody>
           <% test_execution.product_test.measures.each do | measure| 
+
              expected_result = test_execution.expected_result(measure)
              reported_result = test_execution.reported_result(measure) %>
-             <tr id='<%= "#{measure.id}" %>'>
+             <tr id='<%= "#{measure.key}" %>'>
               <td/>
                <td>
                  <a href="">
-                   <span style="font-weight:bold"><%= "#{measure.key} " %></span>
+                   <span style="font-weight:bold"><%= "#{measure.name} " %></span>
                    <%= measure.name %>
                    <%= " - #{measure.subtitle}" if measure.sub_id %>
                  </a>
                </td>
                <td>
-                <span><%=expected_result[:ipp]%></span>
+                <span><%=expected_result["population"]%></span>
                </td>
-                <%[:den,:denex,:num,:numex,:excep].each do |bucket|
-                 reported_class = result_class(reported_result[bucket], expected_result[bucket])
+                <%{"DENOM" =>"denominator","DENEX"=>"denex","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep"}.each_pair do |code, bucket|
+                  expected = expected_result[bucket]
+                  reported = reported_result[bucket]
+                 if !expected_result["population_ids"][code] 
+                   expected = nil
+                   reported = nil
+                 end
+                  reported_class = result_class(reported,expected)
                 %>
                  <td>
-                  <span class="<%= reported_class %>"><%= reported_result[bucket]||'-'%></span> / <span><%=expected_result[bucket]%>
+                  <span class="<%= reported_class %>"><%= reported ||'-'%></span> / <span><%=expected%>
                   </span>
                 </td>
                <% end %>
