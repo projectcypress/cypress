@@ -159,9 +159,9 @@
         
         <% @test.notes.each do |note| %>
           <tr>
-          <td><span class="date"><%= note.time.strftime('%m/%d/%Y') %></span></td>
-          <td><%= note.text %></td>
-          <td><%= button_to 'Delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?' %></td>
+          <td><span class="date" title='<%= note.time %>'><%= note.time.strftime('%m/%d/%Y') %></span></td>
+          <td style="width:90%"><%= note.text %></td>
+          <td><%= button_to 'Delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-mini" %></td>
           </tr>
         <% end %>
       <% end %>
