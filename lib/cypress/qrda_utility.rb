@@ -116,8 +116,10 @@ module Cypress
         
         measures.each do |measure|
            schematron_validator = get_schematron_measure_validator(measure)
-           file_errors.concat schematron_validator.validate(entry, {phase: :errors, msg_type: :error})
-           file_errors.concat schematron_validator.validate(entry, {phase: :errors, msg_type: :warning }) 
+           if schematron_validator 
+            file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error})
+            file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning }) 
+          end
         end
 
         file_errors
@@ -127,7 +129,10 @@ module Cypress
 
 
     def self.get_schematron_measure_validator(measure)
-      MEASURE_VALIDATORS[measure.key] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.key} Measure Validator", "#{QRDA_CAT1_ROOT}/#{measure.hqmf_id.downcase}.xslt")
+      fname = "#{QRDA_CAT1_ROOT}/#{measure.hqmf_id.downcase}.xslt"
+      if File.exists?(fname)
+        return MEASURE_VALIDATORS[measure.key] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.key} Measure Validator", fname)
+      end
     end
 
     #checks if a hash of values has a value for every field in a key
