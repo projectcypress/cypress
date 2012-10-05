@@ -41,6 +41,13 @@ class Vendor
     end
   end
 
+    # Get the products owned by this vendor that are passing
+  def incomplete_products
+    return self.products.select do |product|
+      !product.passing? && !product.failing?
+    end
+  end
+
   # Get the products owned by this vendor that have tests that have been executed
   def tested_products
     return self.products.select do |product|
