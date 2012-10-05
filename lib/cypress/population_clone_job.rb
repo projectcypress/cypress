@@ -13,7 +13,7 @@ module Cypress
       # Clone AMA records from Mongo
 
       ama_patients = Record.where(:test_id => nil)
-      binding.pry
+    
       if options['patient_ids']
         # clone each of the patients identified in the :patient_ids parameter
         ama_patients = Record.where(:test_id => nil).in(medical_record_number: options['patient_ids'])
