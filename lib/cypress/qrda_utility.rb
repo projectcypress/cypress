@@ -98,7 +98,7 @@ module Cypress
     end
 
 
-    def self.validate_cat_1(file,measures=[])
+    def self.validate_cat_1(data, measures=[], name="")
 
       file_errors = []
       doc = Nokogiri::XML(data)
