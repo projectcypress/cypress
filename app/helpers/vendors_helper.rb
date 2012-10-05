@@ -18,7 +18,8 @@ module VendorsHelper
     
     failing_products = vendor.failing_products
     passing_products = vendor.passing_products
-    { 'fail' => failing_products, 'pass' => passing_products }  
+    incomplete = vendor.incomplete_products
+    { 'fail' => failing_products, 'pass' => passing_products , 'incomplete' => incomplete}  
     
   end  
   
