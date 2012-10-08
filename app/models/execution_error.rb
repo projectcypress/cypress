@@ -7,5 +7,7 @@ class ExecutionError
   
   validates_presence_of :msg_type
   validates_presence_of :message
+
+  scope :by_type, ->(type){where(msg_type: type)}
   
 end

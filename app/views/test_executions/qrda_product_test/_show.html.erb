@@ -48,14 +48,34 @@
       </div>
 </div>
 
+<%
+
+ doc, error_map, error_attributes =  match_errors(test_execution) %>
 <div id="xml_validation" class="test_results">
   <div id="xml_validation_inner" class="section-errors-inner-wrap">
     <% #render :partial => "content_inspection_results", :locals => { :inspection => :xml_validation, :errors => @test_plan.xml_validation_errors } %>
+    WARNING <br>
+    <% test_execution.execution_errors.by_type(:warning).each do |e| %>
+      <% eid = error_map[e.location] 
+       %>
+       <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div>
+    <% end %>
+  </div>
+
+    <div id="xml_validation_inner" class="section-errors-inner-wrap">
+    <% #render :partial => "content_inspection_results", :locals => { :inspection => :xml_validation, :errors => @test_plan.xml_validation_errors } %>
+    ERROR <br>
+    <% test_execution.execution_errors.by_type(:error).each do |e| %>
+      <% eid = error_map[e.location] 
+       %>
+       <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div>
+    <% end %>
   </div>
 </div>
 
 <div class="column span-21 first" id="xml_frame">
   <h3>Vendor Generated XML</h3>
+   <%= render :partial=>"test_executions/qrda_product_test/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}%>
   <% #render :partial => "node" , :locals => {:doc => @xml_document} %>
 </div>
 
@@ -63,4 +83,8 @@
 <div class="column span-21 first" id="print-preview-error-list">
   <% #render :partial => "simple_error_list", :locals => { :errors => @test_plan.content_errors } %>
 </div>
+
+<div>
+
+  </div>
 <%- end -%>

@@ -76,7 +76,7 @@ class TestExecution
   end
   
   def files
-     Cypress::ArtifactManager.get_artifacts(test_execution.file_ids)
+     Cypress::ArtifactManager.get_artifacts(self.file_ids)
   end
   
 end

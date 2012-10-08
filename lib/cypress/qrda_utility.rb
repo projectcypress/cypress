@@ -2,9 +2,9 @@ require 'validators/schema_validator'
 require 'validators/schematron_validator'
 module Cypress
   class QrdaUtility
-    QRDA_CAT1_ROOT="./resources/qrda_cat_1"
+    QRDA_CAT1_ROOT= "./resources/qrda_cat_1"
     QRDA_CAT1_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("QRDA Cat I schema validator", "#{QRDA_CAT1_ROOT}/qrda_cat_1.xsd")
-    QRDA_CAT1_SCHEMATRON_VALIDATOR = Validators::Schematron::CompiledValidator.new("QRDA Cat I schema validator",  "#{QRDA_CAT1_ROOT}/qrda_cat_1.xsl")
+    QRDA_CAT1_SCHEMATRON_VALIDATOR = Validators::Schematron::CompiledValidator.new("QRDA Cat I schema validator",  APP_CONFIG["qrda_cat1_generic"])
     MEASURE_VALIDATORS = {}
     # Extract and return measure results from a QRDA CATIII document and add to the reported results
     # for this test.
@@ -129,7 +129,7 @@ module Cypress
 
 
     def self.get_schematron_measure_validator(measure)
-      fname = "#{QRDA_CAT1_ROOT}/#{measure.hqmf_id.downcase}.xslt"
+      fname = "#{APP_CONFIG["qrda_measure_specifi_root"]}/#{measure.hqmf_id.downcase}.xslt"
       if File.exists?(fname)
         return MEASURE_VALIDATORS[measure.key] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.key} Measure Validator", fname)
       end
