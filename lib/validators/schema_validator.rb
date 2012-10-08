@@ -19,7 +19,8 @@ module Validators
                 :message => error.message,
                 :validator => @validator_name,
                 :msg_type=>(data[:msg_type] || :error),
-                :file_name => data[:file_name]
+                :file_name => data[:file_name],
+                location: "/"
               )
             
           end
