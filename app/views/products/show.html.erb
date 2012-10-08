@@ -28,6 +28,7 @@
 
     <section id="ehr_results">
       <table class="table">
+        <% if @product.product_tests.count == 0 %>
         <!-- IF THERE ARE NO PRODUCT TESTS THEN DISPLAY MESSAGE -->
           <thead>
             <tr>
@@ -42,6 +43,7 @@
           <tbody>
             <tr><td colspan="3" style="padding-top:15px">There are no tests for this product. <%= link_to "Add Test", new_product_test_path(:product_id => @product), { :class => "cmd" } %></td></tr>
           </tbody>
+          <% end %>
         <!-- END NO TESTS -->
         <% product_tests_by_status(@product).each do |result_status, result_tests|
           next if result_tests.empty?

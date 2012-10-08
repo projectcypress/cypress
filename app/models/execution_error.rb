@@ -4,6 +4,7 @@ class ExecutionError
   embedded_in :test_execution
   field :message, type: String
   field :msg_type, type: Symbol
+  field :measure_id, type: String
   
   validates_presence_of :msg_type
   validates_presence_of :message
