@@ -12,6 +12,7 @@ module Cypress
        fs = grid.put(a.open, :filename => File.basename(a.path))
        fs.attributes[:metadata] =  {:metadata => {'execution_id' => test_execution.id.to_s}}
        fs.save
+       ids << fs.id
       end
       ids
     end
@@ -28,8 +29,10 @@ module Cypress
     end
 
 
-    def self.get_artifacts(test_execution_id)
-      artifacts = grid.find(:metadata => {'execution_id' => test_execution.id.to_s})
+    def self.get_artifacts(artifact_ids)
+      ids = [artifact_ids].flatten
+      ids.collect {|id| grid.get(id)}
+     
     end
     
   end

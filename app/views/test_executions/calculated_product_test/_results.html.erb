@@ -1,0 +1,47 @@
+ <table class="table">
+         <thead>
+           <tr>
+             <th colspan="2"></span>Measures included in this test</th>
+             <th>Patients</th>
+             <th>Denominator</th>
+             <th>Den. Exclusions</th>
+             <th>Numerator</th>
+             <th>Num. Exclusions</th>
+             <th>Exceptions</th>
+           </tr>
+         </thead>
+         <tbody>
+          <% measures.each do | measure| 
+
+             expected_result = test_execution.expected_result(measure)
+             reported_result = test_execution.reported_result(measure) %>
+             <tr id='<%= "#{measure.key}" %>'>
+              <td/>
+               <td>
+                 <a href="">
+                   <span style="font-weight:bold"><%= "#{measure.name} " %></span>
+                   <%= measure.name %>
+                   <%= " - #{measure.subtitle}" if measure.sub_id %>
+                 </a>
+               </td>
+               <td>
+                <span><%=expected_result["population"]%></span>
+               </td>
+                <%{"DENOM" =>"denominator","DENEX"=>"denex","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep"}.each_pair do |code, bucket|
+                  expected = expected_result[bucket]
+                  reported = reported_result[bucket]
+                 if !expected_result["population_ids"][code] 
+                   expected = nil
+                   reported = nil
+                 end
+                  reported_class = result_class(reported,expected)
+                %>
+                 <td>
+                  <span class="<%= reported_class %>"><%= reported ||'-'%></span> / <span><%=expected%>
+                  </span>
+                </td>
+               <% end %>
+             </tr>
+           <% end %>
+         </tbody>
+     </table>

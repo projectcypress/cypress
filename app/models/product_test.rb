@@ -60,7 +60,7 @@ class ProductTest
   # Return all measures that are selected for this particular ProductTest
   def measures
     return [] if !measure_ids
-    Measure.in(:hqmf_id => measure_ids).order_by([[:nqf_id, :asc],[:sub_id, :asc]])
+    Measure.in(:hqmf_id => measure_ids).order_by([[:hqmf_id, :asc],[:sub_id, :asc]])
   end
   
 

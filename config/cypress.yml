@@ -21,3 +21,22 @@ effective_date:
 version: 1.3.1
 measures_version: 1.5.0
 mpl_version: 1.0.3
+
+validation:
+  schema:
+    qrda_cat_1: resources/schema/qrda_cat_1.xsd
+    qrda_cat_3: resources/schema/qrda_cat_1.xsd
+  schematron:
+    qrda_cat_1:
+      root: ./resources/schematron/qrda/qrda_cat_1
+      generic: generic-schematron/qrda_cat1_generic.xslt
+      measure_specific_dir: measure-specific-schematron
+    qrda_cat_3:
+      root: resources/schematron/qrda_cat_3
+      generic: qrda_cat1_generic.xslt
+
+nlm:
+  ticket_url: 
+  api_url:
+  username:
+  password: 

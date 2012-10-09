@@ -2,10 +2,51 @@ require 'validators/schema_validator'
 require 'validators/schematron_validator'
 module Cypress
   class QrdaUtility
-    QRDA_CAT1_ROOT="./resources/qrda_cat_1"
-    QRDA_CAT1_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("QRDA Cat I schema validator", "#{QRDA_CAT1_ROOT}/qrda_cat_1.xsd")
-    QRDA_CAT1_SCHEMATRON_VALIDATOR = Validators::Schematron::CompiledValidator.new("QRDA Cat I schema validator",  "#{QRDA_CAT1_ROOT}/qrda_cat_1.xsl")
+    QRDA_CAT1_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
+    QRDA_CAT1_SCHEMATRON_ROOT= QRDA_CAT1_SCHEMATRON_CONFIG["root"]
+    QRDA_CAT1_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("QRDA Cat I schema validator", APP_CONFIG["validation"]["schema"]["qrda_cat_1"])
+    QRDA_CAT1_SCHEMATRON_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat I Schematron", File.join(QRDA_CAT1_SCHEMATRON_ROOT, QRDA_CAT1_SCHEMATRON_CONFIG["generic"]) )
     MEASURE_VALIDATORS = {}
+
+
+
+    def self.validate_cat_1(data, measures=[], name="")
+
+      file_errors = []
+      doc = Nokogiri::XML(data)
+
+       # validate that each file in the zip contains a valid QRDA Cat I document.
+       # We may in the future have to support looking in the contents of the test 
+       # patient records to match agaist QRDA Cat I documents
+       
+       # First validate the schema correctness
+        file_errors.concat QRDA_CAT1_SCHEMA_VALIDATOR.validate(doc, {msg_type: :error})
+
+        file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :error, file_name: name})
+        file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :warning, file_name: name })
+        
+        measures.each do |measure|
+           schematron_validator = get_schematron_measure_validator(measure)
+           if schematron_validator 
+            file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error})
+            file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning }) 
+          end
+        end
+
+        file_errors
+    end
+    
+    private
+
+
+    def self.get_schematron_measure_validator(measure)
+      fname = File.join(QRDA_CAT1_SCHEMATRON_ROOT,QRDA_CAT1_SCHEMATRON_CONFIG["measure_specific_dir"],"#{measure.hqmf_id.downcase}.xslt" ) #{APP_CONFIG["validation"]["qrda"]["qrda_cat_1"]["measure_specific_dir"]}/#{measure.hqmf_id.downcase}.xslt"
+      if File.exists?(fname)
+        return MEASURE_VALIDATORS[measure.hqmf_id] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.hqmf_id} Measure Validator", fname)
+      end
+    end
+
+
     # Extract and return measure results from a QRDA CATIII document and add to the reported results
     # for this test.
     def self.extract_results(doc)
@@ -98,42 +139,7 @@ module Cypress
     end
 
 
-    def self.validate_cat_1(data, measures=[], name="")
-
-      file_errors = []
-      doc = Nokogiri::XML(data)
-
-       # validate that each file in the zip contains a valid QRDA Cat I document.
-       # We may in the future have to support looking in the contents of the test 
-       # patient records to match agaist QRDA Cat I documents
-       
-       # First validate the schema correctness
-       
-        file_errors.concat QRDA_CAT1_SCHEMA_VALIDATOR.validate(doc, {msg_type: :error})
-
-        file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :error, file_name: name})
-        file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :warning, file_name: name })
-        
-        measures.each do |measure|
-           schematron_validator = get_schematron_measure_validator(measure)
-           if schematron_validator 
-            file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error})
-            file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning }) 
-          end
-        end
-
-        file_errors
-    end
     
-    private
-
-
-    def self.get_schematron_measure_validator(measure)
-      fname = "#{QRDA_CAT1_ROOT}/#{measure.hqmf_id.downcase}.xslt"
-      if File.exists?(fname)
-        return MEASURE_VALIDATORS[measure.key] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.key} Measure Validator", fname)
-      end
-    end
 
     #checks if a hash of values has a value for every field in a key
     def self.check_result(keys, values)

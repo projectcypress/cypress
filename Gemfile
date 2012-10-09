@@ -10,9 +10,12 @@ gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-meas
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
 #gem 'health-data-standards', '1.0.1'
 #gem 'health-data-standards', path: '../shared/health-data-standards'
+gem 'hqmf-parser', :git => 'https://github.com/pophealth/hqmf-parser.git', :branch => 'develop'
+#gem 'hqmf-parser', path: '../hqmf-parser'
+gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient-generator.git', :branch => 'develop'
+#gem 'test-patient-generator', :path => '../pophealth/test-patient-generator'
 
 gem 'state_machine'
-
 
 gem 'devise', '~> 2.0'
 gem 'simple_form'

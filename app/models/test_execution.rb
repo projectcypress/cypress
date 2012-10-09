@@ -76,7 +76,23 @@ class TestExecution
   end
   
   def files
-     Cypress::ArtifactManager.get_artifacts(test_execution.file_ids)
+     Cypress::ArtifactManager.get_artifacts(self.file_ids)
+  end
+
+  def passing_measures
+     m_ids = execution_errors.collect {|ee| ee.measure_id}
+     m_ids.compact!
+     mes = product_test.measures.collect{|m| m_ids.index(m.key) ? nil : m }
+     mes.compact!
+     mes
+  end
+
+  def failing_measures
+     m_ids = execution_errors.collect {|ee| ee.measure_id}
+     m_ids.compact!
+     mes = product_test.measures.collect {|m| m_ids.index(m.key) ? m : nil}
+     mes.compact!
+     mes
   end
   
 end
