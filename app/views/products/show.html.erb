@@ -32,14 +32,16 @@
         <!-- IF THERE ARE NO PRODUCT TESTS THEN DISPLAY MESSAGE -->
           <thead>
             <tr>
-              <th>Tests</th>
+              <th colspan="3">Tests</th>
               <th>Type</th>
               <th>Description</th>
               <th>Executions</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="4" style="padding-top:15px">There are no tests for this product. <%= link_to "Add Test", new_product_test_path(:product_id => @product), { :class => "cmd" } %></td></tr>
+            <tr><td colspan="3" style="padding-top:15px">There are no tests for this product. <%= link_to "Add Test", new_product_test_path(:product_id => @product), { :class => "cmd" } %></td></tr>
           </tbody>
           <% end %>
         <!-- END NO TESTS -->
@@ -109,8 +111,7 @@
             </tbody>
           <% end %>
         <% end %>
-       <% end %>
-     </table>
+      </table>
     </section>
 
     <%= render :partial => "shared/legend" %>
