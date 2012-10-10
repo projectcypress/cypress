@@ -25,14 +25,21 @@ namespace :cypress do
     valuesets.compact!
     valuesets.uniq!
     NLM_CONFIG = APP_CONFIG["nlm"]
-    
+
+    # make sure the directory is there if we are to store the valueset files there
+    if NLM_CONFIG["output_dir"]
+          FileUtils.mkdir_p(NLM_CONFIG["output_dir"])
+    end
+
+
     api = HealthDataStandards::Util::VSApi.new(NLM_CONFIG["ticket_url"],NLM_CONFIG["api_url"],args[:username],args[:password])
     RestClient.proxy = ENV["http_proxy"]
     api.process_valuesets(valuesets) do |oid,vs_data| 
       begin
-        vs_data.force_encoding("utf-8")
+        vs_data.force_encoding("utf-8") # there are some funky unicodes coming out of the vs response that are not in ASCII as the string reports to be
+       
+        # only store on the file system if the directory is configured
         if NLM_CONFIG["output_dir"]
-          FileUtils.mkdir_p(NLM_CONFIG["output_dir"])
           File.open(File.join(NLM_CONFIG["output_dir"], "#{oid.downcase}.xml"), "w") do |f|
             f.puts vs_data
           end
