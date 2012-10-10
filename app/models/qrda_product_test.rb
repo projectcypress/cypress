@@ -2,18 +2,27 @@ class QRDAProductTest < ProductTest
   after_create :generate_population
   
   def generate_population
-    measure_needs = {}
-    measure_value_sets = {}
+    # TODO change this over to use test patient generator from bonnie as shown below
     self.measures.each do |measure|
-      measure_needs[measure.id] = measure.data_criteria.map{|dc| HQMF::DataCriteria.from_json(dc.keys.first, dc.values.first)}
-      measure_value_sets[measure.id] = measure.value_sets
+      Record.where({test_id: nil, measure_id: measure.id, type: :qrda}).each do |rec|
+        cloned = rec.clone
+        cloned.test_id = self.id
+        cloned.save
+      end
     end
-      
-    patients = HQMF::Generator.generate_qrda_patients(measure_needs, measure_value_sets)
-    patients.each do |measure, patient|
-      patient.test_id = self.id
-      patient.save
-    end
+    
+    # measure_needs = {}
+    # measure_value_sets = {}
+    # self.measures.each do |measure|
+    #   measure_needs[measure.id] = measure.data_criteria.map{|dc| HQMF::DataCriteria.from_json(dc.keys.first, dc.values.first)}
+    #   measure_value_sets[measure.id] = measure.value_sets
+    # end
+    #   
+    # patients = HQMF::Generator.generate_qrda_patients(measure_needs, measure_value_sets)
+    # patients.each do |measure, patient|
+    #   patient.test_id = self.id
+    #   patient.save
+    # end
   end
   
   def execute(params)
