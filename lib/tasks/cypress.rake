@@ -31,8 +31,11 @@ namespace :cypress do
     api.process_valuesets(valuesets) do |oid,vs_data| 
       begin
         vs_data.force_encoding("utf-8")
-        File.open(File.join("./temp", "#{oid.downcase}.xml"), "w") do |f|
-          f.puts vs_data
+        if NLM_CONFIG["output_dir"]
+          FileUtils.mkdir_p(NLM_CONFIG["output_dir"])
+          File.open(File.join(NLM_CONFIG["output_dir"], "#{oid.downcase}.xml"), "w") do |f|
+            f.puts vs_data
+          end
         end
 
         doc = Nokogiri::XML(vs_data)
