@@ -12,7 +12,7 @@ module Validators
            errors = []
            style = get_schematron_processor
            # process the document
-           report = style.transform(document,{"phase" => (data[:phase] || :all).to_s})
+           report = style.transform(document)
            # create an REXML::Document form the results
            # report = Nokogiri::XML(result)
            # loop over failed assertions 
@@ -25,7 +25,8 @@ module Validators
                :validator => name,
                :type => :xml_validation,
                :msg_type=>(data[:msg_type] || :error),
-               :file_name => data[:file_name]
+               :file_name => data[:file_name],
+               :measure_id => data[:measure_id]
              )
 
            end
@@ -48,11 +49,12 @@ module Validators
       # schematron_file - the base schematron rule set that will be used to create the XSLT stylesheet used to perform the validation
       # stylesheet - this is the stylesheet that will be used on the schematron rules to create the validation stylesheet
       # cache - whether or not to cache the validation stylesheet, if false (default) then it will compute the validation stylesheet each time validate is called
-      def initialize(name,schematron_file, stylesheet, cache=false)
+      def initialize(name,schematron_file, stylesheet, cache=true, stylesheet_params={})
         @name = name
         @schematron_file  = schematron_file
         @stylesheet = stylesheet
-        @cache = cache            
+        @cache = cache   
+        @stylesheet_params = stylesheet_params         
       end
 
       
@@ -63,7 +65,7 @@ module Validators
         
         doc   = Nokogiri::XML(File.open(@schematron_file))
         xslt  = Nokogiri::XSLT(File.open(@stylesheet))
-        result = xslt.transform(doc)
+        result = xslt.transform(doc,@stylesheet_params)
         processor = Nokogiri::XSLT(result.to_s)
         if cache
           @schematron_processor = processor

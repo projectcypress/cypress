@@ -26,7 +26,7 @@ class PatientPopulation
     # Get a hash of all measures requested, each with its own list of patients who are in that measure's numerator
    measures_to_patients = MONGO_DB.command(:group=>{:ns=>'patient_cache', 
                                            :key => {"value.measure_id"=>1, "value.sub_id"=>1, "value.test_id"=>1}, 
-                                           :cond => {"value.test_id"=>nil, "value.numerator"=>true,"value.measure_id"=>{"$in"=>measures}},
+                                           :cond => {"value.test_id"=>nil, "value.numerator"=>true,"value.measure_id"=>{"$in"=>measures}, "value.effective_date" => Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE},
                                            :initial => {:patients => []},
                                            "$reduce"=> 'function(o,prev){prev.patients.push(o.value.medical_record_id);}'})["retval"]
     # Order the measures by the amount of related patients, fewest to most

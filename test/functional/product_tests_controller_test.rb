@@ -102,51 +102,7 @@ include Devise::TestHelpers
     assert_equal 0,  destroyed.count, "There shouldn't be a ProductTest in the db with the id of the one just destroyed"
   end
 
-  test "process_pqri" do
-    pending "Need to reimplement with QRDA Cat 3 when available" do 
-      pt1 = ProductTest.find("4f58f8de1d41c851eb000478")
-      pt2 = ProductTest.new
-      pt3 = ProductTest.find("4fa3f10d824eb96b51000005")
 
-      ex  = TestExecution.where(:product_test_id => pt1.id).first
-      ex_count = TestExecution.where(:product_test_id => pt1.id).count
-      baseline = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_baseline.xml'), "application/xml")
-      pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")
-      pqri_with_mapped_measures = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_with_mapped_measures.xml'), "application/xml")
-    
-      pt2.name = 'Product test with no executions'
-      pt2.effective_date = 1324443600
-      pt2.product_id = pt1.product_id
-      pt2.user=@user
-      pt2.save!
-
-      pt3.name = 'Product test mapped measures'
-      pt3.effective_date = 1324443600
-      pt3.save!
-
-      post :process_pqri, {:id => pt1.id.to_s , :product_test => {:pqri => pqri}, :execution_id => ex.id}
-      assert_response :redirect
-      ex_updated = TestExecution.find(ex.id)
-      assert ex_updated.reported_results['0001']['denominator'] == 56
-      assert TestExecution.where(:product_test_id => pt1.id).count == ex_count
-
-      pqri = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_failing.xml'), "application/xml")    
-
-      post :process_pqri, {:id => pt2.id , :product_test => {:pqri => pqri, :baseline => baseline}, :execution_id => {}}
-
-      new_ex = TestExecution.where(:product_test_id => pt2.id).first
-      assert new_ex.reported_results['0001']['denominator'] == 50
-      assert TestExecution.where(:product_test_id => pt2.id).count == 1
-
-      post :process_pqri, {:id => pt3.id , :product_test => {:pqri => pqri_with_mapped_measures}, :execution_id => {}}
-      new_ex = TestExecution.where(:product_test_id => pt3.id).first
-
-      assert new_ex.reported_results['0001']['denominator'] == 35
-      assert new_ex.reported_results['0002']['denominator'] == 8
-      assert TestExecution.where(:product_test_id => pt3.id).count == 1
-    end
-    
-  end
 
   test "download" do
     pt = ProductTest.find("4f58f8de1d41c851eb000478")
