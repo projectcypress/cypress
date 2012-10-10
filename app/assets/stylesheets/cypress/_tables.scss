@@ -16,6 +16,9 @@
   tbody tr:hover td, tbody tr:hover th { background-color: $containerBkgColor; }
 }
 
+/* add extra padding to consecutive theads in the results table */
+table.table thead:nth-child(n+2) th {padding-top:15px;}
+
 .table-hover {
   tbody tr:hover td, tbody tr:hover th { background-color: #e6f3e8; }
 }

@@ -28,12 +28,13 @@ validation:
     qrda_cat_3: resources/schema/qrda_cat_1.xsd
   schematron:
     qrda_cat_1:
-      root: ./resources/schematron/qrda/qrda_cat_1
+      root: ./lantana
       generic: generic-schematron/qrda_cat1_generic.xslt
-      measure_specific_dir: measure-specific-schematron
+      measure_specific_dir: ms_xslt
     qrda_cat_3:
       root: resources/schematron/qrda_cat_3
       generic: qrda_cat1_generic.xslt
+
 
 nlm:
   ticket_url: 
