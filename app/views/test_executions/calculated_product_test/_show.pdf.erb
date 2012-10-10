@@ -1,0 +1,89 @@
+data = [] 
+
+pdf.text "<color rgb='FF0000' >Failing</color> Measures:", :inline_format => true
+if @test_execution.failing_measures.size > 0
+  data << [{:content =>"<color rgb='666666'>Measure</color>", :inline_format => true},
+           {:content =>"<color rgb='666666'> Denominator</color>", :inline_format => true, :align => :center},
+		       {:content =>"<color rgb='666666'> Numerator</color>", :inline_format => true, :align => :center},
+		       {:content =>"<color rgb='666666'>Exclusions</color>", :inline_format => true, :align => :center}
+		      ]
+
+  @test_execution.failing_measures.each do |measure|
+    expected_result = @test_execution.expected_result(measure)
+    reported_result = @test_execution.reported_result(measure.key)
+	  text_colors = [0,0,0,0]
+	
+	  reported_result.each_with_index do |val,index|
+  	  if reported_result[val[0]] == expected_result[val[0]]
+  	      text_colors[index] = "000000"
+  	  else
+  	      text_colors[index] = "FF0000"
+  	  end
+  	end
+	
+    data << [{:content=> "<color rgb='FF0000'>#{measure.key}</color>\n<color rgb='000000'>" + measure.name + " " + (measure.subtitle || "") + "</color>", :inline_format => true, :width => 300},
+	          {:content=> "<color rgb='#{text_colors[0]}'>#{reported_result['denominator']}</color><color rgb='000000'>/</color><color rgb='AAAAAA'>#{expected_result['denominator']}</color>", :inline_format =>true, :align => :center},
+			      {:content=> "<color rgb='#{text_colors[1]}'>#{reported_result['numerator']}</color><color rgb='000000'>/</color><color rgb='AAAAAA'>#{expected_result['numerator']}</color>", :inline_format =>true, :align => :center},
+			      {:content=> "<color rgb='#{text_colors[2]}'>#{reported_result['exclusions']}</color><color rgb='000000'>/</color><color rgb='AAAAAA'>#{expected_result['exclusions']}</color>", :inline_format =>true, :align => :center}]
+	end
+end
+
+if data.size > 0 then
+  fill_color "ff0000"
+  pdf.table(data,:cell_style =>{ :border_color => "FFFFFF" })
+else 
+  fill_color "000000"
+  pdf.text "NONE", :align => :center
+end
+
+pdf.text "\n"
+pdf.stroke_horizontal_rule
+fill_color "000000"
+data = []
+
+pdf.text "\n<color rgb='539309'>Passing</color> Measures:", :inline_format => true
+if @test_execution.passing_measures.size > 0
+  data << [{:content =>"<color rgb='666666'>Measure</color>", :inline_format => true},
+           {:content =>"<color rgb='666666'> Denominator</color>", :inline_format => true, :align => :center},
+		       {:content =>"<color rgb='666666'> Numerator</color>", :inline_format => true, :align => :center},
+		       {:content =>"<color rgb='666666'>Exclusions</color>", :inline_format => true, :align => :center}]
+		   
+  @test_execution.passing_measures.each do |measure|
+    expected_result = @test_execution.expected_result(measure)
+    reported_result = @test_execution.reported_result(measure.key)
+	
+    data << [{:content=> "<color rgb='539309'>#{measure.key}</color>\n<color rgb='000000'>" + measure.name + " " + (measure.subtitle || "") + "</color>", :inline_format => true, :width => 300},
+	         {:content=> "<color rgb='000000'>#{reported_result['denominator']}/</color><color rgb='AAAAAA'>#{expected_result['denominator']}</color>", :inline_format =>true, :align => :center},
+			     {:content=> "<color rgb='000000'>#{reported_result['numerator']}/</color><color rgb='AAAAAA'>#{expected_result['numerator']}</color>", :inline_format =>true, :align => :center},
+			     {:content=> "<color rgb='000000'>#{reported_result['exclusions']}/</color><color rgb='AAAAAA'>#{expected_result['exclusions']}</color>", :inline_format =>true, :align => :center}]
+  end  
+end
+
+
+if data.size > 0 then
+fill_color "00FF00"
+  pdf.table(data,:cell_style =>{ :border_color => "FFFFFF" })
+else 
+  fill_color "000000"
+  pdf.text "NONE\n\n", :align => :center
+end
+
+fill_color "FF0000"
+pdf.text "\n"
+pdf.stroke_horizontal_rule
+data =[]
+
+pdf.text "\nPQRI Validation Errors:\n\n"
+if @test_execution.validation_errors
+  @test_execution.validation_errors.each do |error|  
+    data << [{:content => error, :border_color => "FF0000", :width =>540, :text_color => '000000'}]
+    pdf.table(data, :row_colors =>['F7E1E7'])
+	  pdf.text "\n"
+	  data=[]
+  end
+end
+
+fill_color '000000'
+if data.size > 0 then
+  pdf.table(data, :row_colors =>['F7E1E7'])
+end
