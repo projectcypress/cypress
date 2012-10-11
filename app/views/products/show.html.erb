@@ -102,8 +102,8 @@
                   <tr class="sub_rows <%= test.id %>">
                     <td></td>
                    
-                    <td class="<%= execution.state %>"><%= execution.execution_date%> </td>
-                    <td></td>
+                    <td colspan="2" class="<%= execution.state %>"><%= execution.execution_date%> </td>
+                    <td colspan="4"></td>
                     <td class="align-right"><%= link_to 'Delete', test_execution_path(execution), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
                   </tr>
                 <% end %>

@@ -1,15 +1,9 @@
 <div>
   <ul id="error_report_toc" class="nav nav-tabs">
     <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">XML Validation <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li class=""><a href="#xml_validation_errors" data-toggle="tab">Errors</a></li>
-        <li class=""><a href="#xml_validation_warnings" data-toggle="tab">Warnings</a></li>
-      </ul>
-    </li>
+    <li class=""><a href="#xml_validation_errors" data-toggle="tab">XML Errors</a></li>
+    <li class=""><a href="#xml_validation_warnings" data-toggle="tab">XML Warnings</a></li>
     <li><a href="#content_inspection" data-toggle="tab">Content Inspection</a></li>
-    <li><a href="#umls_validation" data-toggle="tab">UMLS Validation</a></li>
   </ul>
   <div id="test_result_tabs" class="tab-content">
     <div class="tab-pane active" id="test_summary">
@@ -24,7 +18,6 @@
           <dt><strong>XML Validation Errors:</strong></dt> <dd class="fail strong"><%= test_execution.count_errors %></dd>
           <dt><strong>XML Validation Warnings:</strong></dt> <dd class="warn strong"><%= test_execution.count_warnings %></dd>
           <dt><strong>Content Inspection Errors: </strong></dt> <dd>** content inspection errors **</dd>
-          <dt><strong>UMLS Code Warnings:</strong></dt> <dd>** UMLS code warnings **</dd>
         </dl>
       </section>
       <div><p>
@@ -72,9 +65,6 @@
       <p>Content Inspection information here</p>
       <% #render :partial => "content_inspection_results", :locals => { :inspection => :xml_validation, :errors => @test_plan.xml_validation_errors } %>
     </div>
-    <div class="tab-pane" id="umls_validation">
-      <p>UMLS Code Testing Results here</p>
-    </div>    
     
   </div><!-- end #test_result_tabs -->
 

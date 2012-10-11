@@ -26,9 +26,12 @@ a.mailing_list {
 a.del {
   @include bordered($dltColor);
   color: $dltColor;
+}
+td a.cmd {
   display:inline-block;
   margin:2px 0;
-  padding:2px 8px;
+  padding:0px 8px;
+  font-size:80%;
 }
 
 a.del:hover {

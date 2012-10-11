@@ -9,7 +9,9 @@ module Cypress
     MEASURE_VALIDATORS = {}
 
 
-
+    # Validates a QRDA Cat I file.  This routine will validate the file against the CDA schema as well as the 
+    # Generic QRDA Cat I scheamtron rules and the measure specific rules for each of the measures passed in.
+    # THe result will be an Array of execution errors or an empty array if there were no errors.
     def self.validate_cat_1(data, measures=[], name="")
 
       file_errors = []
@@ -20,16 +22,18 @@ module Cypress
        # patient records to match agaist QRDA Cat I documents
        
        # First validate the schema correctness
-        file_errors.concat QRDA_CAT1_SCHEMA_VALIDATOR.validate(doc, {msg_type: :error})
+        file_errors.concat QRDA_CAT1_SCHEMA_VALIDATOR.validate(doc, {msg_type: :error}) 
 
+        # Valdiate aginst the generic schematron rules
         file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :error, file_name: name})
         file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :warning, file_name: name })
         
+        # validate the mesure specific rules
         measures.each do |measure|
            schematron_validator = get_schematron_measure_validator(measure)
            if schematron_validator 
-            file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error})
-            file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning }) 
+            file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error, measure_id: measure.key})
+            file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning ,measure_id: measure.key }) 
           end
         end
 
@@ -65,7 +69,8 @@ module Cypress
 
     #takes a document and a list of 1 or more id hashes, e.g.:
     #[{measure_id:"8a4d92b2-36af-5758-0136-ea8c43244986", set_id:"03876d69-085b-415c-ae9d-9924171040c2", ipp:"D77106C4-8ED0-4C5D-B29E-13DBF255B9FF", den:"8B0FA80F-8FFE-494C-958A-191C1BB36DBF", num:"9363135E-A816-451F-8022-96CDA7E540DD"}]
-    #returns an empty hash if nothing matching is found
+    #returns nil if nothing matching is found 
+    # returns a hash with the values of the populations filled out along with the population_ids added to the result 
     def self.extract_results_by_ids(doc, measure_id,  ids)
       doc = (doc.kind_of? String )? Nokogiri::XML(doc) : doc
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")

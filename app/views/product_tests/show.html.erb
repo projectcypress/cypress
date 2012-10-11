@@ -132,7 +132,7 @@
           3. Upload Results
         </p>
         <p>
-				 <%= link_to "Results", '', {
+				 <%= link_to "Upload Results", '', {
 			          :id => 'results_menu',
 			          :class => "cmd"
 			        } %>
@@ -175,19 +175,17 @@
               <strong>Test Executions</strong>
             </th>
             <th>Description</th>
-            <th>Notes</th>
-            <th colspan="2">Results</th>
+            <th>Results</th>
           </tr>
         </thead>
          <% @test.test_executions.each do |te| %>
 
          <tr>
            <td class="align-left" colspan="3">
-             <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the details of this test execution" %></strong>
+             <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution" %></strong>
            </td>
            <td> </td>
-           <td>execution notes</td>
-           <td colspan="2">execution results</td>
+           <td><%= link_to "Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd' %></td>
          </tr>
 
          <% end %>

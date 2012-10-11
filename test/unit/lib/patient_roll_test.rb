@@ -66,12 +66,12 @@ class PatientRollTest< ActiveSupport::TestCase
     effective_date = Time.gm(APP_CONFIG["effective_date"]["year"],
                              APP_CONFIG["effective_date"]["month"],
                              APP_CONFIG["effective_date"]["day"]) 
-    effective_date = effective_date.advance(:years => 20, :months => -5, :days => 12)
+    effective_date = effective_date.advance(:years => 20, :months => 0, :days => 0)
 	
 	  @rosa_control.each_with_index do |time, index|
-	    @rosa_control[index] = Time.at(time).advance(:years => 20, :months => -5, :days => 12).to_i
+	    @rosa_control[index] = Time.at(time).advance(:years => 20, :months => 0, :days => 0).to_i
 	  end
-	  @selena_control = Time.at(@selena_control).advance(:years => 20, :months => -5, :days => 12).to_i
+	  @selena_control = Time.at(@selena_control).advance(:years => 20, :months => 0, :days => 0).to_i
     Cypress::PatientRoll.roll_effective_date(effective_date.strftime("%m/%d/%Y"))
 	
 	  rosa_variable = rosa_facts
