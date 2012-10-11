@@ -1,1 +1,5 @@
 $("#execution_results").html( "<%= escape_javascript( render :partial=> test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution})%>" );
+$('#error_report_toc a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+})

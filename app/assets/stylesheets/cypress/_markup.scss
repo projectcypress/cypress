@@ -7,7 +7,8 @@
 }
 
 .comment {
-	color: #9ACD32
+	color: #9ACD32;
+	color: rgb(58,145,17);
 }
 
 .text {
@@ -20,12 +21,32 @@
 
 .pi { color: #9932CC; }
 
-.attribute-name{ color: #F4A460;}
+.attribute-name{ color: #F4A460;
+  color:rgb(250,137,41);
+}
 
 .attribute-value{ color:#FF6347;}
 
-.attribute_error{}
+#xml_frame {
+.attribute_error {  
+  border:2px dotted red;
+  background-color:#FF5F3;
+  padding:10px;
+ }
 
-.error{
-	color : red;
+.error {
+  border:2px dotted orange;
+  background-color:#FFE4B3;
+  padding:10px;
+}
+}
+
+ol.validation_list li {
+  &.err_group {
+    margin-top:25px;
+  }
+  a:hover {
+    padding:2px 0;
+    background-color:#FFE4B3;
+  }
 }

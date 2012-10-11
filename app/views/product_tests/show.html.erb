@@ -172,7 +172,7 @@
         <thead>
           <tr>
             <th class="align-left" colspan="3">
-              <span class=""><strong>Test Executions</strong></span>
+              <strong>Test Executions</strong>
             </th>
             <th>Description</th>
             <th>Notes</th>
@@ -183,7 +183,7 @@
 
          <tr>
            <td class="align-left" colspan="3">
-             <span class=""><strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true %></strong></span>
+             <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the details of this test execution" %></strong>
            </td>
            <td> </td>
            <td>execution notes</td>
@@ -205,8 +205,8 @@
       <table class="table">
         <thead>
           <tr>
-            <th class="align-left" colspan="100%">
-              <span class=""><strong>Test Results</strong></span>
+            <th class="align-left">
+              <strong>Test Results</strong>
             </th>
           </tr>
         </thead>
@@ -215,6 +215,8 @@
       <div id="execution_results">
         <% if @test_execution %>
           <%= render :partial=>test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution}%>
+        <% else %>
+        Click on one of the test executions above to load the details here.
         <% end %>
       </div>
     </section>

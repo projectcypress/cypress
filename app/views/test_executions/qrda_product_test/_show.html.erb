@@ -1,90 +1,85 @@
-<ol id="error_report_toc">
-    <li class="current"><a href="#test_summary">Summary</a></li>
-    <li><a href="#xml_validation">XML Validation</a></li>
-    <li><a href="#content_inspection">Content Inspection</a></li>
-    <li><a href="#umls_validation">UMLS Validation</a></li>
-</ol>
-
-<div id="test_summary" class="test_results">
-      <div class="column span-11 first">
-        <div id="test_summary_meta">
-          <p><strong>Test Date:</strong> <%= test_execution.created_at %></p>
-          <h3>Inspection ID: <%= test_execution.product_test.product.vendor.name %></h3>
-          <h3>Document Type: </h3>
-        </div><!--END TEST SUMMARY META--> 
-        <div id="test_summary_breakdown">
-          <div class="inspection_result_header <%# test_plan_results_class(@test_plan) %>">
-            <h3>Test Result Summary: <span>test plan results heading </span></h3>
-          </div>
-          <div id="xml_validation_summary" class="inspection-summary widget">
-            <div class="error-count column">
-              <span class="number"><%= test_execution.count_errors %></span> <a href="#xml_validation">XML Validation Errors</a>
-            </div>
-            
-            <% #render :partial => 'test_executions/qrda_product_test/errors', :locals => { :errors => test_execution.execution_errors, :inspection => :xml_validation } %> 
-          </div>
-          
-  
-          <div>
-            <small><strong>Validation Notes:</strong><br />
-            Content discrepancies between patient record assigned to test and C32 under validation will be flagged as warnings. Patient summary content will be validated by visual inspection of the xml and using a stylesheet. UMLS validation errors will be visually inspected and verified. Neither content inspection warnings nor UMLS validation errors automatically determine PASS/FAIL status.
-            </small>
-          </div>
-        </div><!-- End test summary breakdown-->
-      </div>
-      <div class="column span-8 prepend-2 last">
-        <div style="float: right;">
-			print preview partial
-          <% #render :partial => 'print_preview' %>
-        </div>
-		state partial
-        <% #render :partial => 'assign_test_state_manually' %>
-        <table id="details">
-       
-          <tr>
-            <td class="lighttext">UMLS Coded Value Testing</td>
-            <td>Disabled</td>
-        </table>
-      </div>
-</div>
-
-<%
-
- doc, error_map, error_attributes =  match_errors(test_execution) %>
-<div id="xml_validation" class="test_results">
-  <div id="xml_validation_inner" class="section-errors-inner-wrap">
-    <% #render :partial => "content_inspection_results", :locals => { :inspection => :xml_validation, :errors => @test_plan.xml_validation_errors } %>
-    WARNING <br>
-    <% test_execution.execution_errors.by_type(:warning).each do |e| %>
-      <% eid = error_map[e.location] 
-       %>
-       <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div>
-    <% end %>
-  </div>
-
-    <div id="xml_validation_inner" class="section-errors-inner-wrap">
-    <% #render :partial => "content_inspection_results", :locals => { :inspection => :xml_validation, :errors => @test_plan.xml_validation_errors } %>
-    ERROR <br>
-    <% test_execution.execution_errors.by_type(:error).each do |e| %>
-      <% eid = error_map[e.location] 
-       %>
-       <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div>
-    <% end %>
-  </div>
-</div>
-
-<div class="column span-21 first" id="xml_frame">
-  <h3>Vendor Generated XML</h3>
-   <%= render :partial=>"test_executions/qrda_product_test/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}%>
-  <% #render :partial => "node" , :locals => {:doc => @xml_document} %>
-</div>
-
-<%- if @print_preview %>
-<div class="column span-21 first" id="print-preview-error-list">
-  <% #render :partial => "simple_error_list", :locals => { :errors => @test_plan.content_errors } %>
-</div>
-
 <div>
+  <ul id="error_report_toc" class="nav nav-tabs">
+    <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">XML Validation <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li class=""><a href="#xml_validation_errors" data-toggle="tab">Errors</a></li>
+        <li class=""><a href="#xml_validation_warnings" data-toggle="tab">Warnings</a></li>
+      </ul>
+    </li>
+    <li><a href="#content_inspection" data-toggle="tab">Content Inspection</a></li>
+    <li><a href="#umls_validation" data-toggle="tab">UMLS Validation</a></li>
+  </ul>
+  <div id="test_result_tabs" class="tab-content">
+    <div class="tab-pane active" id="test_summary">
+      <section>
+        <dl class="dl-horizontal">
+          <dt><strong>Test Date:</strong></dt> <dd><%= test_execution.created_at %></dd>
+          <dt><strong>Inspection ID: </strong></dt> <dd><%= test_execution.product_test.product.vendor.name %></dd>
+          <dt><strong>Document Type:</strong></dt> <dd>** document type **</dd>
+          <dt><strong>Version:</strong></dt> <dd>** document version **</dd>
+        </dl>
+        <dl class="dl-horizontal wide">
+          <dt><strong>XML Validation Errors:</strong></dt> <dd class="fail strong"><%= test_execution.count_errors %></dd>
+          <dt><strong>XML Validation Warnings:</strong></dt> <dd class="warn strong"><%= test_execution.count_warnings %></dd>
+          <dt><strong>Content Inspection Errors: </strong></dt> <dd>** content inspection errors **</dd>
+          <dt><strong>UMLS Code Warnings:</strong></dt> <dd>** UMLS code warnings **</dd>
+        </dl>
+      </section>
+      <div><p>
+        <strong>Validation Notes:</strong><br />
+         Content discrepancies between patient record assigned to test and C32 under validation will be flagged as warnings. Patient summary content will be validated by visual inspection of the xml and using a stylesheet. UMLS validation errors will be visually inspected and verified. Neither content inspection warnings nor UMLS validation errors automatically determine PASS/FAIL status.
+         </p>
+      </div>      
+    </div>
+    <%
+  
+ doc, error_map, error_attributes =  match_errors(test_execution) %>
+    <div class="tab-pane" id="xml_validation_errors">
+      <% #render :partial => 'test_executions/qrda_product_test/errors', :locals => { :errors => test_execution.execution_errors, :inspection => :xml_validation } %> 
+      <h4>Errors</h4>
+      <ol class="validation_list">
+      <% old_eid = 0 %>
+      <% test_execution.execution_errors.by_type(:error).each do |e| %>
+        <% eid = error_map[e.location] 
+         %>
+         <li <% if old_eid != eid %>
+          class="err_group"
+            <% old_eid = eid 
+         end %>>
+         <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div></li>
+      <% end %>
+    </div>
+    <div class="tab-pane" id="xml_validation_warnings">
+      <% #render :partial => 'test_executions/qrda_product_test/warnings', :locals => { :warnings => test_execution.execution_warnings, :inspection => :xml_validation } %> 
+      <h4>Warnings</h4>
+      <ol class="validation_list">
+      <% old_eid = 0 %>
+      <% test_execution.execution_errors.by_type(:warning).each do |e| %>
+        <% eid = error_map[e.location] 
+         %>
+          
+         <li <% if old_eid != eid %>
+          class="err_group"
+            <% old_eid = eid 
+         end %>>
+         <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div></li>
+      <% end %>
+      </ol>
+    </div>
+    <div class="tab-pane" id="content_inspection">
+      <p>Content Inspection information here</p>
+      <% #render :partial => "content_inspection_results", :locals => { :inspection => :xml_validation, :errors => @test_plan.xml_validation_errors } %>
+    </div>
+    <div class="tab-pane" id="umls_validation">
+      <p>UMLS Code Testing Results here</p>
+    </div>    
+    
+  </div><!-- end #test_result_tabs -->
 
+    <div id="xml_frame">
+    <h3>Vendor Generated XML</h3>
+    <%= render :partial=>"test_executions/qrda_product_test/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}%>
   </div>
-<%- end -%>
+</div>

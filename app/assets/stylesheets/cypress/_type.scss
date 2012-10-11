@@ -9,7 +9,8 @@ font-size: $fontSize*2;
 font-weight:$fontWeight;
 }
 
-.dl-horizontal{
+.dl-horizontal {
+  
   x-padding-top:10px;
   x-padding-bottom: 15px;
    dt {
@@ -24,6 +25,12 @@ font-weight:$fontWeight;
     display:table-cell;
     height:21px;
   }
+  &.wide {
+    width:420px;
+    dt {
+     width:240px;
+    }
+  }
   dd { 
     padding-left:10px;
     font-size: $fontSize;
@@ -32,6 +39,7 @@ font-weight:$fontWeight;
     text-align:left;
     height:21px;
   }
+  
 }
 
 dl.measure {

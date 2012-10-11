@@ -2,9 +2,11 @@
 .align-left { text-align: left; }
 .align-right { text-align: right; }
 .align-center { text-align: center; }
+.strong { font-weight:bold;}
 
 // Passing, failing, incomplete persistent styles
 .fail { color: $failColor;}
+.warn { color: $warnColor;}
 .pass { color: $passColor; font-weight:$fontWeight; }
 .incomplete { color: $incompleteColor; font-weight:$fontWeight;}
 a.incomplete {color : #333}
