@@ -20,12 +20,11 @@
                <td>
                  <a href="">
                    <span style="font-weight:bold"><%= "#{measure.name} " %></span>
-                   <%= measure.name %>
                    <%= " - #{measure.subtitle}" if measure.sub_id %>
                  </a>
                </td>
                <td>
-                <span><%=expected_result["population"]%></span>
+                <span><%=expected_result["population"]%>/<%=reported_result["population"]%></span>
                </td>
                 <%{"DENOM" =>"denominator","DENEX"=>"denex","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep"}.each_pair do |code, bucket|
                   expected = expected_result[bucket]

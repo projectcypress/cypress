@@ -7,6 +7,13 @@ class TestExecutionsController < ApplicationController
   
   def show
     @test_execution = TestExecution.find(params[:id])
+     respond_to do |format|
+      # Don't send tons of JSON until we have results. In the meantime, just update the client on our calculation status.
+      format.js 
+      format.html      
+      format.pdf { render :layout => false }
+      prawnto :filename => "#{@test_execution.product_test.name}.pdf"
+    end
   end
   
   def create
@@ -25,6 +32,9 @@ class TestExecutionsController < ApplicationController
     
   end
   
+  def results
+     te = TestExecution.find(params[:id])
+  end
   
   private 
   

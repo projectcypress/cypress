@@ -22,6 +22,11 @@ gem 'simple_form'
 
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
+gem 'prawn_rails'
+
+
+
+gem 'thin'
 
 gem 'pry'
 gem 'pry-debugger'

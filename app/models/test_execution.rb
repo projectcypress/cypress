@@ -5,7 +5,7 @@ class TestExecution
  
   belongs_to :product_test
   embeds_many :execution_errors
-
+  field :required_modules, type: Array
   field :expected_results, type: Hash
   field :reported_results, type: Hash
   field :matched_results, type: Hash

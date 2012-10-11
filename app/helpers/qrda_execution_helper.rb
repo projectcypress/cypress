@@ -1,4 +1,5 @@
 module QrdaExecutionHelper
+POP_MAP ={"DENOM" =>"denominator","DENEX"=>"denex","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep", "IPP"=>"population"}  
 NODE_TYPES ={1 => :element ,
 2 => :attribute ,
 3 => :text,
@@ -50,4 +51,29 @@ end
     return doc, error_map, error_attributes
   end
   
+  # helper method used to generate cat 3 test results
+  def aggregated_measure_results(pt)
+    results = {}
+    pt.expected_results.each_pair do |k,value|
+      result = results[value["measure_id"]] ||= {"hqmf_id"=>value["measure_id"], "population_ids" => {}}
+      population_ids = value["population_ids"]
+      strat_id = population_ids["stratification"]
+      population_ids.each_pair do |type,pop_id|
+        if type != "stratification" 
+          pop_result  = result["population_ids"][pop_id] ||= {"type"=> type}
+          pop_key  = POP_MAP[type]
+          pop_val = value[pop_key]
+          if strat_id
+            pop_result["stratifications"] ||= {}
+            pop_result["stratifications"][strat_id] = pop_val
+          else
+            pop_result["value"] = pop_val
+          end
+        end
+      end
+    end
+    results
+  end
+
+
 end

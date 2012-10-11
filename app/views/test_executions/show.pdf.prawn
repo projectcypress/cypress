@@ -1,5 +1,6 @@
 require 'version'
 
+
 pdf.image "#{Rails.root}/app/assets/images/cypress_logo.png", :height => 30, :width => 115, :at => [10, 725]
 pdf.text_box "Test Results Produced by Project Cypress #{Cypress::Version.current} - projectcypress.org", :at => [165, 715]
 stroke_color 'AAAAAA'
@@ -42,7 +43,7 @@ pdf.formatted_text_box [
 pdf.stroke_rounded_rectangle [0,450], 540, 45 , 8
 pdf.formatted_text_box [
   {:text =>"Test:", :color => '666666', :size => 10},{ :text =>" #{@test_execution.product_test.name}\n"},
-  {:text =>"Run at:", :color => '666666', :size => 10},{ :text =>" #{@test_execution.pretty_date}\n" }
+  {:text =>"Run at:", :color => '666666', :size => 10},{ :text =>" #{@test_execution.execution_date}\n" }
 ], :at=> [10, 440]
 
 if @test_execution.product_test.notes
@@ -55,4 +56,10 @@ end
 
 pdf.stroke_horizontal_rule
 pdf.text "\n"
-<%= render :partial=> test_execution_template(@test_execution) , :format=>:pdf, :locals=>{:test_execution=>@test_execution}%>
+
+prawn_document do |pdf|
+binding.pry
+  render test_execution_template(@test_execution), :pdf => pdf
+  pdf.text "something else"
+end
+

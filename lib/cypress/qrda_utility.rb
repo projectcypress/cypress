@@ -76,7 +76,7 @@ module Cypress
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
       results = nil
       _ids = ids.dup
-      stratification = _ids.delete(:stratification)
+      stratification = _ids.delete("stratification")
         
       find_measure_nodes(doc,measure_id).each do |n|
         entry = {}

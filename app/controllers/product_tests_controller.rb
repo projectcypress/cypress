@@ -103,6 +103,11 @@ class ProductTestsController < ApplicationController
      redirect_to :action => 'show', :execution_id => params[:execution_id]
    end
    
+
+   def qrda_cat3
+    @product_test = ProductTest.find(params[:id])
+    
+   end
   
 private
 
