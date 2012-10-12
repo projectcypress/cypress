@@ -11,6 +11,7 @@
     padding: 3px 4px;
     &.align-left { text-align: left; }
     &.align-right { text-align: right; }
+    &:hover {background-color:inherit}
   }
   td, tbody + tbody { border: none; }
   tbody tr:hover td, tbody tr:hover th { background-color: $containerBkgColor; }
@@ -92,6 +93,19 @@ td.vendorname {font-weight:bold}
 .test-score, .version {padding-left:1.2em}
 .product.pass, .product.fail {font-weight:bold}
 
+
+
+table tbody tr.selected td:first-child {
+  border-left:5px solid #696;
+}
+
+table tbody tr.selected td {
+  background-color:#cfc;
+  &:hover {  background-color:#cfc;}
+}
+table tbody tr.selected:hover td {
+  background-color:#cfc;
+}
 
 #patient_subset  {
   width:850px;

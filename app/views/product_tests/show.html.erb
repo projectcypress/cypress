@@ -168,7 +168,7 @@
     </section>
 
     <section class="executions">
-      <table class="table">
+      <table class="table" id="test_executions">
         <thead>
           <tr>
             <th class="align-left" colspan="3">
@@ -182,7 +182,7 @@
 
          <tr>
            <td class="align-left" colspan="3">
-             <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution" %></strong>
+             <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", 'data-test-id'.to_sym=>te._id %></strong>
            </td>
            <td> </td>
            <td><%= link_to "Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd' %></td>

@@ -5,8 +5,16 @@
 </section>
 
    <section id="quality_measures">
-    Passing
+    <h5><span class="pass">PASSING</span> MEASURES</h5>
+    <% if test_execution.passing_measures.count == 0 %>
+      <p>There are no passing measures for this test</p>
+    <% else %>
       <%= render partial: "/test_executions/calculated_product_test/results.html" , locals: {test_execution: test_execution, measures: test_execution.passing_measures} %>
-    Failing
+    <% end %>
+    <h5><span class='fail'>FAILING</span> MEASURES</h5>
+    <% if test_execution.failing_measures.count == 0 %>
+      <p>There are no failing measures for this test</p>
+    <% else %>
       <%= render partial: "/test_executions/calculated_product_test/results.html" , locals: {test_execution: test_execution, measures: test_execution.failing_measures} %>
+    <% end %>
    </section>
