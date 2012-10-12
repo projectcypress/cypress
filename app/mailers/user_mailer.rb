@@ -2,7 +2,7 @@ class UserMailer < ActionMailer::Base
   default from: APP_CONFIG["mailer"]["from"]
   
   # Send all of the Records for a given ProductTest in a particular file format
-  def send_records(test, format)
+  def send_records(test, format,email)
     @test = test
     @product = @test.product
     @vendor = @product.vendor
@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
     # Include the attachment and fire off the message
     records_file = @test.generate_records_file(format)
     attachments[filename] = records_file.read
-    mail(:to => @vendor.email, :subject => "Cypress test patients for #{@test.name}", :reply_to => @test.user.email)
+    mail(:to =>email, :subject => "Cypress test patients for #{@test.name}", :reply_to => @test.user.email)
     
     # The records_file will clean up eventually, but let's do it now
     records_file.close

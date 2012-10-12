@@ -61,7 +61,7 @@ class ProductTestsController < ApplicationController
     test = ProductTest.find(params[:id])
     format = params[:format]
     
-    UserMailer.send_records(test, format).deliver
+    UserMailer.send_records(test, format, email).deliver
     
     redirect_to :action => 'show'
   end
@@ -106,7 +106,7 @@ class ProductTestsController < ApplicationController
 
    def qrda_cat3
     @product_test = ProductTest.find(params[:id])
-    
+
    end
   
 private
