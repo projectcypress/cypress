@@ -19,11 +19,10 @@ GIT
 
 GIT
   remote: https://github.com/pophealth/quality-measure-engine.git
-  revision: 0b9c01d86aac800808a5893a80b8c41cdbf8f012
+  revision: 7590872f5249f6211209071802a84592e87cbeea
   branch: develop
   specs:
-    quality-measure-engine (1.1.5)
-      mongo (~> 1.3)
+    quality-measure-engine (2.0.0)
       nokogiri (>= 1.4.4)
       redis (~> 2.2.2)
       resque (~> 1.15.0)
@@ -84,7 +83,6 @@ GEM
     ansi (1.4.3)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bson (1.7.0)
     builder (3.0.3)
     choice (0.1.6)
     coderay (1.0.7)
@@ -145,8 +143,6 @@ GEM
     minitest (3.5.0)
     mocha (0.12.5)
       metaclass (~> 0.0.1)
-    mongo (1.7.0)
-      bson (~> 1.7.0)
     mongoid (3.0.6)
       activemodel (~> 3.1)
       moped (~> 1.1)

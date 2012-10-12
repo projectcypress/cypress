@@ -143,7 +143,7 @@ include Devise::TestHelpers
   
   test "email records" do
     test = ProductTest.find("4f58f8de1d41c851eb000478")
-    post :email, { :id => test, :format => 'c32' }
+    post :email, { :id => test, :format => 'c32' ,:email=> test.product.vendor.email}
     
     assert_response :redirect
   end

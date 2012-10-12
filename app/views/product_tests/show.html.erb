@@ -56,7 +56,7 @@
     <section class="candidate bordered buffered">  
       <dl class="vendor dl-horizontal">
         <dt>Test Name:</dt> <dd><%= @test.name %></dd>
-        <dt>Test Type:</dt> <dd><%= "Unknown" %></dd>
+        <dt>Test Type:</dt> <dd><%= test_type(@test) %></dd>
         <dt>Product:</dt> <dd><%= @test.product.name %></dd>
         <dt>Version:</dt> <dd><%= @test.product.version %></dd>
       </dl>

@@ -8,4 +8,11 @@ module ProductTestHelper
       return 'pass'
     end
   end
+
+
+  def test_type(test)
+  	type = {CalculatedProductTest=>"EP", InpatientProductTest=>"EH", QRDAProductTest=>"QRDA"}[test.class]
+  	type || "Unkown"
+  end
+
 end

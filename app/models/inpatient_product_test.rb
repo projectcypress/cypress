@@ -26,13 +26,8 @@ class InpatientProductTest < ProductTest
   
 
 def execute(params)
-
-   
-
-    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: {}, execution_errors: [])
-    
+    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: {}, execution_errors: [])  
     te.save
-    
     (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
     te
   end
