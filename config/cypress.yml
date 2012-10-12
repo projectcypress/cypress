@@ -28,8 +28,10 @@ validation:
     qrda_cat_3: resources/schema/qrda_cat_1.xsd
   schematron:
     qrda_cat_1:
-      root: ./lantana
+      root: ./resources
       generic: generic-schematron/qrda_cat1_generic.xslt
+      generic_error: generic-schematron/qrda_cat1_generic.xslt
+      generic_warning: generic-schematron/qrda_cat1_generic.xslt
       measure_specific_dir: ms_xslt
     qrda_cat_3:
       root: resources/schematron/qrda_cat_3
