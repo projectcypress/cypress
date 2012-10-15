@@ -5,7 +5,8 @@ module Cypress
     QRDA_CAT1_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
     QRDA_CAT1_SCHEMATRON_ROOT= QRDA_CAT1_SCHEMATRON_CONFIG["root"]
     QRDA_CAT1_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("QRDA Cat I schema validator", APP_CONFIG["validation"]["schema"]["qrda_cat_1"])
-    QRDA_CAT1_SCHEMATRON_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat I Schematron", File.join(QRDA_CAT1_SCHEMATRON_ROOT, QRDA_CAT1_SCHEMATRON_CONFIG["generic"]) )
+    QRDA_CAT1_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat I Schematron", File.join(QRDA_CAT1_SCHEMATRON_ROOT, QRDA_CAT1_SCHEMATRON_CONFIG["generic_error"]) )
+    QRDA_CAT1_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat I Schematron", File.join(QRDA_CAT1_SCHEMATRON_ROOT, QRDA_CAT1_SCHEMATRON_CONFIG["generic_warning"]) )
     MEASURE_VALIDATORS = {}
 
 
@@ -25,14 +26,14 @@ module Cypress
         file_errors.concat QRDA_CAT1_SCHEMA_VALIDATOR.validate(doc, {msg_type: :error}) 
 
         # Valdiate aginst the generic schematron rules
-        file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :error, file_name: name})
-        file_errors.concat QRDA_CAT1_SCHEMATRON_VALIDATOR.validate(doc, {phase: :errors, msg_type: :warning, file_name: name })
+        file_errors.concat QRDA_CAT1_SCHEMATRON_ERROR_VALIDATOR.validate(doc, {phase: :errors, msg_type: :error, file_name: name})
+        file_errors.concat QRDA_CAT1_SCHEMATRON_WARNING_VALIDATOR.validate(doc, {phase: :errors, msg_type: :warning, file_name: name })
         
         # validate the mesure specific rules
         measures.each do |measure|
            schematron_validator = get_schematron_measure_validator(measure)
            if schematron_validator 
-            file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error, measure_id: measure.key})
+            #file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error, measure_id: measure.key})
             file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning ,measure_id: measure.key }) 
           end
         end

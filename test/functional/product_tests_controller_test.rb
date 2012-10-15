@@ -24,33 +24,20 @@ include Devise::TestHelpers
 
 
   test "show" do
-    pending "Waiting for new screens to be implemented" do
+
       pt = ProductTest.find("4f58f8de1d41c851eb000478")
       ex  = TestExecution.where(:product_test_id => pt.id).first
       get :show, {:id => pt.id.to_s}
 
       assert_response :success
-      assert assigns[:never_executed_before]
-      assert assigns[:test].id    == pt.id
-      assert assigns[:product].id == pt.product_id
-      assert assigns[:vendor].id.to_s == "4f57a8791d41c851eb000002"
-      assert assigns[:patients].count == 1
-      assert assigns[:measures].count == 2
-      assert assigns[:measures]['fail'].count == 2
+      assert_equal pt.id , assigns[:test].id , "Product Test id did not match expected id"
+      
     
-      get :show, {:id => pt.id, :execution_id => ex.id}
+      get :show, {:id => pt.id, :test_execution_id => ex.id}
 
-      assert assigns[:current_execution].id == ex.id
-      assert assigns[:test].id    == pt.id
-      assert assigns[:product].id == pt.product_id
-      assert assigns[:vendor].id.to_s == "4f57a8791d41c851eb000002"
-      assert assigns[:patients].count == 1
-      assert assigns[:measures].count == 2
-      assert assigns[:measures]['fail'].count == 1
-      assert assigns[:measures]['pass'].count == 1
-      #test json here?
-      #test pdf here?
-    end
+      assert_equal ex.id, assigns[:test_execution].id, "Execution id did not match expected id"
+      assert_equal pt.id , assigns[:test].id , "Product Test id did not match expected id"
+
   end
 
   test "new" do
@@ -107,10 +94,7 @@ include Devise::TestHelpers
   test "download" do
     pt = ProductTest.find("4f58f8de1d41c851eb000478")
 
-    get :download,{:id => pt.id , :format => 'csv' }
-    assert_response :success, "Failed to download CSV file"
-    flat_file = "patient_id,first name,last name,gender,race,ethnicity,birthdate\n21,Rachel,Mendez,M,White,Not Hispanic or Latino,06/08/1981\n"
-    assert @response.body == flat_file , "Downloaded CSV file contents not correct"
+  
 
     get :download,{:id => pt.id , :format => 'c32' }
     assert_response :success,"Failed to download C32 zip file"

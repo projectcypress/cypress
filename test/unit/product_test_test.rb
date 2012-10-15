@@ -12,12 +12,16 @@ class ProductTestTest < ActiveSupport::TestCase
   end
 
   test "Should know if its passing" do
-    pending  "need to implement"
+    assert_equal true,  @test1.passing?
+    assert_equal false, @test2.passing? 
   end
   
-  test "Should return its executions in order" do
-    pending "need to implement"
+
+  test "should know it's execution state" do
+    assert_equal :passed,  @test1.execution_state
+    assert_equal :failed , @test2.execution_state
   end
+
   
   test "Should return the measure defs" do
     defs = @test1.measures

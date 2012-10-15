@@ -117,11 +117,6 @@ include Devise::TestHelpers
   test "download" do
     r1 = Record.find("4f5bb2ef1d41c841b3000046")
 
-    get :download,{:id => r1.id , :format => 'csv' }
-    assert_response :success, "Failed to download CSV file"
-    flat_file = "patient_id,first name,last name,gender,race,ethnicity,birthdate\n21,Rachel,Mendez,M,White,Not Hispanic or Latino,06/08/1981\n"
-    assert @response.body == flat_file , "Downloaded CSV file contents not correct"
-
     get :download,{:id => r1.id , :format => 'c32' }
     assert_response :success,"Failed to download C32 zip file"
     get :download,{:id => r1.id , :format => 'ccr' }
@@ -129,8 +124,6 @@ include Devise::TestHelpers
     get :download,{:id => r1.id , :format => 'html'}
     assert_response :success,"Failed to download HTML zip file"
 
-    get :download,{:format => 'csv' }
-    assert_response :success,"Failed to download Master Patient List CSV file"
     get :download,{:format => 'c32' }
     assert_response :success,"Failed to download Master Patient List C32 zip file"
     get :download,{:format => 'ccr' }

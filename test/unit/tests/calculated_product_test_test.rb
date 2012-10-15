@@ -56,6 +56,7 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
 
     qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/QRDA_CATIII_RI_AUG.xml'), "application/xml")
     te = pt1.execute({results: qrda})
+    
    end
   
 end

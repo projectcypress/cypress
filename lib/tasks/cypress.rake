@@ -31,11 +31,12 @@ namespace :cypress do
           FileUtils.mkdir_p(NLM_CONFIG["output_dir"])
     end
 
-
+    errors = {}
     api = HealthDataStandards::Util::VSApi.new(NLM_CONFIG["ticket_url"],NLM_CONFIG["api_url"],args[:username],args[:password])
     RestClient.proxy = ENV["http_proxy"]
-    api.process_valuesets(valuesets) do |oid,vs_data| 
+    valuesets.each do |oid| 
       begin
+        vs_data = api.get_valueset(oid) 
         vs_data.force_encoding("utf-8") # there are some funky unicodes coming out of the vs response that are not in ASCII as the string reports to be
        
         # only store on the file system if the directory is configured
@@ -60,10 +61,17 @@ namespace :cypress do
           puts "#{oid} -- Not Found"
         end
       rescue 
-
+        errors[oid] = $!
         puts "#{oid} #{$!.message} "
       end
     end
+
+    if !errors.empty?
+      puts %{There were errors retreiveing the following valuesets from the NLM Valueset 
+              service. Cypress May not work correctly without thses valusets installed.
+              #{errors.keys.join("\n")}
+         }
+   end
   end
 
   desc "Process a schematron file and place the results in the output directory for the listed phases "
