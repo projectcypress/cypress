@@ -7,7 +7,7 @@ module Validators
       def initialize(name, schema_file)
         @validator_name = name
         @schema_file = schema_file
-        @xsd = Nokogiri::XML::Schema(File.read(@schema_file))
+        @xsd = Nokogiri::XML::Schema(File.new(@schema_file))
       end
       
       # Validate the document against the configured schema
