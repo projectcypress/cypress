@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/pophealth/hqmf-parser.git
-  revision: c4b4999dbbf4690c8e43d54c1482be2fc5afd13b
+  revision: e239375825e6bd3172a72f5a9d679797dfd4974b
   branch: develop
   specs:
     hqmf-parser (0.0.1)
@@ -19,26 +19,26 @@ GIT
 
 GIT
   remote: https://github.com/pophealth/quality-measure-engine.git
-  revision: 7590872f5249f6211209071802a84592e87cbeea
-  branch: develop
+  revision: 19173977a52d6de7eb5fae0a5af0f28845f92bbb
+  branch: qme2.0
   specs:
     quality-measure-engine (2.0.0)
-      nokogiri (>= 1.4.4)
-      redis (~> 2.2.2)
-      resque (~> 1.15.0)
-      resque-status (~> 0.2.3)
-      rubyzip (~> 0.9.4)
+      moped (~> 1.2.7)
+      redis (~> 3.0.2)
+      resque (~> 1.23.0)
+      resque-status (~> 0.3.3)
+      rubyzip (~> 0.9.9)
 
 GIT
   remote: https://github.com/pophealth/test-patient-generator.git
-  revision: 8c4ad03624109bb73e62c758fd53b9f616ee36eb
+  revision: 74407397544fadb9800b9e230489673b2472315a
   branch: develop
   specs:
     test-patient-generator (0.1.0)
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: e67f86c67b16b8da167c9520d91ce296c2649867
+  revision: 1aa358d266899e900fc11cd0469f75bb24cd26f9
   branch: develop
   specs:
     health-data-standards (2.1.0)
@@ -83,9 +83,9 @@ GEM
     ansi (1.4.3)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    builder (3.0.3)
+    builder (3.0.4)
     choice (0.1.6)
-    coderay (1.0.7)
+    coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -101,7 +101,7 @@ GEM
       debugger-ruby_core_source (~> 1.1.3)
     debugger-linecache (1.1.2)
       debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.1.3)
+    debugger-ruby_core_source (1.1.4)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -125,7 +125,7 @@ GEM
     jquery-rails (2.1.3)
       railties (>= 3.1.0, < 5.0)
       thor (~> 0.14)
-    json (1.4.6)
+    json (1.7.5)
     jwt (0.1.5)
       multi_json (>= 1.0)
     libv8 (3.3.10.4)
@@ -138,12 +138,12 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     metaclass (0.0.1)
-    method_source (0.8)
+    method_source (0.8.1)
     mime-types (1.19)
-    minitest (3.5.0)
-    mocha (0.12.5)
+    minitest (4.1.0)
+    mocha (0.12.7)
       metaclass (~> 0.0.1)
-    mongoid (3.0.6)
+    mongoid (3.0.9)
       activemodel (~> 3.1)
       moped (~> 1.1)
       origin (~> 1.0)
@@ -189,7 +189,7 @@ GEM
       rack
     rack-ssl (1.3.2)
       rack
-    rack-test (0.6.1)
+    rack-test (0.6.2)
       rack (>= 1.0)
     rails (3.2.2)
       actionmailer (= 3.2.2)
@@ -209,21 +209,21 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
-    redis (2.2.2)
-    redis-namespace (1.1.0)
-      redis (< 3.0.0)
+    redis (3.0.2)
+    redis-namespace (1.2.1)
+      redis (~> 3.0.0)
     redisk (0.2.2)
       redis (>= 0.1.1)
       redis-namespace (>= 0.1.0)
-    resque (1.15.0)
-      json (~> 1.4.6)
-      redis-namespace (>= 0.10.0)
+    resque (1.23.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.0)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
-    resque-status (0.2.4)
+    resque-status (0.3.3)
       redisk (>= 0.2.1)
-      resque (>= 1.3.1)
-      uuid (>= 2.0.2)
+      resque (~> 1.19)
+      uuid (~> 2.3)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     roo (1.10.1)
@@ -241,13 +241,13 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    simple_form (2.0.2)
+    simple_form (2.0.4)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    simplecov (0.6.4)
+    simplecov (0.7.1)
       multi_json (~> 1.0)
-      simplecov-html (~> 0.5.3)
-    simplecov-html (0.5.3)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     sinatra (1.3.3)
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
@@ -277,7 +277,7 @@ GEM
     tilt (1.3.3)
     todonotes (0.1.0)
       log4r
-    treetop (1.4.10)
+    treetop (1.4.11)
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
@@ -314,7 +314,6 @@ DEPENDENCIES
   quality-measure-engine!
   rails (= 3.2.2)
   rake
-  redis (~> 2.2.2)
   sass-rails
   simple_form
   simplecov
