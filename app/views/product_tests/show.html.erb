@@ -74,7 +74,7 @@
       </dl>
     </section> 
 
-    <% if true %>
+    <% if @test.state == "ready" %>
       <section class="instructions">
         <div class="row">
           <div class="span12">
@@ -138,7 +138,20 @@
     	</div>
     </div>
     </section>
+    <% else %>
+    <section class="instructions">
+        <div class="row">
+          <div class="span12">
+            <p>
+              The test is still compiling test data
+            </p>
+          </div>
+        </div>
+    
+    </section>
     <% end %>
+
+    <!-- End of if test is ready to execute -->
 
     <section class="records">
       <label>Notes:</label>

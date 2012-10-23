@@ -17,7 +17,7 @@ module Cypress
 
       file_errors = []
       doc = Nokogiri::XML(data)
-
+      doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
        # validate that each file in the zip contains a valid QRDA Cat I document.
        # We may in the future have to support looking in the contents of the test 
        # patient records to match agaist QRDA Cat I documents
@@ -35,6 +35,13 @@ module Cypress
            if schematron_validator 
             #file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error, measure_id: measure.key})
             file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning ,measure_id: measure.key }) 
+          end
+
+          # Look in the document to see if there is an entry stating that it is reporting on the given measure
+          # we will be a bit lieniant and look for both the version specific id and the non version specific ids
+
+          if !doc.at_xpath("//cda:organizer[./templateId[@root='2.16.840.1.113883.10.20.24.3.98']]/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']/cda:id[#{translate("@root")}='#{measure.hqmf_id.upcase}']")
+            file_errors << ExecutionError.new(:location=>"/", :msg_type=>"error", :message=>"Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.name}")
           end
         end
 
