@@ -90,7 +90,7 @@
             <li>
               <a href="<%= product_test_measure_path(@test, measure_def,:execution=> params[:execution]) %>"
                  title="<%= " #{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
-                 class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def.key}" %>
+                 class="<%= 'selected' if @measure.id==measure_def.id %>"><%= " #{measure_def.nqf_id} - #{measure_def.sub_id}" %>
               </a>
             </li>
           <% end %>

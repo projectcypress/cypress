@@ -1,4 +1,4 @@
-
+ 
 
 <table id="patient_subset" class="table">
   <colgroup  class="nqf">
@@ -21,7 +21,9 @@
     </tr>
   </thead>
   <tbody>
-    <% @patients.each do |patient| %>
+    <% @patients.each do |patient| 
+
+      %>
       <% if patient.value.population %>
         <tr>
           <td class="<%= 'p' if patient.value.denominator %>"></td>
@@ -30,12 +32,12 @@
           <td class="<%= 'p' if patient.value.antinumerator %>"></td>
 
           <td></td>
-          <td><%= link_to patient.value.patient.last, patient_url(patient.value.patient.id) %></td>
-          <td><%= link_to patient.value.patient.first, patient_url(patient.value.patient.id) %></td>
-          <td><time datetime="<%= display_time(patient.value.patient.birthdate) %>">
-            <%= display_time(patient.value.patient.birthdate) %>
+          <td><%= link_to patient.record.last, patient_url(patient.record.id) %></td>
+          <td><%= link_to patient.record.first, patient_url(patient.record.id) %></td>
+          <td><time datetime="<%= display_time(patient.record.birthdate) %>">
+            <%= display_time(patient.record.birthdate) %>
           </time></td>
-          <td><%= patient.value.patient.gender %></td>
+          <td><%= patient.record.gender %></td>
         </tr>
       <% end %>
     <% end %>

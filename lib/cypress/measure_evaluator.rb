@@ -8,13 +8,17 @@ module Cypress
 
        results = {}
        t.measures.each do |measure|
-           qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'])
+       
+           dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure)
+
+           qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], "oid_dictionary"=>dictionary)
            result = nil
            if qr.calculated?
              result=qr.result
              completed("#{options['measure_id']}#{options['sub_id']} has already been calculated") if respond_to? :completed
            else
-             map = QME::MapReduce::Executor.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], 'start_time' => Time.now.to_i)
+             map = QME::MapReduce::Executor.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], 'start_time' => Time.now.to_i,"oid_dictionary"=>dictionary)
+           result = nil
 
              if !qr.patients_cached?           
                map.map_records_into_measure_groups
@@ -34,6 +38,18 @@ module Cypress
   end
   
   class MeasureEvaluator
+
+    CODE_SYSTEM_NAME_MAPPING = {
+      "SNOMEDCT" => "SNOMED-CT",
+         "ICD9CM" => "ICD-9-CM",
+         "ICD10PCS" => "ICD-10-PCS",
+         "ICD10CM" => "ICD-10-CM",
+         "RXNORM"=>"RxNorm", 
+         "CDCREC" => "CDC Race", 
+         "HSLOC" => "HSLOC", 
+         "SOP" => "SOP"
+    }
+
     STATIC_EFFECTIVE_DATE = Time.new(APP_CONFIG["effective_date"]["year"],
                                     APP_CONFIG["effective_date"]["month"],
                                     APP_CONFIG["effective_date"]["day"]).to_i
@@ -96,5 +112,37 @@ module Cypress
       
       return result
     end
+
+
+    def self.generate_oid_dictionary(measure)
+      valuesets = HealthDataStandards::SVS::ValueSet.in({oid: measure.oids})
+      js = {}
+      valuesets.each do |vs|
+        js[vs.oid] ||= {}
+        vs.concepts.each do |con|
+          name = normailize_name(con)
+          js[vs.oid][name] ||= []
+          js[vs.oid][name] << con.code 
+        end
+      end
+
+      js.to_json
+    end
+
+    def self.normailize_name(code)
+      name = nil
+      if code.code_system
+        name = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code.code_system)
+      end
+      if name.nil? && HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(code.code_system_name)
+        name = code.code_system_name
+      end
+
+      if name.nil?
+        name = CODE_SYSTEM_NAME_MAPPING[code.code_system_name] || code.code_system_name
+      end
+      name
+   end
+
   end
 end
