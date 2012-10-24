@@ -75,9 +75,9 @@
 <xsl:template match="catowner[@pet]" priority="4000" mode="M4">
 <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="catowner[@pet]"/>
 <xsl:choose>
-<xsl:when test="id(@pet)"/>
+<xsl:when test="((/ideg/cat/@id) = @pet)"/>
 <xsl:otherwise>
-<svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="id(@pet)">
+<svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="((/ideg/cat/@id) = @pet)">
 <xsl:attribute name="location">
 <xsl:apply-templates select="." mode="schematron-get-full-path"/>
 </xsl:attribute>
@@ -90,23 +90,7 @@
 <xsl:apply-templates mode="M4"/>
 </xsl:template>
 <xsl:template match="text()" priority="-1" mode="M4"/>
-<xsl:template match="catowner[@pet]" priority="4000" mode="M5">
-<svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="catowner[@pet]"/>
-<xsl:choose>
-<xsl:when test="(name(id(@pet)) ='cat')"/>
-<xsl:otherwise>
-<svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="(name(id(@pet)) ='cat')">
-<xsl:attribute name="location">
-<xsl:apply-templates select="." mode="schematron-get-full-path"/>
-</xsl:attribute>
-<svrl:text>An element of type<xsl:text xml:space="preserve"> </xsl:text>
-<xsl:value-of select="name(.)"/>
-<xsl:text xml:space="preserve"> </xsl:text>should have a pet attribute that should contain the unique identifier for a cat.</svrl:text>
-</svrl:failed-assert>
-</xsl:otherwise>
-</xsl:choose>
-<xsl:apply-templates mode="M5"/>
-</xsl:template>
+
 <xsl:template match="text()" priority="-1" mode="M5"/>
 <xsl:template match="text()" priority="-1"/>
 </xsl:stylesheet>

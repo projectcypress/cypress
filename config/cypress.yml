@@ -24,15 +24,15 @@ mpl_version: 1.0.3
 
 validation:
   schema:
-    qrda_cat_1: resources/schema/qrda_cat_1.xsd
-    qrda_cat_3: resources/schema/qrda_cat_1.xsd
+    qrda_cat_1: resources/schema/qrda/infrastructure/cda/CDA_SDTC.xsd 
+    qrda_cat_3: resources/schema/qrda/infrastructure/cda/CDA_SDTC.xsd 
   schematron:
     qrda_cat_1:
-      root: ./resources
+      root: resources/schematron/qrda/qrda_cat_1
       generic: generic-schematron/qrda_cat1_generic.xslt
-      generic_error: generic-schematron/qrda_cat1_generic.xslt
-      generic_warning: generic-schematron/qrda_cat1_generic.xslt
-      measure_specific_dir: ms_xslt
+      generic_error: generic-schematron/QRDA_errors.xslt
+      generic_warning: generic-schematron/QRDA_warnings.xslt
+      measure_specific_dir: measure-specific-schematron
     qrda_cat_3:
       root: resources/schematron/qrda_cat_3
       generic: qrda_cat1_generic.xslt

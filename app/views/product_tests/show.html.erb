@@ -74,7 +74,7 @@
       </dl>
     </section> 
 
-    <% if true %>
+    <% if @test.state == "ready" %>
       <section class="instructions">
         <div class="row">
           <div class="span12">
@@ -101,9 +101,6 @@
 			            <%= link_to "Download CCRs", download_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
 			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download CSV", download_product_test_path(@test, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
 			            <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
 			          <% if @test.user.email %>
@@ -112,9 +109,6 @@
 			            </li>
 			            <li class="ui-menu-item" role="menuitem">
 			              <%= link_to "Email CCRs", email_product_test_path(@test, :format => 'ccr'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-			            </li>
-			            <li class="ui-menu-item" role="menuitem">
-			              <%= link_to "Email CSV", email_product_test_path(@test, :format => 'csv'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
 			            </li>
 			            <li class="ui-menu-item" role="menuitem">
 			              <%= link_to "Email HTML", email_product_test_path(@test, :format => 'html'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
@@ -144,7 +138,20 @@
     	</div>
     </div>
     </section>
+    <% else %>
+    <section class="instructions">
+        <div class="row">
+          <div class="span12">
+            <p>
+              The test is still compiling test data
+            </p>
+          </div>
+        </div>
+    
+    </section>
     <% end %>
+
+    <!-- End of if test is ready to execute -->
 
     <section class="records">
       <label>Notes:</label>

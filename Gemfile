@@ -23,7 +23,7 @@ gem 'simple_form'
 gem 'prawn'
 gem "prawnto_2", :require => "prawnto"
 gem 'prawn_rails'
-
+gem  "pdf-reader", '0.9.0'
 
 
 gem 'thin'

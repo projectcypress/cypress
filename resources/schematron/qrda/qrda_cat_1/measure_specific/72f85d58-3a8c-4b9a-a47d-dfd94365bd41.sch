@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://purl.oclc.org/dsdl/schematron" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://purl.oclc.org/dsdl/schematron C:/Users/rickg/workspaces-svn/ClientProjects/QRDATesting/measure-specific-schematron/schematron.xsd">
+	<ns uri="urn:hl7-org:v3" prefix="cda"/>
+	<ns uri="urn:hl7-org:sdtc" prefix="sdtc"/>
+	<phase id="warnings">
+		<active pattern="p"/>
+	</phase>
+	<pattern id="p">
+		<rule context="/cda:ClinicalDocument">
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.352']">For QDT pattern 'Diagnosis, Active: Asplenia group', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.337']">For QDT pattern 'Diagnosis, Active: Asthma group', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.340']">For QDT pattern 'Diagnosis, Active: COPD group', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.345']">For QDT pattern 'Diagnosis, Active: Diabetes group', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.03.353']">For QDT pattern 'Diagnosis, Active: End Stage Renal Disease', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.276']">For QDT pattern 'Diagnosis, Active: Heart failure group', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.356']">For QDT pattern 'Diagnosis, Active: HIV group', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.348']">For QDT pattern 'Diagnosis, Active: Nephrotic syndrome group', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.18']">For QDT pattern 'Diagnosis, Active: Pregnancy', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.23'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.5.307']">For QDT pattern 'Encounter, Performed: Encounter Inpatient', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.23</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.42'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.331']">For QDT pattern 'Medication, Administered: Pneumococcal conjugate vaccine', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.42</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.42'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.329']">For QDT pattern 'Medication, Administered: Pneumococcal vaccine', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.42</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.42'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.330']">For QDT pattern 'Medication, Administered: Zoster vaccine', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.42</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.54'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.539']">For QDT pattern 'Patient Characteristic Expired: Patient expired', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.54</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.64'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.336']">For QDT pattern 'Procedure, Performed: Bone marrow transplant grouping', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.64</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.64'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.03.1027']">For QDT pattern 'Procedure, Performed: Chemotherapy Administration', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.64</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.64'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.357']">For QDT pattern 'Procedure, Performed: Organ transplant group', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.64</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.64'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.332']">For QDT pattern 'Procedure, Performed: Radiation therapy procedure', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.64</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.55'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.221.5']">For QDT pattern 'Patient Characteristic Payer: Payer', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.55</assert>
+		</rule>
+	</pattern>
+</schema>

@@ -26,7 +26,7 @@ class UserMailerTest < ActionMailer::TestCase
     test = ProductTest.find("4f58f8de1d41c851eb000478")
     
     # Check that we get the appropriate attachment for every file format we might send
-    formats = ["c32", "ccr", "csv", "html"]
+    formats = ["c32", "ccr",  "html"]
     formats.each do |format|
       # Make sure we have any attachment at all
       mail = UserMailer.send_records(test, format, test.product.vendor.email)

@@ -32,13 +32,8 @@ to
 
      <pattern id="IDREF should reference an ID used in the same document">
           <rule context = "catowner[@pet]">
-               <assert test = "id(@pet)">An element of type <name/> should have a pet attribute that should contain a unique identifier.</assert>
+               <assert test = "((/ideg/cat/@id) = @pet)">An element of type <name/> should have a pet attribute that should contain a unique identifier.</assert>
           </rule>
      </pattern>
 
-     <pattern id="IDREF should reference an ID of a certain element type only">
-          <rule context = "catowner[@pet]">
-               <assert test = "(name(id(@pet)) ='cat')">An element of type <name/> should have a pet attribute that should contain the unique identifier for a cat.</assert>
-          </rule>
-     </pattern>
 </schema>

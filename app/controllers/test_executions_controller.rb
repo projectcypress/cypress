@@ -17,6 +17,7 @@ class TestExecutionsController < ApplicationController
   end
   
   def create
+
     @product_test = ProductTest.find(params[:product_test_id])
     @te=@product_test.execute(params[:test_execution])
     redirect_to product_test_path(@te.product_test,:test_execution_id=>@te.id)
@@ -24,8 +25,9 @@ class TestExecutionsController < ApplicationController
   
   def destroy
     te = TestExecution.find(params[:id])
-    if te.destroy
-      redirect_to product_test_url(te.product_test)
+    te.destroy
+    if params[:product_id]
+      redirect_to product_url(te.product_test.product)
     else
       redirect_to product_test_url(te.product_test)
     end
@@ -33,7 +35,21 @@ class TestExecutionsController < ApplicationController
   end
   
   def results
+
      te = TestExecution.find(params[:id])
+     # obtain the report as a pdf
+     pdf = 
+     #get the set of patient records for the test
+     patients = 
+
+     # create a zip file of the patients and the pdf 
+
+     # send the zip file back to the user
+
+    Zip::ZipFile.open(".tmp/#{te.id}_#{time.now.to_i}.zip", Zip::ZipFile::CREATE) do |zipfile|
+     zipfile.get_output_stream("records.zip") { |f| f.puts te.generate_patient_zip("ccda") }
+     zipfile.get_output_stream("report.pdf") {|f| f.puts ""}
+    end
   end
   
   private 

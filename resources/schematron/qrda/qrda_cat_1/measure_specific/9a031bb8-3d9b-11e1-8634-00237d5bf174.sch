@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://purl.oclc.org/dsdl/schematron" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://purl.oclc.org/dsdl/schematron C:/Users/rickg/workspaces-svn/ClientProjects/QRDATesting/measure-specific-schematron/schematron.xsd">
+	<ns uri="urn:hl7-org:v3" prefix="cda"/>
+	<ns uri="urn:hl7-org:sdtc" prefix="sdtc"/>
+	<phase id="warnings">
+		<active pattern="p"/>
+	</phase>
+	<pattern id="p">
+		<rule context="/cda:ClinicalDocument">
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1623']">For QDT pattern 'Diagnosis, Active: Pregnancy Dx', QRDA template id "2.16.840.1.113883.10.20.24.3.11" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1623". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.23'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1751']">For QDT pattern 'Encounter, Performed: BMI Encounter Code Set', QRDA template id "2.16.840.1.113883.10.20.24.3.23" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1751". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.31'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1525']">For QDT pattern 'Intervention, Order: Above Normal Follow-up', QRDA template id "2.16.840.1.113883.10.20.24.3.31" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1525". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.31'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1527']">For QDT pattern 'Intervention, Order: Above Normal Referrals', QRDA template id "2.16.840.1.113883.10.20.24.3.31" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1527". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.31'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1528']">For QDT pattern 'Intervention, Order: Below Normal Follow up', QRDA template id "2.16.840.1.113883.10.20.24.3.31" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1528". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.31'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1529']">For QDT pattern 'Intervention, Order: Below Normal Referrals', QRDA template id "2.16.840.1.113883.10.20.24.3.31" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1529". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.38'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.2040']">For QDT pattern 'Laboratory Test, Performed: BMI LOINC calculation', QRDA template id "2.16.840.1.113883.10.20.24.3.38" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.2040". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.47'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1498']">For QDT pattern 'Medication, Order: Above Normal Medications', QRDA template id "2.16.840.1.113883.10.20.24.3.47" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1498". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.47'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1499']">For QDT pattern 'Medication, Order: Below Normal Medications', QRDA template id "2.16.840.1.113883.10.20.24.3.47" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1499". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.57'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.890']">For QDT pattern 'Physical Exam, Finding: BMI Finding Code Set', QRDA template id "2.16.840.1.113883.10.20.24.3.57" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.890". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.63'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1579']">For QDT pattern 'Procedure, Order: Palliative Care', QRDA template id "2.16.840.1.113883.10.20.24.3.63" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1579". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.55'][descendant::*/@sdtc:valueSet='2.16.840.1.114222.4.11.3591']">For QDT pattern 'Patient Characteristic Payer: Payer', QRDA template id "2.16.840.1.113883.10.20.24.3.55" SHOULD be present and SHOULD be bound to value set "2.16.840.1.114222.4.11.3591". </assert>
+		</rule>
+	</pattern>
+</schema>

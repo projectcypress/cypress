@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://purl.oclc.org/dsdl/schematron" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://purl.oclc.org/dsdl/schematron C:/Users/rickg/workspaces-svn/ClientProjects/QRDATesting/measure-specific-schematron/schematron.xsd">
+	<ns uri="urn:hl7-org:v3" prefix="cda"/>
+	<ns uri="urn:hl7-org:sdtc" prefix="sdtc"/>
+	<phase id="warnings">
+		<active pattern="p"/>
+	</phase>
+	<pattern id="p">
+		<rule context="/cda:ClinicalDocument">
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.7'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.303']">For QDT pattern 'Device, Applied: Cardiac Pacer', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.7</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.03.368']">For QDT pattern 'Diagnosis, Active: Cardiac Pacer in Situ', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.624']">For QDT pattern 'Diagnosis, Active: Hospital Measures - AMI', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.757']">For QDT pattern 'Diagnosis, Active: Hospital Measures-Atrioventricular Block 2nd or 3rd Degree', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.11</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.23'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.5.625']">For QDT pattern 'Encounter, Performed: Hospital Measures-Encounter Inpatient', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.23</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.32'][descendant::*/@sdtc:valueSet='1.3.6.1.4.1.33895.1.3.0.45']">For QDT pattern 'Intervention, Performed: Hospital Measures - Comfort Measure Only Intervention', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.32</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.41'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.02.133']">For QDT pattern 'Medication, Active: Beta Blocker Therapy', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.41</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.43'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.02.133']">For QDT pattern 'Medication, Adverse Effects: Beta Blocker Therapy', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.43</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.44'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.02.133']">For QDT pattern 'Medication, Allergy: Beta Blocker Therapy', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.44</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.46'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.02.133']">For QDT pattern 'Medication, Intolerance: Beta Blocker Therapy', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.46</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.47'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.02.133']">For QDT pattern 'Medication, Order: Beta Blocker Therapy', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.47</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.51'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.2.643']">For QDT pattern 'Patient Characteristic Clinical Trial Participant: Clinical Trial Participant', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.51</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.82'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.05.684']">For QDT pattern 'Transfer To: Hospital Measures-Acute care hospital', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.82</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.82'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.5.3008']">For QDT pattern 'Transfer To: Hospital Measures - Home Hospice Care', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.82</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.82'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.666.5.3007']">For QDT pattern 'Transfer To: Hospital Measures - Inpatient Hospice Care', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.82</assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.55'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.221.5']">For QDT pattern 'Patient Characteristic Payer: Payer', the following QRDA template id SHOULD be present: 2.16.840.1.113883.10.20.24.3.55</assert>
+		</rule>
+	</pattern>
+</schema>

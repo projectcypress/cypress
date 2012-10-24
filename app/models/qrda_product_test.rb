@@ -17,12 +17,13 @@ class QRDAProductTest < ProductTest
     #   measure_needs[measure.id] = measure.data_criteria.map{|dc| HQMF::DataCriteria.from_json(dc.keys.first, dc.values.first)}
     #   measure_value_sets[measure.id] = measure.value_sets
     # end
-    #   
+      
     # patients = HQMF::Generator.generate_qrda_patients(measure_needs, measure_value_sets)
     # patients.each do |measure, patient|
     #   patient.test_id = self.id
     #   patient.save
     # end
+    self.ready
   end
   
   def execute(params)

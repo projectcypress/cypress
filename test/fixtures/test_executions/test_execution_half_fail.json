@@ -8,14 +8,30 @@
 			"denominator" : 48,
 			"numerator" : 44,
 			"exclusions" : 0,
-			"antinumerator" : 4
+			"antinumerator" : 4,
+      "population_ids" : {"IPP" : "ipp_0001", "DENOM" : "denom_0001", "NUMER": "num_0001"}
 		},
 		"0002" : {
 			"denominator" : 28,
 			"numerator" : 10,
 			"exclusions" : 0,
-			"antinumerator" : 18
+			"antinumerator" : 18,
+      "population_ids" : {"IPP" : "ipp_0002", "DENOM" : "denom_0002", "NUMER": "num_0002"}
 		}
-	}
+	},
+	"expected_results" : {"0001" :{"measure_id" : "0001",
+           "effective_date" : 1293753600,
+           "denominator" : 48,
+           "numerator" : 44,
+           "antinumerator" : 4,
+           "exclusions" : 0,
+           "population_ids" : {"IPP" : "ipp_0001", "DENOM" : "denom_0001", "NUMER": "num_0001"} },
+           "0002" :{"measure_id" : "0002",
+           "effective_date" : 1293753600,
+           "denominator" : 15,
+           "numerator" : 13,
+           "antinumerator" : 0,
+           "exclusions" : 2,
+           "population_ids" : {"IPP" : "ipp_0002", "DENOM" : "denom_0002", "NUMER": "num_0002"} }}
 }
 
