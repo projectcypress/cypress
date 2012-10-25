@@ -8,6 +8,7 @@ require File.expand_path('../config/application', __FILE__)
 require 'rake'
 require 'resque/tasks'
 require "simplecov"
+require "quality-measure-engine"
 
 Cypress::Application.load_tasks
 ENV['DB_NAME'] = "cypress_#{Rails.env}"
@@ -21,6 +22,5 @@ end
 
 
 task :test => [:test_unit] do
-
   system("open coverage/index.html")
 end
