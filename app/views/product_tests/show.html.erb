@@ -140,15 +140,17 @@
     </section>
     <% else %>
     <section class="instructions">
-        <div class="row">
-          <div class="span12">
-            <p>
-              The test is still compiling test data
-            </p>
-          </div>
-        </div>
-    
+      <div class="alert alert-info">
+        <p>You must wait for the test preparations to be completed. This usually takes no more than a couple of minutes.</p>
+      </div>
     </section>
+   <!-- if some error has occurred 
+    <section class="instructions">
+      <div class="alert alert-error">
+        <p>There has been a problem preparing the tests. Please speak the the administrator for Cypress. You will not be able to execute tests until this problem has been resolved.</p>
+      </div>
+    </section>
+    -->
     <% end %>
 
     <!-- End of if test is ready to execute -->
@@ -181,8 +183,9 @@
             <th class="align-left" colspan="3">
               <strong>Test Executions</strong>
             </th>
-            <th>Description</th>
+            <th style="width:50%">Description</th>
             <th>Results</th>
+            <th></th>
           </tr>
         </thead>
          <% @test.test_executions.each do |te| %>
@@ -193,6 +196,7 @@
            </td>
            <td> </td>
            <td><%= link_to "Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd' %></td>
+           <td class="align-right"><%= link_to 'Delete', test_execution_path(te), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
          </tr>
 
          <% end %>

@@ -62,13 +62,13 @@ class CalculatedProductTest < ProductTest
       matched_results[key] = matched_result
       reported_result ||= {}
       errs = []
-      ["denonminator", "numerator", "exceptions", "denex", "numex", "population", "msr_popl" ].each do |key|
+      ["denominator", "numerator", "exceptions", "denex", "numex", "population", "msr_popl" ].each do |key|
         if expected_result[key]
           matched_result[key] = {:expected=>expected_result[key], :reported=>reported_result[:key]}
           # only add the error that they dont match if there was an actual result
           if (expected_result[key] != reported_result[key.to_sym]) && !reported_result.empty?
 
-           errs << "expected #{key} value #{expected_result[key]} does not match reported value #{reported_result[key]}"
+           errs << "expected #{key} value #{expected_result[key]} does not match reported value #{reported_result[key.to_sym]}"
           end
         end 
       end
