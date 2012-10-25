@@ -51,6 +51,12 @@ Cypress::Application.routes.draw do
     end
   end
   
+  resources :measures do
+      member do
+        get 'patients'
+      end
+    end
+    
   get "/information/about"
   get "/information/feedback"
   get "/information/help"

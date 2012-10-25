@@ -32,9 +32,13 @@ module Cypress
       rand_prefix = Time.new.to_i
       ama_patients.each_with_index do |patient, index|
         cloned_patient = patient.clone
+
         cloned_patient.medical_record_number = "#{rand_prefix}#{index}"
-        cloned_patient.first = APP_CONFIG["randomization"]["names"]["first"][cloned_patient.gender].sample
-        cloned_patient.last = APP_CONFIG["randomization"]["names"]["last"].sample
+
+        if options["randomize_names"]
+          cloned_patient.first = APP_CONFIG["randomization"]["names"]["first"][cloned_patient.gender].sample
+          cloned_patient.last = APP_CONFIG["randomization"]["names"]["last"].sample
+        end
         cloned_patient.test_id = options['test_id']
 
         cloned_patient.save!

@@ -50,6 +50,7 @@ class PatientsController < ApplicationController
   end
   
   def show
+
     @patient = Record.find(params[:id])
     if @patient.test_id
       @test = ProductTest.find(@patient.test_id)
@@ -62,6 +63,7 @@ class PatientsController < ApplicationController
   end
 
   def table_measure
+
     @showAll = false
     @measures = Measure.installed
     @measures_categories = @measures.group_by { |t| t.category }
@@ -79,6 +81,7 @@ class PatientsController < ApplicationController
   end
 
   def table_all
+    
     @showAll  = true
     @patients = nil
     if params[:product_test_id]

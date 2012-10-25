@@ -3,7 +3,7 @@ class CalculatedProductTest < ProductTest
   state_machine :state do
     
     after_transition any => :generating_records do |test|
-      
+
       min_set = PatientPopulation.min_coverage(test.measure_ids)
       p_ids = min_set[:minimal_set]
 
@@ -11,7 +11,7 @@ class CalculatedProductTest < ProductTest
       #p_ids << minimal_set[:overflow].pick some random peeps
       
       # do this synchronously because it does not take long
-
+      p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
       pcj = Cypress::PopulationCloneJob.new("id", {'patient_ids' =>p_ids, 'test_id' => test.id})
       pcj.perform
       #now calculate the expected results
