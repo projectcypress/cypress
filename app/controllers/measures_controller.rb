@@ -42,8 +42,8 @@ class MeasuresController < ApplicationController
     @vendor = @product.vendor
     @result = @execution.expected_result(@measure)
     
-    @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure['id'])
-    .where("value.sub_id" => @measure.sub_id)
+    @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure.hqmf_id, "value.sub_id" => @measure.sub_id)
+   
 
     @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
   end

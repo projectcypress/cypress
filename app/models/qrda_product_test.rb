@@ -23,6 +23,7 @@ class QRDAProductTest < ProductTest
     #   patient.test_id = self.id
     #   patient.save
     # end
+    self.ready
   end
   
   def execute(params)

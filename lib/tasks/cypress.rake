@@ -42,6 +42,7 @@ namespace :cypress do
     RestClient.proxy = ENV["http_proxy"]
     valuesets.each_with_index do |oid,index| 
       begin
+
         vs_data = api.get_valueset(oid) 
         vs_data.force_encoding("utf-8") # there are some funky unicodes coming out of the vs response that are not in ASCII as the string reports to be
        
@@ -67,7 +68,7 @@ namespace :cypress do
           errors[oid] = "Not Found"
         end
       rescue 
-        errors[oid] = $!
+        errors[oid] = $!.message
         
       end
       print "\r"
@@ -77,13 +78,29 @@ namespace :cypress do
 
     if !errors.empty?
       File.open("oid_errors.txt", "w") do |f|
-        f.puts errors.keys.join("\n") 
+        f.puts errors.to_yaml
       end
       puts ""
       puts "There were errors retreiveing #{errors.keys.length} valuesets. Cypress May not work correctly without thses valusets installed."
       puts "A list of the valueset OIDs that were unable to be retrieved have been written to the file oid_errors.txt"
    end
   end
+
+
+  desc "extract oids from valueset file names" 
+  task :extract_oids, [:dir,:out_file] => :setup do |t,args|
+
+    oids = []
+    Dir.glob(args[:dir]).each do |f|
+      oids << File.basename(f,".xml")
+    end
+
+    File.open("config/oids.yml","w") do |f|
+      f.puts oids.to_yaml
+    end
+
+  end
+  
 
   desc "Process a schematron file and place the results in the output directory for the listed phases "
   task :process_schematron, [:schematron_file,:output_dir,:phases] => :setup do |t,args|

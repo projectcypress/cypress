@@ -5,11 +5,11 @@ pdf.text_box "Test Results Produced by Project Cypress #{Cypress::Version.curren
 stroke_color 'AAAAAA'
 pdf.stroke_rounded_rectangle [0,700], 540, 85, 8
 pdf.formatted_text_box [
-  {:text =>"Candidate EHR:", :color => '666666', :size => 10},{ :text =>" #{@vendor.name}\n"},
-  {:text =>"Vendor ID:", :color => '666666', :size => 10},{ :text =>" #{@vendor.vendor_id}\n" },
-  {:text =>"EHR POC:", :color => '666666', :size => 10},{ :text =>" #{@vendor.poc}\n"},
-  {:text =>"E-mail:", :color => '666666', :size => 10},{ :text =>" #{@vendor.email}\n"},
-  {:text =>"Phone:", :color => '666666', :size => 10},{ :text =>" #{@vendor.tel}\n"}
+  {:text =>"Candidate EHR:", :color => '666666', :size => 10},{ :text =>" #{@test.product.vendor.name}\n"},
+  {:text =>"Vendor ID:", :color => '666666', :size => 10},{ :text =>" #{@test.product.vendor.vendor_id}\n" },
+  {:text =>"EHR POC:", :color => '666666', :size => 10},{ :text =>" #{@test.product.vendor.poc}\n"},
+  {:text =>"E-mail:", :color => '666666', :size => 10},{ :text =>" #{@test.product.vendor.email}\n"},
+  {:text =>"Phone:", :color => '666666', :size => 10},{ :text =>" #{@test.product.vendor.tel}\n"}
 ], :at=> [10, 690]
 pdf.text "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 
@@ -20,11 +20,15 @@ pdf.formatted_text_box [
   {:text =>"Phone:", :color => '666666', :size => 10},{ :text =>" #{@test.user.telephone}\n"}
 ], :at=> [10, 590]
 
-if @current_execution.required_modules
-  (n,v) = @current_execution.required_modules.first
-  @current_execution.required_modules.delete(n)
+if 
+@test_execution.required_modules
+  (n,v) = 
+@test_execution.required_modules.first
+  
+@test_execution.required_modules.delete(n)
   modules="Modules: #{n}: #{v}"
-  @current_execution.required_modules.each do |name,version|
+  
+@test_execution.required_modules.each do |name,version|
     modules =  modules +", "+ name + ": " + version
   end
 else
@@ -33,8 +37,8 @@ end
 
 pdf.stroke_rounded_rectangle [0,525], 540, 65 , 8
 pdf.formatted_text_box [
-  {:text =>"Product:", :color => '666666', :size => 10},{ :text =>" #{@product.name}\n"},
-  {:text => "Product Version:", :color => '666666', :size => 10},{ :text =>" #{@product.version}\n"},
+  {:text =>"Product:", :color => '666666', :size => 10},{ :text =>" #{@test.product.name}\n"},
+  {:text => "Product Version:", :color => '666666', :size => 10},{ :text =>" #{@test.product.version}\n"},
   {:text => "#{modules.slice(0, modules.index(':')+1)}", :color => '666666', :size => 10},
   {:text =>" #{modules.slice(modules.index(':') + 2, modules.length)}"},
 ], :at=> [10, 515]
@@ -42,7 +46,8 @@ pdf.formatted_text_box [
 pdf.stroke_rounded_rectangle [0,450], 540, 45 , 8
 pdf.formatted_text_box [
   {:text =>"Test:", :color => '666666', :size => 10},{ :text =>" #{@test.name}\n"},
-  {:text =>"Run at:", :color => '666666', :size => 10},{ :text =>" #{@current_execution.pretty_date}\n" }
+  {:text =>"Run at:", :color => '666666', :size => 10},{ :text =>" #{
+@test_execution.execution_date}\n" }
 ], :at=> [10, 440]
 
 if @test.notes
@@ -58,16 +63,18 @@ pdf.text "\n"
 data = [] 
 
 pdf.text "<color rgb='FF0000' >Failing</color> Measures:", :inline_format => true
-if @current_execution.failing_measures.size > 0
+if 
+@test_execution.failing_measures.size > 0
   data << [{:content =>"<color rgb='666666'>Measure</color>", :inline_format => true},
            {:content =>"<color rgb='666666'> Denominator</color>", :inline_format => true, :align => :center},
 		       {:content =>"<color rgb='666666'> Numerator</color>", :inline_format => true, :align => :center},
 		       {:content =>"<color rgb='666666'>Exclusions</color>", :inline_format => true, :align => :center}
 		      ]
 
-  @current_execution.failing_measures.each do |measure|
-    expected_result = @current_execution.expected_result(measure)
-    reported_result = @current_execution.reported_result(measure.key)
+  
+@test_execution.failing_measures.each do |measure|
+    expected_result = @test_execution.expected_result(measure)
+    reported_result = @test_execution.reported_result(measure)
 	  text_colors = [0,0,0,0]
 	
 	  reported_result.each_with_index do |val,index|
@@ -99,15 +106,17 @@ fill_color "000000"
 data = []
 
 pdf.text "\n<color rgb='539309'>Passing</color> Measures:", :inline_format => true
-if @current_execution.passing_measures.size > 0
+if 
+@test_execution.passing_measures.size > 0
   data << [{:content =>"<color rgb='666666'>Measure</color>", :inline_format => true},
            {:content =>"<color rgb='666666'> Denominator</color>", :inline_format => true, :align => :center},
 		       {:content =>"<color rgb='666666'> Numerator</color>", :inline_format => true, :align => :center},
 		       {:content =>"<color rgb='666666'>Exclusions</color>", :inline_format => true, :align => :center}]
 		   
-  @current_execution.passing_measures.each do |measure|
-    expected_result = @current_execution.expected_result(measure)
-    reported_result = @current_execution.reported_result(measure.key)
+  
+@test_execution.passing_measures.each do |measure|
+    expected_result = @test_execution.expected_result(measure)
+    reported_result = @test_execution.reported_result(measure)
 	
     data << [{:content=> "<color rgb='539309'>#{measure.key}</color>\n<color rgb='000000'>" + measure.name + " " + (measure.subtitle || "") + "</color>", :inline_format => true, :width => 300},
 	         {:content=> "<color rgb='000000'>#{reported_result['denominator']}/</color><color rgb='AAAAAA'>#{expected_result['denominator']}</color>", :inline_format =>true, :align => :center},
@@ -131,9 +140,10 @@ pdf.stroke_horizontal_rule
 data =[]
 
 pdf.text "\nPQRI Validation Errors:\n\n"
-if @current_execution.validation_errors
-  @current_execution.validation_errors.each do |error|  
-    data << [{:content => error, :border_color => "FF0000", :width =>540, :text_color => '000000'}]
+if @test_execution.execution_errors
+  
+@test_execution.execution_errors.each do |error|  
+    data << [{:content => error.message, :border_color => "FF0000", :width =>540, :text_color => '000000'}]
     pdf.table(data, :row_colors =>['F7E1E7'])
 	  pdf.text "\n"
 	  data=[]
