@@ -140,15 +140,17 @@
     </section>
     <% else %>
     <section class="instructions">
-        <div class="row">
-          <div class="span12">
-            <p>
-              The test is still compiling test data
-            </p>
-          </div>
-        </div>
-    
+      <div class="alert alert-info">
+        <p>You must wait for the test preparations to be completed. This usually takes no more than a couple of minutes.</p>
+      </div>
     </section>
+   <!-- if some error has occurred 
+    <section class="instructions">
+      <div class="alert alert-error">
+        <p>There has been a problem preparing the tests. Please speak the the administrator for Cypress. You will not be able to execute tests until this problem has been resolved.</p>
+      </div>
+    </section>
+    -->
     <% end %>
 
     <!-- End of if test is ready to execute -->
