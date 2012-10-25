@@ -181,8 +181,9 @@
             <th class="align-left" colspan="3">
               <strong>Test Executions</strong>
             </th>
-            <th>Description</th>
+            <th style="width:50%">Description</th>
             <th>Results</th>
+            <th></th>
           </tr>
         </thead>
          <% @test.test_executions.each do |te| %>
@@ -193,6 +194,7 @@
            </td>
            <td> </td>
            <td><%= link_to "Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd' %></td>
+           <td class="align-right"><%= link_to 'Delete', test_execution_path(te), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
          </tr>
 
          <% end %>
