@@ -187,7 +187,7 @@
         </thead>
          <% @test.test_executions.each do |te| %>
 
-         <tr>
+         <tr id="te_<%=te.id%>">
            <td class="align-left" colspan="3">
              <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", 'data-test-id'.to_sym=>te._id %></strong>
            </td>
@@ -219,10 +219,20 @@
 
       <div id="execution_results">
         <% if @test_execution %>
+          <script >
+            $('#te_<%=@test_execution.id%>').addClass('selected');
+          </script>
           <%= render :partial=>test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution}%>
-        <% else %>
+        <% else 
+          te = @test.test_executions.build(:expected_results=> @test.expected_results, :reported_results=>{})
+          template = test_execution_expected_results_template(te) 
+          if false  %>
+            <%= render :partial=>template , :locals=>{:test_execution=>te}%>
+         <% else %>
         Click on one of the test executions above to load the details here.
-        <% end %>
+        <% end 
+        end 
+        %>
       </div>
     </section>
 

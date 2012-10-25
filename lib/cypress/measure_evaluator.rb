@@ -8,7 +8,7 @@ module Cypress
 
        results = {}
        t.measures.each do |measure|
-       
+
            dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure)
 
            qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], "oid_dictionary"=>dictionary)
@@ -122,7 +122,7 @@ module Cypress
         vs.concepts.each do |con|
           name = normailize_name(con)
           js[vs.oid][name] ||= []
-          js[vs.oid][name] << con.code 
+          js[vs.oid][name] << con.code  unless js[vs.oid][name].index(con.code)
         end
       end
 

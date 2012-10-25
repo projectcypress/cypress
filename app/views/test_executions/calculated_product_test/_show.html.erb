@@ -3,6 +3,33 @@
       <%#= render partial: "test_executions/qrda_product_test/qrda_errors", locals: {errors:test_execution.execution_errors}%>
     </table>
 </section>
+<section >
+
+  <div id="template" style="display: none">
+  <table id="dashboard">
+    <tr valign="top">
+      <th width="125">Error Type</th>
+      <th>Error Message</th>
+    </tr>
+  
+    <%  
+         test_execution.execution_errors.where(:measure_id.exists => true).each_with_index do |err, index| 
+
+      %>
+       <tr>
+        <td></td>
+        <td>
+
+            <a style="color:#cc3300" href="#<%=err.measure_id%>" ><b><%= index %></b> <span><%=  err.message %></span></a>
+
+        </td>
+      </tr>  
+    <%end %> 
+     
+  </table>
+</div>
+
+</section>
 
    <section id="quality_measures">
     <h5><span class="pass">PASSING</span> MEASURES</h5>

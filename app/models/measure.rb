@@ -10,6 +10,7 @@ class Measure
   field :set_id, type: String
   field :nqf_id, type: String
   field :type, type: String
+  field :category, type: String
 
   scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
   scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})

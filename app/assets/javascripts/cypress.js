@@ -102,6 +102,37 @@
     );
   }
 
+  $.cypress.textForUnit = function(value, temporal, plural) {
+      decoder = {'a':'year','mo':'month','wk':'week','d':'day','h':'hour','min':'minute','s':'second'};
+      if(temporal) value = decoder[value];
+      if(temporal && plural) value += 's';
+      return value;
+    }
+
+    $.cypress.textForValue = function(value, temporal) {
+      return (value['inclusive?'] ? '=' : '') + " " + value.value + (value.unit != null ? ' ' + $.cypress.textForUnit(value.unit,temporal,value.value>1) +' ' : '')
+    }
+
+    $.cypress.humanizeCategory = function(catagory) {
+      return catagory.replace(/_/g,' ');
+    }
+    $.cypress.textForRange = function(range, temporal) {
+      if ((range.high != null) && (range.low != null)) {
+        if (range.high.value === range.low.value && range.high['inclusive?'] && range.low['inclusive?'])
+          return "=" + range.low.value;
+        else
+          return ">" + $.cypress.textForValue(range.low,temporal) + " and <" + $.cypress.textForValue(range.high,temporal);
+      } else {
+        if (range.high != null) 
+          return "<" + $.cypress.textForValue(range.high,temporal);
+        if (range.low != null) 
+          return ">" + $.cypress.textForValue(range.low,temporal);
+        if (range.value != null)
+          return "=" + range.value;
+        return '';
+      }
+    }
+
     $.cypress.renderMeasureJSON = function(data) {
         var measure = data;
         var elemParent;
@@ -117,7 +148,7 @@
                 (
                   subset_operator.type + ' ' +
                   (
-                    subset_operator.value ? popHealth.textForRange(subset_operator.value, false) : ''
+                    subset_operator.value ? $.cypress.textForRange(subset_operator.value, false) : ''
                   ) +
                   ' of'
                 )
@@ -141,7 +172,7 @@
                       temporal: true,
                       title: (
                         (
-                          temporal_reference.range ? popHealth.textForRange(temporal_reference.range,true) : ''
+                          temporal_reference.range ? $.cypress.textForRange(temporal_reference.range,true) : ''
                         ) +
                         ({
                           DURING:'During',SBS:'Starts Before Start of',SAS:'Starts After Start of',SBE:'Starts Before End of',
