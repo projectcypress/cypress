@@ -122,7 +122,7 @@ module Cypress
         vs.concepts.each do |con|
           name = normailize_name(con)
           js[vs.oid][name] ||= []
-          js[vs.oid][name] << con.code  unless js[vs.oid][name].index(con.code)
+          js[vs.oid][name] << con.code.downcase  unless js[vs.oid][name].index(con.code.downcase)
         end
       end
 

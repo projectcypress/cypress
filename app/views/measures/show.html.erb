@@ -26,6 +26,11 @@
         hidden = !hidden;
       });
 
+
+      $("#exclusionPanel h3").click(function() {
+        $("#exclusionMeasureItems").slideToggle('slow');
+      });
+
     });
   </script>
 
@@ -47,12 +52,16 @@
   <script type="text/html" id="ph_tmpl_data_criteria_logic">
     <div class='paramText logicLeaf' {{if id}}id='${id}'{{/if}}>
       {{if operator}}<label>${operator}</label>{{/if}}
-      {{if category}}<label>${category}</label>{{/if}}{{if standard_category}}<label>${popHealth.humanizeCategory(standard_category)}</label>{{/if}}
+      {{if category}}<label>${category}</label>{{/if}}{{if standard_category}}<label>${$.cypress.humanizeCategory(standard_category)}</label>{{/if}}
       ${title} ${temporalText}
     </div>
   </script>
   
 <% end %>
+
+
+
+ 
 
 
 
@@ -122,27 +131,41 @@
         <dl class="dl-horizontal measure">
           <dt class="measure_definition">Definition:</dt>
           <dd class="measure_definition" id="show_hide">Expand Definition</dd>
+          
+
           <div id="measureEditContainer">
-            <div id="eligibilityMeasures">
-              <h3>Denominator</h3>
-              <div class="measureBox">
-                <div id="eligibilityMeasureItems">
-                </div><!-- end #eligibilityMeasureItems -->
-              </div><!-- end measureBox -->
-            </div><!-- end #eligibilityMeasures -->
-            <div id="outcomeMeasures">
-              <h3>Numerator</h3>
-              <div class="measureBox">
-                <div id="outcomeExclusionMarker" class="exclusionTab" style="display:none">
-                  0 Exclusions
-                </div>
-                <div id="outcomeMeasureItems">
-                </div>
-                <div id="exclusionMeasureItems">
-                </div>
-              </div><!-- end measureBox -->
-            </div><!-- end #outcomeMeasures -->
-          </div><!-- end measureEditContainer -->
+          <div id="exclusionPanel" style="display:none;">
+             <h3>exclusions <em>(<span id="exclusionCount"></span>)</em></h3>
+            <div class="measureBox">
+              <div id="exclusionMeasureItems" ></div>
+          </div>
+           
+          </div>
+          <div id="eligibilityMeasures">
+            <h3>denominator <em>(<span id="eligibleCount"></span>)</em></h3>
+            <div class="measureBox">
+              <div id="eligibilityMeasureItems">
+              </div><!-- end #eligibilityMeasureItems -->
+            </div><!-- end measureBox -->
+          </div><!-- end #eligibilityMeasures -->
+          <div id="outcomeMeasures">
+            <h3>numerator <em>(<span id="outcomeCount"></span>)</em></h3>
+            <div class="measureBox">
+              <div id="outcomeExclusionMarker" class="exclusionTab" style="display:none">
+              </div>
+              <div id="outcomeMeasureItems">
+              </div>
+              <div id="xexclusionMeasureItems">
+              </div>
+            </div><!-- end measureBox -->
+          </div><!-- end #outcomeMeasures -->
+        </div><!-- end measureEditContainer -->
+
+
+         
+
+
+
         </dl>
         <dl>
           <dt>Reporting Statistics:</dt>
