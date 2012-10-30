@@ -19,8 +19,11 @@ namespace :cypress do
 
 
   desc "Download the set of valuesets required by the installed measures"
-  task :cache_valuesets, [:username, :password] => :setup do |t,args|
+  task :cache_valuesets, [:username, :password, :clear] => :setup do |t,args|
 
+    if args[:clear]
+      HealthDataStandards::SVS::ValueSet.all.delete()
+    end
 
     oids = YAML.load(File.open("config/oids.yml"))
     valuesets = oids || []
@@ -61,7 +64,7 @@ namespace :cypress do
           vs = HealthDataStandards::SVS::ValueSet.load_from_xml(doc)
           # look to see if there is a valueset with the given oid and version already in the db
           old = HealthDataStandards::SVS::ValueSet.where({:oid=>vs.oid, :version=>vs.version}).first
-          if !old 
+          if old.nil?
            vs.save!
           end
         else

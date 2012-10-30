@@ -782,7 +782,6 @@
       <sch:assert id="a-12746" test="count(cda:entryRelationship[@typeCode='RSON'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.84'])=1]) &lt; 2">MAY contain zero or one [0..1] entryRelationship (CONF:12744) such that it SHALL contain exactly one [1..1] @typeCode="RSON" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:12745). SHALL contain exactly one [1..1] Provider Preference (templateId:2.16.840.1.113883.10.20.24.3.84) (CONF:12746).</sch:assert>
       <sch:assert id="a-12749" test="count(cda:entryRelationship[@typeCode='RSON'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.88'])=1]) &lt; 2">MAY contain zero or one [0..1] entryRelationship (CONF:12747) such that it SHALL contain exactly one [1..1] @typeCode="RSON" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:12748). SHALL contain exactly one [1..1] Reason (templateId:2.16.840.1.113883.10.20.24.3.88) (CONF:12749).</sch:assert>
       <sch:assert id="a-16697" test="count(cda:value)=1">SHALL contain exactly one [1..1] value (CONF:16697).</sch:assert>
-      <sch:assert id="a-19212" test="(count(cda:code[@codeSystem])=0 and cda:code[@nullFlavor]) or cda:code[@codeSystem='2.16.840.1.113883.6.1']">Laboratory results SHOULD be from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or other constrained terminology named by the US Department of Health and Human Services Office of National Coordinator or other federal agency. Local and/or regional codes for laboratory results are allowed. The Local and/or regional codes SHOULD be sent in the translation element. See the Local code example figure (CONF:19212).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.40-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.40']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.40-errors-abstract" />
@@ -1543,7 +1542,7 @@ SHALL contain exactly one [1..1] effectiveTime (CONF:14445).</sch:assert>
       <sch:assert id="a-12592" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:12592).</sch:assert>
       <sch:assert id="a-12607" test="not(cda:rateQuantity) or cda:rateQuantity">The rateQuantity, if present, SHALL contain exactly one [1..1] @unit="1", which SHALL be selected from ValueSet UCUM Units of Measure (case sensitive) 2.16.840.1.113883.1.11.12839 DYNAMIC (CONF:12607).</sch:assert>
       <sch:assert id="a-12610" test="count(cda:consumable)=1">SHALL contain exactly one [1..1] consumable (CONF:12610).</sch:assert>
-      <sch:assert id="a-12611" test="count(//cda:templateId[@root='2.16.840.1.113883.10.20.22.4.23'])=1">This consumable SHALL contain exactly one [1..1] Medication Information (templateId:2.16.840.1.113883.10.20.22.4.23) (CONF:12611).</sch:assert>
+      <sch:assert id="a-12611" test="cda:consumable[count(cda:manufacturedProduct[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.23'])=1]">This consumable SHALL contain exactly one [1..1] Medication Information (templateId:2.16.840.1.113883.10.20.22.4.23) (CONF:12611).</sch:assert>
       <sch:assert id="a-12639" test="@moodCode='RQO'">SHALL contain exactly one [1..1] @moodCode="RQO" (CodeSystem: ActMood 2.16.840.1.113883.5.1001 STATIC) (CONF:12639).</sch:assert>
       <sch:assert id="a-12641" test="cda:statusCode[@code='new']">This statusCode SHALL contain exactly one [1..1] @code="new" (CodeSystem: ActStatus 2.16.840.1.113883.5.14 STATIC) (CONF:12641).</sch:assert>
       <sch:assert id="a-13818" test="count(cda:effectiveTime[@xsi:type='IVL_TS'][@xsi:type='IVL_TS'][count(cda:high)=1][count(cda:low)=1])=1">SHALL contain exactly one [1..1] effectiveTime (CONF:12593) such that it SHALL contain exactly one [1..1] low (CONF:13818).</sch:assert>
@@ -2409,8 +2408,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.45-errors">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.45-errors-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.18-errors-abstract" />
-      <sch:assert id="a-13854" test="count(cda:code)=1">SHALL contain exactly one [1..1] code (CONF:13854).</sch:assert>
-      <sch:assert id="a-13855" test="cda:code[@code='completed' and @codeSystem='2.16.840.1.113883.5.14']">This code SHALL contain exactly one [1..1] @code="completed" (CodeSystem: ActStatus 2.16.840.1.113883.5.14 STATIC) (CONF:13855).</sch:assert>
+      <sch:assert id="a-13854" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] code (CONF:13854).</sch:assert>
+      <sch:assert id="a-13855" test="cda:statusCode[@code='completed']">This code SHALL contain exactly one [1..1] @code="completed" (CodeSystem: ActStatus 2.16.840.1.113883.5.14 STATIC) (CONF:13855).</sch:assert>
       <sch:assert id="a-13856" test="count(cda:effectiveTime[@xsi:type='IVL_TS'])=1">SHALL contain exactly one [1..1] effectiveTime (CONF:13856).</sch:assert>
       <sch:assert id="a-13857" test="cda:effectiveTime[@xsi:type='IVL_TS'][count(cda:low)=1]">This effectiveTime SHALL contain exactly one [1..1] low (CONF:13857).</sch:assert>
       <sch:assert id="a-13858" test="cda:effectiveTime[@xsi:type='IVL_TS'][count(cda:high)=1]">This effectiveTime SHALL contain exactly one [1..1] high (CONF:13858).</sch:assert>
@@ -2886,7 +2885,7 @@ This playingEntity SHALL contain exactly one [1..1] code (CONF:7493).</sch:asser
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.85-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.85']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.85-errors-abstract" />
-      <sch:assert id="a-16567" test="count(cda:templateId[@root='2.16.840.1.113883.10.22.4.78'])=1">SHALL contain exactly one [1..1] templateId (CONF:16566) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.22.4.78" (CONF:16567).</sch:assert>
+      <sch:assert id="a-16567" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.22.4.85'])=1">SHALL contain exactly one [1..1] templateId (CONF:16566) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.22.4.85" (CONF:16567).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.50-errors">
@@ -3093,7 +3092,7 @@ This playingEntity SHALL contain exactly one [1..1] code (CONF:7493).</sch:asser
       <sch:assert id="a-19203" test="cda:code[count(cda:originalText) &lt; 2]">This code SHOULD contain zero or one [0..1] originalText (CONF:19203).</sch:assert>
       <sch:assert id="a-19204" test="not(cda:code/cda:originalText) or cda:code/cda:originalText[count(cda:reference) &lt; 2]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:19204).</sch:assert>
       <sch:assert id="a-19205" test="not(cda:code/cda:originalText/cda:reference) or cda:code/cda:originalText/cda:reference[not(@value) or @value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:19205).</sch:assert>
-      <sch:assert id="a-19207" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96']">This code in a procedure activity SHOULD be selected from LOINC (codeSystem 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96), and MAY be selected from CPT-4 (CodeSystem: 2.16.840.1.113883.6.12), ICD9 Procedures (CodeSystem: 2.16.840.1.113883.6.104), ICD10 Procedure Coding System (CodeSystem: 2.16.840.1.113883.6.4) (CONF:19207).</sch:assert>
+      <sch:assert id="a-19207" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96'] or cda:code[@codeSystem='2.16.840.1.113883.6.12'] or cda:code[@codeSystem='2.16.840.1.113883.6.104'] or cda:code[@codeSystem='2.16.840.1.113883.6.4']">This code in a procedure activity SHOULD be selected from LOINC (codeSystem 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96), and MAY be selected from CPT-4 (CodeSystem: 2.16.840.1.113883.6.12), ICD9 Procedures (CodeSystem: 2.16.840.1.113883.6.104), ICD10 Procedure Coding System (CodeSystem: 2.16.840.1.113883.6.4) (CONF:19207).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.14-warnings" context="cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.14-warnings-abstract" />
@@ -3227,6 +3226,7 @@ This playingEntity SHALL contain exactly one [1..1] code (CONF:7493).</sch:asser
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.40-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.2-warnings-abstract" />
       <sch:assert id="a-16698" test="count(cda:value[@xsi-type='PQ'])=0 or count(cda:value[@xsi-type='PQ'])=1">If xsi:type=PQ, then @units shall be drawn from Unified Code for Units of Measure (UCUM) 2.16.840.1.113883.6.8 code system. Additional constraint is dependent on criteria in the corresponding eMeasure (CONF:16698).</sch:assert>
+      <sch:assert id="a-19212" test="(count(cda:code[@codeSystem])=0 and cda:code[@nullFlavor]) or cda:code[@codeSystem='2.16.840.1.113883.6.1' or @codeSystem='2.16.840.1.113883.6.96']">Laboratory results SHOULD be from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or other constrained terminology named by the US Department of Health and Human Services Office of National Coordinator or other federal agency. Local and/or regional codes for laboratory results are allowed. The Local and/or regional codes SHOULD be sent in the translation element. See the Local code example figure (CONF:19212).</sch:assert>      
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.40-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.40']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.40-warnings-abstract" />
@@ -3635,7 +3635,7 @@ This playingEntity SHALL contain exactly one [1..1] code (CONF:7493).</sch:asser
       <sch:assert id="a-19198" test="cda:code[count(cda:originalText) &lt; 2]">This code SHOULD contain zero or one [0..1] originalText (CONF:19198).</sch:assert>
       <sch:assert id="a-19199" test="not(cda:code/cda:originalText) or cda:code/cda:originalText[count(cda:reference) &lt; 2]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:19199).</sch:assert>
       <sch:assert id="a-19200" test="not(cda:code/cda:originalText/cda:reference) or cda:code/cda:originalText/cda:reference[not(@value) or @value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:19200).</sch:assert>
-      <sch:assert id="a-19202" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96']">This @code SHOULD be selected from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96), and MAY be selected from CPT-4 (CodeSystem: 2.16.840.1.113883.6.12), ICD9 Procedures (CodeSystem: 2.16.840.1.113883.6.4) (CONF:19202).</sch:assert>
+      <sch:assert id="a-19202" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96'] or cda:code[@codeSystem='2.16.840.1.113883.6.12'] or cda:code[@codeSystem='2.16.840.1.113883.6.4']">This @code SHOULD be selected from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96), and MAY be selected from CPT-4 (CodeSystem: 2.16.840.1.113883.6.12), ICD9 Procedures (CodeSystem: 2.16.840.1.113883.6.4) (CONF:19202).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.13-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.13']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.13-warnings-abstract" />
@@ -3912,7 +3912,7 @@ This assignedEntity SHALL contain exactly one [1..1] id (CONF:16587) such that i
       <sch:assert id="a-8306" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:representedOrganization) &lt; 2]">This assignedEntity SHOULD contain zero or one [0..1] representedOrganization (CONF:8306).</sch:assert>
       <sch:assert id="a-8307" test="not(cda:performer/cda:assignedEntity/cda:representedOrganization) or cda:performer/cda:assignedEntity/cda:representedOrganization[not(cda:id) or cda:id]">The representedOrganization, if present, SHOULD contain zero or more [0..*] id (CONF:8307).</sch:assert>
       <sch:assert id="a-19186" test="cda:code[count(cda:originalText) &lt; 2]">This code SHOULD contain zero or one [0..1] originalText (CONF:19186).</sch:assert>
-      <sch:assert id="a-19190" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96']">This code in a procedure activity observation SHOULD be selected from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96) (CONF:19190).</sch:assert>
+      <sch:assert id="a-19190" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96'] or cda:code[@codeSystem='2.16.840.1.113883.6.104']">This code in a procedure activity observation SHOULD be selected from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96) (CONF:19190).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.12-warnings" context="cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.12']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.12-warnings-abstract" />

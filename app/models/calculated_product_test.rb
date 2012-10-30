@@ -11,7 +11,7 @@ class CalculatedProductTest < ProductTest
       #p_ids << minimal_set[:overflow].pick some random peeps
       
       # do this synchronously because it does not take long
-      p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
+     # p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
       pcj = Cypress::PopulationCloneJob.new("id", {'patient_ids' =>p_ids, 'test_id' => test.id})
       pcj.perform
       #now calculate the expected results
@@ -62,13 +62,13 @@ class CalculatedProductTest < ProductTest
       matched_results[key] = matched_result
       reported_result ||= {}
       errs = []
-      ["denonminator", "numerator", "exceptions", "denex", "numex", "population", "msr_popl" ].each do |key|
+      ["denominator", "numerator", "exceptions", "denex", "numex", "population", "msr_popl" ].each do |key|
         if expected_result[key]
           matched_result[key] = {:expected=>expected_result[key], :reported=>reported_result[:key]}
           # only add the error that they dont match if there was an actual result
           if (expected_result[key] != reported_result[key.to_sym]) && !reported_result.empty?
 
-           errs << "expected #{key} value #{expected_result[key]} does not match reported value #{reported_result[key]}"
+           errs << "expected #{key} value #{expected_result[key]} does not match reported value #{reported_result[key.to_sym]}"
           end
         end 
       end

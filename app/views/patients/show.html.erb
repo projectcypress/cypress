@@ -62,13 +62,13 @@
           <% @results.each do |result| %>
             <% if result.value.population %>
               <tr>
-				<td title="<%= "#{(result.value.sub_id.nil? ? "" : result.value.sub_id) if @product}" %>">
-                 <%= link_to "#{result.value.measure_id}#{result.value.sub_id}" %>
+				<td title="<%= "#{(result.value['sub_id'].nil? ? "" : result.value['sub_id']) if @product}" %>">
+                 <%= link_to "#{result.value.measure_id}#{result.value['sub_id']}" %>
                 </td>
-                <td <%= raw result_to_class(result.value.denominator?) %>></td>
-                <td <%= raw result_to_class(result.value.numerator?) %>></td>
-                <td <%= raw result_to_class(result.value.exclusions?) %>></td>
-                <td <%= raw result_to_class(result.value.antinumerator?) %>></td>
+                <td <%= raw result_to_class(result.value['denominator']) %>></td>
+                <td <%= raw result_to_class(result.value['numerator']) %>></td>
+                <td <%= raw result_to_class(result.value['exclusions']) %>></td>
+                <td <%= raw result_to_class(result.value['antinumerator']) %>></td>
               </tr>
             <% end %>
           <% end %>
@@ -77,9 +77,7 @@
     </section>
     <div id="effectiveDate">effective date: <%= display_time(@effective_date) %></div>
     <section class="patient bordered buffered">
-	    <div class="span2">
-       <img src="<%= patient_picture(@patient) %>" id="patientpicture">
-      </div>
+	
       <div class="offset2">
         <span class="patientname" ><strong><%= @patient.last %></strong>, <%= @patient.first %></span><br>
         <dl class="dl-horizontal patient">

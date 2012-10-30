@@ -140,15 +140,17 @@
     </section>
     <% else %>
     <section class="instructions">
-        <div class="row">
-          <div class="span12">
-            <p>
-              The test is still compiling test data
-            </p>
-          </div>
-        </div>
-    
+      <div class="alert alert-info">
+        <p>You must wait for the test preparations to be completed. This usually takes no more than a couple of minutes.</p>
+      </div>
     </section>
+   <!-- if some error has occurred 
+    <section class="instructions">
+      <div class="alert alert-error">
+        <p>There has been a problem preparing the tests. Please speak the the administrator for Cypress. You will not be able to execute tests until this problem has been resolved.</p>
+      </div>
+    </section>
+    -->
     <% end %>
 
     <!-- End of if test is ready to execute -->
@@ -181,18 +183,20 @@
             <th class="align-left" colspan="3">
               <strong>Test Executions</strong>
             </th>
-            <th>Description</th>
+            <th style="width:50%">Description</th>
             <th>Results</th>
+            <th></th>
           </tr>
         </thead>
          <% @test.test_executions.each do |te| %>
 
-         <tr>
+         <tr id="te_<%=te.id%>">
            <td class="align-left" colspan="3">
              <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", 'data-test-id'.to_sym=>te._id %></strong>
            </td>
            <td> </td>
            <td><%= link_to "Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd' %></td>
+           <td class="align-right"><%= link_to 'Delete', test_execution_path(te), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
          </tr>
 
          <% end %>
@@ -219,10 +223,20 @@
 
       <div id="execution_results">
         <% if @test_execution %>
+          <script >
+            $('#te_<%=@test_execution.id%>').addClass('selected');
+          </script>
           <%= render :partial=>test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution}%>
-        <% else %>
+        <% else 
+          te = @test.test_executions.build(:expected_results=> @test.expected_results, :reported_results=>{})
+          template = test_execution_expected_results_template(te) 
+          if false  %>
+            <%= render :partial=>template , :locals=>{:test_execution=>te}%>
+         <% else %>
         Click on one of the test executions above to load the details here.
-        <% end %>
+        <% end 
+        end 
+        %>
       </div>
     </section>
 

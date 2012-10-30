@@ -34,11 +34,21 @@ http://www.altova.com/mapforce
 							<xsl:attribute name="id" namespace="" select="'p'"/>
 							<rule>
 								<xsl:attribute name="context" namespace="" select="'/cda:ClinicalDocument'"/>
-								<xsl:for-each select="*:DataElements[fn:namespace-uri() eq ''][(fn:true() and (fn:string(*:CdaTemplateId[fn:namespace-uri() eq '']) != 'null'))]">
-									<xsl:variable name="var1_resultof_cast" as="xs:string" select="fn:string(*:CdaTemplateId[fn:namespace-uri() eq ''])"/>
+								<xsl:variable name="var3_resultof_filter" as="node()*">
+									<xsl:for-each select="*:DataElements[fn:namespace-uri() eq '']">
+										<xsl:variable name="var1_resultof_cast" as="xs:string" select="fn:string(*:CdaTemplateId[fn:namespace-uri() eq ''])"/>
+										<xsl:variable name="var2_resultof_logical_and" as="xs:boolean" select="((fn:true() and ($var1_resultof_cast != 'null')) and ($var1_resultof_cast != ''))"/>
+										<xsl:if test="$var2_resultof_logical_and">
+											<xsl:sequence select="."/>
+										</xsl:if>
+									</xsl:for-each>
+								</xsl:variable>
+								<xsl:for-each select="$var3_resultof_filter">
+									<xsl:variable name="var4_resultof_cast" as="xs:string" select="fn:string(*:Oid[fn:namespace-uri() eq ''])"/>
+									<xsl:variable name="var5_resultof_cast" as="xs:string" select="fn:string(*:CdaTemplateId[fn:namespace-uri() eq ''])"/>
 									<assert>
-										<xsl:attribute name="test" namespace="" select="fn:concat(fn:concat(fn:concat('//*[cda:templateId/@root=''', $var1_resultof_cast), ''']'), fn:concat(fn:concat('[descendant::*/@sdtc:valueSet=''', fn:string(*:Oid[fn:namespace-uri() eq ''])), ''']'))"/>
-										<xsl:sequence select="fn:concat(fn:concat(fn:concat('For QDT pattern ''', fn:string(*:Name[fn:namespace-uri() eq ''])), ''', the following QRDA template id SHOULD be present: '), $var1_resultof_cast)"/>
+										<xsl:attribute name="test" namespace="" select="fn:concat(fn:concat(fn:concat('//*[cda:templateId/@root=''', $var5_resultof_cast), ''']'), fn:concat(fn:concat('[descendant::*/@sdtc:valueSet=''', $var4_resultof_cast), ''']'))"/>
+										<xsl:sequence select="fn:concat(fn:concat(fn:concat(fn:concat(fn:concat(fn:concat('For QDT pattern ''', fn:string(*:Name[fn:namespace-uri() eq ''])), ''', QRDA template id &quot;'), $var5_resultof_cast), '&quot; SHOULD be present and SHOULD be bound to value set &quot;'), $var4_resultof_cast), '&quot;. ')"/>
 									</assert>
 								</xsl:for-each>
 							</rule>

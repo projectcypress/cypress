@@ -43,9 +43,10 @@
          end %>>
          <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div></li>
       <% end %>
+      </ol>
     </div>
     <div class="tab-pane" id="xml_validation_warnings">
-      <% #render :partial => 'test_executions/qrda_product_test/warnings', :locals => { :warnings => test_execution.execution_warnings, :inspection => :xml_validation } %> 
+     
       <h4>Warnings</h4>
       <ol class="validation_list">
       <% old_eid = 0 %>
@@ -63,7 +64,7 @@
     </div>
     <div class="tab-pane" id="content_inspection">
       <p>Content Inspection information here</p>
-      <% #render :partial => "content_inspection_results", :locals => { :inspection => :xml_validation, :errors => @test_plan.xml_validation_errors } %>
+    
     </div>
     
   </div><!-- end #test_result_tabs -->
