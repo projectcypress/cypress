@@ -2,27 +2,28 @@ class QRDAProductTest < ProductTest
   after_create :generate_population
   
   def generate_population
-    # TODO change this over to use test patient generator from bonnie as shown below
+    measure_needs = {}
+    measure_value_sets = {}
     self.measures.each do |measure|
-      Record.where({test_id: nil, measure_id: measure.id, type: :qrda}).each do |rec|
-        cloned = rec.clone
-        cloned.test_id = self.id
-        cloned.save
+      # This reshapes NLM value sets to the imported value sets that the Test Patient Generator expects from Bonnie. 
+      # TODO Just pass the NLM value sets to the generator once Bonnie is refactored to also use the NLM.
+      value_sets = []
+      oids = measures.map{|measure| measure.oids}.flatten.uniq
+      HealthDataStandards::SVS::ValueSet.any_in(oid: oids).each do |value_set|
+        code_sets = value_set.concepts.map {|concept| {"code_system" => concept.code_system_name, "codes" => [concept.code]}}
+        value_sets << {"code_sets" => code_sets}
       end
+
+      measure_needs[measure.id] = measure.data_criteria.map{|dc| HQMF::DataCriteria.from_json(dc.keys.first, dc.values.first)}
+      measure_value_sets[measure.id] = value_sets
+    end
+
+    patients = HQMF::Generator.generate_qrda_patients(measure_needs, measure_value_sets)
+    patients.each do |measure, patient|
+      patient.test_id = self.id
+      patient.save
     end
     
-    # measure_needs = {}
-    # measure_value_sets = {}
-    # self.measures.each do |measure|
-    #   measure_needs[measure.id] = measure.data_criteria.map{|dc| HQMF::DataCriteria.from_json(dc.keys.first, dc.values.first)}
-    #   measure_value_sets[measure.id] = measure.value_sets
-    # end
-      
-    # patients = HQMF::Generator.generate_qrda_patients(measure_needs, measure_value_sets)
-    # patients.each do |measure, patient|
-    #   patient.test_id = self.id
-    #   patient.save
-    # end
     self.ready
   end
   

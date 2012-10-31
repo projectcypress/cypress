@@ -12,7 +12,7 @@ class ActiveSupport::TestCase
   def collection_fixtures(collection, *id_attributes)
     Mongoid.session(:default)[collection].drop
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-      fixture_json = JSON.parse(File.read(json_fixture_file))
+      fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
       id_attributes.each do |attr|
         
         if fixture_json[attr].nil?
