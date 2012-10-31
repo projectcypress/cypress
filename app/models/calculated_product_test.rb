@@ -12,14 +12,14 @@ class CalculatedProductTest < ProductTest
       
       # do this synchronously because it does not take long
      # p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
-      pcj = Cypress::PopulationCloneJob.new("id", {'patient_ids' =>p_ids, 'test_id' => test.id})
+      pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => test.id})
       pcj.perform
       #now calculate the expected results
       test.calculate
     end
         
     after_transition any => :calculating_expected_results do |test|
-      Cypress::MeasureEvaluationJob.create({"test_id" =>  test.id.to_s})
+      Delayed::Job.enqueue(Cypress::MeasureEvaluationJob.new({"test_id" =>  test.id.to_s}))
     end
         
     event :generate_population do
@@ -62,13 +62,18 @@ class CalculatedProductTest < ProductTest
       matched_results[key] = matched_result
       reported_result ||= {}
       errs = []
-      ["denominator", "numerator", "exceptions", "denex", "numex", "population", "msr_popl" ].each do |key|
-        if expected_result[key]
-          matched_result[key] = {:expected=>expected_result[key], :reported=>reported_result[:key]}
-          # only add the error that they dont match if there was an actual result
-          if (expected_result[key] != reported_result[key.to_sym]) && !reported_result.empty?
 
-           errs << "expected #{key} value #{expected_result[key]} does not match reported value #{reported_result[key.to_sym]}"
+      _ids = expected_result["population_ids"].dup
+      # remove the stratification entry if its there, not needed to test against values
+      _ids.delete("stratification")
+      _ids.keys.each do |pop_id| 
+         key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
+        if expected_result[key]
+          matched_result[key] = {:expected=>expected_result[key.to_s], :reported=>reported_result[:key.to_sym]}
+          # only add the error that they dont match if there was an actual result
+          if (expected_result[key.to_s] != reported_result[key.to_sym]) && !reported_result.empty?
+
+           errs << "expected #{key} value #{expected_result[key.to_s]} does not match reported value #{reported_result[key.to_sym]}"
           end
         end 
       end

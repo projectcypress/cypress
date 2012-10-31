@@ -8,7 +8,14 @@ module Cypress
   #    Cypress::PopulationCloneJob.create(:patient_ids => [1,2,7,9,221], :test_id => 'ID of vendor to which these patients belong')
   # This will return a uuid which can be used to check in on the status of a job. More details on this can be found
   # at the {Resque Stats project page}[https://github.com/quirkey/resque-status].
-  class PopulationCloneJob < Resque::JobWithStatus
+  class PopulationCloneJob
+
+    attr_reader :options
+
+    def initialize(options)
+      @options = options
+    end
+    
     def perform
       # Clone AMA records from Mongo
 

@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.2'
 gem 'jquery-rails'
 gem 'rake'
-gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop' 
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'qme2.0' 
 #gem 'quality-measure-engine', '1.1.5'
 #gem 'quality-measure-engine', :path => '../shared/quality-measure-engine'
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
@@ -31,7 +31,6 @@ gem 'thin'
 gem 'pry'
 gem 'pry-debugger'
 
-gem 'redis', '~> 2.2.2'
 
 gem 'mongoid-grid_fs', :git=>'https://github.com/ahoward/mongoid-grid_fs.git'
 

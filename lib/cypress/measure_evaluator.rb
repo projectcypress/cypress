@@ -1,6 +1,12 @@
 module Cypress
   
-  class  MeasureEvaluationJob < Resque::JobWithStatus
+  class  MeasureEvaluationJob
+
+    attr_reader :options
+
+    def initialize(options)
+      @options = options
+    end
     
     def perform
  
@@ -9,26 +15,13 @@ module Cypress
        results = {}
        t.measures.each do |measure|
 
-           dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure)
+        dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure)
+        qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], "oid_dictionary"=>dictionary)
 
-           qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], "oid_dictionary"=>dictionary)
-           result = nil
-           if qr.calculated?
-             result=qr.result
-             completed("#{options['measure_id']}#{options['sub_id']} has already been calculated") if respond_to? :completed
-           else
-             map = QME::MapReduce::Executor.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], 'start_time' => Time.now.to_i,"oid_dictionary"=>dictionary)
-           result = nil
-
-             if !qr.patients_cached?           
-               map.map_records_into_measure_groups
-             end
-             result = map.count_records_in_measure_groups
-           end
-          
-         result = qr.result
-         result.delete("_id")
-         results[measure.key] = result
+        qr.calculate(false) 
+        result = qr.result
+        result.delete("_id")
+        results[measure.key] = result
        end
        t.expected_results = results
        t.save
