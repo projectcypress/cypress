@@ -2,6 +2,11 @@ require 'validators/schema_validator'
 require 'validators/schematron_validator'
 module Cypress
   class QrdaUtility
+
+
+    POPULATION_CODE_MAPPINGS = {'NUMER' => :numerator, 'DENOM' => :denominator,'IPP' => :population, 'MSRPOPL' => :msr_popl , 
+                      'NUMEX' => :numex, 'DENEX' => :exclusions,'DENEXCEP' => :exceptions, 'EXCEP' => :exceptions}
+
     QRDA_CAT1_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
     QRDA_CAT1_SCHEMATRON_ROOT= QRDA_CAT1_SCHEMATRON_CONFIG["root"]
     #QRDA_CAT1_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("QRDA Cat I schema validator", APP_CONFIG["validation"]["schema"]["qrda_cat_1"])
@@ -87,10 +92,8 @@ module Cypress
       end  
       return nil unless results
 
-       code_mapping = {'NUMER' => :numerator, 'DENOM' => :denominator,'IPP' => :population, 'MSRPOPL' => :msr_popl , 
-                      'NUMEX' => :numex, 'DENEX' => :exclusions,'DENEXCEP' => :exceptions}
         if results
-          code_mapping.each_pair do |k,v|
+          POPULATION_CODE_MAPPINGS.each_pair do |k,v|
             if results[k]
               results[v] = results[k]
               results.delete(k)
