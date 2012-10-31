@@ -6,7 +6,6 @@ require 'rails'
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
-require 'resque/tasks'
 require "simplecov"
 require "quality-measure-engine"
 

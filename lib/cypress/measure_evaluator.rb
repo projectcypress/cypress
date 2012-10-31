@@ -1,6 +1,12 @@
 module Cypress
   
-  class  MeasureEvaluationJob < Resque::JobWithStatus
+  class  MeasureEvaluationJob
+
+    attr_reader :options
+
+    def initialize(options)
+      @options = options
+    end
     
     def perform
  
