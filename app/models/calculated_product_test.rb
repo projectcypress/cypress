@@ -7,12 +7,18 @@ class CalculatedProductTest < ProductTest
       min_set = PatientPopulation.min_coverage(test.measure_ids)
       p_ids = min_set[:minimal_set]
 
+      if p_ids.length < 5
+        r_ids = Record.where(:test_id=>nil).collect {|r| r.medical_record_number}
+        while p_ids.length < 5
+          p_ids << r_ids.sample
+        end
+      end
       #randomly pick a number of other patients to give to the vendor
       #p_ids << minimal_set[:overflow].pick some random peeps
       
       # do this synchronously because it does not take long
      # p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
-      pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => test.id})
+      pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => test.id, "randomize_names"=> true})
       pcj.perform
       #now calculate the expected results
       test.calculate
