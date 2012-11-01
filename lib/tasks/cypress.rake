@@ -48,20 +48,23 @@ namespace :cypress do
 
         vs_data = api.get_valueset(oid) 
         vs_data.force_encoding("utf-8") # there are some funky unicodes coming out of the vs response that are not in ASCII as the string reports to be
-       
+        doc = Nokogiri::XML(vs_data)
+
+        doc.root.add_namespace_definition("vs","urn:ihe:iti:svs:2008")
+        vs_element = doc.at_xpath("/vs:RetrieveValueSetResponse/vs:ValueSet")
+        
+        if vs_element && vs_element["ID"] == oid
+        vs_element["id"] = oid
         # only store on the file system if the directory is configured
         if NLM_CONFIG["output_dir"]
           File.open(File.join(NLM_CONFIG["output_dir"], "#{oid.downcase}.xml"), "w") do |f|
-            f.puts vs_data
+            f.puts doc.to_s
           end
         end
 
-        doc = Nokogiri::XML(vs_data)
-        doc.root.add_namespace_definition("vs","urn:ihe:iti:svs:2008")
-        vs_element = doc.at_xpath("/vs:RetrieveValueSetResponse/vs:ValueSet")
-        if vs_element && vs_element["ID"] == oid
-          
-          vs_element["id"] == oid
+        
+        
+
           vs = HealthDataStandards::SVS::ValueSet.load_from_xml(doc)
           # look to see if there is a valueset with the given oid and version already in the db
           old = HealthDataStandards::SVS::ValueSet.where({:oid=>vs.oid, :version=>vs.version}).first
