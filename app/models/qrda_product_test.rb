@@ -2,31 +2,33 @@ class QRDAProductTest < ProductTest
   after_create :generate_population
   
   def generate_population
-    patient_needs = {self.id => []}
-    all_value_sets = {self.id => []}
+    # patient_needs = {self.id => []}
+    # all_value_sets = {self.id => []}
 
-    # This reshapes NLM value sets to the imported value sets that the Test Patient Generator expects from Bonnie. 
-    # TODO Just pass the NLM value sets to the generator once Bonnie is refactored to also use the NLM.
-    oids = self.measures.map{|measure| measure.oids}.flatten.uniq
-    HealthDataStandards::SVS::ValueSet.any_in(oid: oids).each do |value_set|
-      code_sets = value_set.concepts.map {|concept| {"code_set" => concept.code_system_name, "codes" => [concept.code]}}
-      all_value_sets[self.id] << {"code_sets" => code_sets, "oid" => value_set.oid}
-    end
+    # # This reshapes NLM value sets to the imported value sets that the Test Patient Generator expects from Bonnie. 
+    # # TODO Just pass the NLM value sets to the generator once Bonnie is refactored to also use the NLM.
+    # oids = self.measures.map{|measure| measure.oids}.flatten.uniq
+    # HealthDataStandards::SVS::ValueSet.any_in(oid: oids).each do |value_set|
+    #   code_sets = value_set.concepts.map {|concept| {"code_set" => concept.code_system_name, "codes" => [concept.code]}}
+    #   all_value_sets[self.id] << {"code_sets" => code_sets, "oid" => value_set.oid}
+    # end
 
-    self.measures.top_level.each do |measure|
-      puts "Gathering data criteria from #{measure.nqf_id}"
-      patient_needs[self.id] << measure.data_criteria.map{|dc| HQMF::DataCriteria.from_json(dc.keys.first, dc.values.first)}
-    end
-    patient_needs[self.id].flatten!
-    patient_needs[self.id].uniq!
+    # self.measures.top_level.each do |measure|
+    #   puts "Gathering data criteria from #{measure.nqf_id}"
+    #   patient_needs[self.id] << measure.data_criteria.map{|dc| HQMF::DataCriteria.from_json(dc.keys.first, dc.values.first)}
+    # end
+    # patient_needs[self.id].flatten!
+    # patient_needs[self.id].uniq!
 
-    patients = HQMF::Generator.generate_qrda_patients(patient_needs, all_value_sets)
-    patients.each do |measure, patient|
-      patient.test_id = self.id
-      patient.save
-    end
+    # patients = HQMF::Generator.generate_qrda_patients(patient_needs, all_value_sets)
+    # patients.each do |measure, patient|
+    #   patient.test_id = self.id
+    #   patient.save
+    # end
     
-    self.ready
+    # self.ready
+      Delayed::Job.enqueue(Cypress::QRDAGenerationJob.new({"test_id" =>  self.id.to_s}))
+
   end
   
   def execute(params)

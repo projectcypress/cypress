@@ -23,6 +23,7 @@ class PatientPopulation
   
   def self.min_coverage(measures)
 
+
     # Get a hash of all measures requested, each with its own list of patients who are in that measure's numerator
    measures_to_patients = MONGO_DB.command(:group=>{:ns=>'patient_cache', 
                                            :key => {"value.measure_id"=>1, "value.sub_id"=>1, "value.test_id"=>1}, 

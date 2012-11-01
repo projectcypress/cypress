@@ -14,8 +14,9 @@ class QRDAProductTestTest < ActiveSupport::TestCase
     assert_nil Record.where(test_id: @test).first
 
     total_records = Record.all.size
+    Delayed::Worker.delay_jobs = false
     @test.generate_population
-    
+    Delayed::Worker.delay_jobs = true
     assert_equal total_records + 1, Record.all.size
     assert_not_nil Record.where(test_id: @test).first
   end

@@ -17,7 +17,7 @@ class CalculatedProductTest < ProductTest
       #p_ids << minimal_set[:overflow].pick some random peeps
       
       # do this synchronously because it does not take long
-     # p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
+      # p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
       pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => test.id, "randomize_names"=> true})
       pcj.perform
       #now calculate the expected results

@@ -1,53 +1,3 @@
-GIT
-  remote: https://github.com/ahoward/mongoid-grid_fs.git
-  revision: 9f815cd4778c82ca56e05c5fa4b51eb6730a8b56
-  specs:
-    mongoid-grid_fs (1.3.2)
-      mime-types (~> 1.19)
-      mongoid (~> 3.0)
-
-GIT
-  remote: https://github.com/pophealth/hqmf-parser.git
-  revision: 77de0f8dea7aa3aa6fa500f2aee0c8701177cecc
-  branch: develop
-  specs:
-    hqmf-parser (0.0.1)
-      google-spreadsheet-ruby (= 0.1.8)
-      roo (= 1.10.1)
-      rubyzip
-      spreadsheet (= 0.6.8)
-
-GIT
-  remote: https://github.com/pophealth/quality-measure-engine.git
-  revision: f81ef2ec0cff049d498ba51a05f66e9426964fa8
-  branch: qme2.0
-  specs:
-    quality-measure-engine (2.0.0)
-      delayed_job_mongoid (~> 2.0.0)
-      mongoid (~> 3.0.9)
-      moped (~> 1.2.7)
-      rubyzip (~> 0.9.9)
-
-GIT
-  remote: https://github.com/pophealth/test-patient-generator.git
-  revision: 31ab781b83a894ae92bae6afcba367e917ccfcd9
-  branch: develop
-  specs:
-    test-patient-generator (0.1.0)
-
-GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 402c932d301df2dd870e39bba65d2e85c76b0ff3
-  branch: develop
-  specs:
-    health-data-standards (2.1.0)
-      builder (~> 3.0.0)
-      erubis (~> 2.7.0)
-      mongoid (~> 3.0.6)
-      nokogiri (~> 1.5.5)
-      rest-client (~> 1.6.7)
-      uuid (~> 2.3.5)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -121,7 +71,19 @@ GEM
       nokogiri (>= 1.4.3.1)
       oauth (>= 0.3.6)
       oauth2 (>= 0.5.0)
+    health-data-standards (2.1.2)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      mongoid (~> 3.0.6)
+      nokogiri (~> 1.5.5)
+      rest-client (~> 1.6.7)
+      uuid (~> 2.3.5)
     hike (1.2.1)
+    hqmf-parser (1.0.2)
+      google-spreadsheet-ruby (= 0.1.8)
+      roo (= 1.10.1)
+      rubyzip
+      spreadsheet (= 0.6.8)
     httpauth (0.2.0)
     i18n (0.6.1)
     journey (1.0.4)
@@ -151,6 +113,9 @@ GEM
       moped (~> 1.1)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
+    mongoid-grid_fs (1.3.3)
+      mime-types (~> 1.19)
+      mongoid (~> 3.0)
     moped (1.2.7)
     multi_json (1.3.6)
     multipart-post (1.1.5)
@@ -183,6 +148,11 @@ GEM
     pry-debugger (0.2.0)
       debugger (~> 1.1.3)
       pry (~> 0.9.9)
+    quality-measure-engine (2.0.0)
+      delayed_job_mongoid (~> 2.0.0)
+      mongoid (~> 3.0.9)
+      moped (~> 1.2.7)
+      rubyzip (~> 0.9.9)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -245,6 +215,7 @@ GEM
       term-ansicolor (>= 1.0.5)
       text-table (>= 1.2.2)
     term-ansicolor (1.0.7)
+    test-patient-generator (1.0.0)
     text-table (1.2.2)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
@@ -277,19 +248,19 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails
   devise (~> 2.0)
-  health-data-standards!
-  hqmf-parser!
+  health-data-standards (~> 2.1.1)
+  hqmf-parser (~> 1.0.0)
   jquery-rails
   minitest
   mocha
-  mongoid-grid_fs!
+  mongoid-grid_fs (~> 1.3.3)
   pdf-reader (= 0.9.0)
   prawn
   prawn_rails
   prawnto_2
   pry
   pry-debugger
-  quality-measure-engine!
+  quality-measure-engine (~> 2.0.0)
   rails (= 3.2.2)
   rake
   sass-rails
@@ -297,7 +268,7 @@ DEPENDENCIES
   simplecov
   state_machine
   tailor
-  test-patient-generator!
+  test-patient-generator (~> 1.0.0)
   therubyracer
   thin
   turn

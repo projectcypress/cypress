@@ -6,6 +6,13 @@ require 'rails/test_help'
 require 'mocha'
 
 require 'active_support/testing/pending'
+
+
+
+
+
+
+
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   
