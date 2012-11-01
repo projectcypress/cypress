@@ -1,0 +1,151 @@
+.table {
+  margin-top: 25px;
+  th {
+    font-size:90%;
+    font-weight: 300;
+    color: #666;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+  }
+  th, td {
+    padding: 3px 4px;
+    &.align-left { text-align: left; }
+    &.align-right { text-align: right; }
+    &:hover {background-color:inherit}
+  }
+  td, tbody + tbody { border: none; }
+  tbody tr:hover td, tbody tr:hover th { background-color: $containerBkgColor; }
+}
+
+/* add extra padding to consecutive theads in the results table */
+table.table thead:nth-child(n+2) th {padding-top:15px;}
+
+.table-hover {
+  tbody tr:hover td, tbody tr:hover th { background-color: #e6f3e8; }
+}
+.measure{ 
+table-layout:fixed;
+  th{
+    width:40px;
+    text-align:right;
+  }
+  td{
+    padding-bottom:2px;
+  }
+}
+.dot {
+width:20px;
+}
+.tog{
+width:10px;
+}
+.name {
+width:200px;
+}
+.info {
+width:300px;
+}
+
+tr.sub_rows {
+  display:none;
+}
+
+#patient_characteristics th{
+ background-color:#F0F0F0;
+width:10px;
+  border:none;
+}
+#patient_measures{
+float:left;
+  width:100px;
+  td:nth-child(-n+5) {
+width:10px;
+padding:0px;
+    background: url(/assets/notincluded.png) 25% 25% no-repeat;
+    width:10px;
+  }
+td:first-child{
+background: none;
+}
+
+  td.p{
+    background: url(/assets/included.png) 25% 25% no-repeat;
+  }
+  tr.rot  {
+    th.first-child {width:50px;}
+     th {
+      +th div{ 
+        @include rotated(-45deg);}
+	  td{width:10px;}
+      border:none;
+      div {
+        font-size: 70%;
+        text-align:center;
+        color: #000;
+        width:10px;
+        font-weight: $fontWeight+200;
+      }
+    }
+  }
+}
+
+td.vendorname {font-weight:bold}
+.test-score, .version {padding-left:1.2em}
+.product.pass, .product.fail {font-weight:bold}
+
+
+
+table tbody tr.selected td:first-child {
+  border-left:5px solid #696;
+}
+
+table tbody tr.selected td {
+  background-color:#cfc;
+  &:hover {  background-color:#cfc;}
+}
+table tbody tr.selected:hover td {
+  background-color:#cfc;
+}
+
+#patient_subset  {
+  width:850px;
+  td:nth-child(-n+4) {
+    background: url(/assets/notincluded.png) 25% 25% no-repeat;
+    width:10px;
+  }
+  td.p{
+    background: url(/assets/included.png) 25% 25% no-repeat;
+  }
+  tr.rot  th {
+    border:none;
+    div {
+      @include rotated(-45deg);
+      font-size: 80%;
+      text-align:center;
+      color: #000;
+      width:10px;
+     font-weight: $fontWeight+200;
+    }
+  }
+}
+.steps td {//Status bubbles in top-left of new product test wizard
+  span.wizard {
+    width:16px;
+    text-indent:-9999pt;
+    display:block;
+  }
+
+  span.incomplete {
+    @extend span.wizard;
+    background:url(/assets/insufficient.png) 0 50% no-repeat;
+  }
+
+  span.complete {
+    @extend span.wizard;    
+    background:url(/assets/included.png) 0 50% no-repeat;
+  }
+  span.current {
+    @extend span.wizard;    
+    background:url(/assets/pass.png) 0 50% no-repeat;
+   }
+}

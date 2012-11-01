@@ -5,19 +5,19 @@
   
   <h1>Product Information</h1>
   <section id="vendorInfo">
-    <dl>
-      <dt><span style="float:right;">Product Name:</span><span id="required_asterisk">* </span></dt>
+    <dl class="dl-horizontal">
+      <dt><span class="required">*</span>Product Name:</dt>
       <dd><%= f.text_field :name, :size=>"20", :class=>"required" %></dd>
       <dt>Version:</dt>
-      <dd><%= f.text_field :version, :size=>"20", :class=>"req" %></dd>
+      <dd><%= f.text_field :version, :size=>"20" %></dd>
     </dl>
-    <dl>
+    <dl class="dl-horizontal">
       <dt>Description:</dt>
-      <dd><%= f.text_field :description, :size=>"20", :class=>"req" %></dd>
+      <dd><%= f.text_field :description, :size=>"20" %></dd>
     </dl>
   </section>
 
-  <%= render :partial => 'edit_measure_map' %>
+
   <div id="validationErrorMessages"></div>
   <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();" style="display: inline-block"><%= submit_text(@product) %></a>
 <% end %>

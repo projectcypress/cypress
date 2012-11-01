@@ -1,0 +1,76 @@
+a:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+ 
+a.cmd {
+  @include bordered($btnBorderColor);
+  background-color: $btnBkgColor;
+  color: $btnColor;
+  font-size: $btnFontSize;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  behavior: url(/assets/PIE.htc);
+  
+}
+a.cmd:hover {
+  background-color: $btnHoverBkg;
+}
+a.mailing_list {
+  color:$mailing_listColor;
+  font-weight:bold;
+}
+
+a.del {
+  @include bordered($dltColor);
+  color: $dltColor;
+}
+td a.cmd {
+  display:inline-block;
+  margin:2px 0;
+  padding:0px 8px;
+  font-size:85%;
+}
+
+a.del:hover {
+background-color: $dltHoverBkg;
+}
+
+
+.ui-formwizard-button {
+background-color:transparent;
+border-color:transparent;
+
+box-shadow:none;
+}
+
+.ui-formwizard-button:disabled {
+background-color:transparent;
+border-color:transparent;
+box-shadow:none;
+}
+
+#download_menu {
+    width:100px;
+  }
+#share_menu {
+    width:100px;
+  }
+#results_menu {
+    width:100px;
+  }
+
+ul#download_options {
+font-size:$fontSize*.8;
+  
+}
+ul#share_options {
+font-size:$fontSize*.8;
+  
+}
+ul#results_options {
+font-size:$fontSize*.8;
+  
+}

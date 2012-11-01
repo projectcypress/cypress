@@ -1,13 +1,21 @@
-test:
-  host: <%= ENV['TEST_DB_HOST'] || 'localhost' %>
-  database: cypress_test
-
 development:
-  host: localhost
-  database: cypress_development
+  sessions:
+    default:
+      database: cypress_development
+      hosts:
+        - localhost:27017
+test:
+  sessions:
+    default:
+      options:
+        consistency: :strong
+      database: cypress_test
+      hosts:
+        - <%= ENV['TEST_DB_HOST'] || 'localhost' %>:27017
 
-# set these environment variables on your prod server
 production:
-  host: localhost
-  port: 27017
-  database: cypress_production
+  sessions:
+    default:
+      database: cypress_production
+      hosts:
+        - localhost:27017

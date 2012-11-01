@@ -5,7 +5,6 @@ Cypress::Application.routes.draw do
   
   resources :vendors, :products
 
-  namespace :api do
     resources :vendors do
       resources :products do
         resources :product_tests do
@@ -14,19 +13,21 @@ Cypress::Application.routes.draw do
         end
       end
     end
-  end
-  
+   
    resources :measures do
      get 'definition'
    end
-
+  
+  resources :test_executions
   resources :product_tests  do
+  resources :test_executions
     member do
       get 'download'
       post 'process_pqri'
       post 'add_note'
       delete 'delete_note'
       post 'email'
+      get 'qrda_cat3'
     end
     
     resources :patients
@@ -50,6 +51,12 @@ Cypress::Application.routes.draw do
     end
   end
   
+  resources :measures do
+      member do
+        get 'patients'
+      end
+    end
+    
   get "/information/about"
   get "/information/feedback"
   get "/information/help"
@@ -59,9 +66,13 @@ Cypress::Application.routes.draw do
   post '/services/validate_pqri'
 
   match '/measures/minimal_set' => 'measures#minimal_set'
+  match '/measures/by_type' => 'measures#by_type'
   match '/product_tests/period', :to=>'product_tests#period', :as => :period, :via=> :post
   
-  
+  unless Rails.application.config.consider_all_requests_local
+    match '*not_found', to: 'errors#error_404'
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

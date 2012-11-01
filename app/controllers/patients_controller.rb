@@ -1,9 +1,8 @@
-require 'measure_evaluator'
 
 class PatientsController < ApplicationController
 
   require 'builder'
-  require 'create_download_zip'
+
   
   before_filter :authenticate_user!
 
@@ -12,9 +11,8 @@ class PatientsController < ApplicationController
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
       @product = @test.product
-      @product.measure_map ||= Measure.default_map
       @vendor  = @product.vendor
-      @measures = @test.measure_defs
+      @measures = @test.measures
     else
       @measures = Measure.installed
     end
@@ -52,19 +50,20 @@ class PatientsController < ApplicationController
   end
   
   def show
+
     @patient = Record.find(params[:id])
     if @patient.test_id
       @test = ProductTest.find(@patient.test_id)
       @product = @test.product
-      @product.measure_map ||= Measure.default_map
       @vendor  = @product.vendor
     end
     @effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
 
-    @results = Result.all(:conditions => {'value.patient_id' => @patient.id}, :sort => [['value.measure_id', :asc], ['value.sub_id', :asc]])
+    @results = Result.where({'value.patient_id' => @patient.id}).order_by([['value.measure_id', :asc], ['value.sub_id', :asc]])
   end
 
   def table_measure
+
     @showAll = false
     @measures = Measure.installed
     @measures_categories = @measures.group_by { |t| t.category }
@@ -75,13 +74,14 @@ class PatientsController < ApplicationController
     end
 
     @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected['id'])
-      .where("value.sub_id" => @selected.sub_id).where("value.population" => true)
+      .where("value.sub_id" => @selected.sub_id).where("value.population" => 1)
       .order_by([ ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
 
     render 'table'
   end
 
   def table_all
+    
     @showAll  = true
     @patients = nil
     if params[:product_test_id]

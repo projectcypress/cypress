@@ -5,7 +5,7 @@ include Devise::TestHelpers
 
   setup do
     collection_fixtures('query_cache', 'test_id')
-    collection_fixtures('measures')
+    collection_fixtures('measures',"_id")
     collection_fixtures('products','_id','vendor_id')
     collection_fixtures('records', '_id','test_id')
     collection_fixtures('product_tests', '_id')
@@ -14,13 +14,13 @@ include Devise::TestHelpers
     collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    @user = User.first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
+    @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
   end
   
   test "index" do
-    m1 = Measure.where(:id => '0001').first
-    m2 = Measure.where(:id => '0348').first
+    m1 = Measure.where(:hqmf_id => '0001').first
+    m2 = Measure.where(:hqmf_id => '0348').first
 
     get :index, {:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m1._id}
     assert_response :success
@@ -54,7 +54,7 @@ include Devise::TestHelpers
     assert result['denominator'] == '-'
     assert result['exclusions']  == '-'
 
-    expected_result = {"measure_id" => m1['id'],
+    expected_result = {"measure_id" => m1['hqmf_id'],
       "effective_date" => 1293753600,
       "denominator" => 48,
       "numerator" => 44,
@@ -82,16 +82,16 @@ include Devise::TestHelpers
     vendor  = assigns[:vendor]
     results = assigns[:results]
 
-    assert test.id.to_s   == "4f58f8de1d41c851eb000478"
-    assert product.id.to_s== "4f57a88a1d41c851eb000004"
-    assert vendor.id.to_s == "4f57a8791d41c851eb000002"
-    assert results.count  == 1
+    assert_equal "4f58f8de1d41c851eb000478", test.id.to_s   
+    assert_equal "4f57a88a1d41c851eb000004", product.id.to_s
+    assert_equal  "4f57a8791d41c851eb000002", vendor.id.to_s
+    assert_equal 1, results.count  
 
   end
 
   test "table_measure" do
-    m1 = Measure.where(:id => '0001').first
-    m2 = Measure.where(:id => '0002').first
+    m1 = Measure.where(:hqmf_id => '0001').first
+    m2 = Measure.where(:hqmf_id => '0002').first
 
     get :table_measure,{:measure_id => m1.id }
     assert assigns[:patients].count == 3
@@ -117,11 +117,6 @@ include Devise::TestHelpers
   test "download" do
     r1 = Record.find("4f5bb2ef1d41c841b3000046")
 
-    get :download,{:id => r1.id , :format => 'csv' }
-    assert_response :success, "Failed to download CSV file"
-    flat_file = "patient_id,first name,last name,gender,race,ethnicity,birthdate\n21,Rachel,Mendez,M,White,Not Hispanic or Latino,06/08/1981\n"
-    assert @response.body == flat_file , "Downloaded CSV file contents not correct"
-
     get :download,{:id => r1.id , :format => 'c32' }
     assert_response :success,"Failed to download C32 zip file"
     get :download,{:id => r1.id , :format => 'ccr' }
@@ -129,8 +124,6 @@ include Devise::TestHelpers
     get :download,{:id => r1.id , :format => 'html'}
     assert_response :success,"Failed to download HTML zip file"
 
-    get :download,{:format => 'csv' }
-    assert_response :success,"Failed to download Master Patient List CSV file"
     get :download,{:format => 'c32' }
     assert_response :success,"Failed to download Master Patient List C32 zip file"
     get :download,{:format => 'ccr' }

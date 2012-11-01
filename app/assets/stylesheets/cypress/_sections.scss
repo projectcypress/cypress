@@ -1,0 +1,111 @@
+section {
+  margin: 0;
+  p { padding: 10px; }
+  position: relative;
+  dl {
+    width: 360px;
+    display: table-cell;
+  }
+  dt {
+    font-weight:normal;
+  }
+dl.quality-measures {
+ display:relative;
+ width:700px;
+}
+  
+}
+section#quality_measures {
+  h5 {color:#666;padding-left:4px;}
+  table {margin-top:0;margin-bottom:50px;}
+
+}
+section#patient_list{
+  width:800px;
+  margin-top: 30px;
+padding:0px;
+  display: inline-block;
+  vertical-align: top;
+}
+section#measureMap {
+  margin:10px 0;
+  }
+  
+section.measure {
+  dd.na {
+    background: url(/assets/insufficient.png) 10px 50% no-repeat;
+    padding-left: 30px;
+    color: #999
+  }
+  dd.pass {
+    background: url(/assets/pass.png) 10px 50% no-repeat;
+    padding-left: 30px;
+   color: green;
+  }
+  dd.fail {
+    background: url(/assets/fail.png) 10px 50% no-repeat;
+    padding-left: 30px;
+    color: #FF0000;
+    font-weight:bold;
+  }
+  dd table{
+    width:600px;
+font-size:75%;
+    th{font-weight: $fontWeight; font-style: italic;}
+  }
+}
+section.patient.patientname{
+    margin-left: 190px;
+  }
+section.information {
+  font-size: 1em;
+  line-height: 1.5em;
+}
+
+section.patient{
+  width:780px;
+  margin-left:10px;
+  display:inline-block;
+}
+section#patient_characteristics{
+  width:780px;
+  margin-left:10px;
+  display:inline-block;
+}
+
+section.instructions {
+  margin-top:1em;
+  p {
+    padding:10px 0 5px 0;
+    margin:0;
+    }
+  }
+section.records {
+  margin-top:20px;
+  form {margin-bottom:0;}
+  table {margin-top:0;
+    input[type='submit'] {
+      margin-bottom:0;
+    }
+  }
+  
+  span.date {font-weight:bold;}
+}
+section.execution {
+  margin-bottom:25px;
+  }
+section.legend {
+  padding: 5px 10px 10px 0;
+  border-top: 1px solid $borderColor;
+  dl, dt, dd { width: auto; display: inline-block; }
+  dd { margin-left: 25px;line-height:22px }
+}
+.patient_info{
+  position:relative;
+top:0px;
+}
+
+/* Test execution details */
+#xml_frame {
+  font-family: $sourceCodeFont;
+}

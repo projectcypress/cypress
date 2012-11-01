@@ -12,10 +12,13 @@ class ProductsControllerTest < ActionController::TestCase
     collection_fixtures('records', '_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    @user = User.first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
+    @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
   end
   
+  
+  
+
   
   
   test "create" do

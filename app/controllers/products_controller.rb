@@ -5,9 +5,9 @@ class ProductsController < ApplicationController
     render :template => "products/edit"
   end
    
+ 
   def show
     @product = Product.find(params[:id])
-    @product.measure_map ||= Measure.default_map
   end
   
   def new
@@ -16,18 +16,8 @@ class ProductsController < ApplicationController
   end
   
   def create
-
-    # construct the measure mapping from the selections indicated by the user
-    if params[:product] && params[:product][:measure_map]
-      measure_keys = params[:product][:measure_map]
-      measure_map = {}
-      measure_keys.each { |m| measure_map[m] = params[m][m] if params[m] && params[m][m]}
-      params[:product][:measure_map] = measure_map
-    end
-
     @product = current_user.products.build(params[:product])
     @product.save!
-    
     redirect_to vendor_path(@product.vendor.id)
   end
   
@@ -38,13 +28,6 @@ class ProductsController < ApplicationController
   
   def update
     @product = current_user.products.find(params[:id])
-    # construct the measure mapping from the selections indicated by the user
-    if params[:product] && params[:product][:measure_map]
-      measure_keys = params[:product][:measure_map]
-      measure_map = {}
-      measure_keys.each { |m| measure_map[m] = params[m][m] if params[m] && params[m][m]}
-      params[:product][:measure_map] = measure_map
-    end
     @product.update_attributes(params[:product])
     @product.save!
    
@@ -57,6 +40,8 @@ class ProductsController < ApplicationController
     product.destroy
     redirect_to vendor_path(vendor)
   end
+  
+  
   
   
 end

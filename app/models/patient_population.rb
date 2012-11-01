@@ -22,11 +22,20 @@ class PatientPopulation
   end
   
   def self.min_coverage(measures)
+
     # Get a hash of all measures requested, each with its own list of patients who are in that measure's numerator
-    measures_to_patients = MONGO_DB['patient_cache'].group(:key => ["value.measure_id", "value.sub_id", "value.test_id"], 
-                              :cond => {"value.test_id"=>nil, "value.numerator"=>true,"value.measure_id"=>{"$in"=>measures}},
-                              :initial => {:patients => []},
-                              :reduce => 'function(o,prev){prev.patients.push(o.value.patient_id);}')
+   measures_to_patients = MONGO_DB.command(:group=>{:ns=>'patient_cache', 
+                                           :key => {"value.measure_id"=>1, "value.sub_id"=>1, "value.test_id"=>1}, 
+                                           :cond => {"value.test_id"=>nil, "value.numerator"=> 1 ,"value.measure_id"=>{"$in"=>measures}, "value.effective_date" => Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE},
+                                           :initial => {:patients => []},
+                                           "$reduce"=> 'function(o,prev){prev.patients.push(o.value.medical_record_id);}'})["retval"]
+    
+  # Get a hash of all measures requested, each with its own list of patients who are in that measure's numerator
+   denominator_m_to_p = MONGO_DB.command(:group=>{:ns=>'patient_cache', 
+                                           :key => {"value.measure_id"=>1, "value.sub_id"=>1, "value.test_id"=>1}, 
+                                           :cond => {"value.test_id"=>nil, "value.numerator"=> 0, "value.denominator"=> 1,"value.measure_id"=>{"$in"=>measures}, "value.effective_date" => Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE},
+                                           :initial => {:patients => []},
+                                           "$reduce"=> 'function(o,prev){prev.patients.push(o.value.medical_record_id);}'})["retval"]
 
     # Order the measures by the amount of related patients, fewest to most
     measures_to_patients.sort! {|a,b| 
@@ -62,7 +71,18 @@ class PatientPopulation
         m_list.concat( patients[patient] )
       end
     end
-    
+# add an extra person to the denominator for each measure
+    denominator_m_to_p.each do |val|
+       # as long as there is one from the denom only set in the list there is no need to add another
+       if (val["patients"]  & p_list).empty?
+         p =  val["patients"].sample
+          if p
+            p_list.push(p)
+          end
+      end
+    end
+
+    p_list.uniq!
     { :minimal_set => p_list, :overflow => patients.keys - p_list }
  end
 end

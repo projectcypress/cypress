@@ -1,0 +1,49 @@
+header {
+  position: relative;
+  padding: 5px 20px;
+  border-bottom: 1px solid #aaa;
+  h1 {
+    background: transparent url(/assets/cypress_logo.png) top left no-repeat;
+    text-indent: -9999pt;
+    width: 169px;
+    height: 40px;
+  }
+  nav {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+  }
+  a {
+    text-decoration: underline;
+    margin-left: 10px;
+  }
+}
+
+nav.breadcrumb {
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  background: none;
+  border: none;
+  padding-top: 4px;
+  a {
+    text-decoration: underline;
+    margin: 0 5px;
+  }
+  a:hover { text-decoration: underline; }
+  a:first-child { margin-left: 0; }
+  span { margin-left: 5px; }
+}
+
+#pageButtons {
+  a.cmd {
+    float: right;
+    margin-left: 15px;
+  }
+}
+
+.tb {
+  a.cmd {
+    float: right;
+    margin-left: 15px;
+  }
+}

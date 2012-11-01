@@ -23,11 +23,11 @@
   </td>
   <td class="patient_entry"><%= entry.description %></td>
   <td class="patient_entry"><%# There will be more complex logic to highlight values -%>
-    <% if entry.value.present? -%>
-      <%= entry.value['scalar'] %>
-    <% end -%>
-    <% if entry.value.present? && entry.value['units'].present?-%>
-      <%= entry.value['units'] %>
+    <% val = entry.values.present? ? entry.values.first : nil %>
+     <% if val %>
+      <%= val['scalar'] %>
+
+      <%= val['units'] %>
     <% end -%>
   </td>
   <td class="patient_entry"><time datetime="<%= display_time(entry.time) %>"><%= display_time(entry.time) %></time></td>

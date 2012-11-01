@@ -9,5 +9,12 @@ class PatientPopulationsController < ApplicationController
       format.html { render :action => "show" }
     end
   end
+  
+  
+  def download
+    
+    
+  end
+  
     
 end

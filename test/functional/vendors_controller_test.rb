@@ -6,12 +6,12 @@ class VendorsControllerTest < ActionController::TestCase
   setup do
     collection_fixtures('vendors', '_id',"user_ids")
     collection_fixtures('query_cache', 'test_id')
-    collection_fixtures('measures')
+    collection_fixtures('measures',"_id")
     collection_fixtures('users',"_id", "vendor_ids")
     collection_fixtures('records', '_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    @user = User.first(:conditions => {:first_name => 'bobby', :last_name => 'tables'})
+    @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
   end
   
@@ -42,8 +42,8 @@ class VendorsControllerTest < ActionController::TestCase
   
   test "Delete Vendor and take their associated records with them" do
     vcount =Vendor.count
-    vendor_id =Vendor.first.id
-    post(:destroy, {:vendor_id => vendor_id})  
+    vendor_id =Vendor.where({}).first.id
+    post(:destroy, {:id => vendor_id})  
     
     assert_equal(Vendor.count, vcount -1)
     assert_response :redirect
@@ -61,8 +61,8 @@ class VendorsControllerTest < ActionController::TestCase
   
   
   test "show" do 
-    vendor = Vendor.first
-     get :show, {:vendor_id => vendor.id}
+     vendor = Vendor.where({}).first
+     get :show, {:id => vendor.id}
      assert assigns(:vendor) == vendor
   end
   

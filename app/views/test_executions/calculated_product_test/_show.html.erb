@@ -1,0 +1,64 @@
+
+<div>
+  <ul id="error_report_toc" class="nav nav-tabs">
+    <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
+    <li class=""><a href="#test_measure_errors" data-toggle="tab">Errors</a></li>
+    <li class=""><a href="#test_measure_warnings" data-toggle="tab">Warnings</a></li>
+  </ul>
+  <div id="test_result_tabs" class="tab-content">
+    <div class="tab-pane active" id="test_summary">
+      <section>
+        <dl class="dl-horizontal">
+          <dt><strong>Test Date:</strong></dt> <dd class="strong"><%= test_execution.created_at %></dd>
+          <dt><strong>Inspection ID: </strong></dt> <dd><%= test_execution.product_test.product.vendor.name %></dd>
+          <dt><strong>Document Type:</strong></dt> <dd>** document type **</dd>
+          <dt><strong>Version:</strong></dt> <dd>** document version **</dd>
+        </dl>
+        <dl class="dl-horizontal wide">
+          <dt><strong>Errors:</strong></dt> <dd class="fail strong"><%= test_execution.count_errors %></dd>
+          <dt><strong>Warnings:</strong></dt> <dd class="warn strong"><%= test_execution.count_warnings %></dd>
+        </dl>
+      </section>
+      <h5 style="margin-top:2em">Test Execution Notes</h5>
+      <p>Test execution notes and addenda should appear here.</p>
+    </div>
+
+
+
+
+    <div class="tab-pane" id="test_measure_errors">
+      <!-- %# render :partial => 'calculated_product_test/errors', :locals => { :errors => test_execution.execution_errors} %> -->
+      <h4>Errors</h4>
+      <ol class="validation_list">
+        <% test_execution.execution_errors.by_type(:error).each do |err| %>
+         <li><a  href="#<%=err.measure_id%>" ><span><%=  err.message %></span></li>
+        <% end %>
+      </ol>
+    </div>
+    <div class="tab-pane" id="test_measure_warnings">
+      <!-- %# render :partial => 'test_executions/calculated_product_test/warnings', :locals => { :warnings => test_execution.execution_warnings } %> -->
+      <h4>Warnings</h4>
+      <ol class="validation_list">
+        <% test_execution.execution_errors.by_type(:warning).each_with_index do |err| %>
+          <li><a  href="#<%=err.measure_id%>" ><span><%=  err.message %></span></li>
+        <% end %>
+      </ol>
+    </div>
+ 
+  </div><!-- end #test_result_tabs -->
+      <section id="quality_measures">
+        <h5><span class="pass">PASSING</span> MEASURES</h5>
+        <% if test_execution.passing_measures.count == 0 %>
+          <p>There are no passing measures for this test</p>
+        <% else %>
+          <%= render partial: "/test_executions/calculated_product_test/results.html" , locals: {test_execution: test_execution, measures: test_execution.passing_measures} %>
+        <% end %>
+        <h5><span class='fail'>FAILING</span> MEASURES</h5>
+        <% if test_execution.failing_measures.count == 0 %>
+          <p>There are no failing measures for this test</p>
+        <% else %>
+          <%= render partial: "/test_executions/calculated_product_test/results.html" , locals: {test_execution: test_execution, measures: test_execution.failing_measures} %>
+        <% end %>
+      </section>
+
+</div>   

@@ -1,305 +1,271 @@
 <% content_for :head do -%>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('#upload_pqri_dialog').dialog({
-        title: 'Upload Results',
-        autoOpen: false,
-        closeOnEscape: true,
-        draggable: true,
-        position: 'center',
-        width: 'auto',
-        height: 'auto',
-        modal: true,
-        show: 'fade',
-        hide: 'fade',
-        resizable: false,
-        buttons: {
-          Upload: function() {
-            $('#edit_product_test_<%= @test.id %>').submit();
-            $(this).dialog('close');
-          },
-          Cancel: function() {
-            $(this).dialog('close');
-          }
-        }
-      });
-      
-      $('#upload_results_button').click(function(event) {
-        $('#upload_pqri_dialog').dialog('open');
-        event.preventDefault();
-      });
-      
-      $('#polling_for_updates').dialog({
-        title: 'Waiting for patients to load...',
-        autoOpen: false,
-        closeOnEscape: false,
-        draggable: false,
-        position: 'center',
-        width: 'auto',
-        height: 'auto',
-        modal: true,
-        show: 'fade',
-        hide: 'fade',
-        resizable: false,
-        open: function(event, ui) { $(".ui-dialog-titlebar-close").hide()}
-      });
 
-      $(".expander").toggle(
-        function() {
-          $(this).addClass('open');
-          
-          var codeElement = $(this).data('code');
-          var codes = $("." + codeElement);
-          codes.show();
-        },
-        function() {
-          $(this).removeClass('open');
-           var codeElement = $(this).data('code');
-          var codes = $("." + codeElement);
-          codes.hide();
-        });
+  <script>
+	$(document).ready(function() {
+	      $('#upload_results').dialog({
+	        title: 'Upload Results',
+	        autoOpen: false,
+	        closeOnEscape: true,
+	        draggable: true,
+	        position: 'center',
+	        width: 'auto',
+	        height: 'auto',
+	        modal: true,
+	        show: 'fade',
+	        hide: 'fade',
+	        resizable: false,
+	        buttons: {
+	          Upload: function() {
+	            $('#new_test_execution').submit();
+	            $(this).dialog('close');
+	          },
+	          Cancel: function() {
+	            $(this).dialog('close');
+	          }
+	        }
+	      });
 
-  <% poll_for_updates = false
-  if @patients.size < 1 || @percent_completed < 100
-    poll_for_updates = true
-  end
+	      $('#results_menu').click(function(event) {
+	        $('#upload_results').dialog('open');
+	        event.preventDefault();
+	      });
+	});
+	</script>
 
-  !@current_execution.nil? && @current_execution.expected_results.each do |result|
-    if result['numerator']=='?'
-      poll_for_updates = true
-    end
-  end
-
-  if poll_for_updates %>
-        $('#loading_progress').progressbar({ value: <%= @percent_completed %>, color: 'red' });
-        $("#loading_progress .ui-progressbar-value").addClass("ui-corner-right ui-corner-left");
-      
-        $("#upload_results_button").hide();
-        $('#polling_for_updates').dialog('open');
-        $.cypress.addPoll("<%= product_test_path(@test) %>", null, function() {
-          $("#upload_results_button").show();
-          $('#polling_for_updates').dialog(
-          { title: 'Download patient records...',
-            autoOpen: true,
-            closeOnEscape: true,
-            draggable: false,
-            position: 'center',
-            width: 'auto',
-            height: 'auto',
-            modal: true,
-            show: 'fade',
-            hide: 'fade',
-            resizable: false,
-            open: function(event, ui) { $(".ui-dialog-titlebar-close").show()}
-          }).html("<%= escape_javascript(render :partial => 'download_dialog') %>");
-
-        });
-  <% end %>
-    });
-  </script>
 <% end %>
 
-<div id="container">
+<div id="container" class="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class ="buffered">
     <section class="tb">
       <div class="stacked">
-        <%= link_to "Results", '', {
-          :id => 'results_menu',
-          :class => "cmd",
-          :onmouseover => "$.cypress.showMenu($('#results_menu'), $('#results_options'));"
-        } %>
-        <%= link_to 'Test Data', '', {
-          :id => 'share_menu',
-          :class => "cmd",
-          :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
-        } %>
+
         <%= link_to "Edit Test", edit_product_test_path(@test), { :class => "cmd" } %>
-        <ul id="results_options" style="display: none" role="listbox"
-            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Upload PQRI", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :id => 'upload_results_button', :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Download PDF", product_test_path(@test, :format => 'pdf', :execution_id=>params[:execution_id]), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-        </ul>
-        <ul id="share_options" style="display: none" role="listbox"
-            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Download C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Download CCRs", download_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Download CSV", download_product_test_path(@test, :format => 'csv'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-          <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-          </li>
-          <% if @test.user.email %>
-            <li class="ui-menu-item" role="menuitem">
-              <%= link_to "Email C32s", email_product_test_path(@test, :format => 'c32'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-            </li>
-            <li class="ui-menu-item" role="menuitem">
-              <%= link_to "Email CCRs", email_product_test_path(@test, :format => 'ccr'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-            </li>
-            <li class="ui-menu-item" role="menuitem">
-              <%= link_to "Email CSV", email_product_test_path(@test, :format => 'csv'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-            </li>
-            <li class="ui-menu-item" role="menuitem">
-              <%= link_to "Email HTML", email_product_test_path(@test, :format => 'html'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-            </li>
-          <% end %>
-        </ul>
+
+
       </div>
 
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
-        <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
-        <%= link_to @product.name, product_path(@product) %>
+        <%= link_to @test.product.vendor.name, vendor_path(@test.product.vendor) %> &raquo;
+        <%= link_to @test.product.name, product_path( @test.product) %>
       </nav>
     </section>
 
-    <section class="candidate">  
-      <dl class="vendor">
-        <dt>Test:</dt> <dd><%= @test.name %></dd>
-        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
-        <dt>Product Version:</dt> <dd><%= @current_execution.product_version %></dd>
+    <section class="candidate bordered buffered">  
+      <dl class="vendor dl-horizontal">
+        <dt>Test Name:</dt> <dd><%= @test.name %></dd>
+        <dt>Test Type:</dt> <dd><%= test_type(@test) %></dd>
+        <dt>Product:</dt> <dd><%= @test.product.name %></dd>
+        <dt>Version:</dt> <dd><%= @test.product.version %></dd>
       </dl>
-      <br>
-      <dl>
+
+      <dl class="dl-horizontal">
+        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
+        <dt>Description:</dt> <dd><%= @test.description %></dd>
+        <!--<dt>Modules:</dt>-->
+      </dl>
+
+      <dl class="dl-horizontal">
         <dt>Proctor:</dt> <dd><%= @test.user.first_name %> <%= @test.user.last_name %></dd>
         <dt>Email:</dt> <dd><%= @test.user.email %></dd>
         <dt>Telephone:</dt> <dd><%= @test.user.telephone %></dd>
       </dl>
-      <dl>
-        <dt>Description:</dt> <dd><%= @test.description %></dd>
-        <% if !@never_executed_before %>
-          <dt>Run on:</dt> <dd><%= @current_execution.pretty_date %></dd>
-        <% end %>
-        <% if @current_execution.required_modules %>
-          <% (n,v) = @current_execution.required_modules.first%>
-          <% @current_execution.required_modules.delete(n)%>
-          <dt>Modules:</dt><dd><%= n %>: <%= v %></dd>
-          <% @current_execution.required_modules.each do |name,version| %>
-            <dt></dt><dd><%= name %>: <%= version %></dd>
-          <% end %>
-          <% else %>
-          <dt>Modules:</dt>
-        <% end %>
-      </dl>
+    </section> 
+
+    <% if @test.state == "ready" %>
+      <section class="instructions">
+        <div class="row">
+          <div class="span12">
+            <p>You must perform the following steps to execute your test:</p>
+          </div>
+          <div class="span3">
+            <p>
+            1. Download Test Data
+            </p><p>
+            <%= link_to 'Test Data', '', {
+		          :id => 'share_menu',
+		          :class => "cmd",
+		          :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
+		        } %></p>
+			  	 <ul id="share_options" style="display: none" role="listbox"
+			            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+			          <li class="ui-menu-item" role="menuitem">
+			            <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			          </li>
+			          <li class="ui-menu-item" role="menuitem">
+			            <%= link_to "Download C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			          </li>
+			          <li class="ui-menu-item" role="menuitem">
+			            <%= link_to "Download CCRs", download_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			          </li>
+			          <li class="ui-menu-item" role="menuitem">
+			            <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			          </li>
+			          <% if @test.user.email %>
+			            <li class="ui-menu-item" role="menuitem">
+			              <%= link_to "Email C32s", email_product_test_path(@test, :format => 'c32'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
+			            </li>
+			            <li class="ui-menu-item" role="menuitem">
+			              <%= link_to "Email CCRs", email_product_test_path(@test, :format => 'ccr'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
+			            </li>
+			            <li class="ui-menu-item" role="menuitem">
+			              <%= link_to "Email HTML", email_product_test_path(@test, :format => 'html'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
+			            </li>
+			          <% end %>
+			        </ul>
+			</div>
+			<div class="span3">
+			  <p>
+			    2. Load Test Data into your quality measure calculator
+			  </p>
+      </div>
+      <div class="span3">
+        <p>
+          3. Upload Results
+        </p>
+        <p>
+				 <%= link_to "Upload Results", '', {
+			          :id => 'results_menu',
+			          :class => "cmd"
+			        } %>
+			  </p>
+				<ul id="results_options" style="display: none" role="listbox"
+			      class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+			    <li class="ui-menu-item" role="menuitem"></li>
+        </ul>
+    	</div>
+    </div>
     </section>
-
-    <% if @never_executed_before %>
-      <section class="free_text">
-        <div class="directions">
-          <p>
-            Below are the expected results for your patient population.  You must perform the following steps to complete your test:
-          </p>
-          <ol>
-            <li>Download these records in C32, CCR, CSV, or HTML format from the "Test Data" menu above.</li>
-            <li>Input them into the quality measure calculator you wish to test.</li>
-            <li>Export the results as a PQRI XML document.</li>
-            <li>Return your results to Cypress for scoring using the "Upload Results" link above.</li>
-          </ol>
-        </div>
-      </section>
+    <% else %>
+    <section class="instructions">
+      <div class="alert alert-info">
+        <p>You must wait for the test preparations to be completed. This usually takes no more than a couple of minutes.</p>
+      </div>
+    </section>
+   <!-- if some error has occurred 
+    <section class="instructions">
+      <div class="alert alert-error">
+        <p>There has been a problem preparing the tests. Please speak the the administrator for Cypress. You will not be able to execute tests until this problem has been resolved.</p>
+      </div>
+    </section>
+    -->
     <% end %>
-    
-    <section class="records">
-      <label>Notes</label>:
 
+    <!-- End of if test is ready to execute -->
+
+    <section class="records">
+      <label>Notes:</label>
       <% note = Note.new %>
       <%= simple_form_for note, :url => add_note_product_test_path(:execution_id => @current_execution) do |f| %>
-        <%= f.input_field :text, :as => :text, :rows => 1, :columns => 80 %>
-        <%= f.button :submit, :value => 'add', :class => "cmd" %>
+        <%= f.input_field :text, :as => :text, :rows => 1, :class => 'input input-xxlarge' %>
+        <%= f.button :submit, :value => 'add note', :class => "btn cmd" %>
       <% end %>
 
       <% if @test.notes %>
+        <table class="table">
+        
         <% @test.notes.each do |note| %>
-          <%= note.time.strftime('%m/%d/%Y') %>:
-          <%= note.text %>
-          <%= button_to 'Delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?' %>
-          <br />
+          <tr>
+          <td><span class="date" title='<%= note.time %>'><%= note.time.strftime('%m/%d/%Y') %></span></td>
+          <td style="width:90%"><%= note.text %></td>
+          <td><%= button_to 'Delete', {:action => 'delete_note', :id => @test.id, "note[id]" => note.id, :execution_id => @current_execution}, :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-mini" %></td>
+          </tr>
         <% end %>
       <% end %>
     </section>
 
-    <section class="pqriValidation">
-      <% if !@current_execution.validation_errors.try(:empty?) || !@current_execution.baseline_validation_errors.try(:empty?) %>
-        <h2 class="fail">PQRI Validation Errors</h2>
-        <h3>Cypress uses Northwestern Medical's XSD interpretation of
-          <a href="/Registry_Payment.xsd" target="_blank">PQRI XML 2009</a>.
-          This is NOT a CMS published XSD.
-        </h3>
- 
-        <table>
-          
-          <%= render partial: "pqri_errors", locals: {pqri_errors:@current_execution.validation_errors,title:"View PQRI Errors", data_code:"pqri_results" }%>
-          <%= render partial: "pqri_errors", locals: {pqri_errors:@current_execution.baseline_validation_errors,title:"View Baseline PQRI Errors", data_code:"baselinepqri_results" }%>
-         
-      </table>
-       <% end %>
-    </section>
+    <section class="executions">
+      <table class="table" id="test_executions">
+        <thead>
+          <tr>
+            <th class="align-left" colspan="3">
+              <strong>Test Executions</strong>
+            </th>
+            <th style="width:50%">Description</th>
+            <th>Results</th>
+            <th></th>
+          </tr>
+        </thead>
+         <% @test.test_executions.each do |te| %>
 
-    <section id="quality_measures">
-      <table>
-        <% @measures.each do |result_status, result_measures|
-          next if result_measures.empty?
-          if result_status == 'incomplete'
-            result_status = 'na'
-            title = 'Incomplete'
-          else
-            title = "#{result_status}ing"
-          end %>
+         <tr id="te_<%=te.id%>">
+           <td class="align-left" colspan="3">
+             <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", 'data-test-id'.to_sym=>te._id %></strong>
+           </td>
+           <td> </td>
+           <td><%= link_to "Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd' %></td>
+           <td class="align-right"><%= link_to 'Delete', test_execution_path(te), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
+         </tr>
 
-          <thead class="<%= result_status %>">
-            <tr>
-              <th colspan="2"><span class="<%= result_status %>"><%= title %></span> Measures</th>
-              <th>Denominator</th>
-              <th>Numerator</th>
-              <th>Exclusions</th>
-            </tr>
-          </thead>
-          <tbody class="<%= result_status %>">
-            <%
-              result_measures.each do |measure|
-              expected_result = @current_execution.expected_result(measure)
-              reported_result = @current_execution.reported_result(measure.key)
-              result_status = 'na' if reported_result['numerator'].class == String %>
-
-              <tr id='<%= "#{measure.id}" %>'>
-                <td><div title="<%= result_status %>" class="<%= result_status %>"><%= result_status %></div></td>
-                <td title="<%= "#{@product.measure_map[measure.key]} " %>">
-                  <a href="<%= product_test_measure_path(@test, measure, :execution => @current_execution) %>">
-                    <%= "#{measure.key} " %>
-                    <%= measure.name %>
-                    <%= " - #{measure.subtitle}" if measure.sub_id %>
-                  </a>
-                </td>
-                <% ['denominator', 'numerator', 'exclusions'].each do |bucket|
-                  reported_class = result_class(reported_result[bucket], expected_result[bucket])
-                  expected_class = bucket.slice(0,3) %>
-                  <td><span class="<%= reported_class %>"><%= reported_result[bucket]%></span> / <span class="q <%= expected_class %>"><%= expected_result[bucket] %></span></td>
-                <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        <% end %>
+         <% end %>
+         <% if @test.test_executions.empty? %>
+          <tr>
+            <td colspan="6">
+              There are no test executions
+            </td>
+          </tr>
+         <% end %>
       </table>
     </section>
 
-    <div id="polling_for_updates" title="Waiting for patients to load...">
-      <p>Please wait while the test data is being loaded.</p>
-      <div id="loading_progress"></div>
-    </div>
-    <%= render :partial => 'upload_pqri_form' %>
+    <section class="execution" <% if @test.test_executions.empty? %>style="display:none"<% end %>>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="align-left">
+              <strong>Test Results</strong>
+            </th>
+          </tr>
+        </thead>
+      </table>
+
+      <div id="execution_results">
+        <% if @test_execution %>
+          <script >
+            $('#te_<%=@test_execution.id%>').addClass('selected');
+          </script>
+          <%= render :partial=>test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution}%>
+        <% else 
+          te = @test.test_executions.build(:expected_results=> @test.expected_results, :reported_results=>{})
+          template = test_execution_expected_results_template(te) 
+          if false  %>
+            <%= render :partial=>template , :locals=>{:test_execution=>te}%>
+         <% else %>
+        Click on one of the test executions above to load the details here.
+        <% end 
+        end 
+        %>
+      </div>
+    </section>
+
+
+
+	<div id="upload_results">
+	  <%= form_for(TestExecution.new, :html => {:method => :post, :multipart => true}) do |f| %>
+	    <table>
+	      <tbody>
+
+	        <tr id="advanced_options" class="hidden">
+	          <td>1. </td>
+	          <td><%= f.label '', "Results File", :for => :results %></td>
+	          <td>&nbsp;<td>
+	          <td><%= f.file_field :results %></td>
+	          <%= hidden_field_tag(:product_test_id, @test.id) %>
+	        </tr>
+
+	        <tr><td>&nbsp;<td></tr>
+	        <tr id="advanced_options" class="hidden">
+	          <td></td>
+	          <td></td>
+	          <td><td>
+
+	        </tr>
+	      </tbody>
+	    </table>
+	  <% end %>
+	</div>
 
     <%= render :partial=>"shared/legend" %>
   </div>

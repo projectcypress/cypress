@@ -3,7 +3,7 @@
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section class="tb">
       <div class="stacked">
         <%= link_to 'Download', '', {
@@ -42,7 +42,7 @@
 
     <section id="patient_nqf">
 
-      <table>
+      <table id="patient_measures" class="table">
         <colgroup  class="nqf">
           <col />
           <col />
@@ -62,13 +62,13 @@
           <% @results.each do |result| %>
             <% if result.value.population %>
               <tr>
-				<td title="<%= "#{@product.measure_map[result.value.measure_id + (result.value.sub_id.nil? ? "" : result.value.sub_id)] if @product}" %>">
-                 <%= link_to "#{result.value.measure_id}#{result.value.sub_id}" %>
+				<td title="<%= "#{(result.value['sub_id'].nil? ? "" : result.value['sub_id']) if @product}" %>">
+                 <%= link_to "#{result.value.measure_id}#{result.value['sub_id']}" %>
                 </td>
-                <td <%= raw result_to_class(result.value.denominator?) %>></td>
-                <td <%= raw result_to_class(result.value.numerator?) %>></td>
-                <td <%= raw result_to_class(result.value.exclusions?) %>></td>
-                <td <%= raw result_to_class(result.value.antinumerator?) %>></td>
+                <td <%= raw result_to_class(result.value['denominator']) %>></td>
+                <td <%= raw result_to_class(result.value['numerator']) %>></td>
+                <td <%= raw result_to_class(result.value['exclusions']) %>></td>
+                <td <%= raw result_to_class(result.value['antinumerator']) %>></td>
               </tr>
             <% end %>
           <% end %>
@@ -76,17 +76,17 @@
       </table>
     </section>
     <div id="effectiveDate">effective date: <%= display_time(@effective_date) %></div>
-    <section class="patient">
-      <div>
-        <img src="<%= patient_picture(@patient) %>" width="120" height="130" style="position:absolute;top:0;left:0">
-        <span class="patientname"><strong><%= @patient.last %></strong>, <%= @patient.first %></span>
-        <dl>
+    <section class="patient bordered buffered">
+	
+      <div class="offset2">
+        <span class="patientname" ><strong><%= @patient.last %></strong>, <%= @patient.first %></span><br>
+        <dl class="dl-horizontal patient">
           <dt>Gender</dt><dd><%= @patient.gender %></dd>
           <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>
           <dt>Race</dt><dd><%= race(@patient) %></dd>
           <dt>Ethnicity</dt><dd><%= ethnicity(@patient) %></dd>
         </dl>
-      </div>
+     </div>
     </section>
 
     <% patient_characteristics = {
@@ -104,7 +104,7 @@
     } %>
 
     <section id="patient_characteristics">
-      <table>
+      <table class="table">
         <% patient_characteristics.each do |characteristic, characteristic_title| %>
           <tbody>
             <tr>

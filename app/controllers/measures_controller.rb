@@ -1,4 +1,3 @@
-require 'measure_evaluator'
 
 class MeasuresController < ApplicationController
   before_filter :authenticate_user!
@@ -6,15 +5,30 @@ class MeasuresController < ApplicationController
   before_filter :find_measure, only: [:show,:patients]
   before_filter :find_product, only: [:show,:patients,:minimal_set]
 
+  def by_type
+
+    test = test_type(params[:type])
+    @measures = test.product_type_measures
+
+    @measures_categories = @measures.group_by { |t| t.category }
+
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.json {render :json => {:measures => @measures, :measures_categories => @measures_categories}}
+    end
+
+  end
+  
+  
   def show
     
     @vendor = @product.vendor  
-    @measures = @test.measure_defs
+    @measures = @test.measures
     @measures_categories = @measures.group_by { |t| t.category }
-    @product.measure_map ||= Measure.default_map
+   
 
     respond_to do |format|
-      format.json { render :json => @execution.expected_result(@measure) }
+      format.json { render :json => @execution.expected_results }
       format.html { render :action => "show" }
     end
   end
@@ -28,8 +42,8 @@ class MeasuresController < ApplicationController
     @vendor = @product.vendor
     @result = @execution.expected_result(@measure)
     
-    @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure['id'])
-    .where("value.sub_id" => @measure.sub_id)
+    @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure.hqmf_id, "value.sub_id" => @measure.sub_id)
+   
 
     @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
   end
@@ -93,6 +107,8 @@ class MeasuresController < ApplicationController
   
   
   private
+  
+  
   
   def find_product
     if @test.nil?

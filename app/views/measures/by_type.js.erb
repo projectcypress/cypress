@@ -1,0 +1,40 @@
+
+// Render the measure selector
+$('#measures').html("<%= escape_javascript(render :partial => 'measure_selector') %>");
+
+function tallyMeasureGroups() {
+  var grandTotal = 0;
+        $.each($('.measure_group'), function(index, item){
+            var total = Math.max(0,$(this).find('input.measure_cb:checked').length);
+            $('#' + $(item).attr('id') +'_group').prop('checked', $(this).find('input.measure_cb').length == total);
+            grandTotal += total;
+            $('#' + $(item).attr('id') +'_group_total').empty().html(total > 0 ? total : '');
+        });
+        $('#all_measures').prop('checked',$('#wizard-measures-screen input.measure_cb').length == grandTotal)
+        $('form').valid();
+}
+
+// for handling the selection of measures from groups
+$('#all_measures').click(function () {
+  $('#wizard-measures-screen input:checkbox').prop('checked', $(this).prop('checked'));
+  $('.measure_group').prop('checked', $(this).prop('checked'));
+  tallyMeasureGroups();
+});
+
+$('.measure_group_all').click(function () {
+  var groupName = $(this).attr('id');
+  $(this).closest('div').find('input:checkbox').prop('checked', $(this).prop('checked'));
+  tallyMeasureGroups();
+});
+
+$('.measure_cb').change(function() {
+  tallyMeasureGroups();
+});
+$('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');
+/* .css({
+  "width":"90%",
+  "margin-left":"5%"
+}); */
+$("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
+$('#tabs').tabs("select",0)
+

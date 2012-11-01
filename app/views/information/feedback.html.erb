@@ -1,7 +1,7 @@
-<div id="container">
+<div id="container" class="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section class="tb">
       <%= link_to "Master Patient List", patients_path, { :class => "cmd" } %>
       <nav class="breadcrumb">
@@ -10,7 +10,7 @@
       </nav>
     </section>
 
-    <section id="feedback">
+    <section id="feedback" class="bordered buffered">
       <div>
     	  <section class="free_text">
           <p>There are three email distribution lists which may also be used to request information about the project's plans and activities. These lists are:</p>

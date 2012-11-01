@@ -6,10 +6,12 @@
     }
     .highlight {background:#DEFADE;}
 
+    .xstep label {display: inline-block;}
+
     td {vertical-align: top;}
     p {padding:5px;}
     #navigation {
-      padding-top: .2em;
+      padding: 10px 0;
       text-align:right;
       width:100%;
     }
@@ -30,8 +32,8 @@
        which is set to block (?!)
     */
     #navigation span.status {
-      display:inline;
-}
+      display:inline; margin:0 10px;
+  }
     .left {float: left;clear:left;}
     .right {float: right;clear:right;}
 
@@ -39,29 +41,24 @@
     dd.wide, span.wide {
       width: 45em;
     }
-    /* vertical tabs */
-    .ui-tabs-vertical { width: 55em; }
-    .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
-    .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
-    .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
-    .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
-    .ui-tabs-vertical .ui-tabs-panel { padding: .5em; float: right; width: 47em;}
-
+    #first dl { width : 800px; }
   </style>
 <% end %>
 
 <%= simple_form_for([@test], :html => { :method => submit_method, :multipart => true }) do |f| %>
   <%= f.hidden_field :product_id, :value => @product.id %>
   <div id="navigation">
-    <a class="cmd" id="back"><input class="noborder" value="Back" type="reset" /></a>
-    <span class="status">Step <b id="currentStep">1</b> of 4</span>
-    <a class="cmd" id="next"><input class="noborder" value="Next" type="submit" /></a>
+    <input class="btn" value="Back" type="reset" id="back"/>
+    <span class="status">Step <b id="currentStep">1</b> of 2</span>
+    <input class="btn" value="Next" type="submit" id="next"/>
   </div>
+  
   <div id="validationErrorMessages"></div>
-
+  
   <%= render :partial => "product_tests/wizard_screens/home", :locals => {:f => f} %>
+
   <%= render :partial => "product_tests/wizard_screens/measures", :locals => {:f => f} %>
-  <%= render :partial => "product_tests/wizard_screens/workflow", :locals => {:f => f} %>
-  <%= render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
+  <%# render :partial => "product_tests/wizard_screens/workflow", :locals => {:f => f} %>
+  <%# render :partial => "product_tests/wizard_screens/patients", :locals => {:f => f} %>
 
 <% end %>

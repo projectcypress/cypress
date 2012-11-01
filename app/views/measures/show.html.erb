@@ -26,8 +26,14 @@
         hidden = !hidden;
       });
 
+
+      $("#exclusionPanel h3").click(function() {
+        $("#exclusionMeasureItems").slideToggle('slow');
+      });
+
     });
   </script>
+
   <script type="text/html" id="ph_tmpl_paramItem">
     <div>
       <!-- ${percentage=Math.round(Math.random()*100,2)} -->
@@ -41,32 +47,47 @@
   </script>
   <script type="text/html" id="ph_tmpl_paramGroup">
     <div class="paramGroup"><div class="paramItem">
-    </div></div>
+    </div>
   </script>
+  <script type="text/html" id="ph_tmpl_data_criteria_logic">
+    <div class='paramText logicLeaf' {{if id}}id='${id}'{{/if}}>
+      {{if operator}}<label>${operator}</label>{{/if}}
+      {{if category}}<label>${category}</label>{{/if}}{{if standard_category}}<label>${$.cypress.humanizeCategory(standard_category)}</label>{{/if}}
+      ${title} ${temporalText}
+    </div>
+  </script>
+  
 <% end %>
+
+
+
+ 
+
+
+
 
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section class="tb">
       <%= link_to "Master Patient List", patients_path, {:class=>"cmd"} %>
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
         <%= link_to @vendor.name, vendor_path(@vendor) %> &raquo;
         <%= link_to @product.name, product_path(@product) %> &raquo;
-        <%= link_to @test.name, product_test_path(@test, :execution_id => params[:execution]) %>
+        <%= link_to @test.name, product_test_path(@test, :test_execution_id => params[:execution]) %>
       </nav>
     </section>
 
-    <section class="candidate">
-      <dl>
+    <section class="candidate  bordered">
+      <dl class="dl-horizontal">
         <dt class="vendor">EHR Vendor</dt><dd class="vendor"><%= @vendor.name %></dd>
       </dl>
-      <dl>
+      <dl class="dl-horizontal">
         <dt>Product</dt> <dd><%= @product.name %></dd>
       </dl>
-      <dl>
+      <dl class="dl-horizontal">
         <dt>Test</dt> <dd><%= @test.name %></dd>
       </dl>
     </section>
@@ -79,8 +100,8 @@
           <% measures.each do |measure_def| %>
             <li>
               <a href="<%= product_test_measure_path(@test, measure_def,:execution=> params[:execution]) %>"
-                 title="<%= "(#{@product.measure_map[measure_def.key]}) #{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
-                 class="<%= 'selected' if @measure.id==measure_def.id %>"><%= "#{measure_def.key}" %>
+                 title="<%= " #{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
+                 class="<%= 'selected' if @measure.id==measure_def.id %>"><%= " #{measure_def.nqf_id} - #{measure_def.sub_id}" %>
               </a>
             </li>
           <% end %>
@@ -89,15 +110,15 @@
     </div>
 
     <section id="patient_list">
-      <section class="measure">
-        <dl>
+      <section class="measure bordered buffered">
+        <dl class="dl-horizontal measure">
           <dt class="measure_title">Quality Measure:</dt>
-          <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd>
+          <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd><dt></d>
           <dd class="measure_desc"><%= @measure.description %></dd>
         </dl>
         <% expected_result = @execution.expected_result(@measure) %>
-        <% reported_result = @execution.reported_result(@measure.key) %>
-        <dl>
+        <% reported_result = @execution.reported_result(@measure) %>
+        <dl class="dl-horizontal measure">
           <dt>Measure Status:</dt>
           <% if reported_result['denominator'].class == String %>
             <dd class="na">N/A</dd>
@@ -107,62 +128,87 @@
             <dd class="fail">Fail</dd>
           <% end %>
         </dl>
-        <dl>
+        <dl class="dl-horizontal measure">
           <dt class="measure_definition">Definition:</dt>
           <dd class="measure_definition" id="show_hide">Expand Definition</dd>
+          
+
           <div id="measureEditContainer">
-            <div id="eligibilityMeasures">
-              <h3>Denominator</h3>
-              <div class="measureBox">
-                <div id="eligibilityMeasureItems">
-                </div><!-- end #eligibilityMeasureItems -->
-              </div><!-- end measureBox -->
-            </div><!-- end #eligibilityMeasures -->
-            <div id="outcomeMeasures">
-              <h3>Numerator</h3>
-              <div class="measureBox">
-                <div id="outcomeExclusionMarker" class="exclusionTab" style="display:none">
-                  0 Exclusions
-                </div>
-                <div id="outcomeMeasureItems">
-                </div>
-                <div id="exclusionMeasureItems">
-                </div>
-              </div><!-- end measureBox -->
-            </div><!-- end #outcomeMeasures -->
-          </div><!-- end measureEditContainer -->
+          <div id="exclusionPanel" style="display:none;">
+             <h3>exclusions <em>(<span id="exclusionCount"></span>)</em></h3>
+            <div class="measureBox">
+              <div id="exclusionMeasureItems" ></div>
+          </div>
+           
+          </div>
+          <div id="eligibilityMeasures">
+            <h3>denominator <em>(<span id="eligibleCount"></span>)</em></h3>
+            <div class="measureBox">
+              <div id="eligibilityMeasureItems">
+              </div><!-- end #eligibilityMeasureItems -->
+            </div><!-- end measureBox -->
+          </div><!-- end #eligibilityMeasures -->
+          <div id="outcomeMeasures">
+            <h3>numerator <em>(<span id="outcomeCount"></span>)</em></h3>
+            <div class="measureBox">
+              <div id="outcomeExclusionMarker" class="exclusionTab" style="display:none">
+              </div>
+              <div id="outcomeMeasureItems">
+              </div>
+              <div id="xexclusionMeasureItems">
+              </div>
+            </div><!-- end measureBox -->
+          </div><!-- end #outcomeMeasures -->
+        </div><!-- end measureEditContainer -->
+
+
+         
+
+
+
         </dl>
         <dl>
           <dt>Reporting Statistics:</dt>
           <dd>
-            <table>
-              <tr id='<%= "#{@measure.id}" %>'>
-                <td><span class="r">reported</span> / expected</td>
-                <th>DEN:</th>
-                <td>
-                  <span class="r <%= measure_result_class(expected_result, reported_result, 'denominator') %>"><%= reported_result['denominator'] %></span>
-                  /
-                  <span class="den"><%= expected_result['denominator'] %></span>
+
+
+            <table >
+               <thead>
+                 <tr>
+                  <th></th>
+                   <th>Patients</th>
+                   <th>Denominator</th>
+                   <th>Den. Exclusions</th>
+                   <th>Numerator</th>
+                   <th>Num. Exclusions</th>
+                   <th>Exceptions</th>
+                 </tr>
+               </thead>
+
+               <tr style="text-align: right">
+                <td>reported/expected </td>
+               <td>
+                <span><%=reported_result["population"]%>/<%=expected_result["population"]%></span>
+               </td>
+                <%{"DENOM" =>"denominator","DENEX"=>"exclusions","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep"}.each_pair do |code, bucket|
+                  expected = expected_result[bucket]
+                  reported = reported_result[bucket]
+              
+                 if !expected_result["population_ids"][code] 
+                   expected = nil
+                   reported = nil
+                 end
+                  reported_class = result_class(reported,expected)
+                %>
+                 <td>
+                  <span class="<%= reported_class %> r" style="text-align: right"><%= reported ||'-'%></span> / <span><%=expected%>
+                  </span>
                 </td>
-                <th>NUM:</th>
-                <td>
-                  <span class="r <%= measure_result_class(expected_result, reported_result, 'numerator') %>"><%= reported_result['numerator'] %></span>
-                  /
-                  <span class="num"><%= expected_result['numerator'] %></span>
-                </td>
-                <th>EXC:</th>
-                <td> 
-                  <span class="r <%= measure_result_class(expected_result, reported_result, 'exclusions') %>"><%= reported_result['exclusions'] %></span>
-                  /
-                  <span class="exc"><%= expected_result['exclusions'] %></span>
-                </td>
-                <th>OUT:</th>
-                <td> 
-                  <span class="r <%= measure_result_class(expected_result, reported_result, 'antinumerator') %>"><%= reported_result['antinumerator'] %></span>
-                  /
-                  <span class="out"><%= expected_result['antinumerator'] %></span>
-                </td>
-              </tr>
+               <% end %>
+             </tr>
+
+
+             
             </table>
           </dd>
         </dl>

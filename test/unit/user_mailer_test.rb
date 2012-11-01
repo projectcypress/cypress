@@ -2,6 +2,7 @@ require 'test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
   setup do
+    
     collection_fixtures('users', '_id')
     collection_fixtures('records', '_id','test_id')
     collection_fixtures('vendors', '_id',"user_ids")
@@ -11,7 +12,7 @@ class UserMailerTest < ActionMailer::TestCase
   
   test "send records forms e-mail with correct fields" do
     test = ProductTest.find("4f58f8de1d41c851eb000478")
-    mail = UserMailer.send_records(test, 'c32')
+    mail = UserMailer.send_records(test, 'c32', test.product.vendor.email)
 
     # Several fields like from/to are arrays since there could be multiple targets. We always only have one.
     assert_equal mail.from.first, APP_CONFIG["mailer"]["from"]
@@ -25,10 +26,10 @@ class UserMailerTest < ActionMailer::TestCase
     test = ProductTest.find("4f58f8de1d41c851eb000478")
     
     # Check that we get the appropriate attachment for every file format we might send
-    formats = ["c32", "ccr", "csv", "html"]
+    formats = ["c32", "ccr",  "html"]
     formats.each do |format|
       # Make sure we have any attachment at all
-      mail = UserMailer.send_records(test, format)
+      mail = UserMailer.send_records(test, format, test.product.vendor.email)
       assert_equal mail.attachments.size, 1
       
       # Make sure the attachment at least has the right file type and filename
@@ -45,7 +46,7 @@ class UserMailerTest < ActionMailer::TestCase
   
   test "mail interceptor" do
     test = ProductTest.find("4f58f8de1d41c851eb000478")
-    mail = UserMailer.send_records(test, 'c32')
+    mail = UserMailer.send_records(test, 'c32', test.product.vendor.email)
     
     # In the test world, we should see our interceptor stop the outgoing mail. If this works, regular delivery should be fine in production
     assert !MailInterceptor.delivering_email(mail)

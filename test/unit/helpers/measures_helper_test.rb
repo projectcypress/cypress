@@ -22,8 +22,8 @@ class MeasuresHelperTest < ActionView::TestCase
     top_level = measure_categories(:top_level)
     all_measures = measure_categories(:all_by_measure)
 
-    assert top_level.length == 2
-    assert all_measures.length == 3
+    assert top_level.length == 3
+    assert all_measures.length == 4
   end
 
 end

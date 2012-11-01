@@ -1,11 +1,11 @@
 <%= javascript 'vendors' %>
 
-<div id="container">
+<div id="container" class="container">
   <%= render :partial=>"shared/header" %>
 
-  <div>
+  <div class="buffered">
     <section class="tb">
-      <div class="stacked">
+      <div class="stacked" id="pageButtons">
         <%= link_to "Add Product", new_product_path(:vendor => @vendor), { :class => "cmd" } %>
         <%= link_to "Edit Vendor", edit_vendor_path(@vendor), { :class => "cmd" } %>
       </div>
@@ -14,27 +14,44 @@
         <%= link_to "Certification Dashboard", root_path %>
       </nav>
     </section>
-    
-    <section class="candidate">
-      <dl class="vendor">
+    <section class="candidate bordered buffered">
+      <div class="row">
+      <dl class="vendor span4 dl-horizontal"> <%#WILL WORK WHEN UPGRADED TO BOOTSRAP 2.0.2+%>
         <dt>Candidate EHR:</dt> <dd><%= @vendor.name %></dd>
         <dt>Vendor ID:</dt> <dd><%= @vendor.vendor_id %></dd>
         <dt>URL:</dt> <dd><a href="<%= @vendor['url'] %>"><%= @vendor['url'] %></a></dd>
       </dl>
-      <dl>
+      <dl class="vendor span4 dl-horizontal">
         <dt>EHR POC:</dt> <dd><%= @vendor.poc %></dd>
         <dt>Email:</dt> <dd><%= @vendor.email %></dd>
         <dt>Phone:</dt> <dd><%= @vendor.tel %></dd>
       </dl>
+      </div>
     </section>
 
     <section id="ehr_results">
-      <table>
+      <% if @vendor.products.empty? %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Products</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding-top:15px">
+                There are no products for this vendor. <%= link_to "Add Product", new_product_path(:vendor => @vendor), { :class => "cmd" } %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <% else %> 
+      <table class="table">
         <% products_by_status(@vendor).each do |result_status, result_products|
           next if result_products.empty? %>
           <thead>
             <tr>
-              <th colspan="3"><span class="<%= result_status %>"><%= result_status %>ing</span> Products</th>
+              <th class="span1" colspan="3"><span class="<%= result_status %>"><%= result_status %>ing</span> Products</th>
               <th>Description</th>
               <th>Tests</th>
               <th></th>
@@ -44,26 +61,28 @@
           <% result_products.each do |product| %>
             <% success_rate = product.success_rate
             dot_color = result_status
-            dot_color = 'na' if product.product_tests.empty?
+            dot_color = 'incomplete' if product.product_tests.empty?
             if !product.product_tests.empty? 
               first_td_class = 'expander toggle'
               dot_color = result_status
             else
-              dot_color = 'na'
+              dot_color = 'incomplete'
             end %>
             <tbody>
               <tr>
-                <td><div title="<%= success_rate %>%" class="<%= dot_color %>"><%= success_rate %></div></td>
-                <td class="<%= first_td_class %>" data-code="<%= product.id %>"></td>
-                <td class="<%= result_status %>"><a href="<%= product_path(product) %>"><%= product.name %></a></td>
-                <td><%= product.description %></td>
-                <td><span class="<%= dot_color %>"><%= product.count_passing %></span> <span class="q">/ <%= product.product_tests.size %></span></td>
+                <td class="<%=dot_color%>-icon dot"></td>
+                <td class="<%= first_td_class %> tog" data-code="<%= product.id %>"></td>
+                <td class="name" >
+	              <a class="<%= result_status %>" href="<%= product_path(product) %>"><%= product.name %></a>
+	            </td>
+                <td class="info"><%= product.description %></td>
+                <td><strong class="<%= dot_color %>"><%= product.count_passing %></strong> <span class="q">/ <%= product.product_tests.size %></span></td>
                 <td></td>
-                <td><%= link_to 'Delete', product_path(product), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                <td class="align-right"><%= link_to 'Delete', product_path(product), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
               </tr>
               <% if !product.product_tests.empty?
                 product.product_tests.each do |test|
-                  if test.passing?
+                  if test.state == :passed
                     test_status = 'pass'
                     test_success_rate = 100
                   else
@@ -73,12 +92,12 @@
                   
                   <tr class="sub_rows <%= product.id %>">
                     <td></td>
-                    <td title="<%= test_success_rate %>%" class="<%= test_status %>"></td>
-                    <td class="<%= test_status %>"><a href="<%= product_test_path(test) %>"><%= test.name %></a></td>
+                    <td title="<%= test_success_rate %>%" class="<%= test.state.to_s %>-icon"></td>
+                    <td><a class="<%= test_status %>" href="<%= product_test_path(test) %>"><%= test.name %></a></td>
                     <td><span class="<%= test_status %>"><%= test.test_executions.size %><span class="q"> executions</span></td>
                     <td></td>
                     <td></td>
-                    <td><%= link_to 'Delete', product_test_path(test), { :class => 'cmd', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                    <td class="align-right"><%= link_to 'Delete', product_test_path(test), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               <% end %>
@@ -86,15 +105,10 @@
           <% end %>
         <% end %>
       </table>
+      <% end %>
     </section>
 
-    <section class="legend">
-      <dl>
-        <dt>Error Report Indicators:</dt>
-        <dd class="pass">passing
-        <dd class="na">insufficient info
-        <dd class="fail">failing
-      </dl>
-    </section>
+    <%= render :partial => "shared/legend" %>
+    
 </div>
 </div><!-- end #container -->

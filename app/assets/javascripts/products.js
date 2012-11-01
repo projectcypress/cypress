@@ -1,10 +1,7 @@
 $(document).ready(function() {
 
     // for styling the vertical tabs
-    $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix').css({
-        "width":"90%",
-        "margin-left":"5%"
-    });
+    $('#tabs').tabs();
     $("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
     $('#tabs').tabs("select",2)
 
@@ -37,15 +34,11 @@ $(document).ready(function() {
     $('#new_product,.edit_product').validate({
         rules: {
             "product[name]": "required",
-            "product[measure_map][]": "required"
         },
         errorClass: "validationErrors",
         messages: {
             "product[name]": {
                 required:"The product needs a name."
-            },
-            "product[measure_map][]": {
-                required:"You must choose at least one quality measure.  If you aren't sure how to choose, select them all."
             }
         },
         errorPlacement: function(error, element) {
