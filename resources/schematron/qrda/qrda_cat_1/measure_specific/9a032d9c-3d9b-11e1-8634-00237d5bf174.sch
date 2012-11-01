@@ -8,9 +8,13 @@
 	<pattern id="p">
 		<rule context="/cda:ClinicalDocument">
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.23'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.1834']">For QDT pattern 'Encounter, Performed: Medications Encounter Code Set', QRDA template id "2.16.840.1.113883.10.20.24.3.23" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.1834". </assert>
+			<!--
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.101'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.560.100.4']">For QDT pattern 'Patient Characteristic: birth date', QRDA template id "2.16.840.1.113883.10.20.24.3.101" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.560.100.4". </assert>
+			-->
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.64'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.600.1.462']">For QDT pattern 'Procedure, Performed: Current Medications Documented SNMD', QRDA template id "2.16.840.1.113883.10.20.24.3.64" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.600.1.462". </assert>
-			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.101'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.560.100.4']">For QDT pattern 'Patient Characteristic: birth date', QRDA template id "2.16.840.1.113883.10.20.24.3.101" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.560.100.4". </assert>
+			<!-- 
+				<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.101'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.560.100.4']">For QDT pattern 'Patient Characteristic: birth date', QRDA template id "2.16.840.1.113883.10.20.24.3.101" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.560.100.4". </assert>
+			-->
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.55'][descendant::*/@sdtc:valueSet='2.16.840.1.114222.4.11.3591']">For QDT pattern 'Patient Characteristic Payer: Payer', QRDA template id "2.16.840.1.113883.10.20.24.3.55" SHOULD be present and SHOULD be bound to value set "2.16.840.1.114222.4.11.3591". </assert>
 		</rule>
 	</pattern>

@@ -15,6 +15,9 @@
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.23'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.464.1003.101.12.1023']">For QDT pattern 'Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up', QRDA template id "2.16.840.1.113883.10.20.24.3.23" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.464.1003.101.12.1023". </assert>
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.32'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.464.1003.101.12.1046']">For QDT pattern 'Intervention, Performed: Referral', QRDA template id "2.16.840.1.113883.10.20.24.3.32" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.464.1003.101.12.1046". </assert>
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.55'][descendant::*/@sdtc:valueSet='2.16.840.1.114222.4.11.3591']">For QDT pattern 'Patient Characteristic Payer: Payer', QRDA template id "2.16.840.1.113883.10.20.24.3.55" SHOULD be present and SHOULD be bound to value set "2.16.840.1.114222.4.11.3591". </assert>
+			
+			<!-- manually added the following assertion -->
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.4'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.464.1003.121.12.1006']">For QDT pattern 'Communication, From provider to provider', QRDA template id "2.16.840.1.113883.10.20.24.3.4" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.464.1003.121.12.1006". </assert>
 		</rule>
 	</pattern>
 </schema>

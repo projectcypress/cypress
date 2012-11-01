@@ -14,6 +14,7 @@
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.47'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.117.1.7.1.824']">For QDT pattern 'Medication, Order: Statins', QRDA template id "2.16.840.1.113883.10.20.24.3.47" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.117.1.7.1.824". </assert>
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.51'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.526.2.643']">For QDT pattern 'Patient Characteristic Clinical Trial Participant: Clinical Trial Participant', QRDA template id "2.16.840.1.113883.10.20.24.3.51" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.526.2.643". </assert>
 			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.55'][descendant::*/@sdtc:valueSet='2.16.840.1.114222.4.11.3591']">For QDT pattern 'Patient Characteristic Payer: Payer', QRDA template id "2.16.840.1.113883.10.20.24.3.55" SHOULD be present and SHOULD be bound to value set "2.16.840.1.114222.4.11.3591". </assert>
+			<assert test="//*[cda:templateId/@root='2.16.840.1.113883.10.20.24.4.105'][descendant::*/@sdtc:valueSet='2.16.840.1.113883.3.117.1.7.1.824']">For QDT pattern 'Medication, Discharge: Statins', QRDA template id "2.16.840.1.113883.10.20.24.3.105" SHOULD be present and SHOULD be bound to value set "2.16.840.1.113883.3.117.1.7.1.824". </assert>			
 		</rule>
 	</pattern>
 </schema>
