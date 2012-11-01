@@ -4,8 +4,8 @@ module Cypress
   class QrdaUtility
 
 
-    POPULATION_CODE_MAPPINGS = {'NUMER' => :numerator, 'DENOM' => :denominator,'IPP' => :population, 'MSRPOPL' => :msr_popl , 
-                      'NUMEX' => :numex, 'DENEX' => :exclusions,'DENEXCEP' => :exceptions, 'EXCEP' => :exceptions}
+    POPULATION_CODE_MAPPINGS = {'NUMER' => "numerator", 'DENOM' => "denominator",'IPP' => "population", 'MSRPOPL' => "msr_popl" , 
+                      'NUMEX' => "numex", 'DENEX' => "exclusions",'DENEXCEP' => "exceptions", 'EXCEP' => "exceptions"}
 
     QRDA_CAT1_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
     QRDA_CAT1_SCHEMATRON_ROOT= QRDA_CAT1_SCHEMATRON_CONFIG["root"]

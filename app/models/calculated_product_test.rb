@@ -72,14 +72,16 @@ class CalculatedProductTest < ProductTest
       _ids = expected_result["population_ids"].dup
       # remove the stratification entry if its there, not needed to test against values
       _ids.delete("stratification")
-      _ids.keys.each do |pop_id| 
-         key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
-        if expected_result[key]
-          matched_result[key] = {:expected=>expected_result[key.to_s], :reported=>reported_result[:key.to_sym]}
-          # only add the error that they dont match if there was an actual result
-          if (expected_result[key.to_s] != reported_result[key.to_sym]) && !reported_result.empty?
 
-           errs << "expected #{key} value #{expected_result[key.to_s]} does not match reported value #{reported_result[key.to_sym]}"
+      
+      _ids.keys.each do |pop_id| 
+         pop_key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
+        if expected_result[pop_key]
+          matched_result[pop_key] = {:expected=>expected_result[pop_key], :reported=>reported_result[pop_key]}
+          # only add the error that they dont match if there was an actual result
+          if (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
+
+           errs << "expected #{pop_key} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
           end
         end 
       end
