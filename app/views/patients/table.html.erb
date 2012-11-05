@@ -43,21 +43,26 @@
         </tr>
       <% end %>
     <% else %>
-      <% @patients.each do |patient| %>
-        <% if patient.value.population %>
+ <% @patients.each do |patient| 
+  
+      %>
+      <% if patient.value.population %>
         <tr>
-          <td class="<%= 'p' if patient.value.denominator %>"></td>
-          <td class="<%= 'p' if patient.value.numerator %>"></td>
-          <td class="<%= 'p' if patient.value.exclusions %>"></td>
-          <td class="<%= 'p' if patient.value.antinumerator %>"></td>
+          <td class="<%= 'p' if patient.value.denominator == 1%>"></td>
+          <td class="<%= 'p' if patient.value.numerator == 1%>"></td>
+          <td class="<%= 'p' if patient.value.exclusions == 1%>"></td>
+          <td class="<%= 'p' if patient.value.antinumerator == 1%>"></td>
+
           <td></td>
-          <td><a href="<%= patient_url(patient.value.patient_id.to_s,:execution=> params[:execution]) %>"><%= patient.value.last %></td>
-          <td><a href="<%= patient_url(patient.value.patient_id.to_s,:execution=> params[:execution]) %>"><%= patient.value.first %></td>
-          <td><%= display_time(patient.value.birthdate) %></td>
-          <td><%= patient.value.gender %></td>
+          <td><%= link_to patient.record.last, patient_url(patient.record.id) %></td>
+          <td><%= link_to patient.record.first, patient_url(patient.record.id) %></td>
+          <td><time datetime="<%= display_time(patient.record.birthdate) %>">
+            <%= display_time(patient.record.birthdate) %>
+          </time></td>
+          <td><%= patient.record.gender %></td>
         </tr>
-        <% end %>
       <% end %>
+    <% end %>
     <% end %>
   <% else %>
   <tr>

@@ -5,7 +5,8 @@ class Result
   embeds_one :value, class_name: "ResultValue", inverse_of: :result_value
 
   def record
-  	Record.find(value['patient_id'])
+
+  	Record.where(:medical_record_number => value['medical_record_id'], :test_id => value["test_id"]).first
   end
 
 end
