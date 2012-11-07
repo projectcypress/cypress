@@ -18,6 +18,7 @@ module Validators
              errors << Cypress::ValidationError.new(
                 :message => error.message,
                 :validator => @validator_name,
+                :validator_type => :xml_validation,
                 :msg_type=>(data[:msg_type] || :error),
                 :file_name => data[:file_name],
                 location: "/"

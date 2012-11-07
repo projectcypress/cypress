@@ -23,7 +23,7 @@ module Validators
                :location => el["location"],
                :message => el.xpath('svrl:text',NAMESPACE).text,
                :validator => name,
-               :type => :xml_validation,
+               :validator_type => :xml_validation, 
                :msg_type=>(data[:msg_type] || :error),
                :file_name => data[:file_name],
                :measure_id => data[:measure_id]

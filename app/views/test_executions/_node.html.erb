@@ -38,7 +38,7 @@ case node_type(doc.node_type)
          when :text
           %><div class="text"><%= child.content %></div><%
          when :element
-          %> <%= render :partial=>"test_executions/qrda_product_test/node.html" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes}%><%
+          %> <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes}%><%
          when :cdata
            %><%=  render :partial=>"cdata", :locals=>{:cdata=>child}%><%
          when :comment

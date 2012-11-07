@@ -76,6 +76,7 @@ class TestExecution
   end
   
   def files
+    return [] if self.file_ids.nil? || self.file_ids.length == 0
      Cypress::ArtifactManager.get_artifacts(self.file_ids)
   end
 

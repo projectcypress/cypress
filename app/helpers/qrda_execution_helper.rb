@@ -1,17 +1,17 @@
 module QrdaExecutionHelper
-POP_MAP ={"DENOM" =>"denominator","DENEX"=>"denex","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep", "IPP"=>"population"}  
-NODE_TYPES ={1 => :element ,
-2 => :attribute ,
-3 => :text,
-4 => :cdata,
-5 => :ent_ref,
-6 => :entity,
-7 => :instruction,
-8 => :comment,
-9 => :document,
-10  => :doc_type,
-11  => :doc_frag,
-12  => :notaion}
+  POP_MAP ={"DENOM" =>"denominator","DENEX"=>"denex","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep", "IPP"=>"population"}  
+  NODE_TYPES ={1 => :element ,
+  2 => :attribute ,
+  3 => :text,
+  4 => :cdata,
+  5 => :ent_ref,
+  6 => :entity,
+  7 => :instruction,
+  8 => :comment,
+  9 => :document,
+  10  => :doc_type,
+  11  => :doc_frag,
+  12  => :notaion}
 
 def node_type(type)
   return NODE_TYPES[type]
@@ -19,12 +19,15 @@ end
    # method used to mark the elements in the document that have errors so they 
   # can be linked to
   def match_errors(test_execution)
+    if test_execution.files.length == 0
+      return Nokogiri::XML::Document.new, {},{}
+    end
     file = test_execution.files[0]
     doc = Nokogiri::XML(file.data)
     error_map = {}
     error_id = 0
     error_attributes = []
-    locs = test_execution.execution_errors.collect{|e| e.location}
+    locs = test_execution.execution_errors.by_validation_type(:xml_validation).collect{|e| e.location}
     locs.compact!
 
     locs.each do |location|

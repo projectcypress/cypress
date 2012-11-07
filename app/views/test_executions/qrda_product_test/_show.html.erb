@@ -3,7 +3,7 @@
     <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
     <li class=""><a href="#xml_validation_errors" data-toggle="tab">XML Errors</a></li>
     <li class=""><a href="#xml_validation_warnings" data-toggle="tab">XML Warnings</a></li>
-    <li><a href="#content_inspection" data-toggle="tab">Content Inspection</a></li>
+    
   </ul>
   <div id="test_result_tabs" class="tab-content">
     <div class="tab-pane active" id="test_summary">
@@ -11,13 +11,10 @@
         <dl class="dl-horizontal">
           <dt><strong>Test Date:</strong></dt> <dd class="strong"><%= test_execution.created_at %></dd>
           <dt><strong>Inspection ID: </strong></dt> <dd><%= test_execution.product_test.product.vendor.name %></dd>
-          <dt><strong>Document Type:</strong></dt> <dd>** document type **</dd>
-          <dt><strong>Version:</strong></dt> <dd>** document version **</dd>
         </dl>
         <dl class="dl-horizontal wide">
           <dt><strong>XML Validation Errors:</strong></dt> <dd class="fail strong"><%= test_execution.count_errors %></dd>
           <dt><strong>XML Validation Warnings:</strong></dt> <dd class="warn strong"><%= test_execution.count_warnings %></dd>
-          <dt><strong>Content Inspection Errors: </strong></dt> <dd>** content inspection errors **</dd>
         </dl>
       </section>
       <div><p>
@@ -71,6 +68,6 @@
 
     <div id="xml_frame">
     <h3>Vendor Generated XML</h3>
-    <%= render :partial=>"test_executions/qrda_product_test/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}%>
+    <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}%>
   </div>
 </div>

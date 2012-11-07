@@ -6,12 +6,16 @@
   <col />
   <col />
   <col />
+  <col />
+  <col />
   </colgroup>
   <thead style="position:relative;">
     <tr class="rot">
+      <th><div>POP</div></th>
       <th><div>DEN</div></th>
       <th><div>NUM</div></th>
-      <th><div>EXC</div></th>
+      <th><div>EXCL</div></th>
+      <th><div>EXCP</div></th>
       <th><div>OUT</div></th>
       <th></th>
       <th>Last Name</th>
@@ -26,9 +30,11 @@
       %>
       <% if patient.value.population %>
         <tr>
+          <td class="<%= 'p' if patient.value.population == 1%>"></td>
           <td class="<%= 'p' if patient.value.denominator == 1%>"></td>
           <td class="<%= 'p' if patient.value.numerator == 1%>"></td>
           <td class="<%= 'p' if patient.value.exclusions == 1%>"></td>
+           <td class="<%= 'p' if patient.value.denexcep == 1%>"></td>
           <td class="<%= 'p' if patient.value.antinumerator == 1%>"></td>
 
           <td></td>

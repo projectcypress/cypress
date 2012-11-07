@@ -52,9 +52,11 @@
         <thead style="position:relative;">
           <tr class="rot">
             <th><div>NQF #</div></th>
+            <th><div>POP</div></th>
             <th><div>DEN</div></th>
             <th><div>NUM</div></th>
-            <th><div>EX</div></th>
+            <th><div>EXCL</div></th>
+            <th><div>EXCP</div></th>
             <th><div>OUT</div></th>
           </tr>
         </thead>
@@ -65,9 +67,11 @@
 				<td title="<%= "#{(result.value['sub_id'].nil? ? "" : result.value['sub_id']) if @product}" %>">
                  <%= link_to "#{Measure.where(:hqmf_id => result.value.measure_id).first.nqf_id}#{result.value['sub_id']}" %>
                 </td>
+               <td <%= raw result_to_class(result.value['population'] == 1) %>></td>
                 <td <%= raw result_to_class(result.value['denominator'] == 1) %>></td>
                 <td <%= raw result_to_class(result.value['numerator'] == 1) %>></td>
                 <td <%= raw result_to_class(result.value['exclusions'] == 1) %>></td>
+                <td <%= raw result_to_class(result.value['denexcep'] == 1) %>></td>
                 <td <%= raw result_to_class(result.value['antinumerator'] == 1) %>></td>
               </tr>
             <% end %>

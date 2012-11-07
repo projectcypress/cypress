@@ -34,9 +34,9 @@ validation:
       generic_warning: generic-schematron/QRDA_warnings.xslt
       measure_specific_dir: measure-specific-schematron
     qrda_cat_3:
-      root: resources/schematron/qrda_cat_3
-      generic: qrda_cat1_generic.xslt
-
+      root: resources/schematron/qrda/qrda_cat_3
+      generic_error:  QRDA_Category_III_errors.xslt
+      generic_warning: QRDA_Category_III_warnings.xslt
 
 nlm:
   ticket_url: https://vsac.nlm.nih.gov/vsac/ws/Ticket

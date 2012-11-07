@@ -61,7 +61,7 @@ class CalculatedProductTest < ProductTest
       reported_results[key] = reported_result 
 
       if reported_result.nil?
-         validation_errors << ExecutionError.new(message: "Could not find entry for measure #{key} ", msg_type: :error, measure_id: key )
+         validation_errors << ExecutionError.new(message: "Could not find entry for measure #{key} ", msg_type: :error, measure_id: key , validator_type: :result_validation)
       end
 
       matched_result = {measure_id: expected_result["measure_id"], sub_id: expected_results["sub_id"]}
@@ -86,11 +86,12 @@ class CalculatedProductTest < ProductTest
         end 
       end
       if !errs.empty?
-        validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: key )
+        validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: key , validator_type: :result_validation)
       end
     end    
 
-    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results,  matched_results: matched_results, execution_errors: validation_errors)
+    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results, 
+                                     matched_results: matched_results, execution_errors: validation_errors)
     ids = Cypress::ArtifactManager.save_artifacts(qrda_file,te)
     te.file_ids = ids
     te.save
