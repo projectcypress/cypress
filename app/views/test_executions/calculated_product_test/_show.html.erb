@@ -3,6 +3,7 @@
   <ul id="error_report_toc" class="nav nav-tabs">
     <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
     <li class=""><a href="#test_measure_errors" data-toggle="tab">Errors</a></li>
+    <li class=""><a href="#test_measure_qrda_errors" data-toggle="tab">QRDA Errors</a></li>
     <li class=""><a href="#test_measure_warnings" data-toggle="tab">Warnings</a></li>
   </ul>
   <div id="test_result_tabs" class="tab-content">
@@ -33,6 +34,13 @@
         <% test_execution.execution_errors.by_type(:error).each do |err| %>
          <li><a  href="#<%=err.measure_id%>" ><span><%=  err.message %></span></li>
         <% end %>
+      </ol>
+    </div>
+    <div class="tab-pane" id="test_measure_qrda_errors">
+      <h4>QRDA Errors</h4>
+      <ol class="validation_list">
+        <!-- loop over qrda errors -->
+        <li>QRDA errors listed here</li>
       </ol>
     </div>
     <div class="tab-pane" id="test_measure_warnings">
