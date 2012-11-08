@@ -32,6 +32,7 @@ class QRDAProductTest < ProductTest
   end
   
   def execute(params)
+ binding.pry
     file = params[:results]
     te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i)
     te.execution_errors = Cypress::QrdaUtility.validate_cat_1(file.open.read, measures, "results")
@@ -41,6 +42,12 @@ class QRDAProductTest < ProductTest
     (te.count_errors > 0) ? te.failed : te.pass
     te
   end
+
+  def measures
+    return [] if !measure_ids
+    Measure.in(:hqmf_id => measure_ids).top_level.order_by([[:hqmf_id, :asc],[:sub_id, :asc]])
+  end
+  
   
   def self.product_type_measures
     Measure.top_level

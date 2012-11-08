@@ -26,7 +26,7 @@ module Cypress
     # Generic QRDA Cat I scheamtron rules and the measure specific rules for each of the measures passed in.
     # THe result will be an Array of execution errors or an empty array if there were no errors.
     def self.validate_cat_1(data, measures=[], name="")
-
+binding.pry
       file_errors = []
       doc = Nokogiri::XML(data)
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
@@ -50,7 +50,7 @@ module Cypress
           end
 
           # Look in the document to see if there is an entry stating that it is reporting on the given measure
-          # we will be a bit lieniant and look for both the version specific id and the non version specific ids
+          # we will be a bit lenient and look for both the version specific id and the non version specific ids
 
           if !doc.at_xpath("//cda:organizer[./templateId[@root='2.16.840.1.113883.10.20.24.3.98']]/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']/cda:id[#{translate("@root")}='#{measure.hqmf_id.upcase}']")
             file_errors << ExecutionError.new(:location=>"/", :msg_type=>"error", :message=>"Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.name}")
