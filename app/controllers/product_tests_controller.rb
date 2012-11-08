@@ -67,19 +67,19 @@ class ProductTestsController < ApplicationController
   end
   
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format
-   def download
-     test = current_user.product_tests.find(params[:id])
-     format = params[:format]
-     file = Cypress::CreateDownloadZip.create_test_zip(test.id,format)
+  def download
+    test = current_user.product_tests.find(params[:id])
+    format = params[:format]
+    file = Cypress::CreateDownloadZip.create_test_zip(test.id,format)
 
-     if format == 'csv'
-       send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => "Test_#{test.id}.csv"
-     else
-       send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "Test_#{test.id}._#{format}.zip"
-     end
+    if format == 'csv'
+      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => "Test_#{test.id}.csv"
+    else
+      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "Test_#{test.id}._#{format}.zip"
+    end
 
-     file.close
-   end
+    file.close
+  end
 
 
 

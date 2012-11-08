@@ -34,22 +34,19 @@ class TestExecutionsController < ApplicationController
     
   end
   
-  def results
-
+  def download
      te = TestExecution.find(params[:id])
-     # obtain the report as a pdf
-     pdf = 
-     #get the set of patient records for the test
-     patients = 
+     
+     # Obtain the report as a pdf
+     
+     # Get the set of patient records for the test
 
-     # create a zip file of the patients and the pdf 
+     # Create a zip file of the patients and the pdf 
 
-     # send the zip file back to the user
+     # Send the zip file back to the user
 
-    Zip::ZipFile.open(".tmp/#{te.id}_#{time.now.to_i}.zip", Zip::ZipFile::CREATE) do |zipfile|
-     zipfile.get_output_stream("records.zip") { |f| f.puts te.generate_patient_zip("ccda") }
-     zipfile.get_output_stream("report.pdf") {|f| f.puts ""}
-    end
+    file = Cypress::CreateDownloadZip.create_test_zip(te.product_test.id, "c32")
+    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "example.zip"
   end
   
   private 
