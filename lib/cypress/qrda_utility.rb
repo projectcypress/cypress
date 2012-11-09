@@ -7,6 +7,9 @@ module Cypress
     POPULATION_CODE_MAPPINGS = {'NUMER' => "numerator", 'DENOM' => "denominator",'IPP' => "population", 'MSRPOPL' => "msr_popl" , 
                       'NUMEX' => "numex", 'DENEX' => "exclusions",'DENEXCEP' => "exceptions", 'EXCEP' => "exceptions"}
 
+    
+    CV_METHOD_CODES = ["COUNT","SUM", "AVERAGE","STDEV.S","VARIANCE.S","STDEV.P","VARIANCE.P","MIN","MAX", "MEDIAN", "MODE"]
+
     QRDA_CAT1_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
     QRDA_CAT3_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_3"]
     QRDA_CAT1_SCHEMATRON_ROOT= QRDA_CAT1_SCHEMATRON_CONFIG["root"]
@@ -26,7 +29,7 @@ module Cypress
     # Generic QRDA Cat I scheamtron rules and the measure specific rules for each of the measures passed in.
     # THe result will be an Array of execution errors or an empty array if there were no errors.
     def self.validate_cat_1(data, measures=[], name="")
-binding.pry
+
       file_errors = []
       doc = Nokogiri::XML(data)
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
@@ -50,7 +53,7 @@ binding.pry
           end
 
           # Look in the document to see if there is an entry stating that it is reporting on the given measure
-          # we will be a bit lenient and look for both the version specific id and the non version specific ids
+          # we will be a bit lieniant and look for both the version specific id and the non version specific ids
 
           if !doc.at_xpath("//cda:organizer[./templateId[@root='2.16.840.1.113883.10.20.24.3.98']]/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']/cda:id[#{translate("@root")}='#{measure.hqmf_id.upcase}']")
             file_errors << ExecutionError.new(:location=>"/", :msg_type=>"error", :message=>"Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.name}")
@@ -84,7 +87,15 @@ binding.pry
       find_measure_nodes(doc,measure_id).each do |n|
         entry = {}
         _ids.each_pair do |k,v|
-          val = extract_component_value(n,k,v,stratification)
+          val = nil
+          is_cv_code = CV_METHOD_CODES.index(k)
+          if (is_cv_code)
+            msrpopl = _ids["MSRPOPL"]
+            val = extract_cv_value(n,k,v,msrpopl, stratification)
+          else 
+            val =extract_component_value(n,k,v,stratification)
+          end
+
           if val.nil?
             entry = nil
             break
@@ -111,6 +122,7 @@ binding.pry
       results
     end
 
+  
 
   def self.find_measure_nodes(doc,id)
      xpath_measures = %{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"] and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
@@ -121,6 +133,18 @@ binding.pry
     %{translate(#{id}, "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ")}
   end
 
+
+
+  def extract_cv_value(node, code,id,msrpopl, strata = nil)
+     xpath_observation = %{ cda:component/cda:observation[./cda:value[@code = "MSRPOPL"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{msrpopl.upcase}']]}
+     value_xpath = %{cda:entryRelationship[@typeCode="COMP" and ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.2"]]/cda:observation[./cda:methodCode[@code='#{code}']]/cda:value/@value}
+     cv = node.at_xpath(xpath_observation)
+     value = nil
+     if cv
+      value = cv.at_xpath(value_xpath)
+    end
+    return value
+  end
 
   def self.extract_component_value(node, code,id,strata = nil)
     xpath_observation = %{ cda:component/cda:observation[./cda:value[@code = "#{code}"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{id.upcase}']]}
@@ -151,26 +175,6 @@ binding.pry
       file_errors
     end
 
-
-    #get all continuous values within a measure data (numerator, denominator, etc) node
-    def self.get_continuous_values(node)
-      xpath_observations = 'cda:entryRelationship[@typeCode="COMP"]/cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.2"]/following-sibling::cda:observation'
-      xpath_expected = 'cda:referenceRange/cda:observationRange/cda:value'
-      xpath_code  = 'cda:methodCode'
-      xpath_value = 'cda:value'
-      
-      list_values = {}
-      observation_nodes = node.xpath(xpath_observations)
-      observation_nodes.each do |n|
-        entry = {}
-        entry['code']  = n.at_xpath(xpath_code)['code']
-        entry['unit']  = n.at_xpath(xpath_value)['unit']
-        entry['value'] = convert_value(n.at_xpath(xpath_value))
-        list_values[get_reference(n)] = entry
-      end
-      list_values = nil if list_values.empty?
-      list_values
-    end
 
 
     #given an observation node with an aggregate count node, return the reported and expected value within the count node

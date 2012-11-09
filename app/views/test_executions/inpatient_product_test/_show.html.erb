@@ -4,7 +4,8 @@
     <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
     <li class=""><a href="#test_measure_errors" data-toggle="tab">Errors</a></li>
     <li class=""><a href="#test_measure_qrda_errors" data-toggle="tab">QRDA Errors</a></li>
-    <li class=""><a href="#test_measure_warnings" data-toggle="tab">Warnings</a></li>
+    <li class=""><a href="#test_measure_qrda_warnings" data-toggle="tab">QRDA Warnings</a></li>
+
   </ul>
   <div id="test_result_tabs" class="tab-content">
     <div class="tab-pane active" id="test_summary">
@@ -12,12 +13,9 @@
         <dl class="dl-horizontal">
           <dt><strong>Test Date:</strong></dt> <dd class="strong"><%= test_execution.created_at %></dd>
           <dt><strong>Inspection ID: </strong></dt> <dd><%= test_execution.product_test.product.vendor.name %></dd>
-          <dt><strong>Document Type:</strong></dt> <dd>** document type **</dd>
-          <dt><strong>Version:</strong></dt> <dd>** document version **</dd>
         </dl>
         <dl class="dl-horizontal wide">
           <dt><strong>Errors:</strong></dt> <dd class="fail strong"><%= test_execution.count_errors %></dd>
-          <dt><strong>QRDA Errors:</strong></dt> <dd class="fail strong">** QRDA error count **</dd>
           <dt><strong>Warnings:</strong></dt> <dd class="warn strong"><%= test_execution.count_warnings %></dd>
         </dl>
       </section>
@@ -25,10 +23,14 @@
       <p>Test execution notes and addenda should appear here.</p>
     </div>
 
+
+  <% doc, error_map, error_attributes =  match_errors(test_execution) %>
+
     <div class="tab-pane" id="test_measure_errors">
+      <!-- %# render :partial => 'calculated_product_test/errors', :locals => { :errors => test_execution.execution_errors} %> -->
       <h4>Errors</h4>
       <ol class="validation_list">
-        <% test_execution.execution_errors.by_type(:error).each do |err| %>
+        <% test_execution.execution_errors.by_validation_type(:result_validation).by_type(:error).each do |err| %>
          <li><a  href="#<%=err.measure_id%>" ><span><%=  err.message %></span></li>
         <% end %>
       </ol>
@@ -36,17 +38,34 @@
     <div class="tab-pane" id="test_measure_qrda_errors">
       <h4>QRDA Errors</h4>
       <ol class="validation_list">
-        <!-- loop over qrda errors -->
-        <li>QRDA errors listed here</li>
+      <% old_eid = 0 %>
+      <% test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:error).each do |e| %>
+        <% eid = error_map[e.location] 
+         %>
+         <li <% if old_eid != eid %>
+          class="err_group"
+            <% old_eid = eid 
+         end %>>
+         <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div></li>
+      <% end %>
       </ol>
     </div>
-    <div class="tab-pane" id="test_measure_warnings">
-      <h4>Warnings</h4>
+    <div class="tab-pane" id="test_measure_qrda_warnings">
+      <!-- %# render :partial => 'test_executions/calculated_product_test/warnings', :locals => { :warnings => test_execution.execution_warnings } %> -->
+      <h4>QRDA Warnings</h4>
       <ol class="validation_list">
-        <% test_execution.execution_errors.by_type(:warning).each_with_index do |err| %>
-          <li><a  href="#<%=err.measure_id%>" ><span><%=  err.message %></span></li>
-        <% end %>
-      </ol>
+          <% old_eid = 0 %>
+          <% test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:warning).each do |e| %>
+            <% eid = error_map[e.location] 
+             %>
+              
+             <li <% if old_eid != eid %>
+              class="err_group"
+                <% old_eid = eid 
+             end %>>
+             <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div></li>
+          <% end %>
+          </ol>
     </div>
  
   </div><!-- end #test_result_tabs -->
@@ -64,5 +83,12 @@
           <%= render partial: "/test_executions/calculated_product_test/results.html" , locals: {test_execution: test_execution, measures: test_execution.failing_measures} %>
         <% end %>
       </section>
+
+
+  
+     <div id="xml_frame">
+    <h3>Vendor Generated XML</h3>
+    <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}%>
+  </div>
 
 </div>   

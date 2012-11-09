@@ -5,19 +5,22 @@ class InpatientProductTest < ProductTest
 
   
   def generate_population
-    expected_results = {}
-    measures.each do |measure|
-      Record.where({test_id: nil, measure_id: measure.hqmf_id, type: :eh}).each do |rec|
+    self.expected_results = {}
+
+      Record.where({test_id: nil, type: :eh}).in(measure_ids: measure_ids).each do |rec|
         cloned = rec.clone
         cloned.test_id = self.id
         cloned.save
       end 
+
+    measures.each do |measure|
+
       # todo implement this
-      qr = QME::QualityReport.new(measure.hqmf_id, measure.sub_id, 'effective_date' => product_test.effective_date, 'test_id' => nil, 'filters' => [])
+      qr = QME::QualityReport.new(measure.hqmf_id, measure.sub_id, 'effective_date' => self.effective_date, 'test_id' => nil, 'filters' => nil)
       if qr.calculated?
-       expected_results[measure.key] = qr.report.dup
+       self.expected_results[measure.key] = qr.result.dup
       else
-        expected_results[measure.key]  = {}
+ 
       end  
     end
     self.save
@@ -68,6 +71,7 @@ class InpatientProductTest < ProductTest
           end
         end 
       end
+      
       if !errs.empty?
         validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: key , validator_type: :result_validation)
       end

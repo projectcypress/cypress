@@ -1,12 +1,14 @@
 GIT
   remote: https://github.com/pophealth/quality-measure-engine.git
-  revision: 5ca9a9112c08bbb4d9e4c4d1a70e2a257b97ba0a
+  revision: 9325287ebc05a29713ec696090508f614bc034ee
   branch: develop
   specs:
-    quality-measure-engine (2.0.0)
+    quality-measure-engine (2.1.0)
       delayed_job_mongoid (~> 2.0.0)
       mongoid (~> 3.0.9)
       moped (~> 1.2.7)
+      nokogiri (~> 1.5.5)
+      rubyXL (~> 1.2.10)
       rubyzip (~> 0.9.9)
 
 GEM
@@ -194,6 +196,7 @@ GEM
       spreadsheet (> 0.6.4)
       todonotes (>= 0.1.0)
     ruby-ole (1.2.11.4)
+    rubyXL (1.2.10)
     rubyzip (0.9.9)
     sass (3.2.1)
     sass-rails (3.2.5)

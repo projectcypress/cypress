@@ -11,6 +11,7 @@ class Measure
   field :nqf_id, type: String
   field :type, type: String
   field :category, type: String
+  field :population_ids , type: Hash
 
   scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
   scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})
@@ -23,6 +24,10 @@ class Measure
     "#{self['id']}#{sub_id}"
   end
   
+  def is_cv?
+    ! population_ids["MSRPOPL"].nil?
+  end
+
   def self.installed
     Measure.order_by([["id", :asc],["sub_id", :asc]]).to_a
   end

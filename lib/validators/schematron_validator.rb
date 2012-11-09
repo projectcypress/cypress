@@ -30,7 +30,7 @@ module Validators
              )
 
            end
-           errors
+           errors.uniq{|e| "#{e.location}#{e.message}"}
       end
                 
         # stubbed method needed to obtain validation  stylesheet
