@@ -32,7 +32,7 @@ class QRDAProductTest < ProductTest
   end
   
   def execute(params)
- binding.pry
+
     file = params[:results]
     te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i)
     te.execution_errors = Cypress::QrdaUtility.validate_cat_1(file.open.read, measures, "results")

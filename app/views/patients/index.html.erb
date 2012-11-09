@@ -159,7 +159,7 @@
             <li>
               <a href="<%= patients_path(:product_test_id => @test, :measure_id=>measure_def.id,:execution=> params[:execution]) %>"
                 title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
-                class="<%= 'selected' if !@showAll and @selected.id==measure_def.id %>"><%= "#{measure_def.nqf_id}" %>
+                class="<%= 'selected' if !@showAll and @selected.id==measure_def.id %>"><%= "#{measure_def.nqf_id}" %> <br><%= truncate("#{measure_def.subtitle}") %>
               </a>
             </li>
           <% end %>        
