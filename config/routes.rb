@@ -18,9 +18,14 @@ Cypress::Application.routes.draw do
      get 'definition'
    end
   
-  resources :test_executions
+  resources :test_executions do
+    member do
+      get 'download'
+    end
+  end
+
   resources :product_tests  do
-  resources :test_executions
+    resources :test_executions
     member do
       get 'download'
       post 'process_pqri'

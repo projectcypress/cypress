@@ -1,5 +1,4 @@
-class TestExecutionsController < ApplicationController
-  
+class TestExecutionsController < ApplicationController  
   def new
     @test_execution = TestExecution.new
     render template: "test_executions/#{template_name(te)}/new.html"
@@ -17,9 +16,8 @@ class TestExecutionsController < ApplicationController
   end
   
   def create
-
     @product_test = ProductTest.find(params[:product_test_id])
-    @te=@product_test.execute(params[:test_execution])
+    @te = @product_test.execute(params[:test_execution])
     redirect_to product_test_path(@te.product_test,:test_execution_id=>@te.id)
   end
   
@@ -35,18 +33,19 @@ class TestExecutionsController < ApplicationController
   end
   
   def download
-     te = TestExecution.find(params[:id])
+    te = TestExecution.find(params[:id])
+
+    pdf = Cypress::PdfGenerator.generate_for(te)
      
-     # Obtain the report as a pdf
-     
-     # Get the set of patient records for the test
+    # Get the set of patient records for the test
 
-     # Create a zip file of the patients and the pdf 
+    # Create a zip file of the patients and the pdf 
+    file = Tempfile.new("results.zip")
+    Zip::ZipFile.open(file.path) do |zip|
+      zip.add("results.pdf", pdf.path)
+    end
 
-     # Send the zip file back to the user
-
-    file = Cypress::CreateDownloadZip.create_test_zip(te.product_test.id, "c32")
-    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "example.zip"
+    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "results.zip"
   end
   
   private 

@@ -1,20 +1,16 @@
-
 require 'open-uri'
 require 'prawnto'
 require 'active_support'
+
 class ProductTestsController < ApplicationController
   before_filter :authenticate_user!
   
-
-  
-
   def show
     @test = ProductTest.find(params[:id])
     @test_execution = TestExecution.find(params[:test_execution_id]) if params[:test_execution_id]
   end
   
   def new
-   
     @product = Product.find(params[:product_id])
     @vendor = @product.vendor
     @test =  @product.product_tests.build
@@ -49,10 +45,9 @@ class ProductTestsController < ApplicationController
     redirect_to product_path(product)
   end
   
-  def execute
-    
+  def execute   
     @product_Test = ProductTest.find(params[:product_test_id])
-    @te=@product_Test.execute(params)
+    @te = @product_Test.execute(params)
     redirect_to action: :show, id: @te
   end
 
@@ -81,37 +76,27 @@ class ProductTestsController < ApplicationController
     file.close
   end
 
-
-
-  
   def delete_note
-     test = ProductTest.find(params[:id])
-     note = test.notes.find(params[:note][:id])
-     note.destroy
+    test = ProductTest.find(params[:id])
+    note = test.notes.find(params[:note][:id])
+    note.destroy
 
-     redirect_to :action => 'show', :execution_id => params[:execution_id]
-   end
+    redirect_to :action => 'show', :execution_id => params[:execution_id]
+  end
 
-   def add_note
-     test = ProductTest.find(params[:id])
+  def add_note
+    test = ProductTest.find(params[:id])
 
-     note = Note.new(params[:note])
-     note.time = Time.now.getgm
+    note = Note.new(params[:note])
+    note.time = Time.now.getgm
 
-     test.notes << note
-     test.save!
-     redirect_to :action => 'show', :execution_id => params[:execution_id]
-   end
+    test.notes << note
+    test.save!
+    redirect_to :action => 'show', :execution_id => params[:execution_id]
+  end
    
 
-   def qrda_cat3
+  def qrda_cat3
     @product_test = ProductTest.find(params[:id])
-
-   end
-  
-private
-
-
- 
-
+  end
 end
