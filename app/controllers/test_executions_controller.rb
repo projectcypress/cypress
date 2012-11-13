@@ -1,5 +1,4 @@
-class TestExecutionsController < ApplicationController
-  
+class TestExecutionsController < ApplicationController  
   def new
     @test_execution = TestExecution.new
     render template: "test_executions/#{template_name(te)}/new.html"
@@ -17,9 +16,8 @@ class TestExecutionsController < ApplicationController
   end
   
   def create
-
     @product_test = ProductTest.find(params[:product_test_id])
-    @te=@product_test.execute(params[:test_execution])
+    @te = @product_test.execute(params[:test_execution])
     redirect_to product_test_path(@te.product_test,:test_execution_id=>@te.id)
   end
   
@@ -34,22 +32,13 @@ class TestExecutionsController < ApplicationController
     
   end
   
-  def results
+  def download
+    test_execution = TestExecution.find(params[:id])
 
-     te = TestExecution.find(params[:id])
-     # obtain the report as a pdf
-     pdf = 
-     #get the set of patient records for the test
-     patients = 
+    zip = Cypress::PatientZipper.zip_artifacts(test_execution)    
+    zip_name = "#{test_execution.product_test.name}-#{test_execution.execution_date.strftime('%y-%m-%d')}.zip"
 
-     # create a zip file of the patients and the pdf 
-
-     # send the zip file back to the user
-
-    Zip::ZipFile.open(".tmp/#{te.id}_#{time.now.to_i}.zip", Zip::ZipFile::CREATE) do |zipfile|
-     zipfile.get_output_stream("records.zip") { |f| f.puts te.generate_patient_zip("ccda") }
-     zipfile.get_output_stream("report.pdf") {|f| f.puts ""}
-    end
+    send_file zip.path, :type => 'application/zip', :disposition => 'attachment', :filename => zip_name
   end
   
   private 
