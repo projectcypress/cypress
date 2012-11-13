@@ -33,19 +33,12 @@ class TestExecutionsController < ApplicationController
   end
   
   def download
-    te = TestExecution.find(params[:id])
+    test_execution = TestExecution.find(params[:id])
 
-    pdf = Cypress::PdfGenerator.generate_for(te)
-     
-    # Get the set of patient records for the test
+    zip = Cypress::PatientZipper.zip_artifacts(test_execution)    
+    zip_name = "#{test_execution.product_test.name}-#{test_execution.execution_date.strftime('%y-%m-%d')}.zip"
 
-    # Create a zip file of the patients and the pdf 
-    file = Tempfile.new("results.zip")
-    Zip::ZipFile.open(file.path) do |zip|
-      zip.add("results.pdf", pdf.path)
-    end
-
-    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "results.zip"
+    send_file zip.path, :type => 'application/zip', :disposition => 'attachment', :filename => zip_name
   end
   
   private 
