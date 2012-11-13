@@ -103,17 +103,9 @@
 			          <li class="ui-menu-item" role="menuitem">
 			            <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
-			          <% if @test.user.email %>
-			            <li class="ui-menu-item" role="menuitem">
-			              <%= link_to "Email C32s", email_product_test_path(@test, :format => 'c32'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-			            </li>
-			            <li class="ui-menu-item" role="menuitem">
-			              <%= link_to "Email CCRs", email_product_test_path(@test, :format => 'ccr'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-			            </li>
-			            <li class="ui-menu-item" role="menuitem">
-			              <%= link_to "Email HTML", email_product_test_path(@test, :format => 'html'), { :method => 'post', :class => "ui-corner-all", :tabindex => "-1" } %>
-			            </li>
-			          <% end %>
+	                 <li class="ui-menu-item" role="menuitem">
+                  <%= link_to "Download C-CDA", download_product_test_path(@test, :format => 'ccda'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+                </li>
 			        </ul>
 			</div>
 			<div class="span3">

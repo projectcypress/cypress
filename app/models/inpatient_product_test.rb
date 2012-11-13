@@ -7,11 +7,17 @@ class InpatientProductTest < ProductTest
   def generate_population
     self.expected_results = {}
 
-      Record.where({test_id: nil, type: :eh}).in(measure_ids: measure_ids).each do |rec|
-        cloned = rec.clone
-        cloned.test_id = self.id
-        cloned.save
-      end 
+    Record.where({test_id: nil, type: :eh}).in(measure_ids: measure_ids).each do |rec|
+      cloned = rec.clone
+      cloned.test_id = self.id
+      cloned.save
+    end 
+
+    Result.where("value.test_id" => nil).in("value.measure_id" => measure_ids).each do |res|
+      cloned = res.clone
+      cloned.value["test_id"] = self.id
+      cloned.save
+    end
 
     measures.each do |measure|
 

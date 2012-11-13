@@ -74,7 +74,7 @@ class PatientsController < ApplicationController
     end
 
     @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected['id'])
-      .where("value.sub_id" => @selected.sub_id).where("value.population" => 1)
+      .where("value.sub_id" => @selected.sub_id).where("value.population".to_sym.gt => 0)
       .order_by([ ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
 
     render 'table'

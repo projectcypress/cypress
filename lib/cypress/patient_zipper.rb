@@ -20,7 +20,9 @@ module Cypress
             #http://iweb.dl.sourceforge.net/project/ccr-resources/ccr-xslt-html/CCR%20XSL%20V2.0/ccr.xsl
              z.put_next_entry("#{next_entry_path}.html")
              z << HealthDataStandards::Export::HTML.export(patient)
-            
+          elsif format==:ccda
+             z.put_next_entry("#{next_entry_path}.xml")
+             z << HealthDataStandards::Export::CCDA.export(patient)
           else
             z.put_next_entry("#{next_entry_path}.xml")
             z << HealthDataStandards::Export::CCR.export(patient)
