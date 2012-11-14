@@ -37,16 +37,6 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     
   end
   
-
-  
-  test "should be able to retreive results for a specific measure"  do 
-    
-  end
-  
-  
-  test "should set state to errored when there was a problem creating the test" do
-    
-  end
   
   
   test "execute qrda" do
