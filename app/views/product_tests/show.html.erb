@@ -1,5 +1,7 @@
 <% content_for :head do -%>
-
+<% if @test.state != "ready" %> 
+  <meta http-equiv="refresh" content="10">
+<%end %> 
   <script>
 	$(document).ready(function() {
 	      $('#upload_results').dialog({
