@@ -1,5 +1,5 @@
 <% content_for :head do -%>
-<% if @test.state != "ready" %> 
+<% if @test.state != "ready" &&  @test.state != "errored" %> 
   <meta http-equiv="refresh" content="10">
 <%end %> 
   <script>
