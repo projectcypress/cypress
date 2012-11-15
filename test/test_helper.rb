@@ -11,7 +11,6 @@ require 'active_support/testing/pending'
 
 
 
-
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   
@@ -106,15 +105,4 @@ class ActionController::TestCase
 end
 
 
-class QRDAFile
-
-  def initialize(file)
-    @file = file
-  end
-
-  def open
-    File.new(@file)
-  end
-
-
-end
+binding.pry
