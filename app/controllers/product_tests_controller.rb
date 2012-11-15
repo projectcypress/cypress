@@ -44,6 +44,12 @@ class ProductTestsController < ApplicationController
     redirect_to product_path(product)
   end
   
+
+  def status
+    @test = ProductTest.find(params[:id])
+    
+  end
+
   def execute   
     @product_Test = ProductTest.find(params[:product_test_id])
     @te = @product_Test.execute(params)
