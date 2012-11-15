@@ -95,10 +95,6 @@ module Cypress
       @pdf.text "Inspection ID: #{@test_execution.product_test.product.vendor.name}"
       @pdf.text "Errors: #{@test_execution.count_errors}"
       @pdf.text "Warnings: #{@test_execution.count_warnings}"
-
-      new_section_margin
-      @pdf.text "Test Execution Notes"
-      @pdf.text "Test execution notes and addenda should appear here."
     end
 
     def measure_errors_section
