@@ -7,7 +7,7 @@ require 'mocha'
 
 require 'active_support/testing/pending'
 
-binding.pry
+
 
 
 
