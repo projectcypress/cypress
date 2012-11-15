@@ -28,8 +28,7 @@ gem  "pdf-reader", '0.9.0'
 
 gem 'thin'
 
-gem 'pry'
-gem 'pry-debugger'
+
 
 
 gem 'mongoid-grid_fs', '~> 1.3.3' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
@@ -44,6 +43,8 @@ group :assets do
 end
 
 group :test, :develop do
+	gem 'pry'
+  gem 'pry-debugger'
   gem 'turn', :require => false
   gem 'minitest'
   gem "tailor"
