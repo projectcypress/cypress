@@ -38,8 +38,8 @@ group :assets do
 end
 
 group :test, :develop do
-	#gem 'pry'
-  #gem 'pry-debugger'
+	gem 'pry'
+  gem 'pry-debugger'
   gem 'turn', :require => false
   gem 'minitest'
   gem "tailor"
