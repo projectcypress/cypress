@@ -8,27 +8,33 @@ require 'zip/zipfilesystem'
 module Cypress
   class PatientZipper
     def self.zip_artifacts(test_execution)
-      te_path = File.join("tmp", "te-#{test_execution.id}")
-      zip_path = File.join(te_path, "#{Time.now.to_i}")
+      execution_path = File.join("tmp", "te-#{test_execution.id}")
+      zip_path = File.join(execution_path, "#{Time.now.to_i}")
 
       records = test_execution.product_test.records
       records_path = File.join(zip_path, "records")
       write_patients(records, records_path)
-      pdf = Cypress::PdfGenerator.generate_for(test_execution, zip_path)
+      
+      pdf_generator = Cypress::PdfGenerator.new(test_execution)
+      pdf = pdf_generator.generate(zip_path)
+
+      vendor_uploaded_results = test_execution.files[0].data.force_encoding("UTF-8")
+      File.open(File.join(zip_path, "vendor-uploaded-results.xml"), "w") {|file| file.write(vendor_uploaded_results)}
 
       Zip::ZipFile.open("#{zip_path}.zip", Zip::ZipFile::CREATE) do |zip|
         Dir[File.join(records_path, "**", "**")].each do |file|
           filename = file.slice(/records.*/)
           zip.add(filename, file)
         end
-        zip.add("results.pdf", pdf)
+        zip.add("test-execution-results.pdf", pdf)
+        zip.add("vendor-uploaded-results.xml", File.join(zip_path, "vendor-uploaded-results.xml"))
       end
 
       # Move the zip to a tempfile so the system will delete it for us. Then delete the temporary record directory we made.
       zip = Tempfile.new("te-#{test_execution.id}")
       zip.write(File.read("#{zip_path}.zip"))
       zip.close
-      FileUtils.rm_r te_path
+      FileUtils.rm_r execution_path
       
       zip
     end

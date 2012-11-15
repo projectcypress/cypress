@@ -3,7 +3,8 @@
     <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
     <li class=""><a href="#xml_validation_errors" data-toggle="tab">XML Errors</a></li>
     <li class=""><a href="#xml_validation_warnings" data-toggle="tab">XML Warnings</a></li>
-    
+
+    <%= link_to "Download", download_test_execution_path(test_execution), title: "Download the results of this test execution", class: "cmd pull-right" %>    
   </ul>
   <div id="test_result_tabs" class="tab-content">
     <div class="tab-pane active" id="test_summary">

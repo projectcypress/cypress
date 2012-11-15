@@ -10,8 +10,6 @@ class TestExecutionsController < ApplicationController
       # Don't send tons of JSON until we have results. In the meantime, just update the client on our calculation status.
       format.js 
       format.html      
-      format.pdf { render :layout => false }
-      prawnto :filename => "#{@test_execution.product_test.name}.pdf"
     end
   end
   
