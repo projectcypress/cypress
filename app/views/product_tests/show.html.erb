@@ -105,7 +105,9 @@
 			          <li class="ui-menu-item" role="menuitem">
 			            <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
-
+	              <li class="ui-menu-item" role="menuitem">
+                  <%= link_to "Download C-CDA", download_product_test_path(@test, :format => 'ccda'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+                </li>
 			        </ul>
 			</div>
 			<div class="span3">
@@ -176,7 +178,6 @@
               <strong>Test Executions</strong>
             </th>
             <th style="width:50%">Description</th>
-            <th></th>
             <th>Results</th>
             <th></th>
           </tr>
@@ -188,8 +189,7 @@
              <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", 'data-test-id'.to_sym=>te._id %></strong>
            </td>
            <td> </td>
-           <td><%= link_to "Download Results", download_test_execution_path(te), :title=>"Download the results of this test execution", :class=>'cmd' %></td>
-           <td><%= link_to "View Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd' %></td>
+           <td><%= link_to "View", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd' %></td>
            <td class="align-right"><%= link_to 'Delete', test_execution_path(te), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
          </tr>
 

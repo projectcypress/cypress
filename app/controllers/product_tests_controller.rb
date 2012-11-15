@@ -1,5 +1,4 @@
 require 'open-uri'
-require 'prawnto'
 require 'active_support'
 
 class ProductTestsController < ApplicationController

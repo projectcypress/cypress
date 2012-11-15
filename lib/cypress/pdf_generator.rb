@@ -1,47 +1,202 @@
 module Cypress
   class  PdfGenerator
-    def self.generate_for(test_execution, path)
-      type =  test_execution.product_test.class.to_s.underscore
-
-      pdf = send(type, test_execution)
-      pdf.render_file file_name(test_execution, path)
+    def initialize(test_execution)
+      @test_execution = test_execution
+      @pdf = Prawn::Document.new
     end
 
-    private
+    def generate(path)
+      type = @test_execution.product_test.class.to_s.underscore
 
-    def self.file_name(test_execution, path)
-      name = test_execution.product_test.name
-      pretty_date = test_execution.execution_date.strftime("%m-%d-%Y")
+      send(type)
+      @pdf.render_file file_name(path)
+    end
+
+    def file_name(path)
+      name = @test_execution.product_test.name
+      pretty_date = @test_execution.execution_date.strftime("%m-%d-%Y")
       
       File.join(path, "#{name}-#{pretty_date}.pdf")
     end
 
-    def self.summary_section(pdf, test_execution)
+    def calculated_product_test
+      set_default_style
 
+      summary_section
+      measure_errors_section
+      qrda_errors_section
+      qrda_warnings_section
+      quality_measures_section
+      vendor_xml_section
     end
 
-    def self.calculated_product_test(test_execution)
-      pdf = Prawn::Document.new
+    def inpatient_product_test
+      set_default_style
+
+      summary_section
+      measure_errors_section
+      qrda_errors_section
+      qrda_warnings_section
+      quality_measures_section
+      vendor_xml_section
+    end
+
+    def qrda_product_test
+      set_default_style
+
+      summary_section
+      qrda_errors_section
+      qrda_warnings_section
+      vendor_xml_section
+    end
+
+    private
+
+    FONT_DEFAULT = "Helvetica"
+    FONT_XML = "Menlo"
+
+    SIZE_DEFAULT = 10
+    SIZE_HEADER = 13
+    
+    COLOR_DEFAULT = "333333"
+    COLOR_HEADER = "666666"
+    COLOR_PASSING = "008000"
+    COLOR_WARNING = "FFA500"
+    COLOR_FAILING = "FF0000"
+    
+    WEIGHT_DEFAULT = :normal
+    WEIGHT_BOLD = :bold
+
+    def set_style(style)
+      @pdf.font style[:font] if style[:font]
+      @pdf.font_size style[:size] if style[:size]
+      @pdf.font @pdf.font.family, style: style[:weight] if style[:weight]
+      @pdf.fill_color style[:color] if style[:color]
+    end
+
+    def set_default_style
+      set_style({
+        font: FONT_DEFAULT,
+        size: SIZE_DEFAULT,
+        color: COLOR_DEFAULT,
+        weight: WEIGHT_DEFAULT
+      })
+    end
+
+    def new_section_margin
+      @pdf.move_down @pdf.font_size * 2
+    end
+
+    def summary_section
+      @pdf.image File.join(Rails.root, "app", "assets", "images", "cypress_logo.png"), :height => 30, :width => 115
+
+      new_section_margin
+      @pdf.text "Test Date: #{@test_execution.created_at}"
+      @pdf.text "Inspection ID: #{@test_execution.product_test.product.vendor.name}"
+      @pdf.text "Errors: #{@test_execution.count_errors}"
+      @pdf.text "Warnings: #{@test_execution.count_warnings}"
+
+      new_section_margin
+      @pdf.text "Test Execution Notes"
+      @pdf.text "Test execution notes and addenda should appear here."
+    end
+
+    def measure_errors_section
+      errors = @test_execution.execution_errors.by_validation_type(:result_validation).by_type(:error)
+      unless errors.empty?
+        new_section_margin
+        @pdf.text "Errors"
+      end
+
+      errors.each_with_index do |error, index|
+        @pdf.text "#{index + 1}. #{error.measure_id} #{error.message}"
+      end
+    end
+
+    def qrda_errors_section
+      errors = @test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:error)
+      unless errors.empty?
+        new_section_margin
+        @pdf.text "QRDA Errors"
+      end
       
-      pdf.text "Hey, check out Mr. EP PDF!"
-
-      pdf
+      errors.each_with_index do |error, index|
+        @pdf.text "#{index + 1}. #{error.message}"
+      end
     end
 
-    def self.inpatient_product_test(test_execution)
-      pdf = Prawn::Document.new
-
-      pdf.text "Hey, check out Mr. EH PDF!"
-
-      pdf
+    def qrda_warnings_section
+      errors = @test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:warning)
+      unless errors.empty?
+        new_section_margin
+        @pdf.text "QRDA Warnings"
+      end
+      
+      errors.each_with_index do |error, index|
+        @pdf.text "#{index + 1}. #{error.message}"
+      end
     end
 
-    def self.qrda_product_test(test_execution)
-      pdf = Prawn::Document.new
+    def quality_measures_section
+      new_section_margin
+      @pdf.text "PASSING MEASURES"
+      if @test_execution.passing_measures.count == 0
+        @pdf.text "There are no passing measures for this test."
+      else
+        results_table(@test_execution.passing_measures)
+      end
+      
+      new_section_margin
+      @pdf.text "FAILING MEASURES"
+      if @test_execution.failing_measures.count == 0
+        @pdf.text "There are no failing measures for this test."
+      else
+        results_table(@test_execution.failing_measures)
+      end
+    end
 
-      pdf.text "Hey, check out Mr. QRDA PDF!"
+    def results_table(measures)
+      table_content = []
+      table_content << ["Measures included in this test", "Patients", "Denominator", "Den. Exclusions", "Numerator", "Num. Exclusions", "Exceptions"]
+      
+      measures.each do |measure|
+        row = []
 
-      pdf
+        expected_result = @test_execution.expected_result(measure)
+        reported_result = @test_execution.reported_result(measure)
+
+        measure = "#{measure.nqf_id} - #{measure.name} "
+        measure.concat(" - #{measure.subtitle}") if measure["sub_id"]
+        patients = "#{reported_result["population"]}/#{expected_result["population"]}"
+
+        row << measure
+        row << patients
+
+        {"DENOM" => "denominator", "DENEX" => "exclusions", "NUMER" => "numerator", "NUMEX" => "numex", "DENEXCP" => "denexcep"}.each_pair do |code, bucket|
+          expected = expected_result[bucket]
+          reported = reported_result[bucket]
+
+          unless expected_result["population_ids"][code] 
+            expected = nil
+            reported = nil
+          end
+          row << "#{reported || "-"} / #{expected}"
+        end
+
+        table_content << row
+      end
+
+      set_style({size: 8})
+      @pdf.table(table_content, column_widths: [175, 60, 60, 60, 60, 60, 60])
+      set_default_style
+    end
+
+    def vendor_xml_section
+      # TODO - This section is repetitive unless we can link the earlier error and warning sections to the relevant entries here.
+      #new_section_margin
+      #@pdf.text "Vendor Generated XML"
+
+      #render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}
     end
   end
 end
