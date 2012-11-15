@@ -33,7 +33,17 @@ class InpatientProductTestTest < ActiveSupport::TestCase
     end
 
     assert_equal 3, pt.records.count , "Test should have the correct number of patient records"
-        
+    qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/eh_test_results.xml'), "application/xml")
+    
+    execution = pt.execute({:results =>qrda})
+
+    assert_equal 0,  execution.execution_errors.by_validation_type(:result_validation).length 
+    qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/eh_test_results_bad.xml'), "application/xml")
+    
+    execution = pt.execute({:results =>qrda})
+    assert_equal 1,  execution.execution_errors.by_validation_type(:result_validation).length 
+
+
   end
 
 

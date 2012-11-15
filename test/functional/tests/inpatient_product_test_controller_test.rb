@@ -18,10 +18,13 @@ class InPatientProductTestControllerTest < ActionController::TestCase
 
    test "create " do
       product = Product.where({}).first
-      pt = {:product_id=>product.id,:name =>'new4', :effective_date =>'12/21/2011', _type: "InpatientProductTest",:measure_ids => ["0013","0028","0421","" ]}
+      pt = {:product_id=>product.id,:name =>'new4', :effective_date =>Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE, _type: "InpatientProductTest",:measure_ids => ["8A4D92B2-3887-5DF3-0139-0D01C6626E46",
+ "8A4D92B2-3887-5DF3-0139-0D08A4BE7BE6",
+ "8A4D92B2-3887-5DF3-0139-11B262260A92"]}
       get :create, {:product_test => pt , :type=>"InpatientProductTest" }
       assert_response :redirect, "Should redirect to show page"
-      assert_equal 1, InpatientProductTest.where({:name => 'new4'}).count, "should have created a calculated product test"
+
+      assert_equal 1, InpatientProductTest.where({:name => 'new4'}).count, "should have created an inpatient product test"
    end
   
   
