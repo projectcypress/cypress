@@ -13,6 +13,8 @@ gem 'hqmf-parser', ' ~> 1.0.6'
 gem 'test-patient-generator', '~> 1.0.2'
 #gem 'test-patient-generator', :path => '../pophealth/test-patient-generator'
 
+
+gem "delayed_job_mongoid_web", :git => 'https://github.com/rdingwell/delayed_job_mongoid_web.git', :branch => 'develop'
 gem 'state_machine'
 
 gem 'devise', '~> 2.0'
