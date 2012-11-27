@@ -23,11 +23,11 @@ class ProductsController < ApplicationController
   
   def edit
 
-    @product = current_user.products.find(params[:id])
+    @product = Product.find(params[:id])
   end
   
   def update
-    @product = current_user.products.find(params[:id])
+    @product = Product.find(params[:id])
     @product.update_attributes(params[:product])
     @product.save!
    
@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
   end
   
   def destroy
-    product = current_user.products.find(params[:id])
+    product = Product.find(params[:id])
     vendor = product.vendor
     product.destroy
     redirect_to vendor_path(vendor)

@@ -31,7 +31,7 @@ class ProductTestsController < ApplicationController
   end
   
   def update
-    test = current_user.product_tests.find(params[:id])
+    test = ProductTest.find(params[:id])
     test.update_attributes(params[:product_test])
     test.save!
     redirect_to product_test_path(test)
@@ -68,7 +68,7 @@ class ProductTestsController < ApplicationController
   
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format
   def download
-    test = current_user.product_tests.find(params[:id])
+    test = ProductTest.find(params[:id])
     format = params[:format]
     file = Cypress::CreateDownloadZip.create_test_zip(test.id,format)
 

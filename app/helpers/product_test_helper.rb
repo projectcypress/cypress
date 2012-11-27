@@ -15,4 +15,15 @@ module ProductTestHelper
   	type || "Unkown"
   end
 
+  def group_measures_by_type(measures)
+    ret = {:proportional=>[], :continuous=>[]}
+    (measures ||[]).each do |mes|
+      if mes.population_ids["MSRPOPL"]
+        ret[:continuous] << mes
+      else
+        ret[:proportional] << mes
+      end
+    end
+    ret
+  end
 end

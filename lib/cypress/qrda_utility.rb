@@ -8,8 +8,9 @@ module Cypress
                       'NUMEX' => "numex", 'DENEX' => "exclusions",'DENEXCEP' => "exceptions", 'EXCEP' => "exceptions"}
 
     
-    CV_METHOD_CODES = ["COUNT","SUM", "AVERAGE","STDEV.S","VARIANCE.S","STDEV.P","VARIANCE.P","MIN","MAX", "MEDIAN", "MODE"]
-
+    CV_METHOD_CODES = ["OBSRV", "COUNT","SUM", "AVERAGE","STDEV.S","VARIANCE.S","STDEV.P","VARIANCE.P","MIN","MAX", "MEDIAN", "MODE"]
+    CV_POPULATION_CODE = "OBSRV"
+    
     QRDA_CAT1_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
     QRDA_CAT3_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_3"]
     QRDA_CAT1_SCHEMATRON_ROOT= QRDA_CAT1_SCHEMATRON_CONFIG["root"]
@@ -88,10 +89,9 @@ module Cypress
         entry = {}
         _ids.each_pair do |k,v|
           val = nil
-          is_cv_code = CV_METHOD_CODES.index(k)
-          if (is_cv_code)
+          if (k == CV_POPULATION_CODE)
             msrpopl = _ids["MSRPOPL"]
-            val = extract_cv_value(n,k,v,msrpopl, stratification)
+            val = extract_cv_value(n,v,msrpopl, stratification)
           else 
             val =extract_component_value(n,k,v,stratification)
           end
@@ -135,15 +135,19 @@ module Cypress
 
 
 
-  def extract_cv_value(node, code,id,msrpopl, strata = nil)
+  def self.extract_cv_value(node,id,msrpopl, strata = nil)
      xpath_observation = %{ cda:component/cda:observation[./cda:value[@code = "MSRPOPL"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{msrpopl.upcase}']]}
-     value_xpath = %{cda:entryRelationship[@typeCode="COMP" and ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.2"]]/cda:observation[./cda:methodCode[@code='#{code}']]/cda:value/@value}
      cv = node.at_xpath(xpath_observation)
-     value = nil
-     if cv
-      value = cv.at_xpath(value_xpath)
-    end
-    return value
+     return nil unless cv
+     val = nil
+     if strata
+       strata_path = %{ cda:entryRelationship[@typeCode="COMP"]/cda:observation[./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.4"]  and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{strata.upcase}']]}
+       n = cv.xpath(strata_path)
+       val = get_cv_value(n)
+     else
+       val = get_cv_value(cv)
+     end
+    return val
   end
 
   def self.extract_component_value(node, code,id,strata = nil)
@@ -175,6 +179,15 @@ module Cypress
       file_errors
     end
 
+
+    #given an observation node with an aggregate count node, return the reported and expected value within the count node
+    def self.get_cv_value(node)
+      xpath_value = 'cda:entryRelationship/cda:observation[./cda:templateId[@root="2.16.840.1.113883.10.20.27.3.2"]]/cda:value'
+      
+      value_node = node.at_xpath(xpath_value)
+      value = convert_value(value_node) if value_node
+      value
+    end
 
 
     #given an observation node with an aggregate count node, return the reported and expected value within the count node

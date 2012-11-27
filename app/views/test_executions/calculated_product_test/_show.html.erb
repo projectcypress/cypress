@@ -70,18 +70,23 @@
     </div>
  
   </div><!-- end #test_result_tabs -->
+    <% grouped_passing = group_measures_by_type(test_execution.passing_measures)
+       grouped_failing = group_measures_by_type(test_execution.failing_measures)
+    %>
       <section id="quality_measures">
         <h5><span class="pass">PASSING</span> MEASURES</h5>
         <% if test_execution.passing_measures.count == 0 %>
           <p>There are no passing measures for this test</p>
         <% else %>
-          <%= render partial: "/test_executions/calculated_product_test/results.html" , locals: {test_execution: test_execution, measures: test_execution.passing_measures} %>
+          <%= render partial: "/test_executions/calculated_product_test/results.html" , locals: {test_execution: test_execution, measures:grouped_passing[:proportional]} %>
+          <%= render partial: "/test_executions/continuous_results.html" , locals: {test_execution: test_execution, measures:grouped_passing[:continuous]} %>
         <% end %>
         <h5><span class='fail'>FAILING</span> MEASURES</h5>
         <% if test_execution.failing_measures.count == 0 %>
           <p>There are no failing measures for this test</p>
         <% else %>
-          <%= render partial: "/test_executions/calculated_product_test/results.html" , locals: {test_execution: test_execution, measures: test_execution.failing_measures} %>
+          <%= render partial: "/test_executions/calculated_product_test/results.html" , locals: {test_execution: test_execution, measures: grouped_failing[:proportional]} %>
+          <%= render partial: "/test_executions/continuous_results.html" , locals: {test_execution: test_execution, measures:grouped_failing[:continuous]} %>
         <% end %>
       </section>
 
