@@ -32,17 +32,6 @@ module Cypress
   
   class MeasureEvaluator
 
-    CODE_SYSTEM_NAME_MAPPING = {
-      "SNOMEDCT" => "SNOMED-CT",
-         "ICD9CM" => "ICD-9-CM",
-         "ICD10PCS" => "ICD-10-PCS",
-         "ICD10CM" => "ICD-10-CM",
-         "RXNORM"=>"RxNorm", 
-         "CDCREC" => "CDC Race", 
-         "HSLOC" => "HSLOC", 
-         "SOP" => "SOP"
-    }
-
     STATIC_EFFECTIVE_DATE = Time.gm(APP_CONFIG["effective_date"]["year"],
                                     APP_CONFIG["effective_date"]["month"],
                                     APP_CONFIG["effective_date"]["day"]).to_i
@@ -113,7 +102,7 @@ module Cypress
       valuesets.each do |vs|
         js[vs.oid] ||= {}
         vs.concepts.each do |con|
-          name = normailize_name(con)
+          name = con.code_system_name
           js[vs.oid][name] ||= []
           js[vs.oid][name] << con.code.downcase  unless js[vs.oid][name].index(con.code.downcase)
         end
@@ -121,21 +110,6 @@ module Cypress
 
       js.to_json
     end
-
-    def self.normailize_name(code)
-      name = nil
-      if code.code_system
-        name = HealthDataStandards::Util::CodeSystemHelper.code_system_for(code.code_system)
-      end
-      if name.nil? && HealthDataStandards::Util::CodeSystemHelper.oid_for_code_system(code.code_system_name)
-        name = code.code_system_name
-      end
-
-      if name.nil?
-        name = CODE_SYSTEM_NAME_MAPPING[code.code_system_name] || code.code_system_name
-      end
-      name
-   end
 
   end
 end

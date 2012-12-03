@@ -30,9 +30,9 @@ module PatientsHelper
   
   def result_to_class(included)
     if included
-      'class="p"'
+      'class="marker p"'
     else
-      ''
+      'class="marker"'
     end
   end
 end

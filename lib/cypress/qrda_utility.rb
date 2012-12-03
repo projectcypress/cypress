@@ -23,6 +23,7 @@ module Cypress
     QRDA_CAT3_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_error"]) )
     QRDA_CAT3_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_warning"]) )
     
+    SUPPLEMENTAL_DATA_MAPPING = {race: "", ethnicity: "", gender: "", postal_code: "", payer: ""}
     MEASURE_VALIDATORS = {}
 
 
@@ -94,6 +95,7 @@ module Cypress
             val = extract_cv_value(n,v,msrpopl, stratification)
           else 
             val =extract_component_value(n,k,v,stratification)
+      #      suppl = extract_supplemental_data(n,k,v)
           end
 
           if val.nil?
@@ -123,6 +125,23 @@ module Cypress
     end
 
   
+
+  # def self.extract_supplemental_data(n,code,id)
+  #   xpath_observation = %{ cda:component/cda:observation[./cda:value[@code = "#{code}"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{id.upcase}']]}
+  #   cv = node.at_xpath(xpath_observation)
+  #   ret = {}
+  #   SUPPLEMENTAL_DATA_MAPPING.each_pair do |supp, id| 
+  #     key_hash = {}
+  #     xpath = "cda:observation[cda:templateId[@root=#{id}]"
+  #     (doc.xpath(xpath) || []).each do |node|
+  #        value = node.at_xpath('')
+  #        count = get_aggregate_count(node)
+  #        key_hash[{code: value['code'], code_system: value['codeSystem']}] = count
+  #     end
+  #     ret[supp.to_s] = key_hash
+  #   end
+  #   ret
+  # end
 
   def self.find_measure_nodes(doc,id)
      xpath_measures = %{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"] and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }

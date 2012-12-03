@@ -6,16 +6,25 @@ class InpatientProductTest < ProductTest
   
   def generate_population
     self.expected_results = {}
-
-    Record.where({test_id: nil, type: :eh}).in(measure_ids: measure_ids).each do |rec|
+    medical_record_number_mapping = {}
+    rand_prefix = Time.new.to_i
+    Record.where({test_id: nil, type: :eh}).in(measure_ids: measure_ids).each_with_index do |rec,index|
       cloned = rec.clone
       cloned.test_id = self.id
+      mrn = cloned.medical_record_number
+      new_mrn = "#{rand_prefix}#{index}"
+      medical_record_number_mapping[mrn] = new_mrn
+      cloned.medical_record_number = new_mrn
+
       cloned.save
     end 
 
     Result.where("value.test_id" => nil).in("value.measure_id" => measure_ids).each do |res|
       cloned = res.clone
       cloned.value["test_id"] = self.id
+      mrn = cloned.value["medical_record_id"]
+      new_mrn = medical_record_number_mapping[mrn]
+      cloned.value["medical_record_id"] = new_mrn
       cloned.save
     end
 
