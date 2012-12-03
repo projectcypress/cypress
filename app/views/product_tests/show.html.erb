@@ -42,11 +42,57 @@
   <div class ="buffered">
     <section class="tb">
       <div class="stacked">
-
         <%= link_to "Edit Test", edit_product_test_path(@test), { :class => "cmd" } %>
-
-
+        <a class="cmd" href="#viewTestMeasures" data-toggle="modal" data-backdrop="static" data-keyboard="true">View Test Measures</a>
       </div>
+
+      <!-- sample dialog listing measures selected for the test -->
+      <div id="viewTestMeasures" class="modal hide fade" style="width:800px;margin-left:-400px">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">&times;</a>
+          <h3><%= @test.name %></h3>
+        </div>
+        <div class="modal-body">
+          <h3 style="margin-bottom:10px">Included quality measures</h3>
+          <h4>Behavioral Health Adult</h4>
+          <ul>
+            <li>0004 - Initiation and Engagement of Alcohol and Other Drug Dependence Treatment</li>
+            <li>0104 - Major Depressive Disorder (MDD): Suicide Risk Assessment</li>
+            <li>0105 - Anti-depressant Medication Management</li>
+            <li>0110 - Bipolar Disorder and Major Depression: Appraisal for alcohol or chemical substance use</li>
+            <li>0710 - Depression Remission at Twelve Months</li>
+            <li>0712 - Depression Utilization of the PHQ-9 Tool</li>
+            <li>1401 - Maternal Depression Screening</li>
+          </ul>
+          <h4>Core Adult measures</h4>
+          <ul>
+            <li>0018 - Controlling High Blood Pressure</li>
+            <li>0022 - Use of High-Risk Medications in the Elderly</li>
+            <li>0028 - Preventive Care and Screening: Tobacco Use: Screening and Cessation Intervention</li>
+            <li>0052 - Use of Imaging Studies for Low Back Pain</li>
+            <li>0419 - Documentation of Current Medications in the Medical Record</li>
+            <li>0421 - Preventive Care and Screening: Body Mass Index (BMI) Screening and Follow-Up</li>
+          </ul>
+          <h4>General Practice Pediatric measures</h4>
+          <ul>
+            <li>0036 - Use of Appropriate Medications for Asthma</li>
+            <li>0041 - Preventive Care and Screening: Influenza Immunization</li>
+          </ul>
+          <h4>Heart measures</h4>
+          <ul>
+            <li>0068 - Ischemic Vascular Disease (IVD): Use of Aspirin or Another Antithrombotic</li>
+            <li>0070 - Coronary Artery Disease (CAD): Beta-Blocker Therapy—Prior Myocardial Infarction (MI) or Left Ventricular Systolic Dysfunction (LVEF <40%)</li>
+            <li>0075 - Ischemic Vascular Disease (IVD): Complete Lipid Panel and LDL Control</li>
+            <li>0081 - Heart Failure (HF): Angiotensin-Converting Enzyme (ACE) Inhibitor or Angiotensin Receptor Blocker (ARB) Therapy for Left Ventricular Systolic Dysfunction (LVSD)</li>
+            <li>0083 - Heart Failure (HF): Beta-Blocker Therapy for Left Ventricular Systolic Dysfunction (LVSD)</li>
+            <li>ADE_TTR - ADE Prevention and Monitoring: Warfarin Time in Therapeutic Range</li>
+            <li>FSACHF - Functional Status Assessment for Complex Chronic Conditions</li>
+          </ul>
+        </div>
+      <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn secondary">Close</a>
+      </div>
+    </div>
 
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
