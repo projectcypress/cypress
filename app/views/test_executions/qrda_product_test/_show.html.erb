@@ -4,7 +4,9 @@
     <li class=""><a href="#xml_validation_errors" data-toggle="tab">XML Errors</a></li>
     <li class=""><a href="#xml_validation_warnings" data-toggle="tab">XML Warnings</a></li>
 
-    <%= link_to "Download", download_test_execution_path(test_execution), title: "Download the results of this test execution", class: "cmd pull-right" %>    
+    <% if !test_execution.new_record %>
+    <%= link_to "Download", download_test_execution_path(test_execution.id), title: "Download the results of this test execution", class: "cmd pull-right" %>
+    <% end %> 
   </ul>
   <div id="test_result_tabs" class="tab-content">
     <div class="tab-pane active" id="test_summary">
