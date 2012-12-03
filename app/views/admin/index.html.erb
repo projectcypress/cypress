@@ -1,0 +1,63 @@
+<div id="container">
+  <%= render :partial=>"shared/header" %>
+
+    <div class ="buffered">
+    <section class="tb">
+      <div class="stacked">
+      </div>
+      <nav class="breadcrumb">
+      </nav>
+    </section>
+
+
+
+  <div >
+  <%= form_tag :action => 'update_value_sets'  do %>
+
+  <table>
+  	<tr>
+  		<td> <%= submit_tag "Update Valuesets" %> </td>
+  		<td> NLM Username: <%= text_field_tag :username %> </td> 
+  		<td> NLM Password: <%= password_field_tag :password %> </td> 
+
+  	</tr>
+  </table>
+
+  <% end %>
+  
+
+  <%= form_tag({:action => 'import_bundle'}, :multipart => true ) do %>
+  <table>
+  	<tr>
+  		<td> <%= submit_tag "Import Bundle" %> </td>
+  		<td> <span> Clear Existing</span><%= check_box_tag "Clear Existing", :clear_existing %> </td> 
+  		<td> <%= file_field_tag  :bundle %> </td>
+  	</tr>
+  </table>
+ <% end %>
+
+   </div>
+
+   <div>
+   	<span>Jobs </span>
+
+   	<% @jobs.each do |job| %>
+   		<table width="100%">
+   			<thead><th>Id</th><th>Attempts</th><th>Status</th><th>Type</th><th>Created</th><th>Locked At</th><th>Worker</th><th>Last Error</th></thead>
+   			<tr>
+   				<td><%= job.id %></td>
+   				<td><%= job.attempts %></td>
+   				<td></td>
+   				<td> <%= job["type"] %></td>
+   				<td><%= job.created_at %></td>
+
+   				<td><%= job.locked_at %></td>
+   				<td><%= job.locked_by %></td>
+   				<td><%= job.last_error %></td>
+
+   				</tr>
+   		</table>
+   	<% end %>
+
+   </div>
+</div>

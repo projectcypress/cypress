@@ -1,0 +1,57 @@
+
+<div id="container">
+  <%= render :partial=>"shared/header" %>
+
+
+    <div class ="buffered">
+    <section class="tb">
+      <div class="stacked">
+      </div>
+
+      <nav class="breadcrumb">
+        <%= link_to "Admin", "/admin" %>
+      </nav>
+    </section>
+
+
+  <div id="pageContent">
+<h1>Users</h1>
+<table id="patientTable">
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Username</th>
+
+    <th>Administrator</th>
+
+    <th>Approved</th>
+    <th>Status</th>
+  </tr>
+  <% @users.each do |user| -%>
+  <tr>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= user.email %></td>
+    
+    <td>
+      <% if user.admin? -%>
+      Yes - <a href="#" class="demote" data-role="admin" data-username="<%= user.email %>">revoke</a>
+      <% else -%>
+      No - <a href="#" class="promote" data-role="admin" data-username="<%= user.email %>">grant</a>
+      <% end -%>
+    </td>
+   
+    <td>
+      <% if user.approved? -%>
+      true
+      <% else -%>
+      <a href="#" class="approve" data-username="<%= user.email %>">approve</a>
+      <% end -%>
+    </td>
+    <td>
+      <a href="#" class="<%= (user.disabled?) ? 'disable' : 'enable'%>" data-username="<%= user.email %>"><%= (user.disabled?) ? 'disabled' : 'enabled'%></a>
+    </td>
+  </tr>
+  <% end -%>
+</table>
+</div></div>

@@ -3,6 +3,7 @@ class UserMailer < ActionMailer::Base
   
   # Send all of the Records for a given ProductTest in a particular file format
   def send_records(test, format,email)
+
     @test = test
     @product = @test.product
     @vendor = @product.vendor
@@ -21,7 +22,6 @@ class UserMailer < ActionMailer::Base
     mail(:to =>email, :subject => "Cypress test patients for #{@test.name}", :reply_to => @test.user.email)
     
     # The records_file will clean up eventually, but let's do it now
-    records_file.close
-    records_file.unlink
+   
   end
 end

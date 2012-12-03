@@ -20,8 +20,8 @@ include Devise::TestHelpers
   
   
   test "show" do
-    pending "wrong place for this to be. needs to be reimplemented in product_execution not measure controller" do
-      m1 = Measure.where(:id => '0001').first
+   
+      m1 = Measure.find( '4fdb62e01d41c820f6000003')
       pt = ProductTest.find("4f58f8de1d41c851eb000478")
       get :show, {:product_test_id=> pt.id,:id => m1.id,:format=>"html"}
       assert_response :success
@@ -34,8 +34,8 @@ include Devise::TestHelpers
       assert test.id.to_s   == "4f58f8de1d41c851eb000478"
       assert product.id.to_s== "4f57a88a1d41c851eb000004"
       assert vendor.id.to_s == "4f57a8791d41c851eb000002"
-      assert measures.count  == pt.count_measures
-   end
+      assert measures.count  == pt.measure_ids.length
+   
   end
 
 

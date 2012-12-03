@@ -6,7 +6,6 @@
   <sch:ns prefix="cda" uri="urn:hl7-org:v3" />
   <sch:ns prefix="sdtc" uri="urn:hl7-org:sdtc" />      
   <sch:phase id="errors">
-    <sch:active pattern="p-sdtc-errors" />
     <sch:active pattern="p-sdtc-errors-code" />
     <sch:active pattern="p-sdtc-errors-value" />
     <sch:active pattern="p-2.16.840.1.113883.10.20.24.3.104-errors" />
@@ -294,16 +293,6 @@
     <sch:active pattern="p-2.16.840.1.113883.10.20.22.4.46-warnings" />
     <sch:active pattern="p-2.16.840.1.113883.10.20.22.4.47-warnings" />
   </sch:phase>
-  <sch:pattern id="p-sdtc-errors">
-    <sch:rule id="r-sdtc-errors-abstract" abstract="true">
-      <sch:let name="vs" value="@sdtc:valueSet" />
-      <sch:let name="vsFileName" value="concat(@sdtc:valueSet,'.xml')" />
-      <sch:assert id="a-sdtc-valueset" test="not(@sdtc:valueSet) or @code=document($vsFileName)/svs:RetrieveValueSetResponse/svs:ValueSet[@id=$vs]/svs:ConceptList/svs:Concept/@code">@code is not in the list for valueset with OID of <sch:value-of select="$vs" /> or <sch:value-of select="$vsFileName" /> is not a valid file.</sch:assert>
-    </sch:rule>
-    <sch:rule id="r-sdtc-errors" context="cda:code | cda:value">
-      <sch:extends rule="r-sdtc-errors-abstract" />
-    </sch:rule>    
-  </sch:pattern>
   <sch:pattern id="p-sdtc-errors-code">
     <sch:rule id="r-sdtc-errors-abstract-code" abstract="true">
       <sch:assert id="a-sdtc-code-codeSystem-exists" test="(current()[@codeSystem or @nullFlavor])">@codeSystem or @nullFlavor is required for code element.</sch:assert>

@@ -7,7 +7,7 @@ class Measure
   field :subtitle, type: String
   field :short_subtitle, type: String
   field :hqmf_id, type: String
-  field :set_id, type: String
+  field :hqmf_set_id, type: String
   field :nqf_id, type: String
   field :type, type: String
   field :category, type: String
@@ -49,7 +49,16 @@ class Measure
     "#{self['nqf_id']} - #{name}"
   end
   
+
+  def set_id
+    self.hqmf_set_id
+  end
+
   def measure_id
     self['id']
+  end
+
+  def continuous?
+    population_ids["MSRPOPL"]
   end
 end

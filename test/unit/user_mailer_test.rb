@@ -28,9 +28,10 @@ class UserMailerTest < ActionMailer::TestCase
     # Check that we get the appropriate attachment for every file format we might send
     formats = ["c32", "ccr",  "html"]
     formats.each do |format|
+
       # Make sure we have any attachment at all
       mail = UserMailer.send_records(test, format, test.product.vendor.email)
-      assert_equal mail.attachments.size, 1
+      assert_equal mail.attachments.size, 1, "cannot create attachment for format #{format}"
       
       # Make sure the attachment at least has the right file type and filename
       header = mail.attachments.first.header.to_s
