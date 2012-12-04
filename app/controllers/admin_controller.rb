@@ -2,9 +2,13 @@ class AdminController < ApplicationController
   before_filter :authenticate_user!
   before_filter :validate_authorization!
 
-	
+  add_breadcrumb 'Dashboard',"/"
+	add_breadcrumb 'Admin',"/admin/index"
+  add_breadcrumb "Valuesets", '', :only=>"valuesets"
+  add_breadcrumb "Users", '', :only=>"users"
+
 	def index
-		@jobs = Delayed::Job.where({queue: :admin, type: :vs_update})
+		@jobs = AdminValuesetJob.all
 	end
 
 
@@ -18,32 +22,59 @@ class AdminController < ApplicationController
 		bundle = params[:bundle]
 		importer = QME::Bundle::Importer.new
 	  @bundle_contents = importer.import(bundle, params[:delete_existing])    
-
+    redirect_to :action=>:index
 	end
 
 
 	def update_value_sets
-		@job = Delayed::Job.where({queue: :admin, type: :vs_update}).first
+    if Bundle.count == 0
+      flash[:errors]= "Cannot install/update valuesets until a bundle has been installed"
+      redirect_to :action=>:index
+      return
+    end
+
+		@job = AdminValuesetJob.where({}).ne({status: ["Waiting", "Running"]}).first
 
 		unless @job
 
-			job_log = AdminJob.new
-			job_log.save
-			
-			payload = Cypress::ValuesetUpdateJob.new({username: params[:username],
-																								password: params[:password],
-																								clear: params[:clear],
-																								status_reporter: job_log})
+			@job = AdminValuesetJob.new
+			@job.save
+			@job.delay({attempts: Delayed::Worker.max_attempts-1, queue: :admin}).update_valuesets(params[:username],params[:password],params[:clear])
 
-			@job= Delayed::Job.enqueue({payload_object:  payload, type: :vs_update, queue: :admin})
 		end
 		redirect_to :action=>:index
 	end
 
-	def job
-		@job = AdminJob.find(params[:id])
-	end
+  def job
+    @job = AdminValuesetJob.find(params[:id])
+  end
 
+  def delete_job
+    @job = AdminValuesetJob.find(params[:id])
+    @job.delete
+    flash[:message]= "Job (#{@job.id }) Deleted"
+    redirect_to :action=>:index
+  end
+
+  def valuesets
+    query = []
+    search = params[:search] || ""
+    if !search.empty?
+      query = [{display_name:/#{search}/i},{oid:/#{search}/i}]
+    end
+    @page = params[:page] || 1
+    @limit = 100
+    @skip = (@page.to_i - 1) * @limit
+  
+    @valuesets = HealthDataStandards::SVS::ValueSet.or(query).skip(@skip).limit(@limit)
+    @page_count =  (@valuesets.count.to_f / @limit.to_f).ceil
+   
+
+  end
+
+  def valueset
+    @valueset = HealthDataStandards::SVS::ValueSet.find(params[:id])
+  end
 
   def promote
     toggle_privilidges(params[:username], params[:role], :promote)

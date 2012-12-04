@@ -5,12 +5,18 @@
     <section class="tb">
       <div class="stacked">
       </div>
-      <nav class="breadcrumb">
+       <nav class="breadcrumb">
+        <%= render :partial=>"shared/breadcrumbs" %>
       </nav>
     </section>
-
-
-
+    <%= flash[:errors]  %>
+<div>
+  <h4> Installed Bundles </h4>
+  <ul>
+  <% Bundle.all.each do |bundle| %>
+    <li><%= bundle.title %>  -  <%= bundle.version %> </li>
+  <% end %>
+  </ul>
   <div >
   <%= form_tag :action => 'update_value_sets'  do %>
 
@@ -43,18 +49,15 @@
 
    	<% @jobs.each do |job| %>
    		<table width="100%">
-   			<thead><th>Id</th><th>Attempts</th><th>Status</th><th>Type</th><th>Created</th><th>Locked At</th><th>Worker</th><th>Last Error</th></thead>
+   			<thead><th>Id</th><th>Status</th><th>Type</th><th>Created</th><th>Locked At</th><th>Worker</th><th>Last Error</th></thead>
    			<tr>
    				<td><%= job.id %></td>
-   				<td><%= job.attempts %></td>
-   				<td></td>
-   				<td> <%= job["type"] %></td>
-   				<td><%= job.created_at %></td>
+   				<td><%= job.status %></td>
 
-   				<td><%= job.locked_at %></td>
-   				<td><%= job.locked_by %></td>
-   				<td><%= job.last_error %></td>
-
+   				<td><%= job.percentage_complete %></td>
+   				<td> <%= job.log_messages.last ? job.log_messages.last["message"] : "" %></td>
+   				<td><%= job.failure_message %></td>
+            <td><%= link_to "Delete", {:action=>:delete_job, :id => job} %></td>
    				</tr>
    		</table>
    	<% end %>

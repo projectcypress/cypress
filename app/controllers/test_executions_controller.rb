@@ -1,8 +1,5 @@
 class TestExecutionsController < ApplicationController  
-  def new
-    @test_execution = TestExecution.new
-    render template: "test_executions/#{template_name(te)}/new.html"
-  end
+
   
   def show
     @test_execution = TestExecution.find(params[:id])
@@ -32,10 +29,8 @@ class TestExecutionsController < ApplicationController
   
   def download
     test_execution = TestExecution.find(params[:id])
-
     zip = Cypress::PatientZipper.zip_artifacts(test_execution)    
     zip_name = "#{test_execution.product_test.name}-#{test_execution.id}.zip"
-
     send_file zip.path, :type => 'application/zip', :disposition => 'attachment', :filename => zip_name
   end
   

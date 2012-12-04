@@ -18,8 +18,11 @@ module Cypress
       pdf_generator = Cypress::PdfGenerator.new(test_execution)
       pdf = pdf_generator.generate(zip_path)
 
-      vendor_uploaded_results = test_execution.files[0].data.force_encoding("UTF-8")
-      File.open(File.join(zip_path, "vendor-uploaded-results.xml"), "w") {|file| file.write(vendor_uploaded_results)}
+
+      if  test_execution.files.length >0 
+        vendor_uploaded_results = test_execution.files[0].data.force_encoding("UTF-8")
+        File.open(File.join(zip_path, "vendor-uploaded-results.xml"), "w") {|file| file.write(vendor_uploaded_results)}
+      end 
 
       Zip::ZipFile.open("#{zip_path}.zip", Zip::ZipFile::CREATE) do |zip|
         Dir[File.join(records_path, "**", "**")].each do |file|
@@ -27,7 +30,9 @@ module Cypress
           zip.add(filename, file)
         end
         zip.add("test-execution-results.pdf", pdf)
-        zip.add("vendor-uploaded-results.xml", File.join(zip_path, "vendor-uploaded-results.xml"))
+        if  test_execution.files.length >0 
+          zip.add("vendor-uploaded-results.xml", File.join(zip_path, "vendor-uploaded-results.xml"))
+        end
       end
 
       # Move the zip to a tempfile so the system will delete it for us. Then delete the temporary record directory we made.

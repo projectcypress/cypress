@@ -12,6 +12,7 @@ class Measure
   field :type, type: String
   field :category, type: String
   field :population_ids , type: Hash
+  field :oids, type: Array 
 
   scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
   scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})

@@ -1,5 +1,5 @@
 module Cypress
-	class ValuesetUpdateJob
+	class ValuesetUpdater
 
 		attr_reader :options
 
@@ -7,16 +7,13 @@ module Cypress
 		  @options = options
 		end
 
-		def before(job, args)
-			@job = job
-		end
 
 		def perform
 	   if options[:clear]
 	      HealthDataStandards::SVS::ValueSet.all.delete()
 	    end
 
-	    status_reporter = options[:status_reporter] || STDOUTReporter.new
+	    status_reporter = options[:logger] || STDOUTReporter.new
 	   
 	    valuesets =  Measure.all.collect {|m| m.oids}
 
@@ -37,7 +34,9 @@ module Cypress
 	    errors = {}
 	    api = HealthDataStandards::Util::VSApi.new(nlm_config["ticket_url"],nlm_config["api_url"],options[:username],options[:password])
 	    RestClient.proxy = options[:http_proxy] || ENV["http_proxy"]
-	    valuesets.each_with_index do |oid,index| 
+	    api.get_proxy_ticket
+
+	    valuesets.each_with_index do |oid,index| 	
 	      begin
 
 	        vs_data = api.get_valueset(oid) 
@@ -63,10 +62,10 @@ module Cypress
 	           vs.save!
 	          end
 	        else
-	          status_reporter.error(oid,"NOT FOUND")
+	          status_reporter.log(:error, " #{oid} NOT FOUND")
 	        end
 	      rescue 
-	        status_reporter.error(oid, $!.message)
+	        status_reporter.log(:error, "#{oid} - #{$!.message}")
 	      end
 	      status_reporter.processed(oid)
 	      
@@ -81,21 +80,22 @@ module Cypress
 		attr_accessor :processed_oids
 
 	 	def initialize()
-	 		@errors = {}
+	 		@messages = {}
 	 		@processed_oids = []
 	 	end
 
-		def error(oid, message)
-			errors[oid] = message
+		def log(type, oid, message)
+			 messages << {type: type, message: message}
 		end
 
 		def finished
-		 	if !errors.empty?
+			errors = messages.select{|m| m.type == :error}
+		 	if !errors.empty
 	      File.open("oid_errors.txt", "w") do |f|
 	        f.puts errors.to_yaml
 	      end
 	      puts ""
-	      puts "There were errors retreiveing #{errors.keys.length} valuesets. Cypress May not work correctly without thses valusets installed."
+	      puts "There were errors retreiveing #{errors.length} valuesets. Cypress May not work correctly without thses valusets installed."
 	      puts "A list of the valueset OIDs that were unable to be retrieved have been written to the file oid_errors.txt"
    		end
 		end

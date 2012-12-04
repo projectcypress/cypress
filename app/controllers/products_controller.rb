@@ -22,7 +22,6 @@ class ProductsController < ApplicationController
   end
   
   def edit
-
     @product = Product.find(params[:id])
   end
   
@@ -40,8 +39,5 @@ class ProductsController < ApplicationController
     product.destroy
     redirect_to vendor_path(vendor)
   end
-  
-  
-  
-  
+
 end

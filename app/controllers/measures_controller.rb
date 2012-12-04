@@ -108,8 +108,7 @@ class MeasuresController < ApplicationController
   
   private
   
-  
-  
+
   def find_product
     if @test.nil?
       @product = Product.find(params[:id]) if params[:id]
@@ -135,9 +134,5 @@ class MeasuresController < ApplicationController
       @execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
     end
   end
-  
-  
-  
-
 
 end

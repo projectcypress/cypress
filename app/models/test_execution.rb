@@ -42,7 +42,7 @@ class TestExecution
   end
 
   def execution_date
-    self.created_at
+     self.created_at || Time.at(self['execution_date'])
   end
 
   def count_errors

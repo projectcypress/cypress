@@ -5,6 +5,7 @@ gem 'rails', '3.2.9'
 gem 'jquery-rails'
 gem 'rake'
 
+
 gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
 #gem 'quality-measure-engine', '~> 2.1.0'
 gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
@@ -28,10 +29,11 @@ gem  "pdf-reader", '0.9.0'
 
 gem 'thin'
 
+
 gem 'cancan', '~> 1.6.7'
 
 
-gem 'mongoid-grid_fs', '~> 1.3.3' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
+gem 'mongoid-grid_fs', '~> 1.7.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
 
 # Windows doesn't have syslog, so need a gem to log to EventLog instead
 gem 'win32-eventlog', :platforms => [:mswin, :mingw]
@@ -44,7 +46,7 @@ end
 
 group :test, :develop do
 	gem 'pry'
-  #gem 'pry-debugger'
+  gem 'pry-debugger'
   gem 'turn', :require => false
   gem 'minitest'
   gem "tailor"

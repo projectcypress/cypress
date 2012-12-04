@@ -9,4 +9,11 @@ class ProductTestHelperTest < ActionView::TestCase
     assert result_class(1,1) == 'pass'
   end  
 
+
+  test "Group measures by type" do
+  	groups = group_measures_by_type(Measure.all)
+    assert_equal 1, groups[:continuous].length,  "Should contain 1 CV measure"
+    assert_equal 6, groups[:proportional].length, "Should contain 6 non CV measures"
+  end  
+
 end

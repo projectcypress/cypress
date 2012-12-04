@@ -3,7 +3,6 @@ class CalculatedProductTest < ProductTest
   state_machine :state do
     
     after_transition any => :generating_records do |test|
-
       min_set = PatientPopulation.min_coverage(test.measure_ids)
       p_ids = min_set[:minimal_set]
 
