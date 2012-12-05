@@ -4,8 +4,6 @@ module Cypress
   class QrdaUtility
 
 
-    POPULATION_CODE_MAPPINGS = {'NUMER' => "numerator", 'DENOM' => "denominator",'IPP' => "population", 'MSRPOPL' => "msrpopl" , 
-                      'NUMEX' => "numex", 'DENEX' => "exclusions",'DENEXCEP' => "exceptions", 'EXCEP' => "exceptions"}
 
     
     CV_METHOD_CODES = ["OBSRV", "COUNT","SUM", "AVERAGE","STDEV.S","VARIANCE.S","STDEV.P","VARIANCE.P","MIN","MAX", "MEDIAN", "MODE"]
@@ -111,15 +109,6 @@ module Cypress
         end
       end  
       return nil unless results
-
-        if results
-          POPULATION_CODE_MAPPINGS.each_pair do |k,v|
-            if results[k]
-              results[v] = results[k]
-              results.delete(k)
-            end
-        end
-      end
       results[:population_ids] = ids.dup
       results
     end

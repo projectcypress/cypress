@@ -4,11 +4,11 @@ class ResultValue
 
   embedded_in :result_value, class_name: "Result", inverse_of: :value
 
-  field :denominator, type: Integer
-  field :numerator, type: Integer
-  field :exclusions, type: Integer
+  field :DENOM, type: Integer
+  field :NUMER, type: Integer
+  field :DENEX, type: Integer
   field :antinumerator, type: Integer
-  field :population, type: Integer
+  field :IPP, type: Integer
   field :measure_id, type: String
   field :sub_id, type: String
   

@@ -45,7 +45,7 @@ class MeasuresController < ApplicationController
     @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure.hqmf_id, "value.sub_id" => @measure.sub_id)
    
 
-    @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
+    @patients = @patients.order_by([["value.NUMER", :desc],["value.DENOM", :desc],["value.DENEX", :desc]])
   end
 
   
@@ -71,10 +71,10 @@ class MeasuresController < ApplicationController
     
     # Use the relevant results to build @coverage of each measure
     @coverage = {}
-    buckets = ["denominator", "numerator", "exclusions", "antinumerator"]
+    buckets = ["DENOM", "NUMER", "DENEX", "antinumerator"]
     results.each do |result|
       # Skip results that don't fall into any of the buckets
-      next if !result.value['numerator'] && !result.value['denominator'] && !result.value['antinumerator'] && !result.value['exclusions']
+      next if !result.value['NUMER'] && !result.value['DENOM'] && !result.value['antinumerator'] && !result.value['DENEX']
       
       # Identify the measure to which this result is referring
       measure = "#{result.value.measure_id}#{result.value.sub_id}".to_s

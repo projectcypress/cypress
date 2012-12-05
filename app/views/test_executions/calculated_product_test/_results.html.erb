@@ -23,13 +23,10 @@
                    <%= " - #{measure.subtitle}" if measure.sub_id %>
                  </a>
                </td>
-               <td>
-                <%  reported_class = result_class(reported_result["population"],expected_result["population"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["population"]%>/<%=expected_result["population"]%></span>
-               </td>
-                <%{"DENOM" =>"denominator","DENEX"=>"exclusions","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep"}.each_pair do |code, bucket|
-                  expected = expected_result[bucket] 
-                  reported = reported_result[bucket]
+ 
+                <%["IPP","DENOM","DENEX","NUMER","NUMEX","DENEXCP"].each do |code|
+                  expected = expected_result[code] 
+                  reported = reported_result[code]
               
                  if !expected_result["population_ids"][code] 
                    expected = nil

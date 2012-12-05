@@ -73,8 +73,8 @@ class CalculatedProductTest < ProductTest
       _ids.delete("stratification")
 
       
-      _ids.keys.each do |pop_id| 
-         pop_key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
+      _ids.keys.each do |pop_key| 
+         #pop_key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
         if expected_result[pop_key]
           matched_result[pop_key] = {:expected=>expected_result[pop_key], :reported=>reported_result[pop_key]}
           # only add the error that they dont match if there was an actual result

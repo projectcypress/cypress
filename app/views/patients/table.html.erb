@@ -56,14 +56,14 @@
       <% if patient.value.population %>
         <tr>
          <% if !@selected.population_ids["MSRPOPL"] %>
-          <td class="marker <%= 'p' if patient.value["population"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["denominator"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["numerator"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["exclusions"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["denexcep"] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value["IPP"] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value["DENOM"] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value["NUMER"] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value["DENEX"] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value["DENEXCEP"] == 1%>"></td>
           <td class="marker <%= 'p' if patient.value["antinumerator"] == 1%>"></td>
       <% else %>
-          <td class="marker <%= 'p' if patient.value["population"] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value["IPP"] == 1%>"></td>
           <td class="marker <%= 'p' if patient.value["MSRPOPL"] == 1%>"></td>
       <% end %>
           <td></td>

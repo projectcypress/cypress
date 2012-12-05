@@ -40,7 +40,7 @@ module Cypress
     def self.eval(test, measure, asynchronous = true)
       report = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
         {'effective_date' => test.effective_date, 'test_id' => test.id.to_s})
-      result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
+      result = {'NUMER' => '?', 'DENOM' => '?', 'DENEX' => '?'}
       
       test.result_calculation_jobs = {} if test.result_calculation_jobs.nil?
       measure_id = measure.id.to_s
@@ -79,7 +79,7 @@ module Cypress
     def self.eval_for_static_records(measure, asynchronous = true)
       report = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
         {'effective_date' => STATIC_EFFECTIVE_DATE, 'test_id' => nil})
-      result = {'numerator' => '?', 'denominator' => '?', 'exclusions' => '?'}
+      result = {'NUMER' => '?', 'DENOM' => '?', 'DENEX' => '?'}
       
       if report.calculated?
         result = report.result

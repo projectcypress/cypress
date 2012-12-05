@@ -19,6 +19,7 @@ class AdminController < ApplicationController
 
 
 	def import_bundle
+    binding.pry
 		bundle = params[:bundle]
 		importer = QME::Bundle::Importer.new
 	  @bundle_contents = importer.import(bundle, params[:delete_existing])    

@@ -29,14 +29,14 @@ class PatientsController < ApplicationController
     # If a ProductTest is specified, show results for only the patients included in that population
     # Otherwise show the whole Master Patient List
     if @showAll
-      @result = {'measure_id' => '-', 'numerator' => '-', 'antinumerator' => '-', 'denominator' => '-', 'exclusions' => '-'}
+      @result = {'measure_id' => '-', 'NUMER' => '-', 'antinumerator' => '-', 'DENOM' => '-', 'DENEX' => '-'}
     else
       if params[:product_test_id]
         if @measures.include?(@selected)
           @result = Cypress::MeasureEvaluator.eval(@test, @selected)
         else
           # If the selected measure wasn't chosen to be part of the test, return zeroed results
-          @result = {'measure_id' => @selected.id, 'numerator' => '0', 'antinumerator' => 0, 'denominator' => '0', 'exclusions' => '0'}
+          @result = {'measure_id' => @selected.id, 'NUMER' => '0', 'antinumerator' => 0, 'DENOM' => '0', 'DENEX' => '0'}
         end
       else
         @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected)
