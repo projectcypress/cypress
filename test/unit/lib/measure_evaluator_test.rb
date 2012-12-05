@@ -15,10 +15,10 @@ class MeasureEvaluatorTest < ActiveSupport::TestCase
 
     @result = {"measure_id" => @measure['id'],
                "effective_date" => 1293753600,
-               "denominator" => 48,
-               "numerator" => 44,
+               "DENOM" => 48,
+               "NUMER" => 44,
                "antinumerator" => 4,
-               "exclusions" => 0 }
+               "DENEX" => 0 }
     @test = ProductTest.find("4f58f8de1d41c851eb000478")
   end
 
@@ -28,10 +28,10 @@ class MeasureEvaluatorTest < ActiveSupport::TestCase
     
     result = Cypress::MeasureEvaluator.eval(@test, @measure)
     
-    assert result['numerator']    == 44, "Measure Evaluator reported wrong result for a measure"
-    assert result['denominator']  == 48, "Measure Evaluator reported wrong result for a measure"
-    assert result['exclusions']   == 0 , "Measure Evaluator reported wrong result for a measure"
-    assert result['antinumerator']== 4 , "Measure Evaluator reported wrong result for a measure"
+    assert result['NUMER']    == 44, "Measure Evaluator reported wrong NUMER result for a measure"
+    assert result['DENOM']  == 48, "Measure Evaluator reported wrong DENOM result for a measure"
+    assert result['DENEX']   == 0 , "Measure Evaluator reported wrong DENEX result for a measure"
+    assert result['antinumerator']== 4 , "Measure Evaluator reported wrong antinumerator result for a measure"
   end
   
   test "resque jobs are created for uncalculated measures" do
@@ -39,24 +39,23 @@ class MeasureEvaluatorTest < ActiveSupport::TestCase
     QME::QualityReport.any_instance.stubs(:calculate).returns("123456") # A fake resque job uuid
     QME::QualityReport.any_instance.stubs(:status).returns("working")
     
-    assert @test.result_calculation_jobs.empty?
     result = Cypress::MeasureEvaluator.eval(@test, @measure)
     
-    assert_equal @test.result_calculation_jobs.size, 1
-    assert result['numerator']    == '?',  "Expecting numerator " + result['numerator']
-    assert result['denominator']  == '?',  "Expecting denominator " + result['denominator']
-    assert result['exclusions']   == '?' , "Expecting exclusions " + result['exclusions']
+
+    assert result['NUMER']    == '?',  "Expecting numerator  == ? " + result['NUMER']
+    assert result['DENOM']  == '?',  "Expecting denominator  == ? " + result['DENOM']
+    assert result['DENEX']   == '?' , "Expecting exclusions == ?" + result['DENEX']
   end
 
   test "results are returned for calculated measures on static records" do
     QME::QualityReport.any_instance.stubs(:result).returns(@result)
     QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
-    
+
     result = Cypress::MeasureEvaluator.eval_for_static_records(@measure)
     
-    assert result['numerator']    == 44, "Measure Evaluator reported wrong result for a measure"
-    assert result['denominator']  == 48, "Measure Evaluator reported wrong result for a measure"
-    assert result['exclusions']   == 0 , "Measure Evaluator reported wrong result for a measure"
+    assert result['NUMER']    == 44, "Measure Evaluator reported wrong result for a measure"
+    assert result['DENOM']  == 48, "Measure Evaluator reported wrong result for a measure"
+    assert result['DENEX']   == 0 , "Measure Evaluator reported wrong result for a measure"
     assert result['antinumerator']== 4 , "Measure Evaluator reported wrong result for a measure"
   end
   
@@ -66,8 +65,8 @@ class MeasureEvaluatorTest < ActiveSupport::TestCase
     
     result = Cypress::MeasureEvaluator.eval_for_static_records(@measure)
     
-    assert result['numerator']    == '?',  "Expecting numerator " + result['numerator']
-    assert result['denominator']  == '?',  "Expecting denominator " + result['denominator']
-    assert result['exclusions']   == '?' , "Expecting exclusions " + result['exclusions']
+    assert result['NUMER']    == '?',  "Expecting numerator " + result['NUMER']
+    assert result['DENOM']  == '?',  "Expecting denominator " + result['DENOM']
+    assert result['DENEX']   == '?' , "Expecting exclusions " + result['DENEX']
   end
 end

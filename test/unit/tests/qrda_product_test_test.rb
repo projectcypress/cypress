@@ -9,7 +9,7 @@ class QRDAProductTestTest  < ActiveSupport::TestCase
 
   test "should be able to retrieve eh measures for test creation" do 
     measures = QRDAProductTest.product_type_measures
-    assert_equal Measure.count, measures.count, "Measure count incorrect"
+    assert_equal Measure.top_level.count, measures.count, "Measure count incorrect"
     
   end
 
