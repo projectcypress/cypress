@@ -54,9 +54,9 @@ module Cypress
 
           # Look in the document to see if there is an entry stating that it is reporting on the given measure
           # we will be a bit lieniant and look for both the version specific id and the non version specific ids
+          if !doc.at_xpath("//cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.98']]/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']/cda:id[#{translate("@root")}='#{measure.hqmf_id.upcase}']")
+            file_errors << ExecutionError.new(:location=>"/", :msg_type=>"error", :message=>"Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.name}")
 
-          if !doc.at_xpath("//cda:organizer[./templateId[@root='2.16.840.1.113883.10.20.24.3.98']]/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']/cda:id[#{translate("@root")}='#{measure.hqmf_id.upcase}']")
-            file_errors << ExecutionError.new(:location=>"/", :type=> :xml_valisation, :msg_type=>"error", :message=>"Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.name}")
           end
         end
 
