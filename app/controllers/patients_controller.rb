@@ -73,9 +73,10 @@ class PatientsController < ApplicationController
       @test = ProductTest.find(params[:product_test_id])
     end
 
+   
     @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected.hqmf_id)
-      .where("value.sub_id" => @selected.sub_id).where("value.population".to_sym.gt => 0)
-      .order_by([ ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
+      .where("value.sub_id" => @selected.sub_id).where("value.IPP".to_sym.gt => 0)
+      .order_by([ ["value.NUMER", :desc], ["value.DENOM", :desc], ["value.DENEX", :desc]])
 
     render 'table'
   end

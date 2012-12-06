@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 67f26fdd7ca48622bcbfefb3e446fd2bb680c99a
+  revision: b54b52695d9eb8cc390031d3b63c99df99e8e030
   branch: develop
   specs:
     health-data-standards (2.1.4)
@@ -86,6 +86,7 @@ GEM
     activesupport (3.2.9)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    addressable (2.3.2)
     ansi (1.4.3)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
@@ -101,6 +102,7 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     columnize (0.3.6)
+    crack (0.3.1)
     daemons (1.1.9)
     debugger (1.1.4)
       columnize (>= 0.3.1)
@@ -284,6 +286,9 @@ GEM
       macaddr (~> 1.0)
     warden (1.2.1)
       rack (>= 1.0)
+    webmock (1.8.11)
+      addressable (>= 2.2.7)
+      crack (>= 0.1.7)
 
 PLATFORMS
   ruby
@@ -316,4 +321,5 @@ DEPENDENCIES
   thin
   turn
   uglifier
+  webmock
   win32-eventlog

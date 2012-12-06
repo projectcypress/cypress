@@ -51,14 +51,14 @@
       <% end %>
     <% else %>
  <% @patients.each do |patient| 
-  
+    
       %>
-      <% if patient.value.population %>
+      <% if patient.value['IPP'] %>
         <tr>
          <% if !@selected.population_ids["MSRPOPL"] %>
           <td class="marker <%= 'p' if patient.value["IPP"] == 1%>"></td>
           <td class="marker <%= 'p' if patient.value["DENOM"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["NUMER"] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value["NUMER"] == 1%>"></td> 
           <td class="marker <%= 'p' if patient.value["DENEX"] == 1%>"></td>
           <td class="marker <%= 'p' if patient.value["DENEXCEP"] == 1%>"></td>
           <td class="marker <%= 'p' if patient.value["antinumerator"] == 1%>"></td>

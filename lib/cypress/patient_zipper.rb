@@ -45,21 +45,16 @@ module Cypress
     end
 
     def self.write_patients(patients, path)
-      ["c32", "ccda", "ccr", "json", "html"].each do |format|
+      ["json", "html"].each do |format|
         FileUtils.mkdir_p File.join(path, format)
       end
 
       patients.each do |patient|
         filename = TPG::Exporter.patient_filename(patient)
-        c32 = HealthDataStandards::Export::C32.export(patient)
-        ccda = HealthDataStandards::Export::CCDA.export(patient)
-        ccr = HealthDataStandards::Export::CCR.export(patient)
         json = JSON.pretty_generate(JSON.parse(patient.as_json(:except => [ '_id', 'measure_id' ]).to_json))
         html = HealthDataStandards::Export::HTML.export(patient)
 
-        File.open(File.join(path, "c32", "#{filename}.xml"), "w") {|file| file.write(c32)}
-        File.open(File.join(path, "ccda", "#{filename}.xml"), "w") {|file| file.write(ccda)}
-        File.open(File.join(path, "ccr", "#{filename}.xml"), "w") {|file| file.write(ccr)}
+  
         File.open(File.join(path, "json", "#{filename}.json"), "w") {|file| file.write(json)}
         File.open(File.join(path, "html", "#{filename}.html"), "w") {|file| file.write(html)}
       end
@@ -80,29 +75,11 @@ module Cypress
             #http://iweb.dl.sourceforge.net/project/ccr-resources/ccr-xslt-html/CCR%20XSL%20V2.0/ccr.xsl
              z.put_next_entry("#{next_entry_path}.html")
              z << HealthDataStandards::Export::HTML.export(patient)
-          elsif format==:ccda
-             z.put_next_entry("#{next_entry_path}.xml")
-             z << HealthDataStandards::Export::CCDA.export(patient)
-          else
-            z.put_next_entry("#{next_entry_path}.xml")
-            z << HealthDataStandards::Export::CCR.export(patient)
           end
         end
       end
     end
     
-    def self.flat_file(file, patients)
-      CSV.open(file.path, "wb") do |csv|
-       patients.each_with_index do |patient, i|
-       if i < 1
-        headerAndRow =HealthDataStandards::Export::CommaSV.export(patient,true)
-        csv << headerAndRow[0]
-        csv << headerAndRow[1]
-       else
-        csv << HealthDataStandards::Export::CommaSV.export(patient,false)
-       end
-      end
-     end
-    end    
+  
   end
 end

@@ -56,30 +56,7 @@ class PatientZipperTest < ActiveSupport::TestCase
     assert count == 2 , "Zip file has wrong number of records"
   end
   
-  test "Should create valid ccr file" do
-    format = :ccr
-    filename = "pTest-#{Time.now.to_i}.ccr.zip"
-    file = Tempfile.new(filename)
-
-    Cypress::PatientZipper.zip(file,@patients,format)
-    file.close
-    count = 0
-    Zip::ZipFile.foreach(file.path) do |zip_entry|
-        if zip_entry.name.include?('.xml') && !zip_entry.name.include?('__MACOSX')
-          doc = Nokogiri::XML(zip_entry.get_input_stream) do |config|
-            config.strict
-          end
-          doc.root.add_namespace_definition('ccr', 'urn:astm-org:CCR')
-          patient = HealthDataStandards::Import::CCR::PatientImporter.instance.parse_ccr(doc)
-          assert patient.first == "Rosa" || patient.first == "Selena" ,       "Zip file contains wrong records"
-          assert patient.last == "Vasquez" || patient.last == "Lotherberg" ,  "Zip file contains wrong records"
-          count += 1
-        end
-    end
-    File.delete(file.path)
-    assert count == 2 , "Zip file has wrong number of records"
-  end
-  
+ 
 
   
 end

@@ -75,22 +75,23 @@ module Cypress
 	end
 
 	class STDOUTReporter
-		attr_accessor :errors
+		attr_accessor :messages
 		attr_accessor :total_length
 		attr_accessor :processed_oids
 
 	 	def initialize()
-	 		@messages = {}
+	 		@messages = {:error=>[], :info=>[]}
 	 		@processed_oids = []
 	 	end
 
-		def log(type, oid, message)
-			 messages << {type: type, message: message}
+		def log(type, message)
+			 messages[type] ||= []
+			 messages[type] << message
 		end
 
 		def finished
-			errors = messages.select{|m| m.type == :error}
-		 	if !errors.empty
+			errors = messages[:error]
+		 	if !errors.empty?
 	      File.open("oid_errors.txt", "w") do |f|
 	        f.puts errors.to_yaml
 	      end
@@ -101,9 +102,10 @@ module Cypress
 		end
 
 		def processed(oid)
+			errors = messages[:error]
 			processed_oids << oid
 			print "\r"
-      print "#{processed_oids.length} of #{total_length} processed : error downloading #{errors.keys.length} valuesets"
+      print "#{processed_oids.length} of #{total_length} processed : error downloading #{errors.length} valuesets"
       STDOUT.flush
 		end
 

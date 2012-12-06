@@ -14,7 +14,7 @@ namespace :cypress do
   desc "Download the set of valuesets required by the installed measures"
   task :cache_valuesets, [:username, :password, :clear] => :setup do |t,args|
 
-    job = Cypress::ValuesetUpdateJob.new({:username=>args.username, 
+    job = Cypress::ValuesetUpdater.new({:username=>args.username, 
                                           :password=>args.password,
                                           :clear=>args.clear})
     job.perform

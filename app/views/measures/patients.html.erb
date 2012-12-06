@@ -35,7 +35,7 @@
     <% @patients.each do |patient| 
 
       %>
-      <% if patient.value.population %>
+      <% if patient.value.IPP %>
         <tr>
       <% if !@measure.population_ids["MSRPOPL"] %>
           <td class="marker <%= 'p' if patient.value["IPP"] == 1%>"></td>

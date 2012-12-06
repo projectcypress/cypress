@@ -17,8 +17,20 @@ class PatientPopulationTest < ActiveSupport::TestCase
   end
   
   test "Should return min coverage for set of measures" do
-    #waiting a bit to test this feature
-  end
+    measures = []
+    minset = PatientPopulation.min_coverage(measures)
+    assert_equal 0, minset[:minimal_set].length
+    assert_equal 0, minset[:overflow].length
   
+    measures =['99119911','99119922','99119933','99119944']
+    minset = PatientPopulation.min_coverage(measures)
+
+
+    assert  [4,3].index(minset[:minimal_set].length), "Should be 3 or 4 - dependes on which denom/exclusions are picked at random"
+    assert_equal 6-minset[:minimal_set].length, minset[:overflow].length
+
+ end
+  
+ 
 end
 

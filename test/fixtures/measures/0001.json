@@ -24,15 +24,15 @@
           "version" : "3.0",
           "values" : [ 
             "00110" ] } ] } },
-  "population" : { "and" : [ 
+  "IPP" : { "and" : [ 
       { "category" : "Patient Characteristic",
         "title" : "Age between 5 and 40" }, 
       { "category" : "Diagnosis",
         "title" : "Active Asthma" }, 
       { "category" : "Encounter",
         "title" : ">= 2 counts of office or outpatient consult" } ] },
-  "denominator" : {},
-  "numerator" : { "or" : [ 
+  "DENOM" : {},
+  "NUMER" : { "or" : [ 
       { "and" : [ 
           { "category" : "Symptom Assessed",
             "title" : "Asthma Daytime Symptoms" }, 
@@ -45,7 +45,7 @@
             "title" : "Asthma Nighttime Symptoms Quantified" } ] }, 
       { "category" : "Risk Category/Assessment",
         "title" : "Asthma Symptom Assessment Tool" } ] },
-  "exclusions" : {},
+  "DENEX" : {},
   "map_fn" : "function () {value = {denominator:1, numerator: 1}; emit(ObjectId(), value);}",
    "measure" : { "asthma_diagnosis_active" : { "standard_concept" : "asthma",
       "standard_category" : "diagnosis_condition_problem",

@@ -52,6 +52,7 @@ group :test, :develop do
   gem "tailor"
   gem 'simplecov', :require => false
   gem 'mocha', :require => false
+  gem 'webmock'
 end
 
 group :production do

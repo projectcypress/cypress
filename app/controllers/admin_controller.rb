@@ -16,8 +16,6 @@ class AdminController < ApplicationController
 		@users = User.all
 	end
 
-
-
 	def import_bundle
     binding.pry
 		bundle = params[:bundle]
@@ -26,7 +24,6 @@ class AdminController < ApplicationController
     redirect_to :action=>:index
 	end
 
-
 	def update_value_sets
     if Bundle.count == 0
       flash[:errors]= "Cannot install/update valuesets until a bundle has been installed"
@@ -34,7 +31,10 @@ class AdminController < ApplicationController
       return
     end
 
-		@job = AdminValuesetJob.where({}).ne({status: ["Waiting", "Running"]}).first
+		@job = AdminValuesetJob.where({}).or({status: "Waiting"},{status: "Running"}).first
+    if @job
+      flash[:errors] = "There is already an update running. Please wait until that one is finished before running again."
+    end
 
 		unless @job
 
@@ -50,12 +50,14 @@ class AdminController < ApplicationController
     @job = AdminValuesetJob.find(params[:id])
   end
 
+
   def delete_job
     @job = AdminValuesetJob.find(params[:id])
     @job.delete
     flash[:message]= "Job (#{@job.id }) Deleted"
     redirect_to :action=>:index
   end
+
 
   def valuesets
     query = []
@@ -69,8 +71,6 @@ class AdminController < ApplicationController
   
     @valuesets = HealthDataStandards::SVS::ValueSet.or(query).skip(@skip).limit(@limit)
     @page_count =  (@valuesets.count.to_f / @limit.to_f).ceil
-   
-
   end
 
   def valueset

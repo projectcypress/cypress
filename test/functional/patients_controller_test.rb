@@ -94,16 +94,16 @@ include Devise::TestHelpers
     m2 = Measure.where(:hqmf_id => '0002').first
 
     get :table_measure,{:measure_id => m1.id }
-    assert assigns[:patients].count == 3
+    assert_equal 3, assigns[:patients].count, "3 patients expected to be assigned"
 
     get :table_measure,{:measure_id => m2.id }
-    assert assigns[:patients].count == 2
+    assert_equal 2,  assigns[:patients].count , "2 measures expected to be assigned"
 
     get :table_measure,{:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m1.id}
-    assert assigns[:patients].count == 4
+    assert_equal 4,  assigns[:patients].count, "4 patients expected to be assigned"
 
     get :table_measure,{:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m2.id}
-    assert assigns[:patients].count == 3
+    assert_equal 3,  assigns[:patients].count , "3 patients expected to be assigned"
   end
 
   test "table_all" do

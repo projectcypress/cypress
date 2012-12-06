@@ -29,7 +29,7 @@ class AdminValuesetJob
 	end
 
 	def processed(oid)
-		processed_oids << oid
+		self.processed_oids << oid
 		log(:info, "Processed #{oid}")
 	end
 

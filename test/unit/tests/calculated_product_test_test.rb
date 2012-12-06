@@ -6,20 +6,7 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     collection_fixtures('product_tests', '_id')
   end
 
-  test "Should generate minimal set of records on create " do 
-    pending "Need measures and patients that work together so we can determine outcome"  do
-        measures = []
-        pt = CalculatedProductTest.new({measure_ids: measures})
-        pt.save
-
-        assert_equal :ready, pt.state, "State should be ready"
-        assert measures == pt.measure_ids , "Test should have the same measure_ids created with"
-        assert pt.expected_results, "Test should have expected results"
-        assert_equal 0, pt.records.count , "Test should have the correct number of patien records"
-        
-    end
-  
-  end
+ 
   
   
   test "should clone records when given patient_ids " do
