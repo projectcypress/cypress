@@ -10,7 +10,6 @@ module Cypress
       ids = []
       artifacts.each do |a|
        fs = grid.put(a.open, :filename => File.basename(a.path))
-       fs.attributes[:metadata] =  {:metadata => {'execution_id' => test_execution.id.to_s}}
        fs.save
        ids << fs.id
       end
