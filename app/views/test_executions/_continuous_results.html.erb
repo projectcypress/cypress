@@ -20,17 +20,17 @@
                  </a>
                </td>
                <td>
-                <%  reported_class = result_class(reported_result["IPP"],expected_result["IPP"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["IPP"]%>/<%=expected_result["IPP"]%></span>
+                <%  reported_class = result_class(reported_result[QME::QualityReport::POPULATION],expected_result[QME::QualityReport::POPULATION]) %>
+                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::POPULATION]%>/<%=expected_result[QME::QualityReport::POPULATION]%></span>
                </td>
                <td>
-                <%  reported_class = result_class(reported_result["MSRPOPL"],expected_result["MSRPOPL"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["MSRPOPL"]%>/<%=expected_result["MSRPOPL"]%></span>
+                <%  reported_class = result_class(reported_result[QME::QualityReport::MSRPOPL],expected_result[QME::QualityReport::MSRPOPL]) %>
+                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::MSRPOPL]%>/<%=expected_result[QME::QualityReport::MSRPOPL]%></span>
                </td>
 
                <td>
-                <%  reported_class = result_class(reported_result["OBSERV"],expected_result["OBSERV"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["OBSERV"]%>/<%=expected_result["OBSERV"]%></span>
+                <%  reported_class = result_class(reported_result[QME::QualityReport::OBSERVATION],expected_result[QME::QualityReport::OBSERVATION]) %>
+                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::OBSERVATION]%>/<%=expected_result[QME::QualityReport::OBSERVATION]%></span>
                </td>
 
              </tr>

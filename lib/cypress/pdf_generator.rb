@@ -163,12 +163,12 @@ module Cypress
 
         measure = "#{measure.nqf_id} - #{measure.name} "
         measure.concat(" - #{measure.subtitle}") if measure["sub_id"]
-        patients = "#{reported_result["IPP"]}/#{expected_result["IPP"]}"
+        patients = "#{reported_result[QME::QualityReport::POPULATION]}/#{expected_result[QME::QualityReport::POPULATION]}"
 
         row << measure
         row << patients
 
-        ["DENOM" , "DENEX", "NUMER" , "NUMEX" , "DENEXCP" ].each do |code|
+        [QME::QualityReport::DENOMINATOR , QME::QualityReport::EXCLUSIONS, QME::QualityReport::NUMERATOR , "NUMEX" ,QME::QualityReport::EXCEPTIONS].each do |code|
           expected = expected_result[code]
           reported = reported_result[code]
 

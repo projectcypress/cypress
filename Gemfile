@@ -19,6 +19,8 @@ gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient
 #gem 'test-patient-generator', '~> 1.0.2'
 
 gem "delayed_job_mongoid_web", :git => 'https://github.com/rdingwell/delayed_job_mongoid_web.git', :branch => 'develop'
+gem "qrda_generator", :git => 'https://github.com/eedrummer/qrda_generator.git'
+
 gem 'state_machine'
 
 gem 'devise', '~> 2.0'
@@ -46,7 +48,7 @@ end
 
 group :test, :develop do
 	gem 'pry'
- # gem 'pry-debugger'
+ gem 'pry-debugger'
   gem 'turn', :require => false
   gem 'minitest'
   gem "tailor"

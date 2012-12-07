@@ -80,6 +80,8 @@
                 type = 'EP'
               elsif test['_type'] == 'InpatientProductTest'
                   type = 'EH'
+              elsif test['_type'] == 'StaticCVProductTest'
+                type = "CV"
               else
                 type = 'QRDA Cat I'
               end

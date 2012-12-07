@@ -101,7 +101,7 @@ class CalculatedProductTest < ProductTest
   
   
   def self.product_type_measures
-    Measure.top_level_by_type("ep")
+    Measure.top_level_by_type("ep").where({"population_ids.MSRPOPL" => {"$exists" => false}})
   end
   
   

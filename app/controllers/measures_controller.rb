@@ -41,11 +41,12 @@ class MeasuresController < ApplicationController
    
     @vendor = @product.vendor
     @result = @execution.expected_result(@measure)
-    
+    @selected = @measure
     @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure.hqmf_id, "value.sub_id" => @measure.sub_id)
    
 
     @patients = @patients.order_by([["value.NUMER", :desc],["value.DENOM", :desc],["value.DENEX", :desc]])
+    render :template=> "patients/table"
   end
 
   
@@ -71,7 +72,7 @@ class MeasuresController < ApplicationController
     
     # Use the relevant results to build @coverage of each measure
     @coverage = {}
-    buckets = ["DENOM", "NUMER", "DENEX", "antinumerator"]
+    buckets = [QME::QualityReport::DENOMINATOR, QME::QualityReport::NUMERATOR, QME::QualityReport::EXCLUSIONS, QME::QualityReport::ANTINUMERATOR]
     results.each do |result|
       # Skip results that don't fall into any of the buckets
       next if !result.value['NUMER'] && !result.value['DENOM'] && !result.value['antinumerator'] && !result.value['DENEX']

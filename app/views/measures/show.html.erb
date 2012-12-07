@@ -174,7 +174,7 @@
           <table >
             <thead>
                  <tr>
-            <% if @measure.population_ids["MSRPOPL"] %>
+            <% if @measure.population_ids[QME::QualityReport::MSRPOPL] %>
               <th></th>
                <th>Patients</th>
                <th>Measure Poplulation</th>
@@ -194,23 +194,24 @@
                <tr style="text-align: right">
                 <td>reported/expected </td>
                <td>
-                <%  reported_class = result_class(reported_result["IPP"],expected_result["IPP"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["IPP"]%>/<%=expected_result["IPP"]%></span>
+                <%  reported_class = result_class(reported_result[QME::QualityReport::POPULATION],expected_result[QME::QualityReport::POPULATION]) %>
+                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::POPULATION]%>/<%=expected_result[QME::QualityReport::POPULATION]%></span>
                </td>
-               <% if @measure.population_ids["MSRPOPL"] %>
+               <% 
+               if @measure.population_ids[QME::QualityReport::MSRPOPL] %>
                 
                <td>
-                <%  reported_class = result_class(reported_result["MSRPOPL"],expected_result["MSRPOPL"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["MSRPOPL"]%>/<%=expected_result["MSRPOPL"]%></span>
+                <%  reported_class = result_class(reported_result[QME::QualityReport::MSRPOPL],expected_result[QME::QualityReport::MSRPOPL]) %>
+                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::MSRPOPL]%>/<%=expected_result[QME::QualityReport::MSRPOPL]%></span>
                </td>
 
                <td>
-                <%  reported_class = result_class(reported_result["OBSERV"],expected_result["OBSERV"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["OBSERV"]%>/<%=expected_result["OBSERV"]%></span>
+                <%  reported_class = result_class(reported_result[QME::QualityReport::OBSERVATION],expected_result[QME::QualityReport::OBSERVATION]) %>
+                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::OBSERVATION]%>/<%=expected_result[QME::QualityReport::OBSERVATION]%></span>
                </td>
 
                <% else %>
-                  <%["DENOM","DENEX","NUMER","NUMEX","DENEXCP"].each do |code|
+                  <%[QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,"NUMEX","DENEXCP"].each do |code|
                     expected = expected_result[code]
                     reported = reported_result[code]
                 

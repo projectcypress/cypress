@@ -85,17 +85,21 @@ class ProductTest
   # Used for downloading and e-mailing the records associated with this test.
    #
    # Returns a file that represents the test's patients given the requested format.
-   def generate_records_file(format)
+  def generate_records_file(format)
      file = Tempfile.new("patients-#{Time.now.to_i}")
      patients = Record.where("test_id" => self.id)
-
-     if format == 'csv'
-       Cypress::PatientZipper.flat_file(file, patients)
-     else
-       Cypress::PatientZipper.zip(file, patients, format.to_sym)
-     end
+     Cypress::PatientZipper.zip(file, patients, format.to_sym)
 
      file
-   end
+  end
+
+  def start_date
+    end_date.years_ago(1)
+  end
+
+  def end_date
+    Time.at(effective_date).gmtime
+  end
+
 
 end

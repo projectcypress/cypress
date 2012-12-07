@@ -55,7 +55,7 @@ class TestExecution
 
   # Get the expected result for a particular measure
   def expected_result(measure)
-    (expected_results || {})[measure.key] || {}
+    (expected_results || product_test.expected_results || {})[measure.key] || {}
   end
   
   # Get the expected result for a particular measure

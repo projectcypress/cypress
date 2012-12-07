@@ -98,12 +98,7 @@ class PatientsController < ApplicationController
   #send user record associated with patient
   def download
     file = Cypress::CreateDownloadZip.create_patient_zip(params[:id],params[:format])
-    if params[:format] == 'csv'
-      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => "'patient_#{params[:id]}.csv"
-    else
-      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_#{params[:id]}_#{params[:format]}.zip"
-    end
-    file.close
+    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_#{params[:id]}_#{params[:format]}.zip"
   end
 
 end

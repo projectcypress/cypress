@@ -18,7 +18,7 @@ module ProductTestHelper
   def group_measures_by_type(measures)
     ret = {:proportional=>[], :continuous=>[]}
     (measures ||[]).each do |mes|
-      if mes.population_ids["MSRPOPL"]
+      if mes.population_ids[QME::QualityReport::MSRPOPL]
         ret[:continuous] << mes
       else
         ret[:proportional] << mes

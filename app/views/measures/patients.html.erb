@@ -4,7 +4,7 @@
   <colgroup  class="nqf">
   <col />
   <col />
-  <% if !@measure.population_ids["MSRPOPL"] %>
+  <% if !@measure.population_ids[QME::QualityReport::MSRPOPL] %>
     <col />
     <col />
     <col />
@@ -13,7 +13,7 @@
   </colgroup>
   <thead style="position:relative;">
     <tr class="rot">
- <% if !@measure.population_ids["MSRPOPL"] %>
+ <% if !@measure.population_ids[QME::QualityReport::MSRPOPL] %>
       <th><div>POP</div></th>
       <th><div>DEN</div></th>
       <th><div>NUM</div></th>
@@ -37,16 +37,16 @@
       %>
       <% if patient.value.IPP %>
         <tr>
-      <% if !@measure.population_ids["MSRPOPL"] %>
-          <td class="marker <%= 'p' if patient.value["IPP"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["DENOM"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["NUMER"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["DENEX"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["DENEXCEP"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["antinumerator"] == 1%>"></td>
+      <% if !@measure.population_ids[QME::QualityReport::MSRPOPL] %>
+          <td class="marker <%= 'p' if patient.value[QME::QualityReport::POPULATION] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value[QME::QualityReport::DENOMINATOR] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value[QME::QualityReport::NUMERATOR] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value[QME::QualityReport::EXCLUSIONS] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value[QME::QualityReport::EXCEPTIONS] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value[QME::QualityReport::ANTINUMERATOR] == 1%>"></td>
       <% else %>
-          <td class="marker <%= 'p' if patient.value["IPP"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["MSRPOPL"] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value[QME::QualityReport::POPULATION] == 1%>"></td>
+          <td class="marker <%= 'p' if patient.value[QME::QualityReport::MSRPOPL] == 1%>"></td>
       <% end %>
 
           <td></td>

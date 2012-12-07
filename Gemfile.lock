@@ -1,4 +1,15 @@
 GIT
+  remote: https://github.com/eedrummer/qrda_generator.git
+  revision: 156d97a8b63f3849ccb816b039210232327601e0
+  specs:
+    qrda_generator (0.1.0)
+      health-data-standards (~> 2.1.4)
+      hqmf-parser (~> 1.0.6)
+      mongoid (~> 3.0.6)
+      nokogiri (~> 1.5.5)
+      uuid (~> 2.3.5)
+
+GIT
   remote: https://github.com/pophealth/hqmf-parser.git
   revision: b1bf0f4dd61de48efb119b3af1afee2b1b6ddc85
   branch: develop
@@ -308,6 +319,7 @@ DEPENDENCIES
   prawn
   pry
   pry-debugger
+  qrda_generator!
   quality-measure-engine!
   rails (= 3.2.9)
   rake

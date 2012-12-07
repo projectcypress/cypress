@@ -117,17 +117,10 @@ include Devise::TestHelpers
   test "download" do
     r1 = Record.find("4f5bb2ef1d41c841b3000046")
 
-    get :download,{:id => r1.id , :format => 'c32' }
-    assert_response :success,"Failed to download C32 zip file"
-    get :download,{:id => r1.id , :format => 'ccr' }
-    assert_response :success,"Failed to download CCR zip file"
     get :download,{:id => r1.id , :format => 'html'}
     assert_response :success,"Failed to download HTML zip file"
 
-    get :download,{:format => 'c32' }
-    assert_response :success,"Failed to download Master Patient List C32 zip file"
-    get :download,{:format => 'ccr' }
-    assert_response :success,"Failed to download Master Patient List CCR zip file"
+
     get :download,{:format => 'html'}
     assert_response :success,"Failed to download Master Patient List HTML zip file"
   end

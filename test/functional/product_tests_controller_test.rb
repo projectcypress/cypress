@@ -96,10 +96,6 @@ include Devise::TestHelpers
 
   
 
-    get :download,{:id => pt.id , :format => 'c32' }
-    assert_response :success,"Failed to download C32 zip file"
-    get :download,{:id => pt.id , :format => 'ccr' }
-    assert_response :success,"Failed to download CCR zip file"
     get :download,{:id => pt.id , :format => 'html'}
     assert_response :success,"Failed to download HTML zip file"
   end
@@ -127,7 +123,7 @@ include Devise::TestHelpers
   
   test "email records" do
     test = ProductTest.find("4f58f8de1d41c851eb000478")
-    post :email, { :id => test, :format => 'c32' ,:email=> test.product.vendor.email}
+    post :email, { :id => test, :format => 'html' ,:email=> test.product.vendor.email}
     
     assert_response :redirect
   end
