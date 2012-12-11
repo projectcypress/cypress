@@ -30,5 +30,5 @@
       <%= val['units'] %>
     <% end -%>
   </td>
-  <td class="patient_entry"><time datetime="<%= display_time(entry.time) %>"><%= display_time(entry.time) %></time></td>
+  <td class="patient_entry"><time datetime="<%= display_time(entry.as_point_in_time) %>"><%= display_times(entry) %></time></td>
 </tr>

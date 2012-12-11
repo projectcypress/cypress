@@ -1,10 +1,21 @@
 module ApplicationHelper
   def display_time(seconds_since_epoch)
+
     begin
       return Time.at(seconds_since_epoch).utc.strftime('%m/%d/%Y')
     rescue
+      return $!.message
       return "?"
     end 
+  end
+
+
+  def display_times(entry)
+    start_time = entry.start_time.nil? ? "" : "Start Time: #{display_time(entry.start_time)}"
+    end_time = entry.end_time.nil? ? "" : "End Time: #{display_time(entry.end_time)}"
+    time = entry.time.nil? ? "" : "Time: #{display_time(entry.time)}"
+
+    return "#{start_time}  #{end_time} #{time}"
   end
 
   def submit_method(model)
