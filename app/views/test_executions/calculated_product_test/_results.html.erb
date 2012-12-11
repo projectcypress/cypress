@@ -32,12 +32,9 @@
                    expected = nil
                    reported = nil
                  end
-                  reported_class = result_class(reported,expected)
+
                 %>
-                 <td>
-                  <span class="<%= reported_class %>"><%= reported ||'-'%></span> / <span><%=expected%>
-                  </span>
-                </td>
+                <%= expected_reported(expected,reported) %>
                <% end %>
              </tr>
            <% end %>

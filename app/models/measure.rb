@@ -18,6 +18,9 @@ class Measure
   scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
   scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})
   
+  index({oids: 1})
+  index({hqmf_id: 1})
+  index({category: 1})
 
   validates_presence_of :id
   validates_presence_of :name

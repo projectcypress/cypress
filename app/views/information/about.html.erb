@@ -13,9 +13,6 @@
     <% @deps = Cypress::GetDependencies::get_dependencies() %>
       <div>
         <section style="float:right;padding-right: 30px;">
-          Master Patient List: <%= @deps['Master Patient List'] %><br>
-        </section>
-        <section style="float:right;padding-right: 30px;">
           Health Data Standards: <%= @deps['Health-Data-Standards'] %><br>
           Quality Measure Engine: <%= @deps['Quality-Measure-Engine'] %>
         </section>

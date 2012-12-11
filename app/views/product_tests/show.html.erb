@@ -63,6 +63,16 @@
                 <ul>
               <% measures.each do |measure| %>
               <li><%= "#{measure.nqf_id} - #{measure.name } " %></li>
+              <% subm = @test.measures.where(:hqmf_id=>measure.hqmf_id)
+                  if subm.count >1
+               %>
+                <ul>
+                   <% subm.each do |sub| %>
+                    <li><%= sub.subtitle %></li>
+                    <% end %>
+                </ul>  
+
+               <% end %>     
              <% end %> 
             </ul>
          <% end %> 
@@ -122,13 +132,10 @@
 			            <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
 			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			            <%= link_to "QRDA Cat I", download_product_test_path(@test, :format => 'qrda'), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
 			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download CCRs", download_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			            <%= link_to "HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
 	             
 			        </ul>

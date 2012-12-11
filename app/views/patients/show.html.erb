@@ -14,7 +14,7 @@
         <ul id="download_options" style="display: none" role="listbox"
             class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
           <li class="ui-menu-item" role="menuitem">
-            <%= link_to "Patient as C32", download_patient_path(@patient, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+            <%= link_to "Patient as QRDA Cat I", download_patient_path(@patient, :format => 'qrda'), { :class => "ui-corner-all", :tabindex => "-1" } %>
           </li>
 
           <li class="ui-menu-item" role="menuitem">
@@ -48,7 +48,7 @@
           <tr class="rot">
             <th><div>NQF #</div></th>
             <th><div>POP</div></th>
-            <th><div>DEN</div></th>
+            <th><div>DEN&nbsp;/&nbsp;MSRPOPL</div></th>
             <th><div>NUM</div></th>
             <th><div>EXCL</div></th>
             <th><div>EXCP</div></th>
@@ -56,18 +56,19 @@
           </tr>
         </thead>
         <tbody>
+
           <% @results.each do |result| %>
             <% if result.value['IPP'] %>
               <tr>
 				<td title="<%= "#{(result.value['sub_id'].nil? ? "" : result.value['sub_id']) if @product}" %>">
                  <%= link_to "#{Measure.where(:hqmf_id => result.value.measure_id).first.nqf_id}#{result.value['sub_id']}" %>
                 </td>
-               <td <%= raw result_to_class(result.value['IPP'] == 1) %>></td>
-                <td <%= raw result_to_class(result.value['DENOM'] == 1) %>></td>
-                <td <%= raw result_to_class(result.value['NUMER'] == 1) %>></td>
-                <td <%= raw result_to_class(result.value['DENEX'] == 1) %>></td>
-                <td <%= raw result_to_class(result.value['DENEXCEP'] == 1) %>></td>
-                <td <%= raw result_to_class(result.value['antinumerator'] == 1) %>></td>
+                <%= population_marker(result.value[QME::QualityReport::POPULATION])%>
+                <%= population_marker((result.value[QME::QualityReport::DENOMINATOR] || result.value[QME::QualityReport::MSRPOPL]))%>
+                <%= population_marker(result.value[QME::QualityReport::NUMERATOR])%>
+                <%= population_marker(result.value[QME::QualityReport::EXCLUSIONS] )%>
+                <%= population_marker(result.value[QME::QualityReport::EXCEPTIONS] )%>
+                <%= population_marker(result.value[QME::QualityReport::ANTINUMERATOR])%>
               </tr>
             <% end %>
           <% end %>

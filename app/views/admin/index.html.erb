@@ -25,7 +25,7 @@
   		<td> <%= submit_tag "Update Valuesets" %> </td>
   		<td> NLM Username: <%= text_field_tag :username %> </td> 
   		<td> NLM Password: <%= password_field_tag :password %> </td> 
-
+      <td> <span> Clear Existing</span><%= check_box_tag  :delete_existing , true %> </td> 
   	</tr>
   </table>
 
@@ -36,7 +36,7 @@
   <table>
   	<tr>
   		<td> <%= submit_tag "Import Bundle" %> </td>
-  		<td> <span> Clear Existing</span><%= check_box_tag "Clear Existing", :delete_existing %> </td> 
+  		<td> <span> Clear Existing</span><%= check_box_tag "delete_existing", true %> </td> 
   		<td> <%= file_field_tag  :bundle %> </td>
   	</tr>
   </table>

@@ -7,7 +7,7 @@ module Cypress
 
     
     CV_METHOD_CODES = ["OBSRV", "COUNT","SUM", "AVERAGE","STDEV.S","VARIANCE.S","STDEV.P","VARIANCE.P","MIN","MAX", "MEDIAN", "MODE"]
-    CV_POPULATION_CODE = "OBSERV"
+    CV_POPULATION_CODE = QME::QualityReport::OBSERVATION
     
     QRDA_CAT1_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
     QRDA_CAT3_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_3"]
@@ -89,7 +89,7 @@ module Cypress
         _ids.each_pair do |k,v|
           val = nil
           if (k == CV_POPULATION_CODE)
-            msrpopl = _ids["MSRPOPL"]
+            msrpopl = _ids[QME::QualityReport::MSRPOPL]
             val = extract_cv_value(n,v,msrpopl, stratification)
           else 
             val =extract_component_value(n,k,v,stratification)

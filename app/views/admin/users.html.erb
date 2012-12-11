@@ -1,4 +1,87 @@
 
+
+
+<% content_for :head do -%>
+<script type="text/javascript">
+  var cypress = cypress || {};
+
+  cypress.promoteUser = function() {
+    var username = $(this).data("username");
+    var role = $(this).data("role");
+    var parentTd = $(this).parent();
+    $.post('<%= admin_promote_path %>', {'username': username, 'role': role}, function(data) {
+      parentTd.html(data);
+      parentTd.find('.demote').click(cypress.demoteUser);
+    });
+    return false;
+  };
+
+  cypress.demoteUser = function() {
+    var username = $(this).data("username");
+    var role = $(this).data("role");
+    var parentTd = $(this).parent();
+
+    if (username == '<%= current_user.email %>') {
+      var response = confirm('You are about to remove admin rights from the currently logged in user' 
+      +', this will cause you to immediately lose access to all admin functionality including this page.  ' 
+      +'You will need to use another admin account to restore admin rights.  Are you sure you want to continue?');
+      if (!response) return;
+    }
+
+    $.post('<%= admin_demote_path %>', {'username': username, 'role': role}, function(data) {
+      parentTd.html(data);
+      parentTd.find('.promote').click(cypress.promoteUser);
+    });
+    return false;
+  };
+
+  cypress.approveUser = function() {
+    var username = $(this).data("username");
+    var parentTd = $(this).parent();
+    $.post('<%= admin_approve_path %>', {'username': username}, function(data) {
+      parentTd.html(data);
+    });
+  };
+
+  cypress.disableUser = function() {
+    var username = $(this).data("username");
+    var parentTd = $(this).parent();
+
+    if (username == '<%= current_user.email %>') {
+      var response = confirm('You are about to disable the currently logged in user' 
+      +', this will cause you to immediately lose access and be logged out.  Are you sure you want to continue?');
+      if (!response) return;
+    }
+
+    cypress.disableEnableUser(1, username, parentTd)
+  };
+  cypress.enableUser = function() {
+    var username = $(this).data("username");
+    var parentTd = $(this).parent();
+    cypress.disableEnableUser(0, username, parentTd)
+  };
+  cypress.disableEnableUser = function(disabled, username, parentTd) {
+    $.post('<%= admin_disable_path %>', {'username': username, 'disabled': disabled}, function(data) {
+      parentTd.html(data);
+      if (disabled == 1) parentTd.find('.disable').click(cypress.enableUser);
+      else parentTd.find('.enable').click(cypress.disableUser);
+    });
+  };
+  
+
+  $(document).ready(function() {
+    $('.promote').click(cypress.promoteUser);
+    $('.demote').click(cypress.demoteUser);
+    $('.approve').click(cypress.approveUser);
+    $('.enable').click(cypress.disableUser);
+    $('.disable').click(cypress.enableUser);
+    $('.npi_select').change(cypress.changeNpi);
+  });
+</script>
+<% end -%>
+
+
+
 <div id="container">
   <%= render :partial=>"shared/header" %>
 

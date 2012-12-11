@@ -3,6 +3,12 @@ Cypress::Application.routes.draw do
   match "/delayed_job" => DelayedJobMongoidWeb, :anchor => false
   devise_for :users
   
+  get "admin/users"
+  post "admin/promote"
+  post "admin/demote"
+  post "admin/approve"
+  post "admin/disable"
+  
   resources :vendors, :products
 
     resources :vendors do

@@ -174,7 +174,7 @@
           <table >
             <thead>
                  <tr>
-            <% if @measure.population_ids[QME::QualityReport::MSRPOPL] %>
+            <% if @measure.continuous? %>
               <th></th>
                <th>Patients</th>
                <th>Measure Poplulation</th>
@@ -193,25 +193,15 @@
 
                <tr style="text-align: right">
                 <td>reported/expected </td>
-               <td>
-                <%  reported_class = result_class(reported_result[QME::QualityReport::POPULATION],expected_result[QME::QualityReport::POPULATION]) %>
-                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::POPULATION]%>/<%=expected_result[QME::QualityReport::POPULATION]%></span>
-               </td>
+                <%= expected_reported(expected_result[QME::QualityReport::POPULATION],reported_result[QME::QualityReport::POPULATION]) %>
                <% 
                if @measure.population_ids[QME::QualityReport::MSRPOPL] %>
                 
-               <td>
-                <%  reported_class = result_class(reported_result[QME::QualityReport::MSRPOPL],expected_result[QME::QualityReport::MSRPOPL]) %>
-                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::MSRPOPL]%>/<%=expected_result[QME::QualityReport::MSRPOPL]%></span>
-               </td>
-
-               <td>
-                <%  reported_class = result_class(reported_result[QME::QualityReport::OBSERVATION],expected_result[QME::QualityReport::OBSERVATION]) %>
-                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::OBSERVATION]%>/<%=expected_result[QME::QualityReport::OBSERVATION]%></span>
-               </td>
+                <%= expected_reported(expected_result[QME::QualityReport::MSRPOPL],reported_result[QME::QualityReport::MSRPOPL]) %>                
+                <%= expected_reported(expected_result[QME::QualityReport::OBSERVATION],reported_result[QME::QualityReport::OBSERVATION]) %>
 
                <% else %>
-                  <%[QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,"NUMEX","DENEXCP"].each do |code|
+                  <%[QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,"NUMEX",QME::QualityReport::EXCEPTIONS].each do |code|
                     expected = expected_result[code]
                     reported = reported_result[code]
                 
@@ -221,10 +211,8 @@
                    end
                     reported_class = result_class(reported,expected)
                   %>
-                   <td>
-                    <span class="<%= reported_class %> r" style="text-align: right"><%= reported ||'-'%></span> / <span><%=expected%>
-                    </span>
-                  </td>
+                  <%= expected_reported(expected,reported,{:style=>"text-align: right"}) %>
+                  
 
                 <% end %>
                <% end %>

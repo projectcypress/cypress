@@ -15,13 +15,14 @@ module Cypress
     attr_accessor :end_time
 
     def initialize(measures,start_time,end_time)
-      @measures = measures
+      @measures = measures.to_a
       @start_time = start_time
       @end_time = end_time
     end
 
 
     def export(patient)
+       puts "exporting patient"
        QrdaGenerator::Export::Cat1.export(patient,measures,start_time,end_time)
     end
 
@@ -75,19 +76,21 @@ module Cypress
     def self.write_patients(test_execution, path)
       ["json", "html", "qrda"].each do |format|
         FileUtils.mkdir_p File.join(path, format)
-      
+      end
       start_date = test_execution.start_date
       end_date = test_execution.end_date
-      measures = test_execution.measures
-
+      measures = test_execution.measures.to_a
+      qrda_exporter = Cypress::QRDAExporter.new(measures,start_date,end_date)
       test_execution.records.each do |patient|
         filename = TPG::Exporter.patient_filename(patient)
         json = JSON.pretty_generate(JSON.parse(patient.as_json(:except => [ '_id','measure_id' ]).to_json))
         html = HealthDataStandards::Export::HTML.export(patient)
-        qrda =  HealthDataStandards::Export::QRDA.export(patient,measures,start_date,end_date)
+        qrda =  qrda_exporter.export(patient)
         File.open(File.join(path, "html", "#{filename}.html"), "w") {|file| file.write(html)}
+        File.open(File.join(path, "json", "#{filename}.json"), "w") {|file| file.write(json)}
+        File.open(File.join(path, "qrda", "#{filename}.xml"), "w") {|file| file.write(qrda)}
       end
-    end
+    
   end
 
     def self.zip(file, patients, format)
@@ -95,7 +98,7 @@ module Cypress
         if patients.first
           test = ProductTest.where({"_id" => patients.first["test_id"]}).first
           if test 
-            measures = test.measures
+            measures = test.measures.to_a
             start_time = test.start_date
             end_time = test.end_date
           end

@@ -1,4 +1,4 @@
-class ResultValue
+class PatientCacheValue
 
   include Mongoid::Document
 

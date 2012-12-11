@@ -19,19 +19,10 @@
                    <%= " - #{measure.subtitle}" if measure.sub_id %>
                  </a>
                </td>
-               <td>
-                <%  reported_class = result_class(reported_result[QME::QualityReport::POPULATION],expected_result[QME::QualityReport::POPULATION]) %>
-                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::POPULATION]%>/<%=expected_result[QME::QualityReport::POPULATION]%></span>
-               </td>
-               <td>
-                <%  reported_class = result_class(reported_result[QME::QualityReport::MSRPOPL],expected_result[QME::QualityReport::MSRPOPL]) %>
-                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::MSRPOPL]%>/<%=expected_result[QME::QualityReport::MSRPOPL]%></span>
-               </td>
 
-               <td>
-                <%  reported_class = result_class(reported_result[QME::QualityReport::OBSERVATION],expected_result[QME::QualityReport::OBSERVATION]) %>
-                <span class="<%=reported_class%>" ><%=reported_result[QME::QualityReport::OBSERVATION]%>/<%=expected_result[QME::QualityReport::OBSERVATION]%></span>
-               </td>
+                <%= expected_reported(expected_result[QME::QualityReport::POPULATION],reported_result[QME::QualityReport::POPULATION]) %>
+                <%= expected_reported(expected_result[QME::QualityReport::MSRPOPL],reported_result[QME::QualityReport::MSRPOPL]) %>
+                <%= expected_reported(expected_result[QME::QualityReport::OBSERVATION],reported_result[QME::QualityReport::OBSERVATION]) %>
 
              </tr>
            <% end %>

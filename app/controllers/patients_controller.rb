@@ -33,7 +33,7 @@ class PatientsController < ApplicationController
     else
       if params[:product_test_id]
         if @measures.include?(@selected)
-          @result = Cypress::MeasureEvaluator.eval(@test, @selected)
+          @result = @test.expected_result(@selected)
         else
           # If the selected measure wasn't chosen to be part of the test, return zeroed results
           @result = {'measure_id' => @selected.id, 'NUMER' => '0', 'antinumerator' => 0, 'DENOM' => '0', 'DENEX' => '0'}

@@ -56,15 +56,15 @@
       <% if patient.value['IPP'] %>
         <tr>
          <% if !@selected.population_ids[QME::QualityReport::MSRPOPL] %>
-          <td class="marker <%= 'p' if patient.value[QME::QualityReport::POPULATION] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value[QME::QualityReport::DENOMINATOR] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value[QME::QualityReport::NUMERATOR] == 1%>"></td> 
-          <td class="marker <%= 'p' if patient.value[QME::QualityReport::EXCLUSIONS] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value[QME::QualityReport::EXCEPTIONS] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value[QME::QualityReport::ANTINUMERATOR] == 1%>"></td>
+          <%= population_marker(patient.value[QME::QualityReport::POPULATION])%>
+          <%= population_marker(patient.value[QME::QualityReport::DENOMINATOR])%>
+          <%= population_marker(patient.value[QME::QualityReport::NUMERATOR])%>
+          <%= population_marker(patient.value[QME::QualityReport::EXCLUSIONS] )%>
+          <%= population_marker(patient.value[QME::QualityReport::EXCEPTIONS] )%>
+          <%= population_marker(patient.value[QME::QualityReport::ANTINUMERATOR])%>
       <% else %>
-          <td class="marker <%= 'p' if patient.value[QME::QualityReport::POPULATION] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value[QME::QualityReport::MSRPOPL] == 1%>"></td>
+          <%= population_marker(patient.value[QME::QualityReport::POPULATION] )%>
+          <%= population_marker(patient.value[QME::QualityReport::MSRPOPL])%>
       <% end %>
           <td></td>
           <td><%= link_to patient.record.last, patient_url(patient.record.id) %></td>

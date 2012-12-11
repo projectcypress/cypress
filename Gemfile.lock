@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/eedrummer/qrda_generator.git
-  revision: 156d97a8b63f3849ccb816b039210232327601e0
+  revision: d863ff63754bca8997cd82076a3875bc89c4393c
   specs:
     qrda_generator (0.1.0)
       health-data-standards (~> 2.1.4)
@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/pophealth/hqmf-parser.git
-  revision: b1bf0f4dd61de48efb119b3af1afee2b1b6ddc85
+  revision: 8220fb8f16003deb826b0e6ab4c9fe1b78833eef
   branch: develop
   specs:
     hqmf-parser (1.0.6)
@@ -42,7 +42,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: b54b52695d9eb8cc390031d3b63c99df99e8e030
+  revision: 5af99f41b932b879b5e94b43ae07bcb48e8014a2
   branch: develop
   specs:
     health-data-standards (2.1.4)
@@ -112,16 +112,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
-    columnize (0.3.6)
     crack (0.3.1)
     daemons (1.1.9)
-    debugger (1.1.4)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.1.1)
-      debugger-ruby_core_source (~> 1.1.3)
-    debugger-linecache (1.1.2)
-      debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.1.4)
     delayed_job (3.0.4)
       activesupport (~> 3.0)
     delayed_job_mongoid (2.0.0)
@@ -199,9 +191,6 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.3.1)
-    pry-debugger (0.2.0)
-      debugger (~> 1.1.3)
-      pry (~> 0.9.9)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -238,7 +227,7 @@ GEM
       rubyzip (>= 0.9.4)
       spreadsheet (> 0.6.4)
       todonotes (>= 0.1.0)
-    ruby-ole (1.2.11.5)
+    ruby-ole (1.2.11.6)
     rubyXL (1.2.10)
     rubyzip (0.9.9)
     sass (3.2.3)
@@ -281,7 +270,7 @@ GEM
       rack (>= 1.0.0)
     thor (0.16.0)
     tilt (1.3.3)
-    todonotes (0.1.0)
+    todonotes (0.1.1)
       log4r
     treetop (1.4.12)
       polyglot
@@ -318,7 +307,6 @@ DEPENDENCIES
   pdf-reader (= 0.9.0)
   prawn
   pry
-  pry-debugger
   qrda_generator!
   quality-measure-engine!
   rails (= 3.2.9)

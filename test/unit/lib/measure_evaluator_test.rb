@@ -34,18 +34,7 @@ class MeasureEvaluatorTest < ActiveSupport::TestCase
     assert result['antinumerator']== 4 , "Measure Evaluator reported wrong antinumerator result for a measure"
   end
   
-  test "resque jobs are created for uncalculated measures" do
-    QME::QualityReport.any_instance.stubs(:calculated?).returns(false)
-    QME::QualityReport.any_instance.stubs(:calculate).returns("123456") # A fake resque job uuid
-    QME::QualityReport.any_instance.stubs(:status).returns("working")
-    
-    result = Cypress::MeasureEvaluator.eval(@test, @measure)
-    
 
-    assert result['NUMER']    == '?',  "Expecting numerator  == ? " + result['NUMER']
-    assert result['DENOM']  == '?',  "Expecting denominator  == ? " + result['DENOM']
-    assert result['DENEX']   == '?' , "Expecting exclusions == ?" + result['DENEX']
-  end
 
   test "results are returned for calculated measures on static records" do
     QME::QualityReport.any_instance.stubs(:result).returns(@result)

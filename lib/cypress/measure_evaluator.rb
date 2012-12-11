@@ -38,41 +38,14 @@ module Cypress
   
     # Evaluates the supplied measure for a particular vendor
     def self.eval(test, measure, asynchronous = true)
-      report = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
-        {'effective_date' => test.effective_date, 'test_id' => test.id.to_s})
-      result = {'NUMER' => '?', 'DENOM' => '?', 'DENEX' => '?'}
-      
-      test.result_calculation_jobs = {} if test.result_calculation_jobs.nil?
-      measure_id = measure.id.to_s
-      
-      if report.calculated?
-        # Get rid of any resque jobs that we may have used to calculate these results and return the result
-        test.result_calculation_jobs.delete(measure_id)
-        result = report.result
-      elsif asynchronous
-        # If we don't already have an existing job for this measure, create one and add it to our job list
-        job = test.result_calculation_jobs[measure_id]
-        if job.nil?
-          uuid = report.calculate()
-          job   = report.status(uuid)
-        end
-        test.result_calculation_jobs[measure_id] = job
-      else
-        #The measure calculation job needs test.id to be a string,which it converts to an objectID
-        #Giving it a straight objectID causes an error. Thus we call calculate on newreport, and the result is stored in the original report!
-       
-        newreport = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
-        {'effective_date' => test.effective_date, 'test_id' => test.id.to_s})
-        newreport.calculate(false)
-      
-        result = report.result
-      end
-      test.save!
-      
-      result['measure_id'] = measure.id.to_s
-      result['key'] = measure.key
-      
-      return result
+      dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure)
+      qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil, "oid_dictionary"=>dictionary)
+
+      qr.calculate(false) 
+      result = qr.result
+      result.delete("_id")
+      result
+
     end
 
     # Evaluates the supplied measure for the static patients

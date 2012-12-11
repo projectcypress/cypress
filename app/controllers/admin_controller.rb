@@ -17,7 +17,6 @@ class AdminController < ApplicationController
 	end
 
 	def import_bundle
-    binding.pry
 		bundle = params[:bundle]
 		importer = QME::Bundle::Importer.new
 	  @bundle_contents = importer.import(bundle, params[:delete_existing])    
@@ -69,7 +68,7 @@ class AdminController < ApplicationController
     @limit = 100
     @skip = (@page.to_i - 1) * @limit
   
-    @valuesets = HealthDataStandards::SVS::ValueSet.or(query).skip(@skip).limit(@limit)
+    @valuesets = HealthDataStandards::SVS::ValueSet.or(query).skip(@skip).limit(@limit).order_by(:oid=>1)
     @page_count =  (@valuesets.count.to_f / @limit.to_f).ceil
   end
 
@@ -86,25 +85,34 @@ class AdminController < ApplicationController
   end
 
   def disable
-    user = User.by_username(params[:username]);
+    user = User.where(:email=>params[:username]).first
     disabled = params[:disabled].to_i == 1
     if user
       user.update_attribute(:disabled, disabled)
       if (disabled)
-        render :text => "<a href=\"#\" class=\"disable\" data-username=\"#{user.username}\">disabled</span>"
+        render :text => "<a href=\"#\" class=\"disable\" data-username=\"#{user.email}\">disabled</span>"
       else
-        render :text => "<a href=\"#\" class=\"enable\" data-username=\"#{user.username}\">enabled</span>"
+        render :text => "<a href=\"#\" class=\"enable\" data-username=\"#{user.email}\">enabled</span>"
       end
     else
       render :text => "User not found"
     end
   end
 
+ def approve
+     user = User.where(:email=>params[:username]).first
+    if user
+      user.update_attribute(:approved, true)
+      render :text => "true"
+    else
+      render :text => "User not found"
+    end
+  end
 
 private
 
   def toggle_privilidges(username, role, direction)
-    user = User.by_username username
+    user = User.where(:email=>username).first
 
     if user
       if direction == :promote
