@@ -108,7 +108,7 @@
         <% patient_characteristics.each do |characteristic, characteristic_title| %>
           <tbody>
             <tr>
-              <th colspan="5"><%= characteristic_title %></th>
+              <th colspan="6"><%= characteristic_title %></th>
             </tr>
             <%= render :partial => 'entries', :locals => { :collection => characteristic } %>
           </tbody>
