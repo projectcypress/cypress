@@ -34,10 +34,5 @@ class TestExecutionsController < ApplicationController
     send_file zip.path, :type => 'application/zip', :disposition => 'attachment', :filename => zip_name
   end
   
-  private 
-  
-  def template_name(te)
-    te.product_test.class.to_s.underscore
-  end
-  
+
 end

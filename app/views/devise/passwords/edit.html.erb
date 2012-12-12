@@ -1,8 +1,7 @@
-<% require 'get_dependencies' %>
+
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :name=>"account_form" }) do |f| %>
       <h1>Change your password</h1>
-      <p>Just tell us the email address you used to create your cypress account, and we'll send you a link to reset your password!</p>
-      <br />
+      
       <div>
         <%= f.hidden_field :reset_password_token %>
         <%= f.label :password, "New password" %>

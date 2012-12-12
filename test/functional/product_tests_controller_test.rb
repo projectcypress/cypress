@@ -127,4 +127,14 @@ include Devise::TestHelpers
     
     assert_response :redirect
   end
+
+  test "qrda_cat3" do
+
+    test = ProductTest.find("4f58f8de1d41c851eb000478")
+    get :qrda_cat3, {:id=> test,:format=>:xml}
+    assert_response :success
+  end
+
+
+
 end

@@ -12,8 +12,8 @@ class ApplicationHelperTest < ActionView::TestCase
 
 
   test "Should return correct test execution template" do
-		assert_equal "test_executions/calculated_product_test/show", test_execution_template(CalculatedProductTest.new.test_executions.build)
-		assert_equal "test_executions/inpatient_product_test/show", test_execution_template(InpatientProductTest.new.test_executions.build)
+		assert_equal "test_executions/show", test_execution_template(CalculatedProductTest.new.test_executions.build)
+		assert_equal "test_executions/show", test_execution_template(InpatientProductTest.new.test_executions.build)
 		assert_equal "test_executions/qrda_product_test/show", test_execution_template(QRDAProductTest.new.test_executions.build)
 	end
 

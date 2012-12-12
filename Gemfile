@@ -48,7 +48,7 @@ end
 
 group :test, :develop do
 	gem 'pry'
-  #gem 'pry-debugger'
+  gem 'pry-nav'
   gem 'turn', :require => false
   gem 'minitest'
   gem "tailor"

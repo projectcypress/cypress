@@ -33,9 +33,13 @@ module ApplicationHelper
     content_for(:head) { javascript_include_tag(*files) }
   end
   
-  def test_execution_template(te)
+  def test_execution_template(te, format='html')
     type =  te.product_test.class.to_s.underscore
-    "test_executions/#{type}/show"
+    if File.exists?(File.join(Rails.root,'app','views','test_executions',type,"_show.#{format}.erb"))
+      return "test_executions/#{type}/show"
+    else
+      return 'test_executions/show'
+    end 
   end
   
   

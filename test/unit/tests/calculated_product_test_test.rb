@@ -6,28 +6,7 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     collection_fixtures('product_tests', '_id')
   end
 
- 
-  
-  
-  test "should clone records when given patient_ids " do
-    pending "until I can get the fixtures fixed to deal with this" do
-      Delayed::Worker.delay_jobs = false
-      patients = ['100','102']
-      measures = ['0001']
-      pt = CalculatedProductTest.new({measure_ids: measures, patient_ids: patients, effective_date: Time.now.to_i, name: "Test"})
 
-      pt.save
-      
-      Delayed::Worker.delay_jobs = true
-      assert_equal :ready, pt.state, "State should be ready"
-      assert_equal measures,  pt.measure_ids , "Test should have the same measure_ids created with"
-      assert pt.expected_results, "Test should have expected results"
-      assert_equal patients.length, pt.records.count , "Test should have the correct number of patient records"
-    end
-    
-  end
-  
-  
   
   test "execute qrda" do
 #    binding.pry
