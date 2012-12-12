@@ -29,7 +29,7 @@ class InpatientProductTestTest < ActiveSupport::TestCase
     	assert pt.expected_results[mes.key], "Test should contain an expected results for #{mes.key}"
     end
 
-    assert_equal 3, pt.records.count , "Test should have the correct number of patient records"
+    assert_equal 6, pt.records.count , "Test should have the correct number of patient records"
     qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/eh_test_results.xml'), "application/xml")
 
     execution = pt.execute({:results =>qrda})

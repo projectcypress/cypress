@@ -20,19 +20,5 @@ module PatientsHelper
     e["name"] || ""
   end
   
-  def result_to_markup(included)
-    if included
-      '<img src="/assets/pass.png"/>'
-    else
-      ''
-    end
-  end
-  
-  def result_to_class(included)
-    if included
-      'class="marker p"'
-    else
-      'class="marker"'
-    end
-  end
+
 end

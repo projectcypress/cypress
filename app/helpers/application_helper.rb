@@ -4,7 +4,6 @@ module ApplicationHelper
     begin
       return Time.at(seconds_since_epoch).utc.strftime('%m/%d/%Y')
     rescue
-      return $!.message
       return "?"
     end 
   end
