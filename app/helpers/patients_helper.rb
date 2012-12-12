@@ -1,4 +1,5 @@
 module PatientsHelper
+  include HealthDataStandards::Export::ViewHelper
   
   
   def race(patient)

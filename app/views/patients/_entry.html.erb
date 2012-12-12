@@ -33,19 +33,22 @@
   
    <td>
     <% 
-      (entry.attributes.keys.reject {|key| ['codes', 'time', 'description', 'mood_code', 'values', '_id', '_type', 'start_time', 'end_time', 'status_code', 'negationInd', 'negationReason', 'oid'].include? key}).each do |field|
-      field_value = ThingWithCodes.convert_codes_to_s(entry.attributes[field]) rescue entry.attributes[field].to_s
+      (entry.attributes.keys.reject {|key| ['codes', 'time', 'description', 'mood_code', 'values', '_id', '_type', 'start_time', 'end_time', 'status_code', 'negationInd', 'oid'].include? key}).each do |field|
+      field_value = convert_field_to_hash(field, entry.attributes[field])
+
     %>
-        <%= field %>: (<b><%= field_value %></b>)
-    <%
-      end
-      if entry.negationInd 
-        negation_reason = ''
-        if entry.negationReason
-          negation_reason = ThingWithCodes.convert_codes_to_s(entry.negationReason) rescue entry.negationReason.to_s
-        end
-    %>
-        negation: <%= negation_reason %>
+        <% if field_value && !field_value.empty? %> 
+        <dl>
+          <% if field_value.is_a? Hash %>
+            <dt><b><%= field.titleize %>:</b></dt>
+            <% field_value.keys.each do |fieldkey| %>
+              <dd><%= fieldkey %>: <i><%= field_value[fieldkey] %></i></dd>
+            <% end %>
+          <% else %>
+            <dt><b><%= field.titleize %></b>: <%= field_value%></dt>
+          <% end %>
+        <dl>
+      <% end %>
     <%
       end
     %>
