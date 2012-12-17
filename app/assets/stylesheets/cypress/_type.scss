@@ -42,15 +42,17 @@ font-weight:$fontWeight;
 
 dl.measure {
   display:inline-block;
-  width:750px;
+  width:658px;
   margin: 0px;
   padding:0px;
   dt {
     width:120px;
   }
  dd {
-    width:600px;
+    width:540px;
   }
+  dd.measure_definition {cursor: pointer;}
+
   dd.measure_desc {
   font-size:$fontSize*10/9;
   }
