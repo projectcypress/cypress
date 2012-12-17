@@ -1,17 +1,25 @@
 GIT
+  remote: https://github.com/abgoldstein/test-patient-generator.git
+  revision: 158d26cb4fde42cdf17b0f7040ac75416b5c23c5
+  branch: develop
+  specs:
+    test-patient-generator (1.0.2)
+
+GIT
   remote: https://github.com/eedrummer/qrda_generator.git
-  revision: d863ff63754bca8997cd82076a3875bc89c4393c
+  revision: 901ae2f6ab6d7ec9d5c66347eb7903e561ae2f49
   specs:
     qrda_generator (0.1.0)
       health-data-standards (~> 2.1.4)
       hqmf-parser (~> 1.0.6)
+      log4r (~> 1.1.10)
       mongoid (~> 3.0.6)
       nokogiri (~> 1.5.5)
       uuid (~> 2.3.5)
 
 GIT
   remote: https://github.com/pophealth/hqmf-parser.git
-  revision: bac9aab9665f2f00bdcd2e066b1bbe3a80f88384
+  revision: c227a74f1c107ed6cde7ba27a73b3d86ed331aef
   branch: develop
   specs:
     hqmf-parser (1.0.6)
@@ -22,8 +30,8 @@ GIT
 
 GIT
   remote: https://github.com/pophealth/quality-measure-engine.git
-  revision: a1974aaa0c4cc527771aefb60a212815c0704000
-  branch: population_match
+  revision: b7d75d0e75b30e00eebb3f875ad409ec1f1a32c8
+  branch: develop
   specs:
     quality-measure-engine (2.1.0)
       delayed_job_mongoid (~> 2.0.0)
@@ -34,15 +42,8 @@ GIT
       rubyzip (~> 0.9.9)
 
 GIT
-  remote: https://github.com/pophealth/test-patient-generator.git
-  revision: 71af8f8d62719e83d9ee3d17bcb6af9b43b54307
-  branch: develop
-  specs:
-    test-patient-generator (1.0.2)
-
-GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 4f4ac76fb05a689ddce09fb08db85dd1d32d6242
+  revision: deb3d75641e27effda6a6f545499e95f386b247d
   branch: develop
   specs:
     health-data-standards (2.1.4)
