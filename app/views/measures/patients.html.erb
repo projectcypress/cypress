@@ -4,7 +4,7 @@
   <colgroup  class="nqf">
   <col />
   <col />
-  <% if !@measure.population_ids["MSRPOPL"] %>
+  <% if !@measure.population_ids[QME::QualityReport::MSRPOPL] %>
     <col />
     <col />
     <col />
@@ -13,7 +13,7 @@
   </colgroup>
   <thead style="position:relative;">
     <tr class="rot">
- <% if !@measure.population_ids["MSRPOPL"] %>
+ <% if !@measure.population_ids[QME::QualityReport::MSRPOPL] %>
       <th><div>POP</div></th>
       <th><div>DEN</div></th>
       <th><div>NUM</div></th>
@@ -35,18 +35,18 @@
     <% @patients.each do |patient| 
 
       %>
-      <% if patient.value.population %>
+      <% if patient.value.IPP %>
         <tr>
-      <% if !@measure.population_ids["MSRPOPL"] %>
-          <td class="marker <%= 'p' if patient.value["population"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["denominator"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["numerator"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["exclusions"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["denexcep"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["antinumerator"] == 1%>"></td>
+      <% if !@measure.population_ids[QME::QualityReport::MSRPOPL] %>
+          <%= population_marker(patient.value[QME::QualityReport::POPULATION])%>
+          <%= population_marker(patient.value[QME::QualityReport::DENOMINATOR])%>
+          <%= population_marker(patient.value[QME::QualityReport::NUMERATOR])%>
+          <%= population_marker(patient.value[QME::QualityReport::EXCLUSIONS] )%>
+          <%= population_marker(patient.value[QME::QualityReport::EXCEPTIONS] )%>
+          <%= population_marker(patient.value[QME::QualityReport::ANTINUMERATOR])%>
       <% else %>
-          <td class="marker <%= 'p' if patient.value["population"] == 1%>"></td>
-          <td class="marker <%= 'p' if patient.value["MSRPOPL"] == 1%>"></td>
+          <%= population_marker(patient.value[QME::QualityReport::POPULATION] )%>
+          <%= population_marker(patient.value[QME::QualityReport::MSRPOPL])%>
       <% end %>
 
           <td></td>

@@ -42,7 +42,7 @@ class TestExecution
   end
 
   def execution_date
-    self.created_at
+     self.created_at || Time.at(self['execution_date'])
   end
 
   def count_errors
@@ -55,7 +55,7 @@ class TestExecution
 
   # Get the expected result for a particular measure
   def expected_result(measure)
-    (expected_results || {})[measure.key] || {}
+    (expected_results || product_test.expected_results || {})[measure.key] || {}
   end
   
   # Get the expected result for a particular measure

@@ -29,14 +29,14 @@ class PatientsController < ApplicationController
     # If a ProductTest is specified, show results for only the patients included in that population
     # Otherwise show the whole Master Patient List
     if @showAll
-      @result = {'measure_id' => '-', 'numerator' => '-', 'antinumerator' => '-', 'denominator' => '-', 'exclusions' => '-'}
+      @result = {'measure_id' => '-', 'NUMER' => '-', 'antinumerator' => '-', 'DENOM' => '-', 'DENEX' => '-'}
     else
       if params[:product_test_id]
         if @measures.include?(@selected)
-          @result = Cypress::MeasureEvaluator.eval(@test, @selected)
+          @result = @test.expected_result(@selected)
         else
           # If the selected measure wasn't chosen to be part of the test, return zeroed results
-          @result = {'measure_id' => @selected.id, 'numerator' => '0', 'antinumerator' => 0, 'denominator' => '0', 'exclusions' => '0'}
+          @result = {'measure_id' => @selected.id, 'NUMER' => '0', 'antinumerator' => 0, 'DENOM' => '0', 'DENEX' => '0'}
         end
       else
         @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected)
@@ -73,9 +73,10 @@ class PatientsController < ApplicationController
       @test = ProductTest.find(params[:product_test_id])
     end
 
+   
     @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected.hqmf_id)
-      .where("value.sub_id" => @selected.sub_id).where("value.population".to_sym.gt => 0)
-      .order_by([ ["value.numerator", :desc], ["value.denominator", :desc], ["value.exclusions", :desc]])
+      .where("value.sub_id" => @selected.sub_id).where("value.IPP".to_sym.gt => 0)
+      .order_by([ ["value.NUMER", :desc], ["value.DENOM", :desc], ["value.DENEX", :desc]])
 
     render 'table'
   end
@@ -97,12 +98,7 @@ class PatientsController < ApplicationController
   #send user record associated with patient
   def download
     file = Cypress::CreateDownloadZip.create_patient_zip(params[:id],params[:format])
-    if params[:format] == 'csv'
-      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => "'patient_#{params[:id]}.csv"
-    else
-      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_#{params[:id]}_#{params[:format]}.zip"
-    end
-    file.close
+    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_#{params[:id]}_#{params[:format]}.zip"
   end
 
 end

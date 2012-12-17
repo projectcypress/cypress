@@ -1,6 +1,17 @@
 GIT
+  remote: https://github.com/eedrummer/qrda_generator.git
+  revision: d863ff63754bca8997cd82076a3875bc89c4393c
+  specs:
+    qrda_generator (0.1.0)
+      health-data-standards (~> 2.1.4)
+      hqmf-parser (~> 1.0.6)
+      mongoid (~> 3.0.6)
+      nokogiri (~> 1.5.5)
+      uuid (~> 2.3.5)
+
+GIT
   remote: https://github.com/pophealth/hqmf-parser.git
-  revision: b1bf0f4dd61de48efb119b3af1afee2b1b6ddc85
+  revision: bac9aab9665f2f00bdcd2e066b1bbe3a80f88384
   branch: develop
   specs:
     hqmf-parser (1.0.6)
@@ -11,8 +22,8 @@ GIT
 
 GIT
   remote: https://github.com/pophealth/quality-measure-engine.git
-  revision: 6c4b935063c89d8a31d1d9f12a0ed3b83cc0728d
-  branch: develop
+  revision: a1974aaa0c4cc527771aefb60a212815c0704000
+  branch: population_match
   specs:
     quality-measure-engine (2.1.0)
       delayed_job_mongoid (~> 2.0.0)
@@ -24,14 +35,14 @@ GIT
 
 GIT
   remote: https://github.com/pophealth/test-patient-generator.git
-  revision: b78e50604deccd1c28591acf34cd0c23fe63c34c
+  revision: 71af8f8d62719e83d9ee3d17bcb6af9b43b54307
   branch: develop
   specs:
     test-patient-generator (1.0.2)
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 67f26fdd7ca48622bcbfefb3e446fd2bb680c99a
+  revision: 4f4ac76fb05a689ddce09fb08db85dd1d32d6242
   branch: develop
   specs:
     health-data-standards (2.1.4)
@@ -86,6 +97,7 @@ GEM
     activesupport (3.2.9)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    addressable (2.3.2)
     ansi (1.4.3)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
@@ -100,6 +112,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    crack (0.3.1)
     daemons (1.1.9)
     delayed_job (3.0.4)
       activesupport (~> 3.0)
@@ -152,11 +165,11 @@ GEM
       moped (~> 1.1)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
-    mongoid-grid_fs (1.3.3)
+    mongoid-grid_fs (1.7.0)
       mime-types (~> 1.19)
       mongoid (~> 3.0)
     moped (1.2.9)
-    multi_json (1.3.7)
+    multi_json (1.5.0)
     multipart-post (1.1.5)
     nokogiri (1.5.5)
     oauth (0.4.7)
@@ -178,6 +191,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.3.1)
+    pry-nav (0.2.2)
+      pry (~> 0.9.10)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -214,7 +229,7 @@ GEM
       rubyzip (>= 0.9.4)
       spreadsheet (> 0.6.4)
       todonotes (>= 0.1.0)
-    ruby-ole (1.2.11.5)
+    ruby-ole (1.2.11.6)
     rubyXL (1.2.10)
     rubyzip (0.9.9)
     sass (3.2.3)
@@ -257,7 +272,7 @@ GEM
       rack (>= 1.0.0)
     thor (0.16.0)
     tilt (1.3.3)
-    todonotes (0.1.0)
+    todonotes (0.1.1)
       log4r
     treetop (1.4.12)
       polyglot
@@ -273,6 +288,9 @@ GEM
       macaddr (~> 1.0)
     warden (1.2.1)
       rack (>= 1.0)
+    webmock (1.8.11)
+      addressable (>= 2.2.7)
+      crack (>= 0.1.7)
 
 PLATFORMS
   ruby
@@ -287,10 +305,12 @@ DEPENDENCIES
   jquery-rails
   minitest
   mocha
-  mongoid-grid_fs (~> 1.3.3)
+  mongoid-grid_fs (~> 1.7.0)
   pdf-reader (= 0.9.0)
   prawn
   pry
+  pry-nav
+  qrda_generator!
   quality-measure-engine!
   rails (= 3.2.9)
   rake
@@ -304,4 +324,5 @@ DEPENDENCIES
   thin
   turn
   uglifier
+  webmock
   win32-eventlog

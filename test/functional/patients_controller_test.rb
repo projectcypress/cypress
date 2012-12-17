@@ -37,10 +37,10 @@ include Devise::TestHelpers
     assert showAll == false
     assert selected.id == m2.id
     assert result['measure_id'].to_s == m2.id.to_s
-    assert result['numerator']   == '0'
+    assert result['NUMER']   == '0'
     assert result['antinumerator'] == 0
-    assert result['denominator'] == '0'
-    assert result['exclusions']  == '0'
+    assert result['DENOM'] == '0'
+    assert result['DENEX']  == '0'
 
 
     get :index, {:product_test_id =>'4f58f8de1d41c851eb000478'}
@@ -49,17 +49,17 @@ include Devise::TestHelpers
 
     assert showAll == true
     assert result['measure_id']  == '-'
-    assert result['numerator']   == '-'
+    assert result['NUMER']   == '-'
     assert result['antinumerator'] == '-'
-    assert result['denominator'] == '-'
-    assert result['exclusions']  == '-'
+    assert result['DENOM'] == '-'
+    assert result['DENEX']  == '-'
 
     expected_result = {"measure_id" => m1['hqmf_id'],
       "effective_date" => 1293753600,
-      "denominator" => 48,
-      "numerator" => 44,
+      "DENOM" => 48,
+      "NUMER" => 44,
       "antinumerator" => 4,
-      "exclusions" => 0 }
+      "DENEX" => 0 }
     QME::QualityReport.any_instance.stubs(:result).returns(expected_result)
     QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
 
@@ -68,9 +68,9 @@ include Devise::TestHelpers
     showAll = assigns[:showAll]
     assert showAll == false
     assert result['measure_id'].to_s  == m1.id.to_s, '1'
-    assert result['numerator']    == 44, "Measure Evaluator reported wrong result for a measure"
-    assert result['denominator']  == 48, "Measure Evaluator reported wrong result for a measure"
-    assert result['exclusions']   == 0 , "Measure Evaluator reported wrong result for a measure"
+    assert result['NUMER']    == 44, "Measure Evaluator reported wrong result for a measure"
+    assert result['DENOM']  == 48, "Measure Evaluator reported wrong result for a measure"
+    assert result['DENEX']   == 0 , "Measure Evaluator reported wrong result for a measure"
     assert result['antinumerator']== 4 , "Measure Evaluator reported wrong result for a measure"
   end
 
@@ -94,21 +94,21 @@ include Devise::TestHelpers
     m2 = Measure.where(:hqmf_id => '0002').first
 
     get :table_measure,{:measure_id => m1.id }
-    assert assigns[:patients].count == 3
+    assert_equal 3, assigns[:patients].count, "3 patients expected to be assigned"
 
     get :table_measure,{:measure_id => m2.id }
-    assert assigns[:patients].count == 2
+    assert_equal 2,  assigns[:patients].count , "2 measures expected to be assigned"
 
     get :table_measure,{:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m1.id}
-    assert assigns[:patients].count == 4
+    assert_equal 4,  assigns[:patients].count, "4 patients expected to be assigned"
 
     get :table_measure,{:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m2.id}
-    assert assigns[:patients].count == 3
+    assert_equal 3,  assigns[:patients].count , "3 patients expected to be assigned"
   end
 
   test "table_all" do
     get :table_all,{}
-    assert_equal 5, assigns[:patients].count
+    assert_equal 8, assigns[:patients].count
 
     get :table_all,{:product_test_id => '4f58f8de1d41c851eb000478'}
     assert assigns[:patients].count == 1
@@ -117,17 +117,10 @@ include Devise::TestHelpers
   test "download" do
     r1 = Record.find("4f5bb2ef1d41c841b3000046")
 
-    get :download,{:id => r1.id , :format => 'c32' }
-    assert_response :success,"Failed to download C32 zip file"
-    get :download,{:id => r1.id , :format => 'ccr' }
-    assert_response :success,"Failed to download CCR zip file"
     get :download,{:id => r1.id , :format => 'html'}
     assert_response :success,"Failed to download HTML zip file"
 
-    get :download,{:format => 'c32' }
-    assert_response :success,"Failed to download Master Patient List C32 zip file"
-    get :download,{:format => 'ccr' }
-    assert_response :success,"Failed to download Master Patient List CCR zip file"
+
     get :download,{:format => 'html'}
     assert_response :success,"Failed to download Master Patient List HTML zip file"
   end

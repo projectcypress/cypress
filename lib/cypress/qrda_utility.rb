@@ -4,12 +4,10 @@ module Cypress
   class QrdaUtility
 
 
-    POPULATION_CODE_MAPPINGS = {'NUMER' => "numerator", 'DENOM' => "denominator",'IPP' => "population", 'MSRPOPL' => "msr_popl" , 
-                      'NUMEX' => "numex", 'DENEX' => "exclusions",'DENEXCEP' => "exceptions", 'EXCEP' => "exceptions"}
 
     
     CV_METHOD_CODES = ["OBSRV", "COUNT","SUM", "AVERAGE","STDEV.S","VARIANCE.S","STDEV.P","VARIANCE.P","MIN","MAX", "MEDIAN", "MODE"]
-    CV_POPULATION_CODE = "OBSRV"
+    CV_POPULATION_CODE = QME::QualityReport::OBSERVATION
     
     QRDA_CAT1_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
     QRDA_CAT3_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_3"]
@@ -56,9 +54,9 @@ module Cypress
 
           # Look in the document to see if there is an entry stating that it is reporting on the given measure
           # we will be a bit lieniant and look for both the version specific id and the non version specific ids
-
-          if !doc.at_xpath("//cda:organizer[./templateId[@root='2.16.840.1.113883.10.20.24.3.98']]/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']/cda:id[#{translate("@root")}='#{measure.hqmf_id.upcase}']")
+          if !doc.at_xpath("//cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.98']]/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']/cda:id[#{translate("@root")}='#{measure.hqmf_id.upcase}']")
             file_errors << ExecutionError.new(:location=>"/", :msg_type=>"error", :message=>"Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.name}")
+
           end
         end
 
@@ -91,7 +89,7 @@ module Cypress
         _ids.each_pair do |k,v|
           val = nil
           if (k == CV_POPULATION_CODE)
-            msrpopl = _ids["MSRPOPL"]
+            msrpopl = _ids[QME::QualityReport::MSRPOPL]
             val = extract_cv_value(n,v,msrpopl, stratification)
           else 
             val =extract_component_value(n,k,v,stratification)
@@ -111,15 +109,6 @@ module Cypress
         end
       end  
       return nil unless results
-
-        if results
-          POPULATION_CODE_MAPPINGS.each_pair do |k,v|
-            if results[k]
-              results[v] = results[k]
-              results.delete(k)
-            end
-        end
-      end
       results[:population_ids] = ids.dup
       results
     end

@@ -17,28 +17,28 @@ class InpatientProductTestTest < ActiveSupport::TestCase
   end
 
   test "should be able to create and execute a test" do
-  	measure_ids = ["8A4D92B2-3887-5DF3-0139-0D01C6626E46","8A4D92B2-3887-5DF3-0139-0D08A4BE7BE6"]
+  	measure_ids = ["8A4D92B2-3887-5DF3-0139-0D01C6626E46","8A4D92B2-3887-5DF3-0139-0D08A4BE7BE6","8A4D92B2-3887-5DF3-0139-0C4E41594C98"]
   	pt = InpatientProductTest.new(measure_ids: measure_ids, name:"In Test", effective_date: Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE)
   	pt.save
   	
   	assert_equal "ready", pt.state, "Test should be in a ready state"
-  	assert_equal measure_ids, pt.measures.collect{|m| m.hqmf_id}, "Test should have the same measure_ids created with"
+  	assert_equal measure_ids.uniq.sort, pt.measures.collect{|m| m.hqmf_id}.uniq.sort, "Test should have the same measure_ids created with"
     assert pt.expected_results, "Test should have expected results"
-
-    measure_ids.each do |mid|
-    	assert pt.expected_results[mid], "Test should contain an expected results for #{mid}"
+ 
+    pt.measures.each do |mes|
+    	assert pt.expected_results[mes.key], "Test should contain an expected results for #{mes.key}"
     end
 
-    assert_equal 3, pt.records.count , "Test should have the correct number of patient records"
+    assert_equal 6, pt.records.count , "Test should have the correct number of patient records"
     qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/eh_test_results.xml'), "application/xml")
-    
+
     execution = pt.execute({:results =>qrda})
 
-    assert_equal 0,  execution.execution_errors.by_validation_type(:result_validation).length 
+    assert_equal 0,  execution.execution_errors.by_validation_type(:result_validation).length , "Should have 0 result errors"
     qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/eh_test_results_bad.xml'), "application/xml")
     
     execution = pt.execute({:results =>qrda})
-    assert_equal 1,  execution.execution_errors.by_validation_type(:result_validation).length 
+    assert_equal 3,  execution.execution_errors.by_validation_type(:result_validation).length , " Should have 1 result error"
 
 
   end

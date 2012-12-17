@@ -5,7 +5,8 @@ gem 'rails', '3.2.9'
 gem 'jquery-rails'
 gem 'rake'
 
-gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
+
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'population_match'
 #gem 'quality-measure-engine', '~> 2.1.0'
 gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
 #gem 'health-data-standards', '~> 2.1.4'
@@ -18,6 +19,8 @@ gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient
 #gem 'test-patient-generator', '~> 1.0.2'
 
 gem "delayed_job_mongoid_web", :git => 'https://github.com/rdingwell/delayed_job_mongoid_web.git', :branch => 'develop'
+gem "qrda_generator", :git => 'https://github.com/eedrummer/qrda_generator.git'
+
 gem 'state_machine'
 
 gem 'devise', '~> 2.0'
@@ -28,10 +31,11 @@ gem  "pdf-reader", '0.9.0'
 
 gem 'thin'
 
+
 gem 'cancan', '~> 1.6.7'
 
 
-gem 'mongoid-grid_fs', '~> 1.3.3' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
+gem 'mongoid-grid_fs', '~> 1.7.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
 
 # Windows doesn't have syslog, so need a gem to log to EventLog instead
 gem 'win32-eventlog', :platforms => [:mswin, :mingw]
@@ -44,12 +48,13 @@ end
 
 group :test, :develop do
 	gem 'pry'
-  #gem 'pry-debugger'
+  gem 'pry-nav'
   gem 'turn', :require => false
   gem 'minitest'
   gem "tailor"
   gem 'simplecov', :require => false
   gem 'mocha', :require => false
+  gem 'webmock'
 end
 
 group :production do

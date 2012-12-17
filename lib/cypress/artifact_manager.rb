@@ -10,17 +10,15 @@ module Cypress
       ids = []
       artifacts.each do |a|
        fs = grid.put(a.open, :filename => File.basename(a.path))
-       fs.attributes[:metadata] =  {:metadata => {'execution_id' => test_execution.id.to_s}}
        fs.save
        ids << fs.id
       end
       ids
     end
 
-    def self.del_artifacts(test_execution)
-      artifacts = grid.find(:metadata => {'execution_id' => test_execution.id.to_s})
-      artifacts.each do |a|
-        grid.delete(a['_id'])
+    def self.del_artifacts(ids)
+      ids.each do |id|
+        grid.delete(id)
       end
     end
 
@@ -31,7 +29,7 @@ module Cypress
 
     def self.get_artifacts(artifact_ids)
       ids = [artifact_ids].flatten
-      ids.collect {|id| grid.get(id)}
+      Mongoid::GridFS::Fs::File.in({"_id" => ids})
      
     end
     

@@ -16,6 +16,18 @@ require 'active_support/testing/pending'
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   
+  def load_code_sets
+    MONGO_DB['races'].drop() if MONGO_DB['races']
+    MONGO_DB['ethnicities'].drop() if MONGO_DB['ethnicities']
+   JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'code_sets', 'races.json'))).each do |document|
+      MONGO_DB['races'].insert(document)
+    end
+    JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'code_sets', 'ethnicities.json'))).each do |document|
+      MONGO_DB['ethnicities'].insert(document)
+    end
+  end
+
+
   def collection_fixtures(collection, *id_attributes)
     Mongoid.session(:default)[collection].drop
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|

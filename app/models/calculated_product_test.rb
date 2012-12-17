@@ -3,7 +3,6 @@ class CalculatedProductTest < ProductTest
   state_machine :state do
     
     after_transition any => :generating_records do |test|
-
       min_set = PatientPopulation.min_coverage(test.measure_ids)
       p_ids = min_set[:minimal_set]
 
@@ -18,7 +17,7 @@ class CalculatedProductTest < ProductTest
       
       # do this synchronously because it does not take long
       # p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
-      pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => test.id, "randomize_names"=> true})
+      pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => test.id, "randomize_names"=> false})
       pcj.perform
       #now calculate the expected results
       test.calculate
@@ -74,8 +73,8 @@ class CalculatedProductTest < ProductTest
       _ids.delete("stratification")
 
       
-      _ids.keys.each do |pop_id| 
-         pop_key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
+      _ids.keys.each do |pop_key| 
+         #pop_key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
         if expected_result[pop_key]
           matched_result[pop_key] = {:expected=>expected_result[pop_key], :reported=>reported_result[pop_key]}
           # only add the error that they dont match if there was an actual result
@@ -102,7 +101,7 @@ class CalculatedProductTest < ProductTest
   
   
   def self.product_type_measures
-    Measure.top_level_by_type("ep")
+    Measure.top_level_by_type("ep").where({"population_ids.MSRPOPL" => {"$exists" => false}})
   end
   
   

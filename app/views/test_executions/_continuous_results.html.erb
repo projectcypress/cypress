@@ -1,7 +1,7 @@
  <table class="table">
          <thead>
            <tr>
-             <th colspan="2" style="width:50%"></span>Continuous Variable Measures included in this test</th>
+             <th colspan="2" style="width:50%"></span>Reported/Expected</th>
              <th>Patients</th>
              <th>Measure Population</th>
              <th>Observation Value</th>
@@ -19,19 +19,10 @@
                    <%= " - #{measure.subtitle}" if measure.sub_id %>
                  </a>
                </td>
-               <td>
-                <%  reported_class = result_class(reported_result["population"],expected_result["population"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["population"]%>/<%=expected_result["population"]%></span>
-               </td>
-               <td>
-                <%  reported_class = result_class(reported_result["MSRPOPL"],expected_result["MSRPOPL"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["MSRPOPL"]%>/<%=expected_result["MSRPOPL"]%></span>
-               </td>
 
-               <td>
-                <%  reported_class = result_class(reported_result["OBSERV"],expected_result["OBSERV"]) %>
-                <span class="<%=reported_class%>" ><%=reported_result["OBSERV"]%>/<%=expected_result["OBSERV"]%></span>
-               </td>
+                <%= expected_reported(expected_result[QME::QualityReport::POPULATION],reported_result[QME::QualityReport::POPULATION]) %>
+                <%= expected_reported(expected_result[QME::QualityReport::MSRPOPL],reported_result[QME::QualityReport::MSRPOPL]) %>
+                <%= expected_reported(expected_result[QME::QualityReport::OBSERVATION],reported_result[QME::QualityReport::OBSERVATION]) %>
 
              </tr>
            <% end %>

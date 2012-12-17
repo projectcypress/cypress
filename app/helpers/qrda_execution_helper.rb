@@ -1,5 +1,4 @@
 module QrdaExecutionHelper
-  POP_MAP ={"DENOM" =>"denominator","DENEX"=>"denex","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep", "IPP"=>"population"}  
   NODE_TYPES ={1 => :element ,
   2 => :attribute ,
   3 => :text,
@@ -61,10 +60,9 @@ end
       result = results[value["measure_id"]] ||= {"hqmf_id"=>value["measure_id"], "population_ids" => {}}
       population_ids = value["population_ids"]
       strat_id = population_ids["stratification"]
-      population_ids.each_pair do |type,pop_id|
-        if type != "stratification" 
-          pop_result  = result["population_ids"][pop_id] ||= {"type"=> type}
-          pop_key  = POP_MAP[type]
+      population_ids.each_pair do |pop_key,pop_id|
+        if pop_key != "stratification" 
+          pop_result  = result["population_ids"][pop_id] ||= {"type"=> pop_key}
           pop_val = value[pop_key]
           if strat_id
             pop_result["stratifications"] ||= {}

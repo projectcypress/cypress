@@ -5,12 +5,18 @@
     <section class="tb">
       <div class="stacked">
       </div>
-      <nav class="breadcrumb">
+       <nav class="breadcrumb">
+        <%= render :partial=>"shared/breadcrumbs" %>
       </nav>
     </section>
-
-
-
+    <%= flash[:errors]  %>
+<div>
+  <h4> Installed Bundles </h4>
+  <ul>
+  <% Bundle.all.each do |bundle| %>
+    <li><%= bundle.title %>  -  <%= bundle.version %> </li>
+  <% end %>
+  </ul>
   <div >
   <%= form_tag :action => 'update_value_sets'  do %>
 
@@ -19,7 +25,7 @@
   		<td> <%= submit_tag "Update Valuesets" %> </td>
   		<td> NLM Username: <%= text_field_tag :username %> </td> 
   		<td> NLM Password: <%= password_field_tag :password %> </td> 
-
+      <td> <span> Clear Existing</span><%= check_box_tag  :delete_existing , true %> </td> 
   	</tr>
   </table>
 
@@ -30,7 +36,7 @@
   <table>
   	<tr>
   		<td> <%= submit_tag "Import Bundle" %> </td>
-  		<td> <span> Clear Existing</span><%= check_box_tag "Clear Existing", :clear_existing %> </td> 
+  		<td> <span> Clear Existing</span><%= check_box_tag "delete_existing", true %> </td> 
   		<td> <%= file_field_tag  :bundle %> </td>
   	</tr>
   </table>
@@ -42,21 +48,15 @@
    	<span>Jobs </span>
 
    	<% @jobs.each do |job| %>
-   		<table width="100%">
-   			<thead><th>Id</th><th>Attempts</th><th>Status</th><th>Type</th><th>Created</th><th>Locked At</th><th>Worker</th><th>Last Error</th></thead>
-   			<tr>
-   				<td><%= job.id %></td>
-   				<td><%= job.attempts %></td>
-   				<td></td>
-   				<td> <%= job["type"] %></td>
-   				<td><%= job.created_at %></td>
-
-   				<td><%= job.locked_at %></td>
-   				<td><%= job.locked_by %></td>
-   				<td><%= job.last_error %></td>
-
-   				</tr>
-   		</table>
+<table width="100%">
+  <thead><th>Id</th><th>Status</th><th>Message</th><th></th></thead>
+  <tr>
+    <td><%= job.id %></td>
+    <td><%= job.status %> <%= job.processed_oids.length %> of <%= job.total_length %> </td>
+    <td><%= job.failure_message ? job.failure_message : job.log_messages.last ? job.log_messages.last["message"] : ""   %></td>
+      <td><%= link_to "Delete", {:action=>:delete_job, :id => job}, :confirm=>"Really?" %></td>
+    </tr>
+</table>
    	<% end %>
 
    </div>
