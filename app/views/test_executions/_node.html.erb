@@ -2,12 +2,22 @@
 
 error_id = (doc['error_id']) %>
 <div <%=  error_id ? %{id=error_#{error_id}} : '' %> class="indent ">
+  <% if error_id %>
+  <div>
+  <% test_execution.execution_errors.where({:location=>error_map.invert[error_id]}).each do |err|
+
+   %>
+   <span> <%= err.message %></span>
+   <% end %>
+ </div>
+ <% end %>
 <%
 
 case node_type(doc.node_type)
   when :element
 %>
 <div <%=  error_id ? "class='error'".html_safe : '' %> ><span class="markup">&lt;</span><span class="start-tag "><%= doc.name %></span>
+
 <%
  doc.attributes.each do |att| 
   attribute = att[1]
@@ -38,7 +48,7 @@ case node_type(doc.node_type)
          when :text
           %><div class="text"><%= child.content %></div><%
          when :element
-          %> <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes}%><%
+          %> <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes, :test_execution=>test_execution}%><%
          when :cdata
            %><%=  render :partial=>"cdata", :locals=>{:cdata=>child}%><%
          when :comment
