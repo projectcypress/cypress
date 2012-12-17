@@ -1,13 +1,13 @@
 <% 
 
 error_id = (doc['error_id']) %>
-<div <%=  error_id ? "id='error_#{error_id}' " : '' %> class="indent ">
+<div <%=  error_id ? %{id=error_#{error_id}} : '' %> class="indent ">
 <%
 
 case node_type(doc.node_type)
   when :element
 %>
-<div <%=  error_id ? "class='error'" : '' %> ><span class="markup">&lt;</span><span class="start-tag "><%= doc.name %></span>
+<div <%=  error_id ? "class='error'".html_safe : '' %> ><span class="markup">&lt;</span><span class="start-tag "><%= doc.name %></span>
 <%
  doc.attributes.each do |att| 
   attribute = att[1]
