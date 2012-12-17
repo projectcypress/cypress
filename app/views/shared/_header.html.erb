@@ -3,9 +3,9 @@
   <nav>
     <span class="username">Welcome, <%= current_user.try(:first_name) || 'New User' %></span>
     <%= link_to "account", edit_user_registration_path %>
-    <a href="/information/about">about</a>
+    <a href="http://projectcypress.org/">about</a>
     <a href="/information/feedback">feedback</a>
-    <a href="/information/help">help</a>
+    <a href="http://projectcypress.org/faq.html">help</a>
     <% if current_user&&current_user.admin? %> <a href="/admin">admin</a> <% end %>
     <%= link_to "logout", destroy_user_session_path %>
   </nav>
