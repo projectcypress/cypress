@@ -6,7 +6,7 @@ gem 'jquery-rails'
 gem 'rake'
 
 
-gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'population_match'
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
 #gem 'quality-measure-engine', '~> 2.1.0'
 gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
 #gem 'health-data-standards', '~> 2.1.4'
@@ -15,7 +15,7 @@ gem 'hqmf-parser', :git => 'https://github.com/pophealth/hqmf-parser.git', :bran
 #gem 'hqmf-parser', ' ~> 1.0.6'
 
 #gem 'hqmf-parser', path: '../hqmf-parser'
-gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient-generator.git', :branch => 'develop'
+gem 'test-patient-generator', :git => 'https://github.com/abgoldstein/test-patient-generator.git', :branch => 'develop'
 #gem 'test-patient-generator', '~> 1.0.2'
 
 gem "delayed_job_mongoid_web", :git => 'https://github.com/rdingwell/delayed_job_mongoid_web.git', :branch => 'develop'
@@ -60,4 +60,5 @@ end
 group :production do
   gem 'therubyracer', :platforms => [:ruby, :jruby]
 end
+
 
