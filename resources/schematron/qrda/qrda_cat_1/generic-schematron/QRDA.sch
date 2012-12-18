@@ -579,7 +579,6 @@
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-errors-abstract" />
       <sch:assert id="a-11433" test="@classCode='OBS'">SHALL contain exactly one [1..1] @classCode="OBS" (CodeSystem: HL7ActClass 2.16.840.1.113883.5.6 STATIC) (CONF:11433).</sch:assert>
       <sch:assert id="a-11434" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" (CodeSystem: ActMood 2.16.840.1.113883.5.1001 STATIC) (CONF:11434).</sch:assert>
-      <sch:assert id="a-11435" test="count(cda:templateId)=1">SHALL contain exactly one [1..1] templateId (CONF:11435).</sch:assert>
       <sch:assert id="a-11437" test="count(cda:id)=1">SHALL contain exactly one [1..1] id (CONF:11437).</sch:assert>
       <sch:assert id="a-11438" test="count(cda:code)=1">SHALL contain exactly one [1..1] code (CONF:11438).</sch:assert>
       <sch:assert id="a-11439" test="cda:code[@code='ASSERTION' and @codeSystem='2.16.840.1.113883.5.4']">This code SHALL contain exactly one [1..1] @code="ASSERTION" Assertion (CodeSystem: ActCode 2.16.840.1.113883.5.4 STATIC) (CONF:11439).</sch:assert>
@@ -590,10 +589,6 @@
       <sch:assert id="a-13940" test="count(cda:entryRelationship[@typeCode='CAUS'][@inversionInd='true'][count(cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.64'])=1])=1">SHALL contain exactly one [1..1] entryRelationship (CONF:11601) such that it SHALL contain exactly one [1..1] @typeCode="CAUS" (CodeSystem: HL7ParticipationType 2.16.840.1.113883.5.90 STATIC) (CONF:11602). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11603). SHALL contain exactly one [1..1] Procedure Performed (templateId:2.16.840.1.113883.10.20.24.3.64) (CONF:13940).</sch:assert>
       <sch:assert id="a-14574" test="count(cda:value[@xsi:type='CD'])=1">SHALL contain exactly one [1..1] value with @xsi:type="CD" (CONF:14574).</sch:assert>
       <sch:assert id="a-16421" test="cda:value[@code='102460003' and @codeSystem='2.16.840.1.113883.6.96']">This value SHALL contain exactly one [1..1] @code="102460003" Decreased tolerance (CodeSystem: SNOMED-CT 2.16.840.1.113883.6.96 STATIC) (CONF:16421).</sch:assert>
-    </sch:rule>
-    <sch:rule id="r-2.16.840.1.113883.10.20.24.3.62-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.62']">
-      <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.62-errors-abstract" />
-      <sch:assert id="a-11436" test="cda:templateId[@root='2.16.840.1.113883.10.20.24.3.30']">This templateId SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.30" (CONF:11436).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.4-errors">
@@ -1872,10 +1867,6 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:assert id="a-13720" test="count(cda:entryRelationship[@typeCode='REFR'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.87'])=1])=1">SHALL contain exactly one [1..1] entryRelationship (CONF:13718) such that it SHALL contain exactly one [1..1] @typeCode="REFR" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:13719). SHALL contain exactly one [1..1] Result (templateId:2.16.840.1.113883.10.20.24.3.87) (CONF:13720).</sch:assert>
       <sch:assert id="a-13721" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:13721).</sch:assert>
       <sch:assert id="a-13722" test="cda:statusCode[@code='completed']">This statusCode SHALL contain exactly one [1..1] @code="completed" (CodeSystem: ActStatus 2.16.840.1.113883.5.14 STATIC) (CONF:13722).</sch:assert>
-    </sch:rule>
-    <sch:rule id="r-2.16.840.1.113883.10.20.24.3.34-errors" context="cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.34']">
-      <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.34-errors-abstract" />
-      <sch:assert id="a-13711" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.24.3.66'])=1">SHALL contain exactly one [1..1] templateId (CONF:13710) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.66" (CONF:13711).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.39-errors">
