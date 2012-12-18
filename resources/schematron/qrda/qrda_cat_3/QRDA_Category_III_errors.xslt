@@ -209,30 +209,6 @@
         (CONF:18180).</svrl:text></svrl:failed-assert></axsl:otherwise></axsl:choose>
 
 		<!--ASSERT -->
-<axsl:choose><axsl:when test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.2'])         &lt; 2]"/><axsl:otherwise><svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.2']) &lt; 2]"><axsl:attribute name="id">a-18182</axsl:attribute><axsl:attribute name="location"><axsl:apply-templates select="." mode="schematron-get-full-path"/></axsl:attribute><svrl:text>This representedOrganization id/@root coupled with the id/@extension can be used to
-        represent the organization's Tax Identification Number (TIN). Other representedOrganization
-        ids may be present. This representedOrganization MAY contain zero or one [0..1] id
-        (CONF:18181) such that it SHALL contain exactly one [1..1] @extension (CONF:18190). SHALL
-        contain exactly one [1..1] @root="2.16.840.1.113883.4.2" Tax ID Number
-        (CONF:18182).</svrl:text></svrl:failed-assert></axsl:otherwise></axsl:choose>
-
-		<!--ASSERT -->
-<axsl:choose><axsl:when test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.336'])         &lt; 2]"/><axsl:otherwise><svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.336']) &lt; 2]"><axsl:attribute name="id">a-18184</axsl:attribute><axsl:attribute name="location"><axsl:apply-templates select="." mode="schematron-get-full-path"/></axsl:attribute><svrl:text>This representedOrganization id/@root coupled with the id/@extension represents the
-        organization's Facility CMS Certification Number (CCN). Other representedOrganization ids
-        may be present. This representedOrganization MAY contain zero or one [0..1] id (CONF:18183)
-        such that it SHALL contain exactly one [1..1] @extension (CONF:18185). SHALL contain exactly
-        one [1..1] @root="2.16.840.1.113883.4.336" Facility CMS Certification Number
-        (CONF:18184).</svrl:text></svrl:failed-assert></axsl:otherwise></axsl:choose>
-
-		<!--ASSERT -->
-<axsl:choose><axsl:when test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.336'         and @extension]) &lt; 2]"/><axsl:otherwise><svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.336' and @extension]) &lt; 2]"><axsl:attribute name="id">a-18185</axsl:attribute><axsl:attribute name="location"><axsl:apply-templates select="." mode="schematron-get-full-path"/></axsl:attribute><svrl:text>This representedOrganization id/@root coupled with the
-        id/@extension represents the organization's Facility CMS Certification Number (CCN). Other
-        representedOrganization ids may be present. This representedOrganization MAY contain zero or
-        one [0..1] id (CONF:18183) such that it SHALL contain exactly one [1..1]
-        @root="2.16.840.1.113883.4.336" Facility CMS Certification Number (CONF:18184). SHALL
-        contain exactly one [1..1] @extension (CONF:18185).</svrl:text></svrl:failed-assert></axsl:otherwise></axsl:choose>
-
-		<!--ASSERT -->
 <axsl:choose><axsl:when test="count(cda:typeId)=1"/><axsl:otherwise><svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" test="count(cda:typeId)=1"><axsl:attribute name="id">a-18186</axsl:attribute><axsl:attribute name="location"><axsl:apply-templates select="." mode="schematron-get-full-path"/></axsl:attribute><svrl:text>SHALL contain exactly one [1..1] typeId
         (CONF:18186).</svrl:text></svrl:failed-assert></axsl:otherwise></axsl:choose>
 
@@ -248,14 +224,6 @@
 <axsl:choose><axsl:when test="cda:effectiveTime[string-length(@value)&gt;=8]"/><axsl:otherwise><svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" test="cda:effectiveTime[string-length(@value)&gt;=8]"><axsl:attribute name="id">a-18189</axsl:attribute><axsl:attribute name="location"><axsl:apply-templates select="." mode="schematron-get-full-path"/></axsl:attribute><svrl:text>The content
         SHALL be a conformant US Realm Date and Time (DTM.US.FIELDED)
         (2.16.840.1.113883.10.20.22.5.4) (CONF:18189).</svrl:text></svrl:failed-assert></axsl:otherwise></axsl:choose>
-
-		<!--ASSERT -->
-<axsl:choose><axsl:when test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.2'         and @extension]) &lt; 2]"/><axsl:otherwise><svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.2' and @extension]) &lt; 2]"><axsl:attribute name="id">a-18190</axsl:attribute><axsl:attribute name="location"><axsl:apply-templates select="." mode="schematron-get-full-path"/></axsl:attribute><svrl:text>This representedOrganization id/@root coupled with the
-        id/@extension can be used to represent the organization's Tax Identification Number (TIN).
-        Other representedOrganization ids may be present. This representedOrganization MAY contain
-        zero or one [0..1] id (CONF:18181) such that it SHALL contain exactly one [1..1]
-        @root="2.16.840.1.113883.4.2" Tax ID Number (CONF:18182). SHALL contain exactly one [1..1]
-        @extension (CONF:18190).</svrl:text></svrl:failed-assert></axsl:otherwise></axsl:choose>
 
 		<!--ASSERT -->
 <axsl:choose><axsl:when test="not(cda:author/cda:assignedAuthor[cda:time]/cda:assignedAuthoringDevice[cda:representedOrganization][cda:assignedPerson])         or         cda:author/cda:assignedAuthor[cda:time]/cda:assignedAuthoringDevice[cda:representedOrganization][cda:assignedPerson][count(cda:softwareName)=1]"/><axsl:otherwise><svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" test="not(cda:author/cda:assignedAuthor[cda:time]/cda:assignedAuthoringDevice[cda:representedOrganization][cda:assignedPerson]) or cda:author/cda:assignedAuthor[cda:time]/cda:assignedAuthoringDevice[cda:representedOrganization][cda:assignedPerson][count(cda:softwareName)=1]"><axsl:attribute name="id">a-18262</axsl:attribute><axsl:attribute name="location"><axsl:apply-templates select="." mode="schematron-get-full-path"/></axsl:attribute><svrl:text>The assignedAuthoringDevice, if present, SHALL contain exactly one [1..1] softwareName

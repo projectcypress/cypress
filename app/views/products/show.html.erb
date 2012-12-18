@@ -88,6 +88,7 @@
             %>
               <tr>
                 <td class="<%=dot_color%>-icon dot"></td>
+                <td></td>
                 <td class="<%= first_td_class %> tog" data-code="<%= test.id %>"></td>
                 <td class="name"><a class="<%= result_status %>" href="<%= product_test_path(test) %>"><%= test.name %></a></td>
                 <td class="type"><%= type %></td>
@@ -103,6 +104,7 @@
 
                   <tr class="sub_rows <%= test.id %>">
                     <td></td>
+                    <td class="<%=execution.state%>-icon dot"></td>
                    
                     <td colspan="2" class="<%= execution.state %>"><%= link_to execution.execution_date,product_test_path(test, {:test_execution_id=> execution.id}) %> </td>
                     <td colspan="4"></td>

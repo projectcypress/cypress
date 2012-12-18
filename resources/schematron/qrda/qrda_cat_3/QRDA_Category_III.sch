@@ -167,30 +167,8 @@
         cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity[count(cda:representedOrganization)=1]"
         >This assignedEntity SHALL contain exactly one [1..1] representedOrganization
         (CONF:18180).</sch:assert>
-      <sch:assert id="a-18182"
-        test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.2'])
-        &lt; 2]">This representedOrganization id/@root coupled with the id/@extension can be used to
-        represent the organization's Tax Identification Number (TIN). Other representedOrganization
-        ids may be present. This representedOrganization MAY contain zero or one [0..1] id
-        (CONF:18181) such that it SHALL contain exactly one [1..1] @extension (CONF:18190). SHALL
-        contain exactly one [1..1] @root="2.16.840.1.113883.4.2" Tax ID Number
-        (CONF:18182).</sch:assert>
-      <sch:assert id="a-18184"
-        test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.336'])
-        &lt; 2]">This representedOrganization id/@root coupled with the id/@extension represents the
-        organization's Facility CMS Certification Number (CCN). Other representedOrganization ids
-        may be present. This representedOrganization MAY contain zero or one [0..1] id (CONF:18183)
-        such that it SHALL contain exactly one [1..1] @extension (CONF:18185). SHALL contain exactly
-        one [1..1] @root="2.16.840.1.113883.4.336" Facility CMS Certification Number
-        (CONF:18184).</sch:assert>
-      <sch:assert id="a-18185"
-        test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.336'
-        and @extension]) &lt; 2]">This representedOrganization id/@root coupled with the
-        id/@extension represents the organization's Facility CMS Certification Number (CCN). Other
-        representedOrganization ids may be present. This representedOrganization MAY contain zero or
-        one [0..1] id (CONF:18183) such that it SHALL contain exactly one [1..1]
-        @root="2.16.840.1.113883.4.336" Facility CMS Certification Number (CONF:18184). SHALL
-        contain exactly one [1..1] @extension (CONF:18185).</sch:assert>
+
+
       <sch:assert id="a-18186" test="count(cda:typeId)=1">SHALL contain exactly one [1..1] typeId
         (CONF:18186).</sch:assert>
       <sch:assert id="a-18187" test="cda:typeId[@root='2.16.840.1.113883.1.3']">This typeId SHALL
@@ -200,14 +178,6 @@
       <sch:assert id="a-18189" test="cda:effectiveTime[string-length(@value)&gt;=8]">The content
         SHALL be a conformant US Realm Date and Time (DTM.US.FIELDED)
         (2.16.840.1.113883.10.20.22.5.4) (CONF:18189).</sch:assert>
-      <sch:assert id="a-18190"
-        test="cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.2'
-        and @extension]) &lt; 2]">This representedOrganization id/@root coupled with the
-        id/@extension can be used to represent the organization's Tax Identification Number (TIN).
-        Other representedOrganization ids may be present. This representedOrganization MAY contain
-        zero or one [0..1] id (CONF:18181) such that it SHALL contain exactly one [1..1]
-        @root="2.16.840.1.113883.4.2" Tax ID Number (CONF:18182). SHALL contain exactly one [1..1]
-        @extension (CONF:18190).</sch:assert>
       <sch:assert id="a-18262"
         test="not(cda:author/cda:assignedAuthor[cda:time]/cda:assignedAuthoringDevice[cda:representedOrganization][cda:assignedPerson])
         or

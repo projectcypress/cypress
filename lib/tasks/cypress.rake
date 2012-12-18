@@ -43,7 +43,7 @@ namespace :cypress do
     phases = (args["phases"] || "#ALL").split
     schematron_file = args["schematron_file"]
     output_dir = args["output_dir"]
-    files = File.directory?(schematron_file) ? Dir.glob("#{schematron_file}/*.sch") : schematron_file;
+    files = File.directory?(schematron_file) ? Dir.glob("#{schematron_file}/*.sch") : [schematron_file];
     
     files.each do |f|
       doc = Nokogiri::XML(File.new(f))

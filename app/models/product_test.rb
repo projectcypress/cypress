@@ -50,7 +50,7 @@ class ProductTest
   def execution_state
     return :pending if self.test_executions.empty? 
 
-    self.test_executions.ordered_by_date.to_a.last.state
+    self.test_executions.ordered_by_date.first.state
   end
   
   def passing?
