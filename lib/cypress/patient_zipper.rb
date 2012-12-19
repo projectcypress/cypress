@@ -22,7 +22,6 @@ module Cypress
 
 
     def export(patient)
-       puts "exporting patient"
        QrdaGenerator::Export::Cat1.export(patient,measures,start_time,end_time)
     end
 

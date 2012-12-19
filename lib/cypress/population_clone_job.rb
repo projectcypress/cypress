@@ -68,7 +68,6 @@ module Cypress
      
 
       test.measures.top_level.each do |measure|
-        puts "Gathering data criteria from #{measure.nqf_id}"
         patient_needs[test.id] << measure.data_criteria.map{|dc| HQMF::DataCriteria.from_json(dc.keys.first, dc.values.first)}
       end
       patient_needs[test.id].flatten!
