@@ -1,0 +1,30 @@
+ <table class="table">
+         <thead>
+           <tr>
+             <th colspan="2" style="width:50%"></span>Reported/Expected</th>
+             <th>Patients</th>
+             <th>Measure Population</th>
+             <th>Observation Value</th>
+         </thead>
+         <tbody>
+          <% measures.each do | measure| 
+
+             expected_result = test_execution.expected_result(measure)
+             reported_result = test_execution.reported_result(measure) %>
+             <tr id='<%= "#{measure.key}" %>'>
+              <td/>
+               <td>
+                 <a href="<%= product_test_measure_path(test_execution.product_test,measure,:execution => test_execution) %>">
+                   <span style="font-weight:bold"><%= "#{measure.nqf_id} - #{measure.name} " %></span>
+                   <%= " - #{measure.subtitle}" if measure.sub_id %>
+                 </a>
+               </td>
+
+                <%= expected_reported(expected_result[QME::QualityReport::POPULATION],reported_result[QME::QualityReport::POPULATION]) %>
+                <%= expected_reported(expected_result[QME::QualityReport::MSRPOPL],reported_result[QME::QualityReport::MSRPOPL]) %>
+                <%= expected_reported(expected_result[QME::QualityReport::OBSERVATION],reported_result[QME::QualityReport::OBSERVATION]) %>
+
+             </tr>
+           <% end %>
+         </tbody>
+     </table>

@@ -751,6 +751,255 @@ Measure Section
 							
 						</organizer>
 					</entry>
+
+
+
+	
+
+
+					<entry>
+						<organizer classCode="CLUSTER" moodCode="EVN">
+							<!-- Measure Reference template -->
+							<templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+							<!-- Measure Reference and Results template -->
+							<templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+							<statusCode code="completed"/>
+							<!-- reference measure -->
+							<reference typeCode="REFR">
+								<externalDocument classCode="DOC" moodCode="EVN">
+									<!-- The example eMeasure is 0495 -->
+									<!-- SHALL: This is the version specific MU2 NQF 0495 measure id - eMeasure xpath: QualityMeasureDocument/id -->
+								    <id root="8A4D92B2-3887-5DF3-0139-0C4E41594C98"/>
+
+									<!-- SHOULD: setId is the eMeasure version neutral id. eMeasure xpath: /QualityMeasureDocument/setId[1]/@root  -->
+								    <setId root="9A033274-3D9B-11E1-8634-00237D5BF174"/>
+									<!-- This is the sequential eMeasure Version number -->
+									<versionNumber value="1"/>
+								</externalDocument>
+							</reference>
+							<!-- reference measure set -->
+							
+							
+							<!-- Measure data - Initial Patient Population -->
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Measure Data template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+									<code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+										displayName="Assertion" codeSystemName="ActCode"/>
+									<statusCode code="completed"/>
+									<value xsi:type="CD" code="IPP"
+										codeSystem="2.16.840.1.113883.5.1063" displayName="Initial
+										Patient Population" codeSystemName="ObservationValue"/>
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<observation classCode="OBS" moodCode="EVN">
+										    
+										    <!-- Aggregate Count template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+											<code code="MSRAGG" displayName="rate aggregation"
+												codeSystem="2.16.840.1.113883.5.4"
+												codeSystemName="ActCode"/>
+											<!--  SHALL value xsi:type="INT"-->
+										
+										    <value xsi:type="INT" value="5"/>
+											
+										    <methodCode code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<!-- validate entries against narrative -->
+										</observation>
+									</entryRelationship>
+									<!-- MAY 0..* Reporting Stratum template-->
+									<!-- The strata are defined in eMeasure with xpath:
+										//section[code[code='69669-0'][codeSystem='2.16.840.1.113883.6.1']]/entry/observation/id/@root -->
+									<!-- stratum 1 -->
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+													<code code="MSRAGG" displayName="rate aggregation"
+														codeSystem="2.16.840.1.113883.5.4"
+														codeSystemName="ActCode"/>
+													<!--  SHALL value xsi:type="INT"-->
+													<value xsi:type="INT" value="4"/>
+													<methodCode code="COUNT" displayName="Count"
+														codeSystem="2.16.840.1.113883.5.84"
+														codeSystemName="ObservationMethod"/>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the first defined Stratum -->
+												    <id root="9E194270-FAC8-43CB-AC2D-DC9E2909B1B1"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									
+								
+									<!-- supplemental data: payer -->
+									
+									<!-- reference to the eMeasure's Initial Patient Population criteria -->
+									<reference typeCode="REFR">
+										<externalObservation classCode="OBS" moodCode="EVN">
+											<id root="FA8BE62B-09FB-4B01-8CA8-E3CF1F9A16F6"/>
+										</externalObservation>
+									</reference>
+								</observation>
+							</component>
+							<!-- Measrue data - Measure Population -->
+							<component>
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Measure Data template -->
+									<templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+									<code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+										displayName="Assertion" codeSystemName="ActCode"/>
+									<statusCode code="completed"/>
+									<value xsi:type="CD" code="MSRPOPL"
+										codeSystem="2.16.840.1.113883.5.1063" displayName="Measure
+										Population" codeSystemName="ObservationValue"/>
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Aggregate Count template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+											<code code="MSRAGG" displayName="rate aggregation"
+												codeSystem="2.16.840.1.113883.5.4"
+												codeSystemName="ActCode"/>
+											<!--  SHALL value xsi:type="INT"-->
+											<value xsi:type="INT" value="3"/>
+											<methodCode code="COUNT" displayName="Count"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+										</observation>
+									</entryRelationship>
+									<!-- MAY 0..* Reporting Stratum template-->
+									<!-- The strata are defined in eMeasure with xpath:
+										//section[code[code='69669-0'][codeSystem='2.16.840.1.113883.6.1']]/entry/observation/id/@root -->
+									<!-- stratum 1 -->
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Reporting Stratum template -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+											<code code="ASSERTION"
+												codeSystem="2.16.840.1.113883.5.4"
+												displayName="Assertion" codeSystemName="ActCode"/>
+											<statusCode code="completed"/>
+											<value xsi:type="CD" nullFlavor="OTH">
+												<originalText>Stratum</originalText>
+											</value>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+												<!-- SHALL 1..1 Aggregate Count template -->
+												<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+													<code code="MSRAGG" displayName="rate aggregation"
+														codeSystem="2.16.840.1.113883.5.4"
+														codeSystemName="ActCode"/>
+													<!--  SHALL value xsi:type="INT"-->
+													<value xsi:type="INT" value="2"/>
+													<methodCode code="COUNT" displayName="Count"
+														codeSystem="2.16.840.1.113883.5.84"
+														codeSystemName="ObservationMethod"/>
+													
+												</observation>
+											</entryRelationship>
+											<entryRelationship typeCode="COMP">
+												<!-- Continuous Variable Measure Value template -->
+											
+												<observation classCode="OBS" moodCode="EVN">
+												<templateId root="2.16.840.1.113883.10.20.27.3.2"/>
+												<code nullFlavor="OTH">
+												<originalText>Time Difference</originalText>
+												</code>
+												<statusCode code="completed"/>
+												<value xsi:type="PQ" value="95" unit="min"/>
+												<!-- drawn from  ObservationMeasureAggregate value set, with a SHALL Dynamic binding -->
+												<methodCode code="MEDIAN" displayName="Median"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+												<reference typeCode="REFR">
+												<!-- reference to the relevant measure observation in the eMeasure,
+												in this case the median method is applied to the time difference
+												referenced by this identifier -->
+												<externalObservation classCode="OBS"
+												moodCode="EVN">
+												    <id root="80935E8C-96D0-41B8-921A-6A5F9FC2989D"/>
+												</externalObservation>
+												</reference>
+												<!-- MAY 0..1 Used to represent the predicted continuous variable value based on the measure’s risk-adjustment model. -->
+												<referenceRange>
+												<observationRange>
+												<value xsi:type="PQ" value="60" unit="min"/>
+												</observationRange>
+												</referenceRange>
+												</observation>
+											</entryRelationship>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant strata in the eMeasure -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<!-- Reference to the first defined Stratum -->
+												    <id root="9E194270-FAC8-43CB-AC2D-DC9E2909B1B1"/>
+												</externalObservation>
+											</reference>
+										</observation>
+									</entryRelationship>
+									
+									<!-- MAY 0..* Continuous Variable Measure Value template -->
+									<entryRelationship typeCode="COMP">
+										<!-- Continuous Variable Measure Value template -->
+										
+										<observation classCode="OBS" moodCode="EVN">
+											<templateId root="2.16.840.1.113883.10.20.27.3.2"/>
+											<code nullFlavor="OTH">
+												<originalText>Time Difference</originalText>
+											</code>
+											<statusCode code="completed"/>
+											<value xsi:type="PQ" value="162.5" unit="min"/>
+											<!-- drawn from  ObservationMeasureAggregate value set, with a SHALL Dynamic binding -->
+											<methodCode code="MEDIAN" displayName="Median"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant measure observation in the eMeasure,
+												in this case the median method is applied to the time difference
+												referenced by this identifier -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												    <id root="80935E8C-96D0-41B8-921A-6A5F9FC2989D"/>
+												</externalObservation>
+											</reference>
+											<!-- MAY 0..1 Used to represent the predicted continuous variable value based on the measure’s risk-adjustment model. -->
+											<referenceRange>
+												<observationRange>
+												<value xsi:type="PQ" value="60" unit="min"/>
+												</observationRange>
+											</referenceRange>
+										</observation>
+									</entryRelationship>
+									<!-- reference to the eMeasure's measure population criteria -->
+									<reference typeCode="REFR">
+										<externalObservation classCode="OBS" moodCode="EVN">
+										    <id root="F3441A34-7FEA-4DAB-9907-A19885CFF92F"/>
+										</externalObservation>
+									</reference>
+								</observation>
+							</component>
+						</organizer>
+					</entry>
+
+
+
+
 				</section>
 			</component>
 		</structuredBody>

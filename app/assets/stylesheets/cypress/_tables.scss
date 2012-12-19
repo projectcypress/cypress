@@ -27,7 +27,7 @@ table.table thead:nth-child(n+2) th {padding-top:15px;}
 table-layout:fixed;
   th{
     width:40px;
-    text-align:right;
+    text-align:left;
   }
   td{
     padding-bottom:2px;
@@ -58,9 +58,10 @@ width:10px;
 #patient_measures{
 float:left;
   width:100px;
-  td:nth-child(-n+7) {
-width:10px;
-padding:0px;
+
+  td.marker {
+  width:10px;
+  padding:0px;
     background: url(/assets/notincluded.png) 25% 25% no-repeat;
     width:10px;
   }
@@ -108,8 +109,7 @@ table tbody tr.selected:hover td {
 }
 
 #patient_subset  {
-  width:850px;
-  td:nth-child(-n+6) {
+  td.marker {
     background: url(/assets/notincluded.png) 25% 25% no-repeat;
     width:10px;
   }

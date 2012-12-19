@@ -36,4 +36,21 @@ class User
   field :last_sign_in_at, :type => Time
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip, :type => String
+  field :admin, type: Boolean
+  field :approved, type: Boolean
+  field :staff_role, type: Boolean
+  field :disabled, type: Boolean
+
+   def grant_admin
+    update_attribute(:admin, true)
+    update_attribute(:approved, true)
+  end
+
+  def approve
+    update_attribute(:approved, true)
+  end
+
+  def revoke_admin
+    update_attribute(:admin, false)
+  end
 end

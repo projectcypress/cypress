@@ -7,25 +7,31 @@ class Measure
   field :subtitle, type: String
   field :short_subtitle, type: String
   field :hqmf_id, type: String
-  field :set_id, type: String
+  field :hqmf_set_id, type: String
+  field :hqmf_version_number, type: String
   field :nqf_id, type: String
   field :type, type: String
   field :category, type: String
   field :population_ids , type: Hash
-
+  field :oids, type: Array 
+  field :data_criteria, type: Array
   scope :top_level_by_type , ->(type){where({"type"=> type}).any_of({"sub_id" => nil}, {"sub_id" => "a"})}
   scope :top_level , any_of({"sub_id" => nil}, {"sub_id" => "a"})
   
+  index({oids: 1})
+  index({hqmf_id: 1})
+  index({category: 1})
 
   validates_presence_of :id
   validates_presence_of :name
   
+
   def key
     "#{self['id']}#{sub_id}"
   end
   
   def is_cv?
-    ! population_ids["MSRPOPL"].nil?
+    ! population_ids[QME::QualityReport::MSRPOPL].nil?
   end
 
   def self.installed
@@ -49,7 +55,33 @@ class Measure
     "#{self['nqf_id']} - #{name}"
   end
   
+
+  def set_id
+    self.hqmf_set_id
+  end
+
   def measure_id
     self['id']
   end
+
+  def continuous?
+    population_ids[QME::QualityReport::MSRPOPL]
+  end
+
+  def title
+    self.name
+  end
+
+  def all_data_criteria
+    return @crit if @crit
+    @crit = []
+    self.data_criteria.each do |dc|
+      dc.each_pair do |k,v|
+        @crit <<HQMF::DataCriteria.from_json(k,v)
+      end
+    end
+    @crit
+  end
+
+
 end

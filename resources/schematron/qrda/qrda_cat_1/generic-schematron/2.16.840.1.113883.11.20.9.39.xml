@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<RetrieveValueSetResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" cacheExpirationHint="2012-09-20T00:00:00-04:00" xmlns="urn:ihe:iti:svs:2008">
+  <ValueSet id="2.16.840.1.113883.11.20.9.39" version="" displayName="Result Status">
+    <ConceptList>
+      <Concept xsi:type="CE" code="aborted" codeSystem="2.16.840.1.113883.5.14" codeSystemName="ActStatus" displayName="aborted" />
+      <Concept xsi:type="CE" code="active" codeSystem="2.16.840.1.113883.5.14" codeSystemName="ActStatus" displayName="active" />
+      <Concept xsi:type="CE" code="cancelled" codeSystem="2.16.840.1.113883.5.14" codeSystemName="ActStatus" displayName="cancelled" />
+      <Concept xsi:type="CE" code="completed" codeSystem="2.16.840.1.113883.5.14" codeSystemName="ActStatus" displayName="completed" />
+      <Concept xsi:type="CE" code="held" codeSystem="2.16.840.1.113883.5.14" codeSystemName="ActStatus" displayName="held" />
+      <Concept xsi:type="CE" code="suspended" codeSystem="2.16.840.1.113883.5.14" codeSystemName="ActStatus" displayName="suspended" />
+    </ConceptList>
+  </ValueSet>
+</RetrieveValueSetResponse>

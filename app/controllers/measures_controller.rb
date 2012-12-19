@@ -41,11 +41,12 @@ class MeasuresController < ApplicationController
    
     @vendor = @product.vendor
     @result = @execution.expected_result(@measure)
-    
+    @selected = @measure
     @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure.hqmf_id, "value.sub_id" => @measure.sub_id)
    
 
-    @patients = @patients.order_by([["value.numerator", :desc],["value.denominator", :desc],["value.exclusions", :desc]])
+    @patients = @patients.order_by([["value.NUMER", :desc],["value.DENOM", :desc],["value.DENEX", :desc]])
+    render :template=> "patients/table", :layout => false
   end
 
   
@@ -56,6 +57,7 @@ class MeasuresController < ApplicationController
   # @overflow - All other patients relevant to the measures passed in
   # @coverage - Maps measures to the list of associated patients in both @patient_list and @overflow
   def minimal_set
+
     measure_ids = params[:measure_ids]
     # Find the IDs of all Records for our minimal set and overflow
     minimal_set = PatientPopulation.min_coverage(measure_ids)
@@ -63,28 +65,27 @@ class MeasuresController < ApplicationController
     overflow_ids = minimal_set[:overflow]
     
     # Query to find the actual Records for our minmal set and overflow
-    @patient_list = Record.where( { _id: { "$in" => minimal_ids } } ).only(:_id, :first, :last, :birthdate, :gender, :patient_id).order_by([["_id", :desc]]).to_a
-    @overflow = Record.where({ _id: { "$in" => overflow_ids } }).only(:_id, :first, :last, :birthdate, :gender, :patient_id).to_a
+    @patient_list = Record.where( { medical_record_number: { "$in" => minimal_ids } } ).order_by([["_id", :desc]]).to_a
+    @overflow = Record.where({ medical_record_number:{ "$in" => overflow_ids } }).to_a
     
     # Get the results that are relevant to the measures and patients the user asked for
-    results = Result.where({'value.measure_id' => { "$in" => measure_ids}, 'value.patient_id' => { "$in" => minimal_ids | overflow_ids } })
+    results = Result.where({'value.measure_id' => { "$in" => measure_ids}, 'value.medical_record_id' => { "$in" => minimal_ids | overflow_ids } })
+                    .or({"value.NUMER" => {"$gt" => 0}},{"value.DENOM" => {"$gt" => 0}},{"value.DENEX" => {"$gt" => 0}},{"value.DEXCEP" => {"$gt" => 0}},{"value.antinumerator" => {"$gt" => 0}})
     
     # Use the relevant results to build @coverage of each measure
     @coverage = {}
-    buckets = ["denominator", "numerator", "exclusions", "antinumerator"]
+    buckets = [QME::QualityReport::DENOMINATOR, QME::QualityReport::NUMERATOR, QME::QualityReport::EXCLUSIONS, QME::QualityReport::ANTINUMERATOR]
     results.each do |result|
-      # Skip results that don't fall into any of the buckets
-      next if !result.value['numerator'] && !result.value['denominator'] && !result.value['antinumerator'] && !result.value['exclusions']
-      
+
       # Identify the measure to which this result is referring
       measure = "#{result.value.measure_id}#{result.value.sub_id}".to_s
 
       # Add this measure to the patients for easy lookup in both directions (i.e. patients <-> measures)
-      patient_index = @patient_list.index{|patient| patient.id == result.value.patient_id}
+      patient_index = @patient_list.index{|patient| patient.medical_record_number == result.value.medical_record_id}
       if patient_index
         patient = @patient_list[patient_index]
       else
-        patient_index = @overflow.index{|patient| patient.id == result.value.patient_id}
+        patient_index = @overflow.index{|patient| patient.medical_record_number == result.value.medical_record_id}
         patient = @overflow[patient_index]
       end
       patient['measures'] ||= []
@@ -108,8 +109,7 @@ class MeasuresController < ApplicationController
   
   private
   
-  
-  
+
   def find_product
     if @test.nil?
       @product = Product.find(params[:id]) if params[:id]
@@ -135,9 +135,5 @@ class MeasuresController < ApplicationController
       @execution = TestExecution.new({:product_test => @test, :execution_date => Time.now})
     end
   end
-  
-  
-  
-
 
 end

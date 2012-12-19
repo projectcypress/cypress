@@ -20,8 +20,8 @@ include Devise::TestHelpers
   
   
   test "show" do
-    pending "wrong place for this to be. needs to be reimplemented in product_execution not measure controller" do
-      m1 = Measure.where(:id => '0001').first
+   
+      m1 = Measure.find( '4fdb62e01d41c820f6000003')
       pt = ProductTest.find("4f58f8de1d41c851eb000478")
       get :show, {:product_test_id=> pt.id,:id => m1.id,:format=>"html"}
       assert_response :success
@@ -34,22 +34,17 @@ include Devise::TestHelpers
       assert test.id.to_s   == "4f58f8de1d41c851eb000478"
       assert product.id.to_s== "4f57a88a1d41c851eb000004"
       assert vendor.id.to_s == "4f57a8791d41c851eb000002"
-      assert measures.count  == pt.count_measures
-   end
+      assert measures.count  == pt.measure_ids.length
+   
   end
 
 
    test "minimal_set" do
-    m1 = Measure.where(:hqmf_id => '0001').first
-    m2 = Measure.where(:hqmf_id => '0002').first
-    get :minimal_set, {:measure_ids => [m1.id,m2.id], :format=>"json"}
+    
+    measures =['99119911','99119922','99119933','99119944']
+    get :minimal_set, {:measure_ids => measures, :format=>"json"}
     coverage = assigns[:coverage]  
-    assert coverage.count == 0
-
-    m3 = Measure.where(:hqmf_id => '0348').first
-    get :minimal_set, {:measure_ids => [m1.id,m2.id,m3.id], :format=>"json"}
-    coverage = assigns[:coverage] 
-    assert coverage.count == 0
+    assert_equal  measures.length, coverage.count, "Expected coverage for all of the measures"
 
   end
   
@@ -60,6 +55,29 @@ include Devise::TestHelpers
       assert_response :success
   end
 
-  
+  test "definition" do
+    Measure.where({}).each do |measure|
+      get :definition, {measure_id: measure}
+      assert_response :success
+    end
+  end
+ 
+  test "patients" do
+   pt= ProductTest.where({}).first
+   measure = pt.measures.first
+   execution = pt.test_executions.first
+   records  =  Result.where("value.test_id" => pt.id).where("value.measure_id" => measure.hqmf_id, "value.sub_id" => measure.sub_id)
+
+   get :patients, {id: measure.id, product_test_id: pt, execution_id: execution}
+
+   assert_response :success
+   assert assigns[ :patients], "Should assign patients"
+   assert assigns[ :product], "Should assign product"
+   assert assigns[ :vendor], "Should assign vendor"
+   assert assigns[ :execution], "Should assign execution"
+   assert assigns[ :test], "Should assign test"
+   
+
+  end
 
 end

@@ -30,4 +30,7 @@ Cypress::Application.configure do
   
   # Limit logging for when we're testing
   #config.log_level = :error  
+
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
 end

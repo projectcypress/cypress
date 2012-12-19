@@ -1,6 +1,10 @@
+require 'breadcrumbs'
 class ApplicationController < ActionController::Base
   layout :layout_by_resource
-
+  include Breadcrumbs
+  include Rails.application.routes.url_helpers
+  delegate :url_helpers, to: 'Rails.application.routes' 
+  
   protect_from_forgery
 
   unless Rails.application.config.consider_all_requests_local 
@@ -22,8 +26,6 @@ class ApplicationController < ActionController::Base
   rescue_from TypeNotFound do |exception|
     render :text => exception, :status => 500
   end
-
-
 
 
   def test_type(type)
