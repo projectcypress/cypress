@@ -27,7 +27,7 @@ class ActiveSupport::TestCase
     end
   end
 
-
+ 
   def collection_fixtures(collection, *id_attributes)
     Mongoid.session(:default)[collection].drop
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
@@ -43,6 +43,10 @@ class ActiveSupport::TestCase
         else
           fixture_json[attr] = Moped::BSON::ObjectId(fixture_json[attr])
         end
+      end
+
+      if fixture_json["created_at"] 
+         fixture_json["created_at"] = Time.at(fixture_json["created_at"] )
       end
       Mongoid.default_session[collection].insert(fixture_json)
     end
