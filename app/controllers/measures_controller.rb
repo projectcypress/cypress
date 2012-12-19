@@ -46,7 +46,7 @@ class MeasuresController < ApplicationController
    
 
     @patients = @patients.order_by([["value.NUMER", :desc],["value.DENOM", :desc],["value.DENEX", :desc]])
-    render :template=> "patients/table"
+    render :template=> "patients/table", :layout => false
   end
 
   

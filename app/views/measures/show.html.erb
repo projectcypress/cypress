@@ -66,7 +66,7 @@
 
 
 
-<div id="container">
+<div id="container" class="container">
   <%= render :partial=>"shared/header" %>
 
   <div class="buffered">
@@ -79,16 +79,24 @@
         <%= link_to @test.name, product_test_path(@test, :test_execution_id => params[:execution]) %>
       </nav>
     </section>
+    <section class="candidate bordered buffered">  
+      <dl class="vendor dl-horizontal">
+        <dt>Test Name:</dt> <dd><%= @test.name %></dd>
+        <dt>Test Type:</dt> <dd><%= test_type(@test) %></dd>
+        <dt>Product:</dt> <dd><%= @test.product.name %></dd>
+        <dt>Version:</dt> <dd><%= @test.product.version %></dd>
+      </dl>
 
-    <section class="candidate  bordered">
       <dl class="dl-horizontal">
-        <dt class="vendor">EHR Vendor</dt><dd class="vendor"><%= @vendor.name %></dd>
+        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
+        <dt>Description:</dt> <dd><%= @test.description %></dd>
+        <dt>EHR Vendor:</dt><dd><%= @vendor.name %></dd>
       </dl>
+
       <dl class="dl-horizontal">
-        <dt>Product</dt> <dd><%= @product.name %></dd>
-      </dl>
-      <dl class="dl-horizontal">
-        <dt>Test</dt> <dd><%= @test.name %></dd>
+        <dt>Proctor:</dt> <dd><%= @test.user.first_name %> <%= @test.user.last_name %></dd>
+        <dt>Email:</dt> <dd><%= @test.user.email %></dd>
+        <dt>Telephone:</dt> <dd><%= @test.user.telephone %></dd>
       </dl>
     </section>
 
