@@ -8,7 +8,7 @@ class AdminController < ApplicationController
   add_breadcrumb "Users", '', :only=>"users"
 
 	def index
-		@jobs = AdminValuesetJob.all
+		@jobs = AdminValuesetJob.ordered_by_date
 	end
 
 
@@ -47,6 +47,7 @@ class AdminController < ApplicationController
 
   def job
     @job = AdminValuesetJob.find(params[:id])
+
   end
 
 

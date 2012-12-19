@@ -4,6 +4,7 @@ Cypress::Application.routes.draw do
   devise_for :users
   
   get "admin/users"
+  get "admin/job"
   post "admin/promote"
   post "admin/demote"
   post "admin/approve"

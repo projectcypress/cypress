@@ -1,9 +1,3 @@
-<table width="100%">
-	<thead><th>Id</th><th>Status</th><th>Message</th><th></th></thead>
-	<tr>
-		<td><%= job.id %></td>
-		<td><%= job.status %> <%= job.processed_oids.length %> of <%= job.total_length %> </td>
-		<td><%= job.failure_message ? job.failure_message : job.log_messages.last ? job.log_messages.last["message"] : ""   %></td>
-      <td><%= link_to "Delete", {:action=>:delete_job, :id => job}, :confirm=>"Really?" %></td>
-		</tr>
-</table>
+<tr id="job_<%= update_job.id %>">
+	<%= render :partial=>'admin/job', :locals=>{update_job: update_job} %>
+</tr>
