@@ -50,6 +50,18 @@ module Cypress
       vendor_xml_section
     end
 
+    def static_cv_product_test
+      set_default_style
+
+      summary_section
+      measure_errors_section
+      qrda_errors_section
+      qrda_warnings_section
+      quality_cv_measures_section
+      vendor_xml_section
+    end
+
+
     private
 
     FONT_DEFAULT = "Helvetica"
@@ -151,6 +163,24 @@ module Cypress
       end
     end
 
+     def quality_cv_measures_section
+      new_section_margin
+      @pdf.text "PASSING MEASURES"
+      if @test_execution.passing_measures.count == 0
+        @pdf.text "There are no passing measures for this test."
+      else
+        cv_results_table(@test_execution.passing_measures)
+      end
+      
+      new_section_margin
+      @pdf.text "FAILING MEASURES"
+      if @test_execution.failing_measures.count == 0
+        @pdf.text "There are no failing measures for this test."
+      else
+        cv_results_table(@test_execution.failing_measures)
+      end
+    end
+
     def results_table(measures)
       table_content = []
       table_content << ["Measures included in this test", "Patients", "Denominator", "Den. Exclusions", "Numerator", "Num. Exclusions", "Exceptions"]
@@ -186,6 +216,44 @@ module Cypress
       @pdf.table(table_content, column_widths: [175, 60, 60, 60, 60, 60, 60])
       set_default_style
     end
+
+
+    def cv_results_table(measures)
+      table_content = []
+      table_content << ["Measures included in this test", "Patients/Episodes", "Measure Population", "Observation Value"]
+      
+      measures.each do |measure|
+        row = []
+
+        expected_result = @test_execution.expected_result(measure)
+        reported_result = @test_execution.reported_result(measure)
+
+        measure = "#{measure.nqf_id} - #{measure.name} "
+        measure.concat(" - #{measure.subtitle}") if measure["sub_id"]
+        patients = "#{reported_result[QME::QualityReport::POPULATION]}/#{expected_result[QME::QualityReport::POPULATION]}"
+
+        row << measure
+        row << patients
+
+        [QME::QualityReport::MSRPOPL , QME::QualityReport::OBSERVATION].each do |code|
+          expected = expected_result[code]
+          reported = reported_result[code]
+
+          unless expected_result["population_ids"][code] 
+            expected = nil
+            reported = nil
+          end
+          row << "#{reported || "-"} / #{expected}"
+        end
+
+        table_content << row
+      end
+
+      set_style({size: 8})
+      @pdf.table(table_content, column_widths: [175, 60, 60, 60, 60, 60, 60])
+      set_default_style
+    end
+
 
     def vendor_xml_section
       # TODO - This section is repetitive unless we can link the earlier error and warning sections to the relevant entries here.
