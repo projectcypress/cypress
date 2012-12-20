@@ -1,61 +1,4 @@
 GIT
-  remote: https://github.com/abgoldstein/test-patient-generator.git
-  revision: 55e976c9542f9ee0bc66fbbc3d6ee25a779a2477
-  branch: develop
-  specs:
-    test-patient-generator (1.0.2)
-
-GIT
-  remote: https://github.com/eedrummer/qrda_generator.git
-  revision: a445ecfd1e00d4697f6c57c07d57375d5a3fb62c
-  specs:
-    qrda_generator (0.1.0)
-      health-data-standards (~> 2.1.4)
-      hqmf-parser (~> 1.0.6)
-      log4r (~> 1.1.10)
-      mongoid (~> 3.0.6)
-      nokogiri (~> 1.5.5)
-      uuid (~> 2.3.5)
-
-GIT
-  remote: https://github.com/pophealth/hqmf-parser.git
-  revision: c227a74f1c107ed6cde7ba27a73b3d86ed331aef
-  branch: develop
-  specs:
-    hqmf-parser (1.0.6)
-      google-spreadsheet-ruby (= 0.1.8)
-      roo (= 1.10.1)
-      rubyzip
-      spreadsheet (= 0.6.8)
-
-GIT
-  remote: https://github.com/pophealth/quality-measure-engine.git
-  revision: 3953abc0e6198486afddf7b1fc8a52f5867efee0
-  branch: develop
-  specs:
-    quality-measure-engine (2.1.0)
-      delayed_job_mongoid (~> 2.0.0)
-      mongoid (~> 3.0.9)
-      moped (~> 1.2.7)
-      nokogiri (~> 1.5.5)
-      rubyXL (~> 1.2.10)
-      rubyzip (~> 0.9.9)
-
-GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: deb3d75641e27effda6a6f545499e95f386b247d
-  branch: develop
-  specs:
-    health-data-standards (2.1.4)
-      activesupport (~> 3.2.9)
-      builder (~> 3.0.0)
-      erubis (~> 2.7.0)
-      mongoid (~> 3.0.14)
-      nokogiri (~> 1.5.5)
-      rest-client (~> 1.6.7)
-      uuid (~> 2.3.5)
-
-GIT
   remote: https://github.com/rdingwell/delayed_job_mongoid_web.git
   revision: 3bc55d3bae167d1291806456fc9e7ec5cee1de96
   branch: develop
@@ -136,7 +79,26 @@ GEM
       oauth (>= 0.3.6)
       oauth2 (>= 0.5.0)
     haml (3.1.7)
+    health-data-standards (2.2.1)
+      activesupport (~> 3.2.9)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      mongoid (~> 3.0.14)
+      nokogiri (~> 1.5.5)
+      rest-client (~> 1.6.7)
+      uuid (~> 2.3.5)
     hike (1.2.1)
+    hqmf-parser (1.1.0)
+      google-spreadsheet-ruby (= 0.1.8)
+      roo (= 1.10.1)
+      rubyzip
+      spreadsheet (= 0.6.8)
+    hqmf2js (1.1.0)
+      coffee-script (~> 2.2.0)
+      nokogiri (~> 1.5.5)
+      sprockets (~> 2.2.2)
+      tilt (~> 1.3.3)
+    hquery-patient-api (1.0.0)
     httpauth (0.2.0)
     i18n (0.6.1)
     journey (1.0.4)
@@ -194,6 +156,20 @@ GEM
       slop (~> 3.3.1)
     pry-nav (0.2.2)
       pry (~> 0.9.10)
+    qrda_generator (1.0.1)
+      health-data-standards (~> 2.2.0)
+      hqmf-parser (~> 1.1.0)
+      log4r (~> 1.1.10)
+      mongoid (~> 3.0.6)
+      nokogiri (~> 1.5.5)
+      uuid (~> 2.3.5)
+    quality-measure-engine (2.2.0)
+      delayed_job_mongoid (~> 2.0.0)
+      mongoid (~> 3.0.9)
+      moped (~> 1.2.7)
+      nokogiri (~> 1.5.5)
+      rubyXL (~> 1.2.10)
+      rubyzip (~> 0.9.9)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -264,6 +240,12 @@ GEM
       term-ansicolor (>= 1.0.5)
       text-table (>= 1.2.2)
     term-ansicolor (1.0.7)
+    test-patient-generator (1.1.1)
+      health-data-standards (~> 2.2.1)
+      hqmf-parser (~> 1.1.0)
+      hqmf2js (~> 1.1.0)
+      hquery-patient-api (~> 1.0.0)
+      qrda_generator (~> 1.0.1)
     text-table (1.2.2)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
@@ -301,8 +283,8 @@ DEPENDENCIES
   coffee-rails
   delayed_job_mongoid_web!
   devise (~> 2.0)
-  health-data-standards!
-  hqmf-parser!
+  health-data-standards (~> 2.2.1)
+  hqmf-parser (~> 1.1.0)
   jquery-rails
   minitest
   mocha
@@ -311,8 +293,8 @@ DEPENDENCIES
   prawn
   pry
   pry-nav
-  qrda_generator!
-  quality-measure-engine!
+  qrda_generator (~> 1.0.1)
+  quality-measure-engine (~> 2.2.0)
   rails (= 3.2.9)
   rake
   sass-rails
@@ -320,7 +302,7 @@ DEPENDENCIES
   simplecov
   state_machine
   tailor
-  test-patient-generator!
+  test-patient-generator (~> 1.1.1)
   therubyracer
   thin
   turn
