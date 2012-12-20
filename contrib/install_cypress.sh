@@ -55,6 +55,7 @@ libxml_archive="libxml2-${install_libxml_ver}.tar.gz"
 config_proxy=0
 proxy_host=""
 proxy_port=80
+inport_valuesets=0
 nlm_user=""
 nlm_passwd=""
 
@@ -198,15 +199,19 @@ ${0} [--help] [--proxyhost hostname] [--proxyport port]
 [--nlm_user username] [--nlm_passwd password]
 
 Options:
+  --import
+    This option will cause the latest measure bundle to be imported, and code
+    valuesets to be downloaded from NLM and cached locally.
+
   --nlm_passwd
     The account password that will be used to retrieve clinical valuesets from
-    the UMLS service. This is a mandatory option.
+    the UMLS service. This is a mandatory option if --import is used.
 
   --nlm_user
     The account username used to retrive valuesets from the UMLS server.
     Go to https://uts.nlm.nih.gov/license.html to apply for an account.
     Account management can not be handled by the Cypress team. This is a
-    mandatory option.
+    mandatory option if --import is used.
 
   --proxyhost
     The hostname of the HTTP proxy server that should be used to access the
@@ -249,6 +254,11 @@ if [ $# -gt 0 ]; then
   #echo "Processing args..."
   while [ $# -gt 0 ]; do
     case "$1" in
+      --import)
+        import_valuesets=1;
+        shift;
+        ;;
+
       --proxyhost)
         if [ $# -ge 2 ]; then
           proxy_host=$2
@@ -299,8 +309,9 @@ if [ $# -gt 0 ]; then
 fi
 
 # Check for mandatory arguments
-if [ -z $nlm_user -o -z $nlm_passwd ]; then
-  cat << NEED_UMLS_ACCOUNT_END
+if [ $import_valuesets -eq 1 ]; then
+  if [[ -z $nlm_user ||  -z $nlm_passwd ]]; then
+    cat << NEED_UMLS_ACCOUNT_END
 ==============================================================================
 You must have an active UMLS account in order to complete the installation of
 Cypress.  The account is needed in order to download the Clinical Quality
@@ -316,7 +327,8 @@ $0 --help
 To obtain a UMLS account, go to: https://uts.nlm.nih.gov/license.html
 ==============================================================================
 NEED_UMLS_ACCOUNT_END
-  exit 2
+    exit 2
+  fi
 fi
 
 # Are we being run by root?
@@ -613,19 +625,25 @@ echo
 ##########
 # Task 9: Import measure bundle
 ##########
-echo "Import CQM bundle:"
-# download the measure bundle
-echo -n "   Download latest measure bundle: "
-su - -c "cd cypress; curl -s -u ${nlm_user}:${nlm_passwd} http://demo.projectcypress.org/bundles/bundle-latest.zip -o ../bundle-latest.zip" cypress
-success_or_fail $? "done" "failed to download bundle" "Can't continue without measure bundle."
-# import the bundle
-echo -n "   Import measure bundle: "
-su - -c "cd cypress; bundle exec rake bundle:import[../bundle-latest.zip,true] RAILS_ENV=production &> /dev/null" cypress
-success_or_fail $? "done" "failed to import bundle" "Can't continue without importing bundle."
-# Download valuesets
-echo -n "   Downloading clinical valuesets (will take a while): "
-su - -c "cd cypress; bundle exec rake cypress:cache_valuesets[$nlm_user,$nlm_passwd] RAILS_ENV=production &> /dev/null" cypress
-success_or_fail $? "done" "failed to cache valuesets" "Can't continue without valuesets"
+echo -n "Import CQM bundle:"
+if [ $import_valuesets -eq 0 ]; then
+  # We shouldn't import the valuesets at this time.
+  echo "skipped: --import not specified"
+else
+  echo
+  # download the measure bundle
+  echo -n "   Download latest measure bundle: "
+  su - -c "cd cypress; curl -s -u ${nlm_user}:${nlm_passwd} http://demo.projectcypress.org/bundles/bundle-latest.zip -o ../bundle-latest.zip" cypress
+  success_or_fail $? "done" "failed to download bundle" "Can't continue without measure bundle."
+  # import the bundle
+  echo -n "   Import measure bundle: "
+  su - -c "cd cypress; bundle exec rake bundle:import[../bundle-latest.zip,true] RAILS_ENV=production &> /dev/null" cypress
+  success_or_fail $? "done" "failed to import bundle" "Can't continue without importing bundle."
+  # Download valuesets
+  echo -n "   Downloading clinical valuesets (will take a while): "
+  su - -c "cd cypress; bundle exec rake cypress:cache_valuesets[$nlm_user,$nlm_passwd] RAILS_ENV=production &> /dev/null" cypress
+  success_or_fail $? "done" "failed to cache valuesets" "Can't continue without valuesets"
+fi
 echo
 
 ##########
