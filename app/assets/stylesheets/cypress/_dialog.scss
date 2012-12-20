@@ -10,3 +10,12 @@
 .modal-backdrop { background-color: rgba(255,255,255,0.8); }
 
 .modal .form-stacked { margin-bottom: 0; }
+
+.modal-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+.modal {
+  max-height: 600px;
+  overflow: auto; 
+}

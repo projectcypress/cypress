@@ -31,7 +31,7 @@ class ProductTestsController < ApplicationController
   end
   
   def update
-    test = current_user.product_tests.find(params[:id])
+    test = ProductTest.find(params[:id])
     test.update_attributes(params[:product_test])
     test.save!
     redirect_to product_test_path(test)
@@ -68,16 +68,10 @@ class ProductTestsController < ApplicationController
   
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format
   def download
-    test = current_user.product_tests.find(params[:id])
+    test = ProductTest.find(params[:id])
     format = params[:format]
     file = Cypress::CreateDownloadZip.create_test_zip(test.id,format)
-
-    if format == 'csv'
-      send_file file.path, :type => 'text/csv', :disposition => 'attachment', :filename => "Test_#{test.id}.csv"
-    else
-      send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "Test_#{test.id}._#{format}.zip"
-    end
-
+    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "Test_#{test.id}._#{format}.zip"
     file.close
   end
 
@@ -85,22 +79,18 @@ class ProductTestsController < ApplicationController
     test = ProductTest.find(params[:id])
     note = test.notes.find(params[:note][:id])
     note.destroy
-
     redirect_to :action => 'show', :execution_id => params[:execution_id]
   end
 
   def add_note
     test = ProductTest.find(params[:id])
-
     note = Note.new(params[:note])
     note.time = Time.now.getgm
-
     test.notes << note
     test.save!
     redirect_to :action => 'show', :execution_id => params[:execution_id]
   end
    
-
   def qrda_cat3
     @product_test = ProductTest.find(params[:id])
   end

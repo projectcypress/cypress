@@ -1,0 +1,62 @@
+<div id="container">
+  <%= render :partial=>"shared/header" %>
+
+    <div class ="buffered">
+    <section class="tb">
+      <div class="stacked">
+      </div>
+       <nav class="breadcrumb">
+        <%= render :partial=>"shared/breadcrumbs" %>
+      </nav>
+    </section>
+    <%= flash[:errors]  %>
+<div>
+  <h4> Installed Bundles </h4>
+  <ul>
+  <% Bundle.all.each do |bundle| %>
+    <li><%= bundle.title %>  -  <%= bundle.version %> </li>
+  <% end %>
+  </ul>
+ <p/>
+<div>
+  <%= form_tag({:action => 'import_bundle'}, :multipart => true ) do %>
+  <table>
+  	<tr>
+  		<td> <%= submit_tag "Import Bundle" %> </td>
+  		<td> <span> Clear Existing</span><%= check_box_tag "delete_existing", true %> </td> 
+  		<td> <%= file_field_tag  :bundle %> </td>
+  	</tr>
+  </table>
+ <% end %>
+
+</div>
+
+ <div >
+  <%= form_tag :action => 'update_value_sets'  do %>
+
+  <table>
+    <tr>
+      <td> <%= submit_tag "Update Valuesets" %> </td>
+      <td> NLM Username: <%= text_field_tag :username %> </td> 
+      <td> NLM Password: <%= password_field_tag :password %> </td> 
+      <td> <span> Clear Existing</span><%= check_box_tag  :delete_existing , true %> </td> 
+    </tr>
+  </table>
+
+  <% end %>
+  </div>
+
+  <p/>
+   <div>
+   	<span>Jobs </span>
+
+
+   	
+<table width="50%">
+  <thead><th>Created Time </th><th>Status</th><th></th><th>Failure Message</th><th></th></thead>
+    <%= render :partial=>'admin/update_job', :collection=>@jobs %>
+</table>
+   
+
+   </div>
+</div>

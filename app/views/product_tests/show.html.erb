@@ -42,11 +42,46 @@
   <div class ="buffered">
     <section class="tb">
       <div class="stacked">
-
         <%= link_to "Edit Test", edit_product_test_path(@test), { :class => "cmd" } %>
-
-
+        <a class="cmd" href="#viewTestMeasures" data-toggle="modal" data-backdrop="static" data-keyboard="true">View Test Measures</a>
       </div>
+
+      <!-- sample dialog listing measures selected for the test -->
+      <div id="viewTestMeasures" class="modal hide fade" style="width:800px;margin-left:-400px">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">&times;</a>
+          <h3><%= @test.name %></h3>
+        </div>
+        <div class="modal-body">
+          <h3 style="margin-bottom:10px">Included quality measures</h3>
+
+          <% cats = @test.measures.top_level.group_by{|m| m.category}
+            cats.keys.sort.each do |cat| 
+               measures = cats[cat] %>
+                
+                <h4><%= cat %></h4>
+                <ul>
+              <% measures.each do |measure| %>
+              <li><%= "#{measure.nqf_id} - #{measure.name } " %></li>
+              <% subm = @test.measures.where(:hqmf_id=>measure.hqmf_id)
+                  if subm.count >1
+               %>
+                <ul>
+                   <% subm.each do |sub| %>
+                    <li><%= sub.subtitle %></li>
+                    <% end %>
+                </ul>  
+
+               <% end %>     
+             <% end %> 
+            </ul>
+         <% end %> 
+         
+        </div>
+      <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn secondary">Close</a>
+      </div>
+    </div>
 
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
@@ -97,13 +132,10 @@
 			            <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
 			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download C32s", download_product_test_path(@test, :format => 'c32'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			            <%= link_to "QRDA Cat I", download_product_test_path(@test, :format => 'qrda'), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
 			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download CCRs", download_product_test_path(@test, :format => 'ccr'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "Download HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			            <%= link_to "HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
 			          </li>
 	             
 			        </ul>
@@ -203,8 +235,10 @@
          <% end %>
       </table>
     </section>
-
-    <section class="execution" <% if @test.test_executions.empty? %>style="display:none"<% end %>>
+    <% if @test.state == "ready" 
+      test_execution = @test_execution || @test.test_executions.build(:expected_results=> @test.expected_results, :reported_results=>{})
+    %>
+    <section class="execution" >
       <table class="table">
         <thead>
           <tr>
@@ -216,24 +250,14 @@
       </table>
 
       <div id="execution_results">
-        <% if @test_execution %>
+        
           <script >
-            $('#te_<%=@test_execution.id%>').addClass('selected');
+            $('#te_<%=test_execution.id%>').addClass('selected');
           </script>
-          <%= render :partial=>test_execution_template(@test_execution) , :locals=>{:test_execution=>@test_execution}%>
-        <% else 
-          te = @test.test_executions.build(:expected_results=> @test.expected_results, :reported_results=>{})
-          template = test_execution_expected_results_template(te) 
-          if false  %>
-            <%= render :partial=>template , :locals=>{:test_execution=>te}%>
-         <% else %>
-        Click on one of the test executions above to load the details here.
-        <% end 
-        end 
-        %>
+          <%= render :partial=>test_execution_template(test_execution) , :locals=>{:test_execution=>test_execution}%>
       </div>
     </section>
-
+    <% end %>
 
 
 	<div id="upload_results">

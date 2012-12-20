@@ -66,7 +66,7 @@
 
 
 
-<div id="container">
+<div id="container" class="container">
   <%= render :partial=>"shared/header" %>
 
   <div class="buffered">
@@ -79,16 +79,24 @@
         <%= link_to @test.name, product_test_path(@test, :test_execution_id => params[:execution]) %>
       </nav>
     </section>
+    <section class="candidate bordered buffered">  
+      <dl class="vendor dl-horizontal">
+        <dt>Test Name:</dt> <dd><%= @test.name %></dd>
+        <dt>Test Type:</dt> <dd><%= test_type(@test) %></dd>
+        <dt>Product:</dt> <dd><%= @test.product.name %></dd>
+        <dt>Version:</dt> <dd><%= @test.product.version %></dd>
+      </dl>
 
-    <section class="candidate  bordered">
       <dl class="dl-horizontal">
-        <dt class="vendor">EHR Vendor</dt><dd class="vendor"><%= @vendor.name %></dd>
+        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
+        <dt>Description:</dt> <dd><%= @test.description %></dd>
+        <dt>EHR Vendor:</dt><dd><%= @vendor.name %></dd>
       </dl>
+
       <dl class="dl-horizontal">
-        <dt>Product</dt> <dd><%= @product.name %></dd>
-      </dl>
-      <dl class="dl-horizontal">
-        <dt>Test</dt> <dd><%= @test.name %></dd>
+        <dt>Proctor:</dt> <dd><%= @test.user.first_name %> <%= @test.user.last_name %></dd>
+        <dt>Email:</dt> <dd><%= @test.user.email %></dd>
+        <dt>Telephone:</dt> <dd><%= @test.user.telephone %></dd>
       </dl>
     </section>
 
@@ -116,11 +124,12 @@
           <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd><dt></d>
           <dd class="measure_desc"><%= @measure.description %></dd>
         </dl>
-        <% expected_result = @execution.expected_result(@measure) %>
-        <% reported_result = @execution.reported_result(@measure) %>
+        
+        <% expected_result = @execution.expected_result(@measure) || {}  %>
+        <% reported_result = @execution.reported_result(@measure) || {} %>
         <dl class="dl-horizontal measure">
           <dt>Measure Status:</dt>
-          <% if reported_result['denominator'].class == String %>
+          <% if reported_result['DENOM'].class == String %>
             <dd class="na">N/A</dd>
           <% elsif @execution.passed?(expected_result) %>
             <dd class="">PASS</dd>
@@ -170,40 +179,50 @@
         <dl>
           <dt>Reporting Statistics:</dt>
           <dd>
-
-
-            <table >
-               <thead>
+          <table class="measure align-left">
+            <thead>
                  <tr>
-                  <th></th>
-                   <th>Patients</th>
-                   <th>Denominator</th>
-                   <th>Den. Exclusions</th>
-                   <th>Numerator</th>
-                   <th>Num. Exclusions</th>
-                   <th>Exceptions</th>
-                 </tr>
-               </thead>
+            <% if @measure.continuous? %>
+              <th></th>
+               <th>Patients</th>
+               <th>Measure Poplulation</th>
+               <th>Observation Value</th>
+            <% else %>
+              <th></th>
+               <th>Patients</th>
+               <th>Denominator</th>
+               <th>Den. Exclusions</th>
+               <th>Numerator</th>
+               <th>Num. Exclusions</th>
+               <th>Exceptions</th>
+            <% end %>
+              </tr>
+             </thead>
 
-               <tr style="text-align: right">
+               <tr >
                 <td>reported/expected </td>
-               <td>
-                <span><%=reported_result["population"]%>/<%=expected_result["population"]%></span>
-               </td>
-                <%{"DENOM" =>"denominator","DENEX"=>"exclusions","NUMER"=>"numerator","NUMEX"=>"numex","DENEXCP"=>"denexcep"}.each_pair do |code, bucket|
-                  expected = expected_result[bucket]
-                  reported = reported_result[bucket]
-              
-                 if !expected_result["population_ids"][code] 
-                   expected = nil
-                   reported = nil
-                 end
-                  reported_class = result_class(reported,expected)
-                %>
-                 <td>
-                  <span class="<%= reported_class %> r" style="text-align: right"><%= reported ||'-'%></span> / <span><%=expected%>
-                  </span>
-                </td>
+                <%= expected_reported(expected_result[QME::QualityReport::POPULATION],reported_result[QME::QualityReport::POPULATION]) %>
+               <% 
+               if @measure.population_ids[QME::QualityReport::MSRPOPL] %>
+                
+                <%= expected_reported(expected_result[QME::QualityReport::MSRPOPL],reported_result[QME::QualityReport::MSRPOPL]) %>                
+                <%= expected_reported(expected_result[QME::QualityReport::OBSERVATION],reported_result[QME::QualityReport::OBSERVATION]) %>
+
+               <% else %>
+                  <%[QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,"NUMEX",QME::QualityReport::EXCEPTIONS].each do |code|
+                    expected = expected_result[code]
+                    reported = reported_result[code]
+                
+                   if !expected_result["population_ids"] || !expected_result["population_ids"][code] 
+                     expected = nil
+                     reported = nil
+                   end
+                    reported_class = result_class(reported,expected)
+                  %>
+                  <%= expected_reported(expected,reported,{:style=>"text-align: right"}) %>
+                  
+
+                <% end %>
                <% end %>
              </tr>
 

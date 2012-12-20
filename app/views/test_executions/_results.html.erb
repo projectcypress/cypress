@@ -1,0 +1,43 @@
+ 
+ <table class="table">
+         <thead>
+           <tr>
+             <th colspan="2" style="width:50%"></span>Reported/Expected</th>
+             <th>Patients</th>
+             <th>Denominator</th>
+             <th>Den. Exclusions</th>
+             <th>Numerator</th>
+             <th>Num. Exclusions</th>
+             <th>Exceptions</th>
+           </tr>
+         </thead>
+         <tbody>
+          <% measures.each do | measure| 
+
+             expected_result = test_execution.expected_result(measure)
+             reported_result = test_execution.reported_result(measure) %>
+             <tr id='<%= "#{measure.key}" %>'>
+              <td/>
+               <td>
+                 <a href="<%= product_test_measure_path(test_execution.product_test,measure,:execution => test_execution) %>">
+                   <span style="font-weight:bold"><%= "#{measure.nqf_id} - #{measure.name} " %></span>
+                   <%= " - #{measure.subtitle}" if measure.sub_id %>
+                 </a>
+               </td>
+ 
+                <%[QME::QualityReport::POPULATION,QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,"NUMEX","DENEXCP"].each do |code|
+                  expected = expected_result[code] 
+                  reported = reported_result[code]
+              
+                 if !expected_result["population_ids"][code] 
+                   expected = nil
+                   reported = nil
+                 end
+
+                %>
+                <%= expected_reported(expected,reported) %>
+               <% end %>
+             </tr>
+           <% end %>
+         </tbody>
+     </table>

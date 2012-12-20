@@ -2,5 +2,5 @@
 <% if not @patient.send(collection).empty? %>
   <%= render :partial => 'entry', :collection => @patient.send(collection) %>
 <% else %>
-  <tr><td></td></tr>
+  <tr><td></td><td></td></tr>
 <% end %>
