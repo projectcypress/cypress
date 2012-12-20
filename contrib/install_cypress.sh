@@ -55,7 +55,7 @@ libxml_archive="libxml2-${install_libxml_ver}.tar.gz"
 config_proxy=0
 proxy_host=""
 proxy_port=80
-inport_valuesets=0
+import_valuesets=0
 nlm_user=""
 nlm_passwd=""
 
