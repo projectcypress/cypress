@@ -1,14 +1,16 @@
 <% 
 
 error_id = (doc['error_id']) %>
-<div <%=  error_id ? %{id=error_#{error_id}} : '' %> class="indent ">
+<div <%=  error_id ? %{id=error_#{error_id}} : '' %> class="indent " >
   <% if error_id %>
-  <div>
+  <div style="display:none">
+    <ul>
   <% test_execution.execution_errors.where({:location=>error_map.invert[error_id]}).each do |err|
 
    %>
-   <span> <%= err.message %></span>
+   <li> <%= err.message %></li>
    <% end %>
+ </ul>
  </div>
  <% end %>
 <%

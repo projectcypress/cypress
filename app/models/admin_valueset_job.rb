@@ -11,6 +11,7 @@ class AdminValuesetJob
 	field :job_id, type: String
 	field :failure_message, type: String, default: ""
 
+  scope :ordered_by_date , order_by(:created_at => :desc)
 	after_destroy do |obj|
 		Delayed::Job.destroy(obj.job_id)
 	end
