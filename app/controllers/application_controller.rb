@@ -44,6 +44,7 @@ class ApplicationController < ActionController::Base
   
   
   def render_404(exception)
+    logger.error(exception)
     @not_found_path = exception.message
     respond_to do |format|
       format.html { render template: 'errors/error_404', layout: 'layouts/application', status: 404 }
@@ -52,6 +53,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_500(exception)
+    logger.error(exception)
     @error = exception
     respond_to do |format|
          format.html { render template: 'errors/error_500', layout: 'layouts/application', status: 500 }

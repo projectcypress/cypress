@@ -6,7 +6,7 @@ require 'mongoid'
 require 'mongoid-grid_fs'
 XML_VALIDATION_INSPECTION="XmlValidationInspection"
 
-
+Rails.logger.auto_flushing=true
 MONGO_DB = Mongoid.default_session
 
 # insert races and ethnicities

@@ -10,7 +10,7 @@ function updateMatrixByMeasure(measure) {
     var totalBuckets = {
         "numerator" : 0,
         "denominator" : 0,
-        QME::QualityReport::ANTINUMERATOR : 0,
+        "antinumerator": 0,
         "exclusions" : 0
     };
 
