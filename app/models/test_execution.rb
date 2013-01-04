@@ -81,17 +81,17 @@ class TestExecution
   end
 
   def passing_measures
-     m_ids = execution_errors.collect {|ee| ee.measure_id}
+     m_ids = execution_errors.collect {|ee| "#{ee.measure_id}-#{ee.stratification}"}
      m_ids.compact!
-     mes = product_test.measures.collect{|m| m_ids.index(m.key) ? nil : m }
+     mes = product_test.measures.collect{|m| m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") ? nil : m }
      mes.compact!
      mes
   end
 
   def failing_measures
-     m_ids = execution_errors.collect {|ee| ee.measure_id}
+     m_ids = execution_errors.collect {|ee| "#{ee.measure_id}-#{ee.stratification}"}
      m_ids.compact!
-     mes = product_test.measures.collect {|m| m_ids.index(m.key) ? m : nil}
+     mes = product_test.measures.collect{|m| m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") ? m : nil }
      mes.compact!
      mes
   end

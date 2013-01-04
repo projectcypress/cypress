@@ -7,7 +7,6 @@
              <th>Denominator</th>
              <th>Den. Exclusions</th>
              <th>Numerator</th>
-             <th>Num. Exclusions</th>
              <th>Exceptions</th>
            </tr>
          </thead>
@@ -25,7 +24,7 @@
                  </a>
                </td>
  
-                <%[QME::QualityReport::POPULATION,QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,"NUMEX","DENEXCP"].each do |code|
+                <%[QME::QualityReport::POPULATION,QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,QME::QualityReport::EXCEPTIONS].each do |code|
                   expected = expected_result[code] 
                   reported = reported_result[code]
               

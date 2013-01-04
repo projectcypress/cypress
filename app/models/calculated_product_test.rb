@@ -56,11 +56,13 @@ class CalculatedProductTest < ProductTest
     
     expected_results.each_pair do |key,expected_result|
       result_key = expected_result["population_ids"].dup
-      reported_result = Cypress::QrdaUtility.extract_results_by_ids(doc,expected_result["measure_id"], result_key) 
+      reported_result, errors = Cypress::QrdaUtility.extract_results_by_ids(doc,expected_result["measure_id"], result_key) 
       reported_results[key] = reported_result 
-
+     
+      
       if reported_result.nil?
-         validation_errors << ExecutionError.new(message: "Could not find entry for measure #{key} ", msg_type: :error, measure_id: key , validator_type: :result_validation)
+         message = "Could not find entry for measure #{expected_result["measure_id"]}"
+         validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation)
       end
 
       matched_result = {measure_id: expected_result["measure_id"], sub_id: expected_results["sub_id"]}
@@ -70,7 +72,7 @@ class CalculatedProductTest < ProductTest
 
       _ids = expected_result["population_ids"].dup
       # remove the stratification entry if its there, not needed to test against values
-      _ids.delete("stratification")
+      stratification = _ids.delete("stratification")
 
       
       _ids.keys.each do |pop_key| 
@@ -78,14 +80,19 @@ class CalculatedProductTest < ProductTest
         if expected_result[pop_key]
           matched_result[pop_key] = {:expected=>expected_result[pop_key], :reported=>reported_result[pop_key]}
           # only add the error that they dont match if there was an actual result
-          if (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
+          if !reported_result.empty? && !reported_result.has_key?(pop_key)
+            message = "Could not find value"
+            message += " for stratification #{stratification} " if stratification
+            message += " for Population #{pop_key}"
+            errs << message
+          elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
 
            errs << "expected #{pop_key} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
           end
         end 
       end
       if !errs.empty?
-        validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: key , validator_type: :result_validation)
+        validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
       end
     end    
 

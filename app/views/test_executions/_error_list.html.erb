@@ -1,0 +1,18 @@
+<ol class="validation_list">
+  <% old_eid = 0 %>
+  <% grouped_errors.each do |validator,errs| %>
+  <li>
+    <div><span><%= validator %></span> </div>
+     <ol>
+    <% 
+      errs.each do |e| 
+      eid = error_map[e.location] 
+    %>   
+      <li  <% if old_eid != eid %> class="err_group" <% old_eid = eid end %>>
+        <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div>
+      </li>
+    <% end %>
+    </ol>
+  </li>
+  <% end %>
+</ol>
