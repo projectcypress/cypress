@@ -8,4 +8,5 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require cypress
+//= require cypress-navigator
 //= require externals
