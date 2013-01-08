@@ -44,6 +44,7 @@
          <span> <a href="#<%=mes.key%>" ><%= mes.display_name %>: HQFM_ID: <%= mes.hqmf_id %> <%= (measure[:stratification])? "Stratification ID #{measure[:stratification]}": "" %> </a></span>
            <ul>
           <% 
+
             errs.each do |e| 
           %>   
             <li  class="err_group" >
@@ -51,7 +52,9 @@
             </li>
           <% end %>
           </ul>
+          <br>
         </li>
+
         <% end %>
       </ol>
 

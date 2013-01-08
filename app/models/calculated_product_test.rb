@@ -3,6 +3,7 @@ class CalculatedProductTest < ProductTest
   state_machine :state do
     
     after_transition any => :generating_records do |test|
+
       min_set = PatientPopulation.min_coverage(test.measure_ids)
       p_ids = min_set[:minimal_set]
 
@@ -24,6 +25,8 @@ class CalculatedProductTest < ProductTest
     end
         
     after_transition any => :calculating_expected_results do |test|
+      test.status_message = "Calculating Measures"
+      test.save
       Delayed::Job.enqueue(Cypress::MeasureEvaluationJob.new({"test_id" =>  test.id.to_s}))
     end
         
@@ -60,9 +63,10 @@ class CalculatedProductTest < ProductTest
       reported_results[key] = reported_result 
      
       
-      if reported_result.nil?
-         message = "Could not find entry for measure #{expected_result["measure_id"]}"
-         validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation)
+      if reported_result.nil? || reported_result.keys.length <=1
+        message = "Could not find entry for measure #{expected_result["measure_id"]} with the following population ids "   
+        message +=  result_key.inspect
+        validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , stratification: result_key['stratification'], validator_type: :result_validation)
       end
 
       matched_result = {measure_id: expected_result["measure_id"], sub_id: expected_results["sub_id"]}

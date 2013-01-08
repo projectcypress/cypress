@@ -14,14 +14,27 @@ class ProductTest
   field :effective_date, type: Integer
   field :measure_ids, type: Array
   field :expected_results, type: Hash
-  
+  field :status_message, type: String
   
   validates_presence_of :name
   validates_presence_of :effective_date
 
   scope :order_by_type, order_by(:_type => :desc)
   
-  state_machine :state, :initial => :pending  do      
+  state_machine :state, :initial => :pending  do 
+
+
+   after_transition any => :ready do |test|
+      test.status_message ="Ready"
+      test.save
+   end 
+
+
+   after_transition any => :errored do |test|
+      test.status_message ="Error"
+      test.save
+   end 
+
     event :ready do
       transition all => :ready
     end  

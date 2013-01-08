@@ -46,8 +46,8 @@ class ProductTestsController < ApplicationController
   
 
   def status
-    @test = ProductTest.find(params[:id])
-    
+   @test = ProductTest.find(params[:id])
+   @test_execution = TestExecution.find(params[:test_execution_id]) if params[:test_execution_id]
   end
 
   def execute   

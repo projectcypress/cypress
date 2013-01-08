@@ -95,5 +95,9 @@ class TestExecution
      mes.compact!
      mes
   end
+
+  def measure_passed?(measure)
+    passing_measures.find{|m| m.id == measure.id}
+  end
   
 end

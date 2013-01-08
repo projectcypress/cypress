@@ -2,6 +2,8 @@ class QRDAProductTest < ProductTest
   after_create :generate_population
   
   def generate_population
+    self.status_message = "Generating patient record"
+    self.save
     Delayed::Job.enqueue(Cypress::QRDAGenerationJob.new({"test_id" =>  self.id.to_s}))
   end
   
