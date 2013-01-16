@@ -113,55 +113,51 @@
 
     <% if @test.state == "ready" %>
       <section class="instructions">
-        <div class="row">
-          <div class="span12">
-            <p>You must perform the following steps to execute your test:</p>
+        <div>
+          <p>You must perform the following steps to execute your test:</p>
+          <div class="span3">
+            <p>1. Download Test Data</p>
+            <p>
+              <%= link_to 'Test Data', '', {
+	  	          :id => 'share_menu',
+		            :class => "cmd",
+		            :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
+		          } %></p>
+			  	  <ul id="share_options" style="display: none" role="listbox"
+			         class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+			        <li class="ui-menu-item" role="menuitem">
+			          <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			        </li>
+			        <li class="ui-menu-item" role="menuitem">
+			          <%= link_to "QRDA Cat I", download_product_test_path(@test, :format => 'qrda'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			        </li>
+			        <li class="ui-menu-item" role="menuitem">
+			          <%= link_to "HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
+			        </li>
+	          </ul>
+			    </div>
+          <div class="span3">
+            <p>
+              2. Load Test Data into your quality measure calculator
+            </p>
           </div>
           <div class="span3">
             <p>
-            1. Download Test Data
-            </p><p>
-            <%= link_to 'Test Data', '', {
-		          :id => 'share_menu',
-		          :class => "cmd",
-		          :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
-		        } %></p>
-			  	 <ul id="share_options" style="display: none" role="listbox"
-			            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "QRDA Cat I", download_product_test_path(@test, :format => 'qrda'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-	             
-			        </ul>
-			</div>
-			<div class="span3">
-			  <p>
-			    2. Load Test Data into your quality measure calculator
-			  </p>
-      </div>
-      <div class="span3">
-        <p>
-          3. Upload Results
-        </p>
-        <p>
-				 <%= link_to "Upload Results", '', {
-			          :id => 'results_menu',
-			          :class => "cmd"
-			        } %>
-			  </p>
-				<ul id="results_options" style="display: none" role="listbox"
-			      class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-			    <li class="ui-menu-item" role="menuitem"></li>
-        </ul>
-    	</div>
-    </div>
-    </section>
+              3. Upload Results
+            </p>
+            <p>
+             <%= link_to "Upload Results", '', {
+                    :id => 'results_menu',
+                    :class => "cmd"
+                  } %>
+            </p>
+            <ul id="results_options" style="display: none" role="listbox"
+                class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
+              <li class="ui-menu-item" role="menuitem"></li>
+            </ul>
+          </div>
+        </div>
+      </section>
     <% else %>
     <section class="instructions">
       <div class="alert alert-info">
@@ -178,7 +174,7 @@
     <% end %>
 
     <!-- End of if test is ready to execute -->
-
+    <br style="clear:both"/>
     <section class="records">
       <label>Notes:</label>
       <% note = Note.new %>

@@ -3,10 +3,11 @@
   var pluginName = 'navigator',
       defaults = {
         first:'.nav-first', // selector for element to bind to 'first' action
-        prev:'.nav-prev', // selector for elements to bind to 'prev' action 
-        next:'.nav-next',
-        last:'.nav-last',
+        prev:'.nav-prev',   // selector for elements to bind to 'prev' action 
+        next:'.nav-next',   // selector for elements to bind to 'next' action
+        last:'.nav-last',   // selector for elements to find to 'last' action
         targets : 'body',
+        action : function(anchor){},
         nav:'a' // selector for the list of hrefs
       };
 
@@ -17,7 +18,7 @@
 
     this._defaults = defaults;
     this._name = pluginName;
-    
+    this.action = this.options.action;
     this.init();
     
     return this;
@@ -38,25 +39,28 @@
   };
 
   Navigator.prototype.first = function() {
-    console.log(this.targets[0].href);
-    var tgt = $(this.targets[0]).attr('href');
-    jumpToElement(tgt);
-    this.index = 0;
+    if (this.index != 0) {
+      var tgt = $(this.targets[0]).attr('href');
+      this.action(tgt);
+      this.index = 0;
+    }
   }
   Navigator.prototype.prev = function() {
     this.index = (this.index + this.targets.length - 1 ) % this.targets.length;
     var tgt = $(this.targets[this.index]).attr('href');
-    jumpToElement(tgt);
+    this.action(tgt);
   }
   Navigator.prototype.next = function() {
     this.index = (this.index + this.targets.length + 1 ) % this.targets.length;
     var tgt = $(this.targets[this.index]).attr('href');
-    jumpToElement(tgt);
+    this.action(tgt);
   }
   Navigator.prototype.last = function() {
-    this.index = this.targets.length - 1;
-    var tgt = $(this.targets[this.index]).attr('href');
-    jumpToElement(tgt);
+    if (this.index != this.targets.length - 1) {  
+      this.index = this.targets.length - 1;
+      var tgt = $(this.targets[this.index]).attr('href');
+      this.action(tgt);
+    }
   }
 
   $.fn[pluginName] = function(options) {
@@ -71,3 +75,41 @@
   
 
 }(window.jQuery);
+
+
+(function($) {
+ 
+$.fn.fixedHeader = function (options) {
+ var config = {
+   topOffset: 40
+ };
+ if (options){ $.extend(config, options); }
+ 
+ return this.each( function() {
+  var o = $(this);
+ 
+  var $win = $(window)
+    , $head = $('.subnav', o)
+    , isFixed = 0;
+  var headTop = $head.length && $head.offset().top - config.topOffset;
+ 
+  function processScroll() {
+    if (!o.is(':visible')) return;
+    var i;
+    var scrollTop = $win.scrollTop();
+    var o_top = o.offset().top;
+    var head_top = $head.offset().top - 50;
+    
+    if      (scrollTop >= headTop && !isFixed) { isFixed = 1; }
+    else if (scrollTop <= headTop && isFixed) { isFixed = 0; }
+    
+    isFixed ? $('.subnav', o).show().addClass("navbar-fixed-top")
+            : $('.subnav', o).removeClass("navbar-fixed-top");
+  }
+  $win.on('scroll', processScroll);
+ 
+  processScroll();
+ });
+};
+ 
+})(jQuery);
