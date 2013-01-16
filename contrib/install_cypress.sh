@@ -603,7 +603,7 @@ if [ $? -eq 0 ]; then
   success "yes"
 else
   usermod -a -G sudo cypress
-  success_for_fail $? "done" "failed"
+  success_or_fail $? "done" "failed"
 fi
 # retrieve cypress application
 echo -n "   Retrieve Cypress application: "
