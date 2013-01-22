@@ -1012,7 +1012,7 @@
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.5-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.5']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.5-errors-abstract" />
-      <sch:assert id="a-12106" test="count(cda:templateId[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='2.16.840.1.113883.10.20.24.3.5'])=1">SHALL contain exactly one [1..1] templateId="2.16.840.1.113883.10.20.24.3.5" (CONF:12106).</sch:assert>
+     
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.6-errors">
@@ -1035,7 +1035,7 @@
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.6-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.6']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.6-errors-abstract" />
-      <sch:assert id="a-12134" test="count(cda:templateId[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='2.16.840.1.113883.10.20.24.3.6'])=1">SHALL contain exactly one [1..1] templateId="2.16.840.1.113883.10.20.24.3.6" (CONF:12134).</sch:assert>
+      
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.8-errors">
@@ -1056,7 +1056,7 @@
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.8-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.8']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.8-errors-abstract" />
-      <sch:assert id="a-12162" test="count(cda:templateId[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='2.16.840.1.113883.10.20.24.3.8'])=1">SHALL contain exactly one [1..1] templateId="2.16.840.1.113883.10.20.24.3.8" (CONF:12162).</sch:assert>
+     
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.6-errors">
@@ -1646,9 +1646,9 @@ SHALL contain exactly one [1..1] effectiveTime (CONF:13930).</sch:assert>
       <sch:assert id="a-5396" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace) or cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace[count(cda:place)=1]">The birthplace, if present, SHALL contain exactly one [1..1] place (CONF:5396).</sch:assert>
       <sch:assert id="a-5397" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place) or cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place[count(cda:addr)=1]">This place SHALL contain exactly one [1..1] addr (CONF:5397).</sch:assert>
 
-      <sch:assert id="a-5402" test="not((cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr[cda:country='US' or cda:country='USA' ]) and not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr/cda:state))">If country is US, this addr SHALL contain exactly one [1..1] state, which SHALL be selected from ValueSet 2.16.840.1.113883.3.88.12.80.1 StateValueSet DYNAMIC (CONF:5402).</sch:assert>
+      <sch:assert id="a-5402" test="not((cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr[cda:country='US' or cda:country='USA' or not(cda:country)]) and not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr/cda:state))">If country is US, this addr SHALL contain exactly one [1..1] state, which SHALL be selected from ValueSet 2.16.840.1.113883.3.88.12.80.1 StateValueSet DYNAMIC (CONF:5402).</sch:assert>
 
-      <sch:assert id="a-7293" test="not((cda:recordTarget/cda:patientRole/cda:addr[cda:country='US' or cda:country='USA' or not(cda:country)]) and not(cda:recordTarget/cda:patientRole/cda:addr/cda:state))">If country is US, this addr SHALL contain exactly one [1..1] state, which SHALL be selected from ValueSet 2.16.840.1.113883.3.88.12.80.1 StateValueSet DYNAMIC (CONF:7293).</sch:assert>
+      <sch:assert id="a-7293" test="not((cda:recordTarget/cda:patientRole/cda:addr[(cda:country='US' or cda:country='USA' or not(cda:country)) and not(@nullFlavor)]) and not(cda:recordTarget/cda:patientRole/cda:addr/cda:state))">If country is US, this addr SHALL contain exactly one [1..1] state, which SHALL be selected from ValueSet 2.16.840.1.113883.3.88.12.80.1 StateValueSet DYNAMIC (CONF:7293).</sch:assert>
 
       <sch:assert id="a-5407" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication) or cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication[count(cda:languageCode)=1]">The languageCommunication, if present, SHALL contain exactly one [1..1] languageCode, which SHALL be selected from ValueSet Language 2.16.840.1.113883.1.11.11526 DYNAMIC (CONF:5407).</sch:assert>
       <sch:assert id="a-5417" test="not(cda:recordTarget/cda:patientRole/cda:providerOrganization) or cda:recordTarget/cda:patientRole/cda:providerOrganization[count(cda:id) &gt; 0]">The providerOrganization, if present, SHALL contain at least one [1..*] id (CONF:5417).</sch:assert>
