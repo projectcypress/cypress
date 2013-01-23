@@ -2,6 +2,16 @@
 @import "bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
 
 $linkColor:black;
+// Sprite icons path
+$iconSpritePath:                  "glyphicons-halflings.png";
+$iconWhiteSpritePath:             "glyphicons-halflings-white.png";
+$navbarBackground:                $grayLighter;
+$navbarBackgroundHighlight:       $white;
+$navbarLinkBackgroundHover:       transparent;
+
+$navbarText:                      $grayDarker;
+$navbarLinkColor:                 $grayDarker;
+$navbarLinkColorHover:            $black;
 
 // Bootstrap Mixins
 @import "bootstrap/mixins";
@@ -69,5 +79,6 @@ $linkColor:black;
 @import "cypress/account";
 @import "cypress/param_view";
 @import "cypress/dialog";
+@import "cypress/popovers";
 @import "cypress/type";
 @import "cypress/markup";

@@ -109,4 +109,15 @@ top:0px;
 /* Test execution details */
 #xml_frame {
   font-family: $sourceCodeFont;
+  .navbar { font-family:$baseFontFamily;}
+  .subnav .brand i {
+    position:relative;
+    top:4px;
+  }
+  .subnav ul.nav {
+    margin-top:3px;
+    &>li>a {
+      cursor:pointer;
+    }
+  }
 }

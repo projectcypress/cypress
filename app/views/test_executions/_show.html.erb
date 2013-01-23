@@ -63,13 +63,12 @@
     <div class="tab-pane" id="test_measure_qrda_errors">
       <h4>QRDA Errors</h4>
       <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:error).group_by(&:validator), error_map:error_map } %>
-      
     </div>
     <div class="tab-pane" id="test_measure_qrda_warnings">
       <!-- %# render :partial => 'test_executions/calculated_product_test/warnings', :locals => { :warnings => test_execution.execution_warnings } %> -->
       <h4>QRDA Warnings</h4>
+
      <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:warning).group_by(&:validator), error_map:error_map } %>
-      
     </div>
  
   </div><!-- end #test_result_tabs -->
@@ -95,9 +94,51 @@
 
 
   
-     <div id="xml_frame">
+    <div id="xml_frame">
+      <div style="height:45px;">
+        <div class="subnav navbar" style="display:none">
+          <div class="navbar-inner">
+              <div class="container">
+                <a class="brand" href="#error_report_toc"><i class="icon-arrow-up"></i> Back to top</a>
+                  <ul class="nav">
+                      <li class="divider-vertical"></li>
+                      <li><a class="nav-first" title="Jump to first error"><i class="icon-fast-backward"></i> First</a></li>
+                      <li class="divider-vertical"></li>
+                      <li><a class="nav-prev" title="Jump to previous error"><i class="icon-step-backward"></i> Prev</a></li>
+                      <li class="divider-vertical"></li>
+                      <li><a class="nav-next" title="Jump to next error">Next <i class="icon-step-forward"></i></a></li>
+                      <li class="divider-vertical"></li>
+                      <li><a class="nav-last" title="Jump to last error">Last <i class="icon-fast-forward"></i></a></li>
+                      <li class="divider-vertical"></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+    </div>
     <h3>Vendor Generated XML</h3>
     <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes, :test_execution=>test_execution}%>
   </div>
+</div>
 
-</div>   
+<% if test_execution %>
+<script>
+function showErrorPopup(anchor) {
+    if ($(anchor)) {
+      $('div'+anchor).popover('show');
+      jumpToElement(anchor);
+    }
+  }    
+
+  $("#xml_frame .subnav").show().navigator({targets:"a.qrda_error_link",action:showErrorPopup});
+  $("#xml_frame").fixedHeader();
+
+  $("section.execution").on('click','a.qrda_error_link',function() {
+    showErrorPopup($(this).attr('href'));
+    return false;
+  });
+    
+  $("section.execution").on('click','.error i.icon',function() {
+    $('div#'+$(this).data('error')).popover('toggle');
+  });
+  </script>
+  <% end %>
