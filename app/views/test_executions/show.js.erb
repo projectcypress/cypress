@@ -15,8 +15,9 @@ function showErrorPopup(anchor) {
 }    
 
 $("#xml_frame .subnav").show().navigator({targets:"a.qrda_error_link",action:showErrorPopup});
-$("#xml_frame").fixedHeader();
-
+if($('a.qrda_error_link').length > 0){
+    $("#xml_frame").fixedHeader();
+  }
 $("section.execution").on('click','a.qrda_error_link',function() {
   showErrorPopup($(this).attr('href'));
   return false;

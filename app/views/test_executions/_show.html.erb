@@ -41,14 +41,19 @@
 
         <li>
         <% mes = Measure.where(:hqmf_id=>measure[:measure_id], "population_ids.stratification" => measure[:stratification]).first %>
-         <span> <a href="#<%=mes.key%>" ><%= mes.display_name %>: HQFM_ID: <%= mes.hqmf_id %> <%= (measure[:stratification])? "Stratification ID #{measure[:stratification]}": "" %> </a></span>
+        <!--  -->
+        <% if mes %>
+          <span> <a href="#<%=mes.key%>" ><%= mes.display_name %>: HQFM_ID: <%= mes.hqmf_id %> <%= (measure[:stratification])? "Stratification ID #{measure[:stratification]}": "" %> </a></span>
+         <% else %>
+          <span> </span>
+         <% end %>
            <ul>
           <% 
-
-            errs.each do |e| 
+            messages = errs.collect{|e| e.message}
+            messages.uniq.each do |e| 
           %>   
             <li  class="err_group" >
-              <div><%= e.message %> </div>
+              <div><%= e %> </div>
             </li>
           <% end %>
           </ul>
@@ -130,8 +135,9 @@ function showErrorPopup(anchor) {
   }    
 
   $("#xml_frame .subnav").show().navigator({targets:"a.qrda_error_link",action:showErrorPopup});
-  $("#xml_frame").fixedHeader();
-
+  if($('a.qrda_error_link').length > 0){
+    $("#xml_frame").fixedHeader();
+  }
   $("section.execution").on('click','a.qrda_error_link',function() {
     showErrorPopup($(this).attr('href'));
     return false;
