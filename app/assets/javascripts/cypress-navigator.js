@@ -44,14 +44,14 @@
     this.action(tgt);
   }
   Navigator.prototype.prev = function() {
-    this.index = this.index + this.targets.length - 1;
-    if(this.index == NaN || this.index < 0){this.index=0;}
+    this.index = this.index  - 1;
+    if(this.index == NaN|| this.index < 0){this.index=0;}
     var tgt = $(this.targets[this.index]).attr('href');
     this.action(tgt);
   }
   Navigator.prototype.next = function() {
-    this.index = this.index + this.targets.length + 1 ;
-    if(this.index == NaN || this.index >=this.targets.length){this.index=0;}
+    this.index = this.index +1 ;
+    if(this.index == NaN || this.index >= this.targets.length){this.index=0;}
     var tgt = $(this.targets[this.index]).attr('href');
     this.action(tgt);
   }
