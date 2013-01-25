@@ -82,16 +82,24 @@ class TestExecution
 
   def passing_measures
      m_ids = execution_errors.collect {|ee| "#{ee.measure_id}-#{ee.stratification}"}
+     m_ids += execution_errors.collect {|ee| "#{ee.measure_id}"}
+     m_ids.flatten!
      m_ids.compact!
-     mes = product_test.measures.collect{|m| m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") ? nil : m }
+     m_ids.uniq!
+     mes = product_test.measures.collect{|m|
+       m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") || m_ids.index(m.key)  ? nil : m }
      mes.compact!
      mes
   end
 
   def failing_measures
      m_ids = execution_errors.collect {|ee| "#{ee.measure_id}-#{ee.stratification}"}
+     m_ids += execution_errors.collect {|ee| "#{ee.measure_id}"}
+     m_ids.flatten!
      m_ids.compact!
-     mes = product_test.measures.collect{|m| m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") ? m : nil }
+     m_ids.uniq!
+     mes = product_test.measures.collect{|m| 
+        m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") || m_ids.index(m.key) ? m : nil }
      mes.compact!
      mes
   end

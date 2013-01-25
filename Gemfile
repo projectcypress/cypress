@@ -16,7 +16,7 @@ gem 'hqmf-parser', ' ~> 1.1.0'
 
 #gem 'hqmf-parser', path: '../hqmf-parser'
 #gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient-generator.git', :branch => 'develop'
-gem 'test-patient-generator', '~> 1.1.1'
+gem 'test-patient-generator', '~> 1.1.2'
 
 gem "delayed_job_mongoid_web", :git => 'https://github.com/rdingwell/delayed_job_mongoid_web.git', :branch => 'develop'
 
