@@ -81,14 +81,15 @@ class CalculatedProductTest < ProductTest
       
       _ids.keys.each do |pop_key| 
          #pop_key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
-        if expected_result[pop_key]
+
+        if !expected_result[pop_key].nil?
           matched_result[pop_key] = {:expected=>expected_result[pop_key], :reported=>reported_result[pop_key]}
           # only add the error that they dont match if there was an actual result
           if !reported_result.empty? && !reported_result.has_key?(pop_key)
             message = "Could not find value"
             message += " for stratification #{stratification} " if stratification
             message += " for Population #{pop_key}"
-            errs << message
+            validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
           elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
            err = "expected #{pop_key} #{_ids[pop_key]} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
            validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
