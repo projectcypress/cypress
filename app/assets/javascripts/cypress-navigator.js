@@ -38,6 +38,8 @@
     
   };
 
+
+
   Navigator.prototype.first = function() {
     this.index = 0;
     var tgt = $(this.targets[this.index]).attr('href');
@@ -60,6 +62,14 @@
     if(this.index == NaN || this.index < 0){this.index=0;}
     var tgt = $(this.targets[this.index]).attr('href');
     this.action(tgt);  
+  }
+  Navigator.prototype.setIndex = function(href) {
+    for(var i =0; i< this.targets.length; i++){
+      if($(this.targets[i]).attr('href') == href){
+        this.index = i;
+        break;
+      }
+    }
   }
 
   $.fn[pluginName] = function(options) {

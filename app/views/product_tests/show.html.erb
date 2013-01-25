@@ -193,6 +193,8 @@
           </script>
           <%= render :partial=>test_execution_template(test_execution) , :locals=>{:test_execution=>test_execution}%>
       </div>
+
+
     </section>
     <% end %>
 
@@ -225,3 +227,45 @@
     <%= render :partial=>"shared/legend" %>
   </div>
 </div>
+
+
+<script>
+function showErrorPopup(anchor) {
+    if ($(anchor)) {
+      $('span.error_popup').popover('hide')
+      $('span'+anchor).popover('show');
+      jumpToElement(anchor);
+    }
+  }    
+
+  var navigator =  $("#xml_frame .subnav").show().navigator({targets:"a.qrda_error_link",action:showErrorPopup});
+  if($('a.qrda_error_link').length > 0){
+    $("#xml_frame").fixedHeader();
+  }
+
+  $("section.execution").on('click','a.qrda_error_link',function() {
+    showErrorPopup($(this).attr('href'));
+    navigator.data('navigator').setIndex($(this).attr('href'));
+    return false;
+  });
+    
+  $("section.execution").on('click','.error i.icon',function() {
+    //('span.error_popup',$(this)).popover('toggle')
+    var anyVisible = false;
+    var possibilities = $('span.error_popup', $('div#x'+$(this).data('error')));
+    for(var i =0;i<possibilities.length;i++){
+      if($(possibilities[i]).data('popover') && $(possibilities[i]).data('popover').tip().hasClass('in')){
+        anyVisible = true;
+        break;
+      }
+    }
+    if(anyVisible || possibilities.length == 0){
+      $('span.error_popup').popover('hide');
+    }else{
+      var href = '#'+$(possibilities[0]).attr('id');
+      showErrorPopup(href);
+      navigator.data('navigator').setIndex(href);
+    }
+   
+  });
+  </script>

@@ -7,7 +7,7 @@ error_id = (doc['error_id']) %>
       test_execution.execution_errors.where({:location=>error_map.invert[error_id]}).order_by([:msg_type,1]).each do |err|
         %>
         <!-- content+=%{<li>#{err.msg_type.to_sym == :error ? 'Error' : 'Warning' }  #{err.message}</li>} -->
-        <span id="error_<%=err.id%>" rel="popover" data-placement="top" data-original-title="<%= err.msg_type.to_sym == :error ? 'Error' : 'Warning'  %>" data-content="<%= err.message%>"></span>
+        <span class='error_popup' id="error_<%=err.id%>" rel="popover" data-placement="top" data-original-title="<%= err.msg_type.to_sym == :error ? 'Error' : 'Warning'  %>" data-content="<%= err.message%>"></span>
         <%
       end
    %>
