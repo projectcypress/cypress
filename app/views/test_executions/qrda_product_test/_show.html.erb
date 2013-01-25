@@ -42,26 +42,8 @@
   </div><!-- end #test_result_tabs -->
 
     <div id="xml_frame">
-      <div style="height:45px;">
-        <div class="subnav navbar" style="display:none">
-          <div class="navbar-inner">
-              <div class="container">
-                <a class="brand" href="#error_report_toc"><i class="icon-arrow-up"></i> Back to top</a>
-                  <ul class="nav">
-                      <li class="divider-vertical"></li>
-                      <li><a class="nav-first" title="Jump to first error"><i class="icon-fast-backward"></i> First</a></li>
-                      <li class="divider-vertical"></li>
-                      <li><a class="nav-prev" title="Jump to previous error"><i class="icon-step-backward"></i> Prev</a></li>
-                      <li class="divider-vertical"></li>
-                      <li><a class="nav-next" title="Jump to next error">Next <i class="icon-step-forward"></i></a></li>
-                      <li class="divider-vertical"></li>
-                      <li><a class="nav-last" title="Jump to last error">Last <i class="icon-fast-forward"></i></a></li>
-                      <li class="divider-vertical"></li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-    </div>
+    <%= render :partial=>"test_executions/subnav.html"%>  
+
     <h3>Vendor Generated XML</h3>
     <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes, :test_execution=>test_execution}%>
   </div>

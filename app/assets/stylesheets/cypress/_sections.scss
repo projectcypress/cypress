@@ -110,15 +110,27 @@ top:0px;
 #xml_frame {
   font-family: $sourceCodeFont;
   .navbar { font-family:$baseFontFamily;}
-  .subnav .container {width:805px;}
-  .subnav .brand i {
+  .subnav {
+    .container {width:805px;}
+    .brand i {
     position:relative;
     top:4px;
-  }
-  .subnav ul.nav {
+    }
+  ul.nav {
     margin-top:3px;
     &>li>a {
       cursor:pointer;
+      &:active {
+        position:relative;
+        top:1px;
+        left:1px;
+      }
+      }
     }
+  }
+  .no-select { user-select: none; -o-user-select:none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
+  span.error_popup {
+    position:relative;
+    left:240px;
   }
 }

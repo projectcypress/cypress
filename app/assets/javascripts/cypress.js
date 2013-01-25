@@ -265,8 +265,12 @@ function jumpToElement(element){
       if (Math.abs(ot - st) > jumpThreshold) {
         $('html,body').scrollTop(ot > st ? ot - 400 : ot + 200);
       }
-     $(element).animate({ scrollTop: $(element).scrollTop() - $(element).offset().top }, { duration: 'slow', easing: 'swing'});
-     $('html,body').animate({ scrollTop: $(element).offset().top - offsetFromTop }, { duration: 1000, easing: 'swing'});
+      $(element).animate({ scrollTop: $(element).scrollTop() - $(element).offset().top }, { duration: 'slow', easing: 'swing'});
+      if (Math.abs(ot - st) > offsetFromTop) {
+        $('html,body').animate({ scrollTop: $(element).offset().top - offsetFromTop }, { duration: 1000, easing: 'swing'});
+      } else {    
+        return;
+      }
      window.location.hash = element;
      } catch(e) {}
   }

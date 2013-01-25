@@ -46,12 +46,24 @@
 }
 }
 
-ol.validation_list li {
-  &.err_group {
-    margin-top:25px;
+ol.validation_list {
+  &>li {
+    margin-bottom:20px;
   }
-  a:hover {
-    padding:2px 0;
-    background-color:#FFE4B3;
+  li {
+    
+    &.err_group {
+   //   margin-top:25px;
+    }
+    a:hover {
+      padding:2px 0;
+      background-color:#FFE4B3;
+    }
+  }
+  ol {
+    margin-top:10px;
+    li {
+      margin-bottom:4px;
+    }
   }
 }

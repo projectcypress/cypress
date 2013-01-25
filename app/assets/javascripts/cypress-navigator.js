@@ -90,7 +90,7 @@
  
 $.fn.fixedHeader = function (options) {
  var config = {
-   topOffset: 40
+   topOffset: 0
  };
  if (options){ $.extend(config, options); }
  
@@ -100,20 +100,17 @@ $.fn.fixedHeader = function (options) {
   var $win = $(window)
     , $head = $('.subnav', o)
     , isFixed = 0;
-  var headTop = $head.length && $head.offset().top - config.topOffset;
  
   function processScroll() {
     if (!o.is(':visible')) return;
-    var i;
     var scrollTop = $win.scrollTop();
     var o_top = o.offset().top;
-    var head_top = $head.offset().top - 50;
+    var head_top = $head.offset().top - config.topOffset;
+    if      (scrollTop >= head_top && !isFixed) { isFixed = 1; }
+    else if (scrollTop < o_top && isFixed) { isFixed = 0; }
     
-    if      (scrollTop >= headTop && !isFixed) { isFixed = 1; }
-    else if (scrollTop <= headTop && isFixed) { isFixed = 0; }
-    
-    isFixed ? $('.subnav', o).show().addClass("navbar-fixed-top")
-            : $('.subnav', o).removeClass("navbar-fixed-top");
+    isFixed ? $head.show().addClass("navbar-fixed-top")
+            : $head.removeClass("navbar-fixed-top");
   }
   $win.on('scroll', processScroll);
  
