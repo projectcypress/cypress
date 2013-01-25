@@ -7,7 +7,8 @@ class ExecutionError
   field :measure_id, type: String
   field :validation_type, type: String
   field :validator, type: String
-
+  field :stratification, type: String
+  
   validates_presence_of :msg_type
   validates_presence_of :message
 

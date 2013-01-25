@@ -1,7 +1,5 @@
 <% content_for :head do -%>
-<% if @test.state != "ready" &&  @test.state != "errored" %> 
-  <meta http-equiv="refresh" content="10">
-<%end %> 
+
   <script>
 	$(document).ready(function() {
 	      $('#upload_results').dialog({
@@ -111,74 +109,13 @@
       </dl>
     </section> 
 
-    <% if @test.state == "ready" %>
-      <section class="instructions">
-        <div class="row">
-          <div class="span12">
-            <p>You must perform the following steps to execute your test:</p>
-          </div>
-          <div class="span3">
-            <p>
-            1. Download Test Data
-            </p><p>
-            <%= link_to 'Test Data', '', {
-		          :id => 'share_menu',
-		          :class => "cmd",
-		          :onmouseover => "$.cypress.showMenu($('#share_menu'), $('#share_options'));"
-		        } %></p>
-			  	 <ul id="share_options" style="display: none" role="listbox"
-			            class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "View All", patients_path(:product_test_id => @test.id, :execution => @current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "QRDA Cat I", download_product_test_path(@test, :format => 'qrda'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-			          <li class="ui-menu-item" role="menuitem">
-			            <%= link_to "HTML", download_product_test_path(@test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
-			          </li>
-	             
-			        </ul>
-			</div>
-			<div class="span3">
-			  <p>
-			    2. Load Test Data into your quality measure calculator
-			  </p>
-      </div>
-      <div class="span3">
-        <p>
-          3. Upload Results
-        </p>
-        <p>
-				 <%= link_to "Upload Results", '', {
-			          :id => 'results_menu',
-			          :class => "cmd"
-			        } %>
-			  </p>
-				<ul id="results_options" style="display: none" role="listbox"
-			      class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-			    <li class="ui-menu-item" role="menuitem"></li>
-        </ul>
-    	</div>
+    <div  id="instructions" >
+    <%= render :partial=>'product_tests/status', :locals=>{:test=>@test, :current_execution=>@current_execution} %> 
     </div>
-    </section>
-    <% else %>
-    <section class="instructions">
-      <div class="alert alert-info">
-        <p>You must wait for the test preparations to be completed. This usually takes no more than a couple of minutes.</p>
-      </div>
-    </section>
-   <!-- if some error has occurred 
-    <section class="instructions">
-      <div class="alert alert-error">
-        <p>There has been a problem preparing the tests. Please speak the the administrator for Cypress. You will not be able to execute tests until this problem has been resolved.</p>
-      </div>
-    </section>
-    -->
-    <% end %>
 
+  
     <!-- End of if test is ready to execute -->
-
+    <br style="clear:both"/>
     <section class="records">
       <label>Notes:</label>
       <% note = Note.new %>
@@ -256,6 +193,8 @@
           </script>
           <%= render :partial=>test_execution_template(test_execution) , :locals=>{:test_execution=>test_execution}%>
       </div>
+
+
     </section>
     <% end %>
 
@@ -288,3 +227,44 @@
     <%= render :partial=>"shared/legend" %>
   </div>
 </div>
+
+
+
+<script>
+function showErrorPopup(anchor) {
+    if ($(anchor)) {
+      $('span.error_popup').popover('hide')
+      $('span'+anchor).popover('show');
+      jumpToElement(anchor);
+    }
+  }    
+
+  var navigation =  $("#xml_frame .subnav").show().navigator({targets:"a.qrda_error_link",action:showErrorPopup});
+  $("#xml_frame").fixedHeader();
+
+  $("section.execution").on('click','a.qrda_error_link',function() {
+    showErrorPopup($(this).attr('href'));
+    navigation.data('navigator').setIndex($(this).attr('href'));
+    return false;
+  });
+    
+  $("section.execution").on('click','.error i.icon',function() {
+    //('span.error_popup',$(this)).popover('toggle')
+    var anyVisible = false;
+    var possibilities = $('span.error_popup', $('div#x'+$(this).data('error')));
+    for(var i =0;i<possibilities.length;i++){
+      if($(possibilities[i]).data('popover') && $(possibilities[i]).data('popover').tip().hasClass('in')){
+        anyVisible = true;
+        break;
+      }
+    }
+    if(anyVisible || possibilities.length == 0){
+      $('span.error_popup').popover('hide');
+    }else{
+      var href = '#'+$(possibilities[0]).attr('id');
+      showErrorPopup(href);
+      navigation.data('navigator').setIndex(href);
+    }
+   
+  });
+  </script>

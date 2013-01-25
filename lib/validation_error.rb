@@ -5,5 +5,6 @@ module Cypress
     field :message, type: String
     field :location, type: String
     field :validator, type: String 
+
   end
 end

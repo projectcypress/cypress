@@ -2,7 +2,7 @@
          <thead>
            <tr>
              <th colspan="2" style="width:50%"></span>Reported/Expected</th>
-             <th>Patients</th>
+             <th>Initial Population</th>
              <th>Measure Population</th>
              <th>Observation Value</th>
          </thead>
@@ -14,7 +14,7 @@
              <tr id='<%= "#{measure.key}" %>'>
               <td/>
                <td>
-                 <a href="<%= product_test_measure_path(test_execution.product_test,measure,:execution => test_execution) %>">
+                 <a href="<%= product_test_measure_path(test_execution.product_test,measure,:execution_ID => test_execution) %>">
                    <span style="font-weight:bold"><%= "#{measure.nqf_id} - #{measure.name} " %></span>
                    <%= " - #{measure.subtitle}" if measure.sub_id %>
                  </a>

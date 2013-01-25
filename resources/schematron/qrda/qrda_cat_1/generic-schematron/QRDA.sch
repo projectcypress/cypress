@@ -1012,7 +1012,7 @@
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.5-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.5']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.5-errors-abstract" />
-      <sch:assert id="a-12106" test="count(cda:templateId[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='2.16.840.1.113883.10.20.24.3.5'])=1">SHALL contain exactly one [1..1] templateId="2.16.840.1.113883.10.20.24.3.5" (CONF:12106).</sch:assert>
+     
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.6-errors">
@@ -1035,7 +1035,7 @@
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.6-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.6']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.6-errors-abstract" />
-      <sch:assert id="a-12134" test="count(cda:templateId[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='2.16.840.1.113883.10.20.24.3.6'])=1">SHALL contain exactly one [1..1] templateId="2.16.840.1.113883.10.20.24.3.6" (CONF:12134).</sch:assert>
+      
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.8-errors">
@@ -1056,7 +1056,7 @@
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.8-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.8']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.8-errors-abstract" />
-      <sch:assert id="a-12162" test="count(cda:templateId[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='2.16.840.1.113883.10.20.24.3.8'])=1">SHALL contain exactly one [1..1] templateId="2.16.840.1.113883.10.20.24.3.8" (CONF:12162).</sch:assert>
+     
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.6-errors">
@@ -1645,7 +1645,11 @@ SHALL contain exactly one [1..1] effectiveTime (CONF:13930).</sch:assert>
       <sch:assert id="a-5386" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:guardian/cda:guardianPerson) or cda:recordTarget/cda:patientRole/cda:patient/cda:guardian/cda:guardianPerson[count(cda:name) &gt; 0]">This guardianPerson SHALL contain at least one [1..*] name (CONF:5386).</sch:assert>
       <sch:assert id="a-5396" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace) or cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace[count(cda:place)=1]">The birthplace, if present, SHALL contain exactly one [1..1] place (CONF:5396).</sch:assert>
       <sch:assert id="a-5397" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place) or cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place[count(cda:addr)=1]">This place SHALL contain exactly one [1..1] addr (CONF:5397).</sch:assert>
-      <sch:assert id="a-5402" test="(cda:recordTarget/cda:patientRole/cda:addr[cda:country='US' or cda:country='USA']) and cda:recordTarget/cda:patientRole/cda:addr/cda:state">If country is US, this addr SHALL contain exactly one [1..1] state, which SHALL be selected from ValueSet 2.16.840.1.113883.3.88.12.80.1 StateValueSet DYNAMIC (CONF:5402).</sch:assert>
+
+      <sch:assert id="a-5402" test="not((cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr[cda:country='US' or cda:country='USA' or not(cda:country)]) and not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr/cda:state))">If country is US, this addr SHALL contain exactly one [1..1] state, which SHALL be selected from ValueSet 2.16.840.1.113883.3.88.12.80.1 StateValueSet DYNAMIC (CONF:5402).</sch:assert>
+
+      <sch:assert id="a-7293" test="not((cda:recordTarget/cda:patientRole/cda:addr[(cda:country='US' or cda:country='USA' or not(cda:country)) and not(@nullFlavor)]) and not(cda:recordTarget/cda:patientRole/cda:addr/cda:state))">If country is US, this addr SHALL contain exactly one [1..1] state, which SHALL be selected from ValueSet 2.16.840.1.113883.3.88.12.80.1 StateValueSet DYNAMIC (CONF:7293).</sch:assert>
+
       <sch:assert id="a-5407" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication) or cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication[count(cda:languageCode)=1]">The languageCommunication, if present, SHALL contain exactly one [1..1] languageCode, which SHALL be selected from ValueSet Language 2.16.840.1.113883.1.11.11526 DYNAMIC (CONF:5407).</sch:assert>
       <sch:assert id="a-5417" test="not(cda:recordTarget/cda:patientRole/cda:providerOrganization) or cda:recordTarget/cda:patientRole/cda:providerOrganization[count(cda:id) &gt; 0]">The providerOrganization, if present, SHALL contain at least one [1..*] id (CONF:5417).</sch:assert>
       <sch:assert id="a-5419" test="not(cda:recordTarget/cda:patientRole/cda:providerOrganization) or cda:recordTarget/cda:patientRole/cda:providerOrganization[count(cda:name) &gt; 0]">The providerOrganization, if present, SHALL contain at least one [1..*] name (CONF:5419).</sch:assert>
@@ -3359,7 +3363,11 @@ This playingEntity SHALL contain exactly one [1..1] code (CONF:7493).</sch:asser
       <sch:assert id="a-5326" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:guardian) or cda:recordTarget/cda:patientRole/cda:patient/cda:guardian[count(cda:code) &lt; 2]">The guardian, if present, SHOULD contain zero or one [0..1] code, which SHALL be selected from ValueSet Personal Relationship Role Type 2.16.840.1.113883.1.11.19563 DYNAMIC (CONF:5326).</sch:assert>
       <sch:assert id="a-5359" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:guardian) or cda:recordTarget/cda:patientRole/cda:patient/cda:guardian[not(cda:addr) or cda:addr]">The guardian, if present, SHOULD contain zero or more [0..*] addr (CONF:5359).</sch:assert>
       <sch:assert id="a-5375" test="cda:recordTarget/cda:patientRole/cda:telecom[@use]">Such telecoms SHOULD contain exactly one [1..1] @use, which SHALL be selected from ValueSet Telecom Use (US Realm Header) 2.16.840.1.113883.11.20.9.20 DYNAMIC (CONF:5375).</sch:assert>
+
+
       <sch:assert id="a-5404" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr) or cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr[count(cda:country[@xsi:type='ST']) &lt; 2]">This addr SHOULD contain zero or one [0..1] country, where the @code SHALL be selected from ValueSet CountryValueSet 2.16.840.1.113883.3.88.12.80.63 DYNAMIC (CONF:5404).</sch:assert>
+
+
       <sch:assert id="a-5406" test="cda:recordTarget/cda:patientRole/cda:patient[not(cda:languageCommunication) or cda:languageCommunication]">This patient SHOULD contain zero or more [0..*] languageCommunication (CONF:5406).</sch:assert>
       <sch:assert id="a-5430" test="count(cda:author/cda:assignedAuthor/cda:assignedPerson)=1 or count(cda:author/cda:assignedAuthor/cda:assignedAuthoringDevice)=1">This assignedAuthor SHALL contain exactly one  [1..1] assignedPerson or assignedAuthoringDevice (CONF:5430).</sch:assert>
       <sch:assert id="a-5579" test="count(cda:legalAuthenticator) &lt; 2">SHOULD contain zero or one [0..1] legalAuthenticator (CONF:5579).</sch:assert>
@@ -3422,7 +3430,7 @@ This playingEntity SHALL contain exactly one [1..1] code (CONF:7493).</sch:asser
       <sch:assert id="a-16588" test="count(cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity[count(cda:id[@root='2.16.840.1.113883.4.6'])=1]) &lt; 2">This assignedEntity id/@root coupled with the id/@extension represents the individual provider's National Provider Identification number (NPI).
 This assignedEntity SHALL contain exactly one [1..1] id (CONF:16587) such that it SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.6" National Provider ID (CONF:16588).</sch:assert>
       <sch:assert id="a-16706" test="count(cda:informationRecipient) = 0 or count(cda:informationRecipient/cda:intendedRecipient/cda:id) &gt; 0">IntendedRecipient ID can be used by the receiver to ensure they are processing a file that was intended to be sent to them (CONF:16706).</sch:assert>
-      <sch:assert id="a-16858" test="cda:recordTarget/cda:patientRole[count(cda:id[@root='2.16.840.1.113883.4.572'])=1]">This patientRole SHALL contain exactly one [1..1] id (CONF:16857) such that it SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.572" Medicare HIC number (CONF:16858).</sch:assert>
+      <sch:assert id="a-16858" test="cda:recordTarget/cda:patientRole[count(cda:id[@root='2.16.840.1.113883.4.572'])&lt;=1]">This patientRole SHALL contain exactly one [1..1] id (CONF:16857) such that it SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.572" Medicare HIC number (CONF:16858).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.1.2-warnings" context="cda:ClinicalDocument[cda:templateId/@root='2.16.840.1.113883.10.20.24.1.2']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.1.2-warnings-abstract" />

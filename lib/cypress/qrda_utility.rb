@@ -80,37 +80,38 @@ module Cypress
     def self.extract_results_by_ids(doc, measure_id,  ids)
       doc = (doc.kind_of? String )? Nokogiri::XML(doc) : doc
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
-      results = nil
+      results = {}
       _ids = ids.dup
       stratification = _ids.delete("stratification")
-        
-      find_measure_nodes(doc,measure_id).each do |n|
-        entry = {}
-        _ids.each_pair do |k,v|
-          val = nil
-          if (k == CV_POPULATION_CODE)
-            msrpopl = _ids[QME::QualityReport::MSRPOPL]
-            val = extract_cv_value(n,v,msrpopl, stratification)
-          else 
-            val =extract_component_value(n,k,v,stratification)
-      #      suppl = extract_supplemental_data(n,k,v)
-          end
+      errors = []
+      n = find_measure_node(doc,measure_id)
 
-          if val.nil?
-            entry = nil
-            break
-          end
-          entry[k.to_s] = val
+      if n.nil?
+        # short circuit and return nil
+        return {}
+      end
 
+      errors = []
+     
+     
+      _ids.each_pair do |k,v|
+        val = nil
+        if (k == CV_POPULATION_CODE)
+          msrpopl = _ids[QME::QualityReport::MSRPOPL]
+          val = extract_cv_value(n,v,msrpopl, stratification)
+        else 
+          val =extract_component_value(n,k,v,stratification)
+    #      suppl = extract_supplemental_data(n,k,v)
         end
-        if entry
-          results = entry 
-          break
+
+        if !val.nil?
+          results[k.to_s] = val
         end
-      end  
-      return nil unless results
+      end
+      
       results[:population_ids] = ids.dup
       results
+
     end
 
   
@@ -132,9 +133,9 @@ module Cypress
   #   ret
   # end
 
-  def self.find_measure_nodes(doc,id)
+  def self.find_measure_node(doc,id)
      xpath_measures = %{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"] and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
-     return doc.xpath(xpath_measures)  || []
+     return doc.at_xpath(xpath_measures) 
   end
 
   def self.translate(id)

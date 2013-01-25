@@ -40,6 +40,7 @@ Cypress::Application.routes.draw do
       delete 'delete_note'
       post 'email'
       get 'qrda_cat3'
+      get 'status'
     end
     
     resources :patients

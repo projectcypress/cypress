@@ -131,7 +131,7 @@
           <dt>Measure Status:</dt>
           <% if reported_result['DENOM'].class == String %>
             <dd class="na">N/A</dd>
-          <% elsif @execution.passed?(expected_result) %>
+          <% elsif @execution.measure_passed?(@measure) %>
             <dd class="">PASS</dd>
           <% else %>
             <dd class="fail">Fail</dd>

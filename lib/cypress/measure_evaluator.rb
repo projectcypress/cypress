@@ -13,17 +13,21 @@ module Cypress
        t = CalculatedProductTest.find(options["test_id"])
 
        results = {}
-       t.measures.each do |measure|
+       measure_count = t.measures.length
+
+       t.measures.each_with_index do |measure,index|
 
         dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure)
         qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], "oid_dictionary"=>dictionary)
-
+        t.status_message = " Calulating measure #{index} of #{measure_count} - #{measure.display_name}"
+        t.save
         qr.calculate(false) 
         result = qr.result
         result.delete("_id")
         results[measure.key] = result
        end
        t.expected_results = results
+       t.status_message = "Measures Calculated"
        t.save
        t.ready
     end

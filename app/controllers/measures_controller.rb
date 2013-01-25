@@ -128,7 +128,7 @@ class MeasuresController < ApplicationController
   def find_test_and_execution
     @test = ProductTest.find(params[:product_test_id])
     if params[:execution_id]
-      @current_execution = TestExecution.find(params[:execution_id])
+      @execution = TestExecution.find(params[:execution_id])
     elsif @test.test_executions.size > 0
       @execution = @test.test_executions.first
     else
