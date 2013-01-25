@@ -9,7 +9,11 @@
       eid = error_map[e.location] 
     %>   
       <li  <% if old_eid != eid %> class="err_group" <% old_eid = eid end %>>
-        <div><a class="qrda_error_link" href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div>
+        <div><% if eid %>
+          <a class="<%= (eid) ? 'qrda_error_link' : '' %>" href="#<%= (eid) ? 'error_'+e.id : '' %>" ><%= e.message %></a> </div>
+          <% else %>
+            <%= e.message %>
+          <% end %>
       </li>
     <% end %>
     </ol>

@@ -90,13 +90,13 @@ class CalculatedProductTest < ProductTest
             message += " for Population #{pop_key}"
             errs << message
           elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
-
-           errs << "expected #{pop_key} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
+           err = "expected #{pop_key} #{_ids[pop_key]} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
+           validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
           end
         end 
       end
       if !errs.empty?
-        validation_errors << ExecutionError.new(message: errs.join(",  "), msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+        
       end
     end    
 
