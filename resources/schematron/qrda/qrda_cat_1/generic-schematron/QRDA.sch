@@ -737,7 +737,9 @@
       <sch:assert id="a-11776" test="count(cda:effectiveTime)=1">SHALL contain exactly one [1..1] effectiveTime (CONF:11776).</sch:assert>
       <sch:assert id="a-11777" test="cda:effectiveTime[count(cda:low)=1]">This effectiveTime SHALL contain exactly one [1..1] low (CONF:11777).</sch:assert>
       <sch:assert id="a-13836" test="count(cda:entryRelationship[@typeCode='CAUS'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.18'])=1])=1">SHALL contain exactly one [1..1] entryRelationship (CONF:11779) such that it SHALL contain exactly one [1..1] @typeCode="CAUS" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:11780). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11781). SHALL contain exactly one [1..1] Diagnostic Study Performed (templateId:2.16.840.1.113883.10.20.24.3.18) (CONF:13836).</sch:assert>
-      <sch:assert id="a-16408" test="count(cda:value[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='281647001'][@codeSystem='2.16.840.1.113883.6.96'][@xsi:type='CD'])=1">SHALL contain exactly one [1..1] value="281647001" Adverse reaction with @xsi:type="CD" (CodeSystem: SNOMED-CT 2.16.840.1.113883.6.96 STATIC) (CONF:16408).</sch:assert>
+     
+      <sch:assert id="a-16408" test="count(cda:value[@code='281647001'][@codeSystem='2.16.840.1.113883.6.96'][@xsi:type='CD'])=1">SHALL contain exactly one [1..1] value="281647001" Adverse reaction with @xsi:type="CD" (CodeSystem: SNOMED-CT 2.16.840.1.113883.6.96 STATIC) (CONF:16408).</sch:assert>
+
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.15-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.15']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.15-errors-abstract" />
