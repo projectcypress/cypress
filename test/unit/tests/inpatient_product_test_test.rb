@@ -2,7 +2,8 @@ class InpatientProductTestTest < ActiveSupport::TestCase
 
   setup do
     
-    collection_fixtures('measures', '_id')
+    collection_fixtures('bundles','_id')
+    collection_fixtures('measures','_id','bundle')
     collection_fixtures('query_cache', '_id')
     collection_fixtures('records', '_id')
   end

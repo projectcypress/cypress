@@ -4,6 +4,8 @@ class QRDAProductTestTest  < ActiveSupport::TestCase
     
     collection_fixtures('test_executions', '_id', "product_test_id")
     collection_fixtures('product_tests', '_id')
+    collection_fixtures('bundles','_id')
+    collection_fixtures('measures','_id','bundle')
   end
 
 
