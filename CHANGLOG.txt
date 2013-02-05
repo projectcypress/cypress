@@ -1,0 +1,19 @@
+
+version 2.0.1 
+####################################
+1. Updated Schematron Rules from Lantana for the measures updated in late December
+2. Bug fixes to  Schematron rules including the following:
+	A. Fixes for incorrect template checking I.e Patient Gestiational age template used in a number of incorrect places such as Patient Characteristic :  Tobacco Non-User
+  B. Fixed template id check for 'Medication, Discharge: Statins' 
+ 	C. Corrected error checking for patientRole address and Birth Place address
+	D. Fix for Medicare HIC number checking 
+	E. Fixes for errors that incorrectly checked for templateId values in the text section of the templateId element instead of the root attribute
+4. Enhanced error reporting for Calculated Measures to include the Population Ids of Items not found or where values do not match
+5. Errors Grouped by Measure and Schematron Validator
+6. Test calculation progress information  when building tests
+7. Update to the QRDA Cat I Test Patient Generator to ensure all data criteria identified in the selected measures are created
+8. XML Error Navigator 
+
+Version 2.0.1
+###################################
+	Initial release of Version 2.0.0 of Cypress for MU Stage 2 testing
