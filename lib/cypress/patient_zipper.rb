@@ -22,7 +22,7 @@ module Cypress
 
 
     def export(patient)
-       QrdaGenerator::Export::Cat1.export(patient,measures,start_time,end_time)
+       HealthDataStandards::Export::Cat1.new.export(patient,measures,start_time,end_time)
     end
 
   end
@@ -116,7 +116,11 @@ module Cypress
           safe_last_name = patient.last.gsub("'", '')
           next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"       
           z.put_next_entry("#{next_entry_path}.#{FORMAT_EXTENSIONS[format.to_sym]}") 
-          z << formater.export(patient)
+          if formater == HealthDataStandards::Export::HTML
+            z << formater.new.export(patient)
+          else
+            z << formater.export(patient)
+          end
         end
       end
     end

@@ -1,12 +1,12 @@
 $(document).ready(function() {
-    $(".code_expander").toggle(
+    $(".code_expander").mouseenter(
         function() {
             $(this).addClass('open');
             var codeElement = $(this).data('code');
             var codes = $("#" + codeElement);
             codes.slideDown(500);
-        },
-        function() {
+        });
+        $(".code_expander").mouseleave( function() {
             $(this).removeClass('open');
             var codeElement = $(this).data('code');
             var codes = $("#" + codeElement);

@@ -13,9 +13,9 @@
    
 <tr>
   <td class="<%= first_td_class %>" data-code="<%= data_code %>"></td>
-  <td class="patient_entry">
+  <td class="patient_entry <%= first_td_class %>" data-code="<%= data_code %>">
     <%= codes.pop %>
-    <div id="<%= data_code %>" class="sub_rows">
+    <div id="<%= data_code %>" class="sub_rows" style="display: none">
       <% codes.each do |code| %>
         <span><%= code %></span>
       <% end %>
