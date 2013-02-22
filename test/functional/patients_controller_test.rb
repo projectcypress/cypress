@@ -5,13 +5,14 @@ include Devise::TestHelpers
 
   setup do
     collection_fixtures('query_cache', 'test_id')
-    collection_fixtures('measures',"_id")
+    collection_fixtures('bundles', '_id')
+    collection_fixtures('measures',"_id",'bundle_id')
     collection_fixtures('products','_id','vendor_id')
-    collection_fixtures('records', '_id','test_id')
-    collection_fixtures('product_tests', '_id')
+    collection_fixtures('records', '_id','test_id',"bundle_id")
+    collection_fixtures('product_tests', '_id','bundle_id')
     collection_fixtures('patient_populations', '_id')
     collection_fixtures('test_executions', '_id')
-    collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id')
+    collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id','bundle_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
@@ -107,7 +108,7 @@ include Devise::TestHelpers
   end
 
   test "table_all" do
-    get :table_all,{}
+    get :table_all,{:bundle_id=>Bundle.first.id}
     assert_equal 8, assigns[:patients].count
 
     get :table_all,{:product_test_id => '4f58f8de1d41c851eb000478'}
@@ -121,7 +122,7 @@ include Devise::TestHelpers
     assert_response :success,"Failed to download HTML zip file"
 
 
-    get :download,{:format => 'html'}
+    get :download,{:bundle_id=>Bundle.first.id,:format => 'html'}
     assert_response :success,"Failed to download Master Patient List HTML zip file"
   end
 

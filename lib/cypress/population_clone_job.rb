@@ -18,16 +18,15 @@ module Cypress
     
     def perform
       # Clone AMA records from Mongo
-
-      ama_patients = Record.where(:test_id => nil)
-
+      @test = ProductTest.find(options["test_id"])
+      ama_patients = @test.bundle.records.where(:test_id => nil)
       if options['patient_ids']
         # clone each of the patients identified in the :patient_ids parameter
-        ama_patients = Record.where(:test_id => nil).in(medical_record_number: options['patient_ids'])
+        ama_patients = @test.bundle.records.where(:test_id => nil).in(medical_record_number: options['patient_ids'])
       elsif options['subset_id'] != "all"
         # If we're using one of the predefined patient populations, use the patients identified therein
         patient_population = PatientPopulation.where(:name => options['subset_id']).first
-        ama_patients = Record.in(medical_record_number: patient_population.patient_ids)
+        ama_patients = @test.bundle.records.in(medical_record_number: patient_population.patient_ids)
       else
         # For randomness, when a user requests to use the full test deck, we add up to 10% duplicate records
         #additional_patient_count = Random.rand(ama_patients.size * 0.1).to_i
@@ -40,6 +39,7 @@ module Cypress
       ama_patients.each_with_index do |patient, index|
         cloned_patient = patient.clone
 
+        cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number 
         cloned_patient.medical_record_number = "#{rand_prefix}#{index}"
 
         if options["randomize_names"]

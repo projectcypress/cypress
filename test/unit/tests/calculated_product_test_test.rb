@@ -3,9 +3,9 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
   setup do
     
     collection_fixtures('test_executions', '_id', "product_test_id")
-    collection_fixtures('product_tests', '_id')
+    collection_fixtures('product_tests', '_id','bundle_id')
     collection_fixtures('bundles','_id')
-    collection_fixtures('measures','_id','bundle')
+    collection_fixtures('measures','_id','bundle_id')
   end
 
 

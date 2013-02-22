@@ -7,6 +7,9 @@ class PatientCacheValue
   field :DENOM, type: Integer
   field :NUMER, type: Integer
   field :DENEX, type: Integer
+  field :DENEXCEP, type: Integer
+  field :MSRPOPL, type: Integer
+  field :OBSERV
   field :antinumerator, type: Integer
   field :IPP, type: Integer
   field :measure_id, type: String

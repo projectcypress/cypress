@@ -8,7 +8,7 @@ class AdminController < ApplicationController
   add_breadcrumb "Users", '', :only=>"users"
 
 	def index
-		@jobs = AdminValuesetJob.ordered_by_date
+		
 	end
 
 
@@ -18,47 +18,44 @@ class AdminController < ApplicationController
 
 	def import_bundle
 		bundle = params[:bundle]
-		importer = QME::Bundle::Importer.new
-	  @bundle_contents = importer.import(bundle, params[:delete_existing])    
+		importer = HealthDataStandards::Import::Bundle::Importer
+	  @bundle_contents = importer.import(bundle, {:update_measures=>params[:update_measures],
+                                                :delete_existing => params[:delete_existing]})  
+    b = Bundle.find(@bundle_contents["_id"])  
+    b[:active] = params[:active]
+    b.save
     redirect_to :action=>:index
 	end
 
-	def update_value_sets
-    if Bundle.count == 0
-      flash[:errors]= "Cannot install/update valuesets until a bundle has been installed"
-      redirect_to :action=>:index
-      return
-    end
-
-		@job = AdminValuesetJob.where({}).or({status: "Waiting"},{status: "Running"}).first
-    if @job
-      flash[:errors] = "There is already an update running. Please wait until that one is finished before running again."
-    end
-
-		unless @job
-
-			@job = AdminValuesetJob.new
-			@job.save
-			@job.delay({attempts: Delayed::Worker.max_attempts-1, queue: :admin}).update_valuesets(params[:username],params[:password],params[:clear])
-
-		end
-		redirect_to :action=>:index
-	end
-
-  def job
-    @job = AdminValuesetJob.find(params[:id])
+  def clear_database
 
   end
 
-
-  def delete_job
-    @job = AdminValuesetJob.find(params[:id])
-    @job.delete
-    flash[:message]= "Job (#{@job.id }) Deleted"
-    redirect_to :action=>:index
+  def delete_bundle
+    bundle = Bundle.find(params[:bundle_id])
+    bundle.destroy
+    redirect_to :index
   end
 
+  def toggle_active
+    bundle = Bundle.find(params[:id])
+    bundle[:active] = params[:active]
+    bundle.save
+  end
 
+  def activate_bundle
+    bundle = Bundle.find(params[:bundle_id])
+    enable = params[:active]
+    bundle[:active] = enable
+    bundle.save!
+    if (bundle.active)
+
+        render :text => "Yes - <a href=\"#\" class=\"disable\" data-bundleid=\"#{bundle.id}\">disable</span>"
+      else
+        render :text => "No - <a href=\"#\" class=\"enable\" data-bundleid=\"#{bundle.id}\">enable</span>"
+    end
+  end
+  
   def valuesets
     query = []
     search = params[:search] || ""

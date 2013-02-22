@@ -4,12 +4,14 @@ Cypress::Application.routes.draw do
   devise_for :users
   
   get "admin/users"
-  get "admin/job"
   post "admin/promote"
   post "admin/demote"
   post "admin/approve"
   post "admin/disable"
-  
+  post "admin/activate_bundle"
+  post "admin/delete_bundle"
+  post "admin/clear_database"
+
   resources :vendors, :products
 
     resources :vendors do

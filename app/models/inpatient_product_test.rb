@@ -43,8 +43,8 @@ class InpatientProductTest < CalculatedProductTest
   # end
 
   
-  def self.product_type_measures
-    Measure.top_level_by_type("eh").where({"population_ids.MSRPOPL" => {"$exists" => false}})
+  def self.product_type_measures(bundle)
+    bundle.measures.top_level_by_type("eh").where({"population_ids.MSRPOPL" => {"$exists" => false}})
   end
   
 end

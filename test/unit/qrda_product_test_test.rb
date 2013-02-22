@@ -4,8 +4,8 @@ class QRDAProductTestTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    collection_fixtures('measures')
-    collection_fixtures('product_tests', '_id')
+    collection_fixtures('measures','bundle_id')
+    collection_fixtures('product_tests', '_id','bundle_id')
     
     @test = ProductTest.find("509144aa709357a906000018")
   end

@@ -6,4 +6,3 @@ Cypress::Application.initialize!
 
 # We're extending the Record model from HealthDataStandards, so we need to require our version
 # to force the redefinition.
-require_relative '../app/models/record.rb'

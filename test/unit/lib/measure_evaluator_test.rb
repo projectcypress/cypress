@@ -7,9 +7,9 @@ class MeasureEvaluatorTest < ActiveSupport::TestCase
     collection_fixtures('test_executions', '_id')
     collection_fixtures('products', '_id','vendor_id')
     collection_fixtures('product_tests', '_id','product_id')
-    collection_fixtures('measures', "_id")
+    collection_fixtures('measures', "_id",'bundle_id')
 	  collection_fixtures('query_cache','_id','test_id')
-    collection_fixtures('patient_cache','_id')
+    collection_fixtures('patient_cache','_id','bundle_id')
 
     @measure = Measure.where({:hqmf_id => '0001'}).first
 
