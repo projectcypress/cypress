@@ -4,7 +4,7 @@ class StaticCVProductTest < InpatientProductTest
     self.expected_results = {}
     medical_record_number_mapping = {}
     rand_prefix = Time.new.to_i
-    Record.where({test_id: nil, type: :eh}).in(measure_ids: measure_ids).each_with_index do |rec,index|
+    self.bundle.records.where({test_id: nil, type: :eh}).in(measure_ids: measure_ids).each_with_index do |rec,index|
       cloned = rec.clone
       cloned.test_id = self.id
       mrn = cloned.medical_record_number
@@ -39,7 +39,7 @@ class StaticCVProductTest < InpatientProductTest
   end
 
 
- def self.product_type_measures
-    Measure.top_level().where({"population_ids.MSRPOPL" => {"$exists" => true}})
+ def self.product_type_measures(bundle)
+    bundle.measures.top_level().where({"population_ids.MSRPOPL" => {"$exists" => true}})
   end
 end 

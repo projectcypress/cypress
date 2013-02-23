@@ -3,12 +3,11 @@ class CalculatedProductTest < ProductTest
   state_machine :state do
     
     after_transition any => :generating_records do |test|
-
-      min_set = PatientPopulation.min_coverage(test.measure_ids)
+      min_set = PatientPopulation.min_coverage(test.measure_ids, test.bundle)
       p_ids = min_set[:minimal_set]
-
+      ptype = test.kind_of?(InpatientProductTest) ?  "eh" : "ep"
       if p_ids.length < 5
-        r_ids = Record.where(:test_id=>nil).collect {|r| r.medical_record_number}
+        r_ids = test.bundle.records.where({}).collect {|r| r.medical_record_number}
         while p_ids.length < 5
           p_ids << r_ids.sample
         end
@@ -112,8 +111,8 @@ class CalculatedProductTest < ProductTest
   end
   
   
-  def self.product_type_measures
-    Measure.top_level_by_type("ep").where({"population_ids.MSRPOPL" => {"$exists" => false}})
+  def self.product_type_measures(bundle)
+    bundle.measures.top_level_by_type("ep").where({"population_ids.MSRPOPL" => {"$exists" => false}})
   end
   
   

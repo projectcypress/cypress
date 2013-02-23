@@ -13,13 +13,12 @@ class ProductTestsController < ApplicationController
     @product = Product.find(params[:product_id])
     @vendor = @product.vendor
     @test =  @product.product_tests.build
-    @effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
-    @period_start = 3.months.ago(Time.at(@effective_date)).getgm
   end
   
   def create
     test = test_type(params[:type]).new(params[:product_test])
     test.user = current_user
+    test.bundle = Bundle.find(params[:bundle_id])
     test.save!
     redirect_to product_path(test.product)
   end

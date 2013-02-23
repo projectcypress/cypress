@@ -6,10 +6,10 @@ class TestExecutionTest < ActiveSupport::TestCase
  
     collection_fixtures('test_executions', '_id')
     collection_fixtures('products', '_id','vendor_id')
-    collection_fixtures('product_tests', '_id','product_id')
-    collection_fixtures('measures')
-    collection_fixtures('query_cache','_id','test_id')
-    collection_fixtures('patient_cache','_id')
+    collection_fixtures('product_tests', '_id','product_id','bundle_id')
+    collection_fixtures('measures','bundle_id')
+    collection_fixtures('query_cache','_id','test_id','bundle_id')
+    collection_fixtures('patient_cache','_id','bundle_id')
     
     @execution_failed = TestExecution.find("4f58fade1d41c851eb00047f")
     @execution_passed = TestExecution.find("4f5900981d41c851eb000482")

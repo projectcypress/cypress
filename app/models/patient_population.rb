@@ -21,26 +21,27 @@ class PatientPopulation
     PatientPopulation.order_by([["name", :asc]]).to_a
   end
   
-  def self.min_coverage(measures)
-
+  def self.min_coverage(measures, bundle)
+    bundle_id = (bundle.kind_of? Bundle)? bundle.id : bundle
+    bundle = (bundle.kind_of? Bundle)? bundle : Bundle.find(bundle)
     # Get a hash of all measures requested, each with its own list of patients who are in that measure's numerator
    measures_to_patients = MONGO_DB.command(:group=>{:ns=>'patient_cache', 
                                            :key => {"value.measure_id"=>1, "value.sub_id"=>1, "value.test_id"=>1}, 
-                                           :cond => {"value.test_id"=>nil, "value.NUMER" => {"$gt"=>0},"value.measure_id"=>{"$in"=>measures}, "value.effective_date" => Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE},
+                                           :cond => {"bundle_id"=>bundle_id, "value.test_id"=>nil, "$or" => [{"value.NUMER" => {"$gt"=>0}},{"value.MSRPOPL" => {"$gt"=>0}}],"value.measure_id"=>{"$in"=>measures}, "value.effective_date" => bundle.effective_date},
                                            :initial => {:patients => []},
                                            "$reduce"=> 'function(o,prev){prev.patients.push(o.value.medical_record_id);}'})["retval"]
     
   # Get a hash of all measures requested, each with its own list of patients who are in that measure's numerator
    denominator_m_to_p = MONGO_DB.command(:group=>{:ns=>'patient_cache', 
                                            :key => {"value.measure_id"=>1, "value.sub_id"=>1, "value.test_id"=>1}, 
-                                           :cond => {"value.test_id"=>nil, "value.NUMER"=> 0, "value.DENOM"=>{"$gt"=>0},"value.measure_id"=>{"$in"=>measures}, "value.effective_date" => Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE},
+                                           :cond => {"bundle_id"=>bundle_id, "value.test_id"=>nil, "value.NUMER"=> 0, "value.DENOM"=>{"$gt"=>0},"value.measure_id"=>{"$in"=>measures}, "value.effective_date" => bundle.effective_date},
                                            :initial => {:patients => []},
                                            "$reduce"=> 'function(o,prev){prev.patients.push(o.value.medical_record_id);}'})["retval"]
 
 # Get a hash of all measures requested, each with its own list of patients who are in that measure's numerator
    exclusions_m_to_p = MONGO_DB.command(:group=>{:ns=>'patient_cache', 
                                            :key => {"value.measure_id"=>1, "value.sub_id"=>1, "value.test_id"=>1}, 
-                                           :cond => {"value.test_id"=>nil, "value.NUMER"=> 0, "value.DENEX"=> {"$gt"=>0},"value.measure_id"=>{"$in"=>measures}, "value.effective_date" => Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE},
+                                           :cond => {"bundle_id"=>bundle_id, "value.test_id"=>nil, "value.NUMER"=> 0, "value.DENEX"=> {"$gt"=>0},"value.measure_id"=>{"$in"=>measures}, "value.effective_date" => bundle.effective_date},
                                            :initial => {:patients => []},
                                            "$reduce"=> 'function(o,prev){prev.patients.push(o.value.medical_record_id);}'})["retval"]
 

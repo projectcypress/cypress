@@ -80,35 +80,22 @@ module Cypress
     def self.extract_results_by_ids(doc, measure_id,  ids)
       doc = (doc.kind_of? String )? Nokogiri::XML(doc) : doc
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
-      results = {}
+      results = nil
       _ids = ids.dup
       stratification = _ids.delete("stratification")
       errors = []
-      n = find_measure_node(doc,measure_id)
+      nodes = find_measure_node(doc,measure_id)
 
-      if n.nil?
+      if nodes.nil? || nodes.empty?
         # short circuit and return nil
         return {}
       end
 
-      errors = []
-     
-     
-      _ids.each_pair do |k,v|
-        val = nil
-        if (k == CV_POPULATION_CODE)
-          msrpopl = _ids[QME::QualityReport::MSRPOPL]
-          val = extract_cv_value(n,v,msrpopl, stratification)
-        else 
-          val =extract_component_value(n,k,v,stratification)
-    #      suppl = extract_supplemental_data(n,k,v)
-        end
-
-        if !val.nil?
-          results[k.to_s] = val
-        end
+      nodes.each do |n|
+       results =  get_measure_components(n, _ids, stratification)
+       break if !results.nil? || !results.empty?
       end
-      
+      return nil if results.nil?
       results[:population_ids] = ids.dup
       results
 
@@ -135,7 +122,27 @@ module Cypress
 
   def self.find_measure_node(doc,id)
      xpath_measures = %{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"] and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
-     return doc.at_xpath(xpath_measures) 
+     return doc.xpath(xpath_measures) 
+  end
+
+  def self.get_measure_components(n,ids, stratification)
+    results = {}
+    ids.each_pair do |k,v|
+      val = nil
+      if (k == CV_POPULATION_CODE)
+        msrpopl = _ids[QME::QualityReport::MSRPOPL]
+        val = extract_cv_value(n,v,msrpopl, stratification)
+      else 
+        val =extract_component_value(n,k,v,stratification)
+      end
+
+      if !val.nil?
+        results[k.to_s] = val
+      else
+        return nil
+      end
+    end
+    results
   end
 
   def self.translate(id)

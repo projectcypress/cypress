@@ -71,6 +71,12 @@ namespace :cypress do
   end
 
 
+  task :set_admin, [:user_email]=> :setup do |t,args| 
+    admin_account = User.where({:email => args.user_email}).first
+    admin_account[:admin] = true          
+    admin_account.save!
+  end
+
 end
 
 

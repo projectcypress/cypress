@@ -94,10 +94,11 @@
         <dt>Test Type:</dt> <dd><%= test_type(@test) %></dd>
         <dt>Product:</dt> <dd><%= @test.product.name %></dd>
         <dt>Version:</dt> <dd><%= @test.product.version %></dd>
+        <dt>Bundle Version:</dt> <dd><%= @test.bundle.title %> - <%= @test.bundle.version %></dd>
       </dl>
 
       <dl class="dl-horizontal">
-        <dt>Reporting Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
+        <dt>Measurement Period:</dt> <dd><%= display_time(1.year.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
         <dt>Description:</dt> <dd><%= @test.description %></dd>
         <!--<dt>Modules:</dt>-->
       </dl>

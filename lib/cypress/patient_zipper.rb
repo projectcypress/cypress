@@ -9,7 +9,7 @@ module Cypress
 
 
   class QRDAExporter
-
+    EXPORTER  = HealthDataStandards::Export::Cat1.new
     attr_accessor :measures
     attr_accessor :start_time
     attr_accessor :end_time
@@ -20,19 +20,16 @@ module Cypress
       @end_time = end_time
     end
 
-
     def export(patient)
-       QrdaGenerator::Export::Cat1.export(patient,measures,start_time,end_time)
+      EXPORTER.export(patient,measures,start_time,end_time)
     end
 
   end
 
-
- 
   class PatientZipper
 
     FORMAT_EXTENSIONS = {html: "html", qrda: "xml"}
-    FORMATERS = {:html => HealthDataStandards::Export::HTML}
+    FORMATERS = {:html => HealthDataStandards::Export::HTML.new}
 
 
     def self.zip_artifacts(test_execution)
@@ -103,7 +100,7 @@ module Cypress
           end
         end
         measures ||= Measure.top_level
-        end_date ||= Time.at(Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE).gmtime
+        end_date ||= Time.at(patients.first.bundle.effective_date).gmtime
         start_date ||= end_date.years_ago(1)
         formater = Cypress::QRDAExporter.new(measures,start_date,end_date)
       else

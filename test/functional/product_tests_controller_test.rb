@@ -6,14 +6,14 @@ include Devise::TestHelpers
   setup do
     collection_fixtures('query_cache', 'test_id')
     collection_fixtures('users',"_id", "product_ids","product_test_ids")
-    collection_fixtures('measures','bundle', "_id")
+    collection_fixtures('measures','bundle_id', "_id")
     collection_fixtures('bundles','_id')
     collection_fixtures('products','_id','vendor_id', "user_id")
-    collection_fixtures('records', '_id','test_id')
-    collection_fixtures('product_tests', '_id','product_id',"user_id")
+    collection_fixtures('records', '_id','test_id','bundle_id')
+    collection_fixtures('product_tests', '_id','product_id',"user_id",'bundle_id')
     collection_fixtures('patient_populations', '_id')
     collection_fixtures('test_executions', '_id','product_test_id')
-    collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id')
+    collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id','bundle_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first

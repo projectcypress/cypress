@@ -8,7 +8,8 @@ class MeasuresController < ApplicationController
   def by_type
 
     test = test_type(params[:type])
-    @measures = test.product_type_measures
+    bundle = Bundle.find(params[:bundle_id])
+    @measures = test.product_type_measures(bundle)
 
     @measures_categories = @measures.group_by { |t| t.category }
 
@@ -42,7 +43,7 @@ class MeasuresController < ApplicationController
     @vendor = @product.vendor
     @result = @execution.expected_result(@measure)
     @selected = @measure
-    @patients = Result.where("value.test_id" => @test.id).where("value.measure_id" => @measure.hqmf_id, "value.sub_id" => @measure.sub_id)
+    @patients = @test.results.where("value.measure_id" => @measure.hqmf_id, "value.sub_id" => @measure.sub_id)
    
 
     @patients = @patients.order_by([["value.NUMER", :desc],["value.DENOM", :desc],["value.DENEX", :desc]])
@@ -59,8 +60,9 @@ class MeasuresController < ApplicationController
   def minimal_set
 
     measure_ids = params[:measure_ids]
+    bundle = Bundle.find(params[:bundle_id])
     # Find the IDs of all Records for our minimal set and overflow
-    minimal_set = PatientPopulation.min_coverage(measure_ids)
+    minimal_set = PatientPopulation.min_coverage(measure_ids, bundle)
     minimal_ids = minimal_set[:minimal_set]
     overflow_ids = minimal_set[:overflow]
     
