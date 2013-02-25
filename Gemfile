@@ -6,12 +6,12 @@ gem 'jquery-rails'
 gem 'rake'
 
 
-#gem 'quality-measure-engine', :git => 'https://github.com/rdingwell/quality-measure-engine.git', :branch => 'develop'
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
 
-gem 'quality-measure-engine', :path => '../quality-measure-engine', :branch => 'develop'
+#gem 'quality-measure-engine', :path => '../quality-measure-engine', :branch => 'develop'
 #gem 'quality-measure-engine', '~> 2.2.0'
-#gem 'health-data-standards',:git => 'https://github.com/rdingwell/health-data-standards.git', :branch => 'develop'
-gem 'health-data-standards',:path => '../health-data-standards', :branch => 'develop'
+gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
+#gem 'health-data-standards',:path => '../health-data-standards', :branch => 'develop'
 #gem 'health-data-standards', '~> 2.2.1'
 
 #gem 'hqmf-parser', :git => 'https://github.com/pophealth/hqmf-parser.git', :branch => 'develop'
