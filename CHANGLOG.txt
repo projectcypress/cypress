@@ -1,3 +1,34 @@
+version 2.1.0
+####################################
+Test Deck Changes:
+	Measurement period updated from 2010 to 2012
+	Measurement period end date updated from Jan 1, 2013 to Dec 31, 2012 at 23:59
+	Code set "Crosswalk" issue resolved
+	Added code description mouse overs to the HTML patient records (RxNorm descriptions and all other code sets)
+	Length of stay for encounters minimized for EP
+	Patient data with the status of "active" given a duration in the test deck
+	EP and EH concepts changed to be in business hours
+	EP and EH Test deck alignment of data elements with encounters
+	EP GP_Peds, E immunization end time fixed
+	EH Newborn, A and Newborn, B birthdate and delivery times brought into sync
+	Value sets added to the Cypress bundle to allow coordinating value set/ measure releases
+
+Quality Measure Engine:
+	Dynamic Support for CV measures in EH and EP	
+	Bundle Import code Moved to Health Data Standards library
+
+Measures:
+	Reloaded measure definitions from CMS to fix issue with measure population criteria ids
+
+Cypress:
+	Added support for multiple bundles to be loaded simultaniously
+	Fixed double quoate bug in resources/schematron/qrda/qrda_cat_1/measure_specific/d78ce034-8288-4012-a31e-7f485a74f2a9.sch
+	Removed xsi:type='CE' checks from generic Cat I schematron rules
+	Updated schematron rule for CONF:7618	to remove check for unit='1' 
+	Added ability to import bundle from within the application
+	Updated QRDA Cat I test patient generator to eliminate duplicate entries
+
+
 
 version 2.0.1 
 ####################################
@@ -14,6 +45,6 @@ version 2.0.1
 7. Update to the QRDA Cat I Test Patient Generator to ensure all data criteria identified in the selected measures are created
 8. XML Error Navigator 
 
-Version 2.0.1
+Version 2.0.0
 ###################################
 	Initial release of Version 2.0.0 of Cypress for MU Stage 2 testing
