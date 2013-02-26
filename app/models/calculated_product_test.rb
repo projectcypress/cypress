@@ -112,7 +112,7 @@ class CalculatedProductTest < ProductTest
   
   
   def self.product_type_measures(bundle)
-    bundle.measures.top_level_by_type("ep").where({"population_ids.MSRPOPL" => {"$exists" => false}})
+    bundle.measures.top_level_by_type("ep") #.where({"population_ids.MSRPOPL" => {"$exists" => false}})
   end
   
   
