@@ -145,7 +145,7 @@
         <% end %>
       </h2>
       <% unless @test %>
-      <%= select_tag(:bundle_id, options_for_select(Bundle.active.collect{|b| ["#{b.title} - #{b.version}",b.id]},@bundle.id), :width=>"300px") %>
+        <%= select_tag(:bundle_id, options_for_select(Bundle.active.collect{|b| ["#{b.title} - #{b.version}",b.id]},@bundle.id), :width=>"300px") %>
       <% end %>
     </section>
     

@@ -46,11 +46,11 @@ module Cypress
         
         # validate the mesure specific rules
         measures.each do |measure|
-           schematron_validator = get_schematron_measure_validator(measure)
-           if schematron_validator 
-            #file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error, measure_id: measure.key})
-            file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning ,measure_id: measure.key }) 
-          end
+          #  schematron_validator = get_schematron_measure_validator(measure)
+          #  if schematron_validator 
+          #   #file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error, measure_id: measure.key})
+          #   file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning ,measure_id: measure.key }) 
+          # end
 
           # Look in the document to see if there is an entry stating that it is reporting on the given measure
           # we will be a bit lieniant and look for both the version specific id and the non version specific ids
@@ -93,7 +93,7 @@ module Cypress
 
       nodes.each do |n|
        results =  get_measure_components(n, _ids, stratification)
-       break if !results.nil? || !results.empty?
+       break if (results != nil || (results != nil && !results.empty?))
       end
       return nil if results.nil?
       results[:population_ids] = ids.dup
@@ -130,7 +130,7 @@ module Cypress
     ids.each_pair do |k,v|
       val = nil
       if (k == CV_POPULATION_CODE)
-        msrpopl = _ids[QME::QualityReport::MSRPOPL]
+        msrpopl = ids[QME::QualityReport::MSRPOPL]
         val = extract_cv_value(n,v,msrpopl, stratification)
       else 
         val =extract_component_value(n,k,v,stratification)
@@ -159,9 +159,9 @@ module Cypress
      if strata
        strata_path = %{ cda:entryRelationship[@typeCode="COMP"]/cda:observation[./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.4"]  and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{strata.upcase}']]}
        n = cv.xpath(strata_path)
-       val = get_cv_value(n)
+       val = get_cv_value(n,id)
      else
-       val = get_cv_value(cv)
+       val = get_cv_value(cv,id)
      end
     return val
   end
@@ -197,8 +197,8 @@ module Cypress
 
 
     #given an observation node with an aggregate count node, return the reported and expected value within the count node
-    def self.get_cv_value(node)
-      xpath_value = 'cda:entryRelationship/cda:observation[./cda:templateId[@root="2.16.840.1.113883.10.20.27.3.2"]]/cda:value'
+    def self.get_cv_value(node, cv_id)
+      xpath_value = %{cda:entryRelationship/cda:observation[./cda:templateId[@root="2.16.840.1.113883.10.20.27.3.2"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{cv_id.upcase}']]/cda:value}
       
       value_node = node.at_xpath(xpath_value)
       value = convert_value(value_node) if value_node

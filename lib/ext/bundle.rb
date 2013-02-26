@@ -9,6 +9,9 @@ class Bundle
   end
 
   def delete
+    self.measures.destroy
+    self.records.destroy
+    self.value_sets.destroy
     self.results.destroy
     product_tests.destroy
     super

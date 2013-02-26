@@ -17,7 +17,7 @@
     var parentTd = $(this).parent();
     $.post('<%= admin_activate_bundle_path %>', {'bundle_id': bundle_id, 'active': false}, function(data) {
       parentTd.html(data);
-      parentTd.find('.disable').click(cypress.enableBundle);
+      parentTd.find('.enable').click(cypress.enableBundle);
     });
     return false;
   };
@@ -90,8 +90,12 @@
       <% else -%>
       No - <a href="#"  class='disable' data-bundleid="<%= bundle.id %>">enable</a>
       <% end -%> </td>
+      <td>
+        <%= link_to("Destroy", admin_delete_bundle_url({bundle_id: bundle}), :method => :delete, :confirm => "This will delete the bundle and all tests associatied with this bundle. Are you sure you want to contunue?") %>
+      </td>
   </tr>
   <% end %>
+  <tr><td> <input type="button" value="Import New" id="new_bundle_button"/>
   </tbody>
 
 

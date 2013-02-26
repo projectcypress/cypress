@@ -75,7 +75,7 @@ module Cypress
       end
       start_date = test_execution.start_date
       end_date = test_execution.end_date
-      measures = test_execution.measures.to_a
+      measures = test_execution.measures.top_level.to_a
       qrda_exporter = Cypress::QRDAExporter.new(measures,start_date,end_date)
       test_execution.records.each do |patient|
         filename = TPG::Exporter.patient_filename(patient)
@@ -94,7 +94,7 @@ module Cypress
         if patients.first
           test = ProductTest.where({"_id" => patients.first["test_id"]}).first
           if test 
-            measures = test.measures.to_a
+            measures = test.measures.top_level.to_a
             start_time = test.start_date
             end_time = test.end_date
           end

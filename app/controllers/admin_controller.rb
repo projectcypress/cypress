@@ -28,13 +28,14 @@ class AdminController < ApplicationController
 	end
 
   def clear_database
-
+    Vendor.where({}).destroy
+    Bundle.where({}).destroy
   end
 
   def delete_bundle
     bundle = Bundle.find(params[:bundle_id])
     bundle.destroy
-    redirect_to :index
+    redirect_to :action=>:index
   end
 
   def toggle_active

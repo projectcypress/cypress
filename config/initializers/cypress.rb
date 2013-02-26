@@ -1,4 +1,5 @@
 require 'cypress'
+require 'version'
 require 'validation_error'
 require 'validators/schema_validator'
 require 'validators/schematron_validator'

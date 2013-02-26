@@ -182,10 +182,12 @@ $(document).ready(function(){
 
     $('#bundle_id').change(function(){
         var d = effective_dates[$(this).selected().val()];
+        var s = start_dates[$(this).selected().val()];
         var md = moment(d*1000).utc();
+        var mds = moment(s*1000).utc();
         $("input[name='product_test[effective_date]']").val(d);
-        $("#effective_date_end").html(md.subtract("days",1).calendar())
-        $("#effective_date_start").html(md.subtract("year",1).add("days",1).calendar());
+        $("#effective_date_end").html(md.calendar())
+        $("#effective_date_start").html(mds.calendar());
 
     });
     $('#bundle_id').change();

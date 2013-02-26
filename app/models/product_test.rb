@@ -109,7 +109,7 @@ class ProductTest
   end
 
   def start_date
-    end_date.years_ago(1)
+    self.bundle['measure_period_start']
   end
 
   def end_date
