@@ -701,6 +701,7 @@ echo -n "   Install Cypress website: "
 cat << CYPRESS_SITE_END > /etc/apache2/sites-available/cypress
 <VirtualHost *:80>
    DocumentRoot /home/cypress/cypress/public
+   TimeOut 1200
    <Directory /home/cypress/cypress/public>
       AllowOverride all
       Options -MultiViews
