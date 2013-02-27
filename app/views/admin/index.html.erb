@@ -76,6 +76,9 @@
       </nav>
     </section>
     <%= flash[:errors]  %>
+    <div>
+      <%= link_to("Clear DB", admin_clear_database_url, :method => :delete, :confirm => "This will clear all database tables with the exception of the users table. Are you sure you want to continue?") %>
+    </div>
 <div>
   <h4> Installed Bundles </h4>
   <table class='table'>
@@ -91,7 +94,7 @@
       No - <a href="#"  class='disable' data-bundleid="<%= bundle.id %>">enable</a>
       <% end -%> </td>
       <td>
-        <%= link_to("Destroy", admin_delete_bundle_url({bundle_id: bundle}), :method => :delete, :confirm => "This will delete the bundle and all tests associatied with this bundle. Are you sure you want to contunue?") %>
+        <%= link_to("Destroy", admin_delete_bundle_url({bundle_id: bundle}), :method => :delete, :confirm => "This will delete the bundle and all tests associatied with this bundle. Are you sure you want to continue?") %>
       </td>
   </tr>
   <% end %>
@@ -120,7 +123,7 @@
 
           <tr id="advanced_options" class="hidden">
             <td>Delete Existing</td>
-            <td> <%= check_box_tag "delete_mexisting", true %> </td>
+            <td> <%= check_box_tag "delete_existing", true %> </td>
             <td> This will remove an existing bundle with the same version as the imported one and then install the bundle.  This will destroy all tests that are currently associated with the current bundle</td>
           </tr>          
 

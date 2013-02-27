@@ -17,24 +17,31 @@ class AdminController < ApplicationController
 	end
 
 	def import_bundle
-		bundle = params[:bundle]
-		importer = HealthDataStandards::Import::Bundle::Importer
-	  @bundle_contents = importer.import(bundle, {:update_measures=>params[:update_measures],
-                                                :delete_existing => params[:delete_existing]})  
-    b = Bundle.find(@bundle_contents["_id"])  
-    b[:active] = params[:active]
-    b.save
+    begin
+  		bundle = params[:bundle]
+  		importer = HealthDataStandards::Import::Bundle::Importer
+  	  @bundle_contents = importer.import(bundle, {:update_measures=>params[:update_measures],
+                                                  :delete_existing => params[:delete_existing]})  
+      b = Bundle.find(@bundle_contents["_id"])  
+      b[:active] = params[:active]
+      b.save
+    rescue
+      flash[:errors] = $!.message
+    end
+
     redirect_to :action=>:index
 	end
 
   def clear_database
-    Vendor.where({}).destroy
-    Bundle.where({}).destroy
+    ["bundles", "measures", "products", "vendors", "test_executions", "product_tests", "records", "patient_cache", "query_cache", "health_data_standards_svs_value_sets", "fs.chunks", "fs.files"].each do|collection|
+      Mongoid.default_session[collection].where({}).remove_all
+    end
+    redirect_to :action=>:index
   end
 
   def delete_bundle
     bundle = Bundle.find(params[:bundle_id])
-    bundle.destroy
+    bundle.delete
     redirect_to :action=>:index
   end
 

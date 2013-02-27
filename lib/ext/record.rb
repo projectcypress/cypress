@@ -10,6 +10,7 @@ class Record
   field :ethnicity
   
   index :last => 1
+  index :bundle_id => 1
 
   def bundle 
   	Bundle.find(self["bundle_id"])
