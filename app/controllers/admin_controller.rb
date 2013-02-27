@@ -36,6 +36,7 @@ class AdminController < ApplicationController
     ["bundles", "measures", "products", "vendors", "test_executions", "product_tests", "records", "patient_cache", "query_cache", "health_data_standards_svs_value_sets", "fs.chunks", "fs.files"].each do|collection|
       Mongoid.default_session[collection].where({}).remove_all
     end
+    ::Rails::Mongoid.create_indexes
     redirect_to :action=>:index
   end
 

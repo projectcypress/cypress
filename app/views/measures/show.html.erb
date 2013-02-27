@@ -183,30 +183,32 @@
             <thead>
                  <tr>
             <% if @measure.continuous? %>
-              <th></th>
-               <th>Patients</th>
-               <th>Measure Poplulation</th>
-               <th>Observation Value</th>
+              <th>&nbsp;</th>
+               <th style="text-align: right">Population</th>
+               <th style="text-align: right">Measure Poplulation</th>
+               <th style="text-align: right">Observation Value</th>
             <% else %>
-              <th></th>
-               <th>Patients</th>
-               <th>Denominator</th>
-               <th>Den. Exclusions</th>
-               <th>Numerator</th>
-               <th>Num. Exclusions</th>
-               <th>Exceptions</th>
+              <th>&nbsp;</th>
+               <th style="text-align: right">Population</th>
+               <th style="text-align: right">Denominator</th>
+               <th style="text-align: right">Den. Exclusions</th>
+               <th style="text-align: right">Numerator</th>
+               <th style="text-align: right">Num. Exclusions</th>
+               <th style="text-align: right">Exceptions</th>
             <% end %>
               </tr>
              </thead>
 
                <tr >
                 <td>reported/expected </td>
-                <%= expected_reported(expected_result[QME::QualityReport::POPULATION],reported_result[QME::QualityReport::POPULATION]) %>
+             
+                <%= expected_reported(expected_result[QME::QualityReport::POPULATION],reported_result[QME::QualityReport::POPULATION], {:style=>"text-align: right"}) %>
+     
                <% 
                if @measure.population_ids[QME::QualityReport::MSRPOPL] %>
                 
-                <%= expected_reported(expected_result[QME::QualityReport::MSRPOPL],reported_result[QME::QualityReport::MSRPOPL]) %>                
-                <%= expected_reported(expected_result[QME::QualityReport::OBSERVATION],reported_result[QME::QualityReport::OBSERVATION]) %>
+                <%= expected_reported(expected_result[QME::QualityReport::MSRPOPL],reported_result[QME::QualityReport::MSRPOPL], {:style=>"text-align: right"}) %>   
+                <%= expected_reported(expected_result[QME::QualityReport::OBSERVATION],reported_result[QME::QualityReport::OBSERVATION], {:style=>"text-align: right"}) %>
 
                <% else %>
                   <%[QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,"NUMEX",QME::QualityReport::EXCEPTIONS].each do |code|
