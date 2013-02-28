@@ -1,3 +1,69 @@
+<% content_for :head do -%>
+<script type="text/javascript">
+  var cypress = cypress || {};
+
+  cypress.enableBundle = function() {
+    var bundle_id = $(this).data("bundleid");
+    var parentTd = $(this).parent();
+    $.post('<%= admin_activate_bundle_path %>', {'bundle_id': bundle_id, 'active': true}, function(data) {
+      parentTd.html(data);
+      parentTd.find('.disable').click(cypress.disableBundle);
+    });
+    return false;
+  };
+
+  cypress.disableBundle = function() {
+    var bundle_id = $(this).data("bundleid");
+    var parentTd = $(this).parent();
+    $.post('<%= admin_activate_bundle_path %>', {'bundle_id': bundle_id, 'active': false}, function(data) {
+      parentTd.html(data);
+      parentTd.find('.enable').click(cypress.enableBundle);
+    });
+    return false;
+  };
+
+
+ 
+ $(document).ready(function() {
+        $('#import_bundle').dialog({
+          title: 'Import Bundle',
+          autoOpen: false,
+          closeOnEscape: true,
+          draggable: true,
+          position: 'center',
+          width: 'auto',
+          height: 'auto',
+          modal: true,
+          show: 'fade',
+          hide: 'fade',
+          resizable: false,
+          buttons: {
+            Upload: function() {
+              $('#new_bundle').submit();
+              $(this).dialog('close');
+            },
+            Cancel: function() {
+              $(this).dialog('close');
+            }
+          }
+        });
+
+      $('#new_bundle_button').click(function(event) {
+        $('#import_bundle').dialog('open');
+         event.preventDefault();
+      });
+  });
+  
+
+  $(document).ready(function() {
+    $('.enable').click(cypress.disableBundle);
+    $('.disable').click(cypress.enableBundle);
+  });
+</script>
+<% end -%>
+
+
+
 <div id="container">
   <%= render :partial=>"shared/header" %>
 
@@ -10,53 +76,60 @@
       </nav>
     </section>
     <%= flash[:errors]  %>
+    <div>
+      <%= link_to("Clear DB", admin_clear_database_url, :method => :delete, :confirm => "This will clear all database tables with the exception of the users table. Are you sure you want to continue?") %>
+    </div>
 <div>
   <h4> Installed Bundles </h4>
-  <ul>
+  <table class='table'>
+    <thead><tr><th>Title</th><th>Version</th><th>Active</th><th>Remove</th></tr></thead>
+  <tbody>
   <% Bundle.all.each do |bundle| %>
-    <li><%= bundle.title %>  -  <%= bundle.version %> </li>
+  <tr id="bundle_<%=bundle.id%>">
+    <td><%= bundle.title %></td>
+    <td><%= bundle.version %> </td>
+    <td> <% if bundle.active -%>
+      Yes - <a href="#" class='enable' data-bundleid="<%= bundle.id %>">disable</a>
+      <% else -%>
+      No - <a href="#"  class='disable' data-bundleid="<%= bundle.id %>">enable</a>
+      <% end -%> </td>
+      <td>
+        <%= link_to("Destroy", admin_delete_bundle_url({bundle_id: bundle}), :method => :delete, :confirm => "This will delete the bundle and all tests associatied with this bundle. Are you sure you want to continue?") %>
+      </td>
+  </tr>
   <% end %>
-  </ul>
- <p/>
-<div>
-  <%= form_tag({:action => 'import_bundle'}, :multipart => true ) do %>
-  <table>
-  	<tr>
-  		<td> <%= submit_tag "Import Bundle" %> </td>
-  		<td> <span> Clear Existing</span><%= check_box_tag "delete_existing", true %> </td> 
-  		<td> <%= file_field_tag  :bundle %> </td>
-  	</tr>
-  </table>
- <% end %>
+  <tr><td> <input type="button" value="Import New" id="new_bundle_button"/>
+  </tbody>
 
-</div>
 
- <div >
-  <%= form_tag :action => 'update_value_sets'  do %>
+</table>
 
-  <table>
-    <tr>
-      <td> <%= submit_tag "Update Valuesets" %> </td>
-      <td> NLM Username: <%= text_field_tag :username %> </td> 
-      <td> NLM Password: <%= password_field_tag :password %> </td> 
-      <td> <span> Clear Existing</span><%= check_box_tag  :delete_existing , true %> </td> 
-    </tr>
-  </table>
+<div id="import_bundle" style="display:none">
+    <%= form_tag({:action => 'import_bundle'}, :multipart => true, :id=>'new_bundle' ) do %>
+      <table class='' style="width: 400px">
+        <tbody >
 
-  <% end %>
+          <tr id="advanced_options" class="hidden">
+            <td>Bundle</td>       
+            <td></td>
+            <td> <%= file_field_tag  :bundle %> </td>
+          </tr>
+
+          <tr id="advanced_options" class="hidden">
+            <td>Update Existing</td>
+            <td> <%= check_box_tag "update_measures", true %> </td>
+            <td> This will update any existing measures from previous bundles to the version included in the imported bundle</td>
+          </tr>
+
+          <tr id="advanced_options" class="hidden">
+            <td>Delete Existing</td>
+            <td> <%= check_box_tag "delete_existing", true %> </td>
+            <td> This will remove an existing bundle with the same version as the imported one and then install the bundle.  This will destroy all tests that are currently associated with the current bundle</td>
+          </tr>          
+
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
-  <p/>
-   <div>
-   	<span>Jobs </span>
-
-
-   	
-<table width="50%">
-  <thead><th>Created Time </th><th>Status</th><th></th><th>Failure Message</th><th></th></thead>
-    <%= render :partial=>'admin/update_job', :collection=>@jobs %>
-</table>
-   
-
-   </div>
 </div>

@@ -1,6 +1,7 @@
 <% content_for :head do %>
 
   <script type="text/javascript">
+    var bundle_id
     $(function() {
       $('#loading_dialog').dialog({
         autoOpen: false,
@@ -21,11 +22,16 @@
     setTimeout("openLoadingDialog()",400);
 
     $(document).ready(function() {
+      $("#bundle_id").change(function(){
+        var b_id = $("option:selected", $(this)).val();
+        window.location = "<%= patients_path%>?bundle_id="+b_id;
+      });
+
   	  <% if params[:measure_id] != nil %>
   	    $.getJSON("<%=measure_definition_url(:measure_id => params[:measure_id])%>", $.cypress.renderMeasureJSON);
       <% end %>
-      <% if @test %>
-        <% if @result['numerator']=='?' %>
+      <% if @test  %>
+        <% if @result && @result['numerator']=='?' %>
           $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id, :product_test_id => @test.id ) %>",
                             "<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution], :showAll => @showAll) %>")             
         <% elsif @showAll%>
@@ -34,10 +40,10 @@
           $.cypress.updatePatientTable("<%= table_measure_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution]) %>")
         <% end %>
       <% else %>
-        <% if @result['numerator']=='?' %>
+        <% if @result && @result['numerator']=='?' %>
           $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id ) %>", "<%= table_patients_path(:measure_id => @selected.id, :showAll => @showAll) %>")
         <% elsif @showAll == true%>
-          $.cypress.updatePatientTable("<%= table_all_patients_path() %>")
+          $.cypress.updatePatientTable("<%= table_all_patients_path(:bundle_id=> params[:bundle_id] || Bundle.active.first.id) %>")
         <% else %>
           $.cypress.updatePatientTable("<%= table_measure_patients_path(:measure_id => @selected.id) %>")
         <% end %>
@@ -98,8 +104,8 @@
         zip_qrda_path = download_product_test_path(@test, :format => 'qrda')
         zip_html_path = download_product_test_path(@test, :format => 'html')
       else
-        zip_qrda_path = download_patients_path(:format => 'qrda')
-        zip_html_path = download_patients_path(:format => 'html')
+        zip_qrda_path = download_patients_path(:format => 'qrda', :bundle_id=>@bundle.id)
+        zip_html_path = download_patients_path(:format => 'html', :bundle_id=>@bundle.id)
       end %>
       
       <%= link_to 'Download', '', {
@@ -138,6 +144,9 @@
           Master Patient List
         <% end %>
       </h2>
+      <% unless @test %>
+        <%= select_tag(:bundle_id, options_for_select(Bundle.active.collect{|b| ["#{b.title} - #{b.version}",b.id]},@bundle.id), :width=>"300px") %>
+      <% end %>
     </section>
     
     <div class="tabs">
@@ -147,9 +156,9 @@
           <li><b><%= category %></b></li>
           <% measures.each do |measure_def| %>
             <li>
-              <a href="<%= patients_path(:product_test_id => @test, :measure_id=>measure_def.id,:execution=> params[:execution]) %>"
+              <a href="<%= patients_path(:product_test_id => @test, :measure_id=>measure_def.id,:execution=> params[:execution], :bundle_id=>@bundle.id) %>"
                 title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
-                class="<%= 'selected' if !@showAll and @selected.id==measure_def.id %>"><%= "#{measure_def.nqf_id}" %> <br><%= truncate("#{measure_def.subtitle}") %>
+                class="<%= 'selected' if !@showAll and @selected.id==measure_def.id %>"><%= "#{measure_def.nqf_id}" %> <br><%= truncate("#{measure_def.subtitle}") %> 
               </a>
             </li>
           <% end %>        
@@ -212,7 +221,7 @@
                  </thead>
 
 
-
+                <% if @result %> 
                 <tr id='<%= "#{@selected.id}" %>'>
                   <td>&nbsp;</td>
                   <td> <span class="den"><%= @result['IPP'] %></span></td>
@@ -227,6 +236,7 @@
                   </tr>
 
                   <% end %>
+                 <% end %> 
                 <% else %>
                   <tr id='all_measures'>
                  </tr>

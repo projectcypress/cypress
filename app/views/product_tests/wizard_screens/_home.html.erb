@@ -1,3 +1,7 @@
+<script>
+var effective_dates = <%= Hash[*Bundle.active.collect{|b| [b.id,b.effective_date]}.flatten].to_json.html_safe %>;
+var start_dates = <%= Hash[*Bundle.active.collect{|b| [b.id,b['measure_period_start']]}.flatten].to_json.html_safe %>;
+</script>
 <section id="first" class="step bordered" style="width: 100%; overflow: auto;">
   <div class="span8 buffered">
   <!-- always move to the measures screen -->
@@ -11,14 +15,25 @@
       <%= f.text_field :name, :size => 87, :class => 'required' %>
     </dd>
     <dt>
-      Reporting Period:
+      Measurement Period:
     </dt>
     <dd>
       <span class="wide">
-        from <span id="effective_date_start"><%= display_time(@period_start)%></span>
-        to <span id="effective_date_end"><%= display_time(@effective_date) %></span>
+        from <span id="effective_date_start"></span>
+        to <span id="effective_date_end"></span>
 
-        <input type="hidden" name="product_test[effective_date]" value="<%=@effective_date%>"/>
+        <input type="hidden" name="product_test[effective_date]" value=""/>
+
+      </span>
+    </dd>
+    <dt>
+      Bundle Version:
+    </dt>
+    <dd>
+      <span class="controls">
+        <label for="bundle_id">
+          <%= select_tag(:bundle_id, options_for_select(Bundle.active.collect{|b| ["#{b.title} - #{b.version}",b.id]}), :width=>"300px") %>
+        </label>
       </span>
     </dd>
     <dt>
@@ -32,7 +47,6 @@
       <label for="outpatient" class="radio"><input type="radio" id="outpatient" name="type" value="CalculatedProductTest" class="input" checked/> Outpatient - to test quality measures for Eligible Professionals (EP)</label>
       <label for="inpatient" class="radio"><input type="radio" id="inpatient" name="type" value="InpatientProductTest"/> Inpatient - to test quality measures for Eligible Hospitals (EH) </label>
       <label for="qrda" class="radio"><input type="radio" id="qrda" name="type" value="QRDAProductTest"/> QRDA Category I - to test using the QRDA Category I format</label>
-       <label for="cv" class="radio"><input type="radio" id="cv" name="type" value="StaticCVProductTest"/>Continuous Variable tests</label>
     </dd>
   </dl>
   </div>

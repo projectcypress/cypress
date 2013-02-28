@@ -30,7 +30,7 @@
           <%= link_to @product.name, product_path(@product) %> &raquo;
           <%= link_to @test.name, product_test_path(@test, :execution_id => params[:execution]) %>
         <% else %>
-          <%= link_to 'Master Patient List', patients_path %>
+          <%= link_to 'Master Patient List', patients_path(bundle_id: @patient.bundle.id) %>
         <% end %>
       </nav>
     </section>

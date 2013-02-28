@@ -9,7 +9,7 @@ module Cypress
 
 
   class QRDAExporter
-
+    EXPORTER  = HealthDataStandards::Export::Cat1.new
     attr_accessor :measures
     attr_accessor :start_time
     attr_accessor :end_time
@@ -20,19 +20,16 @@ module Cypress
       @end_time = end_time
     end
 
-
     def export(patient)
-       QrdaGenerator::Export::Cat1.export(patient,measures,start_time,end_time)
+    EXPORTER.export(patient,measures,start_time,end_time)
     end
 
   end
 
-
- 
   class PatientZipper
 
     FORMAT_EXTENSIONS = {html: "html", qrda: "xml"}
-    FORMATERS = {:html => HealthDataStandards::Export::HTML}
+    FORMATERS = {:html => HealthDataStandards::Export::HTML.new}
 
 
     def self.zip_artifacts(test_execution)
@@ -78,7 +75,7 @@ module Cypress
       end
       start_date = test_execution.start_date
       end_date = test_execution.end_date
-      measures = test_execution.measures.to_a
+      measures = test_execution.measures.top_level.to_a
       qrda_exporter = Cypress::QRDAExporter.new(measures,start_date,end_date)
       test_execution.records.each do |patient|
         filename = TPG::Exporter.patient_filename(patient)
@@ -97,13 +94,13 @@ module Cypress
         if patients.first
           test = ProductTest.where({"_id" => patients.first["test_id"]}).first
           if test 
-            measures = test.measures.to_a
+            measures = test.measures.top_level.to_a
             start_time = test.start_date
             end_time = test.end_date
           end
         end
         measures ||= Measure.top_level
-        end_date ||= Time.at(Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE).gmtime
+        end_date ||= Time.at(patients.first.bundle.effective_date).gmtime
         start_date ||= end_date.years_ago(1)
         formater = Cypress::QRDAExporter.new(measures,start_date,end_date)
       else
@@ -116,7 +113,11 @@ module Cypress
           safe_last_name = patient.last.gsub("'", '')
           next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"       
           z.put_next_entry("#{next_entry_path}.#{FORMAT_EXTENSIONS[format.to_sym]}") 
-          z << formater.export(patient)
+          if formater == HealthDataStandards::Export::HTML
+            z << formater.new.export(patient)
+          else
+            z << formater.export(patient)
+          end
         end
       end
     end

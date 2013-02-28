@@ -1,7 +1,9 @@
 class Result
   include Mongoid::Document
-
+  
   store_in collection: :patient_cache
+  index "value.last" => 1
+  index "bundle_id" => 1
   embeds_one :value, class_name: "PatientCacheValue", inverse_of: :result_value
 
   def record

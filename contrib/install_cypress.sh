@@ -41,7 +41,7 @@
 install_ruby_ver="1.9.3-p286"
 install_bundler_ver="1.2.3"
 install_libxml_ver="2.8.0"
-install_nokogiri_ver="1.5.5"
+install_nokogiri_ver="1.5.6"
 install_passenger_ver="3.0.18"
 
 ###################################################
@@ -639,10 +639,6 @@ else
   echo -n "   Import measure bundle: "
   su - -c "cd cypress; bundle exec rake bundle:import[../bundle-latest.zip,true] RAILS_ENV=production &> /dev/null" cypress
   success_or_fail $? "done" "failed to import bundle" "Can't continue without importing bundle."
-  # Download valuesets
-  echo -n "   Downloading clinical valuesets (will take a while): "
-  su - -c "cd cypress; bundle exec rake cypress:cache_valuesets[$nlm_user,$nlm_passwd] RAILS_ENV=production &> /dev/null" cypress
-  success_or_fail $? "done" "failed to cache valuesets" "Can't continue without valuesets"
 fi
 echo
 

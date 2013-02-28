@@ -1,4 +1,43 @@
 GIT
+  remote: https://github.com/pophealth/quality-measure-engine.git
+  revision: 3596fece83c959d5f4d88e4ed5f3ec35fb8c73a5
+  branch: develop
+  specs:
+    quality-measure-engine (2.1.0)
+      delayed_job_mongoid (~> 2.0.0)
+      mongoid (~> 3.0)
+      moped (~> 1.4.2)
+      nokogiri (~> 1.5.5)
+      rubyXL (~> 1.2.10)
+      rubyzip (~> 0.9.9)
+
+GIT
+  remote: https://github.com/pophealth/test-patient-generator.git
+  revision: f079f3a062fe966a8c7f20c1ec6216446491d396
+  branch: develop
+  specs:
+    test-patient-generator (1.1.2)
+
+GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: d94d05fafbfcf9299e1b8c8ff34ab286447ea88d
+  branch: develop
+  specs:
+    health-data-standards (3.0.0)
+      activesupport (~> 3.2.9)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      google-spreadsheet-ruby (= 0.1.8)
+      log4r (~> 1.1.10)
+      mongoid (~> 3.1.0)
+      nokogiri (~> 1.5.5)
+      rest-client (~> 1.6.7)
+      roo (= 1.10.1)
+      rubyzip
+      spreadsheet (= 0.6.8)
+      uuid (~> 2.3.5)
+
+GIT
   remote: https://github.com/rdingwell/delayed_job_mongoid_web.git
   revision: 3bc55d3bae167d1291806456fc9e7ec5cee1de96
   branch: develop
@@ -56,9 +95,17 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    columnize (0.3.6)
     crack (0.3.1)
     daemons (1.1.9)
-    delayed_job (3.0.4)
+    debugger (1.2.4)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.1.1)
+      debugger-ruby_core_source (~> 1.1.7)
+    debugger-linecache (1.1.2)
+      debugger-ruby_core_source (>= 1.1.1)
+    debugger-ruby_core_source (1.1.8)
+    delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_mongoid (2.0.0)
       delayed_job (~> 3.0)
@@ -72,35 +119,16 @@ GEM
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    faraday (0.8.4)
+    faraday (0.8.6)
       multipart-post (~> 1.1)
     google-spreadsheet-ruby (0.1.8)
       nokogiri (>= 1.4.3.1)
       oauth (>= 0.3.6)
       oauth2 (>= 0.5.0)
     haml (3.1.7)
-    health-data-standards (2.2.1)
-      activesupport (~> 3.2.9)
-      builder (~> 3.0.0)
-      erubis (~> 2.7.0)
-      mongoid (~> 3.0.14)
-      nokogiri (~> 1.5.5)
-      rest-client (~> 1.6.7)
-      uuid (~> 2.3.5)
     hike (1.2.1)
-    hqmf-parser (1.1.0)
-      google-spreadsheet-ruby (= 0.1.8)
-      roo (= 1.10.1)
-      rubyzip
-      spreadsheet (= 0.6.8)
-    hqmf2js (1.1.0)
-      coffee-script (~> 2.2.0)
-      nokogiri (~> 1.5.5)
-      sprockets (~> 2.2.2)
-      tilt (~> 1.3.3)
-    hquery-patient-api (1.0.0)
     httpauth (0.2.0)
-    i18n (0.6.1)
+    i18n (0.6.2)
     journey (1.0.4)
     jquery-rails (2.1.3)
       railties (>= 3.1.0, < 5.0)
@@ -119,28 +147,35 @@ GEM
       treetop (~> 1.4.8)
     metaclass (0.0.1)
     method_source (0.8.1)
-    mime-types (1.19)
+    mime-types (1.21)
     minitest (4.2.0)
     mocha (0.13.0)
       metaclass (~> 0.0.1)
-    mongoid (3.0.19)
-      activemodel (~> 3.1)
-      moped (~> 1.2)
+    mongoid (3.1.2)
+      activemodel (~> 3.2)
+      moped (~> 1.4.2)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
     mongoid-grid_fs (1.7.0)
       mime-types (~> 1.19)
       mongoid (~> 3.0)
-    moped (1.2.9)
-    multi_json (1.5.0)
-    multipart-post (1.1.5)
+    mongoid_rails_migrations (1.0.0)
+      activesupport (>= 3.2.0)
+      bundler (>= 1.0.0)
+      rails (>= 3.2.0)
+      railties (>= 3.2.0)
+    moped (1.4.2)
+    multi_json (1.6.1)
+    multi_xml (0.5.3)
+    multipart-post (1.2.0)
     nokogiri (1.5.6)
     oauth (0.4.7)
-    oauth2 (0.8.0)
+    oauth2 (0.9.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
+      multi_xml (~> 0.5)
       rack (~> 1.2)
     origin (1.0.11)
     orm_adapter (0.4.0)
@@ -154,23 +189,10 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.3.1)
-    pry-nav (0.2.2)
+    pry-debugger (0.2.1)
+      debugger (~> 1.2.0)
       pry (~> 0.9.10)
-    qrda_generator (1.0.1)
-      health-data-standards (~> 2.2.0)
-      hqmf-parser (~> 1.1.0)
-      log4r (~> 1.1.10)
-      mongoid (~> 3.0.6)
-      nokogiri (~> 1.5.5)
-      uuid (~> 2.3.5)
-    quality-measure-engine (2.2.0)
-      delayed_job_mongoid (~> 2.0.0)
-      mongoid (~> 3.0.9)
-      moped (~> 1.2.7)
-      nokogiri (~> 1.5.5)
-      rubyXL (~> 1.2.10)
-      rubyzip (~> 0.9.9)
-    rack (1.4.4)
+    rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-protection (1.2.0)
@@ -240,12 +262,6 @@ GEM
       term-ansicolor (>= 1.0.5)
       text-table (>= 1.2.2)
     term-ansicolor (1.0.7)
-    test-patient-generator (1.1.2)
-      health-data-standards (~> 2.2.1)
-      hqmf-parser (~> 1.1.0)
-      hqmf2js (~> 1.1.0)
-      hquery-patient-api (~> 1.0.0)
-      qrda_generator (~> 1.0.1)
     text-table (1.2.2)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
@@ -267,7 +283,7 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    uuid (2.3.6)
+    uuid (2.3.7)
       macaddr (~> 1.0)
     warden (1.2.1)
       rack (>= 1.0)
@@ -283,18 +299,17 @@ DEPENDENCIES
   coffee-rails
   delayed_job_mongoid_web!
   devise (~> 2.0)
-  health-data-standards (~> 2.2.1)
-  hqmf-parser (~> 1.1.0)
+  health-data-standards!
   jquery-rails
   minitest
   mocha
   mongoid-grid_fs (~> 1.7.0)
+  mongoid_rails_migrations (~> 1.0)
   pdf-reader (= 0.9.0)
   prawn
   pry
-  pry-nav
-  qrda_generator (~> 1.0.1)
-  quality-measure-engine (~> 2.2.0)
+  pry-debugger
+  quality-measure-engine!
   rails (= 3.2.11)
   rake
   sass-rails
@@ -302,10 +317,9 @@ DEPENDENCIES
   simplecov
   state_machine
   tailor
-  test-patient-generator (~> 1.1.2)
+  test-patient-generator!
   therubyracer
   thin
   turn
   uglifier
   webmock
-  win32-eventlog

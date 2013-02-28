@@ -204,6 +204,9 @@ Measure Section
 							populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
 							
 							<% result = results[measure.hqmf_id] %>
+							<% cv_val = result["population_ids"].select {|key,value| value["type"] == "OBSERV"}
+							 	 cv_val = nil if cv_val.empty?
+							 %>
 							<% result["population_ids"].each_pair do |pop_id, pop_value| %>
 							<component>
 								<observation classCode="OBS" moodCode="EVN">
@@ -219,6 +222,8 @@ Measure Section
 										codeSystem="2.16.840.1.113883.5.1063"
 										displayName="initial patient population"
 										codeSystemName="ObservationValue"/>
+								
+
 									<!-- SHALL contain aggregate count template -->
 									<entryRelationship typeCode="SUBJ" inversionInd="true">
 										<!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
@@ -238,6 +243,42 @@ Measure Section
 											<value xsi:type="INT" value="<%=pop_value["value"]%>"/>
 										</observation>
 									</entryRelationship>
+
+
+
+									<% if cv_val  && pop_value["type"] == "MSRPOPL" %>
+								<!-- MAY 0..* Continuous Variable Measure Value template -->
+									<entryRelationship typeCode="COMP">
+										<!-- Continuous Variable Measure Value template -->
+									
+										<observation classCode="OBS" moodCode="EVN">
+												<templateId root="2.16.840.1.113883.10.20.27.3.2"/>
+											<code nullFlavor="OTH">
+												<originalText>Time Difference</originalText>
+											</code>
+											<statusCode code="completed"/>
+											<value xsi:type="PQ" value="75.7" unit="min"/>
+											<!-- drawn from  ObservationMeasureAggregate value set, with a SHALL Dynamic binding -->
+											<methodCode code="MEDIAN" displayName="Median"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant measure observation in the eMeasure,
+												in this case the median method is applied to the time difference
+												referenced by this identifier -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<id root="<%= cv_val.keys.first%>"/>
+												</externalObservation>
+											</reference>
+											<!-- MAY 0..1 Used to represent the predicted continuous variable value based on the measure’s risk-adjustment model. -->
+											<referenceRange>
+												<observationRange>
+												<value xsi:type="PQ" value="60" unit="min"/>
+												</observationRange>
+											</referenceRange>
+										</observation>
+									</entryRelationship>
+									<% end %>
 									<% (pop_value["stratifications"] || {}).each_pair do |strata_id,strata_value| %>
 								
 
@@ -268,6 +309,50 @@ Measure Section
 													<value xsi:type="INT" value="<%=strata_value %>"/>
 												</observation>
 											</entryRelationship>
+
+
+
+
+									<% if cv_val && pop_value["type"] == "MSRPOPL" %>
+								<!-- MAY 0..* Continuous Variable Measure Value template -->
+									<entryRelationship typeCode="COMP">
+										<!-- Continuous Variable Measure Value template -->
+				
+										<observation classCode="OBS" moodCode="EVN">
+												<templateId root="2.16.840.1.113883.10.20.27.3.2"/>
+											<code nullFlavor="OTH">
+												<originalText>Time Difference</originalText>
+											</code>
+											<statusCode code="completed"/>
+											<value xsi:type="PQ" value="75.7" unit="min"/>
+											<!-- drawn from  ObservationMeasureAggregate value set, with a SHALL Dynamic binding -->
+											<methodCode code="MEDIAN" displayName="Median"
+												codeSystem="2.16.840.1.113883.5.84"
+												codeSystemName="ObservationMethod"/>
+											<reference typeCode="REFR">
+												<!-- reference to the relevant measure observation in the eMeasure,
+												in this case the median method is applied to the time difference
+												referenced by this identifier -->
+												<externalObservation classCode="OBS" moodCode="EVN">
+												<id root="<%= cv_val.keys.first %>"/>
+												</externalObservation>
+											</reference>
+											<!-- MAY 0..1 Used to represent the predicted continuous variable value based on the measure’s risk-adjustment model. -->
+											<referenceRange>
+												<observationRange>
+												<value xsi:type="PQ" value="60" unit="min"/>
+												</observationRange>
+											</referenceRange>
+										</observation>
+									</entryRelationship>
+									<% end %>
+
+
+
+
+
+
+
 											<reference typeCode="REFR">
 												<!-- reference to the relevant strata in the eMeasure -->
 												<externalObservation classCode="OBS" moodCode="EVN">
@@ -278,6 +363,8 @@ Measure Section
 										</observation>
 									</entryRelationship>
 									
+
+
 									<% end %>
 									
 									<!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component

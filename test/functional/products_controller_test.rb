@@ -5,11 +5,11 @@ class ProductsControllerTest < ActionController::TestCase
   
   setup do
     collection_fixtures('vendors', '_id',"user_ids")
-    collection_fixtures('query_cache', 'test_id')
-    collection_fixtures('measures')
+    collection_fixtures('query_cache', 'test_id','bundle_id')
+    collection_fixtures('measures','bundle_id')
     collection_fixtures('products','_id','vendor_id')
     collection_fixtures('users',"_id", "vendor_ids")
-    collection_fixtures('records', '_id')
+    collection_fixtures('records', '_id','bundle_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first

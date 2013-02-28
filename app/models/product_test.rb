@@ -5,6 +5,7 @@ class ProductTest
   has_one :patient_population
   has_many :test_executions, dependent: :delete
   belongs_to :user
+  belongs_to :bundle
 
   embeds_many :notes, inverse_of: :product_test
 
@@ -18,6 +19,7 @@ class ProductTest
   
   validates_presence_of :name
   validates_presence_of :effective_date
+  validates_presence_of :bundle_id
 
   scope :order_by_type, order_by(:_type => :desc)
   
@@ -73,12 +75,12 @@ class ProductTest
   # Return all measures that are selected for this particular ProductTest
   def measures
     return [] if !measure_ids
-    Measure.in(:hqmf_id => measure_ids).order_by([[:hqmf_id, :asc],[:sub_id, :asc]])
+    self.bundle.measures.in(:hqmf_id => measure_ids).order_by([[:hqmf_id, :asc],[:sub_id, :asc]])
   end
   
 
   def records
-    Record.where(:test_id => self.id)
+    Record.where(:test_id => self.id).order_by([:last , :asc])
   end
 
   def delete
@@ -107,12 +109,30 @@ class ProductTest
   end
 
   def start_date
-    end_date.years_ago(1)
+    self.bundle['measure_period_start']
   end
 
   def end_date
     Time.at(effective_date).gmtime
   end
 
+
+  def results
+    Result.where("value.test_id"=> self.id).order_by(["value.last" , :asc])
+  end
+
+  def destroy
+    self.results.destroy
+    self.records.destroy
+    Mongoid.default_session["query_cache"].where({"test_id" => self.id}).remove_all
+    super
+  end
+
+  def delete
+     self.results.destroy
+     self.records.destroy
+     Mongoid.default_session["query_cache"].where({"test_id" => self.id}).remove_all
+    super
+  end
 
 end

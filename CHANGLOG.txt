@@ -1,0 +1,60 @@
+version 2.1.0
+####################################
+Test Deck Changes:
+	Measurement period updated from 2010 to 2012
+	Measurement period end date updated from Jan 1, 2013 to Dec 31, 2012 at 23:59
+	Code set "Crosswalk" issue resolved
+	Added code description mouse overs to the HTML patient records (RxNorm descriptions and all other code sets)
+	Length of stay for encounters minimized for EH
+	Patient data with the status of "active" given a duration in the test deck
+	EP and EH concepts changed to be in business hours
+	EP and EH Test deck alignment of data elements with encounters
+	EP GP_Peds, E immunization end time fixed
+	EH Newborn, A and Newborn, B birthdate and delivery times brought into sync
+	Value sets added to the Cypress bundle to allow coordinating value set/ measure releases
+	EH Newborn, A/B and OB A/B updated admit and discharge times on encounter to match start/end times 
+
+Quality Measure Engine:
+	Dynamic Support for CV measures in EH and EP	
+	Bundle Import code Moved to Health Data Standards library
+
+Measures:
+	Reloaded measure definitions from CMS to fix issue with measure population criteria ids
+
+QRDA Cat I export:
+	All entry id elements are valid per the CDA schema
+	Device applied now has a removal time
+	Tobacco use is now exported
+	Encounters now support: reason,  facilities will now list a start and end time even if the facility does not have a code, discharge disposition code
+	Communication from provider to patient now supports negation
+	Medication administered now exports route
+	Diagnosis active now exports ordinality
+
+Cypress:
+	Added support for multiple bundles to be loaded simultaniously
+	Fixed double quoate bug in resources/schematron/qrda/qrda_cat_1/measure_specific/d78ce034-8288-4012-a31e-7f485a74f2a9.sch
+	Removed xsi:type='CE' checks from generic Cat I schematron rules
+	Updated schematron rule for CONF:7618	to remove check for unit='1' 
+	Added ability to import bundle from within the application
+	Updated QRDA Cat I test patient generator to eliminate duplicate entries
+
+
+
+version 2.0.1 
+####################################
+1. Updated Schematron Rules from Lantana for the measures updated in late December
+2. Bug fixes to  Schematron rules including the following:
+	A. Fixes for incorrect template checking I.e Patient Gestiational age template used in a number of incorrect places such as Patient Characteristic :  Tobacco Non-User
+  B. Fixed template id check for 'Medication, Discharge: Statins' 
+ 	C. Corrected error checking for patientRole address and Birth Place address
+	D. Fix for Medicare HIC number checking 
+	E. Fixes for errors that incorrectly checked for templateId values in the text section of the templateId element instead of the root attribute
+4. Enhanced error reporting for Calculated Measures to include the Population Ids of Items not found or where values do not match
+5. Errors Grouped by Measure and Schematron Validator
+6. Test calculation progress information  when building tests
+7. Update to the QRDA Cat I Test Patient Generator to ensure all data criteria identified in the selected measures are created
+8. XML Error Navigator 
+
+Version 2.0.0
+###################################
+	Initial release of Version 2.0.0 of Cypress for MU Stage 2 testing

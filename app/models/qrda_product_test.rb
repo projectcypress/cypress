@@ -21,11 +21,11 @@ class QRDAProductTest < ProductTest
 
   def measures
     return [] if !measure_ids
-    Measure.in(:hqmf_id => measure_ids).top_level.order_by([[:hqmf_id, :asc],[:sub_id, :asc]])
+    self.bundle.measures.in(:hqmf_id => measure_ids).top_level.order_by([[:hqmf_id, :asc],[:sub_id, :asc]])
   end
   
   
-  def self.product_type_measures
-    Measure.top_level
+  def self.product_type_measures(bundle)
+    bundle.measures.top_level
   end
 end

@@ -1492,7 +1492,7 @@ SHALL contain exactly one [1..1] effectiveTime (CONF:14445).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.17.2.4-errors">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.17.2.4-errors-abstract" abstract="true">
-      <sch:assert id="a-3865" test="count(cda:code[@code='55188-7'][@codeSystem='2.16.840.1.113883.6.1'])">SHALL contain exactly one [1..1] code with @xsi:type="CS" (CONF:3865).</sch:assert>
+      <sch:assert id="a-3865" test="count(cda:code[@code='55188-7'][@codeSystem='2.16.840.1.113883.6.1'])">SHALL contain exactly one [1..1] code  (CONF:3865).</sch:assert>
       <sch:assert id="a-3866" test="count(cda:title[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='patient data'])=1">SHALL contain exactly one [1..1] title="Patient Data" (CONF:3866).</sch:assert>
       <sch:assert id="a-3867" test="count(cda:text)=1">SHALL contain exactly one [1..1] text (CONF:3867).</sch:assert>
       <sch:assert id="a-14567" test="count(cda:entry) &gt; 0">SHALL contain at least one [1..*] entry (CONF:14567).</sch:assert>
@@ -2198,7 +2198,7 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.105-errors-abstract" abstract="true">
       <sch:assert id="a-16550" test="@classCode='ACT'">SHALL contain exactly one [1..1] @classCode="ACT" (CodeSystem: HL7ActClass 2.16.840.1.113883.5.6 STATIC) (CONF:16550).</sch:assert>
       <sch:assert id="a-16551" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" (CodeSystem: ActMood 2.16.840.1.113883.5.1001 STATIC) (CONF:16551).</sch:assert>
-      <sch:assert id="a-16552" test="count(cda:code[@code='10183-2'][@codeSystem='2.16.840.1.113883.6.1'][@xsi:type='CE'])=1">SHALL contain exactly one [1..1] code="10183-2" Discharge medication with @xsi:type="CE" (CodeSystem: LOINC 2.16.840.1.113883.6.1 STATIC) (CONF:16552).</sch:assert>
+      <sch:assert id="a-16552" test="count(cda:code[@code='10183-2'][@codeSystem='2.16.840.1.113883.6.1'])=1">SHALL contain exactly one [1..1] code="10183-2" Discharge medication  (CodeSystem: LOINC 2.16.840.1.113883.6.1 STATIC) (CONF:16552).</sch:assert>
       <sch:assert id="a-16555" test="count(cda:entryRelationship[@typeCode='SUBJ'][count(cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.41'])=1])=1">SHALL contain exactly one [1..1] entryRelationship (CONF:16553) such that it SHALL contain exactly one [1..1] @typeCode="SUBJ" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:16554). SHALL contain exactly one [1..1] Medication Active (templateId:2.16.840.1.113883.10.20.24.3.41) (CONF:16555).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.105-errors" context="cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.105']">
@@ -2344,7 +2344,6 @@ This playingEntity SHALL contain exactly one [1..1] code (CONF:7493).</sch:asser
       <sch:assert id="a-7614" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" Event (CodeSystem: ActMood 2.16.840.1.113883.5.1001 STATIC) (CONF:7614).</sch:assert>
       <sch:assert id="a-7615" test="count(cda:code)=1">SHALL contain exactly one [1..1] code (CONF:7615).</sch:assert>
       <sch:assert id="a-7617" test="count(cda:value[@xsi:type='PQ'])=1">SHALL contain exactly one [1..1] value with @xsi:type="PQ" (CONF:7617).</sch:assert>
-      <sch:assert id="a-7618" test=".">This value SHALL contain exactly one [1..1] @unit="1", which SHALL be selected from ValueSet AgePQ_UCUM 2.16.840.1.113883.11.20.9.21 DYNAMIC (CONF:7618).</sch:assert>
       <sch:assert id="a-15965" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:15965).</sch:assert>
       <sch:assert id="a-15966" test="cda:statusCode[@code='completed']">This statusCode SHALL contain exactly one [1..1] @code="completed" Completed (CodeSystem: ActStatus 2.16.840.1.113883.5.14 STATIC) (CONF:15966).</sch:assert>
       <sch:assert id="a-16776" test="cda:code[@code='445518008' and @codeSystem='2.16.840.1.113883.6.96']">This code SHALL contain exactly one [1..1] @code="445518008" Age At Onset (CodeSystem: SNOMED-CT 2.16.840.1.113883.6.96 STATIC) (CONF:16776).</sch:assert>
