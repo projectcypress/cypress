@@ -38,10 +38,17 @@
 ##############################################################################
 
 # Variables that determine the versions of components we will install
+cypress_tag="v2.1.0"
 install_ruby_ver="1.9.3-p286"
 install_bundler_ver="1.2.3"
 install_libxml_ver="2.8.0"
-install_nokogiri_ver="1.5.6"
+if [ $cypress_tag = "v2.1.0" ]; then
+  install_nokogiri_ver="1.5.6"
+  cypress_bundle_ver="2.1.0"
+else
+  install_nokogiri_ver="1.5.5"
+  cypress_bundle_ver="2.0.0"
+fi
 install_passenger_ver="3.0.18"
 
 ###################################################
@@ -58,10 +65,20 @@ proxy_port=80
 import_valuesets=0
 nlm_user=""
 nlm_passwd=""
+bundle_rev="latest"
+complete_bundle_ver="${cypress_bundle_ver}-${bundle_rev}"
 
 ###################################################
 # Functions used by the script
 ###################################################
+
+#####
+# Adjusts some variables based on the cypress version we were asked to install
+#####
+function adjust_for_cypress_version {
+  cypress_ver=${cypress_tag:1}
+  complete_bundle_ver="${cypress_ver}-${bundle_rev}"
+}
 
 #####
 # Display a message in red text.
@@ -182,7 +199,7 @@ function install_gem {
 #      removed from the line. (required)
 #   2) A regular expression that will match lines that need to be uncommented.
 #      (required)
-#   3) The file that will be processed.
+#   3) The file that will be processed. (required)
 #####
 function uncomment_line {
   sed -i -e "/$2/ s/$1//" $3
@@ -196,12 +213,23 @@ function uncomment_line {
 function usage {
   cat << HELP_END
 ${0} [--help] [--proxyhost hostname] [--proxyport port]
-[--nlm_user username] [--nlm_passwd password]
+[--nlm_user username] [--nlm_passwd password] [--import[=version]]
+[--cypress=[latest|tag]]
 
 Options:
+  --cypress
+    This option will specify the version of cypress to be installed.  If
+    latest is specified then the most recent stable version will be installed,
+    otherwise, the value provided is assumed to be the Cypress version tag
+    that should be installed. The default value is ${cypress_tag}.
+
   --import
-    This option will cause the latest measure bundle to be imported, and code
-    valuesets to be downloaded from NLM and cached locally.
+    This option will cause a CQM measure bundle to be imported, and code
+    valuesets to be downloaded from NLM and cached locally (if needed). This
+    option can accept a bundle version, which will cause a specific bundle
+    version compatible with the cypress version to be imported. If no value is
+    provided, the latest bundle available for the cypress version will be 
+    assumed.
 
   --nlm_passwd
     The account password that will be used to retrieve clinical valuesets from
@@ -254,10 +282,25 @@ if [ $# -gt 0 ]; then
   #echo "Processing args..."
   while [ $# -gt 0 ]; do
     case "$1" in
-      --import)
-        import_valuesets=1;
-        shift;
+      --import*)
+        import_valuesets=1
+        bundle_rev=${1#--import=}
+        if [ -z $bundle_rev ]; then
+          bundle_rev="latest"
+        fi
+        shift
         ;;
+
+      --cypress*)
+        ver=${1#--cypress=}
+        if [ "$ver" = "latest" ]; then
+          cypress_tag="HEAD"
+        else
+          cypress_tag=$ver
+        fi
+        shift
+        ;;
+        
 
       --proxyhost)
         if [ $# -ge 2 ]; then
@@ -307,6 +350,7 @@ if [ $# -gt 0 ]; then
     esac
   done
 fi
+adjust_for_cypress_version
 
 # Check for mandatory arguments
 if [ $import_valuesets -eq 1 ]; then
@@ -616,6 +660,9 @@ else
   su - -c "git clone https://github.com/projectcypress/cypress.git &> /dev/null" cypress
   success_or_fail $? "done" "failed to clone cypress repo" "Can't continue without the cypress code."
 fi
+echo -n "   Switching to tag ${cypress_tag}: "
+su - -c "cit checkout ${cypress_tag} &> /dev/null" cypress
+success_or_fail $? "done" "failed to switch versions" "Can't continue."
 # install gems needed by cypress
 echo -n "   Installing Cypress gem dependencies: "
 cd ~cypress/cypress; bundle install &> /dev/null
@@ -633,12 +680,18 @@ else
   echo
   # download the measure bundle
   echo -n "   Download latest measure bundle: "
-  su - -c "cd cypress; curl -s -u ${nlm_user}:${nlm_passwd} http://demo.projectcypress.org/bundles/bundle-latest.zip -o ../bundle-latest.zip" cypress
+  su - -c "cd cypress; curl -s -u ${nlm_user}:${nlm_passwd} http://demo.projectcypress.org/bundles/bundle-${complete_bundle_ver}.zip -o ../bundle-${complete_bundle_ver}.zip" cypress
   success_or_fail $? "done" "failed to download bundle" "Can't continue without measure bundle."
   # import the bundle
   echo -n "   Import measure bundle: "
-  su - -c "cd cypress; bundle exec rake bundle:import[../bundle-latest.zip,true] RAILS_ENV=production &> /dev/null" cypress
+  su - -c "cd cypress; bundle exec rake bundle:import[../bundle-${complete_bundle_ver}.zip,true] RAILS_ENV=production &> /dev/null" cypress
   success_or_fail $? "done" "failed to import bundle" "Can't continue without importing bundle."
+  # Cache valuesets
+  if [ $cypress_tag = "v2.0.0" -o $cypress_tag = "V2.0.1" ]; then
+    echo -n "   Downloading clinical valuesets (will take a while): "
+    su - -c "cd cypress; bundle exec rake cypress:cache_valuesets[$nlm_user, $nlm_passwd] RAILS_ENV=production &> /dev/null" cypress
+    success_or_fail $? "done" "failed to cache valuesets" "Can't coneinue without valuesets"
+  fi
 fi
 echo
 
