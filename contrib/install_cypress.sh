@@ -294,7 +294,7 @@ if [ $# -gt 0 ]; then
       --cypress*)
         ver=${1#--cypress=}
         if [ "$ver" = "latest" ]; then
-          cypress_tag="HEAD"
+          cypress_tag="master"
         else
           cypress_tag=$ver
         fi
