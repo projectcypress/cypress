@@ -13,6 +13,10 @@ class Record
   index :bundle_id => 1
 
   def bundle 
-  	Bundle.find(self["bundle_id"])
+    if !self["bundle_id"].nil? 
+  	  Bundle.find(self["bundle_id"])
+    elsif !self["test_id"].nil?
+      ProductTest.find(self["test_id"]).bundle
+    end
   end 
 end

@@ -109,7 +109,7 @@ class ProductTest
   end
 
   def start_date
-    self.bundle['measure_period_start']
+    Time.at(self.bundle['measure_period_start']).gmtime
   end
 
   def end_date
