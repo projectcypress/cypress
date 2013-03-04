@@ -110,6 +110,15 @@ class CalculatedProductTest < ProductTest
     te
   end
   
+
+  def generate_qrda_cat1_test
+    qrda = QrdaProductTest.new(measure_ids: self.measure_ids, 
+                               name: "#{self.name} - QRDA Cat I Test", 
+                               bundle_id: self.bundle_id, 
+                               effective_date: self.effective_date)
+    qrda.save
+    qrda
+  end
   
   def self.product_type_measures(bundle)
     bundle.measures.top_level_by_type("ep") #.where({"population_ids.MSRPOPL" => {"$exists" => false}})

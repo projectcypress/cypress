@@ -31,7 +31,7 @@ gem 'simple_form'
 gem "prawn"
 gem "pdf-reader", '0.9.0'
 
-gem 'thin'
+gem 'thin', :platforms => [:ruby]
 
 
 gem 'cancan', '~> 1.6.7'
@@ -59,7 +59,8 @@ group :test, :develop do
 end
 
 group :production do
-  gem 'therubyracer', :platforms => [:ruby, :jruby]
+  gem 'therubyracer', :platforms => [:ruby]
+  gem 'therubyrhino', :platforms => [:jruby]
 end
 
 
