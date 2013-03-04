@@ -653,6 +653,7 @@ fi
 echo -n "   Retrieve Cypress application: "
 if [ -d ~cypress/cypress ]; then
   # already exists, update it
+  su - -c "cd cypress; git co master &> /dev/null" cypress
   su - -c "cd cypress; git pull &> /dev/null" cypress
   success_or_fail $? "updated" "failed to pull updates" "Can't continue without the cypress code."
   cd ..
