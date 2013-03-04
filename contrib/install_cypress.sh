@@ -294,7 +294,7 @@ if [ $# -gt 0 ]; then
       --cypress*)
         ver=${1#--cypress=}
         if [ "$ver" = "latest" ]; then
-          cypress_tag="HEAD"
+          cypress_tag="master"
         else
           cypress_tag=$ver
         fi
@@ -661,7 +661,7 @@ else
   success_or_fail $? "done" "failed to clone cypress repo" "Can't continue without the cypress code."
 fi
 echo -n "   Switching to tag ${cypress_tag}: "
-su - -c "cit checkout ${cypress_tag} &> /dev/null" cypress
+su - -c "cd cypress; git checkout ${cypress_tag} &> /dev/null" cypress
 success_or_fail $? "done" "failed to switch versions" "Can't continue."
 # install gems needed by cypress
 echo -n "   Installing Cypress gem dependencies: "
