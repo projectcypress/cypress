@@ -282,6 +282,11 @@ if [ $# -gt 0 ]; then
   #echo "Processing args..."
   while [ $# -gt 0 ]; do
     case "$1" in
+      --import)
+        import_valuesets=1
+        shift
+        ;;
+
       --import*)
         import_valuesets=1
         bundle_rev=${1#--import=}
@@ -412,6 +417,14 @@ read -p "Do you want to continue (y/N)? " doit
 if [ "$doit" == "" -o "${doit//N/n}" == "n" ]; then
   abort "Aborting per user request."
 fi
+
+##########
+# Task 0: Install expect package
+# This is only used during the installation of cypress.
+##########
+echo -n "Install expect: "
+install_pkg "expect"
+echo
 
 ##########
 # Task 1: Install SSH server if necessary
@@ -636,8 +649,10 @@ echo -n "   Create cypress user: "
 id cypress &> /dev/null
 if [ $? -eq 0 ]; then
   success "already exists"
+  # unlock cypress users password
+  passwd -u cypress &> /dev/null
 else
-  useradd -m -s /bin/bash -G sudo cypress
+  useradd -m -s /bin/bash -G sudo -p '$6$jbbKzIjg$mHlKBYMOX6JO9sJhEuP9ad3OBVPZFrhTEfPAFgGAExkVLCC5AmYnXUlmTik33jsPnExDvYZppo8a/vC8SMZ0V1' cypress
   success_or_fail $? "done" "failed"
 fi
 # add cypress user to sudo group
@@ -653,7 +668,7 @@ fi
 echo -n "   Retrieve Cypress application: "
 if [ -d ~cypress/cypress ]; then
   # already exists, update it
-  su - -c "cd cypress; git co master &> /dev/null" cypress
+  su - -c "cd cypress; git checkout master &> /dev/null" cypress
   su - -c "cd cypress; git pull &> /dev/null" cypress
   success_or_fail $? "updated" "failed to pull updates" "Can't continue without the cypress code."
   cd ..
@@ -666,8 +681,12 @@ su - -c "cd cypress; git checkout ${cypress_tag} &> /dev/null" cypress
 success_or_fail $? "done" "failed to switch versions" "Can't continue."
 # install gems needed by cypress
 echo -n "   Installing Cypress gem dependencies: "
-cd ~cypress/cypress; bundle install &> /dev/null
+#cd ~cypress/cypress; bundle install &> /dev/null
+#su - -c "cd cypress; expect -c \"set timeout 600\" -c \"spawn bundle install\" -c \"expect system:\" -c \"send CypressPwd\" -c \"expect eof\" &> /dev/null" cypress
+su - -c "cd cypress; bundle install" cypress
 success_or_fail $? "done" "failed"
+# lock cypress user's password
+passwd --lock cypress &> /dev/null
 echo
 
 ##########
@@ -680,7 +699,7 @@ if [ $import_valuesets -eq 0 ]; then
 else
   echo
   # download the measure bundle
-  echo -n "   Download latest measure bundle: "
+  echo -n "   Download latest measure bundle (${complete_bundle_ver}): "
   su - -c "cd cypress; curl -s -u ${nlm_user}:${nlm_passwd} http://demo.projectcypress.org/bundles/bundle-${complete_bundle_ver}.zip -o ../bundle-${complete_bundle_ver}.zip" cypress
   success_or_fail $? "done" "failed to download bundle" "Can't continue without measure bundle."
   # import the bundle
