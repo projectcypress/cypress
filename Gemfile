@@ -6,13 +6,13 @@ gem 'jquery-rails'
 gem 'rake'
 
 
-#gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
 
 
-gem 'quality-measure-engine', '~> 2.3.0'
-# gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
+#gem 'quality-measure-engine', '~> 2.3.0'
+gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
 
-gem 'health-data-standards', '~> 3.0.6'
+#gem 'health-data-standards', '~> 3.0.6'
 
 
 #gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient-generator.git', :branch => 'develop'
@@ -22,7 +22,7 @@ gem "delayed_job_mongoid_web", :git => 'https://github.com/rdingwell/delayed_job
 
 gem "mongoid_rails_migrations" , "~>1.0"
 
-
+gem 'highline'
 gem 'state_machine'
 
 gem 'devise', '~> 2.0'

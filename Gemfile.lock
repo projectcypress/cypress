@@ -1,4 +1,36 @@
 GIT
+  remote: https://github.com/pophealth/quality-measure-engine.git
+  revision: 3596fece83c959d5f4d88e4ed5f3ec35fb8c73a5
+  branch: develop
+  specs:
+    quality-measure-engine (2.1.0)
+      delayed_job_mongoid (~> 2.0.0)
+      mongoid (~> 3.0)
+      moped (~> 1.4.2)
+      nokogiri (~> 1.5.5)
+      rubyXL (~> 1.2.10)
+      rubyzip (~> 0.9.9)
+
+GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 7a88cd76aa080e8a14365ca4a4f99325d1ac2eb1
+  branch: develop
+  specs:
+    health-data-standards (3.0.6)
+      activesupport (~> 3.2.9)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      google-spreadsheet-ruby (= 0.1.8)
+      log4r (~> 1.1.10)
+      mongoid (~> 3.1.0)
+      nokogiri (~> 1.5.5)
+      rest-client (~> 1.6.7)
+      roo (= 1.10.1)
+      rubyzip
+      spreadsheet (= 0.6.8)
+      uuid (~> 2.3.5)
+
+GIT
   remote: https://github.com/rdingwell/delayed_job_mongoid_web.git
   revision: 3bc55d3bae167d1291806456fc9e7ec5cee1de96
   branch: develop
@@ -80,19 +112,7 @@ GEM
       oauth (>= 0.3.6)
       oauth2 (>= 0.5.0)
     haml (3.1.7)
-    health-data-standards (3.0.6)
-      activesupport (~> 3.2.9)
-      builder (~> 3.0.0)
-      erubis (~> 2.7.0)
-      google-spreadsheet-ruby (= 0.1.8)
-      log4r (~> 1.1.10)
-      mongoid (~> 3.1.0)
-      nokogiri (~> 1.5.5)
-      rest-client (~> 1.6.7)
-      roo (= 1.10.1)
-      rubyzip
-      spreadsheet (= 0.6.8)
-      uuid (~> 2.3.5)
+    highline (1.6.15)
     hike (1.2.1)
     hqmf2js (1.2.0)
       coffee-script (~> 2.2.0)
@@ -110,7 +130,7 @@ GEM
       thor (~> 0.14)
     json (1.7.6)
     json (1.7.6-java)
-    jwt (0.1.5)
+    jwt (0.1.6)
       multi_json (>= 1.0)
     libv8 (3.3.10.4)
     log4r (1.1.10)
@@ -173,13 +193,6 @@ GEM
       spoon (~> 0.0)
     pry-nav (0.2.3)
       pry (~> 0.9.10)
-    quality-measure-engine (2.3.0)
-      delayed_job_mongoid (~> 2.0.0)
-      mongoid (~> 3.0)
-      moped (~> 1.4.2)
-      nokogiri (~> 1.5.5)
-      rubyXL (~> 1.2.10)
-      rubyzip (~> 0.9.9)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -296,7 +309,8 @@ DEPENDENCIES
   coffee-rails
   delayed_job_mongoid_web!
   devise (~> 2.0)
-  health-data-standards (~> 3.0.6)
+  health-data-standards!
+  highline
   jquery-rails
   minitest
   mocha
@@ -306,7 +320,7 @@ DEPENDENCIES
   prawn
   pry
   pry-nav
-  quality-measure-engine (~> 2.3.0)
+  quality-measure-engine!
   rails (= 3.2.11)
   rake
   sass-rails
