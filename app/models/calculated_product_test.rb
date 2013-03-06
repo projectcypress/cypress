@@ -112,10 +112,12 @@ class CalculatedProductTest < ProductTest
   
 
   def generate_qrda_cat1_test
-    qrda = QrdaProductTest.new(measure_ids: self.measure_ids, 
+    qrda = QRDAProductTest.new(measure_ids: self.measure_ids, 
                                name: "#{self.name} - QRDA Cat I Test", 
                                bundle_id: self.bundle_id, 
-                               effective_date: self.effective_date)
+                               effective_date: self.effective_date,
+                               product_id: self.product_id,
+                               user_id: self.user_id)
     qrda.save
     qrda
   end
