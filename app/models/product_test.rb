@@ -109,7 +109,7 @@ class ProductTest
   end
 
   def start_date
-    end_date.years_ago(1)
+    Time.at(self.bundle['measure_period_start']).gmtime
   end
 
   def end_date
@@ -121,5 +121,18 @@ class ProductTest
     Result.where("value.test_id"=> self.id).order_by(["value.last" , :asc])
   end
 
+  def destroy
+    self.results.destroy
+    self.records.destroy
+    Mongoid.default_session["query_cache"].where({"test_id" => self.id}).remove_all
+    super
+  end
+
+  def delete
+     self.results.destroy
+     self.records.destroy
+     Mongoid.default_session["query_cache"].where({"test_id" => self.id}).remove_all
+    super
+  end
 
 end

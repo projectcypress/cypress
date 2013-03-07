@@ -1,5 +1,5 @@
 <header>
-  <h1>cypress</h1>
+  <h1>cypress</h1> Version: <%= Cypress::Version.current %>
   <nav>
     <span class="username">Welcome, <%= current_user.try(:first_name) || 'New User' %></span>
     <%= link_to "account", edit_user_registration_path %>

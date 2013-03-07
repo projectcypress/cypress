@@ -98,7 +98,7 @@
       </dl>
 
       <dl class="dl-horizontal">
-        <dt>Measurement Period:</dt> <dd><%= display_time(1.year.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
+        <dt>Measurement Period:</dt> <dd><%= display_time(Time.at(@test.start_date).utc)%> - <%= display_time(@test.effective_date) %></dd>
         <dt>Description:</dt> <dd><%= @test.description %></dd>
         <!--<dt>Modules:</dt>-->
       </dl>

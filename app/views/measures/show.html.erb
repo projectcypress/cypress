@@ -88,7 +88,7 @@
       </dl>
 
       <dl class="dl-horizontal">
-        <dt>Measurement Period:</dt> <dd><%= display_time(3.months.ago(Time.at(@test.effective_date).utc))%> - <%= display_time(@test.effective_date) %></dd>
+        <dt>Measurement Period:</dt> <dd><%= display_time(Time.at(@test.start_date).utc)%> - <%= display_time(@test.effective_date) %></dd>
         <dt>Description:</dt> <dd><%= @test.description %></dd>
         <dt>EHR Vendor:</dt><dd><%= @vendor.name %></dd>
       </dl>
@@ -101,7 +101,7 @@
     </section>
 
     <div class="tabs">
-      NQF #
+      CMS / NQF #
       <% @measures_categories.sort.each do |category, measures| %>
         <ul>
           <li><b><%= category %></b></li>
@@ -109,7 +109,7 @@
             <li>
               <a href="<%= product_test_measure_path(@test, measure_def,:execution=> params[:execution]) %>"
                  title="<%= " #{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
-                 class="<%= 'selected' if @measure.id==measure_def.id %>"><%= " #{measure_def.nqf_id} - #{measure_def.sub_id}" %>
+                 class="<%= 'selected' if @measure.id==measure_def.id %>"><%= " #{measure_def['cms_id']} "%> <%= " #{measure_def.nqf_id} - #{measure_def.sub_id}" %>
               </a>
             </li>
           <% end %>
@@ -183,30 +183,32 @@
             <thead>
                  <tr>
             <% if @measure.continuous? %>
-              <th></th>
-               <th>Patients</th>
-               <th>Measure Poplulation</th>
-               <th>Observation Value</th>
+              <th>&nbsp;</th>
+               <th style="text-align: right">Population</th>
+               <th style="text-align: right">Measure Poplulation</th>
+               <th style="text-align: right">Observation Value</th>
             <% else %>
-              <th></th>
-               <th>Patients</th>
-               <th>Denominator</th>
-               <th>Den. Exclusions</th>
-               <th>Numerator</th>
-               <th>Num. Exclusions</th>
-               <th>Exceptions</th>
+              <th>&nbsp;</th>
+               <th style="text-align: right">Population</th>
+               <th style="text-align: right">Denominator</th>
+               <th style="text-align: right">Den. Exclusions</th>
+               <th style="text-align: right">Numerator</th>
+               <th style="text-align: right">Num. Exclusions</th>
+               <th style="text-align: right">Exceptions</th>
             <% end %>
               </tr>
              </thead>
 
                <tr >
                 <td>reported/expected </td>
-                <%= expected_reported(expected_result[QME::QualityReport::POPULATION],reported_result[QME::QualityReport::POPULATION]) %>
+             
+                <%= expected_reported(expected_result[QME::QualityReport::POPULATION],reported_result[QME::QualityReport::POPULATION], {:style=>"text-align: right"}) %>
+     
                <% 
                if @measure.population_ids[QME::QualityReport::MSRPOPL] %>
                 
-                <%= expected_reported(expected_result[QME::QualityReport::MSRPOPL],reported_result[QME::QualityReport::MSRPOPL]) %>                
-                <%= expected_reported(expected_result[QME::QualityReport::OBSERVATION],reported_result[QME::QualityReport::OBSERVATION]) %>
+                <%= expected_reported(expected_result[QME::QualityReport::MSRPOPL],reported_result[QME::QualityReport::MSRPOPL], {:style=>"text-align: right"}) %>   
+                <%= expected_reported(expected_result[QME::QualityReport::OBSERVATION],reported_result[QME::QualityReport::OBSERVATION], {:style=>"text-align: right"}) %>
 
                <% else %>
                   <%[QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,"NUMEX",QME::QualityReport::EXCEPTIONS].each do |code|

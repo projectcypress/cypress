@@ -11,7 +11,7 @@ class InpatientProductTestTest < ActiveSupport::TestCase
   test "should be able to retrieve eh measures for test creation" do 
 
     measures = InpatientProductTest.product_type_measures(Bundle.active.first)
-    assert_equal 3, measures.count, "Measure count incorrect"
+    assert_equal 4, measures.count, "Measure count incorrect"
     types = measures.collect{|m| m.type}.uniq
     assert_equal 1, types.length , "There should only be one unique type entry"
     assert_equal "eh", types[0], "Measure type should be eh"

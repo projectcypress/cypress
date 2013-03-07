@@ -21,7 +21,7 @@ module Cypress
     end
 
     def export(patient)
-      EXPORTER.export(patient,measures,start_time,end_time)
+    EXPORTER.export(patient,measures,start_time,end_time)
     end
 
   end
@@ -75,12 +75,12 @@ module Cypress
       end
       start_date = test_execution.start_date
       end_date = test_execution.end_date
-      measures = test_execution.measures.to_a
+      measures = test_execution.measures.top_level.to_a
       qrda_exporter = Cypress::QRDAExporter.new(measures,start_date,end_date)
       test_execution.records.each do |patient|
         filename = TPG::Exporter.patient_filename(patient)
         json = JSON.pretty_generate(JSON.parse(patient.as_json(:except => [ '_id','measure_id' ]).to_json))
-        html = HealthDataStandards::Export::HTML.export(patient)
+        html = HealthDataStandards::Export::HTML.new.export(patient)
         qrda =  qrda_exporter.export(patient)
         File.open(File.join(path, "html", "#{filename}.html"), "w") {|file| file.write(html)}
         File.open(File.join(path, "json", "#{filename}.json"), "w") {|file| file.write(json)}
@@ -94,7 +94,7 @@ module Cypress
         if patients.first
           test = ProductTest.where({"_id" => patients.first["test_id"]}).first
           if test 
-            measures = test.measures.to_a
+            measures = test.measures.top_level.to_a
             start_time = test.start_date
             end_time = test.end_date
           end
@@ -113,7 +113,11 @@ module Cypress
           safe_last_name = patient.last.gsub("'", '')
           next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"       
           z.put_next_entry("#{next_entry_path}.#{FORMAT_EXTENSIONS[format.to_sym]}") 
-          z << formater.export(patient)
+          if formater == HealthDataStandards::Export::HTML
+            z << formater.new.export(patient)
+          else
+            z << formater.export(patient)
+          end
         end
       end
     end
