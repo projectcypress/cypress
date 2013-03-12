@@ -19,7 +19,7 @@ module Cypress
 
         dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, t.bundle)
         qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], "oid_dictionary"=>dictionary)
-        t.status_message = " Calulating measure #{index} of #{measure_count} - #{measure.display_name}"
+        t.status_message = " Calculating measure #{index} of #{measure_count} - #{measure.display_name}"
         t.save
         qr.calculate(false) 
         result = qr.result

@@ -21,7 +21,7 @@
 # again as the admin user and you are now ready to run this script.
 #
 # This script performs the following tasks:
-#  1) Installs SSH server
+#  1) Installs server support packages
 #  2) Configures system to use an HTTP proxy if necessary
 #  3) Install Git
 #  4) Install RVM and Ruby 1.9.3
@@ -419,17 +419,15 @@ if [ "$doit" == "" -o "${doit//N/n}" == "n" ]; then
 fi
 
 ##########
-# Task 0: Install expect package
-# This is only used during the installation of cypress.
+# Task 1: Install server support packages
 ##########
-echo -n "Install expect: "
+echo "Installing basic server support packages:"
+echo -n "  Update package listings: "
+apt-get update &> /dev/null
+success_or_fail $? "done" "failed" "Can't continue without package lists"
+echo -n "  Install expect: "
 install_pkg "expect"
-echo
-
-##########
-# Task 1: Install SSH server if necessary
-##########
-echo -n "Install SSH server: "
+echo -n "  Install SSH server: "
 install_pkg "openssh-server"
 echo
 
@@ -683,7 +681,7 @@ success_or_fail $? "done" "failed to switch versions" "Can't continue."
 echo -n "   Installing Cypress gem dependencies: "
 #cd ~cypress/cypress; bundle install &> /dev/null
 #su - -c "cd cypress; expect -c \"set timeout 600\" -c \"spawn bundle install\" -c \"expect system:\" -c \"send CypressPwd\" -c \"expect eof\" &> /dev/null" cypress
-su - -c "cd cypress; bundle install" cypress
+su - -c "cd cypress; bundle install &> /dev/null" cypress
 success_or_fail $? "done" "failed"
 # lock cypress user's password
 passwd --lock cypress &> /dev/null
