@@ -43,6 +43,11 @@ class ProductTestsController < ApplicationController
     redirect_to product_path(product)
   end
   
+  def generate_cat1_test
+    test = ProductTest.find(params[:id])
+    qrda = test.generate_qrda_cat1_test
+    redirect_to product_test_path(qrda)
+  end
 
   def status
    @test = ProductTest.find(params[:id])

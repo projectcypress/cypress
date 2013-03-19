@@ -8,7 +8,7 @@ class QRDAProductTest < ProductTest
   end
   
   def execute(params)
-    te = nil 
+    te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i) 
     file = params[:results]
 
     if file.content_type == 'application/zip'
@@ -25,7 +25,8 @@ class QRDAProductTest < ProductTest
       ids = Cypress::ArtifactManager.save_artifacts(file,te)
       te.file_ids = ids
     else
-      te.execution_errors = Cypress::QrdaUtility.validate_cat_1(file.open.read, measures, file.original_file_name)
+
+      te.execution_errors = Cypress::QrdaUtility.validate_cat_1(file.open.read, measures, file.original_filename)
       ids = Cypress::ArtifactManager.save_artifacts(file,te)
       te.file_ids = ids
     end
