@@ -17,6 +17,8 @@ class TestExecution
   scope :ordered_by_date, order_by(:created_at => :desc)
   scope :order_by_state, order_by(:state => :asc)
 
+  after_destroy :destroy_files
+
   state_machine :state , :initial=> :pending do
     
     event :failed do
@@ -75,9 +77,12 @@ class TestExecution
     (!passing? && !failing)
   end
   
-  def files
-    return [] if self.file_ids.nil? || self.file_ids.length == 0
-     Cypress::ArtifactManager.get_artifacts(self.file_ids)
+  def files(glob="*.*")
+     Dir.glob(File.join(self.file_root,glob))
+  end
+
+  def file(name)
+    File.join(file_root,name)
   end
 
   def passing_measures
@@ -108,4 +113,17 @@ class TestExecution
     passing_measures.find{|m| m.id == measure.id}
   end
   
+
+  def file_root
+     root = File.join(APP_CONFIG["file_upload_root"],self.product_test.product.id.to_s, self.product_test.id.to_s,self.id.to_s)
+     unless File.exists?(root)
+       FileUtils.mkdir_p(root)
+     end
+     root
+  end
+
+
+  def self.destroy_files(te)
+    FileUtils.rm_rf(te.file_root)
+  end
 end

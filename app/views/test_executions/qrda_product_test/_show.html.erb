@@ -24,18 +24,26 @@
       </div>      
     </div>
     <%
-  
- doc, error_map, error_attributes =  match_errors(test_execution) %>
+
+ error_mapping = test_execution.files("*.xml").collect do |f|
+  file_errors = test_execution.execution_errors.where({:file_name=> f})
+  doc, error_map, error_attributes = match_errors(test_execution.file(f), file_errors)
+  {doc: doc, error_map: error_map, error_attributes: error_attributes, file: f, file_errors: file_errors}
+ end
+ %>
     <div class="tab-pane" id="xml_validation_errors">
       <% #render :partial => 'test_executions/qrda_product_test/errors', :locals => { :errors => test_execution.execution_errors, :inspection => :xml_validation } %> 
       <h4>Errors</h4>
-       <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: test_execution.execution_errors.by_type(:error).group_by(&:validator), error_map:error_map } %>
-      
+      <% error_mapping.each do |emap| %>
+       <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: emap[:file_errors].by_type(:error).group_by(&:validator), error_map:emap[:error_map] } %>
+       <% end %>
     </div>
     <div class="tab-pane" id="xml_validation_warnings">
      
       <h4>Warnings</h4>
-       <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:warning).group_by(&:validator), error_map:error_map } %>
+      <% error_mapping.each do |emap| %>
+       <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: emap[:file_errors].by_type(:warning).group_by(&:validator), error_map:emap[:error_map] } %>
+       <% end %>
     </div>
 
     
@@ -45,6 +53,10 @@
     <%= render :partial=>"test_executions/subnav.html"%>  
 
     <h3>Vendor Generated XML</h3>
-    <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes, :test_execution=>test_execution}%>
+   
+   <% error_mapping.each do |emap| %>
+     <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>emap[:doc], :error_map=>emap[:error_map], :error_attributes=>emap[:error_attributes], :execution_errors=>emap[:file_errors]}%>
+
+   <% end %>
   </div>
 </div>
