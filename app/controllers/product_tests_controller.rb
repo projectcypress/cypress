@@ -3,7 +3,7 @@ require 'active_support'
 
 class ProductTestsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   def show
     @test = ProductTest.find(params[:id])
     @test_execution = TestExecution.find(params[:test_execution_id]) if params[:test_execution_id]
@@ -72,11 +72,14 @@ class ProductTestsController < ApplicationController
   
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format
   def download
-    test = ProductTest.find(params[:id])
-    format = params[:format]
-    file = Cypress::CreateDownloadZip.create_test_zip(test.id,format)
-    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "Test_#{test.id}._#{format}.zip"
-    file.close
+    data = cache(id: params[:id], format: params[:format]) do 
+      test = ProductTest.find(params[:id])
+      format = params[:format]
+      file = Cypress::CreateDownloadZip.create_test_zip(test.id,format)
+      file.read
+    end
+    send_data data , :type => 'application/zip', :disposition => 'attachment', :filename => "Test_#{params[:id]}._#{params[:format]}.zip"
+   
   end
 
   def delete_note
