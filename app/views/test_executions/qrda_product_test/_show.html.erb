@@ -26,9 +26,10 @@
     </div>
     <%
 
- error_mapping = test_execution.files("*.xml").collect do |f|
-  file_errors = test_execution.execution_errors.where({:file_name=> f})
+  error_mapping = test_execution.files("*.xml").collect do |f|
+  file_errors = test_execution.execution_errors.where({:file_name=> File.basename(f)})
   doc, error_map, error_attributes = match_errors(test_execution.file(f), file_errors)
+
   {doc: doc, error_map: error_map, error_attributes: error_attributes, file: f, file_errors: file_errors}
  end
  %>
@@ -55,10 +56,21 @@
 
     <h3>Vendor Generated XML</h3>
    
-   <% error_mapping.each do |emap| %>
-     <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>emap[:doc], :error_map=>emap[:error_map], :error_attributes=>emap[:error_attributes], :execution_errors=>emap[:file_errors]}%>
+   <% error_mapping.each do |emap|
 
+    %>
+    <div>
+      <span class="expando"> <%= File.basename(emap[:file]) %> </span>
+     <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>emap[:doc], :error_map=>emap[:error_map], :error_attributes=>emap[:error_attributes], :execution_errors=>emap[:file_errors]}%>
+   </div>
    <% end %>
   </div>
 </div>
 <% end %>
+
+<script >
+  $(".expando").click(function(){
+    $(this).next().toggle();
+
+  });
+</script>

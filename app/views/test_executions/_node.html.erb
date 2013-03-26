@@ -1,4 +1,5 @@
 <% 
+return if doc.nil?
 
 error_id = (doc['error_id']) %>
 <div <%=  error_id ? %{id=xerror_#{error_id}} : '' %> class="indent ">
@@ -63,7 +64,7 @@ case node_type(doc.node_type)
          when :text
           %><div class="text"><%= child.content %></div><%
          when :element
-          %> <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes, :test_execution=>test_execution}%><%
+          %> <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes, :execution_errors=>execution_errors}%><%
          when :cdata
            %><%=  render :partial=>"cdata", :locals=>{:cdata=>child}%><%
          when :comment

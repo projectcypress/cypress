@@ -18,6 +18,7 @@ end
    # method used to mark the elements in the document that have errors so they 
   # can be linked to
   def match_errors(doc, errors)
+    doc = Nokogiri::XML(doc) if doc.kind_of? String 
     uuid = UUID.new
     error_map = {}
     error_id = 0
@@ -35,10 +36,12 @@ end
           error_attributes << node
           elem = node.element
         end
+        elem = elem.root if node_type(elem.type) == :document
         if elem
           
           unless elem['error_id']
-            elem['error_id']= uuid.generate1
+
+            elem['error_id']= uuid.generate.to_s
           end
           error_map[location] = elem['error_id']
         end

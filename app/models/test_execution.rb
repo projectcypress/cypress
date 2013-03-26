@@ -82,8 +82,17 @@ class TestExecution
   end
 
   def file(name)
-    File.join(file_root,name)
+    if File.exists?(name)
+      return File.open(name,"r").read
+    end
   end
+
+  def file_data(name)
+    if FileUtil.exists(self.file(name))
+      return File.open(self.file(name),"w").read
+    end
+  end
+
 
   def passing_measures
      m_ids = execution_errors.collect {|ee| "#{ee.measure_id}-#{ee.stratification}"}
@@ -123,7 +132,7 @@ class TestExecution
   end
 
 
-  def self.destroy_files(te)
-    FileUtils.rm_rf(te.file_root)
+  def destroy_files()
+    FileUtils.rm_rf(self.file_root)
   end
 end

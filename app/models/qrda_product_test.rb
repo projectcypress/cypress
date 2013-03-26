@@ -10,7 +10,7 @@ class QRDAProductTest < ProductTest
   def execute(params)
     te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i) 
     te.save
-    binding.pry
+
     file = params[:results]
 puts "execute"
     if file.content_type == 'application/zip'
@@ -21,7 +21,7 @@ puts "execute"
           data = zipfile.read(entry.name)
           File.open(File.join(te.file_root,entry.name), "w") { |io| io.puts data.force_encoding("UTF-8") }
           puts "process entry #{entry.name}"
-          te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i)
+          
           errs = Cypress::QrdaUtility.validate_cat_1(data, measures, entry.name)
           errs.each {|e| e[:file_name]=entry.name}
           errors.concat errs
