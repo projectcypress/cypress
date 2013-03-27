@@ -81,7 +81,7 @@ class MeasuresController < ApplicationController
     results.each do |result|
 
       # Identify the measure to which this result is referring
-      measure = "#{result.value.nqf_id}#{result.value.sub_id}"
+      measure = "#{result.value.measure_id}#{result.value.sub_id}"
       # Add this measure to the patients for easy lookup in both directions (i.e. patients <-> measures)
       patient_index = @patient_list.index{|patient| patient.medical_record_number == result.value.medical_record_id}
       if patient_index

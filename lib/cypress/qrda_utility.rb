@@ -21,7 +21,7 @@ module Cypress
     QRDA_CAT3_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_error"]) )
     QRDA_CAT3_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_warning"]) )
     
-    SUPPLEMENTAL_DATA_MAPPING = {race: "", ethnicity: "", gender: "", postal_code: "", payer: ""}
+    SUPPLEMENTAL_DATA_MAPPING = {race: "2.16.840.1.113883.10.20.27.3.8", ethnicity: "2.16.840.1.113883.10.20.27.3.7", sex: "2.16.840.1.113883.10.20.27.3.6",  payer: "2.16.840.1.113883.10.20.27.3.9"}
     MEASURE_VALIDATORS = {}
 
 
@@ -120,24 +120,42 @@ module Cypress
   #   ret
   # end
 
+
+  def self.extract_supplemental_data(cv)
+    ret = {}
+    SUPPLEMENTAL_DATA_MAPPING.each_pair do |supp, id| 
+      key_hash = {}
+      xpath = "cda:entryRelationship/cda:observation[cda:templateId[@root='#{id}']]"
+      (cv.xpath(xpath) || []).each do |node|
+         value = node.at_xpath('cda:value')
+         count = get_aggregate_count(node)
+         key_hash[{code: value['code'], code_system: value['codeSystem']}] = count
+      end
+      ret[supp.to_s] = key_hash
+    end
+    ret
+  end
+
   def self.find_measure_node(doc,id)
      xpath_measures = %{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"] and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
      return doc.xpath(xpath_measures) 
   end
 
   def self.get_measure_components(n,ids, stratification)
-    results = {}
+    results = {:supplemental_data =>{}}
     ids.each_pair do |k,v|
       val = nil
+      sup = nil
       if (k == CV_POPULATION_CODE)
         msrpopl = ids[QME::QualityReport::MSRPOPL]
-        val = extract_cv_value(n,v,msrpopl, stratification)
+        val, sup = extract_cv_value(n,v,msrpopl, stratification)
       else 
-        val =extract_component_value(n,k,v,stratification)
+        val,sup =extract_component_value(n,k,v,stratification)
       end
 
       if !val.nil?
         results[k.to_s] = val
+        results[:supplemental_data][k] = sup
       else
         return nil
       end
@@ -163,7 +181,7 @@ module Cypress
      else
        val = get_cv_value(cv,id)
      end
-    return val
+    return val, (strata.nil? ?  extract_supplemental_data(cv) : nil)
   end
 
   def self.extract_component_value(node, code,id,strata = nil)
@@ -178,7 +196,7 @@ module Cypress
     else
       val = get_aggregate_count(cv)
     end
-    return val
+    return val,(strata.nil? ?  extract_supplemental_data(cv) : nil)
   end
 
 
