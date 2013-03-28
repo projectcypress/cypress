@@ -1,5 +1,6 @@
 require 'validators/schema_validator'
 require 'validators/schematron_validator'
+require 'quality-measure-engine'
 module Cypress
   class QrdaUtility
 
@@ -21,7 +22,10 @@ module Cypress
     QRDA_CAT3_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_error"]) )
     QRDA_CAT3_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_warning"]) )
     
-    SUPPLEMENTAL_DATA_MAPPING = {race: "2.16.840.1.113883.10.20.27.3.8", ethnicity: "2.16.840.1.113883.10.20.27.3.7", sex: "2.16.840.1.113883.10.20.27.3.6",  payer: "2.16.840.1.113883.10.20.27.3.9"}
+    SUPPLEMENTAL_DATA_MAPPING = {QME::QualityReport::RACE=> "2.16.840.1.113883.10.20.27.3.8", 
+                                 QME::QualityReport::ETHNICITY => "2.16.840.1.113883.10.20.27.3.7", 
+                                 QME::QualityReport::SEX => "2.16.840.1.113883.10.20.27.3.6",  
+                                 QME::QualityReport::PAYER => "2.16.840.1.113883.10.20.27.3.9"}
     MEASURE_VALIDATORS = {}
 
 
