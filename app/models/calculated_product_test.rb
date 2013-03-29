@@ -93,7 +93,14 @@ class CalculatedProductTest < ProductTest
            err = "expected #{pop_key} #{_ids[pop_key]} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
            validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
           end
-        end 
+        end
+
+        if !((expected_results["supplemental_data"] || {})[pop_key].nil?) && stratification.nil?
+          if expected_results["supplemental_data"][pop_key] != reported_result[:supplemental_data][pop_key]
+            err "Expected #{pop_key} supplemental data #{expected_results['supplemental_data'][pop_key]} does not match reported supplemental data #{reported_result[:supplemental_data][pop_key]}"
+           validation_errors << ExecutionError.new(message: err, msg_type: :warning, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+          end
+        end
       end
       if !errs.empty?
         

@@ -3,6 +3,19 @@ class PatientsController < ApplicationController
 
   require 'builder'
 
+  caches_action :show
+
+  caches_action :index, :cache_path => proc {
+    patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id], measure_id: params[:measure_id]})
+  }
+
+  caches_action :table_all, :cache_path => proc {
+    table_all_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id]})
+   }
+
+  caches_action :table_measure, :cache_path => proc {
+    table_measure_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id], measure_id: params[:measure_id]})
+  }
   
   before_filter :authenticate_user!
   before_filter :find_bundle_or_active
@@ -105,14 +118,17 @@ class PatientsController < ApplicationController
 
   #send user record associated with patient
   def download
-    file = nil
-    if params[:id]
-      file = Cypress::CreateDownloadZip.create_patient_zip(Record.find(params[:id]),params[:format])
-    else
-      file = Cypress::CreateDownloadZip.create_zip(@bundle.records, params[:format])
+    data = cache(id: params[:id],format: params[:format],bundle_id:  params[:bundle_id]) do 
+      file = nil
+      if params[:id]
+        file = Cypress::CreateDownloadZip.create_patient_zip(Record.find(params[:id]),params[:format])
+      else
+        file = Cypress::CreateDownloadZip.create_zip(@bundle.records, params[:format])
+      end
+      file.read
     end
 
-    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_#{params[:id]}_#{params[:format]}.zip"
+    send_data data, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_#{params[:id]}_#{params[:format]}.zip"
   end
 
   private

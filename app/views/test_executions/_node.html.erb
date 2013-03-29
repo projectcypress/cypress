@@ -16,16 +16,29 @@ error_id = (doc['error_id']) %>
 
 case node_type(doc.node_type)
   when :element
+
+    prefix = doc.namespace.nil? ? "" : (doc.namespace.prefix || "")
+    doc_name = prefix == "" ? doc.name : "#{prefix}:#{doc.name}"
 %>
 <div <%=  error_id ? "class='error'".html_safe : '' %> >
-<% if error_id %><i class="icon icon-white icon-comment pull-right" data-error="<%= %{error_#{error_id}} %>"></i><% end %><span class="markup">&lt;</span><span class="start-tag "><%= doc.name %></span>
+<% if error_id %><i class="icon icon-white icon-comment pull-right" data-error="<%= %{error_#{error_id}} %>"></i><% end %><span class="markup">&lt;</span><span class="start-tag "><%= doc_name  %></span>
+<%
+  doc.namespace_definitions.each do |ns| 
+  ns_prefix = ns.prefix.nil? ? "xmlns" : "xmlns:#{ns.prefix}"
+%>
+  <span class="attribute-name"> <%=ns_prefix%>="<%=ns.href%>"</span>
+<%
+  end
+%>
 
 <%
  doc.attributes.each do |att| 
   attribute = att[1]
   if attribute.name != 'error_id' 
+    att_prefix = attribute.namespace.nil? ? "" : (attribute.namespace.prefix || "")
+    att_name = att_prefix == "" ? attribute.name : "#{att_prefix}:#{attribute.name}"
  %>
-<span class="attribute-name <%= error_attributes.index(attribute) ? 'attribute_error' : '' %>"> <%= attribute.name %></span><span class="markup">=</span><span class="attribute-value">"<%=attribute.value %>"</span><%  end 
+<span class="attribute-name <%= error_attributes.index(attribute) ? 'attribute_error' : '' %>"> <%= att_name %></span><span class="markup">=</span><span class="attribute-value">"<%=attribute.value %>"</span><%  end 
  end
  when :document
  %>
@@ -60,7 +73,7 @@ case node_type(doc.node_type)
        end
      end
      if node_type(doc.node_type) == :element
-        %><span class="markup">&lt;/</span><span class="end-tag"><%= doc.name %></span><span class="markup">&gt;</span><% 
+        %><span class="markup">&lt;/</span><span class="end-tag"><%= doc_name %></span><span class="markup">&gt;</span><% 
      end
      
 else 

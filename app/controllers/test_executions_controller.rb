@@ -1,6 +1,7 @@
 class TestExecutionsController < ApplicationController  
 
-  
+  caches_action :download
+
   def show
     @test_execution = TestExecution.find(params[:id])
      respond_to do |format|
