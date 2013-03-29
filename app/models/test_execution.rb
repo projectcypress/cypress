@@ -3,7 +3,7 @@ class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps::Created
  
-  mount_uploader :uploaded_file, DocumentUploader
+  has_one :artifact
   
   belongs_to :product_test
   

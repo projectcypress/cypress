@@ -134,8 +134,7 @@ class CalculatedProductTest < ProductTest
 
     te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results, 
                                      matched_results: matched_results, execution_errors: validation_errors)
-    ids = Cypress::ArtifactManager.save_artifacts(qrda_file,te)
-    te.file_ids = ids
+    te.artifact = Artifact.new(:file => qrda_file)    
     te.save
     
     (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
