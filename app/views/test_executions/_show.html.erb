@@ -27,7 +27,7 @@
     </div>
 
 
-  <% doc, error_map, error_attributes =  match_errors(test_execution) %>
+  <% doc, error_map, error_attributes =  match_errors("",test_execution.execution_errors) %>
 
     <div class="tab-pane" id="test_measure_errors">
       <!-- %# render :partial => 'calculated_product_test/errors', :locals => { :errors => test_execution.execution_errors} %> -->
@@ -102,7 +102,7 @@
   <div id="xml_frame">
     <%= render :partial=>"test_executions/subnav.html"%>  
     <h3>Vendor Generated XML</h3>
-    <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes, :test_execution=>test_execution}%>
+    <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes, :execution_errors=>test_execution.execution_errors}%>
   </div>
 </div>
 

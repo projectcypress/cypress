@@ -3,7 +3,10 @@ class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps::Created
  
+  mount_uploader :uploaded_file, DocumentUploader
+  
   belongs_to :product_test
+  
   embeds_many :execution_errors
   field :required_modules, type: Array
   field :expected_results, type: Hash

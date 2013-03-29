@@ -43,6 +43,77 @@ class CalculatedProductTest < ProductTest
   after_create :generate_population
 
 
+  # def execute(params)
+
+  #   qrda_file = params[:results]
+  #   data = qrda_file.open.read
+  #   doc = Nokogiri::XML(data)
+    
+  #   matched_results = {}
+  #   reported_results = {}
+    
+  #   validation_errors = Cypress::QrdaUtility.validate_cat3(data) || [] 
+ 
+   
+    
+  #   expected_results.each_pair do |key,expected_result|
+  #     result_key = expected_result["population_ids"].dup
+  #     reported_result, errors = Cypress::QrdaUtility.extract_results_by_ids(doc,expected_result["measure_id"], result_key) 
+  #     reported_results[key] = reported_result 
+     
+      
+  #     if reported_result.nil? || reported_result.keys.length <=1
+  #       message = "Could not find entry for measure #{expected_result["measure_id"]} with the following population ids "   
+  #       message +=  result_key.inspect
+  #       validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , stratification: result_key['stratification'], validator_type: :result_validation)
+  #     end
+
+  #     matched_result = {measure_id: expected_result["measure_id"], sub_id: expected_results["sub_id"]}
+  #     matched_results[key] = matched_result
+  #     reported_result ||= {}
+  #     errs = []
+
+  #     _ids = expected_result["population_ids"].dup
+  #     # remove the stratification entry if its there, not needed to test against values
+  #     stratification = _ids.delete("stratification")
+
+      
+  #     _ids.keys.each do |pop_key| 
+  #        #pop_key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
+
+  #       if !expected_result[pop_key].nil?
+  #         matched_result[pop_key] = {:expected=>expected_result[pop_key], :reported=>reported_result[pop_key]}
+  #         # only add the error that they dont match if there was an actual result
+  #         if !reported_result.empty? && !reported_result.has_key?(pop_key)
+  #           message = "Could not find value"
+  #           message += " for stratification #{stratification} " if stratification
+  #           message += " for Population #{pop_key}"
+  #           validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+  #         elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
+  #          err = "expected #{pop_key} #{_ids[pop_key]} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
+  #          validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+  #         end
+  #       end 
+  #     end
+  #     if !errs.empty?
+        
+  #     end
+  #   end    
+
+  #   te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results, 
+  #                                    matched_results: matched_results, execution_errors: validation_errors)
+  #   ids = Cypress::ArtifactManager.save_artifacts(qrda_file,te)
+  #   te.file_ids = ids
+  #   te.save
+    
+  #   (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
+  #   te
+  # end
+  
+
+
+
+
   def execute(params)
 
     qrda_file = params[:results]
@@ -54,50 +125,11 @@ class CalculatedProductTest < ProductTest
     
     validation_errors = Cypress::QrdaUtility.validate_cat3(data) || [] 
  
-   
-    
     expected_results.each_pair do |key,expected_result|
       result_key = expected_result["population_ids"].dup
       reported_result, errors = Cypress::QrdaUtility.extract_results_by_ids(doc,expected_result["measure_id"], result_key) 
       reported_results[key] = reported_result 
-     
-      
-      if reported_result.nil? || reported_result.keys.length <=1
-        message = "Could not find entry for measure #{expected_result["measure_id"]} with the following population ids "   
-        message +=  result_key.inspect
-        validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , stratification: result_key['stratification'], validator_type: :result_validation)
-      end
-
-      matched_result = {measure_id: expected_result["measure_id"], sub_id: expected_results["sub_id"]}
-      matched_results[key] = matched_result
-      reported_result ||= {}
-      errs = []
-
-      _ids = expected_result["population_ids"].dup
-      # remove the stratification entry if its there, not needed to test against values
-      stratification = _ids.delete("stratification")
-
-      
-      _ids.keys.each do |pop_key| 
-         #pop_key = Cypress::QrdaUtility::POPULATION_CODE_MAPPINGS[pop_id]
-
-        if !expected_result[pop_key].nil?
-          matched_result[pop_key] = {:expected=>expected_result[pop_key], :reported=>reported_result[pop_key]}
-          # only add the error that they dont match if there was an actual result
-          if !reported_result.empty? && !reported_result.has_key?(pop_key)
-            message = "Could not find value"
-            message += " for stratification #{stratification} " if stratification
-            message += " for Population #{pop_key}"
-            validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
-          elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
-           err = "expected #{pop_key} #{_ids[pop_key]} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
-           validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
-          end
-        end 
-      end
-      if !errs.empty?
-        
-      end
+      validation_errors.concat ProductTest.match_calculation_results(expected_result,reported_result)
     end    
 
     te = self.test_executions.build(expected_results:self.expected_results,  reported_results: reported_results, 
@@ -110,6 +142,9 @@ class CalculatedProductTest < ProductTest
     te
   end
   
+
+
+
 
   def generate_qrda_cat1_test
     qrda = QRDAProductTest.new(measure_ids: self.measure_ids, 

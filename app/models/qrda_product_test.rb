@@ -37,7 +37,12 @@ puts "execute"
       te.execution_errors = Cypress::QrdaUtility.validate_cat_1(file.open.read, measures, file.original_filename)
       FileUtils.cp(file.path, File.join(te.file_root, "UPLOAD")) 
     end
+    te.uploaded_file = file
     te.save
+
+
+     # calculate the measures based off of the imported patients 
+
     (te.count_errors > 0) ? te.failed : te.pass
     te
   end
