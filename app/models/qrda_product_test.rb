@@ -9,9 +9,10 @@ class QRDAProductTest < ProductTest
   
   def execute(params)
     te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i) 
-
+    te.save
     file = params[:results]
-    artifact = Artifact.new(:file=> file)
+    artifact = Artifact.new(:file=> file, test_execution: te)
+    artifact.save
     validation_errors = []
     artifact.each_file do |name, data|
       errs = Cypress::QrdaUtility.validate_cat_1(data, measures, name)

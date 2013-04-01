@@ -46,4 +46,13 @@ test "should be able to create and execute a test" do
 	
   end
 
+
+  test "should be able to test an archive of qrda files"  do 
+
+
+  end
+
+
+  
+
 end

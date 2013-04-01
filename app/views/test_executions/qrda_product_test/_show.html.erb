@@ -26,17 +26,21 @@
     </div>
     <%
 
-  error_mapping = test_execution.files("*.xml").collect do |f|
-  file_errors = test_execution.execution_errors.where({:file_name=> File.basename(f)})
-  doc, error_map, error_attributes = match_errors(test_execution.file(f), file_errors)
-
-  {doc: doc, error_map: error_map, error_attributes: error_attributes, file: f, file_errors: file_errors}
- end
+  error_mapping=[]
+  unless test_execution.new_record?
+    test_execution.artifact.each_file do |name, data|
+      file_errors = test_execution.execution_errors.where({:file_name=> name})
+      doc, error_map, error_attributes = match_errors(data, file_errors)
+      error_mapping<<{doc: doc, error_map: error_map, error_attributes: error_attributes, file: name, file_errors: file_errors}
+   end
+  end
  %>
     <div class="tab-pane" id="xml_validation_errors">
       <% #render :partial => 'test_executions/qrda_product_test/errors', :locals => { :errors => test_execution.execution_errors, :inspection => :xml_validation } %> 
       <h4>Errors</h4>
-      <% error_mapping.each do |emap| %>
+      <% error_mapping.each do |emap| 
+
+        %>
        <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: emap[:file_errors].by_type(:error).group_by(&:validator), error_map:emap[:error_map] } %>
        <% end %>
     </div>

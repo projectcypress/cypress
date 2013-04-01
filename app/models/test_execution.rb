@@ -3,7 +3,7 @@ class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps::Created
  
-  has_one :artifact
+  has_one :artifact, autosave: true
   
   belongs_to :product_test
   
@@ -20,7 +20,7 @@ class TestExecution
   scope :ordered_by_date, order_by(:created_at => :desc)
   scope :order_by_state, order_by(:state => :asc)
 
-  after_destroy :destroy_files
+
 
   state_machine :state , :initial=> :pending do
     
@@ -80,20 +80,9 @@ class TestExecution
     (!passing? && !failing)
   end
   
-  def files(glob="*.*")
-     Dir.glob(File.join(self.file_root,glob))
-  end
-
-  def file(name)
-    if File.exists?(name)
-      return File.open(name,"r").read
-    end
-  end
-
-  def file_data(name)
-    if FileUtil.exists(self.file(name))
-      return File.open(self.file(name),"w").read
-    end
+  def files
+    return [] if self.file_ids.nil? || self.file_ids.length == 0
+     Cypress::ArtifactManager.get_artifacts(self.file_ids)
   end
 
 
@@ -126,16 +115,5 @@ class TestExecution
   end
   
 
-  def file_root
-     root = File.join(APP_CONFIG["file_upload_root"],self.product_test.product.id.to_s, self.product_test.id.to_s,self.id.to_s)
-     unless File.exists?(root)
-       FileUtils.mkdir_p(root)
-     end
-     root
-  end
-
-
-  def destroy_files()
-    FileUtils.rm_rf(self.file_root)
-  end
+  
 end
