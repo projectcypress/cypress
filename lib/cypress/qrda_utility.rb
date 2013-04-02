@@ -15,7 +15,7 @@ module Cypress
     QRDA_CAT1_SCHEMATRON_ROOT= QRDA_CAT1_SCHEMATRON_CONFIG["root"]
     QRDA_CAT3_SCHEMATRON_ROOT= QRDA_CAT3_SCHEMATRON_CONFIG["root"]
 
-    QRDA_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("QRDA Cat I schema validator", APP_CONFIG["validation"]["schema"]["qrda_cat_1"])
+    QRDA_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("CDA Schema validator", APP_CONFIG["validation"]["schema"]["qrda_cat_1"])
     QRDA_CAT1_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat I Schematron", File.join(QRDA_CAT1_SCHEMATRON_ROOT, QRDA_CAT1_SCHEMATRON_CONFIG["generic_error"]) )
     QRDA_CAT1_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat I Schematron", File.join(QRDA_CAT1_SCHEMATRON_ROOT, QRDA_CAT1_SCHEMATRON_CONFIG["generic_warning"]) )
     
@@ -104,25 +104,6 @@ module Cypress
       results
 
     end
-
-  
-
-  # def self.extract_supplemental_data(n,code,id)
-  #   xpath_observation = %{ cda:component/cda:observation[./cda:value[@code = "#{code}"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{id.upcase}']]}
-  #   cv = node.at_xpath(xpath_observation)
-  #   ret = {}
-  #   SUPPLEMENTAL_DATA_MAPPING.each_pair do |supp, id| 
-  #     key_hash = {}
-  #     xpath = "cda:observation[cda:templateId[@root=#{id}]"
-  #     (doc.xpath(xpath) || []).each do |node|
-  #        value = node.at_xpath('')
-  #        count = get_aggregate_count(node)
-  #        key_hash[{code: value['code'], code_system: value['codeSystem']}] = count
-  #     end
-  #     ret[supp.to_s] = key_hash
-  #   end
-  #   ret
-  # end
 
 
   def self.extract_supplemental_data(cv)
