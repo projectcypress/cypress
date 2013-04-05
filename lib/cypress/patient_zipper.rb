@@ -95,7 +95,7 @@ module Cypress
           test = ProductTest.where({"_id" => patients.first["test_id"]}).first
           if test 
             measures = test.measures.top_level.to_a
-            start_time = test.start_date
+            start_date = test.start_date
             end_time = test.end_date
           end
         end
