@@ -1,10 +1,11 @@
 <% 
+return if doc.nil?
 
 error_id = (doc['error_id']) %>
 <div <%=  error_id ? %{id=xerror_#{error_id}} : '' %> class="indent ">
   <% if error_id %>
   <%
-      test_execution.execution_errors.where({:location=>error_map.invert[error_id]}).order_by([:msg_type,1]).each do |err|
+      execution_errors.where({:location=>error_map.invert[error_id]}).order_by([:msg_type,1]).each do |err|
         %>
         <span class='error_popup' id="error_<%=err.id%>" rel="popover" data-placement="top" data-original-title="<%= err.msg_type.to_sym == :error ? 'Error' : 'Warning'  %>" data-content="<%= err.message%>"></span>
         <%
@@ -63,7 +64,7 @@ case node_type(doc.node_type)
          when :text
           %><div class="text"><%= child.content %></div><%
          when :element
-          %> <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes, :test_execution=>test_execution}%><%
+          %> <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes, :execution_errors=>execution_errors}%><%
          when :cdata
            %><%=  render :partial=>"cdata", :locals=>{:cdata=>child}%><%
          when :comment

@@ -135,4 +135,53 @@ class ProductTest
     super
   end
 
+
+  def self.match_calculation_results(expected_result,reported_result)
+
+    validation_errors = []
+    _ids = expected_result["population_ids"].dup
+    if reported_result.nil? || reported_result.keys.length <=1
+      message = "Could not find entry for measure #{expected_result["measure_id"]} with the following population ids "   
+      message +=  _ids.inspect
+      validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , stratification: _ids['stratification'], validator_type: :result_validation)
+    end
+
+    _ids = expected_result["population_ids"].dup
+    # remove the stratification entry if its there, not needed to test against values
+    stratification = _ids.delete("stratification")
+
+    
+    _ids.keys.each do |pop_key| 
+     
+
+      if !expected_result[pop_key].nil?
+       
+        # only add the error that they dont match if there was an actual result
+        if !reported_result.empty? && !reported_result.has_key?(pop_key)
+          message = "Could not find value"
+          message += " for stratification #{stratification} " if stratification
+          message += " for Population #{pop_key}"
+          validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+        elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
+         err = "expected #{pop_key} #{_ids[pop_key]} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
+         validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+        end
+           # Check supplemental data elements
+        ex_sup = (expected_result["supplemental_data"] || {})[pop_key]
+        if stratification.nil? && ex_sup
+          reported_sup  = (reported_result[:supplemental_data] || {})[pop_key]
+          if ex_sup != reported_sup
+           err = "expected supplemental data for #{pop_key} #{ex_sup}  does not match reported supplemental data #{reported_sup}"
+           validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+          end
+        end
+      end 
+    end
+     
+    validation_errors
+  
+  end
+
+
+
 end

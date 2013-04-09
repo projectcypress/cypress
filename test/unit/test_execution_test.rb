@@ -39,6 +39,14 @@ class TestExecutionTest < ActiveSupport::TestCase
     assert_equal :passed, te.state
     
   end
+
+
+  test "should be able to store an artifact"  do
+
+  end
+
+
+  
   
   # test "Should know if it passed or failed" do
   #   assert @execution_failed.state == :failed,  "Failing execution reporting it passed"

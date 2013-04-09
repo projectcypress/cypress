@@ -3,7 +3,10 @@ class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps::Created
  
+  has_one :artifact, autosave: true
+  
   belongs_to :product_test
+  
   embeds_many :execution_errors
   field :required_modules, type: Array
   field :expected_results, type: Hash
@@ -16,6 +19,8 @@ class TestExecution
 
   scope :ordered_by_date, order_by(:created_at => :desc)
   scope :order_by_state, order_by(:state => :asc)
+
+
 
   state_machine :state , :initial=> :pending do
     
@@ -80,6 +85,7 @@ class TestExecution
      Cypress::ArtifactManager.get_artifacts(self.file_ids)
   end
 
+
   def passing_measures
      m_ids = execution_errors.collect {|ee| "#{ee.measure_id}-#{ee.stratification}"}
      m_ids += execution_errors.collect {|ee| "#{ee.measure_id}"} # here for older tests
@@ -107,5 +113,7 @@ class TestExecution
   def measure_passed?(measure)
     passing_measures.find{|m| m.id == measure.id}
   end
+  
+
   
 end

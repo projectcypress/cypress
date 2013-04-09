@@ -33,8 +33,8 @@ gem "prawn"
 gem "pdf-reader", '0.9.0'
 
 gem 'thin', :platforms => [:ruby]
-
-
+gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'cancan', '~> 1.6.7'
 
 
