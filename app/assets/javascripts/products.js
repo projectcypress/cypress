@@ -17,18 +17,17 @@ $(document).ready(function() {
             $(this).closest('dd').find('input:checkbox').prop('checked', true).change();
     });
 
-    $(".expander").toggle(
+    $(".expander").click(
         function() {
-            $(this).addClass('open');
+            if ($(this).hasClass('open')) {
+                $(this).removeClass('open');
+            }
+            else {
+                $(this).addClass('open')
+            }
             var codeElement = $(this).data('code');
             var codes = $("." + codeElement);
-            codes.show();
-        },
-        function() {
-            $(this).removeClass('open');
-            var codeElement = $(this).data('code');
-            var codes = $("." + codeElement);
-            codes.hide();
+            codes.toggle(50);
         });
 
     $('#new_product,.edit_product').validate({
