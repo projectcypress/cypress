@@ -1,5 +1,5 @@
 class TestExecutionsController < ApplicationController  
-
+  HTML_EXPORTER =  HealthDataStandards::Export::HTML.new
   caches_action :download
 
   def show
@@ -35,5 +35,24 @@ class TestExecutionsController < ApplicationController
     send_file zip.path, :type => 'application/zip', :disposition => 'attachment', :filename => zip_name
   end
   
+
+  def visual_inspection
+     te = TestExecution.find(params[:id])
+     @measures = te.product_test.measures
+     @file = te.artifact.get_file(params[:filename])
+     @doc = Nokogiri::XML(@file)
+     @doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
+     @doc.root.add_namespace_definition("sdtc", "urn:hl7-org:sdtc")
+     patient = @doc.at_xpath("/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name")
+     first_name = patient.at_xpath("./cda:given/text()").to_s
+     last_name = patient.at_xpath("./cda:family/text()").to_s
+
+     @record = te.product_test.records.where({first: first_name, last: last_name}).first
+     
+     @html = HTML_EXPORTER.export(@record)
+     render :text=> @html
+     # binding.pry
+     # @elements = @doc.xpath("//@sdtc:valueSet").collect{|dc| dc.value}.uniq
+  end
 
 end
