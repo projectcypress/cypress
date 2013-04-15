@@ -17,6 +17,7 @@ module Cypress
     end
     
     def perform
+
       # Clone AMA records from Mongo
       @test = ProductTest.find(options["test_id"])
       ama_patients = @test.bundle.records.where(:test_id => nil)

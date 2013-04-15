@@ -80,7 +80,7 @@
     <section class="patient bordered buffered">
 	
       <div class="offset2">
-        <span class="patientname" ><strong><%= @patient.last %></strong>, <%= @patient.first %></span><br>
+        <span class="patientname" ><strong><%= @patient.last %></strong>, <%= @patient.first %> <% if @patient.original_record %> <strong>Original Record</strong> <%= @patient.original_record.last %></strong>, <%= @patient.original_record.first %> <% end %></span>  <br>
         <dl class="dl-horizontal patient">
           <dt>Gender</dt><dd><%= @patient.gender %></dd>
           <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>

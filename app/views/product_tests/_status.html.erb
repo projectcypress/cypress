@@ -48,6 +48,20 @@
                 <li class="ui-menu-item" role="menuitem"></li>
         </ul>
         </div>
+        <% unless test.class == QRDAProductTest %>
+         <div class="span">
+        <p>
+         Generate Category I tests
+        </p>
+        <p>
+                 <%= link_to "Generate", generate_cat1_test_product_test_path(test), {
+                      :id => 'results_menu',
+                      :class => "cmd"
+                    } %>
+              </p>
+        </ul>
+        </div>
+        <% end %>
     </div>
     </section>
     <% else %>

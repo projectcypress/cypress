@@ -45,8 +45,10 @@ class ProductTestsController < ApplicationController
   
   def generate_cat1_test
     test = ProductTest.find(params[:id])
-    qrda = test.generate_qrda_cat1_test
-    redirect_to product_test_path(qrda)
+    unless  test[:qrda_generated]
+     test.generate_qrda_cat1_test
+    end
+    redirect_to product_path(test.product)
   end
 
   def status

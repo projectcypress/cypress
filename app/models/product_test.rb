@@ -168,20 +168,40 @@ class ProductTest
         end
            # Check supplemental data elements
         ex_sup = (expected_result["supplemental_data"] || {})[pop_key]
-        if stratification.nil? && ex_sup
-          reported_sup  = (reported_result[:supplemental_data] || {})[pop_key]
-          if ex_sup != reported_sup
-           err = "expected supplemental data for #{pop_key} #{ex_sup}  does not match reported supplemental data #{reported_sup}"
-           validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+        reported_sup  = (reported_result[:supplemental_data] || {})[pop_key]
+        if stratification.nil? && ex_sup 
+
+          sup_keys = ex_sup.keys.reject{|k| k == "" || k.nil?}
+          # check to see if we expect sup data and if they provide it a short circuit the rest of the testing 
+          # if they do not
+          if sup_keys.length>0 && reported_sup.nil?
+              err = "supplemental data for #{pop_key} not found expected  #{ex_sup}"
+              validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+          else
+            # for each supplemental data item (RACE, ETHNICITY,PAYER,SEX)
+            sup_keys.each do |sup_key|  
+
+             
+              sup_value  = (ex_sup[sup_key] || {}).reject{|k,v| (k.nil? || k == "" || v.nil? || v=="")}
+              reported_sup_value = reported_sup[sup_key]
+              if reported_sup_value.nil? 
+                err = "supplemental data for #{pop_key} #{sup_key} #{sup_value} expected but was not found"
+               validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+              else
+                sup_value.each_pair do |code,value|
+                  if value != reported_sup_value[sup_key][code]
+                   err = "expected supplemental data for #{pop_key} #{sup_key} #{code} does not match reported supplemental data #{ reported_sup_value[sup_key][code]}"
+                   validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+                  end
+                end
+              end
+            end
           end
         end
       end 
-    end
-     
+    end    
+
     validation_errors
-  
   end
-
-
 
 end
