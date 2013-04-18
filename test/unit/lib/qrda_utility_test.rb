@@ -4,8 +4,11 @@ require 'fileutils'
 class QRDATest < ActiveSupport::TestCase
 
   setup do
+    collection_fixtures('measures', '_id', "bundle_id")
+    collection_fixtures('bundles', '_id')
     xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/QRDA_CATIII_RI_AUG.xml'))
     @doc = Nokogiri::XML(xml_file)
+    @m0004 = Measure.where({"hqmf_id" => "8A4D92B2-3946-CDAE-0139-7944ACB700BD"}).first
   end
 
 
@@ -104,13 +107,33 @@ class QRDATest < ActiveSupport::TestCase
 
   end
 
-  
-  # test "should validate QRDA " do
-  #   xml_file = File.new(File.join(Rails.root, 'test/fixtures/pqri/pqri_2010_1.xml'))
-  #   doc = Nokogiri::XML(xml_file)
-  #   errors = Cypress::PqriUtility.validate(doc)
-  #   assert errors.size , 0,  "Should be 0 errors but there were #{errors}"
-    
-  # end
+  test "should be able to tell when a cat I file is good" do
+     xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/good.xml'))
+     doc = Nokogiri::XML(xml_file)
+     errors = Cypress::QrdaUtility.validate_cat_1(doc,[@m0004])
+     assert errors.empty? , "Should be 0 errors for good cat 1 file"
+  end
+
+  test "should be able to tell when a cat I file is bad do to schema issues" do 
+     xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/bad_schema.xml'))
+     doc = Nokogiri::XML(xml_file)
+     errors = Cypress::QrdaUtility.validate_cat_1(doc,[@m0004])
+     assert_equal 2, errors.length, "Should report 2 errors, one for the schema issue and one for the schematron issue related to the schema issue"
+  end
+
+  test "should be able to tell when a cat I file is bad do to schematron issues" do 
+     xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/bad_schematron.xml'))
+     doc = Nokogiri::XML(xml_file)
+     errors = Cypress::QrdaUtility.validate_cat_1(doc,[@m0004])
+     assert_equal 1, errors.length, "Should report 1 error"
+  end  
+
+  test "should be able to tell when a cat I file is bad do to not including expected measures" do 
+     xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/bad_measure_id.xml'))
+     doc = Nokogiri::XML(xml_file)
+     errors = Cypress::QrdaUtility.validate_cat_1(doc,[@m0004])
+     assert_equal 1, errors.length, "Should report 1 error"
+  end
+
   
 end

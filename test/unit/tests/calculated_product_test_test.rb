@@ -26,6 +26,7 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     
     pt1.generate_qrda_cat1_test
 
+    # should generate a QRDA Cat I test for each measure
     pt1.measures.each do |mes|
       qrda_test = QRDAProductTest.where({calculated_test_id: pt1.id, measure_ids: mes.hqmf_id})
       assert_equal 1, qrda_test.count
@@ -37,6 +38,59 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
       assert_equal pt1.user_id,  qrda.user_id
     end
     
+  end
+
+
+  test "should execute a test with 0 errors for correct cat III file" do 
+    ptest = ProductTest.find("51703a6a3054cf8439000044")
+    xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_good.xml')), "application/xml")
+    te = ptest.execute({results: xml})
+    assert te.execution_errors.empty?, "should be no errors for good cat I archive" 
+  end
+
+
+  test "should cause error  when stratifications are missing" do 
+    ptest = ProductTest.find("51703a6a3054cf8439000044")
+    xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml')), "application/xml")
+    te = ptest.execute({results: xml})
+    # Missing strat for the 1 numerator that has data
+    assert_equal 1,te.execution_errors.length, "should error on missing stratifications" 
+  end
+
+  test "should cause error  when supplemental data is missing" do 
+    ptest = ProductTest.find("51703a6a3054cf8439000044")
+    xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental.xml')), "application/xml")
+    te = ptest.execute({results: xml})
+    # checked 3 times for each numerator -- we should do something about that
+    assert_equal 3 ,te.execution_errors.length, "should error on missing supplemetnal data" 
+  end
+
+  test "should cause error  when not all populations are accounted for" do
+
+    ptest = ProductTest.find("51703a6a3054cf8439000044")
+    xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml')), "application/xml")
+    te = ptest.execute({results: xml})
+
+    assert_equal 1 ,te.execution_errors.length, "should error on missing populations" 
 
   end
+
+  test "should cause error  when the schema structure is bad" do
+    ptest = ProductTest.find("51703a6a3054cf8439000044")
+    xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_bad_schematron.xml')), "application/xml")
+    te = ptest.execute({results: xml})
+    # 3 errors 1 for schema validation and 2 schematron issues for realmcode
+    assert_equal 3, te.execution_errors.length, "should error on bad schematron" 
+  end
+
+  test "should cause error  when measure is not included in report" do
+    ptest = ProductTest.find("51703a6a3054cf8439000044")
+    xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml')), "application/xml")
+    te = ptest.execute({results: xml})
+    # 9 is for all of the sub measures to be searched for
+    assert_equal 9, te.execution_errors.length, "should error on missing measure entry" 
+  end
+
+
+  
 end

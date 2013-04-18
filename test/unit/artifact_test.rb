@@ -11,7 +11,7 @@ class ArtifactTest  < ActiveSupport::TestCase
 
 
 	test "should be able to loop over archive files"  do
-		expected = ["eh_test_results_bad.xml","eh_test_results.xml","expected_results.json","qrda_cat3.xml","QRDA_CATIII_RI_AUG.xml"]
+		expected = ["eh_test_results_bad.xml","eh_test_results.xml","qrda_cat3.xml","QRDA_CATIII_RI_AUG.xml"]
 		reported = {}
 		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
 		artifact = Artifact.new(file: File.new(filename))

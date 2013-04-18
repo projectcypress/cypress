@@ -7,7 +7,7 @@ class QRDAProductTestTest  < ActiveSupport::TestCase
     collection_fixtures('products', '_id')
     collection_fixtures('bundles','_id')
     collection_fixtures('measures','_id','bundle_id')
-    collection_fixtures('records','_id', "bundle_id")
+    collection_fixtures('records','_id', "bundle_id", "test_id")
     collection_fixtures('patient_cache','_id','bundle_id') 
 
   end
@@ -46,9 +46,37 @@ test "should be able to create and execute a test" do
   end
 
 
-  test "should be able to test an archive of qrda files"  do 
+  test "should be able to test a good archive of qrda files"  do 
+    ptest = ProductTest.find("51703a883054cf84390000d3")
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
+    te = ptest.execute({results: zip})
+    assert te.execution_errors.empty?, "should be no errors for good cat I archive" 
+  end
 
 
+  test "should be able to tell when wrong number of documents are supplied in archive" do
+    ptest = ProductTest.find("51703a883054cf84390000d3")
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_many_files.zip'))
+    te = ptest.execute({results: zip})
+    assert_equal 1, te.execution_errors.length , "should be 1 error from cat I archive" 
+  
+  end
+
+
+  test "should be able to tell when wrong names are provided in documents" do
+    ptest = ProductTest.find("51703a883054cf84390000d3")
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_wrong_names.zip'))
+    te = ptest.execute({results: zip})
+    assert_equal 1, te.execution_errors.length , "should be 1 error from cat I archive" 
+  
+  end
+
+  test "should be able to tell when potentially to much data is in documents" do
+    ptest = ProductTest.find("51703a883054cf84390000d3")
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
+    te = ptest.execute({results: zip})
+    assert_equal 1, te.execution_errors.length , "should be 1 error from cat I archive" 
+  
   end
 
 
