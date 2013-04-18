@@ -14,7 +14,10 @@ class DocumentUploader < CarrierWave::Uploader::Base
   end
 
 
- def uploaded_filename 
+  def uploaded_filename 
     self.file.filename
- end 
+  end 
+
+
+  
 end
