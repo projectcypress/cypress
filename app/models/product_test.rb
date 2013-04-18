@@ -144,6 +144,7 @@ class ProductTest
       message = "Could not find entry for measure #{expected_result["measure_id"]} with the following population ids "   
       message +=  _ids.inspect
       validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , stratification: _ids['stratification'], validator_type: :result_validation)
+      return validation_errors
     end
 
     _ids = expected_result["population_ids"].dup
@@ -182,15 +183,15 @@ class ProductTest
             sup_keys.each do |sup_key|  
 
              
-              sup_value  = (ex_sup[sup_key] || {}).reject{|k,v| (k.nil? || k == "" || v.nil? || v=="")}
+              sup_value  = (ex_sup[sup_key] || {}).reject{|k,v| (k.nil? || k == "" || v.nil? || v=="" || v=="UNK")}
               reported_sup_value = reported_sup[sup_key]
               if reported_sup_value.nil? 
                 err = "supplemental data for #{pop_key} #{sup_key} #{sup_value} expected but was not found"
                validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
               else
                 sup_value.each_pair do |code,value|
-                  if value != reported_sup_value[sup_key][code]
-                   err = "expected supplemental data for #{pop_key} #{sup_key} #{code} does not match reported supplemental data #{ reported_sup_value[sup_key][code]}"
+                  if code != "UNK" && value != reported_sup_value[code]
+                   err = "expected supplemental data for #{pop_key} #{sup_key} #{code} value [#{value}] does not match reported supplemental data value [#{ reported_sup_value[code]}]"
                    validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
                   end
                 end
