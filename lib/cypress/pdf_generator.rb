@@ -45,6 +45,7 @@ module Cypress
       set_default_style
 
       summary_section
+      non_qrda_errors_section
       qrda_errors_section
       qrda_warnings_section
       vendor_xml_section
@@ -119,6 +120,23 @@ module Cypress
       errors.each_with_index do |error, index|
         @pdf.text "#{index + 1}. #{error.measure_id} #{error.message}"
       end
+    end
+
+    def non_qrda_errors_section
+      errors = @test_execution.execution_errors.by_type(:error).to_a.reject {|e| e.validation_type == :xml_validation}
+      unless errors.empty?
+        new_section_margin
+        @pdf.text "Errors"
+      end
+      
+      grouped_errors = errors.group_by(&:file_name)
+      grouped_errors.each_pair do |fname, err_group|
+        @pdf.text fname || ""
+        err_group.each_with_index do |error, index|
+         @pdf.text "#{index + 1}. #{error.message}"
+        end
+        @pdf.text  ""
+    end
     end
 
     def qrda_errors_section
