@@ -47,11 +47,7 @@ module Cypress
         
         # validate the mesure specific rules
         measures.each do |measure|
-          # schematron_validator = get_schematron_measure_validator(measure)
-          # if schematron_validator 
-          #   #file_errors.concat schematron_validator.validate(doc, {phase: :errors, msg_type: :error, measure_id: measure.key})
-          #   file_errors.concat schematron_validator.validate(doc, {phase: :warning, msg_type: :warning ,measure_id: measure.key }) 
-          # end
+
 
           # Look in the document to see if there is an entry stating that it is reporting on the given measure
           # we will be a bit lieniant and look for both the version specific id and the non version specific ids
@@ -63,16 +59,8 @@ module Cypress
 
         file_errors
     end
-    
-    private
 
 
-    def self.get_schematron_measure_validator(measure)
-      fname = File.join(QRDA_CAT1_SCHEMATRON_ROOT,QRDA_CAT1_SCHEMATRON_CONFIG["measure_specific_dir"],"#{measure.hqmf_set_id.downcase}.xslt" ) #{APP_CONFIG["validation"]["qrda"]["qrda_cat_1"]["measure_specific_dir"]}/#{measure.hqmf_id.downcase}.xslt"
-      if File.exists?(fname)
-        return MEASURE_VALIDATORS[measure.hqmf_id] ||= Validators::Schematron::CompiledValidator.new("Schematron #{measure.hqmf_set_id} Measure Validator", fname)
-      end
-    end
 
     #takes a document and a list of 1 or more id hashes, e.g.:
     #[{measure_id:"8a4d92b2-36af-5758-0136-ea8c43244986", set_id:"03876d69-085b-415c-ae9d-9924171040c2", ipp:"D77106C4-8ED0-4C5D-B29E-13DBF255B9FF", den:"8B0FA80F-8FFE-494C-958A-191C1BB36DBF", num:"9363135E-A816-451F-8022-96CDA7E540DD"}]
