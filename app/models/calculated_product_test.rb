@@ -7,7 +7,7 @@ class CalculatedProductTest < ProductTest
       p_ids = min_set[:minimal_set]
       ptype = test.kind_of?(InpatientProductTest) ?  "eh" : "ep"
       if p_ids.length < 5
-        r_ids = test.bundle.records.where({}).collect {|r| r.medical_record_number}
+        r_ids = test.bundle.records.where({type: ptype}).collect {|r| r.medical_record_number}
         while p_ids.length < 5
           p_ids << r_ids.sample
         end
@@ -50,7 +50,7 @@ class CalculatedProductTest < ProductTest
     qrda_file = params[:results]
     data = qrda_file.open.read
     doc = Nokogiri::XML(data)
-    
+
     matched_results = {}
     reported_results = {}
     
@@ -58,6 +58,7 @@ class CalculatedProductTest < ProductTest
  
     expected_results.each_pair do |key,expected_result|
       result_key = expected_result["population_ids"].dup
+
       reported_result, errors = Cypress::QrdaUtility.extract_results_by_ids(doc,expected_result["measure_id"], result_key) 
       reported_results[key] = reported_result 
       validation_errors.concat ProductTest.match_calculation_results(expected_result,reported_result)
