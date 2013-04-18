@@ -35,7 +35,7 @@
 	<!-- SHALL have 1..* author. MAY be device or person. 
 		The author of the CDA document in this example is a device at a data submission vendor/registry. -->
 	<author>
-		<time value="<%= Time.now.to_s %>"/>
+		<time value="<%= Time.now.to_formatted_s(:number) %>"/>
 		<assignedAuthor>
 			<!-- Registry author ID -->
 			<id extension="Cypress" root="MITRE"/>
@@ -68,7 +68,7 @@
 	<!-- SHALL -->
 	<legalAuthenticator>
 		<!-- SHALL -->
-		<time value="<%= Time.now.to_s %>"/>
+		<time value="<%= Time.now.to_formatted_s(:number) %>"/>
 		<!-- SHALL -->
 		<signatureCode code="S"/>
 		<assignedEntity>
@@ -235,13 +235,13 @@ Measure Section
 										        displayName="rate aggregation" 
 										        codeSystem="2.16.840.1.113883.5.4" 
 										        codeSystemName="ActCode"/>
+											<value xsi:type="INT" value="<%=pop_value["value"].to_i%>"/>
 
 											<methodCode code="COUNT" displayName="Count"
 												codeSystem="2.16.840.1.113883.5.84"
 												codeSystemName="ObservationMethod"/>
 											<!--  SHALL value xsi:type="INT"-->
-											<value xsi:type="INT" value="<%=pop_value["value"]%>"/>
-										</observation>
+																					</observation>
 									</entryRelationship>
 
 
@@ -302,11 +302,11 @@ Measure Section
 										        displayName="rate aggregation" 
 										        codeSystem="2.16.840.1.113883.5.4" 
 										        codeSystemName="ActCode"/>
-
+										        <value xsi:type="INT" value="<%=strata_value.to_i %>"/>
 											<methodCode code="COUNT" displayName="Count"
 												codeSystem="2.16.840.1.113883.5.84"
 												codeSystemName="ObservationMethod"/>
-													<value xsi:type="INT" value="<%=strata_value %>"/>
+													
 												</observation>
 											</entryRelationship>
 
