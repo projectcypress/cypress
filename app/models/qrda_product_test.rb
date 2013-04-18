@@ -26,9 +26,12 @@ class QRDAProductTest < ProductTest
     validation_errors = []
     file_count = 0
 
+    # collect the datacriteria oids for the measures being tested to see if there are any extra data elements in the qrda
+    oids = self.measures.collect{|m| m.oids}.flatten.uniq
     artifact.each_file do |name, data|
       doc = Nokogiri::XML(data) 
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
+      doc.root.add_namespace_definition("sdtc", "urn:hl7-org:sdtc")
       first = doc.at_xpath("/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given/text()")
       last = doc.at_xpath("/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:family/text()")
       doc_name = "#{first.to_s} #{last.to_s}".upcase
@@ -37,6 +40,14 @@ class QRDAProductTest < ProductTest
          validation_errors << ExecutionError.new(message: "Pateint name '#{doc_name}' declared in file not found in test records'", msg_type: :error, validator_type: :result_validation, file_name: name)
       end
       
+      reported_oids = doc.xpath("//@sdtc:valueSet").collect{|att| att.value}.uniq
+
+      # check for oids in the document not in the meausures
+      disjoint_oids = reported_oids - oids
+      if !disjoint_oids.empty?
+        validation_errors << ExecutionError.new(message: "File appears to contain data criteria outside that required by the measures #{disjoint_oids}'", msg_type: :error, validator_type: :result_validation, file_name: name)
+      end
+
       errs = Cypress::QrdaUtility.validate_cat_1(doc, measures, name)
       errs.each {|e| e[:file_name]=name}
       validation_errors.concat errs
@@ -63,4 +74,6 @@ class QRDAProductTest < ProductTest
   def self.product_type_measures(bundle)
     bundle.measures.top_level
   end
+
+
 end
