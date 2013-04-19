@@ -488,6 +488,9 @@ fi
 # source the RVM environment so we can use it here.
 source /usr/local/rvm/scripts/rvm
 
+echo "Set RVM Autolibs flag to enable"
+/usr/local/rvm/bin/rvm autolibs enable
+
 # Install our ruby version
 echo -n "   Install Ruby: "
 rvm list | grep -q "$install_ruby_ver"
