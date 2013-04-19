@@ -39,21 +39,18 @@
     <div class="tab-pane" id="xml_validation_errors">
       <% #render :partial => 'test_executions/qrda_product_test/errors', :locals => { :errors => test_execution.execution_errors, :inspection => :xml_validation } %> 
       <h4>Errors</h4>
-      <ol>
+    
 
       <%  general_errors  = test_execution.execution_errors.where({:file_name=> nil, :msg_type=>:error})
           if general_errors.count > 0 
        %>
-       <li>
-          <span>General Errors</span>
-            <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: general_errors.group_by(&:validator), error_map:{}} %>
-        </li>
-       <% end %>     
+
+            <%= render :partial=>'test_executions/qrda_product_test/error_list', :locals=>{grouped_errors: general_errors.group_by(&:file_name), error_map:{}} %>
+       <% end %> 
+     <ol>    
       <% error_mapping.each do |emap| %>
-        <li>
-          <span><%= emap[:file] %></span>
-           <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: emap[:file_errors].by_type(:error).group_by(&:validator), error_map:emap[:error_map] } %>
-        </li>
+           <%= render :partial=>'test_executions/qrda_product_test/error_list', :locals=>{grouped_errors: emap[:file_errors].by_type(:error).group_by(&:file_name), error_map:emap[:error_map] } %>
+
        <% end %>
 
      </ol>
@@ -66,16 +63,10 @@
         <%  general_warnings  = test_execution.execution_errors.where({:file_name=> nil, :type=>:msg_warning})
           if general_warnings.count > 0 
        %>
-       <li>
-          <span>General Warnings</span>
-            <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: general_warnings.group_by(&:validator), error_map:{}} %>
-        </li>
+          <%= render :partial=>'test_executions/qrda_product_test/error_list', :locals=>{grouped_errors: general_warnings.group_by(&:file_name), error_map:{}} %>
        <% end %>     
       <% error_mapping.each do |emap| %>
-       <li>
-        <span><%= emap[:file] %></span>
-           <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: emap[:file_errors].by_type(:warning).group_by(&:validator), error_map:emap[:error_map] } %>
-        </li>
+          <%= render :partial=>'test_executions/qrda_product_test/error_list', :locals=>{grouped_errors: emap[:file_errors].by_type(:warning).group_by(&:file_name), error_map:emap[:error_map] } %>
        <% end %>
      </ol>
     </div>
