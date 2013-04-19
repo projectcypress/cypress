@@ -80,7 +80,10 @@
         </thead>
         <% test_execution.product_test.records.each do |rec| %>
         <tr > 
-          <td style="padding: 5px"><%= rec.last %> ,<%= rec.first %></td> <td style="padding: 5px"><%= rec.original_record.last %> ,<%= rec.original_record.first %></td>
+          <td style="padding: 5px"><%= rec.last %> ,<%= rec.first %></td> 
+          <% if rec.original_record %>
+            <td style="padding: 5px"><%= rec.original_record.last %> ,<%= rec.original_record.first %></td>
+          <% end %>  
         </tr>
 
         <% end %>
@@ -108,9 +111,4 @@
 </div>
 <% end %>
 
-<script >
-  $(".expando").click(function(){
-    $(this).next().toggle();
 
-  });
-</script>
