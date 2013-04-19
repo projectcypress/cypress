@@ -13,12 +13,12 @@ class MoveFilesToFilesystem < Mongoid::Migration
 
 					artifact = Artifact.new(file: File.new("#{root}/results.xml"), test_execution: te)
 				  artifact.save
-					te.artifact = artifact
+
 					te.execution_errors.each do |ee| 
 						ee[:file_name] = "results.xml"
 						ee.save
 					end
-					te.save
+			
 				  puts "File for  test execution #{te.id} moved to #{artifact.file.path}"
 			end
 		end
