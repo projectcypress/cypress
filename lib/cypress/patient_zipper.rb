@@ -35,7 +35,7 @@ module Cypress
     def self.zip_artifacts(test_execution)
       execution_path = File.join("tmp", "te-#{test_execution.id}")
       zip_path = File.join(execution_path, "#{Time.now.to_i}")
-
+      FileUtils.mkdir_p(zip_path)
       records = test_execution.product_test.records
       records_path = File.join(zip_path, "records")
       write_patients(test_execution.product_test, records_path)
@@ -44,9 +44,14 @@ module Cypress
       pdf = pdf_generator.generate(zip_path)
 
 
-      if  test_execution.files.length >0 
-        vendor_uploaded_results = test_execution.files[0].data.force_encoding("UTF-8")
-        File.open(File.join(zip_path, "vendor-uploaded-results.xml"), "w") {|file| file.write(vendor_uploaded_results)}
+      if  test_execution.artifact
+        name = test_execution.artifact.file.uploaded_filename
+        path  = test_execution.artifact.file.path
+ 
+        # copy to ziup path 
+        FileUtils.copy(path, zip_path)
+        # vendor_uploaded_results = test_execution.artifact.file.force_encoding("UTF-8")
+        # File.open(File.join(zip_path, "vendor-uploaded-results.xml"), "w") {|file| file.write(vendor_uploaded_results)}
       end 
 
       Zip::ZipFile.open("#{zip_path}.zip", Zip::ZipFile::CREATE) do |zip|
@@ -55,8 +60,8 @@ module Cypress
           zip.add(filename, file)
         end
         zip.add("test-execution-results.pdf", pdf)
-        if  test_execution.files.length >0 
-          zip.add("vendor-uploaded-results.xml", File.join(zip_path, "vendor-uploaded-results.xml"))
+        if  test_execution.artifact
+            zip.add(test_execution.artifact.file.uploaded_filename, File.join(zip_path, test_execution.artifact.file.uploaded_filename))
         end
       end
 
@@ -95,7 +100,7 @@ module Cypress
           test = ProductTest.where({"_id" => patients.first["test_id"]}).first
           if test 
             measures = test.measures.top_level.to_a
-            start_time = test.start_date
+            start_date = test.start_date
             end_time = test.end_date
           end
         end

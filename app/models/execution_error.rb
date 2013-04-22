@@ -8,7 +8,8 @@ class ExecutionError
   field :validation_type, type: String
   field :validator, type: String
   field :stratification, type: String
-  
+  field :location
+  field :file_name
   validates_presence_of :msg_type
   validates_presence_of :message
 

@@ -1,5 +1,28 @@
 
  <% if test.state == "ready" %>
+
+
+
+ <script>
+
+$(document).ready(function(){
+
+    $(document).ajaxSend(function(event, request, settings) {
+        $('#loading').modal();
+    });
+
+    $(document).ajaxComplete(function(event, request, settings) {
+        $('#loading').modal('hide');
+    });
+
+   $(document).ajaxError(function(event, request, settings) {
+        alert("An error occured while retrieving the test execution results");
+    });
+
+  });
+ </script>
+
+ 
       <section class="instructions">
         <div class="row">
           <div class="span10">
@@ -48,6 +71,20 @@
                 <li class="ui-menu-item" role="menuitem"></li>
         </ul>
         </div>
+        <% unless test.class == QRDAProductTest %>
+         <div class="span">
+        <p>
+         Generate Category I tests
+        </p>
+        <p>
+                 <%= link_to "Generate", generate_cat1_test_product_test_path(test), {
+                      :id => 'results_menu',
+                      :class => "cmd"
+                    } %>
+              </p>
+        </ul>
+        </div>
+        <% end %>
     </div>
     </section>
     <% else %>

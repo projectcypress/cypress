@@ -4,6 +4,7 @@ class ProductsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   
   setup do
+
     collection_fixtures('vendors', '_id',"user_ids")
     collection_fixtures('query_cache', 'test_id','bundle_id')
     collection_fixtures('measures','bundle_id')

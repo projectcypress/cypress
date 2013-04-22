@@ -20,7 +20,7 @@ class QrdaExecutionHelperTest < ActionView::TestCase
 	test "map errors" do 
 		qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/QRDA_CATIII_RI_AUG.xml'), "application/xml")
     te = @pt.execute({results: qrda})
-    doc,error_map, error_attr = match_errors(te)
+    doc,error_map, error_attr = match_errors(qrda.read, te.execution_errors)
     assert doc
     assert error_map
     assert error_attr

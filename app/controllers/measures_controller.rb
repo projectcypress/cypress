@@ -59,6 +59,7 @@ class MeasuresController < ApplicationController
   # @coverage - Maps measures to the list of associated patients in both @patient_list and @overflow
   def minimal_set
 
+
     measure_ids = params[:measure_ids]
     bundle = Bundle.find(params[:bundle_id])
     # Find the IDs of all Records for our minimal set and overflow
@@ -67,12 +68,12 @@ class MeasuresController < ApplicationController
     overflow_ids = minimal_set[:overflow]
     
     # Query to find the actual Records for our minmal set and overflow
-    @patient_list = Record.where( { medical_record_number: { "$in" => minimal_ids } } ).order_by([["_id", :desc]]).to_a
-    @overflow = Record.where({ medical_record_number:{ "$in" => overflow_ids } }).to_a
-    
+    @patient_list = bundle.records.where( { medical_record_number: { "$in" => minimal_ids } } ).order_by([["_id", :desc]]).to_a
+    @overflow = bundle.records.where({ medical_record_number:{ "$in" => overflow_ids } }).to_a
+      
     # Get the results that are relevant to the measures and patients the user asked for
     results = Result.where({'value.measure_id' => { "$in" => measure_ids}, 'value.medical_record_id' => { "$in" => minimal_ids | overflow_ids } })
-                    .or({"value.NUMER" => {"$gt" => 0}},{"value.DENOM" => {"$gt" => 0}},{"value.DENEX" => {"$gt" => 0}},{"value.DEXCEP" => {"$gt" => 0}},{"value.antinumerator" => {"$gt" => 0}})
+                    .or({"value.NUMER" => {"$gt" => 0}},{"value.MSRPOPL" => {"$gt" => 0}},{"value.DENOM" => {"$gt" => 0}},{"value.DENEX" => {"$gt" => 0}},{"value.DEXCEP" => {"$gt" => 0}},{"value.antinumerator" => {"$gt" => 0}})
     
     # Use the relevant results to build @coverage of each measure
     @coverage = {}
@@ -80,8 +81,7 @@ class MeasuresController < ApplicationController
     results.each do |result|
 
       # Identify the measure to which this result is referring
-      measure = "#{result.value.measure_id}#{result.value.sub_id}".to_s
-
+      measure = "#{result.value.measure_id}#{result.value.sub_id}"
       # Add this measure to the patients for easy lookup in both directions (i.e. patients <-> measures)
       patient_index = @patient_list.index{|patient| patient.medical_record_number == result.value.medical_record_id}
       if patient_index
@@ -97,7 +97,7 @@ class MeasuresController < ApplicationController
       @coverage[measure] ||= {}
       @coverage[measure][patient._id] = {}
       buckets.each do |bucket|
-        bucket_value = result.value[bucket] ? 1 : 0
+        bucket_value = result.value[bucket] #? 1 : 0
         @coverage[measure][patient._id][bucket] = bucket_value
       end
     end

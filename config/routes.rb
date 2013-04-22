@@ -43,6 +43,7 @@ Cypress::Application.routes.draw do
       post 'email'
       get 'qrda_cat3'
       get 'status'
+      get 'generate_cat1_test'
     end
     
     resources :patients

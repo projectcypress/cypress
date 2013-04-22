@@ -30,7 +30,6 @@ module Cypress
     def self.get_artifacts(artifact_ids)
       ids = [artifact_ids].flatten
       Mongoid::GridFS::Fs::File.in({"_id" => ids})
-     
     end
     
   end

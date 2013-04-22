@@ -1,5 +1,4 @@
 <ol class="validation_list">
-  <% old_eid = 0 %>
   <% grouped_errors.each do |validator,errs| %>
   <li>
     <div><span><%= validator %></span> </div>
@@ -8,7 +7,7 @@
       errs.each do |e| 
       eid = error_map[e.location] 
     %>   
-      <li  <% if old_eid != eid %> class="err_group" <% old_eid = eid end %>>
+      <li>
         <% if eid %>
           <a class="<%= (eid) ? 'qrda_error_link' : '' %>" href="#<%= (eid) ? 'error_'+e.id : '' %>" ><%= e.message %></a>
           <% else %>

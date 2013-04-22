@@ -61,7 +61,8 @@ class PatientPopulation
          patients[p].push entry unless patients[p].index(entry)
       end
     end
-
+    #mix up the list, this will randomize the number of paitents for a test by not placing the 
+    measures_to_patients.shuffle
         
     p_list = []
     m_list = []

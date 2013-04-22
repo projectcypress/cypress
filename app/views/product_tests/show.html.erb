@@ -1,6 +1,7 @@
 <% content_for :head do -%>
 
   <script>
+
 	$(document).ready(function() {
 	      $('#upload_results').dialog({
 	        title: 'Upload Results',
@@ -16,8 +17,13 @@
 	        resizable: false,
 	        buttons: {
 	          Upload: function() {
-	            $('#new_test_execution').submit();
-	            $(this).dialog('close');
+              var ext = $("#test_execution_results").val().split('.').pop().toLowerCase();
+              if( $.inArray(ext, ['xml','zip']) != -1){
+	               $('#new_test_execution').submit();
+	               $(this).dialog('close');
+              } else {
+                alert("Please select either a QRDA Cat III xml file for EP/tests or an Archive of QRDA Cat I files for QRDA Tests");
+              }
 	          },
 	          Cancel: function() {
 	            $(this).dialog('close');
@@ -30,6 +36,9 @@
 	        event.preventDefault();
 	      });
 	});
+
+
+  
 	</script>
 
 <% end %>
@@ -155,11 +164,11 @@
 
          <tr id="te_<%=te.id%>">
            <td class="align-left" colspan="3">
-             <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", 'data-test-id'.to_sym=>te._id %></strong>
+             <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", 'data-test-id'.to_sym=>te._id , :class=>"cmd poppable" %></strong>
            </td>
            <td> </td>
            <td><%= link_to "Download Results", download_test_execution_path(te), :title => "Download the results of this test execution", :class => "cmd" %></td>
-           <td><%= link_to "View Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd' %></td>
+           <td><%= link_to "View Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd poppable' %></td>
            <td class="align-right"><%= link_to 'Delete', test_execution_path(te), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
          </tr>
 
@@ -230,6 +239,14 @@
 </div>
 
 
+
+<div id="loading" class="modal hide fade" tabindex="-1"  aria-labelledby="myModalLabel" aria-hidden="true">
+
+  <div class="modal-body">
+    <p>Loading</p>
+  </div>
+ 
+</div>
 
 <script>
 function showErrorPopup(anchor) {

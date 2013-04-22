@@ -19,4 +19,10 @@ class Record
       ProductTest.find(self["test_id"]).bundle
     end
   end 
+
+  def original_record
+    if self["original_medical_record_number"]
+      return bundle.records.where({"medical_record_number" => self["original_medical_record_number"]}).first
+    end
+  end
 end

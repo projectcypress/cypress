@@ -25,12 +25,11 @@ class PatientZipperTest < ActiveSupport::TestCase
             config.strict
           end
           title = doc.at_css("head title").to_s
-          assert title.include?('Selena Lotherberg') || title.include?('Rosa Vasquez') , "Zip file contains wrong records"
           count += 1 
         end
     end
     File.delete(file.path)
-    assert count == 2 , "Zip file has wrong number of records should be 2 , was #{count}"
+    assert count == 5 , "Zip file has wrong number of records should be 5 , was #{count}"
   end
   
  
@@ -50,12 +49,11 @@ class PatientZipperTest < ActiveSupport::TestCase
           doc = Nokogiri::XML(zip_entry.get_input_stream) do |config|
             config.strict
           end
-          doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
           count += 1
         end
     end
     File.delete(file.path)
-    assert count == 2 , "Zip file has wrong number of records should be 2 , was #{count}"
+    assert count == 5 , "Zip file has wrong number of records should be 5 , was #{count}"
   end
 
   
