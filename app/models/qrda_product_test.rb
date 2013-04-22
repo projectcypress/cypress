@@ -91,7 +91,7 @@ class QRDAProductTest < ProductTest
       # check for oids in the document not in the meausures
       disjoint_oids = reported_oids - HL7_QRDA_OIDS - oids
       if !disjoint_oids.empty?
-        validation_errors << ExecutionError.new(message: "File appears to contain data criteria outside that required by the measures. Valuesets in file not in measures tested #{disjoint_oids}'", msg_type: :error, validator_type: :result_validation, file_name: name)
+        validation_errors << ExecutionError.new(message: "File appears to contain data criteria outside that required by the measures. Valuesets in file not in measures tested #{disjoint_oids}'", msg_type: :warning, validator_type: :result_validation, file_name: name)
       end
 
       errs = Cypress::QrdaUtility.validate_cat_1(doc, measures, name)

@@ -38,13 +38,13 @@
 ##############################################################################
 
 # Variables that determine the versions of components we will install
-cypress_tag="v2.1.0"
+cypress_tag="v2.2.0"
 install_ruby_ver="1.9.3-p286"
 install_bundler_ver="1.2.3"
 install_libxml_ver="2.8.0"
-if [ $cypress_tag = "v2.1.0" ]; then
+if [ $cypress_tag = "v2.2.0" ]; then
   install_nokogiri_ver="1.5.6"
-  cypress_bundle_ver="2.1.0"
+  cypress_bundle_ver="2.2.0"
 else
   install_nokogiri_ver="1.5.5"
   cypress_bundle_ver="2.0.0"
