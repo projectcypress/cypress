@@ -1,5 +1,6 @@
 # yes this is a bit ugly as it is aliasing The measure class but it
 # works for now until we can truley unify these items accross applications
+
 Measure = HealthDataStandards::CQM::Measure
 
 class Measure 
