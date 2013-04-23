@@ -1,3 +1,47 @@
+version 2.2.0
+##########################################################
+
+Quality Measure Engine
+  Updated to support calculation of supplemental data elements for quality measure reports
+  Updated Length of Stay calculations to fix bug related to LOS <= 24 hours
+
+
+QRDA Category I export
+	Updated Language code to use 693-2 instead of IETF as specified by MU2 Final Rule
+	Fixed issue realted to dates not being properly formated in some portions of templates 2.16.840.1.113883.10.20.24.3.40 , 2.16.840.1.113883.10.20.24.3.46, and 2.16.840.1.113883.10.20.24.3.62
+	Fixed issue related to nullFlavored value elements not having an xsi:type, nullFlaovored values are now xsi:type="CD" in generic value template
+	Fixed issue with value element for values of string type being reported as xsi:type="INT", are now xsi:type="ST" in generic value template
+  Fixed issue related to stdc:dischargeCode being in the wrong location of  template 2.16.840.1.113883.10.20.24.3.23
+  Fixed issue with routeCode having an invalid empty codeSystem attribute in generic _medication_details template
+  Fixed issue with targetSiteCode having an invalid empty codeSystem attribute for template 2.16.840.1.113883.10.20.24.3.7
+  Fixed issues related to effectiveTime being in the  wrong location in template 2.16.840.1.113883.10.20.24.3.31 
+  Removed extra text element from template 2.16.840.1.113883.10.20.24.3.46
+  
+
+Measure Bundle
+	Updated bundle with lateset release of Measures from April 1, 2013
+	Updated Valuesets based on requirements from latest measures
+	Updated measure logic to latest implementaion guidance for Ddenominator Exclusions, (are now left in the DENOM)
+	Removed Duplicated Data entries from pateint records
+  Fixes to Episode of Care logic that inccorectly handled measures that had multiple potential episoeds of care joined by a disjunction (effected measures 1365 and 0140)
+
+
+Cypress 
+	Removed QRDA Cat I test patient generation
+	Removed ability to create QRDA Category I tests from Add Test Wizard
+	Added ability to Generate QRDA Category I tests from EP/EH calculations tests (utilizes same records as the calculated tests)
+	Generated Cat I tests are based on indivldual measures - reporting expected to be on single measure as well
+	Updated QRDA Category I tests to accept a zip file of QRDA Cat I documents for testing
+	Implemented Multi File reporting views for QRDA Category I tests
+	Updated QRDA Cat I tests to test for Patient Names
+	Added initial Check for too much data in Cat I tests
+	Removed QRDA Cat I measure specific schematron rules 
+	Updated QRDA Category I schematron Rules to lates available from HL7 DSTU
+	Fixed issue related to start and end date processing of reporting period for exported Cat I documents
+  Added supplemental data checking for EP and EH tests
+
+
+
 version 2.1.0
 ####################################
 Test Deck Changes:
