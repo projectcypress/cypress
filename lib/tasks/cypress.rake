@@ -132,7 +132,7 @@ namespace :cypress do
         end
       rescue => e
         last_error = e
-        puts "Error downloading bundle: will try #{max_tries-tries} more times"
+        sleep 0.5
       end
     end
 
