@@ -68,7 +68,11 @@ case node_type(doc.node_type)
          when :cdata
            %><%=  render :partial=>"cdata", :locals=>{:cdata=>child}%><%
          when :comment
+          begin
           %><div class="comment indent"><%= child.to_s %></div><%
+          rescue
+            #not doing anything here - I have seen issues with comments having illeagle chars in them so this is a precautionary step
+          end
          when :instruction
            %><div class="indent pi">&lt;?<%= child.name %> <%= child.content %>?&gt;</div><%
        end
