@@ -39,7 +39,7 @@ class PatientsController < ApplicationController
       @selected = @measures[0]
       @showAll = true
     end
-    
+
     # If a ProductTest is specified, show results for only the patients included in that population
     # Otherwise show the whole Master Patient List
     if @showAll
@@ -83,13 +83,12 @@ class PatientsController < ApplicationController
   end
 
   def table_measure
-
-
-
+    @selected = Measure.find(params[:measure_id])
+    @bundle = Bundle.find(@selected.bundle_id)
     @showAll = false
     @measures = @bundle.measures
     @measures_categories = @measures.group_by { |t| t.category }
-    @selected = Measure.find(params[:measure_id])
+    
 
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])

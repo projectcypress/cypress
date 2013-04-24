@@ -55,7 +55,7 @@ module Cypress
     # Evaluates the supplied measure for the static patients
     def self.eval_for_static_records(measure, asynchronous = true)
       report = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
-        {'effective_date' => STATIC_EFFECTIVE_DATE, 'test_id' => nil})
+        {'effective_date' => Bundle.find(measure.bundle_id).effective_date, 'test_id' => nil})
       result = {'NUMER' => '?', 'DENOM' => '?', 'DENEX' => '?'}
       
       if report.calculated?
