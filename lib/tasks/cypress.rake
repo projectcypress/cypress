@@ -115,8 +115,31 @@ namespace :cypress do
     puts "Downloading and saving #{@bundle_name} to #{measures_dir}"
     # Pull down the list of bundles and download the version we're looking for
     bundle_uri = "http://demo.projectcypress.org/bundles/#{@bundle_name}"
-    bundle = open(bundle_uri, :proxy => ENV["http_proxy"],:http_basic_authentication=>[nlm_user, nlm_passwd] )
+    bundle = nil
 
+    tries = 0
+    max_tries = 10
+    last_error = nil
+    while bundle.nil? && tries < max_tries do
+      tries = tries + 1
+      begin
+        bundle = open(bundle_uri, :proxy => ENV["http_proxy"],:http_basic_authentication=>[nlm_user, nlm_passwd] )
+      rescue OpenURI::HTTPError => oe
+        last_error = oe
+        if oe.message == "401 Unauthorized"
+          puts "Please check your credentials and try again"
+          break
+        end
+      rescue => e
+        last_error = e
+        puts "Error downloading bundle: will try #{max_tries-tries} more times"
+      end
+    end
+
+    if bundle.nil? 
+       puts "An error occured while downloading the bundle"
+      raise last_error if last_error
+    end
     # Save the bundle to the measures directory
     FileUtils.mkdir_p measures_dir
     FileUtils.mv(bundle.path, File.join(measures_dir, @bundle_name))
