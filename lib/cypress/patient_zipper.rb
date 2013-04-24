@@ -83,7 +83,9 @@ module Cypress
       measures = test_execution.measures.top_level.to_a
       qrda_exporter = Cypress::QRDAExporter.new(measures,start_date,end_date)
       test_execution.records.each do |patient|
-        filename = TPG::Exporter.patient_filename(patient)
+        safe_first_name = patient.first.gsub("'", "")
+        safe_last_name = patient.last.gsub("'", "")   
+        filename ="#{safe_first_name}_#{safe_last_name}"
         json = JSON.pretty_generate(JSON.parse(patient.as_json(:except => [ '_id','measure_id' ]).to_json))
         html = HealthDataStandards::Export::HTML.new.export(patient)
         qrda =  qrda_exporter.export(patient)
