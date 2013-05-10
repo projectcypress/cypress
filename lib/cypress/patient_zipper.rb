@@ -7,6 +7,21 @@ require 'zip/zipfilesystem'
 
 module Cypress
 
+  class HTMLExporter
+    EXPORTER = HealthDataStandards::Export::HTML.new
+    attr_accessor :measures
+    
+    def initialize(measures,start_time,end_time)
+      @measures = measures.to_a
+      @start_time = start_time
+      @end_time = end_time
+    end
+
+    def export(patient)
+    EXPORTER.export(patient,measures)
+    end
+
+  end
 
   class QRDAExporter
     EXPORTER  = HealthDataStandards::Export::Cat1.new
@@ -25,6 +40,8 @@ module Cypress
     end
 
   end
+
+  HTML_EXPORTER = HealthDataStandards::Export::HTML.new
 
   class PatientZipper
 
@@ -82,12 +99,13 @@ module Cypress
       end_date = test_execution.end_date
       measures = test_execution.measures.top_level.to_a
       qrda_exporter = Cypress::QRDAExporter.new(measures,start_date,end_date)
+      html_exporter = Cypress::HTMLExporter.new(measures,start_date,end_date)
       test_execution.records.each do |patient|
         safe_first_name = patient.first.gsub("'", "")
         safe_last_name = patient.last.gsub("'", "")   
         filename ="#{safe_first_name}_#{safe_last_name}"
         json = JSON.pretty_generate(JSON.parse(patient.as_json(:except => [ '_id','measure_id' ]).to_json))
-        html = HealthDataStandards::Export::HTML.new.export(patient)
+        html = html_exporter.export(patient)
         qrda =  qrda_exporter.export(patient)
         File.open(File.join(path, "html", "#{filename}.html"), "w") {|file| file.write(html)}
         File.open(File.join(path, "json", "#{filename}.json"), "w") {|file| file.write(json)}
@@ -97,7 +115,7 @@ module Cypress
   end
 
     def self.zip(file, patients, format)
-      if format.to_sym == :qrda
+      
         if patients.first
           test = ProductTest.where({"_id" => patients.first["test_id"]}).first
           if test 
@@ -109,9 +127,10 @@ module Cypress
         measures ||= Measure.top_level
         end_date ||= Time.at(patients.first.bundle.effective_date).gmtime
         start_date ||= end_date.years_ago(1)
+      if format.to_sym == :qrda  
         formater = Cypress::QRDAExporter.new(measures,start_date,end_date)
       else
-        formater = FORMATERS[format.to_sym]
+        formater = Cypress::HTMLExporter.new(measures,start_date,end_date)
       end
 
       Zip::ZipOutputStream.open(file.path) do |z|
