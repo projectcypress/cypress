@@ -32,7 +32,7 @@ class Measure
   end
 
   def display_name
-    "#{self['nqf_id']} - #{name}"
+    "#{self['cms_id']}/#{self['nqf_id']} - #{name}"
   end
   
 

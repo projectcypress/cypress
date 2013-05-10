@@ -69,7 +69,7 @@
                 <h4><%= cat %></h4>
                 <ul>
               <% measures.each do |measure| %>
-              <li><%= "#{measure.nqf_id} - #{measure.name } " %></li>
+              <li><%= "#{measure.display_name}  " %></li>
               <% subm = @test.measures.where(:hqmf_id=>measure.hqmf_id)
                   if subm.count >1
                %>
