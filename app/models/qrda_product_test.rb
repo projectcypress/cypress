@@ -1,3 +1,4 @@
+require 'validators/valueset_validator'
 class QRDAProductTest < ProductTest
   after_create :generate_population
   # oids declared in the spec not by the measures -- will want  to filter these out of the checks
@@ -71,7 +72,7 @@ class QRDAProductTest < ProductTest
     te.artifact = artifact
     validation_errors = []
     file_count = 0
-
+    valueset_validator =  ::Validators::ValuesetValidator.new(self.bundle)
     # collect the datacriteria oids for the measures being tested to see if there are any extra data elements in the qrda
     oids = self.measures.collect{|m| m.oids}.flatten.uniq
     artifact.each_file do |name, data|
@@ -95,6 +96,7 @@ class QRDAProductTest < ProductTest
       end
 
       errs = Cypress::QrdaUtility.validate_cat_1(doc, measures, name)
+      errs.concat valueset_validator.validate(doc)
       errs.each {|e| e[:file_name]=name}
       validation_errors.concat errs
       file_count = file_count + 1

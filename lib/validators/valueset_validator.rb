@@ -21,7 +21,7 @@ module Validators
 					if vs.nil?
 						errors << Cypress::ValidationError.new(
 			                :message => "The valueset #{oid} declared in the document cannot be found",
-			                :validator => "",
+			                :validator => "Valueset Validator",
 			                :validator_type => :xml_validation,
 			                :msg_type=>(data[:msg_type] || :error),
 			                :file_name => data[:file_name],
@@ -30,7 +30,7 @@ module Validators
 					elsif vs.concepts.where({"code" => code, "code_system"=>code_system}).count() == 0
 						errors <<  Cypress::ValidationError.new(
 			                :message => "The code #{code} in codeSystem #{code_system} cannot be found in the declared valueset #{oid} ",
-			                :validator => "",
+			                :validator => "Valueset Validator",
 			                :validator_type => :xml_validation,
 			                :msg_type=>(data[:msg_type] || :error),
 			                :file_name => data[:file_name],
