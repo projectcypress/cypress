@@ -121,6 +121,12 @@ class ProductTest
     Result.where("value.test_id"=> self.id).order_by(["value.last" , :asc])
   end
 
+  def measure_results(measure)
+      self.results.where({"value.hqmf_id" => measure.hqmf_id, })
+  end
+
+
+
   def destroy
     self.results.destroy
     self.records.destroy

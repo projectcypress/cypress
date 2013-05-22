@@ -1,15 +1,18 @@
 require 'cypress'
 require 'version'
 require 'validation_error'
-require 'validators/schema_validator'
-require 'validators/schematron_validator'
+
 require 'mongoid'
 require 'mongoid-grid_fs'
 require 'hqmf-parser'
+
 Dir[Rails.root + 'lib/ext/*.rb'].each do |file|
   require file
 end
 
+Dir[Rails.root + 'lib/validators/*.rb'].each do |file|
+  require file
+end
 XML_VALIDATION_INSPECTION="XmlValidationInspection"
 
 Rails.logger.auto_flushing=true
