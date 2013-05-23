@@ -3200,7 +3200,7 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
     <sch:rule id="r-2.16.840.1.113883.10.20.24.1.2-16857-branch-16857-warnings-abstract" abstract="true">
       <sch:assert id="a-16858-branch-16857" test="@root='2.16.840.1.113883.4.572'">SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.572" Medicare HIC number (CONF:16858).</sch:assert>
     </sch:rule>
-    <sch:rule id="r-2.16.840.1.113883.10.20.24.1.2-16857-branch-16857-warnings" context="cda:ClinicalDocument[cda:templateId/@root='2.16.840.1.113883.10.20.24.1.2']/cda:recordTarget/cda:patientRole/cda:id]">
+    <sch:rule id="r-2.16.840.1.113883.10.20.24.1.2-16857-branch-16857-warnings" context="cda:ClinicalDocument[cda:templateId/@root='2.16.840.1.113883.10.20.24.1.2']/cda:recordTarget/cda:patientRole/cda:id">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.1.2-16857-branch-16857-warnings-abstract" />
     </sch:rule>
   </sch:pattern>
