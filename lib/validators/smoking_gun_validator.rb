@@ -16,7 +16,7 @@ module Validators
 				@sgd[mes.hqmf_id] = mes.smoking_gun_data({"value.test_id" => test_id.to_s})
 			end
 
-			@names = self.records.collect{|r| ["#{r.first.strip} #{r.last.strip}".upcase,r.medical_record_number].upcase} 
+			@names = Hash[*self.records.collect{|r| ["#{r.first.strip} #{r.last.strip}".upcase,r.medical_record_number]}.flatten]
 		end
 
 		def validate(document, options={})
@@ -31,13 +31,13 @@ module Validators
 			doc_name = "#{first.to_s.strip} #{last.to_s.strip}".upcase
       mrn = @names[doc_name]
 
-      unless @names.keys.index(doc_name)
+      unless @names[doc_name]
          errors << ExecutionError.new(message: "Pateint name '#{doc_name}' declared in file not found in test records'", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
       	 #cannot go any further here so call it quits and return
       	 return errors
       end
 
-      @smd.each_pair do |hqmf_id, patient_data|
+      @sgd.each_pair do |hqmf_id, patient_data|
       	patient_sgd = patient_data[mrn]
       	if patient_sgd
       		patient_sgd.each do |dc|

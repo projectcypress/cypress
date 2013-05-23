@@ -35,6 +35,7 @@ test "should be able to create and execute a test" do
     qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/eh_test_results.xml'), "application/xml")
     
     execution = pt.execute({:results =>qrda})
+
     assert_equal 0,  execution.execution_errors.by_validation_type(:result_validation).length 
     qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/eh_test_results_bad.xml'), "application/xml")
     
