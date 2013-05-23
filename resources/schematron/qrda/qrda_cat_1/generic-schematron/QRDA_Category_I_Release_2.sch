@@ -849,7 +849,7 @@
       <sch:assert id="a-11983" test="count(cda:effectiveTime)=1">SHALL contain exactly one [1..1] effectiveTime (CONF:11983).</sch:assert>
       <sch:assert id="a-11984" test="cda:effectiveTime[count(cda:low)=1]">This effectiveTime SHALL contain exactly one [1..1] low (CONF:11984).</sch:assert>
       <sch:assert id="a-11985" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHALL contain exactly one [1..1] high (CONF:11985).</sch:assert>
-      <sch:assert id="a-11995" test="cda:code[@code='282291009' and @codeSystem='2.16.840.1.113883.6.96']">This code SHALL contain exactly one [1..1] @code="282291009  " diagnosis (CodeSystem: SNOMED-CT 2.16.840.1.113883.6.96 STATIC) (CONF:11995).</sch:assert>
+      <sch:assert id="a-11995" test="cda:code[@code='282291009' and @codeSystem='2.16.840.1.113883.6.96']">This code SHALL contain exactly one [1..1] @code="282291009	" diagnosis (CodeSystem: SNOMED-CT 2.16.840.1.113883.6.96 STATIC) (CONF:11995).</sch:assert>
       <sch:assert id="a-12008" test="count(cda:value[@xsi:type='CD'])=1">SHALL contain exactly one [1..1] value with @xsi:type="CD" (CONF:12008).</sch:assert>
       <sch:assert id="a-12012" test="@classCode='OBS'">SHALL contain exactly one [1..1] @classCode="OBS" (CodeSystem: HL7ActClass 2.16.840.1.113883.5.6 STATIC) (CONF:12012).</sch:assert>
     </sch:rule>
@@ -880,7 +880,7 @@
       <sch:assert id="a-12051" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.24.3.14'])=1">SHALL contain exactly one [1..1] templateId (CONF:12051) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.14" (CONF:12052).</sch:assert>
       <sch:assert id="a-12054" test="count(cda:entryRelationship[@typeCode='REFR'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.96'])=1])=1">SHALL contain exactly one [1..1] entryRelationship (CONF:12054) such that it SHALL contain exactly one [1..1] @typeCode="REFR" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:12058). SHALL contain exactly one [1..1] Problem Status Resolved (templateId:2.16.840.1.113883.10.20.24.3.96) (CONF:12313).</sch:assert>
       <sch:assert id="a-12059" test="count(cda:code)=1">SHALL contain exactly one [1..1] code (CONF:12059).</sch:assert>
-      <sch:assert id="a-12060" test="cda:code[@code='282291009' and @codeSystem='2.16.840.1.113883.6.96']">This code SHALL contain exactly one [1..1] @code="282291009  " diagnosis (CodeSystem: SNOMED-CT 2.16.840.1.113883.6.96 STATIC) (CONF:12060).</sch:assert>
+      <sch:assert id="a-12060" test="cda:code[@code='282291009' and @codeSystem='2.16.840.1.113883.6.96']">This code SHALL contain exactly one [1..1] @code="282291009	" diagnosis (CodeSystem: SNOMED-CT 2.16.840.1.113883.6.96 STATIC) (CONF:12060).</sch:assert>
       <sch:assert id="a-12061" test="count(cda:effectiveTime)=1">SHALL contain exactly one [1..1] effectiveTime (CONF:12061).</sch:assert>
       <sch:assert id="a-12062" test="cda:effectiveTime[count(cda:low)=1]">This effectiveTime SHALL contain exactly one [1..1] low (CONF:12062).</sch:assert>
       <sch:assert id="a-12063" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHALL contain exactly one [1..1] high (CONF:12063).</sch:assert>
@@ -2124,8 +2124,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.104-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" abstract="true">
-      <sch:assert id="a-16391" test="cda:effectiveTime[count(cda:high)&lt;=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:16391).</sch:assert>
-      <sch:assert id="a-16396" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:16396) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:16397). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:16398). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:16399).</sch:assert>
+      <sch:assert id="a-16391" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:16391).</sch:assert>
+      <sch:assert id="a-16396" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:16396) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:16397). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:16398). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:16399).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.104-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.104']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" />
@@ -2134,8 +2134,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.61-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.61-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" />
-      <sch:assert id="a-11384" test="cda:effectiveTime[count(cda:high)&lt;=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:11384).</sch:assert>
-      <sch:assert id="a-11396" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:11396) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:11397). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11398). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:11479).</sch:assert>
+      <sch:assert id="a-11384" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:11384).</sch:assert>
+      <sch:assert id="a-11396" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:11396) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:11397). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11398). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:11479).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.61-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.61']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.61-warnings-abstract" />
@@ -2178,12 +2178,12 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.9-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.9-warnings-abstract" abstract="true">
-      <sch:assert id="a-7330" test="count(cda:text)&lt;=1">SHOULD contain zero or one [0..1] text (CONF:7330).</sch:assert>
-      <sch:assert id="a-7332" test="count(cda:effectiveTime)&lt;=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:7332).</sch:assert>
-      <sch:assert id="a-7333" test="not(cda:effectiveTime) or cda:effectiveTime[count(cda:low)&lt;=1]">The effectiveTime, if present, SHOULD contain zero or one [0..1] low (CONF:7333).</sch:assert>
-      <sch:assert id="a-7334" test="not(cda:effectiveTime) or cda:effectiveTime[count(cda:high)&lt;=1]">The effectiveTime, if present, SHOULD contain zero or one [0..1] high (CONF:7334).</sch:assert>
-      <sch:assert id="a-7580" test="count(cda:entryRelationship[@typeCode='SUBJ'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.8'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:7580) such that it SHALL contain exactly one [1..1] @typeCode="SUBJ" Has subject (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:7581). SHALL contain exactly one [1..1] @inversionInd="true" TRUE (CONF:10375). SHALL contain exactly one [1..1] Severity Observation (templateId:2.16.840.1.113883.10.20.22.4.8) (CONF:15922).</sch:assert>
-      <sch:assert id="a-15917" test="not(cda:text) or cda:text[count(cda:reference)&lt;=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15917).</sch:assert>
+      <sch:assert id="a-7330" test="count(cda:text)=1">SHOULD contain zero or one [0..1] text (CONF:7330).</sch:assert>
+      <sch:assert id="a-7332" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:7332).</sch:assert>
+      <sch:assert id="a-7333" test="not(cda:effectiveTime) or cda:effectiveTime[count(cda:low)=1]">The effectiveTime, if present, SHOULD contain zero or one [0..1] low (CONF:7333).</sch:assert>
+      <sch:assert id="a-7334" test="not(cda:effectiveTime) or cda:effectiveTime[count(cda:high)=1]">The effectiveTime, if present, SHOULD contain zero or one [0..1] high (CONF:7334).</sch:assert>
+      <sch:assert id="a-7580" test="count(cda:entryRelationship[@typeCode='SUBJ'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.8'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:7580) such that it SHALL contain exactly one [1..1] @typeCode="SUBJ" Has subject (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:7581). SHALL contain exactly one [1..1] @inversionInd="true" TRUE (CONF:10375). SHALL contain exactly one [1..1] Severity Observation (templateId:2.16.840.1.113883.10.20.22.4.8) (CONF:15922).</sch:assert>
+      <sch:assert id="a-15917" test="not(cda:text) or cda:text[count(cda:reference)=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15917).</sch:assert>
       <sch:assert id="a-15918" test="not(cda:text/cda:reference) or cda:text/cda:reference[@value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:15918).</sch:assert>
       <sch:assert id="a-15919-c" test="count(cda:text/cda:reference[@value])=0 or starts-with(cda:text/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:15919).</sch:assert>
     </sch:rule>
@@ -2230,14 +2230,14 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.14-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.14-warnings-abstract" abstract="true">
-      <sch:assert id="a-7662" test="count(cda:effectiveTime)&lt;=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:7662).</sch:assert>
-      <sch:assert id="a-7683" test="not(cda:targetSiteCode) or count(cda:targetSiteCode) &gt; 0">SHOULD contain zero or more [0..*] targetSiteCode (CONF:7683).</sch:assert>
+      <sch:assert id="a-7662" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:7662).</sch:assert>
+      <sch:assert id="a-7683" test="count(cda:targetSiteCode) &gt; 0">SHOULD contain zero or more [0..*] targetSiteCode (CONF:7683).</sch:assert>
       <sch:assert id="a-7704" test="not(cda:specimen) or cda:specimen[count(cda:specimenRole)=1]">The specimen, if present, SHALL contain exactly one [1..1] specimenRole (CONF:7704).</sch:assert>
-      <sch:assert id="a-7716" test="not(cda:specimen/cda:specimenRole) or cda:specimen/cda:specimenRole[count(cda:id) &gt;= 0]">This specimenRole SHOULD contain zero or more [0..*] id (CONF:7716).</sch:assert>
-      <sch:assert id="a-7718" test="not(cda:performer) or (count(cda:performer[count(cda:assignedEntity[count(cda:id) &gt; 0][count(cda:addr)=1][count(cda:telecom)=1])=1]) &gt; 0)">SHOULD contain zero or more [0..*] performer (CONF:7718) such that it SHALL contain exactly one [1..1] assignedEntity (CONF:7720). This assignedEntity SHALL contain at least one [1..*] id (CONF:7722). This assignedEntity SHALL contain exactly one [1..1] addr (CONF:7731). This assignedEntity SHALL contain exactly one [1..1] telecom (CONF:7732).</sch:assert>
+      <sch:assert id="a-7716" test="not(cda:specimen/cda:specimenRole) or cda:specimen/cda:specimenRole[count(cda:id) &gt; 0]">This specimenRole SHOULD contain zero or more [0..*] id (CONF:7716).</sch:assert>
+      <sch:assert id="a-7718" test="count(cda:performer[count(cda:assignedEntity[count(cda:id) &gt; 0][count(cda:addr)=1][count(cda:telecom)=1])=1]) &gt; 0">SHOULD contain zero or more [0..*] performer (CONF:7718) such that it SHALL contain exactly one [1..1] assignedEntity (CONF:7720). This assignedEntity SHALL contain at least one [1..*] id (CONF:7722). This assignedEntity SHALL contain exactly one [1..1] addr (CONF:7731). This assignedEntity SHALL contain exactly one [1..1] telecom (CONF:7732).</sch:assert>
       <sch:assert id="a-16082" test="not(cda:targetSiteCode) or cda:targetSiteCode[@code]">The targetSiteCode, if present, SHALL contain exactly one [1..1] @code, which SHALL be selected from ValueSet Body Site Value Set 2.16.840.1.113883.3.88.12.3221.8.9 DYNAMIC (CONF:16082).</sch:assert>
-      <sch:assert id="a-19203" test="cda:code[count(cda:originalText)&lt;=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:19203).</sch:assert>
-      <sch:assert id="a-19204" test="not(cda:code/cda:originalText) or cda:code/cda:originalText[count(cda:reference) &lt;=1]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:19204).</sch:assert>
+      <sch:assert id="a-19203" test="cda:code[count(cda:originalText)=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:19203).</sch:assert>
+      <sch:assert id="a-19204" test="not(cda:code/cda:originalText) or cda:code/cda:originalText[count(cda:reference)=1]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:19204).</sch:assert>
       <sch:assert id="a-19205" test="not(cda:code/cda:originalText/cda:reference) or cda:code/cda:originalText/cda:reference[@value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:19205).</sch:assert>
       <sch:assert id="a-19206-c" test="count(cda:code/cda:originalText/cda:reference[@value])=0 or starts-with(cda:code/cda:originalText/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:19206).</sch:assert>
       <sch:assert id="a-19207-c" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96'] or cda:code[@codeSystem='2.16.840.1.113883.6.12'] or cda:code[@codeSystem='2.16.840.1.113883.6.104'] or cda:code[@codeSystem='2.16.840.1.113883.6.4']">This code in a procedure activity SHOULD be selected from LOINC (codeSystem 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96), and MAY be selected from CPT-4 (CodeSystem: 2.16.840.1.113883.6.12) or ICD10 PCS (CodeSystem: 2.16.840.1.113883.6.4) (CONF:19207).</sch:assert>
@@ -2246,8 +2246,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.14-warnings-abstract" />
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.14-7718-branch-7718-warnings-abstract" abstract="true">
-      <sch:assert id="a-7733-branch-7718" test="not(cda:assignedEntity) or cda:assignedEntity[count(cda:representedOrganization)&lt;=1]">This assignedEntity SHOULD contain zero or one [0..1] representedOrganization (CONF:7733).</sch:assert>
-      <sch:assert id="a-7734-branch-7718" test="not(cda:assignedEntity/cda:representedOrganization) or cda:assignedEntity/cda:representedOrganization[count(cda:id) &gt;= 0]">The representedOrganization, if present, SHOULD contain zero or more [0..*] id (CONF:7734).</sch:assert>
+      <sch:assert id="a-7733-branch-7718" test="not(cda:assignedEntity) or cda:assignedEntity[count(cda:representedOrganization)=1]">This assignedEntity SHOULD contain zero or one [0..1] representedOrganization (CONF:7733).</sch:assert>
+      <sch:assert id="a-7734-branch-7718" test="not(cda:assignedEntity/cda:representedOrganization) or cda:assignedEntity/cda:representedOrganization[count(cda:id) &gt; 0]">The representedOrganization, if present, SHOULD contain zero or more [0..*] id (CONF:7734).</sch:assert>
       <sch:assert id="a-7736-branch-7718" test="not(cda:assignedEntity/cda:representedOrganization) or cda:assignedEntity/cda:representedOrganization[count(cda:addr)=1]">The representedOrganization, if present, SHALL contain exactly one [1..1] addr (CONF:7736).</sch:assert>
       <sch:assert id="a-7737-branch-7718" test="not(cda:assignedEntity/cda:representedOrganization) or cda:assignedEntity/cda:representedOrganization[count(cda:telecom)=1]">The representedOrganization, if present, SHALL contain exactly one [1..1] telecom (CONF:7737).</sch:assert>
     </sch:rule>
@@ -2300,8 +2300,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.62-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.62-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" />
-      <sch:assert id="a-11445" test="cda:effectiveTime[count(cda:high)&lt;=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:11445).</sch:assert>
-      <sch:assert id="a-11457" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:11457) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:11458). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11459). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:11477).</sch:assert>
+      <sch:assert id="a-11445" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:11445).</sch:assert>
+      <sch:assert id="a-11457" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:11457) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:11458). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11459). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:11477).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.62-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.62']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.62-warnings-abstract" />
@@ -2326,12 +2326,12 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.2-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.2-warnings-abstract" abstract="true">
-      <sch:assert id="a-7138" test="count(cda:text) &lt; 2">SHOULD contain zero or one [0..1] text (CONF:7138).</sch:assert>
-      <sch:assert id="a-7147" test="count(cda:interpretationCode) &gt;= 0">SHOULD contain zero or more [0..*] interpretationCode (CONF:7147).</sch:assert>
-      <sch:assert id="a-7150" test="count(cda:referenceRange) &gt;= 0">SHOULD contain zero or more [0..*] referenceRange (CONF:7150).</sch:assert>
+      <sch:assert id="a-7138" test="count(cda:text)=1">SHOULD contain zero or one [0..1] text (CONF:7138).</sch:assert>
+      <sch:assert id="a-7147" test="count(cda:interpretationCode) &gt; 0">SHOULD contain zero or more [0..*] interpretationCode (CONF:7147).</sch:assert>
+      <sch:assert id="a-7150" test="count(cda:referenceRange) &gt; 0">SHOULD contain zero or more [0..*] referenceRange (CONF:7150).</sch:assert>
       <sch:assert id="a-7151" test="not(cda:referenceRange) or cda:referenceRange[count(cda:observationRange)=1]">The referenceRange, if present, SHALL contain exactly one [1..1] observationRange (CONF:7151).</sch:assert>
       <sch:assert id="a-7152-c" test="not(cda:referenceRange/cda:observationRange/cda:code)">This observationRange SHALL NOT contain [0..0] code (CONF:7152).</sch:assert>
-      <sch:assert id="a-15924" test="not(cda:text) or cda:text[count(cda:reference) &lt; 2]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15924).</sch:assert>
+      <sch:assert id="a-15924" test="not(cda:text) or cda:text[count(cda:reference)=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15924).</sch:assert>
       <sch:assert id="a-15925" test="not(cda:text/cda:reference) or cda:text/cda:reference[@value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:15925).</sch:assert>
       <sch:assert id="a-15926-c" test="count(cda:text/cda:reference[@value])=0 or starts-with(cda:text/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:15926).</sch:assert>
       <sch:assert id="a-19211-c" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96']">SHOULD be from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96) (CONF:19211).</sch:assert>
@@ -2351,8 +2351,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.91-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.91-warnings-abstract" abstract="true">
-      <sch:assert id="a-13286" test="count(cda:effectiveTime)&lt;=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:13286).</sch:assert>
-      <sch:assert id="a-13287" test="count(cda:value)&lt;=1">SHOULD contain zero or one [0..1] value (CONF:13287).</sch:assert>
+      <sch:assert id="a-13286" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:13286).</sch:assert>
+      <sch:assert id="a-13287" test="count(cda:value)=1">SHOULD contain zero or one [0..1] value (CONF:13287).</sch:assert>
       <sch:assert id="a-13292" test="not(cda:effectiveTime) or cda:effectiveTime[count(cda:low)=1]">The effectiveTime, if present, SHALL contain exactly one [1..1] low (CONF:13292).</sch:assert>
       <sch:assert id="a-13293" test="not(cda:effectiveTime) or cda:effectiveTime[count(cda:high)=1]">The effectiveTime, if present, SHALL contain exactly one [1..1] high (CONF:13293).</sch:assert>
     </sch:rule>
@@ -2379,8 +2379,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.16-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.16-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" />
-      <sch:assert id="a-11744" test="cda:effectiveTime[count(cda:high)&lt;=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:11744).</sch:assert>
-      <sch:assert id="a-11749" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:11749) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ParticipationType 2.16.840.1.113883.5.90 STATIC) (CONF:11750). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11751). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:11752).</sch:assert>
+      <sch:assert id="a-11744" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:11744).</sch:assert>
+      <sch:assert id="a-11749" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:11749) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ParticipationType 2.16.840.1.113883.5.90 STATIC) (CONF:11750). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11751). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:11752).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.16-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.16']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.16-warnings-abstract" />
@@ -2398,8 +2398,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.15-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.15-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" />
-      <sch:assert id="a-11778" test="cda:effectiveTime[count(cda:high)&lt;=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:11778).</sch:assert>
-      <sch:assert id="a-11783" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:11783) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:11784). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11785). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:11786).</sch:assert>
+      <sch:assert id="a-11778" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:11778).</sch:assert>
+      <sch:assert id="a-11783" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:11783) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:11784). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:11785). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:11786).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.15-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.15']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.15-warnings-abstract" />
@@ -2425,11 +2425,11 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.49-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.49-warnings-abstract" abstract="true">
-      <sch:assert id="a-8714" test="count(cda:code)&lt;=1">SHOULD contain zero or one [0..1] code, which SHOULD be selected from ValueSet EncounterTypeCode 2.16.840.1.113883.3.88.12.80.32 DYNAMIC (CONF:8714).</sch:assert>
-      <sch:assert id="a-8719" test="not(cda:code) or cda:code[count(cda:originalText)&lt;=1]">The code, if present, SHOULD contain zero or one [0..1] originalText (CONF:8719).</sch:assert>
+      <sch:assert id="a-8714" test="count(cda:code)=1">SHOULD contain zero or one [0..1] code, which SHOULD be selected from ValueSet EncounterTypeCode 2.16.840.1.113883.3.88.12.80.32 DYNAMIC (CONF:8714).</sch:assert>
+      <sch:assert id="a-8719" test="not(cda:code) or cda:code[count(cda:originalText)=1]">The code, if present, SHOULD contain zero or one [0..1] originalText (CONF:8719).</sch:assert>
       <sch:assert id="a-8720-c" test="not(tested-here)">The originalText, if present, SHOULD contain zero or one [0..1] reference/@value (CONF:8720).</sch:assert>
       <sch:assert id="a-8726" test="not(cda:performer) or cda:performer[count(cda:assignedEntity)=1]">The performer, if present, SHALL contain exactly one [1..1] assignedEntity (CONF:8726).</sch:assert>
-      <sch:assert id="a-15970" test="not(cda:code/cda:originalText) or cda:code/cda:originalText[count(cda:reference) &lt; 2]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:15970).</sch:assert>
+      <sch:assert id="a-15970" test="not(cda:code/cda:originalText) or cda:code/cda:originalText[count(cda:reference)=1]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:15970).</sch:assert>
       <sch:assert id="a-15971" test="not(cda:code/cda:originalText/cda:reference) or cda:code/cda:originalText/cda:reference[@value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:15971).</sch:assert>
       <sch:assert id="a-15972-c" test="count(cda:code/cda:originalText/cda:reference[@value])=0 or starts-with(cda:code/cda:originalText/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:15972).</sch:assert>
     </sch:rule>
@@ -2496,14 +2496,14 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.4-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.4-warnings-abstract" abstract="true">
-      <sch:assert id="a-9050" test="count(cda:effectiveTime)&lt;=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:9050).</sch:assert>
-      <sch:assert id="a-9185" test="count(cda:text)&lt;=1">SHOULD contain zero or one [0..1] text (CONF:9185).</sch:assert>
+      <sch:assert id="a-9050" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:9050).</sch:assert>
+      <sch:assert id="a-9185" test="count(cda:text)=1">SHOULD contain zero or one [0..1] text (CONF:9185).</sch:assert>
       <sch:assert id="a-10142-c" test="not(tested)">If the diagnosis is unknown or the SNOMED code is unknown, @nullFlavor SHOULD be ?UNK?.  If the code is something other than SNOMED, @nullFlavor SHOULD be ?OTH? and the other code SHOULD be placed in the translation element (CONF:10142).</sch:assert>
-      <sch:assert id="a-15587" test="not(cda:text) or cda:text[count(cda:reference) &lt; 2]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15587).</sch:assert>
+      <sch:assert id="a-15587" test="not(cda:text) or cda:text[count(cda:reference)=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15587).</sch:assert>
       <sch:assert id="a-15588" test="not(cda:text/cda:reference) or cda:text/cda:reference[@value]">The reference, if present, SHALL contain exactly one [1..1] @value (CONF:15588).</sch:assert>
       <sch:assert id="a-15589-c" test="count(cda:text/cda:reference[@value])=0 or starts-with(cda:text/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:15589).</sch:assert>
       <sch:assert id="a-15603" test="not(cda:effectiveTime) or cda:effectiveTime[count(cda:low)=1]">The effectiveTime, if present, SHALL contain exactly one [1..1] low (CONF:15603).</sch:assert>
-      <sch:assert id="a-15604" test="not(cda:effectiveTime) or cda:effectiveTime[count(cda:high)&lt;=1]">The effectiveTime, if present, SHOULD contain zero or one [0..1] high (CONF:15604).</sch:assert>
+      <sch:assert id="a-15604" test="not(cda:effectiveTime) or cda:effectiveTime[count(cda:high)=1]">The effectiveTime, if present, SHOULD contain zero or one [0..1] high (CONF:15604).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.4-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.4-warnings-abstract" />
@@ -2540,13 +2540,13 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.16-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.16-warnings-abstract" abstract="true">
-      <sch:assert id="a-7501" test="count(cda:text)&lt;=1">SHOULD contain zero or one [0..1] text (CONF:7501).</sch:assert>
-      <sch:assert id="a-7513-c" test=" not(cda:effectiveTime) or  count(cda:effectiveTime[@operator='A'][@xsi:type='PIVL_TS' or @xsi:type='EIVL_TS']) &lt;=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:7513) such that it SHALL contain exactly one [1..1] @operator="A" (CONF:9106).</sch:assert>
-      <sch:assert id="a-7516" test="count(cda:doseQuantity) &lt; 2">SHOULD contain zero or one [0..1] doseQuantity (CONF:7516).</sch:assert>
+      <sch:assert id="a-7501" test="count(cda:text)=1">SHOULD contain zero or one [0..1] text (CONF:7501).</sch:assert>
+      <sch:assert id="a-7513-c" test="count(cda:effectiveTime) = 2 and cda:effectiveTime[@operator='A'][@xsi:type='PIVL_TS' or @xsi:type='EIVL_TS']">SHOULD contain zero or one [0..1] effectiveTime (CONF:7513) such that it SHALL contain exactly one [1..1] @operator="A" (CONF:9106).</sch:assert>
+      <sch:assert id="a-7516" test="count(cda:doseQuantity)=1">SHOULD contain zero or one [0..1] doseQuantity (CONF:7516).</sch:assert>
       <sch:assert id="a-7525" test="not(cda:rateQuantity) or cda:rateQuantity[@unit]">The rateQuantity, if present, SHALL contain exactly one [1..1] @unit, which SHALL be selected from ValueSet UnitsOfMeasureCaseSensitive 2.16.840.1.113883.1.11.12839 DYNAMIC (CONF:7525).</sch:assert>
       <sch:assert id="a-7526" test="not(cda:doseQuantity) or cda:doseQuantity[@unit]">The doseQuantity, if present, SHOULD contain zero or one [0..1] @unit, which SHALL be selected from ValueSet UnitsOfMeasureCaseSensitive 2.16.840.1.113883.1.11.12839 DYNAMIC (CONF:7526).</sch:assert>
       <sch:assert id="a-9105-c" test="not(tested-here)">SHALL contain exactly one [1..1] @xsi:type=?PIVL_TS? or ?EIVL_TS? (CONF:9105).</sch:assert>
-      <sch:assert id="a-15977" test="not(cda:text) or cda:text[count(cda:reference) &lt; 2]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15977).</sch:assert>
+      <sch:assert id="a-15977" test="not(cda:text) or cda:text[count(cda:reference)=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15977).</sch:assert>
       <sch:assert id="a-15978" test="not(cda:text/cda:reference) or cda:text/cda:reference[@value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:15978).</sch:assert>
       <sch:assert id="a-15979-c" test="count(cda:text/cda:reference[@value])=0 or starts-with(cda:text/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:15979).</sch:assert>
     </sch:rule>
@@ -2566,7 +2566,7 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.90-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.90-warnings-abstract" abstract="true">
-      <sch:assert id="a-16318" test="count(cda:participant) &gt;= 0">SHOULD contain zero or more [0..*] participant (CONF:16318).</sch:assert>
+      <sch:assert id="a-16318" test="count(cda:participant) &gt; 0">SHOULD contain zero or more [0..*] participant (CONF:16318).</sch:assert>
       <sch:assert id="a-16319" test="not(cda:participant) or cda:participant[@typeCode='CSM']">The participant, if present, SHALL contain exactly one [1..1] @typeCode="CSM" Consumable (CodeSystem: HL7ParticipationType 2.16.840.1.113883.5.90 STATIC) (CONF:16319).</sch:assert>
       <sch:assert id="a-16320" test="not(cda:participant) or cda:participant[count(cda:participantRole)=1]">The participant, if present, SHALL contain exactly one [1..1] participantRole (CONF:16320).</sch:assert>
       <sch:assert id="a-16321" test="not(cda:participant/cda:participantRole) or cda:participant/cda:participantRole[@classCode='MANU']">This participantRole SHALL contain exactly one [1..1] @classCode="MANU" Manufactured Product (CodeSystem: RoleClass 2.16.840.1.113883.5.110 STATIC) (CONF:16321).</sch:assert>
@@ -2574,13 +2574,13 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:assert id="a-16323" test="not(cda:participant/cda:participantRole/cda:playingEntity) or cda:participant/cda:participantRole/cda:playingEntity[@classCode='MMAT']">This playingEntity SHALL contain exactly one [1..1] @classCode="MMAT" Manufactured Material (CodeSystem: EntityClass 2.16.840.1.113883.5.41 STATIC) (CONF:16323).</sch:assert>
       <sch:assert id="a-16324" test="not(cda:participant/cda:participantRole/cda:playingEntity) or cda:participant/cda:participantRole/cda:playingEntity[count(cda:code)=1]">This playingEntity SHALL contain exactly one [1..1] code (CONF:16324).</sch:assert>
       <sch:assert id="a-16325-c" test=".">In an allergy to a specific medication the code SHALL be selected from the ValueSet 2.16.840.1.113883.3.88.12.80.16 Medication Brand Name DYNAMIC or the ValueSet 2.16.840.1.113883.3.88.12.80.17 Medication Clinical Drug DYNAMIC (CONF:16325).</sch:assert>
-      <sch:assert id="a-16326" test="not(cda:participant/cda:participantRole/cda:playingEntity/cda:code) or cda:participant/cda:participantRole/cda:playingEntity/cda:code[count(cda:originalText)&lt;=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:16326).</sch:assert>
-      <sch:assert id="a-16327" test="not(cda:participant/cda:participantRole/cda:playingEntity/cda:code/cda:originalText) or cda:participant/cda:participantRole/cda:playingEntity/cda:code/cda:originalText[count(cda:reference)&lt;=1]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:16327).</sch:assert>
+      <sch:assert id="a-16326" test="not(cda:participant/cda:participantRole/cda:playingEntity/cda:code) or cda:participant/cda:participantRole/cda:playingEntity/cda:code[count(cda:originalText)=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:16326).</sch:assert>
+      <sch:assert id="a-16327" test="not(cda:participant/cda:participantRole/cda:playingEntity/cda:code/cda:originalText) or cda:participant/cda:participantRole/cda:playingEntity/cda:code/cda:originalText[count(cda:reference)=1]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:16327).</sch:assert>
       <sch:assert id="a-16328" test="not(cda:participant/cda:participantRole/cda:playingEntity/cda:code/cda:originalText/cda:reference) or cda:participant/cda:participantRole/cda:playingEntity/cda:code/cda:originalText/cda:reference[@value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:16328).</sch:assert>
       <sch:assert id="a-16329-c" test="count(cda:participant/cda:participantRole/cda:playingEntity/cda:code/cda:originalText/cda:reference[@value])=0 or starts-with(cda:participant/cda:participantRole/cda:playingEntity/cda:code/cda:originalText/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:16329).</sch:assert>
       <sch:assert id="a-16331-c" test=".">In an allergy to a class of medications the code SHALL be selected from the ValueSet 2.16.840.1.113883.3.88.12.80.18 Medication Drug Class DYNAMIC (CONF:16331).</sch:assert>
       <sch:assert id="a-16332-c" test=".">In an allergy to a food or other substance the code SHALL be selected from the ValueSet 2.16.840.1.113883.3.88.12.80.20 Ingredient Name DYNAMIC (CONF:16332).</sch:assert>
-      <sch:assert id="a-16337" test="count(cda:entryRelationship[@inversionInd='true'][@typeCode='MFST'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.9'])=1]) &gt;= 0">SHOULD contain zero or more [0..*] entryRelationship (CONF:16337) such that it SHALL contain exactly one [1..1] @inversionInd="true" True (CONF:16338). SHALL contain exactly one [1..1] @typeCode="MFST" Is Manifestation of (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:16339). SHALL contain exactly one [1..1] Reaction Observation (templateId:2.16.840.1.113883.10.20.22.4.9) (CONF:16340).</sch:assert>
+      <sch:assert id="a-16337" test="count(cda:entryRelationship[@inversionInd='true'][@typeCode='MFST'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.9'])=1]) &gt; 0">SHOULD contain zero or more [0..*] entryRelationship (CONF:16337) such that it SHALL contain exactly one [1..1] @inversionInd="true" True (CONF:16338). SHALL contain exactly one [1..1] @typeCode="MFST" Is Manifestation of (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:16339). SHALL contain exactly one [1..1] Reaction Observation (templateId:2.16.840.1.113883.10.20.22.4.9) (CONF:16340).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.90-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.90']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.90-warnings-abstract" />
@@ -2616,8 +2616,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.6-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.6-warnings-abstract" abstract="true">
-      <sch:assert id="a-7362" test="count(cda:text) &lt; 2">SHOULD contain zero or one [0..1] text (CONF:7362).</sch:assert>
-      <sch:assert id="a-15593" test="not(cda:text) or cda:text[count(cda:reference)&lt;=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15593).</sch:assert>
+      <sch:assert id="a-7362" test="count(cda:text)=1">SHOULD contain zero or one [0..1] text (CONF:7362).</sch:assert>
+      <sch:assert id="a-15593" test="not(cda:text) or cda:text[count(cda:reference)=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:15593).</sch:assert>
       <sch:assert id="a-15594" test="not(cda:text/cda:reference) or cda:text/cda:reference[@value]">The reference, if present, SHALL contain exactly one [1..1] @value (CONF:15594).</sch:assert>
       <sch:assert id="a-15595-c" test="count(cda:text/cda:reference[@value])=0 or starts-with(cda:text/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:15595).</sch:assert>
     </sch:rule>
@@ -2743,10 +2743,10 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.69-warnings-abstract" abstract="true">
       <sch:assert id="a-14440-c" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96']">SHOULD be from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96) identifying the assessment scale (CONF:14440).</sch:assert>
-      <sch:assert id="a-14451" test="count(cda:entryRelationship[@typeCode='COMP'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.86'])=1]) &gt;= 0">SHOULD contain zero or more [0..*] entryRelationship (CONF:14451) such that it SHALL contain exactly one [1..1] @typeCode="COMP" has component (CONF:16741). SHALL contain exactly one [1..1] Assessment Scale Supporting Observation (templateId:2.16.840.1.113883.10.20.22.4.86) (CONF:16742).</sch:assert>
+      <sch:assert id="a-14451" test="count(cda:entryRelationship[@typeCode='COMP'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.86'])=1]) &gt; 0">SHOULD contain zero or more [0..*] entryRelationship (CONF:14451) such that it SHALL contain exactly one [1..1] @typeCode="COMP" has component (CONF:16741). SHALL contain exactly one [1..1] Assessment Scale Supporting Observation (templateId:2.16.840.1.113883.10.20.22.4.86) (CONF:16742).</sch:assert>
       <sch:assert id="a-16800" test="not(cda:referenceRange) or cda:referenceRange[count(cda:observationRange)=1]">The referenceRange, if present, SHALL contain exactly one [1..1] observationRange (CONF:16800).</sch:assert>
-      <sch:assert id="a-16801" test="not(cda:referenceRange/cda:observationRange) or cda:referenceRange/cda:observationRange[count(cda:text)&lt;=1]">This observationRange SHOULD contain zero or one [0..1] text (CONF:16801).</sch:assert>
-      <sch:assert id="a-16802" test="not(cda:referenceRange/cda:observationRange/cda:text) or cda:referenceRange/cda:observationRange/cda:text[count(cda:reference)&lt;=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:16802).</sch:assert>
+      <sch:assert id="a-16801" test="not(cda:referenceRange/cda:observationRange) or cda:referenceRange/cda:observationRange[count(cda:text)=1]">This observationRange SHOULD contain zero or one [0..1] text (CONF:16801).</sch:assert>
+      <sch:assert id="a-16802" test="not(cda:referenceRange/cda:observationRange/cda:text) or cda:referenceRange/cda:observationRange/cda:text[count(cda:reference)=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:16802).</sch:assert>
       <sch:assert id="a-16804-c" test="count(cda:referenceRange/cda:observationRange/cda:text/cda:reference[@value])=0 or starts-with(cda:referenceRange/cda:observationRange/cda:text/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:16804).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.69-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.69']">
@@ -2765,7 +2765,7 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.79-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.79-warnings-abstract" abstract="true">
-      <sch:assert id="a-14868" test="count(cda:entryRelationship[@typeCode='CAUS'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14868) such that it SHALL contain exactly one [1..1] Problem Observation (templateId:2.16.840.1.113883.10.20.22.4.4) (CONF:14870). SHALL contain exactly one [1..1] @typeCode="CAUS" Is etiology for (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:14875).</sch:assert>
+      <sch:assert id="a-14868" test="count(cda:entryRelationship[@typeCode='CAUS'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14868) such that it SHALL contain exactly one [1..1] Problem Observation (templateId:2.16.840.1.113883.10.20.22.4.4) (CONF:14870). SHALL contain exactly one [1..1] @typeCode="CAUS" Is etiology for (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:14875).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.79-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.79']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.79-warnings-abstract" />
@@ -2808,12 +2808,12 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.47-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.47-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.42-warnings-abstract" />
-      <sch:assert id="a-12602" test="count(cda:doseQuantity) &lt; 2">SHOULD contain zero or one [0..1] doseQuantity (CONF:12602).</sch:assert>
+      <sch:assert id="a-12602" test="count(cda:doseQuantity)=1">SHOULD contain zero or one [0..1] doseQuantity (CONF:12602).</sch:assert>
       <sch:assert id="a-12603" test="not(cda:doseQuantity) or cda:doseQuantity[@unit]">The doseQuantity, if present, SHOULD contain zero or one [0..1] @unit, which SHALL be selected from ValueSet UnitsOfMeasureCaseSensitive 2.16.840.1.113883.1.11.12839 DYNAMIC (CONF:12603).</sch:assert>
       <sch:assert id="a-12607-c" test="not(cda:rateQuantity) or cda:rateQuantity">The rateQuantity, if present, SHALL contain exactly one [1..1] @unit, which SHALL be selected from ValueSet UnitsOfMeasureCaseSensitive 2.16.840.1.113883.1.11.12839 DYNAMIC (CONF:12607).</sch:assert>
-      <sch:assert id="a-12637-c" test="count(cda:repeatNumber)=0 or count(cda:repeatNumber[count(cda:low)=1][count(cda:center)=1])">A.  In "INT" (intent) mood, the repeatNumber defines the number of allowed administrations. For example, a repeatNumber of "3" means that the substance can be administered up to 3 times (CONF:12637).</sch:assert>
+      <sch:assert id="a-12637-c" test="count(cda:repeatNumber)=0 or count(cda:repeatNumber[count(cda:low)=1][count(cda:center)=1])">A.	In "INT" (intent) mood, the repeatNumber defines the number of allowed administrations. For example, a repeatNumber of "3" means that the substance can be administered up to 3 times (CONF:12637).</sch:assert>
       <sch:assert id="a-12638-c" test="count(cda:repeatNumber)=0 or count(cda:repeatNumber[count(cda:low)=1][count(cda:center)=1])">In "EVN" (event) mood, the repeatNumber is the number of occurrences. For example, a repeatNumber of "3" in a substance administration event means that the current administration is the 3rd in a series (CONF:12638).</sch:assert>
-      <sch:assert id="a-13849" test="count(cda:effectiveTime)&lt;=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:13849).</sch:assert>
+      <sch:assert id="a-13849" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:13849).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.47-warnings" context="cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.47']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.47-warnings-abstract" />
@@ -2822,15 +2822,15 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.13-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.13-warnings-abstract" abstract="true">
-      <sch:assert id="a-8246" test="count(cda:effectiveTime)&lt;=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:8246).</sch:assert>
-      <sch:assert id="a-8250" test="not(cda:targetSiteCode) or count(cda:targetSiteCode) &gt;= 0">SHOULD contain zero or more [0..*] targetSiteCode (CONF:8250).</sch:assert>
-      <sch:assert id="a-8251" test="count(cda:performer) &gt;= 0">SHOULD contain zero or more [0..*] performer (CONF:8251).</sch:assert>
+      <sch:assert id="a-8246" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:8246).</sch:assert>
+      <sch:assert id="a-8250" test="count(cda:targetSiteCode) &gt; 0">SHOULD contain zero or more [0..*] targetSiteCode (CONF:8250).</sch:assert>
+      <sch:assert id="a-8251" test="count(cda:performer) &gt; 0">SHOULD contain zero or more [0..*] performer (CONF:8251).</sch:assert>
       <sch:assert id="a-8252" test="not(cda:performer) or cda:performer[count(cda:assignedEntity)=1]">The performer, if present, SHALL contain exactly one [1..1] assignedEntity (CONF:8252).</sch:assert>
       <sch:assert id="a-8253" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:id) &gt; 0]">This assignedEntity SHALL contain at least one [1..*] id (CONF:8253).</sch:assert>
       <sch:assert id="a-8254" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:addr)=1]">This assignedEntity SHALL contain exactly one [1..1] addr (CONF:8254).</sch:assert>
       <sch:assert id="a-8255" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:telecom)=1]">This assignedEntity SHALL contain exactly one [1..1] telecom (CONF:8255).</sch:assert>
-      <sch:assert id="a-8256" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:representedOrganization)&lt;=1]">This assignedEntity SHOULD contain zero or one [0..1] representedOrganization (CONF:8256).</sch:assert>
-      <sch:assert id="a-8257" test="not(cda:performer/cda:assignedEntity/cda:representedOrganization) or cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id) &gt;= 0]">The representedOrganization, if present, SHOULD contain zero or more [0..*] id (CONF:8257).</sch:assert>
+      <sch:assert id="a-8256" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:representedOrganization)=1]">This assignedEntity SHOULD contain zero or one [0..1] representedOrganization (CONF:8256).</sch:assert>
+      <sch:assert id="a-8257" test="not(cda:performer/cda:assignedEntity/cda:representedOrganization) or cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id) &gt; 0]">The representedOrganization, if present, SHOULD contain zero or more [0..*] id (CONF:8257).</sch:assert>
       <sch:assert id="a-8259" test="not(cda:performer/cda:assignedEntity/cda:representedOrganization) or cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:addr)=1]">The representedOrganization, if present, SHALL contain exactly one [1..1] addr (CONF:8259).</sch:assert>
       <sch:assert id="a-8260" test="not(cda:performer/cda:assignedEntity/cda:representedOrganization) or cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:telecom)=1]">The representedOrganization, if present, SHALL contain exactly one [1..1] telecom (CONF:8260).</sch:assert>
       <sch:assert id="a-8262" test="not(cda:participant) or cda:participant[@typeCode='LOC']">The participant, if present, SHALL contain exactly one [1..1] @typeCode="LOC" Location (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:8262).</sch:assert>
@@ -2842,8 +2842,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:assert id="a-8270" test="not(cda:entryRelationship/cda:encounter) or cda:entryRelationship/cda:encounter[count(cda:id)=1]">This encounter SHALL contain exactly one [1..1] id (CONF:8270).</sch:assert>
       <sch:assert id="a-15904" test="not(cda:participant) or cda:participant[count(cda:participantRole[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.32'])=1]">The participant, if present, SHALL contain exactly one [1..1] Service Delivery Location (templateId:2.16.840.1.113883.10.20.22.4.32) (CONF:15904).</sch:assert>
       <sch:assert id="a-16071" test="not(cda:targetSiteCode) or cda:targetSiteCode[@code]">The targetSiteCode, if present, SHALL contain exactly one [1..1] @code, which SHALL be selected from ValueSet Body Site Value Set 2.16.840.1.113883.3.88.12.3221.8.9 DYNAMIC (CONF:16071).</sch:assert>
-      <sch:assert id="a-19198" test="cda:code[count(cda:originalText)&lt;=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:19198).</sch:assert>
-      <sch:assert id="a-19199" test="not(cda:code/cda:originalText) or cda:code/cda:originalText[count(cda:reference) &lt; 2]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:19199).</sch:assert>
+      <sch:assert id="a-19198" test="cda:code[count(cda:originalText)=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:19198).</sch:assert>
+      <sch:assert id="a-19199" test="not(cda:code/cda:originalText) or cda:code/cda:originalText[count(cda:reference)=1]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:19199).</sch:assert>
       <sch:assert id="a-19200" test="not(cda:code/cda:originalText/cda:reference) or cda:code/cda:originalText/cda:reference[@value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:19200).</sch:assert>
       <sch:assert id="a-19201-c" test="count(cda:code/cda:originalText/cda:reference[@value])=0 or starts-with(cda:code/cda:originalText/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:19201).</sch:assert>
       <sch:assert id="a-19202-c" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96']">This @code SHOULD be selected from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96), and MAY be selected from CPT-4 (CodeSystem: 2.16.840.1.113883.6.12), ICD10 PCS (CodeSystem: 2.16.840.1.113883.6.4) (CONF:19202).</sch:assert>
@@ -2918,15 +2918,14 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.2.1-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.2.1-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.17.2.4-warnings-abstract" />
-      <sch:assert id="a-12833" test="count(cda:entry) &gt;= 0">SHOULD contain zero or more [0..*] entry (CONF:12833) such that it</sch:assert>
+      <sch:assert id="a-12833" test="count(cda:entry) &gt; 0">SHOULD contain zero or more [0..*] entry (CONF:12833) such that it</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.2.1-warnings" context="cda:section[cda:templateId/@root='2.16.840.1.113883.10.20.24.2.1']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.2.1-warnings-abstract" />
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.2.1-12833-branch-12833-warnings-abstract" abstract="true">
-      <!--No schematron defined for primitive constraint 16573 on template 976 -->
-      <sch:assert id="a-16573-branch-12833-c" test=".">Where the clinical statement codes SHALL contain the @sdtc:valueSet extension to reference the value set from which the supplied code was drawn (CONF:16573).</sch:assert>
-        
+      <!--No schematron defined for primitive constraint 16573 on template 976-->
+      <sch:assert id="a-16573-branch-12833-c" test="not(.)">Where the clinical statement codes SHALL contain the @sdtc:valueSet extension to reference the value set from which the supplied code was drawn (CONF:16573).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.2.1-12833-branch-12833-warnings" context="cda:section[cda:templateId/@root='2.16.840.1.113883.10.20.24.2.1']/cda:entry">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.2.1-12833-branch-12833-warnings-abstract" />
@@ -2958,7 +2957,7 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.98-warnings-abstract" />
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.98-12982-branch-12982-warnings-abstract" abstract="true">
-      <sch:assert id="a-12997-branch-12982" test="cda:externalDocument[count(cda:text)&lt;=1]">This externalDocument SHOULD contain zero or one [0..1] text (CONF:12997).</sch:assert>
+      <sch:assert id="a-12997-branch-12982" test="cda:externalDocument[count(cda:text)=1]">This externalDocument SHOULD contain zero or one [0..1] text (CONF:12997).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.98-12982-branch-12982-warnings" context="cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.98']/cda:reference[@typeCode='REFR']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.98-12982-branch-12982-warnings-abstract" />
@@ -2990,10 +2989,10 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.97-warnings-abstract" />
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.97-12808-branch-12808-warnings-abstract" abstract="true">
-      <sch:assert id="a-12864-branch-12808" test="cda:externalDocument[count(cda:code[@code='57024-2'][@codeSystem='2.16.840.1.113883.6.1']) &lt; 2]">This externalDocument SHOULD contain zero or one [0..1] code="57024-2" Health Quality Measure Document (CodeSystem: LOINC 2.16.840.1.113883.6.1 STATIC) (CONF:12864).</sch:assert>
-      <sch:assert id="a-12865-branch-12808" test="cda:externalDocument[count(cda:text)&lt;=1]">This externalDocument SHOULD contain zero or one [0..1] text (CONF:12865).</sch:assert>
-      <sch:assert id="a-12867-branch-12808" test="cda:externalDocument[count(cda:setId)&lt;=1]">This externalDocument SHOULD contain zero or one [0..1] setId (CONF:12867).</sch:assert>
-      <sch:assert id="a-12869-branch-12808" test="cda:externalDocument[count(cda:versionNumber)&lt;=1]">This externalDocument SHOULD contain zero or one [0..1] versionNumber (CONF:12869).</sch:assert>
+      <sch:assert id="a-12864-branch-12808" test="cda:externalDocument[count(cda:code[@code='57024-2'][@codeSystem='2.16.840.1.113883.6.1'])=1]">This externalDocument SHOULD contain zero or one [0..1] code="57024-2" Health Quality Measure Document (CodeSystem: LOINC 2.16.840.1.113883.6.1 STATIC) (CONF:12864).</sch:assert>
+      <sch:assert id="a-12865-branch-12808" test="cda:externalDocument[count(cda:text)=1]">This externalDocument SHOULD contain zero or one [0..1] text (CONF:12865).</sch:assert>
+      <sch:assert id="a-12867-branch-12808" test="cda:externalDocument[count(cda:setId)=1]">This externalDocument SHOULD contain zero or one [0..1] setId (CONF:12867).</sch:assert>
+      <sch:assert id="a-12869-branch-12808" test="cda:externalDocument[count(cda:versionNumber)=1]">This externalDocument SHOULD contain zero or one [0..1] versionNumber (CONF:12869).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.97-12808-branch-12808-warnings" context="cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.97']/cda:reference[@typeCode='REFR']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.97-12808-branch-12808-warnings-abstract" />
@@ -3012,11 +3011,11 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.67-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.2-warnings-abstract" />
-      <sch:assert id="a-13926" test="count(cda:text) &lt;=1">SHOULD contain zero or one [0..1] text (CONF:13926).</sch:assert>
-      <sch:assert id="a-13927" test="not(cda:text) or cda:text[count(cda:reference)&lt;=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:13927).</sch:assert>
+      <sch:assert id="a-13926" test="count(cda:text)=1">SHOULD contain zero or one [0..1] text (CONF:13926).</sch:assert>
+      <sch:assert id="a-13927" test="not(cda:text) or cda:text[count(cda:reference)=1]">The text, if present, SHOULD contain zero or one [0..1] reference (CONF:13927).</sch:assert>
       <sch:assert id="a-13928-c" test="count(cda:text/cda:reference[@value])=0 or starts-with(cda:text/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:13928).</sch:assert>
-      <sch:assert id="a-13933" test="count(cda:interpretationCode) &gt;= 0">SHOULD contain zero or more [0..*] interpretationCode (CONF:13933).</sch:assert>
-      <sch:assert id="a-13937" test="count(cda:referenceRange) &gt;= 0">SHOULD contain zero or more [0..*] referenceRange (CONF:13937).</sch:assert>
+      <sch:assert id="a-13933" test="count(cda:interpretationCode) &gt; 0">SHOULD contain zero or more [0..*] interpretationCode (CONF:13933).</sch:assert>
+      <sch:assert id="a-13937" test="count(cda:referenceRange) &gt; 0">SHOULD contain zero or more [0..*] referenceRange (CONF:13937).</sch:assert>
       <sch:assert id="a-13938" test="not(cda:referenceRange) or cda:referenceRange[count(cda:observationRange)=1]">The referenceRange, if present, SHALL contain exactly one [1..1] observationRange (CONF:13938).</sch:assert>
       <sch:assert id="a-13939-c" test="not(cda:referenceRange/cda:observationRange/cda:code)">This observationRange SHALL NOT contain [0..0] code (CONF:13939).</sch:assert>
       <sch:assert id="a-14234-c" test="not(cda:value/@xsi:type='CD') or (cda:value/@xsi:type='CD' and count(cda:value[@codeSystem='2.16.840.1.113883.6.96'])=1)">If xsi:type=?CD?, SHOULD contain a code from SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96) (CONF:14234).</sch:assert>
@@ -3048,17 +3047,17 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.1.1-warnings-abstract" abstract="true">
       <sch:assert id="a-5255-c" test=".">Can either be a locally defined name or the display name corresponding to clinicalDocument/code (CONF:5255).</sch:assert>
       <sch:assert id="a-5300-c" test="string-length(cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime/@value) &gt;= 8">SHOULD be precise to day (CONF:5300).</sch:assert>
-      <sch:assert id="a-5303" test="cda:recordTarget/cda:patientRole/cda:patient[count(cda:maritalStatusCode) &lt; 2]">This patient SHOULD contain zero or one [0..1] maritalStatusCode, which SHALL be selected from ValueSet Marital Status Value Set 2.16.840.1.113883.1.11.12212 DYNAMIC (CONF:5303).</sch:assert>
+      <sch:assert id="a-5303" test="cda:recordTarget/cda:patientRole/cda:patient[count(cda:maritalStatusCode)=1]">This patient SHOULD contain zero or one [0..1] maritalStatusCode, which SHALL be selected from ValueSet Marital Status Value Set 2.16.840.1.113883.1.11.12212 DYNAMIC (CONF:5303).</sch:assert>
       <sch:assert id="a-5326" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:guardian) or cda:recordTarget/cda:patientRole/cda:patient/cda:guardian[count(cda:code)=1]">The guardian, if present, SHOULD contain zero or one [0..1] code, which SHALL be selected from ValueSet PersonalRelationshipRoleType 2.16.840.1.113883.1.11.19563 DYNAMIC (CONF:5326).</sch:assert>
-      <sch:assert id="a-5359" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:guardian) or cda:recordTarget/cda:patientRole/cda:patient/cda:guardian[count(cda:addr) &gt;= 0]">The guardian, if present, SHOULD contain zero or more [0..*] addr (CONF:5359).</sch:assert>
+      <sch:assert id="a-5359" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:guardian) or cda:recordTarget/cda:patientRole/cda:patient/cda:guardian[count(cda:addr) &gt; 0]">The guardian, if present, SHOULD contain zero or more [0..*] addr (CONF:5359).</sch:assert>
       <sch:assert id="a-5375" test="cda:recordTarget/cda:patientRole/cda:telecom[@use]">Such telecoms SHOULD contain zero or one [0..1] @use, which SHALL be selected from ValueSet Telecom Use (US Realm Header) 2.16.840.1.113883.11.20.9.20 DYNAMIC (CONF:5375).</sch:assert>
       <sch:assert id="a-5385" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:guardian) or cda:recordTarget/cda:patientRole/cda:patient/cda:guardian[count(cda:guardianPerson)=1]">The guardian, if present, SHALL contain exactly one [1..1] guardianPerson (CONF:5385).</sch:assert>
       <sch:assert id="a-5386" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:guardian/cda:guardianPerson) or cda:recordTarget/cda:patientRole/cda:patient/cda:guardian/cda:guardianPerson[count(cda:name) &gt; 0]">This guardianPerson SHALL contain at least one [1..*] name (CONF:5386).</sch:assert>
       <sch:assert id="a-5396" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace) or cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace[count(cda:place)=1]">The birthplace, if present, SHALL contain exactly one [1..1] place (CONF:5396).</sch:assert>
       <sch:assert id="a-5397" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place) or cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place[count(cda:addr)=1]">This place SHALL contain exactly one [1..1] addr (CONF:5397).</sch:assert>
       <sch:assert id="a-5402-c" test="(cda:recordTarget/cda:patientRole/cda:addr[cda:country='US' or cda:country='USA']) and cda:recordTarget/cda:patientRole/cda:addr/cda:state">If country is US, this addr SHALL contain exactly one [1..1] state, which SHALL be selected from ValueSet 2.16.840.1.113883.3.88.12.80.1 StateValueSet DYNAMIC (CONF:5402).</sch:assert>
-      <sch:assert id="a-5404" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr) or cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr[count(cda:country)&lt;=1]">This addr SHOULD contain zero or one [0..1] country, which SHALL be selected from ValueSet CountryValueSet 2.16.840.1.113883.3.88.12.80.63 DYNAMIC (CONF:5404).</sch:assert>
-      <sch:assert id="a-5406" test="cda:recordTarget/cda:patientRole/cda:patient[count(cda:languageCommunication) &gt;= 0]">This patient SHOULD contain zero or more [0..*] languageCommunication (CONF:5406).</sch:assert>
+      <sch:assert id="a-5404" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr) or cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:addr[count(cda:country)=1]">This addr SHOULD contain zero or one [0..1] country, which SHALL be selected from ValueSet CountryValueSet 2.16.840.1.113883.3.88.12.80.63 DYNAMIC (CONF:5404).</sch:assert>
+      <sch:assert id="a-5406" test="cda:recordTarget/cda:patientRole/cda:patient[count(cda:languageCommunication) &gt; 0]">This patient SHOULD contain zero or more [0..*] languageCommunication (CONF:5406).</sch:assert>
       <sch:assert id="a-5407" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication) or cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication[count(cda:languageCode)=1]">The languageCommunication, if present, SHALL contain exactly one [1..1] languageCode, which SHALL be selected from ValueSet Language 2.16.840.1.113883.1.11.11526 DYNAMIC (CONF:5407).</sch:assert>
       <sch:assert id="a-5417" test="not(cda:recordTarget/cda:patientRole/cda:providerOrganization) or cda:recordTarget/cda:patientRole/cda:providerOrganization[count(cda:id) &gt; 0]">The providerOrganization, if present, SHALL contain at least one [1..*] id (CONF:5417).</sch:assert>
       <sch:assert id="a-5419" test="not(cda:recordTarget/cda:patientRole/cda:providerOrganization) or cda:recordTarget/cda:patientRole/cda:providerOrganization[count(cda:name) &gt; 0]">The providerOrganization, if present, SHALL contain at least one [1..*] name (CONF:5419).</sch:assert>
@@ -3074,7 +3073,7 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:assert id="a-5566" test="not(cda:informationRecipient) or cda:informationRecipient[count(cda:intendedRecipient)=1]">The informationRecipient, if present, SHALL contain exactly one [1..1] intendedRecipient (CONF:5566).</sch:assert>
       <sch:assert id="a-5568" test="not(cda:informationRecipient/cda:intendedRecipient/cda:informationRecipient) or cda:informationRecipient/cda:intendedRecipient/cda:informationRecipient[count(cda:name) &gt; 0]">The informationRecipient, if present, SHALL contain at least one [1..*] name (CONF:5568).</sch:assert>
       <sch:assert id="a-5578" test="not(cda:informationRecipient/cda:intendedRecipient/cda:receivedOrganization) or cda:informationRecipient/cda:intendedRecipient/cda:receivedOrganization[count(cda:name)=1]">The receivedOrganization, if present, SHALL contain exactly one [1..1] name (CONF:5578).</sch:assert>
-      <sch:assert id="a-5579" test="count(cda:legalAuthenticator)&lt;=1">SHOULD contain zero or one [0..1] legalAuthenticator (CONF:5579).</sch:assert>
+      <sch:assert id="a-5579" test="count(cda:legalAuthenticator)=1">SHOULD contain zero or one [0..1] legalAuthenticator (CONF:5579).</sch:assert>
       <sch:assert id="a-5580" test="not(cda:legalAuthenticator) or cda:legalAuthenticator[count(cda:time)=1]">The legalAuthenticator, if present, SHALL contain exactly one [1..1] time (CONF:5580).</sch:assert>
       <sch:assert id="a-5583" test="not(cda:legalAuthenticator) or cda:legalAuthenticator[count(cda:signatureCode)=1]">The legalAuthenticator, if present, SHALL contain exactly one [1..1] signatureCode (CONF:5583).</sch:assert>
       <sch:assert id="a-5584" test="not(cda:legalAuthenticator/cda:signatureCode) or cda:legalAuthenticator/cda:signatureCode[@code='S']">This signatureCode SHALL contain exactly one [1..1] @code="S" (CodeSystem: Participationsignature 2.16.840.1.113883.5.89 STATIC) (CONF:5584).</sch:assert>
@@ -3111,7 +3110,7 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:assert id="a-9956" test="not(cda:componentOf) or cda:componentOf[count(cda:encompassingEncounter)=1]">The componentOf, if present, SHALL contain exactly one [1..1] encompassingEncounter (CONF:9956).</sch:assert>
       <sch:assert id="a-9958" test="not(cda:componentOf/cda:encompassingEncounter) or cda:componentOf/cda:encompassingEncounter[count(cda:effectiveTime)=1]">This encompassingEncounter SHALL contain exactly one [1..1] effectiveTime (CONF:9958).</sch:assert>
       <sch:assert id="a-9959" test="not(cda:componentOf/cda:encompassingEncounter) or cda:componentOf/cda:encompassingEncounter[count(cda:id) &gt; 0]">This encompassingEncounter SHALL contain at least one [1..*] id (CONF:9959).</sch:assert>
-      <sch:assert id="a-9965" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication) or cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication[count(cda:proficiencyLevelCode) &lt; 2]">The languageCommunication, if present, SHOULD contain zero or one [0..1] proficiencyLevelCode, which SHALL be selected from ValueSet LanguageAbilityProficiency 2.16.840.1.113883.1.11.12199 DYNAMIC (CONF:9965).</sch:assert>
+      <sch:assert id="a-9965" test="not(cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication) or cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication[count(cda:proficiencyLevelCode)=1]">The languageCommunication, if present, SHOULD contain zero or one [0..1] proficiencyLevelCode, which SHALL be selected from ValueSet LanguageAbilityProficiency 2.16.840.1.113883.1.11.12199 DYNAMIC (CONF:9965).</sch:assert>
       <sch:assert id="a-9991-c" test=".">This id SHALL be a globally unique identifier for the document (CONF:9991).</sch:assert>
       <sch:assert id="a-9992-c" test=".">This code SHALL specify the particular kind of document (e.g. History and Physical, Discharge Summary, Progress Note) (CONF:9992).</sch:assert>
       <sch:assert id="a-10007-c" test=".">Unless otherwise specified by the document specific header constraints, when participant/@typeCode is IND, associatedEntity/@classCode SHALL be selected from ValueSet 2.16.840.1.113883.11.20.9.33 INDRoleclassCodes STATIC 2011-09-30 (CONF:10007).</sch:assert>
@@ -3130,27 +3129,27 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:assert id="a-14836" test="not(cda:documentationOf) or cda:documentationOf[count(cda:serviceEvent)=1]">The documentationOf, if present, SHALL contain exactly one [1..1] serviceEvent (CONF:14836).</sch:assert>
       <sch:assert id="a-14837" test="not(cda:documentationOf/cda:serviceEvent) or cda:documentationOf/cda:serviceEvent[count(cda:effectiveTime)=1]">This serviceEvent SHALL contain exactly one [1..1] effectiveTime (CONF:14837).</sch:assert>
       <sch:assert id="a-14838" test="not(cda:documentationOf/cda:serviceEvent/cda:effectiveTime) or cda:documentationOf/cda:serviceEvent/cda:effectiveTime[count(cda:low)=1]">This effectiveTime SHALL contain exactly one [1..1] low (CONF:14838).</sch:assert>
-      <sch:assert id="a-14839" test="not(cda:documentationOf/cda:serviceEvent) or cda:documentationOf/cda:serviceEvent[count(cda:performer) &gt;= 0]">This serviceEvent SHOULD contain zero or more [0..*] performer (CONF:14839).</sch:assert>
+      <sch:assert id="a-14839" test="not(cda:documentationOf/cda:serviceEvent) or cda:documentationOf/cda:serviceEvent[count(cda:performer) &gt; 0]">This serviceEvent SHOULD contain zero or more [0..*] performer (CONF:14839).</sch:assert>
       <sch:assert id="a-14840" test="not(cda:documentationOf/cda:serviceEvent/cda:performer) or cda:documentationOf/cda:serviceEvent/cda:performer[@typeCode]">The performer, if present, SHALL contain exactly one [1..1] @typeCode (CodeSystem: HL7ParticipationType 2.16.840.1.113883.5.90 STATIC) (CONF:14840).</sch:assert>
       <sch:assert id="a-14841" test="not(cda:documentationOf/cda:serviceEvent/cda:performer) or cda:documentationOf/cda:serviceEvent/cda:performer[count(cda:assignedEntity)=1]">The performer, if present, SHALL contain exactly one [1..1] assignedEntity (CONF:14841).</sch:assert>
-      <sch:assert id="a-14842" test="not(cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity) or cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity[count(cda:code) &lt; 2]">This assignedEntity SHOULD contain zero or one [0..1] code (CONF:14842).</sch:assert>
+      <sch:assert id="a-14842" test="not(cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity) or cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity[count(cda:code)=1]">This assignedEntity SHOULD contain zero or one [0..1] code (CONF:14842).</sch:assert>
       <sch:assert id="a-14843" test="not(cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:code) or cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:code[@code and @codeSystem='2.16.840.1.113883.6.101']">The code, if present, SHALL contain exactly one [1..1] @code, which SHOULD be selected from CodeSystem NUCCProviderTaxonomy (2.16.840.1.113883.6.101) STATIC (CONF:14843).</sch:assert>
       <sch:assert id="a-14846" test="not(cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity) or cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity[count(cda:id) &gt; 0]">This assignedEntity SHALL contain at least one [1..*] id (CONF:14846).</sch:assert>
       <sch:assert id="a-14847" test="not(cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:id) or cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:id[@root='2.16.840.1.113883.4.6']">Such ids SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.6" National Provider Identifier (CONF:14847).</sch:assert>
       <sch:assert id="a-16783-c" test="not(tested-here)">This assignedAuthor SHOULD contain zero or one [0..1] assignedAuthoringDevice (CONF:16783).</sch:assert>
       <sch:assert id="a-16784" test="not(cda:author/cda:assignedAuthor/cda:assignedAuthoringDevice) or cda:author/cda:assignedAuthor/cda:assignedAuthoringDevice[count(cda:manufacturerModelName)=1]">The assignedAuthoringDevice, if present, SHALL contain exactly one [1..1] manufacturerModelName (CONF:16784).</sch:assert>
       <sch:assert id="a-16785" test="not(cda:author/cda:assignedAuthor/cda:assignedAuthoringDevice) or cda:author/cda:assignedAuthor/cda:assignedAuthoringDevice[count(cda:softwareName)=1]">The assignedAuthoringDevice, if present, SHALL contain exactly one [1..1] softwareName (CONF:16785).</sch:assert>
-      <sch:assert id="a-16787" test="cda:author/cda:assignedAuthor[count(cda:code) &lt; 2]">This assignedAuthor SHOULD contain zero or one [0..1] code (CONF:16787).</sch:assert>
+      <sch:assert id="a-16787" test="cda:author/cda:assignedAuthor[count(cda:code)=1]">This assignedAuthor SHOULD contain zero or one [0..1] code (CONF:16787).</sch:assert>
       <sch:assert id="a-16788" test="not(cda:author/cda:assignedAuthor/cda:code) or cda:author/cda:assignedAuthor/cda:code[@code]">The code, if present, SHALL contain exactly one [1..1] @code, which SHOULD be selected from ValueSet Healthcare Provider Taxonomy (HIPAA) 2.16.840.1.114222.4.11.1066 DYNAMIC (CONF:16788).</sch:assert>
       <sch:assert id="a-16789" test="not(cda:author/cda:assignedAuthor/cda:assignedPerson) or cda:author/cda:assignedAuthor/cda:assignedPerson[count(cda:name) &gt; 0]">The assignedPerson, if present, SHALL contain at least one [1..*] name (CONF:16789).</sch:assert>
       <sch:assert id="a-16819" test="not(cda:documentationOf/cda:serviceEvent/cda:performer/cda:functionCode) or cda:documentationOf/cda:serviceEvent/cda:performer/cda:functionCode[@codeSystem]">The functionCode, if present, SHOULD contain zero or one [0..1] @codeSystem, which SHOULD be selected from CodeSystem participationFunction (2.16.840.1.113883.5.88) STATIC (CONF:16819).</sch:assert>
       <sch:assert id="a-16820" test="not(cda:recordTarget/cda:patientRole/cda:providerOrganization/cda:id) or cda:recordTarget/cda:patientRole/cda:providerOrganization/cda:id[@root='2.16.840.1.113883.4.6']">Such ids SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.6" National Provider Identifier (CONF:16820).</sch:assert>
       <sch:assert id="a-16821" test="not(cda:dataEnterer/cda:assignedEntity/cda:id) or cda:dataEnterer/cda:assignedEntity/cda:id[@root='2.16.840.1.113883.4.6']">Such ids SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.6" National Provider Identifier (CONF:16821).</sch:assert>
-      <sch:assert id="a-16822" test="count(cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:id[@root='2.16.840.1.113883.4.6']) &lt; 2">Such ids SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.6" National Provider Identifier (CONF:16822).</sch:assert>
+      <sch:assert id="a-16822" test="cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:id[@root='2.16.840.1.113883.4.6']">Such ids SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.6" National Provider Identifier (CONF:16822).</sch:assert>
       <sch:assert id="a-16824" test="not(cda:authenticator/cda:assignedEntity/cda:id) or cda:authenticator/cda:assignedEntity/cda:id[@root='2.16.840.1.113883.4.6']">Such ids SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.6" National Provider Identifier  (CONF:16824).</sch:assert>
-      <sch:assert id="a-16872-c" test="not(cda:author/cda:assignedAuthor/cda:assignedPerson) or (count(cda:author/cda:assignedAuthor/cda:assignedPerson/cda:name/cda:given) &gt; 0 and cda:author/cda:assignedAuthor/cda:assignedPerson/cda:name/cda:family) or (count(cda:author/cda:assignedAuthor/cda:assignedPerson/cda:name[*])=0 and string-length(cda:author/cda:assignedAuthor/cda:assignedPerson/cda:name)!=0)">The content SHALL be a conformant US Realm Person Name (PN.US.FIELDED) (2.16.840.1.113883.10.20.22.5.1.1) (CONF:16872).</sch:assert>
+      <sch:assert id="a-16872-c" test="(count(cda:author/cda:assignedAuthor/cda:assignedPerson/cda:name/cda:given) &gt; 0 and cda:author/cda:assignedAuthor/cda:assignedPerson/cda:name/cda:family) or (count(cda:author/cda:assignedAuthor/cda:assignedPerson/cda:name[*])=0 and string-length(cda:author/cda:assignedAuthor/cda:assignedPerson/cda:name)!=0)">The content SHALL be a conformant US Realm Person Name (PN.US.FIELDED) (2.16.840.1.113883.10.20.22.5.1.1) (CONF:16872).</sch:assert>
       <sch:assert id="a-16873-c" test="string-length(cda:legalAuthenticator/cda:time//@value)&gt;=8">The content SHALL be a conformant US Realm Date and Time (DTM.US.FIELDED) (2.16.840.1.113883.10.20.22.5.4) (CONF:16873).</sch:assert>
-      <sch:assert id="a-16874-c" test="not(cda:authenticator) or string-length(cda:authenticator/cda:time//@value)&gt;=8">The content SHALL be a conformant US Realm Date and Time (DTM.US.FIELDED) (2.16.840.1.113883.10.20.22.5.4) (CONF:16874).</sch:assert>
+      <sch:assert id="a-16874-c" test="string-length(cda:authenticator/cda:time//@value)&gt;=8">The content SHALL be a conformant US Realm Date and Time (DTM.US.FIELDED) (2.16.840.1.113883.10.20.22.5.4) (CONF:16874).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.1.1-warnings" context="cda:ClinicalDocument[cda:templateId/@root='2.16.840.1.113883.10.20.22.1.1']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.1.1-warnings-abstract" />
@@ -3180,8 +3179,8 @@ SHALL contain exactly one [1..1] custodian (CONF:16600).</sch:assert>
       <sch:assert id="a-16704" test="not(cda:informationRecipient) or cda:informationRecipient[count(cda:intendedRecipient)=1]">The informationRecipient, if present, SHALL contain exactly one [1..1] intendedRecipient (CONF:16704).</sch:assert>
       <sch:assert id="a-16705" test="not(cda:informationRecipient/cda:intendedRecipient) or cda:informationRecipient/cda:intendedRecipient[count(cda:id) &gt; 0]">This intendedRecipient SHALL contain at least one [1..*] id (CONF:16705).</sch:assert>
       <sch:assert id="a-16706-c" test="count(cda:informationRecipient) = 0 or count(cda:informationRecipient/cda:intendedRecipient/cda:id) &gt; 0">IntendedRecipient ID can be used by the receiver to ensure they are processing a file that was intended to be sent to them (CONF:16706).</sch:assert>
-      <!--No schematron defined for primitive constraint 16859 on template 986 -->
-      <sch:assert id="a-16859-c" test=".">Coded fields MAY contain the @sdtc:valueSet extension to reference the value set from which the supplied code was drawn. (See Appendix for more details on the use of this extension) (CONF:16859).</sch:assert>
+      <!--No schematron defined for primitive constraint 16859 on template 986-->
+      <sch:assert id="a-16859-c" test="not(.)">Coded fields MAY contain the @sdtc:valueSet extension to reference the value set from which the supplied code was drawn. (See Appendix for more details on the use of this extension) (CONF:16859).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.1.2-warnings" context="cda:ClinicalDocument[cda:templateId/@root='2.16.840.1.113883.10.20.24.1.2']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.1.2-warnings-abstract" />
@@ -3199,7 +3198,7 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
     <sch:rule id="r-2.16.840.1.113883.10.20.24.1.2-16857-branch-16857-warnings-abstract" abstract="true">
       <sch:assert id="a-16858-branch-16857" test="@root='2.16.840.1.113883.4.572'">SHOULD contain zero or one [0..1] @root="2.16.840.1.113883.4.572" Medicare HIC number (CONF:16858).</sch:assert>
     </sch:rule>
-    <sch:rule id="r-2.16.840.1.113883.10.20.24.1.2-16857-branch-16857-warnings" context="cda:ClinicalDocument[cda:templateId/@root='2.16.840.1.113883.10.20.24.1.2']/cda:recordTarget/cda:patientRole/cda:id]">
+    <sch:rule id="r-2.16.840.1.113883.10.20.24.1.2-16857-branch-16857-warnings" context="cda:ClinicalDocument[cda:templateId/@root='2.16.840.1.113883.10.20.24.1.2']/cda:recordTarget[cda:patientRole][cda:id]">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.1.2-16857-branch-16857-warnings-abstract" />
     </sch:rule>
   </sch:pattern>
@@ -3213,8 +3212,8 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   </sch:pattern>
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.100-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.100-warnings-abstract" abstract="true">
-      <sch:assert id="a-13379" test="cda:participantRole[count(cda:addr) &gt;= 0]">This participantRole SHOULD contain zero or more [0..*] addr (CONF:13379).</sch:assert>
-      <sch:assert id="a-13380" test="cda:participantRole[count(cda:telecom) &gt;= 0]">This participantRole SHOULD contain zero or more [0..*] telecom (CONF:13380).</sch:assert>
+      <sch:assert id="a-13379" test="cda:participantRole[count(cda:addr) &gt; 0]">This participantRole SHOULD contain zero or more [0..*] addr (CONF:13379).</sch:assert>
+      <sch:assert id="a-13380" test="cda:participantRole[count(cda:telecom) &gt; 0]">This participantRole SHOULD contain zero or more [0..*] telecom (CONF:13380).</sch:assert>
       <sch:assert id="a-13382" test="not(cda:participantRole/cda:playingEntity) or cda:participantRole/cda:playingEntity[@classCode='PLC']">The playingEntity, if present, SHALL contain exactly one [1..1] @classCode="PLC" place (CodeSystem: EntityClass 2.16.840.1.113883.5.41 STATIC) (CONF:13382).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.100-warnings" context="cda:Participant2[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.100']">
@@ -3242,8 +3241,8 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.29-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.29-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" />
-      <sch:assert id="a-13548" test="cda:effectiveTime[count(cda:high)&lt;=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:13548).</sch:assert>
-      <sch:assert id="a-13553" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:13553) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:13554). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:13555). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:13556).</sch:assert>
+      <sch:assert id="a-13548" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:13548).</sch:assert>
+      <sch:assert id="a-13553" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:13553) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:13554). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:13555). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:13556).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.29-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.29']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.29-warnings-abstract" />
@@ -3252,14 +3251,14 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.12-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.12-warnings-abstract" abstract="true">
-      <sch:assert id="a-8299" test="count(cda:effectiveTime)&lt;=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:8299).</sch:assert>
-      <sch:assert id="a-8301" test="not(cda:performer) or count(cda:performer) &gt;= 0">SHOULD contain zero or more [0..*] performer (CONF:8301).</sch:assert>
+      <sch:assert id="a-8299" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:8299).</sch:assert>
+      <sch:assert id="a-8301" test="count(cda:performer) &gt; 0">SHOULD contain zero or more [0..*] performer (CONF:8301).</sch:assert>
       <sch:assert id="a-8302" test="not(cda:performer) or cda:performer[count(cda:assignedEntity)=1]">The performer, if present, SHALL contain exactly one [1..1] assignedEntity (CONF:8302).</sch:assert>
       <sch:assert id="a-8303" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:id) &gt; 0]">This assignedEntity SHALL contain at least one [1..*] id (CONF:8303).</sch:assert>
       <sch:assert id="a-8304" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:addr)=1]">This assignedEntity SHALL contain exactly one [1..1] addr (CONF:8304).</sch:assert>
       <sch:assert id="a-8305" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:telecom)=1]">This assignedEntity SHALL contain exactly one [1..1] telecom (CONF:8305).</sch:assert>
-      <sch:assert id="a-8306" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:representedOrganization)&lt;=1]">This assignedEntity SHOULD contain zero or one [0..1] representedOrganization (CONF:8306).</sch:assert>
-      <sch:assert id="a-8307" test="not(cda:performer/cda:assignedEntity/cda:representedOrganization) or cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id) &gt;= 0]">The representedOrganization, if present, SHOULD contain zero or more [0..*] id (CONF:8307).</sch:assert>
+      <sch:assert id="a-8306" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:representedOrganization)=1]">This assignedEntity SHOULD contain zero or one [0..1] representedOrganization (CONF:8306).</sch:assert>
+      <sch:assert id="a-8307" test="not(cda:performer/cda:assignedEntity/cda:representedOrganization) or cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id) &gt; 0]">The representedOrganization, if present, SHOULD contain zero or more [0..*] id (CONF:8307).</sch:assert>
       <sch:assert id="a-8309" test="not(cda:performer/cda:assignedEntity/cda:representedOrganization) or cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:addr)=1]">The representedOrganization, if present, SHALL contain exactly one [1..1] addr (CONF:8309).</sch:assert>
       <sch:assert id="a-8310" test="not(cda:performer/cda:assignedEntity/cda:representedOrganization) or cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:telecom)=1]">The representedOrganization, if present, SHALL contain exactly one [1..1] telecom (CONF:8310).</sch:assert>
       <sch:assert id="a-8312" test="not(cda:participant) or cda:participant[@typeCode='LOC']">The participant, if present, SHALL contain exactly one [1..1] @typeCode="LOC" Location (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:8312).</sch:assert>
@@ -3277,7 +3276,7 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
       <sch:assert id="a-15600" test="not(cda:entryRelationship) or cda:entryRelationship[count(cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.20'])=1]">The entryRelationship, if present, SHALL contain exactly one [1..1] Instructions (templateId:2.16.840.1.113883.10.20.22.4.20) (CONF:15600).</sch:assert>
       <sch:assert id="a-15601" test="not(cda:entryRelationship) or cda:entryRelationship[count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.19'])=1]">The entryRelationship, if present, SHALL contain exactly one [1..1] Indication (templateId:2.16.840.1.113883.10.20.22.4.19) (CONF:15601).</sch:assert>
       <sch:assert id="a-15602" test="not(cda:entryRelationship) or cda:entryRelationship[count(cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.16'])=1]">The entryRelationship, if present, SHALL contain exactly one [1..1] Medication Activity (templateId:2.16.840.1.113883.10.20.22.4.16) (CONF:15602).</sch:assert>
-      <sch:assert id="a-19186" test="cda:code[count(cda:originalText)&lt;=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:19186).</sch:assert>
+      <sch:assert id="a-19186" test="cda:code[count(cda:originalText)=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:19186).</sch:assert>
       <sch:assert id="a-19189-c" test="count(cda:code/cda:originalText/cda:reference[@value])=0 or starts-with(cda:code/cda:originalText/cda:reference/@value, '#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:19189).</sch:assert>
       <sch:assert id="a-19190-c" test="count(cda:code[@codeSystem])=0 or cda:code[@codeSystem='2.16.840.1.113883.6.1'] or cda:code[@codeSystem='2.16.840.1.113883.6.96'] or cda:code[@codeSystem='2.16.840.1.113883.6.104']">This code in a procedure activity act SHOULD be selected from LOINC (CodeSystem: 2.16.840.1.113883.6.1) or SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96) (CONF:19190).</sch:assert>
     </sch:rule>
@@ -3297,8 +3296,8 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.30-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.30-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" />
-      <sch:assert id="a-13668" test="cda:effectiveTime[count(cda:high)&lt;=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:13668).</sch:assert>
-      <sch:assert id="a-13669" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:13669) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:13670). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:13671). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:13672).</sch:assert>
+      <sch:assert id="a-13668" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:13668).</sch:assert>
+      <sch:assert id="a-13669" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:13669) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:13670). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:13671). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:13672).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.30-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.30']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.30-warnings-abstract" />
@@ -3370,12 +3369,12 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.18-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.18-warnings-abstract" abstract="true">
-      <sch:assert id="a-7456" test="count(cda:effectiveTime) &lt; 2">SHOULD contain zero or one [0..1] effectiveTime (CONF:7456).</sch:assert>
-      <sch:assert id="a-7457" test="count(cda:repeatNumber) &lt; 2">SHOULD contain zero or one [0..1] repeatNumber (CONF:7457).</sch:assert>
-      <sch:assert id="a-7458" test="count(cda:quantity) &lt; 2">SHOULD contain zero or one [0..1] quantity (CONF:7458).</sch:assert>
+      <sch:assert id="a-7456" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:7456).</sch:assert>
+      <sch:assert id="a-7457" test="count(cda:repeatNumber)=1">SHOULD contain zero or one [0..1] repeatNumber (CONF:7457).</sch:assert>
+      <sch:assert id="a-7458" test="count(cda:quantity)=1">SHOULD contain zero or one [0..1] quantity (CONF:7458).</sch:assert>
       <sch:assert id="a-7467" test="not(cda:performer) or cda:performer[count(cda:assignedEntity)=1]">The performer, if present, SHALL contain exactly one [1..1] assignedEntity (CONF:7467).</sch:assert>
-      <sch:assert id="a-7468" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:addr)&lt;=1]">This assignedEntity SHOULD contain zero or one [0..1] addr (CONF:7468).</sch:assert>
-      <sch:assert id="a-10565-c" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity/cda:addr[cda:streetAddressLine and cda:city and ((not(cda:country) or cda:country!='US') or (cda:country='US' and cda:state and cda:postalCode))]">The content of addr SHALL be a conformant US Realm Address (AD.US.FIELDED) (2.16.840.1.113883.10.20.22.5.2) (CONF:10565).</sch:assert>
+      <sch:assert id="a-7468" test="not(cda:performer/cda:assignedEntity) or cda:performer/cda:assignedEntity[count(cda:addr)=1]">This assignedEntity SHOULD contain zero or one [0..1] addr (CONF:7468).</sch:assert>
+      <sch:assert id="a-10565-c" test="cda:performer/cda:assignedEntity/cda:addr[cda:streetAddressLine and cda:city and ((not(cda:country) or cda:country!='US') or (cda:country='US' and cda:state and cda:postalCode))]">The content of addr SHALL be a conformant US Realm Address (AD.US.FIELDED) (2.16.840.1.113883.10.20.22.5.2) (CONF:10565).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.18-warnings" context="cda:supply[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.18']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.18-warnings-abstract" />
@@ -3393,8 +3392,8 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.36-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.36-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" />
-      <sch:assert id="a-13972" test="cda:effectiveTime[count(cda:high)&lt;=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:13972).</sch:assert>
-      <sch:assert id="a-13977" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1]) &lt;= 1">SHOULD contain zero or one [0..1] entryRelationship (CONF:13977) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ParticipationType 2.16.840.1.113883.5.90 STATIC) (CONF:13978). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:13979). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:13980).</sch:assert>
+      <sch:assert id="a-13972" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:13972).</sch:assert>
+      <sch:assert id="a-13977" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:13977) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ParticipationType 2.16.840.1.113883.5.90 STATIC) (CONF:13978). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:13979). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:13980).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.36-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.36']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.36-warnings-abstract" />
@@ -3403,8 +3402,8 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.35-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.35-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.104-warnings-abstract" />
-      <sch:assert id="a-14071" test="cda:effectiveTime[count(cda:high) &lt;=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:14071).</sch:assert>
-      <sch:assert id="a-14076" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14076) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:14077). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:14078). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:14079).</sch:assert>
+      <sch:assert id="a-14071" test="cda:effectiveTime[count(cda:high)=1]">This effectiveTime SHOULD contain zero or one [0..1] high (CONF:14071).</sch:assert>
+      <sch:assert id="a-14076" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14076) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:14077). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:14078). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:14079).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.35-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.35']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.35-warnings-abstract" />
@@ -3414,12 +3413,12 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.7-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.90-warnings-abstract" />
-      <sch:assert id="a-7402" test="count(cda:participant[@typeCode='CSM'][count(cda:participantRole[@classCode='MANU'][count(cda:playingEntity[@classCode='MMAT'][count(cda:code)=1])=1])=1])&lt;=1">SHOULD contain zero or one [0..1] participant (CONF:7402) such that it SHALL contain exactly one [1..1] @typeCode="CSM" Consumable (CodeSystem: HL7ParticipationType 2.16.840.1.113883.5.90 STATIC) (CONF:7403). SHALL contain exactly one [1..1] participantRole (CONF:7404). This participantRole SHALL contain exactly one [1..1] @classCode="MANU" Manufactured Product (CodeSystem: RoleClass 2.16.840.1.113883.5.110 STATIC) (CONF:7405). This participantRole SHALL contain exactly one [1..1] playingEntity (CONF:7406). This playingEntity SHALL contain exactly one [1..1] @classCode="MMAT" Manufactured Material (CodeSystem: EntityClass 2.16.840.1.113883.5.41 STATIC) (CONF:7407). This playingEntity SHALL contain exactly one [1..1] code (CONF:7419).</sch:assert>
+      <sch:assert id="a-7402" test="count(cda:participant[@typeCode='CSM'][count(cda:participantRole[@classCode='MANU'][count(cda:playingEntity[@classCode='MMAT'][count(cda:code)=1])=1])=1])=1">SHOULD contain zero or one [0..1] participant (CONF:7402) such that it SHALL contain exactly one [1..1] @typeCode="CSM" Consumable (CodeSystem: HL7ParticipationType 2.16.840.1.113883.5.90 STATIC) (CONF:7403). SHALL contain exactly one [1..1] participantRole (CONF:7404). This participantRole SHALL contain exactly one [1..1] @classCode="MANU" Manufactured Product (CodeSystem: RoleClass 2.16.840.1.113883.5.110 STATIC) (CONF:7405). This participantRole SHALL contain exactly one [1..1] playingEntity (CONF:7406). This playingEntity SHALL contain exactly one [1..1] @classCode="MMAT" Manufactured Material (CodeSystem: EntityClass 2.16.840.1.113883.5.41 STATIC) (CONF:7407). This playingEntity SHALL contain exactly one [1..1] code (CONF:7419).</sch:assert>
       <sch:assert id="a-7421-c" test=".">In an allergy to a specific medication the code SHALL be selected from the ValueSet 2.16.840.1.113883.3.88.12.80.16 Medication Brand Name DYNAMIC or the ValueSet 2.16.840.1.113883.3.88.12.80.17 Medication Clinical Drug DYNAMIC (CONF:7421).</sch:assert>
-      <sch:assert id="a-7422" test="cda:value[@xsi:type='CD'][count(cda:originalText)&lt;=1]">This value SHOULD contain zero or one [0..1] originalText (CONF:7422).</sch:assert>
-      <sch:assert id="a-7447" test="count(cda:entryRelationship[@inversionInd='true'][@typeCode='MFST'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.9'])=1]) &gt;= 0">SHOULD contain zero or more [0..*] entryRelationship (CONF:7447) such that it SHALL contain exactly one [1..1] @inversionInd="true" True (CONF:7449). SHALL contain exactly one [1..1] @typeCode="MFST" Is Manifestation of (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:7907). SHALL contain exactly one [1..1] Reaction Observation (templateId:2.16.840.1.113883.10.20.22.4.9) (CONF:15955).</sch:assert>
+      <sch:assert id="a-7422" test="cda:value[@xsi:type='CD'][count(cda:originalText)=1]">This value SHOULD contain zero or one [0..1] originalText (CONF:7422).</sch:assert>
+      <sch:assert id="a-7447" test="count(cda:entryRelationship[@inversionInd='true'][@typeCode='MFST'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.9'])=1]) &gt; 0">SHOULD contain zero or more [0..*] entryRelationship (CONF:7447) such that it SHALL contain exactly one [1..1] @inversionInd="true" True (CONF:7449). SHALL contain exactly one [1..1] @typeCode="MFST" Is Manifestation of (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:7907). SHALL contain exactly one [1..1] Reaction Observation (templateId:2.16.840.1.113883.10.20.22.4.9) (CONF:15955).</sch:assert>
       <sch:assert id="a-9103-c" test=".">If it is unknown when the allergy began, this effectiveTime SHALL contain low/@nullFLavor="UNK" (CONF:9103).</sch:assert>
-      <sch:assert id="a-9961" test="count(cda:entryRelationship[@typeCode='SUBJ'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.8'])=1]) &lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:9961) such that it SHALL contain exactly one [1..1] @typeCode="SUBJ" Has Subject (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:9962). SHALL contain exactly one [1..1] @inversionInd="true" True (CONF:9964). SHALL contain exactly one [1..1] Severity Observation (templateId:2.16.840.1.113883.10.20.22.4.8) (CONF:15956).</sch:assert>
+      <sch:assert id="a-9961" test="count(cda:entryRelationship[@typeCode='SUBJ'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.8'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:9961) such that it SHALL contain exactly one [1..1] @typeCode="SUBJ" Has Subject (CodeSystem: HL7ActRelationshipType 2.16.840.1.113883.5.1002 STATIC) (CONF:9962). SHALL contain exactly one [1..1] @inversionInd="true" True (CONF:9964). SHALL contain exactly one [1..1] Severity Observation (templateId:2.16.840.1.113883.10.20.22.4.8) (CONF:15956).</sch:assert>
       <sch:assert id="a-10082-c" test=".">If the allergy is no longer a concern, this effectiveTime MAY contain zero or one [0..1] high (CONF:10082).</sch:assert>
       <sch:assert id="a-10083-c" test=".">In an allergy to a class of medications the code SHALL be selected from the ValueSet 2.16.840.1.113883.3.88.12.80.18 Medication Drug Class DYNAMIC (CONF:10083).</sch:assert>
       <sch:assert id="a-10084-c" test=".">In an allergy to a food or other substance the code SHALL be selected from the ValueSet 2.16.840.1.113883.3.88.12.80.20 Ingredient Name DYNAMIC (CONF:10084).</sch:assert>
@@ -3431,8 +3430,8 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.7-warnings-abstract" />
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.7-7402-branch-7402-warnings-abstract" abstract="true">
-      <sch:assert id="a-7424-branch-7402" test="not(cda:participantRole/cda:playingEntity/cda:code) or cda:participantRole/cda:playingEntity/cda:code[count(cda:originalText)&lt;=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:7424).</sch:assert>
-      <sch:assert id="a-7425-branch-7402" test="not(cda:participantRole/cda:playingEntity/cda:code/cda:originalText) or cda:participantRole/cda:playingEntity/cda:code/cda:originalText[count(cda:reference)&lt;=1]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:7425).</sch:assert>
+      <sch:assert id="a-7424-branch-7402" test="not(cda:participantRole/cda:playingEntity/cda:code) or cda:participantRole/cda:playingEntity/cda:code[count(cda:originalText)=1]">This code SHOULD contain zero or one [0..1] originalText (CONF:7424).</sch:assert>
+      <sch:assert id="a-7425-branch-7402" test="not(cda:participantRole/cda:playingEntity/cda:code/cda:originalText) or cda:participantRole/cda:playingEntity/cda:code/cda:originalText[count(cda:reference)=1]">The originalText, if present, SHOULD contain zero or one [0..1] reference (CONF:7425).</sch:assert>
       <sch:assert id="a-15952-branch-7402" test="not(cda:participantRole/cda:playingEntity/cda:code/cda:originalText/cda:reference) or cda:participantRole/cda:playingEntity/cda:code/cda:originalText/cda:reference[@value]">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:15952).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.7-7402-branch-7402-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.7']/cda:participant[@typeCode='CSM'][cda:participantRole[@classCode='MANU'][cda:playingEntity[@classCode='MMAT'][cda:code]]]">
@@ -3442,7 +3441,7 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.46-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.46-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.7-warnings-abstract" />
-      <sch:assert id="a-14106" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14106) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CONF:14107). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:14108). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:14109).</sch:assert>
+      <sch:assert id="a-14106" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14106) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CONF:14107). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:14108). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:14109).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.46-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.46']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.46-warnings-abstract" />
@@ -3451,7 +3450,7 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.43-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.43-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.7-warnings-abstract" />
-      <sch:assert id="a-14130" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14130) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CONF:14131). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:14132). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:14133).</sch:assert>
+      <sch:assert id="a-14130" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14130) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CONF:14131). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:14132). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:14133).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.43-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.43']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.43-warnings-abstract" />
@@ -3460,7 +3459,7 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.24.3.44-warnings">
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.44-warnings-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.7-warnings-abstract" />
-      <sch:assert id="a-14155" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])&lt;=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14155) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CONF:14156). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:14157). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:14158).</sch:assert>
+      <sch:assert id="a-14155" test="count(cda:entryRelationship[@typeCode='MFST'][@inversionInd='true'][count(cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.85'])=1])=1">SHOULD contain zero or one [0..1] entryRelationship (CONF:14155) such that it SHALL contain exactly one [1..1] @typeCode="MFST" (CONF:14156). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:14157). SHALL contain exactly one [1..1] Reaction (templateId:2.16.840.1.113883.10.20.24.3.85) (CONF:14158).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.44-warnings" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.44']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.44-warnings-abstract" />
@@ -3469,11 +3468,11 @@ This representedOrganization SHOULD contain zero or one [0..1] id (CONF:16595) s
   <sch:pattern id="p-2.16.840.1.113883.10.20.22.4.45-warnings">
     <!--Pattern is used in an implied relationship.-->
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.45-warnings-abstract" abstract="true">
-      <sch:assert id="a-15248" test="cda:subject/cda:relatedSubject[count(cda:subject)&lt;=1]">This relatedSubject SHOULD contain zero or one [0..1] subject (CONF:15248).</sch:assert>
-      <sch:assert id="a-15249-c" test="count(cda:subject/cda:relatedSubject/cda:subject/sdtc:id)&gt;=0">The subject SHOULD contain zero or more [0..*] sdtc:id. The prefix sdtc: SHALL be bound to the namespace ?urn:hl7-org:sdtc?. The use of the namespace provides a necessary extension to CDA R2 for the use of the id element (CONF:15249).</sch:assert>
+      <sch:assert id="a-15248" test="cda:subject/cda:relatedSubject[count(cda:subject)=1]">This relatedSubject SHOULD contain zero or one [0..1] subject (CONF:15248).</sch:assert>
+      <sch:assert id="a-15249-c" test="count(cda:subject/cda:relatedSubject/cda:subject/sdtc:id)=1">The subject SHOULD contain zero or more [0..*] sdtc:id. The prefix sdtc: SHALL be bound to the namespace ?urn:hl7-org:sdtc?. The use of the namespace provides a necessary extension to CDA R2 for the use of the id element (CONF:15249).</sch:assert>
       <sch:assert id="a-15974" test="not(cda:subject/cda:relatedSubject/cda:subject) or cda:subject/cda:relatedSubject/cda:subject[count(cda:administrativeGenderCode)=1]">The subject, if present, SHALL contain exactly one [1..1] administrativeGenderCode (CONF:15974).</sch:assert>
       <sch:assert id="a-15975" test="not(cda:subject/cda:relatedSubject/cda:subject/cda:administrativeGenderCode) or cda:subject/cda:relatedSubject/cda:subject/cda:administrativeGenderCode[@code and @code=document('voc.xml')/voc:systems/voc:system[@valueSetOid='2.16.840.1.113883.1.11.1']/voc:code/@value]">This administrativeGenderCode SHALL contain exactly one [1..1] @code, which SHALL be selected from ValueSet Administrative Gender (HL7 V3) 2.16.840.1.113883.1.11.1 STATIC (CONF:15975).</sch:assert>
-      <sch:assert id="a-15976" test="not(cda:subject/cda:relatedSubject/cda:subject) or cda:subject/cda:relatedSubject/cda:subject[count(cda:birthTime)&lt;=1]">The subject, if present, SHOULD contain zero or one [0..1] birthTime (CONF:15976).</sch:assert>
+      <sch:assert id="a-15976" test="not(cda:subject/cda:relatedSubject/cda:subject) or cda:subject/cda:relatedSubject/cda:subject[count(cda:birthTime)=1]">The subject, if present, SHOULD contain zero or one [0..1] birthTime (CONF:15976).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.45-warnings" context="cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.45']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.45-warnings-abstract" />
