@@ -29,7 +29,7 @@ class PatientZipperTest < ActiveSupport::TestCase
         end
     end
     File.delete(file.path)
-    assert count == 5 , "Zip file has wrong number of records should be 5 , was #{count}"
+    assert count == 6 , "Zip file has wrong number of records should be 6 , was #{count}"
   end
   
  
@@ -53,7 +53,7 @@ class PatientZipperTest < ActiveSupport::TestCase
         end
     end
     File.delete(file.path)
-    assert count == 5 , "Zip file has wrong number of records should be 5 , was #{count}"
+    assert count == 6 , "Zip file has wrong number of records should be 6 , was #{count}"
   end
 
   

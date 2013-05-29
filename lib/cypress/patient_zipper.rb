@@ -21,6 +21,7 @@ module Cypress
     end
 
     def export(patient)
+
     EXPORTER.export(patient,measures,start_time,end_time)
     end
 

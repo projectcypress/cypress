@@ -13,7 +13,7 @@ class ProductTestHelperTest < ActionView::TestCase
   test "Group measures by type" do
   	groups = group_measures_by_type(Measure.all)
     assert_equal 5, groups[:continuous].length,  "Should contain 5 CV measure"
-    assert_equal 16, groups[:proportional].length, "Should contain 16 non CV measures"
+    assert_equal 17, groups[:proportional].length, "Should contain 17 non CV measures"
   end  
 
 end
