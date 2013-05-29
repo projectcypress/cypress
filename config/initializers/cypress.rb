@@ -2,6 +2,10 @@ require 'cypress'
 require 'version'
 require 'validation_error'
 
+require 'validators/schema_validator'
+require 'validators/schematron_validator'
+require 'validators/valueset_validator'
+
 require 'mongoid'
 require 'mongoid-grid_fs'
 require 'hqmf-parser'

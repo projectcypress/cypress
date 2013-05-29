@@ -1,5 +1,7 @@
 require 'validators/data_criteria_validator'
 require 'validators/smoking_gun_validator'
+require 'validators/valueset_validator'
+
 class QRDAProductTest < ProductTest
   after_create :generate_population
   # oids declared in the spec not by the measures -- will want  to filter these out of the checks
@@ -31,6 +33,8 @@ class QRDAProductTest < ProductTest
 
     dc_validator = ::Validators::DataCriteriaValidator.new(self.measures)
     sgd_validator = ::Validators::SmokingGunValidator.new(self.measures, self.records, self.id)
+    valueset_validator =  ::Validators::ValuesetValidator.new(self.bundle)
+
     artifact.each_file do |name, data|
       doc = Nokogiri::XML(data) 
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
@@ -40,6 +44,7 @@ class QRDAProductTest < ProductTest
       validation_errors.concat dc_validator.validate(doc, {file_name: name})
 
       errs = Cypress::QrdaUtility.validate_cat_1(doc, measures, name)
+      errs.concat valueset_validator.validate(doc)
       errs.each {|e| e[:file_name]=name}
       validation_errors.concat errs
       file_count = file_count + 1

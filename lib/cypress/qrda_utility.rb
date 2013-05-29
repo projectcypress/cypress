@@ -19,6 +19,7 @@ module Cypress
     QRDA_CAT3_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_error"]) )
     QRDA_CAT3_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_warning"]) )
     
+
     SUPPLEMENTAL_DATA_MAPPING = {QME::QualityReport::RACE=> "2.16.840.1.113883.10.20.27.3.8", 
                                  QME::QualityReport::ETHNICITY => "2.16.840.1.113883.10.20.27.3.7", 
                                  QME::QualityReport::SEX => "2.16.840.1.113883.10.20.27.3.6",  
@@ -44,11 +45,9 @@ module Cypress
         # Valdiate aginst the generic schematron rules
         file_errors.concat QRDA_CAT1_SCHEMATRON_ERROR_VALIDATOR.validate(doc, {phase: :errors, msg_type: :error, file_name: name})
         file_errors.concat QRDA_CAT1_SCHEMATRON_WARNING_VALIDATOR.validate(doc, {phase: :errors, msg_type: :warning, file_name: name })
-        
+
         # validate the mesure specific rules
         measures.each do |measure|
-
-
           # Look in the document to see if there is an entry stating that it is reporting on the given measure
           # we will be a bit lieniant and look for both the version specific id and the non version specific ids
           if !doc.at_xpath("//cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.98']]/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']/cda:id[#{translate("@root")}='#{measure.hqmf_id.upcase}']")
