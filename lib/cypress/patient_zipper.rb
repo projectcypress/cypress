@@ -21,7 +21,7 @@ module Cypress
     end
 
     def export(patient)
-      binding.pry
+
     EXPORTER.export(patient,measures,start_time,end_time)
     end
 

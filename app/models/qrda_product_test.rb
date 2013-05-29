@@ -18,8 +18,7 @@ class QRDAProductTest < ProductTest
   end
   
   def execute(params)
-    record_count = self.records.count
-
+   
     te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i) 
     te.save
     
@@ -46,8 +45,8 @@ class QRDAProductTest < ProductTest
       file_count = file_count + 1
     end
    
-    if file_count != record_count
-      validation_errors << ExecutionError.new(message: "#{record_count} files expected but was #{file_count}", msg_type: :error, validator_type: :result_validation)
+    if file_count != sgd_validator.expected_records.length
+      validation_errors << ExecutionError.new(message: "#{sgd_validator.expected_records.length} files expected but was #{file_count}", msg_type: :error, validator_type: :result_validation)
     end
     
     te.execution_errors = validation_errors

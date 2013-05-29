@@ -80,7 +80,8 @@ class CalculatedProductTest < ProductTest
   def generate_qrda_cat1_test
 
     self.measures.top_level.each do |mes|
-      results = self.results.where({"value.measure_id" => mes.hqmf_id, "value.IPP" => {"$gt" => 0}}).collect{|r| r["value"]["medical_record_id"]} 
+      results = self.results.where({"value.measure_id" => mes.hqmf_id, "value.IPP" => {"$gt" => 0}})
+      mrns = results.collect{|r| r["value"]["medical_record_id"]} 
       results.uniq!
        qrda = QRDAProductTest.new(measure_ids: [mes.measure_id], 
                                name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test", 
@@ -89,12 +90,18 @@ class CalculatedProductTest < ProductTest
                                product_id: self.product_id,
                                user_id: self.user_id,
                                calculated_test_id: self.id)
-       records = self.records.where({"medical_record_number" => {"$in"=>results}})
+       records = self.records.where({"medical_record_number" => {"$in"=>mrns}})
        records.each do |rec| 
         new_rec = rec.dup
         new_rec[:test_id] = qrda.id 
         new_rec.save
        end
+
+       results.each do |res|
+        res_clone = res.dup
+        res_clone["value"]["test_id"]=qrda.id 
+        res_clone.save
+       end 
        qrda.save
        qrda.ready
 
@@ -103,6 +110,36 @@ class CalculatedProductTest < ProductTest
     self[:qrda_generated] = true
     self.save
   end
+
+
+  def generate_qrda_cat1_test2
+   
+    qrda = QRDAProductTest.new(measure_ids:  self.measures.collect{|m| m.measure_id}, 
+                             name: "#{self.name} - QRDA Cat I Test", 
+                             bundle_id: self.bundle_id, 
+                             effective_date: self.effective_date,
+                             product_id: self.product_id,
+                             user_id: self.user_id,
+                             calculated_test_id: self.id)
+
+    self.records.each do |rec| 
+      new_rec = rec.dup
+      new_rec[:test_id] = qrda.id 
+      new_rec.save
+    end
+
+    self.results.each do |res|
+      res_clone = res.dup
+      res_clone["value"]["test_id"]=qrda.id 
+      res_clone.save
+    end 
+    qrda.save
+    qrda.ready
+
+    self[:qrda_generated] = true
+    self.save
+  end
+
   
   def self.product_type_measures(bundle)
     bundle.measures.top_level_by_type("ep") #.where({"population_ids.MSRPOPL" => {"$exists" => false}})

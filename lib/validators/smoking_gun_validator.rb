@@ -10,13 +10,19 @@ module Validators
 			@measures = measures
 			@records = records
 			@test_id = test_id
-
+			@expected_records = []
 			@sgd = {}
 			@measures.each do |mes|
+				
 				@sgd[mes.hqmf_id] = mes.smoking_gun_data({"value.test_id" => test_id.to_s})
+				@expected_records.concat @sgd[mes.hqmf_id].keys
 			end
-
+			@expected_records = @expected_records.flatten.uniq
 			@names = Hash[*self.records.collect{|r| ["#{r.first.strip} #{r.last.strip}".upcase,r.medical_record_number]}.flatten]
+		end
+
+		def expected_records
+			@expected_records
 		end
 
 		def validate(document, options={})
@@ -24,7 +30,6 @@ module Validators
 			doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
 			doc.root.add_namespace_definition("sdtc", "urn:hl7-org:sdtc")
 			errors = []
-			
 			# find the mrn for the document
 			first = doc.at_xpath("/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given/text()")
       last = doc.at_xpath("/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:family/text()")
@@ -37,14 +42,22 @@ module Validators
       	 return errors
       end
 
+      if @expected_records.index(mrn).nil?
+					errors << ExecutionError.new(message: "Pateint '#{doc_name}' not expected to be returned.'", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
+      	 #cannot go any further here so call it quits and return
+      end
+
       @sgd.each_pair do |hqmf_id, patient_data|
       	patient_sgd = patient_data[mrn]
       	if patient_sgd
       		patient_sgd.each do |dc|
-      			nodes = doc.xpath("//cda:templateId[@root='#{dc[:template_id]}']/../*[@sdtc:valueSet='dc[:oid]']")
-      			if node.length == 0
-      				errors << ExecutionError.new(message: "Cannot find expected entry with templateId = #{cd[:template_id]} with valueset #{cd[:oid]}")
-      			end
+      			if dc[:template] != "N/A"
+	      			nodes = doc.xpath("//cda:templateId[@root='#{dc[:template]}']/../*[@sdtc:valueSet='#{dc[:oid]}']")
+	      			if nodes.length == 0 
+	      				errors << ExecutionError.new(message: "Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
+	      			end
+	      		end
+
       		end
       	end
       end

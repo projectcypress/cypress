@@ -19,33 +19,6 @@ class QRDAProductTestTest  < ActiveSupport::TestCase
     
   end
 
-test "should be able to create and execute a test" do
-
-  	measure_ids = ["0001","0002"]
-
-  	pt = QRDAProductTest.new(bundle_id: Bundle.first.id,measure_ids: measure_ids, name:"In Test", product_id: Product.first.id,effective_date:Bundle.active.first.effective_date)
- 
-  	pt.save
-  	pt.reload
-
-  	assert_equal "ready", pt.state, "Test should be in a ready state"
-  	assert_equal measure_ids, pt.measures.collect{|m| m.hqmf_id}, "Test should have the same measure_ids created with"
-
-    assert_equal 1, pt.records.count , "Test should have created 1 record"
-    qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/eh_test_results.xml'), "application/xml")
-    
-    execution = pt.execute({:results =>qrda})
-
-    assert_equal 0,  execution.execution_errors.by_validation_type(:result_validation).length 
-    qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/eh_test_results_bad.xml'), "application/xml")
-    
-    execution = pt.execute({:results =>qrda})
-
-    assert execution, "Should be able to create and execution"
-
-	
-  end
-
 
   test "should be able to test a good archive of qrda files"  do 
     ptest = ProductTest.find("51703a883054cf84390000d3")
