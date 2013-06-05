@@ -7,17 +7,17 @@ module Cypress
     CV_METHOD_CODES = ["OBSRV", "COUNT","SUM", "AVERAGE","STDEV.S","VARIANCE.S","STDEV.P","VARIANCE.P","MIN","MAX", "MEDIAN", "MODE"]
     CV_POPULATION_CODE = QME::QualityReport::OBSERVATION
     
-    QRDA_CAT1_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
-    QRDA_CAT3_SCHEMATRON_CONFIG = APP_CONFIG["validation"]["schematron"]["qrda_cat_3"]
-    QRDA_CAT1_SCHEMATRON_ROOT= QRDA_CAT1_SCHEMATRON_CONFIG["root"]
-    QRDA_CAT3_SCHEMATRON_ROOT= QRDA_CAT3_SCHEMATRON_CONFIG["root"]
-
+    QRDA_CAT1_SCHEMATRON = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
+    QRDA_CAT3_SCHEMATRON = APP_CONFIG["validation"]["schematron"]["qrda_cat_3"]
+  
+    ISO_SCHEMATRON = 'resources/schematron/iso-schematron-xslt1/iso_svrl_for_xslt1.xsl'
     QRDA_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("CDA Schema validator", APP_CONFIG["validation"]["schema"]["qrda_cat_1"])
-    QRDA_CAT1_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat I Schematron", File.join(QRDA_CAT1_SCHEMATRON_ROOT, QRDA_CAT1_SCHEMATRON_CONFIG["generic_error"]) )
-    QRDA_CAT1_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat I Schematron", File.join(QRDA_CAT1_SCHEMATRON_ROOT, QRDA_CAT1_SCHEMATRON_CONFIG["generic_warning"]) )
+
+    QRDA_CAT1_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat I Schematron", QRDA_CAT1_SCHEMATRON ,ISO_SCHEMATRON,true,{"phase" => "errors"})
+    QRDA_CAT1_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat I Schematron", QRDA_CAT1_SCHEMATRON, ISO_SCHEMATRON,true, {"phase" => "warnings"})
     
-    QRDA_CAT3_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_error"]) )
-    QRDA_CAT3_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::CompiledValidator.new("Generic QRDA Cat III Schematron", File.join(QRDA_CAT3_SCHEMATRON_ROOT, QRDA_CAT3_SCHEMATRON_CONFIG["generic_warning"]) )
+    QRDA_CAT3_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat III Schematron", QRDA_CAT3_SCHEMATRON,ISO_SCHEMATRON,true,{"phase" => "errors"})
+    QRDA_CAT3_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat III Schematron",QRDA_CAT3_SCHEMATRON,ISO_SCHEMATRON,true,{"phase" => "warnings"})
     
 
     SUPPLEMENTAL_DATA_MAPPING = {QME::QualityReport::RACE=> "2.16.840.1.113883.10.20.27.3.8", 

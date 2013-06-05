@@ -64,9 +64,13 @@ module Validators
         return @schematron_processor if @schematron_processor
         
         doc   = Nokogiri::XML(File.open(@schematron_file))
+        doc.root["defaultPhase"] = (@stylesheet_params["phase"] || "ALL")
+
         xslt  = Nokogiri::XSLT(File.open(@stylesheet))
-        result = xslt.transform(doc,@stylesheet_params)
-        processor = Nokogiri::XSLT(result.to_s)
+        result = xslt.transform(doc)
+        #this is stupid but needs to be done to assocaite the xslt file with a dirctory
+        result = Nokogiri::XML(result.to_s,@schematron_file)
+        processor = Nokogiri::XSLT::Stylesheet.parse_stylesheet_doc(result)
         if cache
           @schematron_processor = processor
         end
