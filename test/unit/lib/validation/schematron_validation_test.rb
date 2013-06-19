@@ -20,12 +20,12 @@ class SchematronValidatorTest < ActiveSupport::TestCase
    def test_uncompiled_validator
 
 
-      validator = Validators::Schematron::UncompiledValidator.new("test validator", File.open("./test/fixtures/validators/schematron_rules.xml"),File.open("./test/fixtures/validators/schematron_1.5_svrl_new.xsl"))
+      validator = Validators::Schematron::UncompiledValidator.new("test validator", "./test/fixtures/validators/schematron_rules.xml","./test/fixtures/validators/schematron_1.5_svrl_new.xsl")
       xml = File.open("./test/fixtures/validators/schematron_test_good.xml","r") do |f| f.read() end
       assert validator.validate(Nokogiri::XML(xml)).length ==0 
 
 
-      validator = Validators::Schematron::UncompiledValidator.new("test validator", File.open("./test/fixtures/validators/schematron_rules.xml"),File.open("./test/fixtures/validators/schematron_1.5_svrl_new.xsl"))
+      validator = Validators::Schematron::UncompiledValidator.new("test validator", "./test/fixtures/validators/schematron_rules.xml","./test/fixtures/validators/schematron_1.5_svrl_new.xsl")
       xml = File.open("./test/fixtures/validators/schematron_test_bad.xml","r") do |f| f.read() end
       assert validator.validate(Nokogiri::XML(xml)).length >=0
 

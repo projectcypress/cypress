@@ -2,7 +2,9 @@
 # works for now until we can truley unify these items accross applications
 Bundle = HealthDataStandards::CQM::Bundle
 class Bundle
+  field :smoking_gun_capable, type: Boolean
   has_many :product_tests
+
   store_in collection: 'bundles'
   def results
     Result.where(bundle_id: self.id, "value.test_id" => nil).order_by(["value.last",:asc])

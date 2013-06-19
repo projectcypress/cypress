@@ -21,23 +21,39 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
    end
   
 
+  #  test "Generate QRDA Test" do
+  #   pt1 = ProductTest.find("4f58f8de1d41c851eb000999")
+    
+  #   pt1.generate_qrda_cat1_test
+
+  #   # should generate a QRDA Cat I test for each measure
+  #   pt1.measures.each do |mes|
+  #     qrda_test = QRDAProductTest.where({calculated_test_id: pt1.id, measure_ids: mes.hqmf_id})
+  #     assert_equal 1, qrda_test.count
+  #     qrda = qrda_test.first
+  #     assert_equal 1, qrda.measures.count, "Generated QRDA Cat I test should only have 1 measure"
+  #     assert_equal pt1.effective_date ,qrda.effective_date
+  #     assert_equal pt1.bundle_id, qrda.bundle_id
+  #     assert_equal pt1.product_id ,qrda.product_id
+  #     assert_equal pt1.user_id,  qrda.user_id
+  #   end
+    
+  # end
+
+
    test "Generate QRDA Test" do
     pt1 = ProductTest.find("4f58f8de1d41c851eb000999")
     
     pt1.generate_qrda_cat1_test
-
-    # should generate a QRDA Cat I test for each measure
-    pt1.measures.each do |mes|
-      qrda_test = QRDAProductTest.where({calculated_test_id: pt1.id, measure_ids: mes.hqmf_id})
-      assert_equal 1, qrda_test.count
-      qrda = qrda_test.first
-      assert_equal 1, qrda.measures.count, "Generated QRDA Cat I test should only have 1 measure"
-      assert_equal pt1.effective_date ,qrda.effective_date
-      assert_equal pt1.bundle_id, qrda.bundle_id
-      assert_equal pt1.product_id ,qrda.product_id
-      assert_equal pt1.user_id,  qrda.user_id
-    end
-    
+    qrda_test = QRDAProductTest.where({calculated_test_id: pt1.id})
+    assert_equal pt1.measures.count, qrda_test.count
+    qrda = qrda_test.first
+    assert_equal 1, qrda.measures.count, "Generated QRDA Cat I test should only have the same number of measures as the calculated test"
+    assert_equal pt1.effective_date ,qrda.effective_date
+    assert_equal pt1.bundle_id, qrda.bundle_id
+    assert_equal pt1.product_id ,qrda.product_id
+    assert_equal pt1.user_id,  qrda.user_id
+  
   end
 
 

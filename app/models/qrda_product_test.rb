@@ -3,24 +3,10 @@ require 'validators/smoking_gun_validator'
 require 'validators/valueset_validator'
 
 class QRDAProductTest < ProductTest
-  after_create :generate_population
-  # oids declared in the spec not by the measures -- will want  to filter these out of the checks
   
-
-  def generate_population
-    unless self["calculated_test_id"]
-
-      min_set = PatientPopulation.min_coverage(self.measure_ids, self.bundle)
-      p_ids = min_set[:minimal_set]
-      pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => self.id, "randomize_names"=> (Rails.env.test? ? false : true)})
-      pcj.perform
-      #now calculate the expected results
-      self.ready
-    end
-  end
   
   def execute(params)
-   
+  
     te = self.test_executions.build(expected_results: self.expected_results, execution_date: Time.now.to_i) 
     te.save
     
@@ -50,9 +36,14 @@ class QRDAProductTest < ProductTest
       file_count = file_count + 1
     end
    
-    if file_count != sgd_validator.expected_records.length
-      validation_errors << ExecutionError.new(message: "#{sgd_validator.expected_records.length} files expected but was #{file_count}", msg_type: :error, validator_type: :result_validation)
+    if file_count != self.records.count
+      validation_errors << ExecutionError.new(message: "#{self.records.count} files expected but was #{file_count}", msg_type: :error, validator_type: :result_validation)
     end
+
+    if !sgd_validator.not_found_names.empty?
+        validation_errors << ExecutionError.new(message: "Records for patients #{sgd_validator.not_found_names} not found in archive as expected", msg_type: :error, validator_type: :result_validation)
+    end
+
     
     te.execution_errors = validation_errors
     

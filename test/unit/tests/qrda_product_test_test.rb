@@ -8,7 +8,7 @@ class QRDAProductTestTest  < ActiveSupport::TestCase
     collection_fixtures('bundles','_id')
     collection_fixtures('measures','_id','bundle_id')
     collection_fixtures('records','_id', "bundle_id", "test_id")
-    collection_fixtures('patient_cache','_id','bundle_id') 
+    collection_fixtures2('patient_cache','value', '_id' ,'test_id','bundle_id')
     collection_fixtures('health_data_standards_svs_value_sets', '_id','bundle_id')
   end
 
@@ -41,7 +41,7 @@ class QRDAProductTestTest  < ActiveSupport::TestCase
     ptest = ProductTest.find("51703a883054cf84390000d3")
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_wrong_names.zip'))
     te = ptest.execute({results: zip})
-    assert_equal 1, te.execution_errors.length , "should be 1 error from cat I archive" 
+    assert_equal 2, te.execution_errors.length , "should be 1 error from cat I archive" 
   
   end
 
@@ -49,6 +49,7 @@ class QRDAProductTestTest  < ActiveSupport::TestCase
     ptest = ProductTest.find("51703a883054cf84390000d3")
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
     te = ptest.execute({results: zip})
+    puts te.execution_errors.collect{|e| e.message}
     assert_equal 2, te.execution_errors.length , "should be 1 error from cat I archive" 
   
   end

@@ -6,6 +6,9 @@ Measure = HealthDataStandards::CQM::Measure
 class Measure 
 
    index :bundle_id => 1
+   index :sub_id => 1
+   index :_id => 1
+   
   def key
     "#{self['id']}#{sub_id}"
   end
