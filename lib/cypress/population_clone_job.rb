@@ -48,10 +48,27 @@ module Cypress
           cloned_patient.last = APP_CONFIG["randomization"]["names"]["last"].sample
         end
         cloned_patient.test_id = options['test_id']
-
+        patch_insurance_provider(cloned_patient)
         cloned_patient.save!
       end
     end
+
+
+    def patch_insurance_provider(patient)
+      insurance_codes = {
+      'MA' => '1',
+      'MC' => '2',
+      'OT' => '349'
+      }
+      patient.insurance_providers.each do |ip|
+        if ip.codes.empty?
+          ip.codes["SOP"] = [insurance_codes[ip.type]]
+        end
+      end
+
+    end
+
+
   end
 
 
