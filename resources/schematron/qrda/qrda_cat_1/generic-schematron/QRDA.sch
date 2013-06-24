@@ -583,7 +583,7 @@
       <sch:assert id="a-7134" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:7134).</sch:assert>
       <sch:assert id="a-7137" test="count(cda:id) &gt; 0">SHALL contain at least one [1..*] id (CONF:7137).</sch:assert>
       <sch:assert id="a-7140" test="count(cda:effectiveTime)=1">SHALL contain exactly one [1..1] effectiveTime (CONF:7140).</sch:assert>
-      <sch:assert id="a-7143" test="count(cda:value)=1">SHALL contain exactly one [1..1] value (CONF:7143).</sch:assert>
+      <sch:assert id="a-7143" test="count(cda:value)&gt;=1">SHALL contain one or more[1..*] value (CONF:7143).</sch:assert>
       <sch:assert id="a-14849" test="cda:statusCode[@code and @code=document('voc.xml')/voc:systems/voc:system[@valueSetOid='2.16.840.1.113883.11.20.9.39']/voc:code/@value]">This statusCode SHALL contain exactly one [1..1] @code, which SHALL be selected from ValueSet Result Status 2.16.840.1.113883.11.20.9.39 STATIC (CONF:14849).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.22.4.2-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.2']">
