@@ -1,6 +1,6 @@
 Cypress::Application.routes.draw do
   root :to => "vendors#index"
-  match "/delayed_job" => DelayedJobMongoidWeb, :anchor => false
+  #match "/delayed_job" => DelayedJobMongoidWeb, :anchor => false
   devise_for :users
   
 
