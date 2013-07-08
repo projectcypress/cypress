@@ -557,7 +557,7 @@ else
 fi
 # install mongodb package
 echo -n "   Install mongodb-10gen: "
-install_pkg "mongodb-10gen" "2\.2\.[[:digit:]]+"
+install_pkg "mongodb-10gen=2.2.4" "2\.2\.[[:digit:]]+"
 # start mongodb daemon
 echo -n "   Start mongodb daemon: "
 output=`status mongodb`
