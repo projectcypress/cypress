@@ -71,7 +71,7 @@ module Validators
 	      	if patient_sgd
 	      		patient_sgd.each do |dc|
 	      			if dc[:template] != "N/A"
-		      			nodes = doc.xpath("//cda:templateId[@root='#{dc[:template]}']/../*[@sdtc:valueSet='#{dc[:oid]}']")
+		      			nodes = doc.xpath("//cda:templateId[@root='#{dc[:template]}']/..//*[@sdtc:valueSet='#{dc[:oid]}']")
 		      			if nodes.length == 0 
 		      				errors << ExecutionError.new(message: "Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
 		      			end
