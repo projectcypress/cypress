@@ -88,7 +88,7 @@ module Cypress
         safe_last_name = patient.last.gsub("'", "")   
         filename ="#{safe_first_name}_#{safe_last_name}"
         json = JSON.pretty_generate(JSON.parse(patient.as_json(:except => [ '_id','measure_id' ]).to_json))
-        html = HealthDataStandards::Export::HTML.new.export(patient)
+        html = FORMATERS[:html].export(patient)
         qrda =  qrda_exporter.export(patient)
         File.open(File.join(path, "html", "#{filename}.html"), "w") {|file| file.write(html)}
         File.open(File.join(path, "json", "#{filename}.json"), "w") {|file| file.write(json)}

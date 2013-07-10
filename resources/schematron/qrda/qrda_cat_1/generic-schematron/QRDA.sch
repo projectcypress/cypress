@@ -595,7 +595,7 @@
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.87-errors-abstract" abstract="true">
       <sch:extends rule="r-2.16.840.1.113883.10.20.22.4.2-errors-abstract" />
       <sch:assert id="a-11672" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.24.3.87'])=1">SHALL contain exactly one [1..1] templateId (CONF:11672) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.87" (CONF:11673).</sch:assert>
-      <sch:assert id="a-16701" test="count(cda:value)=1">SHALL contain exactly one [1..1] value (CONF:16701).</sch:assert>
+      <sch:assert id="a-11115" test="count(cda:value)&gt;0">SHALL contain one or maore [1..*] value (CONF:11115).</sch:assert>
     </sch:rule>
     <sch:rule id="r-2.16.840.1.113883.10.20.24.3.87-errors" context="cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.87']">
       <sch:extends rule="r-2.16.840.1.113883.10.20.24.3.87-errors-abstract" />
