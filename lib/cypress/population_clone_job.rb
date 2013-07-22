@@ -59,6 +59,7 @@ module Cypress
         randomize_name(cloned_patient) if options['randomize_names']
         cloned_patient.shift_dates(date_shift) if date_shift
         cloned_patient.test_id = options['test_id']
+        patch_insurance_provider(record)
         cloned_patient.save!
     end
 
@@ -81,9 +82,21 @@ module Cypress
        "#{@rand_prefix}#{@index}"
     end
 
+
+     def patch_insurance_provider(patient)
+      insurance_codes = {
+      'MA' => '1',
+      'MC' => '2',
+      'OT' => '349'
+      }
+      patient.insurance_providers.each do |ip|
+        if ip.codes.empty?
+          ip.codes["SOP"] = [insurance_codes[ip.type]]
+        end
+      end
+
+    end
+
   end
-
-
-
 
 end
