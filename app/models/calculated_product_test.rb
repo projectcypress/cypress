@@ -5,19 +5,17 @@ class CalculatedProductTest < ProductTest
     after_transition any => :generating_records do |test|
       min_set = PatientPopulation.min_coverage(test.measure_ids, test.bundle)
       p_ids = min_set[:minimal_set]
-      ptype = test.kind_of?(InpatientProductTest) ?  "eh" : "ep"
-      if p_ids.length < 5
-        r_ids = test.bundle.records.where({type: ptype}).collect {|r| r.medical_record_number}
-        while p_ids.length < 5
-          p_ids << r_ids.sample
-        end
+      overflow = min_set[:overflow]
+      all = p_ids + overflow
+      randomization_ids = all
+      while p_ids.length < 5 && overflow.length != 0
+          p_ids << overflow.sample
       end
       #randomly pick a number of other patients to give to the vendor
-      #p_ids << minimal_set[:overflow].pick some random peeps
-      
+
       # do this synchronously because it does not take long
       # p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
-      pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => test.id, "randomize_names"=> true})
+      pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => test.id, "randomize_names"=> true, "randomization_ids" => randomization_ids})
       pcj.perform
       #now calculate the expected results
       test.calculate
