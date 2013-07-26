@@ -93,7 +93,7 @@
   </div><!-- end #test_result_tabs -->
 
     <div id="xml_frame"> 
-    <%= render :partial=>"test_executions/subnav.html"%>  
+    <%= render :partial=>"test_executions/subnav"%>  
 
     <h3>Vendor Generated XML</h3>
    
@@ -103,7 +103,7 @@
     <div>
       <div class="expando file_name "><h4> <%= File.basename(emap[:file]) %> </h4> <div class="open" ></div></div>
       <div>
-     <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>emap[:doc], :error_map=>emap[:error_map], :error_attributes=>emap[:error_attributes], :execution_errors=>emap[:file_errors]}%>
+     <%= render :partial=>"test_executions/node" , :locals=>{:doc=>emap[:doc], :error_map=>emap[:error_map], :error_attributes=>emap[:error_attributes], :execution_errors=>emap[:file_errors]}%>
       </div>
    </div>
    <% end %>

@@ -278,7 +278,7 @@ module Cypress
       #new_section_margin
       #@pdf.text "Vendor Generated XML"
 
-      #render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}
+      #render :partial=>"test_executions/node" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}
     end
   end
 end
