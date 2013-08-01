@@ -58,7 +58,7 @@ class Artifact
 	def each_file(&block)
 		if self.is_archive?
 		Zip::ZipFile.open(file.path) do |zipfile|
-		zipfile.glob("*.xml").each do |entry|
+		zipfile.glob("*.xml",File::FNM_CASEFOLD).each do |entry|
 		  data = zipfile.read(entry.name)	
 				yield entry.name, data
 			end
