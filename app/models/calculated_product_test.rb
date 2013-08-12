@@ -1,3 +1,4 @@
+
 class CalculatedProductTest < ProductTest
 
   state_machine :state do
@@ -111,33 +112,6 @@ class CalculatedProductTest < ProductTest
   end
 
 
-  def generate_qrda_cat1_test2
-   
-    results = self.results.where({"value.measure_id" => {"$in" => self.measures.collect{|m| m.measure_id}}, "value.IPP" => {"$gt" => 0}})
-    qrda = QRDAProductTest.new(measure_ids:  self.measures.collect{|m| m.measure_id}, 
-                             name: "#{self.name} - QRDA Cat I Test", 
-                             bundle_id: self.bundle_id, 
-                             effective_date: self.effective_date,
-                             product_id: self.product_id,
-                             user_id: self.user_id,
-                             calculated_test_id: self.id)
-
-    self.records.where({medical_record_number: {"$in" => results.collect{|r| r['value.medical_record_id']}}}).each do |rec| 
-      new_rec = rec.dup
-      new_rec[:test_id] = qrda.id 
-      new_rec.save
-    end
-
-    results.each  do |res|
-        res_clone = Result.new()
-        res_clone["value"] = res["value"].clone
-        res_clone["value"]["test_id"]=qrda.id 
-        res_clone.save
-       end 
-    qrda.save
-    qrda.ready
-    self.save
-  end
 
   
   def self.product_type_measures(bundle)
