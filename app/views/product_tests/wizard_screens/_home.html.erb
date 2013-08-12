@@ -32,7 +32,7 @@ var start_dates = <%= Hash[*Bundle.active.collect{|b| [b.id,b['measure_period_st
     <dd>
       <span class="controls">
         <label for="bundle_id">
-          <%= select_tag(:bundle_id, options_for_select(Bundle.active.order_by({version: 1}).collect{|b| ["#{b.title} - #{b.version}",b.id]}), :width=>"300px") %>
+          <%= select_tag(:bundle_id, options_for_select(Bundle.active.order_by({version: 1}).collect{|b| ["#{b.title} - #{b.version}",b.id]}), :style=>"width:300px") %>
         </label>
       </span>
     </dd>
