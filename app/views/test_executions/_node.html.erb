@@ -64,7 +64,7 @@ case node_type(doc.node_type)
          when :text
           %><div class="text"><%= child.content %></div><%
          when :element
-          %> <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes, :execution_errors=>execution_errors}%><%
+          %> <%= render :partial=>"test_executions/node" , :locals=>{:doc=>child, :error_map=>error_map, :error_attributes=>error_attributes, :execution_errors=>execution_errors}%><%
          when :cdata
            %><%=  render :partial=>"cdata", :locals=>{:cdata=>child}%><%
          when :comment
