@@ -64,12 +64,12 @@ module Cypress
 
     def randomize_name(record)
       @used_names ||= {}
-      @used_names[cloned_patient.gender] ||= []
+      @used_names[record.gender] ||= []
       begin 
-        record.first = APP_CONFIG["randomization"]["names"]["first"][cloned_patient.gender].sample
+        record.first = APP_CONFIG["randomization"]["names"]["first"][record.gender].sample
         record.last = APP_CONFIG["randomization"]["names"]["last"].sample
-      end while(@used_names[cloned_patient.gender].find("#{record.first}-#{record.last}").nil?)  
-      @used_names[cloned_patient.gender] << "#{record.first}-#{record.last}"
+      end while(@used_names[record.gender].find("#{record.first}-#{record.last}").nil?)  
+      @used_names[record.gender] << "#{record.first}-#{record.last}"
     end
 
 
@@ -78,7 +78,7 @@ module Cypress
       @rand_prefix ||= Time.new.to_i
       @current_index ||= 0
       @current_index += 1
-       "#{@rand_prefix}#{@index}"
+       "#{@rand_prefix}_#{@current_index}"
     end
 
 
