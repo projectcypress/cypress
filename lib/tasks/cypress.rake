@@ -3,6 +3,29 @@ require 'health-data-standards'
 require 'fileutils'
 require 'open-uri'
 require 'highline/import'
+
+
+
+
+ class RebuildJob < Struct.new(:test_id)
+
+  def perform
+   qrda = ProductTest.find(self.test_id)
+   qrda.results.destroy
+    ct = CalculatedProductTest.find(pt["calculated_test_id"])
+    qrda.measures.top_level.each do |mes|
+      results = ct.results.where({"value.measure_id" => mes.hqmf_id, "value.IPP" => {"$gt" => 0}})
+      results.uniq!
+      results.each do |res|
+        res_clone = Result.new()
+        res_clone["value"] = res["value"].clone
+        res_clone["value"]["test_id"]=qrda.id 
+        res_clone.save
+      end 
+    end
+  end
+end
+
 namespace :cypress do
 
   task :setup => :environment
@@ -13,6 +36,17 @@ namespace :cypress do
     Mongoid.default_session.database.drop()
   end
 
+
+  desc "Recalculate all of the tests"
+  task :recalculate_tests  => :setup do
+    CalculatedProductTest.where({}).each do |pt|
+      Delayed::Job.enqueue(Cypress::MeasureEvaluationJob.new({"test_id" =>  pt.id.to_s}))
+    end
+
+    QRDAProductTest.where({}).each do |pt|
+       Delayed::Job.enqueue RebuildJob.new(pt.id)
+    end
+  end
 
   desc "Download the set of valuesets required by the installed measures"
   task :cache_valuesets, [:username, :password, :clear] => :setup do |t,args|
