@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #gem 'bson', '1.3.2'
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.14'
 gem 'jquery-rails'
 gem 'rake'
 
@@ -40,7 +40,7 @@ gem 'cancan', '~> 1.6.7'
 
 gem 'mongoid-grid_fs', '~> 1.7.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
 
-gem 'nokogiri' , '1.5.6'
+
 
 group :assets do
   gem 'sass-rails'
@@ -52,7 +52,7 @@ group :test, :develop do
 	gem 'pry'
   gem 'pry-nav'
   gem 'turn', :require => false
-  gem 'minitest'
+
   gem "tailor"
   gem 'simplecov', :require => false
   gem 'mocha', :require => false
