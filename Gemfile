@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 #gem 'bson', '1.3.2'
 gem 'rails', '3.2.14'
-gem 'jquery-rails'
+gem 'jquery-rails', '2.2.1'
 gem 'rake'
 
 
@@ -13,7 +13,8 @@ gem 'quality-measure-engine', '~> 2.5.0'
 #gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
 #gem 'health-data-standards', :path => '../health-data-standards'
 
-gem 'health-data-standards', '~> 3.2.8'
+gem 'health-data-standards', '~> 3.2.10'
+
 
 
 #gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient-generator.git', :branch => 'develop'
@@ -39,7 +40,6 @@ gem 'cancan', '~> 1.6.7'
 
 
 gem 'mongoid-grid_fs', '~> 1.7.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
-
 
 
 group :assets do
