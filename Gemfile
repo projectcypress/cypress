@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 #gem 'bson', '1.3.2'
 gem 'rails', '3.2.14'
-gem 'jquery-rails'
+gem 'jquery-rails', '2.2.1'
 gem 'rake'
 
 
@@ -14,6 +14,7 @@ gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-da
 #gem 'health-data-standards', :path => '../health-data-standards'
 
 #gem 'health-data-standards', '~> 3.2.6'
+
 
 
 #gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient-generator.git', :branch => 'develop'
@@ -41,7 +42,6 @@ gem 'cancan', '~> 1.6.7'
 gem 'mongoid-grid_fs', '~> 1.7.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
 
 
-
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
@@ -50,7 +50,7 @@ end
 
 group :test, :develop do
 	gem 'pry'
-  gem 'pry-nav'
+  gem 'pry-debugger'
   gem 'turn', :require => false
 
   gem "tailor"

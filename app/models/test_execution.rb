@@ -95,7 +95,7 @@ class TestExecution
      mes = product_test.measures.collect{|m|
        m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") || m_ids.index(m.key)  ? nil : m }# look for m.key for older test executions
      mes.compact!
-     mes
+     mes.sort{|a,b| "#{a.cms_id}-#{a.sub_id}" <=> "#{b.cms_id}-#{b.sub_id}"}
   end
 
   def failing_measures
@@ -107,7 +107,7 @@ class TestExecution
      mes = product_test.measures.collect{|m| 
         m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") || m_ids.index(m.key) ? m : nil } # look for m.key for older test executions
      mes.compact!
-     mes
+     mes.sort{|a,b| "#{a.cms_id}-#{a.sub_id}" <=> "#{b.cms_id}-#{b.sub_id}"}
   end
 
   def measure_passed?(measure)

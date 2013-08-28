@@ -67,14 +67,14 @@ module Validators
 	      end
 
 	      @sgd.each_pair do |hqmf_id, patient_data|
-
 	      	patient_sgd = patient_data[mrn]
 	      	if patient_sgd
             template_smg =map_to_templates(patient_sgd)
             template_smg.each_pair do |template,entries|
               count = doc.xpath("count(//cda:templateId[@root='#{template}'])")
-              unless count >= entries.uniq.count
-                 errors << ExecutionError.new(message: "Expected to find #{entries.uniq.count} entries with templateId #{template}", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
+              entry_count = entries.collect{|e| e[:rationale].kind_of?(Hash) ?  e[:rationale]["results"]  : [true] }.compact.flatten.uniq.count
+              unless count >= entry_count
+                 errors << ExecutionError.new(message: "Expected to find #{entry_count} entries with templateId #{template}", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
               end 
             end
             data_elements = map_to_data_elements(patient_sgd)
