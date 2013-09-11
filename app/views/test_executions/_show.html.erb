@@ -88,24 +88,24 @@
         <% if test_execution.passing_measures.count == 0 %>
           <p>There are no passing measures for this test</p>
         <% else %>
-          <%= render partial: "/test_executions/results.html" , locals: {test_execution: test_execution, measures:grouped_passing[:proportional]} %>
-          <%= render partial: "/test_executions/continuous_results.html" , locals: {test_execution: test_execution, measures:grouped_passing[:continuous]} %>
+          <%= render partial: "/test_executions/results" , locals: {test_execution: test_execution, measures:grouped_passing[:proportional]} %>
+          <%= render partial: "/test_executions/continuous_results" , locals: {test_execution: test_execution, measures:grouped_passing[:continuous]} %>
         <% end %>
         <h5><span class='fail'>FAILING</span> MEASURES</h5>
         <% if test_execution.failing_measures.count == 0 %>
           <p>There are no failing measures for this test</p>
         <% else %>
-          <%= render partial: "/test_executions/results.html" , locals: {test_execution: test_execution, measures: grouped_failing[:proportional]} %>
-          <%= render partial: "/test_executions/continuous_results.html" , locals: {test_execution: test_execution, measures:grouped_failing[:continuous]} %>
+          <%= render partial: "/test_executions/results" , locals: {test_execution: test_execution, measures: grouped_failing[:proportional]} %>
+          <%= render partial: "/test_executions/continuous_results" , locals: {test_execution: test_execution, measures:grouped_failing[:continuous]} %>
         <% end %>
       </section>
 
 
   
   <div id="xml_frame">
-    <%= render :partial=>"test_executions/subnav.html"%>  
+    <%= render :partial=>"test_executions/subnav"%>  
     <h3>Vendor Generated XML</h3>
-    <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes, :execution_errors=>execution_errors}%>
+    <%= render :partial=>"test_executions/node" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes, :execution_errors=>execution_errors}%>
   </div>
 </div>
 

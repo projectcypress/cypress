@@ -12,7 +12,7 @@ Cypress::Application.routes.draw do
   post "/admin/disable"
   post "/admin/import_bundle"
   post "/admin/activate_bundle"
-  post "/admin/delete_bundle"
+  get "/admin/delete_bundle"
   post "/admin/clear_database"
 
 

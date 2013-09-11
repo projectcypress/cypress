@@ -19,7 +19,6 @@ Dir[Rails.root + 'lib/validators/*.rb'].each do |file|
 end
 XML_VALIDATION_INSPECTION="XmlValidationInspection"
 
-Rails.logger.auto_flushing=true
 MONGO_DB = Mongoid.default_session
 
 # insert races and ethnicities

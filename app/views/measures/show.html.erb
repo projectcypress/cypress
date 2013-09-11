@@ -102,7 +102,9 @@
 
     <div class="tabs">
       CMS / NQF #
-      <% @measures_categories.sort.each do |category, measures| %>
+      <% @measures_categories.sort.each do |category, measures| 
+        measures.sort!{|a,b| "#{a.nqf_id}-#{a.sub_id}" <=> "#{b.nqf_id}-#{b.sub_id}"}
+        %>
         <ul>
           <li><b><%= category %></b></li>
           <% measures.each do |measure_def| %>

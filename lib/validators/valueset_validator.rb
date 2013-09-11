@@ -16,43 +16,44 @@ module Validators
 
 				sdtc_values.each do |node|
 					oid = node.at_xpath("@sdtc:valueSet")
-					code = node.at_xpath("@code")
-					code_system = node.at_xpath("@codeSystem")
-					null_flavor = node.at_xpath("@nullFlavor")
-					vs = bundle.value_sets.where({"oid" => oid}).first
-					
-					
-					if vs.nil?
-						errors << Cypress::ValidationError.new(
-			                :message => "The valueset #{oid} declared in the document cannot be found",
-			                :validator => "Valueset Validator",
-			                :validator_type => :xml_validation,
-			                :msg_type=>(data[:msg_type] || :error),
-			                :file_name => data[:file_name],
-			                location: node.path
-			              )
-					elsif vs.concepts.where({"code" => code, "code_system"=>code_system}).count() == 0
-						if null_flavor
-							errors <<  Cypress::ValidationError.new(
-				                :message => "Null flavor declared for valueset entry #{oid}",
-				                :validator => "Valueset Validator",
-				                :validator_type => :xml_validation,
-				                :msg_type=>:warning,
-				                :file_name => data[:file_name],
-				                location: node.path
-				              )
-						else	
-							errors <<  Cypress::ValidationError.new(
-				                :message => "The code #{code} in codeSystem #{code_system} cannot be found in the declared valueset #{oid} ",
+				 	unless Validators::DataCriteriaValidator::HL7_QRDA_OIDS.index(oid) 
+						code = node.at_xpath("@code")
+						code_system = node.at_xpath("@codeSystem")
+						null_flavor = node.at_xpath("@nullFlavor")
+						vs = bundle.value_sets.where({"oid" => oid}).first
+						
+						
+						if vs.nil?
+							errors << Cypress::ValidationError.new(
+				                :message => "The valueset #{oid} declared in the document cannot be found",
 				                :validator => "Valueset Validator",
 				                :validator_type => :xml_validation,
 				                :msg_type=>(data[:msg_type] || :error),
 				                :file_name => data[:file_name],
 				                location: node.path
 				              )
+						elsif vs.concepts.where({"code" => code, "code_system"=>code_system}).count() == 0
+							if null_flavor
+								errors <<  Cypress::ValidationError.new(
+					                :message => "Null flavor declared for valueset entry #{oid}",
+					                :validator => "Valueset Validator",
+					                :validator_type => :xml_validation,
+					                :msg_type=>:warning,
+					                :file_name => data[:file_name],
+					                location: node.path
+					              )
+							else	
+								errors <<  Cypress::ValidationError.new(
+					                :message => "The code #{code} in codeSystem #{code_system} cannot be found in the declared valueset #{oid} ",
+					                :validator => "Valueset Validator",
+					                :validator_type => :xml_validation,
+					                :msg_type=>(data[:msg_type] || :error),
+					                :file_name => data[:file_name],
+					                location: node.path
+					              )
+							end
 						end
 					end
-
 				end
 				errors
 		 end

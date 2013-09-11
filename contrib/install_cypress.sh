@@ -38,13 +38,13 @@
 ##############################################################################
 
 # Variables that determine the versions of components we will install
-cypress_tag="v2.3.0"
+cypress_tag="v2.4.0"
 install_ruby_ver="1.9.3-p448"
 install_bundler_ver="1.2.3"
 install_libxml_ver="2.8.0"
 
-install_nokogiri_ver="1.5.6"
-cypress_bundle_ver="2.3.0"
+install_nokogiri_ver="1.6.0"
+cypress_bundle_ver="2.4.0"
 
 install_passenger_ver="3.0.18"
 
@@ -557,7 +557,7 @@ else
 fi
 # install mongodb package
 echo -n "   Install mongodb-10gen: "
-install_pkg "mongodb-10gen=2.2.4" "2\.2\.[[:digit:]]+"
+install_pkg "mongodb-10gen=2.4.6" "2\.4\.[[:digit:]]+"
 # start mongodb daemon
 echo -n "   Start mongodb daemon: "
 output=`status mongodb`

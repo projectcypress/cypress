@@ -15,7 +15,7 @@ Devise.setup do |config|
   require 'devise/orm/mongoid'
   
   # Since version 2.0, we need to define our schema on our own
-  Devise.apply_schema = false
+  #Devise.apply_schema = false
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -83,7 +83,7 @@ Devise.setup do |config|
 
   # If true, uses the password salt as remember token. This should be turned
   # to false if you are not using database authenticatable.
-  config.use_salt_as_remember_token = true
+  #config.use_salt_as_remember_token = true
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.

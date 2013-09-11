@@ -76,7 +76,7 @@ class PatientsController < ApplicationController
     end
 
     if @test
-      @results =Result.where({'value.medical_record_id' => @patient.medical_record_number}).order_by([['value.nqf_id', :asc], ['value.sub_id', :asc]])
+      @results =Result.where({ "value.test_id" => @test.id, 'value.medical_record_id' => @patient.medical_record_number}).order_by([['value.nqf_id', :asc], ['value.sub_id', :asc]])
     else
        @results = @patient.bundle.results.where({'value.medical_record_id' => @patient.medical_record_number}).order_by([['value.nqf_id', :asc], ['value.sub_id', :asc]])
     end

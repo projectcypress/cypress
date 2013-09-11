@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
 #gem 'bson', '1.3.2'
-gem 'rails', '3.2.11'
-gem 'jquery-rails'
+gem 'rails', '3.2.14'
+gem 'jquery-rails', '2.2.1'
 gem 'rake'
 
 
@@ -10,10 +10,11 @@ gem 'rake'
 
 #gem 'quality-measure-engine', :path => '../quality-measure-engine'
 gem 'quality-measure-engine', '~> 2.5.0'
-#gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
+gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
 #gem 'health-data-standards', :path => '../health-data-standards'
 
-gem 'health-data-standards', '~> 3.2.6'
+#gem 'health-data-standards', '~> 3.2.6'
+
 
 
 #gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient-generator.git', :branch => 'develop'
@@ -40,7 +41,6 @@ gem 'cancan', '~> 1.6.7'
 
 gem 'mongoid-grid_fs', '~> 1.7.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
 
-gem 'nokogiri' , '1.5.6'
 
 group :assets do
   gem 'sass-rails'
@@ -50,9 +50,9 @@ end
 
 group :test, :develop do
 	gem 'pry'
-  gem 'pry-nav'
+  gem 'pry-debugger'
   gem 'turn', :require => false
-  gem 'minitest'
+
   gem "tailor"
   gem 'simplecov', :require => false
   gem 'mocha', :require => false
