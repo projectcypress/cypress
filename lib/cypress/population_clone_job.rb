@@ -35,10 +35,9 @@ module Cypress
         random_records = @test.bundle.records.where(:test_id => nil).in(medical_record_number: randomization_ids).to_a
 
         random_records.each do |patient|
-          rand_hours = 1 + (rand(10)*24) # random number of hours btween 1 hour and 10 days
+          seconds = 60*60*24*10 # secs per min * min per hour * hours in day * 10 days
           plus_minus = rand(2) == 0 ? 1 : -1 # use this to make move dates forward or backwards
-          seconds = 360 # number of secods in and hour
-          date_shift = rand(seconds*rand_hours) * plus_minus
+          date_shift = rand(seconds) * plus_minus
           patient.shift_dates(date_shift)
           patients << patient 
         end
