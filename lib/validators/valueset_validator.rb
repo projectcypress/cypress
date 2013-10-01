@@ -16,7 +16,7 @@ module Validators
 
 				sdtc_values.each do |node|
 					oid = node.at_xpath("@sdtc:valueSet")
-				 	unless Validators::DataCriteriaValidator::HL7_QRDA_OIDS.index(oid) 
+				 	unless Validators::DataCriteriaValidator::HL7_QRDA_OIDS.index(oid.to_s) 
 						code = node.at_xpath("@code")
 						code_system = node.at_xpath("@codeSystem")
 						null_flavor = node.at_xpath("@nullFlavor")
