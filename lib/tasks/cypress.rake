@@ -213,6 +213,65 @@ namespace :cypress do
   end
 
 
+
+
+task :test_qrda_files, [:version, :type] => :setup do |t,args| 
+  bundle = args.version ? Bundle.where({version: args.version}).first : Bundle.first
+  if bundle.nil?
+    puts "Could not find bundle with version #{args.version}"
+    return
+  end
+  Delayed::Worker.delay_jobs = false
+  
+
+  types = args.type == "all" ? ["ep","eh"] : [args.type]
+  vendor = Vendor.find_or_create_by({name: "RakeTestVendor"})
+ 
+  runtime = Time.now
+  errors = {}
+  types.each do |type|
+    puts "Generating Product for testing #{type} - #{runtime}"
+    product = vendor.products.find_or_create_by({name: "#{type} - #{runtime}"})
+    measures = bundle.measures.where({type: type})
+
+    puts "Generating #{type} product tests"
+    
+    measures.each do |mes|
+      puts "Generating #{mes.nqf_id} calculated product test"
+      ptest = CalculatedProductTest.new(effective_date: bundle.effective_date, bundle_id: bundle.id, name: "#{mes.nqf_id}", product_id: product.id, measure_ids: [mes.hqmf_id] )
+      ptest.save
+      puts "Generating #{mes.nqf_id} QRDA product tests"
+      ptest.generate_qrda_cat1_test
+
+      qrda_tests = QRDAProductTest.where({calculated_test_id: ptest.id})
+      qrda_tests.each do |qtest|
+        puts "Executing #{qtest.name}"
+        FileUtils.mkdir_p("./tmp/qrda_test/")
+        #download records
+        file = Cypress::CreateDownloadZip.create_test_zip(qtest.id,"qrda")
+        File.open("./tmp/qrda_test/#{qtest.name.gsub(' ','_')}.zip", "w") do |f|
+          f.puts file.read
+        end
+        #execute test
+        te = qtest.execute({results:  File.new("./tmp/qrda_test/#{qtest.name.gsub(' ','_')}.zip")})
+        errors[qtest] = te.execution_errors
+    
+      end
+     end
+   end
+    errors.each_pair do |k,errs|
+     if errs && errs.length > 0
+        puts k.name 
+        errs.group_by{|e| e.msg_type}.each_pair do |type, errs|
+
+          puts type
+          errs.collect(&:message).each{|m| puts m}
+        end
+        puts
+
+     end
+    end
+  end
 end
 
 
