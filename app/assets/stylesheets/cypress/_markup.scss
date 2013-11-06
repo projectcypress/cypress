@@ -38,15 +38,32 @@
   border:2px dotted orange;
   background-color:#FFE4B3;
   padding:10px;
+  i.icon { 
+    background-color:darken(#FFE4B3,20%);
+    border:5px solid darken(#FFE4B3,25%);
+    margin-top:-4px;
+  }  
 }
 }
 
-ol.validation_list li {
-  &.err_group {
-    margin-top:25px;
+ol.validation_list {
+  &>li {
+    margin-bottom:20px;
   }
-  a:hover {
-    padding:2px 0;
-    background-color:#FFE4B3;
+  li {
+    
+    &.err_group {
+   //   margin-top:25px;
+    }
+    a:hover {
+      padding:2px 0;
+      background-color:#FFE4B3;
+    }
+  }
+  ol {
+    margin-top:10px;
+    li {
+      margin-bottom:4px;
+    }
   }
 }

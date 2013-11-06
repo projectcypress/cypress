@@ -3,12 +3,12 @@
 
     $.testWizard = {};
   
-    $.testWizard.updateMeasureSet = function(testType) {
+    $.testWizard.updateMeasureSet = function(testType, bundle_id) {
         $('#measures').empty().html('<div class="busy">Finding measures for test type ' + testType + '...</h3>');
         var ids = [];
         // get the measures for this type of test
         $.ajax({
-            url: "/measures/by_type",
+            url: "/measures/by_type?bundle_id="+bundle_id,
             type: "POST",
             data: {
                 type: testType
@@ -130,7 +130,7 @@ $(document).ready(function() {
     }).bind("step_shown", function(event,data){ //TODO still need to hook up validation
         // do screen-specific functions here
         if (data.currentStep == "wizard-measures-screen") {
-            $.testWizard.updateMeasureSet($('[name=type]:checked').val());
+            $.testWizard.updateMeasureSet($('[name=type]:checked').val(),$('[name=bundle_id]').val());
         }
 //        if (data.currentStep == "wizard-patients-manual-screen") {
 //            $.testWizard.updateMinimalPatientSet();
@@ -176,4 +176,20 @@ $(document).ready(function() {
             error.appendTo( $('#validationErrorMessages') );
         }
     });
+});
+
+$(document).ready(function(){
+
+    $('#bundle_id').change(function(){
+        var d = effective_dates[$(this).selected().val()];
+        var s = start_dates[$(this).selected().val()];
+        var md = moment(d*1000).utc();
+        var mds = moment(s*1000).utc();
+        $("input[name='product_test[effective_date]']").val(d);
+        $("#effective_date_end").html(md.calendar())
+        $("#effective_date_start").html(mds.calendar());
+
+    });
+    $('#bundle_id').change();
+
 });

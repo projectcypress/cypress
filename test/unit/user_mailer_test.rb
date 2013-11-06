@@ -4,10 +4,10 @@ class UserMailerTest < ActionMailer::TestCase
   setup do
     
     collection_fixtures('users', '_id')
-    collection_fixtures('records', '_id','test_id')
+    collection_fixtures('records', '_id','test_id','bundle_id')
     collection_fixtures('vendors', '_id',"user_ids")
     collection_fixtures('products','_id','vendor_id', "user_id")
-    collection_fixtures('product_tests', '_id','product_id',"user_id")
+    collection_fixtures('product_tests', '_id','product_id',"user_id",'bundle_id')
   end
   
   test "send records forms e-mail with correct fields" do

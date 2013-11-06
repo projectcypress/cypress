@@ -30,7 +30,7 @@
           <%= link_to @product.name, product_path(@product) %> &raquo;
           <%= link_to @test.name, product_test_path(@test, :execution_id => params[:execution]) %>
         <% else %>
-          <%= link_to 'Master Patient List', patients_path %>
+          <%= link_to 'Master Patient List', patients_path(bundle_id: @patient.bundle.id) %>
         <% end %>
       </nav>
     </section>
@@ -46,7 +46,7 @@
         </colgroup>
         <thead style="position:relative;">
           <tr class="rot">
-            <th><div>NQF #</div></th>
+            <th><div>CMS/NQF #</div></th>
             <th><div>POP</div></th>
             <th><div>DEN&nbsp;/&nbsp;MSRPOPL</div></th>
             <th><div>NUM</div></th>
@@ -61,7 +61,8 @@
             <% if result.value['IPP'] %>
               <tr>
 				<td title="<%= "#{(result.value['sub_id'].nil? ? "" : result.value['sub_id']) if @product}" %>">
-                 <%= link_to "#{Measure.where(:hqmf_id => result.value.measure_id).first.nqf_id}#{result.value['sub_id']}" %>
+          <% measure = Measure.where(:hqmf_id => result.value.measure_id).first %> 
+                 <%= link_to "#{measure['cms_id']} #{measure.nqf_id} #{result.value['sub_id']}" %>
                 </td>
                 <%= population_marker(result.value[QME::QualityReport::POPULATION])%>
                 <%= population_marker((result.value[QME::QualityReport::DENOMINATOR] || result.value[QME::QualityReport::MSRPOPL]))%>
@@ -79,7 +80,7 @@
     <section class="patient bordered buffered">
 	
       <div class="offset2">
-        <span class="patientname" ><strong><%= @patient.last %></strong>, <%= @patient.first %></span><br>
+        <span class="patientname" ><strong><%= @patient.last %></strong>, <%= @patient.first %> <% if @patient.original_record %> <strong>Original Record</strong> <%= @patient.original_record.last %></strong>, <%= @patient.original_record.first %> <% end %></span>  <br>
         <dl class="dl-horizontal patient">
           <dt>Gender</dt><dd><%= @patient.gender %></dd>
           <dt>DOB</dt><dd><%= display_time(@patient.birthdate) %></dd>

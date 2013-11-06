@@ -3,7 +3,10 @@ class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps::Created
  
+  has_one :artifact, autosave: true
+  
   belongs_to :product_test
+  
   embeds_many :execution_errors
   field :required_modules, type: Array
   field :expected_results, type: Hash
@@ -16,6 +19,8 @@ class TestExecution
 
   scope :ordered_by_date, order_by(:created_at => :desc)
   scope :order_by_state, order_by(:state => :asc)
+
+
 
   state_machine :state , :initial=> :pending do
     
@@ -80,20 +85,35 @@ class TestExecution
      Cypress::ArtifactManager.get_artifacts(self.file_ids)
   end
 
+
   def passing_measures
-     m_ids = execution_errors.collect {|ee| ee.measure_id}
+     m_ids = execution_errors.collect {|ee| "#{ee.measure_id}-#{ee.stratification}"}
+     m_ids += execution_errors.collect {|ee| "#{ee.measure_id}"} # here for older tests
+     m_ids.flatten!
      m_ids.compact!
-     mes = product_test.measures.collect{|m| m_ids.index(m.key) ? nil : m }
+     m_ids.uniq!
+     mes = product_test.measures.collect{|m|
+       m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") || m_ids.index(m.key)  ? nil : m }# look for m.key for older test executions
      mes.compact!
-     mes
+     mes.sort{|a,b| "#{a.nqf_id}-#{a.sub_id}" <=> "#{b.nqf_id}-#{b.sub_id}"}
   end
 
   def failing_measures
-     m_ids = execution_errors.collect {|ee| ee.measure_id}
+     m_ids = execution_errors.collect {|ee| "#{ee.measure_id}-#{ee.stratification}"}
+     m_ids += execution_errors.collect {|ee| "#{ee.measure_id}"} # here for older tests
+     m_ids.flatten!
      m_ids.compact!
-     mes = product_test.measures.collect {|m| m_ids.index(m.key) ? m : nil}
+     m_ids.uniq!
+     mes = product_test.measures.collect{|m| 
+        m_ids.index("#{m.hqmf_id}-#{m.population_ids['stratification']}") || m_ids.index(m.key) ? m : nil } # look for m.key for older test executions
      mes.compact!
-     mes
+     mes.sort{|a,b| "#{a.cms_id}-#{a.nqf_id}" <=> "#{b.cms_id}-#{b.nqf_id}"}
   end
+
+  def measure_passed?(measure)
+    passing_measures.find{|m| m.id == measure.id}
+  end
+  
+
   
 end

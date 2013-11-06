@@ -38,35 +38,12 @@
     </div>
     <div class="tab-pane" id="test_measure_qrda_errors">
       <h4>QRDA Errors</h4>
-      <ol class="validation_list">
-      <% old_eid = 0 %>
-      <% test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:error).each do |e| %>
-        <% eid = error_map[e.location] 
-         %>
-         <li <% if old_eid != eid %>
-          class="err_group"
-            <% old_eid = eid 
-         end %>>
-         <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div></li>
-      <% end %>
-      </ol>
+       <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:error).group_by(&:validator), error_map:error_map } %>
     </div>
     <div class="tab-pane" id="test_measure_qrda_warnings">
       <!-- %# render :partial => 'test_executions/calculated_product_test/warnings', :locals => { :warnings => test_execution.execution_warnings } %> -->
       <h4>QRDA Warnings</h4>
-      <ol class="validation_list">
-          <% old_eid = 0 %>
-          <% test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:warning).each do |e| %>
-            <% eid = error_map[e.location] 
-             %>
-              
-             <li <% if old_eid != eid %>
-              class="err_group"
-                <% old_eid = eid 
-             end %>>
-             <div><a href="#<%= (eid) ? 'error_'+eid : '' %>" ><%= e.message %></a> </div></li>
-          <% end %>
-          </ol>
+      <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:warning).group_by(&:validator), error_map:error_map } %>
     </div>
  
   </div><!-- end #test_result_tabs -->
@@ -79,22 +56,21 @@
           <p>There are no passing measures for this test</p>
         <% else %>
           
-          <%= render partial: "/test_executions/continuous_results.html" , locals: {test_execution: test_execution, measures:grouped_passing[:continuous]} %>
+          <%= render partial: "/test_executions/continuous_results" , locals: {test_execution: test_execution, measures:grouped_passing[:continuous]} %>
         <% end %>
         <h5><span class='fail'>FAILING</span> MEASURES</h5>
         <% if test_execution.failing_measures.count == 0 %>
           <p>There are no failing measures for this test</p>
         <% else %>
         
-          <%= render partial: "/test_executions/continuous_results.html" , locals: {test_execution: test_execution, measures:grouped_failing[:continuous]} %>
+          <%= render partial: "/test_executions/continuous_results" , locals: {test_execution: test_execution, measures:grouped_failing[:continuous]} %>
         <% end %>
       </section>
 
 
-  
-     <div id="xml_frame">
+  <div id="xml_frame">
+    <%= render :partial=>"test_executions/subnav"%>  
     <h3>Vendor Generated XML</h3>
-    <%= render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}%>
+    <%= render :partial=>"test_executions/node" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes,:test_execution=>test_execution}%>
   </div>
-
-</div>   
+</div>

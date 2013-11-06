@@ -5,13 +5,13 @@ include Devise::TestHelpers
 
   setup do
     collection_fixtures('query_cache', 'test_id')
-    collection_fixtures('measures',"_id")
+    collection_fixtures('measures',"_id",'bundle_id')
     collection_fixtures('products','_id','vendor_id')
-    collection_fixtures('records', '_id','test_id')
-    collection_fixtures('product_tests', '_id')
+    collection_fixtures('records', '_id','test_id','bundle_id')
+    collection_fixtures('product_tests', '_id','bundle_id')
     collection_fixtures('patient_populations', '_id')
     collection_fixtures('test_executions', '_id')
-    collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'patient_id')
+    collection_fixtures2('patient_cache','value', '_id' ,'test_id','bundle_id')
     
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
@@ -42,7 +42,7 @@ include Devise::TestHelpers
    test "minimal_set" do
     
     measures =['99119911','99119922','99119933','99119944']
-    get :minimal_set, {:measure_ids => measures, :format=>"json"}
+    get :minimal_set, {:bundle_id=>Bundle.first.id,:measure_ids => measures, :format=>"json"}
     coverage = assigns[:coverage]  
     assert_equal  measures.length, coverage.count, "Expected coverage for all of the measures"
 
@@ -51,7 +51,7 @@ include Devise::TestHelpers
   
   test "shopuld be able to retreive measures for a given test type" do
       Measure.where({:type=>"ep"}).count
-      get :by_type , {:type=>"CalculatedProductTest",:format=>:js}
+      get :by_type , {:bundle_id=>Bundle.first.id, :type=>"CalculatedProductTest",:format=>:js}
       assert_response :success
   end
 

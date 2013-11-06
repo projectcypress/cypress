@@ -1,0 +1,21 @@
+<ol class="validation_list">
+  <% grouped_errors.each do |validator,errs| %>
+  <li>
+    <div><span><%= validator %></span> </div>
+     <ol>
+    <% 
+      errs.each do |e| 
+      eid = error_map[e.location] 
+    %>   
+      <li>
+        <% if eid %>
+          <a class="<%= (eid) ? 'qrda_error_link' : '' %>" href="#<%= (eid) ? 'error_'+e.id : '' %>" ><%= e.message %></a>
+          <% else %>
+            <%= e.message %>
+          <% end %>
+      </li>
+    <% end %>
+    </ol>
+  </li>
+  <% end %>
+</ol>

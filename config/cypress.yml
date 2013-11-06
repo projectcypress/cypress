@@ -18,25 +18,19 @@ effective_date:
   month: 1
   day: 1
 
-version: 2.0.0
-measures_version: 2.0.0
-mpl_version: 2.0.0
+version: 2.4.0
+default_bundle: 2.4.0
+
+file_upload_root: "data/upload/"
 
 validation:
   schema:
     qrda_cat_1: resources/schema/qrda/infrastructure/cda/CDA_SDTC.xsd 
     qrda_cat_3: resources/schema/qrda/infrastructure/cda/CDA_SDTC.xsd 
   schematron:
-    qrda_cat_1:
-      root: resources/schematron/qrda/qrda_cat_1
-      generic: generic-schematron/qrda_cat1_generic.xslt
-      generic_error: generic-schematron/QRDA_errors.xslt
-      generic_warning: generic-schematron/QRDA_warnings.xslt
-      measure_specific_dir: measure_specific
-    qrda_cat_3:
-      root: resources/schematron/qrda/qrda_cat_3
-      generic_error:  QRDA_Category_III_errors.xslt
-      generic_warning: QRDA_Category_III_warnings.xslt
+    qrda_cat_1: resources/schematron/qrda/qrda_cat_1/generic-schematron/QRDA.sch
+    qrda_cat_3: resources/schematron/qrda/qrda_cat_3/QRDA_Category_III.sch
+      
 
 nlm:
   ticket_url: https://vsac.nlm.nih.gov/vsac/ws/Ticket

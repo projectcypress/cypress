@@ -1,0 +1,104 @@
+version 2.2.0
+##########################################################
+
+Quality Measure Engine
+  Updated to support calculation of supplemental data elements for quality measure reports
+  Updated Length of Stay calculations to fix bug related to LOS <= 24 hours
+
+
+QRDA Category I export
+	Updated Language code to use 693-2 instead of IETF as specified by MU2 Final Rule
+	Fixed issue realted to dates not being properly formated in some portions of templates 2.16.840.1.113883.10.20.24.3.40 , 2.16.840.1.113883.10.20.24.3.46, and 2.16.840.1.113883.10.20.24.3.62
+	Fixed issue related to nullFlavored value elements not having an xsi:type, nullFlaovored values are now xsi:type="CD" in generic value template
+	Fixed issue with value element for values of string type being reported as xsi:type="INT", are now xsi:type="ST" in generic value template
+  Fixed issue related to stdc:dischargeCode being in the wrong location of  template 2.16.840.1.113883.10.20.24.3.23
+  Fixed issue with routeCode having an invalid empty codeSystem attribute in generic _medication_details template
+  Fixed issue with targetSiteCode having an invalid empty codeSystem attribute for template 2.16.840.1.113883.10.20.24.3.7
+  Fixed issues related to effectiveTime being in the  wrong location in template 2.16.840.1.113883.10.20.24.3.31 
+  Removed extra text element from template 2.16.840.1.113883.10.20.24.3.46
+  
+
+Measure Bundle
+	Updated bundle with lateset release of Measures from April 1, 2013
+	Updated Valuesets based on requirements from latest measures
+	Updated measure logic to latest implementaion guidance for Ddenominator Exclusions, (are now left in the DENOM)
+	Removed Duplicated Data entries from pateint records
+  Fixes to Episode of Care logic that inccorectly handled measures that had multiple potential episoeds of care joined by a disjunction (effected measures 1365 and 0140)
+
+
+Cypress 
+	Removed QRDA Cat I test patient generation
+	Removed ability to create QRDA Category I tests from Add Test Wizard
+	Added ability to Generate QRDA Category I tests from EP/EH calculations tests (utilizes same records as the calculated tests)
+	Generated Cat I tests are based on indivldual measures - reporting expected to be on single measure as well
+	Updated QRDA Category I tests to accept a zip file of QRDA Cat I documents for testing
+	Implemented Multi File reporting views for QRDA Category I tests
+	Updated QRDA Cat I tests to test for Patient Names
+	Added initial Check for too much data in Cat I tests
+	Removed QRDA Cat I measure specific schematron rules 
+	Updated QRDA Category I schematron Rules to lates available from HL7 DSTU
+	Fixed issue related to start and end date processing of reporting period for exported Cat I documents
+  Added supplemental data checking for EP and EH tests
+
+
+
+version 2.1.0
+####################################
+Test Deck Changes:
+	Measurement period updated from 2010 to 2012
+	Measurement period end date updated from Jan 1, 2013 to Dec 31, 2012 at 23:59
+	Code set "Crosswalk" issue resolved
+	Added code description mouse overs to the HTML patient records (RxNorm descriptions and all other code sets)
+	Length of stay for encounters minimized for EH
+	Patient data with the status of "active" given a duration in the test deck
+	EP and EH concepts changed to be in business hours
+	EP and EH Test deck alignment of data elements with encounters
+	EP GP_Peds, E immunization end time fixed
+	EH Newborn, A and Newborn, B birthdate and delivery times brought into sync
+	Value sets added to the Cypress bundle to allow coordinating value set/ measure releases
+	EH Newborn, A/B and OB A/B updated admit and discharge times on encounter to match start/end times 
+
+Quality Measure Engine:
+	Dynamic Support for CV measures in EH and EP	
+	Bundle Import code Moved to Health Data Standards library
+
+Measures:
+	Reloaded measure definitions from CMS to fix issue with measure population criteria ids
+
+QRDA Cat I export:
+	All entry id elements are valid per the CDA schema
+	Device applied now has a removal time
+	Tobacco use is now exported
+	Encounters now support: reason,  facilities will now list a start and end time even if the facility does not have a code, discharge disposition code
+	Communication from provider to patient now supports negation
+	Medication administered now exports route
+	Diagnosis active now exports ordinality
+
+Cypress:
+	Added support for multiple bundles to be loaded simultaniously
+	Fixed double quoate bug in resources/schematron/qrda/qrda_cat_1/measure_specific/d78ce034-8288-4012-a31e-7f485a74f2a9.sch
+	Removed xsi:type='CE' checks from generic Cat I schematron rules
+	Updated schematron rule for CONF:7618	to remove check for unit='1' 
+	Added ability to import bundle from within the application
+	Updated QRDA Cat I test patient generator to eliminate duplicate entries
+
+
+
+version 2.0.1 
+####################################
+1. Updated Schematron Rules from Lantana for the measures updated in late December
+2. Bug fixes to  Schematron rules including the following:
+	A. Fixes for incorrect template checking I.e Patient Gestiational age template used in a number of incorrect places such as Patient Characteristic :  Tobacco Non-User
+  B. Fixed template id check for 'Medication, Discharge: Statins' 
+ 	C. Corrected error checking for patientRole address and Birth Place address
+	D. Fix for Medicare HIC number checking 
+	E. Fixes for errors that incorrectly checked for templateId values in the text section of the templateId element instead of the root attribute
+4. Enhanced error reporting for Calculated Measures to include the Population Ids of Items not found or where values do not match
+5. Errors Grouped by Measure and Schematron Validator
+6. Test calculation progress information  when building tests
+7. Update to the QRDA Cat I Test Patient Generator to ensure all data criteria identified in the selected measures are created
+8. XML Error Navigator 
+
+Version 2.0.0
+###################################
+	Initial release of Version 2.0.0 of Cypress for MU Stage 2 testing

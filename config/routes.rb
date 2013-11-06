@@ -1,15 +1,22 @@
 Cypress::Application.routes.draw do
   root :to => "vendors#index"
-  match "/delayed_job" => DelayedJobMongoidWeb, :anchor => false
+  #match "/delayed_job" => DelayedJobMongoidWeb, :anchor => false
   devise_for :users
   
-  get "admin/users"
-  get "admin/job"
-  post "admin/promote"
-  post "admin/demote"
-  post "admin/approve"
-  post "admin/disable"
-  
+  match '/admin' => 'admin#index'
+  get "/admin/index"
+  get "/admin/users"
+  post "/admin/promote"
+  post "/admin/demote"
+  post "/admin/approve"
+  post "/admin/disable"
+  post "/admin/import_bundle"
+  post "/admin/activate_bundle"
+  get "/admin/delete_bundle"
+  post "/admin/clear_database"
+
+
+
   resources :vendors, :products
 
     resources :vendors do
@@ -40,6 +47,8 @@ Cypress::Application.routes.draw do
       delete 'delete_note'
       post 'email'
       get 'qrda_cat3'
+      get 'status'
+      get 'generate_cat1_test'
     end
     
     resources :patients
@@ -140,5 +149,5 @@ Cypress::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-   match ':controller(/:action(/:id(.:format)))'
+   #match ':controller(/:action(/:id(.:format)))'
 end

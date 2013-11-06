@@ -1,6 +1,7 @@
 class TestExecutionsController < ApplicationController  
+  HTML_EXPORTER =  HealthDataStandards::Export::HTML.new
+  caches_action :download
 
-  
   def show
     @test_execution = TestExecution.find(params[:id])
      respond_to do |format|
@@ -34,5 +35,7 @@ class TestExecutionsController < ApplicationController
     send_file zip.path, :type => 'application/zip', :disposition => 'attachment', :filename => zip_name
   end
   
+
+ 
 
 end

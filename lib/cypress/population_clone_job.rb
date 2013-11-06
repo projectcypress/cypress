@@ -17,73 +17,85 @@ module Cypress
     end
     
     def perform
+
       # Clone AMA records from Mongo
-
-      ama_patients = Record.where(:test_id => nil)
-
+      @test = ProductTest.find(options["test_id"])
+      patients=[]
       if options['patient_ids']
         # clone each of the patients identified in the :patient_ids parameter
-        ama_patients = Record.where(:test_id => nil).in(medical_record_number: options['patient_ids'])
-      elsif options['subset_id'] != "all"
-        # If we're using one of the predefined patient populations, use the patients identified therein
-        patient_population = PatientPopulation.where(:name => options['subset_id']).first
-        ama_patients = Record.in(medical_record_number: patient_population.patient_ids)
+        patients = @test.bundle.records.where(:test_id => nil).in(medical_record_number: options['patient_ids']).to_a
       else
-        # For randomness, when a user requests to use the full test deck, we add up to 10% duplicate records
-        #additional_patient_count = Random.rand(ama_patients.size * 0.1).to_i
-        #additional_patient_ids = additional_patient_count.times.map{ Random.rand(ama_patients.size).to_s }
-        #additional_patients = Record.where(:test_id => nil).where(:patient_id.in => additional_patient_ids)
-        #ama_patients = ama_patients.concat(additional_patients)
+        patients = @test.bundle.records.where(:test_id => nil).to_a
       end
-      
-      rand_prefix = Time.new.to_i
-      ama_patients.each_with_index do |patient, index|
-        cloned_patient = patient.clone
 
-        cloned_patient.medical_record_number = "#{rand_prefix}#{index}"
+      # grab a random number of records and then randomize the dates between +- 10 days
+      if options["randomization_ids"]
+        how_many = rand(5) + 1
+        randomization_ids = options["randomization_ids"].shuffle[0..how_many]
+        random_records = @test.bundle.records.where(:test_id => nil).in(medical_record_number: randomization_ids).to_a
 
-        if options["randomize_names"]
-          cloned_patient.first = APP_CONFIG["randomization"]["names"]["first"][cloned_patient.gender].sample
-          cloned_patient.last = APP_CONFIG["randomization"]["names"]["last"].sample
+        random_records.each do |patient|
+          rand_hours = 1 + (rand(10)*24) # random number of hours btween 1 hour and 10 days
+          plus_minus = rand(2) == 0 ? 1 : -1 # use this to make move dates forward or backwards
+          seconds = 360 # number of secods in and hour
+          date_shift = rand(seconds*rand_hours) * plus_minus
+          patient.shift_dates(date_shift)
+          patients << patient 
         end
+      end
+
+      patients.each do |patient|
+        clone_and_save_record(patient)
+      end
+
+    end
+
+
+    def clone_and_save_record(record,  date_shift=nil)
+        cloned_patient = record.clone
+        cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number 
+        cloned_patient.medical_record_number = next_medical_record_number
+        randomize_name(cloned_patient) if options['randomize_names']
+        cloned_patient.shift_dates(date_shift) if date_shift
         cloned_patient.test_id = options['test_id']
-
+        patch_insurance_provider(record)
         cloned_patient.save!
-      end
     end
+
+    def randomize_name(record)
+      @used_names ||= {}
+      @used_names[record.gender] ||= []
+      begin 
+        record.first = APP_CONFIG["randomization"]["names"]["first"][record.gender].sample
+        record.last = APP_CONFIG["randomization"]["names"]["last"].sample
+      end while(@used_names[record.gender].find("#{record.first}-#{record.last}").nil?)  
+      @used_names[record.gender] << "#{record.first}-#{record.last}"
+    end
+
+
+
+    def next_medical_record_number
+      @rand_prefix ||= Time.new.to_i
+      @current_index ||= 0
+      @current_index += 1
+       "#{@rand_prefix}_#{@current_index}"
+    end
+
+
+     def patch_insurance_provider(patient)
+      insurance_codes = {
+      'MA' => '1',
+      'MC' => '2',
+      'OT' => '349'
+      }
+      patient.insurance_providers.each do |ip|
+        if ip.codes.empty?
+          ip.codes["SOP"] = [insurance_codes[ip.type]]
+        end
+      end
+
+    end
+
   end
-
-
-  class QRDAGenerationJob
-
-    attr_accessor :options
-    def initialize(options)
-      @options = options
-    end
-
-    def perform
-      test_id = options["test_id"]
-      test = ProductTest.find(test_id)
-      patient_needs = {test.id => []}
-     
-
-      test.measures.top_level.each do |measure|
-        patient_needs[test.id] << measure.data_criteria.map{|dc| HQMF::DataCriteria.from_json(dc.keys.first, dc.values.first)}
-      end
-      patient_needs[test.id].flatten!
-      patient_needs[test.id].uniq!
-
-      patients = HQMF::Generator.generate_qrda_patients(patient_needs)
-      patients.each do |measure, patient|
-        patient.test_id = test.id
-        patient.save
-      end
-      
-      test.ready
-
-    end
-
-  end
-
 
 end

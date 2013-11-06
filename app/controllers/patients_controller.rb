@@ -3,8 +3,22 @@ class PatientsController < ApplicationController
 
   require 'builder'
 
+  caches_action :show
+
+  caches_action :index, :cache_path => proc {
+    patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id], measure_id: params[:measure_id]})
+  }
+
+  caches_action :table_all, :cache_path => proc {
+    table_all_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id]})
+   }
+
+  caches_action :table_measure, :cache_path => proc {
+    table_measure_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id], measure_id: params[:measure_id]})
+  }
   
   before_filter :authenticate_user!
+  before_filter :find_bundle_or_active
 
   def index
 
@@ -14,7 +28,7 @@ class PatientsController < ApplicationController
       @vendor  = @product.vendor
       @measures = @test.measures
     else
-      @measures = Measure.installed
+      @measures = @bundle.measures
     end
     @measures_categories = @measures.group_by { |t| t.category }
     
@@ -25,7 +39,7 @@ class PatientsController < ApplicationController
       @selected = @measures[0]
       @showAll = true
     end
-    
+
     # If a ProductTest is specified, show results for only the patients included in that population
     # Otherwise show the whole Master Patient List
     if @showAll
@@ -56,28 +70,34 @@ class PatientsController < ApplicationController
       @test = ProductTest.find(@patient.test_id)
       @product = @test.product
       @vendor  = @product.vendor
+      @effective_date = @test.effective_date
+    else
+      @effective_date = @patient.bundle.effective_date
     end
-    @effective_date = Cypress::MeasureEvaluator::STATIC_EFFECTIVE_DATE
 
-    @results = Result.where({'value.medical_record_id' => @patient.medical_record_number}).order_by([['value.measure_id', :asc], ['value.sub_id', :asc]])
+    if @test
+      @results =Result.where({ "value.test_id" => @test.id, 'value.medical_record_id' => @patient.medical_record_number}).order_by([['value.nqf_id', :asc], ['value.sub_id', :asc]])
+    else
+       @results = @patient.bundle.results.where({'value.medical_record_id' => @patient.medical_record_number}).order_by([['value.nqf_id', :asc], ['value.sub_id', :asc]])
+    end
   end
 
   def table_measure
-
-    @showAll = false
-    @measures = Measure.installed
-    @measures_categories = @measures.group_by { |t| t.category }
     @selected = Measure.find(params[:measure_id])
+    @bundle = Bundle.find(@selected.bundle_id)
+    @showAll = false
+    @measures = @bundle.measures
+    @measures_categories = @measures.group_by { |t| t.category }
+    
 
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
-    end
-
-   
-    @patients = Result.where("value.test_id" => !@test.nil? ? @test.id : nil).where("value.measure_id" => @selected.hqmf_id)
+      @patients = @test.results.where("value.measure_id" => @selected.hqmf_id).where("value.sub_id" => @selected.sub_id).where("value.IPP".to_sym.gt => 0).order_by([ ["value.NUMER", :desc], ["value.DENOM", :desc], ["value.DENEX", :desc]])
+    else
+    @patients = @bundle.results.where("value.measure_id" => @selected.hqmf_id)
       .where("value.sub_id" => @selected.sub_id).where("value.IPP".to_sym.gt => 0)
       .order_by([ ["value.NUMER", :desc], ["value.DENOM", :desc], ["value.DENEX", :desc]])
-
+    end
     render 'table'
   end
 
@@ -87,9 +107,9 @@ class PatientsController < ApplicationController
     @patients = nil
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
-      @patients = Record.where("test_id" => @test.id).order_by([["last", :asc]])
+      @patients = @test.records.order_by([["last", :asc]])
     else
-      @patients = Record.where("test_id" => nil).order_by([["last", :asc]])
+      @patients = @bundle.records.order_by([["last", :asc]])
     end
 
     render 'table'
@@ -97,8 +117,22 @@ class PatientsController < ApplicationController
 
   #send user record associated with patient
   def download
-    file = Cypress::CreateDownloadZip.create_patient_zip(params[:id],params[:format])
-    send_file file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_#{params[:id]}_#{params[:format]}.zip"
+    data = cache(id: params[:id],format: params[:format],bundle_id:  params[:bundle_id]) do 
+      file = nil
+      if params[:id]
+        file = Cypress::CreateDownloadZip.create_patient_zip(Record.find(params[:id]),params[:format])
+      else
+        file = Cypress::CreateDownloadZip.create_zip(@bundle.records, params[:format])
+      end
+      file.read
+    end
+
+    send_data data, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_#{params[:id]}_#{params[:format]}.zip"
   end
 
+  private
+
+  def find_bundle_or_active
+    @bundle = params[:bundle_id].nil? ? Bundle.active.first : Bundle.find(params[:bundle_id])
+  end
 end

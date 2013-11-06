@@ -17,16 +17,13 @@ def node_type(type)
 end
    # method used to mark the elements in the document that have errors so they 
   # can be linked to
-  def match_errors(test_execution)
-    if test_execution.files.length == 0
-      return Nokogiri::XML::Document.new, {},{}
-    end
-    file = test_execution.files[0]
-    doc = Nokogiri::XML(file.data)
+  def match_errors(doc, errors)
+    doc = Nokogiri::XML(doc) if doc.kind_of? String 
+    uuid = UUID.new
     error_map = {}
     error_id = 0
     error_attributes = []
-    locs = test_execution.execution_errors.by_validation_type(:xml_validation).collect{|e| e.location}
+    locs = errors.collect{|e| e.location}
     locs.compact!
 
     locs.each do |location|
@@ -39,11 +36,12 @@ end
           error_attributes << node
           elem = node.element
         end
+        elem = elem.root if node_type(elem.type) == :document
         if elem
           
           unless elem['error_id']
-            elem['error_id']= "#{error_id}"
-            error_id += 1
+
+            elem['error_id']= uuid.generate.to_s
           end
           error_map[location] = elem['error_id']
         end

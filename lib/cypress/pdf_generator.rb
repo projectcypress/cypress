@@ -45,10 +45,23 @@ module Cypress
       set_default_style
 
       summary_section
+      non_qrda_errors_section
       qrda_errors_section
       qrda_warnings_section
       vendor_xml_section
     end
+
+    def static_cv_product_test
+      set_default_style
+
+      summary_section
+      measure_errors_section
+      qrda_errors_section
+      qrda_warnings_section
+      quality_cv_measures_section
+      vendor_xml_section
+    end
+
 
     private
 
@@ -109,6 +122,23 @@ module Cypress
       end
     end
 
+    def non_qrda_errors_section
+      errors = @test_execution.execution_errors.by_type(:error).to_a.reject {|e| e.validation_type == :xml_validation}
+      unless errors.empty?
+        new_section_margin
+        @pdf.text "Errors"
+      end
+      
+      grouped_errors = errors.group_by(&:file_name)
+      grouped_errors.each_pair do |fname, err_group|
+        @pdf.text fname || ""
+        err_group.each_with_index do |error, index|
+         @pdf.text "#{index + 1}. #{error.message}"
+        end
+        @pdf.text  ""
+    end
+    end
+
     def qrda_errors_section
       errors = @test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:error)
       unless errors.empty?
@@ -151,6 +181,24 @@ module Cypress
       end
     end
 
+     def quality_cv_measures_section
+      new_section_margin
+      @pdf.text "PASSING MEASURES"
+      if @test_execution.passing_measures.count == 0
+        @pdf.text "There are no passing measures for this test."
+      else
+        cv_results_table(@test_execution.passing_measures)
+      end
+      
+      new_section_margin
+      @pdf.text "FAILING MEASURES"
+      if @test_execution.failing_measures.count == 0
+        @pdf.text "There are no failing measures for this test."
+      else
+        cv_results_table(@test_execution.failing_measures)
+      end
+    end
+
     def results_table(measures)
       table_content = []
       table_content << ["Measures included in this test", "Patients", "Denominator", "Den. Exclusions", "Numerator", "Num. Exclusions", "Exceptions"]
@@ -187,12 +235,50 @@ module Cypress
       set_default_style
     end
 
+
+    def cv_results_table(measures)
+      table_content = []
+      table_content << ["Measures included in this test", "Patients/Episodes", "Measure Population", "Observation Value"]
+      
+      measures.each do |measure|
+        row = []
+
+        expected_result = @test_execution.expected_result(measure)
+        reported_result = @test_execution.reported_result(measure)
+
+        measure = "#{measure.nqf_id} - #{measure.name} "
+        measure.concat(" - #{measure.subtitle}") if measure["sub_id"]
+        patients = "#{reported_result[QME::QualityReport::POPULATION]}/#{expected_result[QME::QualityReport::POPULATION]}"
+
+        row << measure
+        row << patients
+
+        [QME::QualityReport::MSRPOPL , QME::QualityReport::OBSERVATION].each do |code|
+          expected = expected_result[code]
+          reported = reported_result[code]
+
+          unless expected_result["population_ids"][code] 
+            expected = nil
+            reported = nil
+          end
+          row << "#{reported || "-"} / #{expected}"
+        end
+
+        table_content << row
+      end
+
+      set_style({size: 8})
+      @pdf.table(table_content, column_widths: [175, 60, 60, 60, 60, 60, 60])
+      set_default_style
+    end
+
+
     def vendor_xml_section
       # TODO - This section is repetitive unless we can link the earlier error and warning sections to the relevant entries here.
       #new_section_margin
       #@pdf.text "Vendor Generated XML"
 
-      #render :partial=>"test_executions/node.html" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}
+      #render :partial=>"test_executions/node" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}
     end
   end
 end

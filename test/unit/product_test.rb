@@ -7,10 +7,10 @@ class ProducTest < ActiveSupport::TestCase
  
     collection_fixtures('test_executions', '_id', "product_test_id")
     collection_fixtures('products', '_id','vendor_id')
-    collection_fixtures('product_tests', '_id','product_id')
-    collection_fixtures('measures',"_id")
-    collection_fixtures('query_cache','_id','test_id')
-    collection_fixtures('patient_cache','_id')
+    collection_fixtures('product_tests', '_id','product_id','bundle_id')
+    collection_fixtures('measures',"_id",'bundle_id')
+    collection_fixtures('query_cache','_id','test_id','bundle_id')
+    collection_fixtures('patient_cache','_id','bundle_id')
     
     @product1 = Product.find("4f57a88a1d41c851eb000004")
     @product2 = Product.find("4f636ae01d41c851eb00048e")

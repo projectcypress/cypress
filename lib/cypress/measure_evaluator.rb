@@ -13,17 +13,23 @@ module Cypress
        t = CalculatedProductTest.find(options["test_id"])
 
        results = {}
-       t.measures.each do |measure|
+       measure_count = t.measures.length
 
-        dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure)
-        qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date, 'test_id' => t.id, 'filters' => options['filters'], "oid_dictionary"=>dictionary)
+       t.measures.each_with_index do |measure,index|
 
+        dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, t.bundle)
+        qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date,
+                                     'test_id' => t.id, 'filters' => options['filters'], "oid_dictionary"=>dictionary,
+                                     'enable_logging' => true , "enable_rationale" =>true)
+        t.status_message = " Calculating measure #{index} of #{measure_count} - #{measure.display_name}"
+        t.save
         qr.calculate(false) 
         result = qr.result
         result.delete("_id")
         results[measure.key] = result
        end
        t.expected_results = results
+       t.status_message = "Measures Calculated"
        t.save
        t.ready
     end
@@ -38,7 +44,7 @@ module Cypress
   
     # Evaluates the supplied measure for a particular vendor
     def self.eval(test, measure, asynchronous = true)
-      dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure)
+      dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, test.bundle)
       qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil, "oid_dictionary"=>dictionary)
 
       qr.calculate(false) 
@@ -51,7 +57,7 @@ module Cypress
     # Evaluates the supplied measure for the static patients
     def self.eval_for_static_records(measure, asynchronous = true)
       report = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
-        {'effective_date' => STATIC_EFFECTIVE_DATE, 'test_id' => nil})
+        {'effective_date' => Bundle.find(measure.bundle_id).effective_date, 'test_id' => nil})
       result = {'NUMER' => '?', 'DENOM' => '?', 'DENEX' => '?'}
       
       if report.calculated?
@@ -69,8 +75,8 @@ module Cypress
     end
 
 
-    def self.generate_oid_dictionary(measure)
-      valuesets = HealthDataStandards::SVS::ValueSet.in({oid: measure.oids})
+    def self.generate_oid_dictionary(measure, bundle)
+      valuesets = bundle.value_sets.in({oid: measure.oids})
       js = {}
       valuesets.each do |vs|
         js[vs.oid] ||= {}

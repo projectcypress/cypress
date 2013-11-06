@@ -4,12 +4,13 @@ class TestExecutionsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   
   setup do
+
     collection_fixtures('test_executions', '_id', "product_test_id")
-    collection_fixtures('measures')
+    collection_fixtures('measures','bundle_id')
     collection_fixtures('products','_id','vendor_id')
-    collection_fixtures('product_tests','_id','product_id')
+    collection_fixtures('product_tests','_id','product_id','bundle_id')
     collection_fixtures('users',"_id", "vendor_ids")
-    collection_fixtures('records', '_id')
+    collection_fixtures('records', '_id','bundle_id')
     
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user

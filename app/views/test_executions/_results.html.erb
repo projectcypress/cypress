@@ -3,11 +3,10 @@
          <thead>
            <tr>
              <th colspan="2" style="width:50%"></span>Reported/Expected</th>
-             <th>Patients</th>
+             <th>Initial Population</th>
              <th>Denominator</th>
              <th>Den. Exclusions</th>
              <th>Numerator</th>
-             <th>Num. Exclusions</th>
              <th>Exceptions</th>
            </tr>
          </thead>
@@ -19,13 +18,13 @@
              <tr id='<%= "#{measure.key}" %>'>
               <td/>
                <td>
-                 <a href="<%= product_test_measure_path(test_execution.product_test,measure,:execution => test_execution) %>">
-                   <span style="font-weight:bold"><%= "#{measure.nqf_id} - #{measure.name} " %></span>
+                 <a href="<%= product_test_measure_path(test_execution.product_test,measure,:execution_id => test_execution) %>">
+                   <span style="font-weight:bold"><%= "#{measure.display_name} " %></span>
                    <%= " - #{measure.subtitle}" if measure.sub_id %>
                  </a>
                </td>
  
-                <%[QME::QualityReport::POPULATION,QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,"NUMEX","DENEXCP"].each do |code|
+                <%[QME::QualityReport::POPULATION,QME::QualityReport::DENOMINATOR,QME::QualityReport::EXCLUSIONS,QME::QualityReport::NUMERATOR,QME::QualityReport::EXCEPTIONS].each do |code|
                   expected = expected_result[code] 
                   reported = reported_result[code]
               
