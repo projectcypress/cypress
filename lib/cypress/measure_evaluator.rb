@@ -45,7 +45,7 @@ module Cypress
     # Evaluates the supplied measure for a particular vendor
     def self.eval(test, measure, asynchronous = true)
       dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, test.bundle)
-      qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil, "oid_dictionary"=>dictionary)
+      qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil, "oid_dictionary"=>dictionary, 'bundle_id' => test.bundle.id)
 
       qr.calculate(false) 
       result = qr.result
