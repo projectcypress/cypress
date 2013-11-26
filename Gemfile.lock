@@ -1,4 +1,17 @@
 GIT
+  remote: https://github.com/pophealth/quality-measure-engine.git
+  revision: e589ad9c76956b8d83e1e23fab18c4bc4b90c8d1
+  branch: develop
+  specs:
+    quality-measure-engine (2.5.1)
+      delayed_job_mongoid (~> 2.0.0)
+      mongoid (~> 3.1.4)
+      moped (~> 1.5.1)
+      nokogiri (~> 1.6.0)
+      rubyXL (~> 1.2.10)
+      rubyzip (~> 0.9.9)
+
+GIT
   remote: https://github.com/projectcypress/health-data-standards.git
   revision: 2806c0e876d2e5150e09872cb3dda5a088bd39df
   branch: develop
@@ -146,13 +159,6 @@ GEM
     pry-debugger (0.2.2)
       debugger (~> 1.3)
       pry (~> 0.9.10)
-    quality-measure-engine (2.5.1)
-      delayed_job_mongoid (~> 2.0.0)
-      mongoid (~> 3.1.4)
-      moped (~> 1.5.1)
-      nokogiri (~> 1.6.0)
-      rubyXL (~> 1.2.10)
-      rubyzip (~> 0.9.9)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -258,7 +264,7 @@ DEPENDENCIES
   prawn
   pry
   pry-debugger
-  quality-measure-engine (~> 2.5.0)
+  quality-measure-engine!
   rails (= 3.2.14)
   rake
   sass-rails
