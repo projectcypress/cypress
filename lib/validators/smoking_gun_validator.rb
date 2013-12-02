@@ -73,28 +73,28 @@ module Validators
             template_smg.each_pair do |template,entries|
               count = doc.xpath("count(//cda:templateId[@root='#{template}'])")
               entry_count = entries.collect{|e| e[:rationale].kind_of?(Hash) ?  e[:rationale]["results"]  : [true] }.compact.flatten.uniq.count
-              unless count >= entry_count
+              unless count >= 1 # entry_count - relaxing sgd constriants
                  errors << ExecutionError.new(message: "Expected to find #{entry_count} entries with templateId #{template}", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
               end 
             end
-            data_elements = map_to_data_elements(patient_sgd)
-            data_elements.each_pair do |de_id,dc_matches|
-              found = false
-              dc_matches.each do |dc_match|
-                nodes = doc.xpath("//cda:templateId[@root='#{dc_match[:template]}']/..//*[@sdtc:valueSet='#{dc_match[:oid]}']")
-                if nodes.length != 0 
-                  found = true
-                end
-              end
+            # data_elements = map_to_data_elements(patient_sgd)
+            # data_elements.each_pair do |de_id,dc_matches|
+            #   found = false
+            #   dc_matches.each do |dc_match|
+            #     nodes = doc.xpath("//cda:templateId[@root='#{dc_match[:template]}']/..//*[@sdtc:valueSet='#{dc_match[:oid]}']")
+            #     if nodes.length != 0 
+            #       found = true
+            #     end
+            #   end
 
-              if !found
-               template_mapping =  dc_matches.collect do |dc_match|
-                  "[Template: #{dc_match[:template]} -> Valueset: #{dc_match[:oid]}]"
-                end
-                errors << ExecutionError.new(message: "Cannot find one of the expected mappings #{template_mapping}",msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
-              end
+            #   if !found
+            #    template_mapping =  dc_matches.collect do |dc_match|
+            #       "[Template: #{dc_match[:template]} -> Valueset: #{dc_match[:oid]}]"
+            #     end
+            #     errors << ExecutionError.new(message: "Cannot find one of the expected mappings #{template_mapping}",msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
+            #   end
 
-            end
+            # end
 	      	end
 	      end
 	    else
