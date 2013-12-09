@@ -6,14 +6,20 @@ gem 'jquery-rails', '2.2.1'
 gem 'rake'
 
 
-#gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
+# gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
 
 #gem 'quality-measure-engine', :path => '../quality-measure-engine'
-gem 'quality-measure-engine', '~> 2.5.0'
+
+gem 'quality-measure-engine', '~> 2.5.3'
 #gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
+
+
+#gem 'quality-measure-engine', '~> 2.5.0'
+#gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => '3.2.x'
+
 #gem 'health-data-standards', :path => '../health-data-standards'
 
-gem 'health-data-standards', '~> 3.2.10'
+gem 'health-data-standards', '~> 3.2.12'
 
 
 
@@ -51,6 +57,7 @@ end
 group :test, :develop do
 	gem 'pry'
   gem 'pry-nav'
+#  gem 'pry-debugger'
   gem 'turn', :require => false
 
   gem "tailor"
