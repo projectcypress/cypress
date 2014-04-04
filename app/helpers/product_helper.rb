@@ -7,7 +7,7 @@ module ProductHelper
 
   def last_execution(product)
 	executions = product.product_tests.collect do |test|
-      test.test_executions.empty? ? nil : test.test_executions.ordered_by_date.to_a.last
+      test.test_executions.empty? ? nil : test.test_executions.ordered_by_date.limit(1).to_a.last
     end
     executions.compact.max{|a,b| a.execution_date  <=> b.execution_date}
   end

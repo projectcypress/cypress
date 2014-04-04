@@ -17,6 +17,8 @@ class TestExecution
   field :state, type: Symbol
   field :file_ids, type: Array
 
+  index :created_at => 1
+
   scope :ordered_by_date, order_by(:created_at => :desc)
   scope :order_by_state, order_by(:state => :asc)
 
