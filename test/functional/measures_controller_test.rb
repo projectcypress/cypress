@@ -12,15 +12,15 @@ include Devise::TestHelpers
     collection_fixtures('patient_populations', '_id')
     collection_fixtures('test_executions', '_id')
     collection_fixtures2('patient_cache','value', '_id' ,'test_id','bundle_id')
-    
+
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
   end
-  
-  
+
+
   test "show" do
-   
+
       m1 = Measure.find( '4fdb62e01d41c820f6000003')
       pt = ProductTest.find("4f58f8de1d41c851eb000478")
       get :show, {:product_test_id=> pt.id,:id => m1.id,:format=>"html"}
@@ -29,27 +29,27 @@ include Devise::TestHelpers
       product = assigns[:product]
       vendor  = assigns[:vendor]
       measures = assigns[:measures]
-   
+
 
       assert test.id.to_s   == "4f58f8de1d41c851eb000478"
       assert product.id.to_s== "4f57a88a1d41c851eb000004"
       assert vendor.id.to_s == "4f57a8791d41c851eb000002"
       assert measures.count  == pt.measure_ids.length
-   
+
   end
 
 
    test "minimal_set" do
-    
+
     measures =['99119911','99119922','99119933','99119944']
     get :minimal_set, {:bundle_id=>Bundle.first.id,:measure_ids => measures, :format=>"json"}
-    coverage = assigns[:coverage]  
+    coverage = assigns[:coverage]
     assert_equal  measures.length, coverage.count, "Expected coverage for all of the measures"
 
   end
-  
-  
-  test "shopuld be able to retreive measures for a given test type" do
+
+
+  test "should be able to retreive measures for a given test type" do
       Measure.where({:type=>"ep"}).count
       get :by_type , {:bundle_id=>Bundle.first.id, :type=>"CalculatedProductTest",:format=>:js}
       assert_response :success
@@ -61,7 +61,7 @@ include Devise::TestHelpers
       assert_response :success
     end
   end
- 
+
   test "patients" do
    pt= ProductTest.where({}).first
    measure = pt.measures.first
@@ -76,7 +76,7 @@ include Devise::TestHelpers
    assert assigns[ :vendor], "Should assign vendor"
    assert assigns[ :execution], "Should assign execution"
    assert assigns[ :test], "Should assign test"
-   
+
 
   end
 

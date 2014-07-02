@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TestExecutionsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
-  
+
   setup do
 
     collection_fixtures('test_executions', '_id', "product_test_id")
@@ -11,11 +11,11 @@ class TestExecutionsControllerTest < ActionController::TestCase
     collection_fixtures('product_tests','_id','product_id','bundle_id')
     collection_fixtures('users',"_id", "vendor_ids")
     collection_fixtures('records', '_id','bundle_id')
-    
+
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
   end
-  
+
 
 
   test "show" do
@@ -32,18 +32,18 @@ class TestExecutionsControllerTest < ActionController::TestCase
     post(:create, params)
     assert_response 302
 
-    assert_equal ex_count+1 , TestExecution.where(:product_test_id => pt1.id).count, "SHould increment the test executuon count"
-    
+    assert_equal ex_count+1 , TestExecution.where(:product_test_id => pt1.id).count, "Should increment the test execution count"
+
   end
 
   test "destroy" do
     count = TestExecution.count
     test_execution = TestExecution.first
-    post(:destroy, {:id => test_execution.id})  
-    
+    post(:destroy, {:id => test_execution.id})
+
     assert_response 302
 
-    assert_equal count-1, TestExecution.count, "SHould decrament the test execution count"
+    assert_equal count-1, TestExecution.count, "Should decrement the test execution count"
   end
 
   test "download" do
