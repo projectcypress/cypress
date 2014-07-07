@@ -33,7 +33,7 @@
       <% if @test  %>
         <% if @result && @result['numerator']=='?' %>
           $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id, :product_test_id => @test.id ) %>",
-                            "<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution], :showAll => @showAll) %>")             
+                            "<%= table_patients_path(:measure_id => @selected.id, :product_test_id => @test.id,:execution=> params[:execution], :showAll => @showAll) %>")
         <% elsif @showAll%>
           $.cypress.updatePatientTable("<%= table_all_patients_path(:product_test_id => @test.id,:execution=> params[:execution]) %>")
         <% else %>
@@ -51,7 +51,7 @@
 
       var hidden  = true;
       $('#measureEditContainer').slideUp();
-  	  
+
   	  $('.measure_definition').click(function(){
     	  if(hidden){
           $('#measureEditContainer').slideDown(500);
@@ -63,10 +63,10 @@
     		}
   		  hidden = !hidden;
   	  });
-	  
+
     });
   </script>
-  
+
   <script type="text/html" id="ph_tmpl_paramItem">
     <div>
       <!-- ${percentage=Math.round(Math.random()*100,2)} -->
@@ -107,7 +107,7 @@
         zip_qrda_path = download_patients_path(:format => 'qrda', :bundle_id=>@bundle.id)
         zip_html_path = download_patients_path(:format => 'html', :bundle_id=>@bundle.id)
       end %>
-      
+
       <%= link_to 'Download', '', {
         :id => 'download_menu',
         :class => "cmd",
@@ -122,7 +122,7 @@
           <%= link_to "Patients as HTML", zip_html_path, { :class => "ui-corner-all", :tabindex => "-1" } %>
         </li>
       </ul>
-    
+
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %>
         <% if @test %>
@@ -135,7 +135,7 @@
         <% end %>
       </nav>
     </section>
-    
+
     <section class="nqf bordered buffered">
       <h2>
         <% if @test %>
@@ -148,7 +148,8 @@
         <%= select_tag(:bundle_id, options_for_select(Bundle.active.order_by({version: 1}).collect{|b| ["#{b.title} - #{b.version}",b.id]},@bundle.id), :style=>"width: 300px;") %>
       <% end %>
     </section>
-    
+
+    <% cache("index-" + @bundle.version, skip_digest: true ) do %>
     <div class="tabs">
       NQF #
       <% @measures_categories.sort.each do |category, measures| %>
@@ -158,10 +159,10 @@
             <li>
               <a href="<%= patients_path(:product_test_id => @test, :measure_id=>measure_def.id,:execution=> params[:execution], :bundle_id=>@bundle.id) %>"
                 title="<%= "#{measure_def.name}" %><%= " - #{measure_def.subtitle}" if measure_def.sub_id %><%= ": #{measure_def.description}" %>"
-                class="<%= 'selected' if !@showAll and @selected.id==measure_def.id %>"><%= "#{measure_def['cms_id']}" %>  NQF:<%= "#{measure_def.nqf_id}" %> <br><%= truncate("#{measure_def.subtitle}") %> 
+                class="<%= 'selected' if !@showAll and @selected.id==measure_def.id %>"><%= "#{measure_def['cms_id']}" %>  NQF:<%= "#{measure_def.nqf_id}" %> <br><%= truncate("#{measure_def.subtitle}") %>
               </a>
             </li>
-          <% end %>        
+          <% end %>
         </ul>
       <% end %>
     </div>
@@ -221,7 +222,7 @@
                  </thead>
 
 
-                <% if @result %> 
+                <% if @result %>
                 <tr id='<%= "#{@selected.id}" %>'>
                   <td>&nbsp;</td>
                   <td> <span class="den"><%= @result['IPP'] %></span></td>
@@ -236,7 +237,7 @@
                   </tr>
 
                   <% end %>
-                 <% end %> 
+                 <% end %>
                 <% else %>
                   <tr id='all_measures'>
                  </tr>
@@ -246,9 +247,10 @@
             </dd>
           </dl>
         </section>
-     <% end %>
+      <% end %>
       <section id="product_test_patients">
       </section>
     </section>
+    <% end %>
   </div>
-</div><!-- end #container -->     
+</div><!-- end #container -->

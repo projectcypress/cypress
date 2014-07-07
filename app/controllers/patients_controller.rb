@@ -3,12 +3,6 @@ class PatientsController < ApplicationController
 
   require 'builder'
 
-  caches_action :show
-
-  caches_action :index, :cache_path => proc {
-    patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id], measure_id: params[:measure_id]})
-  }
-
   caches_action :table_all, :cache_path => proc {
     table_all_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id]})
    }
@@ -16,27 +10,30 @@ class PatientsController < ApplicationController
   caches_action :table_measure, :cache_path => proc {
     table_measure_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id], measure_id: params[:measure_id]})
   }
-  
+
   before_filter :authenticate_user!
   before_filter :find_bundle_or_active
 
   def index
-
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
       @product = @test.product
       @vendor  = @product.vendor
       @measures = @test.measures
     else
+      #@measures = Rails.cache.fetch("bundle_measures_" + @bundle.version) { @bundle.measures }
       @measures = @bundle.measures
     end
-    @measures_categories = @measures.group_by { |t| t.category }
-    
+    #only get the measures_categories if we don't have a fragment for the view section
+    if !fragment_exist?("index-" + @bundle.version)
+      @measures_categories = @measures.group_by { |t| t.category }
+    end
+
     @showAll = false
     if params[:measure_id]
       @selected = Measure.find(params[:measure_id])
     else
-      @selected = @measures[0]
+      @selected = Rails.cache.fetch("measures_0_bundle_ver_" + @bundle.version ) { @measures[0] }
       @showAll = true
     end
 
@@ -56,13 +53,13 @@ class PatientsController < ApplicationController
         @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected)
       end
     end
-    
+
     respond_to do |format|
       format.json { render :json => @result }
       format.html
     end
   end
-  
+
   def show
 
     @patient = Record.find(params[:id])
@@ -88,7 +85,7 @@ class PatientsController < ApplicationController
     @showAll = false
     @measures = @bundle.measures
     @measures_categories = @measures.group_by { |t| t.category }
-    
+
 
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
@@ -102,7 +99,7 @@ class PatientsController < ApplicationController
   end
 
   def table_all
-    
+
     @showAll  = true
     @patients = nil
     if params[:product_test_id]
@@ -117,7 +114,7 @@ class PatientsController < ApplicationController
 
   #send user record associated with patient
   def download
-    data = cache(id: params[:id],format: params[:format],bundle_id:  params[:bundle_id]) do 
+    data = cache(id: params[:id],format: params[:format],bundle_id:  params[:bundle_id]) do
       file = nil
       if params[:id]
         file = Cypress::CreateDownloadZip.create_patient_zip(Record.find(params[:id]),params[:format])
