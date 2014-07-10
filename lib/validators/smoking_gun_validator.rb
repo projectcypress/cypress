@@ -53,7 +53,7 @@ module Validators
       @found_names << doc_name if mrn
 
       unless @names[doc_name]
-        errors << ExecutionError.new(message: "Pateint name '#{doc_name}' declared in file not found in test records'", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
+        errors << ExecutionError.new(message: "Patient name '#{doc_name}' was declared in file but not found in test records.", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
         #cannot go any further here so call it quits and return
         return errors
       end
@@ -62,7 +62,7 @@ module Validators
       if @bundle.smoking_gun_capable
 
         if @expected_records.index(mrn).nil?
-          errors << ExecutionError.new(message: "Pateint '#{doc_name}' not expected to be returned.'", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
+          errors << ExecutionError.new(message: "Patient '#{doc_name}' not expected to be returned.", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
           #cannot go any further here so call it quits and return
         end
 
@@ -81,7 +81,7 @@ module Validators
           end
         end
       else
-        errors << ExecutionError.new(message: "Automated smoking gun data checking is not compatible with bundle #{@bundle.version} please refer to checklists ",msg_type: :warning, validator_type: :result_validation, file_name: options[:file_name])
+        errors << ExecutionError.new(message: "Automated smoking gun data checking is not compatible with bundle #{@bundle.version}, please refer to checklists ",msg_type: :warning, validator_type: :result_validation, file_name: options[:file_name])
       end
       errors
     end
