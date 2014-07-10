@@ -47,6 +47,8 @@ gem 'cancan', '~> 1.6.7'
 
 gem 'mongoid-grid_fs', '~> 1.7.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
 
+gem 'cache_digests'
+
 
 group :assets do
   gem 'sass-rails'
@@ -70,5 +72,3 @@ group :production do
   gem 'therubyracer', :platforms => [:ruby]
   gem 'therubyrhino', :platforms => [:jruby]
 end
-
-
