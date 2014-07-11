@@ -1,3 +1,4 @@
+
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:name=>"register_form"}) do |f| %>
 
   <div class="accountError">
@@ -36,7 +37,7 @@
   <p>THE MEASURES AND SPECIFICATIONS ARE PROVIDED "AS IS" WITHOUT ANY WARRANTY OF ANY KIND, AND ANY AND ALL IMPLIED WARRANTIES ARE HEREBY DISCLAIMED, INCLUDING ANY WARRANTY OF NON-INFRINGEMENT, ACCURACY, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. NO QUALITY MEASURE PROVIDER, NOR ANY OF THEIR TRUSTEES, DIRECTORS, MEMBERS, AFFILIATES, OFFICERS, EMPLOYEES, SUCCESSORS AND/OR ASSIGNS WILL BE LIABLE TO YOU FOR ANY DIRECT, INDIRECT, SPECIAL, EXEMPLARY, INCIDENTAL, PUNITIVE, AND/OR CONSEQUENTIAL DAMAGE OF ANY KIND, IN CONTRACT, TORT OR OTHERWISE, IN CONNECTION WITH THE USE OF THE CYPRESS TOOL OR THE MEASURES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH LOSS OR DAMAGE.</p>
   <p>The Measures are licensed to a User for the limited purpose of using, reproducing and distributing the Measures with the Cypress Tool as delivered to User, without any modification, for commercial and noncommercial uses, but such uses are only permitted if the copies of the Measures contain this complete Copyright, Disclaimer and Terms of Use. Users of the Measures may not alter, enhance, or otherwise modify the Measures.</p>
   <p>NOT A CONTRIBUTION - The Measures, including specifications and coding, as used in the Cypress Tool, are not a contribution under the Apache license. Coding in the Measures is provided for convenience only and necessary licenses for use should be obtained from the copyright owners. Current Procedural Terminology (CPT®) © 2004-2010 American Medical Association. LOINC® © 2004 Regenstrief Institute, Inc. SNOMED Clinical Terms® (SNOMED CT®) © 2004-2010 International Health Terminology Standards Development Organization.</p>
-  
+
   <div id="regcheckbox">
     <%= f.check_box :terms_and_conditions %>
     <%= f.label "I agree to the above Terms and Conditions of use" %>
@@ -46,6 +47,6 @@
     <button class="btn" href="/"><span>Cancel</span></button>
     <button type="submit" class="btn btn-success"><span>Create</span></button>
   </div>
-  
+
   <%= render :partial => "devise/shared/links" %>
 <% end -%>

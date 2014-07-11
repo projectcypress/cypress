@@ -40,7 +40,6 @@ namespace :cypress do
     Mongoid.default_session.database.drop()
   end
 
-
   desc "Recalculate all of the tests"
   task :recalculate_tests  => :setup do
 
@@ -268,5 +267,33 @@ task :test_qrda_files, [:version, :type] => :setup do |t,args|
 
      end
     end
+  end
+
+  namespace :cleanup do
+    task :setup => :environment
+
+    desc "Remove temporary items (such as vendors, tests, etc) from the database, without removing existing users"
+    task :database => :setup do
+      print "Cleaning database..."
+      Delayed::Job.destroy_all
+      before = Vendor.all.count
+      Vendor.destroy_all
+      diff = before - Vendor.all.count
+      Result.destroy_all("value.test_id"=> {"$ne" => nil})
+      # This line not needed until Cypress 2.5
+      # QME::QualityReport.destroy_all(:test_id => {"$ne"=> nil})
+      Record.destroy_all(:test_id => {"$ne" => nil})
+      puts "removed #{diff} Vendors"
+    end
+
+    desc "Get rid of files in tmp/cache"
+    task :temp_files => :setup do
+      print "Cleaning temp files..."
+      task("tmp:cache:clear").invoke
+      Rails.cache.clear
+      puts "done"
+    end
+
+    task :all => [:environment, :database, :temp_files]
   end
 end

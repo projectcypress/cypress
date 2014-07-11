@@ -9,4 +9,5 @@
     <% if current_user&&current_user.admin? %> <a href="/admin">admin</a> <% end %>
     <%= link_to "logout", destroy_user_session_path %>
   </nav>
+
 </header>
