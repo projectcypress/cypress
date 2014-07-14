@@ -1,17 +1,17 @@
 source 'http://rubygems.org'
 
 #gem 'bson', '1.3.2'
-gem 'rails', '3.2.14'
-gem 'jquery-rails', '2.2.1'
+gem 'rails', '~> 4.1.4'
+gem 'jquery-rails'
 gem 'rake'
 
 
-# gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git'
 
 #gem 'quality-measure-engine', :path => '../quality-measure-engine'
 
-gem 'quality-measure-engine', '~> 2.5.3'
-#gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
+# gem 'quality-measure-engine', '~> 2.5.3'
+gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git'
 
 
 #gem 'quality-measure-engine', '~> 2.5.0'
@@ -19,7 +19,7 @@ gem 'quality-measure-engine', '~> 2.5.3'
 
 #gem 'health-data-standards', :path => '../health-data-standards'
 
-gem 'health-data-standards', '~> 3.2.12'
+# gem 'health-data-standards', '~> 3.2.12'
 
 
 
@@ -33,7 +33,7 @@ gem "mongoid_rails_migrations" , "~>1.0"
 gem 'highline'
 gem 'state_machine'
 
-gem 'devise', '~> 2.0'
+gem 'devise', '~> 3.2'
 gem 'simple_form'
 
 gem "prawn"
@@ -45,14 +45,16 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'cancan', '~> 1.6.7'
 
 
-gem 'mongoid-grid_fs', '~> 1.7.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
+gem 'mongoid-grid_fs', '~> 2.1.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
 
 gem 'cache_digests'
 
 
 group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
+  # gem 'bootstrap-sass'
+  # gem 'sass-rails'
+  # gem 'coffee-rails'
+  # gem 'jquery-rails' # necessary for jquery_ujs w/data-method="delete" etc
   gem 'uglifier'
 end
 
