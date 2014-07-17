@@ -21,7 +21,7 @@ class ProductTest
   validates_presence_of :effective_date
   validates_presence_of :bundle_id
 
-  scope :order_by_type, order_by(_type: desc)
+  scope :order_by_type, -> { order_by(_type: desc) }
 
   state_machine :state, :initial => :pending  do
 
