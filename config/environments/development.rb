@@ -27,9 +27,11 @@ Cypress::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = false
-  
+
+  config.eager_load = false
+
   # Limit logging for when we're testing
-  #config.log_level = :error  
+  #config.log_level = :error
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 

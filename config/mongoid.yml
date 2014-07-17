@@ -7,8 +7,6 @@ development:
 test:
   sessions:
     default:
-      options:
-        consistency: :strong
       database: cypress_test
       hosts:
         - <%= ENV['TEST_DB_HOST'] || 'localhost' %>:27017
