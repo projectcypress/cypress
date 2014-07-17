@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'bson'
 gem 'rails', '~> 4.1.4'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'rake'
 
 
@@ -49,6 +50,7 @@ gem 'mongoid-grid_fs', '~> 2.1.0' #:git=>'https://github.com/ahoward/mongoid-gri
 
 gem 'cache_digests'
 
+gem "sass", :require => 'sass'
 
 group :assets do
   # gem 'bootstrap-sass'
