@@ -2,15 +2,7 @@
 class PatientsController < ApplicationController
 
   require 'builder'
-
-  caches_action :table_all, :cache_path => proc {
-    table_all_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id]})
-   }
-
-  caches_action :table_measure, :cache_path => proc {
-    table_measure_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id], measure_id: params[:measure_id]})
-  }
-
+  
   before_filter :authenticate_user!
   before_filter :find_bundle_or_active
 
