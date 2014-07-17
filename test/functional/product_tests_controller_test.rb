@@ -15,12 +15,12 @@ include Devise::TestHelpers
     collection_fixtures('patient_populations', '_id')
     collection_fixtures('test_executions', '_id','product_test_id')
     collection_fixtures2('patient_cache','value', '_id' ,'test_id', 'bundle_id')
-    
+
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
   end
-  
+
 
 
 
@@ -32,8 +32,8 @@ include Devise::TestHelpers
 
       assert_response :success
       assert_equal pt.id , assigns[:test].id , "Product Test id did not match expected id"
-      
-    
+
+
       get :show, {:id => pt.id, :test_execution_id => ex.id}
 
       assert_equal ex.id, assigns[:test_execution].id, "Execution id did not match expected id"
@@ -51,20 +51,20 @@ include Devise::TestHelpers
       assert assigns[:vendor].id  == p1.vendor.id
   end
 
-  
-  
-  test "create without product test type " do  
+
+
+  test "create without product test type " do
     pt1 = {:name =>'new1', :effective_date_end =>'12/21/2011' , :upload_format =>'c32', :patient_population =>'test'}
     put :create, {:product_test => pt1 }
     assert_response 500, "Create without type should raise an error"
   end
-  
+
 
   test "edit" do
     pt = ProductTest.where({}).first
     get :edit, {product_id: pt.product.id, id: pt.id}
     assert_response :success
-    
+
     assert assigns[:test].id == pt.id
     assert assigns[:product].id == pt.product.id
     assert assigns[:vendor].id  == pt.product.vendor.id
@@ -95,12 +95,12 @@ include Devise::TestHelpers
   test "download" do
     pt = ProductTest.find("4f58f8de1d41c851eb000478")
 
-  
+
 
     get :download,{:id => pt.id , :format => 'html'}
     assert_response :success,"Failed to download HTML zip file"
   end
-  
+
   test "add note" do
     assert ProductTest.find("4f58f8de1d41c851eb000478").notes.empty?
 
@@ -108,24 +108,24 @@ include Devise::TestHelpers
     assert_response :redirect
     assert ProductTest.find("4f58f8de1d41c851eb000478").notes.count == 1
   end
-  
+
   test "delete note" do
     test = ProductTest.find("4f6b78801d41c851eb0004a7")
     assert_equal test.notes.size, 1
-    
+
     # BSONify the ID of the note connected to this ProductTest so that it's findable during deletion
-    test.notes.first["_id"] = Moped::BSON::ObjectId(test.notes.first["_id"])
+    test.notes.first["_id"] = BSON::ObjectId.from_string(test.notes.first["_id"])
     test.save
-    
+
     delete(:delete_note, {:id => "4f6b78801d41c851eb0004a7", "note" => {"id" => "4fa287f99e8f54e9e9000038"}})
     assert_response :redirect
     assert ProductTest.find('4f6b78801d41c851eb0004a7').notes.empty?
   end
-  
+
   test "email records" do
     test = ProductTest.find("4f58f8de1d41c851eb000478")
     post :email, { :id => test, :format => 'html' ,:email=> test.product.vendor.email}
-    
+
     assert_response :redirect
   end
 

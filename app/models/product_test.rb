@@ -1,6 +1,6 @@
 class ProductTest
   include Mongoid::Document
-  
+
   belongs_to :product
   has_one :patient_population
   has_many :test_executions, dependent: :delete
@@ -16,68 +16,68 @@ class ProductTest
   field :measure_ids, type: Array
   field :expected_results, type: Hash
   field :status_message, type: String
-  
+
   validates_presence_of :name
   validates_presence_of :effective_date
   validates_presence_of :bundle_id
 
-  scope :order_by_type, order_by(:_type => :desc)
-  
-  state_machine :state, :initial => :pending  do 
+  scope :order_by_type, order_by(_type: desc)
+
+  state_machine :state, :initial => :pending  do
 
 
    after_transition any => :ready do |test|
       test.status_message ="Ready"
       test.save
-   end 
+   end
 
 
    after_transition any => :errored do |test|
       test.status_message ="Error"
       test.save
-   end 
+   end
 
     event :ready do
       transition all => :ready
-    end  
-    
+    end
+
     event :errored do
       transition all => :error
     end
-    
+
   end
-  
-  
-  def self.inherited(child)  
+
+
+  def self.inherited(child)
     child.instance_eval do
       def model_name
         ProductTest.model_name
       end
     end
-    super 
+    super
   end
-  
+
   def last_execution_date
 
   end
 
   # Returns true if this ProductTests most recent TestExecution is passing
   def execution_state
-    return :pending if self.test_executions.empty? 
+    return :pending if self.test_executions.empty?
 
     self.test_executions.ordered_by_date.first.state
   end
-  
+
   def passing?
     execution_state == :passed
   end
-  
+
   # Return all measures that are selected for this particular ProductTest
   def measures
     return [] if !measure_ids
     self.bundle.measures.in(:hqmf_id => measure_ids).order_by([[:hqmf_id, :asc],[:sub_id, :asc]])
   end
-  
+
 
   def records
     Record.where(:test_id => self.id).order_by([:last , :asc])
@@ -91,12 +91,12 @@ class ProductTest
     records.destroy
     self.destroy
   end
-  
+
   # Get the expected result for a particular measure
   def expected_result(measure)
    (expected_results || {})[measure.key]
   end
-  
+
   # Used for downloading and e-mailing the records associated with this test.
    #
    # Returns a file that represents the test's patients given the requested format.
@@ -147,7 +147,7 @@ class ProductTest
     validation_errors = []
     _ids = expected_result["population_ids"].dup
     if reported_result.nil? || reported_result.keys.length <=1
-      message = "Could not find entry for measure #{expected_result["measure_id"]} with the following population ids "   
+      message = "Could not find entry for measure #{expected_result["measure_id"]} with the following population ids "
       message +=  _ids.inspect
       validation_errors << ExecutionError.new(message: message, msg_type: :error, measure_id: expected_result["measure_id"] , stratification: _ids['stratification'], validator_type: :result_validation)
       return validation_errors
@@ -157,12 +157,12 @@ class ProductTest
     # remove the stratification entry if its there, not needed to test against values
     stratification = _ids.delete("stratification")
 
-    
-    _ids.keys.each do |pop_key| 
-     
+
+    _ids.keys.each do |pop_key|
+
 
       if !expected_result[pop_key].nil?
-       
+
         # only add the error that they dont match if there was an actual result
         if !reported_result.empty? && !reported_result.has_key?(pop_key)
           message = "Could not find value"
@@ -176,22 +176,22 @@ class ProductTest
            # Check supplemental data elements
         ex_sup = (expected_result["supplemental_data"] || {})[pop_key]
         reported_sup  = (reported_result[:supplemental_data] || {})[pop_key]
-        if stratification.nil? && ex_sup 
+        if stratification.nil? && ex_sup
 
           sup_keys = ex_sup.keys.reject{|k| k == "" || k.nil?}
-          # check to see if we expect sup data and if they provide it a short circuit the rest of the testing 
+          # check to see if we expect sup data and if they provide it a short circuit the rest of the testing
           # if they do not
           if sup_keys.length>0 && reported_sup.nil?
               err = "supplemental data for #{pop_key} not found expected  #{ex_sup}"
               validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
           else
             # for each supplemental data item (RACE, ETHNICITY,PAYER,SEX)
-            sup_keys.each do |sup_key|  
+            sup_keys.each do |sup_key|
 
-             
+
               sup_value  = (ex_sup[sup_key] || {}).reject{|k,v| (k.nil? || k == "" || v.nil? || v=="" || v=="UNK")}
               reported_sup_value = reported_sup[sup_key]
-              if reported_sup_value.nil? 
+              if reported_sup_value.nil?
                 err = "supplemental data for #{pop_key} #{sup_key} #{sup_value} expected but was not found"
                validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
               else
@@ -205,8 +205,8 @@ class ProductTest
             end
           end
         end
-      end 
-    end    
+      end
+    end
 
     validation_errors
   end

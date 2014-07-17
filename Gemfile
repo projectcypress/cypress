@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-#gem 'bson', '1.3.2'
+gem 'bson'
 gem 'rails', '~> 4.1.4'
 gem 'jquery-rails'
 gem 'rake'
