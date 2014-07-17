@@ -70,6 +70,11 @@ group :test, :develop do
   gem 'webmock'
 end
 
+group :test do
+  gem 'rails-perftest'
+  gem 'ruby-prof'
+end
+
 group :production do
   gem 'therubyracer', :platforms => [:ruby]
   gem 'therubyrhino', :platforms => [:jruby]
