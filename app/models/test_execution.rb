@@ -2,6 +2,7 @@
 class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps::Created
+  include Mongoid::Attributes::Dynamic
 
   has_one :artifact, autosave: true
 
