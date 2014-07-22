@@ -134,7 +134,7 @@ class ProductTest
     super
   end
 
-  def delete
+  def delete(options = {})
      self.results.destroy
      self.records.destroy
      Mongoid.default_session["query_cache"].where({"test_id" => self.id}).remove_all
