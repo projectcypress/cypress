@@ -7,6 +7,9 @@ require "rails/test_unit/railtie"
 require "sprockets/railtie"
 
 require 'bson'
+require 'moped'
+
+Moped::BSON = BSON
 
 APP_CONFIG = YAML.load(File.read(File.expand_path('../cypress.yml', __FILE__)))
 
