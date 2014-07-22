@@ -11,9 +11,9 @@ class QRDAProductTest < ProductTest
     te.save
 
     file = params[:results]
-    artifact = Artifact.new(:file=> file, test_execution: te)
-    artifact.save
-    te.artifact = artifact
+    
+    te.artifact = Artifact.create(file: file)
+
     validation_errors = []
     file_count = 0
 
