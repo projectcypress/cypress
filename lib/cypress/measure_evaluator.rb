@@ -1,5 +1,5 @@
 module Cypress
-  
+
   class  MeasureEvaluationJob
 
     attr_reader :options
@@ -7,9 +7,9 @@ module Cypress
     def initialize(options)
       @options = options
     end
-    
+
     def perform
- 
+
        t = CalculatedProductTest.find(options["test_id"])
 
        results = {}
@@ -23,7 +23,7 @@ module Cypress
                                      'enable_logging' => true , "enable_rationale" =>true, 'bundle_id' => t.bundle.id)
         t.status_message = " Calculating measure #{index} of #{measure_count} - #{measure.display_name}"
         t.save
-        qr.calculate(false) 
+        qr.calculate(false)
         result = qr.result
         result.delete("_id")
         results[measure.key] = result
@@ -33,21 +33,21 @@ module Cypress
        t.save
        t.ready
     end
-    
+
   end
-  
+
   class MeasureEvaluator
 
     STATIC_EFFECTIVE_DATE = Time.gm(APP_CONFIG["effective_date"]["year"],
                                     APP_CONFIG["effective_date"]["month"],
                                     APP_CONFIG["effective_date"]["day"]).to_i
-  
+
     # Evaluates the supplied measure for a particular vendor
     def self.eval(test, measure, asynchronous = true)
       dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, test.bundle)
       qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil, "oid_dictionary"=>dictionary, 'bundle_id' => test.bundle.id)
 
-      qr.calculate(false) 
+      qr.calculate(false)
       result = qr.result
       result.delete("_id")
       result
@@ -56,13 +56,12 @@ module Cypress
 
     # Evaluates the supplied measure for the static patients
     def self.eval_for_static_records(measure, asynchronous = true)
-      report = QME::QualityReport.new(measure['hqmf_id'], measure.sub_id, 
-        {'effective_date' => Bundle.find(measure.bundle_id).effective_date, 'test_id' => nil})
+      report = QME::QualityReport.find_or_create_by({'measure_id' => measure['hqmf_id'], 'sub_id' => measure.sub_id, 'effective_date' => Bundle.find(measure.bundle_id).effective_date, 'test_id' => nil})
       result = {'NUMER' => '?', 'DENOM' => '?', 'DENEX' => '?'}
-      
+
       if report.calculated?
         result = report.result
-      else 
+      else
         report.calculate(asynchronous)
         if !asynchronous
           result = report.result
@@ -70,7 +69,7 @@ module Cypress
       end
       result['measure_id'] = measure.id.to_s
       result['key'] = measure.key
-      
+
       return result
     end
 
