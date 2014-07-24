@@ -5,6 +5,7 @@ include Devise::TestHelpers
 
   setup do
     collection_fixtures('query_cache', 'test_id')
+    collection_fixtures('bundles', '_id')
     collection_fixtures('measures',"_id",'bundle_id')
     collection_fixtures('products','_id','vendor_id')
     collection_fixtures('records', '_id','test_id','bundle_id')
@@ -12,6 +13,7 @@ include Devise::TestHelpers
     collection_fixtures('patient_populations', '_id')
     collection_fixtures('test_executions', '_id')
     collection_fixtures2('patient_cache','value', '_id' ,'test_id','bundle_id')
+    collection_fixtures('users', '_id')
 
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
@@ -40,7 +42,7 @@ include Devise::TestHelpers
 
   test "shopuld be able to retreive measures for a given test type" do
       Measure.where({:type=>"ep"}).count
-      get :by_type , {:bundle_id=>Bundle.first.id, :type=>"CalculatedProductTest",:format=>:js}
+      xhr :get, :by_type , {:bundle_id=>Bundle.first.id, :type=>"CalculatedProductTest",:format=>:js}
       assert_response :success
   end
 
