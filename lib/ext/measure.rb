@@ -4,6 +4,7 @@
 Measure = HealthDataStandards::CQM::Measure
 
 class Measure
+  belongs_to :bundle
 
    index :bundle_id => 1
    index :sub_id => 1

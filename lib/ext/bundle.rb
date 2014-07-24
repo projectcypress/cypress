@@ -4,6 +4,7 @@ Bundle = HealthDataStandards::CQM::Bundle
 class Bundle
   field :smoking_gun_capable, type: Boolean
   has_many :product_tests
+  has_many :measures
 
   store_in collection: 'bundles'
   def results
@@ -18,5 +19,5 @@ class Bundle
     product_tests.destroy
     super
   end
-  
+
 end
