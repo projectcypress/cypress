@@ -2,7 +2,7 @@
 class PatientsController < ApplicationController
 
   require 'builder'
-  
+
   before_filter :authenticate_user!
   before_filter :find_bundle_or_active
 
@@ -23,7 +23,7 @@ class PatientsController < ApplicationController
 
     @showAll = false
     if params[:measure_id]
-      @selected = Measure.find(params[:measure_id])
+      @selected = Measure.where(_id: params[:measure_id]).first
     else
       @selected = Rails.cache.fetch("measures_0_bundle_ver_" + @bundle.version ) { @measures[0] }
       @showAll = true
@@ -72,7 +72,7 @@ class PatientsController < ApplicationController
   end
 
   def table_measure
-    @selected = Measure.find(params[:measure_id])
+    @selected = Measure.where(_id: params[:measure_id]).first
     @bundle = Bundle.find(@selected.bundle_id)
     @showAll = false
     @measures = @bundle.measures

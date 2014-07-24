@@ -35,7 +35,7 @@ class MeasuresController < ApplicationController
   end
 
   def definition
-    render :json => Measure.find(params[:measure_id])
+    render :json => Measure.where(_id: params[:measure_id]).first
   end
 
   def patients
@@ -64,7 +64,7 @@ class MeasuresController < ApplicationController
   end
 
   def find_measure
-    @measure = Measure.find(params[:id])
+    @measure = Measure.where(_id: params[:id]).first
   end
 
 

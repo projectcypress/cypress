@@ -21,7 +21,7 @@ include Devise::TestHelpers
 
   test "show" do
 
-      m1 = Measure.find( '4fdb62e01d41c820f6000003')
+      m1 = Measure.where(_id:  '4fdb62e01d41c820f6000003').first
       pt = ProductTest.find("4f58f8de1d41c851eb000478")
       get :show, {:product_test_id=> pt.id,:id => m1.id,:format=>"html"}
       assert_response :success
