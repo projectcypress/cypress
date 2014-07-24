@@ -11,7 +11,7 @@ class QRDAProductTest < ProductTest
     te.save
 
     file = params[:results]
-    
+
     te.artifact = Artifact.create(file: file)
 
     validation_errors = []
@@ -21,7 +21,8 @@ class QRDAProductTest < ProductTest
     sgd_validator = ::Validators::SmokingGunValidator.new(self.measures, self.records, self.id)
     valueset_validator =  ::Validators::ValuesetValidator.new(self.bundle)
 
-    artifact.each_file do |name, data|
+
+    te.artifact.each_file do |name, data|
       doc = Nokogiri::XML(data)
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
       doc.root.add_namespace_definition("sdtc", "urn:hl7-org:sdtc")
