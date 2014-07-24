@@ -37,7 +37,7 @@ gem 'state_machine'
 gem 'devise', '~> 3.2'
 gem 'simple_form'
 
-gem "prawn", :require => 'prawn/table'
+gem "prawn", :require => "prawn"
 gem "pdf-reader", '0.9.0'
 
 gem 'thin', :platforms => [:ruby]
