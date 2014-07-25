@@ -17,20 +17,15 @@ module Cypress
 
        t.measures.each_with_index do |measure,index|
 
-        #TODO review this line to figure out whether we need OID_DICTIONARY or not
-        #for the meantime, we're going to get rid of it
-        #dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, t.bundle)
-        #qr = QME::QualityReport.new(measure["hqmf_id"], measure.sub_id, 'effective_date' => t.effective_date,
-        #                             'test_id' => t.id, 'filters' => options['filters'], "oid_dictionary"=>dictionary,
-        #                             'enable_logging' => true , "enable_rationale" =>true, 'bundle_id' => t.bundle.id)
+        dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, t.bundle)
 
         qr = QME::QualityReport.find_or_create(measure["hqmf_id"], measure.sub_id, {'effective_date' => t.effective_date,
-                                     'test_id' => t.id, 'filters' => options['filters'],
-                                     'enable_logging' => true , "enable_rationale" =>true, 'bundle_id' => t.bundle.id})
+                                     'test_id' => t.id, 'filters' => @options['filters'],
+                                     'enable_logging' => true , "enable_rationale" =>true})
 
         t.status_message = " Calculating measure #{index} of #{measure_count} - #{measure.display_name}"
         t.save
-        qr.calculate(false)
+        qr.calculate({'bundle_id' => t.bundle.id, 'oid_dictionary' => dictionary}, false)
         result = qr.result
         result.delete("_id")
         results[measure.key] = result
@@ -51,13 +46,10 @@ module Cypress
 
     # Evaluates the supplied measure for a particular vendor
     def self.eval(test, measure, asynchronous = true)
-      #TODO review this line to figure out whether we need OID_DICTIONARY or not
-      #for the meantime, we're going to get rid of it
-      #dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, test.bundle)
-      #qr = QME::QualityReport.find_or_create(measure["hqmf_id"], measure.sub_id, {'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil, "oid_dictionary"=>dictionary, 'bundle_id' => test.bundle.id})
-      qr = QME::QualityReport.find_or_create(measure["hqmf_id"], measure.sub_id, {'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil, 'bundle_id' => test.bundle.id})
+      dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, test.bundle)
+      qr = QME::QualityReport.find_or_create(measure["hqmf_id"], measure.sub_id, {'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil})
 
-      qr.calculate(false)
+      qr.calculate({'bundle_id' => test.bundle.id, 'oid_dictionary' => dictionary}, false)
       result = qr.result
       result.delete("_id")
       result
