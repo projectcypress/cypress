@@ -4,7 +4,7 @@ class PatientsControllerTest < ActionController::TestCase
 include Devise::TestHelpers
 
   setup do
-    collection_fixtures('query_cache', 'test_id')
+    collection_fixtures('query_cache', '_id', 'test_id')
     collection_fixtures('bundles', '_id')
     collection_fixtures('measures',"_id",'bundle_id')
     collection_fixtures('products','_id','vendor_id')
@@ -57,12 +57,7 @@ include Devise::TestHelpers
     assert result['DENOM'] == '-'
     assert result['DENEX']  == '-'
 
-    expected_result = {"measure_id" => m1['hqmf_id'],
-      "effective_date" => 1293753600,
-      "DENOM" => 48,
-      "NUMER" => 44,
-      "antinumerator" => 4,
-      "DENEX" => 0 }
+    expected_result =  QME::QualityReportResult.new(DENOM: 48, NUMER: 44, antinumerator: 4, DENEX: 0)
     QME::QualityReport.any_instance.stubs(:result).returns(expected_result)
     QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
 

@@ -14,12 +14,7 @@ class MeasureEvaluatorTest < ActiveSupport::TestCase
 
     @measure = Measure.where({:hqmf_id => '0001'}).first
 
-    @result = {"measure_id" => @measure['id'],
-               "effective_date" => 1293753600,
-               "DENOM" => 48,
-               "NUMER" => 44,
-               "antinumerator" => 4,
-               "DENEX" => 0 }
+    @result = QME::QualityReportResult.new(DENOM: 48, NUMER: 44, antinumerator: 4, DENEX: 0)
     @test = ProductTest.find("4f58f8de1d41c851eb000478")
   end
 

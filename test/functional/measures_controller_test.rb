@@ -14,6 +14,7 @@ include Devise::TestHelpers
     collection_fixtures('test_executions', '_id')
     collection_fixtures2('patient_cache','value', '_id' ,'test_id','bundle_id')
     collection_fixtures('users', '_id')
+    collection_fixtures('vendors', '_id')
 
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
