@@ -51,7 +51,7 @@ module Cypress
 
       qr.calculate({'bundle_id' => test.bundle.id, 'oid_dictionary' => dictionary}, false)
       result = qr.result
-      result.delete("_id")
+      result.remove_attribute(:_id)
       result
 
     end
