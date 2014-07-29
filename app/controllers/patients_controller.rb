@@ -13,8 +13,8 @@ class PatientsController < ApplicationController
       @vendor  = @product.vendor
       @measures = @test.measures
     else
-      @measures = Rails.cache.fetch("bundle_measures_" + @bundle.version) { @bundle.measures }
-      #@measures = @bundle.measures
+      #@measures = Rails.cache.fetch("bundle_measures_" + @bundle.version) { @bundle.measures }
+      @measures = @bundle.measures
     end
     #only get the measures_categories if we don't have a fragment for the view section
     if !fragment_exist?("index-" + @bundle.version)
@@ -75,8 +75,7 @@ class PatientsController < ApplicationController
     @selected = Measure.where(_id: params[:measure_id]).first
     @bundle = Bundle.find(@selected.bundle_id)
     @showAll = false
-    #TODO does this actually do anything? Or does it just cache a Mongoid::Criteria object?
-    @measures = Rails.cache.fetch("bundle_measures_" + @bundle.version) { @bundle.measures }
+    @measures = @bundle.measures
     @measures_categories = @measures.group_by { |t| t.category }
 
 
