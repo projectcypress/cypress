@@ -64,7 +64,7 @@ module Cypress
       if report.calculated?
         result = report.result
       else
-        report.calculate(asynchronous)
+        report.calculate({}, asynchronous)
         if !asynchronous
           result = report.result
         end
