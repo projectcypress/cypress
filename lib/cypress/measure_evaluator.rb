@@ -64,9 +64,8 @@ module Cypress
       if report.calculated?
         result = report.result
       else
-        # binding.pry
         dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, Bundle.find(measure.bundle_id))
-        report.calculate({"oid_dictionary" => dictionary, "bundle_id" => measure.bundle_id}, asynchronous)
+        report = report.calculate({"oid_dictionary" => dictionary, "bundle_id" => measure.bundle_id}, asynchronous)
         if !asynchronous
           result = report.result
         end

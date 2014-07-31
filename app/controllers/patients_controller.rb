@@ -42,7 +42,7 @@ class PatientsController < ApplicationController
           @result = {'measure_id' => @selected.id, 'NUMER' => '0', 'antinumerator' => 0, 'DENOM' => '0', 'DENEX' => '0'}
         end
       else
-        @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected)
+        @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected, false)
       end
     end
 
