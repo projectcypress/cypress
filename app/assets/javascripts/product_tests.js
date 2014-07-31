@@ -2,25 +2,25 @@
 (function($) {
 
     $.testWizard = {};
-  
+
     $.testWizard.updateMeasureSet = function(testType, bundle_id) {
-        $('#measures').empty().html('<div class="busy">Finding measures for test type ' + testType + '...</h3>');
+        $("#measures").empty().html('<div class="busy">Finding measures for test type ' + testType + "...</h3>");
         var ids = [];
         // get the measures for this type of test
         $.ajax({
-            url: "/measures/by_type?bundle_id="+bundle_id,
+            url: "/measures/by_type?bundle_id=" + bundle_id,
             type: "POST",
             data: {
                 type: testType
             },
-            dataType: 'script',
-            error: function(xhr, err) {
-                alert("Sorry, we can't currently produce measures by type:'" + testType + "'\n" + err);
+            dataType: "script",
+            error: function(xhr, textStatus, err) {
+              alert("Sorry, we can't currently produce measures by type:'" + testType + "'\n" + err);
             }
         });
     };
 
-  
+
 /*    commented out functionality related to the minimal patient set since
  *    that screen is no longer part of the wizard sequence
      $.testWizard.updateMinimalPatientSet = function() {
@@ -66,7 +66,7 @@
 //                break;
         }
     }
-  
+
 })( jQuery );
 
 $(document).ready(function() {
@@ -158,7 +158,7 @@ $(document).ready(function() {
             cache = {}; // empty the cache again
         }
     });
-    // disableUIStyles doesn't prevent these classes from being added to the buttons. 
+    // disableUIStyles doesn't prevent these classes from being added to the buttons.
     // we'll remove them here instead of overriding in the stylesheets.
     $("#navigation input").removeClass("ui-formwizard-button ui-wizard-content");
     $.testWizard.updateProgressBar("first");
