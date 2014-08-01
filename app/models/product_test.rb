@@ -1,5 +1,6 @@
 class ProductTest
   include Mongoid::Document
+  include AASM
 
   belongs_to :product
   has_one :patient_population
@@ -16,6 +17,7 @@ class ProductTest
   field :measure_ids, type: Array
   field :expected_results, type: Hash
   field :status_message, type: String
+  field :state, :type => Symbol
 
   validates_presence_of :name
   validates_presence_of :effective_date
@@ -23,30 +25,34 @@ class ProductTest
 
   scope :order_by_type, -> { order_by(_type: desc) }
 
-  state_machine :state, :initial => :pending  do
-
-
-   after_transition any => :ready do |test|
-      test.status_message ="Ready"
-      test.save
-   end
-
-
-   after_transition any => :errored do |test|
-      test.status_message ="Error"
-      test.save
-   end
+  aasm column: :state do
+    state :pending, :initial => true
+    state :ready, :after_enter => :ready_callback
+    state :errored, :after_enter => :error_callback
 
     event :ready do
-      transition all => :ready
+      transitions :to => :ready
     end
 
     event :errored do
-      transition all => :error
+      transitions :to => :error
     end
 
   end
 
+  def ready_callback
+    self.status_message ="Ready"
+    self.save
+  end
+
+  def error_callback
+    self.status_message ="Error"
+    self.save
+  end
+
+  def initialize(options = {})
+    super(options)
+  end
 
   def self.inherited(child)
     child.instance_eval do

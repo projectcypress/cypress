@@ -3,6 +3,7 @@ class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps::Created
   include Mongoid::Attributes::Dynamic
+  include AASM
 
   has_one :artifact, autosave: true
 
@@ -21,28 +22,32 @@ class TestExecution
   scope :ordered_by_date, -> { order_by(created_at: :desc) }
   scope :order_by_state, -> { order_by(state: :asc) }
 
-
-
-  state_machine :state , :initial=> :pending do
+  aasm column: :state do
+    state :pending, :initial => true
+    state :failed
+    state :passed
+    state :force_pass
+    state :force_fail
+    state :reset
 
     event :failed do
-      transition :pending => :failed
+      transitions :from => :pending, :to => :failed
     end
 
     event :pass do
-      transition :pending => :passed
+      transitions :from => :pending, :to => :passed
     end
 
     event :force_pass do
-      transition all => :passed
+      transitions :to => :passed
     end
 
     event :force_fail do
-      transition all => :failed
+      transitions :to => :failed
     end
 
     event :reset do
-      transition all => :pending
+      transitions :to => :pending
     end
 
   end
@@ -70,11 +75,11 @@ class TestExecution
   end
 
   def passing?
-    state == :passed
+    @state == :passed
   end
 
   def failing
-    state == :failed
+    @state == :failed
   end
 
   def incomplete?

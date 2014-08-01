@@ -9,7 +9,6 @@ module Cypress
     end
 
     def perform
-
        t = CalculatedProductTest.find(options["test_id"])
 
        results = {}
@@ -25,10 +24,10 @@ module Cypress
 
         t.status_message = " Calculating measure #{index} of #{measure_count} - #{measure.display_name}"
         t.save
-        qr.calculate({'bundle_id' => t.bundle.id, 'oid_dictionary' => dictionary}, false)
+        qr = qr.calculate({'bundle_id' => t.bundle.id, 'oid_dictionary' => dictionary}, false)
         result = qr.result
-        result.delete("_id")
-        results[measure.key] = result
+        result.unset(:_id)
+        results[measure.key] = result.as_document
        end
        t.expected_results = results
        t.status_message = "Measures Calculated"
