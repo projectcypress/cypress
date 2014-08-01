@@ -210,9 +210,11 @@ namespace :cypress do
     um = ENV['update_measures'] || false
     puts "Importing bundle #{@bundle_name} delete_existing: #{de}  update_measures: #{um} type: #{ENV['type'] || 'ALL'}"
     task("bundle:import").invoke("bundles/#{@bundle_name}",de, um , ENV['type'])
+    task("cypress:upgrade_query_cache").invoke
   end
 
   task :upgrade_query_cache => :setup do
+    puts "Upgrading Cypress query_cache"
     QME::QualityReport.all.each do |report|
       report.status["state"] = "completed" if report.status["state"] == "unknown"
 
