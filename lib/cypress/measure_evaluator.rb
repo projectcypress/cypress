@@ -9,7 +9,7 @@ module Cypress
     end
 
     def perform
-       t = CalculatedProductTest.find(options["test_id"])
+       t = ProductTest.find(options["test_id"])
 
        results = {}
        measure_count = t.measures.length
