@@ -52,32 +52,30 @@
         <% end %>
       <% end #cache %>
     <% else %>
-      <% cache("table_non_show_all") do %>
         <% @patients.each do |patient| %>
-          <% if patient.value['IPP'] %>
-            <tr>
-              <% if !@selected.population_ids[QME::QualityReport::MSRPOPL] %>
-                <%= population_marker(patient.value[QME::QualityReport::POPULATION])%>
-                <%= population_marker(patient.value[QME::QualityReport::DENOMINATOR])%>
-                <%= population_marker(patient.value[QME::QualityReport::NUMERATOR])%>
-                <%= population_marker(patient.value[QME::QualityReport::EXCLUSIONS] )%>
-                <%= population_marker(patient.value[QME::QualityReport::EXCEPTIONS] )%>
-                <%= population_marker(patient.value[QME::QualityReport::ANTINUMERATOR])%>
-              <% else %>
-                <%= population_marker(patient.value[QME::QualityReport::POPULATION] )%>
-                <%= population_marker(patient.value[QME::QualityReport::MSRPOPL])%>
-              <% end %>
-              <td></td>
-              <td><%= link_to patient.record.last, patient_url(patient.record.id) %></td>
-              <td><%= link_to patient.record.first, patient_url(patient.record.id) %></td>
-              <td><time datetime="<%= display_time(patient.record.birthdate) %>">
-                <%= display_time(patient.record.birthdate) %>
-              </time></td>
-              <td><%= patient.record.gender %></td>
-            </tr>
-          <% end %>
+            <% if patient.value['IPP'] %>
+              <tr>
+                <% if !@selected.population_ids[QME::QualityReport::MSRPOPL] %>
+                  <%= population_marker(patient.value[QME::QualityReport::POPULATION])%>
+                  <%= population_marker(patient.value[QME::QualityReport::DENOMINATOR])%>
+                  <%= population_marker(patient.value[QME::QualityReport::NUMERATOR])%>
+                  <%= population_marker(patient.value[QME::QualityReport::EXCLUSIONS] )%>
+                  <%= population_marker(patient.value[QME::QualityReport::EXCEPTIONS] )%>
+                  <%= population_marker(patient.value[QME::QualityReport::ANTINUMERATOR])%>
+                <% else %>
+                  <%= population_marker(patient.value[QME::QualityReport::POPULATION] )%>
+                  <%= population_marker(patient.value[QME::QualityReport::MSRPOPL])%>
+                <% end %>
+                <td></td>
+                <td><%= link_to patient.record.last, patient_url(patient.record.id) %></td>
+                <td><%= link_to patient.record.first, patient_url(patient.record.id) %></td>
+                <td><time datetime="<%= display_time(patient.record.birthdate) %>">
+                  <%= display_time(patient.record.birthdate) %>
+                </time></td>
+                <td><%= patient.record.gender %></td>
+              </tr>
+            <% end %>
         <% end %>
-      <% end #cache %>
     <% end %>
   <% else %>
   <tr>

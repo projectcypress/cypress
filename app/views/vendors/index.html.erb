@@ -12,7 +12,7 @@
       </nav>
     </section>
 
-    <section class="information bordered">  
+    <section class="information bordered">
       <p>
         Welcome to Cypress! This is the Certification Dashboard that displays the names of the EHR vendors and the status of their products being tested.
         You can begin by adding an EHR vendor or simply explore the complete Cypress Test Deck by clicking on "Master Patient List" above.
@@ -42,9 +42,9 @@
                 <td><span class="<% if vendor.count_passing > 0 %> pass <% end %> product"><%= display_passing_products(vendor) %></span></td>
                 <td><span class="<% if vendor.count_tested - vendor.count_passing > 0 %> fail <% end %> product"><%= display_failing_products(vendor) %></span></td>
                 <td><!-- last executed intentionally blank --></td>
-                <td class="pull-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' %></td>
+                <td class="pull-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', data: {:method => :delete, :confirm => 'Are you sure?'} %></td>
               </tr>
-              <% 
+              <%
                 vendor.products.each do |product|
                 %>
 
