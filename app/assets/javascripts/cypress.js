@@ -88,7 +88,7 @@
     position = origin.offset();
 
     dialog = menu.dialog({
-      position: {my: "right top", at: "left top", of: origin},
+      position: {my: "right top", at: "right top", of: origin},
       resizable: false,
       dialogClass: 'dialog-menuwindow',
       minHeight: false,
