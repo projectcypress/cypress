@@ -75,8 +75,13 @@ class PatientsController < ApplicationController
     @selected = Measure.where(_id: params[:measure_id]).first
     @bundle = Bundle.find(@selected.bundle_id)
     @showAll = false
-    @measures = @bundle.measures
-    @measures_categories = @measures.group_by { |t| t.category }
+    #@measures = @bundle.measures
+    @measures_categories = Rails.cache.fetch("bundle_measures" + @bundle.version ) do
+      m = @bundle.measures
+      m.group_by { |t| t.category }
+    end
+
+
 
 
     if params[:product_test_id]
@@ -98,7 +103,8 @@ class PatientsController < ApplicationController
       @test = ProductTest.find(params[:product_test_id])
       @patients = @test.records.order_by([["last", :asc]])
     else
-      @patients = @bundle.records.order_by([["last", :asc]])
+      # @patients = @bundle.records.order_by([["last", :asc]])
+      @patients = Rails.cache.fetch("table_all_patients" + @bundle.version) { @bundle.records.order_by([["last", :asc]]) }
     end
 
     render 'table'
