@@ -215,22 +215,36 @@ namespace :cypress do
 
   task :upgrade_query_cache => :setup do
     puts "Upgrading Cypress query_cache"
-    QME::QualityReport.all.each do |report|
-      report.status["state"] = "completed" if report.status["state"] == "unknown"
+    # remove all unprocessed jobs - they will not be compatible with the updated
+    # QME.
+    Delayed::Job.all.destroy
+    Mongoid.default_session["rollup_buffer"].drop
+    fields = ["population_ids",
+              "IPP",
+              "DENOM",
+              "NUMER",
+              "antinumerator",
+              "DENEX",
+              "DENEXCEP",
+              "MSRPOPL",
+              "OBSERV",
+              "supplemental_data"]
+    QME::QualityReport.where({status: {"$ne" => nil}}).where({"status.state" => {"$ne" => "completed"}}).destroy
+    QME::QualityReport.where({status: nil}).each do |qr|
+      qr.status = {state: "completed"}
+      report = QME::QualityReportResult.new
+      fields.each do |field|
+        report[field] = qr[field]
+      end
+      qr.filters = {} unless qr.filters
+      qr.result = report
+      qr.save
+    end
 
-      res = QME::QualityReportResult.new
-      res["IPP"] = report["IPP"] || nil
-      res["DENOM"] = report["DENOM"] || nil
-      res["NUMER"] = report["NUMER"] || nil
-      res["antimumerator"] = report["antinumerator"] || nil
-      res["DENEX"] = report["DENEX"] || nil
-      res["DENEXCEP"] = report["DENEXCEP"] || nil
-      res["MSRPOPL"] = report["MSRPOPL"] || nil
-      res["supplemental_data"] = report["supplemental_data"] || nil
-      res["population_ids"] = report["population_ids"] || nil
-
-      report.result = res
-      report.save
+    puts "Upgrading Cypress records"
+    Record.all.each do |record|
+      record.medical_record_assigner = "2.16.840.1.113883.4.572"
+      record.save
     end
   end
 
