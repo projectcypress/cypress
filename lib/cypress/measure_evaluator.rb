@@ -16,18 +16,20 @@ module Cypress
 
        t.measures.each_with_index do |measure,index|
 
-        dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, t.bundle)
 
+        dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, t.bundle)
         qr = QME::QualityReport.find_or_create(measure["hqmf_id"], measure.sub_id, {'effective_date' => t.effective_date,
                                      'test_id' => t.id, 'filters' => @options['filters'],
                                      'enable_logging' => true , "enable_rationale" =>true})
 
         t.status_message = " Calculating measure #{index} of #{measure_count} - #{measure.display_name}"
         t.save
-        qr = qr.calculate({'bundle_id' => t.bundle.id, 'oid_dictionary' => dictionary}, false)
+        qr = qr.calculate({'bundle_id' => t.bundle.id, 'oid_dictionary' => dictionary, 'prefilter' => {test_id: t.id}}, false)
         result = qr.result
         result.unset(:_id)
-        results[measure.key] = result.as_document
+        res = result.as_document
+        res["measure_id"] = measure.key
+        results[measure.key] = res
        end
        t.expected_results = results
        t.status_message = "Measures Calculated"
@@ -48,7 +50,7 @@ module Cypress
       dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, test.bundle)
       qr = QME::QualityReport.find_or_create(measure["hqmf_id"], measure.sub_id, {'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil})
 
-      qr.calculate({'bundle_id' => test.bundle.id, 'oid_dictionary' => dictionary}, false)
+      qr.calculate({'bundle_id' => test.bundle.id, 'oid_dictionary' => dictionary,  'prefilter' => {test_id: test.id}}, false)
       result = qr.result
       result.remove_attribute(:_id)
       result
