@@ -47,16 +47,17 @@
               <%
                 vendor.products.each do |product|
                 %>
-
-                  <tr class="sub_rows <%= vendor.id %>">
-                    <td><!-- expando intentionally blank --></td>
-                    <td><span class="-icon"><%= link_to product.name, product_path(product) %></span></td>
-                    <td><span class="version"><%= product.version %> </span></td>
-                    <td><span class="<% if product.count_passing > 0 %> pass <% end %> test-score"><%= display_passing_tests(product) %></span></td>
-                    <td><span class="<% if product.count_failing > 0 %> fail <% end %> test-score"><%= display_failing_tests(product) %></span></td>
-                    <td><%= display_last_execution(product) %></td>
-                    <td><!-- delete intentionally blank --></td>
-                  </tr>
+                  <% cache product do %>
+                    <tr class="sub_rows <%= vendor.id %>">
+                      <td><!-- expando intentionally blank --></td>
+                      <td><span class="-icon"><%= link_to product.name, product_path(product) %></span></td>
+                      <td><span class="version"><%= product.version %> </span></td>
+                      <td><span class="<% if product.count_passing > 0 %> pass <% end %> test-score"><%= display_passing_tests(product) %></span></td>
+                      <td><span class="<% if product.count_failing > 0 %> fail <% end %> test-score"><%= display_failing_tests(product) %></span></td>
+                      <td><%= display_last_execution(product) %></td>
+                      <td><!-- delete intentionally blank --></td>
+                    </tr>
+                  <% end #cache %>
                 <% end %>
               <% end %>
             </tbody>
