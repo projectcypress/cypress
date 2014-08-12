@@ -229,9 +229,9 @@ namespace :cypress do
     end
 
     desc "Uploads a zip to popHealth"
-    task :upload_pophealth_zip, [:pophealth_url, :pophealth_user, :pophealth_password, :cypress_url, :cypress_user, :cypress_password, :test_type] => :setup do |t, args|
+    task :zip_roundtrip, [:pophealth_url, :pophealth_user, :pophealth_password, :cypress_url, :cypress_user, :cypress_password, :test_type] => :setup do |t, args|
       pophealth = Cypress::PophealthRoundtrip.new(args.to_hash)
-      pophealth.create_and_upload_zip({:measure_ids => args.extras})
+      pophealth.zip_roundtrip({:measure_ids => args.extras})
     end
 
   end

@@ -96,7 +96,7 @@ module Cypress
 
     end
 
-    def create_and_upload_zip(args = nil)
+    def zip_roundtrip(args = nil)
       cleanup(args)
       zip = generate_cat1_zip(args)
       upload_cat1_zip(zip, args)
