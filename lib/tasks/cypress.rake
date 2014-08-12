@@ -228,10 +228,28 @@ namespace :cypress do
       pophealth.generate_cat1_zip({:measure_ids => args.extras})
     end
 
-    desc "Uploads a zip to popHealth"
+    desc "roundtrips a zip to popHealth. Any extra params will be treated as HQMF measure IDs to be roundtripped"
     task :zip_roundtrip, [:pophealth_url, :pophealth_user, :pophealth_password, :cypress_url, :cypress_user, :cypress_password, :test_type] => :setup do |t, args|
       pophealth = Cypress::PophealthRoundtrip.new(args.to_hash)
       pophealth.zip_roundtrip({:measure_ids => args.extras})
+    end
+
+    desc "Roundtrip a particular category of measures"
+    task :zip_roundtrip_category, [:pophealth_url, :pophealth_user, :pophealth_password, :cypress_url, :cypress_user, :cypress_password, :category] => :setup do |t, args|
+      pophealth = Cypress::PophealthRoundtrip.new(args.to_hash)
+      measures = Measure.where({category: args.category})
+      measure_ids = measures.collect {|m| m.hqmf_id}
+      measure_type = measures.first.type
+
+      #need to convert the measure type into the correct test type
+      test_type = case measure_type
+        when 'ep'
+          'CalculatedProductTest'
+        when 'eh'
+          'InpatientProductTest'
+      end
+
+      pophealth.zip_roundtrip({:measure_ids => measure_ids, :test_type => test_type})
     end
 
   end

@@ -69,7 +69,7 @@ module Cypress
       complete = false
       mids = []
       while (!complete)
-        sleep(1)
+        sleep(2)
         mids = []
         complete = ids.inject(true) do |memo, id|
           res = JSON.parse(`curl -X GET -u #{pophealth_user}:#{pophealth_password} #{url}/api/queries/#{id}`)
