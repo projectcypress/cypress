@@ -85,28 +85,6 @@ namespace :cypress do
 
   end
 
-
-  desc "Process a schematron file and place the results in the output directory for the listed phases "
-  task :process_schematron, [:schematron_file,:output_dir,:phases] => :setup do |t,args|
-    xslt = Nokogiri::XSLT(File.new("./resources/schematron/iso-schematron-xslt1/iso_svrl_for_xslt1.xsl"))
-    phases = (args["phases"] || "#ALL").split
-    schematron_file = args["schematron_file"]
-    output_dir = args["output_dir"]
-    files = File.directory?(schematron_file) ? Dir.glob("#{schematron_file}/*.sch") : [schematron_file];
-
-    files.each do |f|
-      doc = Nokogiri::XML(File.new(f))
-      base = File.basename(f,".sch")
-      phases.each do |phase|
-       fname = phase=="#ALL" ? "#{base}.xslt" : "#{base}_#{phase}.xslt"
-       doc.root["defaultPhase"] = phase
-       File.open(File.join(output_dir,fname),"w") do |f|
-         f.puts xslt.transform(doc)
-       end
-      end
-    end
-  end
-
   desc %{
     Create an admin account.  The admin account can do admin
       like things
