@@ -10,8 +10,8 @@ module Cypress
     QRDA_CAT1_SCHEMATRON = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
     QRDA_CAT3_SCHEMATRON = APP_CONFIG["validation"]["schematron"]["qrda_cat_3"]
   
-    ISO_SCHEMATRON = 'resources/schematron/iso-schematron-xslt1/iso_svrl_for_xslt1.xsl'
-    QRDA_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("CDA Schema validator", APP_CONFIG["validation"]["schema"]["qrda_cat_1"])
+    ISO_SCHEMATRON = 'resources/Schematron/iso-schematron-xslt1/iso_svrl_for_xslt1.xsl'
+    QRDA_SCHEMA_VALIDATOR = Validators::Schema::Validator.new("CDA Schema validator", APP_CONFIG["validation"]["schema"])
 
     QRDA_CAT1_SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat I Schematron", QRDA_CAT1_SCHEMATRON ,ISO_SCHEMATRON,true,{"phase" => "errors"})
     QRDA_CAT1_SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat I Schematron", QRDA_CAT1_SCHEMATRON, ISO_SCHEMATRON,true, {"phase" => "warnings"})
