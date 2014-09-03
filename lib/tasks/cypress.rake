@@ -248,6 +248,14 @@ namespace :cypress do
     end
   end
 
+  task :add_medical_record_assigner => :setup do
+    puts "Upgrading Cypress records with medical record assigner"
+    Record.all.each do |record|
+      record.medical_record_assigner = "2.16.840.1.113883.4.572"
+      record.save
+    end
+  end
+
 
 task :test_qrda_files, [:version, :type] => :setup do |t,args|
   bundle = args.version ? Bundle.where({version: args.version}).first : Bundle.first
