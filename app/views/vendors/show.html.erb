@@ -51,7 +51,7 @@
           next if result_products.empty? %>
           <thead>
             <tr>
-              <th class="span1" colspan="3"><span class="<%= result_status %>"><%= result_status %>ing</span> Products</th>
+              <th class="span1" colspan="3"><span class="<%= result_status %>"><%= format_status(result_status) %></span> Products</th>
               <th>Description</th>
               <th>Tests</th>
               <th></th>

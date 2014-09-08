@@ -45,17 +45,10 @@
           </tbody>
           <% end %>
         <!-- END NO TESTS -->
-        <% product_tests_by_status(@product).each do |result_status, result_tests|
-          next if result_tests.empty?
-          if result_status == 'incomplete'
-            result_status = 'na'
-            title = 'Incomplete'
-          else
-            title = "#{result_status}ing"
-          end %>
+        <% product_tests_by_status(@product).each do |result_status, result_tests| %>
           <thead>
             <tr>
-              <th colspan="3"><span class="<%= result_status %>"><%= title %></span> Tests</th>
+              <th colspan="3"><span class="<%= result_status %>"><%= format_status(result_status) %></span> Tests</th>
               <th>Type</th>
               <th>Description</th>
               <th>Executions</th>
