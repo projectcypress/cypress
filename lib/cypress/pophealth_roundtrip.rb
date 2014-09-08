@@ -36,8 +36,11 @@ module Cypress
       test_type = opts[:test_type] ? opts[:test_type] : "CalculatedProductTest"
 
       vendor = Vendor.find_or_create_by({name: "popHealthRoundtripVendor"})
-      product = Product.find_or_create_by({name: "popHealthRoundtripProduct", vendor_id: vendor.id, user_id: user.id})
-      product_test = test_type.camelize.constantize.new({name: "popHealthRoundtripTest", bundle: bundle.id, effective_date: bundle.effective_date, user_id: user.id, product_id: product.id, measure_ids: opts[:measure_ids]})
+      product = Product.find_or_create_by({name: "popHealthRoundtripProduct", vendor_id: vendor.id})
+      product.users << user
+      product.save
+      product_test = test_type.camelize.constantize.new({name: "popHealthRoundtripTest", bundle: bundle.id, effective_date: bundle.effective_date, product: product, measure_ids: opts[:measure_ids]})
+      product_test.user = user
       product_test.save
       Cypress::CreateDownloadZip.create_test_zip(product_test.id, "qrda")
     end

@@ -2,6 +2,8 @@ namespace :pophealth_roundtrip do
   require 'pry'
   require 'pry-nav'
 
+  task :setup => :environment
+
   desc %{Clean up the pophealth instance (removes patients and queries) as well as our generated vendor/product/tests/executions in Cypress
     options
     pophealth_url   - the URL for the pophealth instance, up to and including the port number. Ex: http://localhost:3000
@@ -48,7 +50,7 @@ namespace :pophealth_roundtrip do
     cypress_password  - The password for the cypress user
     category        - The string representing the measure category to be included in the Cypress test. Capitalization matters. Example: Stroke
   }
-  task :zip_roundtrip_category, [:pophealth_url, :pophealth_user, :pophealth_password, :cypress_url, :cypress_user, :cypress_password, :category] => :setup do |t, args|
+  task :zip_roundtrip_category, [:pophealth_url, :pophealth_user, :pophealth_password, :cypress_url, :cypress_user, :cypress_password, :category] => [:setup, :cleanup] do |t, args|
     pophealth = Cypress::PophealthRoundtrip.new(args.to_hash)
     measures = Measure.where({category: args.category})
     measure_ids = measures.collect {|m| m.hqmf_id}
