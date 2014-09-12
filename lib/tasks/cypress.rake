@@ -210,52 +210,7 @@ namespace :cypress do
     um = ENV['update_measures'] || false
     puts "Importing bundle #{@bundle_name} delete_existing: #{de}  update_measures: #{um} type: #{ENV['type'] || 'ALL'}"
     task("bundle:import").invoke("bundles/#{@bundle_name}",de, um , ENV['type'])
-    task("cypress:upgrade_query_cache").invoke
   end
-
-  task :upgrade_query_cache => :setup do
-    puts "Upgrading Cypress query_cache"
-    # remove all unprocessed jobs - they will not be compatible with the updated
-    # QME.
-    Delayed::Job.all.destroy
-    Mongoid.default_session["rollup_buffer"].drop
-    fields = ["population_ids",
-              "IPP",
-              "DENOM",
-              "NUMER",
-              "antinumerator",
-              "DENEX",
-              "DENEXCEP",
-              "MSRPOPL",
-              "OBSERV",
-              "supplemental_data"]
-    QME::QualityReport.where({status: {"$ne" => nil}}).where({"status.state" => {"$ne" => "completed"}}).destroy
-    QME::QualityReport.where({status: nil}).each do |qr|
-      qr.status = {state: "completed"}
-      report = QME::QualityReportResult.new
-      fields.each do |field|
-        report[field] = qr[field]
-      end
-      qr.filters = {} unless qr.filters
-      qr.result = report
-      qr.save
-    end
-
-    puts "Upgrading Cypress records"
-    Record.all.each do |record|
-      record.medical_record_assigner = "2.16.840.1.113883.4.572"
-      record.save
-    end
-  end
-
-  task :add_medical_record_assigner => :setup do
-    puts "Upgrading Cypress records with medical record assigner"
-    Record.all.each do |record|
-      record.medical_record_assigner = "2.16.840.1.113883.4.572"
-      record.save
-    end
-  end
-
 
 task :test_qrda_files, [:version, :type] => :setup do |t,args|
   bundle = args.version ? Bundle.where({version: args.version}).first : Bundle.first
