@@ -209,7 +209,7 @@ namespace :cypress do
     de = ENV['delete_existing'] || false
     um = ENV['update_measures'] || false
     puts "Importing bundle #{@bundle_name} delete_existing: #{de}  update_measures: #{um} type: #{ENV['type'] || 'ALL'}"
-    task("bundle:import").invoke("bundles/#{@bundle_name}",de, um , ENV['type'])
+    task("bundle:import").invoke("bundles/#{@bundle_name}",de, um , ENV['type'], 'true')
   end
 
 task :test_qrda_files, [:version, :type] => :setup do |t,args|
