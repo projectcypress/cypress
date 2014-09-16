@@ -7,20 +7,20 @@
       $.cypress.pollResult(url, table_url, resolution);
     }, 2000);
   }
-  
+
   $.cypress.updateResults = function(result) {
     if (result.numerator=="?")
       return true;
-      
+
     var resultRow = $("#"+result.measure_id);
     resultRow.find(".num").text(result.numerator);
     resultRow.find(".den").text(result.denominator);
     resultRow.find(".exc").text(result.exclusions);
     resultRow.find(".out").text(result.antinumerator);
-    
+
     return false;
   }
-    
+
   $.cypress.pollResult = function(url, table_url, resolution) {
 
     $.getJSON(url, function(data) {
@@ -28,7 +28,7 @@
       if (data.percent_completed > 0)
         $("#loading_progress .ui-progressbar-value").show();
       $("#loading_progress .ui-progressbar-value").animate({ width: data.percent_completed + '%' }, 'slow');
-      
+
       var pollAgain = false;
       // data can be a single result row as returned by the measures controller
       // or a structure containing an array of results as returned by the vendor controller
@@ -53,7 +53,7 @@
           }
         }
       }
-      
+
       if (pollAgain) {
         // true if any result is not yet available
         $.cypress.addPoll(url, table_url, resolution);
@@ -64,7 +64,7 @@
       }
     });
   }
-  
+
   $.cypress.updatePatientTable = function(url) {
     $.ajax({ url: url,
              type: "GET",
@@ -79,16 +79,16 @@
              }
            });
   }
-  
+
   $.cypress.filterPatients = function(url) {
     $.cypress.updatePatientTable(url);
   }
-  
+
   $.cypress.showMenu = function(origin, menu) {
     position = origin.offset();
-    
+
     dialog = menu.dialog({
-      position: [position.left, (position.top + $(origin).height() - 20 - $(window).scrollTop())],
+      position: {my: "right top", at: "right top", of: origin},
       resizable: false,
       dialogClass: 'dialog-menuwindow',
       minHeight: false,
@@ -123,9 +123,9 @@
         else
           return ">" + $.cypress.textForValue(range.low,temporal) + " and <" + $.cypress.textForValue(range.high,temporal);
       } else {
-        if (range.high != null) 
+        if (range.high != null)
           return "<" + $.cypress.textForValue(range.high,temporal);
-        if (range.low != null) 
+        if (range.low != null)
           return ">" + $.cypress.textForValue(range.low,temporal);
         if (range.value != null)
           return "=" + range.value;
@@ -239,7 +239,7 @@
           $("#exclusionPanel").show();
         }
      }
-    
+
 })( jQuery );
 
 function scrollToElement(element){
@@ -253,11 +253,11 @@ function scrollToElement(element){
   }
 }
 
-// Faster version of scrollToElement, 
+// Faster version of scrollToElement,
 function jumpToElement(element){
   var jumpThreshold = 5000;
   var offsetFromTop = 200;
-  
+
   if ($(element).length) {
     try {
       var ot = $(element).offset().top;
@@ -268,7 +268,7 @@ function jumpToElement(element){
       $(element).animate({ scrollTop: $(element).scrollTop() - $(element).offset().top }, { duration: 'slow', easing: 'swing'});
       if (Math.abs(ot - st) > offsetFromTop) {
         $('html,body').animate({ scrollTop: $(element).offset().top - offsetFromTop }, { duration: 1000, easing: 'swing'});
-      } else {    
+      } else {
         return;
       }
      window.location.hash = element;

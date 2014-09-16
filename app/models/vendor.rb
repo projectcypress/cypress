@@ -1,10 +1,10 @@
 class Vendor
   include Mongoid::Document
-  
+  include Mongoid::Attributes::Dynamic
 
   has_many :products, dependent: :destroy
 
-  
+
   # Vendor Details
   field :name, type: String
   field :url, type: String
@@ -24,8 +24,8 @@ class Vendor
   field :tech_tel, type: String
   field :press_poc, type: String
   field :press_email, type: String
-  field :press_tel, type: String  
-  
+  field :press_tel, type: String
+
   validates_presence_of :name
   # Get the products owned by this vendor that are failing
   def failing_products
@@ -33,7 +33,7 @@ class Vendor
       product.failing?
     end
   end
-  
+
   # Get the products owned by this vendor that are passing
   def passing_products
     return self.products.select do |product|
@@ -55,17 +55,17 @@ class Vendor
     end
   end
 
-  
+
   # Returns true if all associated Products are passing
   def passing?
     return (self.products.size > 0) ? (self.passing_products.size == self.products.size) : true
   end
-  
+
   # Return the number of currently passing Products
   def count_passing
     return self.passing_products.size
   end
-  
+
   # Return the number of currently not_passing Products
   def count_failing
     return self.failing_products.size

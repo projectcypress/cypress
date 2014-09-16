@@ -12,6 +12,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     collection_fixtures('vendors', '_id')
     collection_fixtures('users',"_id", "vendor_ids")
     collection_fixtures('records', '_id','bundle_id')
+    collection_fixtures('vendors', '_id')
+    collection_fixtures('bundles', '_id')
 
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
@@ -48,7 +50,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test "download" do
-     get :download, {id: TestExecution.first}
+    get :download, {id: TestExecution.first}
   end
 
   test "create with zip with non-ascii chars" do

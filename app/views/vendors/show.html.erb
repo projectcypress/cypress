@@ -45,13 +45,13 @@
             </tr>
           </tbody>
         </table>
-      <% else %> 
+      <% else %>
       <table class="table">
         <% products_by_status(@vendor).each do |result_status, result_products|
           next if result_products.empty? %>
           <thead>
             <tr>
-              <th class="span1" colspan="3"><span class="<%= result_status %>"><%= result_status %>ing</span> Products</th>
+              <th class="span1" colspan="3"><span class="<%= result_status %>"><%= format_status(result_status) %></span> Products</th>
               <th>Description</th>
               <th>Tests</th>
               <th></th>
@@ -62,7 +62,7 @@
             <% success_rate = product.success_rate
             dot_color = result_status
             dot_color = 'incomplete' if product.product_tests.empty?
-            if !product.product_tests.empty? 
+            if !product.product_tests.empty?
               first_td_class = 'expander toggle'
               dot_color = result_status
             else
@@ -78,7 +78,7 @@
                 <td class="info"><%= product.description %></td>
                 <td><strong class="<%= dot_color %>"><%= product.count_passing %></strong> <span class="q">/ <%= product.product_tests.size %></span></td>
                 <td></td>
-                <td class="align-right"><%= link_to 'Delete', product_path(product), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
+                <td class="align-right"><%= link_to 'Delete', product_path(product), data: { :method => :delete, :confirm => 'Are you sure?'}, :class => 'cmd del' %></td>
               </tr>
               <% if !product.product_tests.empty?
                 product.product_tests.each do |test|
@@ -89,7 +89,7 @@
                     test_status = 'fail'
                     test_success_rate = 0
                   end %>
-                  
+
                   <tr class="sub_rows <%= product.id %>">
                     <td></td>
                     <td title="<%= test_success_rate %>%" class="<%= test.state.to_s %>-icon"></td>
@@ -109,6 +109,6 @@
     </section>
 
     <%= render :partial => "shared/legend" %>
-    
+
 </div>
 </div><!-- end #container -->

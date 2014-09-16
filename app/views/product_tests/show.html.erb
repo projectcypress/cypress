@@ -8,7 +8,6 @@
 	        autoOpen: false,
 	        closeOnEscape: true,
 	        draggable: true,
-	        position: 'center',
 	        width: 'auto',
 	        height: 'auto',
 	        modal: true,
@@ -38,7 +37,7 @@
 	});
 
 
-  
+
 	</script>
 
 <% end %>
@@ -63,9 +62,9 @@
           <h3 style="margin-bottom:10px">Included quality measures</h3>
 
           <% cats = @test.measures.top_level.group_by{|m| m.category}
-            cats.keys.sort.each do |cat| 
+            cats.keys.sort.each do |cat|
                measures = cats[cat] %>
-                
+
                 <h4><%= cat %></h4>
                 <ul>
               <% measures.each do |measure| %>
@@ -77,13 +76,13 @@
                    <% subm.each do |sub| %>
                     <li><%= sub.subtitle %></li>
                     <% end %>
-                </ul>  
+                </ul>
 
-               <% end %>     
-             <% end %> 
+               <% end %>
+             <% end %>
             </ul>
-         <% end %> 
-         
+         <% end %>
+
         </div>
       <div class="modal-footer">
         <a href="#" data-dismiss="modal" class="btn secondary">Close</a>
@@ -97,7 +96,7 @@
       </nav>
     </section>
 
-    <section class="candidate bordered buffered">  
+    <section class="candidate bordered buffered">
       <dl class="vendor dl-horizontal">
         <dt>Test Name:</dt> <dd><%= @test.name %></dd>
         <dt>Test Type:</dt> <dd><%= test_type(@test) %></dd>
@@ -117,13 +116,13 @@
         <dt>Email:</dt> <dd><%= @test.user.email %></dd>
         <dt>Telephone:</dt> <dd><%= @test.user.telephone %></dd>
       </dl>
-    </section> 
+    </section>
 
     <div  id="instructions" >
-    <%= render :partial=>'product_tests/status', :locals=>{:test=>@test, :current_execution=>@current_execution} %> 
+    <%= render :partial=>'product_tests/status', :locals=>{:test=>@test, :current_execution=>@current_execution} %>
     </div>
 
-  
+
     <!-- End of if test is ready to execute -->
     <br style="clear:both"/>
     <section class="records">
@@ -136,7 +135,7 @@
 
       <% if @test.notes %>
         <table class="table">
-        
+
         <% @test.notes.each do |note| %>
           <tr>
           <td><span class="date" title='<%= note.time %>'><%= note.time.strftime('%m/%d/%Y') %></span></td>
@@ -169,7 +168,7 @@
            <td> </td>
            <td><%= link_to "Download Results", download_test_execution_path(te), :title => "Download the results of this test execution", :class => "cmd" %></td>
            <td><%= link_to "View Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd poppable' %></td>
-           <td class="align-right"><%= link_to 'Delete', test_execution_path(te), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
+           <td class="align-right"><%= link_to 'Delete', test_execution_path(te), data: {:method => :delete, :confirm => 'Are you sure?' }, :class => 'cmd del' %></td>
          </tr>
 
          <% end %>
@@ -182,7 +181,7 @@
          <% end %>
       </table>
     </section>
-    <% if @test.state == "ready" 
+    <% if @test.state == :ready
       test_execution = @test_execution || @test.test_executions.build(:expected_results=> @test.expected_results, :reported_results=>{})
     %>
     <section class="execution" >
@@ -197,7 +196,7 @@
       </table>
 
       <div id="execution_results">
-        
+
           <script >
             $('#te_<%=test_execution.id%>').addClass('selected');
           </script>
@@ -245,7 +244,7 @@
   <div class="modal-body">
     <p>Loading</p>
   </div>
- 
+
 </div>
 
 <script>
@@ -255,7 +254,7 @@ function showErrorPopup(anchor) {
       $('span'+anchor).popover('show');
       jumpToElement(anchor);
     }
-  }    
+  }
 
   var navigation =  $("#xml_frame .subnav").show().navigator({targets:"a.qrda_error_link",action:showErrorPopup});
   $("#xml_frame").fixedHeader();
@@ -265,7 +264,7 @@ function showErrorPopup(anchor) {
     navigation.data('navigator').setIndex($(this).attr('href'));
     return false;
   });
-    
+
   $("section.execution").on('click','.error i.icon',function() {
     //('span.error_popup',$(this)).popover('toggle')
     var anyVisible = false;
@@ -283,6 +282,6 @@ function showErrorPopup(anchor) {
       showErrorPopup(href);
       navigation.data('navigator').setIndex(href);
     }
-   
+
   });
   </script>

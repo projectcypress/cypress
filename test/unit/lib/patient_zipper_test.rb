@@ -6,10 +6,11 @@ class PatientZipperTest < ActiveSupport::TestCase
   setup do
 
     collection_fixtures('records','_id','bundle_id')
+    collection_fixtures('bundles', '_id')
     @patients = Record.where("gender" => "F")
   end
-  
- 
+
+
   test "Should create valid html file" do
     format = :html
     filename = "pTest-#{Time.now.to_i}.html.zip"
@@ -25,26 +26,26 @@ class PatientZipperTest < ActiveSupport::TestCase
             config.strict
           end
           title = doc.at_css("head title").to_s
-          count += 1 
+          count += 1
         end
     end
     File.delete(file.path)
     assert count == 6 , "Zip file has wrong number of records should be 6 , was #{count}"
   end
-  
- 
+
+
 
   test "Should create valid qrda file" do
     format = :qrda
     filename = "pTest-#{Time.now.to_i}.qrda.zip"
     file = Tempfile.new(filename)
- 
+
     Cypress::PatientZipper.zip(file,@patients,format)
     file.close
 
     count = 0
     Zip::ZipFile.foreach(file.path) do |zip_entry|
-        
+
          if zip_entry.name.include?('.xml') && !zip_entry.name.include?('__MACOSX')
           doc = Nokogiri::XML(zip_entry.get_input_stream) do |config|
             config.strict
@@ -56,5 +57,5 @@ class PatientZipperTest < ActiveSupport::TestCase
     assert count == 6 , "Zip file has wrong number of records should be 6 , was #{count}"
   end
 
-  
+
 end

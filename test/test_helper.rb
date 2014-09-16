@@ -5,17 +5,9 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/setup'
 
-require 'active_support/testing/pending'
-
-
-
-
-
-
-
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
-  
+
   def load_code_sets
     MONGO_DB['races'].drop() if MONGO_DB['races']
     MONGO_DB['ethnicities'].drop() if MONGO_DB['ethnicities']
@@ -27,25 +19,25 @@ class ActiveSupport::TestCase
     end
   end
 
- 
+
   def collection_fixtures(collection, *id_attributes)
     Mongoid.session(:default)[collection].drop
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
       id_attributes.each do |attr|
-        
+
         if fixture_json[attr].nil?
           next
         end
 
         if fixture_json[attr].kind_of? Array
-          fixture_json[attr] = fixture_json[attr].collect{|att| Moped::BSON::ObjectId(att)}
+          fixture_json[attr] = fixture_json[attr].collect{|att| BSON::ObjectId.from_string(att)}
         else
-          fixture_json[attr] = Moped::BSON::ObjectId(fixture_json[attr])
+          fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
         end
       end
 
-      if fixture_json["created_at"] 
+      if fixture_json["created_at"]
          fixture_json["created_at"] = Time.at(fixture_json["created_at"] )
       end
       Mongoid.default_session[collection].insert(fixture_json)
@@ -59,28 +51,28 @@ class ActiveSupport::TestCase
       Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file))
         id_attributes.each do |attr|
-          
+
           if fixture_json[attr].nil?
             next
           end
 
           if fixture_json[attr].kind_of? Array
-            fixture_json[attr] = fixture_json[attr].collect{|att| Moped::BSON::ObjectId(att)}
+            fixture_json[attr] = fixture_json[attr].collect{|att| BSON::ObjectId.from_string(att)}
           else
-            fixture_json[attr] = Moped::BSON::ObjectId(fixture_json[attr])
+            fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
           end
         end
 
         id_attributes.each do |attr|
-          
+
           if fixture_json[subattr][attr].nil?
             next
           end
 
           if fixture_json[subattr][attr].kind_of? Array
-            fixture_json[subattr][attr] = fixture_json[subattr][attr].collect{|att| Moped::BSON::ObjectId(att)}
+            fixture_json[subattr][attr] = fixture_json[subattr][attr].collect{|att| BSON::ObjectId.from_string(att)}
           else
-            fixture_json[subattr][attr] = Moped::BSON::ObjectId(fixture_json[subattr][attr])
+            fixture_json[subattr][attr] = BSON::ObjectId.from_string(fixture_json[subattr][attr])
           end
         end
 
@@ -103,16 +95,16 @@ class ActiveSupport::TestCase
 
     Record.count
   end
-  
+
   def load_measures
     importer = Measures::Importer.new(MONGO_DB)
     importer.drop_measures()
     importer.import(File.new(File.join(Rails.root, "db", "measures", "bundle_#{APP_CONFIG["measures_version"]}.zip")))
   end
-  
+
    def dump_database
    Mongoid.session(:default).collections.each do |collection|
-      collection.drop unless collection.name.include?('system.') 
+      collection.drop unless collection.name.include?('system.')
     end
  end
 

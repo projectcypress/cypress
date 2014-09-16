@@ -7,14 +7,14 @@
   </div>
   <div class="fields">
     <%= f.label :password %>
-    <%= f.password_field :password, {:onkeypress=>'return submitKeyPress(event);'} %>
+    <%= f.password_field :password %>
   </div>
 
   <div class="accountError">
     <%= devise_error_messages! %>
   </div>
   <div class="actions">
-    <a class="btn btn-success" href="#" onclick="submitLoginform();" ><span>Login</span></a>
+    <button type="submit" class="btn btn-success"><span>Login</span></button>
   </div>
 
   <div class="links">
