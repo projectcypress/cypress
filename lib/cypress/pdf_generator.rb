@@ -10,12 +10,13 @@ module Cypress
 
       send(type)
       @pdf.render_file file_name(path)
+      return File.new(file_name(path))
     end
 
     def file_name(path)
       name = @test_execution.product_test.name
       pretty_date = @test_execution.execution_date.strftime("%m-%d-%Y")
-      
+
       File.join(path, "#{name}-#{pretty_date}.pdf")
     end
 
@@ -70,13 +71,13 @@ module Cypress
 
     SIZE_DEFAULT = 10
     SIZE_HEADER = 13
-    
+
     COLOR_DEFAULT = "333333"
     COLOR_HEADER = "666666"
     COLOR_PASSING = "008000"
     COLOR_WARNING = "FFA500"
     COLOR_FAILING = "FF0000"
-    
+
     WEIGHT_DEFAULT = :normal
     WEIGHT_BOLD = :bold
 
@@ -128,7 +129,7 @@ module Cypress
         new_section_margin
         @pdf.text "Errors"
       end
-      
+
       grouped_errors = errors.group_by(&:file_name)
       grouped_errors.each_pair do |fname, err_group|
         @pdf.text fname || ""
@@ -145,7 +146,7 @@ module Cypress
         new_section_margin
         @pdf.text "QRDA Errors"
       end
-      
+
       errors.each_with_index do |error, index|
         @pdf.text "#{index + 1}. #{error.message}"
       end
@@ -157,7 +158,7 @@ module Cypress
         new_section_margin
         @pdf.text "QRDA Warnings"
       end
-      
+
       errors.each_with_index do |error, index|
         @pdf.text "#{index + 1}. #{error.message}"
       end
@@ -171,7 +172,7 @@ module Cypress
       else
         results_table(@test_execution.passing_measures)
       end
-      
+
       new_section_margin
       @pdf.text "FAILING MEASURES"
       if @test_execution.failing_measures.count == 0
@@ -189,7 +190,7 @@ module Cypress
       else
         cv_results_table(@test_execution.passing_measures)
       end
-      
+
       new_section_margin
       @pdf.text "FAILING MEASURES"
       if @test_execution.failing_measures.count == 0
@@ -202,7 +203,7 @@ module Cypress
     def results_table(measures)
       table_content = []
       table_content << ["Measures included in this test", "Patients", "Denominator", "Den. Exclusions", "Numerator", "Num. Exclusions", "Exceptions"]
-      
+
       measures.each do |measure|
         row = []
 
@@ -220,7 +221,7 @@ module Cypress
           expected = expected_result[code]
           reported = reported_result[code]
 
-          unless expected_result["population_ids"][code] 
+          unless expected_result["population_ids"][code]
             expected = nil
             reported = nil
           end
@@ -239,7 +240,7 @@ module Cypress
     def cv_results_table(measures)
       table_content = []
       table_content << ["Measures included in this test", "Patients/Episodes", "Measure Population", "Observation Value"]
-      
+
       measures.each do |measure|
         row = []
 
@@ -257,7 +258,7 @@ module Cypress
           expected = expected_result[code]
           reported = reported_result[code]
 
-          unless expected_result["population_ids"][code] 
+          unless expected_result["population_ids"][code]
             expected = nil
             reported = nil
           end

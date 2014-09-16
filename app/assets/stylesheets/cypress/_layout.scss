@@ -10,7 +10,7 @@ body {
 #container {
   // width: 1000px;
   margin-top:20px;
-  margin-bottom:20px; 
+  margin-bottom:20px;
   border: 1px solid $borderColor;
   background-color: $containerBkgColor;
   -moz-border-radius: 10px;
@@ -38,7 +38,7 @@ body {
   }
 }
 
-div.tabs { 
+div.tabs {
   text-align:right;
   margin: 20px 13px 0 0 ;
   display:block;
@@ -53,7 +53,7 @@ div.tabs {
     list-style: none;
     padding-top: 10px;
   }
-  a { 
+  a {
     padding:5px;
     display:block;
     list-style:none;
@@ -76,7 +76,7 @@ div.tabs {
   a.selected:hover{
     background-color: green;
   }
-  
+
 
 }
 
@@ -85,7 +85,7 @@ div.tabs {
 }
 
 
-div#eligibilityMeasures { 
+div#eligibilityMeasures {
   border-top-width: 1px;
   border-top-color: #E9E9E9;
 }
@@ -115,3 +115,4 @@ h5.ui-widget-title {
 .ui-tabs-vertical .ui-tabs-panel label { display: inline-block; vertical-align:middle; width:36em; padding-left:10px;margin-bottom:0;}
 .ui-tabs-vertical .ui-tabs-panel input[type=text] { width: 45px; display: inline-block; }
 
+.ui-dialog {z-index: 1000;}

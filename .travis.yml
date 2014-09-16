@@ -1,10 +1,10 @@
 language: ruby
 rvm:
-  - 1.9.3
+  - 2.1.2
 
 services:
   - mongodb
-  
+
 script: ./.travis/execute.sh
 
 notifications:
@@ -13,8 +13,7 @@ notifications:
       - healthcare-ci@googlegroups.com
     on_failure: change
 
-branches: 
+branches:
   only:
     - master
     - develop
-

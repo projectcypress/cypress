@@ -19,5 +19,5 @@
 
 
   <div id="validationErrorMessages"></div>
-  <a id="vendor_submit" class="cmd" onclick="$(this).parent().submit();" style="display: inline-block"><%= submit_text(@product) %></a>
+  <input id="product_submit" class="cmd" type="submit" value="<%= submit_text(@product) %>" />
 <% end %>

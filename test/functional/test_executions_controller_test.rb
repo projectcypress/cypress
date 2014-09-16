@@ -11,6 +11,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     collection_fixtures('product_tests','_id','product_id','bundle_id')
     collection_fixtures('users',"_id", "vendor_ids")
     collection_fixtures('records', '_id','bundle_id')
+    collection_fixtures('vendors', '_id')
+    collection_fixtures('bundles', '_id')
 
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
@@ -32,6 +34,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     post(:create, params)
     assert_response 302
 
+
     assert_equal ex_count+1 , TestExecution.where(:product_test_id => pt1.id).count, "Should increment the test execution count"
 
   end
@@ -47,6 +50,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test "download" do
-     get :download, {id: TestExecution.first}
+    get :download, {id: TestExecution.first}
   end
 end

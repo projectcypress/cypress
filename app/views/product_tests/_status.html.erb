@@ -1,5 +1,5 @@
 
- <% if test.state == "ready" %>
+ <% if test.state == :ready %>
 
 
 
@@ -22,7 +22,7 @@ $(document).ready(function(){
   });
  </script>
 
- 
+
       <section class="instructions">
         <div class="row">
           <div class="span10">
@@ -48,7 +48,7 @@ $(document).ready(function(){
                       <li class="ui-menu-item" role="menuitem">
                         <%= link_to "HTML", download_product_test_path(test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
                       </li>
-                 
+
                     </ul>
             </div>
             <div class="span3">
@@ -93,19 +93,19 @@ $(document).ready(function(){
         <p>You must wait for the test preparations to be completed. This usually takes no more than a couple of minutes.</p>
         <p> <%= test.status_message %> </p>
       </div>
-   
+
 
          <script>
             $(document).ready(
                 function(){
-                    setTimeout(function(){                    
+                    setTimeout(function(){
                      $.get('<%= status_product_test_path({:id=>test.id}) %>', function (response) {
                      $('#instructions').replace(response);
                         });},1500);
                 });
         </script>
     </section>
-   <!-- if some error has occurred 
+   <!-- if some error has occurred
     <section class="instructions">
       <div class="alert alert-error">
         <p>There has been a problem preparing the tests. Please speak the the administrator for Cypress. You will not be able to execute tests until this problem has been resolved.</p>
@@ -113,5 +113,3 @@ $(document).ready(function(){
     </section>
     -->
     <% end %>
-
-

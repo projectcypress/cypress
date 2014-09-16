@@ -3,40 +3,29 @@ class PatientsController < ApplicationController
 
   require 'builder'
 
-  caches_action :show
-
-  caches_action :index, :cache_path => proc {
-    patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id], measure_id: params[:measure_id]})
-  }
-
-  caches_action :table_all, :cache_path => proc {
-    table_all_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id]})
-   }
-
-  caches_action :table_measure, :cache_path => proc {
-    table_measure_patients_url({product_test_id: params[:product_test_id],bundle_id: params[:bundle_id], measure_id: params[:measure_id]})
-  }
-  
   before_filter :authenticate_user!
   before_filter :find_bundle_or_active
 
   def index
-
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
       @product = @test.product
       @vendor  = @product.vendor
       @measures = @test.measures
     else
+      #@measures = Rails.cache.fetch("bundle_measures_" + @bundle.version) { @bundle.measures }
       @measures = @bundle.measures
     end
-    @measures_categories = @measures.group_by { |t| t.category }
-    
+    #only get the measures_categories if we don't have a fragment for the view section
+    if !fragment_exist?("index-" + @bundle.version)
+      @measures_categories = @measures.group_by { |t| t.category }
+    end
+
     @showAll = false
     if params[:measure_id]
-      @selected = Measure.find(params[:measure_id])
+      @selected = Measure.where(_id: params[:measure_id]).first
     else
-      @selected = @measures[0]
+      @selected = Rails.cache.fetch("measures_0_bundle_ver_" + @bundle.version ) { @measures[0] }
       @showAll = true
     end
 
@@ -53,16 +42,16 @@ class PatientsController < ApplicationController
           @result = {'measure_id' => @selected.id, 'NUMER' => '0', 'antinumerator' => 0, 'DENOM' => '0', 'DENEX' => '0'}
         end
       else
-        @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected)
+        @result = Cypress::MeasureEvaluator.eval_for_static_records(@selected, false)
       end
     end
-    
+
     respond_to do |format|
       format.json { render :json => @result }
       format.html
     end
   end
-  
+
   def show
 
     @patient = Record.find(params[:id])
@@ -83,12 +72,17 @@ class PatientsController < ApplicationController
   end
 
   def table_measure
-    @selected = Measure.find(params[:measure_id])
+    @selected = Measure.where(_id: params[:measure_id]).first
     @bundle = Bundle.find(@selected.bundle_id)
     @showAll = false
-    @measures = @bundle.measures
-    @measures_categories = @measures.group_by { |t| t.category }
-    
+    #@measures = @bundle.measures
+    @measures_categories = Rails.cache.fetch("bundle_measures" + @bundle.version ) do
+      m = @bundle.measures
+      m.group_by { |t| t.category }
+    end
+
+
+
 
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
@@ -102,14 +96,15 @@ class PatientsController < ApplicationController
   end
 
   def table_all
-    
+
     @showAll  = true
     @patients = nil
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
       @patients = @test.records.order_by([["last", :asc]])
     else
-      @patients = @bundle.records.order_by([["last", :asc]])
+      # @patients = @bundle.records.order_by([["last", :asc]])
+      @patients = Rails.cache.fetch("table_all_patients" + @bundle.version) { @bundle.records.order_by([["last", :asc]]) }
     end
 
     render 'table'
@@ -117,7 +112,7 @@ class PatientsController < ApplicationController
 
   #send user record associated with patient
   def download
-    data = cache(id: params[:id],format: params[:format],bundle_id:  params[:bundle_id]) do 
+    data = cache(id: params[:id],format: params[:format],bundle_id:  params[:bundle_id]) do
       file = nil
       if params[:id]
         file = Cypress::CreateDownloadZip.create_patient_zip(Record.find(params[:id]),params[:format])

@@ -1,3 +1,4 @@
+<% cache_if(!test_execution.new_record, test_execution) do %>
 <div>
   <ul id="error_report_toc" class="nav nav-tabs">
     <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
@@ -74,3 +75,4 @@
     <%= render :partial=>"test_executions/node" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes,:test_execution=>test_execution}%>
   </div>
 </div>
+<% end #cache %>
