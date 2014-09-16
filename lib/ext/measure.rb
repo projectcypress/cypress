@@ -11,6 +11,10 @@ class Measure
    index :_id => 1
    index id: 1, sub_id: 1
 
+  def data_criteria
+    self.hqmf_document['data_criteria'].map {|key, val| {key => val}}
+  end
+
   def key
     "#{self['id']}#{sub_id}"
   end
