@@ -99,18 +99,21 @@ class CalculatedProductTest < ProductTest
                                calculated_test_id: self.id)
         records = self.records.where({"medical_record_number" => {"$in"=>mrns}})
 
-        records.zip(results) do |rec, res|
+        records.each do |rec| 
+          new_results = results.select { |res| res.value.patient_id == rec.id }
           new_rec = rec.dup
-          new_rec[:test_id] = qrda.id
+          new_rec[:test_id] = qrda.id 
           new_rec.save
 
-          res_clone = Result.new()
-          res_clone["value"] = res["value"].clone
-          res_clone["value"]["test_id"]=qrda.id
-          res_clone["value"]["patient_id"]=new_rec.id
-
-          res_clone.save
+          new_results.each do |res|
+            res_clone = Result.new()
+            res_clone["value"] = res["value"].clone
+            res_clone["value"]["test_id"]=qrda.id
+            res_clone["value"]["patient_id"] = new_rec.id
+            res_clone.save
+          end 
         end
+
        qrda.save
        qrda.ready
 
