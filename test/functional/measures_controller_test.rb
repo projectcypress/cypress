@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MeasuresControllerTest < ActionController::TestCase
-include Devise::TestHelpers
+  include Devise::TestHelpers
 
   setup do
     collection_fixtures('query_cache', 'test_id')
@@ -38,6 +38,7 @@ include Devise::TestHelpers
       assert product.id.to_s== "4f57a88a1d41c851eb000004"
       assert vendor.id.to_s == "4f57a8791d41c851eb000002"
       assert measures.count  == pt.measure_ids.length
+  end
 
   test "should be able to retreive measures for a given test type" do
 
@@ -67,8 +68,6 @@ include Devise::TestHelpers
    assert assigns[ :vendor], "Should assign vendor"
    assert assigns[ :execution], "Should assign execution"
    assert assigns[ :test], "Should assign test"
-
-
   end
 
 end
