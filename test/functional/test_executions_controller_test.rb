@@ -9,6 +9,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     collection_fixtures('measures','bundle_id')
     collection_fixtures('products','_id','vendor_id')
     collection_fixtures('product_tests','_id','product_id','bundle_id')
+    collection_fixtures('vendors', '_id')
     collection_fixtures('users',"_id", "vendor_ids")
     collection_fixtures('records', '_id','bundle_id')
     collection_fixtures('vendors', '_id')
@@ -50,5 +51,20 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test "download" do
     get :download, {id: TestExecution.first}
+  end
+
+  test "create with zip with non-ascii chars" do
+    pt1 = ProductTest.find("51703a883054cf843900ffff")
+    ex_count = TestExecution.where(:product_test_id => pt1.id).count
+
+    qrda = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/qrda_non_ascii_filenames.zip'), "application/zip")
+    params = {product_test_id: pt1.id, test_execution: {results: qrda}}
+    post(:create, params)
+    assert_response 302
+
+    assert_equal ex_count+1 , TestExecution.where(:product_test_id => pt1.id).count, "Should increment the test execution count"
+
+    get :show, {id: TestExecution.find_by(:product_test_id => pt1.id)}
+    assert_response 200
   end
 end
