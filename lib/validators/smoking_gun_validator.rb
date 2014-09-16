@@ -64,6 +64,7 @@ module Validators
         if @expected_records.index(mrn).nil?
           errors << ExecutionError.new(message: "Patient '#{doc_name}' not expected to be returned.'", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
           #cannot go any further here so call it quits and return
+          return errors
         end
 
         @sgd.each_pair do |hqmf_id, patient_data|
