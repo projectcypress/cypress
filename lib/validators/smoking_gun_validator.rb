@@ -82,7 +82,7 @@ module Validators
           end
         end
       else
-        errors << ExecutionError.new(message: "Automated smoking gun data checking is not compatible with bundle #{@bundle.version} please refer to checklists ",msg_type: :warning, validator_type: :result_validation, file_name: options[:file_name])
+        errors << ExecutionError.new(message: "Automated smoking gun data checking is not compatible with bundle #{@bundle.version}, please refer to checklists ",msg_type: :warning, validator_type: :result_validation, file_name: options[:file_name])
       end
       errors
     end
