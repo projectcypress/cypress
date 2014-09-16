@@ -83,7 +83,7 @@ include Devise::TestHelpers
     assert_equal "4f58f8de1d41c851eb000478", test.id.to_s
     assert_equal "4f57a88a1d41c851eb000004", product.id.to_s
     assert_equal  "4f57a8791d41c851eb000002", vendor.id.to_s
-    assert_equal 7, results.count  , "Expected pateint cache results not == "
+    assert_equal 7, results.count  , "Expected patient cache results not == "
 
   end
 

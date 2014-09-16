@@ -35,7 +35,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     post(:create, params)
     assert_response 302
 
-    assert_equal ex_count+1 , TestExecution.where(:product_test_id => pt1.id).count, "SHould increment the test executuon count"
+
+    assert_equal ex_count+1 , TestExecution.where(:product_test_id => pt1.id).count, "Should increment the test execution count"
 
   end
 
@@ -46,7 +47,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
     assert_response 302
 
-    assert_equal count-1, TestExecution.count, "SHould decrament the test execution count"
+    assert_equal count-1, TestExecution.count, "Should decrement the test execution count"
   end
 
   test "download" do
