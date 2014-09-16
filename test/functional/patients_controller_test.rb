@@ -4,7 +4,7 @@ class PatientsControllerTest < ActionController::TestCase
 include Devise::TestHelpers
 
   setup do
-    collection_fixtures('query_cache', 'test_id')
+    collection_fixtures('query_cache', '_id', 'test_id')
     collection_fixtures('bundles', '_id')
     collection_fixtures('measures',"_id",'bundle_id')
     collection_fixtures('products','_id','vendor_id')
@@ -13,12 +13,14 @@ include Devise::TestHelpers
     collection_fixtures('patient_populations', '_id')
     collection_fixtures('test_executions', '_id')
     collection_fixtures2('patient_cache','value', '_id' ,'test_id','bundle_id')
-    
+    collection_fixtures('users', '_id')
+    collection_fixtures('vendors', '_id')
+
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @user = User.where({:first_name => 'bobby', :last_name => 'tables'}).first
     sign_in @user
   end
-  
+
   test "index" do
     m1 = Measure.where(:hqmf_id => '0001').first
     m2 = Measure.where(:hqmf_id => '0348').first
@@ -29,7 +31,7 @@ include Devise::TestHelpers
     selected = assigns[:selected]
     assert showAll == false
     assert selected.id == m1.id
-    
+
     #measure selected that wasnt in the test
     get :index, {:product_test_id =>'4f58f8de1d41c851eb000478' , :measure_id => m2._id}
     showAll  = assigns[:showAll]
@@ -55,12 +57,7 @@ include Devise::TestHelpers
     assert result['DENOM'] == '-'
     assert result['DENEX']  == '-'
 
-    expected_result = {"measure_id" => m1['hqmf_id'],
-      "effective_date" => 1293753600,
-      "DENOM" => 48,
-      "NUMER" => 44,
-      "antinumerator" => 4,
-      "DENEX" => 0 }
+    expected_result =  QME::QualityReportResult.new(DENOM: 48, NUMER: 44, antinumerator: 4, DENEX: 0)
     QME::QualityReport.any_instance.stubs(:result).returns(expected_result)
     QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
 
@@ -83,7 +80,7 @@ include Devise::TestHelpers
     vendor  = assigns[:vendor]
     results = assigns[:results]
 
-    assert_equal "4f58f8de1d41c851eb000478", test.id.to_s   
+    assert_equal "4f58f8de1d41c851eb000478", test.id.to_s
     assert_equal "4f57a88a1d41c851eb000004", product.id.to_s
     assert_equal  "4f57a8791d41c851eb000002", vendor.id.to_s
     assert_equal 7, results.count  , "Expected pateint cache results not == "

@@ -21,7 +21,7 @@ class User
   validates_presence_of :email
   validates_presence_of :first_name
   validates_presence_of :last_name
-
+  validates_acceptance_of :terms_and_conditions, :allow_nil => false, :on => :create
 
   # Recoverable
   field :reset_password_token, :type => String

@@ -57,10 +57,12 @@ Cypress::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
+
   # Only log errors
   config.log_level = :error
-  
+
   # Mailer
   ActionMailer::Base.delivery_method = :smtp
+
+  config.eager_load = true
 end
