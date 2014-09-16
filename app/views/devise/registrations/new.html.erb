@@ -6,11 +6,11 @@
   <ul class="register">
     <li>
       <span class="required">*</span><%= f.label :first_name %>
-      <%= f.email_field :first_name %>
+      <%= f.text_field :first_name %>
     </li>
     <li>
       <span class="required">*</span><%= f.label :last_name %>
-      <%= f.email_field :last_name %>
+      <%= f.text_field :last_name %>
     </li>
     <li>
       <span class="required">*</span><%= f.label :email %>
@@ -38,13 +38,13 @@
   <p>NOT A CONTRIBUTION - The Measures, including specifications and coding, as used in the Cypress Tool, are not a contribution under the Apache license. Coding in the Measures is provided for convenience only and necessary licenses for use should be obtained from the copyright owners. Current Procedural Terminology (CPT®) © 2004-2010 American Medical Association. LOINC® © 2004 Regenstrief Institute, Inc. SNOMED Clinical Terms® (SNOMED CT®) © 2004-2010 International Health Terminology Standards Development Organization.</p>
   
   <div id="regcheckbox">
-    <%= check_box_tag :agree_license %>
+    <%= f.check_box :terms_and_conditions %>
     <%= f.label "I agree to the above Terms and Conditions of use" %>
   </div>
 
   <div class="actions">
-    <a class="btn" href="/"><span>Cancel</span></a>
-    <a class="btn btn-success" href="#" onclick="submitRegisterform()"><span>Create</span></a>
+    <button class="btn" href="/"><span>Cancel</span></button>
+    <button type="submit" class="btn btn-success"><span>Create</span></button>
   </div>
   
   <%= render :partial => "devise/shared/links" %>

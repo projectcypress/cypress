@@ -1,4 +1,4 @@
-<% cache(test_execution: test_execution) do %>
+<% cache_if(!test_execution.new_record, test_execution) do %>
 <div>
   <ul id="error_report_toc" class="nav nav-tabs">
     <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
@@ -8,7 +8,7 @@
 
     <% if !test_execution.new_record %>
     <%= link_to "Download", download_test_execution_path(test_execution.id), title: "Download the results of this test execution", class: "cmd pull-right" %>
-    <% end %> 
+    <% end %>
   </ul>
   <div id="test_result_tabs" class="tab-content">
     <div class="tab-pane active" id="test_summary">
@@ -23,7 +23,7 @@
         </dl>
       </section>
       <div>
-      </div>      
+      </div>
     </div>
     <%
 
@@ -37,17 +37,17 @@
   end
  %>
     <div class="tab-pane" id="xml_validation_errors">
-      <% #render :partial => 'test_executions/qrda_product_test/errors', :locals => { :errors => test_execution.execution_errors, :inspection => :xml_validation } %> 
+      <% #render :partial => 'test_executions/qrda_product_test/errors', :locals => { :errors => test_execution.execution_errors, :inspection => :xml_validation } %>
       <h4>Errors</h4>
-    
+
 
       <%  general_errors  = test_execution.execution_errors.where({:file_name=> nil, :msg_type=>:error})
-          if general_errors.count > 0 
+          if general_errors.count > 0
        %>
 
             <%= render :partial=>'test_executions/qrda_product_test/error_list', :locals=>{grouped_errors: general_errors.group_by(&:file_name), error_map:{}} %>
-       <% end %> 
-     <ol>    
+       <% end %>
+     <ol>
       <% error_mapping.each do |emap| %>
            <%= render :partial=>'test_executions/qrda_product_test/error_list', :locals=>{grouped_errors: emap[:file_errors].by_type(:error).group_by(&:file_name), error_map:emap[:error_map] } %>
 
@@ -56,15 +56,15 @@
      </ol>
     </div>
     <div class="tab-pane" id="xml_validation_warnings">
-     
+
       <h4>Warnings</h4>
        <ol>
 
         <%  general_warnings  = test_execution.execution_errors.where({:file_name=> nil, :type=>:msg_warning})
-          if general_warnings.count > 0 
+          if general_warnings.count > 0
        %>
           <%= render :partial=>'test_executions/qrda_product_test/error_list', :locals=>{grouped_errors: general_warnings.group_by(&:file_name), error_map:{}} %>
-       <% end %>     
+       <% end %>
       <% error_mapping.each do |emap| %>
           <%= render :partial=>'test_executions/qrda_product_test/error_list', :locals=>{grouped_errors: emap[:file_errors].by_type(:warning).group_by(&:file_name), error_map:emap[:error_map] } %>
        <% end %>
@@ -73,17 +73,17 @@
 
      <div class="tab-pane" id="xml_validation_cheat_sheet">
        <table>
-        <thead> 
+        <thead>
           <tr>
           <th >Name </th> <th >Original</th>
         </tr>
         </thead>
         <% test_execution.product_test.records.each do |rec| %>
-        <tr > 
-          <td style="padding: 5px"><%= rec.last %> ,<%= rec.first %></td> 
+        <tr >
+          <td style="padding: 5px"><%= rec.last %> ,<%= rec.first %></td>
           <% if rec.original_record %>
             <td style="padding: 5px"><%= rec.original_record.last %> ,<%= rec.original_record.first %></td>
-          <% end %>  
+          <% end %>
         </tr>
 
         <% end %>
@@ -92,16 +92,16 @@
 
   </div><!-- end #test_result_tabs -->
 
-    <div id="xml_frame"> 
-    <%= render :partial=>"test_executions/subnav"%>  
+    <div id="xml_frame">
+    <%= render :partial=>"test_executions/subnav"%>
 
     <h3>Vendor Generated XML</h3>
-   
+
    <% error_mapping.each do |emap|
 
     %>
     <div>
-      <div class="expando file_name "><h4> <%= File.basename(emap[:file]) %> </h4> <div class="open" ></div></div>
+      <div class="expando file_name "><h4> <%= File.basename(emap[:file]).force_encoding("UTF-8") %> </h4> <div class="open" ></div></div>
       <div>
      <%= render :partial=>"test_executions/node" , :locals=>{:doc=>emap[:doc], :error_map=>emap[:error_map], :error_attributes=>emap[:error_attributes], :execution_errors=>emap[:file_errors]}%>
       </div>
@@ -110,5 +110,3 @@
   </div>
 </div>
 <% end %>
-
-

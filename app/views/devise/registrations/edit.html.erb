@@ -8,11 +8,11 @@
   <ul class="register">
     <li>
       <%= f.label :first_name %>
-      <%= f.email_field :first_name %>
+      <%= f.text_field :first_name %>
     </li>
     <li>	
       <%= f.label :last_name %>
-      <%= f.email_field :last_name %>
+      <%= f.text_field :last_name %>
     </li>
     <li>
       <%= f.label :email %>
@@ -37,9 +37,9 @@
   </ul>
 
   <div class="actions">
-    <a class="btn" href="/"><span>Cancel</span></a>
+    <a class="btn" role="button" href="/"><span>Cancel</span></a>
     <%=
-    content_tag(:a,  {:href=>"#", :class=>"btn btn-success", :onclick=>"submitRegisterform()"} ) do
+    content_tag(:button,  {:class=>"btn btn-success", :type=>"submit"} ) do
       content_tag(:span,"Update")
     end %>
   </div>

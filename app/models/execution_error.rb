@@ -1,6 +1,8 @@
 class ExecutionError
-  
+
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
+  
   embedded_in :test_execution
   field :message, type: String
   field :msg_type, type: Symbol

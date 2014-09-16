@@ -8,20 +8,20 @@ class VendorsController < ApplicationController
   rescue_from Mongoid::Errors::Validations do
      render :template => "vendors/edit"
    end
-   
-   
+
+
   def index
     @vendors = Vendor.all
     respond_to do |f|
       f.json {render :json=> @vendors }
       f.html {}
-    end    
+    end
   end
-  
+
   def new
     @vendor = Vendor.new
   end
-  
+
   def create
     @vendor = Vendor.new params[:vendor]
     @vendor.save!
@@ -30,16 +30,15 @@ class VendorsController < ApplicationController
       f.html { redirect_to root_path}
     end
   end
-  
+
   def show
     respond_to do |f|
       f.json { render json: @vendor}
       f.html {}
     end
   end
-  
+
   def edit
-   # binding.pry
   end
 
   def destroy
@@ -47,9 +46,9 @@ class VendorsController < ApplicationController
     respond_to do |f|
       f.json { render :text=>"", :status=>201}
       f.html {redirect_to root_path}
-    end 
+    end
   end
-  
+
   def update
     @vendor.update_attributes(params[:vendor])
     unless @vendor.save
@@ -57,10 +56,10 @@ class VendorsController < ApplicationController
     end
     redirect_to vendor_path(@vendor)
   end
-  
 
 
-private 
+
+private
 
   def find_vendor
 

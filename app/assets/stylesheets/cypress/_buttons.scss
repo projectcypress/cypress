@@ -3,7 +3,7 @@ a:hover {
   text-decoration: inherit;
 }
  
-a.cmd {
+a.cmd, input.cmd {
   @include bordered($btnBorderColor);
   background-color: $btnBkgColor;
   color: $btnColor;
@@ -15,7 +15,7 @@ a.cmd {
 
   
 }
-a.cmd:hover {
+a.cmd:hover, input.cmd:hover {
   background-color: $btnHoverBkg;
 }
 a.mailing_list {
@@ -27,7 +27,7 @@ a.del {
   @include bordered($dltColor);
   color: $dltColor;
 }
-td a.cmd {
+td a.cmd, td input.cmd {
   display:inline-block;
   margin:2px 0;
   padding:0px 8px;

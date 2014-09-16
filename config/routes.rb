@@ -2,8 +2,8 @@ Cypress::Application.routes.draw do
   root :to => "vendors#index"
   #match "/delayed_job" => DelayedJobMongoidWeb, :anchor => false
   devise_for :users
-  
-  match '/admin' => 'admin#index'
+
+  get '/admin' => 'admin#index'
   get "/admin/index"
   get "/admin/users"
   post "/admin/promote"
@@ -22,16 +22,16 @@ Cypress::Application.routes.draw do
     resources :vendors do
       resources :products do
         resources :product_tests do
-          resources :patient_population 
+          resources :patient_population
           resources :test_executions
         end
       end
     end
-   
+
    resources :measures do
      get 'definition'
    end
-  
+
   resources :test_executions do
     member do
       get 'download'
@@ -50,7 +50,7 @@ Cypress::Application.routes.draw do
       get 'status'
       get 'generate_cat1_test'
     end
-    
+
     resources :patients
     resources :measures do
       member do
@@ -63,7 +63,7 @@ Cypress::Application.routes.draw do
     member do
       get 'download'
     end
-    
+
     collection do
       get 'table'
       get 'table_all'
@@ -71,25 +71,25 @@ Cypress::Application.routes.draw do
       get 'download'
     end
   end
-  
+
   resources :measures do
       member do
         get 'patients'
       end
     end
-    
+
   get "/information/about"
   get "/information/feedback"
   get "/information/help"
-  
+
   get '/services/index'
   get '/services/validate_pqri'
   post '/services/validate_pqri'
 
-  match '/measures/minimal_set' => 'measures#minimal_set'
-  match '/measures/by_type' => 'measures#by_type'
+  match '/measures/minimal_set' => 'measures#minimal_set', via: [:post]
+  match '/measures/by_type' => 'measures#by_type', via: [:post]
   match '/product_tests/period', :to=>'product_tests#period', :as => :period, :via=> :post
-  
+
   unless Rails.application.config.consider_all_requests_local
     match '*not_found', to: 'errors#error_404'
   end
