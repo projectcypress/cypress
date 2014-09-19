@@ -91,7 +91,7 @@ Cypress::Application.routes.draw do
   match '/product_tests/period', :to=>'product_tests#period', :as => :period, :via=> :post
 
   unless Rails.application.config.consider_all_requests_local
-    match '*not_found', to: 'errors#error_404'
+    match '*not_found', to: 'errors#error_404', via: [:get, :post]
   end
 
   # The priority is based upon order of creation:
