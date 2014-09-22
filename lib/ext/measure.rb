@@ -166,9 +166,10 @@ class Measure
             data_criteria = hqmf.data_criteria(precondition.reference.id)
             result.concat loop_data_criteria(hqmf, data_criteria, rationale)
           else
-            if (rationale[parent_key] && rationale[key])
+            # Commented out for Cypress 2.5, as this was only picking the first precondition in source_data_criteria
+            # if (rationale[parent_key] && rationale[key])
               result.concat  loop_preconditions(hqmf, precondition, rationale)
-            end
+            # end
           end
         end
         result
