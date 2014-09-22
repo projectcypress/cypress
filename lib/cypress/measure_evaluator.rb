@@ -20,7 +20,7 @@ module Cypress
         dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, t.bundle)
         qr = QME::QualityReport.find_or_create(measure["hqmf_id"], measure.sub_id, {'effective_date' => t.effective_date,
                                      'test_id' => t.id, 'filters' => @options['filters'],
-                                     'enable_logging' => APP_CONFIG['enable_logging'] , "enable_rationale" =>true})
+                                     'enable_logging' => APP_CONFIG['enable_logging'] , "enable_rationale" =>true, "short_circuit" => false})
 
         t.status_message = " Calculating measure #{index} of #{measure_count} - #{measure.display_name}"
         t.save
@@ -48,7 +48,8 @@ module Cypress
     # Evaluates the supplied measure for a particular vendor
     def self.eval(test, measure, asynchronous = true)
       dictionary = Cypress::MeasureEvaluator.generate_oid_dictionary(measure, test.bundle)
-      qr = QME::QualityReport.find_or_create(measure["hqmf_id"], measure.sub_id, {'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil})
+      qr = QME::QualityReport.find_or_create(measure["hqmf_id"], measure.sub_id, {'effective_date' => test.effective_date, 'test_id' => test.id, 'filters' =>nil, 
+        'enable_logging' => APP_CONFIG['enable_logging'] , "enable_rationale" =>true, "short_circuit" => false})
 
       qr.calculate({'bundle_id' => test.bundle.id, 'oid_dictionary' => dictionary,  'prefilter' => {test_id: test.id}}, asynchronous)
       result = qr.result
