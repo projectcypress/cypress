@@ -7,12 +7,12 @@ gem 'jquery-ui-rails'
 gem 'rake'
 
 
-gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'cypress2_5'
+# gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'master'
 
 # gem 'quality-measure-engine', :path => '../quality-measure-engine'
 
-# gem 'quality-measure-engine', '~> 2.5.3'
-gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
+gem 'quality-measure-engine', '3.1.1'
+# gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 
 
 #gem 'quality-measure-engine', '~> 2.5.0'
@@ -20,7 +20,7 @@ gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-da
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 
-# gem 'health-data-standards', '~> 3.2.12'
+gem 'health-data-standards', '~> 3.5.2'
 
 
 
