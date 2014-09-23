@@ -6,9 +6,9 @@
 # This script automates the manual installation instructions documented at:
 # https://github.com/projectcypress/cypress/wiki/Installation-Guide
 #
-# It is designed to be run on a basic installation of Ubuntu 12.04 LTS 64-bit
+# It is designed to be run on a basic installation of Ubuntu 14.04 LTS 64-bit
 # server (http://releases.ubuntu.com/precise/) and was tested using the ISO
-# Ubuntu image named ubuntu-12.04.1-server-amd64.iso.
+# Ubuntu image named ubuntu-14.04.1-server-amd64.iso.
 #
 # After installing Ubuntu, log in as the admin user (the user account
 # specified during the install) and perform the following commands to make
@@ -24,7 +24,7 @@
 #  1) Installs server support packages
 #  2) Configures system to use an HTTP proxy if necessary
 #  3) Install Git
-#  4) Install RVM and Ruby 1.9.3
+#  4) Install RVM and Ruby 2.1.2
 #  5) Install MongoDB
 #  6) Install libxml2 2.8 from source
 #  7) Install Nokogiri
@@ -35,24 +35,29 @@
 #
 # Author: Tim Taylor <ttaylor@mitre.org>
 # Date:   10 Dec 2012
+# Updates: Michael O'Keefe <mokeefe@mitre.org>
+# Date:   23 Sept 2014
 ##############################################################################
 
 # Variables that determine the versions of components we will install
-cypress_tag="v2.4.0"
-install_ruby_ver="1.9.3-p448"
-install_bundler_ver="1.2.3"
+cypress_tag="v2.4.1"
+install_ruby_ver="2.1.2"
+install_bundler_ver="1.6.3"
 install_libxml_ver="2.8.0"
 
 install_nokogiri_ver="1.6.0"
 cypress_bundle_ver="2.4.0"
 
-install_passenger_ver="3.0.18"
+install_passenger_ver="4.0.50"
+
+install_mongodb_ver="2.6.4"
 
 ###################################################
 # You shouldn't need to modify anything below here.
 ###################################################
 
 mongodb_key_id="7F0CEB10"
+passenger_key_id="561F9B9CAC40B2F7"
 libxml_archive="libxml2-${install_libxml_ver}.tar.gz"
 
 # Variables that are set by options to the script
@@ -63,7 +68,7 @@ import_valuesets=0
 nlm_user=""
 nlm_passwd=""
 bundle_rev="latest"
-complete_bundle_ver="${cypress_bundle_ver}-${bundle_rev}"
+complete_bundle_ver="${bundle_rev}"
 
 ###################################################
 # Functions used by the script
@@ -71,11 +76,14 @@ complete_bundle_ver="${cypress_bundle_ver}-${bundle_rev}"
 
 #####
 # Adjusts some variables based on the cypress version we were asked to install
+# 2014-09-23: Commented out, because it was generating inaccurate bundle names
 #####
-function adjust_for_cypress_version {
-  cypress_ver=${cypress_tag:1}
-  complete_bundle_ver="${cypress_ver}-${bundle_rev}"
-}
+# function adjust_for_cypress_version {
+#   if [ $cypress_tag != "master" ]; then
+#     complete_bundle_ver="${cypress_tag}-${bundle_rev}"
+#   fi
+#   echo "Cypress_tag: ${cypress_tag}, bundle_rev: ${bundle_rev}, complete_bundle_ver: ${complete_bundle_ver}"
+# }
 
 #####
 # Display a message in red text.
@@ -262,8 +270,8 @@ if [ -x /usr/bin/lsb_release ]; then
   if [[ $os_vendor != *Ubuntu ]]; then
     abort "This installer only supports installation on Ubuntu linux."
   fi
-  if [[ $os_release != *12.04 ]]; then
-    echo "This installer was only tested on Ubuntu 12.04.  Your are using ${os_release}."
+  if [[ $os_release != *14.04 ]]; then
+    echo "This installer was only tested on Ubuntu 14.04.  Your are using ${os_release}."
     echo "Continuing anyway."
   fi
 else
@@ -286,9 +294,9 @@ if [ $# -gt 0 ]; then
 
       --import*)
         import_valuesets=1
-        bundle_rev=${1#--import=}
-        if [ -z $bundle_rev ]; then
-          bundle_rev="latest"
+        complete_bundle_ver=${1#--import=}
+        if [ -z $complete_bundle_ver ]; then
+          complete_bundle_ver="latest"
         fi
         shift
         ;;
@@ -352,7 +360,7 @@ if [ $# -gt 0 ]; then
     esac
   done
 fi
-adjust_for_cypress_version
+# adjust_for_cypress_version
 
 # Check for mandatory arguments
 if [ $import_valuesets -eq 1 ]; then
@@ -466,7 +474,7 @@ echo
 ##########
 # Task 4: Install RVM and Ruby 1.9.3
 ##########
-echo "Install RVM and Ruby 1.9.3:"
+echo "Install RVM and Ruby $install_ruby_ver:"
 # RVM dependencies
 echo "   Install dependant packages:"
 for p in build-essential openssl libssl-dev libreadline6 libreadline6-dev curl zlib1g zlib1g-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config; do
@@ -479,7 +487,7 @@ if [ -d /usr/local/rvm -a -x /usr/local/rvm/bin/rvm ]; then
   rvmver=`/usr/local/rvm/bin/rvm --version | tail -n -2 | head -n -1 | awk "{print \\\$2 \\\$3}"`
   success "already installed ($rvmver)"
 else
-  curl -s -L get.rvm.io | bash -l -s stable &> /dev/null
+  curl -sSL get.rvm.io | sudo bash -l -s stable &> /dev/null
   success_or_fail $? "done" "failed"
 fi
 # source the RVM environment so we can use it here.
@@ -495,7 +503,7 @@ if [ $? -eq 0 ]; then
   rubyver=`ruby --version | awk "{print \\\$2}"`
   success "already installed ($rubyver)"
 else
-  rvm install "$install_ruby_ver" &> /dev/null
+  rvm install "$install_ruby_ver"
   success_or_fail $? "done" "failed"
 fi
 
@@ -556,15 +564,15 @@ else
   success "skipped - no change"
 fi
 # install mongodb package
-echo -n "   Install mongodb-10gen: "
-install_pkg "mongodb-10gen=2.4.6" "2\.4\.[[:digit:]]+"
+echo -n "   Install mongodb-org: "
+install_pkg "mongodb-org=$install_mongodb_ver"
 # start mongodb daemon
 echo -n "   Start mongodb daemon: "
-output=`status mongodb`
+output=`status mongod`
 if [[ $output = *start/running* ]]; then
   success "already running"
 else
-  start mongodb &> /dev/null
+  service mongod start &> /dev/null
   success_or_fail "started" "failed" "Will need mongodb running to continue install."
 fi
 # Wait for mongodb to create listening socket
@@ -662,6 +670,17 @@ else
   usermod -a -G sudo cypress
   success_or_fail $? "done" "failed"
 fi
+
+# add cypress user to sudo group
+echo -n "   cypress user in rvm group: "
+id cypress | grep -q "rvm"
+if [ $? -eq 0 ]; then
+  success "yes"
+else
+  usermod -a -G rvm cypress
+  success_or_fail $? "done" "failed"
+fi
+
 # retrieve cypress application
 echo -n "   Retrieve Cypress application: "
 if [ -d ~cypress/cypress ]; then
@@ -681,7 +700,7 @@ success_or_fail $? "done" "failed to switch versions" "Can't continue."
 echo -n "   Installing Cypress gem dependencies: "
 #cd ~cypress/cypress; bundle install &> /dev/null
 #su - -c "cd cypress; expect -c \"set timeout 600\" -c \"spawn bundle install\" -c \"expect system:\" -c \"send CypressPwd\" -c \"expect eof\" &> /dev/null" cypress
-su - -c "cd cypress; bundle install &> /dev/null" cypress
+su - -c "source /usr/local/rvm/scripts/rvm; cd cypress; bundle install &> /dev/null" cypress
 success_or_fail $? "done" "failed"
 # lock cypress user's password
 passwd --lock cypress &> /dev/null
@@ -752,6 +771,63 @@ echo -n "   Install apache web server: "
 install_pkg apache2
 # install passenger gem
 echo -n "   Install passenger gem: "
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7 &> /dev/null
+sudo apt-get install apt-transport-https ca-certificates &> /dev/null
+
+update_sources=0
+echo "Install Passenger: "
+# add repo source
+echo -n "   Add Passenger apt repository: "
+grep -q "deb[[:space:]]\+.*oss-binaries\.phusionpassenger\.com" /etc/apt/sources.list
+if [ $? -eq 0 ]; then
+  # it's there, but could be commented out
+  grep -q "^#[[:space:]]*deb[[:space:]]\+.*oss-binaries\.phusionpassenger\.com" /etc/apt/sources.list
+  if [ $? -eq 0 ]; then
+    # Uncomment it
+    uncomment_line "^#[[:space:]]*" "deb[[:space:]]\+.*oss-binaries\.phusionpassenger\.com" /etc/apt/sources.list
+    success "enabled"
+    update_sources=1
+  else
+    success "already added"
+  fi
+else
+  # need to add it
+  cat << APT_PASSENGER_END >> /etc/apt/sources.list
+
+## Uncomment the following line to add software from Phusion's Passenger Repository
+## This software is not part of Ubuntu, but is offered by the developers of
+## Passenger.
+deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
+APT_PASSENGER_END
+  success "added"
+  update_sources=1
+fi
+
+# add Passenger signing key
+echo -n "   Import Passenger package signing key: "
+apt-key list | grep -q "^pub[[:space:]]\+.*/${passenger_key_id}"
+if [ $? -eq 0 ]; then
+  success "already in keyring"
+else
+  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$passenger_key_id" &> /dev/null
+  success_or_fail $? "added to keyring" "failed."
+fi
+
+# update package lists
+echo -n "   Update package lists: "
+if [ $update_sources -eq 1 ]; then
+  apt-get update > /dev/null
+  success_or_fail $? "done" "failed"
+else
+  success "skipped - no change"
+fi
+
+echo -n "   Install Phusion Passenger deb: "
+install_pkg "libapache2-mod-passenger"
+sudo a2enmod passenger &> /dev/null
+sudo service apache2 restart &> /dev/null
+
+
 install_gem passenger "$install_passenger_ver"
 # install passenger dependencies
 echo "   Install passenger dependencies:"
@@ -767,25 +843,27 @@ success_or_fail $? "done" "failed"
 echo -n "   Install Cypress website: "
 cat << CYPRESS_SITE_END > /etc/apache2/sites-available/cypress
 <VirtualHost *:80>
+   PassengerRuby /usr/local/rvm/wrappers/ruby-${install_ruby_ver}/ruby
    DocumentRoot /home/cypress/cypress/public
    TimeOut 1200
    <Directory /home/cypress/cypress/public>
       AllowOverride all
       Options -MultiViews
+      Require all granted
    </Directory>
 </VirtualHost>
 CYPRESS_SITE_END
-rm /etc/apache2/sites-enabled/000-default
-ln -s ../sites-available/cypress /etc/apache2/sites-enabled/000-default
+rm /etc/apache2/sites-enabled/000-default*
+ln -s /etc/apache2/sites-available/cypress /etc/apache2/sites-enabled/000-default.conf
 success "done"
 # install passenger configuration
 echo -n "   Install Passenger configuration: "
 cat << PASSENGER_CONF_END > /etc/apache2/mods-available/cypress.conf
 LoadModule passenger_module /usr/local/rvm/gems/ruby-${install_ruby_ver}/gems/passenger-${install_passenger_ver}/ext/apache2/mod_passenger.so
 PassengerRoot /usr/local/rvm/gems/ruby-${install_ruby_ver}/gems/passenger-${install_passenger_ver}
-PassengerRuby /usr/local/rvm/wrappers/ruby-${install_ruby_ver}/ruby
+PassengerDefaultRuby /usr/local/rvm/wrappers/ruby-${install_ruby_ver}/ruby
 PASSENGER_CONF_END
-ln -f -s ../mods-available/cypress.conf /etc/apache2/mods-enabled/cypress.conf
+ln -f -s /etc/apache2/mods-available/cypress.conf /etc/apache2/mods-enabled/cypress.conf
 success "done"
 # restart apache
 echo -n "   Restart apache: "
