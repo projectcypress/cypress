@@ -7,7 +7,7 @@ gem 'jquery-ui-rails'
 gem 'rake'
 
 
-gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'cypress2_5'
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'master'
 
 # gem 'quality-measure-engine', :path => '../quality-measure-engine'
 
