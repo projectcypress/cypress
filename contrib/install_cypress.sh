@@ -750,8 +750,8 @@ success "done"
 # create the upstart script to start job on system boot
 echo -n "   Create startup script: "
 cat << UPSTART_SCRIPT_END > /etc/init/delayed_worker.conf
-start on started mongodb
-stop on stopping mongodb
+start on started mongod
+stop on stopping mongod
 
 script
 exec sudo -u cypress ~cypress/start_delayed_job.sh >> /tmp/delayed_worker.log 2>&1
