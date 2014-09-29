@@ -16,11 +16,11 @@ gem 'quality-measure-engine', '3.1.1'
 
 
 #gem 'quality-measure-engine', '~> 2.5.0'
-# gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => '3.2.x'
+gem 'health-data-standards',:git => 'https://github.com/ssayer/health-data-standards.git', :branch => 'qrda_errata'
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 
-gem 'health-data-standards', '~> 3.5.2'
+# gem 'health-data-standards', '~> 3.5.2'
 
 
 
