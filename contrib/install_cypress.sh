@@ -48,6 +48,7 @@ install_libxml_ver="2.8.0"
 install_nokogiri_ver="1.6.0"
 cypress_bundle_ver="2.4.0"
 
+install_apache_ver="2.4.*"
 install_passenger_ver="4.0.50"
 
 install_mongodb_ver="2.6.4"
@@ -503,12 +504,13 @@ if [ $? -eq 0 ]; then
   rubyver=`ruby --version | awk "{print \\\$2}"`
   success "already installed ($rubyver)"
 else
-  rvm install "$install_ruby_ver"
+  rvm install "$install_ruby_ver" &> /dev/null
   success_or_fail $? "done" "failed"
 fi
 
-# Set our ruby as default
-rvm --default "$install_ruby_ver"
+# Set our ruby as default, and the one we're using
+rvm use "$install_ruby_ver" &> /dev/null
+rvm --default "$install_ruby_ver" 
 
 # Install Bundler gem
 echo -n "   Install bundler gem: "
@@ -769,64 +771,6 @@ echo "Configure Passenger and Apache:"
 # install apache
 echo -n "   Install apache web server: "
 install_pkg apache2
-# install passenger gem
-echo -n "   Install passenger gem: "
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7 &> /dev/null
-sudo apt-get install apt-transport-https ca-certificates &> /dev/null
-
-update_sources=0
-echo "Install Passenger: "
-# add repo source
-echo -n "   Add Passenger apt repository: "
-grep -q "deb[[:space:]]\+.*oss-binaries\.phusionpassenger\.com" /etc/apt/sources.list
-if [ $? -eq 0 ]; then
-  # it's there, but could be commented out
-  grep -q "^#[[:space:]]*deb[[:space:]]\+.*oss-binaries\.phusionpassenger\.com" /etc/apt/sources.list
-  if [ $? -eq 0 ]; then
-    # Uncomment it
-    uncomment_line "^#[[:space:]]*" "deb[[:space:]]\+.*oss-binaries\.phusionpassenger\.com" /etc/apt/sources.list
-    success "enabled"
-    update_sources=1
-  else
-    success "already added"
-  fi
-else
-  # need to add it
-  cat << APT_PASSENGER_END >> /etc/apt/sources.list
-
-## Uncomment the following line to add software from Phusion's Passenger Repository
-## This software is not part of Ubuntu, but is offered by the developers of
-## Passenger.
-deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
-APT_PASSENGER_END
-  success "added"
-  update_sources=1
-fi
-
-# add Passenger signing key
-echo -n "   Import Passenger package signing key: "
-apt-key list | grep -q "^pub[[:space:]]\+.*/${passenger_key_id}"
-if [ $? -eq 0 ]; then
-  success "already in keyring"
-else
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$passenger_key_id" &> /dev/null
-  success_or_fail $? "added to keyring" "failed."
-fi
-
-# update package lists
-echo -n "   Update package lists: "
-if [ $update_sources -eq 1 ]; then
-  apt-get update > /dev/null
-  success_or_fail $? "done" "failed"
-else
-  success "skipped - no change"
-fi
-
-echo -n "   Install Phusion Passenger deb: "
-install_pkg "libapache2-mod-passenger"
-sudo a2enmod passenger &> /dev/null
-sudo service apache2 restart &> /dev/null
-
 
 install_gem passenger "$install_passenger_ver"
 # install passenger dependencies
@@ -841,6 +785,10 @@ passenger-install-apache2-module --auto &> /dev/null
 success_or_fail $? "done" "failed"
 # install Cypress site definition
 echo -n "   Install Cypress website: "
+
+apache2minorver=`dpkg-query -f '${Version}' -W apache2 | sed -r s/2\.\([0-9]+\)\.[0-9]+\.+/\\\\1/`
+
+if [ $apache2minorver -eq 2 ]; then
 cat << CYPRESS_SITE_END > /etc/apache2/sites-available/cypress
 <VirtualHost *:80>
    PassengerRuby /usr/local/rvm/wrappers/ruby-${install_ruby_ver}/ruby
@@ -849,17 +797,48 @@ cat << CYPRESS_SITE_END > /etc/apache2/sites-available/cypress
    <Directory /home/cypress/cypress/public>
       AllowOverride all
       Options -MultiViews
+      #Uncomment the next line out if you're running Apache >= 2.4
+      #Require all granted
+   </Directory>
+</VirtualHost>
+CYPRESS_SITE_END
+elif [ $apache2minorver -eq 4 ]; then
+cat << CYPRESS_SITE_END > /etc/apache2/sites-available/cypress
+<VirtualHost *:80>
+   PassengerRuby /usr/local/rvm/wrappers/ruby-${install_ruby_ver}/ruby
+   DocumentRoot /home/cypress/cypress/public
+   TimeOut 1200
+   <Directory /home/cypress/cypress/public>
+      AllowOverride all
+      Options -MultiViews
+      #Comment the next line out if you're running Apache < 2.4
       Require all granted
    </Directory>
 </VirtualHost>
 CYPRESS_SITE_END
+else
+fail "We can't tell which version of apache you're running. Please check /etc/apache2/sites-available/cypress to ensure the formatting is correct for your version."
+cat << CYPRESS_SITE_END > /etc/apache2/sites-available/cypress
+<VirtualHost *:80>
+   PassengerRuby /usr/local/rvm/wrappers/ruby-${install_ruby_ver}/ruby
+   DocumentRoot /home/cypress/cypress/public
+   TimeOut 1200
+   <Directory /home/cypress/cypress/public>
+      AllowOverride all
+      Options -MultiViews
+      #Uncomment the next line out if you're running Apache >= 2.4
+      #Require all granted
+   </Directory>
+</VirtualHost>
+CYPRESS_SITE_END
+fi
 rm /etc/apache2/sites-enabled/000-default*
 ln -s /etc/apache2/sites-available/cypress /etc/apache2/sites-enabled/000-default.conf
 success "done"
 # install passenger configuration
 echo -n "   Install Passenger configuration: "
 cat << PASSENGER_CONF_END > /etc/apache2/mods-available/cypress.conf
-LoadModule passenger_module /usr/local/rvm/gems/ruby-${install_ruby_ver}/gems/passenger-${install_passenger_ver}/ext/apache2/mod_passenger.so
+LoadModule passenger_module /usr/local/rvm/gems/ruby-${install_ruby_ver}/gems/passenger-${install_passenger_ver}/buildout/apache2/mod_passenger.so
 PassengerRoot /usr/local/rvm/gems/ruby-${install_ruby_ver}/gems/passenger-${install_passenger_ver}
 PassengerDefaultRuby /usr/local/rvm/wrappers/ruby-${install_ruby_ver}/ruby
 PASSENGER_CONF_END
@@ -871,4 +850,4 @@ service apache2 restart &> /dev/null
 success_or_fail $? "done" "failed"
 echo
 
-echo "Done!!"
+echo "Done!"
