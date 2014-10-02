@@ -26,11 +26,12 @@ class QRDAProductTest < ProductTest
       doc = Nokogiri::XML(data)
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
       doc.root.add_namespace_definition("sdtc", "urn:hl7-org:sdtc")
+      qrda_validator = Cypress::QrdaCat1File.new(doc)
 
       validation_errors.concat sgd_validator.validate(doc,{file_name: name})
       validation_errors.concat dc_validator.validate(doc, {file_name: name})
 
-      errs = Cypress::QrdaUtility.validate_cat_1(doc, measures, name)
+      errs = qrda_validator.validate(measures, name)
       errs.concat valueset_validator.validate(doc)
       errs.each {|e| e[:file_name]=name}
       validation_errors.concat errs
