@@ -8,12 +8,16 @@ module Cypress
     
 
     # Nothing to see here - Move along
-    def validate
+    def validate(msg_type = :error)
       file_errors = []
-      file_errors.concat QRDA_SCHEMA_VALIDATOR.validate(@document, {msg_type: :error}) 
+      file_errors.concat QRDA_SCHEMA_VALIDATOR.validate(@document, {msg_type: msg_type}) 
       # Valdiate aginst the generic schematron rules
-      file_errors.concat SCHEMATRON_ERROR_VALIDATOR.validate(@document, {phase: :errors, msg_type: :error})
-      # file_errors.concat QRDA_CAT3_SCHEMATRON_WARNING_VALIDATOR.validate(doc, {phase: :warnings, msg_type: :warning, file_name: name })
+
+      if (msg_type == :error)
+        file_errors.concat SCHEMATRON_ERROR_VALIDATOR.validate(@document, {phase: :errors, msg_type: :error})
+      else
+        file_errors.concat SCHEMATRON_WARNING_VALIDATOR.validate(doc, {phase: :warnings, msg_type: :warning })
+      end
       file_errors
     end
     
