@@ -16,7 +16,7 @@ module Cypress
       if (msg_type == :error)
         file_errors.concat SCHEMATRON_ERROR_VALIDATOR.validate(@document, {phase: :errors, msg_type: :error})
       else
-        file_errors.concat SCHEMATRON_WARNING_VALIDATOR.validate(doc, {phase: :warnings, msg_type: :warning })
+        file_errors.concat SCHEMATRON_WARNING_VALIDATOR.validate(@document, {phase: :warnings, msg_type: :warning })
       end
       file_errors
     end

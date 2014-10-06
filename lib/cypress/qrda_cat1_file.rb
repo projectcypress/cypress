@@ -35,7 +35,7 @@ module Cypress
 
         else
           # Valdiate aginst the generic schematron rules, for warnings
-          file_errors.concat QRDA_CAT1_SCHEMATRON_WARNING_VALIDATOR.validate(doc, {phase: :warnings, msg_type: :warning, file_name: name })
+          file_errors.concat SCHEMATRON_WARNING_VALIDATOR.validate(@document, {phase: :warnings, msg_type: :warning, file_name: name })
         end
 
         file_errors
