@@ -12,6 +12,30 @@ class Product
 
   validates_presence_of :name
 
+  def tests_by_cat3
+    cat3_tests = {}
+    cat1_tests = []
+    self.product_tests.each do |p|
+      if p.is_a? CalculatedProductTest 
+        cat3_tests[p.id] = p
+      else
+        cat1_tests << p
+      end
+    end
+
+    if !cat1_tests.empty?
+      sorted_tests = cat1_tests.group_by do |p|
+        cat3_tests[p.calculated_test_id]
+      end
+      cat3_tests.each do |id, t|
+        sorted_tests[t] = [] if sorted_tests[t].nil?
+      end
+      return sorted_tests
+    else
+      return cat3_tests.values.each_with_object([]).to_h
+    end
+  end
+
  # a product is only passing if all of it's tests have passed
   def passing?
     return true if self.product_tests.empty?

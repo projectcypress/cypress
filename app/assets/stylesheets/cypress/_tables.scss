@@ -37,7 +37,7 @@ table-layout:fixed;
 width:20px;
 }
 .tog{
-width:10px;
+width:20px;
 }
 .name {
 width:200px;
@@ -45,9 +45,23 @@ width:200px;
 .info {
 width:300px;
 }
+.type {
+  width:105px;
+}
+.time {
+  width:94px;
+}
+
+.percentage {
+  width: 30px;
+  font-weight: bold;
+}
 
 tr.sub_rows {
   display:none;
+  td:not(.nobg) {
+    background: whitesmoke;
+  }
 }
 
 #patient_characteristics th{

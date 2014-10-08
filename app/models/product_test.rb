@@ -1,5 +1,6 @@
 class ProductTest
   include Mongoid::Document
+  include Mongoid::Timestamps::Created
   include AASM
 
   belongs_to :product
