@@ -18,6 +18,7 @@ module Cypress
 
     def initialize(doc)
       @document = (doc.kind_of? String )? Nokogiri::XML(doc) : doc
+      raise ArgumentError, 'Argument was not an XML document' unless @document.root
       @document.root.add_namespace_definition("cda", "urn:hl7-org:v3")
     end
 
