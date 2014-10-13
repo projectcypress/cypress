@@ -130,7 +130,7 @@ module Cypress
           results[k.to_s] = val
           results[:supplemental_data][k] = sup
         else
-          return nil
+          # return nil
         end
       end
       results

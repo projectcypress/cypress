@@ -28,7 +28,7 @@ module Cypress
         result = qr.result
         result.unset(:_id)
         res = result.as_document
-        res["measure_id"] = measure.key
+        res["measure_id"] = measure.hqmf_id
         results[measure.key] = res
        end
        t.expected_results = results
