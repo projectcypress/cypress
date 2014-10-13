@@ -12,7 +12,8 @@
 
       <nav class="breadcrumb">
         <%= link_to "Certification Dashboard", root_path %> &raquo;
-        <%= link_to @product.vendor.name, vendor_path(@product.vendor) %>
+        <%= link_to @product.vendor.name, vendor_path(@product.vendor) %> &raquo;
+        <%= @product.name %>
       </nav>
     </section>
 
