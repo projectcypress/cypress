@@ -50,6 +50,7 @@ class QRDAProductTest < ProductTest
 
     te.save
     (te.count_errors > 0) ? te.failed : te.pass
+    te.save
     te
   end
 
