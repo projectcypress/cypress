@@ -36,7 +36,7 @@
   <tbody>
   <% if !@patients.nil? %>
     <% if @showAll %>
-      <% cache("table_show_all") do %>
+      <% cache_unless(params[:product_test_id], "table_show_all") do %>
         <% @patients.each do |patient| %>
           <tr>
             <td style="background: none"></td>
