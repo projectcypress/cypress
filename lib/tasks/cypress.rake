@@ -283,6 +283,8 @@ task :test_qrda_files, [:version, :type] => :setup do |t,args|
       # This line not needed until Cypress 2.5
       # QME::QualityReport.destroy_all(:test_id => {"$ne"=> nil})
       Record.destroy_all(:test_id => {"$ne" => nil})
+      QME::QualityReport.destroy_all(:test_id => {"$ne" => nil})
+      Artifact.destroy_all
       puts "removed #{diff} Vendors"
     end
 
@@ -292,6 +294,12 @@ task :test_qrda_files, [:version, :type] => :setup do |t,args|
       task("tmp:cache:clear").invoke
       Rails.cache.clear
       puts "done"
+    end
+
+    desc "Provide statistics on numbers of vendors/tests/etc generated"
+    task :cypress_statistics => :setup do
+      puts "Vendors,products,tests,executions"
+      puts "#{Vendor.all.count},#{Product.all.count},#{ProductTest.all.count},#{TestExecution.all.count}"
     end
 
     task :all => [:environment, :database, :temp_files]
