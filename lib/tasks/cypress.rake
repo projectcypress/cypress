@@ -280,10 +280,8 @@ task :test_qrda_files, [:version, :type] => :setup do |t,args|
       Vendor.destroy_all
       diff = before - Vendor.all.count
       Result.destroy_all("value.test_id"=> {"$ne" => nil})
-      # This line not needed until Cypress 2.5
-      # QME::QualityReport.destroy_all(:test_id => {"$ne"=> nil})
+      QME::QualityReport.destroy_all(:test_id => {"$ne"=> nil})
       Record.destroy_all(:test_id => {"$ne" => nil})
-      QME::QualityReport.destroy_all(:test_id => {"$ne" => nil})
       Artifact.destroy_all
       puts "removed #{diff} Vendors"
     end
