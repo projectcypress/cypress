@@ -4,7 +4,6 @@
     <li class="active"><a href="#test_summary" data-toggle="tab">Summary</a></li>
     <li class=""><a href="#test_measure_errors" data-toggle="tab">Errors</a></li>
     <li class=""><a href="#test_measure_qrda_errors" data-toggle="tab">QRDA Errors</a></li>
-    <li class=""><a href="#test_measure_qrda_warnings" data-toggle="tab">QRDA Warnings</a></li>
 
     <% if !test_execution.new_record %>
       <%= link_to "Download", download_test_execution_path(test_execution.id), title: "Download the results of this test execution", class: "cmd pull-right" %>
@@ -16,10 +15,7 @@
         <dl class="dl-horizontal">
           <dt><strong>Test Date:</strong></dt> <dd class="strong"><%= test_execution.created_at %></dd>
           <dt><strong>Inspection ID: </strong></dt> <dd><%= test_execution.product_test.product.vendor.name %></dd>
-        </dl>
-        <dl class="dl-horizontal wide">
           <dt><strong>Errors:</strong></dt> <dd class="fail strong"><%= test_execution.count_errors %></dd>
-          <dt><strong>Warnings:</strong></dt> <dd class="warn strong"><%= test_execution.count_warnings %></dd>
         </dl>
       </section>
       <h5 style="margin-top:2em">Test Execution Notes</h5>
@@ -71,12 +67,6 @@
     <div class="tab-pane" id="test_measure_qrda_errors">
       <h4>QRDA Errors</h4>
       <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: execution_errors.by_validation_type(:xml_validation).by_type(:error).group_by(&:validator), error_map:error_map } %>
-    </div>
-    <div class="tab-pane" id="test_measure_qrda_warnings">
-      <!-- %# render :partial => 'test_executions/calculated_product_test/warnings', :locals => { :warnings => test_execution.execution_warnings } %> -->
-      <h4>QRDA Warnings</h4>
-
-     <%= render :partial=>'test_executions/error_list', :locals=>{grouped_errors: execution_errors.by_validation_type(:xml_validation).by_type(:warning).group_by(&:validator), error_map:error_map } %>
     </div>
  
   </div><!-- end #test_result_tabs -->

@@ -56,12 +56,14 @@ class CalculatedProductTest < ProductTest
     qrda_file = params[:results]
     data = qrda_file.open.read
     doc = Nokogiri::XML(data)
+
+    validation_errors = []
+
     qrda_validator = Cypress::QrdaCat3File.new(doc)
+    validation_errors = qrda_validator.validate || []
 
     matched_results = {}
     reported_results = {}
-
-    validation_errors = qrda_validator.validate || []
 
     expected_results.each_pair do |key,expected_result|
       result_key = expected_result["population_ids"].dup
@@ -81,9 +83,9 @@ class CalculatedProductTest < ProductTest
     te
   end
 
-
-
-
+  def generate_qrda_cat3
+    Cypress::MeasureEvaluationValidator.new.generate_cat3(self.measure_ids, self.id)
+  end
 
   def generate_qrda_cat1_test
 
