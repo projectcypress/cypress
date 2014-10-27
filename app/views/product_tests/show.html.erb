@@ -44,7 +44,6 @@
 
 <div id="container" class="container">
   <%= render :partial=>"shared/header" %>
-
   <div class ="buffered">
     <section class="tb">
       <div class="stacked">
@@ -95,7 +94,13 @@
         <%= link_to @test.product.name, product_path( @test.product) %>
       </nav>
     </section>
-
+    <% flash.each do |type, msg| %>
+    <div class="alert alert-<%=flash.keys.first%>">
+    <span>
+      <strong><%=type.upcase%>:</strong> <%= msg %>
+      <a href="#" class="close" data-dismiss="alert">&times;</a></span>
+    </div>
+    <% end %>
     <section class="candidate bordered buffered">
       <dl class="vendor dl-horizontal">
         <dt>Test Name:</dt> <dd><%= @test.name %></dd>
