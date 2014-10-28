@@ -22,3 +22,11 @@ oid_errors.txt
 Thumbs.db
 !resources/schematron/qrda/qrda_cat_1/generic-schematron/voc.xml
 !db/migrate/*
+
+### Packer ###
+# Cache objects
+contrib/packer_cache/
+
+# For built boxes
+contrib/output*
+contrib/*.tgz

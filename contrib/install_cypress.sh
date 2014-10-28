@@ -419,9 +419,14 @@ ${actionstr}
 ==============================================================================
 WELCOME_END
 echo
-read -p "Do you want to continue (y/N)? " doit
-if [ "$doit" == "" -o "${doit//N/n}" == "n" ]; then
-  abort "Aborting per user request."
+
+if [ -z "$headless" ]; then
+  read -p "Do you want to continue (y/N)? " doit
+  if [ "$doit" == "" -o "${doit//N/n}" == "n" ]; then
+    abort "Aborting per user request."
+  fi
+else
+  echo "Unattended install variable set, continuing"
 fi
 
 ##########
