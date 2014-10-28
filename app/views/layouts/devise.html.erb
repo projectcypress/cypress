@@ -13,6 +13,10 @@
 </head>
 <body class="login">
 
+<% if APP_CONFIG['demo_mode'] %>
+  <div class="demo"><%= APP_CONFIG['demo_message'].html_safe %></div>
+<% end %>
+
 <div id="login_dialog">
   <div id="cap-top"></div>
   <div id="cap-body">

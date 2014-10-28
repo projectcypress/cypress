@@ -14,7 +14,9 @@
     });
 
     function openLoadingDialog(){
-      $('#loading_dialog').dialog('open');
+      if (!$("#patient_subset").get(0)) {
+        $('#loading_dialog').dialog('open');
+      }
     }
     setTimeout("openLoadingDialog()",400);
 
