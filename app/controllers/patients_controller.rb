@@ -103,8 +103,8 @@ class PatientsController < ApplicationController
       @test = ProductTest.find(params[:product_test_id])
       @patients = @test.records.order_by([["last", :asc]])
     else
-      # @patients = @bundle.records.order_by([["last", :asc]])
-      @patients = Rails.cache.fetch("table_all_patients" + @bundle.version) { @bundle.records.order_by([["last", :asc]]) }
+      @patients = @bundle.records.order_by([["last", :asc]])
+      # @patients = Rails.cache.fetch("table_all_patients" + @bundle.version) { @bundle.records.order_by([["last", :asc]]) }
     end
 
     render 'table'
