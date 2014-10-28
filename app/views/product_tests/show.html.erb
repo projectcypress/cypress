@@ -222,7 +222,7 @@
 	          <td>1. </td>
 	          <td><%= f.label '', "Results File", :for => :results %></td>
 	          <td>&nbsp;<td>
-	          <td><%= f.file_field :results %></td>
+	          <td><%= f.file_field :results, accept: file_upload_type(@test) %></td>
 	          <%= hidden_field_tag(:product_test_id, @test.id) %>
 	        </tr>
 
