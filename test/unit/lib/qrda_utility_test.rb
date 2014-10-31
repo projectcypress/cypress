@@ -117,7 +117,7 @@ class QRDATest < ActiveSupport::TestCase
   test "should be able to tell when a cat I file is bad do to schema issues" do 
      xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/bad_schema.xml'))
      doc = Nokogiri::XML(xml_file)
-     errors = Cypress::QrdaUtility.validate_cat_1(doc,[@m0004])
+     errors = Cypress::QrdaUtility.validate_cat_1(doc,[@m0004]) 
      assert_equal 2, errors.length, "Should report 2 errors, one for the schema issue and one for the schematron issue related to the schema issue"
   end
 
@@ -128,11 +128,13 @@ class QRDATest < ActiveSupport::TestCase
      assert_equal 1, errors.length, "Should report 1 error"
   end  
 
-  test "should be able to tell when a cat I file is bad do to not including expected measures" do 
+  test "should be able to tell when a cat I file is bad due to not including expected measures" do 
      xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/bad_measure_id.xml'))
      doc = Nokogiri::XML(xml_file)
      errors = Cypress::QrdaUtility.validate_cat_1(doc,[@m0004])
-     assert_equal 1, errors.length, "Should report 1 error"
+     # New schematron checks for the ID element, and @root and @extension attributes, this adds 2 errors
+     # in addition to what's reported by Cypress
+     assert_equal 3, errors.length, "Should report 1 error"
   end
 
   
