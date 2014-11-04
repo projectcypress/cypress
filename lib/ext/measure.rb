@@ -124,6 +124,10 @@ class Measure
     values
   end
 
+  def <=> (other)
+    "#{self.nqf_id}-#{self.sub_id}" <=> "#{other.nqf_id}-#{other.sub_id}"
+  end
+
   private
 
   def self.loop_data_criteria(hqmf, data_criteria, rationale)
