@@ -58,9 +58,6 @@ module Cypress
         cloned_patient.shift_dates(date_shift) if date_shift
         cloned_patient.test_id = options['test_id']
         patch_insurance_provider(record)
-		cloned_patient.entries.each do |entry|
-          entry.id = Moped::BSON::ObjectId.new        
-        end
         cloned_patient.save!
     end
 
