@@ -69,7 +69,6 @@ group :test, :develop do
   gem 'turn', :require => false
 
   gem "tailor"
-  gem 'simplecov', :require => false
   gem 'mocha', :require => false
   gem 'webmock'
 
@@ -79,6 +78,7 @@ end
 group :test do
   gem 'rails-perftest'
   gem 'ruby-prof'
+  gem 'simplecov', :require => false
 end
 
 group :production do
