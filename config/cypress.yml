@@ -18,9 +18,13 @@ effective_date:
   month: 12
   day: 31
 
-version: 2.5.0
+version: 2.5.1
 default_bundle: 2.5.0
 enable_logging: false
+
+#set to true for a "demo mode" server (large banners on header, among other things)
+demo_mode: false
+demo_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
 
 file_upload_root: "data/upload/"
 

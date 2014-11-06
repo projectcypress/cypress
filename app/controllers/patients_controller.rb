@@ -92,7 +92,7 @@ class PatientsController < ApplicationController
       .where("value.sub_id" => @selected.sub_id).where("value.IPP".to_sym.gt => 0)
       .order_by([ ["value.NUMER", :desc], ["value.DENOM", :desc], ["value.DENEX", :desc]])
     end
-    render 'table'
+    render 'table', layout: false
   end
 
   def table_all
@@ -103,11 +103,11 @@ class PatientsController < ApplicationController
       @test = ProductTest.find(params[:product_test_id])
       @patients = @test.records.order_by([["last", :asc]])
     else
-      # @patients = @bundle.records.order_by([["last", :asc]])
-      @patients = Rails.cache.fetch("table_all_patients" + @bundle.version) { @bundle.records.order_by([["last", :asc]]) }
+      @patients = @bundle.records.order_by([["last", :asc]])
+      # @patients = Rails.cache.fetch("table_all_patients" + @bundle.version) { @bundle.records.order_by([["last", :asc]]) }
     end
 
-    render 'table'
+    render 'table', layout: false
   end
 
   #send user record associated with patient

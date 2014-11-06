@@ -14,7 +14,9 @@
     });
 
     function openLoadingDialog(){
-      $('#loading_dialog').dialog('open');
+      if (!$("#patient_subset").get(0)) {
+        $('#loading_dialog').dialog('open');
+      }
     }
     setTimeout("openLoadingDialog()",400);
 
@@ -146,7 +148,7 @@
       <% end %>
     </section>
 
-    <% cache("index-" + @bundle.version, skip_digest: true ) do %>
+    <% cache_unless(@test, "index-" + @bundle.version, skip_digest: true ) do %>
     <div class="tabs">
       NQF #
       <% @measures_categories.sort.each do |category, measures| %>

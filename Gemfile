@@ -11,7 +11,8 @@ gem 'rake'
 
 # gem 'quality-measure-engine', :path => '../quality-measure-engine'
 
-gem 'quality-measure-engine', '3.1.1'
+gem 'quality-measure-engine', '3.1.2'
+
 gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 
 
