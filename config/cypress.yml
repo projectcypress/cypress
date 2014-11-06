@@ -25,10 +25,10 @@ enable_logging: false
 file_upload_root: "data/upload/"
 
 validation:
-  schema: resources/Schema/CDA/infrastructure/cda/CDA_SDTC.xsd 
+  schema: resources/schema/CDA/infrastructure/cda/CDA_SDTC.xsd 
   schematron:
-    qrda_cat_1: resources/Schematron/qrda/cat_1/QRDA Category I Release 2.sch
-    qrda_cat_3: resources/Schematron/qrda/cat_3/QRDA Category III.sch
+    qrda_cat_1: resources/schematron/qrda/cat_1/QRDA Category I Release 2.sch
+    qrda_cat_3: resources/schematron/qrda/cat_3/QRDA Category III.sch
 
 nlm:
   ticket_url: https://vsac.nlm.nih.gov/vsac/ws/Ticket
