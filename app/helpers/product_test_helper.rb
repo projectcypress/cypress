@@ -24,7 +24,9 @@ module ProductTestHelper
      </td>}.html_safe
   end
 
-
+  def file_upload_type(test)
+    test.is_a?(QRDAProductTest) ? "application/zip" : "application/xml"
+  end
 
   def test_type(test)
   	type = {CalculatedProductTest=>"EP", InpatientProductTest=>"EH", QRDAProductTest=>"QRDA"}[test.class]
