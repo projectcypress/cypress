@@ -139,7 +139,7 @@ class QRDATest < ActiveSupport::TestCase
      errors = qrda_file.validate([@m0004])
      # New schematron checks for the ID element, and @root and @extension attributes, this adds 2 errors
      # in addition to what's reported by Cypress
-     assert_equal 3, errors.length, "Should report 1 error"
+     assert_equal 3, errors.length, "Should report 3 errors"
   end
 
   

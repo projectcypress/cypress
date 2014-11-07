@@ -41,7 +41,7 @@ class QRDAProductTestTest  < ActiveSupport::TestCase
     ptest = ProductTest.find("51703a883054cf84390000d3")
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_wrong_names.zip'))
     te = ptest.execute({results: zip})
-    assert_equal 2, te.execution_errors.length , "should be 1 error from cat I archive" 
+    assert_equal 2, te.execution_errors.length , "should be 2 errors from cat I archive" 
   
   end
 
@@ -49,8 +49,7 @@ class QRDAProductTestTest  < ActiveSupport::TestCase
     ptest = ProductTest.find("51703a883054cf84390000d3")
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
     te = ptest.execute({results: zip})
-    # puts te.execution_errors.collect{|e| e.message}
-    assert_equal 2, te.execution_errors.length , "should be 1 error from cat I archive" 
+    assert_equal 2, te.execution_errors.length , "should be 2 errors from cat I archive" 
   
   end
 
