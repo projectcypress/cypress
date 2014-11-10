@@ -79,7 +79,7 @@ end
 group :test do
   gem 'rails-perftest'
   gem 'ruby-prof'
-  gem 'simplecov', :require => false
+  gem 'simplecov'
 end
 
 group :production do
