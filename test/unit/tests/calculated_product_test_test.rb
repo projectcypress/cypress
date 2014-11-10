@@ -87,7 +87,7 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml')), "application/xml")
     te = ptest.execute({results: xml})
 
-    assert_equal 1 ,te.execution_errors.length, "should error on missing populations" 
+    assert_equal 1, te.execution_errors.length, "should error on missing populations" 
 
   end
 

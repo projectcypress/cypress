@@ -29,6 +29,8 @@ module Cypress
       qrda_warnings_section
       quality_measures_section
       vendor_xml_section
+      record_mapping_section
+      test_mapping_section
     end
 
     def inpatient_product_test
@@ -40,6 +42,8 @@ module Cypress
       qrda_warnings_section
       quality_measures_section
       vendor_xml_section
+      record_mapping_section
+      test_mapping_section
     end
 
     def qrda_product_test
@@ -50,17 +54,8 @@ module Cypress
       qrda_errors_section
       qrda_warnings_section
       vendor_xml_section
-    end
-
-    def static_cv_product_test
-      set_default_style
-
-      summary_section
-      measure_errors_section
-      qrda_errors_section
-      qrda_warnings_section
-      quality_cv_measures_section
-      vendor_xml_section
+      record_mapping_section
+      test_mapping_section
     end
 
 
@@ -106,9 +101,12 @@ module Cypress
 
       new_section_margin
       @pdf.text "Test Date: #{@test_execution.created_at}"
-      @pdf.text "Inspection ID: #{@test_execution.product_test.product.vendor.name}"
+      @pdf.text "Inspection ID: #{@test_execution.product_test.product.vendor.name}, Product ID: #{@test_execution.product_test.product.name}"
+      @pdf.text "Test name: #{@test_execution.product_test.name}, description: #{@test_execution.product_test.description}"
       @pdf.text "Errors: #{@test_execution.count_errors}"
       @pdf.text "Warnings: #{@test_execution.count_warnings}"
+      @pdf.text "Bundle version: #{@test_execution.product_test.bundle.version}"
+      @pdf.text "Cypress version: #{APP_CONFIG['version']}"
     end
 
     def measure_errors_section
@@ -118,8 +116,23 @@ module Cypress
         @pdf.text "Errors"
       end
 
-      errors.each_with_index do |error, index|
-        @pdf.text "#{index + 1}. #{error.measure_id} #{error.message}"
+      grouped_errors = @test_execution.execution_errors.by_validation_type(:result_validation).by_type(:error).group_by{|m| {measure_id: m.measure_id, stratification: m.stratification}}
+
+      grouped_errors.each_with_index do |measure_error,ind|
+        measure = measure_error[0]
+        errs = measure_error[1]
+        mes = Measure.where(:hqmf_id=>measure[:measure_id], "population_ids.stratification" => measure[:stratification]).first
+        if mes
+          measure_strat_var = ", Stratification ID: #{measure[:stratification]}"
+          @pdf.text "#{ind+1})    #{mes.display_name}: HQMF_ID: #{mes.hqmf_id}#{(measure[:stratification])? measure_strat_var : ''}"
+          messages = errs.collect{|e| e.message}
+          @pdf.indent(20) do
+            messages.uniq.each do |e|
+              @pdf.text "\u2022    #{e}"
+            end
+            @pdf.text"\n"
+          end
+        end
       end
     end
 
@@ -134,10 +147,11 @@ module Cypress
       grouped_errors.each_pair do |fname, err_group|
         @pdf.text fname || ""
         err_group.each_with_index do |error, index|
-         @pdf.text "#{index + 1}. #{error.message}"
+          cleaned_error_message = error.message.delete("\n").squeeze(' ')
+          @pdf.text "#{index + 1})    #{cleaned_error_message}"
         end
         @pdf.text  ""
-    end
+      end
     end
 
     def qrda_errors_section
@@ -148,7 +162,8 @@ module Cypress
       end
 
       errors.each_with_index do |error, index|
-        @pdf.text "#{index + 1}. #{error.message}"
+        cleaned_error_message = error.message.delete("\n").squeeze(' ')
+        @pdf.text "#{index + 1})    #{cleaned_error_message}"
       end
     end
 
@@ -160,8 +175,41 @@ module Cypress
       end
 
       errors.each_with_index do |error, index|
-        @pdf.text "#{index + 1}. #{error.message}"
+        cleaned_error_message = error.message.delete("\n").squeeze(' ')
+        @pdf.text "#{index + 1})    #{cleaned_error_message}"
       end
+    end
+
+    def record_mapping_section
+      new_section_margin
+
+      @pdf.text "Record Name Mapping"
+      table_content = []
+      table_content << ["Name", "Original"]
+      @test_execution.product_test.records.each do |rec|
+        table_content << ["#{rec.last}, #{rec.first}","#{rec.original_record.last}, #{rec.original_record.first}"] if rec.original_record
+      end
+      
+      set_style({size: 8})
+      @pdf.table(table_content, column_widths: [150, 150])
+      set_default_style
+    end
+
+    def test_mapping_section
+      new_section_margin
+
+      @pdf.text "Tested Measures"
+
+      table_content = []
+      table_content << ["Name", "Submeasures", "CMS ID", "NQF ID", "HQMF ID"]
+      @test_execution.product_test.measures.group_by {|m| m.hqmf_id}.each do |id, measures|
+        mes = measures[0]
+        subtitles = measures.collect {|m| m.subtitle}.join(", ")
+        table_content << ["#{mes.name}", subtitles, mes.cms_id, mes.nqf_id, mes.hqmf_id]
+      end
+      set_style({size: 8})
+      @pdf.table(table_content, column_widths: [175, 125, 50, 40, 150])
+      set_default_style
     end
 
     def quality_measures_section
@@ -210,11 +258,11 @@ module Cypress
         expected_result = @test_execution.expected_result(measure)
         reported_result = @test_execution.reported_result(measure)
 
-        measure = "#{measure.nqf_id} - #{measure.name} "
-        measure.concat(" - #{measure.subtitle}") if measure["sub_id"]
+        measure_name = "#{measure.nqf_id} - #{measure.name} "
+        measure_name.concat(" - #{measure.subtitle}") if measure["sub_id"]
         patients = "#{reported_result[QME::QualityReport::POPULATION]}/#{expected_result[QME::QualityReport::POPULATION]}"
 
-        row << measure
+        row << measure_name
         row << patients
 
         [QME::QualityReport::DENOMINATOR , QME::QualityReport::EXCLUSIONS, QME::QualityReport::NUMERATOR , "NUMEX" ,QME::QualityReport::EXCEPTIONS].each do |code|
@@ -247,11 +295,11 @@ module Cypress
         expected_result = @test_execution.expected_result(measure)
         reported_result = @test_execution.reported_result(measure)
 
-        measure = "#{measure.nqf_id} - #{measure.name} "
-        measure.concat(" - #{measure.subtitle}") if measure["sub_id"]
+        measure_name = "#{measure.nqf_id} - #{measure.name} "
+        measure_name.concat(" - #{measure.subtitle}") if measure["sub_id"]
         patients = "#{reported_result[QME::QualityReport::POPULATION]}/#{expected_result[QME::QualityReport::POPULATION]}"
 
-        row << measure
+        row << measure_name
         row << patients
 
         [QME::QualityReport::MSRPOPL , QME::QualityReport::OBSERVATION].each do |code|
