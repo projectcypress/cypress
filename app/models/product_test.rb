@@ -207,6 +207,12 @@ class ProductTest
                    validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
                   end
                 end
+                reported_sup_value.each_pair do |code,value|
+                  if sup_value[code].nil?
+                   err = "unexpected supplemental data for #{pop_key} #{sup_key} #{code}"
+                   validation_errors << ExecutionError.new(message: err, msg_type: :error, measure_id: expected_result["measure_id"] , validator_type: :result_validation, stratification: stratification)
+                  end
+                end
               end
             end
           end
