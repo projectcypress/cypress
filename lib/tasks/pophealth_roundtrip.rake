@@ -1,6 +1,4 @@
 namespace :pophealth_roundtrip do
-  require 'pry'
-  require 'pry-nav'
 
   task :setup => :environment
 

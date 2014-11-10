@@ -1,6 +1,4 @@
 namespace :measure_evaluation_validator do
-  require 'pry'
-  require 'pry-nav'
 
   task :setup => :environment
 
