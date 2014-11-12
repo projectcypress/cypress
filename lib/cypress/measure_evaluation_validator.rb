@@ -9,7 +9,9 @@ module Cypress
         :telecoms=>[],
         :time=>nil,
         :organization=>{:ids=>[{:root=>"authorsOrganizationRoot", :extension=>"authorsOrganizationExt"}], :name=>""}}],
-     :custodian=>{:ids=>[{:root=>"custodianRoot", :extension=>"custodianExt"}], :person=>{:given=>"", :family=>""}, :organization=>{:ids=>[{:root=>"custodianOrganizationRoot", :extension=>"custodianOrganizationExt"}], :name=>""}},
+     :custodian=>{:ids=>[{:root=>"custodianRoot", :extension=>"custodianExt"}],
+                  :person=>{:given=>"", :family=>""}, :organization=>{:ids=>[{:root=>"custodianOrganizationRoot",
+                  :extension=>"custodianOrganizationExt"}], :name=>""}},
      :legal_authenticator=>
       {:ids=>[{:root=>"legalAuthenticatorRoot", :extension=>"legalAuthenticatorExt"}],
        :addresses=>[],
@@ -90,7 +92,7 @@ module Cypress
 
     end
 
-    # Generates all cat3 tests as single tests, then generates a cat1 test for each, 
+    # Generates all cat3 tests as single tests, then generates a cat1 test for each,
     # then downloads a Cat1 zip and uploads it to Cypress
     def evaluate_all_cat1(args = nil)
       opts = args ? @options.merge(args) : @options
@@ -180,7 +182,13 @@ module Cypress
       product = Product.find_or_create_by({name: "MeasureEvaluationProduct", vendor_id: vendor.id})
       product.users << user
       product.save
-      product_test = test_type.camelize.constantize.find_or_create_by({name: "measureEvaluationTest", bundle: bundle.id, effective_date: bundle.effective_date, product: product, measure_ids: opts[:measure_ids], description: opts[:measure_ids].join(", ")})
+      product_test_class = test_type.camelize.constantize
+      product_test = product_test_clas.find_or_create_by({name: "measureEvaluationTest",
+                                                          bundle: bundle.id,
+                                                          effective_date: bundle.effective_date,
+                                                          product: product,
+                                                          measure_ids: opts[:measure_ids],
+                                                          description: opts[:measure_ids].join(", ")})
       product_test.user = user
       product_test.save
       product_test
@@ -215,21 +223,21 @@ module Cypress
     # Uploads all cat 3's, and dumps failure data to the terminal
     def upload_all_cat3s
       print "Generating and uploading QRDA Cat 3s..."
-      
+
         ProductTest.where({:name => "measureEvaluationTest"}).each do |t|
           begin
             xml = generate_cat3(t.measure_ids, t.id)
             upload_cat3(t, xml)
           rescue NoMethodError => e
-            $stderr.puts "Cat 3 test #{t.id} failed: #{e}" 
+            $stderr.puts "Cat 3 test #{t.id} failed: #{e}"
           end
         end
-      
+
 
       puts "done"
     end
 
-    # Uploads a single Cat 3 
+    # Uploads a single Cat 3
     def upload_cat3(product_test, xml)
       # Generate a temporary file that acts just like a normal file, but is given a unique name in the './tmp' directory
       tmp = Tempfile.new(['qrda_upload', '.xml'], './tmp')

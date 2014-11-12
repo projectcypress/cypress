@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] = "test"
 
 require_relative "./simplecov"
+require 'cane'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/setup'
