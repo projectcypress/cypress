@@ -15,10 +15,10 @@ module QrdaExecutionHelper
 def node_type(type)
   return NODE_TYPES[type]
 end
-   # method used to mark the elements in the document that have errors so they 
+   # method used to mark the elements in the document that have errors so they
   # can be linked to
   def match_errors(doc, errors)
-    doc = Nokogiri::XML(doc) if doc.kind_of? String 
+    doc = Nokogiri::XML(doc) if doc.kind_of? String
     uuid = UUID.new
     error_map = {}
     error_id = 0
@@ -38,7 +38,7 @@ end
         end
         elem = elem.root if node_type(elem.type) == :document
         if elem
-          
+
           unless elem['error_id']
 
             elem['error_id']= uuid.generate.to_s
@@ -50,7 +50,7 @@ end
 
     return doc, error_map, error_attributes
   end
-  
+
   # helper method used to generate cat 3 test results
   def aggregated_measure_results(pt)
     results = {}
@@ -59,7 +59,7 @@ end
       population_ids = value["population_ids"]
       strat_id = population_ids["stratification"]
       population_ids.each_pair do |pop_key,pop_id|
-        if pop_key != "stratification" 
+        if pop_key != "stratification"
           pop_result  = result["population_ids"][pop_id] ||= {"type"=> pop_key}
           pop_val = value[pop_key]
           if strat_id

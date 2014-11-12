@@ -58,6 +58,8 @@ GEM
       actionpack (>= 3.2)
       thread_safe
     cancan (1.6.10)
+    cane (2.6.2)
+      parallel
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -98,7 +100,6 @@ GEM
     json (1.8.1)
     libv8 (3.16.14.3)
     log4r (1.1.10)
-    log_switch (0.4.0)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
     mail (2.5.4)
@@ -137,6 +138,7 @@ GEM
     optionable (0.2.0)
     origin (2.1.1)
     orm_adapter (0.5.0)
+    parallel (1.0.0)
     pdf-core (0.2.5)
     pdf-reader (0.9.0)
       Ascii85 (>= 0.9)
@@ -207,14 +209,6 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     systemu (2.6.4)
-    tailor (1.4.0)
-      log_switch (>= 0.3.0)
-      nokogiri (>= 1.6.0)
-      term-ansicolor (>= 1.0.5)
-      text-table (>= 1.2.2)
-    term-ansicolor (1.3.0)
-      tins (~> 1.0)
-    text-table (1.2.3)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
@@ -225,7 +219,6 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
-    tins (1.3.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -253,6 +246,7 @@ DEPENDENCIES
   bson
   cache_digests
   cancan (~> 1.6.7)
+  cane
   carrierwave
   carrierwave-mongoid
   delayed_job_mongoid
@@ -277,7 +271,6 @@ DEPENDENCIES
   sass
   simple_form
   simplecov
-  tailor
   therubyracer
   therubyrhino
   thin

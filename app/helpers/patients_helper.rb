@@ -1,17 +1,17 @@
 module PatientsHelper
   include HealthDataStandards::Export::ViewHelper
-  
-  
+
+
   def race(patient)
      if patient.race.kind_of? String
        return patient.race
      end
-     
+
      r = Race.from_code(patient.race["code"]).first if patient.race
      r = r || {}
      r["name"] || ""
   end
-  
+
   def ethnicity(patient)
     if patient.ethnicity.kind_of? String
       return patient.ethnicity
@@ -20,6 +20,6 @@ module PatientsHelper
     e = e || {}
     e["name"] || ""
   end
-  
+
 
 end

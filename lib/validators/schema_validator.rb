@@ -1,15 +1,15 @@
 module Validators
   module Schema
-    class Validator 
-      
+    class Validator
+
       attr_accessor :validator_name
-      
+
       def initialize(name, schema_file)
         @validator_name = name
         @schema_file = schema_file
         @xsd = Nokogiri::XML::Schema(File.new(@schema_file))
       end
-      
+
       # Validate the document against the configured schema
       def validate(document,data={})
           errors = []
@@ -23,11 +23,10 @@ module Validators
                 :file_name => data[:file_name],
                 location: "/"
               )
-            
+
           end
        errors
       end
     end
   end
 end
-  

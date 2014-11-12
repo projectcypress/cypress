@@ -66,17 +66,14 @@ end
 group :test, :develop do
 	gem 'pry'
   gem 'pry-nav'
-#  gem 'pry-debugger'
   gem 'turn', :require => false
-
-  gem "tailor"
-  gem 'mocha', :require => false
-  gem 'webmock'
-
+  gem "cane"
   gem 'ruby-graphviz'
 end
 
 group :test do
+  gem 'mocha', :require => false
+  gem 'webmock'
   gem 'rails-perftest'
   gem 'ruby-prof'
   gem 'simplecov', :require => false

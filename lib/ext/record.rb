@@ -14,7 +14,7 @@ class Record
 
   def bundle
     if !self["bundle_id"].nil?
-  	  Bundle.find(self["bundle_id"])
+      Bundle.find(self["bundle_id"])
     elsif !self["test_id"].nil?
       ProductTest.find(self["test_id"]).bundle
     end

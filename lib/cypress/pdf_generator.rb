@@ -189,7 +189,7 @@ module Cypress
       @test_execution.product_test.records.each do |rec|
         table_content << ["#{rec.last}, #{rec.first}","#{rec.original_record.last}, #{rec.original_record.first}"] if rec.original_record
       end
-      
+
       set_style({size: 8})
       @pdf.table(table_content, column_widths: [150, 150])
       set_default_style

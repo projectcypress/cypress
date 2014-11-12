@@ -3,26 +3,26 @@ class AdminController < ApplicationController
   before_filter :validate_authorization!
 
   add_breadcrumb 'Dashboard',"/"
-	add_breadcrumb 'Admin',"/admin/index"
+  add_breadcrumb 'Admin',"/admin/index"
   add_breadcrumb "Valuesets", '', :only=>"valuesets"
   add_breadcrumb "Users", '', :only=>"users"
 
-	def index
-		
-	end
+  def index
+
+  end
 
 
-	def users
-		@users = User.all
-	end
+  def users
+    @users = User.all
+  end
 
-	def import_bundle
+  def import_bundle
     begin
-  		bundle = params[:bundle]
-  		importer = HealthDataStandards::Import::Bundle::Importer
-  	  @bundle_contents = importer.import(bundle, {:update_measures=>params[:update_measures],
-                                                  :delete_existing => params[:delete_existing]})  
-      b = Bundle.find(@bundle_contents["_id"])  
+      bundle = params[:bundle]
+      importer = HealthDataStandards::Import::Bundle::Importer
+      @bundle_contents = importer.import(bundle, {:update_measures=>params[:update_measures],
+                                                  :delete_existing => params[:delete_existing]})
+      b = Bundle.find(@bundle_contents["_id"])
       b[:active] = params[:active]
       b.save
     rescue
@@ -30,7 +30,7 @@ class AdminController < ApplicationController
     end
 
     redirect_to :action=>:index
-	end
+  end
 
   def clear_database
     ["bundles", "measures", "products", "vendors", "test_executions", "product_tests", "records", "patient_cache", "query_cache", "health_data_standards_svs_value_sets", "fs.chunks", "fs.files"].each do|collection|
@@ -64,7 +64,7 @@ class AdminController < ApplicationController
         render :text => "No - <a href=\"#\" class=\"enable\" data-bundleid=\"#{bundle.id}\">enable</span>"
     end
   end
-  
+
   def valuesets
     query = []
     search = params[:search] || ""
@@ -74,7 +74,7 @@ class AdminController < ApplicationController
     @page = params[:page] || 1
     @limit = 100
     @skip = (@page.to_i - 1) * @limit
-  
+
     @valuesets = HealthDataStandards::SVS::ValueSet.or(query).skip(@skip).limit(@limit).order_by(:oid=>1)
     @page_count =  (@valuesets.count.to_f / @limit.to_f).ceil
   end
@@ -133,7 +133,7 @@ private
       render :text => "User not found"
     end
   end
-  
+
   def validate_authorization!
     authorize! :admin, :users
   end

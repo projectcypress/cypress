@@ -39,7 +39,11 @@ module Cypress
       product = Product.find_or_create_by({name: "popHealthRoundtripProduct", vendor_id: vendor.id})
       product.users << user
       product.save
-      product_test = test_type.camelize.constantize.new({name: "popHealthRoundtripTest", bundle: bundle.id, effective_date: bundle.effective_date, product: product, measure_ids: opts[:measure_ids]})
+      product_test = test_type.camelize.constantize.new({name: "popHealthRoundtripTest",
+                                                         bundle: bundle.id,
+                                                         effective_date: bundle.effective_date,
+                                                         product: product,
+                                                         measure_ids: opts[:measure_ids]})
       product_test.user = user
       product_test.save
       Cypress::CreateDownloadZip.create_test_zip(product_test.id, "qrda")
@@ -66,7 +70,10 @@ module Cypress
 
       opts[:measure_ids].collect do |measure_id|
         HealthDataStandards::CQM::Measure.where({hqmf_id: measure_id}).collect do |measure|
-          JSON.parse(`curl -X POST -u #{pophealth_user}:#{pophealth_password} --header "Content-Type:application/x-www-form-urlencoded" --data "measure_id=#{measure.hqmf_id}&sub_id=#{measure.sub_id}effective_date=#{bundle.effective_date}" #{url}/api/queries`)['ids']
+          JSON.parse(`curl -X POST -u #{pophealth_user}:#{pophealth_password}
+                      --header "Content-Type:application/x-www-form-urlencoded"
+                      --data "measure_id=#{measure.hqmf_id}&sub_id=#{measure.sub_id}effective_date=#{bundle.effective_date}"
+                      #{url}/api/queries`)['ids']
         end
       end
     end

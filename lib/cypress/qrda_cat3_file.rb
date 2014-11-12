@@ -5,12 +5,12 @@ module Cypress
 
     SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat III Schematron", SCHEMATRON,ISO_SCHEMATRON,true,{"phase" => "errors"})
     SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat III Schematron", SCHEMATRON,ISO_SCHEMATRON,true,{"phase" => "warnings"})
-    
+
 
     # Nothing to see here - Move along
     def validate(msg_type = :error)
       file_errors = []
-      file_errors.concat QRDA_SCHEMA_VALIDATOR.validate(@document, {msg_type: msg_type}) 
+      file_errors.concat QRDA_SCHEMA_VALIDATOR.validate(@document, {msg_type: msg_type})
       # Valdiate aginst the generic schematron rules
 
       if (msg_type == :error)
@@ -20,6 +20,6 @@ module Cypress
       end
       file_errors
     end
-    
+
   end
 end

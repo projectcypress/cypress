@@ -8,7 +8,7 @@ module MeasuresHelper
       ''
     end
   end
-  
+
   def measure_categories(type = :all_by_measure)
     case type
       when :top_level
