@@ -87,7 +87,7 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml')), "application/xml")
     te = ptest.execute({results: xml})
 
-    assert_equal 1 ,te.execution_errors.length, "should error on missing populations" 
+    assert_equal 1, te.execution_errors.length, "should error on missing populations" 
 
   end
 
@@ -107,6 +107,13 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     assert_equal 9, te.execution_errors.length, "should error on missing measure entry" 
   end
 
+  test "should cause error  when extra supplemental data is provided" do
+    ptest = ProductTest.find("51703a6a3054cf8439000044")
+    xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental.xml')), "application/xml")
+    te = ptest.execute({results: xml})
+    # 1 Error for additional Race 
+    assert_equal 1 ,te.execution_errors.length, "should error on additional supplemental data" 
+  end
 
   
 end

@@ -178,13 +178,13 @@ Measure Section
 							<templateId root="2.16.840.1.113883.10.20.24.3.98"/>
 							<!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
 							<templateId root="2.16.840.1.113883.10.20.27.3.1"/>
-							<id root="8A4D92B2-397A-48D2-0139-7CC6B5B8011F"/>
+							<id extension="8A4D92B2-397A-48D2-0139-7CC6B5B8011E"/>
 							<statusCode code="completed"/>
 							<reference typeCode="REFR">
 								<externalDocument classCode="DOC" moodCode="EVN">
 									<!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
 									<!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
-									<id root="2.16.840.1.113883.4.738"/>
+									<id root="8A4D92B2-397A-48D2-0139-7CC6B5B8011E"/>
 									
 									<!-- SHOULD This is the title of the eMeasure -->
 									<text>Weight Assessment and Counseling for Nutrition and Physical Activity for Children and Adolescents</text>
@@ -939,6 +939,35 @@ Measure Section
 											
 											<value xsi:type="CD" 
 												code="1002-5"
+												codeSystem="2.16.840.1.113883.6.238"/>
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<!-- Aggregate Count template -->
+												<observation classCode="OBS" moodCode="EVN">
+													<templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+													<code code="MSRAGG" 
+														displayName="rate aggregation" 
+														codeSystem="2.16.840.1.113883.5.4" 
+														codeSystemName="ActCode"/>
+													<value xsi:type="INT" value="1"/>
+													<methodCode code="COUNT" 
+														displayName="Count" 
+														codeSystem="2.16.840.1.113883.5.84" 
+														codeSystemName="ObservationMethod"/>
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="COMP">
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- Race Supplemental Data -->
+											<templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+											<id nullFlavor="NA" />
+											<code code="103579009" 
+												codeSystem="2.16.840.1.113883.6.96"/>
+											<statusCode code="completed"/>
+											
+											<value xsi:type="CD" 
+												code="2028-9"
 												codeSystem="2.16.840.1.113883.6.238"/>
 											<entryRelationship typeCode="SUBJ" inversionInd="true">
 												<!-- Aggregate Count template -->

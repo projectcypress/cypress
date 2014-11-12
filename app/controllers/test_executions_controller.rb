@@ -13,8 +13,20 @@ class TestExecutionsController < ApplicationController
 
   def create
     @product_test = ProductTest.find(params[:product_test_id])
-    @te = @product_test.execute(params[:test_execution])
-    redirect_to product_test_path(@te.product_test,:test_execution_id=>@te.id)
+    begin
+      @te = @product_test.execute(params[:test_execution])
+      if @te.passed?
+        flash[:success] = "Test Passed"
+      else
+        flash[:info] = "Test detected errors with submission"
+      end
+      redirect_to product_test_path(@te.product_test,:test_execution_id=>@te.id)
+    rescue ArgumentError => e
+      flash[:error] = e.message
+      redirect_to product_test_path(@product_test)
+    end
+    
+
   end
 
   def destroy
