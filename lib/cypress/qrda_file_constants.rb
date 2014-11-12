@@ -1,3 +1,7 @@
+require 'validators/schema_validator'
+require 'quality-measure-engine'
+
+
 CV_METHOD_CODES = ["OBSRV", "COUNT","SUM", "AVERAGE","STDEV.S","VARIANCE.S","STDEV.P","VARIANCE.P","MIN","MAX", "MEDIAN", "MODE"]
 CV_POPULATION_CODE = QME::QualityReport::OBSERVATION
 
