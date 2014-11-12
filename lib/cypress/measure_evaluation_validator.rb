@@ -200,7 +200,6 @@ module Cypress
       effective_date = Time.gm(APP_CONFIG['effective_date']['year'],APP_CONFIG['effective_date']['month'],APP_CONFIG['effective_date']['day'], 23, 59, 59)
       end_date = Time.at(effective_date.to_i)
       filter = measure_ids==["all"] ? {} : {:hqmf_id.in => measure_ids}
-       # binding.pry if HealthDataStandards::CQM::Measure.top_level.where(filter).first.hqmf_id == "40280381-43DB-D64C-0144-64E3651A2DCC"
       return exporter.export(HealthDataStandards::CQM::Measure.top_level.where(filter),
                               generate_header,
                               effective_date.to_i,
