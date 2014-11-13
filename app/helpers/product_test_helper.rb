@@ -29,8 +29,8 @@ module ProductTestHelper
   end
 
   def test_type(test)
-  	type = {CalculatedProductTest=>"EP", InpatientProductTest=>"EH", QRDAProductTest=>"QRDA"}[test.class]
-  	type || "Unkown"
+    type = {CalculatedProductTest=>"EP", InpatientProductTest=>"EH", QRDAProductTest=>"QRDA"}[test.class]
+    type || "Unkown"
   end
 
   def group_measures_by_type(measures)

@@ -74,7 +74,10 @@ module Validators
               if dc[:template] != "N/A"
                 nodes = doc.xpath("//cda:templateId[@root='#{dc[:template]}']/..//*[@sdtc:valueSet='#{dc[:oid]}']")
                 if nodes.length == 0
-                  errors << ExecutionError.new(message: "Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",msg_type: :warning, validator_type: :result_validation, file_name: options[:file_name])
+                  errors << ExecutionError.new(message: "Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
+                                               msg_type: :warning,
+                                               validator_type: :result_validation,
+                                               file_name: options[:file_name])
                 end
               end
 
@@ -82,7 +85,10 @@ module Validators
           end
         end
       else
-        errors << ExecutionError.new(message: "Automated smoking gun data checking is not compatible with bundle #{@bundle.version}, please refer to checklists ",msg_type: :warning, validator_type: :result_validation, file_name: options[:file_name])
+        errors << ExecutionError.new(message: %W{Automated smoking gun data checking is not compatible
+                                              with bundle #{@bundle.version}, please refer to checklists},
+                                     msg_type: :warning, validator_type: :result_validation,
+                                     file_name: options[:file_name])
       end
       errors
     end

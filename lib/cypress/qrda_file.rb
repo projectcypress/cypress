@@ -14,8 +14,8 @@ module Cypress
 
     #takes a document and a list of 1 or more id hashes, e.g.:
     #[{measure_id:"8a4d92b2-36af-5758-0136-ea8c43244986", set_id:"03876d69-085b-415c-ae9d-9924171040c2", ipp:"D77106C4-8ED0-4C5D-B29E-13DBF255B9FF", den:"8B0FA80F-8FFE-494C-958A-191C1BB36DBF", num:"9363135E-A816-451F-8022-96CDA7E540DD"}]
-    #returns nil if nothing matching is found 
-    # returns a hash with the values of the populations filled out along with the population_ids added to the result 
+    #returns nil if nothing matching is found
+    # returns a hash with the values of the populations filled out along with the population_ids added to the result
     def extract_results_by_ids(measure_id,  ids)
       results = nil
       _ids = ids.dup
@@ -39,8 +39,10 @@ module Cypress
     end
 
     def find_measure_node(id)
-       xpath_measures = %{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"] and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
-       return @document.xpath(xpath_measures) 
+       xpath_measures = %Q{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section
+        /cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]
+         and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
+       return @document.xpath(xpath_measures)
     end
 
     def get_measure_components(n,ids, stratification)
@@ -51,7 +53,7 @@ module Cypress
         if (k == CV_POPULATION_CODE)
           msrpopl = ids[QME::QualityReport::MSRPOPL]
           val, sup = extract_cv_value(n,v,msrpopl, stratification)
-        else 
+        else
           val,sup =extract_component_value(n,k,v,stratification)
         end
 
@@ -101,7 +103,7 @@ module Cypress
 
     def extract_supplemental_data(cv)
       ret = {}
-      SUPPLEMENTAL_DATA_MAPPING.each_pair do |supp, id| 
+      SUPPLEMENTAL_DATA_MAPPING.each_pair do |supp, id|
         key_hash = {}
         xpath = "cda:entryRelationship/cda:observation[cda:templateId[@root='#{id}']]"
         (cv.xpath(xpath) || []).each do |node|
@@ -121,7 +123,7 @@ module Cypress
     #given an observation node with an aggregate count node, return the reported and expected value within the count node
     def get_cv_value(node, cv_id)
       xpath_value = %{cda:entryRelationship/cda:observation[./cda:templateId[@root="2.16.840.1.113883.10.20.27.3.2"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{cv_id.upcase}']]/cda:value}
-      
+
       value_node = node.at_xpath(xpath_value)
       value = convert_value(value_node) if value_node
       value
@@ -131,7 +133,7 @@ module Cypress
     #given an observation node with an aggregate count node, return the reported and expected value within the count node
     def get_aggregate_count(node)
       xpath_value = 'cda:entryRelationship/cda:observation[./cda:templateId[@root="2.16.840.1.113883.10.20.27.3.3"]]/cda:value'
-      
+
       value_node = node.at_xpath(xpath_value)
       value = convert_value(value_node) if value_node
       value

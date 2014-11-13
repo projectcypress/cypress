@@ -102,10 +102,10 @@ class CalculatedProductTest < ProductTest
                                calculated_test_id: self.id)
         records = self.records.where({"medical_record_number" => {"$in"=>mrns}})
 
-        records.each do |rec| 
+        records.each do |rec|
           new_results = results.select { |res| res.value.patient_id == rec.id }
           new_rec = rec.dup
-          new_rec[:test_id] = qrda.id 
+          new_rec[:test_id] = qrda.id
           new_rec.save
 
           new_results.each do |res|
@@ -114,7 +114,7 @@ class CalculatedProductTest < ProductTest
             res_clone["value"]["test_id"]=qrda.id
             res_clone["value"]["patient_id"] = new_rec.id
             res_clone.save
-          end 
+          end
         end
 
        qrda.save

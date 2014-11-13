@@ -15,7 +15,7 @@ module Cypress
     def initialize(options)
       @options = options
     end
-    
+
     def perform
 
       # Clone AMA records from Mongo
@@ -39,7 +39,7 @@ module Cypress
           plus_minus = rand(2) == 0 ? 1 : -1 # use this to make move dates forward or backwards
           date_shift = rand(seconds) * plus_minus
           patient.shift_dates(date_shift)
-          patients << patient 
+          patients << patient
         end
       end
 
@@ -52,7 +52,7 @@ module Cypress
 
     def clone_and_save_record(record,  date_shift=nil)
         cloned_patient = record.clone
-        cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number 
+        cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number
         cloned_patient.medical_record_number = next_medical_record_number
         randomize_name(cloned_patient) if options['randomize_names']
         cloned_patient.shift_dates(date_shift) if date_shift
@@ -64,10 +64,10 @@ module Cypress
     def randomize_name(record)
       @used_names ||= {}
       @used_names[record.gender] ||= []
-      begin 
+      begin
         record.first = APP_CONFIG["randomization"]["names"]["first"][record.gender].sample
         record.last = APP_CONFIG["randomization"]["names"]["last"].sample
-      end while(@used_names[record.gender].find("#{record.first}-#{record.last}").nil?)  
+      end while(@used_names[record.gender].find("#{record.first}-#{record.last}").nil?)
       @used_names[record.gender] << "#{record.first}-#{record.last}"
     end
 

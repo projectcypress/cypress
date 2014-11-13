@@ -10,7 +10,7 @@ module Cypress
   class HTMLExporter
     EXPORTER = HealthDataStandards::Export::HTML.new
     attr_accessor :measures
-    
+
     def initialize(measures,start_time,end_time)
       @measures = measures.to_a
       @start_time = start_time
@@ -57,7 +57,7 @@ module Cypress
       records = test_execution.product_test.records
       records_path = File.join(zip_path, "records")
       write_patients(test_execution.product_test, records_path)
-      
+
       pdf_generator = Cypress::PdfGenerator.new(test_execution)
       pdf = pdf_generator.generate(zip_path)
 
@@ -65,12 +65,12 @@ module Cypress
       if  test_execution.artifact
         name = test_execution.artifact.file.uploaded_filename
         path  = test_execution.artifact.file.path
- 
-        # copy to ziup path 
+
+        # copy to ziup path
         FileUtils.copy(path, zip_path)
         # vendor_uploaded_results = test_execution.artifact.file.force_encoding("UTF-8")
         # File.open(File.join(zip_path, "vendor-uploaded-results.xml"), "w") {|file| file.write(vendor_uploaded_results)}
-      end 
+      end
 
       Zip::ZipFile.open("#{zip_path}.zip", Zip::ZipFile::CREATE) do |zip|
         Dir[File.join(records_path, "**", "**")].each do |file|
@@ -88,7 +88,7 @@ module Cypress
       zip.write(File.read("#{zip_path}.zip"))
       zip.close
       FileUtils.rm_r execution_path
-      
+
       zip
     end
 
@@ -103,7 +103,7 @@ module Cypress
       html_exporter = Cypress::HTMLExporter.new(measures,start_date,end_date)
       test_execution.records.each do |patient|
         safe_first_name = patient.first.gsub("'", "")
-        safe_last_name = patient.last.gsub("'", "")   
+        safe_last_name = patient.last.gsub("'", "")
         filename ="#{safe_first_name}_#{safe_last_name}"
         json = JSON.pretty_generate(JSON.parse(patient.as_json(:except => [ '_id','measure_id' ]).to_json))
 
@@ -113,14 +113,14 @@ module Cypress
         File.open(File.join(path, "json", "#{filename}.json"), "w") {|file| file.write(json)}
         File.open(File.join(path, "qrda", "#{filename}.xml"), "w") {|file| file.write(qrda)}
       end
-    
+
   end
 
     def self.zip(file, patients, format)
-      
+
         if patients.first
           test = ProductTest.where({"_id" => patients.first["test_id"]}).first
-          if test 
+          if test
             measures = test.measures.top_level.to_a
             start_date = test.start_date
             end_time = test.end_date
@@ -129,7 +129,7 @@ module Cypress
         measures ||= Measure.top_level
         end_date ||= Time.at(patients.first.bundle.effective_date).gmtime
         start_date ||= end_date.years_ago(1)
-      if format.to_sym == :qrda  
+      if format.to_sym == :qrda
         formater = Cypress::QRDAExporter.new(measures,start_date,end_date)
       else
         formater = Cypress::HTMLExporter.new(measures,start_date,end_date)
@@ -139,8 +139,8 @@ module Cypress
         patients.each_with_index do |patient, i|
           safe_first_name = patient.first.gsub("'", '')
           safe_last_name = patient.last.gsub("'", '')
-          next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"       
-          z.put_next_entry("#{next_entry_path}.#{FORMAT_EXTENSIONS[format.to_sym]}") 
+          next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
+          z.put_next_entry("#{next_entry_path}.#{FORMAT_EXTENSIONS[format.to_sym]}")
           if formater == HealthDataStandards::Export::HTML
             z << formater.new.export(patient)
           else
@@ -153,4 +153,3 @@ module Cypress
   end
 
 end
-

@@ -18,5 +18,8 @@ end
 
 Rake::Task["test"].clear
 task :test => [:test_unit] do
+  Rake::Task["quality_post"].invoke
   system("open coverage/index.html")
 end
+
+task :test_unit => :quality_pre

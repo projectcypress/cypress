@@ -1,6 +1,6 @@
 module Logging
 
-  @@fallback = nil 
+  @@fallback = nil
 
   # Use this for test debugging output when it isn't convenient to set a logger.
   def self.fallback=(stream)

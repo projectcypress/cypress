@@ -16,10 +16,10 @@ module Breadcrumbs
       before_filter options do |controller|
         resource = controller.send(:instance_variable_get, "@#{instance_variable}")
         controller_path = controller.send(:controller_path)
-        
+
         name = 'undefined'
         if (resource.respond_to? title)
-          name = resource.send(title) 
+          name = resource.send(title)
         elsif (resource.respond_to? :[])
           name = resource[title] || resource[title.to_s]
         end
@@ -36,7 +36,7 @@ module Breadcrumbs
         controller.send(:add_breadcrumb, values[:title], values[:url]) if values[:title]
       end
     end
-    
+
     def add_breadcrumb_for_actions *args
       options = args.extract_options!
       before_filter options do |controller|
