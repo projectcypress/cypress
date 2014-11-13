@@ -24,7 +24,7 @@
 #  1) Installs server support packages
 #  2) Configures system to use an HTTP proxy if necessary
 #  3) Install Git
-#  4) Install RVM and Ruby 2.1.2
+#  4) Install RVM and Ruby 2.1.5
 #  5) Install MongoDB
 #  6) Install libxml2 2.8 from source
 #  7) Install Nokogiri
@@ -41,7 +41,7 @@
 
 # Variables that determine the versions of components we will install
 cypress_tag="v2.5.1"
-install_ruby_ver="2.1.2"
+install_ruby_ver="2.1.5"
 install_bundler_ver="1.6.3"
 install_libxml_ver="2.8.0"
 
