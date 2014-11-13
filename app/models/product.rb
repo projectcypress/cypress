@@ -16,8 +16,8 @@ class Product
     cat3_tests = {}
     cat1_tests = []
     self.product_tests.each do |p|
-      if p.is_a? CalculatedProductTest 
-        cat3_tests[p.id] = p
+      if p.is_a? CalculatedProductTest
+        cat3_tests[p.id.to_s] = p
       else
         cat1_tests << p
       end
@@ -25,7 +25,7 @@ class Product
 
     if !cat1_tests.empty?
       sorted_tests = cat1_tests.group_by do |p|
-        cat3_tests[p.calculated_test_id]
+        cat3_tests[p.calculated_test_id.to_s]
       end
       cat3_tests.each do |id, t|
         sorted_tests[t] = [] if sorted_tests[t].nil?
