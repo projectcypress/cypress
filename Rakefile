@@ -4,7 +4,6 @@ require 'rails'
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
-require 'simplecov'
 require "quality-measure-engine"
 
 Cypress::Application.load_tasks

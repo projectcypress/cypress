@@ -76,7 +76,7 @@ group :test do
   gem 'webmock'
   gem 'rails-perftest'
   gem 'ruby-prof'
-  gem 'simplecov', :require => false
+  gem 'simplecov'
 end
 
 group :production do
