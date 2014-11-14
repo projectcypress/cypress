@@ -41,5 +41,11 @@ class VendorTest < ActiveSupport::TestCase
     assert_equal 1.0,  @vendor2.success_rate  , "Vendor reporting wrong success rate"
     assert_equal 0.0, @emptyVendor.success_rate  , "Empty vendor reporting wrong success rate"
   end
+
+  test "Should know if all products are passing" do
+    assert_equal false, @vendor1.passing?, "Vendor pass status doesn't match expected"
+    assert_equal true, @vendor2.passing?, "Vendor pass status doesn't match expected"
+    assert_equal true, @emptyVendor.passing?, "Vendor pass status doesn't match expected"
+  end
   
 end
