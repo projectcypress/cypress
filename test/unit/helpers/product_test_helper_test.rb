@@ -2,6 +2,13 @@ require 'test_helper'
 
 class ProductTestHelperTest < ActionView::TestCase
 
+  setup do
+    collection_fixtures('vendors', '_id')
+    collection_fixtures('test_executions', '_id', "product_test_id")
+    collection_fixtures('products', '_id','vendor_id')
+    collection_fixtures('product_tests', '_id','product_id')
+  end
+
 	test "Should report result class" do
     assert result_class('-',0) == 'na'
     assert result_class(nil,0) == 'na'

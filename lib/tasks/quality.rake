@@ -1,4 +1,4 @@
-# begin
+begin
   require 'cane/rake_task'
 
   desc "Run cane to check quality metrics"
@@ -9,7 +9,7 @@
     cane.abc_max = 30
     cane.style_measure = 240
     cane.no_doc = true
-    cane.max_violations = 10
+    cane.max_violations = 9
     cane.parallel
   end
 
@@ -19,9 +19,9 @@
     cane.no_doc = true
     cane.no_readme = true
     cane.no_style = true
-    cane.add_threshold 'coverage/covered_percent', :>=, 77.45
+    cane.add_threshold 'coverage/covered_percent', :>=, 77.60
   end
 
-# rescue LoadError
-#   warn "cane not available, quality task not provided."
-# end
+rescue LoadError
+  warn "cane not available, quality task not provided."
+end
