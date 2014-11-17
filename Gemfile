@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'bson'
-gem 'rails', '~> 4.1.7'
+gem 'rails', '~> 4.1.8'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rake'
