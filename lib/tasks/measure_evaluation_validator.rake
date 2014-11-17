@@ -39,7 +39,7 @@ namespace :measure_evaluation_validator do
     mev.evaluate_all_cat1
   end
 
-  task :evaluate_all, [:cypress_user,:num_tests,:num_measures] => :setup do |t, args|
+  task :evaluate_all, [:num_tests,:num_measures,:cypress_user] => :setup do |t, args|
     mev = Cypress::MeasureEvaluationValidator.new(args.to_hash)
     mev.evaluate_all_singly
     mev.evaluate_multi_measures

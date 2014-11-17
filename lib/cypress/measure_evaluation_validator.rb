@@ -183,7 +183,7 @@ module Cypress
       product.users << user
       product.save
       product_test_class = test_type.camelize.constantize
-      product_test = product_test_clas.find_or_create_by({name: "measureEvaluationTest",
+      product_test = product_test_class.find_or_create_by({name: "measureEvaluationTest",
                                                           bundle: bundle.id,
                                                           effective_date: bundle.effective_date,
                                                           product: product,
