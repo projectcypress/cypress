@@ -7,6 +7,8 @@ class PatientZipperTest < ActiveSupport::TestCase
 
     collection_fixtures('records','_id','bundle_id')
     collection_fixtures('bundles', '_id')
+    collection_fixtures('tests', '_id')
+    collection_fixtures('test_executions', '_id')
     @patients = Record.where("gender" => "F")
   end
 
@@ -55,6 +57,40 @@ class PatientZipperTest < ActiveSupport::TestCase
     end
     File.delete(file.path)
     assert count == 6 , "Zip file has wrong number of records should be 6 , was #{count}"
+  end
+
+  test "should create valid artifact zip" do
+    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    artifact = Artifact.new(file: File.new(filename))
+    te = TestExecution.find("4f6b78971d41c851eb0004aa")
+    artifact.test_execution = te
+
+    zip = Cypress::PatientZipper.zip_artifacts(te)
+
+    xml_present = false
+    html_present = false
+    xml_present = false
+    pdf_present = false
+    json_present = false
+    artifact_zip_present = false
+    Zip::ZipFile.foreach(zip.path) do |zip_entry|
+      if zip_entry.name.include?('.pdf')
+        pdf_present = true
+      elsif zip_entry.name.include?('.zip')
+        artifact_zip_present = true
+      elsif zip_entry.name.include?('/qrda')
+        xml_present = true
+      elsif zip_entry.name.include?('/html')
+        html_present = true
+      elsif zip_entry.name.include?('/json')
+        json_present = true
+      end
+    end
+    assert_equal pdf_present, true, "PDF not present"
+    assert_equal artifact_zip_present, true, "Artifact not present"
+    assert_equal html_present, true, "HTML folder not present"
+    assert_equal xml_present, true, "QRDA folder not present"
+    assert_equal json_present, true, "JSON folder not present"
   end
 
 
