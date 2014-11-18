@@ -47,31 +47,73 @@ module Cypress
   class PatientZipper
 
     FORMAT_EXTENSIONS = {html: "html", qrda: "xml"}
-    FORMATERS = {:html => HealthDataStandards::Export::HTML.new}
-
 
     def self.zip_artifacts(test_execution)
       execution_path = File.join("tmp", "te-#{test_execution.id}")
       zip_path = File.join(execution_path, "#{Time.now.to_i}")
       FileUtils.mkdir_p(zip_path)
-      records = test_execution.product_test.records
-      records_path = File.join(zip_path, "records")
-      write_patients(test_execution.product_test, records_path)
+      rec_path = File.join(zip_path, "records")
 
-      pdf_generator = Cypress::PdfGenerator.new(test_execution)
-      pdf = pdf_generator.generate(zip_path)
+      self.write_patients(test_execution.product_test, rec_path)
 
+      pdf = Cypress::PdfGenerator.new(test_execution).generate(zip_path)
 
-      if  test_execution.artifact
-        name = test_execution.artifact.file.uploaded_filename
-        path  = test_execution.artifact.file.path
+      self.copy_artifact(test_execution.artifact.file, zip_path) if test_execution.artifact
 
-        # copy to ziup path
-        FileUtils.copy(path, zip_path)
-        # vendor_uploaded_results = test_execution.artifact.file.force_encoding("UTF-8")
-        # File.open(File.join(zip_path, "vendor-uploaded-results.xml"), "w") {|file| file.write(vendor_uploaded_results)}
+      self.create_artifact_zip(test_execution, zip_path, rec_path, pdf)
+
+      # Move the zip to a tempfile so the system will delete it for us.
+      # Then delete the temporary record directory we made.
+      zip = Tempfile.new("te-#{test_execution.id}")
+      zip.write(File.read("#{zip_path}.zip"))
+      zip.close
+      FileUtils.rm_r execution_path
+
+      zip
+    end
+
+    def self.zip(file, patients, format)
+      mes, sd, ed = set_mes_start_end(patients)
+
+      if format.to_sym == :qrda
+        formatter = Cypress::QRDAExporter.new(mes,sd,ed)
+      else
+        formatter = Cypress::HTMLExporter.new(mes,sd,ed)
       end
 
+      Zip::ZipOutputStream.open(file.path) do |z|
+        patients.each_with_index do |patient, i|
+          safe_first_name = patient.first.gsub("'", '')
+          safe_last_name = patient.last.gsub("'", '')
+          next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
+          z.put_next_entry("#{next_entry_path}.#{FORMAT_EXTENSIONS[format.to_sym]}")
+          if formatter == HealthDataStandards::Export::HTML
+            z << formatter.new.export(patient)
+          else
+            z << formatter.export(patient)
+          end
+        end
+      end
+    end
+
+    private
+
+    def self.set_mes_start_end(patients)
+      if patients.first
+        test = ProductTest.where({"_id" => patients.first["test_id"]}).first
+        if test
+          measures = test.measures.top_level.to_a
+          start_date = test.start_date
+          end_time = test.end_date
+        end
+      end
+      measures ||= Measure.top_level
+      end_date ||= Time.at(patients.first.bundle.effective_date).gmtime
+      start_date ||= end_date.years_ago(1)
+      return measures, start_date, end_date
+    end
+
+    def self.create_artifact_zip(test_execution, zip_path, records_path, pdf)
       Zip::ZipFile.open("#{zip_path}.zip", Zip::ZipFile::CREATE) do |zip|
         Dir[File.join(records_path, "**", "**")].each do |file|
           filename = file.slice(/records.*/)
@@ -79,17 +121,18 @@ module Cypress
         end
         zip.add("test-execution-results.pdf", pdf)
         if  test_execution.artifact
-            zip.add(test_execution.artifact.file.uploaded_filename, File.join(zip_path, test_execution.artifact.file.uploaded_filename))
+            zip_filename = test_execution.artifact.file.uploaded_filename
+            zip.add(zip_filename, File.join(zip_path, zip_filename))
         end
       end
+    end
 
-      # Move the zip to a tempfile so the system will delete it for us. Then delete the temporary record directory we made.
-      zip = Tempfile.new("te-#{test_execution.id}")
-      zip.write(File.read("#{zip_path}.zip"))
-      zip.close
-      FileUtils.rm_r execution_path
+    def self.copy_artifact(file, zip_path)
+      name = file.uploaded_filename
+      path = file.path
 
-      zip
+      # copy to zip path
+      FileUtils.copy(path, zip_path)
     end
 
     def self.write_patients(test_execution, path)
@@ -102,52 +145,25 @@ module Cypress
       qrda_exporter = Cypress::QRDAExporter.new(measures,start_date,end_date)
       html_exporter = Cypress::HTMLExporter.new(measures,start_date,end_date)
       test_execution.records.each do |patient|
-        safe_first_name = patient.first.gsub("'", "")
-        safe_last_name = patient.last.gsub("'", "")
-        filename ="#{safe_first_name}_#{safe_last_name}"
-        json = JSON.pretty_generate(JSON.parse(patient.as_json(:except => [ '_id','measure_id' ]).to_json))
-
-        html = html_exporter.export(patient)
-        qrda =  qrda_exporter.export(patient)
-        File.open(File.join(path, "html", "#{filename}.html"), "w") {|file| file.write(html)}
-        File.open(File.join(path, "json", "#{filename}.json"), "w") {|file| file.write(json)}
-        File.open(File.join(path, "qrda", "#{filename}.xml"), "w") {|file| file.write(qrda)}
+        export_patient(patient, path, qrda_exporter, html_exporter)
       end
+    end
 
-  end
+    def export_patient(patient, path, qrda_exporter, html_exporter)
+      safe_first_name = patient.first.gsub("'", "")
+      safe_last_name = patient.last.gsub("'", "")
+      filename ="#{safe_first_name}_#{safe_last_name}"
+      json = JSON.pretty_generate(JSON.parse(patient.as_json(:except => [ '_id','measure_id' ]).to_json))
 
-    def self.zip(file, patients, format)
+      html = html_exporter.export(patient)
+      qrda =  qrda_exporter.export(patient)
+      write_file(path, file, filename, html, "html")
+      write_file(path, file, filename, qrda, "qrda")
+      write_file(path, file, filename, json, "json")
+    end
 
-        if patients.first
-          test = ProductTest.where({"_id" => patients.first["test_id"]}).first
-          if test
-            measures = test.measures.top_level.to_a
-            start_date = test.start_date
-            end_time = test.end_date
-          end
-        end
-        measures ||= Measure.top_level
-        end_date ||= Time.at(patients.first.bundle.effective_date).gmtime
-        start_date ||= end_date.years_ago(1)
-      if format.to_sym == :qrda
-        formater = Cypress::QRDAExporter.new(measures,start_date,end_date)
-      else
-        formater = Cypress::HTMLExporter.new(measures,start_date,end_date)
-      end
-
-      Zip::ZipOutputStream.open(file.path) do |z|
-        patients.each_with_index do |patient, i|
-          safe_first_name = patient.first.gsub("'", '')
-          safe_last_name = patient.last.gsub("'", '')
-          next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
-          z.put_next_entry("#{next_entry_path}.#{FORMAT_EXTENSIONS[format.to_sym]}")
-          if formater == HealthDataStandards::Export::HTML
-            z << formater.new.export(patient)
-          else
-            z << formater.export(patient)
-          end
-        end
-      end
+    def write_file(path, file, filename, exporter, type)
+      File.open(File.join(path, "html", "#{filename}.html"), "w") {|file| file.write(exporter)}
     end
 
   end
