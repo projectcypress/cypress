@@ -9,7 +9,7 @@ begin
     cane.abc_max = 30
     cane.style_measure = 240
     cane.no_doc = true
-    cane.max_violations = 9
+    cane.max_violations = 5
     cane.parallel
   end
 
@@ -19,7 +19,7 @@ begin
     cane.no_doc = true
     cane.no_readme = true
     cane.no_style = true
-    cane.add_threshold 'coverage/covered_percent', :>=, 77.60
+    cane.add_threshold 'coverage/covered_percent', :>=, 77.78
   end
 
 rescue LoadError
