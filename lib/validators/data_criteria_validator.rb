@@ -1,5 +1,7 @@
 module Validators
   class DataCriteriaValidator
+    include Validators::Validator
+
      HL7_QRDA_OIDS = ["2.16.840.1.113883.3.221.5",
                       "2.16.840.1.113883.3.88.12.3221.8.7",
                       "2.16.840.1.113883.3.88.12.3221.8.9",
@@ -48,27 +50,23 @@ module Validators
     attr_accessor :measures
     attr_accessor :oids
 
+    self.validator_type = :result_validation
+
     def initialize(measures)
       @measures = measures
       @oids = measures.collect{|m| m.oids}.flatten.uniq
     end
 
-    def validate(document, options ={})
-        doc = (document.kind_of? Nokogiri::XML::Document)? document : Nokogiri::XML(document.to_s)
-        doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
-        doc.root.add_namespace_definition("sdtc", "urn:hl7-org:sdtc")
-        errors = []
+    def validate(doc, options ={})
         reported_oids = doc.xpath("//@sdtc:valueSet").collect{|att| att.value}.uniq
 
           # check for oids in the document not in the meausures
         disjoint_oids = reported_oids - HL7_QRDA_OIDS - oids
         if !disjoint_oids.empty?
-          errors  << ExecutionError.new(message: "File appears to contain data criteria outside that required by the measures. Valuesets in file not in measures tested #{disjoint_oids}'",
+    add_error(message: "File appears to contain data criteria outside that required by the measures. Valuesets in file not in measures tested #{disjoint_oids}'",
                                                    msg_type: :warning,
-                                                   validator_type: :result_validation,
                                                    file_name: options[:file_name])
         end
-        errors
     end
   end
 end

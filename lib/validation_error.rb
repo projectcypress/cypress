@@ -4,9 +4,9 @@ module Cypress
   class ValidationError < ExecutionError
     include Mongoid::Attributes::Dynamic
 
-    field :message, type: String
-    field :location, type: String
-    field :validator, type: String
+    # field :message, type: String
+    # field :location, type: String
+    # field :validator, type: String
 
   end
 end
