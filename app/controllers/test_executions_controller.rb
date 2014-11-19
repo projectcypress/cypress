@@ -14,7 +14,7 @@ class TestExecutionsController < ApplicationController
   def create
     @product_test = ProductTest.find(params[:product_test_id])
     begin
-      @te = @product_test.execute(params[:test_execution])
+      @te = @product_test.execute(params[:test_execution][:results])
       if @te.passed?
         flash[:success] = "Test Passed"
       else

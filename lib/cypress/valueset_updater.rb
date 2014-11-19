@@ -44,7 +44,7 @@ module Cypress
             store_vs(oid, doc) if nlm_config["output_dir"]
 
             vs = HealthDataStandards::SVS::ValueSet.load_from_xml(doc)
-            
+
             vs.save! if vs_not_in_db(vs)
 
           else
