@@ -59,17 +59,6 @@ namespace :cypress do
     end
   end
 
-  desc "Download the set of valuesets required by the installed measures"
-  task :cache_valuesets, [:username, :password, :clear] => :setup do |t,args|
-
-    job = Cypress::ValuesetUpdater.new({:username=>args.username,
-                                          :password=>args.password,
-                                          :clear=>args.clear})
-    job.perform
-
-  end
-
-
   desc "extract oids from valueset file names"
   task :extract_oids, [:dir,:out_file] => :setup do |t,args|
 
