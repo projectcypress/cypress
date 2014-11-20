@@ -65,4 +65,6 @@ Cypress::Application.configure do
   ActionMailer::Base.delivery_method = :smtp
 
   config.eager_load = true
+
+  config.time_zone = "Eastern Time (US & Canada)"
 end

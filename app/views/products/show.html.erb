@@ -44,67 +44,122 @@
           <tbody>
             <tr><td colspan="3" style="padding-top:15px">There are no tests for this product. <%= link_to "Add Test", new_product_test_path(:product_id => @product), { :class => "cmd" } %></td></tr>
           </tbody>
-          <% end %>
+        <% end %>
         <!-- END NO TESTS -->
-        <% product_tests_by_status(@product).each do |result_status, result_tests| %>
-          <thead>
-            <tr>
-              <th colspan="3"><span class="<%= result_status %>"><%= format_status(result_status) %></span> Tests</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th>Executions</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <% result_tests.each do |test|
-            if test.passing?
-              success_rate = 100
+        <thead>
+          <tr>
+            <th colspan="2">Pass</th>
+            <th class="name">Tests</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Executions</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @product.tests_by_cat3.each do |cat3_test, cat1_tests| %>
+          <tbody>
+            
+            <% if !cat1_tests.empty?
+              first_td_class = 'expander toggle'
+
+            if cat3_test['_type'] == 'CalculatedProductTest'
+              type = 'EP'
+            elsif cat3_test['_type'] == 'InpatientProductTest'
+                type = 'EH'
             else
-              success_rate = 0
-            end %>
-            <tbody>
-              <% if !test.test_executions.empty?
-                first_td_class = 'expander toggle'
-                dot_color = result_status
-              else
-                dot_color = 'incomplete'
-              end
-              if test['_type'] == 'CalculatedProductTest'
-                type = 'EP'
-              elsif test['_type'] == 'InpatientProductTest'
-                  type = 'EH'
-              else
                 type = 'QRDA Cat I'
-              end
+            end 
+
+            pass_count = cat3_test.passing? ? 1 : 0
+            cat1_tests.each do |t|
+              pass_count += t.passing? ? 1 : 0
+            end
+            pass_percentage = (pass_count / (cat1_tests.size + 1.0) * 100).to_i
             %>
               <tr>
-                <td class="<%=dot_color%>-icon dot"></td>
-                <td class="<%= first_td_class %> tog" data-code="<%= test.id %>"></td>
-                <td class="name"><a class="<%= result_status %>" href="<%= product_test_path(test) %>"><%= test.name %></a></td>
+                <td class="percentage"><%= pass_percentage %>%</td>
+                <td class="<%= first_td_class %> tog" data-code="<%= cat3_test.id %>"></td>
+                <td class="name"><%= cat3_test.name %></td>
                 <td class="type"><%= type %></td>
-                <td class="info"><%= test.description %></td>
-                <td><%= test.test_executions.size %></td>
+                <td class="info"><%= cat3_test.description %></td>
+                <td class="time"></td>
                 <td></td>
-                <td class="align-right"><%= link_to 'Delete', product_test_path(test), data: { :method => :delete, :confirm => 'Are you sure?' }, :class => 'cmd del' %></td>
+                <td></td>
+                <td class="align-right"><%= link_to 'Delete', product_test_path(cat3_test), data: { :method => :delete, :confirm => 'Are you sure?' }, :class => 'cmd del' %></td>
               </tr>
+              <%
+              if !cat3_test.test_executions.empty?
+                dot_color = cat3_test.passing? ? "pass" : "fail"
+              else
+                dot_color = 'incomplete'
+              end %>
 
-              <% if !test.test_executions.empty?
-                test.test_executions.ordered_by_date.each do |execution|
-                 %>
 
-                  <tr class="sub_rows <%= test.id %>">
-                    <td colspan="2" class="<%=execution.state%>-icon dot"></td>
+                <tr class="sub_rows <%=cat3_test.id%>">
+                  <td class="nobg"></td>
+                  <td class="<%=dot_color%>-icon dot nobg"></td>
+                  <td class="name"><a href="<%= product_test_path(cat3_test) %>"><%= cat3_test.name %></a></td>
+                  <td class="type">QRDA Cat III</td>
+                  <td class="info"><%= cat3_test.description %></td>
+                  <td class="time"><%= cat3_test.created_at ? cat3_test.created_at.strftime("%b %e, %l:%M %p") : "" %></td>
+                  <td><%= cat3_test.test_executions.size %></td>
+                  <td></td>
+                  <td class="align-right"><%= link_to 'Delete', product_test_path(cat3_test), data: { :method => :delete, :confirm => 'Are you sure?' }, :class => 'cmd del' %></td>
+                </tr>
 
-                    <td colspan="2" class="<%= execution.state %>"><%= link_to execution.execution_date,product_test_path(test, {:test_execution_id=> execution.id}) %> </td>
-                    <td colspan="3"></td>
-                    <td class="align-right"><%= link_to 'Delete', test_execution_path(execution, {:product_id => execution.product_test.product}), data: { :method => :delete, :confirm => 'Are you sure?' }, :class => 'cmd del' %></td>
-                  </tr>
-                <% end %>
+              <% else #if no cat1 tests 
+
+                  if !cat3_test.test_executions.empty?
+                    dot_color = cat3_test.passing? ? "pass" : "fail"
+                  else
+                    dot_color = 'incomplete'
+                  end
+
+                  if cat3_test['_type'] == 'CalculatedProductTest'
+                    type = 'EP'
+                  elsif cat3_test['_type'] == 'InpatientProductTest'
+                    type = 'EH'
+                  end 
+                  %> 
+                <tr>
+                  <td class="<%=dot_color%>-icon dot"></td>
+                  <td class="<%= first_td_class %> tog" data-code="<%= cat3_test.id %>"></td>
+                  <td class="name"><a href="<%= product_test_path(cat3_test) %>"><%= cat3_test.name %></a></td>
+                  <td class="type"><%= type %></td>
+                  <td class="info"><%= cat3_test.description %></td>
+                  <td class="time"><%= cat3_test.created_at ? cat3_test.created_at.strftime("%b %e, %l:%M %p") : "" %></td>
+                  <td><%= cat3_test.test_executions.size %></td>
+                  <td></td>
+                  <td class="align-right"><%= link_to 'Delete', product_test_path(cat3_test), data: { :method => :delete, :confirm => 'Are you sure?' }, :class => 'cmd del' %></td>
+                </tr>
               <% end %>
-            </tbody>
-          <% end %>
-        <% end %>
+
+              <% 
+              cat1_tests.sort_by! {|t| t.name}
+              cat1_tests.each do |cat1_test|
+
+              if !cat1_test.test_executions.empty?
+                dot_color = cat1_test.passing? ? "pass" : "fail"
+              else
+                dot_color = 'incomplete'
+              end %>
+
+                <tr class="sub_rows <%=cat3_test.id%>">
+                  <td class="nobg"></td>
+                  <td class="<%=dot_color%>-icon dot nobg"></td>
+                  <td class="name"><a href="<%= product_test_path(cat1_test) %>"><%= cat1_test.name %></a></td>
+                  <td class="type">QRDA Cat I</td>
+                  <td class="info"><%= cat1_test.description %></td>
+                  <td class="time"><%= cat1_test.created_at ? cat3_test.created_at.strftime("%b %e, %l:%M %p") : "" %></td>
+                  <td><%= cat1_test.test_executions.size %></td>
+                  <td></td>
+                  <td class="align-right"><%= link_to 'Delete', product_test_path(cat1_test), data: { :method => :delete, :confirm => 'Are you sure?' }, :class => 'cmd del' %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
       </table>
     </section>
 

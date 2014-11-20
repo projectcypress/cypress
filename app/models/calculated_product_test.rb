@@ -94,7 +94,7 @@ class CalculatedProductTest < ProductTest
       mrns = results.collect{|r| r["value"]["medical_record_id"]}
       results.uniq!
        qrda = QRDAProductTest.new(measure_ids: [mes.measure_id],
-                               name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
+                               name: "Measure #{mes.cms_id}",
                                bundle_id: self.bundle_id,
                                effective_date: self.effective_date,
                                product_id: self.product_id,

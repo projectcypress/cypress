@@ -14,6 +14,7 @@ class ProducTest < ActiveSupport::TestCase
     
     @product1 = Product.find("4f57a88a1d41c851eb000004")
     @product2 = Product.find("4f636ae01d41c851eb00048e")
+    @qrda_product = Product.find("515eeac93054cf180e0000f0")
   end
 
   test "Should know if its passing" do
@@ -51,5 +52,12 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal 1, @product2.success_rate 
   end
 
- 
+  test "Should group by cat 3" do
+    @qrda_product.tests_by_cat3.each_pair do |cat3, cat1s|
+      cat1s.each do |cat1|
+        assert_equal cat1.calculated_test_id.to_s, cat3.id.to_s, "Calculated test ID for cat1 test #{cat1.id} (#{cat1.calculated_test_id}) did not match cat3 test #{cat3.id}"
+      end
+    end
+  end
+  
 end
