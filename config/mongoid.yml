@@ -6,6 +6,7 @@ development:
         - localhost:27017
   options:
     raise_not_found_error: false
+
 test:
   sessions:
     default:
@@ -23,4 +24,13 @@ production:
         - localhost:27017
   options:
     raise_not_found_error: false
-    
+
+measure_eval:
+  sessions:
+    default:
+      database: cypress_measure_eval
+      hosts:
+        - localhost:27017
+  options:
+    raise_not_found_error: false
+

@@ -1,5 +1,6 @@
 module Cypress
   class MeasureEvaluationValidator
+    require 'pry'
 
     @@cda_header = {:identifier=>{:root=>"CypressRoot", :extension=>"CypressExtension"},
      :authors=>
@@ -207,6 +208,18 @@ module Cypress
                               end_date, nil, test_id)
     end
 
+    def script_generate_cat3(measure_ids, test)
+      zip = create_cat1_zip(test)
+      print "running test for measures #{measure_ids}..."
+      file = `bundle exec ruby ./script/cat_3_calculator.rb #{measure_opts_for(measure_ids)} --zipfile #{zip.path}`
+      puts "done"
+      return file
+    end
+
+    def measure_opts_for(measure_ids)
+      return "--measure " + measure_ids.join(" --measure ")
+    end
+
     # Generates the QRDA/CDA header, using the header info above
     def generate_header(provider = nil)
       header = Qrda::Header.new(@@cda_header)
@@ -221,15 +234,19 @@ module Cypress
 
     # Uploads all cat 3's, and dumps failure data to the terminal
     def upload_all_cat3s
-      print "Generating and uploading QRDA Cat 3s..."
+      puts "Generating and uploading QRDA Cat 3s..."
 
         ProductTest.where({:name => "measureEvaluationTest"}).each do |t|
-          begin
-            xml = generate_cat3(t.measure_ids, t.id)
-            upload_cat3(t, xml)
-          rescue NoMethodError => e
-            $stderr.puts "Cat 3 test #{t.id} failed: #{e}"
-          end
+          # binding.pry
+          # if t.measure_ids[0] != "40280381-4555-E1C1-0145-D7C003364261"
+            begin
+              # xml = generate_cat3(t.measure_ids, t.id)
+              xml = script_generate_cat3(t.measure_ids, t)
+              upload_cat3(t, xml)
+            rescue Exception => e
+              $stderr.puts "Cat 3 test #{t.id} failed: #{e}"
+            end
+          # end
         end
 
       puts "done"
