@@ -43,6 +43,11 @@ class CalculatedProductTest < ProductTest
     # p_ids = Record.where(:test_id=>nil, :type=>"ep").collect{|p| p.medical_record_number}
     pcj = Cypress::PopulationCloneJob.new({'patient_ids' =>p_ids, 'test_id' => self.id, "randomize_names"=> true, "randomization_ids" => randomization_ids})
     pcj.perform
+
+    self.records.each do |r|
+      r.medical_record_assigner = "Cypress" if r.medical_record_assigner.nil?
+      r.save!
+    end
     #now calculate the expected results
     self.calculate
   end
