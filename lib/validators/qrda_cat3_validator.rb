@@ -18,12 +18,7 @@ module Validators
       file_errors = []
       file_errors.concat QRDA_SCHEMA_VALIDATOR.validate(@document, {msg_type: :error})
       # Valdiate aginst the generic schematron rules
-
-      # if (msg_type == :error)
-  file_errors.concat SCHEMATRON_ERROR_VALIDATOR.validate(@document, {phase: :errors, msg_type: :error})
-      # else
-      #   file_errors.concat SCHEMATRON_WARNING_VALIDATOR.validate(@document, {phase: :warnings, msg_type: :warning })
-      # end
+      file_errors.concat SCHEMATRON_ERROR_VALIDATOR.validate(@document, {phase: :errors, msg_type: :error})
       file_errors
     end
 
@@ -39,8 +34,8 @@ module Validators
       nodes = find_measure_node(measure_id)
 
       if nodes.nil? || nodes.empty?
-  # short circuit and return nil
-  return {}
+        # short circuit and return nil
+        return {}
       end
 
       nodes.each do |n|
@@ -55,45 +50,45 @@ module Validators
 
     def find_measure_node(id)
        xpath_measures = %Q{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section
-  /cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]
-   and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
+        /cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]
+        and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
        return @document.xpath(xpath_measures)
     end
 
     def get_measure_components(n,ids, stratification)
       results = {:supplemental_data =>{}}
       ids.each_pair do |k,v|
-  val = nil
-  sup = nil
-  if (k == CV_POPULATION_CODE)
-    msrpopl = ids[QME::QualityReport::MSRPOPL]
-    val, sup = extract_cv_value(n,v,msrpopl, stratification)
-  else
-    val,sup =extract_component_value(n,k,v,stratification)
-  end
+        val = nil
+        sup = nil
+        if (k == CV_POPULATION_CODE)
+          msrpopl = ids[QME::QualityReport::MSRPOPL]
+          val, sup = extract_cv_value(n,v,msrpopl, stratification)
+        else
+          val,sup =extract_component_value(n,k,v,stratification)
+        end
 
-  if !val.nil?
-    results[k.to_s] = val
-    results[:supplemental_data][k] = sup
-  else
-    # return nil
-  end
+        if !val.nil?
+          results[k.to_s] = val
+          results[:supplemental_data][k] = sup
+        else
+          # return nil
+        end
       end
       results
     end
 
     def extract_cv_value(node, id, msrpopl, strata = nil)
-       xpath_observation = %{ cda:component/cda:observation[./cda:value[@code = "MSRPOPL"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{msrpopl.upcase}']]}
-       cv = node.at_xpath(xpath_observation)
-       return nil unless cv
-       val = nil
-       if strata
-   strata_path = %{ cda:entryRelationship[@typeCode="COMP"]/cda:observation[./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.4"]  and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{strata.upcase}']]}
-   n = cv.xpath(strata_path)
-   val = get_cv_value(n,id)
-       else
-   val = get_cv_value(cv,id)
-       end
+      xpath_observation = %{ cda:component/cda:observation[./cda:value[@code = "MSRPOPL"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{msrpopl.upcase}']]}
+      cv = node.at_xpath(xpath_observation)
+      return nil unless cv
+      val = nil
+      if strata
+      strata_path = %{ cda:entryRelationship[@typeCode="COMP"]/cda:observation[./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.4"]  and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{strata.upcase}']]}
+      n = cv.xpath(strata_path)
+      val = get_cv_value(n,id)
+      else
+      val = get_cv_value(cv,id)
+      end
       return val, (strata.nil? ?  extract_supplemental_data(cv) : nil)
     end
 
@@ -103,11 +98,11 @@ module Validators
       return nil unless cv
       val = nil
       if strata
-   strata_path = %{ cda:entryRelationship[@typeCode="COMP"]/cda:observation[./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.4"]  and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{strata.upcase}']]}
-   n = cv.xpath(strata_path)
-   val = get_aggregate_count(n) if n
+        strata_path = %{ cda:entryRelationship[@typeCode="COMP"]/cda:observation[./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.4"]  and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{strata.upcase}']]}
+        n = cv.xpath(strata_path)
+        val = get_aggregate_count(n) if n
       else
-  val = get_aggregate_count(cv)
+        val = get_aggregate_count(cv)
       end
       return val,(strata.nil? ?  extract_supplemental_data(cv) : nil)
     end
@@ -115,12 +110,12 @@ module Validators
     # convert numbers in value nodes to Int / Float as necessary TODO add more types other than 'REAL'
     def convert_value(value_node)
       if value_node.nil?
-    return
+        return
       end
       if value_node['type'] == 'REAL' || value_node['value'].include?('.')
-  return value_node['value'].to_f
+        return value_node['value'].to_f
       else
-  return value_node['value'].to_i
+        return value_node['value'].to_i
       end
     end
 
@@ -146,21 +141,20 @@ module Validators
     def extract_supplemental_data(cv)
       ret = {}
       SUPPLEMENTAL_DATA_MAPPING.each_pair do |supp, id|
-  key_hash = {}
-  xpath = "cda:entryRelationship/cda:observation[cda:templateId[@root='#{id}']]"
-  (cv.xpath(xpath) || []).each do |node|
-     value = node.at_xpath('cda:value')
-     count = get_aggregate_count(node)
-     if value.at_xpath("./@nullFlavor")
-       key_hash["UNK"] = count
-     else
-       key_hash[value['code']] = count
-     end
-  end
-  ret[supp.to_s] = key_hash
+        key_hash = {}
+        xpath = "cda:entryRelationship/cda:observation[cda:templateId[@root='#{id}']]"
+        (cv.xpath(xpath) || []).each do |node|
+          value = node.at_xpath('cda:value')
+          count = get_aggregate_count(node)
+          if value.at_xpath("./@nullFlavor")
+           key_hash["UNK"] = count
+          else
+           key_hash[value['code']] = count
+          end
+        end
+        ret[supp.to_s] = key_hash
       end
       ret
     end
-
   end
 end

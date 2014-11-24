@@ -61,7 +61,7 @@ class TestExecution
       doc.root.add_namespace_definition("sdtc", "urn:hl7-org:sdtc")
 
       validators.each do |validator|
-  validator.validate(doc, {file_name: name})
+        validator.validate(doc, {file_name: name})
       end
       file_count += 1
     end
