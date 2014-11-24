@@ -86,32 +86,32 @@ class CalculatedProductTest < ProductTest
       results = self.results.where({"value.measure_id" => mes.hqmf_id, "value.IPP" => {"$gt" => 0}})
       mrns = results.collect{|r| r["value"]["medical_record_id"]}
       results.uniq!
-       qrda = QRDAProductTest.new(measure_ids: [mes.measure_id],
-                               name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
-                               bundle_id: self.bundle_id,
-                               effective_date: self.effective_date,
-                               product_id: self.product_id,
-                               user_id: self.user_id,
-                               calculated_test_id: self.id)
-        records = self.records.where({"medical_record_number" => {"$in"=>mrns}})
+      qrda = QRDAProductTest.new(measure_ids: [mes.measure_id],
+                             name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
+                             bundle_id: self.bundle_id,
+                             effective_date: self.effective_date,
+                             product_id: self.product_id,
+                             user_id: self.user_id,
+                             calculated_test_id: self.id)
+      records = self.records.where({"medical_record_number" => {"$in"=>mrns}})
 
-        records.each do |rec|
-          new_results = results.select { |res| res.value.patient_id == rec.id }
-          new_rec = rec.dup
-          new_rec[:test_id] = qrda.id
-          new_rec.save
+      records.each do |rec|
+        new_results = results.select { |res| res.value.patient_id == rec.id }
+        new_rec = rec.dup
+        new_rec[:test_id] = qrda.id
+        new_rec.save
 
-          new_results.each do |res|
-            res_clone = Result.new()
-            res_clone["value"] = res["value"].clone
-            res_clone["value"]["test_id"]=qrda.id
-            res_clone["value"]["patient_id"] = new_rec.id
-            res_clone.save
-          end
+        new_results.each do |res|
+          res_clone = Result.new()
+          res_clone["value"] = res["value"].clone
+          res_clone["value"]["test_id"]=qrda.id
+          res_clone["value"]["patient_id"] = new_rec.id
+          res_clone.save
         end
+      end
 
-       qrda.save
-       qrda.ready
+      qrda.save
+      qrda.ready
 
     end
 

@@ -19,7 +19,7 @@ module Validators
            report.root.xpath("//svrl:failed-assert",NAMESPACE).each do |el|
 
              # do something here with the values
-             errors << Cypress::ValidationError.new(
+             errors << ExecutionError.new(
                :location => el["location"],
                :message => el.xpath('svrl:text',NAMESPACE).text,
                :validator => name,
