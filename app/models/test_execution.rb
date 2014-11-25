@@ -52,6 +52,31 @@ class TestExecution
 
   end
 
+  def validate_artifact(validators)
+    file_count = 0
+
+    self.artifact.each_file do |name, file|
+      doc = Nokogiri::XML(file)
+      doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
+      doc.root.add_namespace_definition("sdtc", "urn:hl7-org:sdtc")
+
+      validators.each do |validator|
+        validator.validate(doc, {file_name: name})
+      end
+      file_count += 1
+    end
+
+    validators.each do |v|
+      self.execution_errors.concat v.errors
+    end
+
+    if file_count != self.product_test.records.count
+      self.execution_errors.build(message: "#{self.product_test.records.count} files expected but was #{file_count}", msg_type: :error, validator_type: :result_validation)
+    end
+
+    (self.count_errors > 0) ? self.failed : self.pass
+  end
+
   def execution_date
      self.created_at || Time.at(self['execution_date'])
   end

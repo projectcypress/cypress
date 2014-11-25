@@ -1,10 +1,14 @@
 module Validators
   class SmokingGunValidator
+    include Validators::Validator
+
     attr_accessor :measures
     attr_accessor :test_id
     attr_accessor :sgd
     attr_accessor :records
     attr_accessor :names
+
+    self.validator_type = :result_validation
 
     def initialize(measures, records, test_id)
       @measures = measures
@@ -38,12 +42,21 @@ module Validators
       @names.keys - @found_names
     end
 
+    def errors
+      sg_errors = super.dup
+
+      unless not_found_names.empty?
+        sg_errors << ExecutionError.new(message: "Records for patients #{self.not_found_names.join(", ")} not found in archive as expected", msg_type: :error, validator_type: :result_validation)
+      end
+
+      sg_errors
+    end
 
     def validate(document, options={})
       doc = (document.kind_of? Nokogiri::XML::Document)? document : Nokogiri::XML(document.to_s)
       doc.root.add_namespace_definition("cda", "urn:hl7-org:v3")
       doc.root.add_namespace_definition("sdtc", "urn:hl7-org:sdtc")
-      errors = []
+
       # find the mrn for the document
       first = doc.at_xpath("/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given/text()")
       last = doc.at_xpath("/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:family/text()")
@@ -53,18 +66,18 @@ module Validators
       @found_names << doc_name if mrn
 
       unless @names[doc_name]
-        errors << ExecutionError.new(message: "Patient name '#{doc_name}' declared in file not found in test records'", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
+        add_error("Patient name '#{doc_name}' declared in file not found in test records'", file_name: options[:file_name])
         #cannot go any further here so call it quits and return
-        return errors
+        return
       end
 
 
       if @bundle.smoking_gun_capable
 
         if @expected_records.index(mrn).nil?
-          errors << ExecutionError.new(message: "Patient '#{doc_name}' not expected to be returned.'", msg_type: :error, validator_type: :result_validation, file_name: options[:file_name])
+          add_error("Patient '#{doc_name}' not expected to be returned.'", {file_name: options[:file_name]})
           #cannot go any further here so call it quits and return
-          return errors
+          return
         end
 
         @sgd.each_pair do |hqmf_id, patient_data|
@@ -74,10 +87,8 @@ module Validators
               if dc[:template] != "N/A"
                 nodes = doc.xpath("//cda:templateId[@root='#{dc[:template]}']/..//*[@sdtc:valueSet='#{dc[:oid]}']")
                 if nodes.length == 0
-                  errors << ExecutionError.new(message: "Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
-                                               msg_type: :warning,
-                                               validator_type: :result_validation,
-                                               file_name: options[:file_name])
+                  add_warning("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
+                          {file_name: options[:file_name]})
                 end
               end
 
@@ -85,12 +96,10 @@ module Validators
           end
         end
       else
-        errors << ExecutionError.new(message: %W{Automated smoking gun data checking is not compatible
-                                              with bundle #{@bundle.version}, please refer to checklists},
-                                     msg_type: :warning, validator_type: :result_validation,
-                                     file_name: options[:file_name])
+        add_warning(%W{Automated smoking gun data checking is not compatible
+                    with bundle #{@bundle.version}, please refer to checklists},
+                    {file_name: options[:file_name]})
       end
-      errors
     end
   end
 end
