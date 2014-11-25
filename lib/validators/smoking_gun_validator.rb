@@ -8,7 +8,7 @@ module Validators
     attr_accessor :records
     attr_accessor :names
 
-    validator_type = :result_validation
+    self.validator_type = :result_validation
 
     def initialize(measures, records, test_id)
       @measures = measures
@@ -46,7 +46,7 @@ module Validators
       sg_errors = super.dup
 
       unless not_found_names.empty?
-  sg_errors << ExecutionError.new(message: "Records for patients #{self.not_found_names.join(", ")} not found in archive as expected", msg_type: :error, validator_type: :result_validation)
+        sg_errors << ExecutionError.new(message: "Records for patients #{self.not_found_names.join(", ")} not found in archive as expected", msg_type: :error, validator_type: :result_validation)
       end
 
       sg_errors
@@ -66,18 +66,18 @@ module Validators
       @found_names << doc_name if mrn
 
       unless @names[doc_name]
-  add_error("Patient name '#{doc_name}' declared in file not found in test records'", file_name: options[:file_name])
+        add_error("Patient name '#{doc_name}' declared in file not found in test records'", file_name: options[:file_name])
         #cannot go any further here so call it quits and return
-  return
+        return
       end
 
 
       if @bundle.smoking_gun_capable
 
         if @expected_records.index(mrn).nil?
-    add_error("Patient '#{doc_name}' not expected to be returned.'", {file_name: options[:file_name]})
+          add_error("Patient '#{doc_name}' not expected to be returned.'", {file_name: options[:file_name]})
           #cannot go any further here so call it quits and return
-    return
+          return
         end
 
         @sgd.each_pair do |hqmf_id, patient_data|
@@ -87,7 +87,7 @@ module Validators
               if dc[:template] != "N/A"
                 nodes = doc.xpath("//cda:templateId[@root='#{dc[:template]}']/..//*[@sdtc:valueSet='#{dc[:oid]}']")
                 if nodes.length == 0
-      add_warning("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
+                  add_warning("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
                           {file_name: options[:file_name]})
                 end
               end
@@ -96,9 +96,9 @@ module Validators
           end
         end
       else
-  add_warning(%W{Automated smoking gun data checking is not compatible
-        with bundle #{@bundle.version}, please refer to checklists},
-      {file_name: options[:file_name]})
+        add_warning(%W{Automated smoking gun data checking is not compatible
+                    with bundle #{@bundle.version}, please refer to checklists},
+                    {file_name: options[:file_name]})
       end
     end
   end
