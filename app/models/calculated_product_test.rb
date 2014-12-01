@@ -187,7 +187,7 @@ class CalculatedProductTest < ProductTest
       message += " for Population #{pop_key}"
       logger.call(message, stratification)
     elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
-      err = "expected #{pop_key} #{_ids[pop_key]} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
+      err = "expected #{pop_key} #{expected_result["population_ids"][pop_key]} value #{expected_result[pop_key]} does not match reported value #{reported_result[pop_key]}"
       logger.call(err, stratification)
     end
   end
