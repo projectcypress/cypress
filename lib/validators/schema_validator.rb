@@ -15,7 +15,7 @@ module Validators
           errors = []
           doc = (document.kind_of? Nokogiri::XML::Document)? document : Nokogiri::XML(document.to_s)
           @xsd.validate(doc).each do |error|
-             errors << Cypress::ValidationError.new(
+             errors << ExecutionError.new(
                 :message => error.message,
                 :validator => @validator_name,
                 :validator_type => :xml_validation,
