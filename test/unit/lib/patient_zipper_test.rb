@@ -7,6 +7,8 @@ class PatientZipperTest < ActiveSupport::TestCase
 
     collection_fixtures('records','_id','bundle_id')
     collection_fixtures('bundles', '_id')
+    collection_fixtures('vendors', '_id')
+    collection_fixtures('products', '_id')
     collection_fixtures('product_tests', '_id')
     collection_fixtures('test_executions', '_id')
     @patients = Record.where("gender" => "F")
