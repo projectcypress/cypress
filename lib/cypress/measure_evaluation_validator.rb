@@ -232,7 +232,6 @@ module Cypress
           end
         end
 
-
       puts "done"
     end
 
@@ -241,7 +240,7 @@ module Cypress
       # Generate a temporary file that acts just like a normal file, but is given a unique name in the './tmp' directory
       tmp = Tempfile.new(['qrda_upload', '.xml'], './tmp')
       tmp.write(xml)
-      product_test.execute({results: tmp})
+      product_test.execute(tmp)
     end
 
   end
