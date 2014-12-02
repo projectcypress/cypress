@@ -111,7 +111,7 @@ module Cypress
           zip = create_cat1_zip(t)
           FileUtils.mv zip, "#{File.dirname(zip)}/#{File.basename(zip)}.zip"
           zip2 = File.new("#{File.dirname(zip)}/#{File.basename(zip)}.zip")
-          t.execute({results: zip2})
+          t.execute(zip2)
         rescue NoMethodError => e
           $stderr.puts "Cat 1 test #{t.id} failed: #{e}"
         end
