@@ -72,7 +72,7 @@ module Cypress
       all_ep_measures = Measure.top_level_by_type('ep').pluck(:hqmf_id)
       all_eh_measures = Measure.top_level_by_type('eh').pluck(:hqmf_id)
 
-      num_tests.times do |n|
+      test_ids = (1..num_tests).collect do |n|
         # Even tests are EP, odd tests are EH
         if n.even?
           opts[:measure_ids] = all_ep_measures.sample(num_measures)
@@ -81,14 +81,14 @@ module Cypress
           opts[:measure_ids] = all_eh_measures.sample(num_measures)
           opts[:test_type] = 'InpatientProductTest'
         end
-        self.generate_test(opts)
+        self.generate_test(opts).id
       end
 
       puts "done"
 
       wait_for_calculations
 
-      upload_all_cat3s
+      upload_cat3s(ProductTest.where({"_id" => {"$in" => test_ids}}))
 
     end
 
@@ -207,6 +207,18 @@ module Cypress
                               end_date, nil, test_id)
     end
 
+    def script_generate_cat3(measure_ids, test)
+      zip = create_cat1_zip(test)
+      print "running test for measures #{measure_ids}..."
+      file = `bundle exec ruby ./script/cat_3_calculator.rb #{measure_opts_for(measure_ids)} --zipfile #{zip.path}`
+      puts "done"
+      return file
+    end
+
+    def measure_opts_for(measure_ids)
+      return "--measure " + measure_ids.join(" --measure ")
+    end
+
     # Generates the QRDA/CDA header, using the header info above
     def generate_header(provider = nil)
       header = Qrda::Header.new(@@cda_header)
@@ -221,18 +233,24 @@ module Cypress
 
     # Uploads all cat 3's, and dumps failure data to the terminal
     def upload_all_cat3s
-      print "Generating and uploading QRDA Cat 3s..."
+      puts "Generating and uploading QRDA Cat 3s..."
 
-        ProductTest.where({:name => "measureEvaluationTest"}).each do |t|
+      upload_cat3s(ProductTest.where({:name => "measureEvaluationTest"}))
+
+      puts "done"
+    end
+
+    def upload_cat3s(tests)
+      tests.each do |t|
+        if !t.measure_ids.include?("40280381-4555-E1C1-0145-D7C003364261")
           begin
-            xml = generate_cat3(t.measure_ids, t.id)
+            xml = script_generate_cat3(t.measure_ids, t)
             upload_cat3(t, xml)
-          rescue NoMethodError => e
+          rescue Exception => e
             $stderr.puts "Cat 3 test #{t.id} failed: #{e}"
           end
         end
-
-      puts "done"
+      end
     end
 
     # Uploads a single Cat 3

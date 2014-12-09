@@ -46,4 +46,9 @@ namespace :measure_evaluation_validator do
     mev.evaluate_all_cat1
   end
 
+  task :update_system_js, [:file_name, :db_name] => :setup do |t, args|
+    functions = File.read(args.file_name)
+    HealthDataStandards::Import::Bundle::Importer.save_system_js_fn(args.db_name, functions)
+  end
+
 end
