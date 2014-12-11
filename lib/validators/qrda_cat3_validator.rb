@@ -51,7 +51,7 @@ module Validators
     def find_measure_node(id)
        xpath_measures = %Q{/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section
         /cda:entry/cda:organizer[ ./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.1"]
-        and ./cda:reference/cda:externalDocument/cda:id[#{translate("@root")}='#{id.upcase}']] }
+        and ./cda:reference/cda:externalDocument/cda:id[#{translate("@extension")}='#{id.upcase}' and #{translate("@root")}='2.16.840.1.113883.4.738']]}
        return @document.xpath(xpath_measures)
     end
 
