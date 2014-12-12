@@ -38,8 +38,8 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
   # end
 
 
-  test "Generate QRDA Test" do
-    pt1 = ProductTest.find("4f58f8de1d41c851eb000999")
+  test "generate qrda product tests" do
+    pt1 = CalculatedProductTest.find("4f58f8de1d41c851eb000999")
 
     pt1.generate_qrda_cat1_test
     qrda_test = QRDAProductTest.where({calculated_test_id: pt1.id})
@@ -50,6 +50,29 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     assert_equal pt1.bundle_id, qrda.bundle_id
     assert_equal pt1.product_id, qrda.product_id
     assert_equal pt1.user_id,  qrda.user_id
+  end
+
+  test "regenerate deleted qrda product tests" do
+    pt1 = CalculatedProductTest.find("4f58f8de1d41c851eb000999")
+    assert_equal 0, pt1.qrda_product_tests.count
+    pt1.generate_qrda_cat1_test
+    pt1.qrda_product_tests.clear
+    assert_equal [], pt1.qrda_product_tests
+    pt1.generate_qrda_cat1_test
+    qrda = pt1.qrda_product_tests.first
+    assert_equal pt1.effective_date ,qrda.effective_date
+    assert_equal pt1.bundle_id, qrda.bundle_id
+    assert_equal pt1.product_id, qrda.product_id
+    assert_equal pt1.user_id,  qrda.user_id
+  end
+
+  test "don't duplicate qrda product tests" do
+    pt1 = CalculatedProductTest.find("4f58f8de1d41c851eb000999")
+    assert_equal 0, pt1.qrda_product_tests.count
+    pt1.generate_qrda_cat1_test
+    assert_equal pt1.measures.count, pt1.qrda_product_tests.count
+    pt1.generate_qrda_cat1_test
+    assert_equal pt1.measures.count, pt1.qrda_product_tests.count
   end
 
   test "should execute a test with 0 errors for correct cat III file" do

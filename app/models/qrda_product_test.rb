@@ -7,6 +7,9 @@ class QRDAProductTest < ProductTest
   include Mongoid::Attributes::Dynamic
   include ::Validators
 
+
+  belongs_to :calculated_product_test
+
   def validators
     @validators ||= [QrdaCat1Validator.new(self.measures), DataCriteriaValidator.new(self.measures),
     SmokingGunValidator.new(self.measures, self.records, self.id),
