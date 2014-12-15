@@ -8,7 +8,7 @@ class QRDAProductTest < ProductTest
   include ::Validators
 
 
-  belongs_to :calculated_product_test
+  belongs_to :calculated_product_test, foreign_key: "calculated_test_id"
 
   def validators
     @validators ||= [QrdaCat1Validator.new(self.measures), DataCriteriaValidator.new(self.measures),
