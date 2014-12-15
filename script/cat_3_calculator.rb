@@ -2,7 +2,6 @@
 require 'mongoid'
 require 'health-data-standards'
 require 'quality-measure-engine'
-require 'pry'
 require 'optparse'
 
 def generate_oid_dictionary(measure, bundle)
