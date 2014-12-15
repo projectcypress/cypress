@@ -15,7 +15,7 @@ class CalculatedProductTest < ProductTest
 
   end
 
-  has_many :qrda_product_tests, class_name: "QRDAProductTest"
+  has_many :qrda_product_tests, class_name: "QRDAProductTest", foreign_key: "calculated_test_id"
 
   #after the test is created generate the population
   after_create :gen_pop
@@ -98,8 +98,7 @@ class CalculatedProductTest < ProductTest
 				      bundle_id: self.bundle_id,
 				      effective_date: self.effective_date,
 				      product_id: self.product_id,
-				      user_id: self.user_id,
-				      calculated_test_id: self.id)
+				      user_id: self.user_id)
       records = self.records.where({"medical_record_number" => {"$in"=>mrns}})
 
       records.each do |rec|
