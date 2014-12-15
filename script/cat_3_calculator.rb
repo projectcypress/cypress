@@ -1,3 +1,4 @@
+# :nocov:
 require 'mongoid'
 require 'health-data-standards'
 require 'quality-measure-engine'
@@ -129,3 +130,4 @@ captured_output = capture_output do
 end
 
 print generate_cat3(measure_ids, bundle.effective_date)
+# :nocov:
