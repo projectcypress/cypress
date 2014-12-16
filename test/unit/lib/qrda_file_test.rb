@@ -112,7 +112,7 @@ class QRDATest < ActiveSupport::TestCase
      xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/good.xml'))
      doc = Nokogiri::XML(xml_file)
      qrda_file = Validators::QrdaCat1Validator.new([@m0004])
-     qrda_file.validate(doc, "filename.xml")
+     qrda_file.validate(doc, {file_name: "filename.xml"})
      assert qrda_file.errors.empty? , "Should be 0 errors for good cat 1 file"
   end
 
@@ -121,7 +121,8 @@ class QRDATest < ActiveSupport::TestCase
      doc = Nokogiri::XML(xml_file)
      qrda_file = Validators::QrdaCat1Validator.new([@m0004])
 
-     qrda_file.validate(doc, "filename.xml")
+     qrda_file.validate(doc, {file_name: "filename.xml"})
+
      assert_equal 2, qrda_file.errors.length, "Should report 2 errors, one for the schema issue and one for the schematron issue related to the schema issue"
   end
 
@@ -129,7 +130,8 @@ class QRDATest < ActiveSupport::TestCase
      xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/bad_schematron.xml'))
      doc = Nokogiri::XML(xml_file)
      qrda_file = Validators::QrdaCat1Validator.new([@m0004])
-     qrda_file.validate(doc, "filename.xml")
+     qrda_file.validate(doc, {file_name: "filename.xml"})
+
      assert_equal 1, qrda_file.errors.length, "Should report 1 error"
   end
 
@@ -137,7 +139,7 @@ class QRDATest < ActiveSupport::TestCase
      xml_file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/bad_measure_id.xml'))
      doc = Nokogiri::XML(xml_file)
      qrda_file = Validators::QrdaCat1Validator.new([@m0004])
-     qrda_file.validate(doc, "filename.xml")
+     qrda_file.validate(doc, {file_name: "filename.xml"})
      # New schematron checks for the ID element, and @root and @extension attributes, this adds 2 errors
      # in addition to what's reported by Cypress
      assert_equal 3, qrda_file.errors.length, "Should report 3 errors"

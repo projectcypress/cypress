@@ -16,9 +16,9 @@ module Validators
     # Nothing to see here - Move along
     def validate()
       file_errors = []
-      file_errors.concat QRDA_SCHEMA_VALIDATOR.validate(@document, {msg_type: :error})
+      file_errors.concat QRDA_SCHEMA_VALIDATOR.validate(@document)
       # Valdiate aginst the generic schematron rules
-      file_errors.concat SCHEMATRON_ERROR_VALIDATOR.validate(@document, {phase: :errors, msg_type: :error})
+      file_errors.concat SCHEMATRON_ERROR_VALIDATOR.validate(@document)
       file_errors
     end
 
