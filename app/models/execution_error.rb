@@ -11,7 +11,7 @@ class ExecutionError
   field :validator, type: String
   field :stratification, type: String
   field :location
-  field :file_name
+  field :file_name, type: String
   validates_presence_of :msg_type
   validates_presence_of :message
 

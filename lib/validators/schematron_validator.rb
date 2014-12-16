@@ -26,6 +26,7 @@ module Validators
                :validator_type => :xml_validation,
                :msg_type=>(data[:msg_type] || :error),
                :file_name => data[:file_name],
+               :phase => (data[:phase] || :error),
                :measure_id => data[:measure_id]
              )
 
