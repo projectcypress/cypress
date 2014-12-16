@@ -94,11 +94,11 @@ class CalculatedProductTest < ProductTest
       mrns = results.collect{|r| r["value"]["medical_record_id"]}
       results.uniq!
       qrda = qrda_product_tests.build(measure_ids: [mes.measure_id],
-				      name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
-				      bundle_id: self.bundle_id,
-				      effective_date: self.effective_date,
-				      product_id: self.product_id,
-				      user_id: self.user_id)
+              name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
+              bundle_id: self.bundle_id,
+              effective_date: self.effective_date,
+              product_id: self.product_id,
+              user_id: self.user_id)
       records = self.records.where({"medical_record_number" => {"$in"=>mrns}})
 
       records.each do |rec|
