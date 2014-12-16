@@ -15,6 +15,8 @@ class CalculatedProductTest < ProductTest
 
   end
 
+  has_many :qrda_product_tests, class_name: "QRDAProductTest", foreign_key: "calculated_test_id"
+
   #after the test is created generate the population
   after_create :gen_pop
 
@@ -52,9 +54,8 @@ class CalculatedProductTest < ProductTest
     self.calculate
   end
 
-  def execute(params)
+  def execute(qrda_file)
 
-    qrda_file = params
     data = qrda_file.open.read
     doc = Nokogiri::XML(data)
 
@@ -86,18 +87,18 @@ class CalculatedProductTest < ProductTest
   end
 
   def generate_qrda_cat1_test
+    product_measures = self.qrda_product_tests.map(&:measures).flatten
 
-    self.measures.top_level.each do |mes|
+    (self.measures.top_level - product_measures).each do |mes|
       results = self.results.where({"value.measure_id" => mes.hqmf_id, "value.IPP" => {"$gt" => 0}})
       mrns = results.collect{|r| r["value"]["medical_record_id"]}
       results.uniq!
-      qrda = QRDAProductTest.new(measure_ids: [mes.measure_id],
-                             name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
-                             bundle_id: self.bundle_id,
-                             effective_date: self.effective_date,
-                             product_id: self.product_id,
-                             user_id: self.user_id,
-                             calculated_test_id: self.id)
+      qrda = qrda_product_tests.build(measure_ids: [mes.measure_id],
+              name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
+              bundle_id: self.bundle_id,
+              effective_date: self.effective_date,
+              product_id: self.product_id,
+              user_id: self.user_id)
       records = self.records.where({"medical_record_number" => {"$in"=>mrns}})
 
       records.each do |rec|
@@ -120,7 +121,7 @@ class CalculatedProductTest < ProductTest
 
     end
 
-    self[:qrda_generated] = true
+    # self[:qrda_generated] = true
     self.save
   end
 
