@@ -487,6 +487,12 @@ for p in build-essential openssl libssl-dev libreadline6 libreadline6-dev curl z
   echo -n "      $p: "
   install_pkg "$p"
 done
+
+# Install the RVM GPG keys
+echo -n "   Install RVM GPG Keys"
+`gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3`
+success_or_fail $? "done" "failed"
+
 # Install RVM itself
 echo -n "   Install RVM: "
 if [ -d /usr/local/rvm -a -x /usr/local/rvm/bin/rvm ]; then
