@@ -1,3 +1,4 @@
+# :nocov:
 module Cypress
   class MeasureEvaluationValidator
 
@@ -263,3 +264,4 @@ module Cypress
 
   end
 end
+# :nocov:
