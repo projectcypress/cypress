@@ -74,28 +74,21 @@
                 <td class="<%=dot_color%>-icon dot"></td>
                 <td class="<%= first_td_class %> tog" data-code="<%= product.id %>"></td>
                 <td class="name" >
-	              <a class="<%= result_status %>" href="<%= product_path(product) %>"><%= product.name %></a>
-	            </td>
+                  <a class="<%= result_status %>" href="<%= product_path(product) %>"><%= product.name %></a>
+                </td>
                 <td class="info"><%= product.description %></td>
                 <td><strong class="<%= dot_color %>"><%= product.count_passing %></strong> <span class="q">/ <%= product.product_tests.size %></span></td>
                 <td></td>
                 <td class="align-right"><%= link_to 'Delete', product_path(product), data: { :method => :delete, :confirm => 'Are you sure?'}, :class => 'cmd del' %></td>
               </tr>
-              <% if !product.product_tests.empty?
-                product.product_tests.each do |test|
-                  if test.state == :passed
-                    test_status = 'pass'
-                    test_success_rate = 100
-                  else
-                    test_status = 'fail'
-                    test_success_rate = 0
-                  end %>
+              <% if !product.product_tests.empty?%>
+                <% product.product_tests.each do |test| %>
 
                   <tr class="sub_rows <%= product.id %>">
                     <td></td>
-                    <td title="<%= test_success_rate %>%" class="<%= test.state.to_s %>-icon"></td>
-                    <td><a class="<%= test_status %>" href="<%= product_test_path(test) %>"><%= test.name %></a></td>
-                    <td><span class="<%= test_status %>"><%= test.test_executions.size %><span class="q"> executions</span></td>
+                    <td class="<%= test_status(test) %>-icon"></td>
+                    <td><a class="<%= test_status(test) %>" href="<%= product_test_path(test) %>"><%= test.name %></a></td>
+                    <td><span class="<%= test_status(test) %>"><%= test.test_executions.size %><span class="q"> executions</span></td>
                     <td></td>
                     <td></td>
                     <td class="align-right"><%= link_to 'Delete', product_test_path(test), { :class => 'cmd del', :method => :delete, :confirm => 'Are you sure?' } %></td>
