@@ -9,6 +9,15 @@ module VendorsHelper
 
   end
 
+  def test_status(test)
+    case test.execution_state
+      when :passed then 'pass'
+      when :pending then 'pending'
+      else
+       'fail'
+    end
+  end
+
 
   def display_passing_products(vendor)
     "#{vendor.count_passing} products"
