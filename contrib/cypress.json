@@ -8,7 +8,7 @@
   "builders": [
 
     {
-      "name": "cypress.v2.5.0.amazonaws",
+      "name": "cypress.v2.6.0.amazonaws",
       "type": "amazon-ebs",
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
@@ -31,7 +31,8 @@
     }, 
 
     {
-      "name": "cypress.v2.5.0.virtualbox",
+      "name": "cypress.v2.6.0.virtualbox",
+      "vm_name": "cypressv260",
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
       "iso_urls": [
@@ -66,7 +67,8 @@
     },
 
     {
-      "name": "cypress.v2.5.0.vmware",
+      "name": "cypress.v2.6.0.vmware",
+      "vm_name": "cypressv260",
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
@@ -131,12 +133,12 @@
   "post-processors": [{
     "type": "compress",
     "format": "tar.gz",
-    "output": "cypress.v2.5.0.vmware.tgz",
-    "only": ["cypress.v2.5.0.vmware"]
+    "output": "cypress.v2.6.0.vmware.tgz",
+    "only": ["cypress.v2.6.0.vmware"]
   },{
     "type": "compress",
     "format": "tar.gz",
-    "output": "cypress.v2.5.0.virtualbox.tgz",
-    "only": ["cypress.v2.5.0.virtualbox"]
+    "output": "cypress.v2.6.0.virtualbox.tgz",
+    "only": ["cypress.v2.6.0.virtualbox"]
   }]
 }
