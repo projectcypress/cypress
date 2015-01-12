@@ -243,14 +243,14 @@ module Cypress
 
     def upload_cat3s(tests)
       tests.each do |t|
-        if !t.measure_ids.include?("40280381-4555-E1C1-0145-D7C003364261")
+        # if !t.measure_ids.include?("40280381-4555-E1C1-0145-D7C003364261")
           begin
             xml = script_generate_cat3(t.measure_ids, t)
             upload_cat3(t, xml)
           rescue Exception => e
             $stderr.puts "Cat 3 test #{t.id} failed: #{e}"
           end
-        end
+        # end
       end
     end
 
