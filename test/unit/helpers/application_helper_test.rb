@@ -2,11 +2,11 @@ require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
 	test "Should return formatted time" do
-		now = Time.now
+		now = Time.now.utc
 		formatted_time = now.strftime('%m/%d/%Y')
 
-		assert display_time(now) == formatted_time
-		assert display_time('fail') == '?'
+		assert_equal display_time(now), formatted_time
+		assert_equal display_time('fail'), '?'
 	end
 
 
