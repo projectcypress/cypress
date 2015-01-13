@@ -13,8 +13,8 @@ class PatientsController < ApplicationController
       @vendor  = @product.vendor
       @measures = @test.measures
     else
-      #@measures = Rails.cache.fetch("bundle_measures_" + @bundle.version) { @bundle.measures }
-      @measures = @bundle.measures
+      @measures = Rails.cache.fetch("bundle_measures_" + @bundle.version) { @bundle.measures }
+      # @measures = @bundle.measures
     end
     #only get the measures_categories if we don't have a fragment for the view section
     if !fragment_exist?("index-" + @bundle.version) || @test
@@ -76,7 +76,7 @@ class PatientsController < ApplicationController
     @bundle = Bundle.find(@selected.bundle_id)
     @showAll = false
     #@measures = @bundle.measures
-    @measures_categories = Rails.cache.fetch("bundle_measures" + @bundle.version ) do
+    @measures_categories = Rails.cache.fetch("bundle_measures_categories" + @bundle.version ) do
       m = @bundle.measures
       m.group_by { |t| t.category }
     end
@@ -98,8 +98,8 @@ class PatientsController < ApplicationController
       @test = ProductTest.find(params[:product_test_id])
       @patients = @test.records.order_by([["last", :asc]])
     else
-      @patients = @bundle.records.order_by([["last", :asc]])
-      # @patients = Rails.cache.fetch("table_all_patients" + @bundle.version) { @bundle.records.order_by([["last", :asc]]) }
+      # @patients = @bundle.records.order_by([["last", :asc]])
+      @patients = Rails.cache.fetch("table_all_patients_" + @bundle.version) { @bundle.records.order_by([["last", :asc]]) }
     end
 
     render 'table', layout: false

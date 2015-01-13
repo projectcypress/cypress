@@ -1,7 +1,7 @@
 class User
   include Mongoid::Document
 
-  has_and_belongs_to_many :products
+  has_and_belongs_to_many :products, index: true
   has_many   :product_tests
   has_many :patient_populations
 
