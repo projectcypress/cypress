@@ -17,7 +17,7 @@
       "instance_type": "t2.small",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "ami_name": "packer_test_ami {{timestamp}}",
+      "ami_name": "cypress_2.6.0",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 20,
@@ -81,7 +81,7 @@
       "ssh_password": "{{user `default_pwd`}}",
       "http_directory": "./install_files",
       "headless": true,
-      "boot_wait": "5s",
+      "boot_wait": "10s",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz ",
