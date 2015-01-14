@@ -17,7 +17,7 @@ class PatientsController < ApplicationController
       @measures = @bundle.measures
     end
     #only get the measures_categories if we don't have a fragment for the view section
-    if !fragment_exist?("index-" + @bundle.version)
+    if !fragment_exist?("index-" + @bundle.version) || @test
       @measures_categories = @measures.group_by { |t| t.category }
     end
 
