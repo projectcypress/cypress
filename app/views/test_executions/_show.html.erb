@@ -42,7 +42,7 @@
         <% mes = Measure.where(:hqmf_id=>measure[:measure_id], "population_ids.stratification" => measure[:stratification]).first %>
         <!--  -->
         <% if mes %>
-          <span> <a href="#<%=mes.key%>" ><%= mes.display_name %>: HQFM_ID: <%= mes.hqmf_id %> <%= (measure[:stratification])? "Stratification ID #{measure[:stratification]}": "" %> </a></span>
+          <span> <a href="#<%=mes.key%>" ><%= mes.display_name %>: HQMF_ID: <%= mes.hqmf_id %> <%= (measure[:stratification])? "Stratification ID #{measure[:stratification]}": "" %> </a></span>
          <% else %>
           <span> </span>
          <% end %>
