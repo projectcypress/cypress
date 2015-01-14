@@ -5,7 +5,7 @@ class TestExecution
   include Mongoid::Attributes::Dynamic
   include AASM
 
-  has_one :artifact, autosave: true
+  has_one :artifact, autosave: true, dependent: :destroy
 
   belongs_to :product_test
 
@@ -144,7 +144,5 @@ class TestExecution
   def measure_passed?(measure)
     passing_measures.find{|m| m.id == measure.id}
   end
-
-
 
 end
