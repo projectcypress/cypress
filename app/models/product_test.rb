@@ -4,7 +4,7 @@ class ProductTest
 
   belongs_to :product
   has_one :patient_population
-  has_many :test_executions, dependent: :delete
+  has_many :test_executions, dependent: :destroy
   belongs_to :user
   belongs_to :bundle
 
