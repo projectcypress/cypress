@@ -70,7 +70,6 @@
              type: "GET",
              dataType: 'html',
              success: function(res){
-              console.log(res);
               $('#product_test_patients').html(res);
               $('#loading_dialog').dialog('close');
              },
