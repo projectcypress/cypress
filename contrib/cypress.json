@@ -1,9 +1,11 @@
 {
   "variables": {
-    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
-    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
+    "aws_access_key": "",
+    "aws_secret_key": "",
     "default_user": "ubuntu",
-    "default_pwd": "CypressPwd"
+    "default_pwd": "CypressPwd",
+    "vpc_id": "",
+    "subnet_id": ""
   },
   "builders": [
 
@@ -15,6 +17,8 @@
       "region": "us-east-1",
       "source_ami": "ami-0070c468",
       "instance_type": "t2.small",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
       "ami_name": "cypress_2.6.0",
@@ -130,12 +134,12 @@
     ]
   }],
 
-  "post-processors": [{
-    "type": "compress",
-    "format": "tar.gz",
-    "output": "cypress.v2.6.0.vmware.tgz",
-    "only": ["cypress.v2.6.0.vmware"]
-  },{
+  "post-processors": [
+  {
+    "type": "ovftool",
+    "only": ["cypress.v2.6.0.vmware"],
+    "format": "ova"
+    },{
     "type": "compress",
     "format": "tar.gz",
     "output": "cypress.v2.6.0.virtualbox.tgz",
