@@ -65,20 +65,6 @@ class AdminController < ApplicationController
     end
   end
 
-  def valuesets
-    query = []
-    search = params[:search] || ""
-    if !search.empty?
-      query = [{display_name:/#{search}/i},{oid:/#{search}/i}]
-    end
-    @page = params[:page] || 1
-    @limit = 100
-    @skip = (@page.to_i - 1) * @limit
-
-    @valuesets = HealthDataStandards::SVS::ValueSet.or(query).skip(@skip).limit(@limit).order_by(:oid=>1)
-    @page_count =  (@valuesets.count.to_f / @limit.to_f).ceil
-  end
-
   def valueset
     @valueset = HealthDataStandards::SVS::ValueSet.find(params[:id])
   end
