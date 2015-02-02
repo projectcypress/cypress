@@ -78,9 +78,7 @@ Cypress::Application.routes.draw do
       end
     end
 
-  get "/information/about"
   get "/information/feedback"
-  get "/information/help"
 
   get '/services/index'
   get '/services/validate_pqri'
