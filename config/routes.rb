@@ -86,7 +86,6 @@ Cypress::Application.routes.draw do
   get '/services/validate_pqri'
   post '/services/validate_pqri'
 
-  match '/measures/minimal_set' => 'measures#minimal_set', via: [:post]
   match '/measures/by_type' => 'measures#by_type', via: [:post]
   match '/product_tests/period', :to=>'product_tests#period', :as => :period, :via=> :post
 
