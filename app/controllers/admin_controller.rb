@@ -4,7 +4,6 @@ class AdminController < ApplicationController
 
   add_breadcrumb 'Dashboard',"/"
   add_breadcrumb 'Admin',"/admin/index"
-  add_breadcrumb "Valuesets", '', :only=>"valuesets"
   add_breadcrumb "Users", '', :only=>"users"
 
   def index
