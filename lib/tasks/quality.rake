@@ -9,7 +9,7 @@ begin
     cane.abc_max = 30
     cane.style_measure = 240
     cane.no_doc = true
-    cane.max_violations = 3
+    cane.max_violations = 2
     cane.parallel
   end
 
