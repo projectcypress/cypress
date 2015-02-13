@@ -1,8 +1,6 @@
 require 'cypress'
 require 'version'
 
-require 'validators/schema_validator'
-require 'validators/schematron_validator'
 require 'validators/valueset_validator'
 
 require 'mongoid'
