@@ -730,7 +730,7 @@ else
   echo
   # download the measure bundle
   echo -n "   Download latest measure bundle (${complete_bundle_ver}): "
-  su - -c "cd cypress; curl -s -u ${nlm_user}:${nlm_passwd} http://demo.projectcypress.org/bundles/bundle-${complete_bundle_ver}.zip -o ../bundle-${complete_bundle_ver}.zip" cypress
+  su - -c "cd cypress; curl -s -u ${nlm_user}:${nlm_passwd} https://demo.projectcypress.org/bundles/bundle-${complete_bundle_ver}.zip -o ../bundle-${complete_bundle_ver}.zip" cypress
   success_or_fail $? "done" "failed to download bundle" "Can't continue without measure bundle."
   # import the bundle
   echo -n "   Import measure bundle: "
