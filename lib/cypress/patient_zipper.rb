@@ -46,7 +46,7 @@ module Cypress
 
   class PatientZipper
 
-    FORMAT_EXTENSIONS = {html: "html", qrda: "xml"}
+    FORMAT_EXTENSIONS = {html: "html", qrda: "xml", json: "json"}
 
     def self.zip_artifacts(test_execution)
       execution_path = File.join("tmp", "te-#{test_execution.id}")
@@ -135,21 +135,21 @@ module Cypress
       FileUtils.copy(path, zip_path)
     end
 
-    def self.write_patients(test_execution, path)
+    def self.write_patients(product_test, path)
       ["json", "html", "qrda"].each do |format|
         FileUtils.mkdir_p File.join(path, format)
       end
-      start_date = test_execution.start_date
-      end_date = test_execution.end_date
-      measures = test_execution.measures.top_level.to_a
+      start_date = product_test.start_date
+      end_date = product_test.end_date
+      measures = product_test.measures.top_level.to_a
       qrda_exporter = Cypress::QRDAExporter.new(measures,start_date,end_date)
       html_exporter = Cypress::HTMLExporter.new(measures,start_date,end_date)
-      test_execution.records.each do |patient|
+      product_test.records.each do |patient|
         export_patient(patient, path, qrda_exporter, html_exporter)
       end
     end
 
-    def export_patient(patient, path, qrda_exporter, html_exporter)
+    def self.export_patient(patient, path, qrda_exporter, html_exporter)
       safe_first_name = patient.first.gsub("'", "")
       safe_last_name = patient.last.gsub("'", "")
       filename ="#{safe_first_name}_#{safe_last_name}"
@@ -157,13 +157,13 @@ module Cypress
 
       html = html_exporter.export(patient)
       qrda =  qrda_exporter.export(patient)
-      write_file(path, file, filename, html, "html")
-      write_file(path, file, filename, qrda, "qrda")
-      write_file(path, file, filename, json, "json")
+      write_file(path, filename, html, "html")
+      write_file(path, filename, qrda, "qrda")
+      write_file(path, filename, json, "json")
     end
 
-    def write_file(path, file, filename, exporter, type)
-      File.open(File.join(path, "html", "#{filename}.html"), "w") {|file| file.write(exporter)}
+    def self.write_file(path, filename, exporter, type)
+      File.open(File.join(path, type, "#{filename}.#{FORMAT_EXTENSIONS[type.to_sym]}"), "w") {|file| file.write(exporter)}
     end
 
   end
