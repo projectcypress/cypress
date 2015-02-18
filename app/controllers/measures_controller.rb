@@ -3,7 +3,7 @@ class MeasuresController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_test_and_execution, only: [:show, :patients]
   before_filter :find_measure, only: [:show,:patients]
-  before_filter :find_product, only: [:show,:patients,:minimal_set]
+  before_filter :find_product, only: [:show,:patients]
 
   def by_type
 

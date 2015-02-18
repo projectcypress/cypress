@@ -20,32 +20,6 @@
         });
     };
 
-
-/*    commented out functionality related to the minimal patient set since
- *    that screen is no longer part of the wizard sequence
-     $.testWizard.updateMinimalPatientSet = function() {
-        $('#measure_coverage').empty().html('<div class="busy">Finding appropriate patients...</h3>');
-        var ids = [];
-        $('.measure_cb:checked').each(function(i,e) {
-            var id = $(e).attr('id');
-            ids.push(id.substr(id.lastIndexOf('_')+1));
-        });
-        // get the needed num/den/exc for each of the selected measures
-        $.ajax({
-            url: "/measures/minimal_set",
-            type: "POST",
-            data: {
-                measure_ids: ids,
-                product_id: $('#product_test_product_id').val(),
-                num_records: $('#total_records').val()
-            },
-            dataType: 'script',
-            error: function(xhr, err) {
-                alert("Sorry, we can't currently calculate large numbers of quality measures:\n" + err);
-            }
-        });
-    };
-*/
     $.testWizard.updateProgressBar = function(screen) {
         switch (screen) {
             case "first":
