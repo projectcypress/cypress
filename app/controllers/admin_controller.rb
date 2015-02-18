@@ -33,9 +33,9 @@ class AdminController < ApplicationController
 
   def clear_database
     ["bundles", "measures", "products", "vendors", "test_executions", "product_tests", "records", "patient_cache", "query_cache", "health_data_standards_svs_value_sets", "fs.chunks", "fs.files"].each do|collection|
-      Mongoid.default_session[collection].where({}).remove_all
+      Mongoid.default_session[collection].drop
     end
-    ::Rails::Mongoid.create_indexes
+    ::Mongoid::Tasks::Database.create_indexes
     redirect_to :action=>:index
   end
 
@@ -43,12 +43,6 @@ class AdminController < ApplicationController
     bundle = Bundle.find(params[:bundle_id])
     bundle.delete
     redirect_to :action=>:index
-  end
-
-  def toggle_active
-    bundle = Bundle.find(params[:id])
-    bundle[:active] = params[:active]
-    bundle.save
   end
 
   def activate_bundle
