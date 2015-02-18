@@ -490,7 +490,7 @@ done
 
 # Install the RVM GPG keys
 echo -n "   Install RVM GPG Keys: "
-gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 &> /dev/null
+gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D39DC0E3 &> /dev/null
 success_or_fail $? "done" "failed"
 
 # Install RVM itself
@@ -565,7 +565,7 @@ apt-key list | grep -q "^pub[[:space:]]\+.*/${mongodb_key_id}"
 if [ $? -eq 0 ]; then
   success "already in keyring"
 else
-  apt-key adv --keyserver keyserver.ubuntu.com --recv "$mongodb_key_id" &> /dev/null
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv "$mongodb_key_id" &> /dev/null
   success_or_fail $? "added to keyring" "failed."
 fi
 # update package lists
