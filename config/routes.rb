@@ -77,9 +77,7 @@ Cypress::Application.routes.draw do
       end
     end
 
-  get "/information/about"
   get "/information/feedback"
-  get "/information/help"
 
   match '/measures/minimal_set' => 'measures#minimal_set', via: [:post]
   match '/measures/by_type' => 'measures#by_type', via: [:post]
