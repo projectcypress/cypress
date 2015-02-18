@@ -4,7 +4,6 @@ class AdminController < ApplicationController
 
   add_breadcrumb 'Dashboard',"/"
   add_breadcrumb 'Admin',"/admin/index"
-  add_breadcrumb "Valuesets", '', :only=>"valuesets"
   add_breadcrumb "Users", '', :only=>"users"
 
   def index
@@ -34,9 +33,9 @@ class AdminController < ApplicationController
 
   def clear_database
     ["bundles", "measures", "products", "vendors", "test_executions", "product_tests", "records", "patient_cache", "query_cache", "health_data_standards_svs_value_sets", "fs.chunks", "fs.files"].each do|collection|
-      Mongoid.default_session[collection].where({}).remove_all
+      Mongoid.default_session[collection].drop
     end
-    ::Rails::Mongoid.create_indexes
+    ::Mongoid::Tasks::Database.create_indexes
     redirect_to :action=>:index
   end
 
@@ -44,12 +43,6 @@ class AdminController < ApplicationController
     bundle = Bundle.find(params[:bundle_id])
     bundle.delete
     redirect_to :action=>:index
-  end
-
-  def toggle_active
-    bundle = Bundle.find(params[:id])
-    bundle[:active] = params[:active]
-    bundle.save
   end
 
   def activate_bundle
@@ -63,20 +56,6 @@ class AdminController < ApplicationController
       else
         render :text => "No - <a href=\"#\" class=\"enable\" data-bundleid=\"#{bundle.id}\">enable</span>"
     end
-  end
-
-  def valuesets
-    query = []
-    search = params[:search] || ""
-    if !search.empty?
-      query = [{display_name:/#{search}/i},{oid:/#{search}/i}]
-    end
-    @page = params[:page] || 1
-    @limit = 100
-    @skip = (@page.to_i - 1) * @limit
-
-    @valuesets = HealthDataStandards::SVS::ValueSet.or(query).skip(@skip).limit(@limit).order_by(:oid=>1)
-    @page_count =  (@valuesets.count.to_f / @limit.to_f).ceil
   end
 
   def valueset
@@ -97,9 +76,9 @@ class AdminController < ApplicationController
     if user
       user.update_attribute(:disabled, disabled)
       if (disabled)
-        render :text => "<a href=\"#\" class=\"disable\" data-username=\"#{user.email}\">disabled</span>"
+        render :text => "<a href=\"#\" class=\"disable\" data-username=\"#{h(user.email)}\">disabled</span>"
       else
-        render :text => "<a href=\"#\" class=\"enable\" data-username=\"#{user.email}\">enabled</span>"
+        render :text => "<a href=\"#\" class=\"enable\" data-username=\"#{h(user.email)}\">enabled</span>"
       end
     else
       render :text => "User not found"

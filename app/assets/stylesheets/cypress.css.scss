@@ -566,32 +566,6 @@ section.measure {
   dd.fail {background:url(/assets/fail.png) 0 50% no-repeat;padding-left:20px;color:red;font-weight:bold}
 }
 
-section.pqriValidation {
-  margin-top:10px;
-  position:relative;
-  padding-bottom:0;
-  
-  h2 { margin-top: 5px; }
-  
-  h2.fail{font-weight:bold;color:red;}
-  
-  h2.success{font-weight:bold;color:green;}
-  
-  div.pqriXmlError,div.baselinePqriXmlError{
-    margin-top:10px;
-    padding:3px 3px 3px 3px;
-    background-color:#F7E1E7;
-    border:1px solid #ff0000;
-    
-  }
-
-  tr.baselinepqri_results,tr.pqri_results{
-    display:none;
-  }
-
-  
-}
-
 section#vendor_patients {
   margin-top:20px;
   margin-bottom:40px;
@@ -884,33 +858,6 @@ section#ehr_results {
     td:nth-child(2).pass {color:green;background:url(/assets/pass.png) 0 50% no-repeat;}
     td:nth-child(2).fail {color:red; background:url(/assets/fail.png) 0% 50% no-repeat;font-weight:bold;}
     td:nth-child(2).incomplete {color:#666; background:url(/assets/insufficient.png) 0% 50% no-repeat;}
-  }
-}
-
-section#pqriValidation {
-    margin-bottom:40px;
-      table {
-        thead tr th {text-align:left;}
-        tr:first-child th {text-transform:uppercase;border-bottom:1px solid #ccc;}
-        thead tr th:nth-child(2) {text-align:center}
-        thead tr th:nth-child(3) {text-align:center}
-        thead tr th:nth-child(4) {text-align:center}
-        thead tr th:nth-child(5) {text-align:right}
-        tr td:nth-child(1) {width: 20px; text-align:left}
-        tr td:nth-child(2) {width: 0px} 
-        tr td:nth-child(2).toggle {width: 10px; text-align:left}
-        tr td:nth-child(3) {width: 200px; text-align:left}
-        tr td:nth-child(4) {width: 300px; text-align:center}
-        tr td:nth-child(5) {width: 100px; text-align:center}
-        tr td:nth-child(6) {text-align:center}
-        tr td:nth-child(7) {text-align:right} 
-        
-        tbody td:nth-child(7) { text-align: right }
-      } 
-  
-  .sub_rows {
-    display: none;
-    
   }
 }
 

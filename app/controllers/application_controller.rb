@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   delegate :url_helpers, to: 'Rails.application.routes'
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: :render_500
@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
 
   class TypeNotFound < StandardError
   end
@@ -57,10 +56,12 @@ class ApplicationController < ActionController::Base
     logger.error(exception)
     @exception = exception
     respond_to do |format|
-         format.html { render template: 'errors/error_500', layout: 'layouts/application', status: 500 }
-         format.all { render nothing: true, status: 500}
-       end
+      format.html { render template: 'errors/error_500', layout: 'layouts/application', status: 500 }
+      format.all { render nothing: true, status: 500}
+    end
   end
+
+  private
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :first_name << :last_name << :telephone << :terms_and_conditions
