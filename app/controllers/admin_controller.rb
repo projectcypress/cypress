@@ -97,9 +97,9 @@ class AdminController < ApplicationController
     if user
       user.update_attribute(:disabled, disabled)
       if (disabled)
-        render :text => "<a href=\"#\" class=\"disable\" data-username=\"#{user.email}\">disabled</span>"
+        render :text => "<a href=\"#\" class=\"disable\" data-username=\"#{h(user.email)}\">disabled</span>"
       else
-        render :text => "<a href=\"#\" class=\"enable\" data-username=\"#{user.email}\">enabled</span>"
+        render :text => "<a href=\"#\" class=\"enable\" data-username=\"#{h(user.email)}\">enabled</span>"
       end
     else
       render :text => "User not found"
