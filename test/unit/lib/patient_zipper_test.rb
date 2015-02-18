@@ -5,7 +5,7 @@ class PatientZipperTest < ActiveSupport::TestCase
 
   setup do
 
-    collection_fixtures('records','_id','bundle_id')
+    collection_fixtures('records','_id','bundle_id', 'test_id')
     collection_fixtures('bundles', '_id')
     collection_fixtures('vendors', '_id')
     collection_fixtures('products', '_id')
@@ -64,7 +64,8 @@ class PatientZipperTest < ActiveSupport::TestCase
   test "should create valid artifact zip" do
     filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
     artifact = Artifact.new(file: File.new(filename))
-    te = TestExecution.find("4f6b78971d41c851eb0004aa")
+    te = TestExecution.find("4f5900161d41c851eb000481")
+
     artifact.test_execution = te
 
     zip = Cypress::PatientZipper.zip_artifacts(te)
