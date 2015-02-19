@@ -81,16 +81,11 @@ class PatientsController < ApplicationController
       m.group_by { |t| t.category }
     end
 
-
-
-
     if params[:product_test_id]
       @test = ProductTest.find(params[:product_test_id])
-      @patients = @test.results.where("value.measure_id" => @selected.hqmf_id).where("value.sub_id" => @selected.sub_id).where("value.IPP".to_sym.gt => 0).order_by([ ["value.NUMER", :desc], ["value.DENOM", :desc], ["value.DENEX", :desc]])
+      @patients = get_patients(@test)
     else
-    @patients = @bundle.results.where("value.measure_id" => @selected.hqmf_id)
-      .where("value.sub_id" => @selected.sub_id).where("value.IPP".to_sym.gt => 0)
-      .order_by([ ["value.NUMER", :desc], ["value.DENOM", :desc], ["value.DENEX", :desc]])
+    @patients = get_patients(@bundle)
     end
     render 'table', layout: false
   end
@@ -126,6 +121,12 @@ class PatientsController < ApplicationController
   end
 
   private
+
+  def get_patients(obj)
+    obj.results.where("value.measure_id" => @selected.hqmf_id)
+      .where("value.sub_id" => @selected.sub_id).where("value.IPP".to_sym.gt => 0)
+      .order_by([ ["value.NUMER", :desc], ["value.DENOM", :desc], ["value.DENEX", :desc]])
+  end
 
   def find_bundle_or_active
     @bundle = params[:bundle_id].nil? ? Bundle.active.first : Bundle.find(params[:bundle_id])
