@@ -12,9 +12,16 @@ a.cmd, input.cmd {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-
-  
 }
+
+a.cmd[disabled], a.cmd[disabled]:hover {
+  @include bordered(grey);
+  pointer-events: none;
+  color: grey;
+  background-color: $btnBkgColor;
+  cursor: not-allowed;
+}
+
 a.cmd:hover, input.cmd:hover {
   background-color: $btnHoverBkg;
 }
