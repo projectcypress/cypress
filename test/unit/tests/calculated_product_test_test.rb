@@ -130,5 +130,12 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     assert_equal 1 ,te.execution_errors.length, "should error on additional supplemental data"
   end
 
+  test "should not cause error when extra supplemental data provided has zero value" do
+    ptest = ProductTest.find("51703a6a3054cf8439000044")
+    xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental_is_zero.xml')), "application/xml")
+    te = ptest.execute(xml)
+    assert te.execution_errors.empty?, "should not error on additional supplemental data value equal to 0"
+  end
+
 
 end
