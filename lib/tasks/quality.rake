@@ -19,7 +19,7 @@ begin
     cane.no_doc = true
     cane.no_readme = true
     cane.no_style = true
-    cane.add_threshold 'coverage/covered_percent', :>=, 81.00
+    cane.add_threshold 'coverage/covered_percent', :>=, 80.50
   end
 
 rescue LoadError

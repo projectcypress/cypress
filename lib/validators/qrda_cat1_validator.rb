@@ -3,11 +3,7 @@
 module Validators
   class QrdaCat1Validator < QrdaFileValidator
     include Validators::Validator
-
-    SCHEMATRON = APP_CONFIG["validation"]["schematron"]["qrda_cat_1"]
-
-    SCHEMATRON_ERROR_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat I Schematron", SCHEMATRON ,ISO_SCHEMATRON,true,{"phase" => "errors"})
-    # SCHEMATRON_WARNING_VALIDATOR = Validators::Schematron::UncompiledValidator.new("Generic QRDA Cat I Schematron", SCHEMATRON, ISO_SCHEMATRON,true, {"phase" => "warnings"})
+    include HealthDataStandards::Validate
 
     self.validator_type = :result_validation
 
@@ -23,10 +19,17 @@ module Validators
       # validate that each file in the zip contains a valid QRDA Cat I document.
       # We may in the future have to support looking in the contents of the test
       # patient records to match agaist QRDA Cat I documents
+
+      validation_errors = Cat1.instance.validate(doc, options)
+      validation_errors.concat CDA.instance.validate(doc, options)
+
+      validation_errors.each do |error|
+        add_error error.message, {message: error.message,
+          location: error.location, validator: error.validator}
+      end
+
       @measures.each do |measure|
       # First validate the schema correctness
-        add_errors QRDA_SCHEMA_VALIDATOR.validate(doc, options)
-        add_errors SCHEMATRON_ERROR_VALIDATOR.validate(doc, {file_name: options[:file_name]})
 
         # Look in the document to see if there is an entry stating that it is reporting on the given measure
         # we will be a bit lenient and look for both the version specific id and the non version specific ids
