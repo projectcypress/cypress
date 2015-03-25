@@ -95,4 +95,44 @@ class CalculatedProductTest < ProductTest
 
   private
 
+  def generate_results_for_measure(mes)
+    results = self.results.where({"value.measure_id" => mes.hqmf_id, "value.IPP" => {"$gt" => 0}})
+    mrns = results.collect{|r| r["value"]["medical_record_id"]}
+    results.uniq!
+    qrda = qrda_product_tests.build(measure_ids: [mes.measure_id],
+            name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
+            bundle_id: self.bundle_id,
+            effective_date: self.effective_date,
+            product_id: self.product_id,
+            user_id: self.user_id)
+    records = self.records.where({"medical_record_number" => {"$in"=>mrns}})
+
+    records.each do |rec|
+      generate_new_results(rec, results, qrda.id)
+    end
+
+    qrda.save
+    qrda.ready
+  end
+
+  def generate_new_results(rec, results, qrda_id)
+    new_results = results.select { |res| res.value.patient_id == rec.id }
+
+    new_rec = rec.dup
+    new_rec[:test_id] = qrda_id
+    new_rec.save
+
+    new_results.each do |res|
+      update_new_result_ids(res, qrda_id, new_rec.id)
+    end
+  end
+
+  def update_new_result_ids(res, qrda_id, new_rec_id)
+    res_clone = Result.new()
+    res_clone["value"] = res["value"].clone
+    res_clone["value"]["test_id"]=qrda_id
+    res_clone["value"]["patient_id"] = new_rec_id
+    res_clone.save
+  end
+
 end
