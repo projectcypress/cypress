@@ -1,8 +1,6 @@
 require 'cypress'
 require 'version'
 
-require 'validators/valueset_validator'
-
 require 'mongoid'
 require 'mongoid-grid_fs'
 require 'hqmf-parser'

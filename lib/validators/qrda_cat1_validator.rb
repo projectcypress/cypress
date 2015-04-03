@@ -7,8 +7,9 @@ module Validators
 
     self.validator_type = :result_validation
 
-    def initialize(measures=[])
+    def initialize(bundle, measures=[])
       @measures = measures
+      @validators = [CDA.instance, Cat1.instance, HealthDataStandards::Validate::ValuesetValidator.new(bundle)]
     end
 
     # Validates a QRDA Cat I file.  This routine will validate the file against the CDA schema as well as the
@@ -20,8 +21,9 @@ module Validators
       # We may in the future have to support looking in the contents of the test
       # patient records to match agaist QRDA Cat I documents
 
-      validation_errors = Cat1.instance.validate(doc, options)
-      validation_errors.concat CDA.instance.validate(doc, options)
+      validation_errors = @validators.inject([]) do |errors, validator|
+        errors.concat validator.validate(doc, options)
+      end
 
       validation_errors.each do |error|
         add_error error.message, {message: error.message,
