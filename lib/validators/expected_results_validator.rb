@@ -237,9 +237,11 @@ module Validators
           end
         end
         reported_supplemantal_value.each_pair do |code,value|
-          if expected_supplemental_value[code].nil?
-            err = "unexpected supplemental data for #{population_key} #{supplemental_data_key} #{code}"
-            logger.call(err)
+          if value > 0
+            if expected_supplemental_value[code].nil?
+              err = "unexpected supplemental data for #{population_key} #{supplemental_data_key} #{code}"
+              logger.call(err)
+            end
           end
         end
       end
