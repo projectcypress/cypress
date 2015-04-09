@@ -14,20 +14,13 @@ class PatientsController < ApplicationController
       @measures = @test.measures
     else
       @measures = Rails.cache.fetch("bundle_measures_" + @bundle.version) { @bundle.measures }
-      # @measures = @bundle.measures
     end
     #only get the measures_categories if we don't have a fragment for the view section
     if !fragment_exist?("index-" + @bundle.version) || @test
       @measures_categories = @measures.group_by { |t| t.category }
     end
 
-    @showAll = false
-    if params[:measure_id]
-      @selected = Measure.where(_id: params[:measure_id]).first
-    else
-      @selected = Rails.cache.fetch("measures_0_bundle_ver_" + @bundle.version ) { @measures[0] }
-      @showAll = true
-    end
+    set_selected(params[:measure_id])
 
     # If a ProductTest is specified, show results for only the patients included in that population
     # Otherwise show the whole Master Patient List
@@ -121,6 +114,16 @@ class PatientsController < ApplicationController
   end
 
   private
+
+  def set_selected(measure_id)
+    if measure_id
+      @showAll = false
+      @selected = Measure.where(_id: measure_id).first
+    else
+      @selected = Rails.cache.fetch("measures_0_bundle_ver_" + @bundle.version ) { @measures[0] }
+      @showAll = true
+    end
+  end
 
   def get_patients(obj)
     obj.results.where("value.measure_id" => @selected.hqmf_id)
