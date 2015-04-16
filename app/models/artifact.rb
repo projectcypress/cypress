@@ -4,7 +4,7 @@ class Artifact
   include Mongoid::Timestamps
 
   mount_uploader :file, DocumentUploader
-  belongs_to :test_execution
+  belongs_to :test_execution, index: true
 
   field :content_type, type: String
   field :file_size, type: Integer

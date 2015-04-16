@@ -1,3 +1,4 @@
+<%cache @vendors do %>
 <%= javascript 'vendors' %>
 
 <div id="container" class="container">
@@ -33,20 +34,18 @@
           </tr>
         </thead>
         <% @vendors.each do |vendor| %>
-
-            <tbody>
-              <tr>
-                <td class="<%= vendor.products.empty? ?  '' : 'expander toggle tog'%>" data-code="<%= vendor.id %>"></td>
-                <td class="vendorname"><%= link_to vendor.name, vendor_path(vendor.id) %></td>
-                <td><%= display_tested_products(vendor) %></td>
-                <td><span class="<% if vendor.count_passing > 0 %> pass <% end %> product"><%= display_passing_products(vendor) %></span></td>
-                <td><span class="<% if vendor.count_tested - vendor.count_passing > 0 %> fail <% end %> product"><%= display_failing_products(vendor) %></span></td>
-                <td><!-- last executed intentionally blank --></td>
-                <td class="pull-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', data: {:method => :delete, :confirm => 'Are you sure?'} %></td>
-              </tr>
-              <%
-                vendor.products.each do |product|
-                %>
+            <% cache vendor do %>
+              <tbody>
+                <tr>
+                  <td class="<%= vendor.products.empty? ?  '' : 'expander toggle tog'%>" data-code="<%= vendor.id %>"></td>
+                  <td class="vendorname"><%= link_to vendor.name, vendor_path(vendor.id) %></td>
+                  <td><%= display_tested_products(vendor) %></td>
+                  <td><span class="<% if vendor.count_passing > 0 %> pass <% end %> product"><%= display_passing_products(vendor) %></span></td>
+                  <td><span class="<% if vendor.count_tested - vendor.count_passing > 0 %> fail <% end %> product"><%= display_failing_products(vendor) %></span></td>
+                  <td><!-- last executed intentionally blank --></td>
+                  <td class="pull-right"><%= link_to 'delete', { :action => 'destroy', :id => vendor }, :class => 'cmd del', data: {:method => :delete, :confirm => 'Are you sure?'} %></td>
+                </tr>
+                <% vendor.products.each do |product| %>
                   <% cache product do %>
                     <tr class="sub_rows <%= vendor.id %>">
                       <td><!-- expando intentionally blank --></td>
@@ -59,12 +58,13 @@
                     </tr>
                   <% end #cache %>
                 <% end %>
-              <% end %>
-            </tbody>
-
+              </tbody>
+            <% end %>
+          <% end #cache vendor %>
       </table>
     </section>
 
     <%= render :partial=>"shared/legend" %>
   </div>
 </div>
+<% end #cache @vendors %>

@@ -5,9 +5,9 @@ class PatientPopulation
   include Mongoid::Document
   include HealthDataStandards::CQM
 
-  belongs_to :product_test
-  belongs_to :user
-  has_and_belongs_to_many :records
+  belongs_to :product_test, index: true
+  belongs_to :user, index: true
+  has_and_belongs_to_many :records, index: true
 
   field :id, type: String
   field :name, type: String

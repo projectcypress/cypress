@@ -7,7 +7,7 @@ class TestExecution
 
   has_one :artifact, autosave: true, dependent: :destroy
 
-  belongs_to :product_test
+  belongs_to :product_test, index: true, touch: true
 
   embeds_many :execution_errors
   field :required_modules, type: Array
@@ -21,6 +21,8 @@ class TestExecution
 
   scope :ordered_by_date, -> { order_by(created_at: :desc) }
   scope :order_by_state, -> { order_by(state: :asc) }
+
+  index({product_test_id: 1, created_at: -1})
 
   aasm column: :state do
     state :pending, :initial => true

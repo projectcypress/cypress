@@ -1,12 +1,13 @@
 class ProductTest
   include Mongoid::Document
+  include Mongoid::Timestamps
   include AASM
 
-  belongs_to :product
+  belongs_to :product, index: true, touch: true
   has_one :patient_population
   has_many :test_executions, dependent: :destroy
-  belongs_to :user
-  belongs_to :bundle
+  belongs_to :user, index: true
+  belongs_to :bundle, index: true
 
   embeds_many :notes, inverse_of: :product_test
 
