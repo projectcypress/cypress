@@ -9,7 +9,7 @@ class User
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable
+         :validatable, :lockable
 
   # Database authenticatable
   field :email, :type => String
@@ -22,6 +22,7 @@ class User
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_acceptance_of :terms_and_conditions, :allow_nil => false, :on => :create
+  validate :password_complexity
 
   # Recoverable
   field :reset_password_token, :type => String
@@ -41,6 +42,10 @@ class User
   field :staff_role, type: Boolean
   field :disabled, type: Boolean
 
+  #lockable
+  field :failed_attempts, :type => Integer
+  field :locked_at, :type => Time
+
    def grant_admin
     update_attribute(:admin, true)
     update_attribute(:approved, true)
@@ -52,5 +57,20 @@ class User
 
   def revoke_admin
     update_attribute(:admin, false)
+  end
+
+  private
+
+  def password_complexity
+    if password.present? 
+      if !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)./)
+        require 'pry'
+        binding.pry
+        errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"
+      end
+      if password == email
+        errors.add :password, "email and password must be different"
+      end
+    end
   end
 end
