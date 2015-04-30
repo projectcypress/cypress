@@ -62,11 +62,13 @@ class User
   private
 
   def password_complexity
-    if password.present? 
-      if !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)./)
-        require 'pry'
-        binding.pry
-        errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"
+    if password.present?
+      lowcase = password.match(/^(?=.*[a-z])./) ? 1 : 0
+      upcase = password.match(/^(?=.*[A-Z])./) ? 1 : 0
+      num = password.match(/^(?=.*[\d])./) ? 1 : 0
+      special = password.match(/^(?=.*[\W])./) ? 1 : 0
+      if !(lowcase + upcase + num + special >= 3)
+        errors.add :password, "password must include at least 3 of the following groups: lowercase letters, uppercase letters, digits, and special characters"
       end
       if password == email
         errors.add :password, "email and password must be different"
