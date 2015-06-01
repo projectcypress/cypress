@@ -1,21 +1,19 @@
 language: ruby
 rvm:
-  - 2.1.2
-  - 2.1.5
-  - 2.2.1
-
+- 2.1.2
+- 2.1.5
+- 2.2.1
 services:
-  - mongodb
-
-script: ./.travis/execute.sh
-
+- mongodb
+script: "./.travis/execute.sh"
 notifications:
   email:
     recipients:
-      - healthcare-ci@googlegroups.com
+    - healthcare-ci@googlegroups.com
     on_failure: change
-
+  slack:
+    secure: NfcNb3LCyd7/ACYc6mDoBJZlBFIV5wKMMWs0On2DNeaDoD/EKCbQRQQVOHEvfsaqOM+5zmi9giYaV7cV+Gl+zfehZ/Q69x89YjWWVFeAp5QGDzoCnM7oaaTXygla52sfcL9Oi3rLgTWyjqMSS7tM2DW5d/V+iEjyilmavsUvRbU=
 branches:
   only:
-    - master
-    - develop
+  - master
+  - develop
