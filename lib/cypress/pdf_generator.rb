@@ -21,48 +21,20 @@ module Cypress
     end
 
     def calculated_product_test
-      set_default_style
-
-      summary_section
-      measure_errors_section
-      qrda_errors_section
-      qrda_warnings_section
-      quality_measures_section
-      vendor_xml_section
-      record_mapping_section
-      test_mapping_section
+      default_tests
     end
 
     def inpatient_product_test
-      set_default_style
-
-      summary_section
-      measure_errors_section
-      qrda_errors_section
-      qrda_warnings_section
-      quality_measures_section
-      vendor_xml_section
-      record_mapping_section
-      test_mapping_section
+      default_tests
     end
 
     def qrda_product_test
-      set_default_style
-
-      summary_section
-      non_qrda_errors_section
-      qrda_errors_section
-      qrda_warnings_section
-      vendor_xml_section
-      record_mapping_section
-      test_mapping_section
+      default_tests(:non_qrda_errors_section)
     end
-
 
     private
 
     FONT_DEFAULT = "Helvetica"
-    FONT_XML = "Menlo"
 
     SIZE_DEFAULT = 10
     SIZE_HEADER = 13
@@ -90,6 +62,18 @@ module Cypress
         color: COLOR_DEFAULT,
         weight: WEIGHT_DEFAULT
       })
+    end
+
+    def default_tests(second_test = :measure_errors_section)
+      set_default_style
+
+      summary_section
+      self.send(second_test)
+      qrda_errors_section
+      qrda_warnings_section
+      quality_measures_section if second_test == :measure_errors_section
+      record_mapping_section
+      test_mapping_section
     end
 
     def new_section_margin
@@ -146,34 +130,29 @@ module Cypress
       grouped_errors = errors.group_by(&:file_name)
       grouped_errors.each_pair do |fname, err_group|
         @pdf.text fname || ""
-        err_group.each_with_index do |error, index|
-          cleaned_error_message = error.message.delete("\n").squeeze(' ')
-          @pdf.text "#{index + 1})    #{cleaned_error_message}"
-        end
+        error_messages(err_group)
         @pdf.text  ""
       end
     end
 
     def qrda_errors_section
-      errors = @test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:error)
-      unless errors.empty?
-        new_section_margin
-        @pdf.text "QRDA Errors"
-      end
-
-      errors.each_with_index do |error, index|
-        cleaned_error_message = error.message.delete("\n").squeeze(' ')
-        @pdf.text "#{index + 1})    #{cleaned_error_message}"
-      end
+      qrda_section(@test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:error))
     end
 
     def qrda_warnings_section
-      errors = @test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:warning)
+      qrda_section(@test_execution.execution_errors.by_validation_type(:xml_validation).by_type(:warning))
+    end
+
+    def qrda_section(errors)
       unless errors.empty?
         new_section_margin
         @pdf.text "QRDA Warnings"
       end
 
+      error_messages(errors)
+    end
+
+    def error_messages(errors)
       errors.each_with_index do |error, index|
         cleaned_error_message = error.message.delete("\n").squeeze(' ')
         @pdf.text "#{index + 1})    #{cleaned_error_message}"
@@ -212,13 +191,13 @@ module Cypress
       set_default_style
     end
 
-    def quality_measures_section
+    def quality_measures_section(results_method = :results_table)
       new_section_margin
       @pdf.text "PASSING MEASURES"
       if @test_execution.passing_measures.count == 0
         @pdf.text "There are no passing measures for this test."
       else
-        results_table(@test_execution.passing_measures)
+        self.send(results_method, @test_execution.passing_measures)
       end
 
       new_section_margin
@@ -226,26 +205,12 @@ module Cypress
       if @test_execution.failing_measures.count == 0
         @pdf.text "There are no failing measures for this test."
       else
-        results_table(@test_execution.failing_measures)
+        self.send(results_method, @test_execution.failing_measures)
       end
     end
 
-     def quality_cv_measures_section
-      new_section_margin
-      @pdf.text "PASSING MEASURES"
-      if @test_execution.passing_measures.count == 0
-        @pdf.text "There are no passing measures for this test."
-      else
-        cv_results_table(@test_execution.passing_measures)
-      end
-
-      new_section_margin
-      @pdf.text "FAILING MEASURES"
-      if @test_execution.failing_measures.count == 0
-        @pdf.text "There are no failing measures for this test."
-      else
-        cv_results_table(@test_execution.failing_measures)
-      end
+    def quality_cv_measures_section
+      quality_measures_section(:cv_results_table)
     end
 
     def results_table(measures)
@@ -253,35 +218,10 @@ module Cypress
       table_content << ["Measures included in this test", "Patients", "Denominator", "Den. Exclusions", "Numerator", "Num. Exclusions", "Exceptions"]
 
       measures.each do |measure|
-        row = []
-
-        expected_result = @test_execution.expected_result(measure)
-        reported_result = @test_execution.reported_result(measure)
-
-        measure_name = "#{measure.nqf_id} - #{measure.name} "
-        measure_name.concat(" - #{measure.subtitle}") if measure["sub_id"]
-        patients = "#{reported_result[QME::QualityReport::POPULATION]}/#{expected_result[QME::QualityReport::POPULATION]}"
-
-        row << measure_name
-        row << patients
-
-        [QME::QualityReport::DENOMINATOR , QME::QualityReport::EXCLUSIONS, QME::QualityReport::NUMERATOR , "NUMEX" ,QME::QualityReport::EXCEPTIONS].each do |code|
-          expected = expected_result[code]
-          reported = reported_result[code]
-
-          unless expected_result["population_ids"][code]
-            expected = nil
-            reported = nil
-          end
-          row << "#{reported || "-"} / #{expected}"
-        end
-
-        table_content << row
+        table_content << measure_row(measure, [QME::QualityReport::DENOMINATOR , QME::QualityReport::EXCLUSIONS, QME::QualityReport::NUMERATOR , "NUMEX" ,QME::QualityReport::EXCEPTIONS])
       end
 
-      set_style({size: 8})
-      @pdf.table(table_content, column_widths: [175, 60, 60, 60, 60, 60, 60])
-      set_default_style
+      draw_results_table(table_content)
     end
 
 
@@ -290,44 +230,51 @@ module Cypress
       table_content << ["Measures included in this test", "Patients/Episodes", "Measure Population", "Observation Value"]
 
       measures.each do |measure|
-        row = []
-
-        expected_result = @test_execution.expected_result(measure)
-        reported_result = @test_execution.reported_result(measure)
-
-        measure_name = "#{measure.nqf_id} - #{measure.name} "
-        measure_name.concat(" - #{measure.subtitle}") if measure["sub_id"]
-        patients = "#{reported_result[QME::QualityReport::POPULATION]}/#{expected_result[QME::QualityReport::POPULATION]}"
-
-        row << measure_name
-        row << patients
-
-        [QME::QualityReport::MSRPOPL , QME::QualityReport::OBSERVATION].each do |code|
-          expected = expected_result[code]
-          reported = reported_result[code]
-
-          unless expected_result["population_ids"][code]
-            expected = nil
-            reported = nil
-          end
-          row << "#{reported || "-"} / #{expected}"
-        end
-
-        table_content << row
+        table_content << measure_row(measure, [QME::QualityReport::MSRPOPL , QME::QualityReport::OBSERVATION])
       end
 
+      draw_results_table(table_content)
+    end
+
+    def measure_row(measure, codes)
+      row = []
+
+      expected_result = @test_execution.expected_result(measure)
+      reported_result = @test_execution.reported_result(measure)
+
+      row << measure_name(measure)
+      row << patients(reported_result, expected_result)
+
+      [QME::QualityReport::DENOMINATOR , QME::QualityReport::EXCLUSIONS, QME::QualityReport::NUMERATOR , "NUMEX" ,QME::QualityReport::EXCEPTIONS].each do |code|
+        row << set_row(expected_result[code], reported_result[code], expected_result["population_ids"][code])
+      end
+
+      return row
+    end
+
+    def draw_results_table(table_content)
       set_style({size: 8})
       @pdf.table(table_content, column_widths: [175, 60, 60, 60, 60, 60, 60])
       set_default_style
     end
 
-
-    def vendor_xml_section
-      # TODO - This section is repetitive unless we can link the earlier error and warning sections to the relevant entries here.
-      #new_section_margin
-      #@pdf.text "Vendor Generated XML"
-
-      #render :partial=>"test_executions/node" , :locals=>{:doc=>doc, :error_map=>error_map, :error_attributes=>error_attributes}
+    def measure_name(measure)
+      measure_name = "#{measure.nqf_id} - #{measure.name} "
+      measure_name.concat(" - #{measure.subtitle}") if measure["sub_id"]
+      return measure_name
     end
+
+    def patients(reported_result, expected_result)
+      "#{reported_result[QME::QualityReport::POPULATION]}/#{expected_result[QME::QualityReport::POPULATION]}"
+    end
+
+    def set_row(expected, reported, population_ids)
+      unless population_ids
+        expected = nil
+        reported = nil
+      end
+      return "#{reported || "-"} / #{expected}"
+    end
+
   end
 end
