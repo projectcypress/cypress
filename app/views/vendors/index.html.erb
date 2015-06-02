@@ -13,6 +13,13 @@
       </nav>
     </section>
 
+    <% flash.each do |type, msg| %>
+      <div class="alert alert-<%=flash.keys.first%>">
+        <strong><%=type.upcase%>:</strong> <%= msg %>
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+      </div>
+    <% end %>
+
     <section class="information bordered">
       <p>
         Welcome to Cypress! This is the Certification Dashboard that displays the names of the EHR vendors and the status of their products being tested.

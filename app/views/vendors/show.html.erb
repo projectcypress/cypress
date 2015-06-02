@@ -16,6 +16,14 @@
         <%= @vendor.name %>
       </nav>
     </section>
+
+    <% flash.each do |type, msg| %>
+      <div class="alert alert-<%=flash.keys.first%>">
+        <strong><%=type.upcase%>:</strong> <%= msg %>
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+      </div>
+    <% end %>
+
     <section class="candidate bordered buffered">
       <div class="row">
       <dl class="vendor span4 dl-horizontal"> <%#WILL WORK WHEN UPGRADED TO BOOTSRAP 2.0.2+%>
