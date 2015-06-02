@@ -20,19 +20,20 @@
     </li>
 
     <li>
+      <%= f.label :current_password %>
+      <%= f.password_field :current_password %>
+      <p>(we need your current password to confirm your changes)</p>
+    </li>
+
+    <li>
       <%= f.label :password %>
       <%= f.password_field :password %>
-      <p>Must be at least 5 characters long. (leave blank if you don't want to change it)</p>
+      <p>Must be at least 8 characters long, and contain at least 3 of the following classes of characters: lower case letters, upper case letters, digits, and special characters. (leave blank if you don't want to change it)</p>
     </li>
 
     <li>
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation %>
-    </li>
-    <li>
-      <%= f.label :current_password %>
-      <%= f.password_field :current_password %>
-      <p>(we need your current password to confirm your changes)</p>
     </li>
   </ul>
 
