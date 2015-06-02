@@ -164,7 +164,7 @@
             <th></th>
           </tr>
         </thead>
-         <% @test.test_executions.each do |te| %>
+         <% @test.test_executions.ordered_by_date.each do |te| %>
 
          <tr id="te_<%=te.id%>">
            <td class="align-left" colspan="3">
