@@ -1,4 +1,3 @@
-require 'validators/data_criteria_validator'
 require 'validators/smoking_gun_validator'
 require 'validators/qrda_cat1_validator'
 
@@ -10,7 +9,7 @@ class QRDAProductTest < ProductTest
   belongs_to :calculated_product_test, foreign_key: "calculated_test_id", index: true
 
   def validators
-    @validators ||= [QrdaCat1Validator.new(self.bundle, self.measures), DataCriteriaValidator.new(self.measures),
+    @validators ||= [QrdaCat1Validator.new(self.bundle, self.measures),
     SmokingGunValidator.new(self.measures, self.records, self.id)]
   end
 
