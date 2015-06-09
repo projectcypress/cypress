@@ -105,7 +105,7 @@ class TestExecution
     @state == :passed
   end
 
-  def failing
+  def failing?
     @state == :failed
   end
 
