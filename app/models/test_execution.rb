@@ -102,15 +102,15 @@ class TestExecution
   end
 
   def passing?
-    @state == :passed
+    self.state == :passed
   end
 
   def failing?
-    @state == :failed
+    self.state == :failed
   end
 
   def incomplete?
-    (!passing? && !failing)
+    (!passing? && !failing?)
   end
 
   def files

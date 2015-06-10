@@ -45,6 +45,18 @@ class TestExecutionTest < ActiveSupport::TestCase
 
   end
 
+  test "passed failed and incomplete methods should be accurate" do
+    te = TestExecution.new
+    te.save
+
+    assert te.incomplete?, "te.imcomplete? should return true when execution is neither passing or failing"
+
+    te.failed
+    assert te.failing?, "te.failing? not returning true when execution is failing"
+
+    te.force_pass
+    assert te.passing?, "te.passing? not returning true when execution is passing"
+  end
 
   
   
