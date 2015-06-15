@@ -17,7 +17,10 @@ dl.quality-measures {
 }
 section#quality_measures {
   h5 {color:#666;padding-left:4px;}
-  table {margin-top:0;margin-bottom:50px;}
+  table {
+    margin-top:0;
+    margin-bottom:50px;
+  }
 
 }
 section#patient_list{
@@ -39,7 +42,7 @@ section.measure {
     color: #999
   }
   dd.pass {
-    background: url(/assets/pass.png) 10px 50% no-repeat;
+    background: url(/assets/included.png) 10px 50% no-repeat;
     padding-left: 30px;
    color: green;
   }
@@ -47,7 +50,7 @@ section.measure {
     background: url(/assets/fail.png) 10px 50% no-repeat;
     padding-left: 30px;
     color: #FF0000;
-    font-weight:bold;
+    font-weight:normal; // changed from bold
   }
   dd table{
     width:600px;
@@ -74,13 +77,23 @@ section#patient_characteristics{
   display:inline-block;
 }
 
+// steps to perform
 section.instructions {
   margin-top:1em;
+  .span3 {        // boxes around steps
+    border-radius: 5px;     // rounded edges
+    border: 1px solid #ccc;     // gray 
+    text-align: center;
+    height: 80px;
+    width: 208px;
+  }
   p {
     padding:10px 0 5px 0;
     margin:0;
     }
   }
+
+// notes and test execution section
 section.records {
   margin-top:20px;
   form {margin-bottom:0;}
@@ -90,11 +103,11 @@ section.records {
     }
   }
   
-  span.date {font-weight:bold;}
+  span.date {font-weight:normal;} // date of the notes normal font
 }
 section.execution {
-  margin-bottom:25px;
-  }
+  margin-bottom:25px; 
+}
 section.legend {
   padding: 5px 10px 10px 0;
   border-top: 1px solid $borderColor;

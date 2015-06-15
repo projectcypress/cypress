@@ -5,7 +5,7 @@
     font-weight: 300;
     color: #666;
     text-transform: uppercase;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ccc; 
   }
   th, td {
     padding: 3px 4px;
@@ -14,7 +14,7 @@
     &:hover {background-color:inherit}
   }
   td, tbody + tbody { border: none; }
-  tbody tr:hover td, tbody tr:hover th { background-color: $containerBkgColor; }
+  tbody tr:hover td, tbody tr:hover th { background-color: $containerBkgColor;}
 }
 
 /* add extra padding to consecutive theads in the results table */
@@ -90,22 +90,17 @@ background: none;
   }
 }
 
-td.vendorname {font-weight:bold}
+td.vendorname {font-weight:normal} 
 .test-score, .version {padding-left:1.2em}
-.product.pass, .product.fail {font-weight:bold}
+.product.pass, .product.fail {font-weight:normal}
 
-
-
-table tbody tr.selected td:first-child {
-  border-left:5px solid #696;
-}
-
+// test executions table
 table tbody tr.selected td {
-  background-color:#cfc;
-  &:hover {  background-color:#cfc;}
+  background-color: $borderColor;   
+  &:hover {  background-color: $borderColor;} 
 }
 table tbody tr.selected:hover td {
-  background-color:#cfc;
+  background-color: $borderColor;
 }
 
 #patient_subset  {
