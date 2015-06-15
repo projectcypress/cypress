@@ -49,13 +49,13 @@ $(document).ready(function(){
              %></p>
                  <ul id="share_options" style="display: none" role="listbox"
                         class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" aria-activedescendant="ui-active-menuitem">
-                      <li class="ui-menu-item" role="menuitem">
+                      <li class="ui-menu-item" role="menuitem" style="font-size: 90%">
                         <%= link_to "View All", patients_path(:product_test_id => test.id, :execution => current_execution), { :class => "ui-corner-all", :tabindex => "-1" } %>
                       </li>
-                      <li class="ui-menu-item" role="menuitem">
+                      <li class="ui-menu-item" role="menuitem" style="font-size: 90%">
                         <%= link_to "QRDA Cat I", download_product_test_path(test, :format => 'qrda'), { :class => "ui-corner-all", :tabindex => "-1" } %>
                       </li>
-                      <li class="ui-menu-item" role="menuitem">
+                      <li class="ui-menu-item" role="menuitem" style="font-size: 90%">
                         <%= link_to "HTML", download_product_test_path(test, :format => 'html'), { :class => "ui-corner-all", :tabindex => "-1" } %>
                       </li>
 
@@ -82,7 +82,7 @@ $(document).ready(function(){
         </ul>
         </div>
         <% unless test.class == QRDAProductTest %>
-         <div class="span">
+         <div class="span3"> 
         <p>
          Generate Category I tests
         </p>

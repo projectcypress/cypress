@@ -94,7 +94,7 @@
   <p>Please wait while the patients are retrieved.</p>
 </div>
 
-<div id="container">
+<div id="container" class="container">
   <%= render :partial=>"shared/header" %>
 
   <div class="buffered">
@@ -170,7 +170,7 @@
 	      <section class="measure bordered buffered">
           <dl class="dl-horizontal quality-measures">
             <dt class="measure_title">Quality Measure:</dt>
-            <dd class="measure_title"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
+            <dd class="measure_title" style="font-weight:bold"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
             <dt class="measure_definition">Definition:</dt>
             <dd class="measure_definition" id="show_hide">Expand Definition</dd>
             <div id="measureEditContainer">
