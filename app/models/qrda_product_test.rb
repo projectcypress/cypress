@@ -9,8 +9,9 @@ class QRDAProductTest < ProductTest
   belongs_to :calculated_product_test, foreign_key: "calculated_test_id", index: true
 
   def validators
-    @validators ||= [QrdaCat1Validator.new(self.bundle, self.measures),
-    SmokingGunValidator.new(self.measures, self.records, self.id)]
+    @validators ||= [QrdaCat1Validator.new(self.bundle, self.parent_measures),
+    SmokingGunValidator.new(self.measures, self.records, self.id),
+    MeasurePeriodValidator.new()]
   end
 
   def execute(file)
@@ -28,6 +29,10 @@ class QRDAProductTest < ProductTest
     self.bundle.measures.in(:hqmf_id => measure_ids).top_level.order_by([[:hqmf_id, :asc],[:sub_id, :asc]])
   end
 
+  def parent_measures
+    return [] if !measure_ids
+    self.bundle.measures.in(:hqmf_id => parent_cat3_ids).top_level.order_by([[:hqmf_id, :asc],[:sub_id, :asc]])
+  end
 
   def self.product_type_measures(bundle)
     bundle.measures.top_level
