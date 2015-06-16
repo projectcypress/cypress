@@ -1,3 +1,4 @@
+require 'pry'
 module Validators
   class ExpectedResultsValidator < QrdaFileValidator
     attr_accessor :reported_results
@@ -18,13 +19,12 @@ module Validators
         @reported_results[key] = reported_result
         validation_errors.concat match_calculation_results(expected_result,reported_result)
       end
-
       validation_errors
     end
 
     private
 
-      #takes a document and a list of 1 or more id hashes, e.g.:
+    #takes a document and a list of 1 or more id hashes, e.g.:
     #[{measure_id:"8a4d92b2-36af-5758-0136-ea8c43244986", set_id:"03876d69-085b-415c-ae9d-9924171040c2", ipp:"D77106C4-8ED0-4C5D-B29E-13DBF255B9FF", den:"8B0FA80F-8FFE-494C-958A-191C1BB36DBF", num:"9363135E-A816-451F-8022-96CDA7E540DD"}]
     #returns nil if nothing matching is found
     # returns a hash with the values of the populations filled out along with the population_ids added to the result
@@ -39,7 +39,6 @@ module Validators
         # short circuit and return nil
         return {}
       end
-
       nodes.each do |n|
        results =  get_measure_components(n, _ids, stratification)
        break if (results != nil || (results != nil && !results.empty?))
@@ -66,14 +65,16 @@ module Validators
           msrpopl = ids[QME::QualityReport::MSRPOPL]
           val, sup = extract_cv_value(n,v,msrpopl, stratification)
         else
-          val,sup =extract_component_value(n,k,v,stratification)
+          val,sup,pr =extract_component_value(n,k,v,stratification)
         end
-
         if !val.nil?
           results[k.to_s] = val
           results[:supplemental_data][k] = sup
         else
           # return nil
+        end
+        if !pr.nil?
+          results["PR"] = pr
         end
       end
       results
@@ -106,7 +107,24 @@ module Validators
       else
         val = get_aggregate_count(cv)
       end
-      return val,(strata.nil? ?  extract_supplemental_data(cv) : nil)
+      if code == "NUMER"
+        pref_rate_value = extract_performance_rate(node,code,id)
+      end
+      return val,(strata.nil? ?  extract_supplemental_data(cv) : nil),pref_rate_value
+    end
+
+    def extract_performance_rate(node,code,id)
+      xpath_perf_rate = %{ cda:component/cda:observation[./cda:templateId[@root = "2.16.840.1.113883.10.20.27.3.14"] and ./cda:reference/cda:externalObservation/cda:id[#{translate("@root")}='#{id.upcase}']]/cda:value}
+      perf_rate = node.at_xpath(xpath_perf_rate)
+      pref_rate_value = {}
+      if perf_rate != nil
+        if perf_rate.at_xpath("./@nullFlavor")
+          pref_rate_value["nullFlavor"] = "NA"
+        else
+          pref_rate_value["value"] = perf_rate.at_xpath("./@value").value
+        end
+      end
+      return pref_rate_value
     end
 
     # convert numbers in value nodes to Int / Float as necessary TODO add more types other than 'REAL'
@@ -138,6 +156,8 @@ module Validators
       value = convert_value(value_node) if value_node
       value
     end
+
+
 
     def extract_supplemental_data(cv)
       ret = {}
@@ -176,7 +196,9 @@ module Validators
       _ids.keys.each do |pop_key|
         if expected_result[pop_key].present?
           check_population(expected_result, reported_result, pop_key, stratification, logger)
-
+          if pop_key == "NUMER"
+            check_performance_rates(expected_result, reported_result, logger)
+          end
           # Check supplemental data elements
           ex_sup = (expected_result["supplemental_data"] || {})[pop_key]
           reported_sup  = (reported_result[:supplemental_data] || {})[pop_key]
@@ -199,8 +221,41 @@ module Validators
           end
         end
       end
+      
 
       validation_errors
+    end
+
+    def calculate_performance_rates(expected_result)
+      denom = expected_result['DENOM'] -  expected_result['DENEX'] - expected_result['DENEXCEP']
+      pr = 0
+      if denom == 0
+        pr = "NA"
+      else
+        pr = expected_result['NUMER'] / denom.to_f
+      end
+      return pr
+    end
+
+    def check_performance_rates(expected_result, reported_result, logger)
+      expected = calculate_performance_rates(expected_result)
+      _ids = expected_result["population_ids"].dup
+      if expected == "NA"
+        if reported_result['PR']['nullFlavor'] != "NA"
+          err = "Reported Performance Rate for Numerator #{_ids['NUMER']} should be NA"
+          logger.call(err, _ids['NUMER'])
+        end
+      else
+        if reported_result['PR']['nullFlavor'] == "NA"
+          err = "Reported Performance Rate for Numerator #{_ids['NUMER']} should not be NA"
+          logger.call(err, _ids['NUMER'])
+        else 
+          if reported_result['PR']['value'].to_f - expected.to_f > 0.000001
+            err = "Reported Performance Rate of #{reported_result['PR']['value']} for Numerator #{_ids['NUMER']} does not match expected value of #{expected}."
+            logger.call(err, _ids['NUMER'])
+          end
+        end
+      end
     end
 
     def check_for_reported_results_population_ids(expected_result, reported_result, logger)
