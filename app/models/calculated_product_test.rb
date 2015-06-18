@@ -1,4 +1,3 @@
-
 class CalculatedProductTest < ProductTest
 
   aasm :column => :state do
@@ -61,7 +60,7 @@ class CalculatedProductTest < ProductTest
 
     validation_errors = []
 
-    qrda_validator = ::Validators::QrdaCat3Validator.new(doc, {})
+    qrda_validator = ::Validators::QrdaCat3Validator.new(doc, {}, expected_results)
 
     validation_errors = qrda_validator.validate
 
@@ -71,6 +70,9 @@ class CalculatedProductTest < ProductTest
 
     te = self.test_executions.build(expected_results:self.expected_results,  reported_results: erv.reported_results,
                                     execution_errors: validation_errors)
+
+    #te = self.test_executions.build(expected_results:self.expected_results,  execution_errors: validation_errors)
+                                    
     te.artifact = Artifact.new(:file => qrda_file)
 
     (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
@@ -81,7 +83,6 @@ class CalculatedProductTest < ProductTest
 
   def generate_qrda_cat1_test
     product_measures = self.qrda_product_tests.map(&:measures).flatten
-
     (self.measures.top_level - product_measures).each do |mes|
       generate_results_for_measure(mes)
     end
@@ -99,7 +100,8 @@ class CalculatedProductTest < ProductTest
     results = self.results.where({"value.measure_id" => mes.hqmf_id, "value.IPP" => {"$gt" => 0}})
     mrns = results.collect{|r| r["value"]["medical_record_id"]}
     results.uniq!
-    qrda = qrda_product_tests.build(measure_ids: [mes.measure_id],
+    qrda = qrda_product_tests.build(measure_ids: [mes.measure_id], 
+            parent_cat3_ids: measure_ids,
             name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
             bundle_id: self.bundle_id,
             effective_date: self.effective_date,
