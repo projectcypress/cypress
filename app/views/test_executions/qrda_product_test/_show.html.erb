@@ -10,14 +10,13 @@
     <%= link_to "Download", download_test_execution_path(test_execution.id), title: "Download the results of this test execution", class: "cmd pull-right" %>
     <% end %>
   </ul>
-  <div id="test_result_tabs" class="tab-content">
+  <div id="test_result_tabs" class="tab-content" style="margin-bottom:20px">
     <div class="tab-pane active" id="test_summary">
       <section>
-        <dl class="dl-horizontal">
+        <dl class="dl-horizontal wide">
           <dt><strong>Test Date:</strong></dt> <dd class="strong"><%= test_execution.created_at %></dd>
           <dt><strong>Inspection ID: </strong></dt> <dd><%= test_execution.product_test.product.vendor.name %></dd>
-        </dl>
-        <dl class="dl-horizontal wide">
+
           <dt><strong>XML Validation Errors:</strong></dt> <dd class="fail strong"><%= test_execution.count_errors %></dd>
           <dt><strong>XML Validation Warnings:</strong></dt> <dd class="warn strong"><%= test_execution.count_warnings %></dd>
         </dl>

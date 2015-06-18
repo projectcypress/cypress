@@ -157,8 +157,8 @@
             <th class="align-left" colspan="3">
               <strong>Test Executions</strong>
             </th>
-            <th style="width:50%">Description</th>
-            <th></th>
+            <th style="width:50%"></th>
+            
             <th>Results</th>
             <th></th>
           </tr>
@@ -166,12 +166,16 @@
          <% @test.test_executions.ordered_by_date.each do |te| %>
 
          <tr id="te_<%=te.id%>">
+          <% if te.passing? %>
+              <td class="pass-icon"></td>
+           <% else %>
+              <td class="fail-icon"></td>
+           <% end %> 
            <td class="align-left" colspan="3">
              <strong><%= link_to te.execution_date, test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", 'data-test-id'.to_sym=>te._id , :class=>"cmd poppable" %></strong>
            </td>
-           <td> </td>
            <td><%= link_to "Download Results", download_test_execution_path(te), :title => "Download the results of this test execution", :class => "cmd" %></td>
-           <td><%= link_to "View Results", test_execution_path(te), :remote=>true, :title=>"View the results of this test execution", :class=>'cmd poppable' %></td>
+           
            <td class="align-right"><%= link_to 'Delete', test_execution_path(te), data: {:method => :delete, :confirm => 'Are you sure?' }, :class => 'cmd del' %></td>
          </tr>
 
@@ -185,6 +189,7 @@
          <% end %>
       </table>
     </section>
+
     <% if @test.state == :ready
       test_execution = @test_execution || @test.test_executions.build(:expected_results=> @test.expected_results, :reported_results=>{})
     %>

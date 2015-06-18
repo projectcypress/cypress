@@ -9,7 +9,7 @@
       <%= link_to "Download", download_test_execution_path(test_execution.id), title: "Download the results of this test execution", class: "cmd pull-right" %>
     <% end %> 
   </ul>
-  <div id="test_result_tabs" class="tab-content">
+  <div id="test_result_tabs" class="tab-content" style="border-bottom:2px solid #aaa">
     <div class="tab-pane active" id="test_summary">
       <section>
         <dl class="dl-horizontal">
@@ -73,15 +73,15 @@
     <% grouped_passing = group_measures_by_type(test_execution.passing_measures)
        grouped_failing = group_measures_by_type(test_execution.failing_measures)
     %>
-      <section id="quality_measures">
-        <h5><span class="pass">PASSING</span> MEASURES</h5>
+      <section id="quality_measures" style="margin-top: 20px">
+        <h4><span class="pass">PASSING</span> MEASURES</h4>
         <% if test_execution.passing_measures.count == 0 %>
           <p>There are no passing measures for this test</p>
         <% else %>
           <%= render partial: "/test_executions/results" , locals: {test_execution: test_execution, measures:grouped_passing[:proportional]} %>
           <%= render partial: "/test_executions/continuous_results" , locals: {test_execution: test_execution, measures:grouped_passing[:continuous]} %>
         <% end %>
-        <h5><span class='fail'>FAILING</span> MEASURES</h5>
+        <h4><span class='fail'>FAILING</span> MEASURES</h4>
         <% if test_execution.failing_measures.count == 0 %>
           <p>There are no failing measures for this test</p>
         <% else %>

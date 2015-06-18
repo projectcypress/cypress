@@ -123,8 +123,8 @@
       <section class="measure bordered buffered">
         <dl class="dl-horizontal measure">
           <dt class="measure_title">Quality Measure:</dt>
-          <dd class="measure_title"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd><dt></d>
-          <dd class="measure_desc"><%= @measure.description %></dd>
+          <dd class="measure_title" style="font-weight:bold"><%= @measure.name %><%= " - #{@measure.subtitle}" if @measure.sub_id %></dd><dt></d>
+          <dd class="measure_desc" style="font-size:95%"><%= @measure.description %></dd>
         </dl>
         
         <% expected_result = @execution.expected_result(@measure) || {}  %>
@@ -134,7 +134,7 @@
           <% if reported_result['DENOM'].class == String %>
             <dd class="na">N/A</dd>
           <% elsif @execution.measure_passed?(@measure) %>
-            <dd class="">PASS</dd>
+            <dd class="pass">Pass</dd>
           <% else %>
             <dd class="fail">Fail</dd>
           <% end %>

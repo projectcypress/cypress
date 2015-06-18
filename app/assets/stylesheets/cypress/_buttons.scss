@@ -1,10 +1,10 @@
 a:hover {
-  color: inherit;
+  color: inherit; // color for test results reported/expected table hover
   text-decoration: inherit;
 }
  
 a.cmd, input.cmd {
-  @include bordered($btnBorderColor);
+  @include bordered($btnBorderColor); // buttons other than delete and notes
   background-color: $btnBkgColor;
   color: $btnColor;
   font-size: $btnFontSize;
@@ -12,6 +12,7 @@ a.cmd, input.cmd {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  font-weight: normal; // unbolded test executions table column
 }
 
 a.cmd[disabled], a.cmd[disabled]:hover {
@@ -22,6 +23,7 @@ a.cmd[disabled], a.cmd[disabled]:hover {
   cursor: not-allowed;
 }
 
+// button hover color
 a.cmd:hover, input.cmd:hover {
   background-color: $btnHoverBkg;
 }
@@ -32,7 +34,7 @@ a.mailing_list {
 
 a.del {
   @include bordered($dltColor);
-  color: $dltColor;
+  color: $dltColor; 
 }
 td a.cmd, td input.cmd {
   display:inline-block;
@@ -41,15 +43,15 @@ td a.cmd, td input.cmd {
   font-size:85%;
 }
 
+// delete button hover color
 a.del:hover {
-background-color: $dltHoverBkg;
+background-color: $btnHoverBkg;
 }
 
 
 .ui-formwizard-button {
 background-color:transparent;
 border-color:transparent;
-
 box-shadow:none;
 }
 
