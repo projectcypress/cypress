@@ -65,8 +65,6 @@ module Validators
           end
         end
       end
-      
-
       validation_errors
     end
 

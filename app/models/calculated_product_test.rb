@@ -70,9 +70,6 @@ class CalculatedProductTest < ProductTest
 
     te = self.test_executions.build(expected_results:self.expected_results,  reported_results: erv.reported_results,
                                     execution_errors: validation_errors)
-
-    #te = self.test_executions.build(expected_results:self.expected_results,  execution_errors: validation_errors)
-                                    
     te.artifact = Artifact.new(:file => qrda_file)
 
     (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
@@ -100,7 +97,7 @@ class CalculatedProductTest < ProductTest
     results = self.results.where({"value.measure_id" => mes.hqmf_id, "value.IPP" => {"$gt" => 0}})
     mrns = results.collect{|r| r["value"]["medical_record_id"]}
     results.uniq!
-    qrda = qrda_product_tests.build(measure_ids: [mes.measure_id], 
+    qrda = qrda_product_tests.build(measure_ids: [mes.measure_id],
             parent_cat3_ids: measure_ids,
             name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
             bundle_id: self.bundle_id,

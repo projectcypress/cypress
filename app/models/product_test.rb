@@ -16,6 +16,7 @@ class ProductTest
   field :description, type: String
   field :effective_date, type: Integer
   field :measure_ids, type: Array
+  field :parent_cat3_ids, type: Array
   field :expected_results, type: Hash
   field :status_message, type: String
   field :state, :type => Symbol
