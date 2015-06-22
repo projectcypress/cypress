@@ -118,8 +118,8 @@ class CalculatedProductTestTest < ActiveSupport::TestCase
     ptest = ProductTest.find("51703a6a3054cf8439000044")
     xml = Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml')), "application/xml")
     te = ptest.execute(xml)
-    # 9 is for all of the sub measures to be searched for #2 is for having incorrect measure Ids
-    assert_equal 11, te.execution_errors.length, "should error on missing measure entry"
+    # 9 is for all of the sub measures to be searched for #2 is for having incorrect measure Ids #12 for missing supplemental data
+    assert_equal 23, te.execution_errors.length, "should error on missing measure entry"
   end
 
   test "should cause error  when extra supplemental data is provided" do
