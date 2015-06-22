@@ -10,7 +10,8 @@ class QRDAProductTest < ProductTest
 
   def validators
     @validators ||= [QrdaCat1Validator.new(self.bundle, self.parent_measures),
-    SmokingGunValidator.new(self.measures, self.records, self.id)]
+    SmokingGunValidator.new(self.measures, self.records, self.id),
+    MeasurePeriodValidator.new()]
   end
 
   def execute(file)

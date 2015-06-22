@@ -53,26 +53,21 @@ class CalculatedProductTest < ProductTest
     self.calculate
   end
 
+  def validators(doc)
+    @validators ||= [::Validators::QrdaCat3Validator.new(expected_results),
+      ::Validators::MeasurePeriodValidator.new(),
+      ::Validators::ExpectedResultsValidator.new(expected_results)]
+  end
+
   def execute(qrda_file)
 
     data = qrda_file.open.read
     doc = Nokogiri::XML(data)
-
-    validation_errors = []
-
-    qrda_validator = ::Validators::QrdaCat3Validator.new(doc, {}, expected_results)
-
-    validation_errors = qrda_validator.validate
-
-    erv = ::Validators::ExpectedResultsValidator.new(doc, expected_results)
-
-    validation_errors.concat erv.validate
-
-    te = self.test_executions.build(expected_results:self.expected_results,  reported_results: erv.reported_results,
-                                    execution_errors: validation_errors)
-    te.artifact = Artifact.new(:file => qrda_file)
-
-    (te.execution_errors.where({msg_type: :error}).count == 0) ? te.pass : te.failed
+    te = self.test_executions.build(expected_results:self.expected_results,
+           execution_date: Time.now.to_i)
+    te.artifact = Artifact.new(file: qrda_file)
+    te.save
+    te.validate_artifact(validators(doc))
 
     te.save
     te

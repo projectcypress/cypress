@@ -1,5 +1,4 @@
 require 'quality-measure-engine'
-
 module Validators
   class QrdaFileValidator
 
@@ -16,6 +15,5 @@ module Validators
     def translate(id)
       %{translate(#{id}, "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ")}
     end
-
   end
 end
