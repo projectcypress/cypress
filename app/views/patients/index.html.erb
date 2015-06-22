@@ -148,9 +148,10 @@
       <% end %>
     </section>
 
-    <% cache_unless(@test, "index-" + @bundle.version, skip_digest: true ) do %>
+    <% cache_if(@showAll, "index-" + @bundle.version, skip_digest: true ) do %>
     <div class="tabs">
       NQF #
+
       <% @measures_categories.sort.each do |category, measures| %>
         <ul>
           <li><b><%= category %></b></li>
