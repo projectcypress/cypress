@@ -1,4 +1,3 @@
-require "health-data-standards"
 module Validators
   class ExpectedResultsValidator < QrdaFileValidator
     include HealthDataStandards::Validate::ReportedResultExtractor
