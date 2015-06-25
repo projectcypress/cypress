@@ -1,3 +1,4 @@
+require 'pry'
 class QRDAProductTestTest  < ActiveSupport::TestCase
 
   setup do
