@@ -74,7 +74,7 @@ class TestExecution
     #only run for Cat1 tests
     if self.product_test._type == "QRDAProductTest"
       if file_count != self.product_test.records.count
-	self.execution_errors.build(message: "#{self.product_test.records.count} files expected but was #{file_count}", msg_type: :error, validator_type: :result_validation)
+  self.execution_errors.build(message: "#{self.product_test.records.count} files expected but was #{file_count}", msg_type: :error, validator_type: :result_validation)
       end
     end
     (self.count_errors > 0) ? self.failed : self.pass

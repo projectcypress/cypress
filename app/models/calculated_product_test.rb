@@ -64,7 +64,7 @@ class CalculatedProductTest < ProductTest
     data = qrda_file.open.read
     doc = Nokogiri::XML(data)
     te = self.test_executions.build(expected_results:self.expected_results,
-	   execution_date: Time.now.to_i)
+     execution_date: Time.now.to_i)
     te.artifact = Artifact.new(file: qrda_file)
     te.save
     te.validate_artifact(validators(doc))
@@ -93,9 +93,9 @@ class CalculatedProductTest < ProductTest
     mrns = results.collect{|r| r["value"]["medical_record_id"]}
     results.uniq!
     qrda = qrda_product_tests.build(measure_ids: [mes.measure_id],
-	    parent_cat3_ids: measure_ids,
-	    name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
-	    bundle_id: self.bundle_id,
+      parent_cat3_ids: measure_ids,
+      name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
+      bundle_id: self.bundle_id,
             effective_date: self.effective_date,
             product_id: self.product_id,
             user_id: self.user_id)
