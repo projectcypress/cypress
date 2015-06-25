@@ -1,7 +1,7 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'bson'
-gem 'rails', '~> 4.1.8'
+gem 'rails', '~> 4.1.11'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rake'
@@ -79,6 +79,7 @@ group :test do
   gem 'rails-perftest'
   gem 'ruby-prof'
   gem 'simplecov'
+  gem 'bundler-audit'
 end
 
 group :production do
