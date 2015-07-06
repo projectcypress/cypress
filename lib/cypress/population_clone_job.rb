@@ -58,10 +58,32 @@ module Cypress
         cloned_patient.shift_dates(date_shift) if date_shift
         cloned_patient.test_id = options['test_id']
         patch_insurance_provider(record)
+        entries_with_references = Array.new
+        entry_id_hash = Hash.new
+        index = 0
         cloned_patient.entries.each do |entry|
-          entry.id = Moped::BSON::ObjectId.new
+          old_entry_id = entry.id
+          entry_id_hash[old_entry_id.to_s] = Moped::BSON::ObjectId.new
+          entry.id = entry_id_hash[old_entry_id.to_s]
+          if entry['references'] != nil
+            entries_with_references.push(index)
+          end
+          index = index + 1
+        end
+        if entries_with_references.size > 0
+          reconnect_references(cloned_patient, entries_with_references, entry_id_hash)
         end
         cloned_patient.save!
+    end
+
+    def reconnect_references(cloned_patient, entries_with_references, entry_id_hash)
+      entries_with_references.each do |entry_with_reference_index|
+        entry_with_reference = cloned_patient.entries[entry_with_reference_index]
+        entry_with_reference.references.each do |reference|
+          old_id = reference['referenced_id']
+          reference['referenced_id'] =  entry_id_hash[old_id].to_s
+        end
+      end
     end
 
     def randomize_name(record)
