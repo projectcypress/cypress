@@ -26,9 +26,6 @@
         window.location = "<%= patients_path%>?bundle_id="+b_id;
       });
 
-  	  <% if params[:measure_id] != nil %>
-  	    $.getJSON("<%=measure_definition_url(:measure_id => params[:measure_id])%>", $.cypress.renderMeasureJSON);
-      <% end %>
       <% if @test  %>
         <% if @result && @result['numerator']=='?' %>
           $.cypress.addPoll("<%= patients_path(:measure_id => @selected.id, :product_test_id => @test.id ) %>",
@@ -48,20 +45,6 @@
         <% end %>
       <% end %>
 
-      var hidden  = true;
-      $('#measureEditContainer').slideUp();
-
-  	  $('.measure_definition').click(function(){
-    	  if(hidden){
-          $('#measureEditContainer').slideDown(500);
-          $('#show_hide').text("Hide Definition");
-    		}
-    	  else{
-    	    $('#measureEditContainer').slideUp(500);
-    		  $('#show_hide').text("Expand Definition");
-    		}
-  		  hidden = !hidden;
-  	  });
 
     });
   </script>
@@ -172,29 +155,6 @@
           <dl class="dl-horizontal quality-measures">
             <dt class="measure_title">Quality Measure:</dt>
             <dd class="measure_title" style="font-weight:bold"><%= @selected.name %><%= " - #{@selected.subtitle}" if @selected.sub_id %></dd>
-            <dt class="measure_definition">Definition:</dt>
-            <dd class="measure_definition" id="show_hide">Expand Definition</dd>
-            <div id="measureEditContainer">
-              <div id="eligibilityMeasures">
-                <h3>Denominator</h3>
-                <div class="measureBox">
-                  <div id="eligibilityMeasureItems">
-                  </div>
-                </div>
-              </div>
-              <div id="outcomeMeasures">
-                <h3>Numerator</h3>
-                <div class="measureBox">
-                  <div id="outcomeExclusionMarker" class="exclusionTab" style="display:none">
-                    0 Exclusions
-                  </div>
-                  <div id="outcomeMeasureItems">
-                  </div>
-                  <div id="exclusionMeasureItems">
-                  </div>
-                </div>
-              </div>
-            </div>
           </dl>
           <dl class=" dl-horizontal measure">
             <dt>Expected Reports:</dt>
