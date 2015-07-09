@@ -1,9 +1,6 @@
 <% content_for :head do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      <% if @measure.id != nil %>
-        $.getJSON("<%=measure_definition_url(:measure_id => @measure.id)%>", $.cypress.renderMeasureJSON);
-      <% end %>
       
       <% if @execution.expected_result(@measure)['numerator']=='?' %>
             $.cypress.addPoll("<%= product_test_measure_path(@test, @measure) %>", "<%= patients_product_test_measure_path(@test, @measure) %>")
@@ -11,20 +8,6 @@
             $.cypress.updatePatientTable("<%= patients_product_test_measure_path(@test, @measure) %>")
       <% end %>
 
-      var hidden  = true;
-      $('#measureEditContainer').slideUp();
-      
-      $('.measure_definition').click(function(){
-        if(hidden){
-          $('#measureEditContainer').slideDown(500);
-          $('#show_hide').text("Hide Definition");
-        }
-        else{
-          $('#measureEditContainer').slideUp(500);
-          $('#show_hide').text("Expand Definition");
-        }
-        hidden = !hidden;
-      });
 
 
       $("#exclusionPanel h3").click(function() {
@@ -138,45 +121,6 @@
           <% else %>
             <dd class="fail">Fail</dd>
           <% end %>
-        </dl>
-        <dl class="dl-horizontal measure">
-          <dt class="measure_definition">Definition:</dt>
-          <dd class="measure_definition" id="show_hide">Expand Definition</dd>
-          
-
-          <div id="measureEditContainer">
-          <div id="exclusionPanel" style="display:none;">
-             <h3>exclusions <em>(<span id="exclusionCount"></span>)</em></h3>
-            <div class="measureBox">
-              <div id="exclusionMeasureItems" ></div>
-          </div>
-           
-          </div>
-          <div id="eligibilityMeasures">
-            <h3>denominator <em>(<span id="eligibleCount"></span>)</em></h3>
-            <div class="measureBox">
-              <div id="eligibilityMeasureItems">
-              </div><!-- end #eligibilityMeasureItems -->
-            </div><!-- end measureBox -->
-          </div><!-- end #eligibilityMeasures -->
-          <div id="outcomeMeasures">
-            <h3>numerator <em>(<span id="outcomeCount"></span>)</em></h3>
-            <div class="measureBox">
-              <div id="outcomeExclusionMarker" class="exclusionTab" style="display:none">
-              </div>
-              <div id="outcomeMeasureItems">
-              </div>
-              <div id="xexclusionMeasureItems">
-              </div>
-            </div><!-- end measureBox -->
-          </div><!-- end #outcomeMeasures -->
-        </div><!-- end measureEditContainer -->
-
-
-         
-
-
-
         </dl>
         <dl>
           <dt>Reporting Statistics:</dt>
