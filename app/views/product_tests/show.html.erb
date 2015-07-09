@@ -191,6 +191,7 @@
     </section>
 
     <% if @test.state == :ready
+      @test_execution ||= @test.test_executions.ordered_by_date.first
       test_execution = @test_execution || @test.test_executions.build(:expected_results=> @test.expected_results, :reported_results=>{})
     %>
     <section class="execution" >
