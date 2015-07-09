@@ -64,6 +64,9 @@ class TestExecution
 
       validators.each do |validator|
         validator.validate(doc, {file_name: name})
+        if validator.is_a? ::Validators::ExpectedResultsValidator
+          self.reported_results = validator.reported_results
+        end
       end
       file_count += 1
     end
