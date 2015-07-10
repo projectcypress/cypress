@@ -29,6 +29,7 @@ module Validators
       _ids = expected_result["population_ids"].dup
       # remove the stratification entry if its there, not needed to test against values
       stratification = _ids.delete("stratification")
+      stratification ||= _ids.delete("STRAT")
       _ids.keys.each do |pop_key|
   if expected_result[pop_key].present?
     check_population(expected_result, reported_result, pop_key, stratification, measure_id)
