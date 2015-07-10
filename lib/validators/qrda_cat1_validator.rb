@@ -27,7 +27,7 @@ module Validators
 
       validation_errors.each do |error|
         add_error error.message, {message: error.message,
-          location: error.location, validator: error.validator}
+          location: error.location, validator: error.validator, file_name: error.file_name}
       end
 
       @measures.each do |measure|
