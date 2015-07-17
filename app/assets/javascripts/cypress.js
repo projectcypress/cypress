@@ -275,3 +275,11 @@ function jumpToElement(element){
      } catch(e) {}
   }
 }
+
+
+// Validation Utility Modal jQuery
+  $('.valUtilityModal').draggable({
+    handle: ".modal-header"
+  });
+
+

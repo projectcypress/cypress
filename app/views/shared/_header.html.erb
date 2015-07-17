@@ -4,10 +4,33 @@
     <span class="username">Welcome, <%= current_user.try(:first_name) || 'New User' %></span>
     <%= link_to "account", edit_user_registration_path %>
     <a href="http://projectcypress.org/">about</a>
+    <a href="#" data-toggle="modal" data-target="#valUtilityModal">validation utility</a>
     <a href="/information/feedback">feedback</a>
     <a href="http://projectcypress.org/faq.html">help</a>
     <% if current_user&&current_user.admin? %> <a href="/admin">admin</a> <% end %>
     <%= link_to "logout", destroy_user_session_path %>
   </nav>
+
+  <!-- Validation Utility Modal -->
+  <div class="modal fade valUtilityModal" id="valUtilityModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">You are about to leave Cypress</h4>
+        </div>
+        <div class="modal-body">
+          <p>You are about to leave the Cypress testing tool to go to the Cypress Validation Utility. The Validation Utility is a public server.</p> 
+          <p>When using the Validation Utility, do not upload documents containing Protected Health Information (PHI) or Personally Identifiable Information IPII).</p>
+        </div>
+        <div class="modal-footer">
+          <a href="https://validator.projectcypress.org/"><button type="button" class="btn">Go to the Validation Utility</button></a>
+          <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+  <!-- Validation Utility Modal End -->
+
 
 </header>
