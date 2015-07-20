@@ -2,7 +2,6 @@ require 'pry'
 class QRDAProductTestTest  < ActiveSupport::TestCase
 
   setup do
-
     collection_fixtures('test_executions', '_id', "product_test_id")
     collection_fixtures('product_tests', '_id','bundle_id')
     collection_fixtures('products', '_id')
