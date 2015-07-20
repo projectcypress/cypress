@@ -10,9 +10,9 @@
   <!-- US Realm Header Template Id -->
   <templateId root="2.16.840.1.113883.10.20.22.1.1"/> 
   <!-- QRDA templateId -->   
-  <templateId root="2.16.840.1.113883.10.20.24.1.1"/>
+  <templateId root="2.16.840.1.113883.10.20.24.1.1" extension="2014-12-01" />
   <!-- QDM-based QRDA templateId -->
-  <templateId root="2.16.840.1.113883.10.20.24.1.2"/>
+  <templateId root="2.16.840.1.113883.10.20.24.1.2" extension="2014-12-01" />
   <!-- This is the globally unique identifier for this QRDA document -->
   <id root="5b010313-eff2-432c-9909-6193d8416fac"/>
   <!-- QRDA document type code -->
@@ -241,7 +241,7 @@
           <!-- This is the templateId for Patient Data section -->
           <templateId root="2.16.840.1.113883.10.20.17.2.4"/>
           <!-- This is the templateId for Patient Data QDM section -->
-          <templateId root="2.16.840.1.113883.10.20.24.2.1"/>
+	  <templateId root="2.16.840.1.113883.10.20.24.2.1" extension="2014-12-01"/>
           <code code="55188-7" codeSystem="2.16.840.1.113883.6.1"/>
           <title>Patient Data</title>
           <text>
