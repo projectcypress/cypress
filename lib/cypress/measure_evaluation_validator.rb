@@ -60,6 +60,16 @@ module Cypress
 
     end
 
+    def evaluate_non_passing_cat3s(args = nil)
+      opts = args ? @options.merge(args) : @options
+
+      generate_cat3_tests(opts)
+
+      wait_for_calculations
+
+      upload_cat3s(CalculatedProductTest.all.select{ |pt| pt if pt.execution_state != :passed })
+    end
+
     # Runs all multi-measure QRDA Cat 3 tests
     def evaluate_multi_measures(args = nil)
       opts = args ? @options.merge(args) : @options
