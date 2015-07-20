@@ -24,7 +24,7 @@ module Cypress
   end
 
   class QRDAExporter
-    EXPORTER  = HealthDataStandards::Export::Cat1.new
+    EXPORTER  = HealthDataStandards::Export::Cat1R2.new
     attr_accessor :measures
     attr_accessor :start_time
     attr_accessor :end_time
