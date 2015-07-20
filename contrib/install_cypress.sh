@@ -40,13 +40,13 @@
 ##############################################################################
 
 # Variables that determine the versions of components we will install
-cypress_tag="v2.6.0"
+cypress_tag="v2.7.0"
 install_ruby_ver="2.1.5"
 install_bundler_ver="1.6.3"
 install_libxml_ver="2.8.0"
 
-install_nokogiri_ver="1.6.0"
-cypress_bundle_ver="2.6.0"
+install_nokogiri_ver="1.6.6.2"
+cypress_bundle_ver="2.7.0"
 
 install_apache_ver="2.4.*"
 install_passenger_ver="4.0.50"

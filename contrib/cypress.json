@@ -10,7 +10,7 @@
   "builders": [
 
     {
-      "name": "cypress.v2.6.0.amazonaws",
+      "name": "cypress.v2.7.0.amazonaws",
       "type": "amazon-ebs",
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
@@ -21,7 +21,7 @@
       "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "ami_name": "cypress_2.6.0",
+      "ami_name": "cypress_2.7.0",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 20,
@@ -35,7 +35,7 @@
     }, 
 
     {
-      "name": "cypress.v2.6.0.virtualbox",
+      "name": "cypress.v2.7.0.virtualbox",
       "vm_name": "cypressv260",
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
@@ -71,7 +71,7 @@
     },
 
     {
-      "name": "cypress.v2.6.0.vmware",
+      "name": "cypress.v2.7.0.vmware",
       "vm_name": "cypressv260",
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
@@ -137,12 +137,12 @@
   "post-processors": [
   {
     "type": "ovftool",
-    "only": ["cypress.v2.6.0.vmware"],
+    "only": ["cypress.v2.7.0.vmware"],
     "format": "ova"
     },{
     "type": "compress",
     "format": "tar.gz",
-    "output": "cypress.v2.6.0.virtualbox.tgz",
-    "only": ["cypress.v2.6.0.virtualbox"]
+    "output": "cypress.v2.7.0.virtualbox.tgz",
+    "only": ["cypress.v2.7.0.virtualbox"]
   }]
 }
