@@ -19,6 +19,16 @@ namespace :measure_evaluation_validator do
     mev.evaluate_all_singly
   end
 
+  desc %{Generates all measures as Cat III tests, and uploads Cat IIIs to them. If they're already generated, will upload another Cat III
+      if they're not already passing.
+      options
+      cypress_user  - the username (full email) for the cypress user to be associated with the products/tests/vendors
+  }
+  task :evaluate_non_passing_cat3s, [:cypress_user] => :setup do |t, args|
+    mev = Cypress::MeasureEvaluationValidator.new(args.to_hash)
+    mev.evaluate_non_passing_cat3s
+  end
+
   desc %{Generates a random subset of n multi-measure tests, with m measures per test
     options
     cypress_user  - the username (full email) for the cypress user to be associated with the products/tests/vendors
