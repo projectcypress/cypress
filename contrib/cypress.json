@@ -36,14 +36,14 @@
 
     {
       "name": "cypress.v2.7.0.virtualbox",
-      "vm_name": "cypressv260",
+      "vm_name": "cypressv270",
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
       "iso_urls": [
-        "http://releases.ubuntu.com/14.04/ubuntu-14.04.1-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.1-server-amd64.iso"
+        "http://releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso"
       ],
-      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+      "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
       "iso_checksum_type": "md5",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
@@ -72,14 +72,14 @@
 
     {
       "name": "cypress.v2.7.0.vmware",
-      "vm_name": "cypressv260",
+      "vm_name": "cypressv270",
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/14.04/ubuntu-14.04.1-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.1-server-amd64.iso"
+        "http://releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso"
       ],
-      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+      "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
       "iso_checksum_type": "md5",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
