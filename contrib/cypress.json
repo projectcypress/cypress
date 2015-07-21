@@ -10,7 +10,7 @@
   "builders": [
 
     {
-      "name": "cypress.v2.6.0.amazonaws",
+      "name": "cypress.v2.6.1.amazonaws",
       "type": "amazon-ebs",
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
@@ -21,7 +21,7 @@
       "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "ami_name": "cypress_2.6.0",
+      "ami_name": "cypress_2.6.1",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 20,
@@ -35,15 +35,15 @@
     }, 
 
     {
-      "name": "cypress.v2.6.0.virtualbox",
-      "vm_name": "cypressv260",
+      "name": "cypress.v2.6.1.virtualbox",
+      "vm_name": "cypressv261",
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
       "iso_urls": [
-        "http://releases.ubuntu.com/14.04/ubuntu-14.04.1-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.1-server-amd64.iso"
+        "http://releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso"
       ],
-      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+      "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
       "iso_checksum_type": "md5",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
@@ -71,15 +71,15 @@
     },
 
     {
-      "name": "cypress.v2.6.0.vmware",
-      "vm_name": "cypressv260",
+      "name": "cypress.v2.6.1.vmware",
+      "vm_name": "cypressv261",
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/14.04/ubuntu-14.04.1-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.1-server-amd64.iso"
+        "http://releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso"
       ],
-      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+      "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
       "iso_checksum_type": "md5",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
@@ -137,12 +137,12 @@
   "post-processors": [
   {
     "type": "ovftool",
-    "only": ["cypress.v2.6.0.vmware"],
+    "only": ["cypress.v2.6.1.vmware"],
     "format": "ova"
     },{
     "type": "compress",
     "format": "tar.gz",
-    "output": "cypress.v2.6.0.virtualbox.tgz",
-    "only": ["cypress.v2.6.0.virtualbox"]
+    "output": "cypress.v2.6.1.virtualbox.tgz",
+    "only": ["cypress.v2.6.1.virtualbox"]
   }]
 }
