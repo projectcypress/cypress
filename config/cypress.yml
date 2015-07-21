@@ -18,7 +18,7 @@ effective_date:
   month: 12
   day: 31
 
-version: 2.6.0
+version: 2.6.1
 default_bundle: 2.6.0
 enable_logging: false
 
@@ -29,7 +29,7 @@ demo_message: "This server is for demonstration purposes; data on it will be rem
 file_upload_root: "data/upload/"
 
 validation:
-  schema: resources/schema/CDA/infrastructure/cda/CDA_SDTC.xsd 
+  schema: resources/schema/CDA/infrastructure/cda/CDA_SDTC.xsd
   schematron:
     qrda_cat_1: resources/schematron/qrda/cat_1/QRDA Category I Release 2.sch
     qrda_cat_3: resources/schematron/qrda/cat_3/QRDA Category III.sch
