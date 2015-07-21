@@ -36,11 +36,11 @@
 # Author: Tim Taylor <ttaylor@mitre.org>
 # Date:   10 Dec 2012
 # Updates: Michael O'Keefe <mokeefe@mitre.org>
-# Date:   23 Sept 2014-12 Jan 2015
+# Date:   23 Sept 2014--21 July 2015
 ##############################################################################
 
 # Variables that determine the versions of components we will install
-cypress_tag="cypress270"
+cypress_tag="v2.7.0"
 install_ruby_ver="2.1.5"
 install_bundler_ver="1.6.3"
 install_libxml_ver="2.8.0"
