@@ -853,6 +853,10 @@ CYPRESS_SITE_END
 fi
 rm /etc/apache2/sites-enabled/000-default*
 ln -s /etc/apache2/sites-available/cypress /etc/apache2/sites-enabled/000-default.conf
+cat << CYPRESS_MOD_END > /etc/apache2/conf-available/cypress
+SetEnv SECRET_KEY_BASE `cat /dev/urandom | env LC_CTYPE=c tr -dc 'a-e0-9' | fold -w 64 | head -n 1`
+CYPRESS_MOD_END
+ln -s /etc/apache2/conf-available/cypress /etc/apache2/conf-enabled/cypress.conf
 success "done"
 # install passenger configuration
 echo -n "   Install Passenger configuration: "
