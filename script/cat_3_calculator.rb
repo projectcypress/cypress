@@ -22,7 +22,7 @@ end
 # Generates a QRDA Cat 3 for a particular set of measures
 def generate_cat3(measure_ids, effective_date)
   exporter = HealthDataStandards::Export::Cat3.new
-  end_date = Time.at(effective_date.to_i + 59).utc
+  end_date = Time.at(effective_date.to_i).utc
   filter = measure_ids==["all"] ? {} : {:hqmf_id.in => measure_ids}
   return exporter.export(HealthDataStandards::CQM::Measure.top_level.where(filter),
                           generate_header,
