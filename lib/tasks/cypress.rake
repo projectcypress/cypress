@@ -83,7 +83,7 @@ namespace :cypress do
                      :last_name =>      "Administrator",
                      :email =>          args.username,
                      :password =>       args.password,
-                     :agree_license =>  true,
+                     :terms_and_conditions =>  "1",
                      :admin =>          true,
                      :approved =>       true)
     admin_account.save!
