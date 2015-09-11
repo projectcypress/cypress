@@ -1,5 +1,0 @@
-FactoryGirl.define do
-  
-  
-end
-

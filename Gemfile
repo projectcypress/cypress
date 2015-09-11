@@ -1,88 +1,47 @@
 source 'https://rubygems.org'
 
-gem 'bson'
-gem 'rails', '~> 4.1.11'
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.2.4'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.1.0'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+
+# Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'rake'
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.0'
+# bundle exec rake doc:rails generates the API under doc/api.
+gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
 
-# gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'master'
+# Use Unicorn as the app server
+# gem 'unicorn'
 
-# gem 'quality-measure-engine', :path => '../quality-measure-engine'
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
 
-gem 'quality-measure-engine', '3.1.2'
-# gem 'health-data-standards', "3.5.3"
-
-#gem 'health-data-standards', path: "../health-data-standards"
-gem 'health-data-standards',:git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
-
-#gem 'quality-measure-engine', '~> 2.5.0'
-# gem 'health-data-standards',:git => 'https://github.com/ssayer/health-data-standards.git', :branch => 'validators'
-
-# gem 'health-data-standards', :path => '../health-data-standards'
-
-# gem 'health-data-standards', '~> 3.5.2'
-
-
-
-#gem 'test-patient-generator', :git => 'https://github.com/pophealth/test-patient-generator.git', :branch => 'develop'
-#gem 'test-patient-generator', '~> 1.2.0'
-
-#gem "delayed_job_mongoid_web", :git => 'https://github.com/rdingwell/delayed_job_mongoid_web.git', :branch => 'develop'
-gem 'delayed_job_mongoid'
-gem "mongoid_rails_migrations" , "~>1.0"
-
-gem 'highline'
-# gem 'state_machine'
-# Switched to AASM, because state_machine hasn't been updated in almost a year
-gem 'aasm'
-
-gem 'devise', '~> 3.2'
-gem 'simple_form'
-
-gem "prawn", :require => "prawn"
-gem "prawn-table"
-gem "pdf-reader", '0.9.0'
-
-gem 'thin', :platforms => [:ruby]
-gem 'carrierwave'
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
-gem 'cancan', '~> 1.6.7'
-
-
-gem 'mongoid-grid_fs', '~> 2.1.0' #:git=>'https://github.com/ahoward/mongoid-grid_fs.git'
-
-gem 'cache_digests'
-
-gem "sass", :require => 'sass'
-
-group :assets do
-  # gem 'bootstrap-sass'
-  # gem 'sass-rails'
-  # gem 'coffee-rails'
-  # gem 'jquery-rails' # necessary for jquery_ujs w/data-method="delete" etc
-  gem 'uglifier'
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
 end
 
-group :test, :develop do
-	gem 'pry'
-  gem 'pry-nav'
-  gem 'turn', :require => false
-  gem "cane"
-  gem 'ruby-graphviz'
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
 end
 
-group :test do
-  gem 'mocha', :require => false
-  gem 'webmock'
-  gem 'rails-perftest'
-  gem 'ruby-prof'
-  gem 'simplecov'
-  gem 'bundler-audit'
-end
-
-group :production do
-  gem 'therubyracer', :platforms => [:ruby]
-  gem 'therubyrhino', :platforms => [:jruby]
-end

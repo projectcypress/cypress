@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cypress: An Open Source EHR Quality Measure Testing Framework</title>
-  <link rel="shortcut icon" href="/assets/favicon.ico"/>
-  <%= stylesheet_link_tag :application %>
-  <!--[if lt IE 9]>
-    <%= javascript_include_tag :html5shiv %>
-  <![endif]-->
-  <%= javascript_include_tag :application %>
-
-  <%= csrf_meta_tag %>
-  <%= yield :head %>
+  <title>Cypress</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
 </head>
 <body>
-  
-  <% if APP_CONFIG['demo_mode'] %>
-    <div class="demo"><%= APP_CONFIG['demo_message'].html_safe %></div>
-  <% end %>
 
-  <%= yield %>
+<%= yield %>
+
 </body>
 </html>
