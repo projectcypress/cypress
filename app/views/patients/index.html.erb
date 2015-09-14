@@ -127,6 +127,7 @@
         <% end %>
       </h2>
       <% unless @test %>
+        <%= label_tag :bundle_id, nil, class: "sr-only" %>
         <%= select_tag(:bundle_id, options_for_select(Bundle.active.order_by({version: 1}).collect{|b| ["#{b.title} - #{b.version}",b.id]},@bundle.id), :style=>"width: 300px;") %>
       <% end %>
     </section>

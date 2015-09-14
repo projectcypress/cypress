@@ -4,27 +4,57 @@
   <section class="row" id="vendorInfo">
     <dl class="dl-horizontal span4">
       <dt><span class="required">*</span>Vendor Name:</dt>
-      <dd><%= f.text_field :name, :class=>"required input-medium" %></dd>
+      <dd>
+        <%= f.label :name, :class=>"sr-only" %>
+        <%= f.text_field :name, :class=>"required input-medium" %>
+      </dd>
       <dt>Vendor ID:</dt>
-      <dd><%= f.text_field :vendor_id, :class=>"input-medium" %></dd>
+      <dd>
+        <%= f.label :vendor_id, :class=>"sr-only" %>
+        <%= f.text_field :vendor_id, :class=>"input-medium" %>
+      </dd>
       <dt>Url:</dt>
-      <dd><%= f.text_field :url, :class=>"input-medium" %></dd>
+      <dd>
+        <%= f.label :url, :class=>"sr-only" %>
+        <%= f.text_field :url, :class=>"input-medium" %>
+      </dd>
       <dt>Address:</dt>
-      <dd><%= f.text_field :address, :class=>"input-medium" %></dd>
+      <dd>
+        <%= f.label :address, :class=>"sr-only" %>
+        <%= f.text_field :address, :class=>"input-medium" %>
+      </dd>
       <dt>State:</dt>
-      <dd><%= f.text_field :state, :class=>"input-medium" %></dd>
+      <dd>
+        <%= f.label :state, :class=>"sr-only" %>
+        <%= f.text_field :state, :class=>"input-medium" %>
+      </dd>
       <dt>ZIP:</dt>
-      <dd><%= f.text_field :zip, :class=>"input-small" %></dd>
+      <dd>
+        <%= f.label :zip, :class=>"sr-only" %>
+        <%= f.text_field :zip, :class=>"input-small" %>
+      </dd>
     </dl>
     <dl class="dl-horizontal span4">
       <dt>EHR POC:</dt>
-      <dd><%= f.text_field :poc, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :poc, :class=>"sr-only" %>
+        <%= f.text_field :poc, :size=>"20", :class=>"req input-medium" %>
+      </dd>
       <dt>Email:</dt>
-      <dd><%= f.text_field :email, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :email, :class=>"sr-only" %>
+        <%= f.text_field :email, :size=>"20", :class=>"req input-medium" %>
+      </dd>
       <dt>Phone:</dt>
-      <dd><%= f.text_field :tel, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :tel, :class=>"sr-only" %>
+        <%= f.text_field :tel, :size=>"20", :class=>"req input-medium" %>
+      </dd>
       <dt>Fax:</dt>
-      <dd><%= f.text_field :fax, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :fax, :class=>"sr-only" %>
+        <%= f.text_field :fax, :size=>"20", :class=>"req input-medium" %>
+      </dd>
     </dl>
   </section>
 
@@ -32,27 +62,54 @@
   <section class="row" id="altPOC">
     <dl class="dl-horizontal span4">
       <dt>Main EHR POC:</dt>
-      <dd><%= f.text_field :accounts_poc, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :accounts_poc, :class=>"sr-only" %>
+        <%= f.text_field :accounts_poc, :size=>"20", :class=>"req input-medium" %>
+      </dd>
       <dt>Email:</dt>
-      <dd><%= f.text_field :accounts_email, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :accounts_email, :class=>"sr-only" %>
+        <%= f.text_field :accounts_email, :size=>"20", :class=>"req input-medium" %>
+      </dd>
       <dt>Phone:</dt>
-      <dd><%= f.text_field :accounts_tel, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :accounts_tel, :class=>"sr-only" %>
+        <%= f.text_field :accounts_tel, :size=>"20", :class=>"req input-medium" %>
+      </dd>
     </dl>
     <dl class="dl-horizontal span4">
       <dt>Technical POC:</dt>
-      <dd><%= f.text_field :tech_poc, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :tech_poc, :class=>"sr-only" %>
+        <%= f.text_field :tech_poc, :size=>"20", :class=>"req input-medium" %>
+      </dd>
       <dt>Email:</dt>
-      <dd><%= f.text_field :tech_email, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :tech_email, :class=>"sr-only" %>
+        <%= f.text_field :tech_email, :size=>"20", :class=>"req input-medium" %>
+      </dd>
       <dt>Phone:</dt>
-      <dd><%= f.text_field :tech_tel, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :tech_tel, :class=>"sr-only" %>
+        <%= f.text_field :tech_tel, :size=>"20", :class=>"req input-medium" %>
+      </dd>
     </dl>
     <dl class="dl-horizontal span4">
       <dt>Press POC:</dt>
-      <dd><%= f.text_field :press_poc, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :press_poc, :class=>"sr-only" %>
+        <%= f.text_field :press_poc, :size=>"20", :class=>"req input-medium" %>
+      </dd>
       <dt>Email:</dt>
-      <dd><%= f.text_field :press_email, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :press_email, :class=>"sr-only" %>
+        <%= f.text_field :press_email, :size=>"20", :class=>"req input-medium" %>
+      </dd>
       <dt>Phone:</dt>
-      <dd><%= f.text_field :press_tel, :size=>"20", :class=>"req input-medium" %></dd>
+      <dd>
+        <%= f.label :press_tel, :class=>"sr-only" %>
+        <%= f.text_field :press_tel, :size=>"20", :class=>"req input-medium" %>
+      </dd>
     </dl>
   </section>
 
