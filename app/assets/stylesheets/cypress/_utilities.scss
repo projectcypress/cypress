@@ -27,3 +27,16 @@ a.incomplete {color : #333}
   background: url(/assets/closed.gif) 4px 9px no-repeat;
   &.open {background:url(/assets/open.gif) 4px 9px no-repeat;}
 }
+
+// Only display content to screen readers
+// From Bootstrap 3 & http://a11yproject.com/posts/how-to-hide-content/
+.sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}

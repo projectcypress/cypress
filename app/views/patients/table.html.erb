@@ -8,26 +8,20 @@
   </colgroup>
   <thead style="position:relative;">
     <tr class="rot">
-   <% if @showAll %>
-     <th><div></div></th>
-      <th><div></div></th>
-      <th><div></div></th>
-      <th><div></div></th>
-   <% else%>
-<% if !@selected.population_ids[QME::QualityReport::MSRPOPL] %>
-      <th><div>POP</div></th>
-      <th><div>DEN</div></th>
-      <th><div>NUM</div></th>
-      <th><div>EXCL</div></th>
-      <th><div>EXCP</div></th>
-      <th><div>OUT</div></th>
-    <% else %>
-      <th><div>POP</div></th>
-      <th><div>MSRPOP</div></th>
-    <% end %>
-   <% end %>
-      <th></th>
-      <th>Last Name</th>
+      <% if !@showAll %>
+        <% if !@selected.population_ids[QME::QualityReport::MSRPOPL] %>
+          <th class="marker"><div>POP</div></th>
+          <th class="marker"><div>DEN</div></th>
+          <th class="marker"><div>NUM</div></th>
+          <th class="marker"><div>EXCL</div></th>
+          <th class="marker"><div>EXCP</div></th>
+          <th class="marker"><div>OUT</div></th>
+        <% else %>
+          <th class="marker"><div>POP</div></th>
+          <th class="marker"><div>MSRPOP</div></th>
+        <% end %>
+      <% end %>
+      <th colspan="6">Last Name</th>
       <th>First Name</th>
       <th>DOB</th>
       <th>Gender</th>
@@ -39,12 +33,7 @@
       <% cache_unless(params[:product_test_id], "table_show_all") do %>
         <% @patients.each do |patient| %>
           <tr>
-            <td style="background: none"></td>
-            <td style="background: none"></td>
-            <td style="background: none"></td>
-            <td style="background: none"></td>
-            <td></td>
-            <td><a href="<%= patient_url(patient.id,:execution=> params[:execution]) %>"><%= patient.last %></td>
+            <td colspan="6"><a href="<%= patient_url(patient.id,:execution=> params[:execution]) %>"><%= patient.last %></td>
             <td><a href="<%= patient_url(patient.id,:execution=> params[:execution]) %>"><%= patient.first %></td>
             <td><%= display_time(patient.birthdate) %></td>
             <td><%= patient.gender %></td>
@@ -66,8 +55,7 @@
                   <%= population_marker(patient.value[QME::QualityReport::POPULATION] )%>
                   <%= population_marker(patient.value[QME::QualityReport::MSRPOPL])%>
                 <% end %>
-                <td></td>
-                <td><%= link_to patient.record.last, patient_url(patient.record.id) %></td>
+                <td colspan="6"><%= link_to patient.record.last, patient_url(patient.record.id) %></td>
                 <td><%= link_to patient.record.first, patient_url(patient.record.id) %></td>
                 <td><time datetime="<%= display_time(patient.record.birthdate) %>">
                   <%= display_time(patient.record.birthdate) %>
