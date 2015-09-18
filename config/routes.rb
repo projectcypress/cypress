@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'products/index'
+
+  get 'products/add'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

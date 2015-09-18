@@ -1,0 +1,188 @@
+<div class="products col-sm-12">
+  <ol class="breadcrumb row">
+    <li><a href="#">Dashboard</a></li>
+    <li>Vendor</li>
+    <li class="active">Products</li>
+  </ol>
+
+  <button class="btn btn-primary pull-right">Add Product</button>
+
+  <section>
+    <h1>Untested</h1>
+
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <td></td>
+          <th>Product</th>
+          <th>Version</th>
+          <th>EH/EP</th>
+          <th>Measure</th>
+          <th class="test_result">CAT 1</th>
+          <th class="test_result">CAT 3</th>
+          <th class="test_result">CMS</th>
+          <th class="test_result">Filter</th>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td>Precision Ambulatory</td>
+          <td>2015</td>
+          <td>EH</td>
+          <td>CMS105v4 - Stroke6</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+        </tr>
+        <tr>
+          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td>Precision Total EHR</td>
+          <td>2015</td>
+          <td>EH</td>
+          <td>CMS114v4 - VTE6</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h1>Failing Tests</h1>
+
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <td></td>
+          <th>Product</th>
+          <th>Version</th>
+          <th>EH/EP</th>
+          <th>Measure</th>
+          <th class="test_result">CAT 1</th>
+          <th class="test_result">CAT 3</th>
+          <th class="test_result">CMS</th>
+          <th class="test_result">Filter</th>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><button class="btn btn-xs btn-primary-outline" data-toggle="collapse" data-target=".test_result_expanded" aria-expanded="false" aria-controls="test_result_expanded">+</button></td>
+          <td>Precision Professionals</td>
+          <td>3.0</td>
+          <td>EP</td>
+          <td>CMS142v4</td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('errormark.svg') %></td>
+          <td></td>
+          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+        </tr>
+        <tr class="test_result_expanded collapse out">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>07/18/15 | 10:52am</td>
+          <td class="test_result text-success">0 errors</td>
+          <td class="test_result text-success">0 errors</td>
+          <td class="test_result text-danger">15 errors</td>
+          <td class="test_result"></td>
+          <td><a href="" class="pull-right">details</a></td>
+        </tr>
+        <tr class="test_result_expanded collapse out">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>06/29/15 | 3:20pm</td>
+          <td class="test_result text-success">0 errors</td>
+          <td class="test_result"></td>
+          <td class="test_result text-danger">12 errors</td>
+          <td class="test_result"></td>
+          <td><a href="" class="pull-right">details</a></td>
+        </tr>
+        <tr>
+          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td>Precision ProCare EHR</td>
+          <td>3.0</td>
+          <td>EP</td>
+          <td>CMS149v4</td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('errormark.svg') %></td>
+          <td></td>
+          <td></td>
+          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h1>Passing Tests</h1>
+
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <td></td>
+          <th>Product</th>
+          <th>Version</th>
+          <th>EH/EP</th>
+          <th>Measure</th>
+          <th class="test_result">CAT 1</th>
+          <th class="test_result">CAT 3</th>
+          <th class="test_result">CMS</th>
+          <th class="test_result">Filter</th>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td>Precision Ambulatory</td>
+          <td>2014</td>
+          <td>EH</td>
+          <td>CMS105v4 - Stroke6</td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+        </tr>
+        <tr>
+          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td>Precision Clinicals</td>
+          <td>2.5</td>
+          <td>EP</td>
+          <td>CMS50v4</td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+        </tr>
+
+        <tr>
+          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td>Precision Clinicals</td>
+          <td>2.3</td>
+          <td>EP</td>
+          <td>CMS50v4</td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
