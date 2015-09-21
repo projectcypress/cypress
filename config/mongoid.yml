@@ -1,5 +1,5 @@
 development:
-  sessions:
+  clients:
     default:
       database: cypress3_development
       hosts:
@@ -8,7 +8,7 @@ development:
     raise_not_found_error: false
 
 test:
-  sessions:
+  clients:
     default:
       database: cypress3_test
       hosts:
@@ -17,7 +17,7 @@ test:
     raise_not_found_error: false
 
 production:
-  sessions:
+  clients:
     default:
       database: cypress3_production
       hosts:
@@ -26,7 +26,7 @@ production:
     raise_not_found_error: false
 
 measure_eval:
-  sessions:
+  clients:
     default:
       database: cypress3_measure_eval
       hosts:

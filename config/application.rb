@@ -1,7 +1,13 @@
 require File.expand_path('../boot', __FILE__)
 
 # require 'rails/all'
-require "rails"
+# require "rails"
+# require "rails/mongoid"
+
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "rails/test_unit/railtie"
+require "sprockets/railtie"
 
 %w(
   action_controller

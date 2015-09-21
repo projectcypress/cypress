@@ -23,6 +23,8 @@
 // Needed for breadcrumbs
 //= require breadcrumb
 
+//= require_tree .
+
 $(function() {
   $('.breadcrumb').breadcrumb();
 });
