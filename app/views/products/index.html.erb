@@ -1,9 +1,6 @@
 <div class="products col-sm-12">
-  <ol class="breadcrumb row">
-    <li><a href="#">Dashboard</a></li>
-    <li>Vendor</li>
-    <li class="active">Products</li>
-  </ol>
+
+  <%= render partial: "shared/breadcrumb", locals: { pages: ['Vendor', 'Products'] } %>
 
   <button class="btn btn-primary pull-right">Add Product</button>
 
