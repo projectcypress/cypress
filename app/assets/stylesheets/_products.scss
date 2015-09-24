@@ -2,26 +2,31 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-h1 {
-  font-size: 1.5em;
-}
-
-section {
-  margin: 3em 0;
-}
-
-th, td {
-  &.test_result {
-    text-align: center;
+.products {
+  h1 {
+    font-size: 1.5em;
   }
-}
 
-td:nth-last-child(-n+5) {
-  width: 8em;
-}
+  section {
+    margin: 3em 0;
+  }
 
+  th, td {
+    &.test_result {
+      text-align: center;
+    }
+  }
 
-td img {
-  height: 1.3em;
-  @include center-block()
+  td:nth-last-child(-n+5) {
+    width: 8em;
+  }
+
+  td img {
+    height: 1.3em;
+    @include center-block()
+  }
+
+  tr:not(.product) > td {
+      border-top: 2px solid white;
+  }
 }

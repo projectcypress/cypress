@@ -1,3 +1,7 @@
 .btn-primary-outline {
   @include button-variant($btn-primary-border,$btn-primary-color,$btn-primary-border);
 }
+
+.breadcrumb li:last-of-type {
+  color: $breadcrumb-active-color;
+}
