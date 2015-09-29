@@ -1,7 +1,23 @@
-.btn-primary-outline {
-  @include button-variant($btn-primary-border,$btn-primary-color,$btn-primary-border);
+.btn-danger-simple {
+  @include button-variant($btn-danger-border,$btn-danger-color,$btn-danger-color);
+}
+
+.btn, thead th, h1, h2, h3, h4, h5, h6 {
+  text-transform: uppercase;
 }
 
 .breadcrumb li:last-of-type {
   color: $breadcrumb-active-color;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+  background-color: white;
+}
+
+.table > thead > tr {
+  & > td, & > th {
+    background-color: $gray-lighter;
+    font-weight: bold;
+  }
 }

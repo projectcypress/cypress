@@ -27,4 +27,3 @@
 $(function() {
   $('.breadcrumb').breadcrumb();
 });
-

@@ -1,14 +1,13 @@
 <div class="products col-sm-12">
 
-  <%= render partial: "shared/breadcrumb", locals: { pages: ['Vendor', 'Products'] } %>
+  <%= render partial: "shared/breadcrumb", locals: { pages: ['Vendor Name', 'Products'] } %>
 
-  <button class="btn btn-primary pull-right">Add Product</button>
+  <button type="button" class="btn btn-primary pull-right">Add Product</button>
 
   <section>
-    <h1>Untested Products</h1>
-
-    <table class="table table-condensed table-hover">
-      <thead>
+    <h1>Untested</h1>
+    <table class="table table-hover">
+      <thead
         <tr>
           <td></td>
           <th>Product</th>
@@ -22,9 +21,9 @@
           <td></td>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="productRow">
         <tr class="product">
-          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></td>
           <td>Precision Ambulatory</td>
           <td>2015</td>
           <td>EH</td>
@@ -33,10 +32,19 @@
           <td></td>
           <td></td>
           <td></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Add Test</button></td>
+          <td>
+            <div class="btn-toolbar pull-right" role="toolbar">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-sm btn-info" aria-label="View Product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+                <button type="button" class="btn btn-sm btn-danger-simple" aria-label="Delete Product"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+              </div>
+            </div>
+          </td>
         </tr>
-        <tr>
-          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+      </tbody>
+      <tbody class="productRow">
+        <tr class="product">
+          <td><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></td>
           <td>Precision Total EHR</td>
           <td>2015</td>
           <td>EH</td>
@@ -45,16 +53,22 @@
           <td></td>
           <td></td>
           <td></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Add Test</button></td>
+          <td>
+            <div class="btn-toolbar pull-right" role="toolbar">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-info" aria-label="View Product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+                <button type="button" class="btn btn-sm btn-danger-simple" aria-label="Delete Product"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+              </div>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
   </section>
 
-  <section>
+  <section class="failing">
     <h1>Failing Products</h1>
-
-    <table class="table table-condensed table-hover">
+    <table class="table table-hover">
       <thead>
         <tr>
           <td></td>
@@ -69,519 +83,547 @@
           <td></td>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="productRow">
         <tr class="product" data-toggle="collapse" data-target=".test_result_expanded" aria-expanded="true" aria-controls="test_result_expanded">
-          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></td>
           <td>Precision Professionals</td>
           <td>3.0</td>
           <td>EP</td>
-          <td>93 measures</td>
-          <td class="test_result text-danger">1 failures</td>
-          <td class="test_result"></td>
-          <td class="test_result text-danger">2 failures</td>
-          <td class="test_result text-danger">1 failures</td>
-          <td><button class="btn btn-xs btn-primary pull-right">Add Test</button></td>
+          <td>40 measures</td>
+          <td class="test_result">
+            <span class="text-danger">10 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
+            <span class="text-warning"> 5 <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span></span></td>
+          <td class="test_result">
+            <span class="text-warning"> 14 <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span></span></td>
+          <td class="test_result">
+            <span class="text-danger">20 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
+            <span class="text-warning"> 7 <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span></span>
+            </td>
+          <td class="test_result">
+            <span class="text-danger">10 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
+            <span class="text-warning"> 8 <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span></span></td>
+          <td><div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-sm btn-info" aria-label="View Product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-sm btn-danger-simple" aria-label="Delete Product"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </div>
+          </div></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+      </tbody>
+      <tbody class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS142v4</td>
-          <td class="warning"></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS98v3</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS65v2</td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td class="warning"></td>
-          <td class="warning"></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td></td>
         </tr>
-        <tr class="test_result_expanded collapse in">
+        <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td>CMS112v3</td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="warning"></td>
+          <td class="warning"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></td>
           <td class="danger"><%= image_tag('errormark.svg') %></td>
-          <td class="success"><%= image_tag('checkmark.svg') %></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Edit</button></td>
+          <td><%= image_tag('checkmark.svg') %></td>
+          <td></td>
         </tr>
+      </tbody>
+      <tbody class="productRow">
         <tr class="product">
-          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></td>
           <td>Precision ProCare EHR</td>
           <td>3.0</td>
           <td>EP</td>
           <td>20 measures</td>
-          <td class="test_result text-danger">3 failures</td>
-          <td class="test_result text-danger">5 failures</td>
-          <td class="test_result text-danger">8 failures</td>
-          <td class="test_result text-danger">6 failures</td>
-          <td><button class="btn btn-xs btn-primary pull-right">Add Test</button></td>
+          <td class="test_result">
+            <span class="text-danger">3 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
+            <span class="text-warning"> 1 <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span></span></td>
+          <td class="test_result"></td>
+          <td class="test_result">
+            <span class="text-danger">8 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
+            </td>
+          <td class="test_result">
+            <span class="text-danger">4 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
+            </td>
+          <td><div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-sm btn-info" aria-label="View Product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-sm btn-danger-simple" aria-label="Delete Product"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </div>
+          </div>
+        </td>
         </tr>
       </tbody>
     </table>
   </section>
 
-  <section>
+  <section class="passing">
     <h1>Passing Products</h1>
-
-    <table class="table table-condensed table-hover">
+    <table class="table table-hover">
       <thead>
         <tr>
           <td></td>
@@ -596,42 +638,61 @@
           <td></td>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="productRow">
         <tr class="product">
-          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></td>
           <td>Precision Ambulatory</td>
           <td>2014</td>
           <td>EH</td>
-          <td>17 measures</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Add Test</button></td>
+          <td>64 measures</td>
+          <td class="test_result"><span class="text-success">33 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td class="test_result"><span class="text-success">64 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td class="test_result"><span class="text-success">55 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td class="test_result"><span class="text-success">55 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td><div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-sm btn-info" aria-label="View Product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-sm btn-danger-simple" aria-label="Delete Product"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </div>
+          </div></td>
         </tr>
+      </tbody>
+      <tbody class="productRow">
         <tr class="product">
-          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></td>
           <td>Precision Clinicals</td>
           <td>2.5</td>
           <td>EP</td>
-          <td>20 measures</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Add Test</button></td>
+          <td>66 measures</td>
+          <td class="test_result"><span class="text-success">66 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td class="test_result"><span class="text-success">64 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td class="test_result"><span class="text-success">54 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td class="test_result"><span class="text-success">59 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td><div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-sm btn-info" aria-label="View Product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-sm btn-danger-simple" aria-label="Delete Product"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </div>
+          </div></td>
         </tr>
+      </tbody>
+      <tbody class="productRow">
         <tr class="product">
-          <td><button class="btn btn-xs btn-primary-outline">+</button></td>
+          <td><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></td>
           <td>Precision Clinicals</td>
           <td>2.3</td>
           <td>EP</td>
           <td>9 measures</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><button class="btn btn-xs btn-primary pull-right">Add Test</button></td>
+          <td class="test_result"><span class="text-success">9 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td class="test_result"><span class="text-success">9 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td class="test_result"><span class="text-success">9 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td class="test_result"><span class="text-success">9 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+          <td><div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-sm btn-info" aria-label="View Product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-sm btn-danger-simple" aria-label="Delete Product"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </div>
+          </div></td>
         </tr>
       </tbody>
     </table>

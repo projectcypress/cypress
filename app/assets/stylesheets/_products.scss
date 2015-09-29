@@ -3,22 +3,27 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .products {
-  h1 {
-    font-size: 1.5em;
-  }
-
   section {
     margin: 3em 0;
+    h1 {
+      font-size: 1.3em;
+      font-weight: 700;
+    }
+  }
+
+  thead th {
+    font-weight: normal;
   }
 
   th, td {
+    vertical-align: middle;
     &.test_result {
       text-align: center;
     }
   }
 
-  td:nth-last-child(-n+5) {
-    width: 8em;
+  td:nth-last-child(-n+4) {
+    width: 7em;
   }
 
   td img {
@@ -26,7 +31,28 @@
     @include center-block()
   }
 
-  tr:not(.product) > td {
-      border-top: 2px solid white;
+  td.test_result {
+    font-weight: bold;
+    img {
+      display: inline-block;
+      height: 0.8em;
+    }
   }
+
+  tr:not(.product) td {
+    border-top: 2px solid white;
+  }
+
+  tr.product > td {
+    font-size: 1.1em;
+    padding-bottom: 0.6em;
+    padding-top: 0.6em;
+  }
+
+  .warning .glyphicon-hourglass {
+    color: $state-warning-text;
+    display: table;
+    margin: 0 auto;
+  }
+
 }
