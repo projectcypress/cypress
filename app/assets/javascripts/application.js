@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require turbolinks
-//= require_tree .
 
 // Core scripts needed for Assets Framework
 //= require jquery/dist/jquery.min
