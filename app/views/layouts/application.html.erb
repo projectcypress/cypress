@@ -15,11 +15,12 @@
 </head>
 <body>
 
-  <header role="banner">
+  <header role="banner" class="container">
     <%= render "navbar" %>
+    <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
   </header>
 
-  <main role="main" aria-label="main section" id="main-content">
+  <main role="main" aria-label="main section" id="main-content" class="container">
     <%= yield %>
   </main>
 

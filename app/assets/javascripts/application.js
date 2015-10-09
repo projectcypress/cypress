@@ -13,9 +13,17 @@
 //= require turbolinks
 //= require_tree .
 
+// Core scripts needed for Assets Framework
 //= require jquery/dist/jquery.min
 //= require jquery-ui/ui/minified/jquery-ui.min
 //= require bootstrap-sass-official/assets/javascripts/bootstrap.min
 //= require modernizr/modernizr
 //= require assets.core
 //= require assets.responsive
+
+// Needed for breadcrumbs
+//= require breadcrumb
+
+$(function() {
+  $('.breadcrumb').breadcrumb();
+});
