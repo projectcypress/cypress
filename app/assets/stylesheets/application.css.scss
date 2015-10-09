@@ -13,7 +13,18 @@
  *= require_tree .
  *= require_self
  */
- 
-@import url("font-awesome/scss/font-awesome.scss");
-@import url("jquery-ui/themes/base/jquery-ui.css");
-@import url("bootstrap-sass-official/assets/stylesheets/_bootstrap.scss");
+
+@import "font-awesome/scss/font-awesome.scss";
+@import "jquery-ui/themes/base/jquery-ui.css";
+
+//// We have fonts
+@import "fonts.css";
+
+//// This is Bootstrap's SASS with our own variables from _bootstrap-variables.scss
+@import "_bootstrap-custom";
+
+//// from vendor/assets/stylesheets
+@import "breadcrumb";
+
+//// from our own assets/stylesheets
+@import "navbar";

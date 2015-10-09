@@ -1,0 +1,51 @@
+.breadcrumb > .active > a {
+    color: $breadcrumb-active-color;
+    text-decoration: none;
+}
+
+.breadcrumb-responsive .breadcrumb-left,
+.breadcrumb-responsive .breadcrumb-right {
+    display: none;
+    margin-top: 10px;
+    width: 25px;
+    text-align: center;
+}
+
+.breadcrumb-responsive .breadcrumb-container {
+    min-height: 36px;
+    position: relative;
+    overflow: hidden;
+}
+
+.breadcrumb-responsive .breadcrumb {
+    left: 0;
+    top: 0;
+    width: 1800px;
+    > li {
+        // Accessibility to fix focus issues
+        .sr-only {
+            text-indent: -999px;
+        }
+    }
+}
+
+.breadcrumb-responsive:before,
+.breadcrumb-responsive:after {
+    content: " ";
+    display: table;
+}
+
+.breadcrumb-responsive:after {
+    clear: both;
+}
+
+.breadcrumb-responsive.control-left-visible .breadcrumb-left,
+.breadcrumb-responsive.control-right-visible .breadcrumb-right {
+    display: block;
+    float: left;
+}
+
+.breadcrumb-responsive.control-left-visible .breadcrumb-container,
+.breadcrumb-responsive.control-right-visible .breadcrumb-container {
+    float: left;
+}
