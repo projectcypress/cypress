@@ -1,0 +1,35 @@
+development:
+  sessions:
+    default:
+      database: cypress3_development
+      hosts:
+        - localhost:27017
+  options:
+    raise_not_found_error: false
+
+test:
+  sessions:
+    default:
+      database: cypress3_test
+      hosts:
+        - <%= ENV['TEST_DB_HOST'] || 'localhost' %>:27017
+  options:
+    raise_not_found_error: false
+
+production:
+  sessions:
+    default:
+      database: cypress3_production
+      hosts:
+        - localhost:27017
+  options:
+    raise_not_found_error: false
+
+measure_eval:
+  sessions:
+    default:
+      database: cypress3_measure_eval
+      hosts:
+        - localhost:27017
+  options:
+    raise_not_found_error: false
