@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 
@@ -17,8 +16,8 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'uglifier', '>= 1.3.0'
 # Use bower-rails to manage front-end assets
 gem 'bower-rails'
-# Bake the best breadcrumbs 
-gem "breadcrumbs_on_rails"
+# Bake the best breadcrumbs
+gem 'breadcrumbs_on_rails'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -45,9 +44,17 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'rubocop', require: false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'overcommit'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
+  gem 'travis'
+  gem 'poltergeist'
 end
+
+gem 'simplecov', require: false, group: :test
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -60,4 +67,5 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'minitest'
+  gem 'minitest-reporters'
 end

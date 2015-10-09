@@ -1,13 +1,17 @@
 <% if flash[:notice] %>
 
-  <% $alert_classes = "alert" %>
-  <% if flash[:notice_type] %>
-    <% $alert_classes += " alert-" + flash[:notice_type] %>
-  <% end %>
-
-  <div class = "<%= $alert_classes %>" >
+  <div class = "alert-<%= flash[:notice_type] || 'info' %>" >
     <%= flash[:notice] %>
     <a href = "#" class = "close" data-dismiss = "alert" aria-label = "close">&times;</a>
   </div>
 
+<% end %>
+
+<% unless @vendor.errors.empty? %>
+  <% @vendor.errors.full_messages do |msg| %>
+    <div class = "alert-danger">
+      <%= msg %>
+      <a href = "#" class = "close" data-dismiss = "alert" aria-label = "close">&times;</a>
+    </div>
+  <% end %>
 <% end %>

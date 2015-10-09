@@ -1,11 +1,10 @@
 require 'test_helper'
- 
-class VendorTest < MiniTest::Test
 
+class VendorTest < MiniTest::Test
   def after_teardown
     Vendor.all.destroy
   end
-  
+
   def test_true_is_true
     assert true
   end
@@ -17,7 +16,6 @@ class VendorTest < MiniTest::Test
   def test_vendor_with_pocs_can_be_built
     assert FactoryGirl.build(:vendor_with_pocs)
   end
-
 
   # ==================== #
   #   Validation Tests   #
@@ -61,56 +59,16 @@ class VendorTest < MiniTest::Test
   end
 
   def test_many_vendors
-      all_valid = true
-      (0..1000).each do
-        all_valid = all_valid && FactoryGirl.create(:vendor)
-      end
-      assert all_valid
+    all_valid = true
+    (0..1000).each do
+      all_valid &&= FactoryGirl.create(:vendor)
+    end
+    assert all_valid
   end
-  
+
   # ====================== #
   #   Model Method Tests   #
   # ====================== #
 
   # no method tests yet since the vendor model has no methods
-
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

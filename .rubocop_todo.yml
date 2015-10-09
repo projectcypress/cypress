@@ -1,0 +1,17 @@
+# Don't fail because of Rails defaults
+
+# Offense count: 1
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'test/test_helper.rb'
+
+# Offense count: 3
+# Configuration parameters: Exclude.
+Style/Documentation:
+  Enabled: false
+  # Exclude:
+  #   - 'app/controllers/application_controller.rb'
+  #   - 'app/helpers/application_helper.rb'
+  #   - 'config/application.rb'
+  #   - 'test/test_helper.rb'
