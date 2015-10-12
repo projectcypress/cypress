@@ -1,0 +1,39 @@
+.navbar-toggle {
+  margin: 0;
+}
+
+.navbar, .breadcrumb {
+  font-family: 'Ubuntu';
+  letter-spacing: 0.04em;
+}
+
+.navbar-header a {
+  font-size: 2em;
+  font-weight: 300;
+  height: inherit;
+  padding-left: 0.5em;
+
+  img {
+    display: inline-block;
+    height: 1.25em;
+  }
+}
+
+.navbar-nav li .navbar-item {
+  height: 3.5em;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.navbar-collapse.in, .navbar-collapse.collapsing {
+  .navbar-nav {
+    display: table;
+    margin: 0;
+    width: 100%;
+    & > li {
+      display: table-row;
+      text-align: center;
+      & > a { width: 100%; }
+    }
+  }
+}

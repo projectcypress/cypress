@@ -1,24 +1,26 @@
-<nav class="navbar">
-  <div class="container-fluid">
+<nav class="navbar navbar-default">
+  <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#"><%= image_tag('icon.svg') %> cypress</a>
+      <a href="#"><%= image_tag('icon.svg') %> cypress</a>
+      <button type="button" class="navbar-toggle navbar-right" data-toggle="collapse" data-target="#cypressNavbar" aria-label="navigation menu" role="button" aria-controls="cypressNavbar" aria-expanded="false">
+        <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+      </button>
     </div>
-    <ul class="nav navbar-nav pull-right">
-      <li>
-        <a class="navbar-item" href="#">Patient List</a>
-      </li>
-      <li>
-        <a class="navbar-item" href="#">Account</a>
-      </li>
-      <li>
-        <a class="navbar-item" href="#">Help</a>
-      </li>
-      <li>
-        <a class="navbar-item" href="#">About</a>
-      </li>
-      <li>
-        <a class="navbar-item" href="#">Log Out</a>
-      </li>
-    </ul>
+    <div class="collapse navbar-collapse" id="cypressNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active">
+          <a class="navbar-item" href="#"><i class="fa fa-fw fa-th-list" aria-hidden="true"></i>  Dashboard</a>
+        </li>
+        <li>
+          <a class="navbar-item" href="#"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Master Patient List</a>
+        </li>
+        <li>
+          <a class="navbar-item" href="#"><i class="fa fa-fw fa-gears" aria-hidden="true"></i> Account</a>
+        </li>
+        <li>
+          <a class="navbar-item" href="#"><i class="fa fa-fw fa-sign-out" aria-hidden="true"></i> Log Out</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

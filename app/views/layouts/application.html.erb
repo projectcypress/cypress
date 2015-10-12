@@ -15,9 +15,11 @@
 </head>
 <body>
 
-  <header role="banner" class="container">
+  <header role="banner">
     <%= render "navbar" %>
-    <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
+    <div class="container">
+      <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
+    </div>
   </header>
 
   <main role="main" aria-label="main section" id="main-content" class="container">
