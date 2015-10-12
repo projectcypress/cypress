@@ -10,15 +10,13 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+
+//// Run 'rake bower:install' to download dependencies from bower.json ////
 
 @import "font-awesome/scss/font-awesome.scss";
 @import "jquery-ui/themes/base/jquery-ui.css";
-
-//// We have fonts
-@import "fonts.css";
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap-sprockets.scss";
 
 //// This is Bootstrap's SASS with our own variables from _bootstrap-variables.scss
 @import "_bootstrap-custom";

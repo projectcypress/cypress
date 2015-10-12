@@ -12,7 +12,9 @@
 //
 //= require turbolinks
 
-// Core scripts needed for Assets Framework
+//// Run 'rake bower:install' to download dependencies from bower.json ////
+
+//// Core scripts needed for Assets Framework
 //= require jquery/dist/jquery.min
 //= require jquery-ui/ui/minified/jquery-ui.min
 //= require bootstrap-sass-official/assets/javascripts/bootstrap.min
@@ -20,7 +22,7 @@
 //= require assets.core
 //= require assets.responsive
 
-// Needed for breadcrumbs
+//// Needed for breadcrumbs
 //= require breadcrumb
 
 //= require_tree .
