@@ -2,20 +2,20 @@
 # ===================================
 #
 development:
-  sessions:
+  clients:
     default:
       database: cypress_development
       hosts:
         - localhost:27017
 test:
-  sessions:
+  clients:
     default:
       database: cypress_test
       hosts:
         - <%= ENV['TEST_DB_HOST'] || 'localhost' %>:27017
 
 production:
-  sessions:
+  clients:
     default:
       database: cypress_production
       hosts:

@@ -1,0 +1,129 @@
+<%= form_for @vendor, html: {class: "form-horizontal", id: "add_vendor_form"} do |f| %>
+
+  <h1>Vendor Information</h1>
+
+  <div class = "form-group">
+    <%= f.label :name, 'Vendor Name', :class => "control-label col-sm-2" %>
+    <div class = "col-sm-4">
+      <%= f.text_field :name, :class => "form-control", :placeholder => 'Name', :required => true %>
+    </div>
+    <div class = "required-field-label col-sm-1" >* required</div>
+  </div>
+  <div class = "form-group">
+    <%= f.label :vendor_id, 'Vendor ID', :class => "control-label col-sm-2" %>
+    <div class = "col-sm-4">
+      <%= f.text_field :vendor_id, :class => "form-control", :placeholder => 'ID' %>
+    </div>
+  </div>
+  <div class = "form-group">
+    <%= f.label :url, 'URL', :class => "control-label col-sm-2" %>
+    <div class = "col-sm-4">
+      <%= f.text_field :url, :class => "form-control", :placeholder => 'www.example.com' %>
+    </div>
+  </div>
+  <div class = "form-group">
+    <%= f.label :address, 'Address', :class => "control-label col-sm-2" %>
+    <div class = "col-sm-4">
+      <%= f.text_field :address, :class => "form-control", :placeholder => '123 Example Lane' %>
+    </div>
+  </div>
+  <div class = "form-group">
+    <%= f.label :state, 'State', :class => "control-label col-sm-2" %>
+    <div class = "col-sm-4">
+      <%= f.text_field :state, :class => "form-control", :placeholder => 'Alabama' %>
+    </div>
+  </div>
+  <div class = "form-group">
+    <%= f.label :zip, 'Zip Code', :class => "control-label col-sm-2" %>
+    <div class = "col-sm-4">
+      <%= f.text_field :zip, :class => "form-control", :placeholder => '112233' %>
+    </div>
+  </div>
+
+  <h1>Point of Contact Information</h1>
+
+  <div id = "poc_labels" class = "form-group">
+    <div class = "col-xs-2">
+      Name
+    </div>
+    <div class = "col-xs-4">
+      Email
+    </div>
+    <div class = "col-xs-2">
+      Phone Number
+    </div>
+    <div class = "col-xs-2">
+      Contact Type
+    </div>
+  </div>
+
+  <% # poc_counter holds number of pocs. used in js to create indicies for added poc field sets %>
+  <% $poc_counter = 0 %>
+
+  <%= f.fields_for :pocs do |poc_fields| %>
+    
+    <div class = "form-group poc-group">
+      <div class = "col-xs-2">
+        <%= poc_fields.text_field :name, :class => "form-control", :placeholder => 'John Doe' %>
+      </div>
+      <div class = "col-xs-4">
+        <%= poc_fields.text_field :email, :class => "form-control", :placeholder => 'contact@example.com' %>
+      </div>
+      <div class = "col-xs-2">
+        <%= poc_fields.text_field :phone, :class => "form-control", :placeholder => '1(222)333-4444' %>
+      </div>
+      <div class = "col-xs-2">
+        <%= poc_fields.text_field :contact_type, :class => "form-control", :placeholder => 'Admin, Sales' %>
+      </div>
+      <div class="col-xs-2">
+        <%= poc_fields.label :_destroy, "- Remove", :class => "btn btn-default remove_label" %>
+        <%= poc_fields.check_box :_destroy, :class => "remove_checkbox" %>
+      </div>
+    </div>
+
+    <% $poc_counter += 1 %>
+
+  <% end %>
+
+  <% # used in js to know how many POC's exist already for this vendor %>
+  <div class = "hide" id = "poc_counter"><%= $poc_counter %></div>
+
+  <% # template for javascript to dynamically add more PointOfContact (poc) fields %>
+  <div class = "form-group poc-group hide" id = "poc_template">
+    <div class = "col-xs-2">
+      <input type = "text" class = "form-control" name = "name" placeholder = "John Doe" />
+    </div>
+    <div class = "col-xs-4">
+      <input type = "text" class = "form-control" name = "email" placeholder = "contact@example.com" />
+    </div>
+    <div class = "col-xs-2">
+      <input type = "text" class = "form-control" name = "phone" placeholder = "1(222)333-4444" />
+    </div>
+    <div class = "col-xs-2">
+      <input type = "text" class = "form-control" name = "contact_type" placeholder = "Admin, Sales" />
+    </div>
+    <div class="col-xs-2">
+        <label class = "btn btn-default remove_label" id = "template_remove_label" >- Remove</label>
+        <input id = "template_remove_hidden_input" type = "hidden" value = "0" />
+        <input class = "remove_checkbox" id = "template_remove_checkbox" type = "checkbox" value="1" />
+    </div>
+  </div>
+
+  <div class = "form-group poc-group">
+    <div class="col-xs-2">
+        <button id = "add_poc_field_set_button" type = "button" class = "btn btn-default">+ Add Contact</button>
+    </div>
+  </div>
+
+  <div class = "form-group" id = "submit_and_cancel">
+    <div class = "col-sm-2"></div>
+    <div class = "col-sm-1">
+      <% # cannot use button_to (rails makes type="submit" which cannot be changed in a form) -%>
+      <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/'" %>
+    </div>
+    <div class = "col-sm-2">
+      <%= button_tag $sumbit_text, :class => "btn btn-primary", :id => "submit_button" %>
+    </div>
+  </div>
+
+<% end %>

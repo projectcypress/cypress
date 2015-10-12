@@ -1,0 +1,13 @@
+<% if flash[:notice] %>
+
+  <% $alert_classes = "alert" %>
+  <% if flash[:notice_type] %>
+    <% $alert_classes += " alert-" + flash[:notice_type] %>
+  <% end %>
+
+  <div class = "<%= $alert_classes %>" >
+    <%= flash[:notice] %>
+    <a href = "#" class = "close" data-dismiss = "alert" aria-label = "close">&times;</a>
+  </div>
+
+<% end %>
