@@ -1,8 +1,0 @@
-<% unless @vendor.errors.empty? %>
-  <% @vendor.errors.full_messages.each do |msg| %>
-    <div class = "alert alert-danger">
-      <%= msg %>
-      <a href = "#" class = "close" data-dismiss = "alert" aria-label = "close">&times;</a>
-    </div>
-  <% end %>
-<% end %>

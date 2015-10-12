@@ -1,0 +1,16 @@
+<div class = "col-sm-12">
+
+  <%= render :partial => 'alerts', locals: { object: @product } %>
+  
+  <h2>Edit <%= @product.name %></h2>
+
+  <%= render :partial => 'remove_modal', locals: {
+      warning_message: 'Removing a product will also remove all associated product tests and test results.',
+      object: [@vendor, @product],
+      object_name: @product.name,
+      object_type: "product"
+    } %>
+
+  <%= render :partial => 'product_form', locals: { submit_text: "Update Product" } %>
+
+</div>

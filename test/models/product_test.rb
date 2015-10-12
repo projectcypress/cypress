@@ -13,29 +13,49 @@ class ProducTest < MiniTest::Test
   end
 
   def test_create
-    pt = Product.new({vendor: @vendor, name: "test_product"})
+    pt = Product.new({vendor: @vendor, name: "test_product", ehr_type: "Eligible Provider", c1_test: true})
     assert pt.valid?, "record should be valid"
     assert pt.save, "Should be able to create and save a Product"
   end
 
   def test_create_from_vendor
-    pt = @vendor.products.build({name: "test_product"})
+    pt = @vendor.products.build({name: "test_product", ehr_type: "Eligible Provider", c1_test: true})
     assert pt.valid?, "record should be valid"
     assert pt.save, "Should be able to create and save a Product"
   end
 
   def test_must_have_name
-    pt = Product.new({vendor: @vendor})
-    assert_equal false,  pt.valid?, "record should not be valid"
+    pt = Product.new({vendor: @vendor, ehr_type: "Eligible Provider", c1_test: true})
+    assert_equal false, pt.valid?, "record should not be valid"
     saved = pt.save
     assert_equal false, saved, "Should not be able to save without a name"
   end
 
   def test_must_have_vendor
-    pt = Product.new({name:  "test_product"})
-    assert_equal false,  pt.valid?, "record should not be valid"
+    pt = Product.new({name: "test_product", ehr_type: "Eligible Provider", c1_test: true})
+    assert_equal false, pt.valid?, "record should not be valid"
     saved = pt.save
     assert_equal false, saved, "Should not be able to save without a vendor"
+  end
+
+  def test_must_have_ehr_type
+    pt = Product.new({vendor: @vendor, name: "test_product", c1_test: true})
+    assert_equal false, pt.valid?, "record should not be valid"
+    saved = pt.save
+    assert_equal false, saved, "Should not be able to save without an ehr_type"
+  end
+
+  def test_must_have_at_least_one_certification_test_type
+    pt = Product.new({vendor: @vendor, name: "test_product", ehr_type: "Eligible Provider"})
+    assert_equal false, pt.valid?, "record should not be valid"
+    saved = pt.save
+    assert_equal false, saved, "Should not be able to save without at least one certification type"
+  end
+
+  def test_can_have_multiple_certification_test_types
+    pt = Product.new({vendor: @vendor, name: "test_product", ehr_type: "Eligible Provider", c2_test: true, c4_test: true})
+    assert pt.valid?, "record should be valid"
+    assert pt.save, "Should be able to create and save with two certification types"
   end
 
 end

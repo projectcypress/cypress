@@ -1,0 +1,74 @@
+<div class = "col-sm-12">
+
+  <%= render :partial => 'alerts' %>
+
+  <%= button_to "Edit Vendor", edit_vendor_path(@vendor), :method => :get, :class => "btn btn-default pull-right" %>
+
+  <% @vendor.attributes.each_pair do |key, value| %>
+    <% unless key.eql?('_id') || key.eql?('updated_at') || key.eql?('created_at') %>
+      <% if value.present? %>
+        <% unless key.eql?('pocs') %>
+          <div class = "row product_description_row">
+            <div class = "col-sm-2 left_col" ><%= key.capitalize.gsub("_", " ") %></div>
+            <div class = "<%= key.eql?('name') ? 'col-sm-3 right_col page_title' : 'col-sm-3 right_col' %>" ><%= value %></div>
+          </div>
+        <% else %>
+          <div class = "row product_description_row">
+            <div class = "col-sm-2 left_col" ><%= key.capitalize %></div>
+            <div class = "col-sm-10 right_col">
+              <% value.each do |poc| %>
+                <p>
+                  <% poc.each do |poc_key, poc_value| %>
+                    <%= "#{poc_value}, " unless poc_key.eql?('_id') || !poc_value.present? %>
+                  <% end %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+
+  <%= button_to "+ Add Product", new_vendor_product_path(@vendor), :method => :get, :class => "btn btn-primary pull-right" %>
+
+  <% unless @vendor.products.empty? %>
+    <table class = "table table-sm">
+      <thead>
+        <tr>
+          <th class = "col-sm-1">Status</th>
+          <th class = "col-sm-3">Product</th>
+          <th class = "col-sm-2">Passing Tests</th>
+          <th class = "col-sm-2">Failing Tests</th>
+          <th class = "col-sm-2">Incomplete Tests</th>
+          <th class = "col-sm-2">Total Tests</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product| %>
+          <tr>
+            <td>
+              <%= product.state %>
+            </td>
+            <td><%= product.name %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%= link_to "edit", edit_vendor_product_path(@vendor, product) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+</div>
+
+<%
+# product.product_tests.passing.count
+# product.product_tests.failing.count
+# product.product_tests.incomplete.count
+# product.product_tests.count
+%>

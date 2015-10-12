@@ -16,21 +16,4 @@ class Vendor
 
   validates :name, presence: true, uniqueness: { message: 'Vendor name was already taken. Please choose another.' }
 
-  # Methods should be used only for testing
-
-  def failing_products
-    5
-  end
-
-  def passing_products
-    3
-  end
-
-  def incomplete_products
-    1
-  end
-
-  def total_products
-    8
-  end
 end
