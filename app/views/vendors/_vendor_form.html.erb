@@ -61,7 +61,7 @@
   <% $poc_counter = 0 %>
 
   <%= f.fields_for :pocs do |poc_fields| %>
-    
+
     <div class = "form-group poc-group">
       <div class = "col-xs-2">
         <%= poc_fields.text_field :name, :class => "form-control", :placeholder => 'John Doe' %>
@@ -122,7 +122,7 @@
       <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/'" %>
     </div>
     <div class = "col-sm-2">
-      <%= button_tag $sumbit_text, :class => "btn btn-primary", :id => "submit_button" %>
+      <%= button_tag submit_text, :class => "btn btn-primary", :id => "submit_button" %>
     </div>
   </div>
 

@@ -1,5 +1,3 @@
-<% $sumbit_text = "Submit Changes" %>
-
 <div class="vendors edit_vendor_page col-sm-12">
 
   <%= render :partial => 'vendor_alert' %>
@@ -29,6 +27,6 @@
     </div>
   </div>
 
-  <%= render :partial => 'vendor_form' %>
+  <%= render :partial => 'vendor_form', locals: {submit_text: 'Submit Changes'} %>
 
 </div>

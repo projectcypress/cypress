@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-
-  root to: "vendors#index"
+  root to: 'vendors#index'
 
   resources :vendors
 
