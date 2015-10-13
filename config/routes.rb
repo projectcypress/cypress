@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "vendors#index"
 
+
   resources :vendors do
     resources :products
   end
