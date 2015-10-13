@@ -4,6 +4,7 @@ class VendorsController < ApplicationController
   add_breadcrumb 'Add Vendor',  :new_vendor_path,  only: [:new, :create]
   add_breadcrumb 'Edit Vendor', :edit_vendor_path, only: [:edit, :update]
 
+  before_action :authenticate_user!
   def index
     @vendors = Vendor.all.order(:updated_at => :desc)
     respond_to do |f|
@@ -70,9 +71,16 @@ class VendorsController < ApplicationController
                            pocs_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy]
   end
 
-  # action_type (string) describes what just happended to the vendor. should be past tense
-  def flash_vendor_comment(vendor_name, notice_type, action_type)
-    flash[:notice] = "Vendor '#{vendor_name}' was #{action_type}."
-    flash[:notice_type] = notice_type
-  end
+    def set_flash_errors(vendor)
+      flash[:notice_type] = "warning"
+      flash[:notice] = "POCs " + vendor.errors.get(:pocs).first unless vendor.errors.messages[:pocs].nil?
+      flash[:notice] = vendor.errors.get(:name).first unless vendor.errors.messages[:name].nil?
+    end
+
+    # action_type (string) describes what just happended to the vendor. should be past tense
+    def set_flash_vendor_comment(vendor_name, notice_type, action_type)
+      flash[:notice] = "Vendor '#{vendor_name}' was #{action_type}."
+      flash[:notice_type] = notice_type
+    end
+
 end
