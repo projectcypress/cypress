@@ -17,9 +17,14 @@
         <li>
           <a class="navbar-item" href="#"><i class="fa fa-fw fa-gears" aria-hidden="true"></i> Account</a>
         </li>
-        <li>
-          <a class="navbar-item" href="#"><i class="fa fa-fw fa-sign-out" aria-hidden="true"></i> Log Out</a>
-        </li>
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to destroy_user_session_path, :method => :delete, class: 'navbar-item'  do %>
+                <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
+                 Log Out
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

@@ -17,10 +17,12 @@
 <body>
 
   <header role="banner">
-    <%= render "navbar" %>
-    <div class="container">
-      <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
-    </div>
+    <% if user_signed_in? %>
+      <%= render "navbar" %>
+      <div class="container">
+        <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
+      </div>
+    <% end %>
   </header>
 
   <main role="main" aria-label="main section" id="main-content" class="container">
