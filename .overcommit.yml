@@ -22,12 +22,12 @@ PreCommit:
     enabled: true
   EsLint:
     enabled: true
-  TrailingWhitespace:
-    enabled: true
   ScssLint:
     enabled: true
   HardTabs:
-    enabled: true
+    exclude: 'vendor/assets/stylesheets/*'
+  AuthorName:
+    enabled: false
 CommitMsg:
   RussianNovel:
     enabled: true
