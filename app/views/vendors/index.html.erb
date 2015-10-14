@@ -1,6 +1,11 @@
 <div class="vendors index_vendor_page col-sm-12">
 
-  <%= render :partial => 'vendor_alert' %>
+  <% if flash[:notice] %>
+    <div class = "alert alert-<%= flash[:notice_type] || 'info' %>" >
+      <%= flash[:notice] %>
+      <a href = "#" class = "close" data-dismiss = "alert" aria-label = "close">&times;</a>
+    </div>
+  <% end %>
 
   <%= button_to "+ Add Vendor", new_vendor_path, :method => :get, :class => "btn btn-primary pull-left" %>
   <button class="btn btn-primary pull-right">View All Patients</button>
