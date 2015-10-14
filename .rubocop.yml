@@ -6,3 +6,6 @@ AllCops:
     - 'lib/tasks/cucumber.rake'
 Metrics/LineLength:
   Max: 120
+Style/HashSyntax:
+# Force hashes that have a symbol value to use hash rockets
+  UseHashRocketsWithSymbolValues: true

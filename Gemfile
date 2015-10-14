@@ -29,7 +29,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', '~> 0.4.0', :group => :doc
 
 # bubble up errors from embedded documents in Mongoid.
 # gem 'mongoid-embedded-errors'
@@ -54,7 +54,7 @@ group :development, :test do
   gem 'poltergeist'
 end
 
-gem 'simplecov', require: false, group: :test
+gem 'simplecov', :require => false, :group => :test
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
