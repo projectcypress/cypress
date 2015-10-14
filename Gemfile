@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 
 # Use MongoDB just like in Cypress v2!
-gem 'mongoid', '~> 5.0.0'
+# gem 'mongoid', '~> 5.0.0'
+gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
 
 # Use SCSS for stylesheets
