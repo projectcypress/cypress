@@ -14,8 +14,7 @@ class Vendor
   field :state, type: String
   field :zip, type: String
 
-  validates :name, presence: true,
-		   uniqueness: { message: 'Vendor name was already taken. Please choose another.' }
+  validates :name, presence: true, uniqueness: { message: 'Vendor name was already taken. Please choose another.' }
 
   # Methods should be used only for testing
 

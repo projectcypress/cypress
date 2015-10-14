@@ -37,9 +37,9 @@ ready = function() {
 
       /* replace all fields in newly generated POC field set with appropriate names and id fields */
       clone.find('[name = "name"]').attr('name', 'vendor[pocs_attributes][' + poc_index + '][name]').end()
-	    		 .find('[name = "contact_type"]').attr('name', 'vendor[pocs_attributes][' + poc_index + '][contact_type]').end()
-	    		 .find('[name = "email"]').attr('name', 'vendor[pocs_attributes][' + poc_index + '][email]').end()
-	    		 .find('[name = "phone"]').attr('name', 'vendor[pocs_attributes][' + poc_index + '][phone]').end()
+           .find('[name = "contact_type"]').attr('name', 'vendor[pocs_attributes][' + poc_index + '][contact_type]').end()
+           .find('[name = "email"]').attr('name', 'vendor[pocs_attributes][' + poc_index + '][email]').end()
+           .find('[name = "phone"]').attr('name', 'vendor[pocs_attributes][' + poc_index + '][phone]').end()
            .find('[id = "template_remove_label"]').attr('for', 'vendor_pocs_attributes_' + poc_index + '__destroy').attr('id', '').end()
            .find('[id = "template_remove_hidden_input"]').attr('name', 'vendor[pocs_attributes][' + poc_index + '][_destroy]').attr('id', '').end()
            .find('[id = "template_remove_checkbox"]').attr('id', 'vendor_pocs_attributes_' + poc_index + '__destroy').attr('name', 'vendor[pocs_attributes][' + poc_index + '][_destroy]').end()
@@ -50,7 +50,7 @@ ready = function() {
 
     /* remove poc button hides poc field set. hidden poc's will not be saved to the database */
     .on('click', '.remove_label', function() {
-      
+
       $(this).parent().parent('.form-group').addClass('hide');
 
     });

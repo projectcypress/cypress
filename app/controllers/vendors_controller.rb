@@ -66,8 +66,8 @@ class VendorsController < ApplicationController
   end
 
   def vendor_params
-    params[:vendor].permit(:name, :vendor_id, :name, :vendor_id, :url, :address, :state, :zip,
-			   pocs_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy])
+    params[:vendor].permit :name, :vendor_id, :name, :vendor_id, :url, :address, :state, :zip,
+                           pocs_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy]
   end
 
   # action_type (string) describes what just happended to the vendor. should be past tense
