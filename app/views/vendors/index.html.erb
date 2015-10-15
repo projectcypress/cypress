@@ -1,9 +1,7 @@
 <div class="vendors index_vendor_page col-sm-12">
 
-  <%= render :partial => 'vendor_alert' %>
-
-  <%= button_to "+ Add Vendor", new_vendor_path, :method => :get, :class => "btn btn-primary pull-left" %>
-  <button class="btn btn-primary pull-right">View All Patients</button>
+  <%= render :partial => 'alerts' %>
+  <%= button_to "+ Add Vendor", new_vendor_path, :method => :get, :class => "btn btn-primary pull-right" %>
 
   <section>
     <table class="table table-sm">

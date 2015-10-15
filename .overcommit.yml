@@ -24,9 +24,10 @@ PreCommit:
     enabled: true
   ScssLint:
     enabled: true
+    exclude: ['vendor/assets/stylesheets/**/*']
   HardTabs:
     enabled: true
-    exclude: ['vendor/assets/stylesheets/*', 'vendor/assets/javascripts/*']
+    exclude: ['vendor/assets/stylesheets/**/*', 'vendor/assets/javascripts/**/*']
   AuthorName:
     enabled: false
 CommitMsg:

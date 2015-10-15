@@ -1,0 +1,33 @@
+scss_files: 'app/assets/stylesheets/**/*.scss'
+
+exclude: 'app/assets/stylesheets/_bootstrap-variables.scss'
+
+linters:
+  Comment:
+    exclude: 'app/assets/stylesheets/application.scss'
+
+  HexNotation:
+    enabled: false
+
+  NestingDepth:
+    max_depth: 4
+
+  SelectorDepth:
+    max_depth: 4
+
+  SelectorFormat:
+    enabled: false
+
+  PropertySortOrder:
+    enabled: false
+
+  VariableForProperty:
+    enabled: true
+    properties:
+      - color
+      - background-color
+
+  VendorPrefix:
+    enabled: true
+    identifier_list:
+      - base

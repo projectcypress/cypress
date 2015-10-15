@@ -1,6 +1,6 @@
 <div class="vendors new_vendor_page col-sm-12">
 
-  <%= render :partial => 'vendor_alert' %>
+  <%= render :partial => 'alerts', locals: { object: @vendor } %>
   <%= render :partial => 'vendor_form', locals: {submit_text: "Create Vendor"} %>
 
 </div>
