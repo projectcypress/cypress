@@ -2,16 +2,17 @@
   margin: 0;
 }
 
-.navbar, .breadcrumb {
+.navbar,
+.breadcrumb {
   font-family: 'Ubuntu';
-  letter-spacing: 0.04em;
+  letter-spacing: .04em;
 }
 
 .navbar-header a {
   font-size: 2em;
   font-weight: 300;
   height: inherit;
-  padding-left: 0.5em;
+  padding-left: .5em;
 
   img {
     display: inline-block;
@@ -25,15 +26,17 @@
   vertical-align: middle;
 }
 
-.navbar-collapse.in, .navbar-collapse.collapsing {
+.navbar-collapse.in,
+.navbar-collapse.collapsing {
   .navbar-nav {
     display: table;
     margin: 0;
     width: 100%;
-    & > li {
+    
+    > li {
       display: table-row;
       text-align: center;
-      & > a { width: 100%; }
+      > a { width: 100%; }
     }
   }
 }
