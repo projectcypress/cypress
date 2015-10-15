@@ -12,7 +12,10 @@ require 'minitest/autorun'
 
 require 'minitest/reporters'
 Minitest::Reporters.use!
-Mongo::Logger.logger.level = Logger::WARN
+
+include Warden::Test::Helpers
+Warden.test_mode!
+
 Mongoid.logger.level = Logger::INFO
 
 class ActiveSupport::TestCase
