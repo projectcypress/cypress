@@ -1,0 +1,39 @@
+
+<% # a local variable 'object' should be passed in for the alerts partial to detect errors %>
+
+<% if defined?(object) %>
+  <% unless object.errors.empty? %>
+    <div class="clearfix alert alert-danger alert-dismissable" role="alert" aria-live="polite">
+      <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"></button>
+      <div class="iconSpan pull-left">
+        <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
+      </div>
+      <div class="alertContent">
+        <% object.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
+<% if flash[:notice] %>
+  <div class="clearfix alert alert-<%= flash[:notice_type] || 'info' %> alert-dismissable" role="alert" aria-live="polite">
+    <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"></button>
+    <div class="iconSpan pull-left">
+      <% if flash[:notice_type] == 'success' %>
+        <i class="fa fa-fw fa-2x fa-check-circle"></i>
+      <% elsif flash[:notice_type] == 'danger' %>
+        <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
+      <% elsif flash[:notice_type] == 'warning' %>
+        <i class="fa fa-fw fa-2x fa-exclamation-triangle"></i>
+      <% else %>
+        <i class="fa fa-fw fa-2x fa-info-circle"></i>
+      <% end %>
+    </div>
+    <div class="alertContent">
+      <p><%= flash[:notice] %></p>
+    </div>
+  </div>
+<% end %>
