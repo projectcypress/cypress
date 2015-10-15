@@ -1,7 +1,4 @@
-
-/* * * * * * * * * * */
-/*   G E N E R A L   */
-/* * * * * * * * * * */
+// GENERAL
 
 h1 {
   font-size: 2em;
@@ -11,59 +8,46 @@ label {
   font-weight: normal;
 }
 
-
-/* * * * * * * * */
-/*   I N D E X * */
-/* * * * * * * * */
-
+// INDEX PAGE
 .index_vendor_page {
 
-  section { margin-top: 5em }
+  section { margin-top: 5em; }
 
-  tr:hover { background-color: $breadcrumb-bg }
+  tr:hover { background-color: $breadcrumb-bg; }
 
-  .number_col { text-align: center }
+  .number_col { text-align: center; }
 
   .mark_img {
     height: 1.5em;
     padding-left: 1em;
-    padding-bottom: 0.5em;
+    padding-bottom: .5em;
   }
 
 }
 
+// ADD AND EDIT
 
-/* * * * * * * * * * * * * * * */
-/*   A D D   a n d   E D I T   */
-/* * * * * * * * * * * * * * * */
-
-.new_vendor_page, .edit_vendor_page {
+.new_vendor_page,
+.edit_vendor_page {
 
   h1 {
     margin-top: 1.5em;
     margin-bottom: 1em;
   }
 
-  /* remove vendor popup */
+  // VENDOR FORM
 
-  #popup_remove_vendor_button { margin-left: 1em }
+  .form-control { display: inline; }
 
-  /* vendor form */
+  .required-field-label { color: $brand-danger; }
 
-  /* needed for '* required' side note */
-  .form-control { display: inline}
+  // POC FORM
 
-  .required-field-label { color: red }
+  .poc_labels { margin-bottom: .5em; }
 
-  /* poc form */
+  .remove_checkbox { display: none; }
 
-  #poc_labels { margin-bottom: 0.5em }
-
-  #add_poc_field_set_button, #submit_button { width: 100% }
-
-  .remove_checkbox { display: none }
-
-  #submit_and_cancel {
+  .submit_and_cancel {
     margin-top: 2em;
     margin-bottom: 10em;
   }

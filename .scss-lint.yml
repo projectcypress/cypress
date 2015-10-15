@@ -9,10 +9,21 @@ linters:
   HexNotation:
     enabled: false
 
+  EmptyLineBetweenBlocks:
+    severity: error
+
+  EmptyRules:
+    severity: error
+
+  IdSelector:
+    severity: error
+
   NestingDepth:
+    severity: error
     max_depth: 4
 
   SelectorDepth:
+    severity: error
     max_depth: 4
 
   SelectorFormat:
@@ -23,6 +34,7 @@ linters:
 
   VariableForProperty:
     enabled: true
+    severity: error
     properties:
       - color
       - background-color

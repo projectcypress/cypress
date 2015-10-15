@@ -19,8 +19,8 @@
           <p><input id = "popup_text_field" type = "text-field" class = "form-control" placeholder = "Vendor Name"/></p>
         </div>
         <div class = "modal-footer">
-          <%= button_to "Remove Vendor", @vendor, :method => "delete", :class => "btn btn-danger pull-right", :disabled => true, :id => "popup_remove_vendor_button" %>
-          <button type = "button" class = "btn btn-default pull-right" data-dismiss = "modal">Close</button>
+          <%= link_to "Remove Vendor", @vendor, :method => "delete", :class => "btn btn-danger", :disabled => true, :id => "popup_remove_vendor_button" %>
+          <button type = "button" class = "btn btn-default" data-dismiss = "modal">Cancel</button>
         </div>
       </div>
 

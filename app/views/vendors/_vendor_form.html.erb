@@ -7,7 +7,7 @@
     <div class = "col-sm-4">
       <%= f.text_field :name, :class => "form-control", :placeholder => 'Name', :required => true %>
     </div>
-    <div class = "required-field-label col-sm-1" >* required</div>
+    <div class = "required-field-label" >* required</div>
   </div>
   <div class = "form-group">
     <%= f.label :vendor_id, 'Vendor ID', :class => "control-label col-sm-2" %>
@@ -42,7 +42,7 @@
 
   <h1>Point of Contact Information</h1>
 
-  <div id = "poc_labels" class = "form-group">
+  <div class = "form-group poc_labels">
     <div class = "col-xs-2">
       Name
     </div>
@@ -115,14 +115,11 @@
     </div>
   </div>
 
-  <div class = "form-group" id = "submit_and_cancel">
-    <div class = "col-sm-2"></div>
-    <div class = "col-sm-1">
+  <div class = "form-group submit_and_cancel">
+    <div class = "col-sm-6 col-sm-offset-2">
       <% # cannot use button_to (rails makes type="submit" which cannot be changed in a form) -%>
       <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/'" %>
-    </div>
-    <div class = "col-sm-2">
-      <%= button_tag submit_text, :class => "btn btn-primary", :id => "submit_button" %>
+      <%= button_tag submit_text, :class => "btn btn-success", :id => "submit_button" %>
     </div>
   </div>
 
