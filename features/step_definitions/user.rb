@@ -3,10 +3,8 @@ Given(/^a user has an account$/) do
 end
 
 When(/^the user tries to log in with invalid information$/) do
-  visit '/users/sign_in'
-  page.fill_in "Email", :with => "unauth@mitre.org"
-  page.fill_in "Password", :with => "incorrectPassword"
-  page.click_button "Log in"
+  incorrect_user = FactoryGirl.create(:user, email: "unauth@mitre.org")
+  login_as(incorrect_user, :scope => :user)
 end
 
 Then(/^the user should see an log in error message$/) do
