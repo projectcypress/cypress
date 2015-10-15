@@ -1,4 +1,5 @@
 class TestExecutionsController < ApplicationController
+  before_filter :authenticate_user!
   HTML_EXPORTER =  HealthDataStandards::Export::HTML.new
   #TODO Replace action_cache for download action with fragment/other caching
 
