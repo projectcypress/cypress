@@ -12,7 +12,7 @@ require 'minitest/autorun'
 
 require 'minitest/reporters'
 Minitest::Reporters.use!
-
+Mongo::Logger.logger.level = Logger::WARN
 Mongoid.logger.level = Logger::INFO
 
 # VVV Below worked for Mongoid 5.0.0 but not Mongoid 4.0.2 VVV
