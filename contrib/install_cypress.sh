@@ -234,7 +234,7 @@ Options:
     valuesets to be downloaded from NLM and cached locally (if needed). This
     option can accept a bundle version, which will cause a specific bundle
     version compatible with the cypress version to be imported. If no value is
-    provided, the latest bundle available for the cypress version will be 
+    provided, the latest bundle available for the cypress version will be
     assumed.
 
   --nlm_passwd
@@ -311,7 +311,7 @@ if [ $# -gt 0 ]; then
         fi
         shift
         ;;
-        
+
 
       --proxyhost)
         if [ $# -ge 2 ]; then
@@ -529,7 +529,7 @@ fi
 
 # Set our ruby as default, and the one we're using
 rvm use "$install_ruby_ver" &> /dev/null
-rvm --default "$install_ruby_ver" 
+rvm --default "$install_ruby_ver"
 
 # Install Bundler gem
 echo -n "   Install bundler gem: "
@@ -853,6 +853,11 @@ CYPRESS_SITE_END
 fi
 rm /etc/apache2/sites-enabled/000-default*
 ln -s /etc/apache2/sites-available/cypress /etc/apache2/sites-enabled/000-default.conf
+cat << CYPRESS_CONF_END > /etc/apache2/conf-available/cypress
+  SetEnv SECRET_KEY_BASE `cat /dev/urandom | env LC_CTYPE=c tr -dc 'a-e0-9' | fold -w 64 | head -n 1`
+  SetEnv DEVISE_SECRET_KEY `cat /dev/urandom | env LC_CTYPE=c tr -dc 'a-e0-9' | fold -w 64 | head -n 1`
+CYPRESS_CONF_END
+ln -s /etc/apache2/conf-available/cypress /etc/apache2/conf-enabled/cypress.conf
 success "done"
 # install passenger configuration
 echo -n "   Install Passenger configuration: "

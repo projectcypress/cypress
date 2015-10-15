@@ -4,8 +4,12 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = "registration@projectcypress.org"
-  config.secret_key = '2710f15f11771d6692a3015d7e3dba2cb05539c1f72i6u345df5433hg535kj5x56v6er56if2566c63c2ad670d6859e536b40d87e6543b115609f0464bdd99502abbe241c4'
-  
+  config.secret_key = if Rails.env.development? or Rails.env.test?
+    ('x' * 30) #meets minimum requirement of 30 chars long
+  else
+    ENV['DEVISE_SECRET_KEY']
+  end
+
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
@@ -14,7 +18,7 @@ Devise.setup do |config|
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
   require 'devise/orm/mongoid'
-  
+
   # Since version 2.0, we need to define our schema on our own
   #Devise.apply_schema = false
 
