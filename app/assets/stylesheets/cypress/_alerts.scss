@@ -1,0 +1,26 @@
+@mixin alert-border($color) {
+  border-left: 5px solid $color;
+}
+
+.alert {
+  &.alert-success { @include alert-border($state-success-text); }
+  &.alert-info { @include alert-border($state-info-text); }
+  &.alert-warning { @include alert-border($state-warning-text); }
+  &.alert-danger { @include alert-border($state-danger-text); }
+
+  .fa-close { font-size: 1.4em; }
+
+  .iconSpan {
+    border-right: 0;
+    padding: 0 1em 0 0;
+  }
+
+  .alertContent {
+    border-left: 1px solid $gray-light;
+    vertical-align: middle;
+
+    p {
+      padding: 0 2em;
+    }
+  }
+}

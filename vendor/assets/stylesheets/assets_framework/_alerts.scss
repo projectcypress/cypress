@@ -1,0 +1,69 @@
+.alert {
+    position: relative;
+    &.alert-warning {
+        background: $alert-warning-bg;
+        border: 1px solid $alert-warning-border;
+        color: $alert-warning-text;
+    }
+    &.alert-info {
+        background: $alert-info-bg;
+        border: 1px solid $alert-info-border;
+        color: $alert-info-text;
+        .close, .example, .example2 {
+            &:focus {
+                outline: 2px solid $gray;
+            }
+        }
+    }
+    &.alert-success {
+        background: $alert-success-bg;
+        border: 1px solid $alert-success-border;
+        color: $alert-success-text;
+    }
+    &.alert-danger {
+        background: $alert-danger-bg;
+        border: 1px solid $alert-danger-border;
+        color: $alert-danger-text;
+    }
+    .example, .example2 {
+        background: none;
+        border: 0 none;
+        color: $gray;
+        @include font-size-REM(24);
+        padding: 0;
+        position: absolute;
+        right: 3%;
+        top: 10px;
+        &:focus {
+            outline: 2px solid $brand-white;
+        }
+        &.white {
+            color: $brand-white;
+        }
+        &.close {
+            opacity: 1;
+            filter: alpha(opacity = 100);
+            &:hover, &:focus {
+                opacity: 1;
+                filter: alpha(opacity = 100);
+            }
+        }
+    }
+    .iconSpan {
+        border-right: 1px solid $gray-medium-light;
+        display: table-cell;
+        padding: 15px 20px;
+        vertical-align: middle;
+    }
+    .alertContent {
+        display: table-cell;
+        p {
+            padding: 0 10px;
+        }
+    }
+    .alertHeading, .alertHeading2 {
+        strong {
+            font: normal 100% 'OpenSansBolder';
+        }
+    }
+}
