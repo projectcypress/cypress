@@ -1,74 +1,72 @@
 require 'test_helper'
 
 class VendorTest < MiniTest::Test
+
   def after_teardown
     Vendor.all.destroy
   end
 
-  def test_true_is_true
-    assert true
+  def test_new_vendor_can_be_made
+    assert Vendor.new(name: "test_vendor_name")
   end
 
-  def test_vendor_can_be_built
-    assert FactoryGirl.build(:vendor)
+  def test_vendor_can_be_created
+    v = Vendor.new(name: "test_vendor_name")
+    assert v.save!
   end
 
-  def test_vendor_with_pocs_can_be_built
-    assert FactoryGirl.build(:vendor_with_pocs)
-  end
-
-  # ==================== #
-  #   Validation Tests   #
-  # ==================== #
-
-  def test_vendor_can_be_saved
-    assert FactoryGirl.create(:vendor)
-  end
-
-  def test_vendor_with_pocs_can_be_saved
-    assert FactoryGirl.create(:vendor_with_pocs)
-  end
-
-  def test_vendor_with_no_name_cannot_be_saved
-    assert_raises(Mongoid::Errors::Validations) { FactoryGirl.create(:vendor_no_name) }
-  end
-
-  def test_vendor_with_mil_name_cannot_be_saved
-    assert_raises(Mongoid::Errors::Validations) { FactoryGirl.create(:vendor_nil_name) }
-  end
-
-  def test_vendors_with_same_name_cannot_be_saved
-    FactoryGirl.create(:vendor_static_name)
-    assert_raises(Mongoid::Errors::Validations) { FactoryGirl.create(:vendor_static_name) }
-  end
-
-  # with pocs
-
-  def test_vendors_with_pocs_with_no_name_cannot_be_saved
-    assert_raises(Mongoid::Errors::Validations) { FactoryGirl.create(:vendor_with_pocs_with_no_name) }
-  end
-
-  def test_vendors_with_pocs_with_same_name_cannot_be_saved
-    assert_raises(Mongoid::Errors::Validations) { FactoryGirl.create(:vendor_with_pocs_same_name) }
-  end
-
-  # tests many vendors and many pocs. comment out these tests if you want testing to run faster
-
-  def test_vendor_with_many_pocs
-    assert FactoryGirl.create(:vendor_with_many_pocs)
-  end
-
-  def test_many_vendors
-    all_valid = true
-    (0..1000).each do
-      all_valid &&= FactoryGirl.create(:vendor)
+  def test_vendor_no_name_cannot_be_saved
+    v = Vendor.new()
+    assert_raises Mongoid::Errors::Validations do
+      v.save!
     end
-    assert all_valid
   end
 
-  # ====================== #
-  #   Model Method Tests   #
-  # ====================== #
+  def test_vendor_same_name_cannot_be_saved
+    name = "I have the same name!"
+    v1 = Vendor.new(name: name)
+    v2 = Vendor.new(name: name)
+    v1.save!
+    assert_raises Mongoid::Errors::Validations do
+      v2.save!
+    end
+  end
 
-  # no method tests yet since the vendor model has no methods
+  def test_vendor_with_poc_can_be_saved
+    v = Vendor.new(name: "test_vendor_name")
+    p = PointOfContact.new(name: "test_poc_name")
+    p.vendor = v
+    assert v.save!
+  end
+
+  def test_vendor_with_multiple_pocs_can_be_saved
+    v = Vendor.new(name: "test_vendor_name")
+    p1 = PointOfContact.new(name: "poc1")
+    p2 = PointOfContact.new(name: "poc2")
+    p1.vendor = v
+    p2.vendor = v
+    assert v.save!
+  end
+
+  def test_vendor_with_poc_with_no_name_cannot_be_saved
+    v = Vendor.new(name: "test_vendor_name")
+    p = PointOfContact.new()
+    p.vendor = v
+    assert_raises Mongoid::Errors::Validations do
+      assert v.save!
+    end
+  end
+
+  def test_vendor_with_pocs_with_same_name_cannot_be_saved
+    poc_name = "I have the same name!"
+    v = Vendor.new(name: "test_vendor_name")
+    p1 = PointOfContact.new(name: name)
+    p2 = PointOfContact.new(name: name)
+    p1.vendor = v
+    p2.vendor = v
+    assert_raises Mongoid::Errors::Validations do
+      assert v.save!
+    end
+  end
+
 end

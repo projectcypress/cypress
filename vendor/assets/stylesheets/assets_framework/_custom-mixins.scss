@@ -1,0 +1,72 @@
+/* CUSTOM MIXINS */
+@mixin background($start, $end, $percentTop: 0%, $percentBottom: 100%, $filter: true) {
+    background: -moz-linear-gradient(top, $start $percentTop, $end $percentBottom);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop($percentTop, $start), color-stop($percentBottom, $end));
+    background: -webkit-linear-gradient(top, $start $percentTop, $end $percentBottom);
+    background: -o-linear-gradient(top, $start $percentTop, $end $percentBottom);
+    background: -ms-linear-gradient(top, $start $percentTop, $end $percentBottom);
+    background: linear-gradient(to bottom, $start $percentTop, $end $percentBottom);
+    @if $filter == true {
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start)}', endColorstr='#{ie-hex-str($end)}',GradientType=0 );
+        /* IE6-9 */
+    }
+    background-repeat: no-repeat;
+}
+
+@mixin border-radius($px) {
+    -webkit-border-radius: $px;
+    -moz-border-radius: $px;
+    border-radius: $px;
+}
+
+@mixin border-top-left-radius($px) {
+    -webkit-border-top-left-radius: $px;
+    -moz-border-radius-topleft: $px;
+    border-top-left-radius: $px;
+}
+
+@mixin border-bottom-left-radius($px) {
+    -webkit-border-bottom-left-radius: $px;
+    -moz-border-radius-bottomleft: $px;
+    border-bottom-left-radius: $px;
+}
+
+@mixin border-top-right-radius($px) {
+    -webkit-border-top-right-radius: $px;
+    -moz-border-radius-topright: $px;
+    border-top-right-radius: $px;
+}
+
+@mixin border-bottom-right-radius($px) {
+    -webkit-border-bottom-right-radius: $px;
+    -moz-border-radius-bottomright: $px;
+    border-bottom-right-radius: $px;
+}
+
+//font and line short cuts
+@function no-unit($number) {
+    @return $number / ($number * 0 + 1);
+}
+
+//to add in IE8 resizing text support
+$browser-context: 14;
+
+@function em($pixels, $context: $browser-context) {
+    @return #{$pixels / $context}em;
+}
+
+@mixin font-size-REM($sizeValue: 1.6) {
+    font-size: no-unit($sizeValue) + px;
+    font-size: em(no-unit($sizeValue));
+    font-size: no-unit($sizeValue / 10) + rem;
+}
+
+%clearfix {
+    &:after {
+        content: " ";
+        display: block;
+        clear: both;
+    }
+}
+
+/* END CUSTOM MIXINS */
