@@ -2,22 +2,14 @@
 # works for now until we can truley unify these items accross applications
 Bundle = HealthDataStandards::CQM::Bundle
 class Bundle
-  field :smoking_gun_capable, type: Boolean
-  has_many :product_tests
-  field :measures, type: Array
-
-  store_in collection: 'bundles'
+  has_many :product_tests, dependent: :destroy
   def results
-    Result.where(bundle_id: self.id, "value.test_id" => nil).order_by(["value.last",:asc])
+    HealthDataStandards::CQM::PatientCache.where(bundle_id: self.id, "value.test_id" => nil).order_by(["value.last",:asc])
   end
 
-  def delete
-    self.measures.destroy
-    self.records.destroy
-    self.value_sets.destroy
-    self.results.destroy
-    product_tests.destroy
+  def delete(options = {})
     super
+    results.destroy
   end
 
 end
