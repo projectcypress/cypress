@@ -30,8 +30,8 @@ else
       window_size: [1280, 1024]
     )
   end
-  Capybara.default_driver    = :poltergeist
-  Capybara.javascript_driver = :poltergeist
+  Capybara.default_driver    = :accessible_poltergeist
+  Capybara.javascript_driver = :accessible_poltergeist
 end
 
 # Capybara defaults to CSS3 selectors rather than XPath.

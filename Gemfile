@@ -63,6 +63,7 @@ group :development, :test do
   gem 'travis'
   gem 'poltergeist'
   gem 'scss-lint'
+  gem 'capybara-accessible'
 end
 
 gem 'simplecov', :require => false, :group => :test
