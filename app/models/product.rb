@@ -12,7 +12,7 @@ class Product
   field :description, type: String
 
   validates :name, presence: true, uniqueness: { scope: :vendor, message: "Product name was already taken. Please choose another." }
-  validates :ehr_type, presence: true
+  validates :ehr_type, presence: true, inclusion: { in: %w(provider hospital) }
   validate :at_least_one_test_type?
   validates :vendor, presence: true
 
@@ -34,3 +34,6 @@ class Product
   end
 
 end
+
+# validates :size, inclusion: { in: %w(small medium large),
+#     message: "%{value} is not a valid size" }

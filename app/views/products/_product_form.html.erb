@@ -24,13 +24,13 @@
 
   <div class = "form-group">
     <%= f.label :ehr_type, "EHR Type", :class => "control-label col-sm-2" %>
-    <div class = "col-sm-2">
-      <%= f.radio_button :ehr_type, "Hospital", disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :ehr_type_hospital, "Eligible Hospital", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
-    </div>
-    <div class = "col-sm-2">
-      <%= f.radio_button :ehr_type, "Provider", disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :ehr_type_provider, "Eligible Provider", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
+    <div class = "col-sm-4">
+      <div class = "btn-group btn-group-justified" role = "group">
+        <%= f.radio_button :ehr_type, "hospital", disabled: f.object.persisted?, :class => "hide" %>
+        <%= f.label :ehr_type_hospital, "Eligible Hospital", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
+        <%= f.radio_button :ehr_type, "provider", disabled: f.object.persisted?, :class => "hide" %>
+        <%= f.label :ehr_type_provider, "Eligible Provider", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
+      </div>
     </div>
     <div class = "col-sm-2" >* required</div>
   </div>
@@ -39,7 +39,7 @@
     <label class = "control-label col-sm-2">Certification Types</label>
     <div class = "col-sm-4">
       <%= f.check_box :c1_test, disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :c1_test, "C1 Test - Record and Export", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
+      <%= f.label :c1_test, "C1 Test - Record and Export", class: (f.object.persisted? ? "cannot_select btn btn-default btn-block" : "btn btn-default btn-block") %>
     </div>
     <div class = "col-sm-2" >* required</div>
   </div>
@@ -47,31 +47,31 @@
     <div class = "col-sm-2"></div>
     <div class = "col-sm-4">
       <%= f.check_box :c2_test, disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :c2_test, "C2 Test - Import and Calculate", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
+      <%= f.label :c2_test, "C2 Test - Import and Calculate", class: (f.object.persisted? ? "cannot_select btn btn-default btn-block" : "btn btn-default btn-block") %>
     </div>
   </div>
   <div class = "row">
     <div class = "col-sm-2"></div>
     <div class = "col-sm-4">
       <%= f.check_box :c3_test, disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :c3_test, "C3 Test - Data Submission", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
+      <%= f.label :c3_test, "C3 Test - Data Submission", class: (f.object.persisted? ? "cannot_select btn btn-default btn-block" : "btn btn-default btn-block") %>
     </div>
   </div>
   <div class = "row">
     <div class = "col-sm-2"></div>
     <div class = "col-sm-4">
       <%= f.check_box :c4_test, disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :c4_test, "C4 Test - Data Filtering", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
+      <%= f.label :c4_test, "C4 Test - Data Filtering", class: (f.object.persisted? ? "cannot_select btn btn-default btn-block" : "btn btn-default btn-block") %>
     </div>
   </div>
 
   <div class = "form-group">
     <div class = "col-sm-2"></div>
-    <div class = "col-sm-1">
-      <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/vendors/#{@vendor.id}'" %>
-    </div>
-    <div class = "col-sm-3">
-      <%= button_tag submit_text, :class => "btn btn-primary" %>
+    <div class = "col-sm-4">
+      <div class = "pull-right">
+        <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/vendors/#{@vendor.id}'" %>
+        <%= button_tag submit_text, :class => "btn btn-primary" %>
+      </div>
     </div>
   </div>
 
