@@ -71,6 +71,8 @@ group :test, :develop do
   gem 'turn', :require => false
   gem "cane"
   gem 'ruby-graphviz'
+  gem 'rubocop'
+  gem 'overcommit'
 end
 
 group :test do
