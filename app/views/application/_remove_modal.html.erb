@@ -1,35 +1,23 @@
-<%
-
-# WARNING: can only render this partial once per page
-
-# the following local variables must be included during the render call:
-#   remove_button_text ex.) "Remove Vendor"
-#   warning_message    ex.) "Removing a vendor will also delete all associated products, tests, and points of contact."
-#   object             ex.) @vendor
-#   object_name        ex.) "Example Vendor"
-#   object_type        ex.) "vendor"
-
-%>
-
-<button type = "button" class = "btn btn-danger pull-right" data-toggle = "modal" data-target = "#remove_modal"><%= "Remove #{object_type}".capitalize %></button>
-
 <div id = "remove_modal" class = "modal fade" role = "dialog">
   <div class = "modal-dialog">
     <div class = "modal-content">
       <div class = "modal-header">
         <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
-        <h4 class = "modal-title">Warning</h4>
+        <h4 class = "modal-title">Remove Permanently</h4>
       </div>
       <div class = "modal-body">
-        <p><%= warning_message %></p>
-        <p>Enter the <%= object_type %> name <strong id = "in_popup_object_name"><%= object_name %></strong> to delete <%= object_type %>.</p>
-        <p><input id = "in_popup_text_field" type = "text-field" class = "form-control" placeholder = <%= "Name of #{object_type}" %>/></p>
+        <p class = "warning_message"></p>
+        <p>
+          Enter the <span class = "object_type"></span> name <strong class = "object_name"></strong> to delete <span class = "object_type"></span>.
+        </p>
+        <p>
+          <input class = "confirm_object_name form-control" type = "text-field" />
+        </p>
       </div>
       <div class = "modal-footer">
-        <%= button_to "Remove #{object_type}".capitalize, object, :method => "delete", :class => "btn btn-danger pull-right", :disabled => true, :id => "in_popup_remove_button" %>
-        <button type = "button" class = "btn btn-default pull-right" data-dismiss = "modal">Close</button>
+        <button type = "button" class = "btn btn-default" data-dismiss = "modal">Cancel</button>
+        <button type = "button" class = "btn btn-danger" id = "modal_confirm_remove" disabled = true>Remove</button>
       </div>
     </div>
-
   </div>
 </div>

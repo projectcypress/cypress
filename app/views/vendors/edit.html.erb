@@ -2,11 +2,14 @@
 
   <%= render :partial => 'alerts', locals: { object: @vendor } %>
 
-  <%= render :partial => "remove_modal", locals: {
-      warning_message: "Removing a vendor will also delete all associated products, tests, and points of contact.",
-      object: @vendor,
-      object_name: @vendor.name,
-      object_type: "vendor"
+  <%= render partial: 'remove_modal' %>
+
+  <%= render partial: 'remove_button', locals: {
+        button_text: 'Remove Vendor',
+        button_classes: 'btn btn-danger pull-right',
+        object: @vendor,
+        object_path: vendor_path(@vendor),
+        modal_message: 'Removing a vendor will also delete all associated products, product tests, and test results.'
   } %>
 
   <%= render :partial => 'vendor_form', locals: {submit_text: 'Submit Changes'} %>

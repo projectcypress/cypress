@@ -2,6 +2,8 @@
 
   <%= render :partial => 'alerts' %>
 
+  <%= render partial: 'remove_modal' %>
+
   <%= button_to "Edit Vendor", edit_vendor_path(@vendor), :method => :get, :class => "btn btn-default pull-right" %>
 
   <% @vendor.attributes.each_pair do |key, value| %>
@@ -57,7 +59,19 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><%= link_to "edit", edit_vendor_product_path(@vendor, product) %></td>
+            <td>
+              <%= link_to edit_vendor_product_path(@vendor, product) do %>
+                <i class = 'fa fa-2x fa-wrench'></i>
+              <% end %>
+            </td>
+            <td>
+              <%= render partial: 'remove_button', locals: {
+                    button_classes: 'fa fa-2x fa-trash remove_button_icon',
+                    object: product,
+                    object_path: vendor_product_path(@vendor, product),
+                    modal_message: 'Removing a product will also delete all associated product tests and test results.'
+              } %>
+            </td>
           </tr>
         <% end %>
       </tbody>
@@ -65,6 +79,8 @@
   <% end %>
 
 </div>
+
+
 
 <%
 # product.product_tests.passing.count
