@@ -35,36 +35,6 @@
     <div class = "col-sm-2" >* required</div>
   </div>
 
-  <div class = "row">
-    <label class = "control-label col-sm-2">Certification Types</label>
-    <div class = "col-sm-4">
-      <%= f.check_box :c1_test, disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :c1_test, "C1 Test - Record and Export", class: (f.object.persisted? ? "cannot_select btn btn-default btn-block" : "btn btn-default btn-block") %>
-    </div>
-    <div class = "col-sm-2" >* required</div>
-  </div>
-  <div class = "row">
-    <div class = "col-sm-2"></div>
-    <div class = "col-sm-4">
-      <%= f.check_box :c2_test, disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :c2_test, "C2 Test - Import and Calculate", class: (f.object.persisted? ? "cannot_select btn btn-default btn-block" : "btn btn-default btn-block") %>
-    </div>
-  </div>
-  <div class = "row">
-    <div class = "col-sm-2"></div>
-    <div class = "col-sm-4">
-      <%= f.check_box :c3_test, disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :c3_test, "C3 Test - Data Submission", class: (f.object.persisted? ? "cannot_select btn btn-default btn-block" : "btn btn-default btn-block") %>
-    </div>
-  </div>
-  <div class = "row">
-    <div class = "col-sm-2"></div>
-    <div class = "col-sm-4">
-      <%= f.check_box :c4_test, disabled: f.object.persisted?, :class => "hide" %>
-      <%= f.label :c4_test, "C4 Test - Data Filtering", class: (f.object.persisted? ? "cannot_select btn btn-default btn-block" : "btn btn-default btn-block") %>
-    </div>
-  </div>
-
   <div class = "form-group">
     <div class = "col-sm-2"></div>
     <div class = "col-sm-4">
@@ -76,34 +46,3 @@
   </div>
 
 <% end %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

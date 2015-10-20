@@ -6,15 +6,6 @@ input[type=radio]:checked + label {
   border-bottom: 4px solid $brand-primary;
 }
 
-input[type=checkbox]:checked + label {
-  border-left: 4px solid $brand-primary;
-}
-
-input[type=checkbox] + label {
-  text-align: left;
-  margin-bottom: 1em;
-}
-
 .cannot_select, .cannot_select:hover, .cannot_select:active {
   background: $gray-lighter;
   cursor: not-allowed;
