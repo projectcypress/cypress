@@ -2,7 +2,11 @@
 
 class Record
   include Mongoid::Document
+  field :test_id
+  field :bundle_id
   field :measures, type: Hash
+  index test_id: 1
+  index bundle_id: 1
   def bundle
     if !self["bundle_id"].nil?
       HealthDataStandards::CQM::Bundle.find(self["bundle_id"])
