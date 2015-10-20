@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:edit, :update, :destroy, :show]
   before_action :set_vendor, only: [:new, :create, :edit, :update, :destroy]
 
   def new
@@ -47,6 +47,21 @@ class ProductsController < ApplicationController
       format.html { redirect_to vendor_path(@vendor.id) }
     end
   end
+
+  def show
+    add_breadcrumb @product.vendor.name, "/vendors/#{@product.vendor.id}"
+    add_breadcrumb @product.name, "/vendors/#{@product.vendor.id}/products/#{@product.id}"
+    respond_to do |format|
+      format.json { render json: [@product] }
+      format.html
+    end
+  end
+
+  # - - - - EVERYTHING BETWEEN USED FOR TESTING - - - - #
+  def set_random_state
+    @product.state = %w(passing failing incomplete).sample
+  end
+  # - - - - EVERYTHING BETWEEN USED FOR TESTING - - - - #
 
   private
 

@@ -1,0 +1,20 @@
+<% unless vendor.pocs.empty? %>
+  <div class = "pocs col-sm-12">
+    <% first_pass = true %>
+    <% vendor.pocs.each do |poc| %>
+      <div class = "col-sm-4 <%= 'hide' unless first_pass %>">
+        <div><%= poc.name %><%= " (#{poc.contact_type})" unless poc.contact_type.empty? %></div>
+        <% unless poc.email.empty? %>
+          <div><%= poc.email %></div>
+        <% end %>
+        <% unless poc.phone.empty? %>
+          <div><%= number_to_phone(poc.phone) %></div>
+        <% end %>
+        <% first_pass = false %>
+      </div>
+    <% end %>
+  </div>
+  <% unless vendor.pocs.count <= 1 %>
+    <a class = 'expand_pocs'>[+ More]</a>
+  <% end %>
+<% end %>

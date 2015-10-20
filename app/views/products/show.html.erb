@@ -1,0 +1,20 @@
+<div class = 'col-sm-12'>
+
+  <%= button_to "Edit Product", edit_vendor_product_path(@product.vendor, @product), :method => :get, :class => "btn btn-default pull-right" %>
+
+  <div class = 'row'><h2><%= @product.name %></h2></div>
+
+  <div class = 'row'><h3>Product Information</h3></div>
+
+  <div class = 'col-sm-4'>
+    <p>Vendor: <%= @product.vendor.name %></p>
+    <p><%= "Version: #{@product.version}" unless @product.version.empty? %></p>
+    <p><%= "Description: #{@product.description}" unless @product.description.empty? %></p>
+    <p><%= "Eligible #{@product.ehr_type}".titleize %></p>
+  </div>
+
+  <div class = 'col-sm-8'>
+    <%= render partial: 'pocs', locals: { vendor: @product.vendor } %>
+  </div>
+
+</div>

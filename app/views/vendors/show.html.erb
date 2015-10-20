@@ -16,13 +16,7 @@
           <div class = "row product_description_row">
             <div class = "col-sm-2 left_col" ><%= key.capitalize %></div>
             <div class = "col-sm-10 right_col">
-              <% value.each do |poc| %>
-                <p>
-                  <% poc.each do |poc_key, poc_value| %>
-                    <%= "#{poc_value}, " unless poc_key.eql?('_id') || !poc_value.present? %>
-                  <% end %>
-                </p>
-              <% end %>
+              <%= render partial: 'pocs', locals: { vendor: @vendor } %>
             </div>
           </div>
         <% end %>
@@ -52,7 +46,7 @@
             <td>
               <%= product.state %>
             </td>
-            <td><%= product.name %></td>
+            <td><%= link_to product.name, "/vendors/#{@vendor.id}/products/#{product.id}" %></td>
             <td></td>
             <td></td>
             <td></td>
