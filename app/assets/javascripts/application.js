@@ -4,6 +4,7 @@
 //= require jquery-ui
 //= require bootstrap-sprockets
 //= require assets_framework
+//= require jquery_nested_form
 //= require_tree .
 
 $(function() {

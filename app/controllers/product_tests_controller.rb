@@ -1,5 +1,4 @@
 class ProductTestsController < ApplicationController
-<<<<<<< HEAD
   before_action :set_product, only: [:index, :new, :create]
   before_action :set_product_test, only: [:edit, :update, :destroy, :show]
 

@@ -22,7 +22,7 @@ class CachingTest < MiniTest::Test
   end
 
   def setup_product
-    @product = Product.new(name: 'test_product_name', ehr_type: 'provider')
+    @product = Product.new(name: 'test_product_name', c1_test: true)
     @product.vendor = @vendor
     @product.save!
   end
@@ -30,9 +30,8 @@ class CachingTest < MiniTest::Test
   def setup_product_test
     @product_test = ProductTest.new(name: 'test_product_test_name')
     @product_test.product = @product
-    @product_test.bundle = Bundle.all.first
-    @product_test.measure_id = Measure.all.first.id
-    @product_test.effective_date = 1
+    @product_test.measure_id = '8A4D92B2-397A-48D2-0139-B0DC53B034A7'
+    # ObjectId("563269e9cd8a3e8409000001")
     @product_test.save!
   end
 

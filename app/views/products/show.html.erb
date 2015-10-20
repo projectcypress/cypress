@@ -12,7 +12,6 @@
       <p>Vendor: <%= @product.vendor.name %></p>
       <p><%= "Version: #{@product.version}" unless @product.version.blank? %></p>
       <p><%= "Description: #{@product.description}" unless @product.description.blank? %></p>
-      <p><%= "Eligible #{@product.ehr_type}".titleize %></p>
     </div>
 
     <div class = 'col-sm-8'>
@@ -21,8 +20,6 @@
 
   </div>
 
-  <p><%= link_to "+ Add Product Test", new_vendor_product_product_test_path(@product.vendor, @product) %></p>
-
   <% unless @product.product_tests.empty? %>
     <p><%= "Product has #{@product.product_tests.count} tests:" %></p>
     <ul>
@@ -30,6 +27,11 @@
         <li>
           <%= test.name %>
           <%= "(#{test.status})" if test.status %>
+          <ul>
+            <% test.records.each do |record| %>
+              <li><%= "#{record.last}, #{record.first}" %></li>
+            <% end %>
+          </ul>
         </li>
       <% end %>
     </ul>

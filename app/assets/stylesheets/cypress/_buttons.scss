@@ -49,3 +49,36 @@
   display: inline-block;
   margin: auto 5px;
 }
+
+// special btn-checkbox class for checkboxes and radio buttons
+.radio .btn-checkbox,
+.checkbox .btn-checkbox {
+  @extend .btn-default;
+  color: $gray-darker;
+  padding-left: 2em;
+  text-align: left;
+  width: 100%;
+
+  &.active,
+  &:active {
+    border-left: 8px solid $brand-primary;
+    background-color: $body-bg;
+    color: $gray-darker;
+  }
+
+  &.disabled {
+    background-color: $input-bg-disabled;
+    border-color: $input-bg-disabled;
+    cursor: $cursor-disabled;
+    opacity: 1; // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655
+    ß
+    &:hover {
+      animation: none;
+      background-color: $input-bg-disabled;
+      border-color: $input-bg-disabled;
+      color: $gray-darker;
+      cursor: $cursor-disabled;
+      opacity: 1; // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655
+    }
+  }
+}

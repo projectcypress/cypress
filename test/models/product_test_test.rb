@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProductTestTest < MiniTest::Test
   def setup
-    collection_fixtures('patient_cache', 'records', 'bundles')
+    collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
     vendor = Vendor.create(name: 'test_vendor_name')
     @product = vendor.products.create(name: 'test_product')
   end
@@ -13,10 +13,8 @@ class ProductTestTest < MiniTest::Test
 
   def test_create
     pt = @product.product_tests.build(name: 'test_for_measure_1a',
-                                      measure_id: '1a',
-                                      bundle_id: BSON::ObjectId.from_string('4fdb62e01d41c820f6000001'),
-                                      effective_date: 1_293_840_000)
-    assert pt.valid?, 'product test should be valid with product, name , measure_id, bundle_id and effective_date'
+                                      measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7')
+    assert pt.valid?, 'product test should be valid with product, name, and measure_id'
     assert pt.save, 'should be able to save valid product test'
     assert pt.records.count > 0, 'product test creation should have created random number of test records'
   end

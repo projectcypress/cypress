@@ -1,22 +1,3 @@
-// Place all the styles related to the products controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-input[type=radio]:checked + label {
-  border-bottom: 4px solid $brand-primary;
-}
-
-.cannot_select,
-.cannot_select:hover,
-.cannot_select:active {
-  background: $gray-lighter;
-  cursor: not-allowed;
-}
-
-.form-group:last-child {
-  margin-top: 1em;
-}
-
 .left_col {
   text-align: right;
   font-weight: bold;
@@ -36,4 +17,34 @@ input[type=radio]:checked + label {
 
 .table {
   margin-top: 4em;
+}
+
+.panel-heading h1,
+.panel-heading h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: auto;
+}
+
+.required:after {
+  content: ' *';
+}
+
+.control-label {
+  font-weight: 700;
+
+  + .radio,
+  + .checkbox {
+    margin-top: 0;
+  }
+}
+
+.help-block {
+  margin-top: 0;
+  font-size: .85em;
+  font-style: italic;
+}
+
+.pick-measures {
+  margin-top: 1em;
 }

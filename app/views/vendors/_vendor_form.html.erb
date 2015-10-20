@@ -1,126 +1,35 @@
-<%= form_for @vendor, html: {class: "form-horizontal", id: "add_vendor_form"} do |f| %>
+<div class="panel panel-default">
+<div class="panel-heading"><h1><%= submit_text %><%= @vendor.name ? ": "+ @vendor.name : "" %></h1></div>
 
-  <h1>Vendor Information</h1>
+<%= bootstrap_nested_form_for @vendor, html: {id: "add_vendor_form"} do |f| %>
+  <div class="panel-body">
+    <%= f.text_field :name, label: 'Vendor Name' %>
+    <%= f.text_field :vendor_id, label: 'Vendor ID' %>
+    <%= f.url_field :url, label: 'URL' %>
+    <%= f.text_field :address %>
+    <%= f.text_field :state %>
+    <%= f.text_field :zip %>
 
-  <div class = "form-group">
-    <%= f.label :name, 'Vendor Name', :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <%= f.text_field :name, :class => "form-control", :placeholder => 'Name' %>
-    </div>
-    <div class = "required-field-label" >* required</div>
-  </div>
-  <div class = "form-group">
-    <%= f.label :vendor_id, 'Vendor ID', :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <%= f.text_field :vendor_id, :class => "form-control", :placeholder => 'ID' %>
-    </div>
-  </div>
-  <div class = "form-group">
-    <%= f.label :url, 'URL', :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <%= f.text_field :url, :class => "form-control", :placeholder => 'www.example.com' %>
-    </div>
-  </div>
-  <div class = "form-group">
-    <%= f.label :address, 'Address', :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <%= f.text_field :address, :class => "form-control", :placeholder => '123 Example Lane' %>
-    </div>
-  </div>
-  <div class = "form-group">
-    <%= f.label :state, 'State', :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <%= f.text_field :state, :class => "form-control", :placeholder => 'Alabama' %>
-    </div>
-  </div>
-  <div class = "form-group">
-    <%= f.label :zip, 'Zip Code', :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <%= f.text_field :zip, :class => "form-control", :placeholder => '112233' %>
-    </div>
-  </div>
-
-  <h1>Point of Contact Information</h1>
-
-  <div class = "form-group poc_labels">
-    <div class = "col-xs-2">
-      Name
-    </div>
-    <div class = "col-xs-4">
-      Email
-    </div>
-    <div class = "col-xs-2">
-      Phone Number
-    </div>
-    <div class = "col-xs-2">
-      Contact Type
-    </div>
-  </div>
-
-  <% # poc_counter holds number of pocs. used in js to create indicies for added poc field sets %>
-  <% $poc_counter = 0 %>
-
-  <%= f.fields_for :pocs do |poc_fields| %>
-
-    <div class = "form-group poc-group">
-      <div class = "col-xs-2">
-        <%= poc_fields.text_field :name, :class => "form-control", :placeholder => 'John Doe' %>
+    <%= f.fields_for :pocs do |poc_field| %>
+      <div class="row">
+        <%= poc_field.text_field :name, wrapper: { class: 'col-sm-3' }, label_class: 'poc-label', label: 'POC Name' %>
+        <%= poc_field.email_field :email, wrapper: { class: 'col-sm-3' }, label_class: 'poc-label', label: 'Email' %>
+        <%= poc_field.phone_field :phone, wrapper: { class: 'col-sm-3' }, label_class: 'poc-label', label: 'Telephone' %>
+        <%= poc_field.text_field :contact_type, wrapper: { class: 'col-sm-2' }, label_class: 'poc-label', label: 'Type of Contact' %>
+        <%= f.link_to_remove "Remove", :class => "btn btn-xs btn-danger", :type => "button" %>
       </div>
-      <div class = "col-xs-4">
-        <%= poc_fields.email_field :email, :class => "form-control", :placeholder => 'contact@example.com' %>
-      </div>
-      <div class = "col-xs-2">
-        <%= poc_fields.phone_field :phone, :class => "form-control", :placeholder => '1(222)333-4444' %>
-      </div>
-      <div class = "col-xs-2">
-        <%= poc_fields.text_field :contact_type, :class => "form-control", :placeholder => 'Admin, Sales' %>
-      </div>
-      <div class="col-xs-2">
-        <%= poc_fields.label :_destroy, "- Remove", :class => "btn btn-default remove_label" %>
-        <%= poc_fields.check_box :_destroy, :class => "remove_checkbox" %>
-      </div>
-    </div>
+    <% end %>
 
-    <% $poc_counter += 1 %>
-
-  <% end %>
-
-  <% # used in js to know how many POC's exist already for this vendor %>
-  <div class = "hide" id = "poc_counter"><%= $poc_counter %></div>
-
-  <% # template for javascript to dynamically add more PointOfContact (poc) fields %>
-  <div class = "form-group poc-group hide" id = "poc_template">
-    <div class = "col-xs-2">
-      <input type = "text" class = "form-control" name = "name" placeholder = "John Doe" />
-    </div>
-    <div class = "col-xs-4">
-      <input type = "email" class = "form-control" name = "email" placeholder = "contact@example.com" />
-    </div>
-    <div class = "col-xs-2">
-      <input type = "tel" class = "form-control" name = "phone" placeholder = "1(222)333-4444" />
-    </div>
-    <div class = "col-xs-2">
-      <input type = "text" class = "form-control" name = "contact_type" placeholder = "Admin, Sales" />
-    </div>
-    <div class="col-xs-2">
-        <label class = "btn btn-default remove_label" id = "template_remove_label" >- Remove</label>
-        <input id = "template_remove_hidden_input" type = "hidden" value = "0" />
-        <input class = "remove_checkbox" id = "template_remove_checkbox" type = "checkbox" value="1" />
-    </div>
+    <%= f.link_to_add "Add Point of Contact", :pocs, :class => "btn btn-default", :type => "button" %></p>
   </div>
 
-  <div class = "form-group poc-group">
-    <div class="col-xs-2">
-        <button id = "add_poc_field_set_button" type = "button" class = "btn btn-default">+ Add Contact</button>
+  <div class="panel-footer">
+    <div class="pull-right">
+      <%= submit_tag "Cancel", :class => "btn btn-danger", :type => "button", :onclick => "history.back()" %>
+      <%= f.submit submit_text, :class => "btn btn-success", :id => "submit_button" %>
     </div>
+    <div class="clearfix"></div>
   </div>
-
-  <div class = "form-group submit_and_cancel">
-    <div class = "col-sm-6 col-sm-offset-2">
-      <% # cannot use button_to (rails makes type="submit" which cannot be changed in a form) -%>
-      <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
-      <%= button_tag submit_text, :class => "btn btn-success", :id => "submit_button" %>
-    </div>
-  </div>
-
 <% end %>
+
+</div>
