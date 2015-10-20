@@ -6,7 +6,9 @@ input[type=radio]:checked + label {
   border-bottom: 4px solid $brand-primary;
 }
 
-.cannot_select, .cannot_select:hover, .cannot_select:active {
+.cannot_select,
+.cannot_select:hover,
+.cannot_select:active {
   background: $gray-lighter;
   cursor: not-allowed;
 }
@@ -29,7 +31,7 @@ input[type=radio]:checked + label {
 }
 
 .product_description_row {
-  margin-bottom: 0.5em;
+  margin-bottom: .5em;
 }
 
 .table {

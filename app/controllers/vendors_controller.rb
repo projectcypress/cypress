@@ -5,7 +5,7 @@ class VendorsController < ApplicationController
   add_breadcrumb 'Edit Vendor', :edit_vendor_path, only: [:edit, :update]
 
   def index
-    @vendors = Vendor.all.order(updated_at: :desc)
+    @vendors = Vendor.all.order(:updated_at => :desc)
     respond_to do |f|
       f.html
       f.json { render json: @vendors }
@@ -14,7 +14,7 @@ class VendorsController < ApplicationController
 
   def show
     add_breadcrumb @vendor.name, :show_vendor_path
-    @products = Product.where(vendor_id: @vendor.id).order_by(:state => "desc")
+    @products = Product.where(vendor_id: @vendor.id).order_by(state: 'desc')
     respond_to do |f|
       f.html
       f.json { render json: @vendor }

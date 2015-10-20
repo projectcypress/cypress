@@ -29,7 +29,6 @@ module Cypress
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
     # prevent rails from wrapping inputs with errors in a div of class "field_with_errors"
-    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
-
+    config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
   end
 end
