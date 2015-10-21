@@ -1,15 +1,15 @@
 require 'test_helper'
-class ArtifactTest  < ActiveSupport::TestCase
+class ArtifactTest  < MiniTest::Test
 
 
-	test "should be able to tell if a file is an archive"   do 
+	def test_should_be_able_to_tell_if_a_file_is_an_archive 
 		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
 		artifact = Artifact.new(file: File.new(filename))
 		
 		assert artifact.is_archive?, "should be able to tell it is an archive"
 	end
 
-	test "should be able to read file from archive"  do
+	def test_should_be_able_to_read_file_from_archive  
 		expected = ["eh_test_results_bad.xml","eh_test_results.xml","qrda_cat3.xml","QRDA_CATIII_RI_AUG.xml"]
 		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
 		artifact = Artifact.new(file: File.new(filename))
@@ -18,7 +18,7 @@ class ArtifactTest  < ActiveSupport::TestCase
 		end
 	end
 
-	test "should be able to list file names"  do
+	def test_should_be_able_to_list_file_names 
 		expected = ["eh_test_results_bad.xml","eh_test_results.xml","qrda_cat3.xml","QRDA_CATIII_RI_AUG.xml","expected_results.json"]
 		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
 		artifact = Artifact.new(file: File.new(filename))
@@ -34,7 +34,7 @@ class ArtifactTest  < ActiveSupport::TestCase
 		assert_equal expected , artifact.file_names 
 	end
 
-	test "should be able to give file count"  do
+	def test_should_be_able_to_give_file_count 
 		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
 		artifact = Artifact.new(file: File.new(filename))
 		assert_equal 5 , artifact.file_count
@@ -49,7 +49,7 @@ class ArtifactTest  < ActiveSupport::TestCase
 		assert_equal 1 , artifact.file_count
 	end
 
-	test "should be able to loop over archive files"  do
+	def test_should_be_able_to_loop_over_archive_files  
 		expected = ["eh_test_results_bad.xml","eh_test_results.xml","qrda_cat3.xml","QRDA_CATIII_RI_AUG.xml"]
 		reported = {}
 		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
@@ -74,7 +74,7 @@ class ArtifactTest  < ActiveSupport::TestCase
 
 	end
 
-	test "should be able to get contents for a given file name in an archive"  do
+	def test_should_be_able_to_ge_t_contents_for_a_given_file_name_in_an_archive  
 		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
 		artifact = Artifact.new(file: File.new(filename))
 		data = artifact.get_archived_file("expected_results.json")
@@ -83,7 +83,7 @@ class ArtifactTest  < ActiveSupport::TestCase
 	end
 
 
-	test "should only accept xml or zip files"  do 	
+	def test_should_only_accept_xml_or_zip_files  	
 			root = "#{Rails.root}/tmp/test/artifacts"
 			FileUtils.mkdir_p(root)
 
