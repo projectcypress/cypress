@@ -94,7 +94,7 @@ class CalculatedProductTest < ProductTest
     results.uniq!
     qrda = qrda_product_tests.build(measure_ids: [mes.measure_id],
       parent_cat3_ids: measure_ids,
-      name: "#{self.name} - Measure #{mes.nqf_id} QRDA Cat I Test",
+      name: "#{self.name} - Measure #{mes.cms_id} QRDA Cat I Test",
       bundle_id: self.bundle_id,
             effective_date: self.effective_date,
             product_id: self.product_id,
