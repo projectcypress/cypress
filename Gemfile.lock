@@ -284,6 +284,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    scss-lint (0.38.0)
+      rainbow (~> 2.0)
+      sass (~> 3.4.1)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -367,6 +370,7 @@ DEPENDENCIES
   rails (= 4.2.4)
   rubocop
   sass-rails (~> 5.0.4)
+  scss-lint
   sdoc (~> 0.4.0)
   simplecov
   spring
