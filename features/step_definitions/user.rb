@@ -43,8 +43,7 @@ end
 
 Then(/^the user should click an account link$/) do
   visit '/'
-  # puts page.html
-  page.click_link(" Account ")
+  page.click_link("Account")
 
 
 end
