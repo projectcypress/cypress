@@ -8,9 +8,11 @@ gem 'mongoid', '~> 5.0.0'
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
 
-gem 'health-data-standards', :git => "https://github.com/projectcypress/health-data-standards.git" , :branch => "bump_mongoid"
+gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git',
+                             branch: 'bump_mongoid'
 
-gem 'quality-measure-engine', :git => "https://github.com/projectcypress/quality-measure-engine.git" , :branch => "bump_mongoid"
+gem 'quality-measure-engine', git: 'https://github.com/projectcypress/quality-measure-engine.git',
+                              branch: 'bump_mongoid'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
@@ -57,6 +59,7 @@ group :development, :test do
   gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
   gem 'travis'
   gem 'poltergeist'
+  gem 'scss-lint'
 end
 
 gem 'simplecov', :require => false, :group => :test

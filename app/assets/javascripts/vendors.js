@@ -60,15 +60,6 @@ ready = function() {
       $('#add_poc_field_set_button').click();
     }
 
-    /* check if name of Vendor is in text box */
-    $("#popup_text_field").keyup(function() {
-      if (vendor_name == $(this).val()) {
-        $("#popup_remove_vendor_button").prop("disabled", false);
-      } else {
-        $("#popup_remove_vendor_button").prop("disabled", true);
-      }
-    });
-
 };
 
 $(document).ready(ready);

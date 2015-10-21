@@ -118,7 +118,7 @@
   <div class = "form-group submit_and_cancel">
     <div class = "col-sm-6 col-sm-offset-2">
       <% # cannot use button_to (rails makes type="submit" which cannot be changed in a form) -%>
-      <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/'" %>
+      <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
       <%= button_tag submit_text, :class => "btn btn-success", :id => "submit_button" %>
     </div>
   </div>

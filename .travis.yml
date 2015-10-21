@@ -1,19 +1,26 @@
 language: ruby
+cache: bundler
+sudo: false
 rvm:
-- 2.2.3
+  - 2.2.3
 services:
-- mongodb
-script: "./.travis/execute.sh"
-notifications:
-  email:
-    recipients:
-    - healthcare-ci@googlegroups.com
-    on_failure: change
-  slack:
-    secure: NfcNb3LCyd7/ACYc6mDoBJZlBFIV5wKMMWs0On2DNeaDoD/EKCbQRQQVOHEvfsaqOM+5zmi9giYaV7cV+Gl+zfehZ/Q69x89YjWWVFeAp5QGDzoCnM7oaaTXygla52sfcL9Oi3rLgTWyjqMSS7tM2DW5d/V+iEjyilmavsUvRbU=
+  - mongodb
 branches:
   only:
   - master
   - cypress3
-cache: bundler
-sudo: false
+notifications:
+  email:
+    recipients:
+      - healthcare-ci@googlegroups.com
+    on_failure: change
+  slack:
+    secure: NfcNb3LCyd7/ACYc6mDoBJZlBFIV5wKMMWs0On2DNeaDoD/EKCbQRQQVOHEvfsaqOM+5zmi9giYaV7cV+Gl+zfehZ/Q69x89YjWWVFeAp5QGDzoCnM7oaaTXygla52sfcL9Oi3rLgTWyjqMSS7tM2DW5d/V+iEjyilmavsUvRbU=
+before_script:
+  - git config --global user.email "travis@travis.ci"
+  - git config --global user.name "Travis CI"
+  - npm install -g eslint
+  - cp ./.travis/mongoid.yml ./config/mongoid.yml
+script:
+  - ./bin/rake test
+  - ./bin/overcommit --run

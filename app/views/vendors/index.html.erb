@@ -20,17 +20,17 @@
         <% @vendors.each do |vendor| %>
           <tr>
             <td>
-              <% if vendor.passing_products == vendor.total_products %>
+              <% if vendor.products && vendor.products.passing.count == vendor.products.count %>
                 <%= image_tag('checkmark.svg', :class => "mark_img") %>
               <% else %>
                 <%= image_tag('errormark.svg', :class => "mark_img") %>
               <% end %>
             </td>
-            <td><%= link_to vendor.name, vendors_path(vendor)        %></td>
-            <td class = "number_col"><%= vendor.passing_products     %></td>
-            <td class = "number_col"><%= vendor.failing_products     %></td>
-            <td class = "number_col"><%= vendor.incomplete_products  %></td>
-            <td class = "number_col"><%= vendor.total_products       %></td>
+            <td><%= link_to vendor.name, "/vendors/#{vendor.id}"     %></td>
+            <td class = "number_col"><%= vendor.products ? vendor.products.passing.count : 0 %></td>
+            <td class = "number_col"><%= vendor.products ? vendor.products.failing.count : 0 %></td>
+            <td class = "number_col"><%= vendor.products ? vendor.products.incomplete.count : 0 %></td>
+            <td class = "number_col"><%= vendor.products ? vendor.products.count : 0 %></td>
             <td><%= button_to "Edit Vendor", edit_vendor_path(vendor), :method => :get, :class => "btn btn-xs btn-default pull-right" %></td>
           </tr>
         <% end %>

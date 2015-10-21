@@ -1,7 +1,7 @@
 require 'simplecov'
 
 SimpleCov.start 'rails'
-SimpleCov.minimum_coverage 90
+SimpleCov.minimum_coverage 95
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -14,7 +14,6 @@ require 'minitest/reporters'
 Minitest::Reporters.use!
 Mongo::Logger.logger.level = Logger::WARN
 Mongoid.logger.level = Logger::INFO
-
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
