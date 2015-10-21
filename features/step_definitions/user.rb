@@ -39,3 +39,16 @@ end
 Then(/^the user should see an log out success message$/) do
   page.assert_text "Signed out successfully"
 end
+
+
+Then(/^the user should click an account link$/) do
+  visit '/'
+  # puts page.html
+  page.click_link(" Account ")
+
+
+end
+
+Then(/^the user should see an edit account page$/) do
+  page.assert_text "Edit User"
+end

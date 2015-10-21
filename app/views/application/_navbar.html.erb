@@ -1,25 +1,32 @@
 <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
-      <a href="#"><%= image_tag('icon.svg') %> cypress</a>
+      <a href="/"><%= image_tag('icon.svg') %> cypress</a>
       <button type="button" class="navbar-toggle navbar-right" data-toggle="collapse" data-target="#cypressNavbar" aria-label="navigation menu" role="button" aria-controls="cypressNavbar" aria-expanded="false">
         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="cypressNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active">
-          <a class="navbar-item" href="#"><i class="fa fa-fw fa-th-list" aria-hidden="true"></i>  Dashboard</a>
-        </li>
-        <li>
-          <a class="navbar-item" href="#"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Master Patient List</a>
-        </li>
-        <li>
-          <a class="navbar-item" href="#"><i class="fa fa-fw fa-gears" aria-hidden="true"></i> Account</a>
-        </li>
         <% if user_signed_in? %>
           <li>
-            <%= link_to destroy_user_session_path, :method => :delete, class: 'navbar-item'  do %>
+            <%= link_to root_path, class: 'navbar-item'   do %>
+            <i class="fa fa-fw fa-th-list" aria-hidden="true"></i>
+            Dashboard
+            <% end %>
+          </li>
+          <li>
+            <a class="navbar-item" href="#"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Master Patient List</a>
+          </li>
+          <li>
+            <%= link_to edit_user_registration_path, class: 'navbar-item'   do %>
+            <i class="fa fa-fw fa-gears" aria-hidden="true"></i>
+            Account
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to destroy_user_session_path, class: 'navbar-item'  do %>
                 <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
                  Log Out
             <% end %>
