@@ -17,6 +17,7 @@ Scenario: Successful logout
    And the user should see an log out success message
 
 Scenario: Edit password
-   Given a signed in user
+   Given a user has an account
+   When the user logs in
    Then the user should click an account link
    And the user should see an edit account page
