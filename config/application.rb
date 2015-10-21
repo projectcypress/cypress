@@ -27,5 +27,9 @@ module Cypress
     # config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += Dir["#{config.root}/lib/"]
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
+    # prevent rails from wrapping inputs with errors in a div of class "field_with_errors"
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+
   end
 end
