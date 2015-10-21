@@ -5,8 +5,11 @@ class Record
   field :test_id, type: BSON::ObjectId
   field :bundle_id
   field :measures, type: Hash
+  field :race
+  field :ethnicity
   index test_id: 1
   index bundle_id: 1
+
   def bundle
     if !self['bundle_id'].nil?
       HealthDataStandards::CQM::Bundle.find(self['bundle_id'])

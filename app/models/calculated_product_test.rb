@@ -1,0 +1,2 @@
+class CalculatedProductTest < ProductTest
+end
