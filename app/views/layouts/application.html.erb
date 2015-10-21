@@ -17,8 +17,10 @@
 <body>
 
   <header role="banner">
+
+    <%= render "navbar" %>
+    <%= render :partial => 'alerts' %>
     <% if user_signed_in? %>
-      <%= render "navbar" %>
       <div class="container">
         <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
       </div>
@@ -26,6 +28,7 @@
   </header>
 
   <main role="main" aria-label="main section" id="main-content" class="container">
+
     <%= yield %>
   </main>
 
