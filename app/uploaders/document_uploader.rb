@@ -1,5 +1,4 @@
 class DocumentUploader < CarrierWave::Uploader::Base
-
   include CarrierWave::MimeTypes
 
   storage :file
@@ -14,7 +13,6 @@ class DocumentUploader < CarrierWave::Uploader::Base
   end
 
   def uploaded_filename
-    self.file.filename
+    file.filename
   end
-
 end

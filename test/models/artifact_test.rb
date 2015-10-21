@@ -1,114 +1,107 @@
 require 'test_helper'
-class ArtifactTest  < MiniTest::Test
+class ArtifactTest < MiniTest::Test
+  def test_should_be_able_to_tell_if_a_file_is_an_archive
+    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    artifact = Artifact.new(file: File.new(filename))
 
+    assert artifact.archive?, 'should be able to tell it is an archive'
+  end
 
-	def test_should_be_able_to_tell_if_a_file_is_an_archive 
-		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
-		artifact = Artifact.new(file: File.new(filename))
-		
-		assert artifact.is_archive?, "should be able to tell it is an archive"
-	end
+  def test_should_be_able_to_read_file_from_archive
+    expected = ['eh_test_results_bad.xml', 'eh_test_results.xml', 'qrda_cat3.xml', 'QRDA_CATIII_RI_AUG.xml']
+    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    artifact = Artifact.new(file: File.new(filename))
+    expected.each do |n|
+      assert !artifact.get_file(n).nil?
+    end
+  end
 
-	def test_should_be_able_to_read_file_from_archive  
-		expected = ["eh_test_results_bad.xml","eh_test_results.xml","qrda_cat3.xml","QRDA_CATIII_RI_AUG.xml"]
-		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
-		artifact = Artifact.new(file: File.new(filename))
-		expected.each do |n|
-			assert artifact.get_file(n) != nil
-		end
-	end
+  def test_should_be_able_to_list_file_names
+    expected = ['eh_test_results_bad.xml', 'eh_test_results.xml', 'qrda_cat3.xml', 'QRDA_CATIII_RI_AUG.xml', 'expected_results.json']
+    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    artifact = Artifact.new(file: File.new(filename))
+    assert_equal expected.sort, artifact.file_names.sort
 
-	def test_should_be_able_to_list_file_names 
-		expected = ["eh_test_results_bad.xml","eh_test_results.xml","qrda_cat3.xml","QRDA_CATIII_RI_AUG.xml","expected_results.json"]
-		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
-		artifact = Artifact.new(file: File.new(filename))
-		assert_equal expected.sort , artifact.file_names.sort 
+    root = "#{Rails.root}/tmp/test/artifacts"
+    FileUtils.mkdir_p(root)
+    filename = "#{root}/good_file_extension.xml"
+    FileUtils.touch(filename)
 
-		root = "#{Rails.root}/tmp/test/artifacts"
-		FileUtils.mkdir_p(root)
-		filename = "#{root}/good_file_extension.xml"
-		FileUtils.touch(filename)
+    expected = ['good_file_extension.xml']
+    artifact = Artifact.new(file: File.new(filename))
+    assert_equal expected, artifact.file_names
+  end
 
-		expected = ["good_file_extension.xml"]
-		artifact = Artifact.new(file: File.new(filename))
-		assert_equal expected , artifact.file_names 
-	end
+  def test_should_be_able_to_give_file_count
+    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    artifact = Artifact.new(file: File.new(filename))
+    assert_equal 5, artifact.file_count
 
-	def test_should_be_able_to_give_file_count 
-		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
-		artifact = Artifact.new(file: File.new(filename))
-		assert_equal 5 , artifact.file_count
+    root = "#{Rails.root}/tmp/test/artifacts"
+    FileUtils.mkdir_p(root)
+    filename = "#{root}/good_file_extension.xml"
+    FileUtils.touch(filename)
 
-		root = "#{Rails.root}/tmp/test/artifacts"
-		FileUtils.mkdir_p(root)
-		filename = "#{root}/good_file_extension.xml"
-		FileUtils.touch(filename)
+    expected = ['good_file_extension.xml']
+    artifact = Artifact.new(file: File.new(filename))
+    assert_equal 1, artifact.file_count
+  end
 
-		expected = ["good_file_extension.xml"]
-		artifact = Artifact.new(file: File.new(filename))
-		assert_equal 1 , artifact.file_count
-	end
+  def test_should_be_able_to_loop_over_archive_files
+    expected = ['eh_test_results_bad.xml', 'eh_test_results.xml', 'qrda_cat3.xml', 'QRDA_CATIII_RI_AUG.xml']
+    reported = {}
+    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    artifact = Artifact.new(file: File.new(filename))
+    artifact.each_file do |name, data|
+      reported[name] = data
+    end
+    assert_equal expected.sort, reported.keys.sort, 'Archive should contain the correct files'
 
-	def test_should_be_able_to_loop_over_archive_files  
-		expected = ["eh_test_results_bad.xml","eh_test_results.xml","qrda_cat3.xml","QRDA_CATIII_RI_AUG.xml"]
-		reported = {}
-		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
-		artifact = Artifact.new(file: File.new(filename))
-		artifact.each_file do |name,data|
-			reported[name] = data
-		end
-		assert_equal expected.sort, reported.keys.sort, "Archive should contain the correct files"
+    root = "#{Rails.root}/tmp/test/artifacts"
+    FileUtils.mkdir_p(root)
+    filename = "#{root}/good_file_extension.xml"
+    FileUtils.touch(filename)
 
-		root = "#{Rails.root}/tmp/test/artifacts"
-		FileUtils.mkdir_p(root)
-		filename = "#{root}/good_file_extension.xml"
-		FileUtils.touch(filename)
+    expected = ['good_file_extension.xml']
+    reported = {}
+    artifact = Artifact.new(file: File.new(filename))
+    artifact.each_file do |name, data|
+      reported[name] = data
+    end
+    assert_equal expected, reported.keys, 'Should loop on single xml document'
+  end
 
-		expected = ["good_file_extension.xml"]
-		reported = {}
-		artifact = Artifact.new(file: File.new(filename))
-		artifact.each_file do |name,data|
-			reported[name] = data
-		end
-		assert_equal expected, reported.keys, "Should loop on single xml document"
+  def test_should_be_able_to_ge_t_contents_for_a_given_file_name_in_an_archive
+    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    artifact = Artifact.new(file: File.new(filename))
+    data = artifact.get_archived_file('expected_results.json')
+    # look at the first bit of the file data coming back and see if it matches what should be read
+    assert data.index(%!{ "_id" : ObjectId( "507885343054cf8d83000002" )!) == 0, 'should be able to read file from archive'
+  end
 
-	end
+  def test_should_only_accept_xml_or_zip_files
+    root = "#{Rails.root}/tmp/test/artifacts"
+    FileUtils.mkdir_p(root)
 
-	def test_should_be_able_to_ge_t_contents_for_a_given_file_name_in_an_archive  
-		filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
-		artifact = Artifact.new(file: File.new(filename))
-		data = artifact.get_archived_file("expected_results.json")
-		# look at the first bit of the file data coming back and see if it matches what should be read
-		assert data.index(%!{ "_id" : ObjectId( "507885343054cf8d83000002" )!) == 0, "should be able to read file from archive"
-	end
+    %w(zip xml).each do |ext|
+      filename = "#{root}/good_file_extension.#{ext}"
+      FileUtils.touch(filename)
+      artifact = Artifact.new(file: File.new(filename))
+      assert artifact.save, "File should save with #{ext} extension"
+    end
 
+    # generate a random set of bad file extensions and try to save
 
-	def test_should_only_accept_xml_or_zip_files  	
-			root = "#{Rails.root}/tmp/test/artifacts"
-			FileUtils.mkdir_p(root)
+    10.times do
+      ext = rand(36**3).to_s(36)
+      unless %w(zip xml).index(ext)
+        filename = "#{root}/bad_file_extension.#{ext}"
+        FileUtils.touch(filename)
+        artifact = Artifact.new(file: File.new(filename))
+        assert !artifact.save, "File should not save with un whitelisted extension #{ext}"
+      end
+    end
 
-			['zip', 'xml'].each do |ext|
-				filename = "#{root}/good_file_extension.#{ext}"
-				FileUtils.touch(filename)
-				artifact = Artifact.new(file: File.new(filename))
-				assert artifact.save, "File should save with #{ext} extension"
-			end
-
-
-			#generate a random set of bad file extensions and try to save
-
-			10.times do 
-				ext = rand(36**3).to_s(36)
-				unless (['zip', 'xml'].index(ext)) 
-					filename = "#{root}/bad_file_extension.#{ext}"
-					FileUtils.touch(filename)
-					artifact = Artifact.new(file: File.new(filename))
-					assert !artifact.save, "File should not save with un whitelisted extension #{ext}"
-				end
-			end	
-
-			FileUtils.rm_rf(root)
-	end
-
-
+    FileUtils.rm_rf(root)
+  end
 end

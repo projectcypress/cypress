@@ -1,5 +1,4 @@
 class ExecutionError
-
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
 
@@ -12,10 +11,9 @@ class ExecutionError
   field :stratification, type: String
   field :location
   field :file_name, type: String
-  validates_presence_of :msg_type
-  validates_presence_of :message
+  validates :msg_type, presence: true
+  validates :message, presence: true
 
-  scope :by_type, ->(type){where(msg_type: type)}
-  scope :by_validation_type, ->(type){where(validator_type: type)}
-
+  scope :by_type, ->(type) { where(msg_type: type) }
+  scope :by_validation_type, ->(type) { where(validator_type: type) }
 end

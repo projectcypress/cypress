@@ -6,7 +6,7 @@ class ProductTest
 
   belongs_to :product, index: true, touch: true
   belongs_to :bundle, index: true
-  has_many   :tasks, dependent: :destroy
+  has_many :tasks, :dependent => :destroy
 
   field :expected_results, type: Hash
   # this the hqmf id of the measure
@@ -22,20 +22,15 @@ class ProductTest
   validates :product, presence: true
   validates :measure_id, presence: true
 
-
   def measures
-    HealthDataStandards::CQM::Measure.where({bundle_id: bundle_id, hqmf_id: measure_id})
-  end
-
-  def execute(params)
-    raise NotImplementedError.new
+    HealthDataStandards::CQM::Measure.where(bundle_id: bundle_id, hqmf_id: measure_id)
   end
 
   def records
-    Record.where(test_id: self.id)
+    Record.where(test_id: id)
   end
 
   def results
-    PatientCache.where("value.test_id"=> self.id).order_by(["value.last" , :asc])
+    PatientCache.where('value.test_id' => id).order_by(['value.last', :asc])
   end
 end

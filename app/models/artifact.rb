@@ -1,5 +1,4 @@
 class Artifact
-
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -11,15 +10,15 @@ class Artifact
 
   before_save :update_asset_attributes
 
-  def is_archive?
-    self.content_type == "application/zip" || File.extname(self.file.uploaded_filename) == ".zip"
+  def archive?
+    content_type == 'application/zip' || File.extname(file.uploaded_filename) == '.zip'
   end
 
   def file_names
     file_names = []
-    if is_archive?
+    if archive?
       Zip::ZipFile.open(file.path) do |zipfile|
-        file_names = zipfile.entries.collect{|entry| entry.name}
+        file_names = zipfile.entries.collect(&:name)
       end
     else
       file_names = [file.uploaded_filename]
@@ -29,18 +28,18 @@ class Artifact
 
   def file_count
     count = 0
-    if is_archive?
+    if archive?
       Zip::ZipFile.open(file.path) do |zipfile|
         count = zipfile.entries.count
       end
     else
-      count= 1
+      count = 1
     end
     count
   end
 
   def get_file(name)
-    if self.is_archive?
+    if self.archive?
       return get_archived_file(name)
     elsif file.uploaded_filename == name
       return file.read
@@ -55,10 +54,10 @@ class Artifact
     data
   end
 
-  def each_file(&block)
-    if self.is_archive?
+  def each_file(&_block)
+    if self.archive?
       Zip::ZipFile.open(file.path) do |zipfile|
-        zipfile.glob("*.xml",File::FNM_CASEFOLD|::File::FNM_PATHNAME|::File::FNM_DOTMATCH).each do |entry|
+        zipfile.glob('*.xml', File::FNM_CASEFOLD | ::File::FNM_PATHNAME | ::File::FNM_DOTMATCH).each do |entry|
           data = zipfile.read(entry.name)
           yield entry.name, data
         end
@@ -72,9 +71,8 @@ class Artifact
   private
 
   def update_asset_attributes
-    if file.present? && file_changed?
-      self.content_type = file.file.content_type
-      self.file_size = file.file.size
-    end
+    return if !file.present? || !file_changed?
+    self.content_type = file.file.content_type
+    self.file_size = file.file.size
   end
 end

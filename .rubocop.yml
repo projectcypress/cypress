@@ -4,8 +4,10 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - 'lib/tasks/cucumber.rake'
+    - 'lib/validators/*'
+    - 'lib/ext/measure.rb'
 Metrics/LineLength:
-  Max: 120
+  Max: 130
 Style/GuardClause:
   MinBodyLength: 2
 Style/HashSyntax:

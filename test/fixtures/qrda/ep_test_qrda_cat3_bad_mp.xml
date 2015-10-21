@@ -122,9 +122,9 @@ QRDA Category III Reporting Parameters
               <!-- This reporting period shows that Good Health Clinic is sending data for the first quarter of the year.
               The referenced measure definition may be valid for the entire year or more-->
               <effectiveTime>
-                <low value="20130101"/>
+                <low value="20140101"/>
                 <!-- The first day of the period reported. -->
-                <high value="20131231"/>
+                <high value="20141231"/>
                 <!-- The last day of the period reported. -->
               </effectiveTime>
             </act>
@@ -846,7 +846,54 @@ Measure Section
 
                 
 
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
 
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
 
 
                   <entryRelationship typeCode="COMP">

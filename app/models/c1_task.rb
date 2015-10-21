@@ -7,24 +7,20 @@ class C1Task < Task
 
   def validators
     @validators ||= [QrdaCat1Validator.new(product_test.bundle, product_test.measures),
-      SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id),
-    MeasurePeriodValidator.new()]
+                     SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id),
+                     MeasurePeriodValidator.new]
   end
 
   def execute(file)
-    te = self.test_executions.create(expected_results: self.expected_results)
+    te = test_executions.create(expected_results: expected_results)
     te.artifact = Artifact.new(file: file)
-    te.validate_artifact(validators,te.artifact)
+    te.validate_artifact(validators, te.artifact)
     te.save
     te
   end
 
   def records
-    in_ipp = product_test.results.where("value.IPP" => {"$gt" => 0})
-    patient_ids = []
-    in_ipp.each do |pc| 
-      patient_ids << pc.value.patient_id 
-    end
-    product_test.records.in("_id" => patient_ids)
+    patient_ids = product_test.results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
+    product_test.records.in('_id' => patient_ids)
   end
 end

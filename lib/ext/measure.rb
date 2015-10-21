@@ -3,6 +3,8 @@
 Measure = HealthDataStandards::CQM::Measure
 
 class Measure
+  include HealthDataStandards::Export
+  include HealthDataStandards::CQM
   field :bundle_id, type: BSON::ObjectId
   index bundle_id: 1
   index id: 1, sub_id: 1
@@ -11,95 +13,87 @@ class Measure
     self['hqmf_document']['data_criteria'].map { |key, val| { key => val } }
   end
 
-def smoking_gun_data(patient_cache_filter={})
-    ::Measure.calculate_smoking_gun_data(self["bundle_id"], self.hqmf_id, patient_cache_filter)
+  def smoking_gun_data(patient_cache_filter = {})
+    ::Measure.calculate_smoking_gun_data(bundle_id, hqmf_id, patient_cache_filter)
   end
   # Calculate the smoking gun data for the given hqmf_id with the given patient_cache_filter
   # The  filter will allow us to segment the cache by things like test_id required for Cypress.
 
-  def self.calculate_smoking_gun_data(bundle_id, hqmf_id, patient_cache_filter={})
+  def self.calculate_smoking_gun_data(bundle_id, hqmf_id, patient_cache_filter = {})
     values = {}
-    measure = Measure.top_level.where({hqmf_id: hqmf_id, bundle_id: bundle_id}).first
+    measure = Measure.top_level.where(hqmf_id: hqmf_id, bundle_id: bundle_id).first
     hqmf_measure = measure.as_hqmf_model
 
-    population_codes, sub_ids = self.return_population_codes(hqmf_measure)
+    population_codes, sub_ids = return_population_codes(hqmf_measure)
 
-    rationals = HealthDataStandards::CQM::PatientCache.smoking_gun_rational(measure.hqmf_id,sub_ids,patient_cache_filter)
-    rationals.each_pair do |mrn,rash|
+    rationals = PatientCache.smoking_gun_rational(measure.hqmf_id, sub_ids, patient_cache_filter)
+    rationals.each_pair do |mrn, rash|
       values[mrn] = []
       population_codes.each do |pop_code|
         population_criteria = hqmf_measure.population_criteria(pop_code)
-        if population_criteria.preconditions
-          array = []
-
-          parent = population_criteria.preconditions[0]
-          values[mrn].concat self.loop_preconditions(hqmf_measure, parent, rash)
-        end # end  population_criteria.preconditions
+        next unless population_criteria.preconditions
+        parent = population_criteria.preconditions[0]
+        values[mrn].concat loop_preconditions(hqmf_measure, parent, rash)
       end # population_codes
       values[mrn].uniq!
     end
     values
   end
 
-  def <=> (other)
-    "#{self.nqf_id}-#{self.sub_id}" <=> "#{other.nqf_id}-#{other.sub_id}"
-  end
-
-  private
-
   def self.return_population_codes(mes)
     population_codes = []
     sub_ids = []
     population_keys = ('a'..'zz').to_a
-    if  mes.populations.length == 1
+    if mes.populations.length == 1
       sub_ids = nil
-      population = mes.populations[0]
       HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code|
-            population_codes <<  population[code] if population[code]
+        population = mes.populations[0]
+        population_codes << population[code] if population[code]
       end
     else
-      #Do not bother with populaions that contain stratifications
-      mes.populations.each_with_index do |population,index|
-        if population["stratification"].nil?
-          sub_ids << population_keys[index]
-          HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code|
-            population_codes <<  population[code] if population[code]
-          end
+      # Do not bother with populaions that contain stratifications
+      mes.populations.each_with_index do |population, index|
+        next unless population['stratification'].nil?
+        sub_ids << population_keys[index]
+        HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code|
+          population_codes << population[code] if population[code]
         end
       end
     end
 
-    return population_codes.uniq, sub_ids
+    [population_codes.uniq, sub_ids]
   end
 
   def self.loop_data_criteria(hqmf, data_criteria, rationale)
     result = []
-    if (rationale[data_criteria.id])
+    return result unless rationale[data_criteria.id]
 
-      if data_criteria.type != :derived
-        template = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition, data_criteria.status, data_criteria.negation)
-        value_set_oid = data_criteria.code_list_id
-        begin
-          qrda_template = HealthDataStandards::Export::QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_oid(template,value_set_oid)
-        rescue
-          value_set_oid = 'In QRDA Header (Non Null Value)'
-          qrda_template = 'N/A'
-        end # end begin recue
-         description = "#{HQMF::DataCriteria.title_for_template_id(template).titleize}: #{data_criteria.title}"
-         result << {description: description, oid: value_set_oid, template: qrda_template, rationale: rationale[data_criteria.id]}
-        if data_criteria.temporal_references
-          data_criteria.temporal_references.each do |temporal_reference|
-            if temporal_reference.reference.id != 'MeasurePeriod'
-              result.concat loop_data_criteria(hqmf, hqmf.data_criteria(temporal_reference.reference.id), rationale)
-            end  #if temporal_reference.reference.id
-          end # end  data_criteria.temporal_references.each do |temporal_reference|
-        end# end if data_criteria.temporal_references
-      else #data_criteria.type != :derived
-        (data_criteria.children_criteria || []).each do |child_id|
-          result.concat loop_data_criteria(hqmf, hqmf.data_criteria(child_id), rationale)
-        end
+    if data_criteria.type != :derived
+      template = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition,
+                                                               data_criteria.status,
+                                                               data_criteria.negation)
+      value_set_oid = data_criteria.code_list_id
+      begin
+        qrda_template = QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_oid(template, value_set_oid)
+      rescue
+        value_set_oid = 'In QRDA Header (Non Null Value)'
+        qrda_template = 'N/A'
+      end # end begin recue
+      description = "#{HQMF::DataCriteria.title_for_template_id(template).titleize}: #{data_criteria.title}"
+      result << { description: description, oid: value_set_oid,
+                  template: qrda_template, rationale: rationale[data_criteria.id] }
+      if data_criteria.temporal_references
+        data_criteria.temporal_references.each do |temporal_reference|
+          next if temporal_reference.reference.id == 'MeasurePeriod'
+          result.concat loop_data_criteria(hqmf, hqmf.data_criteria(temporal_reference.reference.id), rationale)
+        end # end  data_criteria.temporal_references.each do |temporal_reference|
+      end # end if data_criteria.temporal_references
+    else # data_criteria.type != :derived
+      (data_criteria.children_criteria || []).each do |child_id|
+        result.concat loop_data_criteria(hqmf, hqmf.data_criteria(child_id), rationale)
       end
     end
+
     result
   end
 
@@ -111,14 +105,10 @@ def smoking_gun_data(patient_cache_filter={})
       if precondition.preconditions.empty?
         data_criteria = hqmf.data_criteria(precondition.reference.id)
         result.concat loop_data_criteria(hqmf, data_criteria, rationale)
-      else
-        if (rationale[parent_key] && rationale[key])
-          result.concat  loop_preconditions(hqmf, precondition, rationale)
-        end
+      elsif rationale[parent_key] && rationale[key]
+        result.concat loop_preconditions(hqmf, precondition, rationale)
       end
     end
     result
   end
-
 end
-

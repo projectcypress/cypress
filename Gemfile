@@ -39,8 +39,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', :group => :doc
 
 gem 'carrierwave'
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
-gem "config"
+gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
+gem 'config'
 # bubble up errors from embedded documents in Mongoid.
 # gem 'mongoid-embedded-errors'
 

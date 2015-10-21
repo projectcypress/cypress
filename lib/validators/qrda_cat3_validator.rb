@@ -8,7 +8,7 @@ module Validators
       @expected_results = expected_results
     end
 
-    def validate(file, options={})
+    def validate(file, options = {})
       @doc = file
       @options = options
       validation_errors = Cat3.instance.validate(@doc, file_name: @options[:file_name])
@@ -18,7 +18,7 @@ module Validators
 
       # The HDS validators hand back ValidationError objects, but we need ExecutionError objects
       validation_errors.map do |error|
-        add_error(error.message,{:location=>error.location,:validator=>error.validator,:validator_type=>:xml_validation})
+        add_error(error.message, :location => error.location, :validator => error.validator, :validator_type => :xml_validation)
       end
     end
   end

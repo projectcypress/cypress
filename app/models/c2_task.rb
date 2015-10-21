@@ -1,9 +1,4 @@
 class C2Task < Task
-  
-
-  def execute(params)
-
+  def execute(_params)
   end
-
-  
 end

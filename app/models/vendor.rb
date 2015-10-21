@@ -5,7 +5,7 @@ class Vendor
 
   has_many :products, :dependent => :destroy
   embeds_many :pocs, class_name: 'PointOfContact'
-  
+
   accepts_nested_attributes_for :pocs, allow_destroy: true, reject_if: -> (poc) { poc[:name].blank? }
 
   field :name, type: String
