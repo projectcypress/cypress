@@ -17,4 +17,6 @@
     <%= render partial: 'pocs', locals: { vendor: @product.vendor } %>
   </div>
 
+  <%= link_to "+ Add Product Test", new_vendor_product_product_test_path(@product.vendor, @product) %>
+
 </div>
