@@ -67,10 +67,10 @@
         <%= poc_fields.text_field :name, :class => "form-control", :placeholder => 'John Doe' %>
       </div>
       <div class = "col-xs-4">
-        <%= poc_fields.text_field :email, :class => "form-control", :placeholder => 'contact@example.com' %>
+        <%= poc_fields.email_field :email, :class => "form-control", :placeholder => 'contact@example.com' %>
       </div>
       <div class = "col-xs-2">
-        <%= poc_fields.text_field :phone, :class => "form-control", :placeholder => '1(222)333-4444' %>
+        <%= poc_fields.phone_field :phone, :class => "form-control", :placeholder => '1(222)333-4444' %>
       </div>
       <div class = "col-xs-2">
         <%= poc_fields.text_field :contact_type, :class => "form-control", :placeholder => 'Admin, Sales' %>
@@ -94,10 +94,10 @@
       <input type = "text" class = "form-control" name = "name" placeholder = "John Doe" />
     </div>
     <div class = "col-xs-4">
-      <input type = "text" class = "form-control" name = "email" placeholder = "contact@example.com" />
+      <input type = "email" class = "form-control" name = "email" placeholder = "contact@example.com" />
     </div>
     <div class = "col-xs-2">
-      <input type = "text" class = "form-control" name = "phone" placeholder = "1(222)333-4444" />
+      <input type = "tel" class = "form-control" name = "phone" placeholder = "1(222)333-4444" />
     </div>
     <div class = "col-xs-2">
       <input type = "text" class = "form-control" name = "contact_type" placeholder = "Admin, Sales" />
