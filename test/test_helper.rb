@@ -19,59 +19,45 @@ Warden.test_mode!
 Mongoid.logger.level = Logger::INFO
 
 class MiniTest::Test
+  def create_rack_test_file(filename, type)
+    Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, filename)), type)
+  end
+
   def drop_database
     Mongoid.default_client.database.drop
   end
 
-  def collection_fixtures(collection, *id_attributes)
-    Mongoid.default_client[collection].drop
-    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-      fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
-      id_attributes.each do |attr|
-        next if fixture_json[attr].nil?
-
-        if fixture_json[attr].is_a? Array
-          fixture_json[attr] = fixture_json[attr].collect { |att| BSON::ObjectId.from_string(att) }
-        else
-          fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
-        end
+  def value_or_bson(v)
+    if v.is_a? Hash
+      if v['$oid']
+        BSON::ObjectId.from_string(v['$oid'])
+      else
+        map_bson_ids(v)
       end
-
-      if fixture_json['created_at']
-        fixture_json['created_at'] = Time.at(fixture_json['created_at'])
-      end
-      Mongoid.default_client[collection].insert_one(fixture_json)
+    else
+      v
     end
   end
-  # the above method doesnt work if you have ids in a subarray, like in patient_cache where patient_id is under the "values"
-  # sub array this method will work for the patient_cache problem, though its hacky
-  # the collection, the name of the subarray where the id_attributes are hiding, the id_attributes you need
 
-  def collection_fixtures2(collection, subattr, *id_attributes)
-    Mongoid.default_client[collection].drop
-    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-      fixture_json = JSON.parse(File.read(json_fixture_file))
-      id_attributes.each do |attr|
-        next if fixture_json[attr].nil?
-
-        if fixture_json[attr].is_a? Array
-          fixture_json[attr] = fixture_json[attr].collect { |att| BSON::ObjectId.from_string(att) }
-        else
-          fixture_json[attr] = BSON::ObjectId.from_string(fixture_json[attr])
-        end
+  def map_bson_ids(json)
+    json.each_pair do |k, v|
+      if v.is_a? Hash
+        json[k] = value_or_bson(v)
+      elsif k == 'create_at' || k == 'updated_at'
+        json[k] = Time.at.utc(v)
       end
+    end
+    json
+  end
 
-      id_attributes.each do |attr|
-        next if fixture_json[subattr][attr].nil?
-
-        if fixture_json[subattr][attr].is_a? Array
-          fixture_json[subattr][attr] = fixture_json[subattr][attr].collect { |att| BSON::ObjectId.from_string(att) }
-        else
-          fixture_json[subattr][attr] = BSON::ObjectId.from_string(fixture_json[subattr][attr])
-        end
+  def collection_fixtures(*collections)
+    collections.each do |collection|
+      Mongoid.default_client[collection].drop
+      Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+        fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+        map_bson_ids(fixture_json)
+        Mongoid.default_client[collection].insert_one(fixture_json)
       end
-
-      Mongoid.default_client[collection].insert_one(fixture_json)
     end
   end
 

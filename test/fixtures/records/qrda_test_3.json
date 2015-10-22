@@ -1,7 +1,7 @@
-{ "_id" :  "51703a883054cf84390000f9" ,
+{ "_id" : {"$oid" : "51703a883054cf84390000f9"} ,
   "languages" : [],
   "birthdate" : 725877000,
-  "bundle_id" :  "4fdb62e01d41c820f6000001" ,
+  "bundle_id" : {"$oid" : "4fdb62e01d41c820f6000001"} ,
   "description" : "",
   "description_category" : "DENOM",
   "ethnicity" : { "code" : "2186-5",
@@ -200,9 +200,9 @@
       "end_date" : 1293771600000 } ],
   "type" : "ep",
   "original_medical_record_number" : "0dbaf9336f7aa1590265250a0eebe548",
-  "test_id" :  "51703a883054cf84390000d3" ,
+  "test_id" : {"$oid" : "51703a883054cf84390000d3"} ,
   "conditions" : [ 
-    { "_id" :  "50d3a288da5fe6e140000295" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e140000295"} ,
       "codes" : { "SNOMED-CT" : [ 
           "195708003" ],
         "ICD-9-CM" : [ 
@@ -231,7 +231,7 @@
           "active" ] },
       "time" : null,
       "type" : null }, 
-    { "_id" :  "50d3a288da5fe6e140000296" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e140000296"} ,
       "codes" : { "SNOMED-CT" : [ 
           "14183003" ],
         "ICD-9-CM" : [ 
@@ -260,7 +260,7 @@
           "active" ] },
       "time" : null,
       "type" : null }, 
-    { "_id" :  "50d3a288da5fe6e140000297" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e140000297"} ,
       "codes" : { "SNOMED-CT" : [ 
           "426656000" ],
         "ICD-10-CM" : [ 
@@ -287,7 +287,7 @@
           "active" ] },
       "time" : null,
       "type" : null }, 
-    { "_id" :  "50d3a288da5fe6e140000298" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e140000298"} ,
       "codes" : { "ICD-9-CM" : [ 
           "034.0" ],
         "SNOMED-CT" : [ 
@@ -317,7 +317,7 @@
       "time" : null,
       "type" : null } ],
   "encounters" : [ 
-    { "_id" :  "50d3a288da5fe6e140000299" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e140000299"} ,
       "codes" : { "CPT" : [ 
           "99201" ] },
       "mood_code" : "EVN",
@@ -340,7 +340,7 @@
       "time" : null,
       "transferFrom" : null,
       "transferTo" : null }, 
-    { "_id" :  "50d3a288da5fe6e14000029a" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e14000029a"} ,
       "codes" : { "SNOMED-CT" : [ 
           "12843005" ],
         "CPT" : [ 
@@ -367,7 +367,7 @@
       "time" : null,
       "transferFrom" : null,
       "transferTo" : null }, 
-    { "_id" :  "50d3a288da5fe6e14000029b" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e14000029b"} ,
       "codes" : { "CPT" : [ 
           "99201" ] },
       "mood_code" : "EVN",
@@ -390,7 +390,7 @@
       "time" : null,
       "transferFrom" : null,
       "transferTo" : null }, 
-    { "_id" :  "50d3a288da5fe6e14000029c" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e14000029c"} ,
       "codes" : { "CPT" : [ 
           "99201" ] },
       "mood_code" : "EVN",
@@ -414,7 +414,7 @@
       "transferFrom" : null,
       "transferTo" : null } ],
   "medications" : [ 
-    { "_id" :  "50d3a288da5fe6e14000029d" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e14000029d"} ,
       "codes" : { "RxNorm" : [ 
           "1085805" ] },
       "mood_code" : "EVN",
@@ -448,7 +448,7 @@
       "time" : null,
       "typeOfMedication" : null,
       "vehicle" : null }, 
-    { "_id" :  "50d3a288da5fe6e14000029e" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e14000029e"} ,
       "codes" : { "RxNorm" : [ 
           "1013659" ] },
       "mood_code" : "EVN",
@@ -482,7 +482,7 @@
       "time" : null,
       "typeOfMedication" : null,
       "vehicle" : null }, 
-    { "_id" :  "50d3a288da5fe6e14000029f" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e14000029f"} ,
       "codes" : { "RxNorm" : [ 
           "1013659" ] },
       "mood_code" : "EVN",
@@ -519,7 +519,7 @@
       "typeOfMedication" : null,
       "vehicle" : null } ],
   "procedures" : [ 
-    { "_id" :  "50d3a288da5fe6e1400002a0" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002a0"} ,
       "codes" : { "SNOMED-CT" : [ 
           "171207006" ],
         "HCPCS" : [ 
@@ -547,7 +547,7 @@
       "status_code" : { "HL7 ActStatus" : [ 
           "performed" ] },
       "time" : null }, 
-    { "_id" :  "50d3a288da5fe6e1400002a1" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002a1"} ,
       "codes" : { "SNOMED-CT" : [ 
           "10197000" ] },
       "mood_code" : "EVN",
@@ -569,7 +569,7 @@
       "status_code" : { "HL7 ActStatus" : [ 
           "performed" ] },
       "time" : null }, 
-    { "_id" :  "50d3a288da5fe6e1400002a2" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002a2"} ,
       "codes" : { "SNOMED-CT" : [ 
           "442333005" ],
         "CPT" : [ 
@@ -593,7 +593,7 @@
       "status_code" : { "HL7 ActStatus" : [ 
           "performed" ] },
       "time" : null }, 
-    { "_id" :  "50d3a288da5fe6e1400002a3" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002a3"} ,
       "codes" : { "LOINC" : [ 
           "3137-7" ] },
       "mood_code" : "EVN",
@@ -616,11 +616,11 @@
           null ] },
       "time" : null,
       "values" : [ 
-        { "_id" :  "50d3a288da5fe6e1400002a4" ,
+        { "_id" : {"$oid" : "50d3a288da5fe6e1400002a4"} ,
           "_type" : "PhysicalQuantityResultValue",
           "scalar" : "60",
           "units" : "in" } ] }, 
-    { "_id" :  "50d3a288da5fe6e1400002a5" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002a5"} ,
       "codes" : { "LOINC" : [ 
           "59574-4" ] },
       "mood_code" : "EVN",
@@ -643,11 +643,11 @@
           null ] },
       "time" : null,
       "values" : [ 
-        { "_id" :  "50d3a288da5fe6e1400002a6" ,
+        { "_id" : {"$oid" : "50d3a288da5fe6e1400002a6"} ,
           "_type" : "PhysicalQuantityResultValue",
           "scalar" : "19.5",
           "units" : "" } ] }, 
-    { "_id" :  "50d3a288da5fe6e1400002a7" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002a7"} ,
       "codes" : { "LOINC" : [ 
           "18833-4" ] },
       "mood_code" : "EVN",
@@ -670,12 +670,12 @@
           null ] },
       "time" : null,
       "values" : [ 
-        { "_id" :  "50d3a288da5fe6e1400002a8" ,
+        { "_id" : {"$oid" : "50d3a288da5fe6e1400002a8"} ,
           "_type" : "PhysicalQuantityResultValue",
           "scalar" : "100",
           "units" : "lbs" } ] } ],
   "vital_signs" : [ 
-    { "_id" :  "50d3a288da5fe6e1400002a9" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002a9"} ,
       "codes" : { "LOINC" : [ 
           "11268-0" ] },
       "mood_code" : "EVN",
@@ -695,11 +695,11 @@
           null ] },
       "time" : null,
       "values" : [ 
-        { "_id" :  "50d3a288da5fe6e1400002aa" ,
+        { "_id" : {"$oid" : "50d3a288da5fe6e1400002aa"} ,
           "_type" : "PhysicalQuantityResultValue",
           "scalar" : "positive",
           "units" : "" } ] }, 
-    { "_id" :  "50d3a288da5fe6e1400002ab" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002ab"} ,
       "codes" : { "LOINC" : [ 
           "10524-7" ] },
       "mood_code" : "EVN",
@@ -719,11 +719,11 @@
           "ordered" ] },
       "time" : null,
       "values" : [ 
-        { "_id" :  "50d3a288da5fe6e1400002ac" ,
+        { "_id" : {"$oid" : "50d3a288da5fe6e1400002ac"} ,
           "_type" : "PhysicalQuantityResultValue",
           "scalar" : "performed",
           "units" : "" } ] }, 
-    { "_id" :  "50d3a288da5fe6e1400002ad" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002ad"} ,
       "codes" : { "LOINC" : [ 
           "13217-5" ] },
       "mood_code" : "EVN",
@@ -743,13 +743,13 @@
           null ] },
       "time" : null,
       "values" : [ 
-        { "_id" :  "50d3a288da5fe6e1400002ae" ,
+        { "_id" : {"$oid" : "50d3a288da5fe6e1400002ae"} ,
           "_type" : "CodedResultValue",
           "codes" : { "LOINC" : [ 
               "13217-5" ] },
           "description" : "Chlamydia Screening" } ] } ],
   "insurance_providers" : [ 
-    { "_id" :  "50d3a288da5fe6e1400002af" ,
+    { "_id" : {"$oid" : "50d3a288da5fe6e1400002af"} ,
       "codes" : {},
       "end_time" : null,
       "financial_responsibility_type" : { "code" : "SELF",
@@ -760,5 +760,5 @@
       "start_time" : 1199163600,
       "time" : null,
       "type" : "OT",
-      "payer" : { "_id" :  "50d3a288da5fe6e1400002b0" ,
+      "payer" : { "_id" : {"$oid" : "50d3a288da5fe6e1400002b0"} ,
         "name" : "Other" } } ] }

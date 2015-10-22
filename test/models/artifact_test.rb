@@ -17,7 +17,8 @@ class ArtifactTest < MiniTest::Test
   end
 
   def test_should_be_able_to_list_file_names
-    expected = ['eh_test_results_bad.xml', 'eh_test_results.xml', 'qrda_cat3.xml', 'QRDA_CATIII_RI_AUG.xml', 'expected_results.json']
+    expected = ['eh_test_results_bad.xml', 'eh_test_results.xml', 'qrda_cat3.xml', 'QRDA_CATIII_RI_AUG.xml',
+                'expected_results.json']
     filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
     artifact = Artifact.new(file: File.new(filename))
     assert_equal expected.sort, artifact.file_names.sort

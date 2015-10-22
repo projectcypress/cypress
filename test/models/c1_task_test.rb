@@ -2,13 +2,9 @@ require 'test_helper'
 class C1TaskTest < MiniTest::Test
   include ::Validators
   def setup
-    collection_fixtures('product_tests', '_id', 'bundle_id')
-    collection_fixtures('products', '_id')
-    collection_fixtures('bundles', '_id')
-    collection_fixtures('measures', '_id', 'bundle_id')
-    collection_fixtures('records', '_id', 'bundle_id', 'test_id')
-    collection_fixtures2('patient_cache', 'value', '_id', 'test_id', 'bundle_id')
-    collection_fixtures('health_data_standards_svs_value_sets', '_id', 'bundle_id')
+    collection_fixtures('product_tests','products', 'bundles', 
+                        'measures','records','patient_cache',
+                        'health_data_standards_svs_value_sets')
     @product_test = ProductTest.find('51703a883054cf84390000d3')
   end
 

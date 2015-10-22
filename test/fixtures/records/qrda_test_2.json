@@ -1,7 +1,7 @@
-{ "_id" :  "51703a883054cf84390000dc" ,
+{ "_id" : {"$oid" : "51703a883054cf84390000dc"} ,
   "languages" : [],
   "birthdate" : 815189400,
-  "bundle_id" :  "4fdb62e01d41c820f6000001" ,
+  "bundle_id" : {"$oid" : "4fdb62e01d41c820f6000001"} ,
   "description" : "",
   "description_category" : "DENOM",
   "ethnicity" : { "code" : "2186-5",
@@ -50,9 +50,9 @@
       "end_date" : 1293771600000 } ],
   "type" : "ep",
   "original_medical_record_number" : "929dd1f2c4c54c024fd4d18b1307fdb1",
-  "test_id" :  "51703a883054cf84390000d3" ,
+  "test_id" : {"$oid" : "51703a883054cf84390000d3"} ,
   "conditions" : [ 
-    { "_id" :  "50d3a289da5fe6e14000033e" ,
+    { "_id" : {"$oid" : "50d3a289da5fe6e14000033e"} ,
       "codes" : { "ICD-9-CM" : [ 
           "042" ],
         "SNOMED-CT" : [ 
@@ -82,7 +82,7 @@
       "time" : null,
       "type" : null } ],
   "encounters" : [ 
-    { "_id" :  "50d3a289da5fe6e14000033f" ,
+    { "_id" : {"$oid" : "50d3a289da5fe6e14000033f"} ,
       "codes" : { "CPT" : [ 
           "99201" ],
         "SNOMED-CT" : [ 
@@ -107,7 +107,7 @@
       "time" : null,
       "transferFrom" : null,
       "transferTo" : null }, 
-    { "_id" :  "50d3a289da5fe6e140000340" ,
+    { "_id" : {"$oid" : "50d3a289da5fe6e140000340"} ,
       "codes" : { "CPT" : [ 
           "99201" ],
         "SNOMED-CT" : [ 
@@ -133,7 +133,7 @@
       "transferFrom" : null,
       "transferTo" : null } ],
   "vital_signs" : [ 
-    { "_id" :  "50d3a289da5fe6e140000341" ,
+    { "_id" : {"$oid" : "50d3a289da5fe6e140000341"} ,
       "codes" : { "LOINC" : [ 
           "24467-3" ] },
       "mood_code" : "EVN",
@@ -153,12 +153,12 @@
           null ] },
       "time" : null,
       "values" : [ 
-        { "_id" :  "50d3a289da5fe6e140000342" ,
+        { "_id" : {"$oid" : "50d3a289da5fe6e140000342"} ,
           "_type" : "PhysicalQuantityResultValue",
           "scalar" : "150",
           "units" : "" } ] } ],
   "insurance_providers" : [ 
-    { "_id" :  "50d3a289da5fe6e140000343" ,
+    { "_id" : {"$oid" : "50d3a289da5fe6e140000343"} ,
       "codes" : {},
       "end_time" : null,
       "financial_responsibility_type" : { "code" : "SELF",
@@ -169,5 +169,5 @@
       "start_time" : 1199163600,
       "time" : null,
       "type" : "OT",
-      "payer" : { "_id" :  "50d3a289da5fe6e140000344" ,
+      "payer" : { "_id" : {"$oid" : "50d3a289da5fe6e140000344"} ,
         "name" : "Other" } } ] }

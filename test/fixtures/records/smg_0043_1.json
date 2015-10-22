@@ -1,9 +1,9 @@
-{ "_id" : "502baf20044a116370000001" ,
-"test_id" :  "51703a883054cf843900ffff" ,
-"bundle_id" :"4fdb62e01d41c820f6000001",
+{ "_id" : {"$oid" : "502baf20044a116370000001"} ,
+"test_id" : {"$oid" : "51703a883054cf843900ffff"} ,
+"bundle_id" : {"$oid" : "4fdb62e01d41c820f6000001"},
   "birthdate" : -788688000,
   "conditions" : [ 
-    { "_id" :  "51741cfb044a111f8e000008" ,
+    { "_id" : {"$oid" : "51741cfb044a111f8e000008"} ,
       "codes" : { "ICD-9-CM" : [ 
           "094.1" ],
         "SNOMED-CT" : [ 
@@ -24,7 +24,7 @@
   "elimination_population" : null,
   "elimination_reason" : null,
   "encounters" : [ 
-    { "_id" :  "51741cfa044a111f8e000003" ,
+    { "_id" : {"$oid" : "51741cfa044a111f8e000003"} ,
       "codes" : { "CPT" : [ 
           "99201" ] },
       "mood_code" : "EVN",
@@ -35,7 +35,7 @@
       "status_code" : { "HL7 ActStatus" : [ 
           "performed" ] },
       "oid" : "2.16.840.1.113883.3.560.1.79" }, 
-    { "_id" :  "51741cfa044a111f8e000005" ,
+    { "_id" : {"$oid" : "51741cfa044a111f8e000005"} ,
       "codes" : { "CPT" : [ 
           "99201" ] },
       "mood_code" : "EVN",
@@ -46,7 +46,7 @@
       "status_code" : { "HL7 ActStatus" : [ 
           "performed" ] },
       "oid" : "2.16.840.1.113883.3.560.1.79" }, 
-    { "_id" :  "51741cfb044a111f8e000007" ,
+    { "_id" : {"$oid" : "51741cfb044a111f8e000007"} ,
       "codes" : { "CPT" : [ 
           "99201" ] },
       "mood_code" : "EVN",
@@ -57,7 +57,7 @@
       "status_code" : { "HL7 ActStatus" : [ 
           "performed" ] },
       "oid" : "2.16.840.1.113883.3.560.1.79" }, 
-    { "_id" :  "51741cfb044a111f8e000009" ,
+    { "_id" : {"$oid" : "51741cfb044a111f8e000009"} ,
       "codes" : { "CPT" : [ 
           "99201" ] },
       "mood_code" : "EVN",
@@ -75,7 +75,7 @@
   "first" : "GP_Geriatric",
   "gender" : "M",
   "insurance_providers" : [ 
-    { "_id" :  "51741ce8044a111f8e000001" ,
+    { "_id" : {"$oid" : "51741ce8044a111f8e000001"} ,
       "codes" : {},
       "type" : "OT",
       "member_id" : "1234567890",
@@ -83,7 +83,7 @@
       "financial_responsibility_type" : { "code" : "SELF",
         "codeSystem" : "HL7 Relationship Code" },
       "start_time" : 1199163600,
-      "payer" : { "_id" :  "51741ce8044a111f8e000002" ,
+      "payer" : { "_id" : {"$oid" : "51741ce8044a111f8e000002"} ,
         "name" : "Other" } } ],
   "languages" : [],
   "last" : "A",
@@ -108,7 +108,7 @@
   "measure_period_start" : 1325394000000,
   "medical_record_number" : "20a80b26a1bfa70740e243ea5ac1fea6",
   "procedures" : [ 
-    { "_id" :  "51741cfa044a111f8e000004" ,
+    { "_id" : {"$oid" : "51741cfa044a111f8e000004"} ,
       "codes" : { "SNOMED-CT" : [ 
           "15163009" ],
         "CPT" : [ 
@@ -123,7 +123,7 @@
       "status_code" : { "HL7 ActStatus" : [ 
           "performed" ] },
       "oid" : "2.16.840.1.113883.3.560.1.6" }, 
-    { "_id" :  "51741cfa044a111f8e000006" ,
+    { "_id" : {"$oid" : "51741cfa044a111f8e000006"} ,
       "codes" : { "SNOMED-CT" : [ 
           "179344006" ],
         "CPT" : [ 

@@ -1,9 +1,9 @@
-{ "_id" :  "502b96c4044a115d4e000001" ,
-"test_id" :  "51703a883054cf843900ffff" ,
-"bundle_id" :"4fdb62e01d41c820f6000001",
+{ "_id" : {"$oid" : "502b96c4044a115d4e000001"} ,
+"test_id" : {"$oid" : "51703a883054cf843900ffff"} ,
+"bundle_id" : {"$oid" : "4fdb62e01d41c820f6000001"},
   "birthdate" : 381403800,
   "conditions" : [ 
-    { "_id" :  "516eaa5c044a11e77d00006f" ,
+    { "_id" : {"$oid" : "516eaa5c044a11e77d00006f"} ,
       "codes" : { "SNOMED-CT" : [ 
           "190330002" ],
         "ICD-9-CM" : [ 
@@ -19,7 +19,7 @@
         "HL7 ActStatus" : [ 
           "active" ] },
       "oid" : "2.16.840.1.113883.3.560.1.2" }, 
-    { "_id" :  "516eaa5c044a11e77d000078" ,
+    { "_id" : {"$oid" : "516eaa5c044a11e77d000078"} ,
       "codes" : { "SNOMED-CT" : [ 
           "127013003" ],
         "ICD-9-CM" : [ 
@@ -38,7 +38,7 @@
   "elimination_population" : null,
   "elimination_reason" : null,
   "encounters" : [ 
-    { "_id" :  "516eaa5c044a11e77d000070" ,
+    { "_id" : {"$oid" : "516eaa5c044a11e77d000070"} ,
       "codes" : { "CPT" : [ 
           "99201" ] },
       "mood_code" : "EVN",
@@ -56,7 +56,7 @@
   "first" : "Diabetes_Adult",
   "gender" : "F",
   "insurance_providers" : [ 
-    { "_id" :  "512bd21b044a1196630000ab" ,
+    { "_id" : {"$oid" : "512bd21b044a1196630000ab"} ,
       "codes" : {},
       "type" : "OT",
       "member_id" : "1234567890",
@@ -64,7 +64,7 @@
       "financial_responsibility_type" : { "code" : "SELF",
         "codeSystem" : "HL7 Relationship Code" },
       "start_time" : 1199163600,
-      "payer" : { "_id" :  "512bd21b044a1196630000ac" ,
+      "payer" : { "_id" : {"$oid" : "512bd21b044a1196630000ac"} ,
         "name" : "Other" } } ],
   "languages" : [],
   "last" : "B",
@@ -88,7 +88,7 @@
   "measure_period_start" : 1325394000000,
   "medical_record_number" : "343731b99c6bdb35a1fc31ce9ed6f889",
   "procedures" : [ 
-    { "_id" :  "516eaa5c044a11e77d000071" ,
+    { "_id" : {"$oid" : "516eaa5c044a11e77d000071"} ,
       "codes" : { "SNOMED-CT" : [ 
           "91161007" ] },
       "mood_code" : "EVN",
@@ -99,7 +99,7 @@
       "status_code" : { "HL7 ActStatus" : [ 
           "performed" ] },
       "oid" : "2.16.840.1.113883.3.560.1.57" }, 
-    { "_id" :  "516eaa5c044a11e77d000072" ,
+    { "_id" : {"$oid" : "516eaa5c044a11e77d000072"} ,
       "codes" : { "SNOMED-CT" : [ 
           "401191002" ] },
       "mood_code" : "EVN",
@@ -110,7 +110,7 @@
       "status_code" : { "HL7 ActStatus" : [ 
           "performed" ] },
       "oid" : "2.16.840.1.113883.3.560.1.57" }, 
-    { "_id" :  "516eaa5c044a11e77d000073" ,
+    { "_id" : {"$oid" : "516eaa5c044a11e77d000073"} ,
       "codes" : { "SNOMED-CT" : [ 
           "252779009" ] },
       "mood_code" : "EVN",
@@ -217,7 +217,7 @@
       "end_date" : 1356930000000 } ],
   "type" : "ep",
   "vital_signs" : [ 
-    { "_id" :  "516eaa5c044a11e77d000074" ,
+    { "_id" : {"$oid" : "516eaa5c044a11e77d000074"} ,
       "codes" : { "LOINC" : [ 
           "17855-8" ] },
       "mood_code" : "EVN",
@@ -229,11 +229,11 @@
           null ] },
       "oid" : "2.16.840.1.113883.3.560.1.12",
       "values" : [ 
-        { "_id" :  "516eaa5c044a11e77d000075" ,
+        { "_id" : {"$oid" : "516eaa5c044a11e77d000075"} ,
           "_type" : "PhysicalQuantityResultValue",
           "scalar" : "10",
           "units" : "%" } ] }, 
-    { "_id" :  "516eaa5c044a11e77d000076" ,
+    { "_id" : {"$oid" : "516eaa5c044a11e77d000076"} ,
       "codes" : { "LOINC" : [ 
           "13457-7" ] },
       "mood_code" : "EVN",
@@ -245,7 +245,7 @@
           null ] },
       "oid" : "2.16.840.1.113883.3.560.1.12",
       "values" : [ 
-        { "_id" :  "516eaa5c044a11e77d000077" ,
+        { "_id" : {"$oid" : "516eaa5c044a11e77d000077"} ,
           "_type" : "PhysicalQuantityResultValue",
           "scalar" : "88",
           "units" : "mg/dL" } ] } ] }
