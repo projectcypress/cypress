@@ -33,11 +33,11 @@ Given(/^a signed in user$/) do
 end
 
 Then(/^the user logs out$/) do
-  logout
+  page.click_link("Log Out")
 end
 
 Then(/^the user should see an log out success message$/) do
-  page.assert_text "Signed out successfully"
+  page.assert_text "You need to sign in or sign up before continuing."
 end
 
 
