@@ -4,8 +4,8 @@ end
 
 When(/^the user tries to log in with invalid information$/) do
   visit '/users/sign_in'
-  page.fill_in "Email", ::with => "unauth@mitre.org"
-  page.fill_in "Password", ::with => "incorrectPassword"
+  page.fill_in "Email", :with => "unauth@mitre.org"
+  page.fill_in "Password", :with => "incorrectPassword"
   page.click_button "Log in"
 end
 
@@ -15,8 +15,8 @@ end
 
 When(/^the user logs in$/) do
   visit '/users/sign_in'
-  page.fill_in "Email", ::with => @user.email
-  page.fill_in "Password", ::with => @user.password
+  page.fill_in "Email", :with => @user.email
+  page.fill_in "Password", :with => @user.password
   page.click_button "Log in"
 end
 
