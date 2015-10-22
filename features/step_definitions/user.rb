@@ -4,28 +4,28 @@ end
 
 When(/^the user tries to log in with invalid information$/) do
   visit '/users/sign_in'
-  page.fill_in "Email", :with => "unauth@mitre.org"
-  page.fill_in "Password", :with => "incorrectPassword"
-  page.click_button "Log in"
+  page.fill_in 'Email', with:  'unauth@mitre.org'
+  page.fill_in 'Password', with:  'incorrectPassword'
+  page.click_button 'Log in'
 end
 
 Then(/^the user should see an log in error message$/) do
-  page.assert_text "Invalid email or password."
+  page.assert_text 'Invalid email or password.'
 end
 
 When(/^the user logs in$/) do
   visit '/users/sign_in'
-  page.fill_in "Email", :with => @user.email
-  page.fill_in "Password", :with => @user.password
-  page.click_button "Log in"
+  page.fill_in 'Email', with:  @user.email
+  page.fill_in 'Password', with:  @user.password
+  page.click_button 'Log in'
 end
 
 Then(/^the user should see an log in success message$/) do
-  page.assert_text "Signed in successfully"
+  page.assert_text 'Signed in successfully'
 end
 
 Then(/^the user should see a sign out link$/) do
-  page.assert_text "Log Out"
+  page.assert_text 'Log Out'
 end
 
 Given(/^a signed in user$/) do
@@ -33,11 +33,11 @@ Given(/^a signed in user$/) do
 end
 
 Then(/^the user logs out$/) do
-  page.click_link("Log Out")
+  page.click_link('Log Out')
 end
 
 Then(/^the user should see an log out success message$/) do
-  page.assert_text "You need to sign in or sign up before continuing."
+  page.assert_text 'You need to sign in or sign up before continuing.'
 end
 
 Then(/^the user clicks an account link$/) do

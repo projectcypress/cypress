@@ -4,7 +4,9 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = 'registration@projectcypress.org'
-  config.secret_key = '2710f15f11771d6692a3015d7e3dba2cb05539c1f72i6u345df5433hg535kj5x56v6er56if2566c63c2ad670d6859e536b40d87e6543b115609f0464bdd99502abbe241c4'
+  # Rubocop made me split this secret across multiple lines
+  config.secret_key = '2710f15f11771d6692a3015d7e3dba2cb05539c1f72i6u345df5433hg535kj5x56v6er56if\
+  2566c63c2ad670d6859e536b40d87e6543b115609f0464bdd99502abbe241c4'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -56,9 +58,6 @@ Devise.setup do |config|
   # For bcrypt, this is the cost for hashing the password and defaults to 10. If
   # using other encryptors, it sets how many times you want the password re-encrypted.
   config.stretches = 10
-
-  # Setup a pepper to generate the encrypted password.
-  # config.pepper = "9f44e5d2161bfecc3deb8edcb9309d4b32ad9e800decac9619024d5006e27842643eff550565420642ffbc1d43338bb66d28455d96abf939dd122d50f8fc13b6"
 
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time
