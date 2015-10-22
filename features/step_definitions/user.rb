@@ -4,8 +4,8 @@ end
 
 When(/^the user tries to log in with invalid information$/) do
   visit '/users/sign_in'
-  page.fill_in "Email", :with => "unauth@mitre.org"
-  page.fill_in "Password", :with => "incorrectPassword"
+  page.fill_in "Email", ::with => "unauth@mitre.org"
+  page.fill_in "Password", ::with => "incorrectPassword"
   page.click_button "Log in"
 end
 
@@ -15,8 +15,8 @@ end
 
 When(/^the user logs in$/) do
   visit '/users/sign_in'
-  page.fill_in "Email", :with => @user.email
-  page.fill_in "Password", :with => @user.password
+  page.fill_in "Email", ::with => @user.email
+  page.fill_in "Password", ::with => @user.password
   page.click_button "Log in"
 end
 
@@ -40,14 +40,11 @@ Then(/^the user should see an log out success message$/) do
   page.assert_text "You need to sign in or sign up before continuing."
 end
 
-
-Then(/^the user should click an account link$/) do
+Then(/^the user clicks an account link$/) do
   visit '/'
-  page.click_link("Account")
-
-
+  page.click_link('Account')
 end
 
 Then(/^the user should see an edit account page$/) do
-  page.assert_text "Edit User"
+  page.assert_text 'Edit User'
 end

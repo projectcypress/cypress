@@ -19,6 +19,6 @@ Scenario: Successful logout
 
 Scenario: Edit password
   Given a user has an account
-  When the user logs in
-  Then the user should click an account link
-  And the user should see an edit account page
+  And the user logs in
+  When the user clicks an account link
+  Then the user should see an edit account page
