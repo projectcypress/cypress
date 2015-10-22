@@ -1,35 +1,50 @@
 Given(/^a user has an account$/) do
-  pending # express the regexp above with the code you wish you had
+  @user = FactoryGirl.create :user
 end
 
 When(/^the user tries to log in with invalid information$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/users/sign_in'
+  page.fill_in 'Email', with:  'unauth@mitre.org'
+  page.fill_in 'Password', with:  'incorrectPassword'
+  page.click_button 'Log in'
 end
 
 Then(/^the user should see an log in error message$/) do
-  pending # express the regexp above with the code you wish you had
+  page.assert_text 'Invalid email or password.'
 end
 
 When(/^the user logs in$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/users/sign_in'
+  page.fill_in 'Email', with:  @user.email
+  page.fill_in 'Password', with:  @user.password
+  page.click_button 'Log in'
 end
 
 Then(/^the user should see an log in success message$/) do
-  pending # express the regexp above with the code you wish you had
+  page.assert_text 'Signed in successfully'
 end
 
 Then(/^the user should see a sign out link$/) do
-  pending # express the regexp above with the code you wish you had
+  page.assert_text 'Log Out'
 end
 
 Given(/^a signed in user$/) do
-  pending # express the regexp above with the code you wish you had
+  login_as @user, :scope => :user
 end
 
 Then(/^the user logs out$/) do
-  pending # express the regexp above with the code you wish you had
+  page.click_link('Log Out')
 end
 
 Then(/^the user should see an log out success message$/) do
-  pending # express the regexp above with the code you wish you had
+  page.assert_text 'You need to sign in or sign up before continuing.'
+end
+
+Then(/^the user clicks an account link$/) do
+  visit '/'
+  page.click_link('Account')
+end
+
+Then(/^the user should see an edit account page$/) do
+  page.assert_text 'Edit User'
 end

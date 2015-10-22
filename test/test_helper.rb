@@ -1,7 +1,7 @@
 require 'simplecov'
 
 SimpleCov.start 'rails'
-SimpleCov.minimum_coverage 95
+SimpleCov.minimum_coverage 90
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -12,7 +12,10 @@ require 'minitest/autorun'
 
 require 'minitest/reporters'
 Minitest::Reporters.use!
-Mongo::Logger.logger.level = Logger::WARN
+
+include Warden::Test::Helpers
+Warden.test_mode!
+
 Mongoid.logger.level = Logger::INFO
 
 class ActiveSupport::TestCase
