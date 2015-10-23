@@ -1,22 +1,37 @@
-
-
 <% if notice || alert %>
-    <div class="alert <%= notice ? "alert-info" : "" %><%= alert ? "alert-danger" : "" %> alert-dismissible" role="alert" aria-live="polite">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <div >
-            <% if notice %>
-                <%= notice %>
-            <% elsif alert %>
-                <%= alert %>
-            <% end %>
-        </div>
+    <div class="clearfix alert <%= flash[:notice_type] ? "alert-#{flash[:notice_type]}" : "alert-info" %> <%= alert ? "alert-danger" : "" %> alert-dismissible" role="alert" aria-live="polite">
+        <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"></button>
+
+        <% if notice %>
+          <% if flash[:notice_type] == 'warning' %>
+            <div class="iconSpan pull-left">
+              <i class="fa fa-fw fa-2x fa-exclamation-triangle"></i>
+            </div>
+          <% elsif flash[:notice_type] == 'success' %>
+            <div class="iconSpan pull-left">
+              <i class="fa fa-fw fa-2x fa-check-circle"></i>
+            </div>
+          <% else %>
+            <div class="iconSpan pull-left">
+              <i class="fa fa-fw fa-2x fa-info-circle"></i>
+            </div>
+          <% end %>
+          <div class="alertContent">
+            <p><%= notice %></p>
+          </div>
+        <% elsif alert %>
+          <div class="iconSpan pull-left">
+              <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
+          </div>
+          <div class="alertContent">
+            <p><%= alert %></p>
+          </div>
+        <% end %>
     </div>
 <% end %>
 
-
 <% # a local variable 'object' should be passed in for the alerts partial to detect errors %>
-<% if defined?(object) %>
+<% if defined?(object) && !object.nil? %>
   <% unless object.errors.empty? %>
     <div class="clearfix alert alert-danger alert-dismissable" role="alert" aria-live="polite">
       <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"></button>

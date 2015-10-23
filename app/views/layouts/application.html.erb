@@ -19,16 +19,16 @@
   <header role="banner">
 
     <%= render "navbar" %>
-    <%= render :partial => 'alerts' %>
-    <% if user_signed_in? %>
-      <div class="container">
+    <div class="container">
+      <% if user_signed_in? %>
         <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
-      </div>
-    <% end %>
+      <% end %>
+      <%= render :partial => 'alerts', locals: { object: @vendor } %>
+    </div>
+
   </header>
 
   <main role="main" aria-label="main section" id="main-content" class="container">
-
     <%= yield %>
   </main>
 
