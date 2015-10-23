@@ -2,8 +2,8 @@ require 'test_helper'
 class C1TaskTest < MiniTest::Test
   include ::Validators
   def setup
-    collection_fixtures('product_tests','products', 'bundles', 
-                        'measures','records','patient_cache',
+    collection_fixtures('product_tests', 'products', 'bundles',
+                        'measures', 'records', 'patient_cache',
                         'health_data_standards_svs_value_sets')
     @product_test = ProductTest.find('51703a883054cf84390000d3')
   end
@@ -14,14 +14,6 @@ class C1TaskTest < MiniTest::Test
 
   def test_create
     assert @product_test.tasks.create({}, C1Task)
-  end
-
-  def test_validators
-    task = @product_test.tasks.create({}, C1Task)
-    assert 3, task.validators.length
-    assert task.validators.find { |v| v.class == QrdaCat1Validator }
-    assert task.validators.find { |v| v.class == SmokingGunValidator }
-    assert task.validators.find { |v| v.class == MeasurePeriodValidator }
   end
 
   def test_should_be_able_to_test_a_good_archive_of_qrda_files

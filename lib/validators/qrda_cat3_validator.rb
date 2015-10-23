@@ -11,13 +11,15 @@ module Validators
     def validate(file, options = {})
       @doc = file
       @options = options
-      validation_errors = Cat3.instance.validate(@doc, file_name: @options[:file_name])
-      validation_errors.concat Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])
-      validation_errors.concat Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name])
-      validation_errors.concat CDA.instance.validate(@doc, file_name: @options[:file_name])
+      add_errors Cat3.instance.validate(@doc, file_name: @options[:file_name])
+      add_errors Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])
+      add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name])
+      add_errors CDA.instance.validate(@doc, file_name: @options[:file_name])
+    end
 
+    def add_errors(errors)
       # The HDS validators hand back ValidationError objects, but we need ExecutionError objects
-      validation_errors.map do |error|
+      errors.map do |error|
         add_error(error.message, :location => error.location, :validator => error.validator, :validator_type => :xml_validation)
       end
     end

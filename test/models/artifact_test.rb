@@ -33,17 +33,17 @@ class ArtifactTest < MiniTest::Test
     assert_equal expected, artifact.file_names
   end
 
-  def test_should_be_able_to_give_file_count
+  def test_should_be_able_to_give_file_count_for_archive
     filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
     artifact = Artifact.new(file: File.new(filename))
     assert_equal 5, artifact.file_count
+  end
 
+  def test_should_be_able_to_give_file_count_single_file
     root = "#{Rails.root}/tmp/test/artifacts"
     FileUtils.mkdir_p(root)
     filename = "#{root}/good_file_extension.xml"
     FileUtils.touch(filename)
-
-    expected = ['good_file_extension.xml']
     artifact = Artifact.new(file: File.new(filename))
     assert_equal 1, artifact.file_count
   end
@@ -57,7 +57,9 @@ class ArtifactTest < MiniTest::Test
       reported[name] = data
     end
     assert_equal expected.sort, reported.keys.sort, 'Archive should contain the correct files'
+  end
 
+  def test_should_be_able_to_loop_on_single_file
     root = "#{Rails.root}/tmp/test/artifacts"
     FileUtils.mkdir_p(root)
     filename = "#{root}/good_file_extension.xml"
@@ -80,27 +82,29 @@ class ArtifactTest < MiniTest::Test
     assert data.index(%!{ "_id" : ObjectId( "507885343054cf8d83000002" )!) == 0, 'should be able to read file from archive'
   end
 
-  def test_should_only_accept_xml_or_zip_files
+  def test_should_accept_xml_or_zip_files
     root = "#{Rails.root}/tmp/test/artifacts"
     FileUtils.mkdir_p(root)
-
     %w(zip xml).each do |ext|
       filename = "#{root}/good_file_extension.#{ext}"
       FileUtils.touch(filename)
       artifact = Artifact.new(file: File.new(filename))
       assert artifact.save, "File should save with #{ext} extension"
     end
+  end
+
+  def test_should_not_except_non_xml_or_zip_files
+    root = "#{Rails.root}/tmp/test/artifacts"
+    FileUtils.mkdir_p(root)
 
     # generate a random set of bad file extensions and try to save
-
     10.times do
       ext = rand(36**3).to_s(36)
-      unless %w(zip xml).index(ext)
-        filename = "#{root}/bad_file_extension.#{ext}"
-        FileUtils.touch(filename)
-        artifact = Artifact.new(file: File.new(filename))
-        assert !artifact.save, "File should not save with un whitelisted extension #{ext}"
-      end
+      next unless %w(zip xml).index(ext)
+      filename = "#{root}/bad_file_extension.#{ext}"
+      FileUtils.touch(filename)
+      artifact = Artifact.new(file: File.new(filename))
+      assert !artifact.save, "File should not save with un whitelisted extension #{ext}"
     end
 
     FileUtils.rm_rf(root)

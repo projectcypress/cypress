@@ -11,24 +11,30 @@ class TestExecution
   has_one :artifact, :autosave => true, :dependent => :destroy
   belongs_to :task
 
+  def build_document(file)
+    doc = Nokogiri::XML(file)
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+    doc
+  end
+
   # I dont think this belongs here and it will need to eventually be moved to a
   # more approperiate location
-  def validate_artifact(validators, artifact, options={})
+  # rubocop:disable Metrics/AbcSize
+  def validate_artifact(validators, artifact, options = {})
     file_count = 0
 
     artifact.each_file do |name, file|
-      doc = Nokogiri::XML(file)
-      doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-      doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-      _options = options.merge(file_name: name)
+      doc = build_document(file)
+      merged_options = options.merge(file_name: name)
       validators.each do |validator|
-        validator.validate(doc, _options)
+        validator.validate(doc, merged_options)
       end
       file_count += 1
     end
-      validators.each do |validator|
-        execution_errors.concat validator.errors
-      end
+    validators.each do |validator|
+      execution_errors.concat validator.errors
+    end
     # only run for Cat1 tests
     if task._type == 'C1Task' && file_count != task.records.count
       execution_errors.build(:message => "#{task.records.count} files expected but was #{file_count}",
@@ -36,6 +42,7 @@ class TestExecution
     end
     (count_errors > 0) ? fail : pass
   end
+  # rubocop:enable Metrics/AbcSize
 
   def count_errors
     execution_errors.where(:msg_type => :error).count

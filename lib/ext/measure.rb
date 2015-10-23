@@ -16,9 +16,10 @@ class Measure
   def smoking_gun_data(patient_cache_filter = {})
     ::Measure.calculate_smoking_gun_data(bundle_id, hqmf_id, patient_cache_filter)
   end
+
   # Calculate the smoking gun data for the given hqmf_id with the given patient_cache_filter
   # The  filter will allow us to segment the cache by things like test_id required for Cypress.
-
+  # rubocop:disable Metrics/AbcSize
   def self.calculate_smoking_gun_data(bundle_id, hqmf_id, patient_cache_filter = {})
     values = {}
     measure = Measure.top_level.where(hqmf_id: hqmf_id, bundle_id: bundle_id).first
@@ -39,61 +40,60 @@ class Measure
     end
     values
   end
+  # rubocop:enable Metrics/AbcSize
 
   def self.return_population_codes(mes)
     population_codes = []
     sub_ids = []
     population_keys = ('a'..'zz').to_a
-    if mes.populations.length == 1
-      sub_ids = nil
+
+    # Do not bother with populaions that contain stratifications
+    mes.populations.each_with_index do |population, index|
+      next unless population['stratification'].nil?
+      sub_ids << population_keys[index]
       HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code|
-        population = mes.populations[0]
         population_codes << population[code] if population[code]
       end
-    else
-      # Do not bother with populaions that contain stratifications
-      mes.populations.each_with_index do |population, index|
-        next unless population['stratification'].nil?
-        sub_ids << population_keys[index]
-        HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code|
-          population_codes << population[code] if population[code]
-        end
-      end
     end
-
+    sub_ids = nil if sub_ids.length <= 1
     [population_codes.uniq, sub_ids]
   end
 
+  # rubocop:disable Metrics/AbcSize
+  def self.handle_non_derived_critiera(hqmf, data_criteria, rationale)
+    result = []
+    template = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition,
+                                                             data_criteria.status,
+                                                             data_criteria.negation)
+    value_set_oid = data_criteria.code_list_id
+    begin
+      qrda_template = QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_oid(template, value_set_oid)
+    rescue
+      value_set_oid = 'In QRDA Header (Non Null Value)'
+      qrda_template = 'N/A'
+    end # end begin recue
+    description = "#{HQMF::DataCriteria.title_for_template_id(template).titleize}: #{data_criteria.title}"
+    result << { description: description, oid: value_set_oid, template: qrda_template, rationale: rationale[data_criteria.id] }
+    if data_criteria.temporal_references
+      data_criteria.temporal_references.each do |temporal_reference|
+        next if temporal_reference.reference.id == 'MeasurePeriod'
+        result.concat loop_data_criteria(hqmf, hqmf.data_criteria(temporal_reference.reference.id), rationale)
+      end # end  data_criteria.temporal_references.each do |temporal_reference|
+    end # end if data_criteria.temporal_references
+    result
+  end
+
+  # rubocop:enable Metrics/AbcSize
   def self.loop_data_criteria(hqmf, data_criteria, rationale)
     result = []
     return result unless rationale[data_criteria.id]
-
     if data_criteria.type != :derived
-      template = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition,
-                                                               data_criteria.status,
-                                                               data_criteria.negation)
-      value_set_oid = data_criteria.code_list_id
-      begin
-        qrda_template = QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_oid(template, value_set_oid)
-      rescue
-        value_set_oid = 'In QRDA Header (Non Null Value)'
-        qrda_template = 'N/A'
-      end # end begin recue
-      description = "#{HQMF::DataCriteria.title_for_template_id(template).titleize}: #{data_criteria.title}"
-      result << { description: description, oid: value_set_oid,
-                  template: qrda_template, rationale: rationale[data_criteria.id] }
-      if data_criteria.temporal_references
-        data_criteria.temporal_references.each do |temporal_reference|
-          next if temporal_reference.reference.id == 'MeasurePeriod'
-          result.concat loop_data_criteria(hqmf, hqmf.data_criteria(temporal_reference.reference.id), rationale)
-        end # end  data_criteria.temporal_references.each do |temporal_reference|
-      end # end if data_criteria.temporal_references
+      result = handle_non_derived_critiera(hqmf, data_criteria, rationale)
     else # data_criteria.type != :derived
       (data_criteria.children_criteria || []).each do |child_id|
         result.concat loop_data_criteria(hqmf, hqmf.data_criteria(child_id), rationale)
       end
     end
-
     result
   end
 
