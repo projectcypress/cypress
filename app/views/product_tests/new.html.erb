@@ -1,2 +1,31 @@
+<%
+
+# v v v Please dont use this function (this is an aweful solution) v v v #
+def long_to_small_type (long_type)
+  return 'eh' if long_type == 'hospital'
+  return 'ep' if long_type == 'provider'
+end
+# ^ ^ ^ Please dont use this function (this is an aweful solution) ^ ^ ^ #
+
+%>
+
+<%= render :partial => 'alerts', locals: { object: @product_test } %>
+
 <h4>Add Product Test Page</h4>
 
+<% measures = Measure.all.top_level_by_type(long_to_small_type(@product.ehr_type)) %>
+
+<%= form_for [@vendor, @product, @product_test] do |f| %>
+
+  <p><%= "There are #{measures.count} measures:" %></p>
+
+  <% measures.each do |measure| %>
+    <div class = 'col-sm-12'>
+      <%= f.radio_button :measure_id, measure.hqmf_id, id: measure.hqmf_id %>
+      <%= f.label :measure_id, measure.name, for: measure.hqmf_id %>
+    </div>
+  <% end %>
+
+  <%= button_tag 'Create Product Test', :class => 'btn btn-primary' %>
+
+<% end %>

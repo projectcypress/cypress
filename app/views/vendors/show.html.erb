@@ -1,6 +1,5 @@
 <div class = "col-sm-12">
 
-
   <%= render partial: 'remove_modal' %>
 
   <%= button_to "Edit Vendor", edit_vendor_path(@vendor), :method => :get, :class => "btn btn-default pull-right" %>
@@ -25,7 +24,6 @@
     <% end %>
   <% end %>
 
-
   <%= button_to "+ Add Product", new_vendor_product_path(@vendor), :method => :get, :class => "btn btn-primary pull-right" %>
 
   <% unless @vendor.products.empty? %>
@@ -45,22 +43,17 @@
         <% @products.each do |product| %>
           <tr>
             <td>
-              <%= product.state %>
+              <%= product.status %>
             </td>
             <td><%= link_to product.name, "/vendors/#{@vendor.id}/products/#{product.id}" %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><%= product.product_tests ? product.product_tests_passing.count : 0 %></td>
+            <td><%= product.product_tests ? product.product_tests_failing.count : 0 %></td>
+            <td><%= product.product_tests ? product.product_tests_incomplete.count : 0 %></td>
+            <td><%= product.product_tests ? product.product_tests.count : 0 %></td>
             <td>
               <% #byebug %>
               <%= button_to "Edit", [:edit, @vendor, product], :method => :get, :class => "btn btn-xs btn-default" %>
             </td>
-            <!-- <td> -->
-              <% #link_to edit_vendor_product_path(@vendor, product) do %>
-                <!-- <i class = 'fa fa-2x fa-wrench'></i> -->
-              <% #end %>
-            <!-- </td> -->
             <td>
               <%= render partial: 'remove_button', locals: {
                     button_text: 'Remove',

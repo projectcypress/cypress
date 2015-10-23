@@ -73,7 +73,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params[:product].permit(:name, :version, :description, :ehr_type, :c1_test, :c2_test, :c3_test, :c4_test)
+    params[:product].permit(:name, :version, :description, :ehr_type)
   end
 
   def edit_product_params

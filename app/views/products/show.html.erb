@@ -6,17 +6,33 @@
 
   <div class = 'row'><h3>Product Information</h3></div>
 
-  <div class = 'col-sm-4'>
-    <p>Vendor: <%= @product.vendor.name %></p>
-    <p><%= "Version: #{@product.version}" unless @product.version.blank? %></p>
-    <p><%= "Description: #{@product.description}" unless @product.description.blank? %></p>
-    <p><%= "Eligible #{@product.ehr_type}".titleize %></p>
+  <div class = 'row'>
+    
+    <div class = 'col-sm-4'>
+      <p>Vendor: <%= @product.vendor.name %></p>
+      <p><%= "Version: #{@product.version}" unless @product.version.blank? %></p>
+      <p><%= "Description: #{@product.description}" unless @product.description.blank? %></p>
+      <p><%= "Eligible #{@product.ehr_type}".titleize %></p>
+    </div>
+
+    <div class = 'col-sm-8'>
+      <%= render partial: 'pocs', locals: { vendor: @product.vendor } %>
+    </div>
+
   </div>
 
-  <div class = 'col-sm-8'>
-    <%= render partial: 'pocs', locals: { vendor: @product.vendor } %>
-  </div>
+  <p><%= link_to "+ Add Product Test", new_vendor_product_product_test_path(@product.vendor, @product) %></p>
 
-  <%= link_to "+ Add Product Test", new_vendor_product_product_test_path(@product.vendor, @product) %>
+  <% unless @product.product_tests.empty? %>
+    <p><%= "Product has #{@product.product_tests.count} tests:" %></p>
+    <ul>
+      <% @product.product_tests.each do |test| %>
+        <li>
+          <%= test.name %>
+          <%= "(#{test.status})" if test.status %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 
 </div>

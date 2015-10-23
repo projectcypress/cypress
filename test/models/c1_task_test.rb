@@ -48,3 +48,14 @@ class C1TaskTest < MiniTest::Test
     assert_equal 1, te.execution_errors.length, 'should be 1 error from cat I archive'
   end
 end
+
+class C1TaskCachingTest < CachingTest
+  def test_task_status_is_not_cached_on_start
+    assert !Rails.cache.exist?("#{@c1_task.cache_key}/status"), 'cache key for task status should not exist'
+  end
+
+  def test_task_status_is_cached_after_checking_status
+    @c1_task.status
+    assert Rails.cache.exist?("#{@c1_task.cache_key}/status"), 'cache key for task status should exist'
+  end
+end

@@ -15,9 +15,9 @@ class ProductTest
   # Test Details
   field :name, type: String
   field :description, type: String
+  field :state, type: Symbol
 
   field :status_message, type: String
-  field :state, :type => Symbol, :default => :pending
   field :effective_date, type: Integer
   validates :name, presence: true
   validates :product, presence: true
@@ -43,6 +43,10 @@ class ProductTest
     Measure.where(bundle_id: bundle_id, hqmf_id: measure_id)
   end
 
+  def execute(_params)
+    fail NotImplementedError
+  end
+
   def records
     Record.where(test_id: id)
   end
@@ -54,5 +58,36 @@ class ProductTest
   def ready
     self.state = :ready
     save
+  end
+
+  def status
+    Rails.cache.fetch("#{cache_key}/status") do
+      total = tasks.count
+      if tasks_failing.count > 0
+        'failing'
+      elsif tasks_passing.count == total && total > 0
+        'passing'
+      else
+        'incomplete'
+      end
+    end
+  end
+
+  def tasks_passing
+    Rails.cache.fetch("#{cache_key}/tasks_passing") do
+      tasks.select { |task| task.status == 'passing' }
+    end
+  end
+
+  def tasks_failing
+    Rails.cache.fetch("#{cache_key}/tasks_failing") do
+      tasks.select { |task| task.status == 'failing' }
+    end
+  end
+
+  def tasks_incomplete
+    Rails.cache.fetch("#{cache_key}/tasks_incomplete") do
+      tasks.select { |task| task.status == 'incomplete' }
+    end
   end
 end
