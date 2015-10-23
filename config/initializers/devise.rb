@@ -4,9 +4,11 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = 'registration@projectcypress.org'
-  # Rubocop made me split this secret across multiple lines
-  config.secret_key = '2710f15f11771d6692a3015d7e3dba2cb05539c1f72i6u345df5433hg535kj5x56v6er56if\
-  2566c63c2ad670d6859e536b40d87e6543b115609f0464bdd99502abbe241c4'
+  config.secret_key = if Rails.env.development? || Rails.env.test?
+                        ('x' * 30) # meets minimum requirement of 30 chars long
+                      else
+                        ENV['DEVISE_SECRET_KEY']
+                      end
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
