@@ -5,9 +5,19 @@ AllCops:
     - 'bin/**/*'
     - 'lib/tasks/cucumber.rake'
 Metrics/LineLength:
-  Max: 120
+  Max: 150
+Metrics/MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 20
+Metrics/AbcSize:
+  # The ABC size is a calculated magnitude, so this number can be a Fixnum or
+  # a Float.
+  Max: 20
+# Avoid complex methods.
+Metrics/CyclomaticComplexity:
+  Max: 10
 Style/GuardClause:
-  MinBodyLength: 2
+  MinBodyLength: 100
 Style/HashSyntax:
 # Force hashes that have a symbol value to use hash rockets
   UseHashRocketsWithSymbolValues: true

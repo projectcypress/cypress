@@ -1,0 +1,2646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="qrda.xsl"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="urn:hl7-org:v3 ../../CDASchema/CDA.xsd"
+ xmlns="urn:hl7-org:v3"
+ xmlns:voc="urn:hl7-org:v3/voc"
+ xmlns:xmlns="urn:hl7-org:v3">
+
+  <!-- 
+    ********************************************************
+    CDA Header
+    ********************************************************
+  -->
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <!-- QRDA Category III Release 1 template ID (this template ID differs from QRDA III comment only template ID). -->
+  <templateId root="2.16.840.1.113883.10.20.27.1.1"/>
+  <id root="88414c01-715a-45bb-83bb-db7ac860fe9d"/>
+  <!-- SHALL QRDA III document type code -->
+  <code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
+    displayName="Quality Reporting Document Architecture Calculated Summary Report"/>
+  <!-- SHALL Title, SHOULD have this content -->
+  <title>QRDA Calculated Summary Report</title>
+  <!-- SHALL  -->
+  <effectiveTime value="20120513"/>
+  <confidentialityCode codeSystem="2.16.840.1.113883.5.25" code="N"/>
+  <languageCode code="en-US"/>
+  <!-- SHOULD The version of the file being submitted. -->
+  <versionNumber value="1"/>
+  <!-- SHALL contain recordTarget and ID - but ID is nulled to NA. This is an aggregate summary report. Therefore CDA's required patient identifier is nulled. -->
+  <recordTarget>
+    <patientRole>
+      <id nullFlavor="NA"/>
+    </patientRole>
+  </recordTarget>
+  <!-- SHALL have 1..* author. MAY be device or person. 
+    The author of the CDA document in this example is a device at a data submission vendor/registry. -->
+  <author>
+    <time value="2012-10-15 16:50:25 -0400"/>
+    <assignedAuthor>
+      <!-- Registry author ID -->
+      <id extension="Cypress" root="MITRE"/>
+      <assignedAuthoringDevice>
+        <softwareName></softwareName>
+      </assignedAuthoringDevice>
+      <representedOrganization>
+        <!-- Represents unique registry organization TIN -->
+        <id root="root" extension="ext"/>
+        <!-- Contains name - specific registry not required-->
+        <name></name>
+      </representedOrganization>
+    </assignedAuthor>
+  </author>
+  <!-- The custodian of the CDA document is the same as the legal authenticator in this 
+  example and represents the reporting organization. -->
+  <!-- SHALL -->
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+        <!-- SHALL have an id - This is an example root -->
+        <id root="root"/>
+        <!-- SHOULD Name not required -->
+        <name>Cypress</name>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  <!-- The legal authenticator of the CDA document is a single person who is at the 
+    same organization as the custodian in this example. This element must be present. -->
+  <!-- SHALL -->
+  <legalAuthenticator>
+    <!-- SHALL -->
+    <time value="2012-10-15 16:50:25 -0400"/>
+    <!-- SHALL -->
+    <signatureCode code="S"/>
+    <assignedEntity>
+      <!-- SHALL ID -->
+      <id root="root"/>
+      <!-- SHALL -->
+      <representedOrganization>
+        <!-- SHALL Id -->
+        <!-- example root -->
+        <id root="root"/>
+      </representedOrganization>
+    </assignedEntity>
+  </legalAuthenticator>
+  
+
+  <!-- 
+********************************************************
+CDA Body
+********************************************************
+-->
+  <component>
+    <structuredBody>
+      <!-- 
+********************************************************
+QRDA Category III Reporting Parameters 
+********************************************************
+-->
+
+      <component>
+        <section>
+          <!-- Reporting Parameters templateId -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.1"/>
+          <!-- QRDA Category III Reporting Parameters templateId -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.2"/>
+          <code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Reporting Parameters</title>
+          <text>
+            <list>
+              <item>Reporting period: 01 January 2012 - 31 March 2012</item>
+              <item>First encounter: 05 January 2012</item>
+              <item>Last encounter: 24 March 2012</item>
+            </list>
+          </text>
+          <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+              <id root="55a43e20-6463-46eb-81c3-9a3a1ad41225"/>
+              <code code="252116004" codeSystem="2.16.840.1.113883.6.96"
+                displayName="Observation Parameters"/>
+              <!-- This reporting period shows that Good Health Clinic is sending data for the first quarter of the year.
+              The referenced measure definition may be valid for the entire year or more-->
+              <effectiveTime>
+                <low value="20130101"/>
+                <!-- The first day of the period reported. -->
+                <high value="20131231"/>
+                <!-- The last day of the period reported. -->
+              </effectiveTime>
+            </act>
+          </entry>
+          <entry>
+            <encounter classCode="ENC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.27.3.11"/>
+              <!-- The month, day and year of the first service
+                encounter of the reporting period (From date) -->
+              <effectiveTime>
+                <low value="20120105"/>
+              </effectiveTime>
+            </encounter>
+          </entry>
+          <entry>
+            <encounter classCode="ENC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.27.3.12"/>
+              <!-- The month, day and year of the last service
+                encounter of the reporting period (To date) -->
+              <effectiveTime>
+                <low nullFlavor="NI"/>
+                <high value="20120324"/>
+              </effectiveTime>
+            </encounter>
+          </entry>
+        </section>
+      </component>
+      <!-- 
+********************************************************
+Measure Section
+********************************************************
+-->
+      <component>
+        <section>
+          <!-- Implied template Measure Section templateId -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+          <!-- In this case the query is using an eMeasure -->
+          <!-- QRDA Category III Measure Section template -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.1"/>
+          <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>QRDA Category III Measure Section</title>
+          <text>
+             
+          </text>
+          <!-- 
+            Proportion measure example 
+          -->
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-35FB-4AA7-0136-403AD4504573"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Colorectal Cancer Screening</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="73149355-016D-4A0E-B7F6-BA2AEA23564D"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="3043DE09-63D4-4B79-9583-CC331EF04211"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="4E245EF3-049D-4FBB-BF54-16FFE8DE5DAF"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value=""/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="24AD578A-9880-40BF-A400-1E6B96320E29"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-397A-48D2-0139-7CCB48F6025D"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Diabetes: Foot Exam</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="460E779C-B65F-4887-A838-28E685FE6F08"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="D7EC27F1-FCD4-4F2B-BA12-08D7426529AE"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="FCF4D80D-DB4D-4C18-8004-49108CD6D5E2"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value=""/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="A5D89956-3F78-43AB-885A-A4E24C4BB649"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-397A-48D2-0139-7E243C8B15B6"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Diabetes: Urine Protein Screening</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="6924DF3D-8BF1-45ED-9C6D-E546E7870A7F"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="F9987B08-7CE4-43A8-8816-2060A17E96C2"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="5C678036-5750-42E4-BF86-8537C2116EA4"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value=""/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="BF3207A7-70D6-40F0-86A2-460330E901D4"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-397A-48D2-0139-9CEA5D84733A"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Colon Cancer: Chemotherapy for AJCC Stage III Colon Cancer Patients</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="D9F29955-D0FE-44E4-98AA-52477609D52B"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="1A7061D4-4239-430F-89BD-2467A6374465"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="32692A19-E709-4317-BDA8-29EFF1169BB6"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-397A-48D2-0139-B0A4BCA22CF1"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Prostate Cancer: Avoidance of Overuse of Bone Scan for Staging Low Risk Prostate Cancer Patients</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="A0B6B259-B9C8-4B8F-B7B3-78826D6315F4"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="22A98665-68E8-4B9C-AF09-EADC34A8B955"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="9A917FE3-73E5-498B-84AA-DA8E2E5EDB5B"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-397A-48D2-0139-B0A6A11F2DA5"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Breast Cancer: Hormonal Therapy for Stage IC-IIIC Estrogen Receptor/Progesterone Receptor (ER/PR) Positive Breast Cancer</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="B9EB0606-E96C-45A6-8D51-746134D3A62C"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="BFA0428C-35B6-45CB-B1A7-97CF0AF0A43F"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="206FD9AF-A93D-4FA0-857E-4A66F34A41D8"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-397A-48D2-0139-B0CADCB63221"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Breast Cancer Screening</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E470CF65-EC44-474D-8E25-17A9B925CA57"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="4D73EEA5-E220-4796-A66F-1C310AA6A9FE"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="F958259F-051C-4331-9557-3FC09D7BA0BD"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value=""/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="EF43B4AC-2ACC-446B-A998-068E86ED20B4"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-397A-48D2-0139-B0CBA8DB32C3"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Cervical Cancer Screening</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="77BB1EE3-3529-4CBA-B291-0F52F9140B12"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="8B609762-2748-414D-B30B-DB7A86397E9E"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="2D57C4C9-51FB-4017-BA9C-68E67585B214"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value=""/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="C5C39C61-61DA-4277-9645-935C3982CCF3"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-397A-48D2-0139-C0A66E4417FF"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>ADE Prevention and Monitoring: Warfarin Time in Therapeutic Range</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="D680BEFE-A7D3-452F-A105-BF8B9A8005BE"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="0"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="4CE10F3F-7F74-4246-A120-546DFB7FFAF8"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-397A-48D2-0139-C648B33D5582"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Use of Appropriate Medications for Asthma</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="0"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="86BF093E-BDD5-4F06-B74F-62FC0C465729"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="1"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="977A5E4E-8CE3-46DB-AC46-B2124C9039BA"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="0"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="37AFEF31-E940-4F7D-A7FA-B7272C327A43"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="0"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="EDC5CFFB-AE2E-486C-B50D-509E26CD134E"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E9787B75-1B66-44DC-9EB9-FDC1A1AC389B"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="0"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="86BF093E-BDD5-4F06-B74F-62FC0C465729"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="1"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="977A5E4E-8CE3-46DB-AC46-B2124C9039BA"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="0"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="37AFEF31-E940-4F7D-A7FA-B7272C327A43"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="0"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="EDC5CFFB-AE2E-486C-B50D-509E26CD134E"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="4BB047E8-2F09-459A-875A-9EBDE5608E6D"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="0"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="86BF093E-BDD5-4F06-B74F-62FC0C465729"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="1"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="977A5E4E-8CE3-46DB-AC46-B2124C9039BA"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="0"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="37AFEF31-E940-4F7D-A7FA-B7272C327A43"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value="0"/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="EDC5CFFB-AE2E-486C-B50D-509E26CD134E"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="919721F8-FEE2-4826-ACE6-48428011CB7A"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value=""/>
+                    </observation>
+                  </entryRelationship>
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value=""/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="86BF093E-BDD5-4F06-B74F-62FC0C465729"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value=""/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="977A5E4E-8CE3-46DB-AC46-B2124C9039BA"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value=""/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="37AFEF31-E940-4F7D-A7FA-B7272C327A43"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="COUNT" displayName="Count"
+                            codeSystem="2.16.840.1.113883.5.84"
+                            codeSystemName="ObservationMethod"/>
+                          <value xsi:type="INT" value=""/>
+                        </observation>
+                      </entryRelationship>
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="EDC5CFFB-AE2E-486C-B50D-509E26CD134E"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="F42C4422-35A9-4488-BD1B-63619BF46AF0"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="8A4D92B2-39CA-AF4B-0139-D472724E0C46"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Diabetes: Eye Exam</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root=""/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
+
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
+              
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="FBC0C250-6205-4F38-B087-4EA7CA9B0D6E"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="CE96C3EE-9474-45FA-8C17-63F1036D7359"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value="1"/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="C5C5CCD9-44CB-4513-9B5E-A6073EF59CA6"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                      <value xsi:type="INT" value=""/>
+                    </observation>
+                  </entryRelationship>
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="09FFF871-5360-4E61-B63E-A686D2840F0E"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              
+            </organizer>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>
