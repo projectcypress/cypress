@@ -1,4 +1,5 @@
 .navbar-toggle {
+  color: $navbar-inverse-link-color;
   margin: 0;
 }
 
@@ -9,21 +10,24 @@
 }
 
 .navbar-header a {
+  color: $navbar-inverse-link-color;
   font-size: 2em;
-  font-weight: 300;
-  height: inherit;
-  padding-left: .5em;
-
-  img {
-    display: inline-block;
-    height: 1.25em;
-  }
+  margin-left: .5em;
+  text-shadow: 1px 1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5),
+              -1px -1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5);
 }
 
-.navbar-nav li .navbar-item {
-  height: 3.5em;
-  display: table-cell;
-  vertical-align: middle;
+.navbar-nav {
+  height: $navbar-height + $navbar-padding-vertical;
+
+  li .navbar-item {
+    height: $navbar-height + $navbar-padding-vertical;
+    display: table-cell;
+    padding: 0 1em;
+    text-shadow: 1px 1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5),
+                -1px -1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5);
+    vertical-align: middle;
+  }
 }
 
 .navbar-collapse.in,
@@ -39,4 +43,8 @@
       > a { width: 100%; }
     }
   }
+}
+
+.breadcrumb {
+  margin-bottom: $line-height-computed * 2;
 }
