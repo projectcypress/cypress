@@ -78,7 +78,7 @@ class VendorsController < ApplicationController
   # end
 
   # action_type (string) describes what just happended to the vendor. should be past tense
-  def set_flash_vendor_comment(vendor_name, notice_type, action_type)
+  def flash_vendor_comment(vendor_name, notice_type, action_type)
     flash[:notice] = "Vendor '#{vendor_name}' was #{action_type}."
     flash[:notice_type] = notice_type
   end
