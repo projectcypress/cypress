@@ -1,19 +1,24 @@
 @mixin darker-hover($border-color, $name) {
-
-  @keyframes pulsate-#{$name} {
-    50% { background-color: $border-color; }
-  }
-
   $darker-border-color: darken($border-color, 15%);
-
   border-color: darken($border-color, 5%);
-  text-shadow: 1px 1px 2px transparentize($darker-border-color, .5),
-              -1px -1px 2px transparentize($darker-border-color, .5);
+
+  // for the buttons with dark backgrounds, add a shadow to text
+  @if $name != 'danger' {
+    @if $name != 'default' {
+      text-shadow: 1px 1px 2px transparentize($darker-border-color, .5),
+                  -1px -1px 2px transparentize($darker-border-color, .5);
+    }
+  }
 
   &:hover,
   &:focus {
+    // create namespaced animation for the background-color
+    @keyframes pulsate-#{$name} {
+      50% { background-color: $border-color; }
+    }
+
     @include animation-name(pulsate-#{$name});
-    @include animation-duration(3s);
+    @include animation-duration(2s);
     @include animation-delay(100);
     @include animation-timing-function(linear);
     @include animation-iteration-count(infinite);

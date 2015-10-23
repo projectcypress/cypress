@@ -171,9 +171,9 @@ $btn-warning-color:              #fff !default;
 $btn-warning-bg:                 $brand-warning !default;
 $btn-warning-border:             darken($btn-warning-bg, 5%) !default;
 
-$btn-danger-color:               #fff !default;
-$btn-danger-bg:                  $brand-danger !default;
-$btn-danger-border:              darken($btn-danger-bg, 5%) !default;
+$btn-danger-color:               $brand-danger !default;
+$btn-danger-bg:                  #fff !default;
+$btn-danger-border:              darken($btn-danger-color, 5%) !default;
 
 $btn-link-disabled-color:        $gray-light !default;
 
