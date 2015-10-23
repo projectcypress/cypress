@@ -3,6 +3,8 @@
 }
 
 .alert {
+  margin: -.5em 1em 2em;
+
   &.alert-success { @include alert-border($state-success-text); }
   &.alert-info { @include alert-border($state-info-text); }
   &.alert-warning { @include alert-border($state-warning-text); }
