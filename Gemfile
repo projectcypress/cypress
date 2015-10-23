@@ -46,6 +46,7 @@ gem 'sdoc', '~> 0.4.0', :group => :doc
 
 # Devise is the gem we use for user authentication
 gem 'devise'
+gem 'devise-bootstrap-views'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
