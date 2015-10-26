@@ -6,7 +6,7 @@ class RecordTest < MiniTest::Test
   end
 
   def after_teardown
-    HealthDataStandards::CQM::Bundle.all.destroy
+    drop_database
   end
 
   def test_record_knows_bundle

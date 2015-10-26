@@ -32,5 +32,6 @@ module Cypress
 
     # prevent rails from wrapping inputs with errors in a div of class "field_with_errors"
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
+    config.active_job.queue_adapter = :delayed_job
   end
 end

@@ -20,7 +20,6 @@ class TestExecution
 
   # I dont think this belongs here and it will need to eventually be moved to a
   # more approperiate location
-  # rubocop:disable Metrics/AbcSize
   def validate_artifact(validators, artifact, options = {})
     file_count = 0
 
@@ -42,7 +41,6 @@ class TestExecution
     end
     (count_errors > 0) ? fail : pass
   end
-  # rubocop:enable Metrics/AbcSize
 
   def count_errors
     execution_errors.where(:msg_type => :error).count
