@@ -5,12 +5,12 @@
   "last" : "Mendez",
   "gender" : "M",
   "birthdate" : 360820800,
-  "race" : "White",
-  "ethnicity" : "Not Hispanic or Latino",
+  "race" : {"code":"2106-3", "name":"White", "codeSystem":"2.16.840.1.113883.6.238"},
+  "ethnicity" : {"code":"2186-5", "name":"Not Hispanic or Latino", "codeSystem":"2.16.840.1.113883.6.238"},
   "test_id" : null,
   "measures" : {
     "0001" : {
-      
+
     },
     "0002" : {
       "encounter_ambulatory_including_pediatrics_encounter" : [
@@ -39,10 +39,10 @@
       ]
     },
     "0012" : {
-      
+
     },
     "0014" : {
-      
+
     },
     "0018" : {
       "diastolic_blood_pressure_physical_exam_finding" : [
@@ -67,19 +67,19 @@
       ]
     },
     "0024" : {
-      
+
     },
     "0027" : {
-      
+
     },
     "0028" : {
-      
+
     },
     "0031" : {
-      
+
     },
     "0032" : {
-      
+
     },
     "0033" : {
       "pregnancy_test_laboratory_test_performed" : [
@@ -92,13 +92,13 @@
       ]
     },
     "0043" : {
-      
+
     },
     "0086" : {
-      
+
     },
     "0034" : {
-      
+
     },
     "0036" : {
       "encounter_ed_encounter" : [
@@ -107,13 +107,13 @@
       ]
     },
     "0038" : {
-      
+
     },
     "0041" : {
-      
+
     },
     "0047" : {
-      
+
     },
     "0052" : {
       "encounter_ambulatory_including_orthopedics_and_chiropractics_encounter" : [
@@ -178,13 +178,13 @@
       ]
     },
     "0067" : {
-      
+
     },
     "0068" : {
-      
+
     },
     "0070" : {
-      
+
     },
     "0073" : {
       "diastolic_blood_pressure_physical_exam_finding" : [
@@ -209,16 +209,16 @@
       ]
     },
     "0074" : {
-      
+
     },
     "0075" : {
-      
+
     },
     "0081" : {
-      
+
     },
     "0083" : {
-      
+
     },
     "0084" : {
       "liver_disorders_diagnosis_active" : [
@@ -226,10 +226,10 @@
       ]
     },
     "0088" : {
-      
+
     },
     "0089" : {
-      
+
     },
     "0105" : {
       "encounter_ed_encounter" : [
@@ -238,16 +238,16 @@
       ]
     },
     "0385" : {
-      
+
     },
     "0387" : {
-      
+
     },
     "0389" : {
-      
+
     },
     "0421" : {
-      
+
     },
     "0575" : {
       "encounter_acute_inpatient_or_ed_encounter" : [
@@ -270,7 +270,7 @@
         ]
       },
       "value" : {
-        
+
       },
       "_id" : {"$oid" : "4f7e05dd8e27b48183000e63"},
       "_type" : "Condition",
@@ -288,7 +288,7 @@
         ]
       },
       "value" : {
-        
+
       },
       "_id" : {"$oid" : "4f7e05dd8e27b48183000e5d"},
       "_type" : "Encounter",
@@ -303,7 +303,7 @@
         ]
       },
       "value" : {
-        
+
       },
       "_id" : {"$oid" : "4f7e05dd8e27b48183000e5e"},
       "_type" : "Encounter",

@@ -13,6 +13,9 @@ gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data
 gem 'quality-measure-engine',
     git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
 
+# Use faker to generate addresses
+gem 'faker', '~> 1.5.0'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
