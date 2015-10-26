@@ -19,7 +19,6 @@ class Measure
 
   # Calculate the smoking gun data for the given hqmf_id with the given patient_cache_filter
   # The  filter will allow us to segment the cache by things like test_id required for Cypress.
-  # rubocop:disable Metrics/AbcSize
   def self.calculate_smoking_gun_data(bundle_id, hqmf_id, patient_cache_filter = {})
     values = {}
     measure = Measure.top_level.where(hqmf_id: hqmf_id, bundle_id: bundle_id).first
@@ -40,7 +39,6 @@ class Measure
     end
     values
   end
-  # rubocop:enable Metrics/AbcSize
 
   def self.return_population_codes(mes)
     population_codes = []
@@ -59,7 +57,6 @@ class Measure
     [population_codes.uniq, sub_ids]
   end
 
-  # rubocop:disable Metrics/AbcSize
   def self.handle_non_derived_critiera(hqmf, data_criteria, rationale)
     result = []
     template = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition,
@@ -83,7 +80,6 @@ class Measure
     result
   end
 
-  # rubocop:enable Metrics/AbcSize
   def self.loop_data_criteria(hqmf, data_criteria, rationale)
     result = []
     return result unless rationale[data_criteria.id]

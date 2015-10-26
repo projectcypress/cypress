@@ -8,7 +8,7 @@ class TestExecutionTest < MiniTest::Test
   end
 
   def after_teardown
-    Vendor.all.destroy
+    drop_database
   end
 
   def test_create

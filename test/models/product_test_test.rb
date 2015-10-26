@@ -7,30 +7,26 @@ class ProductTestTest < MiniTest::Test
   end
 
   def after_teardown
-    Vendor.all.destroy
+    drop_database
   end
 
   def test_create
-    pt = @product.product_tests.build(name: 'test_for_measure_1a', measure_id: '1a')
-    assert pt.valid?, 'product test should be valid with product, name and measure'
+    pt = @product.product_tests.build(name: 'test_for_measure_1a',
+                                      measure_id: '1a',
+                                      bundle_id: BSON::ObjectId.from_string('4fdb62e01d41c820f6000001'),
+                                      effective_date: 1_293_840_000)
+    assert pt.valid?, 'product test should be valid with product, name , measure_id, bundle_id and effective_date'
     assert pt.save, 'should be able to save valid product test'
   end
 
-  def test_must_have_name
-    pt = @product.product_tests.build(measure_id: '1a')
+  def test_required_fields
+    pt = @product.product_tests.build
     assert_equal false,  pt.valid?, 'product test should not be valid without a name'
     assert_equal false,  pt.save, 'should not be able to save product test without a name'
-  end
-
-  def test_must_have_measure_id
-    pt = @product.product_tests.build(name: 'test_for_measure_1a')
-    assert_equal false,  pt.valid?, 'product test should not be valid without a measure_id'
-    assert_equal false,  pt.save, 'should not be able to save product test without a measure_id'
-  end
-
-  def test_must_have_product
-    pt = ProductTest.new(name: 'test_for_measure_1a', measure_id: '1a')
-    assert_equal false,  pt.valid?, 'product test should not be valid without a product'
-    assert_equal false,  pt.save, 'should not be able to save product test without a product'
+    errors = pt.errors
+    assert errors.key?(:name)
+    assert errors.key?(:measure_id)
+    assert errors.key?(:bundle_id)
+    assert errors.key?(:effective_date)
   end
 end

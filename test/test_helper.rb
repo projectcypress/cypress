@@ -9,8 +9,9 @@ require 'rails/test_help'
 
 require 'minitest/spec'
 require 'minitest/autorun'
-
 require 'minitest/reporters'
+require 'mocha/setup'
+
 Minitest::Reporters.use!
 
 include Warden::Test::Helpers
