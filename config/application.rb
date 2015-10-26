@@ -5,6 +5,8 @@ require 'action_mailer/railtie'
 require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
 
+APP_CONFIG = YAML.load(File.read(File.expand_path('../cypress.yml', __FILE__)))
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
