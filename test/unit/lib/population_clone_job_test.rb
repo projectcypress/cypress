@@ -146,8 +146,6 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
-
   def assert_payers_are_random
     found_random = false
     old_record_payers = {}
@@ -161,8 +159,6 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert found_random == true, 'Did not find any evidence that payer was randomized.  Since there are only three ' \
       'possible payers there is some mathematical chance that this might happen, but it is slim (1/10,000)!'
   end
-
-  # rubocop:enable Metrics/AbcSize
 end
 
 # rubocop:enable Metrics/ClassLength
