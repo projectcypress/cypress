@@ -22,5 +22,6 @@ before_script:
   - npm install -g eslint
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 script:
-  - ./bin/rake test
+  - ./bin/brakeman -qAzw1
   - ./bin/overcommit --run
+  - ./bin/rake test

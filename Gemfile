@@ -70,8 +70,6 @@ group :development, :test do
   gem 'capybara-accessible'
 end
 
-gem 'simplecov', :require => false, :group => :test
-
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -84,4 +82,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'minitest'
   gem 'minitest-reporters'
+  gem 'simplecov', require: false
+  gem 'brakeman', require: false
 end
