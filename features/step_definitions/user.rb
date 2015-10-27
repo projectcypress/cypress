@@ -50,7 +50,7 @@ Then(/^the user should see an edit account page$/) do
 end
 
 When(/^the user navigates to the home page$/) do
-  visit("/")
+  visit '/'
 end
 
 Then(/^the user should be redirected to the sign in page$/) do
