@@ -28,9 +28,9 @@ Then(/^the user should see a sign out link$/) do
   page.assert_text 'Log Out'
 end
 
-Given(/^a signed in user$/) do
-  login_as @user, :scope => :user
-end
+# Given(/^a signed in user$/) do
+#   login_as @user, :scope => :user
+# end
 
 Then(/^the user logs out$/) do
   page.click_link('Log Out')
@@ -47,4 +47,20 @@ end
 
 Then(/^the user should see an edit account page$/) do
   page.assert_text 'Edit User'
+end
+
+When(/^the user navigates to the home page$/) do
+  visit '/'
+end
+
+Then(/^the user should be redirected to the sign in page$/) do
+  page.assert_text 'You need to sign in or sign up before continuing.'
+end
+
+Given(/^a signed in user$/) do
+  @user = FactoryGirl.create :user
+  visit '/users/sign_in'
+  page.fill_in 'Email', with:  @user.email
+  page.fill_in 'Password', with:  @user.password
+  page.click_button 'Log in'
 end
