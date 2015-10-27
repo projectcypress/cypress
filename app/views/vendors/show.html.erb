@@ -53,13 +53,17 @@
             <td></td>
             <td></td>
             <td>
-              <%= link_to edit_vendor_product_path(@vendor, product) do %>
-                <i class = 'fa fa-2x fa-wrench'></i>
-              <% end %>
+              <%= button_to "Edit", edit_vendor_product_path(@vendor, product), :method => :get, :class => "btn btn-xs btn-default" %>
             </td>
+            <!-- <td> -->
+              <% #link_to edit_vendor_product_path(@vendor, product) do %>
+                <!-- <i class = 'fa fa-2x fa-wrench'></i> -->
+              <% #end %>
+            <!-- </td> -->
             <td>
               <%= render partial: 'remove_button', locals: {
-                    button_classes: 'fa fa-2x fa-trash remove_button_icon',
+                    button_text: 'Remove',
+                    button_classes: 'btn btn-xs btn-danger',
                     object: product,
                     object_path: vendor_product_path(@vendor, product),
                     modal_message: 'Removing a product will also delete all associated product tests and test results.'

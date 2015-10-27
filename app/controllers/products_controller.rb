@@ -87,7 +87,7 @@ class ProductsController < ApplicationController
   end
 
   def flash_product_comment(product_name, notice_type, action_type)
-    flash[:notice] = "Vendor '#{product_name}' was #{action_type}."
+    flash[:notice] = "Product '#{product_name}' was #{action_type}."
     flash[:notice_type] = notice_type
   end
 end
