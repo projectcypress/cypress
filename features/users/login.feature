@@ -12,13 +12,16 @@ Scenario: Successful login
   And the user should see a sign out link
 
 Scenario: Successful logout
-  Given a user has an account
-  When the user logs in
+  Given a signed in user
   Then the user logs out
   And the user should see an log out success message
 
 Scenario: Edit password
-  Given a user has an account
-  And the user logs in
+  Given a signed in user
   When the user clicks an account link
   Then the user should see an edit account page
+
+Scenario: Not Logged In
+  Given a user has an account
+  When the user navigates to the home page
+  Then the user should be redirected to the sign in page
