@@ -11,12 +11,15 @@ module MeasuresHelper
 
   def measure_categories(type = :all_by_measure)
     case type
-      when :top_level
-        measures = Measure.top_level
-        measures.group_by { |t| t['category'] }
-      when :all_by_measure
-        measures = Measure.all_by_measure
-        measures.group_by { |t| t['category'] }
+    when :top_level
+      measures = Measure.top_level
+      measures.group_by { |t| t['category'] }
+    when :all_by_measure
+      measures = Measure.all_by_measure
+      measures.group_by { |t| t['category'] }
+    else
+      measures = Measure.all_by_measure
+      measures.group_by { |t| t['category'] }
     end
   end
 end

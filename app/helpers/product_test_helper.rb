@@ -10,18 +10,18 @@ module ProductTestHelper
   end
 
   def population_marker(value)
-    %{<td class="marker #{'p' if !value.nil? && value >= 1}"></td>}.html_safe
+    content_tag(:td, "", class: "marker #{'p' if !value.nil? && value >= 1}")
   end
 
 
   def expected_reported( expected, reported, style={})
-
     reported_class = result_class(reported,expected)
-    extra = style.collect{|k,v| "#{k}='#{v}'"}.join(" ")
-   %{<td #{extra}>
-       <span class="#{reported_class}">#{reported || (expected ? '-' : '')}</span> / <span>#{expected}
-       </span>
-     </td>}.html_safe
+    extra = style.values.join('; ')
+    content_tag(:td, style: extra) do
+      concat content_tag(:span, "#{reported || (expected ? '-' : '')}", class:  "#{reported_class}")
+      concat ' / '
+      concat content_tag(:span, "#{expected}")
+    end
   end
 
   def file_upload_type(test)

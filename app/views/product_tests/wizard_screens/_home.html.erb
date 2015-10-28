@@ -1,6 +1,6 @@
 <script>
-var effective_dates = <%= Hash[*Bundle.active.collect{|b| [b.id,b.effective_date]}.flatten].to_json.html_safe %>;
-var start_dates = <%= Hash[*Bundle.active.collect{|b| [b.id,b['measure_period_start']]}.flatten].to_json.html_safe %>;
+var effective_dates = <%= raw json_escape(Hash[*Bundle.active.collect{|b| [b.id,b.effective_date]}.flatten].to_json) %>;
+var start_dates = <%= raw json_escape(Hash[*Bundle.active.collect{|b| [b.id,b['measure_period_start']]}.flatten].to_json) %>;
 </script>
 <section id="first" class="step bordered" style="width: 100%; overflow: auto;">
   <div class="span8 buffered">
