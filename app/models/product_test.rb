@@ -25,14 +25,22 @@ class ProductTest
   validates :effective_date, presence: true
   validates :bundle_id, presence: true
 
-  after_create :calculate
+  after_create :generate_records
+
+  def generate_records
+    ids = PatientCache.where('value.measure_id' => measure_id, 'value.IPP' => { '$gt' => 0 }).collect { |pcv| pcv.value.medical_record_id }
+    ids.uniq!
+    random_ids = Record.all.pluck('medical_record_number').uniq
+    Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'randomization_ids' =>  random_ids, 'randomize_names' => true).perform
+    calculate
+  end
 
   def calculate
     MeasureEvaluationJob.perform_later(self, {})
   end
 
   def measures
-    HealthDataStandards::CQM::Measure.where(bundle_id: bundle_id, hqmf_id: measure_id)
+    Measure.where(bundle_id: bundle_id, hqmf_id: measure_id)
   end
 
   def records

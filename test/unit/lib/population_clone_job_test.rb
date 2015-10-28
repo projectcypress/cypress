@@ -5,9 +5,7 @@ require 'fileutils'
 
 class PopulationCloneJobTest < ActiveSupport::TestCase
   setup do
-    collection_fixtures('records', '_id', 'test_id', 'bundle_id')
-    collection_fixtures('product_tests', '_id', 'bundle_id')
-    collection_fixtures('bundles', '_id')
+    collection_fixtures('records', 'product_tests', 'bundles')
   end
 
   def test_perform_full_deck
