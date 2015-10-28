@@ -8,8 +8,8 @@
 
   <div class = 'col-sm-4'>
     <p>Vendor: <%= @product.vendor.name %></p>
-    <p><%= "Version: #{@product.version}" unless @product.version.empty? %></p>
-    <p><%= "Description: #{@product.description}" unless @product.description.empty? %></p>
+    <p><%= "Version: #{@product.version}" unless @product.version.blank? %></p>
+    <p><%= "Description: #{@product.description}" unless @product.description.blank? %></p>
     <p><%= "Eligible #{@product.ehr_type}".titleize %></p>
   </div>
 
