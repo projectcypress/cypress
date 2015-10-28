@@ -7,8 +7,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
   setup do
     @first = 'Xyntash'
     @last = 'Zygadoo'
-    @race = { 'code': 'NA', 'name': 'NA', 'codeSystem': 'NA' }
-    @ethnicity = { 'code': 'NA', 'name': 'NA', 'codeSystem': 'NA' }
+    @race = { 'code' => 'NA', 'name' => 'NA', 'codeSystem' => 'NA' }
+    @ethnicity = { 'code' => 'NA', 'name' => 'NA', 'codeSystem' => 'NA' }
     @address = Address.new(
       use: 'H',
       street: ['123 Tregslofsterlang Lane'],
@@ -18,7 +18,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       country: 'ZZ'
     )
     @insurance_provider = InsuranceProvider.new(
-      codes: { 'NA': 123 },
+      codes: { 'NA' => 123 },
       name: 'NA',
       type: 'NA',
       payer: Organization.new(name: 'NA'),
