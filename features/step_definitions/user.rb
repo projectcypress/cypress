@@ -6,7 +6,7 @@ When(/^the user tries to log in with invalid information$/) do
   visit '/users/sign_in'
   page.fill_in 'Email', with:  'unauth@mitre.org'
   page.fill_in 'Password', with:  'incorrectPassword'
-  page.click_button 'Log in'
+  page.click_button 'Sign in'
 end
 
 Then(/^the user should see an log in error message$/) do
@@ -17,7 +17,7 @@ When(/^the user logs in$/) do
   visit '/users/sign_in'
   page.fill_in 'Email', with:  @user.email
   page.fill_in 'Password', with:  @user.password
-  page.click_button 'Log in'
+  page.click_button 'Sign in'
 end
 
 Then(/^the user should see an log in success message$/) do
@@ -62,5 +62,5 @@ Given(/^a signed in user$/) do
   visit '/users/sign_in'
   page.fill_in 'Email', with:  @user.email
   page.fill_in 'Password', with:  @user.password
-  page.click_button 'Log in'
+  page.click_button 'Sign in'
 end
