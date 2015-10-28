@@ -30,14 +30,8 @@
                 $('#currentStep').html(2);
                 $('#back').removeClass('disabled').removeAttr('disabled');
                 break;
-//            case "wizard-workflow-screen":
-//                $('#currentStep').html(3);
-//                break;
-//            case "wizard-patients-automated-screen":
-//            case "wizard-patients-manual-screen":
-//            case "wizard-patients-byod-screen":
-//                $('#currentStep').html(4);
-//                break;
+           default:
+                break;
         }
     }
 
