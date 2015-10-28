@@ -4,11 +4,11 @@ module Cypress
   # options to make very customized TD subsets. For now, a subset_id of 'core20' will mean the 3 core measures. If that
   # parameter does not exist, we copy the whole deck. For example:
   #
-  #    Cypress::PopulationCloneJob.new(:subset_id => 'core20',
-  #                                    :test_id => 'ID of vendor to which these patients belong')
+  #    Cypress::PopulationCloneJob.new('subset_id' => 'core20',
+  #                                    'test_id' => 'ID of vendor to which these patients belong')
   #
-  #    Cypress::PopulationCloneJob.new(:patient_ids => [1,2,7,9,221],
-  #                                    :test_id => 'ID of vendor to which these patients belong')
+  #    Cypress::PopulationCloneJob.new('patient_ids' => [1,2,7,9,221],
+  #                                    'test_id' => 'ID of vendor to which these patients belong')
   #
   # This will return a uuid which can be used to check in on the status of a job. More details on this can be found
   # at the {Resque Stats project page}[https://github.com/quirkey/resque-status].

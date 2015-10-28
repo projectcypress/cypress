@@ -50,7 +50,7 @@ module Cypress
     def self.randomize_insurance_provider(record)
       ip = InsuranceProvider.new
       randomize_payer(ip)
-      ip.financial_responsibility_type = { 'code' => 'SELF', 'codeSystem': 'HL7 Relationship Code' }
+      ip.financial_responsibility_type = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }
       ip.member_id = Faker::Number.number(10)
       ip.start_time = get_random_payer_start_date(record)
       record.insurance_providers = [ip]
