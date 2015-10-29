@@ -23,3 +23,4 @@ script:
   - ./bin/brakeman -qAzw1
   - ./bin/overcommit --run
   - ./bin/rake test
+  - ./bin/rake cucumber
