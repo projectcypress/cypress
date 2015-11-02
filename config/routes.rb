@@ -3,9 +3,22 @@ Rails.application.routes.draw do
   root to: 'vendors#index'
 
   resources :vendors do
-    resources :products
+    resources :products, only: [:index, :new, :create]
   end
 
+  resources :products, only: [:show, :edit, :update, :destroy] do
+    resources :product_tests, only: [:index, :new, :create]
+  end
+
+  resources :product_tests, only: [:show, :edit, :update, :destroy] do
+    resources :tasks, only: [:index, :new, :create]
+  end
+
+  resources :tasks, only: [:show, :edit, :update, :destroy] do
+    resources :test_executions
+  end
+
+  resources :test_executions, only: [:show, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

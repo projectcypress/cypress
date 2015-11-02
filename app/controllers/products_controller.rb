@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:edit, :update, :destroy, :show]
-  before_action :set_vendor, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_vendor, only: [:new, :create]
+
+  def index
+    @vendor.products
+  end
 
   def new
     @product = Product.new
@@ -23,7 +27,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb @vendor.name, "/vendors/#{@vendor.id}"
+    add_breadcrumb @product.vendor.name, "/vendors/#{@product.vendor.id}"
     add_breadcrumb 'Edit Product', :edit_vendor_path
   end
 
@@ -33,7 +37,7 @@ class ProductsController < ApplicationController
     flash_product_comment(@product.name, 'info', 'edited')
     respond_to do |f|
       f.json {} # <-- must be fixed later
-      f.html { redirect_to vendor_path(@vendor.id) }
+      f.html { redirect_to vendor_path(@product.vendor.id) }
     end
   rescue Mongoid::Errors::Validations
     render :edit
@@ -41,10 +45,11 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
+    vendor = @product.vendor
     flash_product_comment(@product.name, 'danger', 'removed')
     respond_to do |format|
       format.json {} # <-- must be fixed later
-      format.html { redirect_to vendor_path(@vendor.id) }
+      format.html { redirect_to vendor_path(vendor.id) }
     end
   end
 
@@ -66,11 +71,11 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = set_vendor.products.find(params[:id])
   end
 
   def set_vendor
-    @vendor = Vendor.find(params[:vendor_id])
+    @vendor ||= Vendor.find(params[:vendor_id])
   end
 
   def product_params
