@@ -29,7 +29,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    render status: 204, text: "Deleted task #{params[:id]}"
+    render status: 204, text: "Deleted task #{h params[:id]}"
   end
 
   private
