@@ -1,0 +1,94 @@
+module Cypress
+  class RecordFilter
+    def self.filter(records, filters, options)
+      records.where create_query(filters, options)
+    end
+
+    def self.create_query(input_filters, options)
+      query = {}
+
+      if input_filters['races']
+        query['race.code'] = { '$in' => input_filters['races'] }
+      end
+
+      if input_filters['ethnicities']
+        query['ethnicity.code'] = { '$in' => input_filters['ethnicities'] }
+      end
+
+      if input_filters['genders']
+        query['gender'] = { '$in' => input_filters['genders'] }
+      end
+
+      if input_filters['payers']
+        query['insurance_providers'] = { '$elemMatch' => { 'payer.name' => { '$in' => input_filters['payers'] } } }
+      end
+
+      if input_filters['age']
+        create_age_query(query, input_filters['age'], options)
+      end
+
+      if input_filters['problems']
+        create_problem_query(query, input_filters['problems'])
+      end
+
+      # STILL TODO:
+      # provider tin
+      # provider npi
+      # provider type
+      # practice site addr
+
+      query
+    end
+
+    def self.create_age_query(query, age_filter, options)
+      # filter only by a single age range, can be age < max, age > min, or min < age < max
+      effective_date = options[:effective_date]
+
+      if age_filter['max']
+        age_max = age_filter['max']
+        req_birthdate = Time.at(effective_date).utc - age_max.years
+
+        query[:birthdate.gte] = req_birthdate
+      end
+      if age_filter['min']
+        age_min = age_filter['min']
+        req_birthdate = Time.at(effective_date).utc - age_min.years
+
+        query[:birthdate.lte] = req_birthdate
+      end
+    end
+
+    def self.create_problem_query(query, problem_filters)
+      # given a value set, find conditions and procedures where the diagnosis code matches
+
+      # mongo has no joins or inner querying so we have to first fetch the given codes
+      # then put those into the query to be returned
+
+      # I think this whole section ending in relevant_codes
+      # could possibly be combined into 1 mongo query that does everything
+      value_sets = HealthDataStandards::SVS::ValueSet.where('oid' => { '$in' => problem_filters })
+
+      code_sets = value_sets.pluck('concepts')
+
+      relevant_codes = []
+
+      code_sets.each do |code_set|
+        code_set.each do |code|
+          # problems come from SNOMED, per the rule
+          relevant_codes << code['code'] if code['code_system'] == '2.16.840.1.113883.6.96'
+        end
+      end
+
+      relevant_codes.uniq!
+
+      problem_subquery = { '$elemMatch' => { 'codes.SNOMED-CT' => { '$in' => relevant_codes } } }
+
+      conditions = { 'conditions' => problem_subquery }
+      procedures = { 'procedures' => problem_subquery }
+      encounters = { 'encounters' => problem_subquery }
+
+      # TODO: this can be dangerous, what if something else needs an OR
+      query['$or'] = [conditions, procedures, encounters]
+    end
+  end
+end
