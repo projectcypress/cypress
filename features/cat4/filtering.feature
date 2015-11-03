@@ -23,4 +23,4 @@ Scenario: User can create a C4 Test
   When the user clicks on CQM Filtering
   When the user clicks the Create Test button
   When the user selects Race
-  Then the user should should see the filter modal
+  Then the secondary filter should not include Race
