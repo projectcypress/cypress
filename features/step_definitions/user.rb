@@ -28,10 +28,6 @@ Then(/^the user should see a sign out link$/) do
   page.assert_text 'Log Out'
 end
 
-# Given(/^a signed in user$/) do
-#   login_as @user, :scope => :user
-# end
-
 Then(/^the user logs out$/) do
   page.click_link('Log Out')
 end

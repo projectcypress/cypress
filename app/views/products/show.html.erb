@@ -1,6 +1,6 @@
 <div class = 'col-sm-12'>
 
-  <%= button_to "Edit Product", edit_vendor_product_path(@product.vendor, @product), :method => :get, :class => "btn btn-default pull-right" %>
+  <%= button_to "Edit Product", [:edit, @product.vendor, @product], :method => :get, :class => "btn btn-default pull-right" %>
 
   <div class = 'row'><h2><%= @product.name %></h2></div>
 

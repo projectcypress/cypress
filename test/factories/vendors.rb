@@ -1,6 +1,10 @@
 FactoryGirl.define do
   factory :vendor, class: Vendor do
-    sequence(:name) { |i| "Tester #{i}" }
+    sequence(:name) { |i| "Vendor Name #{i}" }
+
+    factory :vendor_with_poc do
+      pocs { [FactoryGirl.build(:poc)] }
+    end
 
     factory :vendor_with_pocs do
       pocs { [FactoryGirl.build(:poc), FactoryGirl.build(:poc)] }
@@ -10,12 +14,8 @@ FactoryGirl.define do
       name ''
     end
 
-    factory :vendor_nil_name do
-      name nil
-    end
-
     factory :vendor_static_name do
-      name 'Name 1'
+      name 'Vendor Same Name'
     end
 
     # with pocs
