@@ -42,17 +42,29 @@ module Cypress
 
     def self.create_age_query(query, age_filter, options)
       # filter only by a single age range, can be age < max, age > min, or min < age < max
-      effective_date = options[:effective_date]
+      effective_date = Time.at(options[:effective_date]).utc
 
       if age_filter['max']
         age_max = age_filter['max']
-        req_birthdate = Time.at(effective_date).utc - age_max.years
+        start_of_day = Time.utc(effective_date.year, effective_date.month, effective_date.day, 0, 0, 0)
+        # Here we use the start of the effective date as the comparison point,
+        # so that the entire date is included within the range.
+        # The filter query essentially becomes:
+        # :birthdate >= 01/01/20xx 00:00:00
+
+        req_birthdate = start_of_day - age_max.years
 
         query[:birthdate.gte] = req_birthdate
       end
       if age_filter['min']
         age_min = age_filter['min']
-        req_birthdate = Time.at(effective_date).utc - age_min.years
+        end_of_day = Time.utc(effective_date.year, effective_date.month, effective_date.day, 23, 59, 59)
+        # Here we use the end of the effective date as the comparison point,
+        # so that the entire date is included within the range.
+        # The filter query essentially becomes:
+        # :birthdate <= 01/01/20xx 23:59:59
+
+        req_birthdate = end_of_day - age_min.years
 
         query[:birthdate.lte] = req_birthdate
       end

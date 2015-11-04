@@ -65,48 +65,103 @@ class RecordFilterTest < ActiveSupport::TestCase
 
   def test_filter_age_max
     ## reminder: for dates, > means later/younger...
-    dob = Time.new(1986, 1, 21).utc
-    effective_date = 1_293_840_000
+    now = Time.now.utc
 
-    now = Time.at(effective_date).utc
-    age = now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    target_age = Random.rand(100)
 
-    filters = { 'age' => { 'max' => age } }
+    filters = { 'age' => { 'max' => target_age } }
 
-    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
+    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: now.to_i).to_a
 
     validate_record_count(@all_records, filtered_records)
 
     @all_records.each do |r|
+      dob = Time.at(r.birthdate).utc
+      patient_age = age_on_date(dob, now)
+
       if filtered_records.include? r
-        assert(r.birthdate >= dob.to_i, 'Filtered record set includes a record that does not match criteria')
+        assert(patient_age <= target_age, 'Filtered record set includes a record that does not match criteria')
       else
-        assert(r.birthdate < dob.to_i, 'Filtered record set does not include a record that matches criteria')
+        assert(patient_age > target_age, 'Filtered record set does not include a record that matches criteria')
       end
     end
   end
 
   def test_filter_age_min
     ## reminder: for dates, > means later/younger...
-    dob = Time.new(1997, 9, 9).utc
-    effective_date = 1_293_840_000
+    now = Time.now.utc
 
-    now = Time.at(effective_date).utc
-    age = now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    target_age = Random.rand(100)
 
-    filters = { 'age' => { 'min' => age } }
+    filters = { 'age' => { 'min' => target_age } }
 
-    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
+    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: now.to_i).to_a
 
     validate_record_count(@all_records, filtered_records)
 
     @all_records.each do |r|
+      dob = Time.at(r.birthdate).utc
+      patient_age = age_on_date(dob, now)
+
       if filtered_records.include? r
-        assert(r.birthdate <= dob.to_i, 'Filtered record set includes a record that does not match criteria')
+        assert(patient_age >= target_age, 'Filtered record set includes a record that does not match criteria')
       else
-        assert(r.birthdate > dob.to_i, 'Filtered record set does not include a record that matches criteria')
+        assert(patient_age < target_age, 'Filtered record set does not include a record that matches criteria')
       end
     end
+  end
+
+  def test_filter_age_edge_case_inclusive
+    # the "edge case" for age filtering is when the patient's birthdate is on the effective date
+
+    patient = @all_records.sample
+    birthdate = Time.at(patient.birthdate).utc
+
+    # CASE 1
+    age = Random.rand(100)
+    effective_date = Time.utc(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0)
+
+    filters = { 'age' => { 'min' => age } }
+    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
+
+    assert filtered_records.include? patient
+
+    # CASE 2
+    age = Random.rand(100)
+    effective_date = Time.utc(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0)
+
+    filters = { 'age' => { 'max' => age } }
+    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
+
+    assert filtered_records.include? patient
+  end
+
+  def test_filter_age_edge_case_exclusive
+    patient = @all_records.sample
+    birthdate = Time.at(patient.birthdate).utc
+
+    # CASE 1
+    age = Random.rand(100)
+    effective_date = Time.utc(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0)
+
+    filters = { 'age' => { 'min' => age + 1 } }
+    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
+
+    assert !filtered_records.include?(patient)
+
+    # CASE 2
+    age = Random.rand(100)
+    effective_date = Time.utc(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0)
+
+    filters = { 'age' => { 'max' => age - 1 } }
+    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
+
+    assert !filtered_records.include?(patient)
+  end
+
+  # helper function to calculate age
+  def age_on_date(dob, now)
+    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end
 
   def test_filter_payer
