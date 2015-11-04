@@ -53,7 +53,8 @@
             <td></td>
             <td></td>
             <td>
-              <%= button_to "Edit", edit_vendor_product_path(@vendor, product), :method => :get, :class => "btn btn-xs btn-default" %>
+              <% #byebug %>
+              <%= button_to "Edit", [:edit, @vendor, product], :method => :get, :class => "btn btn-xs btn-default" %>
             </td>
             <!-- <td> -->
               <% #link_to edit_vendor_product_path(@vendor, product) do %>

@@ -62,12 +62,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # - - - - EVERYTHING BETWEEN USED FOR TESTING - - - - #
-  def set_random_state
-    @product.state = %w(passing failing incomplete).sample
-  end
-  # - - - - EVERYTHING BETWEEN USED FOR TESTING - - - - #
-
   private
 
   def set_product
