@@ -25,13 +25,8 @@
     <ul>
       <% @product.product_tests.each do |test| %>
         <li>
-          <%= test.name %>
+          <%= link_to test.name, [@product, test] %>
           <%= "(#{test.status})" if test.status %>
-          <ul>
-            <% test.records.each do |record| %>
-              <li><%= "#{record.last}, #{record.first}" %></li>
-            <% end %>
-          </ul>
         </li>
       <% end %>
     </ul>
