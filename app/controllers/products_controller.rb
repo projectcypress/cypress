@@ -116,7 +116,7 @@ class ProductsController < ApplicationController
   def create_product_tests(product, measure_ids)
     measure_ids.each do |measure_id|
       measure = Measure.top_level.where(hqmf_id: measure_id).first
-      pt = ProductTest.new(name: measure.name, product: product, measure_id: measure_id)
+      pt = ProductTest.new(name: measure.name, product: product, measure_id: measure_id, cms_id: measure.cms_id)
       pt.save!
     end
   end

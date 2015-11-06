@@ -73,11 +73,27 @@
             </div>
           </div>
           <div class="col-md-4 selected-measure-list">
-            <h3>Selected measures</h3>
+            <h3>Selected Measures</h3>
           </div>
         </div>
       </div>
     </div>
+
+  <% elsif params[:action] == "edit" %>
+    <% unless @product.product_tests.empty? %>
+      <div class="col-md-6 col-md-offset-6 selected-measure-list">
+        <h3>Selected Measures</h3>
+        <% @product.product_tests.each do |product_test| %>
+          <div class="checkbox">
+            <label class="btn btn-checkbox disabled">
+              <input type="checkbox" name="product_test[measure_ids][]" id="<%= product_test.measure_id %>" value="<%= product_test.measure_id %>"
+              class="measure-checkbox" checked="true" disabled="disabled" />
+              <strong><%= product_test.cms_id %></strong> <%= product_test.name %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 

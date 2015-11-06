@@ -14,6 +14,7 @@ class ProductTest
   field :measure_id, type: String
   # Test Details
   field :name, type: String
+  field :cms_id, type: String
   field :description, type: String
   field :state, type: Symbol
 
