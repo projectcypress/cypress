@@ -6,13 +6,9 @@ class CachingTest < MiniTest::Test
     collection_fixtures('measures', 'bundles')
 
     ActionController::Base.perform_caching = true
-    @old_cache_store = ActionController::Base.cache_store
-    ActionController::Base.cache_store = :memory_store, { size: 64.megabytes }
-    Rails.cache.clear
 
     setup_vendor
-    setup_product
-    setup_product_test
+    setup_product_with_product_test
     setup_task
     setup_test_execution
   end
@@ -22,17 +18,13 @@ class CachingTest < MiniTest::Test
     @vendor.save!
   end
 
-  def setup_product
+  def setup_product_with_product_test
     @product = Product.new(name: 'test_product_name', c1_test: true)
+    @product_test = ProductTest.new(name: 'test_product_test_name', measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7')
     @product.vendor = @vendor
-    @product.save!
-  end
-
-  def setup_product_test
-    @product_test = ProductTest.new(name: 'test_product_test_name')
     @product_test.product = @product
-    @product_test.measure_id = '8A4D92B2-397A-48D2-0139-B0DC53B034A7'
     @product_test.save!
+    @product.save!
   end
 
   def setup_task
@@ -48,8 +40,8 @@ class CachingTest < MiniTest::Test
   end
 
   def teardown
+    Rails.cache.clear
     ActionController::Base.perform_caching = false
-    ActionController::Base.cache_store = @old_cache_store
 
     drop_database
   end

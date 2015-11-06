@@ -71,7 +71,7 @@ When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_
   steps %( When the user navigates to the create product page for vendor #{vendor_name} )
   page.fill_in 'Name', with: product_name
   page.find('#product_c1_test').click
-  page.find('#Asthma').click
+  page.find('#Asthma > div.checkbox').click
   page.click_button 'Add Product'
 end
 
