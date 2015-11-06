@@ -36,9 +36,10 @@
     <div class="col-md-12 pick-measures">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h2>Select Custom Measures</h2>
+          <h2>Select Measures</h2>
         </div>
         <div class="panel-body">
+          <div class="col-md-12"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>
           <div id="measure_tabs" class="measure-selection col-md-8">
             <div class="sidebar">
               <!-- set up a tab header for each measure group -->
