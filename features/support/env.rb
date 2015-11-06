@@ -23,15 +23,8 @@ if ENV['IN_BROWSER']
     sleep(ENV['PAUSE'] || 0).to_i
   end
 else
-  # DEFAULT: headless tests with poltergeist/PhantomJS
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(
-      app,
-      window_size: [1280, 1024]
-    )
-  end
-  Capybara.default_driver    = :accessible_poltergeist
-  Capybara.javascript_driver = :accessible_poltergeist
+  Capybara.default_driver    = :poltergeist
+  Capybara.javascript_driver = :poltergeist
 end
 
 # Capybara defaults to CSS3 selectors rather than XPath.
