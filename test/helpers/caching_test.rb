@@ -2,6 +2,7 @@ require 'test_helper'
 
 class CachingTest < MiniTest::Test
   def setup
+    drop_database
     collection_fixtures('measures', 'bundles')
 
     ActionController::Base.perform_caching = true
@@ -31,7 +32,6 @@ class CachingTest < MiniTest::Test
     @product_test = ProductTest.new(name: 'test_product_test_name')
     @product_test.product = @product
     @product_test.measure_id = '8A4D92B2-397A-48D2-0139-B0DC53B034A7'
-    # ObjectId("563269e9cd8a3e8409000001")
     @product_test.save!
   end
 
@@ -50,27 +50,7 @@ class CachingTest < MiniTest::Test
   def teardown
     ActionController::Base.perform_caching = false
     ActionController::Base.cache_store = @old_cache_store
-  end
 
-  def after_teardown
     drop_database
   end
-
-  # Vendor
-
-  #
-  #   Product
-  #
-
-  #
-  #   Product Test
-  #
-
-  #
-  #   Task
-  #
-
-  #
-  #   Updating
-  #
 end

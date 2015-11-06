@@ -51,7 +51,6 @@
             <td><%= product.product_tests ? product.product_tests_incomplete.count : 0 %></td>
             <td><%= product.product_tests ? product.product_tests.count : 0 %></td>
             <td>
-              <% #byebug %>
               <%= button_to "Edit", [:edit, @vendor, product], :method => :get, :class => "btn btn-xs btn-default" %>
             </td>
             <td>

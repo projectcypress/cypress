@@ -26,7 +26,5 @@ class ProductTestTest < MiniTest::Test
     errors = pt.errors
     assert errors.key?(:name)
     assert errors.key?(:measure_id)
-    assert errors.key?(:bundle_id)
-    assert errors.key?(:effective_date)
   end
 end

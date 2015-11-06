@@ -37,7 +37,7 @@ class ProductsController < ApplicationController
     end
   rescue Mongoid::Errors::Validations
     setup_new
-    params['selected_measure_ids'] = params['product_test']['measure_ids']
+    params['selected_measure_ids'] = params['product_test']['measure_ids'] if params['product_test'] && params['product_test']['measure_ids']
     render :new
   end
 

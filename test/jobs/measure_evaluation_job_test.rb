@@ -51,9 +51,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     prod = Product.first
     perform_enqueued_jobs do
       ptest = prod.product_tests.create(name: 'test_for_measure_job_calculation',
-                                        measure_id: '8A4D92B2-3887-5DF3-0139-0C4E41594C98',
-                                        bundle_id: BSON::ObjectId.from_string('4fdb62e01d41c820f6000001'),
-                                        effective_date: 1_293_840_000)
+                                        measure_id: '8A4D92B2-3887-5DF3-0139-0C4E41594C98')
       task = ptest.tasks.create({})
       MeasureEvaluationJob.perform_later(task, {})
       assert_performed_jobs 2

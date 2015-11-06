@@ -1,4 +1,8 @@
 
+# # # # # # # # # # #
+#   H E L P E R S   #
+# # # # # # # # # # #
+
 def collection_fixtures(*collections)
   collections.each do |collection|
     Mongoid.default_client[collection].drop
