@@ -7,10 +7,12 @@
 #   G I V E N   #
 # # # # # # # # #
 
-#   A N D   #
+Given(/^the user has created a vendor$/) do
+  @vendor = FactoryGirl.create(:vendor)
+end
 
-And(/^the user has created a vendor$/) do
-  steps %( When the user creates a vendor with appropriate information )
+Given(/^the user is on the create vendor page$/) do
+  visit new_vendor_path
 end
 
 # # # # # # # #
@@ -33,7 +35,6 @@ end
 
 When(/^the user creates a vendor with no name$/) do
   @vendor = FactoryGirl.build(:vendor_no_name)
-  steps %( When the user visits the create vendor page )
   page.fill_in 'Vendor Name', with: @vendor.name
   page.click_button 'Create Vendor'
 end
@@ -74,6 +75,7 @@ When(/^the user removes the vendor$/) do
 end
 
 When(/^the user cancels removing a vendor$/) do
+  visit '/'
   page.click_button 'Edit Vendor'
   page.click_button 'Remove Vendor'
   page.find('div.modal-footer').find('button', text: 'Cancel').click
