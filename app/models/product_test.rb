@@ -70,7 +70,7 @@ class ProductTest
   end
 
   def effective_date
-    myef = bundle.effective_date
+    bundle.effective_date
   end
 
   def status
@@ -102,5 +102,13 @@ class ProductTest
     Rails.cache.fetch("#{cache_key}/tasks_incomplete") do
       tasks.select { |task| task.status == 'incomplete' }
     end
+  end
+  
+  def start_date
+    Time.at(bundle.measure_period_start).utc
+  end
+
+  def end_date
+    Time.at(effective_date).utc
   end
 end
