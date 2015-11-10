@@ -1,3 +1,50 @@
+
+# # # # # # # # # # #
+#   H E L P E R S   #
+# # # # # # # # # # #
+
+def collection_fixtures(*collections)
+  collections.each do |collection|
+    Mongoid.default_client[collection].drop
+    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+      fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+      map_bson_ids(fixture_json)
+      Mongoid.default_client[collection].insert_one(fixture_json)
+    end
+  end
+end
+
+def value_or_bson(v)
+  if v.is_a? Hash
+    if v['$oid']
+      BSON::ObjectId.from_string(v['$oid'])
+    else
+      map_bson_ids(v)
+    end
+  else
+    v
+  end
+end
+
+def map_bson_ids(json)
+  json.each_pair do |k, v|
+    if v.is_a? Hash
+      json[k] = value_or_bson(v)
+    elsif k == 'create_at' || k == 'updated_at'
+      json[k] = Time.at.utc(v)
+    end
+  end
+  json
+end
+
+def build_product
+  Product.new(name: 'Product 1', measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7')
+end
+
+Before do
+  collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
+end
+
 # # # # # # # # #
 #   G I V E N   #
 # # # # # # # # #
@@ -16,23 +63,16 @@ end
 # # # # # # # #
 
 When(/^the user creates a product using appropriate information$/) do
-  @product = FactoryGirl.build(:product)
+  @product = build_product
   steps %( When the user creates a product with name #{@product.name} for vendor #{@vendor.name} )
 end
 
 When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_name, vendor_name|
   steps %( When the user navigates to the create product page for vendor #{vendor_name} )
-  page.fill_in 'Product Name', with: product_name
-  page.find('label', text: 'Eligible Hospital').click
-  page.click_button 'Create Product'
-end
-
-When(/^the user creates a product using appropriate information with eligible provider$/) do
-  steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
-  @product = FactoryGirl.build(:product)
-  page.fill_in 'Product Name', with: @product.name
-  page.find('label', text: 'Eligible Provider').click
-  page.click_button 'Create Product'
+  page.fill_in 'Name', with: product_name
+  page.find('#product_c1_test').click
+  page.find('#Asthma > div.checkbox').click
+  page.click_button 'Add Product'
 end
 
 When(/^the user navigates to the create product page for vendor (.*)$/) do |vendor_name|
@@ -44,9 +84,10 @@ end
 When(/^the user creates a product with no name$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   @product = FactoryGirl.build(:product_no_name)
-  page.fill_in 'Product Name', with: @product.name
-  page.find('label', text: 'Eligible Hospital').click
-  page.click_button 'Create Product'
+  page.fill_in 'Name', with: @product.name
+  page.find('#product_c1_test').click
+  page.find('#Asthma').click
+  page.click_button 'Add Product'
 end
 
 When(/^the user creates two products with the same name$/) do
@@ -57,12 +98,12 @@ When(/^the user creates two products with the same name$/) do
   )
 end
 
-When(/^the user creates a product with no ehr type$/) do
+When(/^the user creates a product with no task selected$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   @product = FactoryGirl.build(:product)
-  page.fill_in 'Product Name', with: @product.name
-  # page.find('label', text: 'Eligible Hospital').click
-  page.click_button 'Create Product'
+  page.fill_in 'Name', with: @product.name
+  page.find('#Asthma').click
+  page.click_button 'Add Product'
 end
 
 When(/^the user cancels creating a product$/) do
@@ -74,7 +115,7 @@ end
 When(/^the user changes the name of the product$/) do
   page.click_button 'Edit'
   @product_other = FactoryGirl.build(:product)
-  page.fill_in 'Product Name', with: @product_other.name
+  page.fill_in 'Name', with: @product_other.name
   page.click_button 'Update Product'
 end
 
@@ -118,8 +159,8 @@ Then(/^the user should see an error message saying the product name has been tak
   page.assert_text 'name was already taken'
 end
 
-Then(/^the user should see an error message saying the product has no ehr type$/) do
-  page.assert_text "Ehr type can't be blank"
+Then(/^the user should see an error message saything no task has been selected$/) do
+  page.assert_text 'at least one certification test'
 end
 
 Then(/^the user should not see the product$/) do
@@ -142,5 +183,4 @@ end
 Then(/^the user should see the product information$/) do
   page.assert_text @product.name
   page.assert_text @vendor.name
-  page.assert_text @product.ehr_type
 end

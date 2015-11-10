@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :products, only: [:show, :edit, :update, :destroy] do
-    resources :product_tests, only: [:index, :new, :create]
+    resources :product_tests, only: [:index, :new, :create, :show]
   end
 
   resources :product_tests, only: [:show, :edit, :update, :destroy] do

@@ -18,7 +18,8 @@ class ProductTestsControllerTest < ActionController::TestCase
   end
 
   test 'should get show' do
-    get :show, id: ProductTest.first.id
+    my_product = ProductTest.first
+    get :show, id: my_product.id, product_id: my_product.product.id
     assert_response :success
     assert_not_nil assigns(:product_test)
   end

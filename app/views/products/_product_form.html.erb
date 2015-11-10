@@ -1,48 +1,111 @@
-<%= form_for [@vendor, @product], html: { class: "form-horizontal" } do |f| %>
+<div class="panel panel-default">
+<div class="panel-heading"><h1><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h1></div>
 
-  <div class = "form-group">
-    <%= f.label :name, "Product Name", :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <%= f.text_field :name, :class => "form-control", :placeholder => "Name" %>
-    </div>
-    <div class = "col-sm-2" >* required</div>
+<%= bootstrap_form_for [@vendor, @product] do |f| %>
+<div class="panel-body">
+  <div class="col-md-6">
+    <%= f.text_field :name %>
+    <%= f.text_field :version %>
+    <%= f.text_area :description %>
   </div>
 
-  <div class = "form-group">
-    <%= f.label :version, "Version", :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <%= f.text_field :version, :class => "form-control", :placeholder => "Version"%>
-    </div>
+  <div class="col-md-6">
+    <%# f.form_group :ehr_type, label: { text: "EHR Type" }, help: "You cannot change this later." do %>
+      <%# f.radio_button :ehr_type, "hospital", label: "Eligible Hospital (EH)", label_class: "btn btn-checkbox active", checked: true, disabled: params[:action] == "edit" %>
+      <%# f.radio_button :ehr_type, "provider", label: "Eligible Provider (EP)", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+    <% #end %>
+
+    <%= f.form_group label: { text: "Certification Types" }, help: "C4 is optional." do %>
+      <%= f.errors_on :tests, hide_attribute_name: true %>
+      <%= f.check_box :c1_test, label: "C1 Test - Record and Export", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+      <%= f.check_box :c2_test, label: "C2 Test - Import and Calculate", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+      <%= f.check_box :c3_test, label: "C3 Test - Data Submission", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+      <%= f.check_box :c4_test, label: "C4 Test - Data Filtering", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+    <% end %>
   </div>
 
-  <div class = "form-group">
-    <%= f.label :description, "Description", :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <%= f.text_area :description, :class => "form-control", :placeholder => "Write product description here..."%>
-    </div>
-  </div>
+  <!-- <div class="col-md-4"> -->
+    <%# f.form_group :measure_selection, label: { text: "Measures to Test" }, help: "Cypress v3 tests products one measure at a time. Click 'Custom' to specify individual measures." do %>
+      <%# f.radio_button :measure_selection, "hospital", label: "All EH Measures", label_class: "btn btn-checkbox active", checked: true, disabled: params[:action] == "edit" %>
+      <%# f.radio_button :measure_selection, "provider", label: "All EP Measures", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+      <%# f.radio_button :measure_selection, "custom", label: "Custom...", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+    <% #end %>
+  <!-- </div> -->
 
-  <div class = "form-group">
-    <%= f.label :ehr_type, "EHR Type", :class => "control-label col-sm-2" %>
-    <div class = "col-sm-4">
-      <div class = "btn-group btn-group-justified" role = "group">
-        <%= f.radio_button :ehr_type, "hospital", disabled: f.object.persisted?, :class => "hide" %>
-        <%= f.label :ehr_type_hospital, "Eligible Hospital", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
-        <%= f.radio_button :ehr_type, "provider", disabled: f.object.persisted?, :class => "hide" %>
-        <%= f.label :ehr_type_provider, "Eligible Provider", class: (f.object.persisted? ? "cannot_select btn btn-default" : "btn btn-default") %>
+  <% if params[:action] == "new" %>
+    <div class="col-md-12 pick-measures">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h2>Select Measures</h2>
+        </div>
+        <div class="panel-body">
+          <div class="col-md-12"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>
+          <div id="measure_tabs" class="measure-selection col-md-8">
+            <div class="sidebar">
+              <!-- set up a tab header for each measure group -->
+              <ul>
+                <% @measures_categories.sort.each do |category, measures| %>
+                  <li><a href="#<%= category.tr(" '", "_") %>"><%= "#{category} (#{measures.first.type.upcase})" %></a></li>
+                <% end %>
+              </ul>
+            </div>
+            <div class="measure-list">
+              <% @measures_categories.sort.each do |category, measures| %>
+                <!-- set up a checkbox for each top-level measure in the group -->
+                <div id="<%= category.tr(" '", "_")%>" class="measure_group ">
+                  <% if measures.length > 1 %>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all"/> Select all <%= measures.length %> <%= category %> measures
+                    </label>
+                  </div>
+                  <% end %>
+                  <% measures.each do |m| %>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" name="product_test[measure_ids][]" id="<%= m.hqmf_id %>" value="<%= m.hqmf_id%>"
+                        class="measure-checkbox"/>
+                        <strong><%= m.cms_id %></strong> <%= m.name %>
+                      </label>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-4 selected-measure-list">
+            <h3>Selected Measures</h3>
+          </div>
+        </div>
       </div>
     </div>
-    <div class = "col-sm-2" >* required</div>
-  </div>
 
-  <div class = "form-group">
-    <div class = "col-sm-2"></div>
-    <div class = "col-sm-4">
-      <div class = "pull-right">
-        <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/vendors/#{@vendor.id}'" %>
-        <%= button_tag submit_text, :class => "btn btn-primary" %>
+  <% elsif params[:action] == "edit" %>
+    <% unless @product.product_tests.empty? %>
+      <div class="col-md-6 col-md-offset-6 selected-measure-list">
+        <h3>Selected Measures</h3>
+        <% @product.product_tests.each do |product_test| %>
+          <div class="checkbox">
+            <label class="btn btn-checkbox disabled">
+              <input type="checkbox" name="product_test[measure_ids][]" id="<%= product_test.measure_id %>" value="<%= product_test.measure_id %>"
+              class="measure-checkbox" checked="true" disabled="disabled" />
+              <strong><%= product_test.cms_id %></strong> <%= product_test.name %>
+            </label>
+          </div>
+        <% end %>
       </div>
-    </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="panel-footer">
+  <div class="pull-right">
+  <%= submit_tag "Cancel", :class => "btn btn-danger", :type => "button", :onclick => "location.href = '/vendors/#{@vendor.id}'" %>
+  <%= f.submit submit_text, class: "btn btn-success" %>
   </div>
+  <div class="clearfix"></div>
+</div>
 
 <% end %>
+
+</div>

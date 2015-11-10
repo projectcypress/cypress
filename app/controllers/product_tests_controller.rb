@@ -1,6 +1,6 @@
 class ProductTestsController < ApplicationController
-  before_action :set_product, only: [:index, :new, :create]
-  before_action :set_product_test, only: [:edit, :update, :destroy, :show]
+  before_action :set_product, only: [:index, :new, :create, :show]
+  before_action :set_product_test, only: [:edit, :update, :show, :destroy]
 
   def index
     @product_tests = @product.product_tests
@@ -20,6 +20,10 @@ class ProductTestsController < ApplicationController
   end
 
   def show
+    @vendor = @product.vendor
+    add_breadcrumb @vendor.name, [@vendor]
+    add_breadcrumb @product.name, [@vendor, @product]
+    add_breadcrumb @product_test.name, [@product, @product_test]
   end
 
   def destroy

@@ -3,8 +3,6 @@
 }
 
 .alert {
-  margin: -.5em 1em 2em;
-
   &.alert-success { @include alert-border($state-success-text); }
   &.alert-info { @include alert-border($state-info-text); }
   &.alert-warning { @include alert-border($state-warning-text); }
@@ -26,4 +24,10 @@
       padding: 0 2em;
     }
   }
+}
+
+// add margin for the alerts shown at the top of the page
+.container > .alert,
+.breadcrumb-responsive + .alert {
+  margin: -.5em 1em 2em;
 }

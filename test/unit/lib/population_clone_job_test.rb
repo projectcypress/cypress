@@ -4,8 +4,8 @@ require 'fileutils'
 # rubocop:disable Metrics/ClassLength
 
 class PopulationCloneJobTest < ActiveSupport::TestCase
-  setup do
-    collection_fixtures('records', 'product_tests', 'bundles')
+  def setup
+    collection_fixtures('records', 'product_tests', 'bundles', 'measures')
   end
 
   def test_perform_full_deck

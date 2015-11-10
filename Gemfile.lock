@@ -5,6 +5,13 @@ GIT
     database_cleaner (1.5.1)
 
 GIT
+  remote: https://github.com/bootstrap-ruby/rails-bootstrap-forms.git
+  revision: c7af9f10a263a601c588dcc1d3193263fb2994b4
+  branch: master
+  specs:
+    bootstrap_form (2.3.0)
+
+GIT
   remote: https://github.com/projectcypress/health-data-standards.git
   revision: f42e7f6ac43dbb6fdb493732424b150855c5ec39
   branch: bump_mongoid
@@ -256,6 +263,7 @@ GEM
     multi_json (1.11.2)
     multi_test (0.1.2)
     multipart-post (2.0.0)
+    nested_form (0.3.2)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
     netrc (0.10.3)
@@ -413,6 +421,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass (~> 3.3.5)
+  bootstrap_form!
   brakeman
   breadcrumbs_on_rails
   bson_ext
@@ -438,6 +447,7 @@ DEPENDENCIES
   mocha
   modernizr-rails (~> 2.7.1)
   mongoid (~> 5.0.0)
+  nested_form
   overcommit
   phantomjs
   poltergeist

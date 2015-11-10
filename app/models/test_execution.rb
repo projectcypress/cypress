@@ -9,7 +9,7 @@ class TestExecution
 
   embeds_many :execution_errors
   has_one :artifact, :autosave => true, :dependent => :destroy
-  belongs_to :task
+  belongs_to :task, touch: true
 
   def build_document(file)
     doc = Nokogiri::XML(file)
