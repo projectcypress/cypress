@@ -1,0 +1,35 @@
+<%
+#
+# renders all errors. the following are local variables that must be specified
+#
+#   product_test (ProductTest) : product test we are displaying errors for
+#   c1           (boolean)     : true if we want to display errors for c1 task type
+#   c2           (boolean)     : true if we want to display errors for c2 task type
+#   c3           (boolean)     : true if we want to display errors for c3 task type
+#
+%>
+
+
+Test Executions:
+<ul>
+  <% if c1 %>
+    <li>
+      <%= "(#{product_test.c1_tasks.first.test_executions.count}) C1 Test Executions:" %>
+      <ul>
+        <% product_test.c1_tasks.first.test_executions.each do |test_execution| %>
+          <li>
+            <ul>
+              <%= test_execution.created_at %>
+              <% # print identifying test_execution attribute here (maybe date-time) %>
+              <% test_execution.execution_errors.each do |execution_error| %>
+                <li><%= execution_error.message %></li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% else %>
+    <li>We are currently not printing executions for c2 or c3 task types</li>
+  <% end %>
+</ul>

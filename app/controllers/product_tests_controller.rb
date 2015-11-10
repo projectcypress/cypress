@@ -33,7 +33,7 @@ class ProductTestsController < ApplicationController
   def download
     format = params[:format] || 'qrda'
     file = Cypress::CreateDownloadZip.create_test_zip(@product_test.id, format)
-    send_data file, type: 'application/zip', disposition: 'attachment', filename: "Test_#{params[:id]}._#{format}.zip"
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "Test_#{params[:id]}._#{format}.zip"
   end
 
   private

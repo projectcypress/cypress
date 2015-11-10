@@ -1,1 +1,158 @@
-<%= "product_test name: #{@product_test.name}" %>
+<h2><%= "#{@product_test.name}" %></h2>
+
+<% c1 = @product_test.product.c1_test %>
+<% c2 = @product_test.product.c2_test %>
+<% c3 = @product_test.product.c3_test %>
+<% c1 = c2 = true if c3 && !c1 && !c2 %>
+
+<% tab_label_1 = 'C1 and C3' if c1 && c3 %>
+<% tab_label_1 = 'C1' if c1 && !c3 %>
+
+<% tab_label_2 = 'C2 and C3' if c2 && c3 %>
+<% tab_label_2 = 'C2' if c2 && !c3 %>
+
+<div class = 'row top-buffer'>
+  <div class = 'col-sm-6'>
+    <h4>Product Information</h4>
+    <div class = 'row'>
+      <div class = 'col-sm-3 text-right'>Vendor:</div>
+      <div class = 'col-sm-9 text-left'><%= @product_test.product.vendor.name %></div>
+    </div>
+    <div class = 'row'>
+      <div class = 'col-sm-3 text-right'>Product:</div>
+      <div class = 'col-sm-9 text-left'><%= @product_test.product.name %></div>
+    </div>
+    <% unless @product_test.product.version.blank? %>
+      <div class = 'row'>
+        <div class = 'col-sm-3 text-right'>Version:</div>
+        <div class = 'col-sm-9 text-left'><%= @product_test.product.version %></div>
+      </div>
+    <% end %>
+    <% unless @product_test.product.vendor.pocs.empty? %>
+      <% # put points of contact in here if we want them %>
+    <% end %>
+  </div>
+  <div class = 'col-sm-6'>
+    <h4>Current Test Status</h4>
+    <table class = 'table table-sm small-table'>
+      <thead>
+        <tr>
+          <th class = 'col-sm-2'></th>
+          <th class = 'col-sm-4 text-center' colspan = '2'>CAT 1 Testing</th>
+          <th class = 'col-sm-4 text-center' colspan = '2'>CAT 3 Testing</th>
+        </tr>
+        <tr>
+          <th class = 'col-sm-2'></th>
+          <th class = 'col-sm-2 text-center'>C1</th>
+          <th class = 'col-sm-2 text-center'>C3</th>
+          <th class = 'col-sm-2 text-center'>C2</th>
+          <th class = 'col-sm-2 text-center'>C3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class = 'text-right'>Warnings:</td>
+          <td class = 'text-center'>0</td>
+          <td class = 'text-center'>0</td>
+          <td class = 'text-center'>0</td>
+          <td class = 'text-center'>0</td>
+        </tr>
+        <tr>
+          <td class = 'text-right'>Errors:</td>
+          <td class = 'text-center'>0</td>
+          <td class = 'text-center'>0</td>
+          <td class = 'text-center'>0</td>
+          <td class = 'text-center'>0</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class = 'btn btn-primary pull-right'>
+      <i class = 'fa fa-download'></i><span class = 'next-to-icon-text'>Download Full Report</span>
+    </button>
+  </div>
+</div>
+
+<div class = 'row top-buffer'>
+  <div class = 'col-sm-6'>
+    <h3>Step 1. Download</h3>
+    <p class = 'description'>Start by downloading the CAT 1 data for this measure test. Enter this data into your electronic health record (EHR) system. This is the same download whether you are testing CAT 1 or CAT3.</p>
+    <%= form_for @product_test, url: {action: 'download'}, :html => { :method => 'GET' } do |f| %>
+      <%= button_tag(type: 'submit', class: 'btn btn-primary center-block') do %>
+        <i class = 'fa fa-download'></i><span class = 'next-to-icon-text'>Download CAT 1 (.zip)</span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class = 'row top-buffer'>
+  <div class = 'col-sm-6'>
+    <h3>Step 2. Test</h3>
+    <p class = 'description'>Enter the downloaded data into your electronic health record system. The output from this will be used in step 3.</p>
+  </div>
+</div>
+
+<% if c1 && c2 %>
+  <ul class = 'nav nav-tabs top-buffer'>
+    <li class = 'active'><a data-toggle = "tab" href = "#cat1"><%= "CAT 1 (#{tab_label_1})" %></a></li>
+    <li><a data-toggle = "tab" href = "#cat3"><%= "CAT 3 (#{tab_label_2})" %></a></li>
+  </ul>
+<% end %>
+
+<div class = 'tab-content'>
+  <% if c1 %>
+    <% if c1 && c2 %>
+      <div id = 'cat1' class = 'tab-pane active'>
+    <% end %>
+        <div class = 'row top-buffer'>
+          <div class = 'col-sm-6'>
+            <h3><%= "Step 3. Upload for #{tab_label_1}" %></h3>
+            <p class = 'description'><%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %></p>
+            <%= form_for(TestExecution.new, :html => {method: :post, :multipart => true}) do |f| %>
+              <%= hidden_field_tag :task_id, @product_test.c1_tasks.first.id %>
+              <% #, accept: _____ # varify that this is a zip file %>
+              <%= file_field_tag :results %>
+              <%= f.submit 'Submit' %>
+            <% end %>
+            <button class = 'btn btn-primary center-block'>
+              <i class = 'fa fa-upload'></i><span class = 'next-to-icon-text'>Upload CAT 1 (.zip)</span>
+            </button>
+          </div>
+        </div>
+        <div class = 'row top-buffer'>
+          <div class = 'col-sm-6'>
+            <h3>Step 4. View Results</h3>
+            <p class = 'description'>Here is where the results are going to be. There is nothing here right now. Deal with it.</p>
+            <% # c1 and c2 are set to true and false respectively because we only want to display errors for c1 (and c3 if desired) %>
+            <%= render partial: "test_execution_results", locals: { product_test: @product_test, c1: true, c2: false, c3: c3 } %>
+          </div>
+        </div>
+    <% if c1 && c2 %>
+      </div>
+    <% end %>
+  <% end %>
+  <% if c2 %>
+    <% if c1 && c2 %>
+      <div id = 'cat3' class = 'tab-pane'>
+    <% end %>
+        <div class = 'row top-buffer'>
+          <div class = 'col-sm-6'>
+            <h3><%= "Step 3. Upload for #{tab_label_2}" %></h3>
+            <p class = 'description'><%= "Upload your CAT 3 zip file to get test results for #{tab_label_2} certifications. This will automatically run a test execution." %></p>
+            <button class = 'btn btn-primary center-block'>
+              <i class = 'fa fa-upload'></i><span class = 'next-to-icon-text'>Upload CAT 3 (.zip)</span>
+            </button>
+          </div>
+        </div>
+        <div class = 'row top-buffer'>
+          <div class = 'col-sm-6'>
+            <h3>Step 4. View Results</h3>
+            <p class = 'description'>Here is where the results are going to be. There is nothing here right now. Deal with it.</p>
+            <% # c1 and c2 are set to false and true respectively because we only want to display errors for c2 (and c3 if desired) %>
+            <%= render partial: "test_execution_results", locals: { product_test: @product_test, c1: false, c2: true, c3: c3 } %>
+          </div>
+        </div>
+    <% if c1 && c2 %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
