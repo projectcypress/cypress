@@ -78,6 +78,7 @@ group :development, :test do
   gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'scss-lint'
   gem 'capybara'
+  gem 'capybara-accessible'
 end
 
 group :development do
