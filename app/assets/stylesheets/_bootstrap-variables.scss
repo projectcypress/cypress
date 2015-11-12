@@ -21,7 +21,7 @@ $brand-primary:         #755BC2 !default;
 $brand-success:         #26B164 !default;
 $brand-info:            #5B8EC2 !default;
 $brand-warning:         #D56948 !default;
-$brand-danger:          #D54867 !default;
+$brand-danger:          #B93D58 !default;
 $brand-white:           #efefef !default;
 
 //== Scaffolding
@@ -800,9 +800,9 @@ $breadcrumb-padding-horizontal: 15px !default;
 //** Breadcrumb background color
 $breadcrumb-bg:                 transparent !default;
 //** Breadcrumb text color
-$breadcrumb-color:              darken($brand-primary, 30%) !default;
+$breadcrumb-color:              darken($brand-primary, 20%) !default;
 //** Text color of current page in the breadcrumb
-$breadcrumb-active-color:       lighten($brand-primary, 10%) !default;
+$breadcrumb-active-color:       darken($brand-primary, 35%) !default;
 //** Textual separator for between breadcrumb elements
 $breadcrumb-separator:          ">" !default;
 
