@@ -8,6 +8,7 @@ require 'cucumber/rails'
 
 require 'capybara/cucumber'
 require 'capybara/poltergeist'
+require 'capybara/accessible'
 
 Mongoid.logger.level = Logger::INFO
 Mongo::Logger.logger.level = Logger::INFO
@@ -23,8 +24,8 @@ if ENV['IN_BROWSER']
     sleep(ENV['PAUSE'] || 0).to_i
   end
 else
-  Capybara.default_driver    = :poltergeist
-  Capybara.javascript_driver = :poltergeist
+  Capybara.default_driver    = :accessible_poltergeist
+  Capybara.javascript_driver = :accessible_poltergeist
 end
 
 # Capybara defaults to CSS3 selectors rather than XPath.
@@ -76,3 +77,20 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+
+# Make these rules throw errors instead of warnings.
+# Rules list: https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules
+Capybara::Accessible::Auditor.severe_rules = %w(
+  'AX_COLOR_01',
+  'AX_FOCUS_01',
+  'AX_FOCUS_02',
+  'AX_FOCUS_03',
+  'AX_VIDEO_01',
+  'AX_ARIA_06',
+  'AX_ARIA_07',
+  'AX_ARIA_11',
+  'AX_ARIA_13',
+  'AX_HTML_01',
+  'AX_TITLE_01',
+  'AX_TEXT_04'
+)

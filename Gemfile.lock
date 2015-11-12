@@ -117,6 +117,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-accessible (0.2.1)
+      capybara (~> 2.0)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -427,6 +429,7 @@ DEPENDENCIES
   bson_ext
   byebug
   capybara
+  capybara-accessible
   carrierwave
   carrierwave-mongoid
   config
