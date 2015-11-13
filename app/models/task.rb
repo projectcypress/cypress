@@ -23,7 +23,7 @@ class Task
           report_status = 'failing'
         end
       end
-      return_me = report_status
+      report_status
     end
   end
 end

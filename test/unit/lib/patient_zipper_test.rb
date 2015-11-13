@@ -6,7 +6,9 @@ class PatientZipperTest < ActiveSupport::TestCase
     collection_fixtures('records', 'bundles', 'vendors', 'products', 'product_tests', 'tasks', 'test_executions')
     @patients = Record.where('gender' => 'F')
   end
-
+  teardown do
+    drop_database
+  end
   test 'Should create valid html file' do
     format = :html
     filename = "pTest-#{Time.now.to_i}.html.zip"

@@ -20,10 +20,10 @@ class ProductTestsController < ApplicationController
   end
 
   def show
-    @vendor = @product.vendor
+    @vendor = @product_test.product.vendor
     add_breadcrumb @vendor.name, [@vendor]
-    add_breadcrumb @product.name, [@vendor, @product]
-    add_breadcrumb @product_test.name, [@product, @product_test]
+    add_breadcrumb @product_test.product.name, [@vendor, @product_test.product]
+    add_breadcrumb @product_test.name, [@product_test.product, @product_test]
   end
 
   def destroy
