@@ -45,7 +45,7 @@ class ProductTest
   end
 
   def measures
-    bundle.measures.where( hqmf_id: measure_id)
+    bundle.measures.where(hqmf_id: measure_id)
   end
 
   def execute(_params)
@@ -64,7 +64,6 @@ class ProductTest
     self.state = :ready
     save
   end
-
 
   delegate :effective_date, :to => :bundle
 
