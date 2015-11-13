@@ -35,4 +35,16 @@ class ProductTestsControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:product_test)
   end
+
+  test 'should be able to download zip file of patients in qrda format' do
+    get :download, :id => ProductTest.first.id, :format => :qrda
+    assert_response :success
+    assert_not_nil assigns(:product_test)
+  end
+
+  test 'should be able to download zip file of patients in html format' do
+    get :download, :id => ProductTest.first.id, :format => :html
+    assert_response :success
+    assert_not_nil assigns(:product_test)
+  end
 end

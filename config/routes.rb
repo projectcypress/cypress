@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   end
 
   resources :product_tests, only: [:show, :edit, :update, :destroy] do
+    member do
+      get :download
+    end
     resources :tasks, only: [:index, :new, :create]
   end
 

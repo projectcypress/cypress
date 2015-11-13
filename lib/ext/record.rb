@@ -8,6 +8,10 @@ class Record
   index test_id: 1
   index bundle_id: 1
 
+  def product_test
+    ProductTest.where('_id' => test_id).first
+  end
+
   def bundle
     if !self['bundle_id'].nil?
       HealthDataStandards::CQM::Bundle.find(self['bundle_id'])

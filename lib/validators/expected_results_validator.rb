@@ -86,10 +86,10 @@ module Validators
     end
 
     def check_supplemental_data(expected_supplemental_value,
-      reported_supplemantal_value,
-      population_key,
-      supplemental_data_key,
-      measure_id)
+                                reported_supplemantal_value,
+                                population_key,
+                                supplemental_data_key,
+                                measure_id)
       if reported_supplemantal_value.nil?
         err = "supplemental data for #{population_key} #{supplemental_data_key} #{expected_supplemental_value} expected but was not found"
         add_error(err, :location => '/', :measure_id => measure_id, :validator_type => :result_validation)

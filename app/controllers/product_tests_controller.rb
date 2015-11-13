@@ -1,6 +1,6 @@
 class ProductTestsController < ApplicationController
-  before_action :set_product, only: [:index, :new, :create, :show]
-  before_action :set_product_test, only: [:edit, :update, :show, :destroy]
+  before_action :set_product, only: [:index, :new, :create]
+  before_action :set_product_test, except: [:index, :new, :create]
 
   def index
     @product_tests = @product.product_tests
@@ -20,13 +20,20 @@ class ProductTestsController < ApplicationController
   end
 
   def show
-    @vendor = @product.vendor
+    @vendor = @product_test.product.vendor
     add_breadcrumb @vendor.name, [@vendor]
-    add_breadcrumb @product.name, [@vendor, @product]
-    add_breadcrumb @product_test.name, [@product, @product_test]
+    add_breadcrumb @product_test.product.name, [@vendor, @product_test.product]
+    add_breadcrumb @product_test.name, [@product_test.product, @product_test]
   end
 
   def destroy
+  end
+
+  # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format
+  def download
+    format = params[:format] || 'qrda'
+    file = Cypress::CreateDownloadZip.create_test_zip(@product_test.id, format)
+    send_data file, type: 'application/zip', disposition: 'attachment', filename: "Test_#{params[:id]}._#{format}.zip"
   end
 
   private

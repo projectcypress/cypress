@@ -7,6 +7,10 @@ class Task
 
   belongs_to :product_test, touch: true
   has_many :test_executions
+  delegate :start_date, :to => :product_test
+  delegate :end_date, :to => :product_test
+  delegate :measures, :to => :product_test
+  delegate :records, :to => :product_test
 
   def status
     Rails.cache.fetch("#{cache_key}/status") do
@@ -19,7 +23,7 @@ class Task
           report_status = 'failing'
         end
       end
-      return_me = report_status
+      report_status
     end
   end
 end
