@@ -9,4 +9,4 @@ Scenario: User wants to edit account information
 
 Scenario: Successful Logout
   When the user logs out
-  Then the user should be redirected to the sign in page
+  Then the user should be signed out

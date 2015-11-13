@@ -53,5 +53,11 @@ end
 
 Then(/^the user should be redirected to the sign in page$/) do
   page.assert_text 'You need to sign in or sign up before continuing.'
-  assert page.current_path == new_user_session_path
+  assert_equal new_user_session_path, page.current_path
+end
+
+Then(/^the user should be signed out$/) do
+  # assert redirected_to destroy_user_session_path
+  page.assert_text 'You need to sign in or sign up before continuing.'
+  assert_equal destroy_user_session_path, page.current_path
 end
