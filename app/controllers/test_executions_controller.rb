@@ -7,6 +7,7 @@ class TestExecutionsController < ApplicationController
   end
 
   def create
+    @test_execution = @task.execute(params[:results])
   end
 
   def show
