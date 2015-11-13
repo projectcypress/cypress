@@ -20,7 +20,9 @@ class CachingTest < MiniTest::Test
 
   def setup_product_with_product_test
     @product = Product.new(name: 'test_product_name', c1_test: true)
-    @product_test = ProductTest.new(name: 'test_product_test_name', measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7')
+    @product_test = ProductTest.new(name: 'test_product_test_name',
+                                    measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7')
+    @product_test.bundle = Bundle.find('4fdb62e01d41c820f6000001')
     @product.vendor = @vendor
     @product_test.product = @product
     @product_test.save!
