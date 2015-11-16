@@ -84,12 +84,14 @@
     <% unless @product.product_tests.empty? %>
       <div class="col-md-6 col-md-offset-6 selected-measure-list">
         <h3>Selected Measures</h3>
-        <% @product.product_tests.each do |product_test| %>
+        <% 
+        measures = @product.product_tests.collect {|pt| pt.measures.top_level}.flatten.uniq
+        measures.each do |measure| %>
           <div class="checkbox">
             <label class="btn btn-checkbox disabled">
-              <input type="checkbox" name="product_test[measure_ids][]" id="<%= product_test.measure_id %>" value="<%= product_test.measure_id %>"
+              <input type="checkbox" name="product_test[measure_ids][]" id="<%= measure.hqmf_id %>" value="<%= measure.hqmf_id %>"
               class="measure-checkbox" checked="true" disabled="disabled" />
-              <strong><%= product_test.cms_id %></strong> <%= product_test.name %>
+              <strong><%= measure.cms_id %></strong> <%= measure.name %>
             </label>
           </div>
         <% end %>

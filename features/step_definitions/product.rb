@@ -38,7 +38,7 @@ def map_bson_ids(json)
 end
 
 def build_product
-  Product.new(name: 'Product 1', measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7')
+  Product.new(name: 'Product 1', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'])
 end
 
 Before do

@@ -30,6 +30,15 @@ class ProductTest
 
   after_create :generate_records
 
+  def self.inherited(child)
+    child.instance_eval do
+      def model_name
+        ProductTest.model_name
+      end
+    end
+    super
+  end
+
   def generate_records
     ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
       pcv.value['medical_record_id']
