@@ -26,7 +26,7 @@ class ProducTest < MiniTest::Test
   def test_create
     pt = Product.new(vendor: @vendor, name: 'test_product', c1_test: true)
     pt.product_tests.build(name: 'test_product_test_name',
-                           measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7',
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save a Product'
@@ -35,7 +35,7 @@ class ProducTest < MiniTest::Test
   def test_create_from_vendor
     pt = @vendor.products.build(name: 'test_product', c1_test: true)
     pt.product_tests.build(name: 'test_product_test_name',
-                           measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7',
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save a Product'
@@ -44,7 +44,7 @@ class ProducTest < MiniTest::Test
   def test_must_have_name
     pt = Product.new(vendor: @vendor, c1_test: true)
     pt.product_tests.build(name: 'test_product_test_name',
-                           measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7',
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
     assert_equal false, pt.valid?, 'record should not be valid'
     saved = pt.save
@@ -54,7 +54,7 @@ class ProducTest < MiniTest::Test
   def test_must_have_vendor
     pt = Product.new(name: 'test_product', c1_test: true)
     pt.product_tests.build(name: 'test_product_test_name',
-                           measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7',
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
     assert_equal false, pt.valid?, 'record should not be valid'
     saved = pt.save
@@ -64,7 +64,7 @@ class ProducTest < MiniTest::Test
   def test_must_have_at_least_one_certification_test_type
     pt = Product.new(vendor: @vendor, name: 'test_product')
     pt.product_tests.build(name: 'test_product_test_name',
-                           measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7',
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
     assert_equal false, pt.valid?, 'record should not be valid'
     saved = pt.save
@@ -74,7 +74,7 @@ class ProducTest < MiniTest::Test
   def test_can_have_multiple_certification_test_types
     pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true)
     pt.product_tests.build(name: 'test_product_test_name',
-                           measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7',
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save with two certification types'

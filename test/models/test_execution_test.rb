@@ -3,7 +3,7 @@ class TestExecutionTest < MiniTest::Test
   def setup
     vendor = Vendor.create(name: 'test_vendor_name')
     product = vendor.products.create(name: 'test_product')
-    ptest = product.product_tests.build(name: 'ptest', measure_id: '1a')
+    ptest = product.product_tests.build(name: 'ptest', measure_ids: ['1a'])
     @task = ptest.tasks.build
   end
 

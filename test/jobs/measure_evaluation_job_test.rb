@@ -14,13 +14,13 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
 
   def test_can_queue_product_test_job
     assert_enqueued_jobs 0
-    MeasureEvaluationJob.perform_later(ProductTest.new(measure_id: '8A4D92B2-3887-5DF3-0139-0C4E41594C98'), {})
+    MeasureEvaluationJob.perform_later(ProductTest.new(measure_ids: ['8A4D92B2-3887-5DF3-0139-0C4E41594C98']), {})
     assert_enqueued_jobs 1
   end
 
   def test_can_queue_task_job
     assert_enqueued_jobs 0
-    ptest = ProductTest.new(measure_id: '8A4D92B2-3887-5DF3-0139-0C4E41594C98')
+    ptest = ProductTest.new(measure_ids: ['8A4D92B2-3887-5DF3-0139-0C4E41594C98'])
     task = ptest.tasks.build({}, C4Task)
     MeasureEvaluationJob.perform_later(task, {})
     assert_enqueued_jobs 1
@@ -33,7 +33,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     prod = Product.first
     perform_enqueued_jobs do
       ptest = prod.product_tests.create(name: 'test_for_measure_job_calculation',
-                                        measure_id: '8A4D92B2-3887-5DF3-0139-0C4E41594C98',
+                                        measure_ids: ['8A4D92B2-3887-5DF3-0139-0C4E41594C98'],
                                         bundle_id: '4fdb62e01d41c820f6000001')
       assert_performed_jobs 1
       ptest.reload
@@ -52,7 +52,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     prod = Product.first
     perform_enqueued_jobs do
       ptest = prod.product_tests.create(name: 'test_for_measure_job_calculation',
-                                        measure_id: '8A4D92B2-3887-5DF3-0139-0C4E41594C98',
+                                        measure_ids: ['8A4D92B2-3887-5DF3-0139-0C4E41594C98'],
                                         bundle_id: '4fdb62e01d41c820f6000001')
       task = ptest.tasks.create({})
       MeasureEvaluationJob.perform_later(task, {})

@@ -1,0 +1,2 @@
+class MeasureTest < ProductTest
+end
