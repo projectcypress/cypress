@@ -58,6 +58,6 @@ end
 
 Then(/^the user should be signed out$/) do
   # assert redirected_to destroy_user_session_path
-  page.assert_text 'You need to sign in or sign up before continuing.'
-  assert_equal destroy_user_session_path, page.current_path
+  page.assert_text 'Signed out successfully.'
+  assert_equal user_session_path, page.current_path
 end
