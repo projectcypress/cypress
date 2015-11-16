@@ -1,15 +1,9 @@
 class C3Task < Task
-  def validators
-    @validators ||= [::Validators::QrdaCat3Validator.new(product_test.expected_results),
-                     ::Validators::MeasurePeriodValidator.new,
-                     ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
-  end
-
-  def execute(file)
-    te = test_executions.create(expected_results: expected_results)
-    te.artifact = Artifact.new(file: file)
-    te.validate_artifact(validators, te.artifact, reported_results_target: self)
-    te.save
-    te
+  # C3 = Report
+  #  - Ability to create a data file
+  #  - Cat 1 R3 or Cat 3
+  # This validation will be rolled into the C1 and C2 tasks
+  # and the C3 task won't have its own dedicated upload.
+  def execute(_file)
   end
 end

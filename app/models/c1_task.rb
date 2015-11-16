@@ -5,10 +5,21 @@ class C1Task < Task
   include Mongoid::Attributes::Dynamic
   include ::Validators
 
+  # C1 = Record and Export
+  #  - Record all the data needed to calculate CQMs
+  #  - Export data as Cat 1
+  #
+  # Also, if the parent product test includes a C3 Task,
+  # do that validation here
   def validators
-    @validators ||= [QrdaCat1Validator.new(product_test.bundle, product_test.measures),
-                     SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id),
-                     MeasurePeriodValidator.new]
+    return @validators if @validators
+
+    @validators = [QrdaCat1Validator.new(product_test.bundle, product_test.measures),
+                   SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id)]
+
+    @validators << MeasurePeriodValidator.new if product_test.contains_c3_task?
+
+    @validators
   end
 
   def execute(file)
