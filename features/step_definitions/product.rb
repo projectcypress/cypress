@@ -98,13 +98,78 @@ When(/^the user creates two products with the same name$/) do
   )
 end
 
-When(/^the user creates a product with no task selected$/) do
+When(/^the user creates a product with no task type$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   @product = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product.name
   page.find('#Asthma').click
   page.click_button 'Add Product'
 end
+
+When(/^the user fills out all product information but measures$/) do
+  steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
+  @product = FactoryGirl.build(:product)
+  page.fill_in 'Name', with: @product.name
+  page.find('#product_c1_test').click
+end
+
+When(/^the user creates a product without selecting a measure$/) do
+  steps %( When the user fills out all product information but measures )
+  page.click_button 'Add Product'
+end
+
+# V V V Measure Selection V V V
+
+When(/^the user creates a product with multiple measures from different groups$/) do
+  steps %( When the user fills out all product information but measures )
+  page.find('#Asthma').click
+  click_link('Behavioral Health Adult (EP)')
+  page.find('#Behavioral_Health_Adult').click
+  page.click_button 'Add Product'
+end
+
+When(/^the user creates a product with selecting a group of measures$/) do
+  steps %( When the user fills out all product information but measures )
+  click_link('Miscellaneous (EH)')
+  page.find('#Miscellaneous_group').click
+  page.click_button 'Add Product'
+end
+
+When(/^the user creates a product with selecting a measure then deselecting that measure$/) do
+  steps %( When the user fills out all product information but measures )
+  page.find('#Asthma').click
+  page.find('#Asthma').click
+  page.click_button 'Add Product'
+end
+
+When(/^the user creates a product with selecting a group of measures then deselecting that group$/) do
+  steps %( When the user fills out all product information but measures )
+  click_link('Miscellaneous (EH)')
+  page.find('#Miscellaneous_group').click
+  page.find('#Miscellaneous_group').click
+  page.click_button 'Add Product'
+end
+
+When(/^the user creates a product with selecting a measure then deselecting from selected measures$/) do
+  steps %( When the user fills out all product information but measures )
+  page.check('Asthma Assessment')
+  page.find('.selected-measure-list').uncheck('Asthma Assessment')
+  page.click_button 'Add Product'
+end
+
+And(/^the user selects a group of measures but deselects one$/) do
+  click_link('Miscellaneous (EH)')
+  page.find('#Miscellaneous_group').click
+  page.find('.measure_group').uncheck('Aspirin Prescribed at Discharge')
+end
+
+And(/^the user selects a group of measures but deselects one from selected measures$/) do
+  click_link('Miscellaneous (EH)')
+  page.find('#Miscellaneous_group').click
+  page.find('.selected-measure-list').uncheck('Aspirin Prescribed at Discharge')
+end
+
+# ^ ^ ^ Measure Selection ^ ^ ^
 
 When(/^the user cancels creating a product$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
@@ -159,9 +224,21 @@ Then(/^the user should see an error message saying the product name has been tak
   page.assert_text 'name was already taken'
 end
 
-Then(/^the user should see an error message saything no task has been selected$/) do
-  page.assert_text 'at least one certification test'
+Then(/^the user should see an error message saying the product must have at least one task type$/) do
+  page.assert_text 'must include at least one certification test'
 end
+
+Then(/^the user should see an error message saying the product must have at least one measure$/) do
+  page.assert_text 'must specify least one measure for testing'
+end
+
+# V V V Measure Selection V V V
+
+Then(/^the group of measures should no longer be selected$/) do
+  page.has_unchecked_field?('#Miscellaneous_group')
+end
+
+# ^ ^ ^ Measure Selection ^ ^ ^
 
 Then(/^the user should not see the product$/) do
   page.assert_text @vendor.name
