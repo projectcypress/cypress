@@ -11,7 +11,7 @@ class ProductTest
 
   field :expected_results, type: Hash
   # this the hqmf id of the measure
-  field :measure_id, type: String
+  field :measure_ids, type: Array
   # Test Details
   field :name, type: String
   field :cms_id, type: String
@@ -22,7 +22,7 @@ class ProductTest
   # field :effective_date, type: Integer
   validates :name, presence: true
   validates :product, presence: true
-  validates :measure_id, presence: true
+  validates :measure_ids, presence: true
   # validates :effective_date, presence: true
   # validates :bundle_id, presence: true
 
@@ -30,8 +30,17 @@ class ProductTest
 
   after_create :generate_records
 
+  def self.inherited(child)
+    child.instance_eval do
+      def model_name
+        ProductTest.model_name
+      end
+    end
+    super
+  end
+
   def generate_records
-    ids = PatientCache.where('value.measure_id' => measure_id, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
+    ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
       pcv.value['medical_record_id']
     end
     ids.uniq!
@@ -45,7 +54,7 @@ class ProductTest
   end
 
   def measures
-    bundle.measures.where(hqmf_id: measure_id)
+    bundle.measures.in(hqmf_id: measure_ids)
   end
 
   def execute(_params)

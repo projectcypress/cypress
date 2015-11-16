@@ -101,7 +101,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params[:product].permit(:name, :version, :description, :ehr_type, :c1_test, :c2_test, :c3_test, :c4_test, :measure_selection,
-                            product_tests_attributes: [:id, :name, :measure_id, :bundle_id, :_destroy])
+                            product_tests_attributes: [:id, :name, :measure_ids, :bundle_id, :_destroy])
   end
 
   def edit_product_params
@@ -116,7 +116,7 @@ class ProductsController < ApplicationController
   def create_product_tests(product, measure_ids)
     measure_ids.each do |measure_id|
       measure = Measure.top_level.where(hqmf_id: measure_id).first
-      pt = ProductTest.new(name: measure.name, product: product, measure_id: measure_id, cms_id: measure.cms_id, bundle_id: measure.bundle_id)
+      pt = MeasureTest.new(name: measure.name, product: product, measure_ids: [measure_id], cms_id: measure.cms_id, bundle_id: measure.bundle_id)
       pt.save!
     end
   end

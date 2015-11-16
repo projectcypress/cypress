@@ -1,0 +1,2 @@
+class FilteringTest < ProductTest
+end
