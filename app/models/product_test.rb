@@ -44,6 +44,10 @@ class ProductTest
     MeasureEvaluationJob.perform_later(self, {})
   end
 
+  def contains_c3_task?
+    tasks.count { |t| t.is_a? C3Task } > 0
+  end
+
   def measures
     bundle.measures.where(hqmf_id: measure_id)
   end

@@ -7,7 +7,24 @@ class C4Task < Task
     MeasureEvaluationJob.perform_now(self, 'filters' => patient_cache_filter)
   end
 
-  def execute(_params)
+  # C4 = Filter
+  #  - Record the required data elements
+  #  - Filter CQM results at the patient and aggregate level
+  #  - Export Cat 1 or Cat 3
+  def validators(_file)
+    # file not used yet - for now just assume it's cat 3
+    # at some point will need to check if it's cat 1
+    @validators ||= [::Validators::QrdaCat3Validator.new(product_test.expected_results),
+                     ::Validators::MeasurePeriodValidator.new,
+                     ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
+  end
+
+  def execute(file)
+    te = test_executions.create(expected_results: expected_results)
+    te.artifact = Artifact.new(file: file)
+    te.validate_artifact(validators(file), te.artifact)
+    te.save
+    te
   end
 
   # Final Rule defines 9 different criteria that can be filtered:
