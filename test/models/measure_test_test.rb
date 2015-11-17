@@ -2,7 +2,7 @@ require 'test_helper'
 class MeasureTestTest < MiniTest::Test
   def setup
     collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
-    vendor = Vendor.create(name: 'test_vendor_name')
+    vendor = Vendor.create!(name: 'test_vendor_name')
     @product = vendor.products.create(name: 'test_product')
   end
 
