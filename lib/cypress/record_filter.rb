@@ -51,8 +51,13 @@ module Cypress
         # so that the entire date is included within the range.
         # The filter query essentially becomes:
         # :birthdate >= 01/01/20xx 00:00:00
+        # To filter by a maximum age, we need to go back a year further than the age, minus one day.
+        # For example: Patient birthdate 1/1/2000 , Effective Date 11/13/2015, Max Age 15
+        # We really need to get everyone who is less than 16, so we go back 16 years to 11/13/1999
+        # plus one day to 11/14/1999. Anyone born on or after this date is 15 or less,
+        # anyone born before this is 16+ so gets excluded.
 
-        req_birthdate = start_of_day - age_max.years
+        req_birthdate = start_of_day - (age_max + 1).years + 1.day
 
         query[:birthdate.gte] = req_birthdate
       end

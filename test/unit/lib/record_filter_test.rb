@@ -87,6 +87,21 @@ class RecordFilterTest < ActiveSupport::TestCase
     end
   end
 
+  def test_filter_age_targeted
+    # Pick a patient, get their age, filter by that age
+    # and make sure the patient is in the results
+    now = Time.now.utc
+    patient = @all_records.sample
+    dob = Time.at(patient.birthdate).utc
+    target_age = age_on_date(dob, now)
+
+    filters = { 'age' => { 'max' => target_age } }
+
+    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: now.to_i).to_a
+
+    assert filtered_records.include?(patient), 'Targeted patient not included in filtered results'
+  end
+
   def test_filter_age_min
     ## reminder: for dates, > means later/younger...
     now = Time.now.utc
