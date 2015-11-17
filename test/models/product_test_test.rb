@@ -40,4 +40,16 @@ class ProductTestTest < MiniTest::Test
     pt2 = @product.product_tests.build
     assert !pt2.contains_c3_task?
   end
+
+  def test_has_c3_task
+    pt1 = @product.product_tests.build(name: 'test_for_measure_1a',
+                                       measure_id: '8A4D92B2-397A-48D2-0139-B0DC53B034A7',
+                                       bundle_id: '4fdb62e01d41c820f6000001')
+    pt1.save
+    pt1.tasks.create({}, C3Task)
+    assert pt1.contains_c3_task?
+
+    pt2 = @product.product_tests.build
+    assert !pt2.contains_c3_task?
+  end
 end
