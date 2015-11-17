@@ -1,4 +1,5 @@
 require 'test_helper'
+# rubocop:disable Metrics/ClassLength
 class C2TaskTest < MiniTest::Test
   include ::Validators
   def setup
@@ -18,29 +19,19 @@ class C2TaskTest < MiniTest::Test
   def test_should_exclude_c3_validators_when_no_c3
     @product_test.tasks.clear
     task = @product_test.tasks.create({}, C2Task)
-
     assert !@product_test.contains_c3_task?
 
-    validators = task.validators
-
-    validators.each do |v|
+    task.validators.each do |v|
       assert !v.is_a?(MeasurePeriodValidator)
     end
-    # assert the c3-specific validators are not there
   end
 
   def test_should_include_c3_validators_when_c3_exists
     task = @product_test.tasks.create({}, C2Task)
-
     @product_test.tasks.create({}, C3Task)
 
     assert @product_test.contains_c3_task?
-
-    validators = task.validators
-
-    assert validators.count { |v| v.is_a?(MeasurePeriodValidator) } > 0
-
-    # assert the c3-specific validators are there
+    assert task.validators.count { |v| v.is_a?(MeasurePeriodValidator) } > 0
   end
 
   def test_execute
@@ -105,6 +96,16 @@ class C2TaskTest < MiniTest::Test
   end
 
   def test_should_cause_error_when_measure_is_not_included_in_report
+    ptest = ProductTest.find('51703a6a3054cf8439000044')
+    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'application/xml')
+    te = task.execute(xml)
+    # 9 is for all of the sub measures to be searched for
+    # 2 for missing supplemental data
+    assert_equal 21, te.execution_errors.length, 'should error on missing measure entry'
+  end
+
+  def test_should_cause_error_when_measure_is_not_included_in_report_with_c3
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     ptest.tasks.create({}, C3Task)
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)

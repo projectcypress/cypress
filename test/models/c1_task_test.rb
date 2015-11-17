@@ -19,29 +19,19 @@ class C1TaskTest < MiniTest::Test
   def test_should_exclude_c3_validators_when_no_c3
     @product_test.tasks.clear
     task = @product_test.tasks.create({}, C1Task)
-
     assert !@product_test.contains_c3_task?
 
-    validators = task.validators
-
-    validators.each do |v|
+    task.validators.each do |v|
       assert !v.is_a?(MeasurePeriodValidator)
     end
-    # assert the c3-specific validators are not there
   end
 
   def test_should_include_c3_validators_when_c3_exists
     task = @product_test.tasks.create({}, C1Task)
-
     @product_test.tasks.create({}, C3Task)
-
     assert @product_test.contains_c3_task?
 
-    validators = task.validators
-
-    assert validators.count { |v| v.is_a?(MeasurePeriodValidator) } > 0
-
-    # assert the c3-specific validators are there
+    assert task.validators.count { |v| v.is_a?(MeasurePeriodValidator) } > 0
   end
 
   def test_should_be_able_to_test_a_good_archive_of_qrda_files
