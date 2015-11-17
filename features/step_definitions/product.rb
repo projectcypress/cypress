@@ -171,6 +171,16 @@ end
 
 # ^ ^ ^ Measure Selection ^ ^ ^
 
+When(/^the user creates a product with no name and selects measures$/) do
+  steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
+  @product = FactoryGirl.build(:product_no_name)
+  page.fill_in 'Name', with: @product.name
+  page.find('#product_c1_test').click
+  click_link('Miscellaneous (EH)')
+  page.find('#Miscellaneous_group').click
+  page.click_button 'Add Product'
+end
+
 When(/^the user cancels creating a product$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   @product = FactoryGirl.build(:product)
@@ -239,6 +249,10 @@ Then(/^the group of measures should no longer be selected$/) do
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^
+
+Then(/^there should be no product tests in the database$/) do
+  assert_equal 0, ProductTest.all.count
+end
 
 Then(/^the user should not see the product$/) do
   page.assert_text @vendor.name

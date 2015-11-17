@@ -29,7 +29,6 @@ class ProductTest
   # delegate :effective_date, to: bundle
 
   after_create :generate_records
-  after_create :create_tasks
 
   def self.inherited(child)
     child.instance_eval do
@@ -80,26 +79,6 @@ class ProductTest
   end
 
   delegate :effective_date, :to => :bundle
-
-  # only creates c1, c2, and c3 tasks with no attributes as of now ~ JaeBird
-  # as of now, should only create one task per task type
-  def create_tasks
-    C1Task.new(product_test: self).save! if product.c1_test
-    C2Task.new(product_test: self).save! if product.c2_test
-    C3Task.new(product_test: self).save! if product.c3_test
-  end
-
-  def c1_tasks
-    tasks.select { |task| task._type == 'C1Task' }
-  end
-
-  def c2_tasks
-    tasks.select { |task| task._type == 'C2Task' }
-  end
-
-  def c3_tasks
-    tasks.select { |task| task._type == 'C3Task' }
-  end
 
   def status
     Rails.cache.fetch("#{cache_key}/status") do

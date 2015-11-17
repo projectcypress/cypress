@@ -34,6 +34,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     C1Task.any_instance.stubs(:records).returns([])
 
     task = Task.first
+    task.product_test = ProductTest.first
+    task.product_test.product = Product.first
     orig_count = task.test_executions.count
 
     zipfile = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
@@ -41,7 +43,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
     post :create, task_id: task.id, results: upload
 
-    assert_response 200
+    assert_response 302
     assert_equal task.test_executions.count, orig_count + 1, 'Should have added 1 new TestExecution'
   end
 end

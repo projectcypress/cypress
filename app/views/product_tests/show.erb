@@ -3,7 +3,6 @@
 <% c1 = @product_test.product.c1_test %>
 <% c2 = @product_test.product.c2_test %>
 <% c3 = @product_test.product.c3_test %>
-<% c1 = c2 = true if c3 && !c1 && !c2 %>
 
 <% tab_label_1 = 'C1 and C3' if c1 && c3 %>
 <% tab_label_1 = 'C1' if c1 && !c3 %>
@@ -108,7 +107,7 @@
             <h3><%= "Step 3. Upload for #{tab_label_1}" %></h3>
             <p class = 'description'><%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %></p>
             <%= form_for(TestExecution.new, :html => {method: :post, :multipart => true}) do |f| %>
-              <%= hidden_field_tag :task_id, @product_test.c1_tasks.first.id %>
+              <%= hidden_field_tag :task_id, @product_test.c1_task.id %>
               <% #, accept: _____ # varify that this is a zip file %>
               <%= file_field_tag :results %>
               <%= f.submit 'Submit' %>

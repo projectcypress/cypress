@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.vendor = @vendor
-    create_product_tests(@product, params['product_test']['measure_ids'].uniq) if params['product_test']
+    add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
     @product.save!
     flash_product_comment(@product.name, 'success', 'created')
     respond_to do |f|
@@ -113,12 +113,11 @@ class ProductsController < ApplicationController
     flash[:notice_type] = notice_type
   end
 
-  def create_product_tests(product, measure_ids)
+  def add_product_tests_to_product(measure_ids)
     measure_ids.each do |measure_id|
       measure = Measure.top_level.where(hqmf_id: measure_id).first
-      pt = ProductTest.new(name: "#{measure.name} (#{measure.cms_id})", product: product, measure_id: measure_id,
-                           cms_id: measure.cms_id, bundle_id: measure.bundle_id)
-      pt.save!
+      @product.product_tests.build({ name: measure.name, product: @product, measure_ids: [measure_id],
+                                     cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
     end
   end
 end

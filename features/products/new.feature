@@ -54,6 +54,10 @@ Scenario: Measure Group Unchecked After Deselecting Measure In Selected Measures
   And the user selects a group of measures but deselects one from selected measures
   Then the group of measures should no longer be selected
 
+Scenario: No Product Tests Created if Product is Not Validated
+  When the user creates a product with no name and selects measures
+  Then there should be no product tests in the database
+
 Scenario: Successful Cancel Create Product
   When the user cancels creating a product
   Then the user should not see the product

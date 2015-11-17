@@ -14,9 +14,9 @@ Test Executions:
 <ul>
   <% if c1 %>
     <li>
-      <%= "(#{product_test.c1_tasks.first.test_executions.count}) C1 Test Executions:" %>
+      <%= "(#{product_test.c1_task.test_executions.count}) C1 Test Executions:" %>
       <ul>
-        <% product_test.c1_tasks.first.test_executions.each do |test_execution| %>
+        <% product_test.c1_task.test_executions.each do |test_execution| %>
           <li>
             <ul>
               <%= test_execution.created_at %>
