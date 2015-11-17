@@ -62,7 +62,7 @@ class MeasureEvaluationJob < ActiveJob::Base
     vs.concepts.each do |con|
       name = con.code_system_name
       js[name] ||= []
-      js[name] << con.code.downcase unless js[vs.oid][name].index(con.code.downcase)
+      js[name] << con.code.downcase unless js[name].index(con.code.downcase)
     end
     @loaded_valuesets[vs.oid] = js
     js

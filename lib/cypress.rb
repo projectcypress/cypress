@@ -1,3 +1,6 @@
 Dir[File.dirname(__FILE__) + '/cypress/*.rb'].each { |file| require file }.each { |file| require file }
-Dir[File.dirname(__FILE__) + '/ext/*.rb'].each { |file| require file }.each { |file| require file }
+Dir[File.dirname(__FILE__) + '/ext/*.rb'].each { |file| require file }.each { |file| require file 
+puts file}
 Dir[File.dirname(__FILE__) + '/validators/*.rb'].each { |file| require file }.each { |file| require file }
+puts __FILE__
+puts "hey"
