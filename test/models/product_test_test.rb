@@ -28,4 +28,15 @@ class ProductTestTest < MiniTest::Test
     assert errors.key?(:name)
     assert errors.key?(:measure_ids)
   end
+
+  def test_has_c3_task
+    pt = @product.product_tests.build(name: 'test_for_measure_1a',
+                                      measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                      bundle_id: '4fdb62e01d41c820f6000001')
+    pt.save
+    assert !pt.contains_c3_task?
+
+    pt.tasks.create({}, C3Task)
+    assert pt.contains_c3_task?
+  end
 end

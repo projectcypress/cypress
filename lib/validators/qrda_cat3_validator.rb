@@ -12,9 +12,13 @@ module Validators
       @doc = file
       @options = options
       add_errors Cat3.instance.validate(@doc, file_name: @options[:file_name])
-      add_errors Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])
-      add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name])
       add_errors CDA.instance.validate(@doc, file_name: @options[:file_name])
+
+      # I don't like this right now but do it this way just to get things moving
+      if options[:validate_reporting]
+        add_errors Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])
+        add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name])
+      end
     end
 
     def add_errors(errors)
