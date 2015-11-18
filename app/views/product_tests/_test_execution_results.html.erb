@@ -1,35 +1,58 @@
 <%
 #
-# renders all errors. the following are local variables that must be specified
+# renders the errors for the most recent test execution for the given task.
 #
-#   product_test (ProductTest) : product test we are displaying errors for
-#   c1           (boolean)     : true if we want to display errors for c1 task type
-#   c2           (boolean)     : true if we want to display errors for c2 task type
-#   c3           (boolean)     : true if we want to display errors for c3 task type
+# must specify local variable "task" (ex. @product.c1_task)
 #
 %>
 
+<% if task && task.test_executions.any? %>
+  <% task.test_executions.order_by(:created_at => 'desc').each do |execution| %>
+    <% qrda_errors = execution.execution_errors.where(validator_type: :xml_validation).order_by(:file_name => 'desc') %>
+    <% report_errors = execution.execution_errors.where(validator_type: :result_validation).order_by(:file_name => 'desc') %>
+    <% # THIS DOES NOT WORK YET! WE NEED TO KNOW WHAT validator_type SUBMISSION ERRORS HAVE %>
+    <% submit_errors = execution.execution_errors.where(validator_type: :adsfasdfasdfasdfasdf).order_by(:file_name => 'desc') %>
+    
+    <h4 class = 'top-buffer'>
+      <%= "#{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
+    </h4>
+    <ul class = 'nav nav-tabs'>
+      <li class = 'active'>
+        <a data-toggle = 'tab' href = <%= "#QRDA_tab_execution_#{execution.id}" %>>
+          <%= "QRDA Errors (#{qrda_errors.count})" %>
+        </a>
+      </li>
+      <li>
+        <a data-toggle = 'tab' class = 'tab' href = <%= "#reporting_tab_execution_#{execution.id}" %>>
+          <%= "Reporting Errors (#{report_errors.count})" %>
+        </a>
+      </li>
+      <li>
+        <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_tab_execution_#{execution.id}" %>>
+          <%= "Submission Errors (#{submit_errors.count})" %>
+        </a>
+      </li>
+    </ul>
 
-Test Executions:
-<ul>
-  <% if c1 %>
-    <li>
-      <%= "(#{product_test.c1_task.test_executions.count}) C1 Test Executions:" %>
-      <ul>
-        <% product_test.c1_task.test_executions.each do |test_execution| %>
+    <div class = 'tab-content'>
+      <div class = 'tab-pane active' id = <%= "QRDA_tab_execution_#{execution.id}" %>>
+        <% qrda_errors.each do |err| %>
           <li>
-            <ul>
-              <%= test_execution.created_at %>
-              <% # print identifying test_execution attribute here (maybe date-time) %>
-              <% test_execution.execution_errors.each do |execution_error| %>
-                <li><%= execution_error.message %></li>
-              <% end %>
-            </ul>
+            <%= "#{err.message}" %>
+            <%= "(#{err.file_name})" %>
           </li>
         <% end %>
-      </ul>
-    </li>
-  <% else %>
-    <li>We are currently not printing executions for c2 or c3 task types</li>
+      </div>
+      <div class = 'tab-pane' id = <%= "reporting_tab_execution_#{execution.id}" %>>
+        <% report_errors.each do |err| %>
+          <li><%= "#{err.message} (#{err.file_name})" %></li>
+        <% end %>
+      </div>
+      <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
+        <% submit_errors.each do |err| %>
+          <li><%= "#{err.message} (#{err.file_name})" %></li>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-</ul>
+<% end %>

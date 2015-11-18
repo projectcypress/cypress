@@ -122,7 +122,7 @@
             <h3>Step 4. View Results</h3>
             <p class = 'description'>Here is where the results are going to be. There is nothing here right now. Deal with it.</p>
             <% # c1 and c2 are set to true and false respectively because we only want to display errors for c1 (and c3 if desired) %>
-            <%= render partial: "test_execution_results", locals: { product_test: @product_test, c1: true, c2: false, c3: c3 } %>
+            <%= render partial: "test_execution_results", locals: { task: @product_test.c1_task } %>
           </div>
         </div>
     <% if c1 && c2 %>
@@ -147,7 +147,7 @@
             <h3>Step 4. View Results</h3>
             <p class = 'description'>Here is where the results are going to be. There is nothing here right now. Deal with it.</p>
             <% # c1 and c2 are set to false and true respectively because we only want to display errors for c2 (and c3 if desired) %>
-            <%= render partial: "test_execution_results", locals: { product_test: @product_test, c1: false, c2: true, c3: c3 } %>
+            <%= render partial: "test_execution_results", locals: { task: @product_test.c2_task } %>
           </div>
         </div>
     <% if c1 && c2 %>
