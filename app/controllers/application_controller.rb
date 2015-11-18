@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   # breadcrumbs
   add_breadcrumb 'All Vendors', :root_path
   before_action :authenticate_user!
+
   private
 
   # Overwriting the sign_out redirect path method
