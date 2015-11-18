@@ -4,7 +4,6 @@ class VendorsController < ApplicationController
   add_breadcrumb 'Add Vendor',  :new_vendor_path,  only: [:new, :create]
   add_breadcrumb 'Edit Vendor', :edit_vendor_path, only: [:edit, :update]
 
-  before_action :authenticate_user!
   def index
     @vendors = Vendor.all.order(:updated_at => :desc)
     respond_to do |f|
