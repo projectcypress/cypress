@@ -15,3 +15,4 @@ Scenario: Successful login
 Scenario: Not Logged In
   When the user navigates to the home page
   Then the user should be redirected to the sign in page
+  And the user should not see a warning message

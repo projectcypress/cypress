@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :with => :exception
 
   # breadcrumbs
-  add_breadcrumb 'All Vendors', :root_path
+  add_breadcrumb 'All Vendors', :vendors_path
+  before_action :authenticate_user!
 
   private
 

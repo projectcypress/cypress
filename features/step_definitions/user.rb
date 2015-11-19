@@ -51,8 +51,11 @@ Then(/^the user should see a sign out link$/) do
   page.assert_text 'Log Out'
 end
 
+Then(/^the user should not see a warning message$/) do
+  page.assert_no_text 'You need to sign in or sign up before continuing.'
+end
+
 Then(/^the user should be redirected to the sign in page$/) do
-  page.assert_text 'You need to sign in or sign up before continuing.'
   assert_equal new_user_session_path, page.current_path
 end
 
