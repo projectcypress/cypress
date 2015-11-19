@@ -1,4 +1,5 @@
 class ProductTestsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_product, only: [:index, :new, :create]
   before_action :set_product_test, except: [:index, :new, :create]
 

@@ -1,4 +1,5 @@
 class VendorsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_vendor, only: [:show, :update, :destroy]
 
   add_breadcrumb 'Add Vendor',  :new_vendor_path,  only: [:new, :create]
