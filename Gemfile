@@ -32,6 +32,7 @@ gem 'breadcrumbs_on_rails'
 # Help our forms
 gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git', branch: 'master'
 gem 'nested_form'
+gem 'jasny-bootstrap-rails'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
