@@ -211,7 +211,7 @@ When(/^the user cancels removing the product$/) do
   page.click_button 'Edit'
   page.click_button 'Remove Product'
   page.find('div.modal-footer').find('button', text: 'Cancel').click
-  page.click_button 'Cancel'
+  page.find('div.panel-footer').click_button 'Cancel'
 end
 
 When(/^the user views the product$/) do
