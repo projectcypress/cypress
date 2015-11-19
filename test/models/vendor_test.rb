@@ -123,7 +123,7 @@ class VendorCachingTest < CachingTest
     task_2.save!
     test_execution_2 = TestExecution.new
     test_execution_2.task = task_2
-    test_execution_2.state = :failing
+    test_execution_2.state = :failed
     test_execution_2.save!
     vendor_new_status = Vendor.all.first.status
 

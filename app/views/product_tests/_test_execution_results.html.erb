@@ -1,0 +1,64 @@
+<%
+#
+# renders the errors for the most recent test execution for the given task.
+#
+# must specify local variable "task" (ex. @product.c1_task)
+#
+%>
+
+<% task ||= false %>
+
+<% if task && task.test_executions.any? %>
+  <% task.test_executions.order_by(:created_at => 'desc').each do |execution| %>
+    <% qrda_errors = execution.execution_errors.where(validator_type: :xml_validation).order_by(:file_name => 'desc') %>
+    <% report_errors = execution.execution_errors.where(validator_type: :result_validation).order_by(:file_name => 'desc') %>
+    <% # THIS DOES NOT WORK YET! WE NEED TO KNOW WHAT validator_type SUBMISSION ERRORS HAVE %>
+    <% submit_errors = execution.execution_errors.where(validator_type: :adsfasdfasdfasdfasdf).order_by(:file_name => 'desc') %>
+    
+    <h4 class = 'top-buffer'>
+      <%= "#{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
+    </h4>
+    <ul class = 'nav nav-tabs'>
+      <li class = 'active'>
+        <a data-toggle = 'tab' href = <%= "#QRDA_tab_execution_#{execution.id}" %>>
+          <%= "QRDA Errors (#{qrda_errors.count})" %>
+        </a>
+      </li>
+      <li>
+        <a data-toggle = 'tab' class = 'tab' href = <%= "#reporting_tab_execution_#{execution.id}" %>>
+          <%= "Reporting Errors (#{report_errors.count})" %>
+        </a>
+      </li>
+      <li>
+        <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_tab_execution_#{execution.id}" %>>
+          <%= "Submission Errors (#{submit_errors.count})" %>
+        </a>
+      </li>
+    </ul>
+
+    <div class = 'tab-content'>
+      <div class = 'tab-pane active' id = <%= "QRDA_tab_execution_#{execution.id}" %>>
+        <% qrda_errors.each do |err| %>
+          <li>
+            <%= "#{err.message}" %>
+            <%= "(#{err.file_name})" %>
+          </li>
+        <% end %>
+      </div>
+      <div class = 'tab-pane' id = <%= "reporting_tab_execution_#{execution.id}" %>>
+        <% report_errors.each do |err| %>
+          <li><%= "#{err.message} (#{err.file_name})" %></li>
+        <% end %>
+      </div>
+      <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
+        <% submit_errors.each do |err| %>
+          <li><%= "#{err.message} (#{err.file_name})" %></li>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p class = 'top-buffer'>
+    There are currently no test results to be displayed. Please upload and run test before viewing test results.
+  </p>
+<% end %>

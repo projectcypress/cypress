@@ -64,7 +64,7 @@
                     <div class="checkbox">
                       <label>
                         <input type="checkbox" name="product_test[measure_ids][]" id="<%= m.hqmf_id %>" value="<%= m.hqmf_id%>"
-                        class="measure-checkbox"/>
+                        class="measure-checkbox" <%= 'checked' if params.has_key?('selected_measure_ids') && params['selected_measure_ids'].include?(m.hqmf_id) %>/>
                         <strong><%= m.cms_id %></strong> <%= m.name %>
                       </label>
                     </div>

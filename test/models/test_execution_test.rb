@@ -1,15 +1,16 @@
 require 'test_helper'
 class TestExecutionTest < MiniTest::Test
   def setup
+    drop_database
     vendor = Vendor.create(name: 'test_vendor_name')
     product = vendor.products.create(name: 'test_product')
     ptest = product.product_tests.build(name: 'ptest', measure_ids: ['1a'])
     @task = ptest.tasks.build
   end
 
-  def after_teardown
-    drop_database
-  end
+  # def after_teardown
+  #   drop_database
+  # end
 
   def test_create
     te = @task.test_executions.build

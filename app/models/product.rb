@@ -62,6 +62,6 @@ class Product
   end
 
   def at_least_one_measure?
-    errors.add(:measure_tests, 'Product must specify least one measure for testing.') unless product_tests.exists?
+    errors.add(:measure_tests, 'Product must specify least one measure for testing.') unless product_tests.any?
   end
 end

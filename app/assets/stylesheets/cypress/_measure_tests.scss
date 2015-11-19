@@ -1,0 +1,67 @@
+.product-information dt {
+  width: 100px;
+}
+
+.product-information dd {
+  margin-left: 110px;
+}
+
+.table.small-table {
+  margin-top: 0;
+
+  thead tr th,
+  tr td {
+    text-align: center;
+  }
+}
+
+.test-step {
+  background-color: $state-info-bg;
+  border: 0;
+  padding: 2em;
+
+  h2 {
+    border-bottom: 1px $state-info-text solid;
+    color: $state-info-text;
+    font-size: 1.25em;
+    padding-bottom: .5em;
+    margin-top: 0;
+  }
+}
+
+.test-result {
+  font-weight: 700;
+  font-size: 1.25em;
+}
+
+.measure-test-tabs {
+  .ui-tabs-nav {
+    padding-left: 0;
+    background: transparent;
+    border-width: 0 0 1px;
+
+    li {
+      background-color: $gray-lighter;
+      margin-top: .6em;
+      font-size: 1em;
+
+      &.ui-tabs-active.ui-state-active {
+        margin-top: 0;
+        font-size: 1.25em;
+        background-color: $body-bg;
+        border-color: $navbar-inverse-bg;
+
+        .ui-tabs-anchor {
+          font-weight: 700;
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  .ui-tabs-panel {
+    border: 1px solid $navbar-inverse-bg;
+    margin-bottom: 3em;
+    padding: 2em;
+  }
+}

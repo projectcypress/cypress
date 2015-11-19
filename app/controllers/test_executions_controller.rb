@@ -8,6 +8,7 @@ class TestExecutionsController < ApplicationController
 
   def create
     @test_execution = @task.execute(params[:results])
+    redirect_to "/products/#{@task.product_test.product.id}/product_tests/#{@task.product_test.id}"
   end
 
   def show
