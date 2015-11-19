@@ -100,7 +100,7 @@
                 <span class="btn-file">
                 <span class="fileinput-new"><button class="btn btn-info" type="button"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</button></span>
                 <span class="fileinput-exists"><button class="btn btn-warning" type="button"><i class="fa fa-fw fa-refresh"></i> Change</button></span>
-                <%= file_field_tag :results %>
+                <label for = 'results'>Upload</label><%= file_field_tag :results %>
                 </span>
               <span class="fileinput-exists"><button class="btn btn-info" type="submit"><i class="fa fa-fw fa-upload"></i> Upload and run test</button></span>
               </span>
@@ -132,7 +132,7 @@
                 <span class="fileinput-new"><button class="btn btn-info" type="button"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</button></span>
                 <span class="fileinput-exists"><button class="btn btn-warning" type="button"><i class="fa fa-fw fa-refresh"></i> Change</button></span>
                 <span class="fileinput-exists"><button class="btn btn-info" type="submit"><i class="fa fa-fw fa-upload"></i> Upload and run test</button></span>
-                <%= file_field_tag :results %>
+                <label for = 'results'>Upload</label><%= file_field_tag :results %>
               </span>
             </div>
           <% end %>

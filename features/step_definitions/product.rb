@@ -160,7 +160,7 @@ end
 And(/^the user selects a group of measures but deselects one$/) do
   click_link('Miscellaneous (EH)')
   page.find('#Miscellaneous_group').click
-  page.find('.measure_group').uncheck('Aspirin Prescribed at Discharge')
+  page.find('.measure_group', visible: true).uncheck('Aspirin Prescribed at Discharge')
 end
 
 And(/^the user selects a group of measures but deselects one from selected measures$/) do
@@ -198,7 +198,7 @@ When(/^the user removes the product$/) do
   page.click_button 'Edit'
   page.click_button 'Delete Product'
   page.fill_in 'Remove Name', with: @product.name
-  page.click_button 'Remove'
+  page.click_button 'Remove', visible: true
 end
 
 When(/^the user removes the product from the vendor page$/) do
@@ -227,7 +227,7 @@ Then(/^the user should see a notification saying the product was created$/) do
 end
 
 Then(/^the user should see an error message saying the product has no name$/) do
-  page.assert_text "Name can't be blank"
+  page.assert_text "can't be blank"
 end
 
 Then(/^the user should see an error message saying the product name has been taken$/) do
