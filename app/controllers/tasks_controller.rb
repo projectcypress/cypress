@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_task, only: [:edit, :update, :destroy, :show]
   before_action :set_product_test, only: [:index, :new, :create]
   class TypeNotFound < StandardError

@@ -1,4 +1,5 @@
 class TestExecutionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_test_execution, only: [:destroy, :show]
   before_action :set_task, only: [:index, :new, :create]
 
