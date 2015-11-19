@@ -6,6 +6,8 @@
 #
 %>
 
+<% task ||= false %>
+
 <% if task && task.test_executions.any? %>
   <% task.test_executions.order_by(:created_at => 'desc').each do |execution| %>
     <% qrda_errors = execution.execution_errors.where(validator_type: :xml_validation).order_by(:file_name => 'desc') %>
@@ -55,4 +57,8 @@
       </div>
     </div>
   <% end %>
+<% else %>
+  <p class = 'top-buffer'>
+    There are currently no test results to be displayed. Please upload and run test before viewing test results.
+  </p>
 <% end %>
