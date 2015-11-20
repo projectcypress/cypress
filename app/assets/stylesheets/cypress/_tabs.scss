@@ -1,0 +1,80 @@
+// overwrite the styles for jQuery-UI tabs with
+// reasonable styles for both vertical and horizontal tabs
+
+.ui-tabs-nav.ui-widget-header {
+  background: $body-bg;
+
+  .ui-state-default {
+    background: $gray-lighter;
+    border-color: $gray-lighter;
+    color: $text-color;
+    white-space: normal;
+  }
+
+  .ui-tabs-active.ui-state-active {
+    background: $body-bg;
+    border-color: $gray-light;
+    font-size: 1.25em;
+    font-weight: 700;
+  }
+}
+
+/////////////////////
+// horizontal tabs //
+/////////////////////
+
+.ui-tabs:not(.ui-tabs-vertical) {
+
+  .ui-tabs-nav {
+    padding-left: 0;
+
+    li {
+      margin-top: .6em;
+    }
+
+    .ui-tabs-active.ui-state-active {
+      margin-top: 0;
+    }
+  }
+
+  .ui-tabs-panel {
+    border: 1px solid $gray;
+    border-radius: 0;
+    padding: 2em;
+  }
+}
+
+///////////////////
+// vertical tabs //
+///////////////////
+
+.ui-tabs-vertical {
+
+  .ui-tabs-nav {
+    padding: 0;
+    float: left;
+    width: 40%;
+
+    li {
+      width: calc(100% - .6em);
+      border-bottom-width: 1px;
+      border-right-width: 0;
+      margin-left: .6em;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+
+    .ui-tabs-active.ui-state-active {
+      margin-left: 0;
+      margin-bottom: 0;
+      width: 100%;
+    }
+  }
+
+  .ui-tabs-panel {
+    float: right;
+    width: 60%;
+  }
+}
