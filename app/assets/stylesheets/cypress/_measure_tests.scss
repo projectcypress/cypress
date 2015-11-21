@@ -33,35 +33,3 @@
   font-weight: 700;
   font-size: 1.25em;
 }
-
-.measure-test-tabs {
-  .ui-tabs-nav {
-    padding-left: 0;
-    background: transparent;
-    border-width: 0 0 1px;
-
-    li {
-      background-color: $gray-lighter;
-      margin-top: .6em;
-      font-size: 1em;
-
-      &.ui-tabs-active.ui-state-active {
-        margin-top: 0;
-        font-size: 1.25em;
-        background-color: $body-bg;
-        border-color: $navbar-inverse-bg;
-
-        .ui-tabs-anchor {
-          font-weight: 700;
-          color: $text-color;
-        }
-      }
-    }
-  }
-
-  .ui-tabs-panel {
-    border: 1px solid $navbar-inverse-bg;
-    margin-bottom: 3em;
-    padding: 2em;
-  }
-}

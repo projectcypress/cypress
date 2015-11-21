@@ -47,8 +47,7 @@ ready = function() {
 
   // Instantiate tabs
   $('#measure_tabs').tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
-  $('#measure_tabs li').removeClass("ui-corner-top");
-  $('#measure_tabs .ui-tabs-nav').removeClass("ui-corner-all ui-widget-header");
+  $('#measure_tabs li').removeClass("ui-corner-top").addClass("ui-corner-left");
 
   // Set up appearance of inputs on initial load
   $('.btn-checkbox input:disabled').parent().addClass('disabled');
