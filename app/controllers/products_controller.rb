@@ -10,13 +10,6 @@ class ProductsController < ApplicationController
     @product = Product.new
     @product.vendor = @vendor
 
-    # TODO: Get latest version of each measure
-    @measures = Measure.top_level
-    @measures.sort_by! { |m| m.cms_id[3, m.cms_id.index('v') - 3].to_i } if @measures.all? { |m| !m.cms_id.nil? }
-    @measures_categories = @measures.group_by(&:category)
-
-    add_breadcrumb @vendor.name, "/vendors/#{@vendor.id}"
-    add_breadcrumb 'Add Product', :new_vendor_path
     setup_new
 
     respond_to do |format|
