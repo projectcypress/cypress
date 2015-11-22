@@ -12,23 +12,4 @@
     font-size: 1em;
     margin-top: 0;
   }
-
-  .checkbox label {
-    @extend .btn;
-    @extend .btn-checkbox;
-    border-left: 8px solid $brand-primary;
-    padding-left: 2em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left;
-    width: 100%;
-
-    &:hover,
-    &:focus,
-    &:active {
-      overflow: visible;
-      white-space: initial;
-    }
-  }
 }
