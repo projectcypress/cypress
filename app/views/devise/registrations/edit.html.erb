@@ -23,9 +23,6 @@
       <%= link_to "Back", :back, class: 'btn btn-default' %>
     </div>
   <% end %>
-
-  <%= form_tag(registration_path(resource_name), method: :delete) do %>
-    <%= button_tag 'Delete account', type: 'button', class: 'btn btn-danger pull-right', data: { toggle: 'modal', target: '#remove_modal', object_type: 'email', object_name: resource.email, message: 'here is a message' } %>
-  <% end %>
-
 </div>
+
+<%= render partial: 'remove_panel', locals: { name: resource.email, type: 'account', message: 'Once you delete your account you cannot get it back. Be sure you want to do this.', delete_path: registration_path(resource_name) } %>

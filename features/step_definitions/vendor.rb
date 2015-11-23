@@ -69,7 +69,7 @@ end
 When(/^the user removes the vendor$/) do
   visit '/'
   page.click_button 'Edit Vendor'
-  page.click_button 'Remove Vendor'
+  page.click_button 'Delete Vendor'
   page.fill_in 'Remove Name', with: @vendor.name
   page.click_button 'Remove'
 end
@@ -77,7 +77,7 @@ end
 When(/^the user cancels removing a vendor$/) do
   visit '/'
   page.click_button 'Edit Vendor'
-  page.click_button 'Remove Vendor'
+  page.click_button 'Delete Vendor'
   page.find('div.modal-footer').find('button', text: 'Cancel').click
   page.click_button 'Cancel'
 end

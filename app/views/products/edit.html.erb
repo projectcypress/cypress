@@ -1,17 +1,9 @@
 <div class = "col-sm-12">
 
-  <%# render :partial => 'alerts', locals: { object: @product } %>
-
   <%= render partial: 'remove_modal' %>
 
-  <%= render partial: 'remove_button', locals: {
-        button_text: 'Remove Product',
-        button_classes: 'btn btn-danger pull-right',
-        object: @product,
-        object_path: vendor_product_path(@product.vendor, @product),
-        modal_message: 'Removing a product will also delete all associated product tests and test results.'
-  } %>
-
   <%= render :partial => 'product_form', locals: { submit_text: "Update Product" } %>
+
+  <%= render partial: 'remove_panel', locals: { name: @product.name, type: 'product', message: 'Removing a product will also delete all associated product tests and test execution results. Be sure you want to do this.', delete_path: vendor_product_path(@product.vendor, @product) } %>
 
 </div>
