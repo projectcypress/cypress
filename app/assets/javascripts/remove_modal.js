@@ -24,7 +24,6 @@ ready = function() {
 
   $('#remove_modal').on('hidden.bs.modal', function () {
     $(this).find('input.confirm_object_name').val('');
-    // coninue here... not sure why this wont work.....
     $('#modal_confirm_remove').attr('disabled', true);
   })
 

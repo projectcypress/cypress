@@ -1,0 +1,31 @@
+<%= render partial: 'remove_modal' %>
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <h2>Edit <%= resource_name.to_s.humanize %></h2>
+  </div>
+
+  <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <div class="panel-body">
+      <%= f.email_field :email, autofocus: true %>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <%= f.password_field :current_password, label: 'Password',  autocomplete: "off", help: 'we need your current password to confirm your changes' %>
+      <%= f.password_field :password, label: 'New Password', autocomplete: "off", help: "leave blank if you don't want to change it" %>
+      <%= f.password_field :password_confirmation, label: 'Confirm New Password', autocomplete: "off" %>
+    </div>
+    <div class="panel-footer">
+      <%= f.primary "Update" %>
+      <%= link_to "Back", :back, class: 'btn btn-default' %>
+    </div>
+  <% end %>
+
+  <%= form_tag(registration_path(resource_name), method: :delete) do %>
+    <%= button_tag 'Delete account', type: 'button', class: 'btn btn-danger pull-right', data: { toggle: 'modal', target: '#remove_modal', object_type: 'email', object_name: resource.email, message: 'here is a message' } %>
+  <% end %>
+
+</div>
