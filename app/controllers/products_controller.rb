@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
+
+  before_action :set_vendor, only: [:new, :create, :index]
   before_action :set_product, only: [:edit, :update, :destroy, :show]
-  before_action :set_vendor, only: [:new, :create]
+  before_action :set_measures, only: [:new, :update]
 
   def index
     @vendor.products
@@ -9,9 +11,7 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @product.vendor = @vendor
-
     setup_new
-
     respond_to do |format|
       format.html
       format.json { render json: { measures: @measures, measures_categories: @measures_categories, product: @product } }
@@ -30,17 +30,19 @@ class ProductsController < ApplicationController
     end
   rescue Mongoid::Errors::Validations
     setup_new
-    params['selected_measure_ids'] = params['product_test']['measure_ids'] if params['product_test'] && params['product_test']['measure_ids']
+    @selected_measure_ids = params['product_test']['measure_ids'] if params['product_test'] && params['product_test']['measure_ids']
     render :new
   end
 
   def edit
     add_breadcrumb @product.vendor.name, "/vendors/#{@product.vendor.id}"
     add_breadcrumb 'Edit Product', :edit_vendor_path
+    @selected_measure_ids = @product.measure_ids
   end
 
   def update
     @product.update_attributes(edit_product_params)
+    add_product_tests_to_product(params['product']['measure_ids'])
     @product.save!
     flash_product_comment(@product.name, 'info', 'edited')
     respond_to do |f|
@@ -73,7 +75,15 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = set_vendor.products.find(params[:id])
+    product_finder  = @vendor ? @vendor.products : Product
+    @product = product_finder.find(params[:id])
+  end
+
+  def set_measures
+    # TODO: Get latest version of each measure
+    @measures = Measure.top_level
+    @measures.sort_by! { |m| m.cms_id[3, m.cms_id.index('v') - 3].to_i } if @measures.all? { |m| !m.cms_id.nil? }
+    @measures_categories = @measures.group_by(&:category)
   end
 
   def set_vendor
@@ -83,13 +93,8 @@ class ProductsController < ApplicationController
   def setup_new
     add_breadcrumb @vendor.name, "/vendors/#{@vendor.id}"
     add_breadcrumb 'Add Product', :new_vendor_path
-
-    # TODO: Get latest version of each measure
-    @measures = Measure.top_level
-    @measures.sort_by! { |m| m.cms_id[3, m.cms_id.index('v') - 3].to_i } if @measures.all? { |m| !m.cms_id.nil? }
-    @measures_categories = @measures.group_by(&:category)
-
-    params[:action] = 'new'
+    set_measures
+    params[:action] = "new"
   end
 
   def product_params
@@ -106,11 +111,21 @@ class ProductsController < ApplicationController
     flash[:notice_type] = notice_type
   end
 
-  def add_product_tests_to_product(measure_ids)
-    measure_ids.each do |measure_id|
+  def add_product_tests_to_product(measure_ids=[])
+    return if measure_ids.nil?
+    current_ids = @product.measure_ids
+    new_ids = measure_ids - current_ids
+    to_remove_ids = current_ids - measure_ids
+
+    new_ids.each do |measure_id|
       measure = Measure.top_level.where(hqmf_id: measure_id).first
       @product.product_tests.build({ name: measure.name, product: @product, measure_ids: [measure_id],
                                      cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
     end
+
+    to_remove_ids.each do |measure_id|
+      @product.product_tests.in(measure_ids: measure_id).destroy
+    end
+
   end
 end

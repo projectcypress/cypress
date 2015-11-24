@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 <div class="panel-heading"><h1><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h1></div>
 
-<%= bootstrap_form_for [@vendor, @product] do |f| %>
+<%= bootstrap_form_for [@product.vendor, @product] do |f| %>
 <div class="panel-body">
   <div class="col-md-6">
     <%= f.text_field :name %>
@@ -63,8 +63,9 @@
                   <% measures.each do |m| %>
                     <div class="checkbox">
                       <label>
+
                         <input type="checkbox" name="product_test[measure_ids][]" id="<%= m.hqmf_id %>" value="<%= m.hqmf_id%>"
-                        class="measure-checkbox" <%= 'checked' if params.has_key?('selected_measure_ids') && params['selected_measure_ids'].include?(m.hqmf_id) %>/>
+                        class="measure-checkbox" <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %>/>
                         <strong><%= m.cms_id %></strong> <%= m.name %>
                       </label>
                     </div>
@@ -84,7 +85,7 @@
     <% unless @product.product_tests.empty? %>
       <div class="col-md-6 col-md-offset-6 selected-measure-list">
         <h3>Selected Measures</h3>
-        <% 
+        <%
         measures = @product.product_tests.collect {|pt| pt.measures.top_level}.flatten.uniq
         measures.each do |measure| %>
           <div class="checkbox">

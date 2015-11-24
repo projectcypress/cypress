@@ -64,4 +64,9 @@ class Product
   def at_least_one_measure?
     errors.add(:measure_tests, 'Product must specify least one measure for testing.') unless product_tests.any?
   end
+
+  def measure_ids 
+    (product_tests.pluck(:measure_ids) || []).flatten.uniq
+  end
+  
 end
