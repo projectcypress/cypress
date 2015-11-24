@@ -23,7 +23,7 @@
       <% if user_signed_in? %>
         <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
       <% end %>
-      <%= render :partial => 'alerts', locals: { object: @vendor } %>
+      <%= render :partial => 'alerts' %>
     </div>
 
   </header>

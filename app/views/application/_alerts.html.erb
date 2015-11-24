@@ -29,20 +29,3 @@
         <% end %>
     </div>
 <% end %>
-
-<% # a local variable 'object' should be passed in for the alerts partial to detect errors %>
-<% if defined?(object) && !object.nil? %>
-  <% unless object.errors.empty? %>
-    <div class="clearfix alert alert-danger alert-dismissable" role="alert" aria-live="polite">
-      <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"></button>
-      <div class="iconSpan pull-left">
-        <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
-      </div>
-      <div class="alertContent">
-        <% object.errors.full_messages.each do |msg| %>
-          <p><%= msg %></p>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-<% end %>

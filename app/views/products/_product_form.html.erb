@@ -101,9 +101,9 @@
 </div>
 
 <div class="panel-footer">
-  <div class="pull-right">
-  <%= submit_tag "Cancel", :class => "btn btn-danger", :type => "button", :onclick => "location.href = '/vendors/#{@vendor.id}'" %>
+  <div class="pull-left">
   <%= f.submit submit_text, class: "btn btn-success" %>
+  <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/vendors/#{@vendor.id}'" %>
   </div>
   <div class="clearfix"></div>
 </div>

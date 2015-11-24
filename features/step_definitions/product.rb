@@ -196,7 +196,7 @@ end
 
 When(/^the user removes the product$/) do
   page.click_button 'Edit'
-  page.click_button 'Remove Product'
+  page.click_button 'Delete Product'
   page.fill_in 'Remove Name', with: @product.name
   page.click_button 'Remove'
 end
@@ -209,7 +209,7 @@ end
 
 When(/^the user cancels removing the product$/) do
   page.click_button 'Edit'
-  page.click_button 'Remove Product'
+  page.click_button 'Delete Product'
   page.find('div.modal-footer').find('button', text: 'Cancel').click
   page.find('div.panel-footer').click_button 'Cancel'
 end

@@ -1,0 +1,33 @@
+
+<%
+
+# this partial should only be used if the 'remove_modal' partial is also included
+#
+# local variables:
+#
+#   name        (String) : the text the user is required to type before deleting object
+#                            ex. 'my_account@example.com' for an account
+#   type        (String) : the type of object to be deleted. labels will use "Delete #{type}"
+#   message     (String) : the waring message to give the user in the panel
+#   delete_path (String) : object's path to call delete controller method on. 
+#                            ex. vendor_product_path(@product.vendor, @product)
+
+%>
+
+<div class = 'panel panel-danger'>
+  <div class = 'panel-heading'>
+    <h2><%= "Delete #{type}".titleize %></h2>
+  </div>
+
+  <div class = 'panel-body'>
+    <p><%= message %></p>
+    <%= form_tag(delete_path, method: :delete) do %>
+      <%= button_tag "Delete #{type}".titleize, type: 'button', class: 'btn btn-danger',
+          data: { toggle: 'modal',
+                  target: '#remove_modal',
+                  object_type: type,
+                  object_name: name }
+      %>
+    <% end %>
+  </div>
+</div>
