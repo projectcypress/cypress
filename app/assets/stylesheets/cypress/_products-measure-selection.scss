@@ -1,60 +1,6 @@
-.measure-selection {
-  display: table;
-  margin-top: 1em;
-
-  .sidebar,
-  .measure-list {
-    display: table-cell;
-    overflow: auto;
-  }
-
-  .measure-list {
-    padding-left: 1em;
-    border-left: 1px lighten($navbar-inverse-bg, 30%) solid;
-
-    .checkbox + .checkbox {
-      margin-top: 1em;
-    }
-  }
-
-  &.ui-tabs {
-
-    .ui-tabs-panel {
-      padding-top: 0;
-    }
-
-    .ui-tabs-nav {
-      padding: 0;
-
-      li {
-        border-bottom-width: 1px;
-        clear: left;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-
-        .ui-tabs-anchor {
-          width: 100%;
-          margin: .25em 0;
-          padding: .25em 1em;
-        }
-      }
-    }
-
-    .ui-state-default {
-      background: $body-bg;
-    }
-
-    .ui-tabs-active.ui-state-active {
-      background: none;
-      background-color: $brand-primary;
-      cursor: default;
-      font-weight: 600;
-
-      .ui-tabs-anchor {
-        color: $body-bg;
-      }
-    }
+.measure-list {
+  .checkbox + .checkbox {
+    margin-top: 1em;
   }
 }
 
@@ -65,24 +11,5 @@
     @extend .control-label;
     font-size: 1em;
     margin-top: 0;
-  }
-
-  .checkbox label {
-    @extend .btn;
-    @extend .btn-checkbox;
-    border-left: 8px solid $brand-primary;
-    padding-left: 2em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left;
-    width: 100%;
-
-    &:hover,
-    &:focus,
-    &:active {
-      overflow: visible;
-      white-space: initial;
-    }
   }
 }

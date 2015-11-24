@@ -34,7 +34,9 @@ ready = function() {
   $('.measure-list .measure-checkbox').on('change', function() {
     if (this.checked) {
       // clone checked measure and put into selected measure list
-      $(this).closest('div.checkbox').clone(true).appendTo('.selected-measure-list');
+      $cloned_checkbox = $(this).closest('div.checkbox').clone(true);
+      $cloned_checkbox.find('label').addClass('btn btn-checkbox active');
+      $cloned_checkbox.appendTo('.selected-measure-list');
     } else {
       // remove element from selected measure list and uncheck from main measure list
       $('.selected-measure-list .measure-checkbox').filter('#' + this.id).closest('div.checkbox').remove();
@@ -47,8 +49,7 @@ ready = function() {
 
   // Instantiate tabs
   $('#measure_tabs').tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
-  $('#measure_tabs li').removeClass("ui-corner-top");
-  $('#measure_tabs .ui-tabs-nav').removeClass("ui-corner-all ui-widget-header");
+  $('#measure_tabs li').removeClass("ui-corner-top").addClass("ui-corner-left");
 
   // Set up appearance of inputs on initial load
   $('.btn-checkbox input:disabled').parent().addClass('disabled');
