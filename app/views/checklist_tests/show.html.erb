@@ -1,0 +1,58 @@
+<%= render partial: 'remove_modal' %>
+
+<h3>Manual Entry Checklist</h3>
+<p>Here is a description of the page. These are the things you are supposed to do.</p>
+
+<% if @measures %>
+  <%= bootstrap_nested_form_for([@product, @test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
+    <% @measures.each do |measure| %>
+      <div class = 'panel-group'>
+        <div class = 'panel panel-default'>
+          <div class = 'panel-heading'>
+            <h4>
+              <%= "#{measure.cms_id} #{measure.name}" %>
+            </h4>
+          </div>
+          <div class = 'panel checklist-panel'>
+            <div class = 'panel-body'>
+              <table class = 'table table-sm'>
+                <thead>
+                  <tr>
+                    <th class = 'col-sm-2'>Completed?</th>
+                    <th class = 'col-sm-6'>Description</th>
+                    <th class = 'col-sm-2'>Value Set Name</th>
+                    <th class = 'col-sm-2'>Value Set ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%= f.fields_for :checked_criteria, @test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
+                    <% criteria = measure.hqmf_document[:source_data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
+                    <% if criteria.has_key?('description') %>
+                      <tr>
+                        <td><%= criteria_field.check_box :completed %></td>
+                        <td><%= criteria[:description] %></td>
+                        <td><%= HealthDataStandards::SVS::ValueSet.where(oid: criteria[:code_list_id]).first.display_name if criteria[:code_list_id] %></td>
+                        <td><%= criteria[:code_list_id] %></td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+            <div class = 'panel-footer'>
+              <%= f.submit 'Save', class: 'btn btn-default' %>
+              <span class = 'small-indent'>this saves the entire checklist page</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= render partial: 'remove_panel', locals: {
+  name: 'delete checklist',
+  type: 'visual test',
+  delete_path: "/products/#{@product.id}/checklist_tests/#{@test.id}",
+  message: 'Removing this C1 Visual Test will discard your answers to the checklist above for each measure. This will not remove any measures selected.'
+} %>
