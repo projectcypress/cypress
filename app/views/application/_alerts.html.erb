@@ -2,7 +2,14 @@
     <div class="clearfix alert <%= flash[:notice_type] ? "alert-#{flash[:notice_type]}" : "alert-info" %> <%= alert ? "alert-danger" : "" %> alert-dismissible" role="alert" aria-live="polite">
         <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"></button>
 
-        <% if notice %>
+        <% if alert %>
+          <div class="iconSpan pull-left">
+              <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
+          </div>
+          <div class="alertContent">
+            <p><%= alert %></p>
+          </div>
+        <% elsif notice %>
           <% if flash[:notice_type] == 'warning' %>
             <div class="iconSpan pull-left">
               <i class="fa fa-fw fa-2x fa-exclamation-triangle"></i>
@@ -18,13 +25,6 @@
           <% end %>
           <div class="alertContent">
             <p><%= notice %></p>
-          </div>
-        <% elsif alert %>
-          <div class="iconSpan pull-left">
-              <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
-          </div>
-          <div class="alertContent">
-            <p><%= alert %></p>
           </div>
         <% end %>
     </div>
