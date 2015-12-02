@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :vendors do
-    resources :products, only: [:show, :index, :new, :create, :edit, :update, :destroy]
+    resources :products, only: [:show, :index, :new, :create, :edit, :update, :destroy] do
+      resources :filtering_tests, only: [:index, :new, :create, :show]
+    end
+
   end
 
   resources :products, only: [:show, :edit, :update, :destroy] do

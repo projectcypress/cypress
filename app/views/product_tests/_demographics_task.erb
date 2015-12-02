@@ -1,0 +1,11 @@
+Select the primary filter:
+  <% task.filters.each do |filter| %>
+    <%= f.radio_button :primary_filter, filter%>
+    <%= f.label :"primary_filter_#{filter}", filter.capitalize %>
+  <% end %>
+  <br>
+Select the secondary filter:
+  <% task.filters.each do |filter| %>
+    <%= f.radio_button :secondary_filter, filter%>
+    <%= f.label :"secondary_filter_#{filter}", filter.capitalize %>
+  <% end %>

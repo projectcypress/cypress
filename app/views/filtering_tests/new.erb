@@ -1,0 +1,14 @@
+<%= bootstrap_nested_form_for [@product, @filtering_test], :url => { :controller => 'filtering_tests', :action => 'create' } do |f| %>
+
+  <div class="row">
+    <%= f.fields_for :tasks do |task_form| %>
+      <div class="col-md-3">
+            Task <%=task_form.index()+1 %>: <%=task_form.object.class.to_s.underscore.split("_")[0].capitalize%>
+            <%= render partial: task_form.object.class.to_s.underscore, locals: {task: task_form.object, f: task_form} %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <%= f.submit "Generate", class: "btn btn-success" %>
+  </div>
+<% end %>
