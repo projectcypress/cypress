@@ -35,10 +35,10 @@ class MeasureEvaluationJob < ActiveJob::Base
                                              'filters' => options['filters'],
                                              'enable_logging' => Settings.enable_logging,
                                              'enable_rationale' => true)
-      
-      qr.calculate({'bundle_id' => product_test.bundle.id, 
-                                             'oid_dictionary' => dictionary, 
-                                             'prefilter' => {test_id: product_test.id}}, false)
+
+      qr.calculate({ 'bundle_id' => product_test.bundle.id,
+                     'oid_dictionary' => dictionary,
+                     'prefilter' => { test_id: product_test.id } }, false)
       result = qr.result
       res = result.as_document
       res.delete('_id')
