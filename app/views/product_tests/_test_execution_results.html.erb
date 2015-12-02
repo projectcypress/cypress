@@ -10,54 +10,61 @@
 
 <% if task && task.test_executions.any? %>
   <% task.test_executions.order_by(:created_at => 'desc').each do |execution| %>
-    <% qrda_errors = execution.qrda_errors %>
-    <% report_errors = execution.reporting_errors %>
-    <% submit_errors = execution.submission_errors %>
-    
-    <h4 class = 'top-buffer'>
-      <%= "#{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
-      <span class = 'text-danger'>
-        <%= "[#{execution.execution_errors.count} errors]" %>
-      </span>
-    </h4>
-    <ul class = 'nav nav-tabs'>
-      <li class = 'active'>
-        <a data-toggle = 'tab' href = <%= "#QRDA_tab_execution_#{execution.id}" %>>
-          <%= "QRDA Errors (#{qrda_errors.count})" %>
-        </a>
-      </li>
-      <li>
-        <a data-toggle = 'tab' class = 'tab' href = <%= "#reporting_tab_execution_#{execution.id}" %>>
-          <%= "Reporting Errors (#{report_errors.count})" %>
-        </a>
-      </li>
-      <li>
-        <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_tab_execution_#{execution.id}" %>>
-          <%= "Submission Errors (#{submit_errors.count})" %>
-        </a>
-      </li>
-    </ul>
+    <% if execution.incomplete? %>
+      <h4 class = 'top-buffer'>
+        <%= "PENDING: #{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
+      </h4>
+      <% next %>
+    <% else %>
+      <% qrda_errors = execution.qrda_errors %>
+      <% report_errors = execution.reporting_errors %>
+      <% submit_errors = execution.submission_errors %>
+      
+      <h4 class = 'top-buffer'>
+        <%= "#{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
+        <span class = 'text-danger'>
+          <%= "[#{execution.execution_errors.count} errors]" %>
+        </span>
+      </h4>
+      <ul class = 'nav nav-tabs'>
+        <li class = 'active'>
+          <a data-toggle = 'tab' href = <%= "#QRDA_tab_execution_#{execution.id}" %>>
+            <%= "QRDA Errors (#{qrda_errors.count})" %>
+          </a>
+        </li>
+        <li>
+          <a data-toggle = 'tab' class = 'tab' href = <%= "#reporting_tab_execution_#{execution.id}" %>>
+            <%= "Reporting Errors (#{report_errors.count})" %>
+          </a>
+        </li>
+        <li>
+          <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_tab_execution_#{execution.id}" %>>
+            <%= "Submission Errors (#{submit_errors.count})" %>
+          </a>
+        </li>
+      </ul>
 
-    <div class = 'tab-content'>
-      <div class = 'tab-pane active' id = <%= "QRDA_tab_execution_#{execution.id}" %>>
-        <% qrda_errors.each do |err| %>
-          <li>
-            <%= "#{err.message}" %>
-            <%= "(#{err.file_name})" %>
-          </li>
-        <% end %>
+      <div class = 'tab-content'>
+        <div class = 'tab-pane active' id = <%= "QRDA_tab_execution_#{execution.id}" %>>
+          <% qrda_errors.each do |err| %>
+            <li>
+              <%= "#{err.message}" %>
+              <%= "(#{err.file_name})" %>
+            </li>
+          <% end %>
+        </div>
+        <div class = 'tab-pane' id = <%= "reporting_tab_execution_#{execution.id}" %>>
+          <% report_errors.each do |err| %>
+            <li><%= "#{err.message} (#{err.file_name})" %></li>
+          <% end %>
+        </div>
+        <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
+          <% submit_errors.each do |err| %>
+            <li><%= "#{err.message} (#{err.file_name})" %></li>
+          <% end %>
+        </div>
       </div>
-      <div class = 'tab-pane' id = <%= "reporting_tab_execution_#{execution.id}" %>>
-        <% report_errors.each do |err| %>
-          <li><%= "#{err.message} (#{err.file_name})" %></li>
-        <% end %>
-      </div>
-      <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
-        <% submit_errors.each do |err| %>
-          <li><%= "#{err.message} (#{err.file_name})" %></li>
-        <% end %>
-      </div>
-    </div>
+    <% end %>
   <% end %>
 <% else %>
   <p class = 'top-buffer'>

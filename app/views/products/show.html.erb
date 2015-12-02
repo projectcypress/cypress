@@ -25,7 +25,7 @@
     <ul>
       <% @product.product_tests.each do |test| %>
         <li>
-          <%= link_to test.name, [@product, test] %>
+          <%= link_to "#{test.cms_id} #{test.name}", [@product, test] %>
           <%= "(#{test.status})" if test.status %>
         </li>
       <% end %>
