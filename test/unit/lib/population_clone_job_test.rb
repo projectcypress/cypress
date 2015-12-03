@@ -32,6 +32,29 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert_equal 2, Record.where(test_id: '4f636b3f1d41c851eb000491').count
   end
 
+  def test_assigns_default_provider
+    # ids passed in should clone just the 2 records
+    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(19 20),
+                                          'test_id' => '4f636b3f1d41c851eb000491',
+                                          'randomization_ids' => [])
+    pcj.perform
+    prov = Provider.where(default: true).first
+    assert_equal 17, Record.count
+    assert_equal 2, Record.where(test_id: '4f636b3f1d41c851eb000491', 'provider_performances.provider_id' => prov.id).count
+  end
+
+  def test_assigns_generated_provider
+    # ids passed in should clone just the 2 records
+    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(19 20),
+                                          'test_id' => '4f636b3f1d41c851eb000491',
+                                          'randomization_ids' => [],
+                                          'generate_provider' => true)
+    pcj.perform
+    prov = pcj.generate_provider # the generated provider, this is cached in the job
+    assert_equal 17, Record.count
+    assert_equal 2, Record.where(test_id: '4f636b3f1d41c851eb000491', 'provider_performances.provider_id' => prov.id).count
+  end
+
   def test_perform_two_patients_randomized_ids
     # ids passed in should clone just the 2 records
     pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(19 20),

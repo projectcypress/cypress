@@ -114,41 +114,19 @@ module Cypress
     end
 
     def assign_provider(patient)
-      if @options[:providers] 
-        prov = @options[:providers].sample
-      elsif @options[:generate_provider]
-        prov = generate_provider 
+      if @options['providers']
+        prov = @options['providers'].sample
+      elsif @options['generate_provider']
+        prov = generate_provider
       else
-        prov = default_provider
-      end     
-      if prov
-        patient.provider_performances.build(provider: prov)
+        prov = Provider.default_provider
       end
+      patient.provider_performances.build(provider: prov) if prov
     end
 
     def generate_provider
-      return @prov if @prov
-      @prov = Provider.new 
-      DemographicsRandomizer.randomize_address(prov)
-      @prov.first = APP_CONFIG['randomization']['names']['first'][['M','F'].sample].sample
-      @prove.last = APP_CONFIG['randomization']['names']['last'].sample
-      @prov.npi=generate_npi
-      @prov.tin=generate_tin
-
-      @prov.save
+      @prov ||= Provider.generate_provider
       @prov
-    end
-
-    def generate_npi
-      NpiGenerator.generate
-    end
-
-    def generate_tin
-      rand.to_s[2..8] 
-    end
-
-    def default_provider
-      Provider.where(default: true).first
     end
   end
 end
