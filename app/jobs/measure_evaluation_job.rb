@@ -39,6 +39,7 @@ class MeasureEvaluationJob < ActiveJob::Base
       qr.calculate({ 'bundle_id' => product_test.bundle.id,
                      'oid_dictionary' => dictionary,
                      'prefilter' => { test_id: product_test.id } }, false)
+      qr.reload
       result = qr.result
       res = result.as_document
       res.delete('_id')
