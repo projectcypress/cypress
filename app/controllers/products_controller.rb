@@ -1,5 +1,4 @@
 class ProductsController < ApplicationController
-
   before_action :set_vendor, only: [:new, :create, :index]
   before_action :set_product, only: [:edit, :update, :destroy, :show]
   before_action :set_measures, only: [:new, :update]
@@ -21,7 +20,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.vendor = @vendor
-    add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
+    @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
     @product.save!
     flash_product_comment(@product.name, 'success', 'created')
     respond_to do |f|
@@ -37,12 +36,13 @@ class ProductsController < ApplicationController
   def edit
     add_breadcrumb @product.vendor.name, "/vendors/#{@product.vendor.id}"
     add_breadcrumb 'Edit Product', :edit_vendor_path
+    set_measures
     @selected_measure_ids = @product.measure_ids
   end
 
   def update
     @product.update_attributes(edit_product_params)
-    add_product_tests_to_product(params['product']['measure_ids'])
+    @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
     @product.save!
     flash_product_comment(@product.name, 'info', 'edited')
     respond_to do |f|
@@ -59,7 +59,7 @@ class ProductsController < ApplicationController
     flash_product_comment(@product.name, 'danger', 'removed')
     respond_to do |format|
       format.json {} # <-- must be fixed later
-      format.html { redirect_to vendor_path(vendor.id) }
+      format.html { redirect_to vendor_path(@product.vendor.id) }
     end
   end
 
@@ -75,7 +75,7 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    product_finder  = @vendor ? @vendor.products : Product
+    product_finder = @vendor ? @vendor.products : Product
     @product = product_finder.find(params[:id])
   end
 
@@ -94,7 +94,7 @@ class ProductsController < ApplicationController
     add_breadcrumb @vendor.name, "/vendors/#{@vendor.id}"
     add_breadcrumb 'Add Product', :new_vendor_path
     set_measures
-    params[:action] = "new"
+    params[:action] = 'new'
   end
 
   def product_params
@@ -103,29 +103,12 @@ class ProductsController < ApplicationController
   end
 
   def edit_product_params
-    params[:product].permit(:name, :version, :description)
+    params[:product].permit(:name, :version, :description,
+                            product_tests_attributes: [:id, :name, :measure_ids, :bundle_id, :_destroy])
   end
 
   def flash_product_comment(product_name, notice_type, action_type)
     flash[:notice] = "Product '#{product_name}' was #{action_type}."
     flash[:notice_type] = notice_type
-  end
-
-  def add_product_tests_to_product(measure_ids=[])
-    return if measure_ids.nil?
-    current_ids = @product.measure_ids
-    new_ids = measure_ids - current_ids
-    to_remove_ids = current_ids - measure_ids
-
-    new_ids.each do |measure_id|
-      measure = Measure.top_level.where(hqmf_id: measure_id).first
-      @product.product_tests.build({ name: measure.name, product: @product, measure_ids: [measure_id],
-                                     cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
-    end
-
-    to_remove_ids.each do |measure_id|
-      @product.product_tests.in(measure_ids: measure_id).destroy
-    end
-
   end
 end
