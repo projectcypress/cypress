@@ -33,10 +33,12 @@ class MeasureEvaluationJob < ActiveJob::Base
                                              'effective_date' => product_test.effective_date,
                                              'test_id' => product_test.id,
                                              'filters' => options['filters'],
-                                             'oid_dictionary' => dictionary,
                                              'enable_logging' => Settings.enable_logging,
                                              'enable_rationale' => true)
-      qr.calculate(false)
+
+      qr.calculate({ 'bundle_id' => product_test.bundle.id,
+                     'oid_dictionary' => dictionary,
+                     'prefilter' => { test_id: product_test.id } }, false)
       result = qr.result
       res = result.as_document
       res.delete('_id')
@@ -62,7 +64,7 @@ class MeasureEvaluationJob < ActiveJob::Base
     vs.concepts.each do |con|
       name = con.code_system_name
       js[name] ||= []
-      js[name] << con.code.downcase unless js[vs.oid][name].index(con.code.downcase)
+      js[name] << con.code.downcase unless js[name].index(con.code.downcase)
     end
     @loaded_valuesets[vs.oid] = js
     js
