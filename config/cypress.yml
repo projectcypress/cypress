@@ -44,7 +44,6 @@ randomization:
       code       : 349
       name       : Other
       codeSystem : SOP
-
 references:
   bundles:
     previous:
@@ -56,3 +55,18 @@ references:
   install_guide:
     title : Cypress 3.0 Install Instructions
     url   : https://github.com/projectcypress/cypress/wiki/Cypress-3.0-Install-Instructions
+default_provider:
+  given_name     : 'Mary'
+  family_name    : 'Smith'
+  title          : 'Dr'
+  addresses: 
+    - street     : '11 Main St'
+      city       : 'Allston'
+      state      : 'MA'
+      zip        : '02134'
+      country    : 'us'
+  cda_identifiers: 
+    - root       : '2.16.840.1.113883.4.6'  #npi
+      extension  : '6892960108'
+    - root       : '2.16.840.1.113883.4.2'  #tin
+      extension  : '1554520'

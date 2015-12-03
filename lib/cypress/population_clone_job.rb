@@ -68,6 +68,7 @@ module Cypress
       cloned_patient.test_id = options['test_id']
       patch_insurance_provider(record)
       randomize_entry_ids(cloned_patient)
+      assign_provider(cloned_patient)
       cloned_patient.save!
     end
 
@@ -110,6 +111,22 @@ module Cypress
       patient.insurance_providers.each do |ip|
         ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty?
       end
+    end
+
+    def assign_provider(patient)
+      if @options['providers']
+        prov = @options['providers'].sample
+      elsif @options['generate_provider']
+        prov = generate_provider
+      else
+        prov = Provider.default_provider
+      end
+      patient.provider_performances.build(provider: prov) if prov
+    end
+
+    def generate_provider
+      @prov ||= Provider.generate_provider
+      @prov
     end
   end
 end

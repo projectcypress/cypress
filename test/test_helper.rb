@@ -28,6 +28,10 @@ class MiniTest::Test
     Mongoid.default_client.database.drop
   end
 
+  def drop_collection(collection)
+    Mongoid.default_client[collection].drop
+  end
+
   def value_or_bson(v)
     if v.is_a? Hash
       if v['$oid']
