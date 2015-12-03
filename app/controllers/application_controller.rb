@@ -28,13 +28,17 @@ class ApplicationController < ActionController::Base
       # but this forces it to check every time only if it wasn't found before
       Rails.cache.delete('any_installed_bundle')
 
-      bundle_2015 = view_context.link_to '2015 Cypress 3.0 Test Bundle', 'http://demo.projectcypress.org/bundles/bundle-3.0.0-2015.zip'
-      bundle_2016 = view_context.link_to '2016 Cypress 3.0 Test Bundle', 'http://demo.projectcypress.org/bundles/bundle-3.0.0-2016.zip'
-      install_instr = view_context.link_to 'Cypress 3.0 Install Instructions', 'https://github.com/projectcypress/cypress/wiki/Cypress-3.0-Install-Instructions'
+      prev_bundle = APP_CONFIG['references']['bundles']['previous']
+      curr_bundle = APP_CONFIG['references']['bundles']['current']
+      install_instr = APP_CONFIG['references']['install_guide']
+
+      prev_bundle_link = view_context.link_to prev_bundle['title'], prev_bundle['url']
+      curr_bundle_link = view_context.link_to curr_bundle['title'], curr_bundle['url']
+      install_instr_link = view_context.link_to install_instr['title'], install_instr['url']
 
       alert = "There are no bundles currently available.
-               To use Cypress, please download and import either the #{bundle_2015} or the #{bundle_2016}.
-                For more information, see the #{install_instr}."
+               To use Cypress, please download and import either the #{prev_bundle_link} or the #{curr_bundle_link}.
+                For more information, see the #{install_instr_link}."
 
       flash[:alert] = alert.html_safe
     end
