@@ -28,8 +28,7 @@ class MeasureEvaluationJob < ActiveJob::Base
     results = {}
     measures.each_with_index do |measure|
       dictionary = generate_oid_dictionary(measure, measure.bundle_id)
-      qr = QME::QualityReport.find_or_create(measure['hqmf_id'],
-                                             measure.sub_id,
+      qr = QME::QualityReport.find_or_create(measure['hqmf_id'], measure.sub_id,
                                              'effective_date' => product_test.effective_date,
                                              'test_id' => product_test.id,
                                              'filters' => options['filters'],
