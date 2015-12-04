@@ -55,7 +55,6 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    vendor = @product.vendor
     flash_product_comment(@product.name, 'danger', 'removed')
     respond_to do |format|
       format.json {} # <-- must be fixed later
