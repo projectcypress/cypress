@@ -7,6 +7,39 @@ class ProductsControllerTest < ActionController::TestCase
     sign_in User.first
   end
 
+  teardown do
+    drop_database
+  end
+
+  test 'should get index' do
+    get :index, vendor_id: Vendor.first.id
+    assert_response :redirect
+  end
+
+  test 'should get new' do
+    get :new, vendor_id: Vendor.first.id, product_id: Product.new
+    assert_response :success
+    assert_not_nil assigns(:product)
+  end
+
+  test 'should get edit' do
+    get :edit, id: Product.first.id
+    assert_response :success
+    assert_not_nil assigns(:product)
+    assert_not_nil assigns(:selected_measure_ids)
+  end
+
+  test 'should destroy' do
+    get :destroy, id: Product.first.id
+    assert_response :redirect
+  end
+
+  test 'should get show' do
+    get :show, id: Product.first.id
+    assert_response :success
+    assert_not_nil assigns(:product)
+  end
+
   test 'should be able to update measures' do
     pt = Product.new(vendor: Vendor.first, name: 'test_product', c1_test: true)
 

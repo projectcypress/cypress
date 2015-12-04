@@ -4,7 +4,9 @@ class ProductsController < ApplicationController
   before_action :set_measures, only: [:new, :update]
 
   def index
-    @vendor.products
+    respond_to do |f|
+      f.html { redirect_to vendor_path(@vendor.id) }
+    end
   end
 
   def new
