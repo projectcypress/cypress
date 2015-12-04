@@ -45,7 +45,7 @@ class ProductTest
     end
     ids.uniq!
     random_ids = Record.all.pluck('medical_record_number').uniq
-    Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'randomization_ids' =>  random_ids, 'randomize_names' => true).perform
+    Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'randomization_ids' =>  random_ids, 'randomize_demographics' => true).perform
     calculate
   end
 
