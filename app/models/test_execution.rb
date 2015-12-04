@@ -81,4 +81,39 @@ class TestExecution
     self.state = :failed
     save
   end
+
+  # only if validator is one of 'CDA SDTC Validator', 'QRDA Cat 1 R3 Validator', 'QRDA Cat 1 Validator', or 'QRDA Cat 3 Validator'
+  #   or if validator type is xml_validation
+  def qrda_errors
+    execution_errors.select do |execution_error|
+      if execution_error.has_attribute?('validator') &&
+         %w(CDA\ SDTC\ Validator QRDA\ Cat\ 1\ R3\ Validator QRDA\ Cat\ 1\ Validator QRDA\ Cat\ 3\ Validator).include?(execution_error[:validator])
+        true
+      elsif execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :xml_validation
+        true
+      end
+    end
+  end
+
+  # only if validator is one of 'Cat 1 Measure ID Validator' or 'Cat 3 Measure ID Validator'
+  #   or if validator type is result_validation
+  def reporting_errors
+    execution_errors.select do |execution_error|
+      if execution_error.has_attribute?('validator') &&
+         %w(Cat\ 1\ Measure\ ID\ Validator Cat\ 3\ Measure\ ID\ Validator).include?(execution_error[:validator])
+        true
+      elsif execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :result_validation
+        true
+      end
+    end
+  end
+
+  # only if validator type is submission_validation
+  def submission_errors
+    execution_errors.select do |execution_error|
+      if execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :submission_validation
+        true
+      end
+    end
+  end
 end

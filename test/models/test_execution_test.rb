@@ -29,4 +29,29 @@ class TestExecutionTest < MiniTest::Test
     te.pass
     assert te.passing?, 'te.passing? not returning true when execution is passing'
   end
+
+  def test_qrda_reporting_and_submission_errors
+    qrda_errors = [
+      { validator: 'CDA SDTC Validator' },
+      { validator: 'QRDA Cat 1 R3 Validator' },
+      { validator: 'QRDA Cat 1 Validator' },
+      { validator: 'QRDA Cat 3 Validator' },
+      { :validator_type => :xml_validation }
+    ]
+    reporting_errors = [
+      { validator: 'Cat 1 Measure ID Validator' },
+      { validator: 'Cat 3 Measure ID Validator' },
+      { :validator_type => :result_validation }
+    ]
+    submission_errors = [
+      { :validator_type => :submission_validation }
+    ]
+    execution_errors = qrda_errors + reporting_errors + submission_errors
+
+    te = TestExecution.new(execution_errors: execution_errors)
+
+    assert_equal te.qrda_errors.count, qrda_errors.count
+    assert_equal te.reporting_errors.count, reporting_errors.count
+    assert_equal te.submission_errors.count, submission_errors.count
+  end
 end

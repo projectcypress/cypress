@@ -10,13 +10,15 @@
 
 <% if task && task.test_executions.any? %>
   <% task.test_executions.order_by(:created_at => 'desc').each do |execution| %>
-    <% qrda_errors = execution.execution_errors.where(validator_type: :xml_validation).order_by(:file_name => 'desc') %>
-    <% report_errors = execution.execution_errors.where(validator_type: :result_validation).order_by(:file_name => 'desc') %>
-    <% # THIS DOES NOT WORK YET! WE NEED TO KNOW WHAT validator_type SUBMISSION ERRORS HAVE %>
-    <% submit_errors = execution.execution_errors.where(validator_type: :adsfasdfasdfasdfasdf).order_by(:file_name => 'desc') %>
+    <% qrda_errors = execution.qrda_errors %>
+    <% report_errors = execution.reporting_errors %>
+    <% submit_errors = execution.submission_errors %>
     
     <h4 class = 'top-buffer'>
       <%= "#{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
+      <span class = 'text-danger'>
+        <%= "[#{execution.execution_errors.count} errors]" %>
+      </span>
     </h4>
     <ul class = 'nav nav-tabs'>
       <li class = 'active'>

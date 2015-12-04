@@ -18,6 +18,7 @@ module Validators
     # Generic QRDA Cat I schematron rules and the measure specific rules for each of the measures passed in.
     # THe result will be an Array of execution errors or an empty array if there were no errors.
     def validate(file, options = {})
+      @options = options
       doc = get_document(file)
       # validate that each file in the zip contains a valid QRDA Cat I document.
       # We may in the future have to support looking in the contents of the test
@@ -28,8 +29,9 @@ module Validators
       end
 
       validation_errors.each do |error|
-        add_error error.message, message: error.message,
-                                 location: error.location, validator: error.validator, file_name: error.file_name
+        add_error error.message, :message => error.message,
+                                 :location => error.location, :validator => error.validator,
+                                 :validator_type => :xml_validation, :file_name => error.file_name
       end
       validate_measures(doc)
       nil
@@ -44,7 +46,7 @@ module Validators
               cda:id[#{translate('@root')}='2.16.840.1.113883.4.738' and #{translate('@extension')}='#{measure.hqmf_id.upcase}'])
         unless doc.at_xpath(measure_xpath)
           add_error("Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.name}",
-                    validator: 'Measure Declaration Check')
+                    :validator => 'Measure Declaration Check', :validator_type => :xml_validation, :file_name => @options[:file_name])
         end
       end
     end

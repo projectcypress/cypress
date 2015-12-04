@@ -22,7 +22,7 @@ module Validators
         cda:entry/cda:act[./cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8']]/
         cda:effectiveTime/cda:low/@value").value.to_s.include? measure_start
         msg = "Reported Measurement Period should start on #{measure_start}"
-        add_error(msg, :location => '/', :validator_type => :xml_validation, :file_name => @options[:file_name])
+        add_error(msg, :location => '/', :validator_type => :submission_validation, :file_name => @options[:file_name])
       end
     end
 
@@ -32,7 +32,7 @@ module Validators
         cda:entry/cda:act[./cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8']]/
         cda:effectiveTime/cda:high/@value").value.to_s.include? measure_end
         msg = "Reported Measurement Period should end on #{measure_end}"
-        add_error(msg, :location => '/', :validator_type => :xml_validation, :file_name => @options[:file_name])
+        add_error(msg, :location => '/', :validator_type => :submission_validation, :file_name => @options[:file_name])
       end
     end
   end
