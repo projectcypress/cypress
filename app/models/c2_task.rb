@@ -9,14 +9,10 @@ class C2Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    return @validators if @validators
-
-    @has_cat3 = product_test.contains_c3_task?
-
     @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results),
                    ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
 
-    @validators << ::Validators::MeasurePeriodValidator.new if @has_cat3
+    @validators << ::Validators::MeasurePeriodValidator.new if product_test.contains_c3_task?
 
     @validators
   end
@@ -24,7 +20,7 @@ class C2Task < Task
   def execute(file)
     te = test_executions.create(expected_results: expected_results)
     te.artifact = Artifact.new(file: file)
-    te.validate_artifact(validators, te.artifact, validate_reporting: @has_cat3)
+    TestExecutionJob.perform_later(te, self, validate_reporting: product_test.contains_c3_task?)
     te.save
     te
   end

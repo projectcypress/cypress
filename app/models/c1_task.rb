@@ -12,8 +12,6 @@ class C1Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    return @validators if @validators
-
     @validators = [QrdaCat1Validator.new(product_test.bundle, product_test.measures),
                    SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id)]
 
@@ -25,7 +23,7 @@ class C1Task < Task
   def execute(file)
     te = test_executions.create(expected_results: expected_results)
     te.artifact = Artifact.new(file: file)
-    te.validate_artifact(validators, te.artifact)
+    TestExecutionJob.perform_later(te, self)
     te.save
     te
   end
