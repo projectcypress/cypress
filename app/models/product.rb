@@ -64,4 +64,24 @@ class Product
   def at_least_one_measure?
     errors.add(:measure_tests, 'Product must specify least one measure for testing.') unless product_tests.any?
   end
+
+  def measure_ids
+    (product_tests.pluck(:measure_ids) || []).flatten.uniq
+  end
+
+  def add_product_tests_to_product(added_measure_ids = [])
+    return if added_measure_ids.nil?
+    new_ids = added_measure_ids - measure_ids
+    to_remove_ids = measure_ids - added_measure_ids
+
+    new_ids.each do |new_measure_id|
+      measure = Measure.top_level.find_by(hqmf_id: new_measure_id)
+      product_tests.build({ name: measure.name, product: self, measure_ids: [new_measure_id],
+                            cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
+    end
+
+    to_remove_ids.each do |old_measure_id|
+      product_tests.in(measure_ids: old_measure_id).destroy
+    end
+  end
 end

@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 <div class="panel-heading"><h1><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h1></div>
 
-<%= bootstrap_form_for [@vendor, @product] do |f| %>
+<%= bootstrap_form_for [@product.vendor, @product] do |f| %>
 <div class="panel-body">
   <div class="col-md-6">
     <%= f.text_field :name %>
@@ -32,7 +32,6 @@
     <% #end %>
   <!-- </div> -->
 
-  <% if params[:action] == "new" %>
     <div class="col-md-12 pick-measures">
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -41,6 +40,23 @@
         <div class="panel-body">
           <div class="col-md-12"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>
           <div id="measure_tabs" class="measure-selection col-md-8">
+            <% if defined?(@selected_measure_ids) %>
+            <div class="measure-overlay">
+              <div class="alert alert-warning">
+                <div class="iconSpan pull-left">
+                    <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
+                </div>
+                <div class="alertContent">
+                  <p>Changing a product's associated measures will reset all associated tests. Do not change the measure selection unless you want to reset all existing tests on this product.</p>
+                  <p>
+                    Enter <strong class="risk_text">I will reset all tests for this measure</strong> below to enable further editing.
+                    <label class = "hide" for = "confirm_edit_risk">Type to enable editing this product's selected measures</label>
+                    <input class = "form-control" id = "confirm_edit_risk" type = "text" />
+                  </p>
+                </div>
+              </div>
+            </div>
+            <% end %>
             <div class="sidebar">
               <!-- set up a tab header for each measure group -->
               <ul>
@@ -50,13 +66,14 @@
               </ul>
             </div>
             <div class="measure-list">
+
               <% @measures_categories.sort.each do |category, measures| %>
                 <!-- set up a checkbox for each top-level measure in the group -->
                 <div id="<%= category.tr(" '", "_")%>" class="measure_group ">
                   <% if measures.length > 1 %>
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all"/> Select all <%= measures.length %> <%= category %> measures
+                      <input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all" <%= 'disabled' if defined?(@selected_measure_ids) %>/> Select all <%= measures.length %> <%= category %> measures
                     </label>
                   </div>
                   <% end %>
@@ -64,7 +81,7 @@
                     <div class="checkbox">
                       <label>
                         <input type="checkbox" name="product_test[measure_ids][]" id="<%= m.hqmf_id %>" value="<%= m.hqmf_id%>"
-                        class="measure-checkbox" <%= 'checked' if params.has_key?('selected_measure_ids') && params['selected_measure_ids'].include?(m.hqmf_id) %>/>
+                        class="measure-checkbox" <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %> <%= 'disabled' if defined?(@selected_measure_ids) %>/>
                         <strong><%= m.cms_id %></strong> <%= m.name %>
                       </label>
                     </div>
@@ -73,37 +90,19 @@
               <% end %>
             </div>
           </div>
+
           <div class="col-md-4 selected-measure-list">
             <h3>Selected Measures</h3>
           </div>
         </div>
       </div>
     </div>
-
-  <% elsif params[:action] == "edit" %>
-    <% unless @product.product_tests.empty? %>
-      <div class="col-md-6 col-md-offset-6 selected-measure-list">
-        <h3>Selected Measures</h3>
-        <% 
-        measures = @product.product_tests.collect {|pt| pt.measures.top_level}.flatten.uniq
-        measures.each do |measure| %>
-          <div class="checkbox">
-            <label class="btn btn-checkbox disabled">
-              <input type="checkbox" name="product_test[measure_ids][]" id="<%= measure.hqmf_id %>" value="<%= measure.hqmf_id %>"
-              class="measure-checkbox" checked="true" disabled="disabled" />
-              <strong><%= measure.cms_id %></strong> <%= measure.name %>
-            </label>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  <% end %>
 </div>
 
 <div class="panel-footer">
   <div class="pull-left">
   <%= f.submit submit_text, class: "btn btn-success" %>
-  <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/vendors/#{@vendor.id}'" %>
+  <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/vendors/#{@product.vendor.id}'" %>
   </div>
   <div class="clearfix"></div>
 </div>

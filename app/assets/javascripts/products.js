@@ -59,6 +59,13 @@ ready = function() {
     adjustMeasureGroupCheckbox(this);
   });
 
+  // Let user reset all tests on a product
+  $('.measure-overlay input#confirm_edit_risk').keyup(function() {
+    if ($('.measure-overlay strong.risk_text').text() == $(this).val()) {
+      $('.measure-overlay').remove();
+      $('.pick-measures input[type="checkbox"]').prop('disabled', false);
+    }
+  });
 };
 
 $(document).ready(ready);
