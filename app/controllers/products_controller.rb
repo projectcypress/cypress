@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_vendor, only: [:new, :create, :index]
-  before_action :set_product, only: [:edit, :update, :destroy, :show]
+  before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :update]
 
   def index
@@ -71,6 +71,11 @@ class ProductsController < ApplicationController
       format.json { render json: [@product] }
       format.html
     end
+  end
+
+  def download_total_test_deck
+    file = Cypress::CreateDownloadZip.create_total_test_zip(@product)
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "Full_Test_Deck_#{params[:id]}.zip"
   end
 
   private

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   resources :products, only: [:show, :edit, :update, :destroy] do
     resources :product_tests, only: [:index, :new, :create, :show]
+    member do
+      get :download_total_test_deck
+    end
   end
 
   resources :product_tests, only: [:show, :edit, :update, :destroy] do

@@ -21,6 +21,27 @@
   </div>
 
   <% unless @product.product_tests.empty? %>
+
+    <div class = 'row'>
+      <div class = 'col-sm-6'>
+        <div class = 'panel panel-default'>
+          <div class = 'panel-heading'>
+            <h4>Download Full Test Deck</h4>
+          </div>
+          <div class = 'panel-body'>
+            <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
+            <div class = 'text-center'>
+              <%= form_for @product, url: { action: 'download_total_test_deck' }, :html => { :method => 'GET' } do |f| %>
+                <%= button_tag(type: 'submit', class: 'btn btn-info') do %>
+                  <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <p><%= "Product has #{@product.product_tests.count} tests:" %></p>
     <ul>
       <% @product.product_tests.each do |test| %>

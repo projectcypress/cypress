@@ -54,14 +54,30 @@ module Cypress
 
       Zip::ZipOutputStream.open(file.path) do |z|
         patients.each_with_index do |patient, i|
-          safe_first_name = patient.first.delete("'")
-          safe_last_name = patient.last.delete("'")
-          next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
-          z.put_next_entry("#{next_entry_path}.#{FORMAT_EXTENSIONS[format.to_sym]}")
+          # safe_first_name = patient.first.delete("'")
+          # safe_last_name = patient.last.delete("'")
+          # next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
+          z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
           if formatter == HealthDataStandards::Export::HTML
             z << formatter.new.export(patient)
           else
             z << formatter.export(patient)
+          end
+        end
+      end
+    end
+
+    def self.zip_patients_all_measures(file, measure_tests)
+      Zip::ZipOutputStream.open(file.path) do |zip|
+        measure_tests.each do |measure_test|
+          patients = measure_test.records.to_a
+          measures, start_date, end_date = mes_start_end(patients)
+          formatter = Cypress::QRDAExporter.new(measures, start_date, end_date)
+          measure_folder = "patients_#{measure_test.cms_id}"
+
+          patients.each_with_index do |patient, i|
+            zip.put_next_entry("#{measure_folder}/#{next_entry_path(patient, i)}.xml")
+            zip << formatter.export(patient)
           end
         end
       end
@@ -75,6 +91,12 @@ module Cypress
       end_date = ptest ? ptest.start_date : Time.at.utc(patients.first.bundle.effective_date)
       start_date = ptest ? ptest.end_date : end_date.years_ago(1)
       [measures, start_date, end_date]
+    end
+
+    def self.next_entry_path(patient, index)
+      safe_first_name = patient.first.delete("'")
+      safe_last_name = patient.last.delete("'")
+      "#{index}_#{safe_first_name}_#{safe_last_name}"
     end
   end
 end
