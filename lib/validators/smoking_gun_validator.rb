@@ -39,16 +39,18 @@ module Validators
     end
 
     def not_found_names
-      @names.keys - @found_names
+      expected_names = []
+      @expected_records.each do |expected_record|
+        expected_names << @names.key(expected_record) if @names.value?(expected_record)
+      end
+      expected_names - @found_names
     end
 
     def errors
       sg_errors = super.dup
       unless not_found_names.empty?
         msg = "Records for patients #{not_found_names.join(', ')} not found in archive as expected"
-        sg_errors << ExecutionError.new(:message =>  msg,
-                                        :msg_type => :error,
-                                        :validator_type => :result_validation)
+        sg_errors << ExecutionError.new(:message =>  msg, :msg_type => :error, :validator_type => :result_validation)
       end
 
       sg_errors
