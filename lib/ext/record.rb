@@ -2,7 +2,6 @@
 
 class Record
   include Mongoid::Document
-  field :test_id, type: BSON::ObjectId
   field :bundle_id
   field :measures, type: Hash
   index test_id: 1

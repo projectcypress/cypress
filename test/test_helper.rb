@@ -1,6 +1,7 @@
 require 'simplecov'
 
 SimpleCov.start 'rails'
+SimpleCov.command_name 'MiniTest'
 SimpleCov.minimum_coverage 90
 
 ENV['RAILS_ENV'] ||= 'test'
