@@ -8,9 +8,6 @@ Rails.application.routes.draw do
 
   resources :products, only: [:show, :edit, :update, :destroy] do
     resources :product_tests, only: [:index, :new, :create, :show]
-    member do
-      get :download_total_test_deck
-    end
   end
 
   resources :product_tests, only: [:show, :edit, :update, :destroy] do
@@ -25,6 +22,12 @@ Rails.application.routes.draw do
   end
 
   resources :test_executions, only: [:show, :create, :destroy]
+
+  resources :records, only: [] do
+    member do
+      get :download_full_test_deck
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

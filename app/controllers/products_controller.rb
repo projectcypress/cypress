@@ -73,11 +73,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  def download_total_test_deck
-    file = Cypress::CreateDownloadZip.create_total_test_zip(@product)
-    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "Full_Test_Deck_#{params[:id]}.zip"
-  end
-
   private
 
   def set_product

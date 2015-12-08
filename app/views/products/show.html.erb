@@ -31,7 +31,7 @@
           <div class = 'panel-body'>
             <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
             <div class = 'text-center'>
-              <%= form_for @product, url: { action: 'download_total_test_deck' }, :html => { :method => 'GET' } do |f| %>
+              <%= form_for @product, url: { controller: 'records', action: 'download_full_test_deck' }, :html => { :method => 'GET' } do |f| %>
                 <%= button_tag(type: 'submit', class: 'btn btn-info') do %>
                   <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
                 <% end %>
