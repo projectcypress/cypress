@@ -16,7 +16,7 @@ module Validators
       attributes = { message: msg, msg_type: msg_type,
                      validator_type: self.class.validator_type }.merge(options)
       @errors ||= []
-      @errors << ExecutionError.new(attributes)
+      @errors << ::ExecutionError.new(attributes)
     end
 
     def add_errors(errors)
