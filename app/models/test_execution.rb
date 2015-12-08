@@ -2,6 +2,7 @@ class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
+  include GlobalID::Identification
 
   field :state, :type => Symbol, :default => :pending
   field :expected_results, type: Hash
