@@ -111,8 +111,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
 
   def assert_payer_data_is_valid
     ip = @record.insurance_providers[0]
-    assert %w(1 2 349).include? ip.codes['SOP']
-    case ip.codes['SOP']
+    assert %w(1 2 349).include? ip.codes['SOP'][0]
+    case ip.codes['SOP'][0]
     when '1'
       assert_equal 'Medicare', ip.name
       assert_equal 'Medicare', ip.payer.name

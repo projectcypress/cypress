@@ -59,7 +59,8 @@ module Cypress
     def self.randomize_payer(insurance_provider)
       payer = APP_CONFIG['randomization']['payers'].sample
       insurance_provider.codes = {}
-      insurance_provider.codes[payer['codeSystem']] = payer['code'].to_s
+      insurance_provider.codes[payer['codeSystem']] = {}
+      insurance_provider.codes[payer['codeSystem']][0] = payer['code'].to_s
       insurance_provider.name = payer['name']
       insurance_provider.type = payer['type']
       insurance_provider.payer = Organization.new(name: payer['name'])
