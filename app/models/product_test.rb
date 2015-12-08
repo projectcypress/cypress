@@ -27,7 +27,8 @@ class ProductTest
   # validates :bundle_id, presence: true
 
   # delegate :effective_date, to: bundle
-
+  mount_uploader :patient_archive, PatientArchiveUploader
+  
   after_create :generate_records
 
   def self.inherited(child)
