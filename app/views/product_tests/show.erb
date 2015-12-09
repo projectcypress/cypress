@@ -84,38 +84,34 @@
   <% end %>
 
   <% if c1 %>
-    <% if c1 && c2 %>
-      <div id = 'cat1'>
-    <% end %>
-        <div class="well well-sm test-step">
-          <h2><%= "[2] Upload for #{tab_label_1}" %></h2>
-          <p class = 'description'>
-            <%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %>
-          </p>
-          <%= render partial: 'test_execution_upload', locals: { task: @product_test.c1_task } %>
-        </div>
-        <hr>
-        <h2 class="test-result">CAT 1 Test Results for <%= "#{@product_test.name}" %></h2>
-        <%= render partial: "test_execution_results", locals: { task: @product_test.c1_task } %>
+    <div id = 'cat1'>
+      <div class="well well-sm test-step">
+        <h2><%= "[2] Upload for #{tab_label_1}" %></h2>
+        <p class = 'description'>
+          <%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %>
+        </p>
+        <%= render partial: 'test_execution_upload', locals: { task: @product_test.c1_task } %>
+      </div>
+      <hr>
+      <h2 class="test-result">CAT 1 Test Results for <%= "#{@product_test.name}" %></h2>
+      <%= render partial: "test_execution_results", locals: { task: @product_test.c1_task } %>
     <% if c1 && c2 %>
       </div>
     <% end %>
   <% end %>
 
   <% if c2 %>
-    <% if c1 && c2 %>
-      <div id = 'cat3'>
-    <% end %>
-        <div class="well well-sm test-step">
-          <h2><%= "[2] Upload for #{tab_label_2}" %></h2>
-          <p class = 'description'>
-            <%= "Upload your CAT 3 XML file to get test results for #{tab_label_2} certifications. This will automatically run a test execution." %>
-          </p>
-          <%= render partial: 'test_execution_upload', locals: { task: @product_test.c2_task } %>
-        </div>
-        <hr>
-        <h2 class = 'test-result'><%= "CAT 3 Test Results for #{@product_test.name}" %></h2>
-        <%= render partial: "test_execution_results", locals: { task: @product_test.c2_task } %>
+    <div id = 'cat3'>
+      <div class="well well-sm test-step">
+        <h2><%= "[2] Upload for #{tab_label_2}" %></h2>
+        <p class = 'description'>
+          <%= "Upload your CAT 3 XML file to get test results for #{tab_label_2} certifications. This will automatically run a test execution." %>
+        </p>
+        <%= render partial: 'test_execution_upload', locals: { task: @product_test.c2_task } %>
+      </div>
+      <hr>
+      <h2 class = 'test-result'><%= "CAT 3 Test Results for #{@product_test.name}" %></h2>
+      <%= render partial: "test_execution_results", locals: { task: @product_test.c2_task } %>
     <% if c1 && c2 %>
       </div>
     <% end %>

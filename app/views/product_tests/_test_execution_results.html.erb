@@ -14,7 +14,6 @@
       <h4 class = 'top-buffer'>
         <%= "PENDING: #{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
       </h4>
-      <% next %>
     <% else %>
       <% qrda_errors = execution.qrda_errors %>
       <% report_errors = execution.reporting_errors %>
