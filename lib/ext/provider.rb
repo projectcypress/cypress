@@ -2,7 +2,7 @@ class Provider
   def self.default_provider
     prov = where(default: true).first
     if prov.nil?
-      prov = Provider.new(APP_CONFIG[:default_provider])
+      prov = Provider.new(APP_CONFIG['default_provider'])
       prov[:default] = true
       prov.save
     end
