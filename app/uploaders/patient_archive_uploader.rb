@@ -8,4 +8,8 @@ class PatientArchiveUploader < CarrierWave::Uploader::Base
     "#{Settings.file_upload_root}/product_test/#{model.id}"
   end
 
+  def uploaded_filename
+    file.filename
+  end
+
 end 

@@ -13,6 +13,7 @@ gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data
 gem 'quality-measure-engine',
     git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
 
+gem 'aasm'
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
 

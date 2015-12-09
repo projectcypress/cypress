@@ -20,6 +20,11 @@ Warden.test_mode!
 Mongoid.logger.level = Logger::INFO
 Mongo::Logger.logger.level = Logger::WARN
 class MiniTest::Test
+
+  def teardown
+    drop_database
+  end
+
   def create_rack_test_file(filename, type)
     Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, filename)), type)
   end

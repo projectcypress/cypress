@@ -19,17 +19,17 @@ class ProductTest
   field :state, type: Symbol
 
   field :status_message, type: String
-  # field :effective_date, type: Integer
   validates :name, presence: true
   validates :product, presence: true
   validates :measure_ids, presence: true
-  # validates :effective_date, presence: true
-  # validates :bundle_id, presence: true
-
-  # delegate :effective_date, to: bundle
   mount_uploader :patient_archive, PatientArchiveUploader
-  
-  after_create :generate_records
+
+
+  after_create do |product_test|
+    ProductTestSetupJob.perform_later(product_test)
+  end
+
+  delegate :effective_date, :to => :bundle
 
   def self.inherited(child)
     child.instance_eval do
@@ -50,7 +50,13 @@ class ProductTest
                                     'patient_ids' => ids,
                                     'randomization_ids' =>  random_ids,
                                     'randomize_demographics' => true).perform
-    calculate
+  end
+
+  def archive_records
+    file = Tempfile.new("product_test-#{id}.zip")
+    Cypress::PatientZipper.zip(file, self.records, :qrda)
+    self.patient_archive= file
+    self.save 
   end
 
   def calculate
@@ -81,8 +87,6 @@ class ProductTest
     self.state = :ready
     save
   end
-
-  delegate :effective_date, :to => :bundle
 
   def status
     Rails.cache.fetch("#{cache_key}/status") do
