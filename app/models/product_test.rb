@@ -24,7 +24,6 @@ class ProductTest
   validates :measure_ids, presence: true
   mount_uploader :patient_archive, PatientArchiveUploader
 
-
   after_create do |product_test|
     ProductTestSetupJob.perform_later(product_test)
   end
@@ -46,17 +45,15 @@ class ProductTest
     end
     ids.uniq!
     random_ids = Record.all.pluck('medical_record_number').uniq
-    Cypress::PopulationCloneJob.new('test_id' => id,
-                                    'patient_ids' => ids,
-                                    'randomization_ids' =>  random_ids,
+    Cypress::PopulationCloneJob.new('test_id' => id,  'patient_ids' => ids, 'randomization_ids' =>  random_ids,
                                     'randomize_demographics' => true).perform
   end
 
   def archive_records
     file = Tempfile.new("product_test-#{id}.zip")
-    Cypress::PatientZipper.zip(file, self.records, :qrda)
-    self.patient_archive= file
-    self.save 
+    Cypress::PatientZipper.zip(file, records, :qrda)
+    self.patient_archive = file
+    save
   end
 
   def calculate

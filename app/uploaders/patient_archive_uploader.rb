@@ -11,5 +11,4 @@ class PatientArchiveUploader < CarrierWave::Uploader::Base
   def uploaded_filename
     file.filename
   end
-
-end 
+end

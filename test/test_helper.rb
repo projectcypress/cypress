@@ -20,7 +20,6 @@ Warden.test_mode!
 Mongoid.logger.level = Logger::INFO
 Mongo::Logger.logger.level = Logger::WARN
 class MiniTest::Test
-
   def teardown
     drop_database
   end

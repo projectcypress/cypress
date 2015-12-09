@@ -4,7 +4,7 @@ class ProductTestTest < ActiveJob::TestCase
   def setup
     collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
     vendor = Vendor.create(name: 'test_vendor_name')
-    @product = vendor.products.create(name: 'test_product',c2_test: true)
+    @product = vendor.products.create(name: 'test_product', c2_test: true)
   end
 
   def after_teardown
@@ -22,8 +22,8 @@ class ProductTestTest < ActiveJob::TestCase
       assert_performed_jobs 1
       assert pt.records.count > 0, 'product test creation should have created random number of test records'
       pt.reload
-      assert_not_nil pt.patient_archive, "Product test should have archived patient records"
-      assert_not_nil pt.expected_results, "Product test should have expected results"
+      assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
+      assert_not_nil pt.expected_results, 'Product test should have expected results'
     end
   end
 
