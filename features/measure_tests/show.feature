@@ -41,3 +41,9 @@ Scenario: Successful Upload CAT 1 Zip
   And the user views a product test for that product
   And the user uploads a CAT 1 zip file
   Then the user should see test results
+
+Scenario: Successful Upload CAT 3
+  When the user creates a product with tasks c2
+  And the user views a product test for that product
+  And the user uploads a CAT 3 XML file
+  Then the user should see test results
