@@ -99,4 +99,5 @@ group :test do
   gem 'minitest-reporters'
   gem 'simplecov', require: false
   gem 'brakeman', require: false
+  gem 'bundler-audit'
 end
