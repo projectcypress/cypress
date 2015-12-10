@@ -20,8 +20,44 @@
 
   </div>
 
-  <% unless @product.product_tests.empty? %>
+  <% if @product.c1_test || @product.c4_test %>
+    <div class = 'row'>
+      <% if @product.c1_test %>
+        <div class = 'col-sm-6'>
+          <div class = 'panel panel-default'>
+            <div class = 'panel-heading'>
+              <h4>C1 Visual Inspection</h4>
+            </div>
+            <div class = 'panel-body'>
+              <p>Start by generating the C1 visual inspection records. Then perform the inspection. If measures are added or removed from this product, the results from you C1 visual inspection may become invalid.</p>
+              <% if @product.checklist_test %>
+                <%= button_to 'Perform Inspection', "/products/#{@product.id}/checklist_tests/#{@product.checklist_test.id}", class: 'btn btn-primary', method: :get %>
+              <% else %>
+                <%= button_to 'Generate Test', "/products/#{@product.id}/checklist_tests", class: 'btn btn-primary', method: :post %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% if @product.c4_test %>
+        <div class = 'col-sm-6'>
+          <div class = 'panel panel-default'>
+            <div class = 'panel-heading'>
+              <h4>C4 Filtering</h4>
+            </div>
+            <div class = 'panel-body'>
+              <p>Here is a description about C4 Testing. I don't really know what to write about since this is just a place holder. Did you see that, I made placeholder two words just to add a space. Good for me.</p>
+              <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
+                heres some text
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
+  <% unless @product.product_tests.empty? %>
     <div class = 'row'>
       <div class = 'col-sm-6'>
         <div class = 'panel panel-default'>
@@ -30,21 +66,21 @@
           </div>
           <div class = 'panel-body'>
             <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
-            <div class = 'text-center'>
-              <%= form_for @product, url: { controller: 'records', action: 'download_full_test_deck' }, :html => { :method => 'GET' } do |f| %>
-                <%= button_tag(type: 'submit', class: 'btn btn-info') do %>
-                  <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
-                <% end %>
+            <%= form_for @product, url: { controller: 'records', action: 'download_full_test_deck' }, :html => { :method => 'GET' } do |f| %>
+              <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
+                <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
               <% end %>
-            </div>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
+  <% end %>
 
-    <p><%= "Product has #{@product.product_tests.count} tests:" %></p>
+  <% if @product.measure_tests %>
+    <p><%= "Product has #{@product.measure_tests.count} tests:" %></p>
     <ul>
-      <% @product.product_tests.each do |test| %>
+      <% @product.measure_tests.each do |test| %>
         <li>
           <%= link_to "#{test.cms_id} #{test.name}", [@product, test] %>
           <%= "(#{test.status})" if test.status %>

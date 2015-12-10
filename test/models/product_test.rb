@@ -79,6 +79,31 @@ class ProducTest < MiniTest::Test
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save with two certification types'
   end
+
+  def test_measure_tests
+    pt = Product.new(vendor: @vendor, name: 'measure_test', c1_test: true)
+    pt.product_tests.build({ name: 'test_product_test_name',
+                             measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                             bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest).save!
+    assert pt.measure_tests
+    assert_equal pt.measure_tests.count, 1
+  end
+
+  def test_no_checklist_test
+    pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true)
+    pt.product_tests.build(name: 'test_product_test_name',
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                           bundle_id: '4fdb62e01d41c820f6000001').save!
+    assert_equal false, pt.checklist_test
+  end
+
+  def test_create_checklist_test
+    pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true)
+    pt.product_tests.build({ name: 'test_checklist_test',
+                             measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                             bundle_id: '4fdb62e01d41c820f6000001' }, ChecklistTest).save!
+    assert pt.checklist_test
+  end
 end
 
 class ProductCachingTest < CachingTest

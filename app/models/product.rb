@@ -36,6 +36,17 @@ class Product
     end
   end
 
+  # returns checklist_test if there is one
+  # returns false if there is no checklist test
+  def checklist_test
+    checklist_tests = product_tests.select { |test| test.has_attribute?(:_type) && test._type == 'ChecklistTest' }
+    if checklist_tests.empty?
+      false
+    else
+      checklist_tests.first
+    end
+  end
+
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       total = product_tests.count
