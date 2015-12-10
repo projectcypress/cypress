@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_vendor, only: [:new, :create, :index]
-  before_action :set_product, only: [:edit, :update, :destroy, :show]
+  before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :update]
 
   def index

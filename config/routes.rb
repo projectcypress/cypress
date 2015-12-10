@@ -22,6 +22,12 @@ Rails.application.routes.draw do
   end
 
   resources :test_executions, only: [:show, :create, :destroy]
+
+  resources :records, only: [] do
+    member do
+      get :download_full_test_deck
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

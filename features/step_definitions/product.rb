@@ -218,6 +218,11 @@ When(/^the user views the product$/) do
   page.click_link @product.name
 end
 
+When(/^the user downloads all patients$/) do
+  steps %( When the user views the product )
+  page.click_button 'Download All Patients (.zip)'
+end
+
 # # # # # # # #
 #   T H E N   #
 # # # # # # # #
@@ -274,4 +279,9 @@ end
 Then(/^the user should see the product information$/) do
   page.assert_text @product.name
   page.assert_text @vendor.name
+end
+
+Then(/^the total test deck should be downloaded$/) do
+  file_name = "Full_Test_Deck_#{Product.all.first.id}.zip"
+  assert page.driver.response_headers['Content-Disposition'].include?("filename=\"#{file_name}\"")
 end
