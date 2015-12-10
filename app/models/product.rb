@@ -23,7 +23,6 @@ class Product
                                  :message => 'Product name was already taken. Please choose another.' }
   # validates :ehr_type, presence: true, inclusion: { in: %w(provider hospital) }
   validate :at_least_one_test_type?
-  validate :at_least_one_measure?
   validates :vendor, presence: true
 
   # returns all measure tests if there are any
