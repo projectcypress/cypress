@@ -20,7 +20,9 @@ before_script:
   - npm install -g eslint
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 script:
-  - ./bin/brakeman -qAzw1
-  - ./bin/overcommit --run
-  - ./bin/rake test
+  - bundle exec brakeman -qAzw1
+  - bundle exec bundle-audit update
+  - bundle exec bundle-audit check
+  - bundle exec overcommit --run
+  - bundle exec rake test
   - bundle exec rake cucumber

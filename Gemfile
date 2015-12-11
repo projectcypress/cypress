@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 
 # Use MongoDB just like in Cypress v2!
 gem 'mongoid', '~> 5.0.0'
@@ -78,7 +78,7 @@ group :development, :test do
   gem 'travis'
   gem 'poltergeist'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
-  gem 'scss-lint'
+  gem 'scss_lint', require: false
   gem 'capybara'
   gem 'capybara-accessible'
 end
@@ -99,4 +99,5 @@ group :test do
   gem 'minitest-reporters'
   gem 'simplecov', require: false
   gem 'brakeman', require: false
+  gem 'bundler-audit'
 end
