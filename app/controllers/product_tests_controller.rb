@@ -6,12 +6,6 @@ class ProductTestsController < ApplicationController
     @product_tests = @product.product_tests
   end
 
-  def new
-  end
-
-  def create
-  end
-
   def edit
   end
 
@@ -25,7 +19,6 @@ class ProductTestsController < ApplicationController
     add_breadcrumb @product_test.name, [@product_test.product, @product_test]
 
     @c4_test_filters = %w(race ethnicity gender payer)
-
   end
 
   def destroy

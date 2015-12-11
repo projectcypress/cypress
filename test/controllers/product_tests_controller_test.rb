@@ -24,12 +24,6 @@ class ProductTestsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:product_test)
   end
 
-  test 'should get new' do
-    get :new, product_id: Product.first.id
-    assert_response :success
-    assert_not_nil assigns(:product_test)
-  end
-
   test 'should get edit' do
     get :edit, id: ProductTest.first.id
     assert_response :success

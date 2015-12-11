@@ -9,16 +9,16 @@ class FilteringTestsController < ProductTestsController
   end
 
   def create
-    @filtering_test =  @product.product_tests.build(params[:product_tests], FilteringTest)
+    @filtering_test = @product.product_tests.build(params[:product_tests], FilteringTest)
     tasks = [DemographicsTask, DemographicsTask, LocationsTask]
-    params[:product_test][:tasks_attributes].each do |k,v|
-      task_type = tasks.shift()
-      @filtering_test.tasks << task_type.send("new", v)
+    params[:product_test][:tasks_attributes].each do |_, v|
+      task_type = tasks.shift
+      @filtering_test.tasks << task_type.send('new', v)
     end
-    tasks.each {|task| @filtering_test.tasks << task.send("new")}
+    tasks.each { |task| @filtering_test.tasks << task.send('new') }
     @filtering_test.name = "C4 #{@product.name}"
     measure = Measure.top_level.first
-    # TODO This shouldn't default to first measures, measures need to be stored on the product
+    # TODO: This shouldn't default to first measures, measures need to be stored on the product
     @filtering_test.measure_ids = [measure.id]
     @filtering_test.bundle_id = measure.bundle_id
     @filtering_test.save!
@@ -30,7 +30,6 @@ class FilteringTestsController < ProductTestsController
   end
 
   private
-
 
   def set_product
     @product = Product.find(params[:product_id])

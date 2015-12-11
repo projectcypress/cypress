@@ -63,6 +63,6 @@ class C4Task < Task
   end
 
   def partial_name
-    self.model_name.name.underscore
+    model_name.name.underscore
   end
 end

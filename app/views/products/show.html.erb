@@ -2,12 +2,14 @@
 
   <%= button_to "Edit Product", [:edit, @product.vendor, @product], :method => :get, :class => "btn btn-default pull-right" %>
 
+
+
   <div class = 'row'><h2><%= @product.name %></h2></div>
 
   <div class = 'row'><h3>Product Information</h3></div>
 
   <div class = 'row'>
-    
+
     <div class = 'col-sm-4'>
       <p>Vendor: <%= @product.vendor.name %></p>
       <p><%= "Version: #{@product.version}" unless @product.version.blank? %></p>
@@ -88,5 +90,7 @@
       <% end %>
     </ul>
   <% end %>
-
+  <% if @product.c4_test %>
+    <%= link_to "Generate C4 Tests", new_vendor_product_filtering_test_path(product_id: @product._id) %>
+  <% end %>
 </div>
