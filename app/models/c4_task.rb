@@ -61,4 +61,8 @@ class C4Task < Task
   def records
     Cypress::RecordFilter.filter(product_test.records, options['filters'], effective_date: product_test.effective_date)
   end
+
+  def partial_name
+    model_name.name.underscore
+  end
 end

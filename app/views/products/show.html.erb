@@ -2,12 +2,14 @@
 
   <%= button_to "Edit Product", [:edit, @product.vendor, @product], :method => :get, :class => "btn btn-default pull-right" %>
 
+
+
   <div class = 'row'><h2><%= @product.name %></h2></div>
 
   <div class = 'row'><h3>Product Information</h3></div>
 
   <div class = 'row'>
-    
+
     <div class = 'col-sm-4'>
       <p>Vendor: <%= @product.vendor.name %></p>
       <p><%= "Version: #{@product.version}" unless @product.version.blank? %></p>
@@ -47,9 +49,7 @@
             </div>
             <div class = 'panel-body'>
               <p>Here is a description about C4 Testing. I don't really know what to write about since this is just a place holder. Did you see that, I made placeholder two words just to add a space. Good for me.</p>
-              <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
-                heres some text
-              <% end %>
+              <%= button_to "Generate C4 Tests", new_vendor_product_filtering_test_path(product_id: @product._id), class: 'btn btn-primary', method: :get %>
             </div>
           </div>
         </div>
@@ -88,5 +88,4 @@
       <% end %>
     </ul>
   <% end %>
-
 </div>

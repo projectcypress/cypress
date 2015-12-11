@@ -6,13 +6,6 @@ class ProductTestsController < ApplicationController
     @product_tests = @product.product_tests
   end
 
-  def new
-    @product_test = @product.product_tests.build({})
-  end
-
-  def create
-  end
-
   def edit
   end
 
@@ -24,6 +17,8 @@ class ProductTestsController < ApplicationController
     add_breadcrumb @vendor.name, [@vendor]
     add_breadcrumb @product_test.product.name, [@vendor, @product_test.product]
     add_breadcrumb @product_test.name, [@product_test.product, @product_test]
+
+    @c4_test_filters = %w(race ethnicity gender payer)
   end
 
   def destroy
