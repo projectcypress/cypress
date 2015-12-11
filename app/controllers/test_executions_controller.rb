@@ -1,6 +1,8 @@
 class TestExecutionsController < ApplicationController
   before_action :set_test_execution, only: [:destroy, :show]
-  before_action :set_task, only: [:index, :new, :create]
+  before_action :set_task, only: [:index, :new, :create, :show]
+  before_action :set_product_test, only: [:show, :new]
+  before_action :add_breadcrumbs, only: [:show, :new]
 
   def index
     @test_executions = @task.test_executions
@@ -8,7 +10,15 @@ class TestExecutionsController < ApplicationController
 
   def create
     @test_execution = @task.execute(params[:results])
-    redirect_to "/products/#{@task.product_test.product.id}/product_tests/#{@task.product_test.id}"
+    redirect_to "/tasks/#{@task.id}/test_executions/#{@test_execution.id}"
+  end
+
+  def new
+    if @task.most_recent_execution
+      redirect_to "/tasks/#{@task.id}/test_executions/#{@task.most_recent_execution.id}"
+      return
+    end
+    render :show
   end
 
   def show
@@ -21,11 +31,21 @@ class TestExecutionsController < ApplicationController
 
   private
 
+  def set_product_test
+    @product_test = @task.product_test
+  end
+
   def set_task
     @task = Task.find(params[:task_id])
   end
 
   def set_test_execution
     @test_execution = TestExecution.find(params[:id])
+  end
+
+  def add_breadcrumbs
+    add_breadcrumb @product_test.product.vendor.name, "/vendors/#{@product_test.product.vendor.id}"
+    add_breadcrumb @product_test.product.name, "/vendors/#{@product_test.product.vendor.id}/products/#{@product_test.product.id}"
+    add_breadcrumb @product_test.name, "/products/#{@product_test.product.id}/product_tests/#{@product_test.id}"
   end
 end

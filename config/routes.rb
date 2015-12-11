@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   resources :tasks, only: [:show, :edit, :update, :destroy] do
-    resources :test_executions
+    resources :test_executions, only: [:show, :new]
   end
 
   resources :test_executions, only: [:show, :create, :destroy]

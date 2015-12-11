@@ -13,12 +13,12 @@ class ProductTestsController < ApplicationController
   end
 
   def show
-    @vendor = @product_test.product.vendor
-    add_breadcrumb @vendor.name, [@vendor]
-    add_breadcrumb @product_test.product.name, [@vendor, @product_test.product]
-    add_breadcrumb @product_test.name, [@product_test.product, @product_test]
-
-    @c4_test_filters = %w(race ethnicity gender payer)
+    # @c4_test_filters = %w(race ethnicity gender payer)
+    if @product_test.c1_task
+      redirect_to "/tasks/#{@product_test.c1_task.id}/test_executions/new"
+    else
+      redirect_to "/tasks/#{@product_test.c2_task.id}/test_executions/new"
+    end
   end
 
   def destroy
