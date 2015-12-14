@@ -7,6 +7,7 @@ class TestExecution
   field :state, :type => Symbol, :default => :pending
   field :expected_results, type: Hash
   field :reported_results, type: Hash
+  field :qrda_type, type: String
 
   embeds_many :execution_errors
   has_one :artifact, :autosave => true, :dependent => :destroy

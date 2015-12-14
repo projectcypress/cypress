@@ -24,14 +24,6 @@ class C2TaskTest < ActiveSupport::TestCase
     end
   end
 
-  def test_should_include_c3_validators_when_c3_exists
-    task = @product_test.tasks.create({}, C2Task)
-    @product_test.tasks.create({}, C3Task)
-
-    assert @product_test.contains_c3_task?
-    assert task.validators.count { |v| v.is_a?(MeasurePeriodValidator) } > 0
-  end
-
   def test_execute
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
@@ -51,18 +43,6 @@ class C2TaskTest < ActiveSupport::TestCase
       te = task.execute(xml)
       te.reload
       assert_equal 0, te.execution_errors.length, 'should have no errors for the invalid reporting period'
-    end
-  end
-
-  def test_should_error_when_measure_period_is_wrong
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    ptest.tasks.create({}, C3Task)
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_mp.xml', 'application/xml')
-    perform_enqueued_jobs do
-      te = task.execute(xml)
-      te.reload
-      assert_equal 2, te.execution_errors.length, 'should have 2 errors for the invalid reporting period'
     end
   end
 
@@ -123,21 +103,6 @@ class C2TaskTest < ActiveSupport::TestCase
       # 9 is for all of the sub measures to be searched for
       # 2 for missing supplemental data
       assert_equal 21, te.execution_errors.length, 'should error on missing measure entry'
-    end
-  end
-
-  def test_should_cause_error_when_measure_is_not_included_in_report_with_c3
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    ptest.tasks.create({}, C3Task)
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'application/xml')
-    perform_enqueued_jobs do
-      te = task.execute(xml)
-      te.reload
-      # 9 is for all of the sub measures to be searched for
-      # 2 is for having incorrect measure Ids
-      # 2 for missing supplemental data
-      assert_equal 23, te.execution_errors.length, 'should error on missing measure entry'
     end
   end
 

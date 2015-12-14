@@ -7,11 +7,10 @@ module Validators
 
     self.validator_type = :result_validation
 
-    def initialize(bundle, measures = [])
+    def initialize(measures = [])
       @measures = measures
       @validators = [CDA.instance,
-                     Cat1R2.instance,
-                     HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
+                     Cat1R2.instance]
     end
 
     # Validates a QRDA Cat I file.  This routine will validate the file against the CDA schema as well as the
