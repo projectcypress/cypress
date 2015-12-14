@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get :download
     end
     resources :tasks, only: [:index, :new, :create]
+    resources :records, only: [:index]
   end
 
   resources :tasks, only: [:show, :edit, :update, :destroy] do
@@ -26,7 +27,11 @@ Rails.application.routes.draw do
 
   resources :test_executions, only: [:show, :create, :destroy]
 
-  resources :records, only: [] do
+  resources :bundles do
+    resources :records, only: [:index]
+  end
+
+  resources :records, only: [:index, :show] do
     member do
       get :download_full_test_deck
     end
