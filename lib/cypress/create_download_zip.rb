@@ -12,7 +12,7 @@ module Cypress
     end
 
     def self.create_total_test_zip(product)
-      measure_tests= MeasureTest.where(product_id: product.id)
+      measure_tests = MeasureTest.where(product_id: product.id)
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
         measure_tests.each do |m|
