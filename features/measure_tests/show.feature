@@ -10,39 +10,42 @@ Scenario: Successfully View a Measure Test
   And the user views a product test for that product
   Then the user should see the upload functionality for that product test
 
-Scenario: View only CAT 1 Upload for C1
+Scenario: View Only C1 Execution Page
   When the user creates a product with tasks c1
   And the user views a product test for that product
-  Then the user should see only the CAT 1 upload for c1
+  Then the user should only see the c1 execution page
 
-Scenario: View only CAT 3 Upload for C2
+Scenario: View Only C2 Execution Page
   When the user creates a product with tasks c2
   And the user views a product test for that product
-  Then the user should see only the CAT 3 upload for c2
+  Then the user should only see the c2 execution page
 
-Scenario: View CAT 1 and CAT 3 Tabs
+Scenario: View C1 And C2 Execution Pages
   When the user creates a product with tasks c1, c2
   And the user views a product test for that product
-  Then the user should see CAT 1 and CAT 3 tabs for c1 and c2
+  And the user switches to c2 certification
+  Then the user should see the c2 execution page
 
-Scenario: View CAT 1 and CAT 3 Tabs with C3
+Scenario: View C1 and C3 And C2 and C3 Execution Pages
   When the user creates a product with tasks c1, c2, c3
   And the user views a product test for that product
-  Then the user should see CAT 1 and CAT 3 tabs for c1, c2, and c3
+  And the user switches to c2 and c3 certification
+  Then the user should see the c2 and c3 execution page
 
 Scenario: Successful Download CAT 1 Zip
   When the user creates a product with tasks c1
   And the user views a product test for that product
   And the user downloads the CAT 1 zip file
   Then the CAT 1 zip file should be downloaded
+  And the user should see no execution results
 
 Scenario: Successful Upload CAT 1 Zip
-  When the user creates a product with tasks c1
+  When the user creates a product with tasks c2
   And the user views a product test for that product
   And the user uploads a CAT 1 zip file
   Then the user should see test results
 
-Scenario: Successful Upload CAT 3
+Scenario: Successful Upload CAT 3 XML
   When the user creates a product with tasks c2
   And the user views a product test for that product
   And the user uploads a CAT 3 XML file

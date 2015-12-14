@@ -74,16 +74,18 @@
     <div class = 'panel-heading'>
       <h2>
         Results
-        <select class = 'pull-right' onchange = "location = this.options[this.selectedIndex].value;">
-          <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
-            <% select_msg = '' %>
-            <% select_msg << 'Most Recent - ' if i == 0 %>
-            <% select_msg << execution.created_at.to_time.strftime('%b %d, %Y at %I:%M %p (%A)') %>
-            <% select_msg << " (passing)" if execution.passing? %>
-            <% select_msg << " (#{execution.execution_errors.count} errors)" %>
-            <option value = <%= "/tasks/#{@task.id}/test_executions/#{execution.id}" %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= select_msg %></option>
-          <% end %>
-        </select>
+        <label class = 'pull-right'>
+          <select onchange = "location = this.options[this.selectedIndex].value;">
+            <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
+              <% select_msg = '' %>
+              <% select_msg << 'Most Recent - ' if i == 0 %>
+              <% select_msg << execution.created_at.to_time.strftime('%b %d, %Y at %I:%M %p (%A)') %>
+              <% select_msg << " (passing)" if execution.passing? %>
+              <% select_msg << " (#{execution.execution_errors.count} errors)" %>
+              <option value = <%= "/tasks/#{@task.id}/test_executions/#{execution.id}" %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= select_msg %></option>
+            <% end %>
+          </select>
+        </label>
       </h2>
     </div>
     <div class = 'panel-body'>

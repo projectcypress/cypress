@@ -13,10 +13,10 @@ class ProductTestsController < ApplicationController
   end
 
   def show
-    # @c4_test_filters = %w(race ethnicity gender payer)
+    return unless @product_test[:_type] == 'MeasureTest'
     if @product_test.c1_task
       redirect_to "/tasks/#{@product_test.c1_task.id}/test_executions/new"
-    else
+    elsif @product_test.c2_task
       redirect_to "/tasks/#{@product_test.c2_task.id}/test_executions/new"
     end
   end

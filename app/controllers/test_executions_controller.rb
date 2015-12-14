@@ -1,12 +1,8 @@
 class TestExecutionsController < ApplicationController
   before_action :set_test_execution, only: [:destroy, :show]
-  before_action :set_task, only: [:index, :new, :create, :show]
+  before_action :set_task, only: [:new, :create, :show]
   before_action :set_product_test, only: [:show, :new]
   before_action :add_breadcrumbs, only: [:show, :new]
-
-  def index
-    @test_executions = @task.test_executions
-  end
 
   def create
     @test_execution = @task.execute(params[:results])

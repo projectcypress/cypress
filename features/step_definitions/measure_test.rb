@@ -33,6 +33,14 @@ And(/^the user views a product test for that product$/) do
   visit "/products/#{@product.id}/product_tests/#{@product_test.id}"
 end
 
+And(/^the user switches to c2 certification$/) do
+  page.click_button 'Switch to C2 certification'
+end
+
+And(/^the user switches to c2 and c3 certification$/) do
+  page.click_button 'Switch to C2 and C3 certification'
+end
+
 And(/^the user downloads the CAT 1 zip file$/) do
   page.click_button 'Download CAT 1 (.zip)'
 end
@@ -40,14 +48,14 @@ end
 And(/^the user uploads a CAT 1 zip file$/) do
   zip_path = File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip')
   page.find('.fileinput > .form-control').click
-  page.attach_file(page.find('#cat1 .upload-results').value, zip_path)
+  page.attach_file(page.find('.upload-results').value, zip_path)
   page.click_button('Upload and run test')
 end
 
 And(/^the user uploads a CAT 3 XML file$/) do
   xml_path = File.join(Rails.root, 'test/fixtures/product_tests/cms111v3_catiii.xml')
   page.find('.fileinput > .form-control').click
-  page.attach_file(page.find('#cat3 .upload-results').value, xml_path)
+  page.attach_file(page.find('.upload-results').value, xml_path)
   page.click_button('Upload and run test')
 end
 
@@ -60,37 +68,37 @@ Then(/^the user should see the upload functionality for that product test$/) do
   page.assert_text '[1] Download Test Deck'
 end
 
-Then(/^the user should see only the CAT 1 upload for c1$/) do
-  page.assert_text '[2] Upload for C1'
-  page.assert_no_text 'CAT 3 (C2)'
-  page.assert_no_text 'CAT 3 (C2 and C3)'
+Then(/^the user should only see the c1 execution page$/) do
+  page.assert_text 'C1 certification'
+  page.assert_no_text 'Switch to C2'
 end
 
-Then(/^the user should see only the CAT 3 upload for c2$/) do
-  page.assert_text '[2] Upload for C2'
-  page.assert_no_text 'CAT 1 (C1)'
-  page.assert_no_text 'CAT 1 (C1 and C3)'
+Then(/^the user should only see the c2 execution page$/) do
+  page.assert_text 'C2 certification'
+  page.assert_no_text 'Switch to C1'
 end
 
-Then(/^the user should see CAT 1 and CAT 3 tabs for c1 and c2$/) do
-  page.assert_text '[2] Upload for C1'
-  page.click_link 'CAT 3 (C2)'
-  page.assert_text '[2] Upload for C2'
+Then(/^the user should see the c2 execution page$/) do
+  page.assert_text 'C2 certification for'
+  page.assert_no_text 'C1 certification for'
 end
 
-Then(/^the user should see CAT 1 and CAT 3 tabs for c1, c2, and c3$/)do
-  page.assert_text '[2] Upload for C1 and C3'
-  page.click_link 'CAT 3 (C2 and C3)'
-  page.assert_text '[2] Upload for C2 and C3'
+Then(/^the user should see the c2 and c3 execution page$/) do
+  page.assert_text 'C2 and C3 certification for'
+  page.assert_no_text 'C1 and C3 certification for'
 end
 
 Then(/^the CAT 1 zip file should be downloaded$/) do
   file_name = "Test_#{@product_test.id}._qrda.zip"
   assert page.driver.response_headers['Content-Disposition'].include?("filename=\"#{file_name}\"")
-  assert_text 'currently no test results to be displayed'
 end
 
-# this assertion should eventually change based on how pending and completed executions are displayed
 Then(/^the user should see test results$/) do
-  assert_no_text 'currently no test results to be displayed'
+  assert_text 'Results'
+end
+
+#   A N D   #
+
+And(/^the user should see no execution results$/) do
+  page.assert_no_text 'Results'
 end
