@@ -12,7 +12,8 @@ class C1Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    @validators = [QrdaCat1Validator.new(product_test.measures),
+    c3_validation = false
+    @validators = [QrdaCat1Validator.new(product_test.bundle, c3_validation, product_test.measures),
                    SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id)]
 
     @validators

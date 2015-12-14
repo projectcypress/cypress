@@ -5,7 +5,8 @@ class C3TaskTest < ActiveSupport::TestCase
 
   def setup
     collection_fixtures('product_tests', 'products', 'bundles',
-                        'measures', 'records', 'patient_cache')
+                        'measures', 'records', 'patient_cache',
+                        'health_data_standards_svs_value_sets')
     @product_test = ProductTest.find('51703a883054cf84390000d3')
   end
 
@@ -32,7 +33,6 @@ class C3TaskTest < ActiveSupport::TestCase
 
   def test_should_cause_error_when_measure_is_not_included_in_report_with_c3
     ptest = ProductTest.find('51703a883054cf84390000d3')
-    ptest.tasks.create({}, C3Task)
     task = ptest.tasks.create({}, C3Task)
     task.last_execution = 'Cat3'
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'application/xml')
@@ -45,7 +45,6 @@ class C3TaskTest < ActiveSupport::TestCase
 
   def test_should_cause_error_when_performance_rate_is_incorrect_with_c3
     ptest = ProductTest.find('51703a883054cf84390000d3')
-    ptest.tasks.create({}, C3Task)
     task = ptest.tasks.create({}, C3Task)
     task.last_execution = 'Cat3'
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_performance_rate.xml', 'application/xml')
@@ -58,7 +57,6 @@ class C3TaskTest < ActiveSupport::TestCase
 
   def test_should_error_when_measure_period_is_wrong
     ptest = ProductTest.find('51703a883054cf84390000d3')
-    ptest.tasks.create({}, C3Task)
     task = ptest.tasks.create({}, C3Task)
     task.last_execution = 'Cat3'
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_mp.xml', 'application/xml')
@@ -66,6 +64,18 @@ class C3TaskTest < ActiveSupport::TestCase
       te = task.execute(xml)
       te.reload
       assert_equal 2, te.execution_errors.length, 'should have 2 errors for the invalid reporting period'
+    end
+  end
+
+  def test_should_be_able_to_tell_when_potentialy_too_much_data_is_in_documents
+    ptest = ProductTest.find('51703a883054cf84390000d3')
+    task = ptest.tasks.create({}, C3Task)
+    task.last_execution = 'Cat1'
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(zip)
+      te.reload
+      assert_equal 1, te.execution_errors.length, 'should be 1 error from cat I archive'
     end
   end
 end

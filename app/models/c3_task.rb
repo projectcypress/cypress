@@ -11,8 +11,9 @@ class C3Task < Task
   def validators
     if last_execution == 'Cat1'
       if product_test.contains_c3_task?
+        c3_validation = true
         @validators = [::Validators::MeasurePeriodValidator.new,
-                       HealthDataStandards::Validate::DataValidator.new(product_test.bundle, product_test.measures)]
+                       ::Validators::QrdaCat1Validator.new(product_test.bundle, c3_validation, product_test.measures)]
       end
     elsif last_execution == 'Cat3'
       if product_test.contains_c3_task?
