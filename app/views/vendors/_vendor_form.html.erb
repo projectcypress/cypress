@@ -12,10 +12,10 @@
 
     <%= f.fields_for :pocs do |poc_field| %>
       <div class="row">
-        <%= poc_field.text_field :name, wrapper: { class: 'col-sm-3' }, label_class: 'poc-label', label: 'POC Name' %>
-        <%= poc_field.email_field :email, wrapper: { class: 'col-sm-3' }, label_class: 'poc-label', label: 'Email' %>
-        <%= poc_field.phone_field :phone, wrapper: { class: 'col-sm-3' }, label_class: 'poc-label', label: 'Telephone' %>
-        <%= poc_field.text_field :contact_type, wrapper: { class: 'col-sm-2' }, label_class: 'poc-label', label: 'Type of Contact' %>
+        <%= poc_field.text_field :name, wrapper: { class: 'col-sm-3' }, label_class: 'label-block', label: 'POC Name' %>
+        <%= poc_field.email_field :email, wrapper: { class: 'col-sm-3' }, label_class: 'label-block', label: 'Email' %>
+        <%= poc_field.phone_field :phone, wrapper: { class: 'col-sm-3' }, label_class: 'label-block', label: 'Telephone' %>
+        <%= poc_field.text_field :contact_type, wrapper: { class: 'col-sm-2' }, label_class: 'label-block', label: 'Type of Contact' %>
         <%= f.link_to_remove "Remove", :class => "btn btn-xs btn-danger", :type => "button" %>
       </div>
     <% end %>
@@ -24,11 +24,8 @@
   </div>
 
   <div class="panel-footer">
-    <div class="pull-left">
-      <%= f.submit submit_text, :class => "btn btn-success", :id => "submit_button" %>
-      <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
-    </div>
-    <div class="clearfix"></div>
+    <%= f.submit submit_text, :class => "btn btn-success", :id => "submit_button" %>
+    <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
   </div>
 <% end %>
 

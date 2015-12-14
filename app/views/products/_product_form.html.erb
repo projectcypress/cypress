@@ -32,8 +32,8 @@
     <% #end %>
   <!-- </div> -->
 
-    <div class="col-md-12 pick-measures">
-      <div class="panel panel-primary">
+    <div class="row">
+      <div class="panel panel-primary select-measures">
         <div class="panel-heading">
           <h2>Select Measures</h2>
         </div>
@@ -100,11 +100,8 @@
 </div>
 
 <div class="panel-footer">
-  <div class="pull-left">
   <%= f.submit submit_text, class: "btn btn-success" %>
   <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/vendors/#{@product.vendor.id}'" %>
-  </div>
-  <div class="clearfix"></div>
 </div>
 
 <% end %>
