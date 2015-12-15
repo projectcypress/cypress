@@ -3,26 +3,27 @@
 
 <%= bootstrap_form_for [@product.vendor, @product] do |f| %>
 <div class="panel-body">
-  <div class="col-md-6">
-    <%= f.text_field :name %>
-    <%= f.text_field :version %>
-    <%= f.text_area :description %>
-  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.text_field :name %>
+      <%= f.text_field :version %>
+      <%= f.text_area :description %>
+    </div>
 
-  <div class="col-md-6">
-    <%# f.form_group :ehr_type, label: { text: "EHR Type" }, help: "You cannot change this later." do %>
-      <%# f.radio_button :ehr_type, "hospital", label: "Eligible Hospital (EH)", label_class: "btn btn-checkbox active", checked: true, disabled: params[:action] == "edit" %>
-      <%# f.radio_button :ehr_type, "provider", label: "Eligible Provider (EP)", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
-    <% #end %>
+    <div class="col-md-6">
+      <%# f.form_group :ehr_type, label: { text: "EHR Type" }, help: "You cannot change this later." do %>
+        <%# f.radio_button :ehr_type, "hospital", label: "Eligible Hospital (EH)", label_class: "btn btn-checkbox active", checked: true, disabled: params[:action] == "edit" %>
+        <%# f.radio_button :ehr_type, "provider", label: "Eligible Provider (EP)", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+      <% #end %>
 
-    <%= f.form_group label: { text: "Certification Types" }, help: "C4 is optional." do %>
-      <%= f.errors_on :tests, hide_attribute_name: true %>
-      <%= f.check_box :c1_test, label: "C1 Test - Record and Export", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
-      <%= f.check_box :c2_test, label: "C2 Test - Import and Calculate", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
-      <%= f.check_box :c3_test, label: "C3 Test - Data Submission", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
-      <%= f.check_box :c4_test, label: "C4 Test - Data Filtering", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
-    <% end %>
-  </div>
+      <%= f.form_group label: { text: "Certification Types" }, help: "C4 is optional." do %>
+        <%= f.errors_on :tests, hide_attribute_name: true %>
+        <% CERTIFICATIONS.each do |c, certification| %>
+          <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+        <% end %>
+      <% end %>
+    </div>
+</div>
 
   <!-- <div class="col-md-4"> -->
     <%# f.form_group :measure_selection, label: { text: "Measures to Test" }, help: "Cypress v3 tests products one measure at a time. Click 'Custom' to specify individual measures." do %>
@@ -40,8 +41,8 @@
         <div class="panel-body">
           <div class="col-md-12"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>
           <div id="measure_tabs" class="measure-selection col-md-8">
-            <% if defined?(@selected_measure_ids) %>
-            <div class="measure-overlay">
+            <% if defined?(@selected_measure_ids) && params[:action] == "edit" %>
+            <div class="warning-overlay">
               <div class="alert alert-warning">
                 <div class="iconSpan pull-left">
                     <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
@@ -73,7 +74,7 @@
                   <% if measures.length > 1 %>
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all" <%= 'disabled' if defined?(@selected_measure_ids) %>/> Select all <%= measures.length %> <%= category %> measures
+                      <input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all" <%= 'disabled' if defined?(@selected_measure_ids) && params[:action] == "edit" %>/> Select all <%= measures.length %> <%= category %> measures
                     </label>
                   </div>
                   <% end %>
@@ -81,7 +82,7 @@
                     <div class="checkbox">
                       <label>
                         <input type="checkbox" name="product_test[measure_ids][]" id="<%= m.hqmf_id %>" value="<%= m.hqmf_id%>"
-                        class="measure-checkbox" <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %> <%= 'disabled' if defined?(@selected_measure_ids) %>/>
+                        class="measure-checkbox" <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %> <%= 'disabled' if defined?(@selected_measure_ids) && params[:action] == "edit"  %>/>
                         <strong><%= m.cms_id %></strong> <%= m.name %>
                       </label>
                     </div>

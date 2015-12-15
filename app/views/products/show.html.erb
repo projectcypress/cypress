@@ -1,91 +1,79 @@
-<div class = 'col-sm-12'>
-
+<div>
   <%= button_to "Edit Product", [:edit, @product.vendor, @product], :method => :get, :class => "btn btn-default pull-right" %>
+  <h1><%= @product.name %></h1>
 
-
-
-  <div class = 'row'><h2><%= @product.name %></h2></div>
-
-  <div class = 'row'><h3>Product Information</h3></div>
-
-  <div class = 'row'>
-
-    <div class = 'col-sm-4'>
-      <p>Vendor: <%= @product.vendor.name %></p>
-      <p><%= "Version: #{@product.version}" unless @product.version.blank? %></p>
-      <p><%= "Description: #{@product.description}" unless @product.description.blank? %></p>
+  <div class="row">
+    <div class = 'col-sm-6'>
+      <h2>Current Test Status</h2>
+      <table class="table table-hover table-condensed">
+        <% certifications(@product).each do |c, certification| %>
+          <% certification['tests'].each do |cert_test| %>
+          <tr>
+            <% unless cert_test != certification['tests'][0] %>
+            <th rowspan="<%= certification['tests'].length %>"><%= "#{c}" %></th>
+            <% end %>
+            <td><%= TESTS[cert_test]['title'] %></td>
+            <td><%= status_by_test(@product)[cert_test][c] %></td>
+          </tr>
+          <% end %>
+        <% end %>
+      </table>
     </div>
 
-    <div class = 'col-sm-8'>
-      <%= render partial: 'pocs', locals: { vendor: @product.vendor } %>
+    <div class = 'col-sm-6'>
+      <h2>Product Information</h2>
+      <%= render partial: 'product_summary', locals: { product: @product } %>
     </div>
-
   </div>
 
-  <% if @product.c1_test || @product.c4_test %>
-    <div class = 'row'>
-      <% if @product.c1_test %>
-        <div class = 'col-sm-6'>
-          <div class = 'panel panel-default'>
-            <div class = 'panel-heading'>
-              <h4>C1 Visual Inspection</h4>
-            </div>
-            <div class = 'panel-body'>
-              <p>Start by generating the C1 visual inspection records. Then perform the inspection. If measures are added or removed from this product, the results from you C1 visual inspection may become invalid.</p>
-              <% if @product.checklist_test %>
-                <%= button_to 'Perform Inspection', "/products/#{@product.id}/checklist_tests/#{@product.checklist_test.id}", class: 'btn btn-primary', method: :get %>
-              <% else %>
-                <%= button_to 'Generate Test', "/products/#{@product.id}/checklist_tests", class: 'btn btn-primary', method: :post %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-      <% if @product.c4_test %>
-        <div class = 'col-sm-6'>
-          <div class = 'panel panel-default'>
-            <div class = 'panel-heading'>
-              <h4>C4 Filtering</h4>
-            </div>
-            <div class = 'panel-body'>
-              <p>Here is a description about C4 Testing. I don't really know what to write about since this is just a place holder. Did you see that, I made placeholder two words just to add a space. Good for me.</p>
-              <%= button_to "Generate C4 Tests", new_vendor_product_filtering_test_path(product_id: @product._id), class: 'btn btn-primary', method: :get %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-
   <% unless @product.product_tests.empty? %>
-    <div class = 'row'>
-      <div class = 'col-sm-6'>
-        <div class = 'panel panel-default'>
-          <div class = 'panel-heading'>
-            <h4>Download Full Test Deck</h4>
-          </div>
-          <div class = 'panel-body'>
-            <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
-            <%= form_for @product, url: { controller: 'records', action: 'download_full_test_deck' }, :html => { :method => 'GET' } do |f| %>
-              <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
-                <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
-              <% end %>
-            <% end %>
-          </div>
-        </div>
+    <div class = 'panel panel-default'>
+      <div class = 'panel-heading'>
+        <h3>Download Full Test Deck</h3>
+      </div>
+      <div class = 'panel-body'>
+        <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
+        <%= form_for @product, url: { controller: 'records', action: 'download_full_test_deck' }, :html => { :method => 'GET' } do |f| %>
+          <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
+            <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
+          <% end %>
+        <% end %>
       </div>
     </div>
   <% end %>
 
-  <% if @product.measure_tests %>
-    <p><%= "Product has #{@product.measure_tests.count} tests:" %></p>
+  <div class="product-test-tabs">
     <ul>
-      <% @product.measure_tests.each do |test| %>
-        <li>
-          <%= link_to "#{test.cms_id} #{test.name}", [@product, test] %>
-          <%= "(#{test.status})" if test.status %>
-        </li>
+      <% TESTS.each do |c, certification_test| %>
+        <% if certification_test['certifications'] & certifications(@product).keys() %>
+          <li><a href="#<%= "#{c}" %>"><%= "#{certification_test['title']}" %></a></li>
+        <% end %>
       <% end %>
     </ul>
-  <% end %>
+
+    <% TESTS.each do |c, certification_test| %>
+      <% if certification_test['certifications'] & certifications(@product).keys() %>
+        <div id="<%= c %>">
+          <h3><%# certification_test['title'] %></h3>
+          <p><%= certification_test['description'] %></p>
+          <% if c == 'ChecklistTest' %>
+            <% if @product.product_tests.checklist_tests.exists? %>
+              <%= button_to 'Perform Inspection', "/products/#{@product.id}/checklist_tests/#{@product.product_tests.checklist_tests.first.id}", class: 'btn btn-primary', method: :get %>
+              The <%= certification_test['title'] %> is <%= @product.product_tests.checklist_tests.first.status %>.
+            <% else %>
+              <%= button_to 'Generate Test', "/products/#{@product.id}/checklist_tests", class: 'btn btn-primary', method: :post %>
+            <% end %>
+          <% elsif c == 'FilteringTest' %>
+            <% if @product.product_tests.filtering_tests.exists? %>
+              The <%= certification_test['title'] %> is <%= @product.product_tests.filtering_tests.first.status %>.
+            <% else %>
+              <%= button_to "Generate C4 Tests", new_vendor_product_filtering_test_path(product_id: @product._id), class: 'btn btn-primary', method: :get %>
+            <% end %>
+          <% else %>
+            <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
