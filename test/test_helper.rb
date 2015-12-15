@@ -13,6 +13,8 @@ require 'minitest/reporters'
 require 'mocha/setup'
 
 Minitest::Reporters.use!
+# comment the previous line and uncomment the next one for test-by-test details
+# Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
 
 include Warden::Test::Helpers
 Warden.test_mode!
@@ -29,7 +31,10 @@ class ActiveSupport::TestCase
   end
 
   def drop_database
-    Mongoid.default_client.database.drop
+    Mongoid::Config.purge!
+    # purge the database instead of dropping it
+    # because dropping it literally deletes the file
+    # which then has to be recreated (which is slow)
   end
 
   def drop_collection(collection)
