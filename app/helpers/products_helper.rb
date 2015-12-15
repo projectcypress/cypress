@@ -13,7 +13,8 @@ module ProductsHelper
         t.first
       end
     end
-    status_list = status_list.map(&:status)
+
+    status_list = status_list.reject(&:blank?).map(&:status) if status_list.any?
 
     overall_status(status_list)
   end
