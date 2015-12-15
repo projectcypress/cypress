@@ -7,13 +7,18 @@ development:
       database: cypress_development
       hosts:
         - localhost:27017
+measure_eval:
+  clients:
+    default:
+      database: cypress_eval
+      hosts:
+        - localhost:27017
 test:
   clients:
     default:
       database: cypress_test
       hosts:
         - <%= ENV['TEST_DB_HOST'] || 'localhost' %>:27017
-
 production:
   clients:
     default:
