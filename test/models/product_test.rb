@@ -85,8 +85,8 @@ class ProducTest < MiniTest::Test
     pt.product_tests.build({ name: 'test_product_test_name',
                              measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                              bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest).save!
-    assert pt.measure_tests
-    assert_equal pt.measure_tests.count, 1
+    assert pt.product_tests.measure_tests
+    assert_equal pt.product_tests.measure_tests.count, 1
   end
 
   def test_no_checklist_test
@@ -94,7 +94,7 @@ class ProducTest < MiniTest::Test
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
-    assert_equal false, pt.checklist_test
+    assert_equal false, pt.product_tests.checklist_tests.exists?
   end
 
   def test_create_checklist_test
@@ -102,7 +102,7 @@ class ProducTest < MiniTest::Test
     pt.product_tests.build({ name: 'test_checklist_test',
                              measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                              bundle_id: '4fdb62e01d41c820f6000001' }, ChecklistTest).save!
-    assert pt.checklist_test
+    assert pt.product_tests.checklist_tests.exists?
   end
 end
 

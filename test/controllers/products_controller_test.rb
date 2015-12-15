@@ -35,7 +35,7 @@ class ProductsControllerTest < ActionController::TestCase
   end
 
   test 'should get show' do
-    get :show, id: Product.first.id
+    get :show, id: Product.first.id, vendor_id: Product.first.vendor.id
     assert_response :success
     assert_not_nil assigns(:product)
   end

@@ -4,6 +4,11 @@ class ProductTest
   include GlobalID::Identification
   include HealthDataStandards::CQM
 
+  # TODO: Use real attributes?
+  scope :measure_tests, -> { where(_type: 'MeasureTest') }
+  scope :checklist_tests, -> { where(_type: 'ChecklistTest') }
+  scope :filtering_tests, -> { where(_type: 'FilteringTest') }
+
   belongs_to :product, index: true, touch: true
   has_many :tasks, :dependent => :destroy
 
@@ -88,9 +93,9 @@ class ProductTest
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       total = tasks.count
-      if tasks_failing.count > 0
+      if tasks_by_status('failing').count > 0
         'failing'
-      elsif tasks_passing.count == total && total > 0
+      elsif tasks_by_status('passing').count == total && total > 0
         'passing'
       else
         'incomplete'
@@ -98,21 +103,9 @@ class ProductTest
     end
   end
 
-  def tasks_passing
-    Rails.cache.fetch("#{cache_key}/tasks_passing") do
-      tasks.select { |task| task.status == 'passing' }
-    end
-  end
-
-  def tasks_failing
-    Rails.cache.fetch("#{cache_key}/tasks_failing") do
-      tasks.select { |task| task.status == 'failing' }
-    end
-  end
-
-  def tasks_incomplete
-    Rails.cache.fetch("#{cache_key}/tasks_incomplete") do
-      tasks.select { |task| task.status == 'incomplete' }
+  def tasks_by_status(status)
+    Rails.cache.fetch("#{cache_key}/tasks_#{status}") do
+      tasks.select { |task| task.status == status }
     end
   end
 

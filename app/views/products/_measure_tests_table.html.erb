@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-sm-6">
+    <% ['failing','passing'].each do |status| %>
+      <% if tests.select { |measure_test| measure_test.status == status }.length > 0 %>
+        <h4><%= status.capitalize %> Tests</h4>
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>Measure Name</th>
+              <th>Number</th>
+              <% ['C1Task', 'C2Task', 'C3Task'].each do |task| %>
+                <th class="text-center"><%= task %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% tests.select { |measure_test| measure_test.status == status }.each do |test| %>
+              <tr>
+                <td><%= link_to "#{test.name}", [@product, test] %></td>
+                <td><%= test.cms_id %></td>
+
+                <% ['C1Task', 'C2Task', 'C3Task'].each do |task| %>
+                  <td class="text-center">
+                    <%= render partial: 'status_img', locals: { task: test.tasks.where(_type: task).first } %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-sm-6">
+    <% if tests.select { |measure_test| measure_test.status == 'incomplete' }.length > 0 %>
+      <h4>Not Started</h4>
+      <table class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th>Measure Name</th>
+            <th>Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tests.select { |measure_test| measure_test.status == 'incomplete' }.each do |test| %>
+            <tr>
+              <td><%= link_to "#{test.name}", [@product, test] %></td>
+              <td><%= test.cms_id %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

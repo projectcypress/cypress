@@ -25,13 +25,15 @@ end
 # # # # # # # #
 
 When(/^the user generates a checklist test$/) do
-  page.click_button 'Generate Test'
+  page.execute_script("$('#ChecklistTest').click()")
+  find_button('Generate Test').trigger('click')
 end
 
 #   A N D   #
 
 And(/^the user goes to perform the checklist test$/) do
-  page.click_button 'Perform Inspection'
+  page.execute_script("$('#ChecklistTest').click()")
+  find_button('Perform Inspection').trigger('click')
 end
 
 And(/^the user deletes the checklist test$/) do

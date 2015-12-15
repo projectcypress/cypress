@@ -1,35 +1,28 @@
-<div class="vendors index_vendor_page col-sm-12">
+<%= button_to "+ Add Vendor", new_vendor_path, :method => :get, :class => "btn btn-primary pull-right" %>
 
-  
-  <%= button_to "+ Add Vendor", new_vendor_path, :method => :get, :class => "btn btn-primary pull-right" %>
-
-  <section>
-    <table class="table table-sm">
-      <thead>
-        <tr>
-          <th class = "col-sm-1">Status</th>
-          <th class = "col-sm-3">Vendor</th>
-          <th class = "col-sm-2 number_col">Passing Products</th>
-          <th class = "col-sm-2 number_col">Failing Products</th>
-          <th class = "col-sm-2 number_col">Incomplete Products</th>
-          <th class = "col-sm-2 number_col">Total Products</th>
-          <td></td>
-        </tr>
-      </thead>
-      <tbody>
-        <% @vendors.each do |vendor| %>
-          <tr>
-            <td><%= vendor.status %></td>
-            <td><%= link_to vendor.name, "/vendors/#{vendor.id}"     %></td>
-            <td class = "number_col"><%= vendor.products ? vendor.products_passing.count : 0 %></td>
-            <td class = "number_col"><%= vendor.products ? vendor.products_failing.count : 0 %></td>
-            <td class = "number_col"><%= vendor.products ? vendor.products_incomplete.count : 0 %></td>
-            <td class = "number_col"><%= vendor.products ? vendor.products.count : 0 %></td>
-            <td><%= button_to "Edit Vendor", edit_vendor_path(vendor), :method => :get, :class => "btn btn-xs btn-default pull-right" %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </section>
-
-</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class = "col-sm-1">Status</th>
+      <th class = "col-sm-3">Vendor</th>
+      <th class = "text-center">Passing Products</th>
+      <th class = "text-center">Failing Products</th>
+      <th class = "text-center">Incomplete Products</th>
+      <th class = "text-center">Total Products</th>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vendors.each do |vendor| %>
+      <tr>
+        <td><%= vendor.status %></td>
+        <td><%= link_to vendor.name, "/vendors/#{vendor.id}"     %></td>
+        <td class = "text-center"><%= vendor.products ? vendor.products_passing.count : 0 %></td>
+        <td class = "text-center"><%= vendor.products ? vendor.products_failing.count : 0 %></td>
+        <td class = "text-center"><%= vendor.products ? vendor.products_incomplete.count : 0 %></td>
+        <td class = "text-center"><%= vendor.products ? vendor.products.count : 0 %></td>
+        <td class="text-center"><%= button_to "Edit Vendor", edit_vendor_path(vendor), :method => :get, :class => "btn btn-xs btn-default" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

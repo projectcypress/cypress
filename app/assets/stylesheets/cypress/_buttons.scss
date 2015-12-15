@@ -47,6 +47,10 @@
 .table .button_to {
   display: inline-block;
   margin: auto 5px;
+
+  + * {
+    display: inline-block;
+  }
 }
 
 // special btn-checkbox class for checkboxes and radio buttons

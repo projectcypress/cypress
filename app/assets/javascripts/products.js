@@ -51,6 +51,8 @@ ready = function() {
   $('#measure_tabs').tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
   $('#measure_tabs li').removeClass("ui-corner-top").addClass("ui-corner-left");
 
+  $('.product-test-tabs').tabs();
+
   // Set up appearance of inputs on initial load
   $('.btn-checkbox input:disabled').parent().addClass('disabled');
   $('.btn-checkbox input:checked:not(:disabled)').trigger('change');
@@ -60,10 +62,10 @@ ready = function() {
   });
 
   // Let user reset all tests on a product
-  $('.measure-overlay input#confirm_edit_risk').keyup(function() {
-    if ($('.measure-overlay strong.risk_text').text() == $(this).val()) {
-      $('.measure-overlay').remove();
-      $('.pick-measures input[type="checkbox"]').prop('disabled', false);
+  $('.measure-selection .warning-overlay input#confirm_edit_risk').keyup(function() {
+    if ($('.measure-selection .warning-overlay strong.risk_text').text() == $(this).val()) {
+      $('.measure-selection .warning-overlay').remove();
+      $('.select-measures input[type="checkbox"]').prop('disabled', false);
     }
   });
 };

@@ -8,7 +8,7 @@ class ChecklistTestsController < ProductTestsController
   def create
     # bundle ATTRIBUTE IS NOT CHOSEN CORRECTLY. MUST FIX LATER ~ JAEBIRD
     @test = @product.product_tests.build({ name: 'c1 visual', measure_ids: interesting_measure_ids,
-                                           bundle_id: @product.measure_tests.first.bundle_id }, ChecklistTest)
+                                           bundle_id: @product.product_tests.measure_tests.first.bundle_id }, ChecklistTest)
     @test.save!
     create_checked_criteria
     redirect_to "/vendors/#{@product.vendor.id}/products/#{@product.id}"
@@ -44,7 +44,7 @@ class ChecklistTestsController < ProductTestsController
   end
 
   def set_test
-    @test = @product.checklist_test
+    @test = @product.product_tests.checklist_tests.first
   end
 
   def set_measures
@@ -53,7 +53,7 @@ class ChecklistTestsController < ProductTestsController
 
   # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
   def interesting_measure_ids
-    @product.measure_tests.map { |test| test.measure_ids.first }.sample(5) # Probably not the way we want to choose measures ~ Jaebird
+    @product.product_tests.measure_tests.map { |test| test.measure_ids.first }.sample(5) # Probably not the way we want to choose measures ~ Jaebird
   end
 
   # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
