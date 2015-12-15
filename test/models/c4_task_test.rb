@@ -15,14 +15,47 @@ class C4TaskTest < ActiveSupport::TestCase
     assert @product_test.tasks.create({}, C4Task)
   end
 
-  # def test_after_create
-  #   # taken from measure eval test so that the MEJ shouldnt error out
-  #   QME::QualityReport.any_instance.stubs(:result).returns(@result)
-  #   QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
+  def test_after_create
+    # taken from measure eval test so that the MEJ shouldnt error out
+    QME::QualityReport.any_instance.stubs(:result).returns({})
+    QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
 
-  #   task = @product_test.tasks.create({}, C4Task)
-  #   task.after_create
-  # end
+    task = @product_test.tasks.create({ 'options' => {} }, C4Task)
+
+    assert_equal task.expected_results, nil
+
+    task.after_create
+
+    assert_equal task.expected_results, {}
+  end
+
+  def test_execute
+    task = @product_test.tasks.create({}, C4Task)
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_good.xml', 'application/xml')
+    task.execute(xml)
+    assert_enqueued_jobs 1
+  end
+
+  def test_validators
+    task = @product_test.tasks.create({}, C4Task)
+    assert_equal task.validators.count, 3, 'c4 task must have 3 validators'
+
+    assert task.validators.count { |v| v.is_a?(::Validators::QrdaCat3Validator) } > 0
+    # this will need to change when we allow cat 1 or cat 3
+  end
+
+  def test_records
+    filters = { 'genders' => ['F'] }
+
+    task = @product_test.tasks.create({ 'options' => { 'filters' => filters } }, C4Task)
+    records = task.records
+
+    assert @all_records.count >= records.count, 'Task must have the same or fewer records than parent product test'
+
+    records.each do |r|
+      assert r.gender == 'F'
+    end
+  end
 
   def test_filter_gender
     selected_gender = %w(M F).sample
