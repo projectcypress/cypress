@@ -6,9 +6,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
     collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'test_executions', 'users')
     sign_in User.first
   end
-  teardown do
-    drop_database
-  end
 
   test 'should get show' do
     mt = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)

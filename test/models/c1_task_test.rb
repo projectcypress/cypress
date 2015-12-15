@@ -1,5 +1,5 @@
 require 'test_helper'
-class C1TaskTest < MiniTest::Test
+class C1TaskTest < ActiveSupport::TestCase
   include ::Validators
   include ActiveJob::TestHelper
 
@@ -8,10 +8,6 @@ class C1TaskTest < MiniTest::Test
                         'measures', 'records', 'patient_cache',
                         'health_data_standards_svs_value_sets')
     @product_test = ProductTest.find('51703a883054cf84390000d3')
-  end
-
-  def after_teardown
-    drop_database
   end
 
   def test_create

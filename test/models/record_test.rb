@@ -1,12 +1,8 @@
 require 'test_helper'
 
-class RecordTest < MiniTest::Test
+class RecordTest < ActiveSupport::TestCase
   def setup
     @bundle = HealthDataStandards::CQM::Bundle.create(version: '1', name: 'test-bundle')
-  end
-
-  def after_teardown
-    drop_database
   end
 
   def test_record_knows_bundle

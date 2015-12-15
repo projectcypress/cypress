@@ -1,18 +1,14 @@
 require 'test_helper'
-class C4TaskTest < MiniTest::Test
+# rubocop:disable Metrics/ClassLength
+class C4TaskTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
   def setup
-    drop_database
-    collection_fixtures('product_tests', 'products', 'bundles',
-                        'measures', 'records', 'patient_cache',
-                        'health_data_standards_svs_value_sets')
+    collection_fixtures('product_tests', 'bundles',
+                        'records', 'health_data_standards_svs_value_sets')
 
     @product_test = ProductTest.find('51703a883054cf84390000d3')
 
     @all_records = @product_test.records.to_a
-  end
-
-  def after_teardown
-    # drop_database
   end
 
   def test_create

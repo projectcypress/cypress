@@ -7,10 +7,6 @@ class ProductTestTest < ActiveJob::TestCase
     @product = vendor.products.create(name: 'test_product', c2_test: true)
   end
 
-  def after_teardown
-    drop_database
-  end
-
   def test_create
     assert_enqueued_jobs 0
     pt = @product.product_tests.build(name: 'test_for_measure_1a',
