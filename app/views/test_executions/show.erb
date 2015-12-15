@@ -31,17 +31,19 @@
   <div class = 'col-sm-4'>
     <div class="well well-sm test-step">
       <h2>[1] Download Test Deck</h2>
-      <p>Here is a description of whats going on.</p>
-      <% if @product_test.state == :ready %>
-        <%= form_tag("/product_tests/#{@product_test.id}/download", method: 'get') do |f| %>
-          <%= hidden_field_tag :id, :value => @product_test.id %>
-          <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
-            <i class = 'fa fa-fw fa-download'></i> Download CAT 1 (.zip)
-          <% end %>
-        <% end %>
-      <% else %>
-        <p>test deck is loading. refresh your browser periodically</p>
-      <% end %>
+      <div id = 'display_execution_download'>
+        <%= render partial: 'execution_download', locals: { product_test: @product_test } %>
+      </div>
+      <%# if @product_test.state == :ready %>
+        <%#= form_tag("/product_tests/#{@product_test.id}/download", method: 'get') do |f| %>
+          <%#= hidden_field_tag :id, :value => @product_test.id %>
+          <%#= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
+            <!-- <i class = 'fa fa-fw fa-download'></i> Download CAT 1 (.zip) -->
+          <%# end %>
+        <%# end %>
+      <%# else %>
+        <!-- <p>test deck is loading. refresh your browser periodically</p> -->
+      <%# end %>
     </div>
   </div>
 
@@ -70,7 +72,7 @@
         </label>
       </h2>
     </div>
-    <div class = 'panel-body'>
+    <div class = 'panel-body' id = 'display_execution_results' >
       <%= render partial: 'execution_results', locals: { execution: @test_execution } %>
     </div>
   </div>

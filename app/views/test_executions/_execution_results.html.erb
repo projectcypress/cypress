@@ -6,11 +6,13 @@
 #
 %>
 
-
 <% if execution.incomplete? %>
-  <h4><i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i> In Progress</h4>
-  <!-- <p>You do not need to reload your browser. Results will automatically display when the tests are done running. This should take about ___ seconds.</p> -->
-  <p>Wait 10 seconds, then reload your browser.</p>
+  <h4><i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>In Progress</h4>
+  <p>You do not need to reload your browser. Results will automatically display when the tests are done running.</p>
+  <% # ajax contacts test_execution's show controller action with format: 'js'. controller then directs to show.js.erb which will wait, then re-render %>
+  <script>
+    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
+  </script>
 <% elsif execution.passing? %>
   <h4><i class="fa fa-fw fa-check-circle text-success"></i> Passed</h4>
 <% else %>
@@ -18,7 +20,7 @@
   <% report_errors = execution.reporting_errors %>
   <% should_display_c3 = execution.task.product_test.product.c3_test %>
   <% submit_errors = should_display_c3 ? TestExecution.find(execution.sibling_execution_id).execution_errors : [] %>
-  
+
   <h4><i class="fa fa-fw fa-times-circle text-danger"></i><%= " Failed with #{execution.execution_errors.count} errors" %></h4>
   <ul class = 'nav nav-tabs'>
     <li class = 'active'>
