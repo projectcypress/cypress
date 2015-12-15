@@ -26,4 +26,11 @@ class Task
       report_status
     end
   end
+
+  # returns the most recent execution for this task
+  # if there are none, returns false
+  def most_recent_execution
+    return false unless test_executions.any?
+    test_executions.order_by(created_at: 'desc').first
+  end
 end

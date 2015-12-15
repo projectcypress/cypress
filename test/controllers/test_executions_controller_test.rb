@@ -10,14 +10,15 @@ class TestExecutionsControllerTest < ActionController::TestCase
     drop_database
   end
 
-  test 'should get index' do
-    get :index, task_id: Task.first.id
-    assert_response :success
-    assert_not_nil assigns(:test_executions)
-  end
-
   test 'should get show' do
-    get :show, id: TestExecution.first.id
+    mt = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    task = mt.tasks.build({}, C1Task)
+    te = task.test_executions.build
+    mt.save!
+    task.save!
+    te.save!
+
+    get :show, id: te.id, task_id: task.id
     assert_response :success
     assert_not_nil assigns(:test_execution)
   end

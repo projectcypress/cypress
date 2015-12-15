@@ -24,6 +24,14 @@ class ProductTestsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:product_test)
   end
 
+  test 'should get show measure test' do
+    mt = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    mt.save!
+    get :show, id: mt.id, product_id: mt.product.id
+    assert_response :success
+    assert_not_nil assigns(:product_test)
+  end
+
   test 'should get edit' do
     get :edit, id: ProductTest.first.id
     assert_response :success
