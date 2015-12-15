@@ -25,28 +25,6 @@ class Product
   validate :at_least_one_test_type?
   validates :vendor, presence: true
 
-  # returns all measure tests if there are any
-  # returns false if there are no measure tests
-  def measure_tests
-    measure_tests = product_tests.select { |test| test.has_attribute?(:_type) && test._type == 'MeasureTest' }
-    if measure_tests.empty?
-      false
-    else
-      measure_tests
-    end
-  end
-
-  # returns checklist_test if there is one
-  # returns false if there is no checklist test
-  def checklist_test
-    checklist_tests = product_tests.select { |test| test.has_attribute?(:_type) && test._type == 'ChecklistTest' }
-    if checklist_tests.empty?
-      false
-    else
-      checklist_tests.first
-    end
-  end
-
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       total = product_tests.count
