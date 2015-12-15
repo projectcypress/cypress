@@ -12,7 +12,7 @@ randomization:
     - code       : 2028-9
       name       : Asian
       codeSystem : 2.16.840.1.113883.6.238
-    - code       :
+    - code       : 2058-6
       name       : Black or African American
       codeSystem : 2.16.840.1.113883.6.238
     - code       : 2054-5
@@ -59,14 +59,14 @@ default_provider:
   given_name     : 'Mary'
   family_name    : 'Smith'
   title          : 'Dr'
-  addresses: 
-    - street: 
+  addresses:
+    - street:
       - '11 Main St'
       city       : 'Allston'
       state      : 'MA'
       zip        : '02134'
       country    : 'us'
-  cda_identifiers: 
+  cda_identifiers:
     - root       : '2.16.840.1.113883.4.6'  #npi
       extension  : '6892960108'
     - root       : '2.16.840.1.113883.4.2'  #tin
