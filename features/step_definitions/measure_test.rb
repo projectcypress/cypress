@@ -41,8 +41,16 @@ And(/^the user switches to c2 and c3 certification$/) do
   page.click_button 'Switch to C2 and C3 certification'
 end
 
-And(/^the user downloads the CAT 1 zip file$/) do
-  page.click_button 'Download CAT 1 (.zip)'
+And(/^the product test state is set to ready$/) do
+  pt = ProductTest.first
+  pt.state = :ready
+  pt.save!
+end
+
+And(/^the product test state is not set to ready$/) do
+  pt = ProductTest.first
+  pt.state = :garbablargblarg
+  pt.save!
 end
 
 And(/^the user uploads a CAT 1 zip file$/) do
@@ -88,9 +96,13 @@ Then(/^the user should see the c2 and c3 execution page$/) do
   page.assert_no_text 'C1 and C3 certification for'
 end
 
-Then(/^the CAT 1 zip file should be downloaded$/) do
-  file_name = "Test_#{@product_test.id}._qrda.zip"
-  assert page.driver.response_headers['Content-Disposition'].include?("filename=\"#{file_name}\"")
+Then(/^the user should be able to download a CAT 1 zip file$/) do
+  page.assert_text 'Download CAT 1 (.zip)'
+end
+
+Then(/^the user should not be able to download a CAT 1 zip file$/) do
+  page.assert_text 'test deck is loading'
+  page.assert_no_text 'Download CAT 1 (.zip)'
 end
 
 Then(/^the user should see test results$/) do

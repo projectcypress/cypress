@@ -6,6 +6,7 @@ module TestExecutionsHelper
       certification_types = 'C2'
     end
     certification_types << ' and C3' if task.product_test.product.c3_test
+    certification_types
   end
 
   def get_other_certification_types(task)
@@ -15,6 +16,7 @@ module TestExecutionsHelper
       other_certification_types = 'C1'
     end
     other_certification_types << ' and C3' if task.product_test.product.c3_test
+    other_certification_types
   end
 
   def get_upload_type(task)

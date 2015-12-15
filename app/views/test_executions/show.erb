@@ -32,11 +32,15 @@
     <div class="well well-sm test-step">
       <h2>[1] Download Test Deck</h2>
       <p>Here is a description of whats going on.</p>
-      <%= form_tag("/product_tests/#{@product_test.id}/download", method: 'get') do |f| %>
-        <%= hidden_field_tag :id, :value => @product_test.id %>
-        <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
-          <i class = 'fa fa-fw fa-download'></i> Download CAT 1 (.zip)
+      <% if @product_test.state == :ready %>
+        <%= form_tag("/product_tests/#{@product_test.id}/download", method: 'get') do |f| %>
+          <%= hidden_field_tag :id, :value => @product_test.id %>
+          <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
+            <i class = 'fa fa-fw fa-download'></i> Download CAT 1 (.zip)
+          <% end %>
         <% end %>
+      <% else %>
+        <p>test deck is loading. refresh your browser periodically</p>
       <% end %>
     </div>
   </div>

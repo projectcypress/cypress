@@ -34,10 +34,16 @@ Scenario: View C1 and C3 And C2 and C3 Execution Pages
 
 Scenario: Successful Download CAT 1 Zip
   When the user creates a product with tasks c1
+  And the product test state is set to ready
   And the user views a product test for that product
-  And the user downloads the CAT 1 zip file
-  Then the CAT 1 zip file should be downloaded
+  Then the user should be able to download a CAT 1 zip file
   And the user should see no execution results
+
+Scenario: Cannot View Download CAT 1 Zip
+  When the user creates a product with tasks c1
+  And the product test state is not set to ready
+  And the user views a product test for that product
+  Then the user should not be able to download a CAT 1 zip file
 
 Scenario: Successful Upload CAT 1 Zip
   When the user creates a product with tasks c2

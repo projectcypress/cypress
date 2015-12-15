@@ -218,9 +218,22 @@ When(/^the user views the product$/) do
   page.click_link @product.name
 end
 
-When(/^the user downloads all patients$/) do
-  steps %( When the user views the product )
-  page.click_button 'Download All Patients (.zip)'
+When(/^all measure tests have a state of ready$/) do
+  pt = ProductTest.first
+  pt.state = :ready
+  pt.save!
+end
+
+When(/^all measure tests do not have a state of ready$/) do
+  pt = ProductTest.first
+  pt.state = :nah_man_im_like_lightyears_away_from_bein_ready
+  pt.save!
+end
+
+#   A N D   #
+
+And(/^the user visits the product page$/) do
+  visit "/vendors/#{Vendor.first.id}/products/#{Product.first.id}"
 end
 
 # # # # # # # #
@@ -281,7 +294,11 @@ Then(/^the user should see the product information$/) do
   page.assert_text @vendor.name
 end
 
-Then(/^the total test deck should be downloaded$/) do
-  file_name = "Full_Test_Deck_#{Product.all.first.id}.zip"
-  assert page.driver.response_headers['Content-Disposition'].include?("filename=\"#{file_name}\"")
+Then(/^the user should be able to download all patients$/) do
+  page.assert_text 'Download All Patients'
+end
+
+Then(/^the user should not be able to download all patients$/) do
+  page.assert_no_text 'Download All Patients'
+  page.assert_text 'test deck is loading'
 end

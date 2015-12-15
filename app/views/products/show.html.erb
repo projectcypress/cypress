@@ -33,10 +33,17 @@
       </div>
       <div class = 'panel-body'>
         <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
-        <%= form_for @product, url: { controller: 'records', action: 'download_full_test_deck' }, :html => { :method => 'GET' } do |f| %>
-          <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
-            <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
+        <% num_measure_tests = @product.product_tests.measure_tests.count %>
+        <% num_measure_tests_ready = @product.product_tests.measure_tests.where(state: :ready).count %>
+        <% if num_measure_tests_ready == num_measure_tests %>
+          <%= form_for @product, url: { controller: 'records', action: 'download_full_test_deck' }, :html => { :method => 'GET' } do |f| %>
+            <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
+              <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
+            <% end %>
           <% end %>
+        <% else %>
+          <p>test deck is loading. refresh your browser periodically</p>
+          <p><%= "#{num_measure_tests_ready} of #{num_measure_tests} ready" %></p>
         <% end %>
       </div>
     </div>
