@@ -2,13 +2,16 @@
   <div class="col-sm-6">
     <% ['failing','passing'].each do |status| %>
       <% if tests.select { |measure_test| measure_test.status == status }.length > 0 %>
+        <% task_types = [] %>
+        <% task_types << 'C1Task' if @product.c1_test %>
+        <% task_types << 'C2Task' if @product.c2_test %>
         <h4><%= status.capitalize %> Tests</h4>
         <table class="table table-hover table-condensed">
           <thead>
             <tr>
               <th>Measure Name</th>
               <th>Number</th>
-              <% ['C1Task', 'C2Task', 'C3Task'].each do |task| %>
+              <% task_types.each do |task| %>
                 <th class="text-center"><%= task %></th>
               <% end %>
             </tr>
@@ -19,7 +22,7 @@
                 <td><%= link_to "#{test.name}", [@product, test] %></td>
                 <td><%= test.cms_id %></td>
 
-                <% ['C1Task', 'C2Task', 'C3Task'].each do |task| %>
+                <% task_types.each do |task| %>
                   <td class="text-center">
                     <%= render partial: 'status_img', locals: { task: test.tasks.where(_type: task).first } %>
                   </td>
