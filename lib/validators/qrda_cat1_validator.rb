@@ -13,7 +13,7 @@ module Validators
         @validators = [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
       else
         @validators = [CDA.instance,
-                       Cat1R2.instance]
+                       Cat1.instance]
       end
     end
 
