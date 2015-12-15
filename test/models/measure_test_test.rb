@@ -1,13 +1,9 @@
 require 'test_helper'
-class MeasureTestTest < MiniTest::Test
+class MeasureTestTest < ActiveSupport::TestCase
   def setup
     collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
     vendor = Vendor.create!(name: 'test_vendor_name')
     @product = vendor.products.create(name: 'test_product')
-  end
-
-  def teardown
-    drop_database
   end
 
   def test_more_than_one_measure

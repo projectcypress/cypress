@@ -1,9 +1,8 @@
 require 'test_helper'
 require 'helpers/caching_test'
 
-class ProducTest < MiniTest::Test
+class ProducTest < ActiveSupport::TestCase
   def setup
-    drop_database
     collection_fixtures('measures', 'bundles')
     @vendor = Vendor.new(name: 'test_vendor_name')
     @vendor.save
@@ -17,9 +16,6 @@ class ProducTest < MiniTest::Test
   def teardown
     ActionController::Base.perform_caching = false
     ActionController::Base.cache_store = @old_cache_store
-  end
-
-  def after_teardown
     drop_database
   end
 

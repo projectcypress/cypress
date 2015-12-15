@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class VendorTest < MiniTest::Test
+class VendorTest < ActiveSupport::TestCase
   def setup
     Vendor.all.destroy
   end

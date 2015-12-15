@@ -8,10 +8,6 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     @result = QME::QualityReportResult.new(DENOM: 48, NUMER: 44, antinumerator: 4, DENEX: 0)
   end
 
-  def after_teardown
-    drop_database
-  end
-
   def test_can_queue_product_test_job
     assert_enqueued_jobs 0
     MeasureEvaluationJob.perform_later(ProductTest.new(measure_ids: ['8A4D92B2-3887-5DF3-0139-0C4E41594C98']), {})

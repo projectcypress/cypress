@@ -6,10 +6,6 @@ class TestExecutionJobTest < ActiveJob::TestCase
                         'measures', 'records')
   end
 
-  def after_teardown
-    drop_database
-  end
-
   def test_can_queue_job
     assert_enqueued_jobs 0
 

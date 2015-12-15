@@ -7,9 +7,6 @@ class ProductTestsControllerTest < ActionController::TestCase
     sign_in User.first
   end
 
-  teardown do
-    drop_database
-  end
   test 'should get index' do
     get :index, product_id: Product.first.id
     assert_response :success

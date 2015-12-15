@@ -7,10 +7,6 @@ class ProductsControllerTest < ActionController::TestCase
     sign_in User.first
   end
 
-  teardown do
-    drop_database
-  end
-
   test 'should get index' do
     get :index, vendor_id: Vendor.first.id
     assert_response :redirect

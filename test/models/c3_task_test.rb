@@ -1,14 +1,10 @@
 require 'test_helper'
-class C3TaskTest < MiniTest::Test
+class C3TaskTest < ActiveSupport::TestCase
   include ::Validators
 
   def setup
     collection_fixtures('product_tests', 'products', 'bundles',
                         'measures', 'records', 'patient_cache')
-  end
-
-  def after_teardown
-    drop_database
   end
 
   def test_create

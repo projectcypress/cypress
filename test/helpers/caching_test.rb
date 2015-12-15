@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class CachingTest < MiniTest::Test
+class CachingTest < ActiveSupport::TestCase
   def setup
-    drop_database
     collection_fixtures('measures', 'bundles')
 
     ActionController::Base.perform_caching = true

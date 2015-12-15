@@ -1,6 +1,6 @@
 require 'test_helper'
 # rubocop:disable Metrics/ClassLength
-class C2TaskTest < MiniTest::Test
+class C2TaskTest < ActiveSupport::TestCase
   include ::Validators
   include ActiveJob::TestHelper
 
@@ -8,11 +8,6 @@ class C2TaskTest < MiniTest::Test
     collection_fixtures('product_tests', 'products', 'bundles',
                         'measures', 'records', 'patient_cache')
     @product_test = ProductTest.find('51703a6a3054cf8439000044')
-  end
-
-  def after_teardown
-    clear_enqueued_jobs
-    drop_database
   end
 
   def test_create

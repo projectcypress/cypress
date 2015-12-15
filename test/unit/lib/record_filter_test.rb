@@ -5,16 +5,9 @@ require 'fileutils'
 
 class RecordFilterTest < ActiveSupport::TestCase
   def setup
-    drop_database
-    collection_fixtures('product_tests', 'products', 'bundles',
-                        'measures', 'records', 'patient_cache',
-                        'health_data_standards_svs_value_sets')
+    collection_fixtures('records', 'health_data_standards_svs_value_sets')
 
     @all_records = Record.all
-  end
-
-  def after_teardown
-    # drop_database
   end
 
   def test_filter_gender
