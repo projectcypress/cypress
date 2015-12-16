@@ -12,15 +12,22 @@ class C1Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    @validators = [QrdaCat1Validator.new(product_test.bundle, product_test.measures),
+    c3_validation = false
+    @validators = [QrdaCat1Validator.new(product_test.bundle, c3_validation, product_test.measures),
                    SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id)]
-
-    @validators << MeasurePeriodValidator.new if product_test.contains_c3_task?
 
     @validators
   end
 
   def execute(file)
+    if product_test.contains_c3_task?
+      product_test.tasks.each do |task|
+        if task._type == 'C3Task'
+          task.cat1
+          task.execute(file)
+        end
+      end
+    end
     te = test_executions.create(expected_results: expected_results)
     te.artifact = Artifact.new(file: file)
     TestExecutionJob.perform_later(te, self)

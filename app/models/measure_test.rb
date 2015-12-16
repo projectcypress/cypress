@@ -17,7 +17,7 @@ class MeasureTest < ProductTest
     end
     C1Task.new(product_test: self).save! if product.c1_test
     C2Task.new(product_test: self).save! if product.c2_test
-    C3Task.new(product_test: self).save! if product.c3_test
+    C3Task.new(product_test: self, has_cat_1: product.c1_test, has_cat_3: product.c2_test).save! if product.c3_test
   end
 
   # returns c1_task if has any

@@ -12,12 +12,18 @@ class C2Task < Task
     @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results),
                    ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
 
-    @validators << ::Validators::MeasurePeriodValidator.new if product_test.contains_c3_task?
-
     @validators
   end
 
   def execute(file)
+    if product_test.contains_c3_task?
+      product_test.tasks.each do |task|
+        if task._type == 'C3Task'
+          task.cat3
+          task.execute(file)
+        end
+      end
+    end
     te = test_executions.create(expected_results: expected_results)
     te.artifact = Artifact.new(file: file)
     TestExecutionJob.perform_later(te, self, validate_reporting: product_test.contains_c3_task?)

@@ -24,14 +24,6 @@ class C1TaskTest < ActiveSupport::TestCase
     end
   end
 
-  def test_should_include_c3_validators_when_c3_exists
-    task = @product_test.tasks.create({}, C1Task)
-    @product_test.tasks.create({}, C3Task)
-    assert @product_test.contains_c3_task?
-
-    assert task.validators.count { |v| v.is_a?(MeasurePeriodValidator) } > 0
-  end
-
   def test_should_be_able_to_test_a_good_archive_of_qrda_files
     task = @product_test.tasks.create({}, C1Task)
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
@@ -59,16 +51,6 @@ class C1TaskTest < ActiveSupport::TestCase
       te = task.execute(zip)
       te.reload
       assert_equal 2, te.execution_errors.length, 'should be 2 errors from cat I archive'
-    end
-  end
-
-  def test_should_be_able_to_tell_when_potentialy_too_much_data_is_in_documents
-    task = @product_test.tasks.create({}, C1Task)
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
-    perform_enqueued_jobs do
-      te = task.execute(zip)
-      te.reload
-      assert_equal 1, te.execution_errors.length, 'should be 1 error from cat I archive'
     end
   end
 end
