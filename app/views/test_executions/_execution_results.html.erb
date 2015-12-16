@@ -14,7 +14,8 @@
 <% else %>
   <% qrda_errors = execution.qrda_errors %>
   <% report_errors = execution.reporting_errors %>
-  <% submit_errors = execution.submission_errors %>
+  <% should_display_c3 = execution.task.product_test.product.c3_test %>
+  <% submit_errors = should_display_c3 ? TestExecution.find(execution.sibling_execution_id).execution_errors : [] %>
   
   <h4>
     <%= "#{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
@@ -33,11 +34,13 @@
         <%= "Reporting Errors (#{report_errors.count})" %>
       </a>
     </li>
-    <li>
-      <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_tab_execution_#{execution.id}" %>>
-        <%= "Submission Errors (#{submit_errors.count})" %>
-      </a>
-    </li>
+    <% if should_display_c3 %>
+      <li>
+        <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_tab_execution_#{execution.id}" %>>
+          <%= "Submission Errors (#{submit_errors.count})" %>
+        </a>
+      </li>
+    <% end %>
   </ul>
 
   <div class = 'tab-content'>
@@ -54,10 +57,12 @@
         <li><%= "#{err.message} (#{err.file_name})" %></li>
       <% end %>
     </div>
-    <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
-      <% submit_errors.each do |err| %>
-        <li><%= "#{err.message} (#{err.file_name})" %></li>
-      <% end %>
-    </div>
+    <% if should_display_c3 %>
+      <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
+        <% submit_errors.each do |err| %>
+          <li><%= "#{err.message} (#{err.file_name})" %></li>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>

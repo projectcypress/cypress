@@ -32,11 +32,12 @@ class C3Task < Task
     self.last_execution = 'Cat1'
   end
 
-  def execute(file)
+  def execute(file, sibling_execution_id)
     te = test_executions.create(expected_results: expected_results)
     te.qrda_type = last_execution
     te.artifact = Artifact.new(file: file)
     TestExecutionJob.perform_later(te, self, validate_reporting: product_test.contains_c3_task?)
+    te.sibling_execution_id = sibling_execution_id
     te.save
     te
   end

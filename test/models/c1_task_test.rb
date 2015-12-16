@@ -53,6 +53,16 @@ class C1TaskTest < ActiveSupport::TestCase
       assert_equal 2, te.execution_errors.length, 'should be 2 errors from cat I archive'
     end
   end
+
+  def test_should_have_c3_execution_as_sibling_test_execution_when_c3_task_exists
+    c1_task = @product_test.tasks.create({}, C1Task)
+    c3_task = @product_test.tasks.create({}, C3Task)
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
+    perform_enqueued_jobs do
+      te = c1_task.execute(zip)
+      assert_equal c3_task.test_executions.first.id.to_s, te.sibling_execution_id
+    end
+  end
 end
 
 class C1TaskCachingTest < CachingTest

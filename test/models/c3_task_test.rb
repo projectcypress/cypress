@@ -37,7 +37,7 @@ class C3TaskTest < ActiveSupport::TestCase
     task.last_execution = 'Cat3'
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'application/xml')
     perform_enqueued_jobs do
-      te = task.execute(xml)
+      te = task.execute(xml, nil)
       te.reload
       assert_equal 0, te.execution_errors.length, 'should have no errors for the invalid measure ids, this is a c2 validaton'
     end
@@ -49,7 +49,7 @@ class C3TaskTest < ActiveSupport::TestCase
     task.last_execution = 'Cat3'
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_performance_rate.xml', 'application/xml')
     perform_enqueued_jobs do
-      te = task.execute(xml)
+      te = task.execute(xml, nil)
       te.reload
       assert_equal 1, te.execution_errors.length, 'should have 1 error for the invalid performance rate'
     end
@@ -61,7 +61,7 @@ class C3TaskTest < ActiveSupport::TestCase
     task.last_execution = 'Cat3'
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_mp.xml', 'application/xml')
     perform_enqueued_jobs do
-      te = task.execute(xml)
+      te = task.execute(xml, nil)
       te.reload
       assert_equal 2, te.execution_errors.length, 'should have 2 errors for the invalid reporting period'
     end
@@ -73,7 +73,7 @@ class C3TaskTest < ActiveSupport::TestCase
     task.last_execution = 'Cat1'
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip)
+      te = task.execute(zip, nil)
       te.reload
       assert_equal 1, te.execution_errors.length, 'should be 1 error from cat I archive'
     end
