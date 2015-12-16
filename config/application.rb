@@ -4,6 +4,7 @@ require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
+require_relative '../lib/hash'
 
 APP_CONFIG = YAML.load(File.read(File.expand_path('../cypress.yml', __FILE__)))
 
