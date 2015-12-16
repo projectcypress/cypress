@@ -1,25 +1,8 @@
 
-<% on_c1 = @task._type == 'C1Task' %>
-<% if on_c1 %>
-  <% certification_types = 'C1' %>
-  <% other_certification_types = 'C2' %>
-  <% upload_type = 'CAT 1 zip' %>
-<% else %>
-  <% certification_types = 'C2' %>
-  <% other_certification_types = 'C1' %>
-  <% upload_type = 'CAT 3 XML' %>
-<% end %>
-<% if @product_test.product.c3_test %>
-  <% certification_types << ' and C3' %>
-  <% other_certification_types << ' and C3' %>
-<% end %>
-
-<% # other_task will contain: %>
-<% #   c1 task if we are currently on the c2 task page %>
-<% #   c2 task if we are currently on the c1 task page %>
-<% #   false if the user did not select the other task when creating the product %>
-<% other_task = @product_test.c2_task if on_c1 %>
-<% other_task = @product_test.c1_task unless on_c1 %>
+<% certification_types = get_certification_types(@task) %>
+<% other_certification_types = get_other_certification_types(@task) %>
+<% upload_type = get_upload_type(@task) %>
+<% other_task = get_other_task(@task) %>
 
 <h3 class = 'page-title'><%= "#{certification_types} certification for #{@product_test.cms_id} #{@product_test.name}" %></h3>
 
@@ -49,11 +32,15 @@
     <div class="well well-sm test-step">
       <h2>[1] Download Test Deck</h2>
       <p>Here is a description of whats going on.</p>
-      <%= form_tag("/product_tests/#{@product_test.id}/download", method: 'get') do |f| %>
-        <%= hidden_field_tag :id, :value => @product_test.id %>
-        <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
-          <i class = 'fa fa-fw fa-download'></i> Download CAT 1 (.zip)
+      <% if @product_test.state == :ready %>
+        <%= form_tag("/product_tests/#{@product_test.id}/download", method: 'get') do |f| %>
+          <%= hidden_field_tag :id, :value => @product_test.id %>
+          <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
+            <i class = 'fa fa-fw fa-download'></i> Download CAT 1 (.zip)
+          <% end %>
         <% end %>
+      <% else %>
+        <p>test deck is loading. refresh your browser periodically</p>
       <% end %>
     </div>
   </div>
@@ -77,12 +64,7 @@
         <label class = 'pull-right'>
           <select onchange = "location = this.options[this.selectedIndex].value;">
             <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
-              <% select_msg = '' %>
-              <% select_msg << 'Most Recent - ' if i == 0 %>
-              <% select_msg << execution.created_at.to_time.strftime('%b %d, %Y at %I:%M %p (%A)') %>
-              <% select_msg << " (passing)" if execution.passing? %>
-              <% select_msg << " (#{execution.execution_errors.count} errors)" %>
-              <option value = <%= "/tasks/#{@task.id}/test_executions/#{execution.id}" %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= select_msg %></option>
+              <option value = <%= "/tasks/#{@task.id}/test_executions/#{execution.id}" %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i == 0) %></option>
             <% end %>
           </select>
         </label>

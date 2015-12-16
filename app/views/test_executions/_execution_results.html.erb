@@ -8,20 +8,17 @@
 
 
 <% if execution.incomplete? %>
-  <h4>
-    <%= "PENDING: #{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
-  </h4>
+  <h4><i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i> In Progress</h4>
+  <!-- <p>You do not need to reload your browser. Results will automatically display when the tests are done running. This should take about ___ seconds.</p> -->
+  <p>Wait 10 seconds, then reload your browser.</p>
+<% elsif execution.passing? %>
+  <h4><i class="fa fa-fw fa-check-circle text-success"></i> Passed</h4>
 <% else %>
   <% qrda_errors = execution.qrda_errors %>
   <% report_errors = execution.reporting_errors %>
   <% submit_errors = execution.submission_errors %>
   
-  <h4>
-    <%= "#{execution.created_at.to_time.strftime('%b %d, %Y at %I:%M:%S %p (%A)')}" %>
-    <span class = 'text-danger'>
-      <%= "[#{execution.execution_errors.count} errors]" %>
-    </span>
-  </h4>
+  <h4><i class="fa fa-fw fa-times-circle text-danger"></i><%= " Failed with #{execution.execution_errors.count} errors" %></h4>
   <ul class = 'nav nav-tabs'>
     <li class = 'active'>
       <a data-toggle = 'tab' href = <%= "#QRDA_tab_execution_#{execution.id}" %>>
