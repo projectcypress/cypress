@@ -21,7 +21,7 @@ class ProductTest
   field :name, type: String
   field :cms_id, type: String
   field :description, type: String
-  field :state, type: Symbol, :default => :pending
+  field :state, :type => Symbol, :default => :pending
 
   field :status_message, type: String
   validates :name, presence: true
