@@ -81,7 +81,6 @@ group :test do
   gem 'rails-perftest'
   gem 'ruby-prof'
   gem 'simplecov'
-  gem 'bundler-audit'
 end
 
 group :production do

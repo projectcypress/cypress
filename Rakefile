@@ -19,7 +19,6 @@ end
 Rake::Task["test"].clear
 task :test => [:test_unit] do
   Rake::Task["quality_post"].invoke
-  Rake::Task["bundle_audit"].invoke
   system("open coverage/index.html")
 end
 
