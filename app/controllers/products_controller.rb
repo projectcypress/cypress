@@ -69,6 +69,7 @@ class ProductsController < ApplicationController
     add_breadcrumb @product.name, "/vendors/#{@product.vendor.id}/products/#{@product.id}"
     respond_to do |format|
       format.json { render json: [@product] }
+      format.js
       format.html
     end
   end

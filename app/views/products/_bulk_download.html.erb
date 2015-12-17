@@ -1,0 +1,24 @@
+<%
+#
+# renders the bulk download button if all measure tests are set
+#
+# must specify local variable "product"
+#
+%>
+
+<% num_measure_tests = product.product_tests.measure_tests.count %>
+<% num_measure_tests_ready = product.product_tests.measure_tests.where(state: :ready).count %>
+<% if num_measure_tests_ready == num_measure_tests %>
+  <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
+  <%= form_for product, url: { controller: 'records', action: 'download_full_test_deck' }, :html => { :method => 'GET' } do |f| %>
+    <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
+      <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
+    <% end %>
+  <% end %>
+<% else %>
+  <p>Patient records are being built for each measure.</p>
+  <p><i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i><%= " #{num_measure_tests_ready} of #{num_measure_tests} measures ready" %></p>
+  <script>
+    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'bulk_download' }});
+  </script>
+<% end %>

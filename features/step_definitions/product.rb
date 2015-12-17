@@ -300,5 +300,5 @@ end
 
 Then(/^the user should not be able to download all patients$/) do
   page.assert_no_text 'Download All Patients'
-  page.assert_text 'test deck is loading'
+  page.assert_text 'records are being built'
 end

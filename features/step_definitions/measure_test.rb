@@ -101,7 +101,7 @@ Then(/^the user should be able to download a CAT 1 zip file$/) do
 end
 
 Then(/^the user should not be able to download a CAT 1 zip file$/) do
-  page.assert_text 'test deck is loading'
+  page.assert_text 'is building test'
   page.assert_no_text 'Download CAT 1 (.zip)'
 end
 

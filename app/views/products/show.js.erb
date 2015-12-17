@@ -1,0 +1,12 @@
+
+<% if params[:partial] == 'bulk_download' %>
+  <% if @product.product_tests.measure_tests.where(:state.nin => [:ready]).count > 0 %>
+    <% # wait 2 seconds. then reload the page %>
+    setTimeout(function(){
+      $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
+    }, 2000);
+  <% else %>
+    <% # don't wait. just load the bulk download %>
+    $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
+  <% end %>
+<% end %>

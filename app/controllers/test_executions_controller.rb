@@ -1,5 +1,5 @@
 class TestExecutionsController < ApplicationController
-  before_action :set_test_execution, only: [:destroy, :show, :display_execution_results]
+  before_action :set_test_execution, only: [:destroy, :show]
   before_action :set_task, only: [:new, :create, :show]
   before_action :set_product_test, only: [:show, :new]
   before_action :add_breadcrumbs, only: [:show, :new]
@@ -15,9 +15,6 @@ class TestExecutionsController < ApplicationController
       return
     end
     render :show
-  end
-
-  def display_execution_results
   end
 
   def show
