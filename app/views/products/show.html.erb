@@ -12,7 +12,7 @@
             <% unless cert_test != certification['tests'][0] %>
             <th rowspan="<%= certification['tests'].length %>"><%= "#{c}" %></th>
             <% end %>
-            <td><%= TESTS[cert_test]['title'] %></td>
+            <td><%= APP_CONFIG.tests[cert_test]['title'] %></td>
             <td><%= status_by_test(@product)[cert_test][c] %></td>
           </tr>
           <% end %>
@@ -51,14 +51,14 @@
 
   <div class="product-test-tabs">
     <ul>
-      <% TESTS.each do |c, certification_test| %>
+      <% APP_CONFIG.tests.each do |c, certification_test| %>
         <% if certification_test['certifications'] & certifications(@product).keys() %>
           <li><a href="#<%= "#{c}" %>"><%= "#{certification_test['title']}" %></a></li>
         <% end %>
       <% end %>
     </ul>
 
-    <% TESTS.each do |c, certification_test| %>
+    <% APP_CONFIG.tests.each do |c, certification_test| %>
       <% if certification_test['certifications'] & certifications(@product).keys() %>
         <div id="<%= c %>">
           <h3><%# certification_test['title'] %></h3>

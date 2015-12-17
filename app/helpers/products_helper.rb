@@ -63,7 +63,7 @@ module ProductsHelper
     product_certifications = {}
 
     certs.each do |k, v|
-      product_certifications[k] = CERTIFICATIONS[k] if v
+      product_certifications[k] = APP_CONFIG.certifications[k] if v
     end
     product_certifications
   end
