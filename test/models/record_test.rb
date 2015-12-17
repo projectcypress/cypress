@@ -25,6 +25,6 @@ class RecordTest < ActiveSupport::TestCase
 
   def test_record_should_be_able_to_find_calculation_results
     r = Record.find('51703a883054cf84390000d4')
-    assert_equal 1, r.calculation_results.count(), "record should have 1 calculated result"
+    assert_equal 1, r.calculation_results.count, 'record should have 1 calculated result'
   end
 end
