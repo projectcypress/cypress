@@ -16,17 +16,17 @@ class C2Task < Task
   end
 
   def execute(file)
+    te = test_executions.create(expected_results: expected_results)
+    te.artifact = Artifact.new(file: file)
+    TestExecutionJob.perform_later(te, self, validate_reporting: product_test.contains_c3_task?)
     if product_test.contains_c3_task?
       product_test.tasks.each do |task|
         if task._type == 'C3Task'
           task.cat3
-          task.execute(file)
+          te.sibling_execution_id = task.execute(file, te.id).id
         end
       end
     end
-    te = test_executions.create(expected_results: expected_results)
-    te.artifact = Artifact.new(file: file)
-    TestExecutionJob.perform_later(te, self, validate_reporting: product_test.contains_c3_task?)
     te.save
     te
   end

@@ -129,4 +129,14 @@ class C2TaskTest < ActiveSupport::TestCase
       assert te.execution_errors.empty?, 'should not error on additional supplemental data value equal to 0'
     end
   end
+
+  def test_should_have_c3_execution_as_sibling_test_execution_when_c3_task_exists
+    c2_task = @product_test.tasks.create({}, C2Task)
+    c3_task = @product_test.tasks.create({}, C3Task)
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_good.xml', 'application/xml')
+    perform_enqueued_jobs do
+      te = c2_task.execute(xml)
+      assert_equal c3_task.test_executions.first.id.to_s, te.sibling_execution_id
+    end
+  end
 end

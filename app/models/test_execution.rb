@@ -8,6 +8,9 @@ class TestExecution
   field :expected_results, type: Hash
   field :reported_results, type: Hash
   field :qrda_type, type: String
+  # a sibling test execution is a c3 test execution if the current execution is a c1 or c2 execution. vice versa
+  #   and nil if c3 execution does not exist
+  field :sibling_execution_id, type: String
 
   embeds_many :execution_errors
   has_one :artifact, :autosave => true, :dependent => :destroy
