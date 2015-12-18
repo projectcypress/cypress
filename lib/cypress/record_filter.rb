@@ -5,30 +5,30 @@ module Cypress
     end
 
     def self.create_query(input_filters, options)
-      query = {}
+      query_pieces = []
 
       if input_filters['races']
-        query['race.code'] = { '$in' => input_filters['races'] }
+        query_pieces << { 'race.code' => { '$in' => input_filters['races'] } }
       end
 
       if input_filters['ethnicities']
-        query['ethnicity.code'] = { '$in' => input_filters['ethnicities'] }
+        query_pieces << { 'ethnicity.code' => { '$in' => input_filters['ethnicities'] } }
       end
 
       if input_filters['genders']
-        query['gender'] = { '$in' => input_filters['genders'] }
+        query_pieces << { 'gender' => { '$in' => input_filters['genders'] } }
       end
 
       if input_filters['payers']
-        query['insurance_providers'] = { '$elemMatch' => { 'payer.name' => { '$in' => input_filters['payers'] } } }
+        query_pieces << { 'insurance_providers' => { '$elemMatch' => { 'payer.name' => { '$in' => input_filters['payers'] } } } }
       end
 
       if input_filters['age']
-        create_age_query(query, input_filters['age'], options)
+        query_pieces << create_age_query(input_filters['age'], options)
       end
 
       if input_filters['problems']
-        create_problem_query(query, input_filters['problems'])
+        query_pieces << create_problem_query(input_filters['problems'])
       end
 
       # STILL TODO:
@@ -37,12 +37,14 @@ module Cypress
       # provider type
       # practice site addr
 
-      query
+      { '$and' => query_pieces }
     end
 
-    def self.create_age_query(query, age_filter, options)
+    def self.create_age_query(age_filter, options)
       # filter only by a single age range, can be age < max, age > min, or min < age < max
       effective_date = Time.at(options[:effective_date]).utc
+
+      age_query = {}
 
       if age_filter['max']
         age_max = age_filter['max']
@@ -59,7 +61,7 @@ module Cypress
 
         req_birthdate = start_of_day - (age_max + 1).years + 1.day
 
-        query[:birthdate.gte] = req_birthdate
+        age_query[:birthdate.gte] = req_birthdate
       end
       if age_filter['min']
         age_min = age_filter['min']
@@ -71,11 +73,13 @@ module Cypress
 
         req_birthdate = end_of_day - age_min.years
 
-        query[:birthdate.lte] = req_birthdate
+        age_query[:birthdate.lte] = req_birthdate
       end
+
+      age_query
     end
 
-    def self.create_problem_query(query, problem_filters)
+    def self.create_problem_query(problem_filters)
       # given a value set, find conditions and procedures where the diagnosis code matches
 
       # mongo has no joins or inner querying so we have to first fetch the given codes
@@ -104,8 +108,7 @@ module Cypress
       procedures = { 'procedures' => problem_subquery }
       encounters = { 'encounters' => problem_subquery }
 
-      # TODO: this can be dangerous, what if something else needs an OR
-      query['$or'] = [conditions, procedures, encounters]
+      { '$or' => [conditions, procedures, encounters] }
     end
   end
 end
