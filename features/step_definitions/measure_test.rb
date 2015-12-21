@@ -67,6 +67,13 @@ And(/^the user uploads a CAT 3 XML file$/) do
   page.find('#submit-upload').click
 end
 
+And(/^the user uploads an invalid file$/) do
+  invalid_file_path = File.join(Rails.root, 'app/assets/images/checkmark.svg')
+  page.find('.fileinput > .form-control').click
+  page.attach_file(page.find('.upload-results').value, invalid_file_path)
+  page.find('#submit-upload').click
+end
+
 # # # # # # # #
 #   T H E N   #
 # # # # # # # #
@@ -107,6 +114,10 @@ end
 
 Then(/^the user should see test results$/) do
   assert_text 'Results'
+end
+
+Then(/^the user should see an error message saying the upload was invalid$/) do
+  assert_text 'Invalid file upload'
 end
 
 #   A N D   #

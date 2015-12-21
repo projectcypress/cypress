@@ -17,7 +17,7 @@
       <span class="fileinput-new"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</span>
       <span class="fileinput-exists"><i class="fa fa-fw fa-refresh"></i> Change</span>
       <label class = "hidden" for = "results"></label>
-      <%= file_field_tag :results, class: 'upload-results' %>
+      <%= file_field_tag :results, class: 'upload-results', accept: 'application/zip, text/xml' %>
     </span>
     <a id = 'submit-upload' class="input-group-addon fileinput-exists btn btn-success"><i class="fa fa-fw fa-upload"></i> Upload and run test</a>
   </div>

@@ -46,7 +46,7 @@ Scenario: Cannot View Download CAT 1 Zip
   Then the user should not be able to download a CAT 1 zip file
 
 Scenario: Successful Upload CAT 1 Zip
-  When the user creates a product with tasks c2
+  When the user creates a product with tasks c1
   And the user views a product test for that product
   And the user uploads a CAT 1 zip file
   Then the user should see test results
@@ -56,3 +56,17 @@ Scenario: Successful Upload CAT 3 XML
   And the user views a product test for that product
   And the user uploads a CAT 3 XML file
   Then the user should see test results
+
+Scenario: Unsuccessful Upload CAT 1 Zip Because Incorrect File Type
+  When the user creates a product with tasks c1
+  And the user views a product test for that product
+  And the user uploads an invalid file
+  Then the user should see an error message saying the upload was invalid
+  And the user should see no execution results
+
+Scenario: Unsuccessful Upload CAT 3 XML Because Incorrect File Type
+  When the user creates a product with tasks c2
+  And the user views a product test for that product
+  And the user uploads an invalid file
+  Then the user should see an error message saying the upload was invalid
+  And the user should see no execution results
