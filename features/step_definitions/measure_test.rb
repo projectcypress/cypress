@@ -57,14 +57,14 @@ And(/^the user uploads a CAT 1 zip file$/) do
   zip_path = File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip')
   page.find('.fileinput > .form-control').click
   page.attach_file(page.find('.upload-results').value, zip_path)
-  page.click_button('Upload and run test')
+  page.find('#submit-upload').click
 end
 
 And(/^the user uploads a CAT 3 XML file$/) do
   xml_path = File.join(Rails.root, 'test/fixtures/product_tests/cms111v3_catiii.xml')
   page.find('.fileinput > .form-control').click
   page.attach_file(page.find('.upload-results').value, xml_path)
-  page.click_button('Upload and run test')
+  page.find('#submit-upload').click
 end
 
 # # # # # # # #
