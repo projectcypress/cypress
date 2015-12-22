@@ -5,44 +5,55 @@ module Cypress
     end
 
     def self.create_query(input_filters, options)
-      query = {}
-
-      if input_filters['races']
-        query['race.code'] = { '$in' => input_filters['races'] }
-      end
-
-      if input_filters['ethnicities']
-        query['ethnicity.code'] = { '$in' => input_filters['ethnicities'] }
-      end
-
-      if input_filters['genders']
-        query['gender'] = { '$in' => input_filters['genders'] }
-      end
+      query_pieces = build_demographic_query(input_filters)
 
       if input_filters['payers']
-        query['insurance_providers'] = { '$elemMatch' => { 'payer.name' => { '$in' => input_filters['payers'] } } }
+        query_pieces << build_payer_query(input_filters['payers'])
       end
 
       if input_filters['age']
-        create_age_query(query, input_filters['age'], options)
+        query_pieces << build_age_query(input_filters['age'], options)
       end
 
       if input_filters['problems']
-        create_problem_query(query, input_filters['problems'])
+        query_pieces << build_problem_query(input_filters['problems'])
       end
 
-      # STILL TODO:
-      # provider tin
-      # provider npi
-      # provider type
-      # practice site addr
+      if input_filters['providers']
+        prov_query = build_provider_query(input_filters['providers'], options)
+        query_pieces << prov_query unless prov_query == {}
+      end
 
-      query
+      { '$and' => query_pieces }
     end
 
-    def self.create_age_query(query, age_filter, options)
+    def self.build_demographic_query(input_filters)
+      query_pieces = []
+
+      if input_filters['races']
+        query_pieces << { 'race.code' => { '$in' => input_filters['races'] } }
+      end
+
+      if input_filters['ethnicities']
+        query_pieces << { 'ethnicity.code' => { '$in' => input_filters['ethnicities'] } }
+      end
+
+      if input_filters['genders']
+        query_pieces << { 'gender' => { '$in' => input_filters['genders'] } }
+      end
+
+      query_pieces
+    end
+
+    def self.build_payer_query(payer_list)
+      { 'insurance_providers' => { '$elemMatch' => { 'payer.name' => { '$in' => payer_list } } } }
+    end
+
+    def self.build_age_query(age_filter, options)
       # filter only by a single age range, can be age < max, age > min, or min < age < max
       effective_date = Time.at(options[:effective_date]).utc
+
+      age_query = {}
 
       if age_filter['max']
         age_max = age_filter['max']
@@ -59,7 +70,7 @@ module Cypress
 
         req_birthdate = start_of_day - (age_max + 1).years + 1.day
 
-        query[:birthdate.gte] = req_birthdate
+        age_query[:birthdate.gte] = req_birthdate
       end
       if age_filter['min']
         age_min = age_filter['min']
@@ -71,11 +82,13 @@ module Cypress
 
         req_birthdate = end_of_day - age_min.years
 
-        query[:birthdate.lte] = req_birthdate
+        age_query[:birthdate.lte] = req_birthdate
       end
+
+      age_query
     end
 
-    def self.create_problem_query(query, problem_filters)
+    def self.build_problem_query(problem_filters)
       # given a value set, find conditions and procedures where the diagnosis code matches
 
       # mongo has no joins or inner querying so we have to first fetch the given codes
@@ -104,8 +117,19 @@ module Cypress
       procedures = { 'procedures' => problem_subquery }
       encounters = { 'encounters' => problem_subquery }
 
-      # TODO: this can be dangerous, what if something else needs an OR
-      query['$or'] = [conditions, procedures, encounters]
+      { '$or' => [conditions, procedures, encounters] }
+    end
+
+    def self.build_provider_query(input_filters, options)
+      providers = Cypress::ProviderFilter.filter(Provider.all, input_filters, options)
+
+      provider_ids = providers.pluck(:_id)
+
+      return {} if provider_ids.count == 0
+
+      provider_ids.collect! { |pid| BSON::ObjectId(pid) }
+
+      { 'provider_performances' => { '$elemMatch' =>  { 'provider_id' => { '$in' => provider_ids } } } }
     end
   end
 end

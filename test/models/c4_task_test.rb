@@ -3,7 +3,7 @@ require 'test_helper'
 class C4TaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
   def setup
-    collection_fixtures('product_tests', 'bundles',
+    collection_fixtures('product_tests', 'bundles', 'providers',
                         'records', 'health_data_standards_svs_value_sets')
 
     @product_test = ProductTest.find('51703a883054cf84390000d3')
@@ -132,15 +132,40 @@ class C4TaskTest < ActiveSupport::TestCase
   end
 
   def test_filter_npi
+    prov_filters = { 'npis' => ['1480614951'] }
+    filters = { 'providers' => prov_filters }
+    task = @product_test.tasks.create({ 'options' => { 'filters' => filters } }, C4Task)
+
+    filter = task.patient_cache_filter
+    assert filter.count == 1 && filter['providers']
   end
 
   def test_filter_tin
+    prov_filters = { 'tins' => ['020700270'] }
+    filters = { 'providers' => prov_filters }
+    task = @product_test.tasks.create({ 'options' => { 'filters' => filters } }, C4Task)
+
+    filter = task.patient_cache_filter
+    assert filter.count == 1 && filter['providers']
   end
 
   def test_filter_prov_type
+    prov_filters = { 'types' => ['ep'] }
+    filters = { 'providers' => prov_filters }
+    task = @product_test.tasks.create({ 'options' => { 'filters' => filters } }, C4Task)
+
+    filter = task.patient_cache_filter
+    assert filter.count == 1 && filter['providers']
   end
 
   def test_filter_practice_site_addr
+    selected_address = { 'street' => '100 Bureau Drive', 'city' => 'Gaithersburg', 'state' => 'MD', 'zip' => '20899', 'country' => 'US' }
+    prov_filters = { 'addresses' => [selected_address] }
+    filters = { 'providers' => prov_filters }
+    task = @product_test.tasks.create({ 'options' => { 'filters' => filters } }, C4Task)
+
+    filter = task.patient_cache_filter
+    assert filter.count == 1 && filter['providers']
   end
 
   def validate_record_count(all_records, filtered_records, expected_count = -1)

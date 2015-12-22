@@ -5,7 +5,7 @@ require 'fileutils'
 
 class RecordFilterTest < ActiveSupport::TestCase
   def setup
-    collection_fixtures('records', 'health_data_standards_svs_value_sets')
+    collection_fixtures('records', 'health_data_standards_svs_value_sets', 'providers')
 
     @all_records = Record.all
   end
@@ -236,16 +236,20 @@ class RecordFilterTest < ActiveSupport::TestCase
     false
   end
 
-  def test_filter_npi
-  end
+  def test_provider_filter
+    prov = Provider.first
+    prov_filters = { 'npis' => [prov['npi']], 'tins' => [prov['tin']] }
+    filters = { 'providers' => prov_filters }
 
-  def test_filter_tin
-  end
+    # assign the provider and make sure we can find it
+    patient = Record.first
 
-  def test_filter_prov_type
-  end
+    patient.provider_performances.build(provider: prov)
+    patient.save!
 
-  def test_filter_practice_site_addr
+    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, {}).to_a
+
+    assert filtered_records.include?(patient), 'should include the targeted patient in results'
   end
 
   def validate_record_count(all_records, filtered_records, expected_count = -1)

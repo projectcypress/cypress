@@ -39,14 +39,18 @@ class C4Task < Task
     input_filters = (options['filters'] || {}).dup
     filters = {}
 
-    # QME can handle races, ethnicities, genders, (providers, languages) and patient_ids
+    # QME can handle races, ethnicities, genders, providers, and patient_ids (and languages)
     # so pass these through directly
-    # is it really worth it to do this? does it make more sense to just do everything based on patient id
-    # and simplify the logic here
 
     filters['races'] = input_filters.delete 'races' if input_filters['races']
     filters['ethnicities'] = input_filters.delete 'ethnicities' if input_filters['ethnicities']
     filters['genders'] = input_filters.delete 'genders' if input_filters['genders']
+
+    if input_filters['providers']
+      providers = Cypress::ProviderFilter.filter(Provider.all, input_filters['providers'], options)
+      filters['providers'] = providers.pluck(:_id)
+      input_filters.delete 'providers'
+    end
 
     # for the rest, manually filter to get the record IDs and pass those in
     if input_filters.count > 0
