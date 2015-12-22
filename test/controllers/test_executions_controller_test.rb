@@ -44,4 +44,28 @@ class TestExecutionsControllerTest < ActionController::TestCase
     assert_response 302
     assert_equal task.test_executions.count, orig_count + 1, 'Should have added 1 new TestExecution'
   end
+
+  test 'invalid upload type for c1 task should not create new test execution' do
+    task = C1Task.first
+    old_count = task.test_executions.count
+    file = File.new(File.join(Rails.root, 'app/assets/images/checkmark.svg'))
+    upload = Rack::Test::UploadedFile.new(file, 'image/svg')
+
+    post :create, task_id: task.id, results: upload
+
+    assert_equal old_count, task.test_executions.count
+  end
+
+  test 'invalid upload type for c2 task should not create new test execution' do
+    task = C1Task.first
+    task._type = 'C2Task'
+    task.save!
+    old_count = task.test_executions.count
+    file = File.new(File.join(Rails.root, 'app/assets/images/checkmark.svg'))
+    upload = Rack::Test::UploadedFile.new(file, 'image/svg')
+
+    post :create, task_id: task.id, results: upload
+
+    assert_equal old_count, task.test_executions.count
+  end
 end

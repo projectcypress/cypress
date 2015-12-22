@@ -4,3 +4,4 @@
 # Mime::Type.register "text/richtext", :rtf
 
 Mime::Type.register 'application/zip', :zip
+Mime::Type.register 'text/xml', :xml

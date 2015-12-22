@@ -7,6 +7,9 @@ class TestExecutionsController < ApplicationController
   def create
     @test_execution = @task.execute(params[:results])
     redirect_to "/tasks/#{@task.id}/test_executions/#{@test_execution.id}"
+  rescue Mongoid::Errors::Validations
+    alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
+    redirect_to "/tasks/#{@task.id}/test_executions/new", flash: { alert: alert.html_safe }
   end
 
   def new

@@ -6,18 +6,19 @@
 
 %>
 
-<%= form_for(TestExecution.new, :html => {method: :post, :multipart => true}) do |f| %>
+<%= form_for(TestExecution.new, :html => { method: :post, :multipart => true }) do |f| %>
   <%= hidden_field_tag :task_id, task.id %>
   <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-    <div class="form-control" data-trigger="fileinput"><i class="fa fa-fw fa-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
-    <span class="input-group-btn">
-      <span class="btn-file">
-        <span class="fileinput-new"><button class="btn btn-info" type="button"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</button></span>
-        <span class="fileinput-exists"><button class="btn btn-warning" type="button"><i class="fa fa-fw fa-refresh"></i> Change</button></span>
-        <label class = "hidden" for = "results"></label>
-        <%= file_field_tag :results, class: 'upload-results' %>
-      </span>
-      <span class="fileinput-exists"><button class="btn btn-info" type="submit"><i class="fa fa-fw fa-upload"></i> Upload and run test</button></span>
+    <div class="form-control" data-trigger="fileinput">
+      <i class="fa fa-fw fa-file fileinput-exists"></i>
+      <span class="fileinput-filename"></span>
+    </div>
+    <span class="input-group-addon btn btn-info btn-file">
+      <span class="fileinput-new"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</span>
+      <span class="fileinput-exists"><i class="fa fa-fw fa-refresh"></i> Change</span>
+      <label class = "hidden" for = "results"></label>
+      <%= file_field_tag :results, class: 'upload-results', accept: 'application/zip, text/xml' %>
     </span>
+    <a id = 'submit-upload' class="input-group-addon fileinput-exists btn btn-success"><i class="fa fa-fw fa-upload"></i> Upload and run test</a>
   </div>
 <% end %>
