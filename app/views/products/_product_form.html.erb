@@ -18,7 +18,7 @@
 
       <%= f.form_group label: { text: "Certification Types" }, help: "C4 is optional." do %>
         <%= f.errors_on :tests, hide_attribute_name: true %>
-        <% CERTIFICATIONS.each do |c, certification| %>
+        <% APP_CONFIG.certifications.each do |c, certification| %>
           <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
         <% end %>
       <% end %>
