@@ -25,4 +25,8 @@ class Record
       return bundle.records.where('medical_record_number' => self['original_medical_record_number']).first
     end
   end
+
+  def calculation_results
+    HealthDataStandards::CQM::PatientCache.where('value.patient_id' => id)
+  end
 end
