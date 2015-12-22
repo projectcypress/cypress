@@ -1,0 +1,21 @@
+
+<% if params[:partial] == 'execution_results' %>
+  <% if @test_execution.incomplete? %>
+    <% # wait 2 seconds. then reload the page %>
+    setTimeout(function(){
+      $('#display_execution_results').html("<%= escape_javascript render partial: 'execution_results', locals: { execution: @test_execution } %>");
+    }, 2000);
+  <% else %>
+    <% # don't wait. just load the test executions %>
+    $('#display_execution_results').html("<%= escape_javascript render partial: 'execution_results', locals: { execution: @test_execution } %>");
+  <% end %>
+
+<% elsif params[:partial] == 'execution_download' %>
+  <% unless @product_test.state == :ready %>
+    setTimeout(function(){
+      $('#display_execution_download').html("<%= escape_javascript render partial: 'execution_download', locals: { product_test: @product_test } %>");
+    }, 2000);
+  <% else %>
+    $('#display_execution_download').html("<%= escape_javascript render partial: 'execution_download', locals: { product_test: @product_test } %>");
+  <% end %>
+<% end %>
