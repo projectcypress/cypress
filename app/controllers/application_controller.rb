@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery :with => :exception
 
-  # breadcrumbs
-  add_breadcrumb 'All Vendors', :vendors_path
   before_action :authenticate_user!, :check_bundle_installed
 
   private

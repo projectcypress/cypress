@@ -1,6 +1,8 @@
 class VendorsController < ApplicationController
   before_action :find_vendor, only: [:show, :update, :destroy]
 
+  # breadcrumbs
+  add_breadcrumb 'All Vendors', :vendors_path
   add_breadcrumb 'Add Vendor',  :new_vendor_path,  only: [:new, :create]
   add_breadcrumb 'Edit Vendor', :edit_vendor_path, only: [:edit, :update]
 

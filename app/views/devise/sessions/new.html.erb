@@ -1,0 +1,22 @@
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <h2>Log In</h2>
+  </div>
+
+  <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="panel-body">
+      <%= f.email_field :email, autofocus: true %>
+      <%= f.password_field :password, autocomplete: "off" %>
+
+      <% if devise_mapping.rememberable? -%>
+        <%= f.check_box :remember_me %>
+      <% end -%>
+    </div>
+    <div class="panel-footer">
+      <%= f.primary "Log in" %>
+    </div>
+  <% end %>
+</div>
+<%= render "devise/shared/links" %>
