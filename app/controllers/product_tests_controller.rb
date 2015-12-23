@@ -1,6 +1,7 @@
 class ProductTestsController < ApplicationController
   before_action :set_product, only: [:index, :new, :create]
   before_action :set_product_test, except: [:index, :new, :create]
+  add_breadcrumb 'Dashboard', :vendors_path
 
   def index
     @product_tests = @product.product_tests
