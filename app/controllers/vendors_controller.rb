@@ -2,7 +2,7 @@ class VendorsController < ApplicationController
   before_action :find_vendor, only: [:show, :update, :destroy]
 
   # breadcrumbs
-  add_breadcrumb 'All Vendors', :vendors_path
+  add_breadcrumb 'Dashboard', :vendors_path
   add_breadcrumb 'Add Vendor',  :new_vendor_path,  only: [:new, :create]
   add_breadcrumb 'Edit Vendor', :edit_vendor_path, only: [:edit, :update]
 
@@ -15,7 +15,7 @@ class VendorsController < ApplicationController
   end
 
   def show
-    add_breadcrumb @vendor.name, :show_vendor_path
+    add_breadcrumb 'Vendor: ' + @vendor.name, :show_vendor_path
     @products = Product.where(vendor_id: @vendor.id).order_by(state: 'desc')
     respond_to do |f|
       f.html

@@ -3,6 +3,8 @@ class ProductsController < ApplicationController
   before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :update]
 
+  add_breadcrumb 'Dashboard', :vendors_path
+
   def index
     respond_to do |f|
       f.html { redirect_to vendor_path(@vendor.id) }
@@ -36,7 +38,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb @product.vendor.name, "/vendors/#{@product.vendor.id}"
+    add_breadcrumb 'Product: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
     add_breadcrumb 'Edit Product', :edit_vendor_path
     set_measures
     @selected_measure_ids = @product.measure_ids
@@ -65,8 +67,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    add_breadcrumb @product.vendor.name, "/vendors/#{@product.vendor.id}"
-    add_breadcrumb @product.name, "/vendors/#{@product.vendor.id}/products/#{@product.id}"
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
+    add_breadcrumb 'Product: ' + @product.name, "/vendors/#{@product.vendor.id}/products/#{@product.id}"
     respond_to do |format|
       format.json { render json: [@product] }
       format.js
@@ -93,7 +95,7 @@ class ProductsController < ApplicationController
   end
 
   def setup_new
-    add_breadcrumb @vendor.name, "/vendors/#{@vendor.id}"
+    add_breadcrumb 'Vendor: ' + @vendor.name, "/vendors/#{@vendor.id}"
     add_breadcrumb 'Add Product', :new_vendor_path
     set_measures
     params[:action] = 'new'
