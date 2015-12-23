@@ -55,7 +55,6 @@ gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 
 # Devise is the gem we use for user authentication
 gem 'devise'
-gem 'devise-bootstrap-views'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
