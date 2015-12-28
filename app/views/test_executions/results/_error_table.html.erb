@@ -1,0 +1,31 @@
+<%
+
+# requires local variable 'errors' to be specified
+
+%>
+
+<% return if errors.count == 0 %>
+
+<table class = 'table table-hover table-condensed'>
+  <thead>
+    <tr>
+      <th class = 'col-sm-8'>Error message</th>
+      <th class = 'col-sm-2'>XML File</th>
+      <th class = 'col-sm-2'>Go To in XML</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% errors.sort { |a, b| compare_error_locations_across_files(a, b) }.each do |error| %>
+      <tr>
+        <td><%= error.message %></td>
+        <td><%= error.file_name %></td>
+        <td>
+          <% unless error.location.nil? || error.location == '/' || error.test_execution.task._type == 'C3Task' %>
+            <% line_num = get_line_number(error) %>
+            <a class = 'execution_error_link' href = <%= "#error_#{error.id}" %> data-line-number = <%= line_num %>>jump to error</a>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

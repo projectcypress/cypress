@@ -13,8 +13,12 @@
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
   </script>
+
+
 <% elsif execution.passing? %>
   <h4><i class="fa fa-fw fa-check-circle text-success"></i> Passed</h4>
+
+
 <% else %>
   <% qrda_errors = execution.qrda_errors %>
   <% report_errors = execution.reporting_errors %>
@@ -44,24 +48,33 @@
 
   <div class = 'tab-content'>
     <div class = 'tab-pane active' id = <%= "QRDA_tab_execution_#{execution.id}" %>>
-      <% qrda_errors.each do |err| %>
-        <li>
-          <%= "#{err.message}" %>
-          <%= "(#{err.file_name})" %>
-        </li>
-      <% end %>
+      <%= render partial: 'test_executions/results/error_table', locals: { errors: qrda_errors } %>
     </div>
     <div class = 'tab-pane' id = <%= "reporting_tab_execution_#{execution.id}" %>>
-      <% report_errors.each do |err| %>
-        <li><%= "#{err.message} (#{err.file_name})" %></li>
-      <% end %>
+      <%= render partial: 'test_executions/results/error_table', locals: { errors: report_errors } %>
     </div>
     <% if should_display_c3 %>
       <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
-        <% submit_errors.each do |err| %>
-          <li><%= "#{err.message} (#{err.file_name})" %></li>
-        <% end %>
+        <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_errors } %>
       </div>
     <% end %>
+  </div>
+
+  <% # XML Viewer %>
+  <div>
+    <% error_maps = get_error_mapping(execution) %>
+    <div id = 'xml_frame'>
+      <%= render partial: "test_executions/results/subnav"%>
+      <h3>Uploaded XML</h3>
+      <% error_maps.each do |error_map| %>
+        <div>
+          <div class = 'expando file_name'>
+            <h4><%= File.basename(error_map[:file]).force_encoding('UTF-8') %></h4>
+            <div class = 'open'></div>
+          </div>
+          <%= render partial: 'test_executions/results/node', :locals => { doc: error_map[:doc], error_map: error_map[:error_map], error_attributes: error_map[:error_attributes], execution_errors: error_map[:file_errors] } %>
+        </div>
+      <% end %>
+    </div>
   </div>
 <% end %>

@@ -49,9 +49,21 @@ module TestExecutionsHelper
     msg
   end
 
-  private
+  # only use if an xpath location is specified for error
+  def get_line_number(error)
+    error_to_line_number(error, get_doc(error.test_execution.artifact, error.file_name))
+  end
 
-  def currently_viewing_c1?(task)
-    task._type == 'C1Task'
+  # inputs: a and b are execution errors
+  # returns: 1 if a should be sorted first or -1 if b should be sorted first
+  #   1 if a is from an aphabetically higher document or higher location in the same document
+  #  -1 if b is ...
+  def compare_error_locations_across_files(a, b)
+    return 1 if a.file_name.nil?
+    return -1 if b.file_name.nil?
+    return a.file_name <=> b.file_name if a.file_name != b.file_name
+    return 1 if a.location.nil?
+    return -1 if b.location.nil?
+    a.location <=> b.location
   end
 end
