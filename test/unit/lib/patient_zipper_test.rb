@@ -24,7 +24,7 @@ class PatientZipperTest < ActiveSupport::TestCase
       end
     end
     File.delete(file.path)
-    assert count == 6, "Zip file has wrong number of records should be 6 , was #{count}"
+    assert_equal @patients.count, count, 'Zip file has wrong number of records'
   end
 
   test 'Should create valid qrda file' do
@@ -43,6 +43,27 @@ class PatientZipperTest < ActiveSupport::TestCase
       end
     end
     File.delete(file.path)
-    assert count == 6, "Zip file has wrong number of records should be 6 , was #{count}"
+    assert_equal @patients.count, count, 'Zip file has wrong number of records'
+  end
+
+  test 'Should create valid qrda file when not associated to test' do
+    @patients = Record.where('test_id' => nil)
+
+    format = :qrda
+    filename = "pTest-#{Time.now.to_i}.qrda.zip"
+    file = Tempfile.new(filename)
+
+    Cypress::PatientZipper.zip(file, @patients, format)
+    file.close
+
+    count = 0
+    Zip::ZipFile.foreach(file.path) do |zip_entry|
+      if zip_entry.name.include?('.xml') && !zip_entry.name.include?('__MACOSX')
+        Nokogiri::XML(zip_entry.get_input_stream, &:strict)
+        count += 1
+      end
+    end
+    File.delete(file.path)
+    assert_equal @patients.count, count, 'Zip file has wrong number of records'
   end
 end
