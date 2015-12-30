@@ -1,5 +1,6 @@
 class RecordsController < ApplicationController
   before_action :set_record_source, only: [:index]
+  add_breadcrumb 'Master Patient List', :vendors_path
 
   def download_full_test_deck
     product = Product.find(params[:id])

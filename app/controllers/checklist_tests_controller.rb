@@ -15,9 +15,9 @@ class ChecklistTestsController < ProductTestsController
   end
 
   def show
-    add_breadcrumb @product.vendor.name, "/vendors/#{@product.vendor.id}"
-    add_breadcrumb @product.name, "/vendors/#{@product.vendor.id}/products/#{@product.id}"
-    add_breadcrumb @test.name, "/products/#{@product.id}/checklist_tests/#{@test.id}"
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
+    add_breadcrumb 'Product: ' + @product.name, "/vendors/#{@product.vendor.id}/products/#{@product.id}"
+    add_breadcrumb 'Test: ' + @test.name, "/products/#{@product.id}/checklist_tests/#{@test.id}"
   end
 
   def update

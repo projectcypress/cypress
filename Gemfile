@@ -23,7 +23,7 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'jquery-rails', '~> 4.0.4'
 gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'modernizr-rails', '~> 2.7.1'
-gem 'font-awesome-rails'
+gem 'font-awesome-sass'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -55,7 +55,6 @@ gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 
 # Devise is the gem we use for user authentication
 gem 'devise'
-gem 'devise-bootstrap-views'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

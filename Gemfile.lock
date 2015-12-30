@@ -171,7 +171,6 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise-bootstrap-views (0.0.6)
     diff-lcs (1.2.5)
     docile (1.1.5)
     domain_name (0.5.25)
@@ -193,8 +192,8 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     fastercsv (1.5.5)
     ffi (1.9.10)
-    font-awesome-rails (4.4.0.0)
-      railties (>= 3.2, < 5.0)
+    font-awesome-sass (4.5.0)
+      sass (>= 3.2)
     gh (0.14.0)
       addressable
       backports
@@ -453,10 +452,9 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner!
   devise
-  devise-bootstrap-views
   factory_girl_rails
   faker (~> 1.5.0)
-  font-awesome-rails
+  font-awesome-sass
   health-data-standards!
   jasny-bootstrap-rails
   jbuilder (~> 2.0)

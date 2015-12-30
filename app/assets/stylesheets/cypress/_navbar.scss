@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+.navbar {
+  @include box-shadow(0 1px 1px $dropdown-border);
+}
+
 .navbar,
 .breadcrumb {
   font-family: 'Ubuntu';
@@ -45,6 +49,40 @@
   }
 }
 
-.breadcrumb {
-  margin-bottom: $line-height-computed * 2;
+.breadcrumb > li {
+  @include box-shadow(0 1px 1px $dropdown-border);
+  display: table-cell;
+  padding: 10px;
+  background-color: $navbar-inverse-bg;
+  color: $navbar-inverse-link-color;
+
+  a {
+    padding: 10px 0;
+    color: $navbar-inverse-link-color;
+    text-shadow: 1px 1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5),
+                -1px -1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5);
+  }
+
+  + li::before {
+    content: $fa-var-caret-right;
+    font-family: FontAwesome;
+    padding: 0 8px 0 0;
+    margin-left: -10px;
+    color: $navbar-inverse-bg;
+  }
+
+  &:hover {
+    background-color: $navbar-inverse-link-active-bg;
+
+    + li::before {
+      color: $navbar-inverse-link-active-bg;
+    }
+
+    > a:hover { text-decoration: none; }
+  }
+
+  &.active {
+    background-color: $navbar-inverse-link-active-bg;
+    color: $navbar-inverse-link-color;
+  }
 }

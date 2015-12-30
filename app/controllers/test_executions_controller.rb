@@ -47,8 +47,8 @@ class TestExecutionsController < ApplicationController
   end
 
   def add_breadcrumbs
-    add_breadcrumb @product_test.product.vendor.name, "/vendors/#{@product_test.product.vendor.id}"
-    add_breadcrumb @product_test.product.name, "/vendors/#{@product_test.product.vendor.id}/products/#{@product_test.product.id}"
-    add_breadcrumb @product_test.name, "/products/#{@product_test.product.id}/product_tests/#{@product_test.id}"
+    add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, "/vendors/#{@product_test.product.vendor.id}"
+    add_breadcrumb 'Product: ' + @product_test.product.name, "/vendors/#{@product_test.product.vendor.id}/products/#{@product_test.product.id}"
+    add_breadcrumb 'Test: ' + @product_test.name, "/products/#{@product_test.product.id}/product_tests/#{@product_test.id}"
   end
 end
