@@ -5,7 +5,8 @@ class RecordsController < ApplicationController
   def download_full_test_deck
     product = Product.find(params[:id])
     file = Cypress::CreateDownloadZip.create_total_test_zip(product)
-    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "Full_Test_Deck_#{product.id}.zip"
+    file_name = "#{product.name}_#{product.id}.zip".tr(' ', '_')
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: file_name
   end
 
   def index

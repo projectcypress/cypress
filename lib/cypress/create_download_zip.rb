@@ -16,7 +16,7 @@ module Cypress
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
         measure_tests.each do |m|
-          z.put_next_entry("#{m.name}.zip")
+          z.put_next_entry("#{m.cms_id}_#{m.name}_#{m.id}.zip".tr(' ', '_'))
           z << m.patient_archive.read
         end
       end
