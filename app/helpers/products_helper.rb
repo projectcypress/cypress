@@ -67,4 +67,8 @@ module ProductsHelper
     end
     product_certifications
   end
+
+  def product_certifying_to(product, certification_test)
+    (certification_test['certifications'] & certifications(product).keys) != []
+  end
 end

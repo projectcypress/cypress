@@ -40,14 +40,14 @@
   <div class="product-test-tabs">
     <ul>
       <% APP_CONFIG.tests.each do |c, certification_test| %>
-        <% if certification_test['certifications'] & certifications(@product).keys() %>
+        <% if product_certifying_to(@product, certification_test) %>
           <li><a href="#<%= "#{c}" %>"><%= "#{certification_test['title']}" %></a></li>
         <% end %>
       <% end %>
     </ul>
 
     <% APP_CONFIG.tests.each do |c, certification_test| %>
-      <% if certification_test['certifications'] & certifications(@product).keys() %>
+      <% if product_certifying_to(@product, certification_test) %>
         <div id="<%= c %>">
           <h3><%# certification_test['title'] %></h3>
           <p><%= certification_test['description'] %></p>
