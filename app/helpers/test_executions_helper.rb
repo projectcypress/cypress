@@ -66,4 +66,26 @@ module TestExecutionsHelper
     return -1 if b.location.nil?
     a.location <=> b.location
   end
+
+  private
+
+  def currently_viewing_c1?(task)
+    task._type == 'C1Task'
+  end
+
+  # used for sorting errors by appearance in xml
+  #   if no doc or xml element found then line number of 0 is returned
+  def error_to_line_number(error, doc)
+    return 0 unless doc
+    nodes = doc.search(error.location)
+    return 0 if nodes.count == 0 || nodes.first.class != Nokogiri::XML::Element
+    nodes.first.line
+  end
+
+  def get_doc(artifact, file_name)
+    artifact.each_file do |name, data|
+      return data_to_doc(data) if name == file_name
+    end
+    false
+  end
 end

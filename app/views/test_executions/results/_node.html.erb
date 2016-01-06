@@ -26,23 +26,12 @@
     <% prefix = doc.namespace.nil? ? "" : (doc.namespace.prefix || "") %>
     <% doc_name = prefix == "" ? doc.name : "#{prefix}:#{doc.name}" %>
     <div <%=  error_id ? "class='error'".html_safe : '' %> >
-    <% if error_id %>
-      <% popup_title, popup_button_text, popup_content = popup_attributes(errors) %>
-      <% # button to display popup with error message(s) %>
-      <% btn_errors = '' %>
-      <% errors.each { |error| btn_errors << " error_#{error.id}" } %>
-      <button type = "button" class="btn error-popup-btn pull-right <%= btn_errors %>" data-viewport = '#xml_frame' data-toggle="popover" data-placement = "top" title = '<%= popup_title %>' data-html = 'true' data-content = '<%= popup_content %>'>
-        <i class="fa fa-comment" data-error="<%= %{error_#{error_id}} %>"> <%= popup_button_text %></i>
-      </button>
-    <% end %>
     <span class="markup">&lt;</span>
     <span class="start-tag "><%= doc_name %></span>
-
     <% doc.namespace_definitions.each do |ns| %>
       <% ns_prefix = ns.prefix.nil? ? "xmlns" : "xmlns:#{ns.prefix}" %>
       <span class="attribute-name"> <%=ns_prefix%>="<%=ns.href%>"</span>
     <% end %>
-
     <% doc.attributes.each do |att| %>
       <% attribute = att[1] %>
       <% if attribute.name != 'error_id' %>
@@ -66,6 +55,15 @@
   <% if doc.children.length > 0 %>
     <% if node_type(doc.node_type) == :element %>
       <span class="markup">&gt;</span></div>
+      <% if error_id %>
+        <% popup_title, popup_button_text, popup_content = popup_attributes(errors) %>
+        <% # button to display popup with error message(s) %>
+        <% btn_errors = '' %>
+        <% errors.each { |error| btn_errors << " error_#{error.id}" } %>
+        <button type = "button" class="btn error-popup-btn pull-right <%= btn_errors %>" data-viewport = '#xml_frame' data-toggle="popover" data-placement = "bottom" title = '<%= popup_title %>' data-html = 'true' data-content = '<%= popup_content %>'>
+          <i class="fa fa-comment" data-error="<%= %{error_#{error_id}} %>"> <%= popup_button_text %></i>
+        </button>
+      <% end %>
     <% end %>
 
     <% doc.children.each do |child| %>
@@ -81,7 +79,7 @@
         <%= render :partial=>"test_executions/results/node" , :locals => { :doc=>child, :error_map=>error_map, :error_attributes=>error_attributes, :execution_errors=>execution_errors } %>
       <% when :cdata %>
         <% # JB: this partial currently does not exist. I am leaving this here to error in that situation %>
-        <%=  render :partial=>"cdata", :locals => {:cdata=>child} %>
+        <%=  render :partial=>"cdata", :locals => { :cdata=>child } %>
       <% when :comment %>
         <% begin %>
           <div class="comment indent"><%= child.to_s %></div>

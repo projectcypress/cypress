@@ -28,7 +28,7 @@
   <h4><i class="fa fa-fw fa-times-circle text-danger"></i><%= " Failed with #{execution.execution_errors.count} errors" %></h4>
   <ul class = 'nav nav-tabs'>
     <li class = 'active'>
-      <a data-toggle = 'tab' href = <%= "#QRDA_tab_execution_#{execution.id}" %>>
+      <a data-toggle = 'tab' class = 'tab' href = <%= "#QRDA_tab_execution_#{execution.id}" %>>
         <%= "QRDA Errors (#{qrda_errors.count})" %>
       </a>
     </li>
@@ -63,17 +63,12 @@
   <% # XML Viewer %>
   <div>
     <% error_maps = get_error_mapping(execution) %>
-    <div id = 'xml_frame'>
-      <%= render partial: "test_executions/results/subnav"%>
+    <div id = 'xml_frame' class = 'xml-frame'>
+      <%= render partial: "test_executions/results/xmlnav"%>
       <h3>Uploaded XML</h3>
       <% error_maps.each do |error_map| %>
-        <div>
-          <div class = 'expando file_name'>
-            <h4><%= File.basename(error_map[:file]).force_encoding('UTF-8') %></h4>
-            <div class = 'open'></div>
-          </div>
-          <%= render partial: 'test_executions/results/node', :locals => { doc: error_map[:doc], error_map: error_map[:error_map], error_attributes: error_map[:error_attributes], execution_errors: error_map[:file_errors] } %>
-        </div>
+        <h4><%= File.basename(error_map[:file]).force_encoding('UTF-8') %></h4>
+        <%= render partial: 'test_executions/results/node', :locals => { doc: error_map[:doc], error_map: error_map[:error_map], error_attributes: error_map[:error_attributes], execution_errors: error_map[:file_errors] } %>
       <% end %>
     </div>
   </div>

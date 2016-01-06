@@ -17,8 +17,13 @@ ready = function() {
     this.children[0].innerText = this.children[0].innerText.replace('hide', 'view');
   });
 
+  /* hide all error popovers when switching between error tabs */
+  $('a.tab').on('click', function () {
+    $('button.error-popup-btn').popover('hide');
+  });
+
   /* link subnav with the execution_error_link s */
-  var navigation =  $("#xml_frame .subnav").navigator({targets: "a.execution_error_link", action: show_error_popup_and_jump});
+  var navigation =  $("#xml_frame .xml-nav").navigator({targets: "a.execution_error_link", action: show_error_popup_and_jump});
   $("#xml_frame").fixedHeader();
 
   /* used to set index on navigation bar when user clicks a execution_error_link and not a navbar button */
@@ -35,7 +40,11 @@ ready = function() {
 
       var scroll_time = 300;      /* (milisec) time it takes to scroll from one error popover to another */
       var highlight_time = 2000;  /* (milisec) time highlight lasts for individual error in error popover */
-      var pixels_down_page = 500; /* number of pixels down the page the error will apear after scrolling */
+      var height_buffer = 20;     /* number of pixels between the xml_nav_bar and the error after done scrolling */
+
+      var height_of_xmlnav_div = $('.xml-nav').outerHeight();
+      var height_of_error_div = $(href).siblings('.error').outerHeight();
+      var pixels_down_page = height_of_xmlnav_div + height_buffer + height_of_error_div; /* number of pixels down the page the error will apear after scrolling */
 
       /* scroll to error popover */
       $('html,body').animate({ scrollTop: $(href).offset().top - pixels_down_page }, { duration: scroll_time, easing: 'swing'}).promise().done(function() {

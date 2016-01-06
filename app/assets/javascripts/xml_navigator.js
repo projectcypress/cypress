@@ -89,7 +89,7 @@
     var return_val = this.each(function() {
       var o = $(this);
       var $win = $(window)
-        , $head = $('.subnav', o)
+        , $head = $('.xml-nav', o)
         , isFixed = 0;
    
       function processScroll() {
