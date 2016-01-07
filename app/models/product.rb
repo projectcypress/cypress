@@ -71,17 +71,44 @@ class Product
 
   def add_product_tests_to_product(added_measure_ids = [])
     return if added_measure_ids.nil?
+
     new_ids = added_measure_ids - measure_ids
     to_remove_ids = measure_ids - added_measure_ids
-
-    new_ids.each do |new_measure_id|
-      measure = Measure.top_level.find_by(hqmf_id: new_measure_id)
-      product_tests.build({ name: measure.name, product: self, measure_ids: [new_measure_id],
-                            cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
+    untouched_ids = measure_ids - to_remove_ids
+    if c1_test || c2_test || c3_test
+      new_ids.each do |new_measure_id|
+        measure = Measure.top_level.find_by(hqmf_id: new_measure_id)
+        product_tests.build({ name: measure.name, product: self, measure_ids: [new_measure_id],
+                              cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
+      end
     end
 
     to_remove_ids.each do |old_measure_id|
       product_tests.in(measure_ids: old_measure_id).destroy
     end
+
+    # TODO: change measure selection to pick a good one, rather than just the first one
+    add_filtering_tests(Measure.top_level.find_by(hqmf_id: (untouched_ids + new_ids).first)) if c4_test
+  end
+
+  def add_filtering_tests(measure)
+    save
+    reload_relations
+    filtering_tests = product_tests.select { |product_test| product_test.is_a? FilteringTest }
+    if filtering_tests.count == 0
+      # pick a measure and build the four filtering tests
+      criteria = %w(races ethnicities genders payers).shuffle
+      build_filtering_test(measure, criteria.shift(2))
+      build_filtering_test(measure, criteria.shift(2))
+      build_filtering_test(measure, ['providers'])
+      build_filtering_test(measure, ['problems'])
+    end
+  end
+
+  def build_filtering_test(measure, criteria)
+    # construct options hash from criteria array and create the test
+    options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+    product_tests.build({ name: measure.name, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
+                          bundle_id: measure.bundle_id, options: options }, FilteringTest)
   end
 end

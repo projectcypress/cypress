@@ -12,6 +12,8 @@ class ProductTest
   belongs_to :product, index: true, touch: true
   has_many :tasks, :dependent => :destroy
 
+  has_many :records, :foreign_key => :test_id
+
   belongs_to :bundle, index: true
 
   field :expected_results, type: Hash
@@ -80,10 +82,6 @@ class ProductTest
 
   def execute(_params)
     fail NotImplementedError
-  end
-
-  def records
-    Record.where(test_id: id)
   end
 
   def results
