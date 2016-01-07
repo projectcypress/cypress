@@ -4,8 +4,8 @@ class TestExecutionTest < ActiveSupport::TestCase
     drop_database
     vendor = Vendor.create(name: 'test_vendor_name')
     product = vendor.products.create(name: 'test_product')
-    ptest = product.product_tests.build(name: 'ptest', measure_ids: ['1a'])
-    @task = ptest.tasks.build
+    @ptest = product.product_tests.build(name: 'ptest', measure_ids: ['1a'])
+    @task = @ptest.tasks.build
   end
 
   def test_create
@@ -24,6 +24,12 @@ class TestExecutionTest < ActiveSupport::TestCase
 
     te.pass
     assert te.passing?, 'te.passing? not returning true when execution is passing'
+  end
+
+  def test_c1_task
+    task = @ptest.tasks.build({}, C1Task)
+    te = task.test_executions.build
+    assert te.c1_task?
   end
 
   def test_qrda_reporting_and_submission_errors

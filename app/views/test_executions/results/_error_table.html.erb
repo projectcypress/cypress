@@ -1,6 +1,10 @@
 <%
 
-# requires local variable 'errors' to be specified
+# requires local variables:
+#   errors
+#   displaying_c1 (boolean)
+
+# Note: all errors should be from the same test execution
 
 %>
 
@@ -9,8 +13,12 @@
 <table class = 'table table-hover table-condensed'>
   <thead>
     <tr>
-      <th class = 'col-sm-8'>Error message</th>
-      <th class = 'col-sm-2'>XML File</th>
+      <% if displaying_c1 %>
+        <th class = 'col-sm-8'>Error message</th>
+        <th class = 'col-sm-2'>XML File</th>
+      <% else %>
+        <th class = 'col-sm-10'>Error message</th>
+      <% end %>
       <th class = 'col-sm-2'>Go To in XML</th>
     </tr>
   </thead>
@@ -18,7 +26,9 @@
     <% errors.sort { |a, b| compare_error_locations_across_files(a, b) }.each do |error| %>
       <tr>
         <td><%= error.message %></td>
-        <td><%= error.file_name %></td>
+        <% if displaying_c1 %>
+          <td><%= error.file_name %></td>
+        <% end %>
         <td>
           <% unless error.location.nil? || error.location == '/' || error.test_execution.task._type == 'C3Task' %>
             <% line_num = get_line_number(error) %>
