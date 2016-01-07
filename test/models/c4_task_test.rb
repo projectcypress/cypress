@@ -175,4 +175,13 @@ class C4TaskTest < ActiveSupport::TestCase
       assert(expected_count == filtered_records.count, 'Filtered set of records does not match expected count')
     end
   end
+
+  def test_pick_filter_criteria
+    task = @product_test.tasks.create({ 'options' => { 'filters' => { 'races' => [], 'ethnicities' => [], 'payers' => [], 'genders' => [] } } },
+                                      C4Task)
+    assert task.options['filters']['races'].count > 0
+    assert task.options['filters']['ethnicities'].count > 0
+    assert task.options['filters']['payers'].count > 0
+    assert task.options['filters']['genders'].count > 0
+  end
 end

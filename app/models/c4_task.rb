@@ -1,4 +1,5 @@
 class C4Task < Task
+  after_create :pick_filter_criteria
   def after_create
     # generate expected results here.  Will need to gen quailty report
     # for each of the measures in the product_test but constrainted to the
@@ -68,5 +69,26 @@ class C4Task < Task
 
   def partial_name
     model_name.name.underscore
+  end
+
+  def pick_filter_criteria
+    return unless options && options['filters']
+    # select a random patient
+    rand_record = product_test.records.sample
+    # loop through the filters and assign random codes
+    options['filters'].each do |k, v|
+      next if v.count > 0
+      case k
+      when 'races'
+        v << rand_record.race['code']
+      when 'ethnicities'
+        v << rand_record.ethnicity['code']
+      when 'genders'
+        v << rand_record.gender
+      when 'payers'
+        v << rand_record.insurance_providers.first.name
+      end
+    end
+    save! # is this necessary?
   end
 end

@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.vendor = @vendor
-    @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
+    @product.add_product_tests_to_product(params['product']['c4_test'], params['product_test']['measure_ids'].uniq) if params['product_test']
     @product.save!
     flash_product_comment(@product.name, 'success', 'created')
     respond_to do |f|
@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
 
   def update
     @product.update_attributes(edit_product_params)
-    @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
+    @product.add_product_tests_to_product(params['product']['c4_test'], params['product_test']['measure_ids'].uniq) if params['product_test']
     @product.save!
     flash_product_comment(@product.name, 'info', 'edited')
     respond_to do |f|
