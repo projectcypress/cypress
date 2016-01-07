@@ -87,6 +87,11 @@ class TestExecution
     save
   end
 
+  def c1_task?
+    return false unless task.has_attribute?(:_type)
+    task._type == 'C1Task'
+  end
+
   # only if validator is one of 'CDA SDTC Validator', 'QRDA Cat 1 R3 Validator', 'QRDA Cat 1 Validator', or 'QRDA Cat 3 Validator'
   #   or if validator type is xml_validation
   def qrda_errors
