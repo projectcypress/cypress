@@ -6,4 +6,17 @@ class ChecklistTest < ProductTest
     criterias = checked_criteria.select { |criteria| criteria.measure_id == measure_id.to_s }
     criterias.count(&:completed) == criterias.count
   end
+
+  def num_measures_complete
+    num_complete = 0
+    Measure.top_level.where(:hqmf_id.in => measure_ids).each do |measure|
+      criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
+      num_complete += 1 if criterias.count(&:completed) == criterias.count
+    end
+    num_complete
+  end
+
+  def num_measures
+    measure_ids.count
+  end
 end
