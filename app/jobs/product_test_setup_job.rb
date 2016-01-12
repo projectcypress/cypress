@@ -4,8 +4,11 @@ class ProductTestSetupJob < ActiveJob::Base
   def perform(product_test)
     product_test.generate_records if product_test.records.count == 0
     product_test.archive_records if product_test.patient_archive.filename.nil?
-    product_test.create_subtasks if product_test.is_a? FilteringTest
-
-    MeasureEvaluationJob.perform_now(product_test, {})
+    product_test.pick_filter_criteria if product_test.is_a? FilteringTest
+    if product_test.responds_to? :patient_cache_filter
+      MeasureEvaluationJob.perform_now(product_test, 'filters' => product_test.patient_cache_filter)
+    else
+      MeasureEvaluationJob.perform_now(product_test, {})
+    end
   end
 end

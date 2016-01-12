@@ -78,7 +78,7 @@ class Product
       new_ids.each do |new_measure_id|
         measure = Measure.top_level.find_by(hqmf_id: new_measure_id)
         product_tests.build({ name: measure.name, product: self, measure_ids: [new_measure_id],
-                            cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
+                              cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
       end
     end
 
@@ -86,17 +86,22 @@ class Product
       product_tests.in(measure_ids: old_measure_id).destroy
     end
 
-    add_filtering_test((untouched_ids + new_ids).first) if c4_test
+    add_filtering_tests((untouched_ids + new_ids).first) if c4_test
   end
 
-  def add_filtering_test(measure_id)
+  def add_filtering_tests(measure_id)
     save
     reload_relations
     filtering_tests = product_tests.select { |product_test| product_test.is_a? FilteringTest }
     if filtering_tests.count == 0
+      # pick a measure and create one FilteringTest for each filter criteria
       measure = Measure.top_level.find_by(hqmf_id: measure_id) # change later to pick a good one
-      product_tests.build({ name: measure.name, product: self, measure_ids: [measure_id],
-                            cms_id: measure.cms_id, bundle_id: measure.bundle_id }, FilteringTest)
+      criteria = %w(races ethnicities genders payers)
+      criteria.each do |c|
+        options = { 'filters' => { c => [] } }
+        product_tests.build({ name: measure.name, product: self, measure_ids: [measure_id], cms_id: measure.cms_id,
+                              bundle_id: measure.bundle_id, options: options }, FilteringTest)
+      end
     end
   end
 end
