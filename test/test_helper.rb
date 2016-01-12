@@ -75,17 +75,15 @@ class ActiveSupport::TestCase
     end
   end
 
-  def load_library_functions()
+  def load_library_functions
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', 'library_functions', '*.js')).each do |js_path|
-        fn = "function () {\n #{File.read(js_path)} \n }"
-        name = File.basename(js_path, '.js')
-        Mongoid.default_client['system.js'].replace_one({
-            "_id" => name},
-          {
-            "_id" => name,
-            "value" => BSON::Code.new(fn)
-          },{upsert: true}
-        )
+      fn = "function () {\n #{File.read(js_path)} \n }"
+      name = File.basename(js_path, '.js')
+      Mongoid.default_client['system.js'].replace_one({ '_id' => name },
+                                                      { '_id' => name,
+                                                        'value' => BSON::Code.new(fn)
+                                                      }, upsert: true
+                                                     )
     end
   end
 
