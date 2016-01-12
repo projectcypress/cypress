@@ -7,6 +7,7 @@ class C1TaskTest < ActiveSupport::TestCase
     collection_fixtures('product_tests', 'products', 'bundles',
                         'measures', 'records', 'patient_cache',
                         'health_data_standards_svs_value_sets')
+    load_library_functions()
     @product_test = ProductTest.find('51703a883054cf84390000d3')
   end
 
@@ -30,6 +31,9 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip)
       te.reload
+      puts "GOOD"
+      puts te.execution_errors.to_a.collect(&:to_json)
+      puts
       assert te.execution_errors.empty?, 'should be no errors for good cat I archive'
     end
   end
@@ -40,6 +44,9 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip)
       te.reload
+      puts "WRONG NUMBER"
+      puts te.execution_errors.to_a.collect(&:to_json)
+      puts
       assert_equal 1, te.execution_errors.length, 'should be 1 error from cat I archive'
     end
   end
@@ -50,6 +57,9 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip)
       te.reload
+      puts "WRONG NAMES"
+      puts te.execution_errors.to_a.collect(&:to_json)
+      puts
       assert_equal 2, te.execution_errors.length, 'should be 2 errors from cat I archive'
     end
   end
@@ -60,11 +70,29 @@ class C1TaskTest < ActiveSupport::TestCase
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
       te = c1_task.execute(zip)
+      puts te.execution_errors.to_a.collect(&:message)
+      puts
       assert_equal c3_task.test_executions.first.id.to_s, te.sibling_execution_id
+    end
+  end
+
+  def test_should_be_able_to_tell_when_potentialy_too_much_data_is_in_documents
+    ptest = ProductTest.find('51703a883054cf84390000d3')
+    task = ptest.tasks.create({}, C3Task)
+    task.last_execution = 'Cat1'
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(zip, nil)
+      te.reload
+        puts "TOO MUCH DATA "
+      puts te.execution_errors.to_a.collect(&:message)
+      puts
+      assert_equal 1, te.execution_errors.length, 'should be 1 error from cat I archive'
     end
   end
 end
 
+require_relative '../helpers/caching_test'
 class C1TaskCachingTest < CachingTest
   def test_task_status_is_not_cached_on_start
     assert !Rails.cache.exist?("#{@c1_task.cache_key}/status"), 'cache key for task status should not exist'
