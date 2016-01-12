@@ -66,5 +66,4 @@ class C3TaskTest < ActiveSupport::TestCase
       assert_equal 2, te.execution_errors.length, 'should have 2 errors for the invalid reporting period'
     end
   end
-
 end

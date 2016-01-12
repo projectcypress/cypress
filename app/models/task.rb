@@ -13,7 +13,7 @@ class Task
   delegate :records, :to => :product_test
   delegate :effective_date, :to => :product_test
   delegate :bundle, :to => :product_test
-  
+
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       report_status = 'incomplete'

@@ -18,26 +18,14 @@ module Validators
                   file_name: options[:file_name])
         comp = false
       end
-      unless comp
-        # puts "####@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-        # puts
-        # puts original.to_json
-        # puts
-        # puts calculated.to_json
-        # puts
-        # puts "####@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-      end
       comp
     end
 
     def validate_calculated_results(doc, options)
       te = options['test_execution']
-      ex_opts = {'test_id' => te.id,
-                 'bundle_id' => @bundle.id,
-                 'effective_date' => te.task.effective_date,
-                 'enable_logging' => true ,
-                 'enable_rationale' => true,
-                 'oid_dictionary' => generate_oid_dictionary(@measure, @bundle.id)    }
+      ex_opts = { 'test_id' => te.id, 'bundle_id' => @bundle.id,  'effective_date' => te.task.effective_date,
+                  'enable_logging' => true, 'enable_rationale' => true,
+                  'oid_dictionary' => generate_oid_dictionary(@measure, @bundle.id) }
       @mre = QME::MapReduce::Executor.new(@measure.hqmf_id, @measure.sub_id, ex_opts)
       record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
 
@@ -50,13 +38,11 @@ module Validators
       doc_name = build_doc_name(doc)
       mrn = @names[doc_name]
       return false unless mrn
-      puts "#{doc_name} #{mrn} #{record.medical_record_number}"
       original_results = QME::PatientCache.where('value.medical_record_id' => mrn,
                                                  'value.test_id' => @test_id,
                                                  'value.measure_id' => @measure.hqmf_id,
                                                  'value.sub_id' => @measure.sub_id).first
       compare_results(original_results.value, results, options)
-
     end
 
     def generate_oid_dictionary(measure, bundle_id)
