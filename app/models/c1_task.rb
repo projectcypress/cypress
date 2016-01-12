@@ -14,7 +14,7 @@ class C1Task < Task
   def validators
     c3_validation = false
     @validators = [QrdaCat1Validator.new(product_test.bundle, c3_validation, product_test.measures),
-                   SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id)]
+                   CalculatingSmokingGunValidator.new(product_test.measures, product_test.records, product_test.id)]
 
     @validators
   end

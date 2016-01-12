@@ -67,15 +67,4 @@ class C3TaskTest < ActiveSupport::TestCase
     end
   end
 
-  def test_should_be_able_to_tell_when_potentialy_too_much_data_is_in_documents
-    ptest = ProductTest.find('51703a883054cf84390000d3')
-    task = ptest.tasks.create({}, C3Task)
-    task.last_execution = 'Cat1'
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
-    perform_enqueued_jobs do
-      te = task.execute(zip, nil)
-      te.reload
-      assert_equal 1, te.execution_errors.length, 'should be 1 error from cat I archive'
-    end
-  end
 end

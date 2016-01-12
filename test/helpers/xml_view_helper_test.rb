@@ -6,7 +6,9 @@ class XmlViewHelperTest < ActiveSupport::TestCase
 
   def setup
     drop_database
-    collection_fixtures('records', 'measures', 'product_tests', 'bundles')
+    collection_fixtures('product_tests', 'products', 'bundles',
+                        'measures', 'records', 'patient_cache',
+                        'health_data_standards_svs_value_sets')
     product_test = ProductTest.find('51703a883054cf84390000d3')
     task = product_test.tasks.create({}, C1Task)
 
