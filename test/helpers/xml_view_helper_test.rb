@@ -9,6 +9,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
     collection_fixtures('product_tests', 'products', 'bundles',
                         'measures', 'records', 'patient_cache',
                         'health_data_standards_svs_value_sets')
+    load_library_functions
     product_test = ProductTest.find('51703a883054cf84390000d3')
     task = product_test.tasks.create({}, C1Task)
 
