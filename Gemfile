@@ -34,6 +34,8 @@ gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-fo
 gem 'nested_form'
 gem 'jasny-bootstrap-rails'
 
+gem 'jquery-datatables-rails', '~> 3.3.0'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

@@ -10,19 +10,34 @@
 <% c2_label += ' and C3' if @product.c3_test %>
 <% c1_and_c2 = @product.c1_test && @product.c2_test %>
 
-<table class = 'table table-hover table-condensed'>
+<table class = 'table table-hover table-condensed' id = 'measure_test_table'>
   <thead>
-    <th class = 'col-sm-2'>CMS ID</th>
+    <th class = 'col-sm-2 pointer-on-hover'>
+      CMS ID
+      <a>[sort]</a>
+    </th>
     <% if c1_and_c2 %>
-      <th class = 'col-sm-6'>Measure Name</th>  
+      <th class = 'col-sm-6 pointer-on-hover'>
+        Measure Name
+        <a>[sort]</a>
+      </th>  
     <% else %>
-      <th class = 'col-sm-8'>Measure Name</th>
+      <th class = 'col-sm-8 pointer-on-hover'>
+        Measure Name
+        <a>[sort]</a>
+      </th>
     <% end %>
     <% if @product.c1_test %>
-      <th class = 'col-sm-2'><%= c1_label %></th>
+      <th class = 'col-sm-2 pointer-on-hover'>
+        <%= c1_label %>
+        <a>[sort]</a>
+      </th>
     <% end %>
     <% if @product.c2_test %>
-      <th class = 'col-sm-2'><%= c2_label %></th>
+      <th class = 'col-sm-2 pointer-on-hover'>
+        <%= c2_label %>
+        <a>[sort]</a>
+      </th>
     <% end %>
   </thead>
   <tbody>
