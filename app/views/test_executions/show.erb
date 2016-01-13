@@ -7,24 +7,31 @@
 <h3 class = 'page-title'><%= "#{certification_types} certification for #{@product_test.cms_id} #{@product_test.name}" %></h3>
 
 <div class = 'row'>
-  <div class = 'col-sm-8'>
-    <div class = 'panel panel-default'>
-      <div class = 'panel-heading'>
-        Product Information
-      </div>
-      <div class = 'panel-body'>
-        <%= "Vendor: #{@product_test.product.vendor.name}" %><br/>
-        <p><%= "Product: #{@product_test.product.name}" %></p>
-      </div>
-    </div>
+  <div class = 'col-sm-12'>
+    <table class = 'table table-condensed execution-status-table'>
+      <thead>
+        <tr>
+          <td class = 'col-sm-2'></td>
+          <td class = 'col-sm-1'></td>
+          <td class = 'col-sm-2'>QRDA Errors</td>
+          <td class = 'col-sm-2'>Reporting Errors</td>
+          <% if @task.product_test.product.c3_test %>
+            <td class = 'col-sm-2'>Submission Errors</td>
+          <% end %>
+          <td class = 'col-sm-2'>Last Execution Date</td>
+          <td class = 'col-sm-1'></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @task.product_test.product.c1_test %>
+          <%= render partial: 'execution_status_row', locals: { task: @task.product_test.c1_task, is_current_task: @task._type == 'C1Task' } %>
+        <% end %>
+        <% if @task.product_test.product.c2_test %>
+          <%= render partial: 'execution_status_row', locals: { task: @task.product_test.c2_task, is_current_task: @task._type == 'C2Task' } %>
+        <% end %>
+      </tbody>
+    </table>
   </div>
-
-  <% # if the other (c1 or c2) task exists, then display a button to switch to that task %>
-  <% if other_task %>
-    <div class = 'col-sm-4'>
-      <%= button_to "Switch to #{other_certification_types} certification", "/tasks/#{other_task.id}/test_executions/new", method: 'get', class: 'btn btn-default' %>
-    </div>
-  <% end %>
 </div>
 
 <div class = 'row'>
