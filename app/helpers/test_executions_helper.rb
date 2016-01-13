@@ -45,7 +45,11 @@ module TestExecutionsHelper
     msg << execution.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%b %d, %Y at %I:%M %p (%A)')
     msg << ' (passing)' if execution.passing?
     msg << ' (in progress)' if execution.incomplete?
-    msg << " (#{execution.execution_errors.count} errors)" if execution.failing?
+    if execution.failing?
+      num_errors = execution.execution_errors.count
+      num_errors += TestExecution.find(execution.sibling_execution_id).execution_errors.count if execution.sibling_execution_id
+      msg << " (#{num_errors} errors)"
+    end
     msg
   end
 
