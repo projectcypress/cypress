@@ -3,24 +3,39 @@
   <h1><%= @product.name %></h1>
 
   <div class="row">
-    <div class = 'col-sm-6'>
-      <h2>Current Test Status</h2>
-      <table class="table table-hover table-condensed">
-        <% certifications(@product).each do |c, certification| %>
-          <% certification['tests'].each do |cert_test| %>
-          <tr>
-            <% unless cert_test != certification['tests'][0] %>
-            <th rowspan="<%= certification['tests'].length %>"><%= "#{c}" %></th>
-            <% end %>
-            <td><%= APP_CONFIG.tests[cert_test]['title'] %></td>
-            <td><%= status_by_test(@product)[cert_test][c] %></td>
-          </tr>
-          <% end %>
-        <% end %>
-      </table>
+
+    <div class = 'col-sm-8'>
+      <div class = 'panel panel-default'>
+        <div class = 'panel-heading'><h3>Product Status</h3></div>
+        <div class = 'panel-body'>
+          <table class = 'table table-hover table-condensed'>
+            <thead>
+              <tr>
+                <th class = 'col-sm-1'></th>
+                <th class = 'col-sm-2'></th>
+                <th class = 'col-sm-1'>Passing</th>
+                <th class = 'col-sm-1'>Failing</th>
+                <th class = 'col-sm-1'>Not Started</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @product.c1_test %>
+                <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Checklist Test', task_type: 'C1' } %>
+                <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Measure Tests', task_type: 'C1' } %>
+              <% end %>
+              <% if @product.c2_test %>
+                <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Measure Tests', task_type: 'C2' } %>
+              <% end %>
+              <% if @product.c4_test %>
+                <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Filtering Tests', task_type: 'C4' } %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
-    <div class = 'col-sm-6'>
+    <div class = 'col-sm-4'>
       <h2>Product Information</h2>
       <%= render partial: 'product_summary', locals: { product: @product } %>
     </div>

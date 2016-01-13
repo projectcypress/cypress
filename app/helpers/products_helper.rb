@@ -1,4 +1,35 @@
 module ProductsHelper
+  # returns zero for all values if test is false
+  def checklist_status_values(test)
+    passing = failing = total = 0
+    return [passing, failing, total] unless test
+    passing = test.num_measures_complete
+    total = test.num_measures
+    failing = total - passing
+    [passing, failing, total]
+  end
+
+  def measure_test_status_values(tests, task_type)
+    passing = failing = not_started = total = 0
+    tasks = []
+    tests.each { |test| tasks << test.tasks.where(_type: task_type) }
+    unless tasks.empty?
+      passing = tasks.count { |task| task.first.status == 'passing' }
+      failing = tasks.count { |task| task.first.status == 'failing' }
+      not_started = tasks.count { |task| task.first.status == 'incomplete' }
+      total = tasks.count
+    end
+    [passing, failing, not_started, total]
+  end
+
+  def filtering_test_status_values(tests)
+    passing = failing = not_started = total = 0
+
+    # add content here when C4 tasks are finalized
+
+    [passing, failing, not_started, total]
+  end
+
   def status_from_tasks(tests_type, task_type)
     # tests_type can be a set of product tests
     # task_type is a string representing the task type e.g. "C1Task"
