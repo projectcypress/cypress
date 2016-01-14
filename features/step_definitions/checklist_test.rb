@@ -20,21 +20,20 @@ And(/^the user views that product$/) do
   visit "/vendors/#{@vendor.id}/products/#{@product.id}"
 end
 
+And(/^the user views the manual entry tab$/) do
+  page.execute_script("$('#ChecklistTest').click()")
+end
+
 # # # # # # # #
 #   W H E N   #
 # # # # # # # #
 
 When(/^the user generates a checklist test$/) do
   page.execute_script("$('#ChecklistTest').click()")
-  find_button('Generate Test').trigger('click')
+  find_button('Start Test').trigger('click')
 end
 
 #   A N D   #
-
-And(/^the user goes to perform the checklist test$/) do
-  page.execute_script("$('#ChecklistTest').click()")
-  find_button('Perform Inspection').trigger('click')
-end
 
 And(/^the user deletes the checklist test$/) do
   page.click_button 'Delete Visual Test'
@@ -46,15 +45,15 @@ end
 #   T H E N   #
 # # # # # # # #
 
-Then(/^the user should be able to perform the checklist test$/) do
-  assert page.has_selector?("input[type = submit][value = 'Perform Inspection']")
-end
-
 Then(/^the user should see the checklist test$/) do
   assert_text('Manual Entry Checklist')
 end
 
-Then(/^the user be able to generate another checklist test$/) do
-  assert_equal false, page.has_selector?("input[type = submit][value = 'Perform Inspection']")
-  assert page.has_selector?("input[type = submit][value = 'Generate Test']")
+Then(/^the user should see a button to revisit the checklist test$/) do
+  assert page.has_selector?("input[type = submit][value = 'View Test']")
+end
+
+Then(/^the user should be able to generate another checklist test$/) do
+  assert_equal false, page.has_selector?("input[type = submit][value = 'View Test']")
+  assert page.has_selector?("input[type = submit][value = 'Start Test']")
 end

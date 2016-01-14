@@ -11,7 +11,7 @@ class ChecklistTestsController < ProductTestsController
                                            bundle_id: @product.product_tests.measure_tests.first.bundle_id }, ChecklistTest)
     @test.save!
     create_checked_criteria
-    redirect_to "/vendors/#{@product.vendor.id}/products/#{@product.id}#ChecklistTest"
+    redirect_to "/products/#{@product.id}/checklist_tests/#{@test.id}"
   end
 
   def show

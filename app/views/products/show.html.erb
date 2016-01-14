@@ -49,14 +49,18 @@
     <% APP_CONFIG.tests.each do |c, certification_test| %>
       <% if product_certifying_to(@product, certification_test) %>
         <div id="<%= c %>">
-          <h3><%# certification_test['title'] %></h3>
           <p><%= certification_test['description'] %></p>
           <% if c == 'ChecklistTest' %>
             <% if @product.product_tests.checklist_tests.exists? %>
-              <%= button_to 'Perform Inspection', "/products/#{@product.id}/checklist_tests/#{@product.product_tests.checklist_tests.first.id}", class: 'btn btn-primary', method: :get %>
-              The <%= certification_test['title'] %> is <%= @product.product_tests.checklist_tests.first.status %>.
+              <% checklist_test = @product.product_tests.checklist_tests.first %>
+              <h3>
+                Test Status
+                <div class = 'inline-block pull-right'><%= button_to 'View Test', "/products/#{@product.id}/checklist_tests/#{@product.product_tests.checklist_tests.first.id}", class: 'btn btn-primary', method: :get %></div>
+              </h3>
+              <%= render partial: 'checklist_status_display', locals: { product: @product } %>
             <% else %>
-              <%= button_to 'Generate Test', "/products/#{@product.id}/checklist_tests", class: 'btn btn-primary', method: :post %>
+              <div class = 'inline-block'><%= button_to 'Start Test', "/products/#{@product.id}/checklist_tests", class: 'btn btn-primary', method: :post %></div>
+              <span>This test does not need to completed all at once. You can always come back once the test is started.</span>
             <% end %>
           <% elsif c == 'FilteringTest' %>
             <% if @product.product_tests.filtering_tests.exists? %>

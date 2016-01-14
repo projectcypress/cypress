@@ -1,12 +1,13 @@
 <%= render partial: 'remove_modal' %>
 
 <h3>Manual Entry Checklist</h3>
-<p>Here is a description of the page. These are the things you are supposed to do.</p>
+
+<%= render partial: 'checklist_status_display', locals: { product: @product } %>
 
 <% if @measures %>
   <%= bootstrap_nested_form_for([@product, @test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
     <% @measures.each do |measure| %>
-      <div class = 'panel-group'>
+      <div class = 'panel-group' id = '<%= measure.cms_id %>'>
         <div class = 'panel panel-default'>
           <div class = 'panel-heading'>
             <h4>
