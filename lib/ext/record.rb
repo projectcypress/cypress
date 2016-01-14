@@ -27,6 +27,6 @@ class Record
   end
 
   def calculation_results
-    HealthDataStandards::CQM::PatientCache.where('value.patient_id' => id)
+    HealthDataStandards::CQM::PatientCache.where('value.patient_id' => id).where('value.IPP'.to_sym.gt => 0)
   end
 end

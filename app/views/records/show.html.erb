@@ -1,0 +1,90 @@
+<h1>Patient Information for <%= full_name(@record) %></h1>
+<div class="row">
+  <div class="col-md-5">
+    <h2>Measure Information</h2>
+    <% if @measures.where(continuous_variable: true).length > 0 %>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <td></td>
+            <% RecordsHelper::CV_POPULATION_KEYS.each do |population| %>
+              <th class="text-center"><%= population %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @measures.where(continuous_variable: true).sort_by{ |m| [m.cms_int, m.sub_id] }.each do |m| %>
+            <tr>
+              <td class="abbreviated">
+                <%= m.display_name %>
+              </td>
+
+              <% RecordsHelper::CV_POPULATION_KEYS.each do |population| %>
+                <td class="text-center">
+                  <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(@results, m, population) } %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <% if @measures.where(continuous_variable: false).length > 0 %>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <td></td>
+            <% RecordsHelper::PROPORTION_POPULATION_KEYS.each do |population| %>
+              <th class="text-center"><%= population %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @measures.where(continuous_variable: false).sort_by{ |m| [m.cms_int, m.sub_id] }.each do |m| %>
+            <tr>
+              <td class="abbreviated">
+                <%= m.display_name %>
+              </td>
+              <% RecordsHelper::PROPORTION_POPULATION_KEYS.each do |population| %>
+                <td class="text-center">
+                  <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(@results, m, population) } %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+  <div class="col-md-7">
+    <h2>Patient Details</h2>
+    <dl class="dl-horizontal">
+      <dt>DOB</dt><dd><%= display_time(@record['birthdate']) %></dd>
+      <dt>Gender</dt><dd><%= full_gender_name(@record['gender']) %></dd>
+    </dl>
+    <% RecordsHelper::SECTIONS.each do |s| %>
+      <div class="panel panel-default patient-details">
+        <div class="panel-heading"><h3><%= s.titleize %></h3></div>
+        <% if @record[s] %>
+          <div class="panel-body">
+            <% @record[s].each do |dc| %>
+            <div class="entry">
+              <h4><%= dc['description'] %></h4>
+              <dl class="dl-horizontal">
+                <% dc['codes'].each do |code_system, code| %>
+                  <dt><%= code_system %></dt> <dd><%= code.join(", ") %></dd>
+                <% end %>
+              </dl>
+              <dl class="dl-horizontal">
+                <dt>Start Time</dt> <dd><%= display_time(dc['start_time']) if dc['start_time'] %></dd>
+                <dt>End Time</dt> <dd><%= display_time(dc['end_time']) if dc['end_time'] %></dd>
+              </dl>
+            </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

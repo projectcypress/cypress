@@ -1,0 +1,27 @@
+.table {
+  .abbreviated {
+    max-width: 12em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover {
+      white-space: normal;
+      overflow: auto;
+    }
+  }
+
+  .result-marker {
+    .fa-circle { color: $state-success-bg; }
+    .fa-circle-thin { color: $state-success-text; }
+
+    .result-text {
+      color: $state-success-text;
+      font-weight: normal;
+    }
+  }
+
+  .empty-marker {
+    color: $state-warning-border;
+  }
+}

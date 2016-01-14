@@ -1,0 +1,11 @@
+<% if result && result > 0 %>
+  <span class="fa-stack result-marker">
+    <i class="fa fa-circle fa-stack-2x"></i>
+    <i class="fa fa-circle-thin fa-stack-2x"></i>
+    <% unless result == 1 %>
+      <strong class="fa-stack-1x result-text"><%= result %></strong>
+    <% end %>
+  </span>
+<% else %>
+  <i class="fa fa-circle-thin fa-2x empty-marker"></i>
+<% end %>
