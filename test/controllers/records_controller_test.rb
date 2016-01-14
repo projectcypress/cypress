@@ -15,8 +15,8 @@ class RecordsControllerTest < ActionController::TestCase
     assert assigns(:bundle)
   end
 
-  test 'should get index no scoped to bundle' do
-    get :index, bundle_id: Bundle.first
+  test 'should get index scoped to bundle' do
+    get :index, bundle_id: Bundle.where(:records.exists => true).first
     assert_response :success
     assert assigns(:records)
     assert assigns(:source)
@@ -40,7 +40,7 @@ class RecordsControllerTest < ActionController::TestCase
   end
 
   test 'should get show' do
-    get :show, id: Record.first
+    get :show, id: Bundle.where(:records.exists => true).first.records.first
     assert_response :success
     assert assigns(:record)
   end
