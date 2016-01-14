@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   resources :vendors do
     resources :products, only: [:show, :index, :new, :create, :edit, :update, :destroy] do
-      resources :filtering_tests, only: [:index, :new, :create, :show]
     end
   end
 

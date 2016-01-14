@@ -59,10 +59,10 @@
               <%= button_to 'Generate Test', "/products/#{@product.id}/checklist_tests", class: 'btn btn-primary', method: :post %>
             <% end %>
           <% elsif c == 'FilteringTest' %>
+            <% # This test should be a no-op but leaving it there until we know the tests are generated %>
             <% if @product.product_tests.filtering_tests.exists? %>
+
               The <%= certification_test['title'] %> is <%= @product.product_tests.filtering_tests.first.status %>.
-            <% else %>
-              <%= button_to "Generate C4 Tests", new_vendor_product_filtering_test_path(product_id: @product._id), class: 'btn btn-primary', method: :get %>
             <% end %>
           <% else %>
             <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>
