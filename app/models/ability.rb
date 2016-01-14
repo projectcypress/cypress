@@ -1,8 +1,8 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
-    user ||= User.new #We either have a user OR we create a default user
+  def initialize(_user)
+    # user ||= User.new # We either have a user OR we create a default user
 
     # if user.atl?
     #   can :manage, :all
