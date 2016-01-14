@@ -5,7 +5,8 @@ Given(/^the user is signed in$/) do
 end
 
 Given(/^a user has an account$/) do
-  @user = FactoryGirl.create :user
+  User.all.destroy # FIXME: there's gotta be a better way
+  @user = FactoryGirl.create(:user)
 end
 
 When(/^the user tries to log in with invalid information$/) do

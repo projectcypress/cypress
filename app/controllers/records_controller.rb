@@ -12,7 +12,7 @@ class RecordsController < ApplicationController
   def index
     # TODO: Only show measures where there are patient results. CMS32v4 sub id c and d have no patients, for example.
     @records = @source.records
-    @measures = @source.measures.sort_by!{ |m| [m.cms_int, m.sub_id] }
+    @measures = @source.measures.sort_by! { |m| [m.cms_int, m.sub_id] }
   end
 
   def show

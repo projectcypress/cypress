@@ -42,9 +42,10 @@ And(/^the user switches to c2 and c3 certification$/) do
 end
 
 And(/^the product test state is set to ready$/) do
-  pt = ProductTest.first
-  pt.state = :ready
-  pt.save!
+  ProductTest.all.each do |pt|
+    pt.state = :ready
+    pt.save!
+  end
 end
 
 And(/^the product test state is not set to ready$/) do
