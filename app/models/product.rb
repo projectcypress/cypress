@@ -86,22 +86,28 @@ class Product
       product_tests.in(measure_ids: old_measure_id).destroy
     end
 
-    add_filtering_tests((untouched_ids + new_ids).first) if c4_test
+    # TODO: change measure selection to pick a good one, rather than just the first one
+    add_filtering_tests(Measure.top_level.find_by(hqmf_id: (untouched_ids + new_ids).first)) if c4_test
   end
 
-  def add_filtering_tests(measure_id)
+  def add_filtering_tests(measure)
     save
     reload_relations
     filtering_tests = product_tests.select { |product_test| product_test.is_a? FilteringTest }
     if filtering_tests.count == 0
-      # pick a measure and create one FilteringTest for each filter criteria
-      measure = Measure.top_level.find_by(hqmf_id: measure_id) # change later to pick a good one
-      criteria = %w(races ethnicities genders payers)
-      criteria.each do |c|
-        options = { 'filters' => { c => [] } }
-        product_tests.build({ name: measure.name, product: self, measure_ids: [measure_id], cms_id: measure.cms_id,
-                              bundle_id: measure.bundle_id, options: options }, FilteringTest)
-      end
+      # pick a measure and build the four filtering tests
+      criteria = %w(races ethnicities genders payers).shuffle
+      build_filtering_test(measure, criteria.shift(2))
+      build_filtering_test(measure, criteria.shift(2))
+      build_filtering_test(measure, ['providers'])
+      build_filtering_test(measure, ['problems'])
     end
+  end
+
+  def build_filtering_test(measure, criteria)
+    # construct options hash from criteria array and create the test
+    options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+    product_tests.build({ name: measure.name, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
+                          bundle_id: measure.bundle_id, options: options }, FilteringTest)
   end
 end

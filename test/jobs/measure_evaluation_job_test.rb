@@ -17,7 +17,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
   def test_can_queue_task_job
     assert_enqueued_jobs 0
     ptest = ProductTest.new(measure_ids: ['8A4D92B2-3887-5DF3-0139-0C4E41594C98'])
-    task = ptest.tasks.build({}, C4Task)
+    task = ptest.tasks.build({}, C1Task)
     MeasureEvaluationJob.perform_later(task, {})
     assert_enqueued_jobs 1
   end

@@ -6,8 +6,7 @@ class FilteringTest < ProductTest
     return unless options && options['filters']
     # select a random patient
     rand_record = records.sample
-    # loop through the filters and assign random codes
-    # as of now there will only be one filter per Test, but leaving this as a list in case that changes
+    # iterate over the filters and assign random codes
     options['filters'].each do |k, v|
       next if v.count > 0
       case k
@@ -19,9 +18,29 @@ class FilteringTest < ProductTest
         v << rand_record.gender
       when 'payers'
         v << rand_record.insurance_providers.first.name
+      when 'providers'
+        v << lookup_provider(rand_record)
+      when 'problems'
+        v << lookup_problem
       end
     end
-    save! # is this necessary?
+    save!
+  end
+
+  def lookup_provider(record)
+    provider = Provider.find(record.provider_performances.first['provider_id'])
+    address = provider.addresses.first
+    address_hash = { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
+                     'country' => address.country }
+    { 'npi' => provider.npi, 'tin' => provider.tin, 'address' => address_hash }
+  end
+
+  def lookup_problem
+    measure = Measure.find_by(hqmf_id: measure_ids.first)
+    criteria_keys = measure.hqmf_document.source_data_criteria.keys
+    # determine which data criteira is the diagnosis
+    diagnosis_criteria_key = criteria_keys.find { |key| measure.hqmf_document.source_data_criteria.send(key).definition.eql? 'diagnosis' }
+    measure.hqmf_document.source_data_criteria.send(diagnosis_criteria_key).code_list_id
   end
 
   # Final Rule defines 9 different criteria that can be filtered:
@@ -50,13 +69,13 @@ class FilteringTest < ProductTest
 
     # for the rest, manually filter to get the record IDs and pass those in
     if input_filters.count > 0
-      filters['patients'] = Cypress::RecordFilter.filter(product_test.records, input_filters, effective_date: product_test.effective_date).pluck(:_id)
+      filters['patients'] = Cypress::RecordFilter.filter(records, input_filters, effective_date: effective_date).pluck(:_id)
     end
 
     filters
   end
 
   def filtered_records
-    Cypress::RecordFilter.filter(product_test.records, input_filters, effective_date: product_test.effective_date)
+    Cypress::RecordFilter.filter(records, input_filters, effective_date: effective_date)
   end
 end
