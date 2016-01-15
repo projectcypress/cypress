@@ -1,0 +1,45 @@
+<%
+
+# local variable 'tests' should be filtering_tests
+
+%>
+
+<table class = 'table table-hover table-condensed'>
+  <thead>
+    <th class = 'col-sm-1'></th>
+    <th class = 'col-sm-5'></th>
+    <th class = 'col-sm-3'><strong>CAT 1</strong></th>
+    <th class = 'col-sm-3'><strong>CAT 3</strong></th>
+  </thead>
+  <tbody>
+    <% tests.each do |test| %>
+      <% cat1_status, cat3_status = filtering_test_statuses(test) %>
+      <tr>
+        <td></td>
+        <td>
+          <% visibility = cat1_status == 'passing' && cat3_status == 'passing' ? '' : 'invisible' %>
+          <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
+          <%= test.options.filters.keys.join('/').titleize %>
+        </td>
+        <td>
+          <% if cat1_status == 'passing' %>
+            <strong class = 'text-success'>Passing</strong>
+          <% elsif cat1_status == 'failing' %>
+            <strong class = 'text-danger'>Failing</strong>
+          <% else %>
+            Not Started
+          <% end %>
+        </td>
+        <td>
+          <% if cat3_status == 'passing' %>
+            <strong class = 'text-success'>Passing</strong>
+          <% elsif cat3_status == 'failing' %>
+            <strong class = 'text-danger'>Failing</strong>
+          <% else %>
+            Not Started
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -2,6 +2,15 @@ class FilteringTest < ProductTest
   field :options, type: Hash
   accepts_nested_attributes_for :tasks
 
+  def task_status(task_type)
+    begin
+      task = tasks.find_by(_type: task_type)
+    rescue
+      return 'incomplete'
+    end
+    task.status
+  end
+
   def pick_filter_criteria
     return unless options && options['filters']
     # select a random patient
