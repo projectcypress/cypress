@@ -74,8 +74,9 @@
         <% elsif c == 'FilteringTest' %>
           <% # This test should be a no-op but leaving it there until we know the tests are generated %>
           <% if @product.product_tests.filtering_tests.exists? %>
-
-            The <%= certification_test['title'] %> is <%= @product.product_tests.filtering_tests.first.status %>.
+            <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } %>
+          <% else %>
+            <%= button_to "Start C4 Testing", new_vendor_product_filtering_test_path(product_id: @product._id), class: 'btn btn-primary', method: :get %>
           <% end %>
         <% else %>
           <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>

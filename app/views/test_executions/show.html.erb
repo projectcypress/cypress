@@ -1,14 +1,15 @@
+<% displaying_cat1 = displaying_cat1?(@task) %>
+<% viewing_measure_test = @task.product_test._type == 'MeasureTest' %>
 
-<% certification_types = get_certification_types(@task) %>
-<% other_certification_types = get_other_certification_types(@task) %>
-<% upload_type = get_upload_type(@task) %>
-<% other_task = get_other_task(@task) %>
+<h3 class = 'page-title'><%= get_title_message(@product_test, @task) %></h3>
 
-<h3 class = 'page-title'><%= "#{certification_types} certification for #{@product_test.cms_id} #{@product_test.name}" %></h3>
 <div class = 'row'>
-  <div class = 'col-sm-12' id = 'execution_status_table'>
-    <%= render partial: 'execution_status_table', locals: { task: @task } %>
-  </div>
+  <% if viewing_measure_test %>
+    <div class = 'col-sm-12' id = 'execution_status_table'><%= render partial: 'execution_status_table', locals: { task: @task } %></div>
+  <% else %>
+    <div class = 'col-sm-2'><%= render partial: 'execution_filter_info', locals: { test: @task.product_test } %></div>
+    <div class = 'col-sm-10'  id = 'execution_status_table'><%= render partial: 'execution_status_table', locals: { task: @task } %></div>
+  <% end %>
 </div>
 
 <div class = 'row'>
@@ -37,7 +38,7 @@
       </div>
       <div class="panel-body">
         <p class = 'description' id='execution_upload_label'>
-          <%= "Upload your #{upload_type} file to get test results for #{certification_types} certifications. This will automatically run a test execution." %>
+          <%= "Upload your #{get_upload_type(displaying_cat1)} file to get test results. This will automatically run a test execution." %>
         </p>
         <%= render partial: 'execution_upload', locals: { task: @task, label: 'execution_upload_label' } %>
       </div>

@@ -102,9 +102,8 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params[:product].permit(:name, :version, :description, :ehr_type, :randomize_records,
-                            :c1_test, :c2_test, :c3_test, :c4_test, :measure_selection,
-                            product_tests_attributes: [:id, :name, :measure_ids, :bundle_id, :_destroy])
+    params[:product].permit(:name, :version, :description, :ehr_type, :randomize_records, :c1_test, :c2_test, :c3_test, :c4_test,
+                            :measure_selection, product_tests_attributes: [:id, :name, :measure_ids, :bundle_id, :_destroy])
   end
 
   def edit_product_params

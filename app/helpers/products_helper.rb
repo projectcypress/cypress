@@ -30,6 +30,10 @@ module ProductsHelper
     [passing, failing, not_started, total]
   end
 
+  def filtering_test_statuses(test)
+    [test.task_status('cat_1_filter_task'), test.task_status('cat_3_filter_task')]
+  end
+
   def status_from_tasks(tests_type, task_type)
     # tests_type can be a set of product tests
     # task_type is a string representing the task type e.g. "C1Task"

@@ -1,4 +1,4 @@
-class C1FilterTask < Task
+class Cat1FilterTask < Task
   include ::Validators
   # C1 = Record and Export
   #  - Record all the data needed to calculate CQMs
@@ -8,7 +8,7 @@ class C1FilterTask < Task
   # do that validation here
   def validators
     @validators = [QrdaCat1Validator.new(product_test.bundle, false, product_test.measures),
-                   SmokingGunValidator.new(product_test.measures, records, product_test.id)]
+                   ::Validators::SmokingGunValidator.new(product_test.measures, records, product_test.id)]
 
     @validators
   end
