@@ -1,0 +1,22 @@
+<%
+
+# local variable "test" must be filter test
+
+%>
+
+<table class = 'table table-condensed'>
+  <thead>
+    <tr>
+      <th class = 'col-sm-6'>Filters</th>
+      <th class = 'col-sm-6'></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% test.options.filters.map do |key, value| %>
+      <tr>
+        <td class = 'text-right'><%= "#{key}:".titleize %></td>
+        <td class = 'text-right'><%= value.join(', ').titleize %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

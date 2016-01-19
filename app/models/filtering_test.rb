@@ -2,6 +2,32 @@ class FilteringTest < ProductTest
   field :options, type: Hash
   accepts_nested_attributes_for :tasks
 
+  after_build :create_tasks
+
+  def create_tasks
+    tasks.build({ product_test: self }, Cat1FilterTask)
+    tasks.build({ product_test: self }, Cat3FilterTask)
+    save
+  end
+
+  def cat1_task
+    cat1_tasks = tasks.select { |task| task._type == 'Cat1FilterTask' }
+    if cat1_tasks.empty?
+      false
+    else
+      cat1_tasks.first
+    end
+  end
+
+  def cat3_task
+    cat3_tasks = tasks.select { |task| task._type == 'Cat3FilterTask' }
+    if cat3_tasks.empty?
+      false
+    else
+      cat3_tasks.first
+    end
+  end
+
   def task_status(task_type)
     begin
       task = tasks.find_by(_type: task_type)
@@ -85,6 +111,6 @@ class FilteringTest < ProductTest
   end
 
   def filtered_records
-    Cypress::RecordFilter.filter(records, input_filters, effective_date: effective_date)
+    Cypress::RecordFilter.filter(records, options['filters'], effective_date: effective_date)
   end
 end

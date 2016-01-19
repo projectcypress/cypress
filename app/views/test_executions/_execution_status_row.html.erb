@@ -7,8 +7,10 @@
 
 %>
 
-<% qrda, reporting, submission, total = get_error_counts(task) %>
+<% viewing_measure_test = task.product_test._type == 'MeasureTest' %>
+
 <% execution = task.most_recent_execution %>
+<% qrda, reporting, submission, total = get_error_counts(execution) %>
 
 <% highlighter = is_current_task && get_other_task(task) ? 'highlight-row' : '' %>
 
@@ -16,7 +18,14 @@
   <td>
     <% visibility = total == 0 && execution && execution.passing? ? '' : 'invisible' %>
     <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
-    <strong><%= get_certification_types(task) %></strong>
+    <strong>
+      <% if viewing_measure_test %>
+        <%= get_measure_certification_types(task) %>
+      <% else %>
+        <%= 'Cat 1' if task._type == 'Cat1FilterTask' %>
+        <%= 'Cat 3' if task._type == 'Cat3FilterTask' %>
+      <% end %>
+    </strong>
   </td>
   <td>
     <% if execution && execution.passing? %>
@@ -45,7 +54,7 @@
       <strong class = 'text-danger'><%= reporting %></strong>
     <% end %>
   </td>
-  <% if task.product_test.product.c3_test %>
+  <% if task.product_test.product.c3_test && viewing_measure_test %>
     <td>
       <% if !execution || execution.incomplete? %>
         --

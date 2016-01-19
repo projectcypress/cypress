@@ -4,6 +4,16 @@
 
 %>
 
+<% viewing_measure_test = task.product_test._type == 'MeasureTest' %>
+
+<% if viewing_measure_test %>
+  <% cat1_task = task.product_test.c1_task %>
+  <% cat3_task = task.product_test.c2_task %>
+<% else %>
+  <% cat1_task = task.product_test.cat1_task %>
+  <% cat3_task = task.product_test.cat3_task %>
+<% end %>
+
 <table class = 'table table-condensed execution-status-table'>
   <thead>
     <tr>
@@ -11,7 +21,7 @@
       <td class = 'col-sm-1'></td>
       <td class = 'col-sm-2'>QRDA Errors</td>
       <td class = 'col-sm-2'>Reporting Errors</td>
-      <% if task.product_test.product.c3_test %>
+      <% if task.product_test.product.c3_test && viewing_measure_test %>
         <td class = 'col-sm-2'>Submission Errors</td>
       <% end %>
       <td class = 'col-sm-2'>Last Execution Date</td>
@@ -19,11 +29,13 @@
     </tr>
   </thead>
   <tbody>
-    <% if task.product_test.product.c1_test %>
-      <%= render partial: 'execution_status_row', locals: { task: task.product_test.c1_task, is_current_task: task._type == 'C1Task' } %>
-    <% end %>
-    <% if task.product_test.product.c2_test %>
-      <%= render partial: 'execution_status_row', locals: { task: task.product_test.c2_task, is_current_task: task._type == 'C2Task' } %>
+    <% if viewing_measure_test %>
+      <%= render partial: 'execution_status_row', locals: { task: task.product_test.c1_task, is_current_task: task._type == 'C1Task' } if task.product_test.product.c1_test %>
+      <%= render partial: 'execution_status_row', locals: { task: task.product_test.c2_task, is_current_task: task._type == 'C2Task' } if task.product_test.product.c2_test %>
+    <% else %>
+      <% # render both cat1 and cat3 rows for filter tasks %>
+      <%= render partial: 'execution_status_row', locals: { task: task.product_test.cat1_task, is_current_task: task._type == 'Cat1FilterTask' } %>
+      <%= render partial: 'execution_status_row', locals: { task: task.product_test.cat3_task, is_current_task: task._type == 'Cat3FilterTask' } %>
     <% end %>
   </tbody>
 </table>
