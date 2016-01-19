@@ -42,6 +42,7 @@ module Validators
                                                  'value.test_id' => @test_id,
                                                  'value.measure_id' => @measure.hqmf_id,
                                                  'value.sub_id' => @measure.sub_id).first
+      return true if original_results.nil? && results.nil?
       compare_results(original_results.value, results, options)
     end
 
