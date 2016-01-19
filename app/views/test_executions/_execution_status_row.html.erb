@@ -14,7 +14,7 @@
 
 <tr class = '<%= highlighter %>'>
   <td>
-    <% visibility = total == 0 && execution ? '' : 'invisible' %>
+    <% visibility = total == 0 && execution && execution.passing? ? '' : 'invisible' %>
     <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
     <strong><%= get_certification_types(task) %></strong>
   </td>

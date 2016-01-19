@@ -8,6 +8,8 @@
   <% else %>
     <% # don't wait. just load the test executions %>
     $('#display_execution_results').html("<%= escape_javascript render partial: 'execution_results', locals: { execution: @test_execution } %>");
+    <% # load the status table after test execution is displayed %>
+    $('#execution_status_table').html("<%= escape_javascript render partial: 'execution_status_table', locals: { task: @task } %>");
   <% end %>
 
 <% elsif params[:partial] == 'execution_download' %>
