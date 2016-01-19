@@ -87,8 +87,10 @@ class Product
       product_tests.in(measure_ids: old_measure_id).destroy
     end
 
-    # TODO: change measure selection to pick a good one, rather than just the first one
-    add_filtering_tests(Measure.top_level.find_by(hqmf_id: (untouched_ids + new_ids).first)) if c4_test
+    if c4_test
+      measure = ApplicationController.helpers.pick_measure_for_filtering_test(untouched_ids + new_ids)
+      add_filtering_tests(measure)
+    end
   end
 
   def add_filtering_tests(measure)
@@ -116,11 +118,11 @@ class Product
     records = test.records 
     filter_tests.each do |ft|
       ft_recs = records.collect do |r| r.clone
-                           r.test_id = ft.id 
-                           r.save
-                           r
-                         end
-      ft.save                   
+        r.test_id = ft.id 
+        r.save
+        r
+      end
+      ft.save
     end
   end
 
