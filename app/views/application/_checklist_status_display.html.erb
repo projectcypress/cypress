@@ -1,0 +1,28 @@
+<%
+
+# local variable 'product'
+
+%>
+
+<% checklist_test = product.product_tests.checklist_tests.first %>
+
+<table class = 'table table-hover table-condensed'>
+  <thead>
+    <td class = 'col-sm-11'></td>
+    <td class = 'col-sm-1'></td>
+  </thead>
+  <tbody>
+    <% Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids).each do |measure| %>
+      <tr>
+        <td><%= link_to "#{measure.cms_id} #{measure.name}", "/products/#{product.id}/checklist_tests/#{checklist_test.id}##{measure.cms_id}" %></td>
+        <td>
+          <% if checklist_test.measure_complete?(measure.id) %>
+            <strong class = 'text-success'>Passing</strong>
+          <% else %>
+            <strong class = 'text-danger'>Failing</strong>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
