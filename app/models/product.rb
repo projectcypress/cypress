@@ -99,10 +99,17 @@ class Product
     if filtering_tests.count == 0
       # pick a measure and build the four filtering tests
       criteria = %w(races ethnicities genders payers).shuffle
-      build_filtering_test(measure, criteria.shift(2))
-      build_filtering_test(measure, criteria.shift(2))
+      build_filtering_test(measure, criteria.values_at(0, 1))
+      build_filtering_test(measure, criteria.values_at(2, 3))
       build_filtering_test(measure, ['providers'])
-      build_filtering_test(measure, ['problems'])
+      if ApplicationController.helpers.measure_has_diagnosis_criteria?(measure)
+        build_filtering_test(measure, ['problems'])
+      else
+        # the measure doesn't have a diagnosis so instead create a new demographics task
+        # we used the combos [0,1] and [2,3] previously
+        # so to make a unique third test here use any combo that has 0 or 1 first and 2 or 3 second
+        build_filtering_test(measure, criteria.values_at([0, 1].sample, [2, 3].sample))
+      end
     end
   end
 
