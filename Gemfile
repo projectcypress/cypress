@@ -59,7 +59,7 @@ gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 # Devise is the gem we use for user authentication
 gem 'devise'
 gem 'cancancan'
-
+gem "rolify"
 # Use Unicorn as the app server
 # gem 'unicorn'
 
