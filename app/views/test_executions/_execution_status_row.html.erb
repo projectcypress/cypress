@@ -1,0 +1,73 @@
+<%
+
+# local variables:
+#
+#   task
+#   is_current_task   true if this row has the same task as the current page
+
+%>
+
+<% qrda, reporting, submission, total = get_error_counts(task) %>
+<% execution = task.most_recent_execution %>
+
+<% highlighter = is_current_task && get_other_task(task) ? 'highlight-row' : '' %>
+
+<tr class = '<%= highlighter %>'>
+  <td>
+    <% visibility = total == 0 && execution && execution.passing? ? '' : 'invisible' %>
+    <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
+    <strong><%= get_certification_types(task) %></strong>
+  </td>
+  <td>
+    <% if execution && execution.passing? %>
+      <strong class = 'text-success'>Passing</strong>
+    <% elsif execution && execution.failing? %>
+      <strong class = 'text-danger'>Failing</strong>
+    <% else %>
+      Not Started
+    <% end %>
+  </td>
+  <td>
+    <% if !execution || execution.incomplete? %>
+      --
+    <% elsif qrda == 0 %>
+      <strong class = 'text-success'>0</strong>
+    <% else %>
+      <strong class = 'text-danger'><%= qrda %></strong>
+    <% end %>
+  </td>
+  <td>
+    <% if !execution || execution.incomplete? %>
+      --
+    <% elsif reporting == 0 %>
+      <strong class = 'text-success'>0</strong>
+    <% else %>
+      <strong class = 'text-danger'><%= reporting %></strong>
+    <% end %>
+  </td>
+  <% if task.product_test.product.c3_test %>
+    <td>
+      <% if !execution || execution.incomplete? %>
+        --
+      <% elsif submission == 0 %>
+        <strong class = 'text-success'>0</strong>
+      <% else %>
+        <strong class = 'text-danger'><%= submission %></strong>
+      <% end %>
+    </td>
+  <% end %>
+  <td>
+    <% if execution %>
+      <%= execution.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%b %d, %Y at %I:%M %p') %>
+    <% else %>
+      --
+    <% end %>
+  </td>
+  <td>
+    <% if task && !is_current_task %>
+      <% switch_text = 'start' %>
+      <% switch_text = 'view' if task.failing? || task.passing? %>
+      <%= link_to switch_text, "/tasks/#{task.id}/test_executions/new" %>
+    <% end %>
+  </td>
+</tr>

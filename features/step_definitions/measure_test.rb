@@ -34,11 +34,11 @@ And(/^the user views a product test for that product$/) do
 end
 
 And(/^the user switches to c2 certification$/) do
-  page.click_button 'Switch to C2 certification'
+  page.click_link 'start'
 end
 
 And(/^the user switches to c2 and c3 certification$/) do
-  page.click_button 'Switch to C2 and C3 certification'
+  page.click_link 'start'
 end
 
 And(/^the product test state is set to ready$/) do

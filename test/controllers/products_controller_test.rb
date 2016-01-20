@@ -36,6 +36,12 @@ class ProductsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:product)
   end
 
+  test 'should create' do
+    post :create, vendor_id: Vendor.first, product: { name: 'test_product', c1_test: true, measure_ids: [Measure.first.id] }
+    assert_response :redirect
+    assert_not_nil assigns(:product)
+  end
+
   test 'should be able to update measures' do
     pt = Product.new(vendor: Vendor.first, name: 'test_product', c1_test: true)
 

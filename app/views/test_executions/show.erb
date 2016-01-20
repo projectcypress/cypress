@@ -7,24 +7,9 @@
 <h3 class = 'page-title'><%= "#{certification_types} certification for #{@product_test.cms_id} #{@product_test.name}" %></h3>
 
 <div class = 'row'>
-  <div class = 'col-sm-8'>
-    <div class = 'panel panel-default'>
-      <div class = 'panel-heading'>
-        Product Information
-      </div>
-      <div class = 'panel-body'>
-        <%= "Vendor: #{@product_test.product.vendor.name}" %><br/>
-        <p><%= "Product: #{@product_test.product.name}" %></p>
-      </div>
-    </div>
+  <div class = 'col-sm-12' id = 'execution_status_table'>
+    <%= render partial: 'execution_status_table', locals: { task: @task } %>
   </div>
-
-  <% # if the other (c1 or c2) task exists, then display a button to switch to that task %>
-  <% if other_task %>
-    <div class = 'col-sm-4'>
-      <%= button_to "Switch to #{other_certification_types} certification", "/tasks/#{other_task.id}/test_executions/new", method: 'get', class: 'btn btn-default' %>
-    </div>
-  <% end %>
 </div>
 
 <div class = 'row'>

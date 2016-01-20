@@ -39,13 +39,29 @@ module TestExecutionsHelper
     end
   end
 
+  # returns the number of each type of error
+  def get_error_counts(task)
+    qrda = reporting = submit = total = 0
+    execution = task.most_recent_execution
+    return [qrda, reporting, submit, total] unless execution && execution.failing?
+    qrda = execution.qrda_errors.count
+    reporting = execution.reporting_errors.count
+    submit = TestExecution.find(execution.sibling_execution_id).execution_errors.count if execution.sibling_execution_id
+    total = qrda + reporting + submit
+    [qrda, reporting, submit, total]
+  end
+
   def get_select_history_message(execution, is_most_recent)
     msg = ''
     msg << 'Most Recent - ' if is_most_recent
     msg << execution.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%b %d, %Y at %I:%M %p (%A)')
     msg << ' (passing)' if execution.passing?
     msg << ' (in progress)' if execution.incomplete?
-    msg << " (#{execution.execution_errors.count} errors)" if execution.failing?
+    if execution.failing?
+      num_errors = execution.execution_errors.count
+      num_errors += TestExecution.find(execution.sibling_execution_id).execution_errors.count if execution.sibling_execution_id
+      msg << " (#{num_errors} errors)"
+    end
     msg
   end
 

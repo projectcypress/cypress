@@ -14,6 +14,14 @@ class Task
   delegate :effective_date, :to => :product_test
   delegate :bundle, :to => :product_test
 
+  def passing?
+    status == 'passing'
+  end
+
+  def failing?
+    status == 'failing'
+  end
+
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       report_status = 'incomplete'
