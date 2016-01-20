@@ -60,6 +60,7 @@ gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 gem 'devise'
 gem 'cancancan'
 gem 'rolify'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

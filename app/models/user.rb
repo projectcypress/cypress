@@ -27,16 +27,16 @@ class User
   field :approved, type: Boolean, default: APP_CONFIG.user_approved_default || false
 
   def active_for_authentication?
-    true #super && approved?
+     super && approved?
    end
 
-  def inactive_message
-    if !approved?
-      :not_approved
-    else
-      super # Use whatever other message
-    end
-  end
+   def inactive_message
+     if !approved?
+       :not_approved
+     else
+       super # Use whatever other message
+     end
+   end
 
   ## Confirmable
   # field :confirmation_token,   type: String
