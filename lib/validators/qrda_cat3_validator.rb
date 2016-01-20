@@ -25,7 +25,8 @@ module Validators
     def add_errors(errors)
       # The HDS validators hand back ValidationError objects, but we need ExecutionError objects
       errors.map do |error|
-        add_error(error.message, :location => error.location, :validator => error.validator, :validator_type => :xml_validation)
+        type = error.validator && error.validator.upcase.include?('QRDA') ? :warning : :error
+        add_issue error.message, type, :location => error.location, :validator => error.validator, :validator_type => :xml_validation
       end
     end
   end

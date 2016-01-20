@@ -32,9 +32,10 @@ module Validators
       end
 
       validation_errors.each do |error|
-        add_error error.message, :message => error.message,
-                                 :location => error.location, :validator => error.validator,
-                                 :validator_type => :xml_validation, :file_name => error.file_name
+        type = error.validator && error.validator.upcase.include?('QRDA') ? :warning : :error
+        add_issue error.message, type, :message => error.message,
+                                       :location => error.location, :validator => error.validator,
+                                       :validator_type => :xml_validation, :file_name => error.file_name
       end
       validate_measures(doc)
       nil
