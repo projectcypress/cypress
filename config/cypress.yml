@@ -1,3 +1,26 @@
+effective_date:
+  year: 2014
+  month: 12
+  day: 31
+
+version: 2.7.0
+default_bundle: 2.9.9
+
+enable_logging: false
+
+#set to true to enable a banner at the top of every page with the "banner_message" text from below
+banner: false
+banner_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
+
+file_upload_root: "data/upload/"
+
+user_approved_default: false
+
+# setting to disable the bundles page until admin roles are available
+disable_bundle_page: true
+
+file_upload_root: "data/upload/"
+
 # Configuration for values to use when randomizing patients in test decks
 randomization:
   names:
@@ -71,24 +94,7 @@ default_provider:
       extension  : '6892960108'
     - root       : '2.16.840.1.113883.4.2'  #tin
       extension  : '1554520'
-effective_date:
-  year: 2014
-  month: 12
-  day: 31
 
-version: 2.7.0
-default_bundle: 2.9.9
-
-enable_logging: false
-
-#set to true to enable a banner at the top of every page with the "banner_message" text from below
-banner: false
-banner_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
-
-# setting to disable the bundles page until admin roles are available
-disable_bundle_page: true
-
-file_upload_root: "data/upload/"
 
 certifications:
   C1:
@@ -127,6 +133,7 @@ tests:
       - 'C4'
   ChecklistTest:
     title: 'Manual Entry Test'
+
     description: 'Validate the EHR system for C1 certification by manually entering specified patient data for the following measures.'
     certifications:
       - 'C1'
