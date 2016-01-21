@@ -1,58 +1,57 @@
-<div class="row">
-  <div class="col-sm-6">
-    <% ['failing','passing'].each do |status| %>
-      <% if tests.select { |measure_test| measure_test.status == status }.length > 0 %>
-        <% task_types = [] %>
-        <% task_types << 'C1Task' if @product.c1_test %>
-        <% task_types << 'C2Task' if @product.c2_test %>
-        <h4><%= status.capitalize %> Tests</h4>
-        <table class="table table-hover table-condensed">
-          <thead>
-            <tr>
-              <th>Measure Name</th>
-              <th>Number</th>
-              <% task_types.each do |task| %>
-                <th class="text-center"><%= task %></th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <% tests.select { |measure_test| measure_test.status == status }.each do |test| %>
-              <tr>
-                <td><%= link_to "#{test.name}", [@product, test] %></td>
-                <td><%= test.cms_id %></td>
+<%
 
-                <% task_types.each do |task| %>
-                  <td class="text-center">
-                    <%= render partial: 'status_img', locals: { task: test.tasks.where(_type: task).first } %>
-                  </td>
-                <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% end %>
+# local variable 'tests'
+
+%>
+
+<% c1_label = 'C1' %>
+<% c2_label = 'C2' %>
+<% c1_label += ' and C3' if @product.c3_test %>
+<% c2_label += ' and C3' if @product.c3_test %>
+<% c1_and_c2 = @product.c1_test && @product.c2_test %>
+
+<table class = 'table table-hover table-condensed' id = 'measure_test_table'>
+  <thead>
+    <th class = 'col-sm-2 pointer-on-hover'>
+      CMS ID
+      <a>[sort]</a>
+    </th>
+    <% if c1_and_c2 %>
+      <th class = 'col-sm-6 pointer-on-hover'>
+        Measure Name
+        <a>[sort]</a>
+      </th>  
+    <% else %>
+      <th class = 'col-sm-8 pointer-on-hover'>
+        Measure Name
+        <a>[sort]</a>
+      </th>
     <% end %>
-  </div>
-  <div class="col-sm-6">
-    <% if tests.select { |measure_test| measure_test.status == 'incomplete' }.length > 0 %>
-      <h4>Not Started</h4>
-      <table class="table table-hover table-condensed">
-        <thead>
-          <tr>
-            <th>Measure Name</th>
-            <th>Number</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% tests.select { |measure_test| measure_test.status == 'incomplete' }.each do |test| %>
-            <tr>
-              <td><%= link_to "#{test.name}", [@product, test] %></td>
-              <td><%= test.cms_id %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+    <% if @product.c1_test %>
+      <th class = 'col-sm-2 pointer-on-hover'>
+        <%= c1_label %>
+        <a>[sort]</a>
+      </th>
     <% end %>
-  </div>
-</div>
+    <% if @product.c2_test %>
+      <th class = 'col-sm-2 pointer-on-hover'>
+        <%= c2_label %>
+        <a>[sort]</a>
+      </th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% tests.each do |test| %>
+      <tr>
+        <td><%= test.cms_id %></td>
+        <td><%= test.name %></td>
+        <% if @product.c1_test %>
+          <td><%= render partial: 'measure_link', locals: { task: test.c1_task } %></td>
+        <% end %>
+        <% if @product.c2_test %>
+          <td><%= render partial: 'measure_link', locals: { task: test.c2_task } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

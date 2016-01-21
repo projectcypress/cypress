@@ -68,6 +68,13 @@ ready = function() {
       $('.select-measures input[type="checkbox"]').prop('disabled', false);
     }
   });
+
+  $('#measure_test_table').DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true, /* preserves order on reload */
+    info: false
+  });
 };
 
 $(document).ready(ready);

@@ -1,0 +1,16 @@
+<%
+
+# local variable 'task'
+
+%>
+
+<% if task.passing? %>
+  <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+  <%= link_to 'view', "/tasks/#{task.id}/test_executions/new" %>
+<% elsif task.failing? %>
+  <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
+  <%= link_to 'retry', "/tasks/#{task.id}/test_executions/new" %>
+<% else %>
+  <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+  <%= link_to 'start', "/tasks/#{task.id}/test_executions/new" %>
+<% end %>
