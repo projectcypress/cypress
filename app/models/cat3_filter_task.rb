@@ -5,8 +5,7 @@ class Cat3FilterTask < Task
   end
 
   def execute(file)
-    te = test_executions.create(expected_results: expected_results)
-    te.qrda_type = last_execution
+    te = test_executions.create(expected_results: product_test.expected_results)
     te.artifact = Artifact.new(file: file)
     te.save
     TestExecutionJob.perform_later(te, self)

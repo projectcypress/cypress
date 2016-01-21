@@ -5,8 +5,8 @@ class FilteringTest < ProductTest
   after_create :create_tasks
 
   def create_tasks
-    tasks.build({ product_test: self }, Cat1FilterTask)
-    tasks.build({ product_test: self }, Cat3FilterTask)
+    tasks.build({ product_test: self }, Cat1FilterTask).save
+    tasks.build({ product_test: self }, Cat3FilterTask).save
     save
   end
 

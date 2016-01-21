@@ -53,9 +53,9 @@ module TestExecutionsHelper
       end
     else
       if task._type == 'Cat1FilterTask'
-        test.cat1_task
-      else
         test.cat3_task
+      else
+        test.cat1_task
       end
     end
   end

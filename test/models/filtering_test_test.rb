@@ -44,4 +44,48 @@ class FilteringTestTest < ActiveJob::TestCase
     assert ft.options['filters']['payers'].count == 1
     assert ft.options['filters']['providers'].count == 1
   end
+
+  def _jesse_setup
+    collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
+    vendor = Vendor.create!(name: 'test_vendor_name')
+    product = vendor.products.create!(name: 'test_product', c4: true)
+    @test = product.product_tests.create({}, FilteringTest)
+  end
+
+  def _jesse_test_create_tasks
+    vendor = Vendor.create!(name: 'vendor_afjkdsfl')
+    product = vendor.products.create!(name: 'test_product', c4_test: true)
+    @test = product.product_tests.create({}, FilteringTest)
+  end
+
+  def _jesse_test_creates_tasks
+    @test.create_tasks
+    assert_not_nil @test.cat1_task
+    assert_not_nil @test.cat3_task
+  end
+
+  def _jesse_test_task_status_with_existing_tasks
+    test = @product.product_tests.create({}, FilteringTest)
+    test.create_tasks
+    test.tasks.first.test_executions.build(:state => :passed).save!
+
+    assert_equal 'passing', test.task_status('Cat1FilterTask')
+    assert_equal 'incomplete', test.task_status('Cat3FilterTask')
+  end
+
+  def _jesse_test_task_status_with_non_existant_tasks
+    test = @product.product_tests.create({}, FilteringTest)
+    assert_equal 'incomplete', test.task_status('Cat1FilterTask')
+    assert_equal 'incomplete', test.task_status('Cat3FilterTask')
+  end
+
+  def _jesse_test_cat1_and_cat3_tasks
+    test = @product.product_tests.create({}, FilteringTest)
+    assert_equal test.cat1_task, false
+    assert_equal test.cat3_task, false
+
+    test.create_tasks
+    assert_not_equal test.cat1_task, false
+    assert_not_equal test.cat3_task, false
+  end
 end

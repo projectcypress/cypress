@@ -25,7 +25,12 @@ module ProductsHelper
   def filtering_test_status_values(_tests)
     passing = failing = not_started = total = 0
 
-    # add content here when C4 tasks are finalized
+    tests.each do |test|
+      passing += test.tasks.count { |task| task.status == 'passing' }
+      failing += test.tasks.count { |task| task.status == 'failing' }
+      not_started += test.tasks.count { |task| task.status == 'incomplete' }
+      total += test.tasks.count
+    end
 
     [passing, failing, not_started, total]
   end

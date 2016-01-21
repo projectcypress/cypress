@@ -8,13 +8,13 @@ class Cat1FilterTask < Task
   # do that validation here
   def validators
     @validators = [QrdaCat1Validator.new(product_test.bundle, false, product_test.measures),
-                   ::Validators::SmokingGunValidator.new(product_test.measures, records, product_test.id)]
+                   ::Validators::CalculatingSmokingGunValidator.new(product_test.measures, records, product_test.id)]
 
     @validators
   end
 
   def execute(file)
-    te = test_executions.new(expected_results: expected_results, artifact: Artifact.new(file: file))
+    te = test_executions.new(expected_results: product_test.expected_results, artifact: Artifact.new(file: file))
     te.save!
     TestExecutionJob.perform_later(te, self)
     te.save

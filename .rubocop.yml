@@ -10,6 +10,10 @@ Metrics/LineLength:
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
+Metrics/ClassLength:
+  Max: 100
+  Exclude:
+    - 'test/**/*'
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be a Fixnum or
   # a Float.
