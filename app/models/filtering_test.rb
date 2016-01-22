@@ -2,7 +2,7 @@ class FilteringTest < ProductTest
   field :options, type: Hash
   accepts_nested_attributes_for :tasks
 
-  after_build :create_tasks
+  after_create :create_tasks
 
   def create_tasks
     tasks.build({ product_test: self }, Cat1FilterTask)
@@ -69,7 +69,7 @@ class FilteringTest < ProductTest
       addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
                      'country' => address.country }
     end
-    { 'npi' => provider.npi, 'tin' => provider.tin, 'addresses' => addresses }
+    { 'npi' => provider.npi.to_i, 'tin' => provider.tin.to_i, 'addresses' => addresses }
   end
 
   def lookup_problem
