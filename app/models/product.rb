@@ -98,10 +98,29 @@ class Product
     if filtering_tests.count == 0
       # pick a measure and build the four filtering tests
       criteria = %w(races ethnicities genders payers).shuffle
-      build_filtering_test(measure, criteria.shift(2))
-      build_filtering_test(measure, criteria.shift(2))
-      build_filtering_test(measure, ['providers'])
-      build_filtering_test(measure, ['problems'])
+      filter_tests = []
+      filter_tests << build_filtering_test(measure, criteria.shift(2))
+      filter_tests << build_filtering_test(measure, criteria.shift(2))
+      filter_tests << build_filtering_test(measure, ['providers'])
+      filter_tests << build_filtering_test(measure, ['problems'])
+      generate_filter_records(filter_tests)
+    end
+  end
+
+  def generate_filter_records(filter_tests)
+    return if !filter_tests
+    test = filter_tests.pop 
+    test.generate_records
+    test.save
+
+    records = test.records 
+    filter_tests.each do |ft|
+      ft_recs = records.collect do |r| r.clone
+                           r.test_id = ft.id 
+                           r.save
+                           r
+                         end
+      ft.save                   
     end
   end
 
