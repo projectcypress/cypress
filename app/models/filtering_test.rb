@@ -64,10 +64,12 @@ class FilteringTest < ProductTest
 
   def lookup_provider(record)
     provider = Provider.find(record.provider_performances.first['provider_id'])
-    address = provider.addresses.first
-    address_hash = { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
+    addresses = []
+    provider.addresses.each do |address|
+      addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
                      'country' => address.country }
-    { 'npi' => provider.npi, 'tin' => provider.tin, 'address' => address_hash }
+    end
+    { 'npi' => provider.npi, 'tin' => provider.tin, 'addresses' => addresses }
   end
 
   def lookup_problem
