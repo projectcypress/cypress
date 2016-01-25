@@ -7,6 +7,7 @@
 //= require assets_framework
 //= require jquery_nested_form
 //= require jasny-bootstrap.min
+//= require select2
 //= require_tree .
 
 $(function() {

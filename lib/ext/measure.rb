@@ -9,6 +9,14 @@ class Measure
   index bundle_id: 1
   index id: 1, sub_id: 1
 
+  def display_name
+    sub_id ? "#{cms_id} (#{sub_id}) #{name}" : "#{cms_id} #{name}"
+  end
+
+  def cms_int
+    cms_id[3, cms_id.index('v') - 3].to_i
+  end
+
   def data_criteria
     self['hqmf_document']['data_criteria'].map { |key, val| { key => val } }
   end

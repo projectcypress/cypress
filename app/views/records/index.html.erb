@@ -1,0 +1,11 @@
+<h1>Master Patient List</h1>
+<div class="row">
+  <div class="col-md-5">
+    <h2>Filter by Measure</h2>
+    <label for="measure_id" class="sr-only">Filter the Master Patient List</label>
+    <%= select_tag(:measure_id, options_for_select(@measures.map { |m| [m.display_name, by_measure_records_path(:measure_id => m.hqmf_id, :sub_id => m.sub_id)] } ), class: 'form-control', include_blank: 'All measures') %>
+  </div>
+  <div id="records_list" class="col-md-7">
+    <%= render partial: 'records_list', locals: { records: @records } %>
+  </div>
+</div>

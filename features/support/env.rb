@@ -19,6 +19,7 @@ if ENV['IN_BROWSER']
   # IN_BROWSER=true bundle exec cucumber
   # or (to have a pause of 1 second between each step):
   # IN_BROWSER=true PAUSE=1 bundle exec cucumber
+  # FIXME this doesn't work yet
   Capybara.default_driver = :selenium
   AfterStep do
     sleep(ENV['PAUSE'] || 0).to_i
@@ -97,3 +98,59 @@ Capybara::Accessible::Auditor.severe_rules = %w(
   'AX_TITLE_01',
   'AX_TEXT_04'
 )
+
+# to allow CSS and Javascript to be loaded when we use save_and_open_page, the
+# development server must be running at localhost:3000 as specified below or
+# wherever you want. See original issue here:
+# https://github.com/jnicklas/capybara/pull/609
+# and final resolution here:
+# https://github.com/jnicklas/capybara/pull/958
+Capybara.asset_host = 'http://localhost:3000'
+
+# # # # # # # # # # #
+#   H E L P E R S   #
+# # # # # # # # # # #
+
+def collection_fixtures(*collections)
+  collections.each do |collection|
+    Mongoid.default_client[collection].drop
+    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+      fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+      map_bson_ids(fixture_json)
+      Mongoid.default_client[collection].insert_one(fixture_json)
+    end
+  end
+end
+
+def value_or_bson(v)
+  if v.is_a? Hash
+    if v['$oid']
+      BSON::ObjectId.from_string(v['$oid'])
+    else
+      map_bson_ids(v)
+    end
+  else
+    v
+  end
+end
+
+def map_bson_ids(json)
+  json.each_pair do |k, v|
+    if v.is_a? Hash
+      json[k] = value_or_bson(v)
+    elsif k == 'create_at' || k == 'updated_at'
+      json[k] = Time.at.utc(v)
+      # json[k] = v
+    end
+  end
+  json
+end
+
+Before do
+  Mongoid.default_client['users'].drop
+  Mongoid.default_client['vendors'].drop
+  Mongoid.default_client['products'].drop
+  Mongoid.default_client['product_tests'].drop
+
+  collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
+end

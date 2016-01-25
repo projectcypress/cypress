@@ -31,6 +31,10 @@ Rails.application.routes.draw do
   end
 
   resources :records, only: [:index, :show] do
+    collection do
+      get :by_measure
+    end
+
     member do
       get :download_full_test_deck
     end

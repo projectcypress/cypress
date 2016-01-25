@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
-  before_action :set_record_source, only: [:index]
-  add_breadcrumb 'Master Patient List', :vendors_path
+  before_action :set_record_source, only: [:index, :show, :by_measure]
+  add_breadcrumb 'Master Patient List', :records_path
 
   def download_full_test_deck
     product = Product.find(params[:id])
@@ -10,11 +10,23 @@ class RecordsController < ApplicationController
   end
 
   def index
+    # TODO: Only show measures where there are patient results. CMS32v4 sub id c and d have no patients, for example.
     @records = @source.records
+    @measures = @source.measures.sort_by! { |m| [m.cms_int, m.sub_id] }
   end
 
   def show
-    @record = Record.find(params[:id])
+    @record = @source.records.find(params[:id])
+    @results = @record.calculation_results
+    @measures = @source.measures.where(:hqmf_id.in => @results.map(:value).map(&:measure_id)).where(:sub_id.in => @results.map(:value).map(&:sub_id))
+    add_breadcrumb 'Patient: ' + @record.first + ' ' + @record.last, :record_path
+  end
+
+  def by_measure
+    @records = @source.records
+    if params[:measure_id]
+      @measure = @source.measures.find_by(hqmf_id: params[:measure_id], sub_id: params[:sub_id])
+    end
   end
 
   private
