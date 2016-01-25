@@ -8,10 +8,10 @@ gem 'mongoid', '~> 5.0.0'
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
 
-gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'bump_mongoid'
+gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'bump_rubyzip'
 
 gem 'quality-measure-engine',
-    git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
+    git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_rubyzip'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
@@ -83,6 +83,7 @@ group :development, :test do
   gem 'scss_lint', require: false
   gem 'capybara'
   gem 'capybara-accessible'
+  gem 'selenium-webdriver', '2.48.0'
 end
 
 group :development do
