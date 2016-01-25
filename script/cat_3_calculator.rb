@@ -50,8 +50,8 @@ def generate_header(provider = nil)
   header = Qrda::Header.new(cda_header)
 
   header.identifier.root = UUID.generate
-  header.authors.each { |a| a.time = Time.zone.now }
-  header.legal_authenticator.time = Time.zone.now
+  header.authors.each { |a| a.time = Time.current }
+  header.legal_authenticator.time = Time.current
   header.performers << provider
 
   header

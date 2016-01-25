@@ -9,6 +9,9 @@ namespace :evaluator do
     mev.cleanup
   end
 
+  desc %(
+    Generate and execute C2/C3 product tests for all measures
+  )
   task :evaluate_all_cat3, [:cypress_user] => :setup do |_, args|
     mev = Cypress::MeasureEvaluator.new(args.to_hash)
     mev.evaluate_all_cat3
