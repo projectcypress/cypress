@@ -26,6 +26,7 @@ module MeasuresHelper
   end
 
   def measure_has_diagnosis_criteria?(measure)
-    measure.hqmf_document.data_criteria.values.any? { |criteria| criteria['definition'] == 'diagnosis' }
+    return false unless measure && measure.hqmf_document && measure.hqmf_document['source_data_criteria']
+    measure.hqmf_document['source_data_criteria'].values.any? { |criteria| criteria['definition'] == 'diagnosis' }
   end
 end
