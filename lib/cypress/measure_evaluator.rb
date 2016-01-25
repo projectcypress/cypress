@@ -63,16 +63,11 @@ module Cypress
         sleep(2)
         continuing = ProductTest.where(state: 'pending', product: product).count > 0
       end
-
       @logger.info 'done'
     end
 
     def upload_all_cat3s
-      @logger.info 'Generating and uploading QRDA Cat 3s...'
-
       upload_cat3s(Product.where(name: 'MeasureEvaluationProduct').first.product_tests)
-
-      @logger.info 'done'
     end
 
     def upload_cat3s(tests)
@@ -96,9 +91,7 @@ module Cypress
 
     def generate_cat3(measure_ids, test)
       zip = create_cat1_zip(test)
-      @logger.info "running test for measures #{measure_ids}..."
       file = `bundle exec ruby ./script/cat_3_calculator.rb #{measure_opts_for(measure_ids)} --zipfile #{zip.path}`
-      @logger.info 'done'
       file
     end
 
