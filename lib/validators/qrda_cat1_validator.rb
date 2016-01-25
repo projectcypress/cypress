@@ -12,8 +12,7 @@ module Validators
       @validators = if c3_validation
                       [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
                     else
-                      [CDA.instance,
-                       Cat1.instance]
+                      [CDA.instance,Cat1.instance]
                     end
     end
 
@@ -32,7 +31,7 @@ module Validators
       end
 
       validation_errors.each do |error|
-        type = error.validator && error.validator.upcase.include?('QRDA') ? :warning : :error
+        type = error.validator && error.validator.upcase.include?('QRDA') && @c3_validation ? :warning : :error
         add_issue error.message, type, :message => error.message,
                                        :location => error.location, :validator => error.validator,
                                        :validator_type => :xml_validation, :file_name => error.file_name

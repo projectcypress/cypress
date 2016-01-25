@@ -18,7 +18,7 @@ class C3Task < Task
     elsif last_execution == 'Cat3'
       if product_test.contains_c3_task?
         @validators = [::Validators::MeasurePeriodValidator.new,
-                       ::Validators::QrdaCat3Validator.new(product_test.expected_results)]
+                       ::Validators::QrdaCat3Validator.new(product_test.expected_results, c3_validation)]
       end
     end
     @validators
