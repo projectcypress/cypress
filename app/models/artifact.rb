@@ -39,7 +39,7 @@ class Artifact
   end
 
   def get_file(name)
-    if self.archive?
+    if archive?
       return get_archived_file(name)
     elsif file.uploaded_filename == name
       return file.read
@@ -55,7 +55,7 @@ class Artifact
   end
 
   def each_file(&_block)
-    if self.archive?
+    if archive?
       Zip::ZipFile.open(file.path) do |zipfile|
         zipfile.glob('*.xml', File::FNM_CASEFOLD | ::File::FNM_PATHNAME | ::File::FNM_DOTMATCH).each do |entry|
           data = zipfile.read(entry.name)

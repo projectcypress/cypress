@@ -1,19 +1,19 @@
 module TestExecutionsHelper
   def get_certification_types(task)
-    if currently_viewing_c1?(task)
-      certification_types = 'C1'
-    else
-      certification_types = 'C2'
+    certification_types = if currently_viewing_c1?(task)
+                            'C1'
+                          else
+                            'C2'
     end
     certification_types << ' and C3' if task.product_test.product.c3_test
     certification_types
   end
 
   def get_other_certification_types(task)
-    if currently_viewing_c1?(task)
-      other_certification_types = 'C2'
-    else
-      other_certification_types = 'C1'
+    other_certification_types = if currently_viewing_c1?(task)
+                                  'C2'
+                                else
+                                  'C1'
     end
     other_certification_types << ' and C3' if task.product_test.product.c3_test
     other_certification_types

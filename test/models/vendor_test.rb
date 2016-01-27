@@ -92,23 +92,23 @@ class VendorCachingTest < CachingTest
   end
 
   def test_adding_test_execution_updates_vendor_cache_key
-    vendor_old_cache_key = "#{Vendor.all.first.cache_key}"
+    vendor_old_cache_key = Vendor.all.first.cache_key.to_s
     task_2 = C2Task.new
     task_2.product_test = @product_test
     task_2.save!
     test_execution_2 = TestExecution.new
     test_execution_2.task = task_2
     test_execution_2.save!
-    vendor_new_cache_key = "#{Vendor.all.first.cache_key}"
+    vendor_new_cache_key = Vendor.all.first.cache_key.to_s
     refute_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
   end
 
   def test_edditing_test_execution_updates_vendor_cache_key
-    vendor_old_cache_key = "#{Vendor.all.first.cache_key}"
+    vendor_old_cache_key = Vendor.all.first.cache_key.to_s
     test_execution = TestExecution.all.first
     test_execution.update_attribute(:state, :passed)
     test_execution.save!
-    vendor_new_cache_key = "#{Vendor.all.first.cache_key}"
+    vendor_new_cache_key = Vendor.all.first.cache_key.to_s
     refute_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
   end
 

@@ -41,15 +41,15 @@ module Cypress
   HTML_EXPORTER = HealthDataStandards::Export::HTML.new
 
   class PatientZipper
-    FORMAT_EXTENSIONS = { html: 'html', qrda: 'xml', json: 'json' }
+    FORMAT_EXTENSIONS = { html: 'html', qrda: 'xml', json: 'json' }.freeze
 
     def self.zip(file, patients, format)
       mes, sd, ed = mes_start_end(patients)
 
-      if format.to_sym == :qrda
-        formatter = Cypress::QRDAExporter.new(mes, sd, ed)
-      else
-        formatter = Cypress::HTMLExporter.new(mes, sd, ed)
+      formatter = if format.to_sym == :qrda
+                    Cypress::QRDAExporter.new(mes, sd, ed)
+                  else
+                    Cypress::HTMLExporter.new(mes, sd, ed)
       end
 
       Zip::ZipOutputStream.open(file.path) do |z|
@@ -58,10 +58,10 @@ module Cypress
           # safe_last_name = patient.last.delete("'")
           # next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
-          if formatter == HealthDataStandards::Export::HTML
-            z << formatter.new.export(patient)
-          else
-            z << formatter.export(patient)
+          z << if formatter == HealthDataStandards::Export::HTML
+                 formatter.new.export(patient)
+               else
+                 formatter.export(patient)
           end
         end
       end
