@@ -31,7 +31,10 @@ module Validators
       end
 
       validation_errors.each do |error|
-        type = error.validator && error.validator.upcase.include?('QRDA') && @c3_validation ? :warning : :error
+        type = :error
+        if error.validator && error.validator.upcase.include?('QRDA') && !@c3_validation
+          type = :warning
+        end
         add_issue error.message, type, :message => error.message,
                                        :location => error.location, :validator => error.validator,
                                        :validator_type => :xml_validation, :file_name => error.file_name
