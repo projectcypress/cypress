@@ -7,10 +7,13 @@ version: 2.7.0
 default_bundle: 2.9.9
 
 enable_logging: false
-
 #set to true to enable a banner at the top of every page with the "banner_message" text from below
 banner: false
 banner_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
+
+ignore_roles: true
+default_role: :user
+
 
 file_upload_root: "data/upload/"
 

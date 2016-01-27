@@ -323,6 +323,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-nav (0.2.4)
+      pry (>= 0.9.10, < 0.11.0)
     pusher-client (0.6.2)
       json
       websocket (~> 1.0)
@@ -412,7 +414,6 @@ GEM
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
-    spring (1.6.2)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -520,6 +521,7 @@ DEPENDENCIES
   phantomjs
   poltergeist
   pry
+  pry-nav
   quality-measure-engine!
   render_anywhere
   rails (= 4.2.5.2)
@@ -532,7 +534,6 @@ DEPENDENCIES
   select2-rails
   selenium-webdriver (= 2.48.0)
   simplecov
-  spring
   travis
   turbolinks
   uglifier (>= 1.3.0)

@@ -87,10 +87,26 @@ class ProductsController < ApplicationController
     end
   end
 
+  def authorize_vendor(vendor)
+    authorize! :manage, vendor if params[:action] != :show
+    authorize! :read, vendor if params[:action] == :show
+  end
+
+  def set_product
+    product_finder = @vendor ? @vendor.products : Product
+    @product = product_finder.find(params[:id])
+    authorize_vendor(@product.vendor)
+  end
+
   def set_measures
     # TODO: Get the relevant bundle
     @measures = Bundle.first.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type)
     @measures_categories = @measures.group_by(&:category)
+  end
+
+  def set_vendor
+    @vendor ||= Vendor.find(params[:vendor_id])
+    authorize_vendor(@vendor)
   end
 
   def setup_new

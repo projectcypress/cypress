@@ -35,6 +35,21 @@ class TasksController < ApplicationController
 
   private
 
+  def authorize_vendor(vendor)
+    authorize! :manage, vendor if params[:action] != :show
+    authorize! :read, vendor if params[:action] == :show
+  end
+
+  def set_product_test
+    @product_test = ProductTest.find(params[:product_test_id])
+    authorize_vendor(@product_test.product.vendor)
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
+    authorize_vendor(@task.product_test.product.vendor)
+  end
+
   def task_type(type)
     type.camelize.constantize
   rescue
