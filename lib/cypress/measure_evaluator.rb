@@ -8,11 +8,20 @@ module Cypress
 
     def evaluate_all_cat3(args = nil)
       opts = args ? @options.merge(args) : @options
-      generate_cat3_tests(opts)
+      generate_tests(opts)
 
       wait_for_calculations
 
       upload_all_cat3s
+    end
+
+    def evaluate_all_cat1(args = nil)
+      opts = args ? @options.merge(args) : @options
+      generate_tests(opts)
+
+      wait_for_calculations
+
+      upload_all_cat1s
     end
 
     def cleanup(*)
@@ -21,7 +30,7 @@ module Cypress
       @logger.info 'done'
     end
 
-    def generate_cat3_tests(args = nil)
+    def generate_tests(args = nil)
       opts = args ? @options.merge(args) : @options
 
       @logger.info 'Generating Cat III tests...'
@@ -43,14 +52,11 @@ module Cypress
       vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
       product = Product.find_or_create_by(name: 'MeasureEvaluationProduct', vendor_id: vendor.id, c1_test: true, c2_test: true, c3_test: true)
 
-      product_test = MeasureTest.find_or_create_by(name: opts[:measure].name,
-                                                   bundle: bundle.id,
-                                                   product: product,
-                                                   measure_ids: [opts[:measure].hqmf_id],
-                                                   description: opts[:measure].description,
-                                                   cms_id: opts[:measure].cms_id)
-      product_test.save
-      product_test
+      MeasureTest.find_or_create_by(name: opts[:measure].name, bundle: bundle.id,
+                                    product: product,
+                                    measure_ids: [opts[:measure].hqmf_id],
+                                    description: opts[:measure].description,
+                                    cms_id: opts[:measure].cms_id)
     end
 
     # Waits until there are no tests with a state not equal to "ready"
@@ -72,12 +78,9 @@ module Cypress
 
     def upload_cat3s(tests)
       tests.each do |t|
-        begin
-          xml = generate_cat3(t.measure_ids, t)
-          upload_cat3(t, xml)
-        rescue StandardError => e
-          @logger.error "Cat 3 test #{t.id} failed: #{e}"
-        end
+        @logger.info("Uploading cat3 for test #{t.id}")
+        xml = generate_cat3(t.measure_ids, t)
+        upload_cat3(t, xml)
       end
     end
 
@@ -86,22 +89,43 @@ module Cypress
       # Generate a temporary file that acts just like a normal file, but is given a unique name in the './tmp' directory
       tmp = Tempfile.new(['qrda_upload', '.xml'], './tmp')
       tmp.write(xml)
-      product_test.tasks.find { |t| t._type == 'C2Task' }.execute(tmp)
+      product_test.c2_task.execute(tmp)
+    rescue StandardError => e
+      @logger.error "Cat 3 test #{product_test.id} failed: #{e}"
     end
 
     def generate_cat3(measure_ids, test)
-      zip = create_cat1_zip(test)
+      zip = create_patient_zip(test.records)
       file = `bundle exec ruby ./script/cat_3_calculator.rb #{measure_opts_for(measure_ids)} --zipfile #{zip.path}`
       file
+    end
+
+    def upload_all_cat1s
+      upload_cat1s(Product.where(name: 'MeasureEvaluationProduct').first.product_tests)
+    end
+
+    def upload_cat1s(tests)
+      tests.each do |t|
+        @logger.info("Uploading cat1 for test #{t.id}")
+        upload_cat1(t)
+      end
+    end
+
+    def upload_cat1(t)
+      zip = create_patient_zip(t.c1_task.records)
+      FileUtils.mv zip, "#{File.dirname(zip)}/#{File.basename(zip)}.zip"
+      zip2 = File.new("#{File.dirname(zip)}/#{File.basename(zip)}.zip")
+      t.c1_task.execute(zip2)
+    rescue StandardError => e
+      @logger.error "Cat 1 test #{t.id} failed: #{e}"
     end
 
     def measure_opts_for(measure_ids)
       '--measure ' + measure_ids.join(' --measure ')
     end
 
-    # creates a Zip of cat Is for a product test
-    def create_cat1_zip(product_test)
-      Cypress::CreateDownloadZip.create_test_zip(product_test.id, 'qrda')
+    def create_patient_zip(patients)
+      Cypress::CreateDownloadZip.create_zip(patients, 'qrda')
     end
   end
 end
