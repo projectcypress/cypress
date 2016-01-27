@@ -33,10 +33,8 @@ class VendorsController < ApplicationController
     authorize! :create, Vendor
     @vendor = Vendor.new(vendor_params)
     @vendor.save!
-
     current_user.add_role :owner, @vendor
     flash_comment(@vendor.name, 'success', 'created')
-
     respond_to do |f|
       f.json { redirect_to vendor_url(@vendor) } # TODO: this deals with API
       f.html { redirect_to root_path }
