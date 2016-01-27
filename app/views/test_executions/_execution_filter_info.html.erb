@@ -15,7 +15,8 @@
     <% test.options.filters.map do |key, value| %>
       <tr>
         <td class = 'text-right'><%= "#{key}:".titleize %></td>
-        <td class = 'text-right'><%= value.join(', ').titleize %></td>
+        <% display_value = value.kind_of?(Array) ? value.join(', ').titleize : value %>
+        <td class = 'text-right'><%= display_value %></td>
       </tr>
     <% end %>
   </tbody>

@@ -43,6 +43,6 @@ class MeasureHelperTest < ActiveSupport::TestCase
   def assert_only_in_correct_set(item, correct, incorrect = [])
     assert item
     assert correct.include?(item)
-    assert !(incorrect.include?(item))
+    assert !incorrect.include?(item)
   end
 end

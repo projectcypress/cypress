@@ -54,7 +54,7 @@ class FilteringTest < ProductTest
       when 'payers'
         v << rand_record.insurance_providers.first.name
       when 'providers'
-        v << lookup_provider(rand_record)
+        options['filters']['providers'] = lookup_provider(rand_record)
       when 'problems'
         v << lookup_problem
       end
@@ -69,7 +69,7 @@ class FilteringTest < ProductTest
       addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
                      'country' => address.country }
     end
-    { 'npi' => provider.npi.to_i, 'tin' => provider.tin.to_i, 'addresses' => addresses }
+    { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses }
   end
 
   def lookup_problem

@@ -90,7 +90,6 @@ class TestExecutionHelper < ActiveSupport::TestCase
   def test_get_error_counts
     setup_product_tests(true, true, false, true, filt1: 'val1')
     c1_task = @m_test.tasks.find_by(_type: 'C1Task')
-    c2_task = @m_test.tasks.find_by(_type: 'C2Task')
 
     execution = c1_task.test_executions.create
     execution.execution_errors.create(:message => 'qrda error 1', :msg_type => :error, :validator_type => :xml_validation)
@@ -98,7 +97,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
     execution.execution_errors.create(:message => 'result error 2', :msg_type => :error, :validator_type => :result_validation)
     execution.state = :failed
 
-    qrda, report, submit, total = get_error_counts(execution)
+    qrda, report, _submit, total = get_error_counts(execution)
 
     assert_equal 1, qrda
     assert_equal 2, report
@@ -135,10 +134,10 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
     a = { file_name: 'alpha' }
     b = { file_name: 'beta' }
-    assert_equal -1, compare_error_locations_across_files(a, b)
+    assert_equal(-1, compare_error_locations_across_files(a, b))
 
     a = { file_name: 'delta', location: '/div[1]/div[1]/div[2]' }
     b = { file_name: 'delta', location: '/div[1]/div[2]/div[1]' }
-    assert_equal -1, compare_error_locations_across_files(a, b)
+    assert_equal(-1, compare_error_locations_across_files(a, b))
   end
 end

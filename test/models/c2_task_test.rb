@@ -1,5 +1,5 @@
 require 'test_helper'
-# rubocop:disable Metrics/ClassLength
+
 class C2TaskTest < ActiveSupport::TestCase
   include ::Validators
   include ActiveJob::TestHelper

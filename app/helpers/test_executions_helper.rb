@@ -7,7 +7,7 @@ module TestExecutionsHelper
   def get_title_message(test, task)
     msg = ''
     if test._type == 'MeasureTest'
-      msg << "#{get_measure_certification_types(task)}"
+      msg << get_measure_certification_types(task).to_s
       msg << ' certification'
       msg << 's' if test.product.c3_test
     else
@@ -20,11 +20,7 @@ module TestExecutionsHelper
   end
 
   def get_measure_certification_types(task)
-    if currently_viewing_c1?(task)
-      certification_types = 'C1'
-    else
-      certification_types = 'C2'
-    end
+    certification_types = currently_viewing_c1?(task) ? 'C1' : 'C2'
     certification_types << ' and C3' if task.product_test.product.c3_test
     certification_types
   end
@@ -51,12 +47,10 @@ module TestExecutionsHelper
       else
         test.c1_task
       end
+    elsif task._type == 'Cat1FilterTask'
+      test.cat3_task
     else
-      if task._type == 'Cat1FilterTask'
-        test.cat3_task
-      else
-        test.cat1_task
-      end
+      test.cat1_task
     end
   end
 

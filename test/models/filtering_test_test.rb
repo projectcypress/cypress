@@ -26,10 +26,10 @@ class FilteringTestTest < ActiveJob::TestCase
   end
 
   def test_pick_filter_criteria
-    criteria = %w(races ethnicities genders payers providers)
+    criteria = %w(races ethnicities genders payers providers problems)
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, options: options,
-                           measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'], bundle_id: '4fdb62e01d41c820f6000001')
+                           measure_ids: ['40280381-4600-425F-0146-1F8D3B750FAC'], bundle_id: '4fdb62e01d41c820f6000001')
     ft.save!
     ft.generate_records
     ft.reload
@@ -37,34 +37,22 @@ class FilteringTestTest < ActiveJob::TestCase
     options_assertions(ft)
   end
 
-  def options_assertions(ft)
-    assert ft.options['filters']['races'].count == 1
-    assert ft.options['filters']['ethnicities'].count == 1
-    assert ft.options['filters']['genders'].count == 1
-    assert ft.options['filters']['payers'].count == 1
-    assert ft.options['filters']['providers'].count == 1
+  def options_assertions(filter_test)
+    assert filter_test.options['filters']['races'].count == 1
+    assert filter_test.options['filters']['ethnicities'].count == 1
+    assert filter_test.options['filters']['genders'].count == 1
+    assert filter_test.options['filters']['payers'].count == 1
+    providers_assertions(filter_test)
+    assert filter_test.options['filters']['problems'].count == 1
   end
 
-  def _jesse_setup
-    collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
-    vendor = Vendor.create!(name: 'test_vendor_name')
-    product = vendor.products.create!(name: 'test_product', c4: true)
-    @test = product.product_tests.create({}, FilteringTest)
+  def providers_assertions(filter_test)
+    assert filter_test.options['filters']['providers']['npis']
+    assert filter_test.options['filters']['providers']['tins']
+    assert filter_test.options['filters']['providers']['addresses']
   end
 
-  def _jesse_test_create_tasks
-    vendor = Vendor.create!(name: 'vendor_afjkdsfl')
-    product = vendor.products.create!(name: 'test_product', c4_test: true)
-    @test = product.product_tests.create({}, FilteringTest)
-  end
-
-  def _jesse_test_creates_tasks
-    @test.create_tasks
-    assert_not_nil @test.cat1_task
-    assert_not_nil @test.cat3_task
-  end
-
-  def _jesse_test_task_status_with_existing_tasks
+  def test_task_status_with_existing_tasks
     test = @product.product_tests.create({}, FilteringTest)
     test.create_tasks
     test.tasks.first.test_executions.build(:state => :passed).save!
@@ -73,13 +61,13 @@ class FilteringTestTest < ActiveJob::TestCase
     assert_equal 'incomplete', test.task_status('Cat3FilterTask')
   end
 
-  def _jesse_test_task_status_with_non_existant_tasks
+  def test_task_status_with_non_existant_tasks
     test = @product.product_tests.create({}, FilteringTest)
     assert_equal 'incomplete', test.task_status('Cat1FilterTask')
     assert_equal 'incomplete', test.task_status('Cat3FilterTask')
   end
 
-  def _jesse_test_cat1_and_cat3_tasks
+  def test_cat1_and_cat3_tasks
     test = @product.product_tests.create({}, FilteringTest)
     assert_equal test.cat1_task, false
     assert_equal test.cat3_task, false

@@ -13,11 +13,10 @@
   </thead>
   <tbody>
     <% tests.each do |test| %>
-      <% cat1_status, cat3_status = filtering_test_statuses(test) %>
       <tr>
         <td></td>
         <td>
-          <% visibility = cat1_status == 'passing' && cat3_status == 'passing' ? '' : 'invisible' %>
+          <% visibility = test.task_status('cat_1_filter_task') == 'passing' && test.task_status('cat_3_filter_task') == 'passing' ? '' : 'invisible' %>
           <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
           <%= test.options.filters.keys.join('/').titleize %>
         </td>
