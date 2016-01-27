@@ -59,7 +59,7 @@ gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 # Devise is the gem we use for user authentication
 gem 'devise'
 gem 'cancancan'
-gem "rolify"
+gem 'rolify'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -89,8 +89,9 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
   gem 'pry'
+  gem 'pry-nav'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+
 end
 
 group :test do

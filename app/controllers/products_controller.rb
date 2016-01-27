@@ -78,9 +78,15 @@ class ProductsController < ApplicationController
 
   private
 
+  def authorize_vendor(vendor)
+    authorize! :manage, vendor if params[:action] != :show
+    authorize! :read, vendor if params[:action] == :show
+  end
+
   def set_product
     product_finder = @vendor ? @vendor.products : Product
     @product = product_finder.find(params[:id])
+    authorize_vendor(@product.vendor)
   end
 
   def set_measures
@@ -92,6 +98,7 @@ class ProductsController < ApplicationController
 
   def set_vendor
     @vendor ||= Vendor.find(params[:vendor_id])
+    authorize_vendor(@vendor)
   end
 
   def setup_new

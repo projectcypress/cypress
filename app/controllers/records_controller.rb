@@ -31,6 +31,10 @@ class RecordsController < ApplicationController
 
   private
 
+  def authorize_vendor(vendor)
+    authorize! :read, vendor
+  end
+
   def set_record_source
     if params[:bundle_id]
       @bundle = Bundle.find(params[:bundle_id])
@@ -38,9 +42,11 @@ class RecordsController < ApplicationController
     elsif params[:product_test_id]
       @product_test = ProductTest.find(params[:product_test_id])
       @source = @product_test
+      authorize_vendor(@product_test.product.vendor)
     elsif params[:task_id]
       @task = Task.find(params[:task_id])
       @source = @task
+      authorize_vendor(@task.product_test.product.vendor)
     else
       @bundle = Bundle.first
       @source = @bundle

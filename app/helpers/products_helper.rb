@@ -22,7 +22,7 @@ module ProductsHelper
     [passing, failing, not_started, total]
   end
 
-  def filtering_test_status_values(tests)
+  def filtering_test_status_values(_tests)
     passing = failing = not_started = total = 0
 
     # add content here when C4 tasks are finalized

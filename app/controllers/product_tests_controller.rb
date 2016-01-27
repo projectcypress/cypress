@@ -37,9 +37,16 @@ class ProductTestsController < ApplicationController
 
   def set_product
     @product = Product.find(params[:product_id])
+    authorize_vendor(@product.vendor)
   end
 
   def set_product_test
     @product_test = ProductTest.find(params[:id])
+    authorize_vendor(@product_test.product.vendor)
+  end
+
+  def authorize_vendor(vendor)
+    authorize! :manage, vendor if params[:action] != :show
+    authorize! :read, vendor if params[:action] == :show
   end
 end
