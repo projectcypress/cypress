@@ -9,10 +9,10 @@ module Validators
 
     def initialize(bundle, c3_validation, measures = [])
       @measures = measures
-      if c3_validation
-        @validators = [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
-      else
-        @validators = [CDA.instance,
+      @validators = if c3_validation
+                      [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
+                    else
+                      [CDA.instance,
                        Cat1.instance]
       end
     end

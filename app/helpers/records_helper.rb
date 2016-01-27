@@ -2,10 +2,10 @@ module RecordsHelper
   SECTIONS = %w(allergies care_goals conditions encounters immunizations
                 medical_equipment medications procedures results communications
                 family_history social_history vital_signs support advance_directives
-                insurance_providers functional_statuses)
+                insurance_providers functional_statuses).freeze
 
-  CV_POPULATION_KEYS = %w(IPP MSRPOPL MSRPOPLEX OBSERV)
-  PROPORTION_POPULATION_KEYS = %w(IPP DENOM NUMER DENEX DENEXCEP)
+  CV_POPULATION_KEYS = %w(IPP MSRPOPL MSRPOPLEX OBSERV).freeze
+  PROPORTION_POPULATION_KEYS = %w(IPP DENOM NUMER DENEX DENEXCEP).freeze
 
   def full_gender_name(gender)
     case gender

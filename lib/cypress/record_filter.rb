@@ -129,7 +129,7 @@ module Cypress
 
       provider_ids.collect! { |pid| BSON::ObjectId(pid) }
 
-      { 'provider_performances' => { '$elemMatch' =>  { 'provider_id' => { '$in' => provider_ids } } } }
+      { 'provider_performances' => { '$elemMatch' => { 'provider_id' => { '$in' => provider_ids } } } }
     end
   end
 end

@@ -1,9 +1,10 @@
 inherit_from: .rubocop_todo.yml
 AllCops:
-  RunRailsCops: true
   Exclude:
     - 'bin/**/*'
     - 'lib/tasks/cucumber.rake'
+Rails:
+  Enabled: true
 Metrics/LineLength:
   Max: 150
 Metrics/MethodLength:

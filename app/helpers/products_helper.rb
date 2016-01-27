@@ -22,7 +22,7 @@ module ProductsHelper
     [passing, failing, not_started, total]
   end
 
-  def filtering_test_status_values(tests)
+  def filtering_test_status_values(_tests)
     passing = failing = not_started = total = 0
 
     # add content here when C4 tasks are finalized
@@ -36,14 +36,14 @@ module ProductsHelper
 
     return 'incomplete' if tests_type.empty?
     # get the statuses of all tasks in a set of product tests
-    if tests_type.first._type == 'FilteringTest' || tests_type.first._type == 'ChecklistTest'
-      status_list = tests_type.first.tasks
-    else
-      status_list = tests_type.map do |test|
-        t = test.tasks.where(_type: task_type)
-        t.first
-      end
-    end
+    status_list = if tests_type.first._type == 'FilteringTest' || tests_type.first._type == 'ChecklistTest'
+                    tests_type.first.tasks
+                  else
+                    tests_type.map do |test|
+                      t = test.tasks.where(_type: task_type)
+                      t.first
+                    end
+                  end
 
     status_list = status_list.reject(&:blank?).map(&:status) if status_list.any?
 
@@ -53,13 +53,14 @@ module ProductsHelper
   def overall_status(status_list)
     # status_list is an array of strings
 
-    if status_list.grep('failing').size > 0
-      return 'failing'
-    elsif status_list.grep('passing').size == status_list.size && status_list.size > 0
-      return 'passing'
-    else
-      return 'incomplete'
-    end
+    status = if status_list.grep('failing').size > 0
+               'failing'
+             elsif status_list.grep('passing').size == status_list.size && status_list.size > 0
+               'passing'
+             else
+               'incomplete'
+             end
+    status
   end
 
   def status_by_test(product)

@@ -5,7 +5,7 @@ class Bundle
   has_many :product_tests, :dependent => :destroy
   def results
     HealthDataStandards::CQM::PatientCache.where(bundle_id: id, 'value.test_id' => nil)
-      .order_by(['value.last', :asc])
+                                          .order_by(['value.last', :asc])
   end
 
   def delete(options = {})
