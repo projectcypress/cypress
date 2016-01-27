@@ -7,7 +7,8 @@ class VendorsController < ApplicationController
   add_breadcrumb 'Edit Vendor', :edit_vendor_path, only: [:edit, :update]
 
   def index
-    @vendors = Vendor.all.order(:updated_at => :desc)
+    # need to get all of the vendors that the user can see
+    @vendors = Vendor.accessible_by(current_user).order(:updated_at => :desc)#Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
     respond_to do |f|
       f.html
       f.json { render json: @vendors }
@@ -24,12 +25,15 @@ class VendorsController < ApplicationController
   end
 
   def new
+    authorize! :create, Vendor
     @vendor = Vendor.new
   end
 
   def create
+    authorize! :create, Vendor
     @vendor = Vendor.new(vendor_params)
     @vendor.save!
+    current_user.add_role :owner, @vendor
     flash_vendor_comment(@vendor.name, 'success', 'created')
     respond_to do |f|
       f.json { redirect_to vendor_url(@vendor) } # TODO: this deals with API
@@ -63,8 +67,14 @@ class VendorsController < ApplicationController
 
   private
 
+  def authorize_vendor(vendor)
+    authorize! :manage, vendor if params[:action] != :show
+    authorize! :read, vendor if params[:action] == :show
+  end
+
   def find_vendor
     @vendor = Vendor.find(params[:id])
+    authorize_vendor(@vendor)
   end
 
   def vendor_params

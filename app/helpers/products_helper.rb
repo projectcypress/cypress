@@ -21,10 +21,19 @@ module ProductsHelper
     end
   end
 
+<<<<<<< HEAD
   def tasks_values(tasks)
     status_values = []
     %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
     status_values << tasks.count
+=======
+  def filtering_test_status_values(_tests)
+    passing = failing = not_started = total = 0
+
+    # add content here when C4 tasks are finalized
+
+    [passing, failing, not_started, total]
+>>>>>>> implmenting inital roles authorization in controllers
   end
 
   def c3_tasks_values(tasks)

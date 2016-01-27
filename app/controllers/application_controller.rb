@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :with => :exception
 
   before_action :authenticate_user!, :check_bundle_installed
-
   private
 
   # Overwriting the sign_out redirect path method
