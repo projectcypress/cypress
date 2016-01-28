@@ -6,13 +6,14 @@
 #   A N D   #
 
 And(/^the user has created a vendor with a product selecting C1 testing and 5 measures$/) do
-  @measures = Measure.all.sort_by { rand }.first(5)
-  @vendor = Vendor.new(name: 'Vendor 1')
-  @vendor.save!
-  @product = @vendor.products.build(name: 'Product 1', c1_test: true, c2_test: false, c3_test: false, c4_test: false)
-  @measures.each do |measure|
-    @product.product_tests.build({ name: measure.name, measure_ids: [measure.id], bundle_id: measure.bundle_id }, MeasureTest)
-  end
+  @vendor = FactoryGirl.create(:vendor)
+  @product = Product.new
+  @product.vendor = @vendor
+  @product.name = 'Product 1'
+  @product.c1_test = true
+  @product.product_tests.build({ name: 'test_for_measure_1a',
+                                 measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'],
+                                 bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
   @product.save!
 end
 
@@ -35,6 +36,10 @@ end
 
 #   A N D   #
 
+And(/^the user views that checklist test$/) do
+  page.find("input[type = submit][value = 'View Test']").click
+end
+
 And(/^the user deletes the checklist test$/) do
   page.click_button 'Delete Visual Test'
   page.fill_in 'Remove Name', with: 'delete checklist'
@@ -46,7 +51,7 @@ end
 # # # # # # # #
 
 Then(/^the user should see the checklist test$/) do
-  assert_text('Manual Entry Checklist')
+  assert_text('Check source data scriteria to validate the EHR system for C1 certification.')
 end
 
 Then(/^the user should see a button to revisit the checklist test$/) do
