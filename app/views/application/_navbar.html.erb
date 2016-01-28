@@ -9,13 +9,13 @@
     <div class="collapse navbar-collapse" id="cypressNavbar">
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-          <li <% if params[:controller] != 'records' && params[:controller] != 'registrations' %>class="active"<% end %>>
+          <li <% if (params[:controller] == 'records' && params[:product_test_id]) || (params[:controller] != 'records' && params[:controller] != 'registrations') %>class="active"<% end %>>
             <%= link_to root_path, class: 'navbar-item'   do %>
             <i class="fa fa-fw fa-th-list" aria-hidden="true"></i>
             Dashboard
             <% end %>
           </li>
-          <li <% if params[:controller] == 'records' %>class="active"<% end %>>
+          <li <% if params[:controller] == 'records' && !params[:product_test_id] %>class="active"<% end %>>
             <%= link_to records_path, class: 'navbar-item'   do %>
             <i class="fa fa-fw fa-users" aria-hidden="true"></i>
             Master Patient List
