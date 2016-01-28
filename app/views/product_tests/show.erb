@@ -24,13 +24,15 @@
       <% end %>
     </dl>
 
-    <div class="well well-sm test-step">
-      <p class="title">[1] Download Test Deck</p>
-      <%= form_for @product_test, url: {action: 'download'}, :html => { :method => 'GET' } do |f| %>
-        <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
-          <i class = 'fa fa-fw fa-download'></i> Download CAT 1 (.zip)
+    <div class="panel panel-info">
+      <div class="panel-heading"><h3 class="panel-title">[1] Download Test Deck</h3></div>
+      <div class="panel-body">
+        <%= form_for @product_test, url: {action: 'download'}, :html => { :method => 'GET' } do |f| %>
+          <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
+            <i class = 'fa fa-fw fa-download'></i> Download CAT 1 (.zip)
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 
@@ -43,27 +45,27 @@
       <thead>
         <tr>
           <td></td>
-          <th colspan = '2' class="text-center">CAT 1 Testing</th>
-          <th colspan = '2' class="text-center">CAT 3 Testing</th>
+          <th scope="col" colspan = '2' class="text-center">CAT 1 Testing</th>
+          <th scope="col" colspan = '2' class="text-center">CAT 3 Testing</th>
         </tr>
         <tr>
           <td></td>
-          <th class="text-center">C1</th>
-          <th class="text-center">C3</th>
-          <th class="text-center">C2</th>
-          <th class="text-center">C3</th>
+          <th scope="col" class="text-center">C1</th>
+          <th scope="col" class="text-center">C3</th>
+          <th scope="col" class="text-center">C2</th>
+          <th scope="col" class="text-center">C3</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th>Warnings:</th>
+          <th scope="row">Warnings:</th>
           <td class="text-center">0</td>
           <td class="text-center">0</td>
           <td class="text-center">0</td>
           <td class="text-center">0</td>
         </tr>
         <tr>
-          <th>Errors:</th>
+          <th scope="row">Errors:</th>
           <td class="text-center">0</td>
           <td class="text-center">0</td>
           <td class="text-center">0</td>
@@ -85,12 +87,14 @@
 
   <% if c1 %>
     <div id = 'cat1'>
-      <div class="well well-sm test-step">
-        <p class="title"><%= "[2] Upload for #{tab_label_1}" %></p>
-        <p class = 'description'>
-          <%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %>
-        </p>
-        <%= render partial: 'test_execution_upload', locals: { task: @product_test.c1_task } %>
+      <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title"><%= "[2] Upload for #{tab_label_1}" %></h3></div>
+        <div class="panel-body">
+          <p class = 'description'>
+            <%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %>
+          </p>
+          <%= render partial: 'test_execution_upload', locals: { task: @product_test.c1_task } %>
+        </div>
       </div>
       <hr>
       <h2 class="test-result">CAT 1 Test Results for <%= "#{@product_test.name}" %></h2>
@@ -102,12 +106,14 @@
 
   <% if c2 %>
     <div id = 'cat3'>
-      <div class="well well-sm test-step">
-        <p class="title"><%= "[2] Upload for #{tab_label_2}" %></p>
-        <p class = 'description'>
-          <%= "Upload your CAT 3 XML file to get test results for #{tab_label_2} certifications. This will automatically run a test execution." %>
-        </p>
-        <%= render partial: 'test_execution_upload', locals: { task: @product_test.c2_task } %>
+      <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title"><%= "[2] Upload for #{tab_label_2}" %></h3></div>
+        <div class="panel-body">
+          <p class = 'description'>
+            <%= "Upload your CAT 3 XML file to get test results for #{tab_label_2} certifications. This will automatically run a test execution." %>
+          </p>
+          <%= render partial: 'test_execution_upload', locals: { task: @product_test.c2_task } %>
+        </div>
       </div>
       <hr>
       <h2 class = 'test-result'><%= "CAT 3 Test Results for #{@product_test.name}" %></h2>

@@ -1,93 +1,86 @@
-<div>
-  <%= button_to "Edit Product", [:edit, @product.vendor, @product], :method => :get, :class => "btn btn-default pull-right" %>
-  <h1><%= @product.name %></h1>
+<%= render partial: 'header_product', locals: { product: @product } %>
 
-  <div class="row">
-
-    <div class = 'col-sm-8'>
-      <div class = 'panel panel-default'>
-        <div class = 'panel-heading'><h3>Product Status</h3></div>
-        <div class = 'panel-body'>
-          <table class = 'table table-hover table-condensed'>
-            <thead>
-              <tr>
-                <th class = 'col-sm-1'></th>
-                <th class = 'col-sm-2'></th>
-                <th class = 'col-sm-1'>Passing</th>
-                <th class = 'col-sm-1'>Failing</th>
-                <th class = 'col-sm-1'>Not Started</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% if @product.c1_test %>
-                <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Checklist Test', task_type: 'C1' } %>
-                <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Measure Tests', task_type: 'C1' } %>
-              <% end %>
-              <% if @product.c2_test %>
-                <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Measure Tests', task_type: 'C2' } %>
-              <% end %>
-              <% if @product.c4_test %>
-                <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Filtering Tests', task_type: 'C4' } %>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+<div class="row">
+  <div class = 'col-sm-8'>
+    <div class = 'panel panel-default'>
+      <div class = 'panel-heading'><h3 class='panel-title'>Product Status</h3></div>
+      <div class = 'panel-body'>
+        <table class = 'table table-hover table-condensed'>
+          <thead>
+            <tr>
+              <th scope="col" class = 'col-sm-1'></th>
+              <th scope="col" class = 'col-sm-2'></th>
+              <th scope="col" class = 'col-sm-1'>Passing</th>
+              <th scope="col" class = 'col-sm-1'>Failing</th>
+              <th scope="col" class = 'col-sm-1'>Not Started</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @product.c1_test %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Checklist Test', task_type: 'C1' } %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Measure Tests', task_type: 'C1' } %>
+            <% end %>
+            <% if @product.c2_test %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Measure Tests', task_type: 'C2' } %>
+            <% end %>
+            <% if @product.c4_test %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Filtering Tests', task_type: 'C4' } %>
+            <% end %>
+          </tbody>
+        </table>
       </div>
-    </div>
-
-    <div class = 'col-sm-4'>
-      <h2>Product Information</h2>
-      <%= render partial: 'product_summary', locals: { product: @product } %>
     </div>
   </div>
 
-  <% unless @product.product_tests.empty? %>
-    <div class = 'panel panel-default'>
-      <div class = 'panel-heading'>
-        <h3>Download Full Test Deck</h3>
-      </div>
-      <div class = 'panel-body' id = 'display_bulk_download'>
-        <%= render partial: 'bulk_download', locals: { product: @product } %>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="product-test-tabs">
-    <ul>
-      <% APP_CONFIG.tests.each do |c, certification_test| %>
-        <% if product_certifying_to(@product, certification_test) %>
-          <li><a href="#<%= "#{c}" %>"><%= "#{certification_test['title']}" %></a></li>
-        <% end %>
-      <% end %>
-    </ul>
-
-    <% APP_CONFIG.tests.each do |c, certification_test| %>
-      <% if product_certifying_to(@product, certification_test) %>
-        <div id="<%= c %>">
-          <p><%= certification_test['description'] %></p>
-          <% if c == 'ChecklistTest' %>
-            <% if @product.product_tests.checklist_tests.exists? %>
-              <% checklist_test = @product.product_tests.checklist_tests.first %>
-              <h3>
-                Test Status
-                <div class = 'inline-block pull-right'><%= button_to 'View Test', "/products/#{@product.id}/checklist_tests/#{@product.product_tests.checklist_tests.first.id}", class: 'btn btn-primary', method: :get %></div>
-              </h3>
-              <%= render partial: 'checklist_status_display', locals: { product: @product } %>
-            <% else %>
-              <div class = 'inline-block'><%= button_to 'Start Test', "/products/#{@product.id}/checklist_tests", class: 'btn btn-primary', method: :post %></div>
-              <span>This test does not need to completed all at once. You can always come back once the test is started.</span>
-            <% end %>
-          <% elsif c == 'FilteringTest' %>
-            <% # This test should be a no-op but leaving it there until we know the tests are generated %>
-            <% if @product.product_tests.filtering_tests.exists? %>
-
-              The <%= certification_test['title'] %> is <%= @product.product_tests.filtering_tests.first.status %>.
-            <% end %>
-          <% else %>
-            <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>
-          <% end %>
+  <div class = 'col-sm-4'>
+    <% unless @product.product_tests.empty? %>
+      <div class = 'panel panel-default'>
+        <div class = 'panel-heading'>
+          <h3 class='panel-title'>Download Full Test Deck</h3>
         </div>
-      <% end %>
+        <div class = 'panel-body' id = 'display_bulk_download'>
+          <%= render partial: 'bulk_download', locals: { product: @product } %>
+        </div>
+      </div>
     <% end %>
   </div>
+</div>
+
+<div class="product-test-tabs">
+  <ul>
+    <% APP_CONFIG.tests.each do |c, certification_test| %>
+      <% if product_certifying_to(@product, certification_test) %>
+        <li><a href="#<%= "#{c}" %>"><%= "#{certification_test['title']}" %></a></li>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <% APP_CONFIG.tests.each do |c, certification_test| %>
+    <% if product_certifying_to(@product, certification_test) %>
+      <div id="<%= c %>">
+        <p><%= certification_test['description'] %></p>
+        <% if c == 'ChecklistTest' %>
+          <% if @product.product_tests.checklist_tests.exists? %>
+            <% checklist_test = @product.product_tests.checklist_tests.first %>
+            <h3>
+              Test Status
+              <div class = 'inline-block pull-right'><%= button_to 'View Test', "/products/#{@product.id}/checklist_tests/#{@product.product_tests.checklist_tests.first.id}", class: 'btn btn-primary', method: :get %></div>
+            </h3>
+            <%= render partial: 'checklist_status_display', locals: { product: @product } %>
+          <% else %>
+            <div class = 'inline-block'><%= button_to 'Start Test', "/products/#{@product.id}/checklist_tests", class: 'btn btn-primary', method: :post %></div>
+            <span>This test does not need to completed all at once. You can always come back once the test is started.</span>
+          <% end %>
+        <% elsif c == 'FilteringTest' %>
+          <% # This test should be a no-op but leaving it there until we know the tests are generated %>
+          <% if @product.product_tests.filtering_tests.exists? %>
+
+            The <%= certification_test['title'] %> is <%= @product.product_tests.filtering_tests.first.status %>.
+          <% end %>
+        <% else %>
+          <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 </div>

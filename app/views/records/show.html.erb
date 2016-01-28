@@ -8,7 +8,7 @@
           <tr>
             <td></td>
             <% RecordsHelper::CV_POPULATION_KEYS.each do |population| %>
-              <th class="text-center"><%= population %></th>
+              <th scope="col" class="text-center"><%= population %></th>
             <% end %>
           </tr>
         </thead>
@@ -36,7 +36,7 @@
           <tr>
             <td></td>
             <% RecordsHelper::PROPORTION_POPULATION_KEYS.each do |population| %>
-              <th class="text-center"><%= population %></th>
+              <th scope="col" class="text-center"><%= population %></th>
             <% end %>
           </tr>
         </thead>
@@ -65,7 +65,7 @@
     </dl>
     <% RecordsHelper::SECTIONS.each do |s| %>
       <div class="panel panel-default patient-details">
-        <div class="panel-heading"><h3><%= s.titleize %></h3></div>
+        <div class="panel-heading"><h3 class='panel-title'><%= s.titleize %></h3></div>
         <% if @record[s] %>
           <div class="panel-body">
             <% @record[s].each do |dc| %>

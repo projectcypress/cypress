@@ -1,28 +1,44 @@
-<%= button_to "+ Add Vendor", new_vendor_path, :method => :get, :class => "btn btn-primary pull-right" %>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th class = "col-sm-1">Status</th>
-      <th class = "col-sm-3">Vendor</th>
-      <th class = "text-center">Passing Products</th>
-      <th class = "text-center">Failing Products</th>
-      <th class = "text-center">Incomplete Products</th>
-      <th class = "text-center">Total Products</th>
-      <td></td>
-    </tr>
-  </thead>
-  <tbody>
-    <% @vendors.each do |vendor| %>
-      <tr>
-        <td><%= vendor.status %></td>
-        <td><%= link_to vendor.name, "/vendors/#{vendor.id}"     %></td>
-        <td class = "text-center"><%= vendor.products ? vendor.products_passing.count : 0 %></td>
-        <td class = "text-center"><%= vendor.products ? vendor.products_failing.count : 0 %></td>
-        <td class = "text-center"><%= vendor.products ? vendor.products_incomplete.count : 0 %></td>
-        <td class = "text-center"><%= vendor.products ? vendor.products.count : 0 %></td>
-        <td class="text-center"><%= button_to "Edit Vendor", edit_vendor_path(vendor), :method => :get, :class => "btn btn-xs btn-default" %></td>
-      </tr>
+<% if !@vendors || @vendors.empty? %>
+  <p class="lead">
+    Start EHR Certification with
+    <%= button_to new_vendor_path, :method => :get, :class => "btn btn-primary btn-lg" do %>
+      <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Vendor
     <% end %>
-  </tbody>
-</table>
+  </p>
+<% else %>
+  <%= button_to new_vendor_path, :method => :get, :class => "btn btn-primary pull-right" do %>
+    <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Vendor
+  <% end %>
+
+  <h3>All Vendors</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col" class = "col-sm-1">Status</th>
+        <th scope="col" class = "col-sm-3">Vendor</th>
+        <th scope="col" class = "text-center">Passing Products</th>
+        <th scope="col" class = "text-center">Failing Products</th>
+        <th scope="col" class = "text-center">Incomplete Products</th>
+        <th scope="col" class = "text-center">Total Products</th>
+        <th scope="col"><span class="sr-only">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @vendors.each do |vendor| %>
+        <tr>
+          <td><%= vendor.status %></td>
+          <td><%= link_to vendor.name, "/vendors/#{vendor.id}"     %></td>
+          <td class = "text-center"><%= vendor.products ? vendor.products_passing.count : 0 %></td>
+          <td class = "text-center"><%= vendor.products ? vendor.products_failing.count : 0 %></td>
+          <td class = "text-center"><%= vendor.products ? vendor.products_incomplete.count : 0 %></td>
+          <td class = "text-center"><%= vendor.products ? vendor.products.count : 0 %></td>
+          <td class="text-center">
+            <%= button_to edit_vendor_path(vendor), :method => :get, :class => "btn btn-sm btn-default" do %>
+              <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Vendor
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

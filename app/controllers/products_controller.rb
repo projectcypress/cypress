@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb 'Product: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
     add_breadcrumb 'Edit Product', :edit_vendor_path
     set_measures
     @selected_measure_ids = @product.measure_ids

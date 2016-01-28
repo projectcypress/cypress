@@ -81,7 +81,7 @@ end
 
 Then(/^the user should see the upload functionality for that product test$/) do
   page.assert_text @measure.name
-  page.assert_text '[1] Download Test Deck'
+  page.assert_text 'Download Test Deck'
 end
 
 Then(/^the user should only see the c1 execution page$/) do

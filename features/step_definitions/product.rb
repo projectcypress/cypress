@@ -40,7 +40,7 @@ end
 When(/^the user navigates to the create product page for vendor (.*)$/) do |vendor_name|
   visit('/')
   page.click_link vendor_name
-  page.click_button '+ Add Product'
+  page.click_button 'Add Product'
 end
 
 When(/^the user creates a product with no name$/) do
@@ -150,27 +150,28 @@ When(/^the user cancels creating a product$/) do
 end
 
 When(/^the user changes the name of the product$/) do
-  page.click_button 'Edit'
+  page.click_button 'Edit Product'
   @product_other = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product_other.name
   page.click_button 'Update Product'
 end
 
 When(/^the user removes the product$/) do
-  page.click_button 'Edit'
+  page.click_button 'Edit Product'
   page.click_button 'Delete Product'
   page.fill_in 'Remove Name', with: @product.name
   page.click_button 'Remove', visible: true
 end
 
 When(/^the user removes the product from the vendor page$/) do
-  page.find("button[data-object-name=\"#{@product.name}\"]").click
+  page.click_button 'Edit Product'
+  page.click_button 'Delete Product'
   page.fill_in 'Remove Name', with: @product.name
   page.find('div.modal-footer').find('button', text: 'Remove').click
 end
 
 When(/^the user cancels removing the product$/) do
-  page.click_button 'Edit'
+  page.click_button 'Edit Product'
   page.click_button 'Delete Product'
   page.find('div.modal-footer').find('button', text: 'Cancel').click
   page.find('div.panel-footer').click_button 'Cancel'

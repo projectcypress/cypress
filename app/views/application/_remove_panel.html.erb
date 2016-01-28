@@ -9,14 +9,14 @@
 #                            ex. 'my_account@example.com' for an account
 #   type        (String) : the type of object to be deleted. labels will use "Delete #{type}"
 #   message     (String) : the waring message to give the user in the panel
-#   delete_path (String) : object's path to call delete controller method on. 
+#   delete_path (String) : object's path to call delete controller method on.
 #                            ex. vendor_product_path(@product.vendor, @product)
 
 %>
 
 <div class = 'panel panel-danger'>
   <div class = 'panel-heading'>
-    <h2><%= "Delete #{type}".titleize %></h2>
+    <h3 class='panel-title'><%= "Delete #{type}".titleize %></h3>
   </div>
 
   <div class = 'panel-body'>
