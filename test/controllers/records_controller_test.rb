@@ -31,14 +31,6 @@ class RecordsControllerTest < ActionController::TestCase
     assert assigns(:product_test)
   end
 
-  test 'should get index scoped to task' do
-    get :index, task_id: Task.first
-    assert_response :success
-    assert assigns(:records)
-    assert assigns(:source)
-    assert assigns(:task)
-  end
-
   test 'should get show' do
     get :show, id: Bundle.where(:records.exists => true).first.records.first
     assert_response :success

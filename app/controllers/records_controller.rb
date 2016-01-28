@@ -40,10 +40,6 @@ class RecordsController < ApplicationController
       @source = @product_test
       add_breadcrumb 'Test: ' + @product_test.name, "/products/#{@product_test.product.id}/product_tests/#{@product_test.id}"
       add_breadcrumb 'Patient List', records_path(product_test_id: @product_test.id)
-    elsif params[:task_id]
-      @task = Task.find(params[:task_id])
-      @source = @task
-      add_breadcrumb 'Patient List', records_path(task_id: @task.id)
     else
       @bundle = Bundle.first
       @source = @bundle
