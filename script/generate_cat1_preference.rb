@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require 'json'
 require 'yaml'
 
@@ -7,11 +6,7 @@ def vs_from_row(row)
   vs_param = {}
   vs_param['ValueSet'] = row['ValueSet']
   vs_param['Weight'] = row['Weight']
-  if row['IsAttribute'] == 'TRUE'
-    vs_param['IsAttribute'] = true
-  else
-    vs_param['IsAttribute'] = false
-  end
+  vs_param['IsAttribute'] = row['IsAttribute'] == 'TRUE'
   vs_param
 end
 
