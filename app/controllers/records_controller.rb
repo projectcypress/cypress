@@ -38,7 +38,8 @@ class RecordsController < ApplicationController
     elsif params[:product_test_id]
       @product_test = ProductTest.find(params[:product_test_id])
       @source = @product_test
-      add_breadcrumb 'Test: ' + @product_test.name, "/products/#{@product_test.product.id}/product_tests/#{@product_test.id}"
+      add_breadcrumb 'Test: ' + @product_test.name, product_product_test_path(product_id: @product_test.product.id,
+                                                                              id: @product_test.id)
       add_breadcrumb 'Patient List', records_path(product_test_id: @product_test.id)
     else
       @bundle = Bundle.first
