@@ -6,15 +6,15 @@ class TestExecutionsController < ApplicationController
 
   def create
     @test_execution = @task.execute(params[:results])
-    redirect_to "/tasks/#{@task.id}/test_executions/#{@test_execution.id}"
+    redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id)
   rescue Mongoid::Errors::Validations
     alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
-    redirect_to "/tasks/#{@task.id}/test_executions/new", flash: { alert: alert.html_safe }
+    redirect_to new_task_test_execution_path(task_id: @task.id), flash: { alert: alert.html_safe }
   end
 
   def new
     if @task.most_recent_execution
-      redirect_to "/tasks/#{@task.id}/test_executions/#{@task.most_recent_execution.id}"
+      redirect_to task_test_execution_path(task_id: @task.id, id: @task.most_recent_execution.id)
       return
     end
     render :show
@@ -47,8 +47,10 @@ class TestExecutionsController < ApplicationController
   end
 
   def add_breadcrumbs
-    add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, "/vendors/#{@product_test.product.vendor.id}"
-    add_breadcrumb 'Product: ' + @product_test.product.name, "/vendors/#{@product_test.product.vendor.id}/products/#{@product_test.product.id}"
-    add_breadcrumb 'Test: ' + @product_test.name, "/products/#{@product_test.product.id}/product_tests/#{@product_test.id}"
+    add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(id: @product_test.product.vendor.id)
+    add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(vendor_id: @product_test.product.vendor.id,
+                                                                                 id: @product_test.product.id)
+    add_breadcrumb 'Test: ' + @product_test.name, product_product_test_path(product_id: @product_test.product.id,
+                                                                            id: @product_test.id)
   end
 end

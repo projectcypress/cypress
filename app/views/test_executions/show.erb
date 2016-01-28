@@ -5,7 +5,6 @@
 <% other_task = get_other_task(@task) %>
 
 <h3 class = 'page-title'><%= "#{certification_types} certification for #{@product_test.cms_id} #{@product_test.name}" %></h3>
-
 <div class = 'row'>
   <div class = 'col-sm-12' id = 'execution_status_table'>
     <%= render partial: 'execution_status_table', locals: { task: @task } %>
@@ -19,6 +18,7 @@
       <div id = 'display_execution_download'>
         <%= render partial: 'execution_download', locals: { product_test: @product_test } %>
       </div>
+        <%= button_to 'View Patients', {:controller => "records", :product_test_id => @product_test.id}, class: 'btn btn-block btn-info', method: :get %>
     </div>
   </div>
 

@@ -1,10 +1,16 @@
-<h1>Master Patient List</h1>
+<% if !@task && !@product_test %>
+  <h1>Master Patient List</h1>
+<% else %>
+  <h1>Patient List</h1>
+<% end %>
 <div class="row">
+  <% if !@task && !@product_test %>
   <div class="col-md-5">
     <h2>Filter by Measure</h2>
     <label for="measure_id" class="sr-only">Filter the Master Patient List</label>
     <%= select_tag(:measure_id, options_for_select(@measures.map { |m| [m.display_name, by_measure_records_path(:measure_id => m.hqmf_id, :sub_id => m.sub_id)] } ), class: 'form-control', include_blank: 'All measures') %>
   </div>
+  <% end %>
   <div id="records_list" class="col-md-7">
     <%= render partial: 'records_list', locals: { records: @records } %>
   </div>
