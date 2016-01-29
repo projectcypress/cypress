@@ -3,7 +3,7 @@
 
 <%= bootstrap_nested_form_for @vendor, html: {id: "add_vendor_form"} do |f| %>
   <div class="panel-body">
-    <%= f.text_field :name, label: 'Vendor Name' %>
+    <%= f.text_field :name, label: 'Vendor Name', autocomplete: 'off' %>
     <%= f.text_field :vendor_id, label: 'Vendor ID' %>
     <%= f.url_field :url, label: 'URL' %>
     <%= f.text_field :address %>
