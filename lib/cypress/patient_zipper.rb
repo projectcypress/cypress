@@ -44,6 +44,7 @@ module Cypress
     FORMAT_EXTENSIONS = { html: 'html', qrda: 'xml', json: 'json' }.freeze
 
     def self.zip(file, patients, format)
+      patients = apply_sort_to patients
       mes, sd, ed = mes_start_end(patients)
 
       formatter = if format.to_sym == :qrda
@@ -64,6 +65,14 @@ module Cypress
                  formatter.export(patient)
                end
         end
+      end
+    end
+
+    def self.apply_sort_to(patients)
+      if patients.is_a? Array
+        patients.sort_by { |p| p.first + '_' + p.last }
+      else
+        patients.order_by(:first.asc, :last.asc)
       end
     end
 
