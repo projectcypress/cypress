@@ -36,10 +36,10 @@
         </h3>
       </div>
       <div class="panel-body">
-        <p class = 'description'>
+        <p class = 'description' id='execution_upload_label'>
           <%= "Upload your #{upload_type} file to get test results for #{certification_types} certifications. This will automatically run a test execution." %>
         </p>
-        <%= render partial: 'execution_upload', locals: { task: @task } %>
+        <%= render partial: 'execution_upload', locals: { task: @task, label: 'execution_upload_label' } %>
       </div>
     </div>
   </div>
@@ -50,13 +50,13 @@
     <div class = 'panel-heading'>
       <h3 class='panel-title'>
         Results
-        <label class = 'pull-right'>
-          <select onchange = "location = this.options[this.selectedIndex].value;">
+        <div class = 'pull-right'>
+          <select aria-label="View test execution" onchange = "location = this.options[this.selectedIndex].value;">
             <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
               <option value = <%= "/tasks/#{@task.id}/test_executions/#{execution.id}" %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i == 0) %></option>
             <% end %>
           </select>
-        </label>
+        </div>
       </h3>
     </div>
     <div class = 'panel-body' id = 'display_execution_results' >
