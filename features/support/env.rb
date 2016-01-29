@@ -10,6 +10,8 @@ require 'capybara/cucumber'
 require 'capybara/poltergeist'
 require 'capybara/accessible'
 
+require 'axe/cucumber/step_definitions'
+
 Mongoid.logger.level = Logger::INFO
 Mongo::Logger.logger.level = Logger::INFO
 
