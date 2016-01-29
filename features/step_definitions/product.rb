@@ -216,8 +216,8 @@ Then(/^the user should see an error message saying the product name has been tak
   page.assert_text 'name was already taken'
 end
 
-Then(/^the user should see an error message saying the product must have at least one task type$/) do
-  page.assert_text 'must include at least one certification test'
+Then(/^the user should see an error message saying the product must certify to C1 or C2$/) do
+  page.assert_text 'must certify to C1 or C2'
 end
 
 Then(/^the user should see an error message saying the product must have at least one measure$/) do

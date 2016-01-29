@@ -23,7 +23,7 @@ class Product
                    uniqueness: { :scope => :vendor,
                                  :message => 'Product name was already taken. Please choose another.' }
   # validates :ehr_type, presence: true, inclusion: { in: %w(provider hospital) }
-  validate :at_least_one_test_type?
+  validate :meets_required_certification_types?
   validates :vendor, presence: true
 
   def status
@@ -57,8 +57,8 @@ class Product
     end
   end
 
-  def at_least_one_test_type?
-    errors.add(:tests, 'Product must include at least one certification test.') unless [c1_test, c2_test, c3_test, c4_test].any? { |is_true| is_true }
+  def meets_required_certification_types?
+    errors.add(:tests, 'Product must certify to C1 or C2 or both.') unless c1_test || c2_test
   end
 
   def at_least_one_measure?
