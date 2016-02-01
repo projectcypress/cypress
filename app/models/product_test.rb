@@ -32,7 +32,7 @@ class ProductTest
   mount_uploader :patient_archive, PatientArchiveUploader
 
   after_create do |product_test|
-    ProductTestSetupJob.perform_later(product_test)
+    ProductTestSetupJob.perform_later(product_test) unless product_test.is_a? FilteringTest
   end
 
   delegate :effective_date, :to => :bundle

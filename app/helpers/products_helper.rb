@@ -110,7 +110,7 @@ module ProductsHelper
     test = filter_tests.pop
     test.generate_records
     test.save
-
+    ProductTestSetupJob.perform_later(test)
     records = test.records
     filter_tests.each do |ft|
       records.collect do |r|
@@ -120,6 +120,7 @@ module ProductsHelper
         r2
       end
       ft.save
+      ProductTestSetupJob.perform_later(ft)
     end
   end
 end
