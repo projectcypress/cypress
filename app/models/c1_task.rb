@@ -39,4 +39,17 @@ class C1Task < Task
     patient_ids = product_test.results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
     product_test.records.in('_id' => patient_ids)
   end
+
+  # should only be used if product.c3_test is true
+  def c3_status
+    Rails.cache.fetch("#{cache_key}/status") do
+      report_status = 'incomplete'
+      recent_execution = most_recent_execution
+      if recent_execution
+        recent_c3_execution = TestExecution.find(recent_execution.sibling_execution_id)
+        report_status = recent_c3_execution.passing? ? 'passing' : 'failing'
+      end
+      report_status
+    end
+  end
 end
