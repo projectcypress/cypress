@@ -94,10 +94,11 @@ module Cypress
       @logger.error "Cat 3 test #{product_test.id} failed: #{e}"
     end
 
-    def generate_cat3(measure_ids, test)
-      zip = create_patient_zip(test.records)
-      file = `bundle exec ruby ./script/cat_3_calculator.rb #{measure_opts_for(measure_ids)} --zipfile #{zip.path}`
-      file
+    def generate_cat3(measure_ids, t)
+      zip = create_patient_zip(t.records)
+      c3c = Cypress::Cat3Calculator.new(measure_ids, t.bundle)
+      c3c.import_cat1_zip(zip)
+      c3c.generate_cat3
     end
 
     def upload_all_cat1s
