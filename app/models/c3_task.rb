@@ -41,35 +41,4 @@ class C3Task < Task
     te.save
     te
   end
-
-  def status
-    Rails.cache.fetch("#{cache_key}/status") do
-      report_status = 'incomplete'
-      statuses = []
-      statuses << test_execution_status('Cat1') if has_cat_1
-      statuses << test_execution_status('Cat3') if has_cat_3
-      if statuses.include? 'failing'
-        report_status = 'failing'
-      elsif statuses.include? 'incomplete'
-        report_status = 'incomplete'
-      elsif statuses.size > 0
-        report_status = 'passing'
-      end
-      report_status
-    end
-  end
-
-  def test_execution_status(qrda_type)
-    if test_executions.where(qrda_type: qrda_type).order_by(created_at: 'desc').size > 0
-      recent_execution = test_executions.where(qrda_type: qrda_type).order_by(created_at: 'desc').first
-      if recent_execution.passing?
-        report_status = 'passing'
-      elsif recent_execution.failing?
-        report_status = 'failing'
-      end
-    else
-      report_status = 'incomplete'
-    end
-    report_status
-  end
 end
