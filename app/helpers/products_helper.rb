@@ -114,10 +114,10 @@ module ProductsHelper
     records = test.records
     filter_tests.each do |ft|
       records.collect do |r|
-        r.clone
-        r.test_id = ft.id
-        r.save
-        r
+        r2 = r.clone
+        r2.test_id = ft.id
+        r2.save
+        r2
       end
       ft.save
     end
