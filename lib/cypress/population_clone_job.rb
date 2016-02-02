@@ -34,14 +34,12 @@ module Cypress
     def find_patients_to_clone
       # Clone AMA records from Mongo
       @test = ProductTest.find(options['test_id'])
-      patients = []
       patients = if options['patient_ids']
                    # clone each of the patients identified in the :patient_ids parameter
                    @test.bundle.records.where(test_id: nil).in(medical_record_number: options['patient_ids']).to_a
                  else
                    @test.bundle.records.where(test_id: nil).to_a
-      end
-
+                 end
       patients
     end
 
@@ -120,7 +118,7 @@ module Cypress
                generate_provider
              else
                Provider.default_provider
-      end
+             end
       patient.provider_performances.build(provider: prov) if prov
     end
 
