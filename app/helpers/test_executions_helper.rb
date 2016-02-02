@@ -4,7 +4,7 @@ module TestExecutionsHelper
                             'C1'
                           else
                             'C2'
-    end
+                          end
     certification_types << ' and C3' if task.product_test.product.c3_test
     certification_types
   end
@@ -14,7 +14,7 @@ module TestExecutionsHelper
                                   'C2'
                                 else
                                   'C1'
-    end
+                                end
     other_certification_types << ' and C3' if task.product_test.product.c3_test
     other_certification_types
   end

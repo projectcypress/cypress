@@ -50,7 +50,7 @@ module Cypress
                     Cypress::QRDAExporter.new(mes, sd, ed)
                   else
                     Cypress::HTMLExporter.new(mes, sd, ed)
-      end
+                  end
 
       Zip::ZipOutputStream.open(file.path) do |z|
         patients.each_with_index do |patient, i|
@@ -62,7 +62,7 @@ module Cypress
                  formatter.new.export(patient)
                else
                  formatter.export(patient)
-          end
+               end
         end
       end
     end

@@ -14,7 +14,7 @@ module Validators
                     else
                       [CDA.instance,
                        Cat1.instance]
-      end
+                    end
     end
 
     # Validates a QRDA Cat I file.  This routine will validate the file against the CDA schema as well as the

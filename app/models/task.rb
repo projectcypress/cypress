@@ -22,14 +22,6 @@ class Task
     status == 'failing'
   end
 
-  def passing?
-    status == 'passing'
-  end
-
-  def failing?
-    status == 'failing'
-  end
-
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       report_status = 'incomplete'
