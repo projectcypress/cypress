@@ -11,14 +11,16 @@
       <% end %>
     </div>
     <h3 class="summary-title"><%= @vendor.name %> <% if @vendor.vendor_id? %>(ID: <%= @vendor.vendor_id %>)<% end %></h3>
+
     <% if @vendor.url? %>
       <p><a href="<%= @vendor.url %>">Website</a>
     <% end %>
-    <% if formatted_vendor_address(@vendor) %>
-      | <%= formatted_vendor_address(@vendor) %>
-    <% end %>
-    <% unless @vendor.pocs.empty? %>
-      | <%= pluralize(@vendor.pocs.length, 'POC') %>
-    <% end %>
+
+    <% vendor_address = formatted_vendor_address(@vendor) %>
+    <%= ' | ' if vendor_address && @vendor.url? %>
+    <%= vendor_address if vendor_address %>
+
+    <%= ' | ' if !@vendor.pocs.empty? && (@vendor.url? || vendor_address) %>
+    <%= pluralize(@vendor.pocs.length, 'POC') unless @vendor.pocs.empty? %>
   </div>
 </div>
