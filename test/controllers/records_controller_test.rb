@@ -8,6 +8,7 @@ class RecordsControllerTest < ActionController::TestCase
   end
 
   test 'should get index no scoping' do
+    # do this for all users
     get :index
     assert_response :success
     assert assigns(:records)
@@ -16,6 +17,7 @@ class RecordsControllerTest < ActionController::TestCase
   end
 
   test 'should get index scoped to bundle' do
+    # do this for all users
     get :index, bundle_id: Bundle.where(:records.exists => true).first
     assert_response :success
     assert assigns(:records)
@@ -23,7 +25,11 @@ class RecordsControllerTest < ActionController::TestCase
     assert assigns(:bundle)
   end
 
+
+
   test 'should get index scoped to task' do
+    # do this for admin,atl,user:owner and vendor -- need negative tests for non
+    # access users
     get :index, task_id: Task.first
     assert_response :success
     assert assigns(:records)
@@ -31,9 +37,21 @@ class RecordsControllerTest < ActionController::TestCase
     assert assigns(:task)
   end
 
+
   test 'should get show' do
+    # do this for all users
     get :show, id: Bundle.where(:records.exists => true).first.records.first
     assert_response :success
     assert assigns(:record)
+  end
+
+  # need negative tests for user that does not have owner or vendor access
+  test 'should be able to restrict access to product test records unauthorized users ' do
+
+  end
+
+  # need negative tests for user that does not have owner or vendor access
+  test 'should be able to restrict access to task records for unauthorized users ' do
+
   end
 end

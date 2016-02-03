@@ -8,14 +8,22 @@ version: 2.7.0
 default_bundle: 2.9.9
 
 enable_logging: false
+
 #set to true to enable a banner at the top of every page with the "banner_message" text from below
 banner: false
 banner_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
 
-ignore_roles: true
-default_role: :user
 
-user_approved_default: false
+
+# ignore roles completely -- this is essientially the same as everyone in the system being an admin
+
+ignore_roles: true
+# the default role to assign to a user upon at creation -- this should be either admin,atl, user or nil
+# a user without a role will not be able to create or view any vendors .  You may want to set this to nil
+# when an admin is required to approve new users and have the admin set the role there
+default_role: :user
+# wheather or not users are automatically approved without admin intervention
+auto_approve: true
 
 # setting to disable the bundles page until admin roles are available
 disable_bundle_page: true

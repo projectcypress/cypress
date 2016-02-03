@@ -20,18 +20,15 @@ class Vendor
   def self.accessible_by(user)
     # if admin or atl or ignore_roles get them all
     # else get all vendors that the user is a owner or vendor on
-    if user.has_role?( :admin) || user.has_role?( :atl )|| APP_CONFIG.ignore_roles
+    if user.has_role?(:admin) || user.has_role?(:atl) || APP_CONFIG.ignore_roles
       Vendor.all
     else
       vids = []
-      user.roles.each do |r|
-        if (role.resource_type == Vendor )
-          vids << role.resource_id
-        end
+      user.roles.each do |_r|
+        vids << role.resource_id if role.resource_type == Vendor
       end
-      Vendor.find(vids)
+      Vendor.in(_id: vids)
     end
-
   end
 
   def status
@@ -64,6 +61,4 @@ class Vendor
       products.select { |product| product.status == 'incomplete' }
     end
   end
-
-
 end
