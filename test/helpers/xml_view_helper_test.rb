@@ -13,9 +13,10 @@ class XmlViewHelperTest < ActiveSupport::TestCase
     product_test = ProductTest.find('51703a883054cf84390000d3')
     task = product_test.tasks.create({}, C1Task)
 
-    xml = create_rack_test_file('test/fixtures/qrda/cat_1/bad_schematron_makes_xml_errors.xml', 'application/xml')
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data_and_missing_template_ids.zip'))
+
     perform_enqueued_jobs do
-      @te = task.execute(xml)
+      @te = task.execute(zip)
       @te.reload
     end
   end
@@ -35,7 +36,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
     assert_no_match '<li', message
   end
 
-  def test_match
+  def test_popup_attributes_multiple_errors
     error_maps = get_error_mapping(@te)
     errors = error_maps[0][:file_errors]
     title, button_text, message = popup_attributes(errors)
