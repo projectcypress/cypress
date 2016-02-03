@@ -37,6 +37,7 @@ class RecordsController < ApplicationController
       add_breadcrumb 'Master Patient List', :records_path
     elsif params[:product_test_id]
       @product_test = ProductTest.find(params[:product_test_id])
+      @measure = Measure.where(hqmf_id: @product_test.measure_ids.first).first
       @source = @product_test
       add_breadcrumb 'Test: ' + @product_test.name, product_product_test_path(product_id: @product_test.product.id,
                                                                               id: @product_test.id)
