@@ -1,5 +1,5 @@
-.panel-heading {
-  @include headings-settings(1.5em, 500, auto);
+.panel-title {
+  letter-spacing: .04em;
 }
 
 // Panels inside of panels should not take full width
@@ -7,24 +7,11 @@
   margin: $panel-body-padding;
 }
 
-.panel-footer {
-  // Add spacing between a button and adjacent inline text
-  .btn + span {
-    margin-left: $padding-xs-horizontal;
-  }
+// Add spacing between a button and adjacent inline text
+.panel-footer .btn + span {
+  margin-left: $padding-xs-horizontal;
 }
 
-// For use with .well not .panel. Close enough
-.test-step {
-  background-color: $state-info-bg;
-  border: 0;
-  padding: 1.5em;
-
-  .title {
-    border-bottom: 1px $state-info-text solid;
-    color: $state-info-text;
-    font-size: 1.25em;
-    font-weight: $headings-font-weight;
-    padding-bottom: .5em;
-  }
+.panel.summary h3 {
+  margin-top: .25em;
 }

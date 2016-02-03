@@ -18,3 +18,14 @@
 .checkbox + .checkbox {
   margin-top: 1em;
 }
+
+// need to overwrite .input-group-addon colors when buttons are involved
+@each $state in primary, success, danger, warning, info, default {
+  .input-group-addon.btn-#{$state} {
+    @extend .btn-#{$state};
+  }
+}
+
+.panel-title select {
+  color: $text-color;
+}

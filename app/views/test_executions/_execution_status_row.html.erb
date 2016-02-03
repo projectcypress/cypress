@@ -13,11 +13,11 @@
 <% highlighter = is_current_task && get_other_task(task) ? 'highlight-row' : '' %>
 
 <tr class = '<%= highlighter %>'>
-  <td>
+  <th scope='row'>
     <% visibility = total == 0 && execution && execution.passing? ? '' : 'invisible' %>
     <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
-    <strong><%= get_certification_types(task) %></strong>
-  </td>
+    <%= get_certification_types(task) %>
+  </th>
   <td>
     <% if execution && execution.passing? %>
       <strong class = 'text-success'>Passing</strong>

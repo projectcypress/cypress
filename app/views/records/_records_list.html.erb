@@ -4,12 +4,12 @@
 <table class="table table-condensed table-hover">
   <thead>
     <tr>
-      <th>Patient Name</th>
-      <th>DOB</th>
-      <th>Gender</th>
+      <th scope="col">Patient Name</th>
+      <th scope="col">DOB</th>
+      <th scope="col">Gender</th>
       <% if @measure %>
         <% @measure.population_ids.keys().each do |population| %>
-          <th class="text-center"><%= population %></th>
+          <th scope="col" class="text-center"><%= population %></th>
         <% end %>
       <% end %>
     </tr>

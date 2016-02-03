@@ -3,7 +3,7 @@
 <div class="panel panel-default">
 
   <div class="panel-heading">
-    <h2>Edit <%= resource_name.to_s.humanize %></h2>
+    <h3 class='panel-title'>Edit <%= resource_name.to_s.humanize %></h3>
   </div>
 
   <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>

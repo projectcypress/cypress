@@ -56,22 +56,19 @@ end
 
 And(/^the user uploads a CAT 1 zip file$/) do
   zip_path = File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip')
-  page.find('.fileinput > .form-control').click
-  page.attach_file(page.find('.upload-results').value, zip_path)
+  page.attach_file('results', zip_path)
   page.find('#submit-upload').click
 end
 
 And(/^the user uploads a CAT 3 XML file$/) do
   xml_path = File.join(Rails.root, 'test/fixtures/product_tests/cms111v3_catiii.xml')
-  page.find('.fileinput > .form-control').click
-  page.attach_file(page.find('.upload-results').value, xml_path)
+  page.attach_file('results', xml_path)
   page.find('#submit-upload').click
 end
 
 And(/^the user uploads an invalid file$/) do
   invalid_file_path = File.join(Rails.root, 'app/assets/images/checkmark.svg')
-  page.find('.fileinput > .form-control').click
-  page.attach_file(page.find('.upload-results').value, invalid_file_path)
+  page.attach_file('results', invalid_file_path)
   page.find('#submit-upload').click
 end
 
@@ -81,7 +78,7 @@ end
 
 Then(/^the user should see the upload functionality for that product test$/) do
   page.assert_text @measure.name
-  page.assert_text '[1] Download Test Deck'
+  page.assert_text 'Download Test Deck'
 end
 
 Then(/^the user should only see the c1 execution page$/) do

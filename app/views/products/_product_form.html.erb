@@ -1,11 +1,11 @@
 <div class="panel panel-default">
-<div class="panel-heading"><h1><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h1></div>
+<div class="panel-heading"><h3 class='panel-title'><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h3></div>
 
 <%= bootstrap_form_for [@product.vendor, @product] do |f| %>
 <div class="panel-body">
   <div class="row">
     <div class="col-md-6">
-      <%= f.text_field :name %>
+      <%= f.text_field :name, autocomplete: 'off' %>
       <%= f.text_field :version %>
       <%= f.text_area :description %>
     </div>
@@ -40,7 +40,7 @@
     <div class="row">
       <div class="panel panel-primary select-measures">
         <div class="panel-heading">
-          <h2>Select Measures</h2>
+          <h3 class='panel-title'>Select Measures</h3>
         </div>
         <div class="panel-body">
           <div class="col-md-12"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>

@@ -83,6 +83,7 @@ group :development, :test do
   gem 'scss_lint', require: false
   gem 'capybara'
   gem 'capybara-accessible'
+  gem 'axe-matchers'
 end
 
 group :development do

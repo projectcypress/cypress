@@ -1,0 +1,13 @@
+<div class="panel panel-primary">
+  <div class="panel-body">
+    <div class="panel-actions pull-right">
+      <%= button_to edit_vendor_product_path(@product.vendor, @product), :method => :get, :class => "btn btn-default" do %>
+        <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Product
+      <% end %>
+    </div>
+    <h3 class="summary-title"><%= @product.name %> <% if @product.version? %>(Version: <%= @product.version %>)<% end %></h3>
+    <% if @product.description? %>
+      <p><%= @product.description %>
+    <% end %>
+  </div>
+</div>
