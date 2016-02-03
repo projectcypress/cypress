@@ -3,8 +3,8 @@ require 'test_helper'
 class ProductTestTest < ActiveJob::TestCase
   def setup
     collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
-    vendor = Vendor.create(name: 'test_vendor_name')
-    @product = vendor.products.create(name: 'test_product', c2_test: true)
+    @vendor = Vendor.create(name: 'test_vendor_name')
+    @product = @vendor.products.create(name: 'test_product', c2_test: true, randomize_records: true)
   end
 
   def test_create
@@ -16,7 +16,31 @@ class ProductTestTest < ActiveJob::TestCase
     perform_enqueued_jobs do
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
+
       assert pt.records.count > 0, 'product test creation should have created random number of test records'
+      pt.reload
+      assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
+      assert_not_nil pt.expected_results, 'Product test should have expected results'
+    end
+  end
+
+  def test_create_without_randomized_records
+    @product = @vendor.products.create(name: 'test_product_no_random', c2_test: true, randomize_records: false)
+    assert_enqueued_jobs 0
+    pt = @product.product_tests.build(name: 'test_for_measure_1a',
+                                      measure_ids: ['0001'],
+                                      bundle_id: '4fdb62e01d41c820f6000001')
+    assert pt.valid?, 'product test should be valid with product, name, and measure_id'
+    perform_enqueued_jobs do
+      assert pt.save, 'should be able to save valid product test'
+      assert_performed_jobs 1
+
+      assert_equal 1, pt.records.count, 'product test creation should have created specific number of test records'
+      patient = pt.records.first
+      assert_equal 'Rosa', patient.first, 'Patient name should not be randomized'
+      assert_equal 'Vasquez', patient.last, 'Patient name should not be randomized'
+      assert_equal '20', patient.medical_record_number, 'Patient record # should not be randomized'
+
       pt.reload
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
       assert_not_nil pt.expected_results, 'Product test should have expected results'

@@ -22,6 +22,10 @@
           <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
         <% end %>
       <% end %>
+
+      <%= f.form_group :randomize_records do %>
+        <%= f.check_box :randomize_records, label: 'Randomize Records', checked: true, disabled: params[:action] == "edit" %>
+      <% end %>
     </div>
 </div>
 
