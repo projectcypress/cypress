@@ -15,14 +15,6 @@ class FilteringTestTest < ActiveJob::TestCase
                                         bundle_id: '4fdb62e01d41c820f6000001', options: options }, FilteringTest)
 
     assert ft.valid?
-    perform_enqueued_jobs do
-      assert ft.save, 'should be able to save valid Filtering test'
-      assert_performed_jobs 1
-      assert ft.records.count > 0, 'Filtering test creation should have created random number of test records'
-      ft.reload
-      assert_not_nil ft.patient_archive, 'Filtering test should have archived patient records'
-      assert_not_nil ft.expected_results, 'Filtering test should have expected results'
-    end
   end
 
   def test_pick_filter_criteria

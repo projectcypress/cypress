@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProductsHelperTest < ActiveSupport::TestCase
+class ProductsHelperTest < ActiveJob::TestCase
   include ProductsHelper
   # include ActiveJob::TestHelper
 
@@ -140,5 +140,12 @@ class ProductsHelperTest < ActiveSupport::TestCase
     assert_equal 1, failing
     assert_equal 1, not_started
     assert_equal 2, total
+  end
+
+  def test_generate_filter_records
+    @product.product_tests = nil
+    @product.add_filtering_tests(Measure.where(hqmf_id: '40280381-4600-425F-0146-1F8D3B750FAC').first)
+    records = @product.product_tests.filtering_tests.first.records
+    @product.product_tests.filtering_tests.each { |ft| assert ft.records == records }
   end
 end
