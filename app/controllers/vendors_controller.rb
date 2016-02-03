@@ -8,7 +8,7 @@ class VendorsController < ApplicationController
 
   def index
     # need to get all of the vendors that the user can see
-    @vendors = Vendor.accessible_by(current_user).order(:updated_at => :desc)#Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
+    @vendors = Vendor.accessible_by(current_user).order(:updated_at => :desc) # Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
     respond_to do |f|
       f.html
       f.json { render json: @vendors }

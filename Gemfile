@@ -93,7 +93,6 @@ group :development do
   gem 'pry'
   gem 'pry-nav'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-
 end
 
 group :test do
