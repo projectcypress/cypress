@@ -12,7 +12,7 @@ module Validators
       @validators = if c3_validation
                       [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
                     else
-                      [CDA.instance,Cat1.instance]
+                      [CDA.instance, Cat1.instance]
                     end
     end
 
