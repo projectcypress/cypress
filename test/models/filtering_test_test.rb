@@ -4,7 +4,7 @@ class FilteringTestTest < ActiveJob::TestCase
   def setup
     collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
     vendor = Vendor.create(name: 'test_vendor_name')
-    @product = vendor.products.create(name: 'test_product', c2_test: true, c4_test: true)
+    @product = vendor.products.create(name: 'test_product', randomize_records: true, c2_test: true, c4_test: true)
   end
 
   def test_create
