@@ -18,7 +18,6 @@ class Measure
     start_marker = 'CMS'
     end_marker = 'v'
     cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i
-    # cms_id[3, cms_id.index('v') - 3].to_i
   end
 
   def data_criteria
