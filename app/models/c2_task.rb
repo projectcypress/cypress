@@ -33,7 +33,7 @@ class C2Task < Task
 
   # should only be used if product.c3_test is true
   def c3_status
-    Rails.cache.fetch("#{cache_key}/status") do
+    Rails.cache.fetch("#{cache_key}/c3_status") do
       report_status = 'incomplete'
       recent_execution = most_recent_execution
       if recent_execution

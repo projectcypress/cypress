@@ -111,19 +111,19 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 2, total
   end
 
-  def test_filtering_test_status_values_not_started
+  def test_filtering_test_status_values_summed_not_started
     tests = @product.product_tests.filtering_tests
-    passing, failing, not_started, total = filtering_test_status_values(tests)
+    passing, failing, not_started, total = filtering_test_status_values_summed(tests)
 
     assert_equal 0, passing
     assert_equal 0, failing
     assert_equal not_started, total
   end
 
-  def test_filtering_test_status_values_passing
+  def test_filtering_test_status_values_summed_passing
     tests = @product.product_tests.filtering_tests
     tests.first.tasks.where(_type: 'Cat1FilterTask').first.test_executions.build(:state => :passed).save
-    passing, failing, not_started, total = filtering_test_status_values(tests)
+    passing, failing, not_started, total = filtering_test_status_values_summed(tests)
 
     assert_equal 1, passing
     assert_equal 0, failing
@@ -131,10 +131,10 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 2, total
   end
 
-  def test_filtering_test_status_values_failing
+  def test_filtering_test_status_values_summed_failing
     tests = @product.product_tests.filtering_tests
     tests.first.tasks.where(_type: 'Cat1FilterTask').first.test_executions.build(:state => :failed).save
-    passing, failing, not_started, total = filtering_test_status_values(tests)
+    passing, failing, not_started, total = filtering_test_status_values_summed(tests)
 
     assert_equal 0, passing
     assert_equal 1, failing

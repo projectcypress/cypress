@@ -17,33 +17,32 @@ module ProductsHelper
     if tasks.empty?
       [0, 0, 0, 0]
     else
-      is_c3 ? c3_measure_test_totals(tasks) : c1_or_c2_measure_test_totals(tasks)
+      is_c3 ? c3_tasks_values(tasks) : tasks_values(tasks)
     end
   end
 
-  def filtering_test_status_values(tests)
-    passing = failing = not_started = total = 0
-
-    tests.each do |test|
-      passing += test.tasks.count { |task| task.status == 'passing' }
-      failing += test.tasks.count { |task| task.status == 'failing' }
-      not_started += test.tasks.count { |task| task.status == 'incomplete' }
-      total += test.tasks.count
-    end
-
-    [passing, failing, not_started, total]
-  end
-
-  def c1_or_c2_measure_test_totals(tasks)
+  def tasks_values(tasks)
     status_values = []
     %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
     status_values << tasks.count
   end
 
-  def c3_measure_test_totals(tasks)
+  def c3_tasks_values(tasks)
     status_values = []
     %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.c3_status == status } }
     status_values << tasks.count
+  end
+
+  def filtering_test_status_values(tests, task_type)
+    tasks = []
+    tests.each { |test| tasks << test.tasks.where(_type: task_type) }
+    tasks.empty? ? [0, 0, 0, 0] : tasks_values(tasks)
+  end
+
+  def filtering_test_status_values_summed(tests)
+    cat1 = filtering_test_status_values(tests, 'Cat1FilterTask')
+    cat3 = filtering_test_status_values(tests, 'Cat3FilterTask')
+    cat1.map.with_index { |cat1_elem, i| cat1_elem + cat3[i] }
   end
 
   def certifications(product)
