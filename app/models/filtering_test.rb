@@ -75,8 +75,16 @@ class FilteringTest < ProductTest
   def lookup_problem
     measure = Measure.find_by(hqmf_id: measure_ids.first)
     criteria_keys = measure.hqmf_document.source_data_criteria.keys
-    # determine which data criteira is the diagnosis
-    diagnosis_criteria_key = criteria_keys.find { |key| measure.hqmf_document.source_data_criteria.send(key).definition.eql? 'diagnosis' }
+    # determine which data criteira are diagnoses, and make sure we choose one that one of our records has
+    # require 'pry'
+    diagnosis_criteria_key = criteria_keys.find do |key|
+      criteria_def = measure.hqmf_document.source_data_criteria.send(key).definition
+      if criteria_def.eql? 'diagnosis'
+        # binding.pry
+        Cypress::RecordFilter.filter(records, { 'problems' => [measure.hqmf_document.source_data_criteria.send(key).code_list_id] }, {}).count > 0
+      end
+    end
+    # binding.pry
     measure.hqmf_document.source_data_criteria.send(diagnosis_criteria_key).code_list_id
   end
 
