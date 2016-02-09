@@ -72,12 +72,7 @@
             <span>This test does not need to completed all at once. You can always come back once the test is started.</span>
           <% end %>
         <% elsif c == 'FilteringTest' %>
-          <% # This test should be a no-op but leaving it there until we know the tests are generated %>
-          <% if @product.product_tests.filtering_tests.exists? %>
-            <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } %>
-          <% else %>
-            <%= button_to "Start C4 Testing", new_vendor_product_filtering_test_path(product_id: @product._id), class: 'btn btn-primary', method: :get %>
-          <% end %>
+          <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } if @product.product_tests.filtering_tests.exists? %>
         <% else %>
           <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>
         <% end %>
