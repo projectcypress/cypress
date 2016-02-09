@@ -1,0 +1,44 @@
+<h1>Installed Bundles</h1>
+
+<%= button_to "+ Import Bundle", new_bundle_path, :method => :get, :class => "btn btn-primary pull-right" %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class = "col-sm-6">Title</th>
+      <th class = "text-center">Version</th>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bundles.each do |bundle| %>
+      <tr>
+        <td> <%= bundle.title %> <%= '(Default)' if bundle.active %> </td>
+        <td class = "text-center"><%= bundle.version %></td>
+        <!--td class = "text-center">some other value</td -->
+        <td class="text-center">
+
+        <% unless bundle.active %>
+          <%= button_to "Set Default", set_default_bundle_path(bundle), :method => :post, :class => "btn btn-xs btn-default" %>
+        <% end %>
+
+        <% unless bundle.active && @bundles.count > 1 %>
+          <%= render partial: 'remove_button', locals: {
+                          button_text: 'Remove',
+                          button_classes: 'btn btn-xs btn-danger',
+                          object: bundle,
+                          object_type: 'bundle',
+                          object_name: bundle.title,
+                          object_path: bundle_path(bundle),
+                          modal_message: 'Removing a bundle will also delete all associated products and test results.'
+                    } %>
+        <% end %>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= render partial: 'remove_modal' %>
