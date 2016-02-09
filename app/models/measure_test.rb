@@ -5,7 +5,10 @@ class MeasureTest < ProductTest
     errors.add(:measure_ids, 'MeasureTest must have a single measure id') if measure_ids.length != 1
   end
 
-  after_create :create_tasks
+  after_create do |product_test|
+    ProductTestSetupJob.perform_later(product_test)
+    create_tasks
+  end
 
   # only creates c1, c2, and c3 tasks with no attributes as of now ~ JaeBird
   # as of now, should only create one task per task type
