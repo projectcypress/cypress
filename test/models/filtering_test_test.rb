@@ -21,7 +21,7 @@ class FilteringTestTest < ActiveJob::TestCase
     criteria = %w(races ethnicities genders payers providers problems)
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, options: options,
-                           measure_ids: ['8A4D92B2-397A-48D2-0139-7CC6B5B8011E'], bundle_id: '4fdb62e01d41c820f6000001')
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'], bundle_id: '4fdb62e01d41c820f6000001')
     ft.save!
     ft.generate_records
     ft.reload
