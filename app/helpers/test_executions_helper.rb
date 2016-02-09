@@ -1,26 +1,32 @@
 module TestExecutionsHelper
-  def get_certification_types(task)
-    certification_types = if currently_viewing_c1?(task)
-                            'C1'
-                          else
-                            'C2'
-                          end
+  def displaying_cat1?(task)
+    test = task.product_test
+    (test._type == 'MeasureTest' && task._type == 'C1Task') || (test._type == 'FilteringTest' && task._type == 'Cat1FilterTask')
+  end
+
+  def get_title_message(test, task)
+    msg = ''
+    if test._type == 'MeasureTest'
+      msg << get_measure_certification_types(task).to_s
+      msg << ' certification'
+      msg << 's' if test.product.c3_test
+    else
+      msg << 'CQM Filter'
+      filters = test.options.filters.keys
+      msg << 's' if filters.count > 1
+      msg << " #{filters.join('/').titleize}"
+    end
+    msg << " for #{test.cms_id} #{test.name}"
+  end
+
+  def get_measure_certification_types(task)
+    certification_types = currently_viewing_c1?(task) ? 'C1' : 'C2'
     certification_types << ' and C3' if task.product_test.product.c3_test
     certification_types
   end
 
-  def get_other_certification_types(task)
-    other_certification_types = if currently_viewing_c1?(task)
-                                  'C2'
-                                else
-                                  'C1'
-                                end
-    other_certification_types << ' and C3' if task.product_test.product.c3_test
-    other_certification_types
-  end
-
-  def get_upload_type(task)
-    if currently_viewing_c1?(task)
+  def get_upload_type(is_displaying_cat1)
+    if is_displaying_cat1
       'CAT 1 zip'
     else
       'CAT 3 XML'
@@ -28,21 +34,29 @@ module TestExecutionsHelper
   end
 
   # returns:
-  #   c1 task if we are currently on the c2 task page
-  #   c2 task if we are currently on the c1 task page
+  #   c1 task if we are currently on the c2 task page and the product test is a measure_test
+  #   c2 task if we are currently on the c1 task page and the product test is a measure_test
+  #   cat1 task if we are currently on the cat3 task page and the product test is a filter_test
+  #   cat3 task if we are currently on the cat1 task page and the product test is a filter_test
   #   false if the user did not select the other task when creating the product
   def get_other_task(task)
-    if currently_viewing_c1?(task)
-      task.product_test.c2_task
+    test = task.product_test
+    if test._type == 'MeasureTest'
+      if currently_viewing_c1?(task)
+        test.c2_task
+      else
+        test.c1_task
+      end
+    elsif task._type == 'Cat1FilterTask'
+      test.cat3_task
     else
-      task.product_test.c1_task
+      test.cat1_task
     end
   end
 
   # returns the number of each type of error
-  def get_error_counts(task)
+  def get_error_counts(execution)
     qrda = reporting = submit = total = 0
-    execution = task.most_recent_execution
     return [qrda, reporting, submit, total] unless execution && execution.failing?
     qrda = execution.qrda_errors.count
     reporting = execution.reporting_errors.count

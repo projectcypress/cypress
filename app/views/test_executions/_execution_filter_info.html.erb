@@ -1,0 +1,23 @@
+<%
+
+# local variable "test" must be filter test
+
+%>
+
+<table class = 'table table-condensed'>
+  <thead>
+    <tr>
+      <th class = 'col-sm-6'>Filters</th>
+      <th class = 'col-sm-6'></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% test.options.filters.map do |key, value| %>
+      <tr>
+        <td class = 'text-right'><%= "#{key}:".titleize %></td>
+        <% display_value = value.kind_of?(Array) ? value.join(', ').titleize : value %>
+        <td class = 'text-right'><%= display_value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

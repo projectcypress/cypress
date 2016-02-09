@@ -71,17 +71,50 @@ class Product
 
   def add_product_tests_to_product(added_measure_ids = [])
     return if added_measure_ids.nil?
+
     new_ids = added_measure_ids - measure_ids
     to_remove_ids = measure_ids - added_measure_ids
-
-    new_ids.each do |new_measure_id|
-      measure = Measure.top_level.find_by(hqmf_id: new_measure_id)
-      product_tests.build({ name: measure.name, product: self, measure_ids: [new_measure_id],
-                            cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
+    untouched_ids = measure_ids - to_remove_ids
+    if c1_test || c2_test || c3_test
+      new_ids.each do |new_measure_id|
+        measure = Measure.top_level.find_by(hqmf_id: new_measure_id)
+        product_tests.build({ name: measure.name, product: self, measure_ids: [new_measure_id],
+                              cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
+      end
     end
 
-    to_remove_ids.each do |old_measure_id|
-      product_tests.in(measure_ids: old_measure_id).destroy
+    to_remove_ids.each { |old_measure_id| product_tests.in(measure_ids: old_measure_id).destroy }
+
+    add_filtering_tests(ApplicationController.helpers.pick_measure_for_filtering_test(untouched_ids + new_ids)) if c4_test
+  end
+
+  def add_filtering_tests(measure)
+    save
+    reload_relations
+
+    if product_tests.where(_type: FilteringTest).count == 0
+      criteria = %w(races ethnicities genders payers).shuffle
+      filter_tests = []
+      filter_tests << build_filtering_test(measure, criteria[0, 2])
+      filter_tests << build_filtering_test(measure, criteria[2, 2])
+      filter_tests << build_filtering_test(measure, ['providers'])
+
+      filter_tests << if ApplicationController.helpers.measure_has_diagnosis_criteria?(measure)
+                        build_filtering_test(measure, ['problems'])
+                      else
+                        # the measure doesn't have a diagnosis so instead create a new demographics task
+                        # we used the combos [0,1] and [2,3] previously
+                        # so to make a unique third test here use any combo that has 0 or 1 first and 2 or 3 second
+                        build_filtering_test(measure, criteria.values_at([0, 1].sample, [2, 3].sample))
+                      end
+      ApplicationController.helpers.generate_filter_records(filter_tests)
     end
+  end
+
+  def build_filtering_test(measure, criteria)
+    # construct options hash from criteria array and create the test
+    options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+    product_tests.create({ name: measure.name, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
+                           bundle_id: measure.bundle_id, options: options }, FilteringTest)
   end
 end

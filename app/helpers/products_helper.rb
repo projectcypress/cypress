@@ -22,10 +22,15 @@ module ProductsHelper
     [passing, failing, not_started, total]
   end
 
-  def filtering_test_status_values(_tests)
+  def filtering_test_status_values(tests)
     passing = failing = not_started = total = 0
 
-    # add content here when C4 tasks are finalized
+    tests.each do |test|
+      passing += test.tasks.count { |task| task.status == 'passing' }
+      failing += test.tasks.count { |task| task.status == 'failing' }
+      not_started += test.tasks.count { |task| task.status == 'incomplete' }
+      total += test.tasks.count
+    end
 
     [passing, failing, not_started, total]
   end
@@ -65,11 +70,7 @@ module ProductsHelper
 
   def status_by_test(product)
     # return a hash of results for each certification + test type
-    statuses = {
-      'MeasureTest' => {},
-      'FilteringTest' => {},
-      'ChecklistTest' => {}
-    }
+    statuses = { 'MeasureTest' => {}, 'FilteringTest' => {}, 'ChecklistTest' => {} }
 
     if product.product_tests.measure_tests
       statuses['MeasureTest']['C1'] = status_from_tasks(product.product_tests.measure_tests, 'C1Task')
@@ -102,5 +103,24 @@ module ProductsHelper
 
   def product_certifying_to(product, certification_test)
     (certification_test['certifications'] & certifications(product).keys) != []
+  end
+
+  def generate_filter_records(filter_tests)
+    return unless filter_tests
+    test = filter_tests.pop
+    test.generate_records
+    test.save
+    ProductTestSetupJob.perform_later(test)
+    records = test.records
+    filter_tests.each do |ft|
+      records.collect do |r|
+        r2 = r.clone
+        r2.test_id = ft.id
+        r2.save
+        r2
+      end
+      ft.save
+      ProductTestSetupJob.perform_later(ft)
+    end
   end
 end

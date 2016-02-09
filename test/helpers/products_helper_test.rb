@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProductsHelperTest < ActiveSupport::TestCase
+class ProductsHelperTest < ActiveJob::TestCase
   include ProductsHelper
   # include ActiveJob::TestHelper
 
@@ -12,6 +12,7 @@ class ProductsHelperTest < ActiveSupport::TestCase
 
     setup_checklist_test
     setup_measure_tests
+    setup_filtering_tests
   end
 
   def setup_checklist_test
@@ -44,6 +45,16 @@ class ProductsHelperTest < ActiveSupport::TestCase
       test.tasks.build({}, C1Task)
       test.tasks.build({}, C2Task)
       test.tasks.build({}, C3Task)
+    end
+  end
+
+  def setup_filtering_tests
+    @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'SomeCMSID', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                     options: { filters: { filt1: ['val1'], filt2: ['val2'] } }
+                                   }, FilteringTest)
+    @product.product_tests.filtering_tests.each do |test|
+      test.tasks.build({}, Cat1FilterTask)
+      test.tasks.build({}, Cat3FilterTask)
     end
   end
 
@@ -98,5 +109,43 @@ class ProductsHelperTest < ActiveSupport::TestCase
     assert_equal 1, failing
     assert_equal 1, not_started
     assert_equal 2, total
+  end
+
+  def test_filtering_test_status_values_not_started
+    tests = @product.product_tests.filtering_tests
+    passing, failing, not_started, total = filtering_test_status_values(tests)
+
+    assert_equal 0, passing
+    assert_equal 0, failing
+    assert_equal not_started, total
+  end
+
+  def test_filtering_test_status_values_passing
+    tests = @product.product_tests.filtering_tests
+    tests.first.tasks.where(_type: 'Cat1FilterTask').first.test_executions.build(:state => :passed).save
+    passing, failing, not_started, total = filtering_test_status_values(tests)
+
+    assert_equal 1, passing
+    assert_equal 0, failing
+    assert_equal 1, not_started
+    assert_equal 2, total
+  end
+
+  def test_filtering_test_status_values_failing
+    tests = @product.product_tests.filtering_tests
+    tests.first.tasks.where(_type: 'Cat1FilterTask').first.test_executions.build(:state => :failed).save
+    passing, failing, not_started, total = filtering_test_status_values(tests)
+
+    assert_equal 0, passing
+    assert_equal 1, failing
+    assert_equal 1, not_started
+    assert_equal 2, total
+  end
+
+  def test_generate_filter_records
+    @product.product_tests = nil
+    @product.add_filtering_tests(Measure.where(hqmf_id: '40280381-4600-425F-0146-1F8D3B750FAC').first)
+    records = @product.product_tests.filtering_tests.first.records
+    @product.product_tests.filtering_tests.each { |ft| assert ft.records == records }
   end
 end

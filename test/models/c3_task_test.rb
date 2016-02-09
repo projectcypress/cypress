@@ -35,7 +35,7 @@ class C3TaskTest < ActiveSupport::TestCase
     ptest = ProductTest.find('51703a883054cf84390000d3')
     task = ptest.tasks.create({}, C3Task)
     task.last_execution = 'Cat3'
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml, nil)
       te.reload
@@ -47,7 +47,7 @@ class C3TaskTest < ActiveSupport::TestCase
     ptest = ProductTest.find('51703a883054cf84390000d3')
     task = ptest.tasks.create({}, C3Task)
     task.last_execution = 'Cat3'
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_performance_rate.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_performance_rate.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml, nil)
       te.reload
@@ -59,7 +59,7 @@ class C3TaskTest < ActiveSupport::TestCase
     ptest = ProductTest.find('51703a883054cf84390000d3')
     task = ptest.tasks.create({}, C3Task)
     task.last_execution = 'Cat3'
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_mp.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_mp.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml, nil)
       te.reload

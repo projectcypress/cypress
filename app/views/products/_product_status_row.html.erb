@@ -13,7 +13,7 @@
 <% elsif test_type == 'Measure Tests' %>
   <% passing, failing, not_started, total = measure_test_status_values(product.product_tests.measure_tests, "#{task_type}Task") %>
 <% elsif test_type == 'Filtering Tests' %>
-  <% passing, failing, not_started, total = filtering_test_status_values(product.product_tests.checklist_tests) %>
+  <% passing, failing, not_started, total = filtering_test_status_values(product.product_tests.filtering_tests) %>
 <% else %>
   <% # no other test_type should be specified. please don't do this %>
 <% end %>

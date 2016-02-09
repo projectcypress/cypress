@@ -97,8 +97,8 @@ Then(/^the user should see the c2 execution page$/) do
 end
 
 Then(/^the user should see the c2 and c3 execution page$/) do
-  page.assert_text 'C2 and C3 certification for'
-  page.assert_no_text 'C1 and C3 certification for'
+  page.assert_text 'C2 and C3 certifications for'
+  page.assert_no_text 'C1 and C3 certifications for'
 end
 
 Then(/^the user should be able to download a CAT 1 zip file$/) do
