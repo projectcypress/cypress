@@ -91,8 +91,8 @@ class Product
   def add_filtering_tests(measure)
     save
     reload_relations
-    filtering_tests = product_tests.select { |product_test| product_test.is_a? FilteringTest }
-    if filtering_tests.count == 0
+
+    if product_tests.where(_type: FilteringTest).count == 0
       criteria = %w(races ethnicities genders payers).shuffle
       filter_tests = []
       filter_tests << build_filtering_test(measure, criteria[0, 2])

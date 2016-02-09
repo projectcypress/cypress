@@ -74,15 +74,23 @@ class FilteringTest < ProductTest
 
   def lookup_problem
     measure = Measure.find_by(hqmf_id: measure_ids.first)
-    criteria_keys = measure.hqmf_document.source_data_criteria.keys
+    code_list_id = fallback_id = ''
     # determine which data criteira are diagnoses, and make sure we choose one that one of our records has
-    diagnosis_criteria_key = criteria_keys.find do |key|
-      criteria_def = measure.hqmf_document.source_data_criteria.send(key).definition
-      if criteria_def.eql? 'diagnosis'
-        Cypress::RecordFilter.filter(records, { 'problems' => [measure.hqmf_document.source_data_criteria.send(key).code_list_id] }, {}).count > 0
+    # if we can't find one that matches a record, just use any diagnosis
+    measure.hqmf_document.source_data_criteria.each do |_criteria, criteria_hash|
+      next unless criteria_hash.definition.eql? 'diagnosis'
+      fallback_id = criteria_hash.code_list_id
+      if Cypress::RecordFilter.filter(records, { 'problems' => [criteria_hash.code_list_id] }, {}).count > 0
+        code_list_id = criteria_hash.code_list_id
+        break
       end
     end
-    measure.hqmf_document.source_data_criteria.send(diagnosis_criteria_key).code_list_id
+
+    if code_list_id.empty?
+      fallback_id
+    else
+      code_list_id
+    end
   end
 
   # Final Rule defines 9 different criteria that can be filtered:
