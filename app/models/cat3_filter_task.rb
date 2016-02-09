@@ -1,7 +1,7 @@
 class Cat3FilterTask < Task
   def validators
-    @validators = [::Validators::MeasurePeriodValidator.new,
-                   ::Validators::QrdaCat3Validator.new(product_test.expected_results)]
+    @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results),
+                   ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
   end
 
   def execute(file)

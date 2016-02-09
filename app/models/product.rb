@@ -95,8 +95,8 @@ class Product
     if filtering_tests.count == 0
       criteria = %w(races ethnicities genders payers).shuffle
       filter_tests = []
-      filter_tests << build_filtering_test(measure, criteria.shift(2))
-      filter_tests << build_filtering_test(measure, criteria.shift(2))
+      filter_tests << build_filtering_test(measure, criteria[0, 2])
+      filter_tests << build_filtering_test(measure, criteria[2, 2])
       filter_tests << build_filtering_test(measure, ['providers'])
 
       filter_tests << if ApplicationController.helpers.measure_has_diagnosis_criteria?(measure)
