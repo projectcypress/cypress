@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   resources :test_executions, only: [:show, :create, :destroy]
 
   resources :bundles do
+    member do
+      post :set_default
+    end
+
     resources :records, only: [:index]
   end
 

@@ -43,7 +43,7 @@ class RecordsController < ApplicationController
                                                                               id: @product_test.id)
       add_breadcrumb 'Patient List', records_path(product_test_id: @product_test.id)
     else
-      @bundle = Bundle.first
+      @bundle = Bundle.where(active: true).first
       @source = @bundle
       add_breadcrumb 'Master Patient List', :records_path
     end
