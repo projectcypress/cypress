@@ -235,8 +235,8 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_provider_filter
-    prov = Provider.first
-    prov_filters = { 'npis' => [prov['npi']], 'tins' => [prov['tin']] }
+    prov = Provider.find('53b2c4414d4d32139c730000')
+    prov_filters = { 'npis' => [prov.npi], 'tins' => [prov.tin] }
     filters = { 'providers' => prov_filters }
 
     # assign the provider and make sure we can find it
