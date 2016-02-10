@@ -1,30 +1,35 @@
 <%= render partial: 'header_product', locals: { product: @product } %>
 
 <div class="row">
+
   <div class = 'col-sm-8'>
     <div class = 'panel panel-default'>
-      <div class = 'panel-heading'><h3 class='panel-title'>Product Status</h3></div>
+      <div class = 'panel-heading'><h3 class = 'panel-title'>Product Status</h3></div>
       <div class = 'panel-body'>
         <table class = 'table table-hover table-condensed'>
           <thead>
             <tr>
-              <th scope="col" class = 'col-sm-1'></th>
-              <th scope="col" class = 'col-sm-2'></th>
-              <th scope="col" class = 'col-sm-1'>Passing</th>
-              <th scope="col" class = 'col-sm-1'>Failing</th>
-              <th scope="col" class = 'col-sm-1'>Not Started</th>
+              <th scope = 'col' class = 'col-sm-1'></th>
+              <th scope = 'col' class = 'col-sm-2'></th>
+              <th scope = 'col' class = 'col-sm-1'>Passing</th>
+              <th scope = 'col' class = 'col-sm-1'>Failing</th>
+              <th scope = 'col' class = 'col-sm-1'>Not Started</th>
             </tr>
           </thead>
           <tbody>
             <% if @product.c1_test %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Checklist Test', task_type: 'C1' } %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Measure Tests', task_type: 'C1' } %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'checklist', cert_type: 'C1', test_display_name: 'Manual Entry' } %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C1', test_display_name: 'Measure Tests' } %>
             <% end %>
             <% if @product.c2_test %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Measure Tests', task_type: 'C2' } %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C2', test_display_name: 'Measure Tests' } %>
+            <% end %>
+            <% if @product.c3_test %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C1', test_display_name: 'Cat 1 Measure Tests', show_c3: true } if @product.c1_test %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C2', test_display_name: 'Cat 3 Measure Tests', show_c3: true } if @product.c2_test %>
             <% end %>
             <% if @product.c4_test %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'Filtering Tests', task_type: 'C4' } %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'filter', cert_type: 'C4', test_display_name: 'Filtering Tests' } %>
             <% end %>
           </tbody>
         </table>
@@ -44,6 +49,7 @@
       </div>
     <% end %>
   </div>
+
 </div>
 
 <div class="product-test-tabs">
