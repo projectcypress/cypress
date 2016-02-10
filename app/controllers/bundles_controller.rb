@@ -39,7 +39,7 @@ class BundlesController < ApplicationController
   end
 
   def create
-    options = { delete_existing: false, type: 'ALL', update_measures: false, exclude_results: false }
+    options = { delete_existing: false, update_measures: false, exclude_results: false }
 
     bundle_file = params['file']
 
