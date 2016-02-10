@@ -4,7 +4,7 @@ module VendorsHelper
 
     if statezip
       address = vendor.address? ? "#{vendor.address}, #{statezip}" : statezip
-    elsif vendor.address
+    elsif vendor.address != ''
       address = vendor.address.to_s
     end
 
