@@ -23,13 +23,17 @@ class BundlesControllerTest < ActionController::TestCase
   end
 
   test 'should import new bundle successfully' do
-    orig_count = Bundle.count
+    orig_bundle_count = Bundle.count
+    orig_measure_count = Measure.count
+    orig_record_count = Record.count
 
     upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/bundles/minimal_bundle.zip'), 'application/zip')
 
     post :create, file: upload
 
-    assert_equal orig_count + 1, Bundle.count, 'Should have added 1 new Bundle'
+    assert_equal orig_bundle_count + 1, Bundle.count, 'Should have added 1 new Bundle'
+    assert orig_measure_count < Measure.count, 'Should have added new measures in the bundle'
+    assert orig_record_count < Record.count, 'Should have added new records in the bundle'
   end
 
   test 'should not import file that is not a bundle' do
