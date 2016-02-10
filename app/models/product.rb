@@ -58,7 +58,7 @@ class Product
   end
 
   def meets_required_certification_types?
-    errors.add(:tests, 'Product must certify to C1 or C2 or both.') unless c1_test || c2_test
+    errors.add(:tests, 'Product must certify to at least C1 or C2.') unless c1_test || c2_test
   end
 
   def at_least_one_measure?

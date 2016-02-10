@@ -217,7 +217,7 @@ Then(/^the user should see an error message saying the product name has been tak
 end
 
 Then(/^the user should see an error message saying the product must certify to C1 or C2$/) do
-  page.assert_text 'must certify to C1 or C2'
+  page.assert_text 'must certify to at least C1 or C2'
 end
 
 Then(/^the user should see an error message saying the product must have at least one measure$/) do
