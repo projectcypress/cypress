@@ -1,8 +1,22 @@
 class BundlesController < ApplicationController
   before_action :find_bundle, only: [:set_default, :destroy]
 
+  before_action :check_bundle_disabled_setting
+  before_action :redirect_if_disabled, except: [:index]
+
   add_breadcrumb 'Bundles', :bundles_path
   add_breadcrumb 'Add Bundle', :new_bundle_path, only: [:new, :create]
+
+  def check_bundle_disabled_setting
+    @disabled = APP_CONFIG['disable_bundle_page']
+  end
+
+  def redirect_if_disabled
+    if @disabled
+      redirect_to bundles_url
+      false
+    end
+  end
 
   def index
     @bundles = Bundle.all

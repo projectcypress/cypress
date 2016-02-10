@@ -4,7 +4,16 @@ class BundlesControllerTest < ActionController::TestCase
 
   setup do
     collection_fixtures('bundles', 'users')
+    enable_page
     sign_in User.first
+  end
+
+  def disable_page
+    APP_CONFIG['disable_bundle_page'] = true
+  end
+
+  def enable_page
+    APP_CONFIG['disable_bundle_page'] = false
   end
 
   test 'should get index' do
@@ -57,5 +66,43 @@ class BundlesControllerTest < ActionController::TestCase
 
     assert_equal 0, Bundle.where(_id: id).count, 'Should have deleted bundle'
     assert_equal orig_count - 1, Bundle.count, 'Should have deleted Bundle'
+  end
+
+  test 'should not import new bundle when page disabled' do
+    disable_page
+    orig_count = Bundle.count
+
+    upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/bundles/minimal_bundle.zip'), 'application/zip')
+
+    post :create, file: upload
+
+    assert_equal orig_count, Bundle.count, 'Should not have added new Bundle'
+  end
+
+  test 'should not be able to change default bundle when page disabled' do
+    disable_page
+    flunk 'Should have at least 2 test bundles' if Bundle.count < 2
+
+    active_bundle = Bundle.where('active' => true).first # there should only be one
+    inactive_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
+
+    post :set_default, id: inactive_bundle._id
+
+    active_bundle.reload
+    inactive_bundle.reload
+
+    assert !inactive_bundle.active, 'non-default bundle should still not be active'
+    assert active_bundle.active, 'old default bundle should still be active'
+  end
+
+  test 'should not be able to remove bundle when page disabled' do
+    disable_page
+    orig_count = Bundle.count
+    id = Bundle.first._id
+
+    delete :destroy, id: id
+
+    assert_equal 1, Bundle.where(_id: id).count, 'Should have deleted bundle'
+    assert_equal orig_count, Bundle.count, 'Should have deleted Bundle'
   end
 end

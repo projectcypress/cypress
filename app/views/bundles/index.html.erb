@@ -1,6 +1,7 @@
 <h1>Installed Bundles</h1>
-
+<% unless @disabled %>
 <%= button_to "+ Import Bundle", new_bundle_path, :method => :get, :class => "btn btn-primary pull-right" %>
+<% end %>
 
 <table class="table table-hover">
   <thead>
@@ -18,6 +19,8 @@
         <!--td class = "text-center">some other value</td -->
         <td class="text-center">
 
+        <% unless @disabled %>
+
         <% unless bundle.active %>
           <%= button_to "Set Default", set_default_bundle_path(bundle), :method => :post, :class => "btn btn-xs btn-default" %>
         <% end %>
@@ -33,7 +36,7 @@
                           modal_message: 'Removing a bundle will also delete all associated products and test results.'
                     } %>
         <% end %>
-
+        <% end %>
         </td>
       </tr>
     <% end %>
