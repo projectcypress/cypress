@@ -24,7 +24,7 @@ Scenario: Unsuccessful Create Product Because Name Taken
 
 Scenario: Unsuccessful Create Product Because No Task Type Selected
   When the user creates a product with no task type
-  Then the user should see an error message saying the product must have at least one task type
+  Then the user should see an error message saying the product must certify to C1 or C2
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
