@@ -61,6 +61,6 @@
 <%= render partial: 'remove_panel', locals: {
   name: 'delete checklist',
   type: 'visual test',
-  delete_path: "/products/#{@product.id}/checklist_tests/#{@test.id}",
+  delete_path: product_checklist_test_path(@product, @test),
   message: 'Removing this C1 Visual Test will discard your answers to the checklist above for each measure. This will not remove any measures selected.'
 } %>

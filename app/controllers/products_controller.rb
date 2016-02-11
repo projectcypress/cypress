@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
     add_breadcrumb 'Edit Product', :edit_vendor_path
     set_measures
     @selected_measure_ids = @product.measure_ids
@@ -67,8 +67,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
-    add_breadcrumb 'Product: ' + @product.name, "/vendors/#{@product.vendor.id}/products/#{@product.id}"
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
+    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
     respond_to do |format|
       format.json { render json: [@product] }
       format.js
@@ -95,7 +95,7 @@ class ProductsController < ApplicationController
   end
 
   def setup_new
-    add_breadcrumb 'Vendor: ' + @vendor.name, "/vendors/#{@vendor.id}"
+    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@product.vendor)
     add_breadcrumb 'Add Product', :new_vendor_path
     set_measures
     params[:action] = 'new'

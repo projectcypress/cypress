@@ -11,20 +11,20 @@ class ChecklistTestsController < ProductTestsController
                                            bundle_id: @product.product_tests.measure_tests.first.bundle_id }, ChecklistTest)
     @test.save!
     @test.create_checked_criteria
-    redirect_to "/vendors/#{@product.vendor.id}/products/#{@product.id}#ChecklistTest"
+    redirect_to vendor_product_path(@product.vendor, @product, anchor: 'ChecklistTest')
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
-    add_breadcrumb 'Product: ' + @product.name, "/vendors/#{@product.vendor.id}/products/#{@product.id}"
-    add_breadcrumb 'Test: ' + @test.name, "/products/#{@product.id}/checklist_tests/#{@test.id}"
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
+    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
+    add_breadcrumb 'Test: ' + @test.name, product_checklist_test_path(@product, @test)
   end
 
   def update
     @test.update_attributes(checklist_test_params)
     @test.save!
     respond_to do |format|
-      format.html { redirect_to "/products/#{@product.id}/checklist_tests/#{@test.id}" }
+      format.html { redirect_to product_checklist_test_path(@product, @test) }
     end
   rescue Mongoid::Errors::Validations
     render :show
@@ -33,7 +33,7 @@ class ChecklistTestsController < ProductTestsController
   def destroy
     @test.destroy
     respond_to do |format|
-      format.html { redirect_to "/vendors/#{@product.vendor.id}/products/#{@product.id}" }
+      format.html { redirect_to vendor_product_path(@product.vendor, @product) }
     end
   end
 
