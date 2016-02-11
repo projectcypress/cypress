@@ -1,114 +1,112 @@
 <div class="panel panel-default">
-<div class="panel-heading"><h3 class='panel-title'><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h3></div>
+  <div class="panel-heading"><h3 class='panel-title'><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h3></div>
 
-<%= bootstrap_form_for [@product.vendor, @product] do |f| %>
-<div class="panel-body">
-  <div class="row">
-    <div class="col-md-6">
-      <%= f.text_field :name, autocomplete: 'off' %>
-      <%= f.text_field :version %>
-      <%= f.text_area :description %>
-    </div>
-
-    <div class="col-md-6">
-      <%# f.form_group :ehr_type, label: { text: "EHR Type" }, help: "You cannot change this later." do %>
-        <%# f.radio_button :ehr_type, "hospital", label: "Eligible Hospital (EH)", label_class: "btn btn-checkbox active", checked: true, disabled: params[:action] == "edit" %>
-        <%# f.radio_button :ehr_type, "provider", label: "Eligible Provider (EP)", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
-      <% #end %>
-
-      <%= f.form_group label: { text: "Certification Types" }, help: "C4 is optional." do %>
-        <%= f.errors_on :tests, hide_attribute_name: true %>
-        <% APP_CONFIG.certifications.each do |c, certification| %>
-          <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
-        <% end %>
-      <% end %>
-
-      <%= f.form_group :randomize_records do %>
-        <%= f.check_box :randomize_records, label: 'Randomize Records', checked: true, disabled: params[:action] == "edit" %>
-      <% end %>
-    </div>
-</div>
-
-  <!-- <div class="col-md-4"> -->
-    <%# f.form_group :measure_selection, label: { text: "Measures to Test" }, help: "Cypress v3 tests products one measure at a time. Click 'Custom' to specify individual measures." do %>
-      <%# f.radio_button :measure_selection, "hospital", label: "All EH Measures", label_class: "btn btn-checkbox active", checked: true, disabled: params[:action] == "edit" %>
-      <%# f.radio_button :measure_selection, "provider", label: "All EP Measures", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
-      <%# f.radio_button :measure_selection, "custom", label: "Custom...", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
-    <% #end %>
-  <!-- </div> -->
-
-    <div class="row">
-      <div class="panel panel-primary select-measures">
-        <div class="panel-heading">
-          <h3 class='panel-title'>Select Measures</h3>
+  <%= bootstrap_form_for [@product.vendor, @product] do |f| %>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field :name, autocomplete: 'off' %>
+          <%= f.text_field :version %>
+          <%= f.text_area :description %>
         </div>
-        <div class="panel-body">
-          <div class="col-md-12"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>
-          <div id="measure_tabs" class="measure-selection col-md-8">
-            <% if defined?(@selected_measure_ids) && params[:action] == "edit" %>
-            <div class="warning-overlay">
-              <div class="alert alert-warning">
-                <div class="iconSpan pull-left">
-                    <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
-                </div>
-                <div class="alertContent">
-                  <p>Changing a product's associated measures will reset all associated tests. Do not change the measure selection unless you want to reset all existing tests on this product.</p>
-                  <p>
-                    Enter <strong class="risk_text">I will reset all tests for this measure</strong> below to enable further editing.
-                    <label class = "hide" for = "confirm_edit_risk">Type to enable editing this product's selected measures</label>
-                    <input class = "form-control" id = "confirm_edit_risk" type = "text" />
-                  </p>
+
+        <div class="col-md-6">
+          <%# f.form_group :ehr_type, label: { text: "EHR Type" }, help: "You cannot change this later." do %>
+            <%# f.radio_button :ehr_type, "hospital", label: "Eligible Hospital (EH)", label_class: "btn btn-checkbox active", checked: true, disabled: params[:action] == "edit" %>
+            <%# f.radio_button :ehr_type, "provider", label: "Eligible Provider (EP)", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+          <% #end %>
+
+          <%= f.form_group label: { text: "Certification Types" }, help: "C4 is optional." do %>
+            <%= f.errors_on :tests, hide_attribute_name: true %>
+            <% APP_CONFIG.certifications.each do |c, certification| %>
+              <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+            <% end %>
+          <% end %>
+
+          <%= f.form_group :randomize_records do %>
+            <%= f.check_box :randomize_records, label: 'Randomize Records', checked: true, disabled: params[:action] == "edit" %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- <div class="col-md-4"> -->
+        <%# f.form_group :measure_selection, label: { text: "Measures to Test" }, help: "Cypress v3 tests products one measure at a time. Click 'Custom' to specify individual measures." do %>
+          <%# f.radio_button :measure_selection, "hospital", label: "All EH Measures", label_class: "btn btn-checkbox active", checked: true, disabled: params[:action] == "edit" %>
+          <%# f.radio_button :measure_selection, "provider", label: "All EP Measures", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+          <%# f.radio_button :measure_selection, "custom", label: "Custom...", label_class: "btn btn-checkbox", disabled: params[:action] == "edit" %>
+        <% #end %>
+      <!-- </div> -->
+
+      <div class="row">
+        <div class="panel panel-primary select-measures">
+          <div class="panel-heading">
+            <h3 class='panel-title'>Select Measures</h3>
+          </div>
+          <div class="panel-body">
+            <div class="col-md-12"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>
+            <div id="measure_tabs" class="measure-selection col-md-8">
+              <% if defined?(@selected_measure_ids) && params[:action] == "edit" %>
+              <div class="warning-overlay">
+                <div class="alert alert-warning">
+                  <div class="iconSpan pull-left">
+                      <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
+                  </div>
+                  <div class="alertContent">
+                    <p>Changing a product's associated measures will reset all associated tests. Do not change the measure selection unless you want to reset all existing tests on this product.</p>
+                    <p>
+                      Enter <strong class="risk_text">I will reset all tests for this measure</strong> below to enable further editing.
+                      <label class = "hide" for = "confirm_edit_risk">Type to enable editing this product's selected measures</label>
+                      <input class = "form-control" id = "confirm_edit_risk" type = "text" />
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <% end %>
-            <div class="sidebar">
-              <!-- set up a tab header for each measure group -->
-              <ul>
-                <% @measures_categories.sort.each do |category, measures| %>
-                  <li><a href="#<%= category.tr(" '", "_") %>"><%= "#{category} (#{measures.first.type.upcase})" %></a></li>
-                <% end %>
-              </ul>
-            </div>
-            <div class="measure-list">
-
-              <% @measures_categories.sort.each do |category, measures| %>
-                <!-- set up a checkbox for each top-level measure in the group -->
-                <div id="<%= category.tr(" '", "_")%>" class="measure_group ">
-                  <% if measures.length > 1 %>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all" <%= 'disabled' if defined?(@selected_measure_ids) && params[:action] == "edit" %>/> Select all <%= measures.length %> <%= category %> measures
-                    </label>
-                  </div>
+              <% end %>
+              <div class="sidebar">
+                <!-- set up a tab header for each measure group -->
+                <ul>
+                  <% @measures_categories.sort.each do |category, measures| %>
+                    <li><a href="#<%= category.tr(" '", "_") %>"><%= "#{category} (#{measures.first.type.upcase})" %></a></li>
                   <% end %>
-                  <% measures.each do |m| %>
+                </ul>
+              </div>
+              <div class="measure-list">
+
+                <% @measures_categories.sort.each do |category, measures| %>
+                  <!-- set up a checkbox for each top-level measure in the group -->
+                  <div id="<%= category.tr(" '", "_")%>" class="measure_group ">
+                    <% if measures.length > 1 %>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="product_test[measure_ids][]" id="<%= m.hqmf_id %>" value="<%= m.hqmf_id%>"
-                        class="measure-checkbox" <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %> <%= 'disabled' if defined?(@selected_measure_ids) && params[:action] == "edit"  %>/>
-                        <strong><%= m.cms_id %></strong> <%= m.name %>
+                        <input type="checkbox" id="<%= category.tr(" '", "_")%>_group" class="measure_group_all" <%= 'disabled' if defined?(@selected_measure_ids) && params[:action] == "edit" %>/> Select all <%= measures.length %> <%= category %> measures
                       </label>
                     </div>
-                  <% end %>
-                </div>
-              <% end %>
+                    <% end %>
+                    <% measures.each do |m| %>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="product_test[measure_ids][]" id="<%= m.hqmf_id %>" value="<%= m.hqmf_id%>"
+                          class="measure-checkbox" <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %> <%= 'disabled' if defined?(@selected_measure_ids) && params[:action] == "edit"  %>/>
+                          <strong><%= m.cms_id %></strong> <%= m.name %>
+                        </label>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
             </div>
-          </div>
 
-          <div class="col-md-4 selected-measure-list">
-            <h3>Selected Measures</h3>
+            <div class="col-md-4 selected-measure-list">
+              <h3>Selected Measures</h3>
+            </div>
           </div>
         </div>
       </div>
     </div>
-</div>
 
-<div class="panel-footer">
-  <%= f.submit submit_text, class: "btn btn-success" %>
-  <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "location.href = '/vendors/#{@product.vendor.id}'" %>
-</div>
-
-<% end %>
-
+    <div class="panel-footer">
+      <%= f.submit submit_text, class: "btn btn-success" %>
+      <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
+    </div>
+  <% end %>
 </div>

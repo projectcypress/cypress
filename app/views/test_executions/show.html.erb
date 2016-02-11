@@ -54,7 +54,7 @@
         <div class = 'pull-right'>
           <select aria-label="View test execution" onchange = "location = this.options[this.selectedIndex].value;">
             <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
-              <option value = <%= "/tasks/#{@task.id}/test_executions/#{execution.id}" %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i == 0) %></option>
+              <option value = <%= task_test_execution_path(@task, execution) %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i == 0) %></option>
             <% end %>
           </select>
         </div>

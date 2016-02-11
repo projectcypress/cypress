@@ -20,8 +20,8 @@
           <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
           <%= test.options.filters.keys.join('/').titleize %>
         </td>
-        <td><%= render partial: 'filter_test_link', locals: { task: test.cat1_task } %></td>
-        <td><%= render partial: 'filter_test_link', locals: { task: test.cat3_task } %></td>
+        <td><%= render partial: 'product_test_link', locals: { task: test.cat1_task } %></td>
+        <td><%= render partial: 'product_test_link', locals: { task: test.cat3_task } %></td>
       </tr>
     <% end %>
   </tbody>

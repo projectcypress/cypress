@@ -76,7 +76,7 @@
     <% if task && !is_current_task %>
       <% switch_text = 'start' %>
       <% switch_text = 'view' if task.failing? || task.passing? %>
-      <%= link_to switch_text, "/tasks/#{task.id}/test_executions/new" %>
+      <%= link_to switch_text, new_task_test_execution_path(task) %>
     <% end %>
   </td>
 </tr>
