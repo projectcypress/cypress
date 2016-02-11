@@ -1,0 +1,70 @@
+.product-table-header {
+  margin-bottom: 1em;
+}
+
+.product-table-row {
+
+  margin-top: 10px;
+
+  .certification-tab {
+    padding: 0 0 5px;
+  }
+
+  .certification-tab:focus,
+  .certification-tab:hover {
+    background-color: $body-bg;
+  }
+
+  .certification-tab:hover {
+    text-decoration: underline;
+  }
+
+  a > span {
+    font-weight: normal;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  .tab-content {
+    margin-top: 0;
+
+    .active {
+      margin-bottom: 1em;
+    }
+  }
+
+  .progress-bar-info {
+    background-color: $state-info-bg;
+  }
+
+  .progress-bar-success {
+    background-color: $state-success-bg;
+  }
+
+  .close-certification-specifics:hover {
+    cursor: pointer;
+  }
+
+  .progress {
+    margin-bottom: 0;
+  }
+
+  .caret-up {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+
+    border-bottom: 10px solid $gray-light;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .certification-specifics {
+    border: 1px solid $gray-light;
+    padding: 1em;
+  }
+}

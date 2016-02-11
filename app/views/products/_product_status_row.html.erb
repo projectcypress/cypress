@@ -24,7 +24,7 @@
 <% elsif test_type == 'measure' %>
   <% passing, failing, not_started, total = measure_test_status_values(product.product_tests.measure_tests, "#{cert_type}Task", show_c3) %>
 <% elsif test_type == 'filter' %>
-  <% passing, failing, not_started, total = filtering_test_status_values(product.product_tests.filtering_tests) %>
+  <% passing, failing, not_started, total = filtering_test_status_values_summed(product.product_tests.filtering_tests) %>
 <% else %>
   <% # no other test_type should be specified. please don't do this %>
 <% end %>

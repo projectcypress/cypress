@@ -8,35 +8,17 @@
     <% end %>
   </p>
 <% else %>
-  <h3>Products</h3>
-  <table class = "table table-hover">
-    <thead>
-      <tr>
-        <th scope="col" class = "col-sm-1">Status</th>
-        <th scope="col" class = "col-sm-3">Product</th>
-        <th scope="col" class = "text-center">Passing Tests</th>
-        <th scope="col" class = "text-center">Failing Tests</th>
-        <th scope="col" class = "text-center">Incomplete Tests</th>
-        <th scope="col" class = "text-center">Total Tests</th>
-        <th scope="col"><span class="sr-only">Actions</span></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @products.each do |product| %>
-        <tr>
-          <td><%= product.status %></td>
-          <td><%= link_to product.name, "/vendors/#{@vendor.id}/products/#{product.id}" %></td>
-          <td class="text-center"><%= product.product_tests ? product.product_tests_passing.count : 0 %></td>
-          <td class="text-center"><%= product.product_tests ? product.product_tests_failing.count : 0 %></td>
-          <td class="text-center"><%= product.product_tests ? product.product_tests_incomplete.count : 0 %></td>
-          <td class="text-center"><%= product.product_tests ? product.product_tests.count : 0 %></td>
-          <td class="text-right">
-            <%= button_to edit_vendor_product_path(@vendor, product), :method => :get, :class => "btn btn-sm btn-default" do %>
-              <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Product
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class = 'row product-table-header'>
+    <div class = 'col-sm-2'><h3 class = 'inline'>Products</h3></div>
+    <div class = 'col-sm-8'>
+      <div class = 'col-sm-3 text-center'><strong>C1</strong></div>
+      <div class = 'col-sm-3 text-center'><strong>C2</strong></div>
+      <div class = 'col-sm-3 text-center'><strong>C3</strong></div>
+      <div class = 'col-sm-3 text-center'><strong>C4</strong></div>
+    </div>
+    <div class = 'col-sm-2'></div>
+  </div>
+  <% @products.each do |product| %>
+    <%= render partial: 'products_table_row', locals: { product: product } %>
+  <% end %>
 <% end %>
