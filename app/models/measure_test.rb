@@ -6,6 +6,7 @@ class MeasureTest < ProductTest
   end
 
   after_create do |product_test|
+    product_test.queued
     ProductTestSetupJob.perform_later(product_test)
     create_tasks
   end

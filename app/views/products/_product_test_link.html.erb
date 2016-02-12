@@ -1,10 +1,16 @@
 <%
 
 # local variable 'task'
+# local variable 'test'
 
 %>
-
-<% if task.passing? %>
+<% if test.state != :ready %>
+  <% if test.state == :queued %>
+    <p>queued</p>
+  <% else test.state == :building %>
+    <p>building...</p>
+  <% end %>
+<% elsif task.passing? %>
   <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
   <%= link_to 'view', new_task_test_execution_path(task) %>
 <% elsif task.failing? %>

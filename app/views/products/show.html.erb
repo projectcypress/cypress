@@ -80,7 +80,9 @@
         <% elsif c == 'FilteringTest' %>
           <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } if @product.product_tests.filtering_tests.exists? %>
         <% else %>
-          <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>
+            <div id="display_measure_tests_table">
+              <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>  
+            </div>
         <% end %>
       </div>
     <% end %>

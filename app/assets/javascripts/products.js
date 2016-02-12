@@ -69,7 +69,7 @@ ready = function() {
     }
   });
 
-  $('#measure_test_table').DataTable({
+  $('#measure_tests_table').DataTable({
     searching: false,
     paging: false,
     stateSave: true, /* preserves order on reload */
