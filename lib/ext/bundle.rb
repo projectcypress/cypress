@@ -8,8 +8,8 @@ class Bundle
                                           .order_by(['value.last', :asc])
   end
 
-  def delete(options = {})
-    super
+  def destroy
     results.destroy
+    delete
   end
 end

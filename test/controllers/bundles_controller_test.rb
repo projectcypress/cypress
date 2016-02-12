@@ -3,7 +3,7 @@ class BundlesControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   setup do
-    collection_fixtures('bundles', 'users')
+    collection_fixtures('bundles', 'measures', 'records', 'users')
     enable_page
     sign_in User.first
   end
@@ -63,13 +63,17 @@ class BundlesControllerTest < ActionController::TestCase
   end
 
   test 'should be able to remove bundle' do
-    orig_count = Bundle.count
+    orig_bundle_count = Bundle.count
+    orig_measure_count = Measure.count
+    orig_record_count = Record.count
     id = Bundle.first._id
 
     delete :destroy, id: id
 
     assert_equal 0, Bundle.where(_id: id).count, 'Should have deleted bundle'
-    assert_equal orig_count - 1, Bundle.count, 'Should have deleted Bundle'
+    assert_equal orig_bundle_count - 1, Bundle.count, 'Should have deleted Bundle'
+    assert orig_measure_count > Measure.count, 'Should have removed measures in the bundle'
+    assert orig_record_count > Record.count, 'Should have removed records in the bundle'
   end
 
   test 'should not import new bundle when page disabled' do
@@ -106,7 +110,7 @@ class BundlesControllerTest < ActionController::TestCase
 
     delete :destroy, id: id
 
-    assert_equal 1, Bundle.where(_id: id).count, 'Should have deleted bundle'
-    assert_equal orig_count, Bundle.count, 'Should have deleted Bundle'
+    assert_equal 1, Bundle.where(_id: id).count, 'Should not have deleted bundle'
+    assert_equal orig_count, Bundle.count, 'Should not have deleted Bundle'
   end
 end
