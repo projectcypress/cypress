@@ -7,23 +7,27 @@ class Ability
     # if user.atl?
     #   can :manage, :all
     # end
-    if APP_CONFIG.ignore_roles || user.has_role?(:admin)
+    if APP_CONFIG.ignore_roles || user.has_role?('admin')
       can :manage, :all
-    elsif user.has_role?(:atl)
-      can :manage, Vendor
     else
+      can :manage, Vendor if user.has_role?('atl')
 
       can :manage, Vendor do |vendor|
-        user.has_role?(:owner, vendor)
+        user.has_role?('owner', vendor)
       end
-      can :create, Vendor if user.has_role? :user
+
+      can :create, Vendor if user.has_role?('user')
 
       can :read, Vendor do |vendor|
-        user.has_role?(:vendor, vendor)
+        user.has_role?('vendor', vendor) ||
+          user.has_role?('owner', vendor) ||
+          user.has_role?('atl')
       end
 
       can :execute_task, Vendor do |vendor|
-        user.has_role?(:vendor, vendor)
+        user.has_role?('vendor', vendor) ||
+          user.has_role?('owner', vendor) ||
+          user.has_role?('atl')
       end
 
     end

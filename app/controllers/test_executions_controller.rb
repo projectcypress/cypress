@@ -23,6 +23,7 @@ class TestExecutionsController < ApplicationController
   end
 
   def show
+    authorize! :read, @task.product_test.product.vendor
     respond_to do |f|
       f.html
       f.js

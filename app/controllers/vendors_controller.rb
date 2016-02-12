@@ -16,7 +16,7 @@ class VendorsController < ApplicationController
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @vendor.name, :show_vendor_path
+    add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
     @products = Product.where(vendor_id: @vendor.id).order_by(state: 'desc')
     respond_to do |f|
       f.html
@@ -25,12 +25,12 @@ class VendorsController < ApplicationController
   end
 
   def new
-    authorize! :create, Vendor
+    authorize! :create, Vendor.new
     @vendor = Vendor.new
   end
 
   def create
-    authorize! :create, Vendor
+    authorize! :create, Vendor.new
     @vendor = Vendor.new(vendor_params)
     @vendor.save!
     current_user.add_role :owner, @vendor
