@@ -5,7 +5,7 @@ class MeasureEvaluationJob < ActiveJob::Base
     bundle = File.open(bundle_file)
     importer = HealthDataStandards::Import::Bundle::Importer
     importer.import(bundle, {})
-    if (args.create_indexes != 'false')
+    if args.create_indexes != 'false'
       ::Rails.application.eager_load! if defined? Rails
       ::Mongoid::Tasks::Database.create_indexes
     end

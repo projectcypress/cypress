@@ -9,7 +9,7 @@ default_bundle: 2.7.0
 enable_logging: false
 
 # ignore roles completely -- this is essientially the same as everyone in the system being an admin
-ignore_roles: true
+ignore_roles: false
 # the default role to assign to a user upon at creation -- this should be either admin,atl, user or nil
 # a user without a role will not be able to create or view any vendors .  You may want to set this to nil
 # when an admin is required to approve new users and have the admin set the role there

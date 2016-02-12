@@ -104,4 +104,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'brakeman', require: false
   gem 'bundler-audit'
+  gem 'pry'
+  gem 'pry-nav'
 end

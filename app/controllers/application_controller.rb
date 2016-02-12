@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!, :check_bundle_installed
 
+  rescue_from CanCan::AccessDenied do |exception|
+    render text: exception, status: 404
+  end
+
   private
 
   # Overwriting the sign_out redirect path method

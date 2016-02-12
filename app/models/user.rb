@@ -28,7 +28,7 @@ class User
 
   def active_for_authentication?
     super && approved?
-   end
+  end
 
   def inactive_message
     if !approved?
