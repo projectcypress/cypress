@@ -1,0 +1,26 @@
+<%
+
+# local variables:
+#
+#   task
+#   current_task   (boolean)
+#
+# purpose: wraps task_status partial with link or div with id. div with id used
+#          in show.js.erb to identify what needs to be reloaded after execution
+#          is ready
+
+%>
+
+<% if current_task %>
+  <div id = 'task_status_display'>
+<% else %>
+  <a class = 'task-switch-link' href = '<%= new_task_test_execution_path(task) %>'>
+<% end %>
+
+<%= render partial: 'task_status', locals: { task: task, current_task: current_task } %>
+
+<% if current_task %>
+  </div>
+<% else %>
+  </a>
+<% end %>

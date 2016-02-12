@@ -1,5 +1,7 @@
 <%= render partial: 'remove_modal' %>
 
+<%= render partial: 'application/certification_bar', locals: { product: @product, active_certs: [true, false, false, false] } %>
+
 <h3>Manual Entry Checklist</h3>
 
 <%= render partial: 'checklist_status_display', locals: { product: @product } %>

@@ -12,13 +12,49 @@
   margin-top: 1em;
 }
 
-.execution-status-table {
+.task-switch-link {
+  color: $gray-dark;
+}
 
-  th, td {
-    text-align: center;
+.task-panel {
+  border: 0;
+  box-shadow: none;
+}
+
+.nested-link {
+  font-weight: bold;
+}
+
+.margin-top-1 {
+  margin-top: 1em;
+}
+
+.panel-inactive:hover {
+  background-color: $gray-lighter;
+
+  .nested-link {
+    text-decoration: underline;
+  }
+}
+
+.cert-bar {
+  width: 25%;
+  margin-bottom: 2.5em;
+
+  .text-center {
+    display: inline-block;
+    width: 25%;
+    box-sizing: border-box;
+    float: left;
+    font-size: 16px;
   }
 
-  .highlight-row {
-    background-color: $gray-lighter;
+  div:not(:first-child) {
+    border-left: 1px solid $gray;
+  }
+
+  .active-cert {
+    color: $panel-primary-text;
+    background: $panel-primary-heading-bg;
   }
 }

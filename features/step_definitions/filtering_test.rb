@@ -43,7 +43,7 @@ end
 #   A N D   #
 
 And(/^the user views the CAT 3 test from the CAT 1 page$/) do
-  find(:xpath, "//a[@href='/tasks/#{@f_test_1.cat3_task.id}/test_executions/new']").click
+  find(:xpath, "//a[@href='/tasks/#{@f_test_1.cat3_task.id}/test_executions/new']").trigger('click')
 end
 
 # 'And the user uploads a CAT 1 zip file' included in step_definitions/measure_test.rb

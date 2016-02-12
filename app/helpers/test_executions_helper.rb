@@ -4,10 +4,30 @@ module TestExecutionsHelper
     (test._type == 'MeasureTest' && task._type == 'C1Task') || (test._type == 'FilteringTest' && task._type == 'Cat1FilterTask')
   end
 
+  def task_type_to_title(task_type, c3)
+    case task_type
+    when 'C1Task' then c3 ? 'C1 and C3' : 'C1'
+    when 'C2Task' then c3 ? 'C2 and C3' : 'C2'
+    when 'Cat1FilterTask' then 'Cat 1'
+    when 'Cat3FilterTask' then 'Cat 3'
+    end
+  end
+
+  # task_type is String and c3_task is boolean
+  # returns an array of booleans [c1, c2, c3, c4]. true if page is testing these certification types
+  def current_certifications(task_type, c3_task)
+    return [false, false, false, true] if task_type == 'Cat1FilterTask' || task_type == 'Cat3FilterTask'
+    [task_type == 'C1Task', task_type == 'C2Task', c3_task, false]
+  end
+
+  def date_of_execution(execution)
+    execution.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%-m/%-d/%y @ %k:%M')
+  end
+
   def get_title_message(test, task)
     msg = ''
     if test._type == 'MeasureTest'
-      msg << get_measure_certification_types(task).to_s
+      msg << task_type_to_title(task._type, task.product_test.product.c3_test)
       msg << ' certification'
       msg << 's' if test.product.c3_test
     else
@@ -19,12 +39,6 @@ module TestExecutionsHelper
     msg << " for #{test.cms_id} #{test.name}"
   end
 
-  def get_measure_certification_types(task)
-    certification_types = currently_viewing_c1?(task) ? 'C1' : 'C2'
-    certification_types << ' and C3' if task.product_test.product.c3_test
-    certification_types
-  end
-
   def get_upload_type(is_displaying_cat1)
     if is_displaying_cat1
       'CAT 1 zip'
@@ -33,36 +47,19 @@ module TestExecutionsHelper
     end
   end
 
-  # returns:
-  #   c1 task if we are currently on the c2 task page and the product test is a measure_test
-  #   c2 task if we are currently on the c1 task page and the product test is a measure_test
-  #   cat1 task if we are currently on the cat3 task page and the product test is a filter_test
-  #   cat3 task if we are currently on the cat1 task page and the product test is a filter_test
-  #   false if the user did not select the other task when creating the product
-  def get_other_task(task)
-    test = task.product_test
-    if test._type == 'MeasureTest'
-      if currently_viewing_c1?(task)
-        test.c2_task
-      else
-        test.c1_task
-      end
-    elsif task._type == 'Cat1FilterTask'
-      test.cat3_task
-    else
-      test.cat1_task
-    end
+  # returns the number of each type of error
+  def get_error_counts(execution, task)
+    h = Hash[['QRDA Errors', 'Reporting Errors', 'Submission Errors'].zip(get_error_counts_helper(execution))]
+    h.except!('Submission Errors') unless task.product_test.product.c3_test
+    h
   end
 
-  # returns the number of each type of error
-  def get_error_counts(execution)
-    qrda = reporting = submit = total = 0
-    return [qrda, reporting, submit, total] unless execution && execution.failing?
+  def get_error_counts_helper(execution)
+    return ['--', '--', '--'] unless execution && execution.failing?
     qrda = execution.qrda_errors.count
     reporting = execution.reporting_errors.count
-    submit = TestExecution.find(execution.sibling_execution_id).execution_errors.count if execution.sibling_execution_id
-    total = qrda + reporting + submit
-    [qrda, reporting, submit, total]
+    submit = execution.sibling_execution_id ? TestExecution.find(execution.sibling_execution_id).execution_errors.count : 0
+    [qrda, reporting, submit]
   end
 
   def get_select_history_message(execution, is_most_recent)

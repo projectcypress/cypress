@@ -65,26 +65,13 @@ class TestExecutionHelper < ActiveSupport::TestCase
     assert_equal 'CAT 3 XML', get_upload_type(false)
   end
 
-  def test_get_other_task
-    setup_product_tests(true, true, false, true, filt1: 'val1')
-    c1_task = @m_test.tasks.find_by(_type: 'C1Task')
-    c2_task = @m_test.tasks.find_by(_type: 'C2Task')
-    cat1_task = @f_test.tasks.find_by(_type: 'Cat1FilterTask')
-    cat3_task = @f_test.tasks.find_by(_type: 'Cat3FilterTask')
-
-    assert_equal c2_task, get_other_task(c1_task)
-    assert_equal c1_task, get_other_task(c2_task)
-    assert_equal cat3_task, get_other_task(cat1_task)
-    assert_equal cat1_task, get_other_task(cat3_task)
-  end
-
   def test_get_error_counts_no_execution
-    qrda, report, submit, total = get_error_counts(false)
+    setup_product_tests(true, false, true, true, filt1: 'val1')
+    errors_hash = get_error_counts(false, @m_test.tasks.find_by(_type: 'C1Task'))
 
-    assert_equal 0, qrda
-    assert_equal 0, report
-    assert_equal 0, submit
-    assert_equal 0, total
+    assert_equal '--', errors_hash['QRDA Errors']
+    assert_equal '--', errors_hash['Reporting Errors']
+    assert_equal '--', errors_hash['Submission Errors']
   end
 
   def test_get_error_counts
@@ -97,11 +84,11 @@ class TestExecutionHelper < ActiveSupport::TestCase
     execution.execution_errors.create(:message => 'result error 2', :msg_type => :error, :validator_type => :result_validation)
     execution.state = :failed
 
-    qrda, report, _submit, total = get_error_counts(execution)
+    errors_hash = get_error_counts(execution, c1_task)
 
-    assert_equal 1, qrda
-    assert_equal 2, report
-    assert_equal 3, total
+    assert_equal 1, errors_hash['QRDA Errors']
+    assert_equal 2, errors_hash['Reporting Errors']
+    assert_equal nil, errors_hash['Submission Errors']
   end
 
   def test_get_select_history_message
