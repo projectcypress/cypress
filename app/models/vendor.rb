@@ -29,7 +29,6 @@ class Vendor
       end
       Vendor.in(_id: vids)
     end
-
   end
 
   def status
@@ -62,6 +61,4 @@ class Vendor
       products.select { |product| product.status == 'incomplete' }
     end
   end
-
-
 end

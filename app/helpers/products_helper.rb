@@ -21,7 +21,6 @@ module ProductsHelper
     end
   end
 
-
   def tasks_values(tasks)
     status_values = []
     %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }

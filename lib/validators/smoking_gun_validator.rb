@@ -80,7 +80,7 @@ module Validators
           next if dc[:template] == 'N/A'
           nodes = doc.xpath("//cda:templateId[@root='#{dc[:template]}']/..//*[@sdtc:valueSet='#{dc[:oid]}']")
           add_error("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
-                    file_name: options[:file_name]) if nodes.length == 0
+                    file_name: options[:file_name]) if nodes.empty?
         end
       end
     end

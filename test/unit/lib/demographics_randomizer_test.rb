@@ -119,7 +119,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       assert_equal 'Medicaid', ip.name
       assert_equal 'Medicaid', ip.payer.name
       assert_equal 'MC', ip.type
-    when'349'
+    when '349'
       assert_equal 'Other', ip.name
       assert_equal 'Other', ip.payer.name
       assert_equal 'OT', ip.type
