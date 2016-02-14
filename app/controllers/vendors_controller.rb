@@ -8,7 +8,7 @@ class VendorsController < ApplicationController
 
   def index
     # need to get all of the vendors that the user can see
-    @vendors = Vendor.accessible_by(current_user).order(:updated_at => :desc)#Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
+    @vendors = Vendor.accessible_by(current_user).order(:updated_at => :desc) # Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
     respond_to do |f|
       f.html
       f.json { render json: @vendors }
@@ -16,7 +16,7 @@ class VendorsController < ApplicationController
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @vendor.name, :show_vendor_path
+    add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
     @products = Product.where(vendor_id: @vendor.id).order_by(state: 'desc')
     respond_to do |f|
       f.html
@@ -25,12 +25,12 @@ class VendorsController < ApplicationController
   end
 
   def new
-    authorize! :create, Vendor
+    authorize! :create, Vendor.new
     @vendor = Vendor.new
   end
 
   def create
-    authorize! :create, Vendor
+    authorize! :create, Vendor.new
     @vendor = Vendor.new(vendor_params)
     @vendor.save!
     current_user.add_role :owner, @vendor

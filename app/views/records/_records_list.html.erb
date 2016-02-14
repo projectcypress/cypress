@@ -4,21 +4,22 @@
 <table class="table table-condensed table-hover">
   <thead>
     <tr>
-      <th>Patient Name</th>
-      <th>DOB</th>
-      <th>Gender</th>
+      <th scope="col">Patient Name</th>
+      <th scope="col">DOB</th>
+      <th scope="col">Gender</th>
       <% if @measure %>
         <% @measure.population_ids.keys().each do |population| %>
-          <th class="text-center"><%= population %></th>
+          <th scope="col" class="text-center"><%= population %></th>
         <% end %>
       <% end %>
     </tr>
   </thead>
   <tbody>
-    <% if @measure %>
+    <!-- Only show records that are part of the measures IPP-->
+    <% if @measure && !@product_test %>
       <% records_by_measure(@records, @measure).each do |r| %>
         <tr>
-          <td><%= link_to full_name(r), record_path(:id => r.id), class: 'navbar-item' %></td>
+          <td><%= link_to full_name(r), record_path(:id => r.id) %></td>
           <td><%= display_time(r.birthdate) %></td>
           <td><%= full_gender_name(r.gender) %></td>
           <% @measure.population_ids.keys().each do |population| %>
@@ -29,11 +30,24 @@
         </tr>
       <% end %>
     <% else %>
+      <!-- will show all records --> 
       <% @records.each do |r| %>
         <tr>
-          <td><%= link_to full_name(r), record_path(:id => r.id), class: 'navbar-item' %></td>
+          <% if @product_test %>
+            <td><%= link_to full_name(r), record_path(:id => r.id, :product_test_id => @product_test.id) %></td>
+          <% else %>
+            <td><%= link_to full_name(r), record_path(:id => r.id) %></td>
+          <% end %>
           <td><%= display_time(r.birthdate) %></td>
           <td><%= full_gender_name(r.gender) %></td>
+          <!-- will show calculation results for product test records -->
+          <% if @measure %>
+            <% @measure.population_ids.keys().each do |population| %>
+              <td class="text-center">
+                <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(r.calculation_results, @measure, population) } %>
+              </td>
+            <% end %>
+          <% end %>
         </tr>
       <% end %>
     <% end %>

@@ -9,12 +9,11 @@ module Validators
 
     def initialize(bundle, c3_validation, measures = [])
       @measures = measures
-      if c3_validation
-        @validators = [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
-      else
-        @validators = [CDA.instance,
-                       Cat1.instance]
-      end
+      @validators = if c3_validation
+                      [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
+                    else
+                      [CDA.instance, Cat1.instance]
+                    end
     end
 
     # Validates a QRDA Cat I file.  This routine will validate the file against the CDA schema as well as the
@@ -32,9 +31,13 @@ module Validators
       end
 
       validation_errors.each do |error|
-        add_error error.message, :message => error.message,
-                                 :location => error.location, :validator => error.validator,
-                                 :validator_type => :xml_validation, :file_name => error.file_name
+        type = :error
+        if error.validator && error.validator.upcase.include?('QRDA') && !@c3_validation
+          type = :warning
+        end
+        add_issue error.message, type, :message => error.message,
+                                       :location => error.location, :validator => error.validator,
+                                       :validator_type => :xml_validation, :file_name => error.file_name
       end
       validate_measures(doc)
       nil

@@ -1,17 +1,23 @@
 {
-    "_id" : "53b2c4414d4d32139c730000",
+    "_id" : {"$oid" :"53b2c4414d4d32139c730000"},
     "parent_ids" : [],
     "title" : "Dr.",
     "given_name" : "FirstName",
     "family_name" : "LastName",
-    "npi" : "1520670765",
-    "tin" : "020700270",
     "type" : "ep",
     "cda_identifiers" : [
         {
             "_id" : "53b2c43e4d4d32139c720000",
             "root" : "2.16.840.1.113883.3.72.5.2",
             "extension" : "LastName"
+        },
+        {
+            "root" : "2.16.840.1.113883.4.6",
+            "extension" : "1520670765"
+        }, 
+        {
+            "root" : "2.16.840.1.113883.4.2",
+            "extension" : "020700270"
         }
     ],
     "addresses" : [

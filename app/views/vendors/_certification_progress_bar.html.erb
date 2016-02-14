@@ -1,0 +1,23 @@
+<%
+
+# local variables:
+#
+#   cert_type   (String) should be 'C1', 'C2', 'C3', or 'C4'
+#   cert_hash   (Hash)   should contain 'href' 'sums' hash containing number of 'passing', 'failing', 'not_started', and 'total'
+
+%>
+
+<% failing_percent = cert_hash.sums.failing.to_f / cert_hash.sums.total.to_f * 100 %>
+<% passing_percent = cert_hash.sums.passing.to_f / cert_hash.sums.total.to_f * 100 %>
+<% not_started_percent = cert_hash.sums.not_started.to_f / cert_hash.sums.total.to_f * 100 %>
+
+<% status = cert_status(cert_hash) %>
+
+<a class = 'certification-tab' data-toggle = 'tab' href = '<%= "##{cert_hash.href}" %>'>
+  <div class = 'progress'>
+    <div class = 'progress-bar progress-bar-danger' role = 'progressbar' style = '<%= "width:#{failing_percent}%" %>'></div>
+    <div class = 'progress-bar progress-bar-info' role = 'progressbar' style = '<%= "width:#{not_started_percent}%" %>'></div>
+    <div class = 'progress-bar progress-bar-success' role = 'progressbar' style = '<%= "width:#{passing_percent}%" %>'></div>
+  </div>
+  <span class = '<%= status_to_css_class(status) %>'><%= status_to_display_text(status, cert_type, cert_hash) %></span>
+</a>

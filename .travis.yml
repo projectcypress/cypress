@@ -23,6 +23,7 @@ script:
   - bundle exec brakeman -qAzw1
   - bundle exec bundle-audit update
   - bundle exec bundle-audit check
+  - bundle exec overcommit --sign
   - bundle exec overcommit --run
   - bundle exec rake test
   - bundle exec rake cucumber

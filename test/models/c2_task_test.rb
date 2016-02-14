@@ -1,5 +1,5 @@
 require 'test_helper'
-# rubocop:disable Metrics/ClassLength
+
 class C2TaskTest < ActiveSupport::TestCase
   include ::Validators
   include ActiveJob::TestHelper
@@ -27,7 +27,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_execute
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_good.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_good.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
@@ -38,7 +38,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_not_error_when_measure_period_is_wrong_without_c3
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_mp.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_mp.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
@@ -49,7 +49,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_cause_error_when_stratifications_are_missing
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
@@ -61,7 +61,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_cause_error_when_supplemental_data_is_missing
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
@@ -73,7 +73,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_cause_error_when_not_all_populations_are_accounted_for
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
@@ -84,7 +84,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_cause_error_when_the_schema_structure_is_bad
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_schematron.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_schematron.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
@@ -96,7 +96,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_cause_error_when_measure_is_not_included_in_report
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
@@ -110,7 +110,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_cause_error_when_extra_supplemental_data_is_provided
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
@@ -122,7 +122,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_not_cause_error_when_extra_supplemental_data_provided_has_zero_value
     ptest = ProductTest.find('51703a6a3054cf8439000044')
     task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental_is_zero.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental_is_zero.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
@@ -133,7 +133,7 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_have_c3_execution_as_sibling_test_execution_when_c3_task_exists
     c2_task = @product_test.tasks.create({}, C2Task)
     c3_task = @product_test.tasks.create({}, C3Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_good.xml', 'application/xml')
+    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_good.xml', 'text/xml')
     perform_enqueued_jobs do
       te = c2_task.execute(xml)
       assert_equal c3_task.test_executions.first.id.to_s, te.sibling_execution_id

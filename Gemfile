@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '~> 4.2.5.1'
 
 # Use MongoDB just like in Cypress v2!
 gem 'mongoid', '~> 5.0.0'
@@ -83,6 +83,8 @@ group :development, :test do
   gem 'scss_lint', require: false
   gem 'capybara'
   gem 'capybara-accessible'
+  gem 'axe-matchers'
+  gem 'selenium-webdriver', '2.48.0'
 end
 
 group :development do
@@ -91,7 +93,6 @@ group :development do
   gem 'pry'
   gem 'pry-nav'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-
 end
 
 group :test do
@@ -103,4 +104,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'brakeman', require: false
   gem 'bundler-audit'
+  gem 'pry'
+  gem 'pry-nav'
 end

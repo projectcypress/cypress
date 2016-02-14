@@ -12,29 +12,29 @@
 
 <table class = 'table table-hover table-condensed' id = 'measure_test_table'>
   <thead>
-    <th class = 'col-sm-2 pointer-on-hover'>
+    <th scope="col" class = 'col-sm-2 pointer-on-hover'>
       CMS ID
       <a>[sort]</a>
     </th>
     <% if c1_and_c2 %>
-      <th class = 'col-sm-6 pointer-on-hover'>
+      <th scope="col" class = 'col-sm-6 pointer-on-hover'>
         Measure Name
         <a>[sort]</a>
       </th>  
     <% else %>
-      <th class = 'col-sm-8 pointer-on-hover'>
+      <th scope="col" class = 'col-sm-8 pointer-on-hover'>
         Measure Name
         <a>[sort]</a>
       </th>
     <% end %>
     <% if @product.c1_test %>
-      <th class = 'col-sm-2 pointer-on-hover'>
+      <th scope="col" class = 'col-sm-2 pointer-on-hover'>
         <%= c1_label %>
         <a>[sort]</a>
       </th>
     <% end %>
     <% if @product.c2_test %>
-      <th class = 'col-sm-2 pointer-on-hover'>
+      <th scope="col" class = 'col-sm-2 pointer-on-hover'>
         <%= c2_label %>
         <a>[sort]</a>
       </th>
@@ -46,10 +46,10 @@
         <td><%= test.cms_id %></td>
         <td><%= test.name %></td>
         <% if @product.c1_test %>
-          <td><%= render partial: 'measure_link', locals: { task: test.c1_task } %></td>
+          <td><%= render partial: 'product_test_link', locals: { task: test.c1_task } %></td>
         <% end %>
         <% if @product.c2_test %>
-          <td><%= render partial: 'measure_link', locals: { task: test.c2_task } %></td>
+          <td><%= render partial: 'product_test_link', locals: { task: test.c2_task } %></td>
         <% end %>
       </tr>
     <% end %>

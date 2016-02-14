@@ -17,6 +17,10 @@ module Cypress
 
     def initialize(options)
       @options = options
+
+      if @options['disable_randomization']
+        %w(randomize_demographics generate_provider randomization_ids).each { |k| @options.delete k }
+      end
     end
 
     def perform
@@ -34,14 +38,12 @@ module Cypress
     def find_patients_to_clone
       # Clone AMA records from Mongo
       @test = ProductTest.find(options['test_id'])
-      patients = []
-      if options['patient_ids']
-        # clone each of the patients identified in the :patient_ids parameter
-        patients = @test.bundle.records.where(test_id: nil).in(medical_record_number: options['patient_ids']).to_a
-      else
-        patients = @test.bundle.records.where(test_id: nil).to_a
-      end
-
+      patients = if options['patient_ids']
+                   # clone each of the patients identified in the :patient_ids parameter
+                   @test.bundle.records.where(test_id: nil).in(medical_record_number: options['patient_ids']).to_a
+                 else
+                   @test.bundle.records.where(test_id: nil).to_a
+                 end
       patients
     end
 
@@ -62,12 +64,12 @@ module Cypress
     def clone_and_save_record(record, date_shift = nil)
       cloned_patient = record.clone
       cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number
-      cloned_patient.medical_record_number = next_medical_record_number
+      cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
       DemographicsRandomizer.randomize(cloned_patient) if options['randomize_demographics']
       cloned_patient.shift_dates(date_shift) if date_shift
       cloned_patient.test_id = options['test_id']
       patch_insurance_provider(record)
-      randomize_entry_ids(cloned_patient)
+      randomize_entry_ids(cloned_patient) unless options['disable_randomization']
       assign_provider(cloned_patient)
       cloned_patient.save!
     end
@@ -114,13 +116,13 @@ module Cypress
     end
 
     def assign_provider(patient)
-      if @options['providers']
-        prov = @options['providers'].sample
-      elsif @options['generate_provider']
-        prov = generate_provider
-      else
-        prov = Provider.default_provider
-      end
+      prov = if @options['providers']
+               @options['providers'].sample
+             elsif @options['generate_provider']
+               generate_provider
+             else
+               Provider.default_provider
+             end
       patient.provider_performances.build(provider: prov) if prov
     end
 

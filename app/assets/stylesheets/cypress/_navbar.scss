@@ -13,25 +13,20 @@
   letter-spacing: .04em;
 }
 
-.navbar-header a {
-  color: $navbar-inverse-link-color;
-  font-size: 2em;
-  margin-left: .5em;
-  text-shadow: 1px 1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5),
-              -1px -1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5);
+.navbar-header {
+  line-height: $navbar-height + $navbar-padding-vertical * 2;
+
+  a {
+    color: $navbar-inverse-link-color;
+    font-size: 2em;
+    margin-left: .5em;
+  }
 }
 
-.navbar-nav {
-  height: $navbar-height + $navbar-padding-vertical;
-
-  li .navbar-item {
-    height: $navbar-height + $navbar-padding-vertical;
-    display: table-cell;
-    padding: 0 1em;
-    text-shadow: 1px 1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5),
-                -1px -1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5);
-    vertical-align: middle;
-  }
+.navbar-nav li .navbar-item {
+  height: $navbar-height + $navbar-padding-vertical * 4;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .navbar-collapse.in,
@@ -52,15 +47,13 @@
 .breadcrumb > li {
   @include box-shadow(0 1px 1px $dropdown-border);
   display: table-cell;
-  padding: 10px;
+  padding: 8px 10px;
   background-color: $navbar-inverse-bg;
   color: $navbar-inverse-link-color;
 
   a {
-    padding: 10px 0;
+    padding: 6px 0;
     color: $navbar-inverse-link-color;
-    text-shadow: 1px 1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5),
-                -1px -1px 2px transparentize(darken($navbar-inverse-bg, 30%), .5);
   }
 
   + li::before {
@@ -75,7 +68,7 @@
     background-color: $navbar-inverse-link-active-bg;
 
     + li::before {
-      color: $navbar-inverse-link-active-bg;
+      color: $navbar-inverse-link-active-color;
     }
 
     > a:hover { text-decoration: none; }
@@ -83,6 +76,6 @@
 
   &.active {
     background-color: $navbar-inverse-link-active-bg;
-    color: $navbar-inverse-link-color;
+    color: $navbar-inverse-link-active-color;
   }
 }

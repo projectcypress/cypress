@@ -17,11 +17,11 @@ $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
 $gray-medium-light:     $gray-light !default;
 
-$brand-primary:         #755BC2 !default;
-$brand-success:         #26B164 !default;
-$brand-info:            #4D7AA7 !default;
-$brand-warning:         #D56948 !default;
-$brand-danger:          #B93D58 !default;
+$brand-primary:         #527E73 !default;
+$brand-success:         #269E00 !default;
+$brand-info:            #106078 !default;
+$brand-warning:         #933700 !default;
+$brand-danger:          #8A0018 !default;
 $brand-white:           #efefef !default;
 
 //== Scaffolding
@@ -34,9 +34,9 @@ $body-bg:               #fff !default;
 $text-color:            $gray-dark !default;
 
 //** Global textual link color.
-$link-color:            $brand-primary !default;
+$link-color:            darken($brand-primary, 5%) !default;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      darken($link-color, 10%) !default;
 //** Link hover decoration.
 $link-hover-decoration: underline !default;
 
@@ -69,7 +69,7 @@ $line-height-computed:    floor(($font-size-base * $line-height-base)) !default;
 
 //** By default, this inherits from the `<body>`.
 $headings-font-family:    inherit !default;
-$headings-font-weight:    700 !default;
+$headings-font-weight:    300 !default;
 $headings-line-height:    1.1 !default;
 $headings-color:          inherit !default;
 
@@ -160,7 +160,7 @@ $btn-primary-bg:                 $brand-primary !default;
 $btn-primary-border:             darken($btn-primary-bg, 5%) !default;
 
 $btn-success-color:              #fff !default;
-$btn-success-bg:                 $brand-success !default;
+$btn-success-bg:                 darken($brand-success, 10%) !default;
 $btn-success-border:             darken($btn-success-bg, 5%) !default;
 
 $btn-info-color:                 #fff !default;
@@ -188,14 +188,14 @@ $btn-border-radius-small:        $border-radius-small !default;
 //##
 
 //** `<input>` background color
-$input-bg:                       #fafafa !default;
+$input-bg:                       lighten(desaturate($brand-info, 50%), 80%) !default;
 //** `<input disabled>` background color
 $input-bg-disabled:              $gray-lighter !default;
 
 //** Text color for `<input>`s
 $input-color:                    $gray-darker !default;
 //** `<input>` border color
-$input-border:                   #E1D9F7 !default;
+$input-border:                   darken($input-bg, 30%) !default;
 
 // TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
 //** Default `.form-control` border radius
@@ -364,30 +364,30 @@ $container-lg:                 $container-large-desktop !default;
 //##
 
 // Basics of a navbar
-$navbar-height:                    36px !default;
-$navbar-margin-bottom:             $line-height-computed / 2 !default;
-$navbar-margin-bottom:             0 !default;
+$navbar-height:                    28px !default;
+$navbar-margin-bottom:             1em !default;
 $navbar-border-radius:             $border-radius-base !default;
 $navbar-padding-horizontal:        floor(($grid-gutter-width / 2)) !default;
 $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 4) !default;
 $navbar-collapse-max-height:       340px !default;
+$navbar-shadow:                    rgba(0,0,0, .15) !default;
 
 $navbar-default-color:             $brand-primary !default;
-$navbar-default-bg:                transparent !default;
+$navbar-default-bg:                $body-bg !default;
 $navbar-default-border:            $gray-lighter !default;
 
 // Navbar links
 $navbar-default-link-color:                $brand-primary !default;
-$navbar-default-link-hover-color:          darken($brand-primary, 20%) !default;
-$navbar-default-link-hover-bg:             lighten($brand-primary, 50%) !default;
-$navbar-default-link-active-color:         #fff !default;
-$navbar-default-link-active-bg:            darken($brand-primary, 10%) !default;
+$navbar-default-link-hover-color:          desaturate(lighten($brand-primary, 65%), 50%) !default;
+$navbar-default-link-hover-bg:             $brand-primary !default;
+$navbar-default-link-active-color:         darken($brand-primary, 20%) !default;
+$navbar-default-link-active-bg:            desaturate(lighten($brand-primary, 65%), 50%) !default;
 $navbar-default-link-disabled-color:       #ccc !default;
 $navbar-default-link-disabled-bg:          transparent !default;
 
 // Navbar brand label
-$navbar-default-brand-color:               lighten($brand-primary, 50%) !default;
-$navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 10%) !default;
+$navbar-default-brand-color:               #fff !default;
+$navbar-default-brand-hover-color:         $navbar-default-link-hover-color !default;
 $navbar-default-brand-hover-bg:            transparent !default;
 
 // Navbar toggle
@@ -398,15 +398,15 @@ $navbar-default-toggle-border-color:       transparent !default;
 
 //=== Inverted navbar
 // Reset inverted navbar basics
-$navbar-inverse-color:                      lighten($brand-primary, 50%) !default;
-$navbar-inverse-bg:                         desaturate(darken($brand-primary, 10%), 35%) !default;
+$navbar-inverse-color:                      lighten($brand-primary, 55%) !default;
+$navbar-inverse-bg:                         $brand-primary !default;
 $navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
 
 // Inverted navbar links
-$navbar-inverse-link-color:                 lighten($brand-primary, 50%) !default;
-$navbar-inverse-link-hover-color:           #fff !default;
+$navbar-inverse-link-color:                 #fff !default;
+$navbar-inverse-link-hover-color:           lighten($brand-primary, 60%) !default;
 $navbar-inverse-link-hover-bg:              darken($navbar-inverse-bg, 10%) !default;
-$navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
+$navbar-inverse-link-active-color:          $navbar-inverse-link-color !default;
 $navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 15%) !default;
 $navbar-inverse-link-disabled-color:        #444 !default;
 $navbar-inverse-link-disabled-bg:           transparent !default;
@@ -504,21 +504,21 @@ $jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-$state-success-text:             darken($brand-success, 20%) !default;
-$state-success-bg:               lighten($brand-success, 50%) !default;
-$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+$state-success-text:             darken($brand-success, 10%) !default;
+$state-success-bg:               lighten(desaturate($brand-success, 30%), 60%) !default;
+$state-success-border:           darken($state-success-bg, 5%) !default;
 
-$state-info-text:                darken($brand-info, 20%) !default;
-$state-info-bg:                  lighten($brand-info, 40%) !default;
-$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
+$state-info-text:                darken($brand-info, 10%) !default;
+$state-info-bg:                  lighten(desaturate($brand-info, 30%), 60%) !default;
+$state-info-border:              darken($state-info-bg, 7%) !default;
 
-$state-warning-text:             darken($brand-warning, 20%) !default;
-$state-warning-bg:               lighten($brand-warning, 40%) !default;
-$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+$state-warning-text:             darken($brand-warning, 10%) !default;
+$state-warning-bg:               lighten(desaturate($brand-warning, 30%), 60%) !default;
+$state-warning-border:           darken($state-warning-bg, 5%) !default;
 
-$state-danger-text:              darken($brand-danger, 20%) !default;
-$state-danger-bg:                lighten($brand-danger, 40%) !default;
-$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+$state-danger-text:              darken($brand-danger, 10%) !default;
+$state-danger-bg:                lighten(desaturate($brand-danger, 30%), 60%) !default;
+$state-danger-border:            darken($state-danger-bg, 5%) !default;
 
 
 //== Tooltips
@@ -717,32 +717,32 @@ $panel-footer-padding:        $panel-heading-padding !default;
 $panel-border-radius:         $border-radius-base !default;
 
 //** Border color for elements within panels
-$panel-inner-border:          lighten(desaturate(darken($brand-primary, 10%), 35%), 40%) !default;
-$panel-footer-bg:             lighten(desaturate(darken($brand-primary, 10%), 35%), 50%) !default;
+$panel-footer-bg:             $gray-lighter !default;
+$panel-inner-border:          transparent !default;
 
-$panel-default-text:          $gray-dark !default;
-$panel-default-border:        lighten(desaturate(darken($brand-primary, 10%), 35%), 40%) !default;
-$panel-default-heading-bg:    lighten(desaturate(darken($brand-primary, 10%), 35%), 50%) !default;
+$panel-default-text:          lighten($brand-primary, 55%) !default;
+$panel-default-border:        darken($brand-primary, 5%) !default;
+$panel-default-heading-bg:    $panel-default-border !default;
 
-$panel-primary-text:          #fff !default;
-$panel-primary-border:        $brand-primary !default;
-$panel-primary-heading-bg:    $brand-primary !default;
+$panel-primary-text:          lighten($brand-primary, 55%) !default;
+$panel-primary-border:        darken($brand-primary, 5%) !default;
+$panel-primary-heading-bg:    $panel-primary-border !default;
 
-$panel-success-text:          $state-success-text !default;
-$panel-success-border:        $state-success-border !default;
-$panel-success-heading-bg:    $state-success-bg !default;
+$panel-success-text:          lighten($state-success-text, 60%) !default;
+$panel-success-border:        darken($brand-success, 10%) !default;
+$panel-success-heading-bg:    $panel-success-border !default;
 
-$panel-info-text:             $state-info-text !default;
-$panel-info-border:           $state-info-border !default;
-$panel-info-heading-bg:       $state-info-bg !default;
+$panel-info-text:             lighten($state-info-text, 50%) !default;
+$panel-info-border:           darken($brand-info, 5%) !default;
+$panel-info-heading-bg:       $panel-info-border !default;
 
-$panel-warning-text:          $state-warning-text !default;
-$panel-warning-border:        $state-warning-border !default;
-$panel-warning-heading-bg:    $state-warning-bg !default;
+$panel-warning-text:          lighten($state-warning-text, 50%) !default;
+$panel-warning-border:        darken($brand-warning, 5%) !default;
+$panel-warning-heading-bg:    $panel-warning-border !default;
 
-$panel-danger-text:           $state-danger-text !default;
-$panel-danger-border:         $state-danger-border !default;
-$panel-danger-heading-bg:     $state-danger-bg !default;
+$panel-danger-text:           lighten($state-danger-text, 55%) !default;
+$panel-danger-border:         darken($brand-danger, 5%) !default;
+$panel-danger-heading-bg:     $panel-danger-border !default;
 
 
 //== Thumbnails

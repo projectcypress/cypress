@@ -12,7 +12,7 @@ class C1Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    c3_validation = false
+    c3_validation = product_test.contains_c3_task?
     @validators = [QrdaCat1Validator.new(product_test.bundle, c3_validation, product_test.measures),
                    CalculatingSmokingGunValidator.new(product_test.measures, product_test.records, product_test.id)]
 
@@ -38,5 +38,18 @@ class C1Task < Task
   def records
     patient_ids = product_test.results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
     product_test.records.in('_id' => patient_ids)
+  end
+
+  # should only be used if product.c3_test is true
+  def c3_status
+    Rails.cache.fetch("#{cache_key}/c3_status") do
+      report_status = 'incomplete'
+      recent_execution = most_recent_execution
+      if recent_execution
+        recent_c3_execution = TestExecution.find(recent_execution.sibling_execution_id)
+        report_status = recent_c3_execution.passing? ? 'passing' : 'failing'
+      end
+      report_status
+    end
   end
 end

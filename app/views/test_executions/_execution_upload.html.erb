@@ -3,8 +3,15 @@
 # inputs:
 #
 #   task (c1task or c2task)
+#   label (id of the DOM element holding the label for this input)
 
 %>
+
+<% if displaying_cat1?(task) %>
+  <% accept_type = 'application/zip' %>
+<% else %>
+  <% accept_type = 'text/xml' %>
+<% end %>
 
 <%= form_for(TestExecution.new, :html => { method: :post, :multipart => true }) do |f| %>
   <%= hidden_field_tag :task_id, task.id %>
@@ -16,8 +23,7 @@
     <span class="input-group-addon btn btn-info btn-file">
       <span class="fileinput-new"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</span>
       <span class="fileinput-exists"><i class="fa fa-fw fa-refresh"></i> Change</span>
-      <label class = "hidden" for = "results"></label>
-      <%= file_field_tag :results, class: 'upload-results', accept: 'application/zip, text/xml' %>
+      <%= file_field_tag :results, class: 'upload-results', accept: accept_type, :aria => { labelledby: label, hidden: true } %>
     </span>
     <a id = 'submit-upload' class="input-group-addon fileinput-exists btn btn-success"><i class="fa fa-fw fa-upload"></i> Upload and run test</a>
   </div>

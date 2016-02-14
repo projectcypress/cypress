@@ -25,7 +25,7 @@ end
 
 When(/^the user visits the create vendor page$/) do
   visit '/'
-  page.click_button '+ Add Vendor'
+  page.click_button 'Add Vendor'
 end
 
 When(/^the user creates a vendor with appropriate information$/) do

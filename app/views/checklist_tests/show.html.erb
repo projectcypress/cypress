@@ -10,9 +10,9 @@
       <div class = 'panel-group' id = '<%= measure.cms_id %>'>
         <div class = 'panel panel-default'>
           <div class = 'panel-heading'>
-            <h4>
+            <h3 class='panel-title'>
               <%= "#{measure.cms_id} #{measure.name}" %>
-            </h4>
+            </h3>
           </div>
           <div class = 'panel checklist-panel'>
             <div class = 'panel-body'>
@@ -21,19 +21,26 @@
                   <tr>
                     <th class = 'col-sm-2'>Completed?</th>
                     <th class = 'col-sm-6'>Description</th>
-                    <th class = 'col-sm-2'>Value Set Name</th>
-                    <th class = 'col-sm-2'>Value Set ID</th>
+                    <th class = 'col-sm-2'>Attributes</th>
                   </tr>
                 </thead>
                 <tbody>
                   <%= f.fields_for :checked_criteria, @test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
-                    <% criteria = measure.hqmf_document[:source_data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
+                    <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
                     <% if criteria.has_key?('description') %>
                       <tr>
                         <td><%= criteria_field.check_box :completed %></td>
-                        <td><%= criteria[:description] %></td>
-                        <td><%= HealthDataStandards::SVS::ValueSet.where(oid: criteria[:code_list_id]).first.display_name if criteria[:code_list_id] %></td>
-                        <td><%= criteria[:code_list_id] %></td>
+                        <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                        <% if criteria[:field_values] %>
+                          <% if criteria[:field_values].keys[0] == "FLFS" %>
+                            <td><%= fulfills_reference(measure, criteria[:field_values]['FLFS'].reference) %></td>
+                          <% else %>
+                            <td><%= criteria[:field_values].keys[0].gsub("_", " ").capitalize %></td>
+                          <% end %>
+                        <% elsif  criteria[:negation] %>
+                          <td><%= "Negation Code" %></td>
+                        <% end %>
+
                       </tr>
                     <% end %>
                   <% end %>
@@ -54,6 +61,6 @@
 <%= render partial: 'remove_panel', locals: {
   name: 'delete checklist',
   type: 'visual test',
-  delete_path: "/products/#{@product.id}/checklist_tests/#{@test.id}",
+  delete_path: product_checklist_test_path(@product, @test),
   message: 'Removing this C1 Visual Test will discard your answers to the checklist above for each measure. This will not remove any measures selected.'
 } %>

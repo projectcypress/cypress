@@ -4,7 +4,7 @@ class User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -24,11 +24,13 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
-  field :approved, type: Boolean, default: APP_CONFIG.user_approved_default || false
+
+  field :approved, type: Boolean, default: APP_CONFIG.auto_approve || false
 
   def active_for_authentication?
-    true #super && approved?
-   end
+    super && approved?
+  end
+
 
   def inactive_message
     if !approved?

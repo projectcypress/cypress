@@ -22,7 +22,7 @@
 <% else %>
   <% qrda_errors = execution.qrda_errors %>
   <% report_errors = execution.reporting_errors %>
-  <% should_display_c3 = execution.task.product_test.product.c3_test %>
+  <% should_display_c3 = execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest' %>
   <% submit_errors = should_display_c3 ? TestExecution.find(execution.sibling_execution_id).execution_errors : [] %>
 
   <h4><i class="fa fa-fw fa-times-circle text-danger"></i><%= " Failed with #{execution.execution_errors.count} errors" %></h4>
@@ -46,16 +46,18 @@
     <% end %>
   </ul>
 
+  <% displaying_cat1 = displaying_cat1?(execution.task) %>
+
   <div class = 'tab-content'>
     <div class = 'tab-pane active' id = <%= "QRDA_tab_execution_#{execution.id}" %>>
-      <%= render partial: 'test_executions/results/error_table', locals: { errors: qrda_errors, displaying_c1: execution.c1_task? } %>
+      <%= render partial: 'test_executions/results/error_table', locals: { errors: qrda_errors, displaying_cat1: displaying_cat1 } %>
     </div>
     <div class = 'tab-pane' id = <%= "reporting_tab_execution_#{execution.id}" %>>
-      <%= render partial: 'test_executions/results/error_table', locals: { errors: report_errors, displaying_c1: execution.c1_task? } %>
+      <%= render partial: 'test_executions/results/error_table', locals: { errors: report_errors, displaying_cat1: displaying_cat1 } %>
     </div>
     <% if should_display_c3 %>
       <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
-        <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_errors, displaying_c1: execution.c1_task? } %>
+        <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_errors, displaying_cat1: displaying_cat1 } %>
       </div>
     <% end %>
   </div>

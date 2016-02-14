@@ -1,8 +1,6 @@
 require 'test_helper'
 require 'fileutils'
 
-# rubocop:disable Metrics/ClassLength
-
 class DemographicsRandomizerTest < ActiveSupport::TestCase
   setup do
     @first = 'Xyntash'

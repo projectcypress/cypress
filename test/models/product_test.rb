@@ -67,6 +67,16 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal false, saved, 'Should not be able to save without at least one certification type'
   end
 
+  def test_must_certify_to_c1_or_c2
+    pt = Product.new(vendor: @vendor, name: 'test_product', c3_test: true, c4_test: true)
+    pt.product_tests.build(name: 'test_product_test_name',
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                           bundle_id: '4fdb62e01d41c820f6000001').save!
+    assert_equal false, pt.valid?, 'record should not be valid'
+    saved = pt.save
+    assert_equal false, saved, 'Should not be able to save without C1 or C2'
+  end
+
   def test_can_have_multiple_certification_test_types
     pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true)
     pt.product_tests.build(name: 'test_product_test_name',
@@ -99,6 +109,13 @@ class ProducTest < ActiveSupport::TestCase
                              measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                              bundle_id: '4fdb62e01d41c820f6000001' }, ChecklistTest).save!
     assert pt.product_tests.checklist_tests.exists?
+  end
+
+  def test_add_filtering_tests
+    pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true)
+    measure = Measure.top_level.find_by(hqmf_id: '40280381-4600-425F-0146-1F8D3B750FAC')
+    pt.add_filtering_tests(measure)
+    assert pt.product_tests.filtering_tests.count == 4
   end
 end
 

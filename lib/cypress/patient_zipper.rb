@@ -41,16 +41,17 @@ module Cypress
   HTML_EXPORTER = HealthDataStandards::Export::HTML.new
 
   class PatientZipper
-    FORMAT_EXTENSIONS = { html: 'html', qrda: 'xml', json: 'json' }
+    FORMAT_EXTENSIONS = { html: 'html', qrda: 'xml', json: 'json' }.freeze
 
     def self.zip(file, patients, format)
+      patients = apply_sort_to patients
       mes, sd, ed = mes_start_end(patients)
 
-      if format.to_sym == :qrda
-        formatter = Cypress::QRDAExporter.new(mes, sd, ed)
-      else
-        formatter = Cypress::HTMLExporter.new(mes, sd, ed)
-      end
+      formatter = if format.to_sym == :qrda
+                    Cypress::QRDAExporter.new(mes, sd, ed)
+                  else
+                    Cypress::HTMLExporter.new(mes, sd, ed)
+                  end
 
       Zip::ZipOutputStream.open(file.path) do |z|
         patients.each_with_index do |patient, i|
@@ -58,12 +59,20 @@ module Cypress
           # safe_last_name = patient.last.delete("'")
           # next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
-          if formatter == HealthDataStandards::Export::HTML
-            z << formatter.new.export(patient)
-          else
-            z << formatter.export(patient)
-          end
+          z << if formatter == HealthDataStandards::Export::HTML
+                 formatter.new.export(patient)
+               else
+                 formatter.export(patient)
+               end
         end
+      end
+    end
+
+    def self.apply_sort_to(patients)
+      if patients.is_a? Array
+        patients.sort_by { |p| p.first + '_' + p.last }
+      else
+        patients.order_by(:first.asc, :last.asc)
       end
     end
 

@@ -4,7 +4,8 @@ module Validators
     include HealthDataStandards::Validate
     include Validators::Validator
 
-    def initialize(expected_results)
+    def initialize(expected_results, c3_validation)
+      @c3_validation = c3_validation
       @expected_results = expected_results
     end
 
@@ -25,7 +26,11 @@ module Validators
     def add_errors(errors)
       # The HDS validators hand back ValidationError objects, but we need ExecutionError objects
       errors.map do |error|
-        add_error(error.message, :location => error.location, :validator => error.validator, :validator_type => :xml_validation)
+        type = :error
+        if error.validator && error.validator.upcase.include?('QRDA') && !@c3_validation
+          type = :warning
+        end
+        add_issue error.message, type, :location => error.location, :validator => error.validator, :validator_type => :xml_validation
       end
     end
   end

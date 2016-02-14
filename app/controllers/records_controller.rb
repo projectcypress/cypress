@@ -1,6 +1,5 @@
 class RecordsController < ApplicationController
   before_action :set_record_source, only: [:index, :show, :by_measure]
-  add_breadcrumb 'Master Patient List', :records_path
 
   def download_full_test_deck
     product = Product.find(params[:id])
@@ -39,17 +38,19 @@ class RecordsController < ApplicationController
     if params[:bundle_id]
       @bundle = Bundle.find(params[:bundle_id])
       @source = @bundle
+      add_breadcrumb 'Master Patient List', :records_path
     elsif params[:product_test_id]
       @product_test = ProductTest.find(params[:product_test_id])
+      @measure = Measure.where(hqmf_id: @product_test.measure_ids.first).first
       @source = @product_test
+      add_breadcrumb 'Test: ' + @product_test.name, product_product_test_path(product_id: @product_test.product.id,
+                                                                              id: @product_test.id)
+      add_breadcrumb 'Patient List', records_path(product_test_id: @product_test.id)
       authorize_vendor(@product_test.product.vendor)
-    elsif params[:task_id]
-      @task = Task.find(params[:task_id])
-      @source = @task
-      authorize_vendor(@task.product_test.product.vendor)
     else
-      @bundle = Bundle.first
+      @bundle = Bundle.where(active: true).first
       @source = @bundle
+      add_breadcrumb 'Master Patient List', :records_path
     end
   end
 end

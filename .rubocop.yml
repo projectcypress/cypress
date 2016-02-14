@@ -1,14 +1,22 @@
 inherit_from: .rubocop_todo.yml
 AllCops:
-  RunRailsCops: true
   Exclude:
     - 'bin/**/*'
     - 'lib/tasks/cucumber.rake'
+Rails:
+  Enabled: true
+Rails/HasAndBelongsToMany:
+  Exclude:
+    - 'app/models/role.rb'
 Metrics/LineLength:
   Max: 150
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
+Metrics/ClassLength:
+  Max: 105
+  Exclude:
+    - 'test/**/*'
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be a Fixnum or
   # a Float.
@@ -16,6 +24,9 @@ Metrics/AbcSize:
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 10
+Metrics/PerceivedComplexity:
+  Max: 10
+
 Style/GuardClause:
   MinBodyLength: 100
 Style/HashSyntax:

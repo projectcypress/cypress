@@ -8,7 +8,21 @@ class Artifact
   field :content_type, type: String
   field :file_size, type: Integer
 
+  validate :correct_file_type
+
   before_save :update_asset_attributes
+
+  def correct_file_type
+    content_extension = file.content_type ? file.content_type.split(//).last(3).join('') : nil
+    case content_extension
+    when 'zip'
+      errors.add(:file, 'File upload extension should be .zip') unless %w(C1Task C3Task Cat1FilterTask).include?(test_execution.task._type)
+    when 'xml'
+      errors.add(:file, 'File upload extension should be .xml') unless %w(C2Task C3Task Cat3FilterTask).include?(test_execution.task._type)
+    else
+      errors.add(:file, 'File upload extension should be .zip or .xml')
+    end
+  end
 
   def archive?
     content_type == 'application/zip' || File.extname(file.uploaded_filename) == '.zip'
@@ -39,7 +53,7 @@ class Artifact
   end
 
   def get_file(name)
-    if self.archive?
+    if archive?
       return get_archived_file(name)
     elsif file.uploaded_filename == name
       return file.read
@@ -55,7 +69,7 @@ class Artifact
   end
 
   def each_file(&_block)
-    if self.archive?
+    if archive?
       Zip::ZipFile.open(file.path) do |zipfile|
         zipfile.glob('*.xml', File::FNM_CASEFOLD | ::File::FNM_PATHNAME | ::File::FNM_DOTMATCH).each do |entry|
           data = zipfile.read(entry.name)

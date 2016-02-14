@@ -64,8 +64,8 @@ module XmlViewHelper
 
   NODE_TYPES = {
     1 => :element, 2 => :attribute, 3 => :text, 4 => :cdata, 5 => :ent_ref, 6 => :entity,
-    7 => :instruction, 8 => :comment, 9 => :document, 10  => :doc_type, 11  => :doc_frag, 12  => :notaion
-  }
+    7 => :instruction, 8 => :comment, 9 => :document, 10 => :doc_type, 11 => :doc_frag, 12 => :notaion
+  }.freeze
 
   def get_error_id(element, uuid)
     element = element.root if node_type(element.type) == :document

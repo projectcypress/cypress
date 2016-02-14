@@ -1,64 +1,24 @@
+<%= render partial: 'header_vendor', locals: { vendor: @vendor } %>
 
-  <%= render partial: 'remove_modal' %>
-
-  <%= button_to "Edit Vendor", edit_vendor_path(@vendor), :method => :get, :class => "btn btn-default pull-right" %>
-
-  <% @vendor.attributes.each_pair do |key, value| %>
-    <% unless key.eql?('_id') || key.eql?('updated_at') || key.eql?('created_at') %>
-      <% if value.present? %>
-        <% unless key.eql?('pocs') %>
-          <div class = "row">
-            <div class = "col-sm-2" ><%= key.capitalize.gsub("_", " ") %></div>
-            <div class = "col-sm-3" ><%= value %></div>
-          </div>
-        <% else %>
-          <div class = "row">
-            <div class = "col-sm-2" ><%= key.capitalize %></div>
-            <div class = "col-sm-10">
-              <%= render partial: 'pocs', locals: { vendor: @vendor } %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
+<% if @vendor.products.empty? %>
+  <p class="lead">
+    Start EHR Certification with
+    <%= button_to new_vendor_product_path(@vendor), :method => :get, :class => "btn btn-primary btn-lg" do %>
+      <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Product
     <% end %>
+  </p>
+<% else %>
+  <div class = 'row product-table-header'>
+    <div class = 'col-sm-2'><h3 class = 'inline'>Products</h3></div>
+    <div class = 'col-sm-8'>
+      <div class = 'col-sm-3 text-center'><strong>C1</strong></div>
+      <div class = 'col-sm-3 text-center'><strong>C2</strong></div>
+      <div class = 'col-sm-3 text-center'><strong>C3</strong></div>
+      <div class = 'col-sm-3 text-center'><strong>C4</strong></div>
+    </div>
+    <div class = 'col-sm-2'></div>
+  </div>
+  <% @products.each do |product| %>
+    <%= render partial: 'products_table_row', locals: { product: product } %>
   <% end %>
-
-  <%= button_to "+ Add Product", new_vendor_product_path(@vendor), :method => :get, :class => "btn btn-primary pull-right" %>
-
-  <% unless @vendor.products.empty? %>
-    <table class = "table table-sm">
-      <thead>
-        <tr>
-          <th class = "col-sm-1">Status</th>
-          <th class = "col-sm-3">Product</th>
-          <th class = "text-center">Passing Tests</th>
-          <th class = "text-center">Failing Tests</th>
-          <th class = "text-center">Incomplete Tests</th>
-          <th class = "text-center">Total Tests</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @products.each do |product| %>
-          <tr>
-            <td><%= product.status %></td>
-            <td><%= link_to product.name, "/vendors/#{@vendor.id}/products/#{product.id}" %></td>
-            <td class="text-center"><%= product.product_tests ? product.product_tests_passing.count : 0 %></td>
-            <td class="text-center"><%= product.product_tests ? product.product_tests_failing.count : 0 %></td>
-            <td class="text-center"><%= product.product_tests ? product.product_tests_incomplete.count : 0 %></td>
-            <td class="text-center"><%= product.product_tests ? product.product_tests.count : 0 %></td>
-            <td class="text-right">
-              <%= button_to "Edit", [:edit, @vendor, product], :method => :get, :class => "btn btn-xs btn-default" %>
-              <%= render partial: 'remove_button', locals: {
-                    button_text: 'Remove',
-                    button_classes: 'btn btn-xs btn-danger',
-                    object: product,
-                    object_path: vendor_product_path(@vendor, product),
-                    modal_message: 'Removing a product will also delete all associated product tests and test results.'
-              } %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+<% end %>

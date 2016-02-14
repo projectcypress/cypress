@@ -1,0 +1,67 @@
+<% displaying_cat1 = displaying_cat1?(@task) %>
+<% viewing_measure_test = @task.product_test._type == 'MeasureTest' %>
+
+<h3 class = 'page-title'><%= get_title_message(@product_test, @task) %></h3>
+
+<div class = 'row'>
+  <% if viewing_measure_test %>
+    <div class = 'col-sm-12' id = 'execution_status_table'><%= render partial: 'execution_status_table', locals: { task: @task } %></div>
+  <% else %>
+    <div class = 'col-sm-2'><%= render partial: 'execution_filter_info', locals: { test: @task.product_test } %></div>
+    <div class = 'col-sm-10'  id = 'execution_status_table'><%= render partial: 'execution_status_table', locals: { task: @task } %></div>
+  <% end %>
+</div>
+
+<div class = 'row'>
+  <div class = 'col-sm-4'>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title test-step">
+          1 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i>  Download Test Deck
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div id = 'display_execution_download'>
+          <%= render partial: 'execution_download', locals: { product_test: @product_test } %>
+        </div>
+      </div>
+        <%= button_to 'View Patients', {:controller => "records", :product_test_id => @product_test.id}, class: 'btn btn-block btn-info', method: :get %>
+    </div>
+  </div>
+
+  <div class = 'col-sm-8'>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title test-step">
+          2 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i>  Upload files
+        </h3>
+      </div>
+      <div class="panel-body">
+        <p class = 'description' id='execution_upload_label'>
+          <%= "Upload your #{get_upload_type(displaying_cat1)} file to get test results. This will automatically run a test execution." %>
+        </p>
+        <%= render partial: 'execution_upload', locals: { task: @task, label: 'execution_upload_label' } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @task.most_recent_execution %>
+  <div class = 'panel panel-default' id = 'results_panel'>
+    <div class = 'panel-heading'>
+      <h3 class='panel-title'>
+        Results
+        <div class = 'pull-right'>
+          <select aria-label="View test execution" onchange = "location = this.options[this.selectedIndex].value;">
+            <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
+              <option value = <%= task_test_execution_path(@task, execution) %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i == 0) %></option>
+            <% end %>
+          </select>
+        </div>
+      </h3>
+    </div>
+    <div class = 'panel-body' id = 'display_execution_results' >
+      <%= render partial: 'execution_results', locals: { execution: @test_execution } %>
+    </div>
+  </div>
+<% end %>

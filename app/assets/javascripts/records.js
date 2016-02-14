@@ -11,6 +11,11 @@ ready = function() {
       $.get('records/by_measure');
     }
   });
+
+
+  // hacks for accessibility? how to do this after initialization?
+  $('.select2-selection').removeAttr('role');
+  $('.select2-search__field').attr('aria-label', 'Search measures');
 }
 
 $(document).ready(ready);

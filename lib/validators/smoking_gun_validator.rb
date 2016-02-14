@@ -50,7 +50,7 @@ module Validators
       sg_errors = super.dup
       unless not_found_names.empty?
         msg = "Records for patients #{not_found_names.join(', ')} not found in archive as expected"
-        sg_errors << ExecutionError.new(:message =>  msg, :msg_type => :error, :validator_type => :result_validation)
+        sg_errors << ExecutionError.new(:message => msg, :msg_type => :error, :validator_type => :result_validation)
       end
 
       sg_errors

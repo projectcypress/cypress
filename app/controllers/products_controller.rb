@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb 'Product: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
     add_breadcrumb 'Edit Product', :edit_vendor_path
     set_measures
     @selected_measure_ids = @product.measure_ids
@@ -67,8 +67,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, "/vendors/#{@product.vendor.id}"
-    add_breadcrumb 'Product: ' + @product.name, "/vendors/#{@product.vendor.id}/products/#{@product.id}"
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
+    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
     respond_to do |format|
       format.json { render json: [@product] }
       format.js
@@ -102,15 +102,15 @@ class ProductsController < ApplicationController
   end
 
   def setup_new
-    add_breadcrumb 'Vendor: ' + @vendor.name, "/vendors/#{@vendor.id}"
+    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@product.vendor)
     add_breadcrumb 'Add Product', :new_vendor_path
     set_measures
     params[:action] = 'new'
   end
 
   def product_params
-    params[:product].permit(:name, :version, :description, :ehr_type, :c1_test, :c2_test, :c3_test, :c4_test, :measure_selection,
-                            product_tests_attributes: [:id, :name, :measure_ids, :bundle_id, :_destroy])
+    params[:product].permit(:name, :version, :description, :ehr_type, :randomize_records, :c1_test, :c2_test, :c3_test, :c4_test,
+                            :measure_selection, product_tests_attributes: [:id, :name, :measure_ids, :bundle_id, :_destroy])
   end
 
   def edit_product_params

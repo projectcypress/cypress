@@ -1,0 +1,26 @@
+<div class="panel panel-primary">
+  <div class="panel-body">
+    <div class="panel-actions pull-right">
+      <% unless @vendor.products.empty? %>
+        <%= button_to new_vendor_product_path(@vendor), :method => :get, :class => "btn btn-primary" do %>
+          <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Product
+        <% end %>
+      <% end %>
+      <%= button_to edit_vendor_path(@vendor), :method => :get, :class => "btn btn-default" do %>
+        <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Vendor
+      <% end %>
+    </div>
+    <h3 class="summary-title"><%= @vendor.name %> <% if @vendor.vendor_id? %>(ID: <%= @vendor.vendor_id %>)<% end %></h3>
+
+    <% if @vendor.url? %>
+      <p><a href="<%= @vendor.url %>">Website</a>
+    <% end %>
+
+    <% vendor_address = formatted_vendor_address(@vendor) %>
+    <%= ' | ' if vendor_address && @vendor.url? %>
+    <%= vendor_address if vendor_address %>
+
+    <%= ' | ' if !@vendor.pocs.empty? && (@vendor.url? || vendor_address) %>
+    <%= pluralize(@vendor.pocs.length, 'POC') unless @vendor.pocs.empty? %>
+  </div>
+</div>

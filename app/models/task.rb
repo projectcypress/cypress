@@ -22,24 +22,12 @@ class Task
     status == 'failing'
   end
 
-  def passing?
-    status == 'passing'
-  end
-
-  def failing?
-    status == 'failing'
-  end
-
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       report_status = 'incomplete'
-      if test_executions.exists? && test_executions.count > 0
-        recent_execution = test_executions.order_by(created_at: 'desc').first
-        if recent_execution.passing?
-          report_status = 'passing'
-        elsif recent_execution.failing?
-          report_status = 'failing'
-        end
+      recent_execution = most_recent_execution
+      if recent_execution
+        report_status = recent_execution.passing? ? 'passing' : 'failing'
       end
       report_status
     end
@@ -48,7 +36,6 @@ class Task
   # returns the most recent execution for this task
   # if there are none, returns false
   def most_recent_execution
-    return false unless test_executions.any?
-    test_executions.order_by(created_at: 'desc').first
+    test_executions.any? ? test_executions.order_by(created_at: 'desc').first : false
   end
 end

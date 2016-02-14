@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :with => :exception
 
   before_action :authenticate_user!, :check_bundle_installed
+  rescue_from CanCan::AccessDenied do |exception|
+    render text: exception, status: 404
+  end
+
   private
 
   # Overwriting the sign_out redirect path method
@@ -20,13 +24,17 @@ class ApplicationController < ActionController::Base
   end
 
   def check_bundle_installed
-    unless any_bundle
+    if any_bundle
+      flash.delete :alert if flash[:alert] && flash[:alert].include?('There are no bundles currently available')
+      # shouldn't be necessary but the flash alert seems to stick around one pageload after a bundle is installed
+    else
       # this is a hack - ideally we wouldn't cache nil in the first place
       # but this forces it to check every time only if it wasn't found before
       Rails.cache.delete('any_installed_bundle')
 
-      prev_bundle = APP_CONFIG['references']['bundles']['previous']
-      curr_bundle = APP_CONFIG['references']['bundles']['current']
+      bundle_references = APP_CONFIG['references']['bundles']
+      prev_bundle = bundle_references['previous']
+      curr_bundle = bundle_references['current']
       install_instr = APP_CONFIG['references']['install_guide']
 
       prev_bundle_link = view_context.link_to prev_bundle['title'], prev_bundle['url']

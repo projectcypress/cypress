@@ -1,8 +1,6 @@
 require 'test_helper'
 require 'fileutils'
 
-# rubocop:disable Metrics/ClassLength
-
 class PopulationCloneJobTest < ActiveSupport::TestCase
   def setup
     collection_fixtures('records', 'product_tests', 'bundles', 'measures')

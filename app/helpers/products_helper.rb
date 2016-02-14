@@ -9,77 +9,41 @@ module ProductsHelper
     [passing, failing, total]
   end
 
-  def measure_test_status_values(tests, task_type)
-    passing = failing = not_started = total = 0
+  # task_type can only be 'C1Task' or 'C2Task'
+  #   this is because the c3 test executions are only available through their sibling c1 or c2 test execution
+  def measure_test_status_values(tests, task_type, is_c3)
     tasks = []
     tests.each { |test| tasks << test.tasks.where(_type: task_type) }
-    unless tasks.empty?
-      passing = tasks.count { |task| task.first.status == 'passing' }
-      failing = tasks.count { |task| task.first.status == 'failing' }
-      not_started = tasks.count { |task| task.first.status == 'incomplete' }
-      total = tasks.count
-    end
-    [passing, failing, not_started, total]
-  end
-
-  def filtering_test_status_values(_tests)
-    passing = failing = not_started = total = 0
-
-    # add content here when C4 tasks are finalized
-
-    [passing, failing, not_started, total]
-  end
-
-  def status_from_tasks(tests_type, task_type)
-    # tests_type can be a set of product tests
-    # task_type is a string representing the task type e.g. "C1Task"
-
-    return 'incomplete' if tests_type.empty?
-    # get the statuses of all tasks in a set of product tests
-    if tests_type.first._type == 'FilteringTest' || tests_type.first._type == 'ChecklistTest'
-      status_list = tests_type.first.tasks
+    if tasks.empty?
+      [0, 0, 0, 0]
     else
-      status_list = tests_type.map do |test|
-        t = test.tasks.where(_type: task_type)
-        t.first
-      end
-    end
-
-    status_list = status_list.reject(&:blank?).map(&:status) if status_list.any?
-
-    overall_status(status_list)
-  end
-
-  def overall_status(status_list)
-    # status_list is an array of strings
-
-    if status_list.grep('failing').size > 0
-      return 'failing'
-    elsif status_list.grep('passing').size == status_list.size && status_list.size > 0
-      return 'passing'
-    else
-      return 'incomplete'
+      is_c3 ? c3_tasks_values(tasks) : tasks_values(tasks)
     end
   end
 
-  def status_by_test(product)
-    # return a hash of results for each certification + test type
-    statuses = {
-      'MeasureTest' => {},
-      'FilteringTest' => {},
-      'ChecklistTest' => {}
-    }
 
-    if product.product_tests.measure_tests
-      statuses['MeasureTest']['C1'] = status_from_tasks(product.product_tests.measure_tests, 'C1Task')
-      statuses['MeasureTest']['C2'] = status_from_tasks(product.product_tests.measure_tests, 'C2Task')
-      statuses['MeasureTest']['C3'] = status_from_tasks(product.product_tests.measure_tests, 'C3Task')
-    end
+  def tasks_values(tasks)
+    status_values = []
+    %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
+    status_values << tasks.count
+  end
 
-    statuses['FilteringTest']['C4'] = status_from_tasks(product.product_tests.filtering_tests, 'C4Task') if product.product_tests.filtering_tests
-    statuses['ChecklistTest']['C1'] = status_from_tasks(product.product_tests.checklist_tests, 'C1Task') if product.product_tests.checklist_tests
+  def c3_tasks_values(tasks)
+    status_values = []
+    %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.c3_status == status } }
+    status_values << tasks.count
+  end
 
-    statuses
+  def filtering_test_status_values(tests, task_type)
+    tasks = []
+    tests.each { |test| tasks << test.tasks.where(_type: task_type) }
+    tasks.empty? ? [0, 0, 0, 0] : tasks_values(tasks)
+  end
+
+  def filtering_test_status_values_summed(tests)
+    cat1 = filtering_test_status_values(tests, 'Cat1FilterTask')
+    cat3 = filtering_test_status_values(tests, 'Cat3FilterTask')
+    cat1.map.with_index { |cat1_elem, i| cat1_elem + cat3[i] }
   end
 
   def certifications(product)
@@ -101,5 +65,24 @@ module ProductsHelper
 
   def product_certifying_to(product, certification_test)
     (certification_test['certifications'] & certifications(product).keys) != []
+  end
+
+  def generate_filter_records(filter_tests)
+    return unless filter_tests
+    test = filter_tests.pop
+    test.generate_records
+    test.save
+    ProductTestSetupJob.perform_later(test)
+    records = test.records
+    filter_tests.each do |ft|
+      records.collect do |r|
+        r2 = r.clone
+        r2.test_id = ft.id
+        r2.save
+        r2
+      end
+      ft.save
+      ProductTestSetupJob.perform_later(ft)
+    end
   end
 end

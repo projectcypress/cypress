@@ -9,7 +9,7 @@ class C2Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results),
+    @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results, product_test.contains_c3_task?),
                    ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
 
     @validators
@@ -29,5 +29,18 @@ class C2Task < Task
     end
     te.save
     te
+  end
+
+  # should only be used if product.c3_test is true
+  def c3_status
+    Rails.cache.fetch("#{cache_key}/c3_status") do
+      report_status = 'incomplete'
+      recent_execution = most_recent_execution
+      if recent_execution
+        recent_c3_execution = TestExecution.find(recent_execution.sibling_execution_id)
+        report_status = recent_c3_execution.passing? ? 'passing' : 'failing'
+      end
+      report_status
+    end
   end
 end

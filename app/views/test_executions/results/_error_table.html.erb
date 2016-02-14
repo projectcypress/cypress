@@ -2,7 +2,7 @@
 
 # requires local variables:
 #   errors
-#   displaying_c1 (boolean)
+#   displaying_cat1 (boolean)
 
 # Note: all errors should be from the same test execution
 
@@ -13,20 +13,20 @@
 <table class = 'table table-hover table-condensed'>
   <thead>
     <tr>
-      <% if displaying_c1 %>
-        <th class = 'col-sm-8'>Error message</th>
-        <th class = 'col-sm-2'>XML File</th>
+      <% if displaying_cat1 %>
+        <th scope="col" class = 'col-sm-8'>Error message</th>
+        <th scope="col" class = 'col-sm-2'>XML File</th>
       <% else %>
-        <th class = 'col-sm-10'>Error message</th>
+        <th scope="col" class = 'col-sm-10'>Error message</th>
       <% end %>
-      <th class = 'col-sm-2'>Go To in XML</th>
+      <th scope="col" class = 'col-sm-2'>Go To in XML</th>
     </tr>
   </thead>
   <tbody>
     <% errors.sort { |a, b| compare_error_locations_across_files(a, b) }.each do |error| %>
       <tr>
         <td><%= error.message %></td>
-        <% if displaying_c1 %>
+        <% if displaying_cat1 %>
           <td><%= error.file_name %></td>
         <% end %>
         <td>

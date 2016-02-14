@@ -12,6 +12,8 @@ class ProductTest
   belongs_to :product, index: true, touch: true
   has_many :tasks, :dependent => :destroy
 
+  has_many :records, :foreign_key => :test_id
+
   belongs_to :bundle, index: true
 
   field :expected_results, type: Hash
@@ -29,10 +31,6 @@ class ProductTest
   validates :measure_ids, presence: true
   mount_uploader :patient_archive, PatientArchiveUploader
 
-  after_create do |product_test|
-    ProductTestSetupJob.perform_later(product_test)
-  end
-
   delegate :effective_date, :to => :bundle
 
   def self.inherited(child)
@@ -49,9 +47,14 @@ class ProductTest
       pcv.value['medical_record_id']
     end
     ids.uniq!
-    random_ids = Record.where(test_id: nil).pluck('medical_record_number').uniq
-    Cypress::PopulationCloneJob.new('test_id' => id,  'patient_ids' => ids, 'randomization_ids' =>  random_ids,
-                                    'randomize_demographics' => true).perform
+
+    if product.randomize_records
+      random_ids = Record.where(test_id: nil).pluck('medical_record_number').uniq
+      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'randomization_ids' => random_ids,
+                                      'randomize_demographics' => true).perform
+    else
+      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'disable_randomization' => true).perform
+    end
   end
 
   def archive_records
@@ -75,10 +78,6 @@ class ProductTest
 
   def execute(_params)
     fail NotImplementedError
-  end
-
-  def records
-    Record.where(test_id: id)
   end
 
   def results
