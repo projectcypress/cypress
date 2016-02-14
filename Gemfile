@@ -72,7 +72,7 @@ gem 'pdfkit'
 gem 'render_anywhere', require: false
 
 group :development, :test do
-  gem 'rubocop', require: false
+  gem 'rubocop', '0.36', require: false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'overcommit'

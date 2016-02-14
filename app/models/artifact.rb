@@ -80,7 +80,6 @@ class Artifact
           yield entry.name, data
         end
       end
-
     else
       yield file.uploaded_filename, file.read
     end
