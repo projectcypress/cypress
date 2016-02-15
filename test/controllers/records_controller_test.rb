@@ -45,7 +45,7 @@ class RecordsControllerTest < ActionController::TestCase
   test 'should be able to restrict access to product test records unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :index, product_test_id: @first_product.product_tests.first.id
-      assert_response 404
+      assert_response 401
     end
   end
 end

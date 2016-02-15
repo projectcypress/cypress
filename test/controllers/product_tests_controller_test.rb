@@ -19,7 +19,7 @@ class ProductTestsControllerTest < ActionController::TestCase
   test 'should restrict acces to product test index' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :index, product_id: @first_product.id
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -37,7 +37,7 @@ class ProductTestsControllerTest < ActionController::TestCase
     for_each_logged_in_user([OTHER_VENDOR]) do
       my_product = @first_test
       get :show, id: my_product.id, product_id: @first_product.id
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -56,7 +56,7 @@ class ProductTestsControllerTest < ActionController::TestCase
     mt.save!
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :show, id: mt.id, product_id: mt.product.id
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -71,7 +71,7 @@ class ProductTestsControllerTest < ActionController::TestCase
   test 'should restrict acces to product test edit' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       get :edit, id: @first_test.id
-      assert_response 404
+      assert_response 401
       assert_not_nil assigns(:product_test)
     end
   end
@@ -88,7 +88,7 @@ class ProductTestsControllerTest < ActionController::TestCase
   test 'should restrict acces to product download qrda ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :download, :id => @first_test.id, :format => :qrda
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -105,7 +105,7 @@ class ProductTestsControllerTest < ActionController::TestCase
     # do this for all users
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :download, :id => @first_test.id, :format => :html
-      assert_response 404
+      assert_response 401
     end
   end
   # need negative tests for user that does not have owner or vendor access

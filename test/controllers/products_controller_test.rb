@@ -17,7 +17,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should be able to restrict access to index for unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :index, vendor_id: @vendor.id
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -33,7 +33,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should be able to restrict access to new for unauthorized users ' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       get :new, vendor_id: @vendor.id, product_id: Product.new
-      assert_response 404
+      assert_response 401
     end
   end
   test 'should get edit' do
@@ -51,7 +51,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should be able to restrict access to edit for unauthorized users ' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       get :edit, id: @first_product.id
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -70,7 +70,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should be able to restrict access to delete for unauthorized users ' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       get :destroy, id: @first_product.id
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -86,7 +86,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should be able to restrict access to show for unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :show, id: @first_product.id, vendor_id: @vendor.id
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -104,7 +104,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should be able to restrict access to create for unauthorized users ' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       post :create, vendor_id: @vendor.id, product: { name: 'test_product', c1_test: true, measure_ids: [Measure.first.id] }
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -153,7 +153,7 @@ class ProductsControllerTest < ActionController::TestCase
 
       new_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
       put :update, id: pt.id, product: pt.attributes, product_test: { measure_ids: new_ids }
-      assert_response 404
+      assert_response 401
     end
   end
 

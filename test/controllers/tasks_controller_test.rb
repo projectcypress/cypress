@@ -22,7 +22,7 @@ class TasksControllerTest < ActionController::TestCase
   test 'should be able to restrict access to index for unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :index, product_test_id: @first_test.id
-      assert_response 404, "#{@user.email} should have not access "
+      assert_response 401, "#{@user.email} should have not access "
     end
   end
 
@@ -39,7 +39,7 @@ class TasksControllerTest < ActionController::TestCase
   test 'should be able to restrict access to show for unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :show, id: @first_task.id
-      assert_response 404, "#{@user.email} should not  have access "
+      assert_response 401, "#{@user.email} should not  have access "
     end
   end
 
@@ -57,7 +57,7 @@ class TasksControllerTest < ActionController::TestCase
   test 'should be able to restrict access to edit for  unauthorized users ' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       get :edit, id: @first_task.id
-      assert_response 404, "#{@user.email} should not have access "
+      assert_response 401, "#{@user.email} should not have access "
     end
   end
 
@@ -77,7 +77,7 @@ class TasksControllerTest < ActionController::TestCase
     # access users
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       get :new, type: 'Task', product_test_id: @first_test.id
-      assert_response 404, "#{@user.email} should not have access "
+      assert_response 401, "#{@user.email} should not have access "
     end
   end
 
@@ -98,7 +98,7 @@ class TasksControllerTest < ActionController::TestCase
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       id = @first_task.id
       delete :destroy, id: id
-      assert_response 404, "#{@user.email} should not have access "
+      assert_response 401, "#{@user.email} should not have access "
     end
   end
 end

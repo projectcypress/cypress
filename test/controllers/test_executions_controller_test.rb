@@ -37,7 +37,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # access users
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :show, id: te.id, task_id: task.id
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -61,7 +61,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       te = @first_task.test_executions.create
       id = te.id
       delete :destroy, id: id
-      assert_response 404
+      assert_response 401
     end
   end
 
@@ -94,7 +94,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     upload = Rack::Test::UploadedFile.new(zipfile, 'text/xml')
     for_each_logged_in_user([OTHER_VENDOR]) do
       post :create, task_id: @first_task.id, results: upload
-      assert_response 404
+      assert_response 401
     end
   end
 
