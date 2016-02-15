@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!, :check_bundle_installed
   rescue_from CanCan::AccessDenied do |exception|
-    render text: exception, status: 404
+    render text: exception, status: 401
   end
 
   private

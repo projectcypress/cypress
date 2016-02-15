@@ -24,7 +24,7 @@ class VendorsControllerTest < ActionController::TestCase
   test 'should restrict access to show' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :show, id: Vendor.find(EHR1).id
-      assert_response 404, "#{@user.email} should not have acces to vendor "
+      assert_response 401, "#{@user.email} should not have acces to vendor "
     end
   end
   test 'should get new' do
@@ -38,7 +38,7 @@ class VendorsControllerTest < ActionController::TestCase
   test 'should restrict access to  new' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       get :new
-      assert_response 404
+      assert_response 401
     end
   end
 end
