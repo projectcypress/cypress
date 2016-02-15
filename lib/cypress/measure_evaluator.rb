@@ -50,10 +50,10 @@ module Cypress
       @logger.info "Generating test for #{opts[:measure].cms_id}"
 
       vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
-      product = Product.find_or_create_by(name: 'MeasureEvaluationProduct', vendor_id: vendor.id, c1_test: true, c2_test: true, c3_test: true)
+      product = Product.find_or_create_by(name: 'MeasureEvaluationProduct', vendor_id: vendor.id, c1_test: true, c2_test: true, c3_test: true,
+                                          randomize_records: true)
 
-      MeasureTest.find_or_create_by(name: opts[:measure].name, bundle: bundle.id,
-                                    product: product,
+      MeasureTest.find_or_create_by(name: opts[:measure].name, bundle: bundle.id, product: product,
                                     measure_ids: [opts[:measure].hqmf_id],
                                     description: opts[:measure].description,
                                     cms_id: opts[:measure].cms_id)
