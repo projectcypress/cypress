@@ -7,9 +7,10 @@ module Validators
 
     self.validator_type = :result_validation
 
-    def initialize(bundle, c3_validation, measures = [])
+    def initialize(bundle, is_c3_validation_task, test_has_c3, measures = [])
+      @test_has_c3 = test_has_c3
       @measures = measures
-      @validators = if c3_validation
+      @validators = if is_c3_validation_task
                       [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
                     else
                       [CDA.instance, Cat1.instance]
@@ -32,7 +33,7 @@ module Validators
 
       validation_errors.each do |error|
         type = :error
-        if error.validator && error.validator.upcase.include?('QRDA') && !@c3_validation
+        if error.validator && error.validator.upcase.include?('QRDA') && !@test_has_c3
           type = :warning
         end
         add_issue error.message, type, :message => error.message,
