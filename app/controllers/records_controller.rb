@@ -30,6 +30,10 @@ class RecordsController < ApplicationController
 
   private
 
+  def authorize_vendor(vendor)
+    authorize! :read, vendor
+  end
+
   def set_record_source
     if params[:bundle_id]
       @bundle = Bundle.find(params[:bundle_id])
@@ -42,6 +46,7 @@ class RecordsController < ApplicationController
       add_breadcrumb 'Test: ' + @product_test.name, product_product_test_path(product_id: @product_test.product.id,
                                                                               id: @product_test.id)
       add_breadcrumb 'Patient List', records_path(product_test_id: @product_test.id)
+      authorize_vendor(@product_test.product.vendor)
     else
       @bundle = Bundle.where(active: true).first
       @source = @bundle

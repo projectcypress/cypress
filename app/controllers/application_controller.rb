@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :with => :exception
 
   before_action :authenticate_user!, :check_bundle_installed
+  rescue_from CanCan::AccessDenied do |exception|
+    render text: exception, status: 401
+  end
 
   private
 

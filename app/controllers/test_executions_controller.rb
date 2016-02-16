@@ -5,6 +5,7 @@ class TestExecutionsController < ApplicationController
   before_action :add_breadcrumbs, only: [:show, :new]
 
   def create
+    authorize! :execute_task, @task.product_test.product.vendor
     @test_execution = @task.execute(params[:results])
     redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id)
   rescue Mongoid::Errors::Validations
@@ -13,6 +14,7 @@ class TestExecutionsController < ApplicationController
   end
 
   def new
+    authorize! :execute_task, @task.product_test.product.vendor
     if @task.most_recent_execution
       redirect_to task_test_execution_path(task_id: @task.id, id: @task.most_recent_execution.id)
       return
@@ -21,6 +23,7 @@ class TestExecutionsController < ApplicationController
   end
 
   def show
+    authorize! :read, @task.product_test.product.vendor
     respond_to do |f|
       f.html
       f.js
@@ -28,6 +31,7 @@ class TestExecutionsController < ApplicationController
   end
 
   def destroy
+    authorize! :delete, @test_execution.task.product_test.product.vendor
     @test_execution.destroy
     render status: 204, text: 'Deleted'
   end
