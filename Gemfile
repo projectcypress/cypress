@@ -85,7 +85,7 @@ group :development, :test do
   gem 'capybara-accessible'
   gem 'axe-matchers'
   gem 'selenium-webdriver', '2.48.0'
-  gem "parallel_tests", group: :development
+  gem 'parallel_tests'
 end
 
 group :development do
