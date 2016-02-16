@@ -115,19 +115,19 @@ certifications:
 tests:
   MeasureTest:
     title: 'Measure Tests'
-    description: "These tests can test the EHR system's ability to record, export, import, calculate, and submit measure-based data"
+    description: "Test the EHR system's ability to record and export (C1), import and calculate (C2), and submit (C3) measure based data."
     certifications:
       - 'C1'
       - 'C2'
       - 'C3'
   FilteringTest:
     title: 'CQM Filtering Test'
-    description: "This tests the EHR system's ability to filter patient records."
+    description: "Test the EHR system's ability to filter patient records."
     certifications:
       - 'C4'
   ChecklistTest:
     title: 'Manual Entry Test'
-    description: 'Check source data scriteria to validate the EHR system for C1 certification.'
+    description: 'Validate the EHR system for C1 certification by manually entering specified patient data for the following measures.'
     certifications:
       - 'C1'
 

@@ -27,9 +27,9 @@ module TestExecutionsHelper
 
   def get_upload_type(is_displaying_cat1)
     if is_displaying_cat1
-      'CAT 1 zip'
+      'zip file of QRDA Category I documents'
     else
-      'CAT 3 XML'
+      'QRDA Category III XML document'
     end
   end
 

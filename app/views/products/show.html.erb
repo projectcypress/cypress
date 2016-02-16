@@ -25,8 +25,8 @@
               <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C2', test_display_name: 'Measure Tests' } %>
             <% end %>
             <% if @product.c3_test %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C1', test_display_name: 'Cat 1 Measure Tests', show_c3: true } if @product.c1_test %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C2', test_display_name: 'Cat 3 Measure Tests', show_c3: true } if @product.c2_test %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C1', test_display_name: 'Cat I Measure Tests', show_c3: true } if @product.c1_test %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C2', test_display_name: 'Cat III Measure Tests', show_c3: true } if @product.c2_test %>
             <% end %>
             <% if @product.c4_test %>
               <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'filter', cert_type: 'C4', test_display_name: 'Filtering Tests' } %>
@@ -64,7 +64,10 @@
   <% APP_CONFIG.tests.each do |c, certification_test| %>
     <% if product_certifying_to(@product, certification_test) %>
       <div id="<%= c %>">
-        <p><%= certification_test['description'] %></p>
+        <p class = 'lead'>
+          <%= certification_test['description'] %>
+          <%= " C3 certifications will automatically be performed during #{[@product.c1_test ? 'C1' : nil, @product.c2_test ? 'C2' : nil].compact.join(' and ')} certifications." if c == 'MeasureTest' && @product.c3_test %>
+        </p>
         <% if c == 'ChecklistTest' %>
           <% if @product.product_tests.checklist_tests.exists? %>
             <% checklist_test = @product.product_tests.checklist_tests.first %>

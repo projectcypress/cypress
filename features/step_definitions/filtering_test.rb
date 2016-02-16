@@ -55,12 +55,12 @@ end
 # # # # # # # #
 
 Then(/^the user should see the CAT 1 test$/) do
-  assert page.has_content?('Upload your CAT 1 zip file')
+  assert page.has_content?('a zip file of QRDA Category I documents')
 end
 
 Then(/^the user should see the CAT 3 test$/) do
   sleep(0.5)
-  assert page.has_content?('Upload your CAT 3 XML file')
+  assert page.has_content?('a QRDA Category III XML document')
 end
 
 # 'Then the user should be able to download a CAT 1 zip file' included in step_definitions/measure_test.rb
