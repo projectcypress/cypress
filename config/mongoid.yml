@@ -16,7 +16,7 @@ measure_eval:
 test:
   clients:
     default:
-      database: cypress_test
+      database: cypress_test<%= ENV['TEST_ENV_NUMBER'] %>
       hosts:
         - <%= ENV['TEST_DB_HOST'] || 'localhost' %>:27017
 production:
