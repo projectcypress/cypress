@@ -6,6 +6,7 @@ class Cat3CalculatorTest < ActiveSupport::TestCase
     collection_fixtures('bundles', 'measures', 'records', 'health_data_standards_svs_value_sets')
     bundle = Bundle.find(BSON::ObjectId.from_string('4fdb62e01d41c820f6000001'))
     @c3c = Cypress::Cat3Calculator.new(['8A4D92B2-397A-48D2-0139-7CC6B5B8011E'], bundle)
+    @result = QME::QualityReportResult.new(DENOM: 48, NUMER: 44, antinumerator: 4, DENEX: 0)
   end
 
   def test_generate_header
@@ -33,11 +34,14 @@ class Cat3CalculatorTest < ActiveSupport::TestCase
   end
 
   def test_generate_cat3
-    collection_fixtures('records')
+    file = IO.read('test/fixtures/qrda/ep_test_qrda_cat3_good.xml')
+    QME::QualityReport.any_instance.stubs(:result).returns(@result)
+    QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
+    HealthDataStandards::Export::Cat3.any_instance.stubs(:export).returns(file)
     record = Record.find(BSON::ObjectId.from_string('4efa05ada9ffcce9010000dc'))
     record.test_id = @c3c.correlation_id
     record.save
     cat3 = @c3c.generate_cat3
-    assert cat3
+    assert cat3 == file
   end
 end
