@@ -24,12 +24,15 @@ class Task
 
   def status
     Rails.cache.fetch("#{cache_key}/status") do
-      report_status = 'incomplete'
       recent_execution = most_recent_execution
-      if recent_execution
-        report_status = recent_execution.passing? ? 'passing' : 'failing'
+      return 'incomplete' unless recent_execution
+      if recent_execution.passing?
+        'passing'
+      elsif recent_execution.failing?
+        'failing'
+      else
+        'incomplete'
       end
-      report_status
     end
   end
 

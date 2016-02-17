@@ -1,0 +1,50 @@
+<%
+
+# local variables:
+#
+#   task
+#   current_task   (boolean)
+
+%>
+
+<% c3 = task.product_test.product.c3_test %>
+<% execution = task.most_recent_execution %>
+
+<% panel_class = current_task ? 'panel-primary' : 'panel-inactive' %>
+
+<div class = 'col-sm-4'>
+  <div class = 'panel <%= panel_class %> task-panel'>
+    <div class = 'panel-heading'>
+      <h3 class = 'panel-title text-center'><%= task_type_to_title(task._type, c3) %></h3>
+    </div>
+    <div class = 'panel-body'>
+      <% get_error_counts(execution, task).each do |error_name, num_errors| %>
+        <div class = 'col-sm-6 text-right'><%= error_name %></div>
+        <div class = 'col-sm-6 text-left'><%= num_errors %></div>
+      <% end %>
+      <div class = 'col-sm-6 text-right'>Execution Date</div>
+      <div class = 'col-sm-6 text-left'><%= execution ? date_of_execution(execution) : '--' %></div>
+
+      <% if execution %>
+        <div class = 'col-sm-6 text-center margin-top-1'>
+          <% unless current_task %>
+            <span class = 'nested-link text-primary'><%= task.failing? || task.passing? ? 'view' : 'start' unless current_task %></span>
+          <% end %>
+        </div>
+        <div class = 'col-sm-6 text-left margin-top-1'>
+          <% if task.passing? %>
+            <i class = 'fa fa-check text-success'></i><strong class = 'text-success'> Passing</strong>
+          <% elsif task.failing? %>
+            <i class = 'fa fa-times text-danger'></i><strong class = 'text-danger'> Failing</strong>
+          <% else %>
+            <strong class = 'text-info'>In Progress...</strong>
+          <% end %>
+        </div>
+      <% else %>
+        <div class = 'col-sm-12 margin-top-1 text-center nested-link'>
+          <span class = 'nested-link text-primary <%= 'invisible' if current_task %>'>start</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

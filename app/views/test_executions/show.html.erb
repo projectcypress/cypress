@@ -1,18 +1,23 @@
 <% displaying_cat1 = displaying_cat1?(@task) %>
 <% viewing_measure_test = @task.product_test._type == 'MeasureTest' %>
 
-<h3 class = 'page-title'><%= get_title_message(@product_test, @task) %></h3>
+<% if viewing_measure_test %>
+  <% cat1_task = @task.product_test.c1_task %>
+  <% cat3_task = @task.product_test.c2_task %>
+<% else %>
+  <% cat1_task = @task.product_test.cat1_task %>
+  <% cat3_task = @task.product_test.cat3_task %>
+<% end %>
+
+<%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.product.c3_test) } %>
 
 <div class = 'row'>
-  <% if viewing_measure_test %>
-    <div class = 'col-sm-12' id = 'execution_status_table'><%= render partial: 'execution_status_table', locals: { task: @task } %></div>
-  <% else %>
-    <div class = 'col-sm-2'><%= render partial: 'execution_filter_info', locals: { test: @task.product_test } %></div>
-    <div class = 'col-sm-10'  id = 'execution_status_table'><%= render partial: 'execution_status_table', locals: { task: @task } %></div>
-  <% end %>
+  <%= render partial: 'test_info', locals: { task: @task } %>
+  <%= render partial: 'task_status_wrapper', locals: { task: cat1_task, current_task: displaying_cat1 } if cat1_task %>
+  <%= render partial: 'task_status_wrapper', locals: { task: cat3_task, current_task: !displaying_cat1 } if cat3_task %>
 </div>
 
-<div class = 'row'>
+<div class = 'row margin-top-1'>
   <div class = 'col-sm-4'>
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -25,7 +30,6 @@
           <%= render partial: 'execution_download', locals: { product_test: @product_test } %>
         </div>
       </div>
-        <%= button_to 'View Patients', {:controller => "records", :product_test_id => @product_test.id}, class: 'btn btn-block btn-info', method: :get %>
     </div>
   </div>
 

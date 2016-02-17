@@ -77,7 +77,7 @@ class VendorsHelperTest < ActiveJob::TestCase
 
     # one cat1 passing execution, one cat3 failing execution
     @product.product_tests.filtering_tests.first.cat1_task.test_executions.create(:state => :passed)
-    @product.product_tests.filtering_tests.first.cat3_task.test_executions.create(:state => :failed)
+    @product.product_tests.filtering_tests.first.cat3_task.test_executions.create(:state => :passed)
   end
 
   # # # # # # # # #
@@ -136,12 +136,39 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 1, cert.cat1.passing
     assert_equal 1, cert.cat1.total
 
-    assert_equal 1, cert.cat3.failing
+    assert_equal 1, cert.cat3.passing
     assert_equal 1, cert.cat3.total
 
-    assert_equal 1, cert.sums.passing
-    assert_equal 1, cert.sums.failing
+    assert_equal 2, cert.sums.passing
+    assert_equal 0, cert.sums.failing
     assert_equal 0, cert.sums.not_started
     assert_equal 2, cert.sums.total
+  end
+
+  def test_cert_type_to_display_name
+    assert_equal 'C1 certification (Record and Export)', cert_type_to_display_name('C1')
+    assert_equal 'C2 certification (Import and Calculate)', cert_type_to_display_name('C2')
+    assert_equal 'C3 certification (Submission)', cert_type_to_display_name('C3')
+    assert_equal 'C4 certification (Filtering)', cert_type_to_display_name('C4')
+  end
+
+  def test_cert_status
+    certs = get_product_status_values(@product)
+    assert_equal 'Failing', cert_status(certs.C1)
+    assert_equal 'Not Complete', cert_status(certs.C2)
+    assert_equal 'Passing', cert_status(certs.C4)
+  end
+
+  def test_status_to_css_class
+    assert_equal 'text-success', status_to_css_class('Passing')
+    assert_equal 'text-danger', status_to_css_class('Failing')
+    assert_equal 'text-info', status_to_css_class('Not Complete')
+  end
+
+  def test_status_to_display_text
+    certs = get_product_status_values(@product)
+    assert_equal 'C1 certified', status_to_display_text('Passing', 'C1', certs.C1)
+    assert_equal '2 tests failing', status_to_display_text('Failing', 'C1', certs.C1)
+    assert_equal '2 tests to go', status_to_display_text('Not Complete', 'C3', certs.C3)
   end
 end

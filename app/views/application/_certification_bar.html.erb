@@ -1,0 +1,16 @@
+<%
+
+# local variables
+#
+#   product
+#   active_certs   (Array of booleans) [c1, c2, c3, c4]
+
+%>
+
+<% product_certs = [product.c1_test, product.c2_test, product.c3_test, product.c4_test] %>
+
+<div class = 'cert-bar'>
+  <% ['C1', 'C2', 'C3', 'C4'].each_with_index do |cert, i| %>
+    <div class = 'text-center <%= "active-cert" if active_certs[i] %>'><%= cert if product_certs[i] %></div>
+  <% end %>
+</div>
