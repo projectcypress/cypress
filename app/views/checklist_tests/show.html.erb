@@ -33,16 +33,7 @@
                       <tr>
                         <td><%= criteria_field.check_box :completed %></td>
                         <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
-                        <% if criteria[:field_values] %>
-                          <% if criteria[:field_values].keys[0] == "FLFS" %>
-                            <td><%= fulfills_reference(measure, criteria[:field_values]['FLFS'].reference) %></td>
-                          <% else %>
-                            <td><%= criteria[:field_values].keys[0].gsub("_", " ").capitalize %></td>
-                          <% end %>
-                        <% elsif  criteria[:negation] %>
-                          <td><%= "Negation Code" %></td>
-                        <% end %>
-
+                        <td><%= checklist_test_criteria_attribute(criteria) %></td>
                       </tr>
                     <% end %>
                   <% end %>

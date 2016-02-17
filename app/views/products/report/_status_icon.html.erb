@@ -1,0 +1,10 @@
+<%
+
+# local variable 'passing'
+
+%>
+
+<% icon_image_class = passing ? 'fa-check' : 'fa-times' %>
+<% icon_color_class = passing ? 'text-success' : 'text-danger' %>
+
+<i class = '<%= "fa fa-lg #{icon_image_class} #{icon_color_class}" %>'></i>
