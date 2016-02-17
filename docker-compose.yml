@@ -1,0 +1,13 @@
+cypress:
+  build: ./
+  ports:
+    - "3000:3000"
+  links:
+    - mongodb:mongo
+  env_file: .env-prod
+mongodb:
+  image: mongo
+  volumes:
+    - /data/db:/data/db
+  ports:
+    - "27017:27017"
