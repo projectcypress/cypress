@@ -18,4 +18,13 @@
   <% else %>
     $('#display_measure_tests_table').html("<%= escape_javascript render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>");
   <% end %>
+
+<% elsif params[:partial] == 'filtering_test_status_display' %>
+  <% if @product.product_tests.filtering_tests.any? { |test| test.state != :ready } %>
+    setTimeout(function(){
+    $('#display_filtering_test_status_display').html("<%= escape_javascript render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } %>");
+    }, 2000);
+  <% else %>
+    $('#display_filtering_test_status_display').html("<%= escape_javascript render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } %>");
+  <% end %>
 <% end %>

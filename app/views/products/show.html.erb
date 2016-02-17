@@ -78,11 +78,13 @@
             <span>This test does not need to completed all at once. You can always come back once the test is started.</span>
           <% end %>
         <% elsif c == 'FilteringTest' %>
-          <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } if @product.product_tests.filtering_tests.exists? %>
+          <div id="display_filtering_test_status_display">
+            <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } if @product.product_tests.filtering_tests.exists? %>
+          </div>
         <% else %>
-            <div id="display_measure_tests_table">
-              <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>  
-            </div>
+          <div id="display_measure_tests_table">
+            <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>  
+          </div>
         <% end %>
       </div>
     <% end %>
