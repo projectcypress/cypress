@@ -1,5 +1,4 @@
 module QME
-
   Mongoid.logger.level = Logger::INFO
   Mongo::Logger.logger.level = Logger::WARN
   patient_cache = Mongoid.default_client['patient_cache']
