@@ -73,7 +73,7 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, nil)
       te.reload
-      assert_equal 4, te.execution_errors.length, 'should be 1 error from cat I archive'
+      assert_equal 39, te.execution_errors.length, 'should be 39 errors from cat I archive'
     end
   end
 

@@ -9,18 +9,26 @@ class C3Task < Task
   field :last_execution, type: String
 
   def validators
-    if last_execution == 'Cat1'
-      if product_test.contains_c3_task?
-        @validators = [::Validators::MeasurePeriodValidator.new,
-                       ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.measures)]
-      end
-    elsif last_execution == 'Cat3'
-      if product_test.contains_c3_task?
-        @validators = [::Validators::MeasurePeriodValidator.new,
-                       ::Validators::QrdaCat3Validator.new(product_test.expected_results, true)]
-      end
+    if last_execution == 'Cat1' && product_test.contains_c3_task?
+      c3_validation = true
+      @validators = [::Validators::MeasurePeriodValidator.new,
+                     ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.measures)]
+      @validators << get_cms_cat1_schematron
+    elsif last_execution == 'Cat3' && product_test.contains_c3_task?
+      @validators = [::Validators::MeasurePeriodValidator.new,
+                     ::Validators::QrdaCat3Validator.new(product_test.expected_results, true),
+                     ::Validators::CmsQRDA3ChematronValidator]
     end
     @validators
+  end
+
+  def get_cms_cat1_schematron
+    measure = product_test.measures[0]
+    if measure.type == 'eh'
+      ::Validators::CmsQRDA1HQRChematronValidator
+    else
+      ::Validators::CmsQRDA1PQRSChematronValidator
+    end
   end
 
   def cat3
