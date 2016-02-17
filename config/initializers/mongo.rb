@@ -1,4 +1,7 @@
 module QME
+
+  Mongoid.logger.level = Logger::INFO
+  Mongo::Logger.logger.level = Logger::WARN
   patient_cache = Mongoid.default_client['patient_cache']
   # create a unique index for patient cache, this prevents a race condition where the same patient can be entered multiple times for a patient
   patient_cache.indexes.create_one({ 'value.measure_id' => 1, 'value.sub_id' => 1, 'value.effective_date' => 1, 'value.patient_id' => 1 },
