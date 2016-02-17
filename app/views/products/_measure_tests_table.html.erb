@@ -10,7 +10,7 @@
 <% c2_label += ' and C3' if @product.c3_test %>
 <% c1_and_c2 = @product.c1_test && @product.c2_test %>
 
-<table class = 'table table-hover table-condensed' id = 'measure_test_table'>
+<table class = 'table table-hover table-condensed' id = 'measure_tests_table'>
   <thead>
     <th scope="col" class = 'col-sm-2 pointer-on-hover'>
       CMS ID
@@ -40,18 +40,23 @@
       </th>
     <% end %>
   </thead>
-  <tbody>
+  <tbody data-no-turbolink>
     <% tests.each do |test| %>
       <tr>
         <td><%= test.cms_id %></td>
         <td><%= test.name %></td>
         <% if @product.c1_test %>
-          <td><%= render partial: 'product_test_link', locals: { task: test.c1_task } %></td>
+          <td><%= render partial: 'product_test_link', locals: { test: test, task: test.c1_task } %></td>
         <% end %>
         <% if @product.c2_test %>
-          <td><%= render partial: 'product_test_link', locals: { task: test.c2_task } %></td>
+          <td><%= render partial: 'product_test_link', locals: { test: test, task: test.c2_task } %></td>
         <% end %>
       </tr>
     <% end %>
+    <% if tests.any? { |test| test.state != :ready } %>
+      <script>
+        $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'measure_tests_table' }});
+      </script>
+    <% end%>
   </tbody>
 </table>

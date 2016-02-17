@@ -11,7 +11,7 @@
     <th class = 'col-sm-3'><strong>CAT 1</strong></th>
     <th class = 'col-sm-3'><strong>CAT 3</strong></th>
   </thead>
-  <tbody>
+  <tbody data-no-turbolink>
     <% tests.each do |test| %>
       <tr>
         <td></td>
@@ -20,9 +20,14 @@
           <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
           <%= test.options.filters.keys.join('/').titleize %>
         </td>
-        <td><%= render partial: 'product_test_link', locals: { task: test.cat1_task } %></td>
-        <td><%= render partial: 'product_test_link', locals: { task: test.cat3_task } %></td>
+        <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat1_task } %></td>
+        <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat3_task } %></td>
       </tr>
     <% end %>
+    <% if tests.any? { |test| test.state != :ready } %>
+      <script>
+        $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_status_display' }});
+      </script>
+    <% end%>
   </tbody>
 </table>

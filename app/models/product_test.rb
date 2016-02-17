@@ -89,6 +89,16 @@ class ProductTest
     save
   end
 
+  def queued
+    self.state = :queued
+    save
+  end
+
+  def building
+    self.state = :building
+    save
+  end
+
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       total = tasks.count

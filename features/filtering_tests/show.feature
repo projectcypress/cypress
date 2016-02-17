@@ -4,6 +4,7 @@ Background:
   Given the user is signed in
   And the user has created a vendor with a product selecting C4 testing
   And the user visits the product show page with the filter test tab selected
+  And the first filter task state has been set to ready
 
 Scenario: Successful View CAT 1 Filtering Test
   When the user views the CAT 1 test for the first filter task
@@ -15,7 +16,6 @@ Scenario: Successful View CAT 3 Filtering Test After Viewing CAT 1
   Then the user should see the CAT 3 test
 
 Scenario: Successful Download CAT 1 Zip File From Filter Task
-  And the first filter task state has been set to ready
   When the user views the CAT 1 test for the first filter task
   Then the user should be able to download a CAT 1 zip file
 
