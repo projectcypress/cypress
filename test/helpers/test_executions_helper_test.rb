@@ -61,8 +61,8 @@ class TestExecutionHelper < ActiveSupport::TestCase
   end
 
   def test_get_upload_type
-    assert_equal 'CAT 1 zip', get_upload_type(true)
-    assert_equal 'CAT 3 XML', get_upload_type(false)
+    assert_equal 'zip file of QRDA Category I documents', get_upload_type(true)
+    assert_equal 'QRDA Category III XML document', get_upload_type(false)
   end
 
   def test_get_error_counts_no_execution

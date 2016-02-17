@@ -42,7 +42,7 @@
       </div>
       <div class="panel-body">
         <p class = 'description' id='execution_upload_label'>
-          <%= "Upload your #{get_upload_type(displaying_cat1)} file to get test results. This will automatically run a test execution." %>
+          <%= "Upload results from the EHR system in the form of a #{get_upload_type(displaying_cat1)} to get test results. This will automatically run a test execution." %>
         </p>
         <%= render partial: 'execution_upload', locals: { task: @task, label: 'execution_upload_label' } %>
       </div>
