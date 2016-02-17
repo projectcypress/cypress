@@ -39,7 +39,11 @@ class C3TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(xml, nil)
       te.reload
-      assert_equal 0, te.execution_errors.length, 'should have no errors for the invalid measure ids, this is a c2 validaton'
+
+      assert_equal 1, te.execution_errors.length, 'should have no errors for the invalid measure ids, this is a c2 validaton'
+      msg = "The document must contain the document level template [templateId with root='2.16.840.1.113883.10.20.27.1.2'] " \
+            'for this schematron to be applicable.'
+      assert_equal msg, te.execution_errors[0].message, 'single error must be for missing template id'
     end
   end
 
@@ -51,7 +55,7 @@ class C3TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(xml, nil)
       te.reload
-      assert_equal 1, te.execution_errors.length, 'should have 1 error for the invalid performance rate'
+      assert_equal 3, te.execution_errors.length, 'should have 1 error for the invalid performance rate'
     end
   end
 
@@ -63,7 +67,7 @@ class C3TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(xml, nil)
       te.reload
-      assert_equal 2, te.execution_errors.length, 'should have 2 errors for the invalid reporting period'
+      assert_equal 4, te.execution_errors.length, 'should have 2 errors for the invalid reporting period'
     end
   end
 end
