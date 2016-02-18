@@ -16,7 +16,7 @@
       <tr>
         <td></td>
         <td>
-          <% visibility = test.task_status('cat_1_filter_task') == 'passing' && test.task_status('cat_3_filter_task') == 'passing' ? '' : 'invisible' %>
+          <% visibility = test.task_status('Cat1FilterTask') == 'passing' && test.task_status('Cat3FilterTask') == 'passing' ? '' : 'invisible' %>
           <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
           <%= test.options.filters.keys.join('/').titleize %>
         </td>
