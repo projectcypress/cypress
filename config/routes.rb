@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   resources :vendors do
     resources :products, only: [:show, :index, :new, :create, :edit, :update, :destroy] do
+      member do
+        get :download_pdf
+      end
     end
   end
 

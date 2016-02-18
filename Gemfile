@@ -66,9 +66,10 @@ gem 'cancancan'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'prawn', require: 'prawn'
-gem 'prawn-table'
-gem 'pdf-reader', '0.9.0'
+# Make PDFs
+gem 'wkhtmltopdf-binary'
+gem 'pdfkit'
+gem 'render_anywhere', require: false
 
 group :development, :test do
   gem 'rubocop', require: false

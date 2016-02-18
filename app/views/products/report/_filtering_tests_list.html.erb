@@ -1,0 +1,23 @@
+<%
+
+# local variables:
+#
+#   title   (String)
+#   tasks   (Array of tasks)
+
+%>
+
+<% return unless tasks && tasks.any? %>
+
+<h3 class = 'report-subsection-title'><%= title %></h3>
+
+<ul>
+  <% tasks.each do |task| %>
+    <li>
+      <% task.product_test.options.filters.each_with_index do |(key, val), index| %>
+        <%= ' , ' unless index == 0 %>
+        <strong><%= "#{key.titleize}: " %></strong><%= display_filter_val(key, val) %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

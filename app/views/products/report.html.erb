@@ -1,0 +1,201 @@
+<style>
+<%= render partial: 'products/report/report_css', formats: 'css' %>
+</style>
+
+<h1 class = 'report-section-title'>Summary</h1>
+
+  <br><strong>Report Released:</strong> <%= Time.new %>
+  <br><strong>Vendor:</strong> <%= @product.vendor.name %>
+  <br><strong>Product:</strong> <%= @product.name %>
+  <% bundle = @product.product_tests.first.bundle %>
+  <br><strong>Bundle:</strong> <%= "#{bundle.title} v#{bundle.version}" %>
+  <br><strong>Cypress Version:</strong> 3.0
+
+<h3 class = 'report-subsection-title'>Measure Tests</h3>
+
+<% # Measure Test Summary %>
+<table class = 'table table-condensed'>
+  <thead>
+    <tr>
+      <th>Measure Name</th>
+      <th>Submeasures</th>
+      <th class = 'text-center'><%= 'C1 Cat I' if @product.c1_test %></th>
+      <th class = 'text-center'><%= 'C2 Cat III' if @product.c2_test %></th>
+      <th class = 'text-center'><%= 'C3 Cat I' if @product.c1_test && @product.c3_test %></th>
+      <th class = 'text-center'><%= 'C3 Cat III' if @product.c2_test && @product.c3_test %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @product.product_tests.measure_tests.each do |test| %>
+      <tr>
+        <td><%= "#{test.cms_id} #{test.name}" %></td>
+        <% measures = Measure.where(hqmf_id: test.measure_ids.first).all %>
+        <td>
+          <% if measures.count > 1 %>
+            <ul class="list-unstyled">
+              <% measures.each do |measure| %>
+                <% next if measure.sub_id == 'a' %>
+                <li><%= measure.subtitle %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+        <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.c1_task.passing? } if @product.c1_test %></td>
+        <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.c2_task.passing? } if @product.c2_test %></td>
+        <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.c1_task.c3_status == 'passing' } if @product.c1_test && @product.c3_test %></td>
+        <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.c2_task.c3_status == 'passing' } if @product.c2_test && @product.c3_test %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% # Manual Entry Summary %>
+<% if @product.c1_test %>
+  <h3 class = 'report-subsection-title'>C1 Manual Entry</h3>
+  <% unless @product.product_tests.checklist_tests.count == 0 %>
+    <%= render partial: 'checklist_status_display', locals: { product: @product } %>
+  <% else %>
+    <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Manual Entry Test has not been started.</p>
+  <% end %>
+<% end %>
+
+<% # Filtering Test Summary %>
+<% if @product.c4_test %>
+  <h3 class = 'report-subsection-title'>C4 Filtering</h3>
+  <table class = 'table table-condensed'>
+    <thead><tr>
+      <th>Filters</th>
+      <th class = 'text-center'>Cat I</th>
+      <th class = 'text-center'>Cat III</th>
+    </tr></thead>
+    <tbody>
+      <% @product.product_tests.filtering_tests.each do |test| %>
+        <tr>
+          <td>
+            <% test.options.filters.each do |key, val| %>
+              <strong><%= "#{key.titleize}: " %></strong><%= display_filter_val(key, val) %><br/>
+            <% end %>
+          </td>
+          <td class = 'text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.task_status('Cat1FilterTask') == 'passing' } %></td>
+          <td class = 'text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.task_status('Cat3FilterTask') == 'passing' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% # C1 - Capture and Export %>
+<% if @product.c1_test %>
+  <h1 class = 'report-section-title'>C1 - Capture and Export</h1>
+
+  <h3 class = 'report-subsection-title'>C1 Manual Entry</h3>
+  <% unless @product.product_tests.checklist_tests.count == 0 %>
+    <% check_test = @product.product_tests.checklist_tests.first %>
+    <% Measure.top_level.where(:hqmf_id.in => check_test.measure_ids).each do |measure| %>
+      <strong><%= "#{measure.cms_id} #{measure.name}" %></strong>
+      <table class = 'table table-condensed'>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Description</th>
+            <th>Attribute</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% # check_crit is an individual checked criteria %>
+          <% check_test.checked_criteria.all(measure_id: measure.id).each do |check_crit| %>
+            <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == check_crit.source_data_criteria }.values.first %>
+            <tr>
+              <td><%= render partial: 'products/report/status_icon', locals: { passing: check_crit.completed } %></td>
+              <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+              <td><%= checklist_test_criteria_attribute(criteria) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  <% else %>
+    <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Manual Entry Test has not been started.</p>
+  <% end %>
+
+  <% # C1 Not Started Measure Tests %>
+  <% c1_not_started_tasks = @product.product_tests.measure_tests.collect { |test| test.c1_task if test.c1_task.status == 'incomplete' }.compact %>
+  <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C1 Not Started Measure Tests', tasks: c1_not_started_tasks } %>
+
+  <% # C1 Failing Measure Tests %>
+  <% c1_failing_tasks = @product.product_tests.measure_tests.collect { |test| test.c1_task if test.c1_task.failing? }.compact %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C1 Failing Measure Tests', tasks: c1_failing_tasks, c3: false } %>
+<% end %>
+
+<% # C2 - Import and Calculate %>
+<% if @product.c2_test %>
+  <h1 class = 'report-section-title'>C2 - Import and Calculate</h1>
+
+  <% # C2 Not Started Measure Tests %>
+  <% c2_not_started_tasks = @product.product_tests.measure_tests.collect { |test| test.c2_task if test.c2_task.status == 'incomplete' }.compact %>
+  <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C2 Not Started Measure Tests', tasks: c2_not_started_tasks } %>
+
+  <% # C2 Failing Measure Tests %>
+  <% c2_failing_tasks = @product.product_tests.measure_tests.collect { |test| test.c2_task if test.c2_task.failing? }.compact %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C2 Failing Measure Tests', tasks: c2_failing_tasks, c3: false } %>
+<% end %>
+
+<% # C3 - Submission %>
+<% if @product.c3_test %>
+  <h1 class = 'report-section-title'>C3 - Submission</h1>
+
+  <% # C3 Cat 1 Not Started Measure Tests %>
+  <% c3_cat1_not_started_tasks = @product.product_tests.measure_tests.collect { |test| test.c1_task if test.c1_task.c3_status == 'incomplete' }.compact %>
+  <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C3 Cat I Not Started Measure Tests', tasks: c3_cat1_not_started_tasks, c3: true } %>
+
+  <% # C3 Cat 1 Failing Measure Tests %>
+  <% c3_cat1_failing_tasks = @product.product_tests.measure_tests.collect { |test| test.c1_task if test.c1_task.c3_status == 'failing' }.compact %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C3 Cat I Failing Measure Tests', tasks: c3_cat1_failing_tasks, c3: true } %>
+
+  <% # C3 Cat 3 Not Started Measure Tests %>
+  <% c3_cat3_not_started_tasks = @product.product_tests.measure_tests.collect { |test| test.c2_task if test.c2_task.c3_status == 'incomplete' }.compact %>
+  <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C3 Cat III Not Started Measure Tests', tasks: c3_cat3_not_started_tasks, c3: true } %>
+
+  <% # C3 Cat 3 Failing Measure Tests %>
+  <% c3_cat3_failing_tasks = @product.product_tests.measure_tests.collect { |test| test.c2_task if test.c2_task.c3_status == 'failing' }.compact %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C3 Cat III Failing Measure Tests', tasks: c3_cat3_failing_tasks, c3: true } %>
+<% end %>
+
+<% # C4 - Filtering %>
+<% if @product.c4_test %>
+  <h1 class = 'report-section-title'>C4 - Filtering</h1>
+
+  <% # C4 Cat 1 Not Started Measure Tests %>
+  <% c4_cat1_not_started_tasks = @product.product_tests.filtering_tests.collect { |test| test.cat1_task if test.task_status('Cat1FilterTask') == 'incomplete' }.compact %>
+  <%= render partial: 'products/report/filtering_tests_list', locals: { title: 'C4 Cat I Not Started Measure Tests', tasks: c4_cat1_not_started_tasks } %>
+
+  <% # C4 Cat 1 Failing Measure Tests %>
+  <% c4_cat1_failing_tasks = @product.product_tests.filtering_tests.collect { |test| test.cat1_task if test.task_status('Cat1FilterTask') == 'failing' }.compact %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C4 Cat I Failing Measure Tests', tasks: c4_cat1_failing_tasks, c3: false, c4: true } %>
+
+  <% # C4 Cat 3 Not Started Measure Tests %>
+  <% c4_cat3_not_started_tasks = @product.product_tests.filtering_tests.collect { |test| test.cat3_task if test.task_status('Cat3FilterTask') == 'incomplete' }.compact %>
+  <%= render partial: 'products/report/filtering_tests_list', locals: { title: 'C4 Cat III Not Started Measure Tests', tasks: c4_cat3_not_started_tasks } %>
+
+  <% # C4 Cat 3 Failing Measure Tests %>
+  <% c4_cat3_failing_tasks = @product.product_tests.filtering_tests.collect { |test| test.cat3_task if test.task_status('Cat3FilterTask') == 'failing' }.compact %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C4 Cat III Failing Measure Tests', tasks: c4_cat3_failing_tasks, c3: false, c4: true } %>
+<% end %>
+
+<% if all_records_for_product(@product).any? %>
+  <h1 class="report-section-title">Record Name Matching</h1>
+  <table class="table table-condensed">
+    <thead>
+      <th scole="col">Name</th>
+      <th scole="col">Original</th>
+    </thead>
+    <tbody>
+      <% all_records_for_product(@product).each do |r| %>
+        <tr>
+          <td><%= r.new_name %></td>
+          <td><%= r.original %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

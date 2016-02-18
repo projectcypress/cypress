@@ -84,4 +84,19 @@ module ProductsHelper
       ProductTestSetupJob.perform_later(ft)
     end
   end
+
+  # For pdf
+  def all_records_for_product(product)
+    records = []
+    product.product_tests.each do |pt|
+      pt.records.each do |r|
+        new_name = "#{r.first} #{r.last}"
+        original_patient = r.bundle.records.find_by(medical_record_number: r.original_medical_record_number)
+        original_name = "#{original_patient.first} #{original_patient.last}"
+        records << { new_name: new_name, original: original_name }
+      end
+    end
+
+    records.any? ? records.sort_by! { |r| r[:new_name] }.uniq! : records
+  end
 end

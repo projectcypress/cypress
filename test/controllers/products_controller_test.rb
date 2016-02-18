@@ -59,4 +59,10 @@ class ProductsControllerTest < ActionController::TestCase
     pt.reload
     assert_equal new_ids, pt.measure_ids
   end
+
+  test 'should generate a PDF report' do
+    get :download_pdf, vendor_id: Product.first.vendor, id: Product.first
+    assert_response :success
+    assert_equal 'application/pdf', response.headers['Content-Type']
+  end
 end

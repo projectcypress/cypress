@@ -1,0 +1,19 @@
+<%
+
+# local variables:
+#
+#   title   (String)
+#   tasks   (Array of tasks)
+
+%>
+
+<% return unless tasks && tasks.any? %>
+
+<h3 class = 'report-subsection-title'><%= title %></h3>
+
+<ul>
+  <% tasks.each do |task| %>
+    <% test = task.product_test %>
+    <li><%= "#{test.cms_id} #{test.name}" %></li>
+  <% end %>
+</ul>

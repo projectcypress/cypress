@@ -1,0 +1,44 @@
+<%
+
+# local variables:
+#
+#   title   (String)
+#   tasks   (Array of tasks) all tasks should be failing
+#   c3      (boolean) true if errors for the c3 task should be displayed [optional]
+#   c4      (boolean) true if errors for the c4 task should be displayed [optional]
+
+%>
+
+<% return unless tasks && tasks.any? %>
+
+<% c3 ||= false %>
+<% c4 ||= false %>
+
+<h3 class = 'report-subsection-title'><%= title %></h3>
+
+<% if tasks %>
+  <% tasks.each do |task| %>
+    <% test = task.product_test %>
+    <strong>
+      <% if c4 %>
+        <% task.product_test.options.filters.each_with_index do |(key, _val), index| %>
+          <%= ' / ' unless index == 0 %>
+          <%= key.titleize %>
+        <% end %>
+        <%= ': ' %>
+      <% end %>
+      <%= "#{test.cms_id} #{test.name}" %>
+    </strong>
+    <ul>
+      <% execution = c3 ? TestExecution.find(task.most_recent_execution.sibling_execution_id) : task.most_recent_execution %>
+      <% execution.execution_errors.each do |err| %>
+        <li>
+          <%= err.message %>
+          <%= " (#{err.file_name})" if err.has_attribute?('file_name') && err.file_name != '' %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% else %>
+  <p>No measure tests are failing.</p>
+<% end %>
