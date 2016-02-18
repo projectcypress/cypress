@@ -97,6 +97,6 @@ module ProductsHelper
       end
     end
 
-    records.uniq # TODO: Sort this list
+    records.sort_by! { |r| r[:new_name] }.uniq!
   end
 end

@@ -93,7 +93,7 @@ class ProductsController < ApplicationController
                            footer_left: @product.name.to_s,
                            footer_center: '[section]',
                            footer_line: true)
-    send_data(pdf.to_pdf, filename: "#{@product.name}_report.pdf", type: 'application/pdf')
+    send_data(pdf.to_pdf, filename: "Cypress_#{@product.name.underscore.dasherize}_report.pdf", type: 'application/pdf')
   end
 
   private
