@@ -1,3 +1,5 @@
+require 'cypress/pdf_report'
+
 class ProductsController < ApplicationController
   before_action :set_vendor, only: [:new, :create, :index, :report]
   before_action :set_product, except: [:index, :new, :create]
@@ -6,14 +8,11 @@ class ProductsController < ApplicationController
   add_breadcrumb 'Dashboard', :vendors_path
 
   def index
-    respond_to do |f|
-      f.html { redirect_to vendor_path(@vendor.id) }
-    end
+    goto_vendor(@vendor)
   end
 
   def new
-    @product = Product.new
-    @product.vendor = @vendor
+    @product = Product.new(vendor: @vendor)
     setup_new
     respond_to do |format|
       format.html
@@ -27,10 +26,7 @@ class ProductsController < ApplicationController
     @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
     @product.save!
     flash_product_comment(@product.name, 'success', 'created')
-    respond_to do |f|
-      f.json {} # <-- must be fixed later
-      f.html { redirect_to vendor_path(@vendor.id) }
-    end
+    goto_vendor(@vendor)
   rescue Mongoid::Errors::Validations
     setup_new
     @selected_measure_ids = params['product_test']['measure_ids'] if params['product_test'] && params['product_test']['measure_ids']
@@ -49,10 +45,7 @@ class ProductsController < ApplicationController
     @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
     @product.save!
     flash_product_comment(@product.name, 'info', 'edited')
-    respond_to do |f|
-      f.json {} # <-- must be fixed later
-      f.html { redirect_to vendor_path(@product.vendor.id) }
-    end
+    goto_vendor(@product.vendor)
   rescue Mongoid::Errors::Validations
     render :edit
   end
@@ -60,10 +53,7 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy
     flash_product_comment(@product.name, 'danger', 'removed')
-    respond_to do |format|
-      format.json {} # <-- must be fixed later
-      format.html { redirect_to vendor_path(@product.vendor.id) }
-    end
+    goto_vendor(@product.vendor)
   end
 
   def show
@@ -77,26 +67,18 @@ class ProductsController < ApplicationController
   end
 
   def download_pdf
-    html = render_to_string(action: 'report.html.erb', layout: false)
-    pdf = PDFKit.new(html, footer_right: 'page [page] of [topage]',
-                           outline: true,
-                           margin_top: 20,
-                           margin_bottom: 20,
-                           margin_left: 20,
-                           margin_right: 20,
-                           header_font_size: 18,
-                           header_spacing: 4,
-                           header_left: 'cypress v3',
-                           header_line: true,
-                           footer_font_size: 10,
-                           footer_spacing: 4,
-                           footer_left: @product.name.to_s,
-                           footer_center: '[section]',
-                           footer_line: true)
+    pdf = Cypress::PdfReport.new(@product).download_pdf
     send_data(pdf.to_pdf, filename: "Cypress_#{@product.name.underscore.dasherize}_report.pdf", type: 'application/pdf')
   end
 
   private
+
+  def goto_vendor(vendor)
+    respond_to do |f|
+      f.json {} # <-- must be fixed later
+      f.html { redirect_to vendor_path(vendor.id) }
+    end
+  end
 
   def set_product
     product_finder = @vendor ? @vendor.products : Product

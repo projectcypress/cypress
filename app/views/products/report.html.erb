@@ -182,18 +182,20 @@
   <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C4 Cat III Failing Measure Tests', tasks: c4_cat3_failing_tasks, c3: false, c4: true } %>
 <% end %>
 
-<h1 class="report-section-title">Record Name Matching</h1>
-<table class="table table-condensed">
-  <thead>
-    <th scole="col">Name</th>
-    <th scole="col">Original</th>
-  </thead>
-  <tbody>
-    <% all_records_for_product(@product).each do |r| %>
-      <tr>
-        <td><%= r.new_name %></td>
-        <td><%= r.original %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if all_records_for_product(@product).any? %>
+  <h1 class="report-section-title">Record Name Matching</h1>
+  <table class="table table-condensed">
+    <thead>
+      <th scole="col">Name</th>
+      <th scole="col">Original</th>
+    </thead>
+    <tbody>
+      <% all_records_for_product(@product).each do |r| %>
+        <tr>
+          <td><%= r.new_name %></td>
+          <td><%= r.original %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

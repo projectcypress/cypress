@@ -97,6 +97,6 @@ module ProductsHelper
       end
     end
 
-    records.sort_by! { |r| r[:new_name] }.uniq!
+    records.any? ? records.sort_by! { |r| r[:new_name] }.uniq! : records
   end
 end
