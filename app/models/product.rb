@@ -89,7 +89,7 @@ class Product
   end
 
   def add_filtering_tests(measure)
-    save
+    save!
     reload_relations
 
     if product_tests.where(_type: FilteringTest).count == 0
