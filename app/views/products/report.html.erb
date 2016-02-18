@@ -1,3 +1,7 @@
+<style>
+<%= render partial: 'products/report/report_css', formats: 'css' %>
+</style>
+
 <h1 class = 'report-section-title'>Summary</h1>
 
   <br><strong>Report Released:</strong> <%= Time.new %>
@@ -7,7 +11,7 @@
   <br><strong>Bundle:</strong> <%= "#{bundle.title} v#{bundle.version}" %>
   <br><strong>Cypress Version:</strong> 3.0
 
-<h3 class = 'report-section-title'>Measure Tests</h3>
+<h3 class = 'report-subsection-title'>Measure Tests</h3>
 
 <% # Measure Test Summary %>
 <table class = 'table table-condensed'>
@@ -47,7 +51,7 @@
 
 <% # Manual Entry Summary %>
 <% if @product.c1_test %>
-  <h3 class = 'report-section-title'>C1 Manual Entry</h3>
+  <h3 class = 'report-subsection-title'>C1 Manual Entry</h3>
   <% unless @product.product_tests.checklist_tests.count == 0 %>
     <%= render partial: 'checklist_status_display', locals: { product: @product } %>
   <% else %>
@@ -57,7 +61,7 @@
 
 <% # Filtering Test Summary %>
 <% if @product.c4_test %>
-  <h3 class = 'report-section-title'>C4 Filtering</h3>
+  <h3 class = 'report-subsection-title'>C4 Filtering</h3>
   <table class = 'table table-condensed'>
     <thead><tr>
       <th>Filters</th>
@@ -84,7 +88,7 @@
 <% if @product.c1_test %>
   <h1 class = 'report-section-title'>C1 - Capture and Export</h1>
 
-  <h3 class = 'report-section-title'>C1 Manual Entry</h3>
+  <h3 class = 'report-subsection-title'>C1 Manual Entry</h3>
   <% unless @product.product_tests.checklist_tests.count == 0 %>
     <% check_test = @product.product_tests.checklist_tests.first %>
     <% Measure.top_level.where(:hqmf_id.in => check_test.measure_ids).each do |measure| %>
