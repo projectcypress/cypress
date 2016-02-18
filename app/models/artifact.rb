@@ -2,6 +2,10 @@ class Artifact
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  MIME_FILE_TYPES = { 'application/zip' => :zip, 'multipart/mixed' => :zip, 'application/x-zip-compressed' => :zip,
+                      'application/x-compressed' => :zip, 'multipart/x-zip' => :zip, 'application/xml' => :xml,
+                      'text/xml' => :xml }.freeze
+
   mount_uploader :file, DocumentUploader
   belongs_to :test_execution, index: true
 
@@ -13,11 +17,11 @@ class Artifact
   before_save :update_asset_attributes
 
   def correct_file_type
-    content_extension = file.content_type ? file.content_type.split(//).last(3).join('') : nil
+    content_extension = file.content_type ? MIME_FILE_TYPES[file.content_type] : nil
     case content_extension
-    when 'zip'
+    when :zip
       errors.add(:file, 'File upload extension should be .zip') unless %w(C1Task C3Task Cat1FilterTask).include?(test_execution.task._type)
-    when 'xml'
+    when :xml
       errors.add(:file, 'File upload extension should be .xml') unless %w(C2Task C3Task Cat3FilterTask).include?(test_execution.task._type)
     else
       errors.add(:file, 'File upload extension should be .zip or .xml')
@@ -25,7 +29,7 @@ class Artifact
   end
 
   def archive?
-    content_type == 'application/zip' || File.extname(file.uploaded_filename) == '.zip'
+    MIME_FILE_TYPES[content_type] == :zip || File.extname(file.uploaded_filename) == '.zip'
   end
 
   def file_names
