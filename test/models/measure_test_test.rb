@@ -20,6 +20,14 @@ class MeasureTestTest < ActiveJob::TestCase
     assert_equal true,  pt.save, 'should save with single measure id'
   end
 
+  def count_zip_entries(path)
+    count = 0
+    Zip::ZipFile.open(path) do |z|
+      count = z.entries.length
+    end
+    count
+  end
+
   def test_create_task_c1
     product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_records: true)
     pt = product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
@@ -35,9 +43,7 @@ class MeasureTestTest < ActiveJob::TestCase
       assert pt.records.count > 0, 'product test creation should have created random number of test records'
       pt.reload
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
-      Zip::ZipFile.open(pt.patient_archive.file.path) do |z|
-          assert_equal pt.records.count + 1 , z.entries.length, "Archive should contain 1 more file than the test"
-      end
+      assert_equal pt.records.count + 1, count_zip_entries(pt.patient_archive.file.path), 'Archive should contain 1 more file than the test'
       assert_not_nil pt.expected_results, 'Product test should have expected results'
     end
   end
