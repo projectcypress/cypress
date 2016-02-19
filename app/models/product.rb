@@ -92,7 +92,7 @@ class Product
     save!
     reload_relations
 
-    if product_tests.where(_type: FilteringTest).count == 0
+    if product_tests.filtering_tests.count == 0
       criteria = %w(races ethnicities genders payers).shuffle
       filter_tests = []
       filter_tests << build_filtering_test(measure, criteria[0, 2])
