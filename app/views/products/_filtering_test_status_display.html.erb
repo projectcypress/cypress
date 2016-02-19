@@ -18,7 +18,11 @@
         <td>
           <% visibility = test.task_status('Cat1FilterTask') == 'passing' && test.task_status('Cat3FilterTask') == 'passing' ? '' : 'invisible' %>
           <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
-          <%= test.options.filters.keys.join('/').titleize %>
+          <% if test.display_name.to_s == '' %>
+            <%= test.options.filters.keys.join('/').titleize %>
+          <% else %>
+            <%= test.display_name %>
+          <% end %>
         </td>
         <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat1_task } %></td>
         <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat3_task } %></td>

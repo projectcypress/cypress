@@ -97,8 +97,8 @@ class Product
       filter_tests = []
       filter_tests << build_filtering_test(measure, criteria[0, 2])
       filter_tests << build_filtering_test(measure, criteria[2, 2])
-      filter_tests << build_filtering_test(measure, ['providers'])
-
+      filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
+      filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
       filter_tests << if ApplicationController.helpers.measure_has_diagnosis_criteria?(measure)
                         build_filtering_test(measure, ['problems'])
                       else
@@ -111,10 +111,10 @@ class Product
     end
   end
 
-  def build_filtering_test(measure, criteria)
+  def build_filtering_test(measure, criteria, display_name = '', incl_addr = true)
     # construct options hash from criteria array and create the test
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     product_tests.create({ name: measure.name, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
-                           bundle_id: measure.bundle_id, options: options }, FilteringTest)
+                           bundle_id: measure.bundle_id, incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
   end
 end
