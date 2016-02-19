@@ -21,7 +21,7 @@
           <% if test.display_name.to_s == '' %>
             <%= test.options.filters.keys.join('/').titleize %>
           <% else %>
-            <%= test.display_name.titleize %>
+            <%= test.display_name %>
           <% end %>
         </td>
         <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat1_task } %></td>

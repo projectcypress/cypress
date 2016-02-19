@@ -97,8 +97,8 @@ class Product
       filter_tests = []
       filter_tests << build_filtering_test(measure, criteria[0, 2])
       filter_tests << build_filtering_test(measure, criteria[2, 2])
-      filter_tests << build_filtering_test(measure, ['providers'], 'Providers 1')
-      filter_tests << build_filtering_test(measure, ['providers'], 'Providers 2', false)
+      filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
+      filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
       filter_tests << if ApplicationController.helpers.measure_has_diagnosis_criteria?(measure)
                         build_filtering_test(measure, ['problems'])
                       else
