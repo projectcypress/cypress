@@ -115,7 +115,7 @@ class ProducTest < ActiveSupport::TestCase
     pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true)
     measure = Measure.top_level.find_by(hqmf_id: '40280381-4600-425F-0146-1F8D3B750FAC')
     pt.add_filtering_tests(measure)
-    assert pt.product_tests.filtering_tests.count == 4
+    assert pt.product_tests.filtering_tests.count == 5
   end
 end
 

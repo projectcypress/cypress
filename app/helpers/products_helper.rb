@@ -71,6 +71,7 @@ module ProductsHelper
     test = filter_tests.pop
     test.generate_records
     test.save
+    test.queued
     ProductTestSetupJob.perform_later(test)
     records = test.records
     filter_tests.each do |ft|
@@ -81,6 +82,7 @@ module ProductsHelper
         r2
       end
       ft.save
+      ft.queued
       ProductTestSetupJob.perform_later(ft)
     end
   end

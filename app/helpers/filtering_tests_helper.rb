@@ -20,9 +20,7 @@ module FilteringTestsHelper
     arr = []
     arr << "NPIS: #{val.npis.join(', ')}"
     arr << "TINS: #{val.tins.join(', ')}"
-    val.addresses.each do |address|
-      arr << address.map { |_k, v| v }.join(', ')
-    end
+    val.addresses.each { |address| arr << address.map { |_k, v| v }.join(', ') } if val.key?('addresses') || val.key?(:addresses)
     arr.join(' | ')
   end
 end

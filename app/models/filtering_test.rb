@@ -1,5 +1,7 @@
 class FilteringTest < ProductTest
   field :options, type: Hash
+  field :incl_addr, type: Boolean
+  field :display_name, type: String
   accepts_nested_attributes_for :tasks
 
   after_create :create_tasks
@@ -69,7 +71,9 @@ class FilteringTest < ProductTest
       addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
                      'country' => address.country }
     end
-    { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses }
+
+    return { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses } if incl_addr
+    { 'npis' => [provider.npi], 'tins' => [provider.tin] }
   end
 
   def lookup_problem
@@ -86,11 +90,7 @@ class FilteringTest < ProductTest
       end
     end
 
-    if code_list_id.empty?
-      fallback_id
-    else
-      code_list_id
-    end
+    code_list_id.empty? ? fallback_id : code_list_id
   end
 
   # Final Rule defines 9 different criteria that can be filtered:
