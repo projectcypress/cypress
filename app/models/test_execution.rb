@@ -48,11 +48,11 @@ class TestExecution
   end
 
   def count_errors
-    execution_errors.where(:msg_type => :error).count
+    execution_errors.by_type(:error).count
   end
 
   def count_warnings
-    execution_errors.where(:msg_type => :warning).count
+    execution_errors.by_type(:warning).count
   end
 
   # Get the expected result for a particular measure
