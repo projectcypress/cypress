@@ -14,9 +14,16 @@ ready = function() {
   });
 
   /* enable the remove button if the input field matches the object name */
-  $('#remove_modal input.confirm_object_name').keyup(function() {
+  $('#remove_modal input.confirm_object_name').keyup(function(e) {
     if ($(this).parent().siblings('p').children('strong.object_name').text() == $(this).val()) {
       $('#modal_confirm_remove').attr('disabled', false);
+
+      if(e.keyCode == 13)
+      {
+         // simulate clicking the button if they press enter
+         $('#modal_confirm_remove').click();
+      }
+
     } else {
       $('#modal_confirm_remove').attr('disabled', true);
     }
