@@ -35,6 +35,9 @@ class MeasureTestTest < ActiveJob::TestCase
       assert pt.records.count > 0, 'product test creation should have created random number of test records'
       pt.reload
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
+      Zip::ZipFile.open(pt.patient_archive.file.path) do |z|
+          assert_equal pt.records.count + 1 , z.entries.length, "Archive should contain 1 more file than the test"
+      end
       assert_not_nil pt.expected_results, 'Product test should have expected results'
     end
   end

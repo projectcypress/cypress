@@ -25,6 +25,15 @@ class MeasureTest < ProductTest
     end
   end
 
+  def archive_records
+    file = Tempfile.new("product_test-#{id}.zip")
+    recs = records.to_a
+    recs << recs.sample
+    Cypress::PatientZipper.zip(file, recs, :qrda)
+    self.patient_archive = file
+    save
+  end
+
   def product_c1_and_c2_if_only_c3(product)
     if product.c3_test && !product.c1_test && !product.c2_test
       product.c1_test = true
