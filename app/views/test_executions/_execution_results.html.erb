@@ -17,15 +17,21 @@
 
 <% elsif execution.passing? %>
   <h4><i class="fa fa-fw fa-check-circle text-success"></i> Passed</h4>
-
+  <% if execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest' %>
+    <% submit_warnings = execution.sibling_execution.only_warnings %>
+    <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_warnings, displaying_cat1: displaying_cat1?(execution.task), message_title: 'Warning' } if submit_warnings.any? %>
+  <% end %>
 
 <% else %>
   <% qrda_errors = execution.qrda_errors %>
   <% report_errors = execution.reporting_errors %>
   <% should_display_c3 = execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest' %>
-  <% submit_errors = should_display_c3 ? TestExecution.find(execution.sibling_execution_id).execution_errors : [] %>
+  <% submit_errors = should_display_c3 ? execution.sibling_execution.only_errors : [] %>
+  <% submit_warnings = should_display_c3 ? execution.sibling_execution.only_warnings : [] %>
 
-  <h4><i class="fa fa-fw fa-times-circle text-danger"></i><%= " Failed with #{qrda_errors.count + report_errors.count + submit_errors.count} errors" %></h4>
+  <% failure_message = " Failed with #{qrda_errors.count + report_errors.count + submit_errors.count} errors" %>
+  <% failure_message += " and #{submit_warnings.count} warnings" if submit_warnings.any? %>
+  <h4><i class="fa fa-fw fa-times-circle text-danger"></i><%= failure_message %></h4>
   <ul class = 'nav nav-tabs'>
     <li class = 'active'>
       <a data-toggle = 'tab' class = 'tab' href = <%= "#QRDA_tab_execution_#{execution.id}" %>>
@@ -40,7 +46,7 @@
     <% if should_display_c3 %>
       <li>
         <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_tab_execution_#{execution.id}" %>>
-          <%= "Submission Errors (#{submit_errors.count})" %>
+          <%= "Submission Errors (#{submit_errors.count + submit_warnings.count})" %>
         </a>
       </li>
     <% end %>
@@ -50,14 +56,16 @@
 
   <div class = 'tab-content'>
     <div class = 'tab-pane active' id = <%= "QRDA_tab_execution_#{execution.id}" %>>
-      <%= render partial: 'test_executions/results/error_table', locals: { errors: qrda_errors, displaying_cat1: displaying_cat1 } %>
+      <%= render partial: 'test_executions/results/error_table', locals: { errors: qrda_errors, displaying_cat1: displaying_cat1, message_title: 'Error' } %>
     </div>
     <div class = 'tab-pane' id = <%= "reporting_tab_execution_#{execution.id}" %>>
-      <%= render partial: 'test_executions/results/error_table', locals: { errors: report_errors, displaying_cat1: displaying_cat1 } %>
+      <%= render partial: 'test_executions/results/error_table', locals: { errors: report_errors, displaying_cat1: displaying_cat1, message_title: 'Error' } %>
     </div>
     <% if should_display_c3 %>
       <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
-        <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_errors, displaying_cat1: displaying_cat1 } %>
+        <% { 'Error': submit_errors, 'Warning': submit_warnings }.each do |title, errors_or_warnings| %>
+          <%= render partial: 'test_executions/results/error_table', locals: { errors: errors_or_warnings, displaying_cat1: displaying_cat1, message_title: title } if errors_or_warnings.any? %>
+        <% end %>
       </div>
     <% end %>
   </div>

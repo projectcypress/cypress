@@ -44,15 +44,15 @@ class TestExecution
       execution_errors.build(:message => "#{task.records.count} files expected but was #{file_count}",
                              :msg_type => :error, :validator_type => :result_validation)
     end
-    (count_errors > 0) ? fail : pass
+    (only_errors.count > 0) ? fail : pass
   end
 
-  def count_errors
-    execution_errors.by_type(:error).count
+  def only_errors
+    execution_errors.by_type(:error).entries
   end
 
-  def count_warnings
-    execution_errors.by_type(:warning).count
+  def only_warnings
+    execution_errors.by_type(:warning).entries
   end
 
   # Get the expected result for a particular measure
