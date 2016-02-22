@@ -3,3 +3,9 @@
 @import 'bootstrap';
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+
+// Turbolinks progress bar
+#cypress3::before {
+  background-color: $brand-primary-highlight;
+  height: 6px;
+}

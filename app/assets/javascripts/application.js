@@ -11,5 +11,6 @@
 //= require_tree .
 
 $(function() {
+  Turbolinks.enableProgressBar();
   $('.breadcrumb').breadcrumb();
 });
