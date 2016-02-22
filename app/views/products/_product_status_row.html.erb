@@ -2,27 +2,30 @@
 
 # local variables:
 #
-#   product, test_type, cert_type, show_c3, test_display_name
+#   product, test_type, task_type, cert_type, test_display_name
 #
 #   variables should fit one of these combinations:
 #
-#   test_type     cert_type     show_c3
+#   test_type     task_type     cert_type
 #
-#   'checklist'   'C1'
-#   'measure'     'C1'
-#   'measure'     'C2'
-#   'measure'     'C1'          true
-#   'measure'     'C2'          true
-#   'filter'      'C4'
+#   'checklist'                 'C1'
+#   'measure'     'C1Task'      'C1'
+#   'measure'     'C2Task'      'C2'
+#   'measure'     'C3Cat1Task'  'C3'
+#   'measure'     'C3Cat3Task'  'C3'
+#   'filter'                    'C4'
+
+# 
+# 
+# 
+# 
 
 %>
-
-<% show_c3 ||= false %>
 
 <% if test_type == 'checklist' %>
   <% passing, failing, total = checklist_status_values(product.product_tests.checklist_tests.first) %>
 <% elsif test_type == 'measure' %>
-  <% passing, failing, not_started, total = measure_test_status_values(product.product_tests.measure_tests, "#{cert_type}Task", show_c3) %>
+  <% passing, failing, not_started, total = product_test_status_values(product.product_tests.measure_tests, "#{task_type}") %>
 <% elsif test_type == 'filter' %>
   <% passing, failing, not_started, total = filtering_test_status_values_summed(product.product_tests.filtering_tests) %>
 <% else %>
@@ -33,7 +36,7 @@
   <td>
     <% visibility = (passing == total) && (total != 0) ? '' : 'invisible' %>
     <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
-    <strong><%= show_c3 ? 'C3' : cert_type %></strong>
+    <strong><%= cert_type %></strong>
   </td>
   <td><%= test_display_name %></td>
   <% passing_display = total == 0 ? '--' : "#{passing}/#{total}" %>

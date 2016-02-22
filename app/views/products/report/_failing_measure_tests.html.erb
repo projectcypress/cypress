@@ -30,7 +30,7 @@
       <%= "#{test.cms_id} #{test.name}" %>
     </strong>
     <ul>
-      <% execution = c3 ? TestExecution.find(task.most_recent_execution.sibling_execution_id) : task.most_recent_execution %>
+      <% execution = c3 ? task.most_recent_execution.sibling_execution : task.most_recent_execution %>
       <% execution.execution_errors.each do |err| %>
         <li>
           <%= err.message %>

@@ -58,7 +58,7 @@ module TestExecutionsHelper
     return ['--', '--', '--'] unless execution && execution.failing?
     qrda = execution.qrda_errors.count
     reporting = execution.reporting_errors.count
-    submit = execution.sibling_execution_id ? TestExecution.find(execution.sibling_execution_id).execution_errors.count : 0
+    submit = execution.sibling_execution ? execution.sibling_execution.execution_errors.count : 0
     [qrda, reporting, submit]
   end
 
@@ -70,7 +70,7 @@ module TestExecutionsHelper
     msg << ' (in progress)' if execution.incomplete?
     if execution.failing?
       num_errors = execution.execution_errors.count
-      num_errors += TestExecution.find(execution.sibling_execution_id).execution_errors.count if execution.sibling_execution_id
+      num_errors += execution.sibling_execution.execution_errors.count if execution.sibling_execution
       msg << " (#{num_errors} errors)"
     end
     msg

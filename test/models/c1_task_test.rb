@@ -18,7 +18,6 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_exclude_c3_validators_when_no_c3
     @product_test.tasks.clear
     task = @product_test.tasks.create({}, C1Task)
-    assert !@product_test.contains_c3_task?
 
     task.validators.each do |v|
       assert !v.is_a?(MeasurePeriodValidator)
@@ -56,8 +55,9 @@ class C1TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_have_c3_execution_as_sibling_test_execution_when_c3_task_exists
-    c1_task = @product_test.tasks.create({}, C1Task)
-    c3_task = @product_test.tasks.create({}, C3Task)
+    c1_task = @product_test.tasks.create!({}, C1Task)
+    c3_task = @product_test.tasks.create!({}, C3Cat1Task)
+    @product_test.product.c3_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
       te = c1_task.execute(zip)
@@ -67,8 +67,7 @@ class C1TaskTest < ActiveSupport::TestCase
 
   def test_should_be_able_to_tell_when_potentialy_too_much_data_is_in_documents
     ptest = ProductTest.find('51703a883054cf84390000d3')
-    task = ptest.tasks.create({}, C3Task)
-    task.last_execution = 'Cat1'
+    task = ptest.tasks.create({}, C3Cat1Task)
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, nil)

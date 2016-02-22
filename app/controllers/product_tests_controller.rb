@@ -15,10 +15,10 @@ class ProductTestsController < ApplicationController
 
   def show
     return unless @product_test[:_type] == 'MeasureTest'
-    if @product_test.c1_task
-      redirect_to new_task_test_execution_path(@product_test.c1_task)
-    elsif @product_test.c2_task
-      redirect_to new_task_test_execution_path(@product_test.c2_task)
+    if @product_test.tasks.c1_task
+      redirect_to new_task_test_execution_path(@product_test.tasks.c1_task)
+    elsif @product_test.tasks.c2_task
+      redirect_to new_task_test_execution_path(@product_test.tasks.c2_task)
     end
   end
 

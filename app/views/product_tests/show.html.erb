@@ -101,12 +101,12 @@
           <p class = 'description'>
             <%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %>
           </p>
-          <%= render partial: 'test_execution_upload', locals: { task: @product_test.c1_task } %>
+          <%= render partial: 'test_execution_upload', locals: { task: @product_test.tasks.c1_task } %>
         </div>
       </div>
       <hr>
       <h2 class="test-result">CAT 1 Test Results for <%= "#{@product_test.name}" %></h2>
-      <%= render partial: "test_execution_results", locals: { task: @product_test.c1_task } %>
+      <%= render partial: "test_execution_results", locals: { task: @product_test.tasks.c1_task } %>
     <% if c1 && c2 %>
       </div>
     <% end %>
@@ -124,12 +124,12 @@
           <p class = 'description'>
             <%= "Upload your CAT 3 XML file to get test results for #{tab_label_2} certifications. This will automatically run a test execution." %>
           </p>
-          <%= render partial: 'test_execution_upload', locals: { task: @product_test.c2_task } %>
+          <%= render partial: 'test_execution_upload', locals: { task: @product_test.tasks.c2_task } %>
         </div>
       </div>
       <hr>
       <h2 class = 'test-result'><%= "CAT 3 Test Results for #{@product_test.name}" %></h2>
-      <%= render partial: "test_execution_results", locals: { task: @product_test.c2_task } %>
+      <%= render partial: "test_execution_results", locals: { task: @product_test.tasks.c2_task } %>
     <% if c1 && c2 %>
       </div>
     <% end %>

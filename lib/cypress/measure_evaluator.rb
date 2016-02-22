@@ -89,7 +89,7 @@ module Cypress
       # Generate a temporary file that acts just like a normal file, but is given a unique name in the './tmp' directory
       tmp = Tempfile.new(['qrda_upload', '.xml'], './tmp')
       tmp.write(xml)
-      product_test.c2_task.execute(tmp)
+      product_test.tasks.c2_task.execute(tmp)
     rescue StandardError => e
       @logger.error "Cat 3 test #{product_test.id} failed: #{e}"
     end
@@ -113,10 +113,10 @@ module Cypress
     end
 
     def upload_cat1(t)
-      zip = create_patient_zip(t.c1_task.records)
+      zip = create_patient_zip(t.tasks.c1_task.records)
       FileUtils.mv zip, "#{File.dirname(zip)}/#{File.basename(zip)}.zip"
       zip2 = File.new("#{File.dirname(zip)}/#{File.basename(zip)}.zip")
-      t.c1_task.execute(zip2)
+      t.tasks.c1_task.execute(zip2)
     rescue StandardError => e
       @logger.error "Cat 1 test #{t.id} failed: #{e}"
     end

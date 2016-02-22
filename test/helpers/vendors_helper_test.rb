@@ -44,23 +44,27 @@ class VendorsHelperTest < ActiveJob::TestCase
     @product.product_tests.measure_tests.each do |test|
       test.tasks.build({}, C1Task)
       test.tasks.build({}, C2Task)
-      test.tasks.build({}, C3Task)
+      test.tasks.build({}, C3Cat1Task)
+      test.tasks.build({}, C3Cat3Task)
     end
 
-    setup_measure_executions
+    setup_cat1_measure_executions
+    setup_cat3_measure_executions
   end
 
-  def setup_measure_executions
-    # one C1 failing test, one C3 passing test
-    c1_cat1_execution = @product.product_tests.measure_tests.first.c1_task.test_executions.build(:state => :failed)
-    c3_cat1_execution = @product.product_tests.measure_tests.first.c3_task.test_executions.build(:state => :passed)
+  # one C1 failing test, one C3 passing test
+  def setup_cat1_measure_executions
+    c1_cat1_execution = @product.product_tests.measure_tests.first.tasks.c1_task.test_executions.build(:state => :failed)
+    c3_cat1_execution = @product.product_tests.measure_tests.first.tasks.c3_cat1_task.test_executions.build(:state => :passed)
     c1_cat1_execution.sibling_execution_id = c3_cat1_execution.id
     c1_cat1_execution.save
     c3_cat1_execution.save
+  end
 
-    # one C2 passing test, one C3 failing test
-    c2_cat3_execution = @product.product_tests.measure_tests.first.c2_task.test_executions.build(:state => :passed)
-    c3_cat3_execution = @product.product_tests.measure_tests.first.c3_task.test_executions.build(:state => :failed)
+  # one C2 passing test, one C3 failing test
+  def setup_cat3_measure_executions
+    c2_cat3_execution = @product.product_tests.measure_tests.first.tasks.c2_task.test_executions.build(:state => :passed)
+    c3_cat3_execution = @product.product_tests.measure_tests.first.tasks.c3_cat3_task.test_executions.build(:state => :failed)
     c2_cat3_execution.sibling_execution_id = c3_cat3_execution.id
     c2_cat3_execution.save
     c3_cat3_execution.save

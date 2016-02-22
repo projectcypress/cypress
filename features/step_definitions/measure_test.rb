@@ -34,11 +34,11 @@ And(/^the user views a product test for that product$/) do
 end
 
 And(/^the user switches to c2 certification$/) do
-  find(:xpath, "//a[@href='/tasks/#{@product_test.c2_task.id}/test_executions/new']").trigger('click')
+  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c2_task.id}/test_executions/new']").trigger('click')
 end
 
 And(/^the user switches to c2 and c3 certification$/) do
-  find(:xpath, "//a[@href='/tasks/#{@product_test.c2_task.id}/test_executions/new']").trigger('click')
+  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c2_task.id}/test_executions/new']").trigger('click')
 end
 
 And(/^the product test state is set to ready$/) do
@@ -93,14 +93,14 @@ end
 
 Then(/^the user should see the c2 execution page$/) do
   find('#task_status_display').assert_text 'C1'
-  find(:xpath, "//a[@href='/tasks/#{@product_test.c1_task.id}/test_executions/new']").assert_text 'C1'
+  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c1_task.id}/test_executions/new']").assert_text 'C1'
 end
 
 Then(/^the user should see the c2 and c3 execution page$/) do
   find('#task_status_display').assert_text 'C2'
   find('#task_status_display').assert_text 'C3'
-  find(:xpath, "//a[@href='/tasks/#{@product_test.c1_task.id}/test_executions/new']").assert_text 'C1'
-  find(:xpath, "//a[@href='/tasks/#{@product_test.c1_task.id}/test_executions/new']").assert_text 'C3'
+  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c1_task.id}/test_executions/new']").assert_text 'C1'
+  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c1_task.id}/test_executions/new']").assert_text 'C3'
 end
 
 Then(/^the user should be able to download a CAT 1 zip file$/) do

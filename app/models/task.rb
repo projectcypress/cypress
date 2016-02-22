@@ -14,6 +14,42 @@ class Task
   delegate :effective_date, :to => :product_test
   delegate :bundle, :to => :product_test
 
+  def self.c1_task
+    find_by(_type: 'C1Task')
+  rescue
+    false
+  end
+
+  def self.c2_task
+    find_by(_type: 'C2Task')
+  rescue
+    false
+  end
+
+  def self.c3_cat1_task
+    find_by(_type: 'C3Cat1Task')
+  rescue
+    false
+  end
+
+  def self.c3_cat3_task
+    find_by(_type: 'C3Cat3Task')
+  rescue
+    false
+  end
+
+  def self.cat1_filter_task
+    find_by(_type: 'Cat1FilterTask')
+  rescue
+    false
+  end
+
+  def self.cat3_filter_task
+    find_by(_type: 'Cat3FilterTask')
+  rescue
+    false
+  end
+
   def passing?
     status == 'passing'
   end

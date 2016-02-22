@@ -17,7 +17,6 @@ class C2TaskTest < ActiveSupport::TestCase
   def test_should_exclude_c3_validators_when_no_c3
     @product_test.tasks.clear
     task = @product_test.tasks.create({}, C2Task)
-    assert !@product_test.contains_c3_task?
 
     task.validators.each do |v|
       assert !v.is_a?(MeasurePeriodValidator)
@@ -132,7 +131,8 @@ class C2TaskTest < ActiveSupport::TestCase
 
   def test_should_have_c3_execution_as_sibling_test_execution_when_c3_task_exists
     c2_task = @product_test.tasks.create({}, C2Task)
-    c3_task = @product_test.tasks.create({}, C3Task)
+    c3_task = @product_test.tasks.create({}, C3Cat3Task)
+    @product_test.product.c3_test = true
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_good.xml', 'text/xml')
     perform_enqueued_jobs do
       te = c2_task.execute(xml)
