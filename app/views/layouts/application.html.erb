@@ -17,6 +17,10 @@
 </head>
 <body>
 
+  <% if APP_CONFIG['banner'] %>
+    <div class="demo"><%= APP_CONFIG['banner_message'].html_safe %></div>
+  <% end %>
+
   <header role="banner">
 
     <%= render "navbar" %>

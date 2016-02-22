@@ -81,9 +81,9 @@ default_bundle: 2.9.9
 
 enable_logging: false
 
-#set to true for a "demo mode" server (large banners on header, among other things)
-demo_mode: false
-demo_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
+#set to true to enable a banner at the top of every page with the "banner_message" text from below
+banner: true
+banner_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
 
 # setting to disable the bundles page until admin roles are available
 disable_bundle_page: true
