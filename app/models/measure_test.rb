@@ -28,7 +28,11 @@ class MeasureTest < ProductTest
   def archive_records
     file = Tempfile.new("product_test-#{id}.zip")
     recs = records.to_a
-    recs << recs.sample
+    if product.duplicate_records
+      (rand(3) + 1).times do
+        recs << recs.sample
+      end
+    end
     Cypress::PatientZipper.zip(file, recs, :qrda)
     self.patient_archive = file
     save

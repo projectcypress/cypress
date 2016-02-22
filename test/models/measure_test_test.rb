@@ -29,7 +29,7 @@ class MeasureTestTest < ActiveJob::TestCase
   end
 
   def test_create_task_c1
-    product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_records: true)
+    product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_records: true, duplicate_records: true)
     pt = product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
     assert pt.tasks.c1_task, 'product test should have a c1_task'
@@ -39,11 +39,10 @@ class MeasureTestTest < ActiveJob::TestCase
     perform_enqueued_jobs do
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
-
       assert pt.records.count > 0, 'product test creation should have created random number of test records'
       pt.reload
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
-      assert_equal pt.records.count + 1, count_zip_entries(pt.patient_archive.file.path), 'Archive should contain 1 more file than the test'
+      assert pt.records.count < count_zip_entries(pt.patient_archive.file.path), 'Archive should contain more files than the test'
       assert_not_nil pt.expected_results, 'Product test should have expected results'
     end
   end
@@ -51,6 +50,7 @@ class MeasureTestTest < ActiveJob::TestCase
   def test_create_without_randomized_records
     product = @vendor.products.create(name: 'test_product_no_random', c2_test: true, randomize_records: false)
     assert_enqueued_jobs 0
+
     pt = product.product_tests.build({ name: 'test_for_measure_1a',
                                        measure_ids: ['0001'],
                                        bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)

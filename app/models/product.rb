@@ -17,6 +17,7 @@ class Product
   field :c3_test, type: Boolean
   field :c4_test, type: Boolean
   field :randomize_records, type: Boolean
+  field :duplicate_records, type: Boolean, default: true
   # field :measure_selection, type: String
 
   validates :name, presence: true,
