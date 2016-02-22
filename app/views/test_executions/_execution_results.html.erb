@@ -6,7 +6,7 @@
 #
 %>
 
-<% if execution.incomplete? %>
+<% if execution.incomplete? || (execution.sibling_execution && execution.sibling_execution.incomplete?) %>
   <h4><i class="fa fa-fw fa-refresh fa-spin text-info"></i>In Progress</h4>
   <p>You do not need to reload your browser. Results will automatically display when the tests are done running.</p>
   <% # ajax contacts test_execution's show controller action with format: 'js'. controller then directs to show.js.erb which will wait, then re-render %>

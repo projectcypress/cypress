@@ -1,6 +1,6 @@
 
 <% if params[:partial] == 'execution_results' %>
-  <% if @test_execution.incomplete? %>
+  <% if @test_execution.incomplete? || (@test_execution.sibling_execution && @test_execution.sibling_execution.incomplete?) %>
     <% # wait 2 seconds. then reload the page %>
     setTimeout(function(){
       $('#display_execution_results').html("<%= escape_javascript render partial: 'execution_results', locals: { execution: @test_execution } %>");
