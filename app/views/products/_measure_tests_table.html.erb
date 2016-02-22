@@ -46,10 +46,10 @@
         <td><%= test.cms_id %></td>
         <td><%= test.name %></td>
         <% if @product.c1_test %>
-          <td><%= render partial: 'product_test_link', locals: { test: test, task: test.c1_task } %></td>
+          <td><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c1_task } %></td>
         <% end %>
         <% if @product.c2_test %>
-          <td><%= render partial: 'product_test_link', locals: { test: test, task: test.c2_task } %></td>
+          <td><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c2_task } %></td>
         <% end %>
       </tr>
     <% end %>

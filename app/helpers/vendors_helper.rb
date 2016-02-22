@@ -20,7 +20,7 @@ module VendorsHelper
     h = {}
     h['checklist'] = Hash[%w(passing failing total).zip(checklist_status_values(product.product_tests.checklist_tests.first))]
     h['checklist']['not_started'] = h['checklist']['total'] = 1 if h['checklist']['total'] == 0 # manual entry displays as not started if not started
-    h['cat1'] = Hash[%w(passing failing not_started total).zip(measure_test_status_values(product.product_tests.measure_tests, 'C1Task', false))]
+    h['cat1'] = Hash[%w(passing failing not_started total).zip(product_test_status_values(product.product_tests.measure_tests, 'C1Task'))]
     h['sums'] = h['cat1'].merge(h['checklist']) { |_key, old_val, new_val| old_val + new_val }
     h['href'] = "product_#{product.id}_c1"
     h['checklist']['display_name'] = 'Manual Entry'
@@ -30,7 +30,7 @@ module VendorsHelper
 
   def c2_values(product)
     h = {}
-    h['cat3'] = Hash[%w(passing failing not_started total).zip(measure_test_status_values(product.product_tests.measure_tests, 'C2Task', false))]
+    h['cat3'] = Hash[%w(passing failing not_started total).zip(product_test_status_values(product.product_tests.measure_tests, 'C2Task'))]
     h['sums'] = h['cat3'].merge({})
     h['href'] = "product_#{product.id}_c2"
     h['cat3']['display_name'] = 'Cat III'
@@ -39,8 +39,8 @@ module VendorsHelper
 
   def c3_values(product)
     h = {}
-    cat1_status_values = product.c1_test ? measure_test_status_values(product.product_tests.measure_tests, 'C1Task', true) : [0, 0, 0, 0]
-    cat3_status_values = product.c2_test ? measure_test_status_values(product.product_tests.measure_tests, 'C2Task', true) : [0, 0, 0, 0]
+    cat1_status_values = product.c1_test ? product_test_status_values(product.product_tests.measure_tests, 'C3Cat1Task') : [0, 0, 0, 0]
+    cat3_status_values = product.c2_test ? product_test_status_values(product.product_tests.measure_tests, 'C3Cat3Task') : [0, 0, 0, 0]
     h['cat1'] = Hash[%w(passing failing not_started total).zip(cat1_status_values)]
     h['cat3'] = Hash[%w(passing failing not_started total).zip(cat3_status_values)]
     h['sums'] = h['cat1'].merge(h['cat3']) { |_key, old_val, new_val| old_val + new_val }
@@ -52,8 +52,8 @@ module VendorsHelper
 
   def c4_values(product)
     h = {}
-    h['cat1'] = Hash[%w(passing failing not_started total).zip(filtering_test_status_values(product.product_tests.filtering_tests, 'Cat1FilterTask'))]
-    h['cat3'] = Hash[%w(passing failing not_started total).zip(filtering_test_status_values(product.product_tests.filtering_tests, 'Cat3FilterTask'))]
+    h['cat1'] = Hash[%w(passing failing not_started total).zip(product_test_status_values(product.product_tests.filtering_tests, 'Cat1FilterTask'))]
+    h['cat3'] = Hash[%w(passing failing not_started total).zip(product_test_status_values(product.product_tests.filtering_tests, 'Cat3FilterTask'))]
     h['sums'] = h['cat1'].merge(h['cat3']) { |_key, old_val, new_val| old_val + new_val }
     h['href'] = "product_#{product.id}_c4"
     h['cat1']['display_name'] = 'Cat I'

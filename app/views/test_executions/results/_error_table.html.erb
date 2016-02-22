@@ -3,6 +3,7 @@
 # requires local variables:
 #   errors
 #   displaying_cat1 (boolean)
+#   message_title   (String) should be 'Error' or 'Warning'
 
 # Note: all errors should be from the same test execution
 
@@ -14,7 +15,7 @@
   <thead>
     <tr>
       <% if displaying_cat1 %>
-        <th scope="col" class = 'col-sm-8'>Error message</th>
+        <th scope="col" class = 'col-sm-8'><%= "#{message_title} message" %></th>
         <th scope="col" class = 'col-sm-2'>XML File</th>
       <% else %>
         <th scope="col" class = 'col-sm-10'>Error message</th>
@@ -30,7 +31,7 @@
           <td><%= error.file_name %></td>
         <% end %>
         <td>
-          <% unless error.location.nil? || error.location == '/' || error.test_execution.task._type == 'C3Task' %>
+          <% unless error.location.nil? || error.location == '/' || ['C3Cat1Task', 'C3Cat3Task'].include?(error.test_execution.task._type) %>
             <% line_num = get_line_number(error) %>
             <a class = 'execution_error_link' href = <%= "#error_#{error.id}" %> data-line-number = <%= line_num %>>jump to error</a>
           <% end %>

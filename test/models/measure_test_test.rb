@@ -24,9 +24,10 @@ class MeasureTestTest < ActiveJob::TestCase
     product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_records: true)
     pt = product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
-    assert pt.c1_task, 'product test should have a c1_task'
-    assert_equal false, pt.c2_task, 'product test should not have a c2_task'
-    assert_equal false, pt.c3_task, 'product test should not have a c3_task'
+    assert pt.tasks.c1_task, 'product test should have a c1_task'
+    assert_equal false, pt.tasks.c2_task, 'product test should not have a c2_task'
+    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
     perform_enqueued_jobs do
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
@@ -65,18 +66,20 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c2_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
-    assert_equal false, pt.c1_task, 'product test should not have a c1_task'
-    assert pt.c2_task, 'product test should have a c2_task'
-    assert_equal false, pt.c3_task, 'product test should not have a c3_task'
+    assert_equal false, pt.tasks.c1_task, 'product test should not have a c1_task'
+    assert pt.tasks.c2_task, 'product test should have a c2_task'
+    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
   end
 
   def test_create_task_c3_creates_c1_and_c2_also
     @product.c3_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
-    assert pt.c1_task, 'product test should have a c1_task'
-    assert pt.c2_task, 'product test should have a c2_task'
-    assert pt.c3_task, 'product test should have a c3_task'
+    assert pt.tasks.c1_task, 'product test should have a c1_task'
+    assert pt.tasks.c2_task, 'product test should have a c2_task'
+    assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
+    assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
 
   def test_create_task_c1_and_c2
@@ -84,9 +87,10 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c2_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
-    assert pt.c1_task, 'product test should have a c1_task'
-    assert pt.c2_task, 'product test should have a c2_task'
-    assert_equal false, pt.c3_task, 'product test should not have a c3_task'
+    assert pt.tasks.c1_task, 'product test should have a c1_task'
+    assert pt.tasks.c2_task, 'product test should have a c2_task'
+    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
   end
 
   def test_create_task_c1_and_c3
@@ -94,9 +98,10 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c3_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
-    assert pt.c1_task, 'product test should have a c1_task'
-    assert_equal false, pt.c2_task, 'product test should not have a c2_task'
-    assert pt.c3_task, 'product test should have a c3_task'
+    assert pt.tasks.c1_task, 'product test should have a c1_task'
+    assert_equal false, pt.tasks.c2_task, 'product test should not have a c2_task'
+    assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
+    assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
   end
 
   def test_create_task_c2_and_c3
@@ -104,9 +109,10 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c3_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
-    assert_equal false, pt.c1_task, 'product test should not have a c1_task'
-    assert pt.c2_task, 'product test should have a c2_task'
-    assert pt.c3_task, 'product test should have a c3_task'
+    assert_equal false, pt.tasks.c1_task, 'product test should not have a c1_task'
+    assert pt.tasks.c2_task, 'product test should have a c2_task'
+    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
 
   def test_create_task_c1_c2_and_c3
@@ -115,8 +121,9 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c3_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
-    assert pt.c1_task, 'product test should have a c1_task'
-    assert pt.c2_task, 'product test should have a c2_task'
-    assert pt.c3_task, 'product test should have a c3_task'
+    assert pt.tasks.c1_task, 'product test should have a c1_task'
+    assert pt.tasks.c2_task, 'product test should have a c2_task'
+    assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
+    assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
 end

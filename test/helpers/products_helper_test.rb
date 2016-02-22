@@ -44,7 +44,8 @@ class ProductsHelperTest < ActiveJob::TestCase
     @product.product_tests.measure_tests.each do |test|
       test.tasks.build({}, C1Task)
       test.tasks.build({}, C2Task)
-      test.tasks.build({}, C3Task)
+      test.tasks.build({}, C3Cat1Task)
+      test.tasks.build({}, C3Cat3Task)
     end
   end
 
@@ -81,18 +82,18 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 1, total
   end
 
-  def test_measure_test_status_values_not_started
-    passing, failing, not_started, total = measure_test_status_values(@product.product_tests.measure_tests, 'C1Task', false)
+  def test_product_test_status_values_not_started
+    passing, failing, not_started, total = product_test_status_values(@product.product_tests.measure_tests, 'C1Task')
 
     assert_equal 0, passing
     assert_equal 0, failing
     assert_equal total, not_started
   end
 
-  def test_measure_test_status_values_passing
+  def test_product_test_status_values_passing
     tests = @product.product_tests.measure_tests
     tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :passed).save
-    passing, failing, not_started, total = measure_test_status_values(tests, 'C1Task', false)
+    passing, failing, not_started, total = product_test_status_values(tests, 'C1Task')
 
     assert_equal 1, passing
     assert_equal 0, failing
@@ -100,10 +101,10 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 2, total
   end
 
-  def test_measure_test_status_values_failing
+  def test_product_test_status_values_failing
     tests = @product.product_tests.measure_tests
     tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :failed).save
-    passing, failing, not_started, total = measure_test_status_values(tests, 'C1Task', false)
+    passing, failing, not_started, total = product_test_status_values(tests, 'C1Task')
 
     assert_equal 0, passing
     assert_equal 1, failing
@@ -149,14 +150,14 @@ class ProductsHelperTest < ActiveJob::TestCase
     @product.product_tests.filtering_tests.each { |ft| assert ft.records == records }
   end
 
-  def test_measure_test_status_values_cat1
+  def test_product_test_status_values_cat1
     tests = @product.product_tests.measure_tests
     c1_execution = tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :failed)
-    c3_execution = tests.first.tasks.where(_type: 'C3Task').first.test_executions.build(:state => :passed)
+    c3_execution = tests.first.tasks.where(_type: 'C3Cat1Task').first.test_executions.build(:state => :passed)
     c1_execution.sibling_execution_id = c3_execution.id
     c1_execution.save
     c3_execution.save
-    passing, failing, not_started, total = measure_test_status_values(tests, 'C1Task', true)
+    passing, failing, not_started, total = product_test_status_values(tests, 'C3Cat1Task')
 
     assert_equal 1, passing
     assert_equal 0, failing
@@ -164,14 +165,14 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 2, total
   end
 
-  def test_measure_test_status_values_cat3
+  def test_product_test_status_values_cat3
     tests = @product.product_tests.measure_tests
     c2_execution = tests.first.tasks.where(_type: 'C2Task').first.test_executions.build(:state => :failed)
-    c3_execution = tests.first.tasks.where(_type: 'C3Task').first.test_executions.build(:state => :passed)
+    c3_execution = tests.first.tasks.where(_type: 'C3Cat3Task').first.test_executions.build(:state => :passed)
     c2_execution.sibling_execution_id = c3_execution.id
     c2_execution.save
     c3_execution.save
-    passing, failing, not_started, total = measure_test_status_values(tests, 'C2Task', true)
+    passing, failing, not_started, total = product_test_status_values(tests, 'C3Cat3Task')
 
     assert_equal 1, passing
     assert_equal 0, failing

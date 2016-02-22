@@ -19,14 +19,14 @@
           <tbody>
             <% if @product.c1_test %>
               <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'checklist', cert_type: 'C1', test_display_name: 'Manual Entry' } %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C1', test_display_name: 'Measure Tests' } %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', task_type: 'C1Task', cert_type: 'C1', test_display_name: 'Measure Tests' } %>
             <% end %>
             <% if @product.c2_test %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C2', test_display_name: 'Measure Tests' } %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', task_type: 'C2Task', cert_type: 'C2', test_display_name: 'Measure Tests' } %>
             <% end %>
             <% if @product.c3_test %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C1', test_display_name: 'Cat I Measure Tests', show_c3: true } if @product.c1_test %>
-              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', cert_type: 'C2', test_display_name: 'Cat III Measure Tests', show_c3: true } if @product.c2_test %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', task_type: 'C3Cat1Task', cert_type: 'C3', test_display_name: 'Cat I Measure Tests' } if @product.c1_test %>
+              <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'measure', task_type: 'C3Cat3Task', cert_type: 'C3', test_display_name: 'Cat III Measure Tests' } if @product.c2_test %>
             <% end %>
             <% if @product.c4_test %>
               <%= render partial: 'product_status_row', locals: { product: @product, test_type: 'filter', cert_type: 'C4', test_display_name: 'Filtering Tests' } %>

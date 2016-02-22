@@ -20,9 +20,9 @@ class Artifact
     content_extension = file.content_type ? MIME_FILE_TYPES[file.content_type] : nil
     case content_extension
     when :zip
-      errors.add(:file, 'File upload extension should be .zip') unless %w(C1Task C3Task Cat1FilterTask).include?(test_execution.task._type)
+      errors.add(:file, 'File upload extension should be .zip') unless %w(C1Task C3Cat1Task Cat1FilterTask).include?(test_execution.task._type)
     when :xml
-      errors.add(:file, 'File upload extension should be .xml') unless %w(C2Task C3Task Cat3FilterTask).include?(test_execution.task._type)
+      errors.add(:file, 'File upload extension should be .xml') unless %w(C2Task C3Cat3Task Cat3FilterTask).include?(test_execution.task._type)
     else
       errors.add(:file, 'File upload extension should be .zip or .xml')
     end

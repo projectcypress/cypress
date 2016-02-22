@@ -9,39 +9,21 @@ module ProductsHelper
     [passing, failing, total]
   end
 
-  # task_type can only be 'C1Task' or 'C2Task'
-  #   this is because the c3 test executions are only available through their sibling c1 or c2 test execution
-  def measure_test_status_values(tests, task_type, is_c3)
-    tasks = []
-    tests.each { |test| tasks << test.tasks.where(_type: task_type) }
-    if tasks.empty?
-      [0, 0, 0, 0]
-    else
-      is_c3 ? c3_tasks_values(tasks) : tasks_values(tasks)
-    end
-  end
-
-  def tasks_values(tasks)
-    status_values = []
-    %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
-    status_values << tasks.count
-  end
-
-  def c3_tasks_values(tasks)
-    status_values = []
-    %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.c3_status == status } }
-    status_values << tasks.count
-  end
-
-  def filtering_test_status_values(tests, task_type)
+  def product_test_status_values(tests, task_type)
     tasks = []
     tests.each { |test| tasks << test.tasks.where(_type: task_type) }
     tasks.empty? ? [0, 0, 0, 0] : tasks_values(tasks)
   end
 
+  def tasks_values(tasks)
+    status_values = []
+    %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
+    status_values << tasks.count # total number of product tests
+  end
+
   def filtering_test_status_values_summed(tests)
-    cat1 = filtering_test_status_values(tests, 'Cat1FilterTask')
-    cat3 = filtering_test_status_values(tests, 'Cat3FilterTask')
+    cat1 = product_test_status_values(tests, 'Cat1FilterTask')
+    cat3 = product_test_status_values(tests, 'Cat3FilterTask')
     cat1.map.with_index { |cat1_elem, i| cat1_elem + cat3[i] }
   end
 

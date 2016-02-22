@@ -2,11 +2,11 @@
 <% viewing_measure_test = @task.product_test._type == 'MeasureTest' %>
 
 <% if viewing_measure_test %>
-  <% cat1_task = @task.product_test.c1_task %>
-  <% cat3_task = @task.product_test.c2_task %>
+  <% cat1_task = @task.product_test.tasks.c1_task %>
+  <% cat3_task = @task.product_test.tasks.c2_task %>
 <% else %>
-  <% cat1_task = @task.product_test.cat1_task %>
-  <% cat3_task = @task.product_test.cat3_task %>
+  <% cat1_task = @task.product_test.tasks.cat1_filter_task %>
+  <% cat3_task = @task.product_test.tasks.cat3_filter_task %>
 <% end %>
 
 <%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.product.c3_test) } %>

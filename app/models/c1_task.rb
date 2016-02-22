@@ -12,7 +12,7 @@ class C1Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    @validators = [QrdaCat1Validator.new(product_test.bundle, false, product_test.contains_c3_task?, product_test.measures),
+    @validators = [QrdaCat1Validator.new(product_test.bundle, false, product_test.product.c3_test, product_test.measures),
                    CalculatingSmokingGunValidator.new(product_test.measures, product_test.records, product_test.id)]
 
     @validators
@@ -22,14 +22,7 @@ class C1Task < Task
     te = test_executions.new(expected_results: expected_results, artifact: Artifact.new(file: file))
     te.save!
     TestExecutionJob.perform_later(te, self)
-    if product_test.contains_c3_task?
-      product_test.tasks.each do |task|
-        if task._type == 'C3Task'
-          task.cat1
-          te.sibling_execution_id = task.execute(file, te.id).id
-        end
-      end
-    end
+    te.sibling_execution_id = product_test.tasks.c3_cat1_task.execute(file, te.id).id if product_test.product.c3_test
     te.save
     te
   end
@@ -37,18 +30,5 @@ class C1Task < Task
   def records
     patient_ids = product_test.results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
     product_test.records.in('_id' => patient_ids)
-  end
-
-  # should only be used if product.c3_test is true
-  def c3_status
-    Rails.cache.fetch("#{cache_key}/c3_status") do
-      report_status = 'incomplete'
-      recent_execution = most_recent_execution
-      if recent_execution
-        recent_c3_execution = TestExecution.find(recent_execution.sibling_execution_id)
-        report_status = recent_c3_execution.passing? ? 'passing' : 'failing'
-      end
-      report_status
-    end
   end
 end
