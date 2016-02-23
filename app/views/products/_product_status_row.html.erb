@@ -23,7 +23,7 @@
 %>
 
 <% if test_type == 'checklist' %>
-  <% passing, failing, total = checklist_status_values(product.product_tests.checklist_tests.first) %>
+  <% passing, failing, not_started, total = checklist_status_values(product.product_tests.checklist_tests.first) %>
 <% elsif test_type == 'measure' %>
   <% passing, failing, not_started, total = product_test_status_values(product.product_tests.measure_tests, "#{task_type}") %>
 <% elsif test_type == 'filter' %>
@@ -43,11 +43,6 @@
   <td><strong class = 'text-success'><%= passing_display %></strong></td>
   <% failing_display = failing == 0 ? '--' : "#{failing}/#{total}" %>
   <td><strong class = 'text-danger'><%= failing_display %></strong></td>
-  <% if test_type == 'checklist' %>
-    <td>--</td>
-  <% else %>
-    <% not_started_display = not_started == 0 ? '--' : "#{not_started}/#{total}" %>
-    <td><%= not_started_display %></td>
-  <% end %>
-  </td>
+  <% not_started_display = not_started == 0 ? '--' : "#{not_started}/#{total}" %>
+  <td><%= not_started_display %></td>
 </tr>

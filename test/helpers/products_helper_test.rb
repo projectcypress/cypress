@@ -63,22 +63,35 @@ class ProductsHelperTest < ActiveJob::TestCase
   #   T E S T S   #
   # # # # # # # # #
 
+  def test_checklist_status_values_not_started
+    test = @product.product_tests.checklist_tests.first
+    passing, failing, not_started, total = checklist_status_values(test)
+
+    assert_equal 0, passing
+    assert_equal 0, failing
+    assert_equal 1, not_started
+    assert_equal 1, total
+  end
+
   def test_checklist_status_values_failing
     test = @product.product_tests.checklist_tests.first
-    passing, failing, total = checklist_status_values(test)
+    test.checked_criteria.first.completed = true
+    passing, failing, not_started, total = checklist_status_values(test)
 
     assert_equal 0, passing
     assert_equal 1, failing
+    assert_equal 0, not_started
     assert_equal 1, total
   end
 
   def test_checklist_status_values_passing
     test = @product.product_tests.checklist_tests.first
     test.checked_criteria.each { |criteria| criteria.completed = true }
-    passing, failing, total = checklist_status_values(test)
+    passing, failing, not_started, total = checklist_status_values(test)
 
     assert_equal 1, passing
     assert_equal 0, failing
+    assert_equal 0, not_started
     assert_equal 1, total
   end
 
