@@ -8,12 +8,14 @@ module VendorsHelper
   #   { certification_type: { product_test_type: { passing: #, failing: #, not_started: #, total: # } } }
   #   href in hash is used as a unique identifier for certification specifics popup
   def get_product_status_values(product)
-    h = {}
-    h['C1'] = c1_values(product) if product.c1_test
-    h['C2'] = c2_values(product) if product.c2_test
-    h['C3'] = c3_values(product) if product.c3_test
-    h['C4'] = c4_values(product) if product.c4_test
-    h
+    Rails.cache.fetch("#{product.cache_key}/status_values") do
+      h = {}
+      h['C1'] = c1_values(product) if product.c1_test
+      h['C2'] = c2_values(product) if product.c2_test
+      h['C3'] = c3_values(product) if product.c3_test
+      h['C4'] = c4_values(product) if product.c4_test
+      h
+    end
   end
 
   def c1_values(product)

@@ -175,4 +175,30 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal '2 tests failing', status_to_display_text('Failing', 'C1', certs.C1)
     assert_equal '2 tests to go', status_to_display_text('Not Complete', 'C3', certs.C3)
   end
+
+  def test_get_product_status_values_performs_caching
+    assert_equal false, Rails.cache.exist?("#{@product.cache_key}/status_values"), 'cache key for product should not exist before function call'
+
+    # cache key exists after call
+    get_product_status_values(@product)
+    assert Rails.cache.exist?("#{@product.cache_key}/status_values"), 'cache key for product should exist after get_product_status_values call'
+  end
+
+  def test_cache_key_changes_after_tests
+    get_product_status_values(@product)
+    assert_changes_cache_key do |product|
+      checklist_test = product.product_tests.checklist_tests.first
+      checklist_test.checked_criteria.first.completed = true
+      checklist_test.save
+    end
+    assert_changes_cache_key { |product| product.product_tests.measure_tests.first.tasks.c1_task.test_executions.create({}) }
+    assert_changes_cache_key { |product| product.product_tests.filtering_tests.first.tasks.cat1_filter_task.test_executions.create({}) }
+  end
+
+  def assert_changes_cache_key
+    old_cache_key = "#{@product.cache_key}/status_values"
+    yield @product
+    @product.reload
+    assert_not_equal old_cache_key, "#{@product.cache_key}/status_values"
+  end
 end
