@@ -85,6 +85,23 @@ class C1TaskTest < ActiveSupport::TestCase
       assert_equal 2, te.execution_errors.length, 'should be 2 calculation errors from cat I archive'
     end
   end
+
+  def test_task_should_error_when_extra_record_included
+    task = @product_test.tasks.create({}, C1Task)
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_extra_file.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(zip)
+      te.reload
+      assert_equal 2, te.execution_errors.length, 'should be 2 error from cat I archive with extra file'
+      assert_equal 1, te.execution_errors.where(file_name: '2_Alice_Wise.xml').length, 'should be 1 error for the extra file'
+
+      assert_equal 'Patient name \'ALICE WISE\' declared in file not found in test records', te.execution_errors[0].message
+      assert_equal '4 files expected but was 5', te.execution_errors[1].message
+      # in contrast to c3_cat1_task_test.test_task_should_**not**_error_when_extra_record_included
+
+      # extra record has qrda errors but those should not be validated (in either case)
+    end
+  end
 end
 
 require_relative '../helpers/caching_test'

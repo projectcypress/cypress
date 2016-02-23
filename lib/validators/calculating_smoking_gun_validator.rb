@@ -1,7 +1,7 @@
 module Validators
   class CalculatingSmokingGunValidator < SmokingGunValidator
     include Validators::Validator
-    def initialize(measures, records, test_id)
+    def initialize(measures, records, test_id, options = {})
       if measures.length > 1
         # throw some kind of an error here because we only want to do this for
         # single measure testing
@@ -69,6 +69,7 @@ module Validators
     end
 
     def validate(doc, options)
+      @can_continue = true
       valid = validate_calculated_results(doc, options)
       if !valid
         doc_name = build_doc_name(doc)
