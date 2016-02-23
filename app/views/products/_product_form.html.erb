@@ -24,7 +24,11 @@
           <% end %>
 
           <%= f.form_group :randomize_records do %>
-            <%= f.check_box :randomize_records, label: 'Randomize Records', checked: true, disabled: params[:action] == "edit" %>
+            <%= f.check_box :randomize_records, label: 'Randomize Records', checked: @product.new_record? ? true : @product.randomize_records, disabled: !@product.new_record? %>
+          <% end %>
+
+          <%= f.form_group :duplicate_records do %>
+            <%= f.check_box :duplicate_records, label: 'Duplicate Records', checked: @product.new_record? ? true : @product.duplicate_records, disabled: !@product.new_record? %>
           <% end %>
         </div>
       </div>
