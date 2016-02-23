@@ -2,12 +2,8 @@ class ChecklistTest < ProductTest
   embeds_many :checked_criteria, class_name: 'ChecklistSourceDataCriteria'
   accepts_nested_attributes_for :checked_criteria, allow_destroy: true
 
-  def measure_complete?(measure_id)
-    criterias = checked_criteria.select { |criteria| criteria.measure_id == measure_id.to_s }
-    criterias.count(&:completed) == criterias.count
-  end
-
   def num_measures_complete
+    return 0 if checked_criteria.count == 0
     num_complete = 0
     Measure.top_level.where(:hqmf_id.in => measure_ids).each do |measure|
       criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
@@ -16,8 +12,26 @@ class ChecklistTest < ProductTest
     num_complete
   end
 
+  def num_measures_not_started
+    num_not_started = 0
+    Measure.top_level.where(:hqmf_id.in => measure_ids).each do |measure|
+      criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
+      num_not_started += 1 unless criterias.count(&:completed) > 0
+    end
+    num_not_started
+  end
+
   def num_measures
     measure_ids.count
+  end
+
+  def measure_status(measure_id)
+    criterias = checked_criteria.select { |criteria| criteria.measure_id == measure_id.to_s }
+    case criterias.count(&:completed)
+    when 0 then 'not_started'
+    when criterias.count then 'passed'
+    else 'failed'
+    end
   end
 
   def create_checked_criteria

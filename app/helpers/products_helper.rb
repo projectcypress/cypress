@@ -1,12 +1,12 @@
 module ProductsHelper
   # returns zero for all values if test is false
   def checklist_status_values(test)
-    passing = failing = total = 0
-    return [passing, failing, total] unless test
+    return [0, 0, 0, 0] unless test
     passing = test.num_measures_complete
     total = test.num_measures
-    failing = total - passing
-    [passing, failing, total]
+    not_started = test.num_measures_not_started
+    failing = total - not_started - passing
+    [passing, failing, not_started, total]
   end
 
   def product_test_status_values(tests, task_type)

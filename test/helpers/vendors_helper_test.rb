@@ -97,7 +97,7 @@ class VendorsHelperTest < ActiveJob::TestCase
   end
 
   def assert_c1(cert)
-    assert_equal 1, cert.checklist.failing
+    assert_equal 1, cert.checklist.not_started
     assert_equal 1, cert.checklist.total
 
     assert_equal 1, cert.cat1.failing
@@ -105,8 +105,8 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 2, cert.cat1.total
 
     assert_equal 0, cert.sums.passing
-    assert_equal 2, cert.sums.failing
-    assert_equal 1, cert.sums.not_started
+    assert_equal 1, cert.sums.failing
+    assert_equal 2, cert.sums.not_started
     assert_equal 3, cert.sums.total
   end
 
@@ -172,7 +172,7 @@ class VendorsHelperTest < ActiveJob::TestCase
   def test_status_to_display_text
     certs = get_product_status_values(@product)
     assert_equal 'C1 certified', status_to_display_text('Passing', 'C1', certs.C1)
-    assert_equal '2 tests failing', status_to_display_text('Failing', 'C1', certs.C1)
+    assert_equal '1 tests failing', status_to_display_text('Failing', 'C1', certs.C1)
     assert_equal '2 tests to go', status_to_display_text('Not Complete', 'C3', certs.C3)
   end
 

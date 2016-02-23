@@ -8,18 +8,21 @@
 
 <table class = 'table table-hover table-condensed'>
   <thead>
-    <td class = 'col-sm-11'></td>
-    <td class = 'col-sm-1'></td>
+    <td class = 'col-sm-10'></td>
+    <td class = 'col-sm-2'></td>
   </thead>
   <tbody>
     <% Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids).each do |measure| %>
       <tr>
         <td><%= link_to "#{measure.cms_id} #{measure.name}", product_checklist_test_path(product, checklist_test, anchor: measure.cms_id) %></td>
-        <td>
-          <% if checklist_test.measure_complete?(measure.id) %>
+        <td class = 'text-right'>
+          <% case checklist_test.measure_status(measure.id) %>
+          <% when 'passed' %>
             <strong class = 'text-success'>Passing</strong>
-          <% else %>
+          <% when 'failed' %>
             <strong class = 'text-danger'>Failing</strong>
+          <% when 'not_started' %>
+            <strong class = 'text-info'>Not Started</strong>
           <% end %>
         </td>
       </tr>
