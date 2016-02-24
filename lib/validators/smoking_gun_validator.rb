@@ -8,10 +8,11 @@ module Validators
     attr_accessor :records
     attr_accessor :names
     attr_accessor :expected_records
+    attr_accessor :can_continue
     attr_reader :found_names
     self.validator_type = :result_validation
 
-    def initialize(measures, records, test_id)
+    def initialize(measures, records, test_id, options = {})
       @measures = measures
       @records = records
       @test_id = test_id
@@ -22,20 +23,18 @@ module Validators
         ["#{r.first.strip} #{r.last.strip}".upcase,
          r.medical_record_number]
       end.flatten]
+      @can_continue = true
+      @options = options
     end
 
     def init_data
       @sgd = {}
       @expected_records = []
-      if @bundle.smoking_gun_capable
-        @measures.each do |mes|
-          @sgd[mes.hqmf_id] = mes.smoking_gun_data('value.test_id' => @test_id)
-          @expected_records.concat @sgd[mes.hqmf_id].keys
-        end
-        @expected_records = @expected_records.flatten.uniq
-      else
-        @expected_records = []
+      @measures.each do |mes|
+        @sgd[mes.hqmf_id] = mes.smoking_gun_data('value.test_id' => @test_id)
+        @expected_records.concat @sgd[mes.hqmf_id].keys
       end
+      @expected_records = @expected_records.flatten.uniq
     end
 
     def not_found_names
@@ -58,14 +57,18 @@ module Validators
 
     def validate_name(doc_name, options)
       return true if @names[doc_name]
-      add_error("Patient name '#{doc_name}' declared in file not found in test records'",
+      @can_continue = false
+      return false if @options[:suppress_errors]
+      add_error("Patient name '#{doc_name}' declared in file not found in test records",
                 file_name: options[:file_name])
       false
     end
 
     def validate_expected_results(doc_name, mrn, options)
       return true if @expected_records.index(mrn)
-      add_error("Patient '#{doc_name}' not expected to be returned.'",
+      @can_continue = false
+      return nil if @options[:suppress_errors]
+      add_error("Patient '#{doc_name}' not expected to be returned.",
                 file_name: options[:file_name])
       # cannot go any further here so call it quits and return
       nil
@@ -73,6 +76,7 @@ module Validators
 
     def validate_smg_data(doc, doc_name, mrn, options)
       return unless validate_expected_results(doc_name, mrn, options)
+      return if @options[:validate_inclusion_only]
       @sgd.each_pair do |_hqmf_id, patient_data|
         patient_sgd = patient_data[mrn]
         next unless patient_sgd
@@ -100,19 +104,14 @@ module Validators
     end
 
     def validate(document, options = {})
+      @can_continue = true
       doc = build_document(document)
       doc_name = build_doc_name(doc)
       mrn = @names[doc_name]
       @found_names << doc_name if mrn
       return unless validate_name(doc_name, options)
 
-      if @bundle.smoking_gun_capable
-        validate_smg_data(doc, doc_name, mrn, options)
-      else
-        add_warning(%W(Automated smoking gun data checking is not compatible
-                       with bundle #{@bundle.version}, please refer to checklists),
-                    file_name: options[:file_name])
-      end
+      validate_smg_data(doc, doc_name, mrn, options)
     end
   end
 end

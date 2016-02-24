@@ -1,6 +1,10 @@
 class C3Cat1Task < Task
   def validators
-    @validators = [::Validators::MeasurePeriodValidator.new,
+    # not using the "calculating" smoking gun validator here
+    # because we only want the record inclusion test from the regular version
+    @validators = [::Validators::SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id,
+                                                         suppress_errors: true, validate_inclusion_only: true),
+                   ::Validators::MeasurePeriodValidator.new,
                    ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.measures)]
     @validators << cms_cat1_schematron_validator
     @validators

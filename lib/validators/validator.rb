@@ -26,5 +26,9 @@ module Validators
     def self.included(receiver)
       receiver.send :mattr_accessor, :validator_type
     end
+
+    def can_continue
+      true
+    end
   end
 end

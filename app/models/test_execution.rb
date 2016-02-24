@@ -33,6 +33,7 @@ class TestExecution
       merged_options = options.merge(file_name: name)
       validators.each do |validator|
         validator.validate(doc, merged_options)
+        break unless validator.can_continue
       end
       file_count += 1
     end
