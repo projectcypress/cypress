@@ -38,6 +38,7 @@ module Validators
       doc_name = build_doc_name(doc)
       mrn = @names[doc_name]
       return false unless mrn
+      @found_names << doc_name
       original_results = QME::PatientCache.where('value.medical_record_id' => mrn,
                                                  'value.test_id' => @test_id,
                                                  'value.measure_id' => @measure.hqmf_id,
@@ -70,15 +71,7 @@ module Validators
 
     def validate(doc, options)
       @can_continue = true
-      valid = validate_calculated_results(doc, options)
-      if !valid
-        doc_name = build_doc_name(doc)
-        mrn = @names[doc_name]
-        @found_names << doc_name if mrn
-        validate_name(doc_name, options)
-      else
-        super
-      end
+      super unless validate_calculated_results(doc, options)
     end
   end
 end
