@@ -2,13 +2,7 @@ module Validators
   class SmokingGunValidator
     include Validators::Validator
 
-    attr_accessor :measures
-    attr_accessor :test_id
-    attr_accessor :sgd
-    attr_accessor :records
-    attr_accessor :names
-    attr_accessor :expected_records
-    attr_accessor :can_continue
+    attr_accessor :measures, :test_id, :sgd, :records, :names, :expected_records, :can_continue
     attr_reader :found_names
     self.validator_type = :result_validation
 
@@ -82,10 +76,17 @@ module Validators
         next unless patient_sgd
         patient_sgd.each do |dc|
           next if dc[:template] == 'N/A'
-          nodes = doc.xpath("//cda:templateId[@root='#{dc[:template]}']/..//*[@sdtc:valueSet='#{dc[:oid]}']")
           add_error("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
-                    file_name: options[:file_name]) if nodes.length == 0
+                    file_name: options[:file_name]) if find_dc_nodes(doc, dc).length == 0
         end
+      end
+    end
+
+    def find_dc_nodes(doc, data_criteria)
+      if data_criteria[:template] == '2.16.840.1.113883.10.20.24.3.9' && data_criteria[:rationale][:results][0][:json][:negationInd]
+        doc.xpath("//cda:act[cda:code/@code = 'SPLY']/..//*[@sdtc:valueSet='#{data_criteria[:oid]}']")
+      else
+        doc.xpath("//cda:templateId[@root='#{data_criteria[:template]}']/..//*[@sdtc:valueSet='#{data_criteria[:oid]}']")
       end
     end
 
