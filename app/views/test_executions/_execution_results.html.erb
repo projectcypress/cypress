@@ -46,7 +46,12 @@
     <% if should_display_c3 %>
       <li>
         <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_tab_execution_#{execution.id}" %>>
-          <%= "Submission Errors (#{submit_errors.count + submit_warnings.count})" %>
+          <%= "Submission Errors (#{submit_errors.count})" %>
+        </a>
+      </li>
+      <li>
+        <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_warnings_tab_execution_#{execution.id}" %>>
+          <%= "Submission Warnings (#{submit_warnings.count})" %>
         </a>
       </li>
     <% end %>
@@ -63,9 +68,10 @@
     </div>
     <% if should_display_c3 %>
       <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>
-        <% { 'Error': submit_errors, 'Warning': submit_warnings }.each do |title, errors_or_warnings| %>
-          <%= render partial: 'test_executions/results/error_table', locals: { errors: errors_or_warnings, displaying_cat1: displaying_cat1, message_title: title } if errors_or_warnings.any? %>
-        <% end %>
+        <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_errors, displaying_cat1: displaying_cat1, message_title: 'Error' } if submit_errors.any? %>
+      </div>
+      <div class = 'tab-pane' id = <%= "submission_warnings_tab_execution_#{execution.id}" %>>
+        <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_warnings, displaying_cat1: displaying_cat1, message_title: 'Warning' } if submit_warnings.any? %>
       </div>
     <% end %>
   </div>
