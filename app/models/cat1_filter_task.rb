@@ -7,8 +7,8 @@ class Cat1FilterTask < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    @validators = [QrdaCat1Validator.new(product_test.bundle, false, product_test.measures),
-                   ::Validators::CalculatingSmokingGunValidator.new(product_test.measures, records, product_test.id)]
+    @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, records, product_test.id),
+                   QrdaCat1Validator.new(product_test.bundle, false, product_test.measures)]
 
     @validators
   end
