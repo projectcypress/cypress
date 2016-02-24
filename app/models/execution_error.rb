@@ -16,4 +16,5 @@ class ExecutionError
 
   scope :by_type, ->(type) { where(msg_type: type) }
   scope :by_validation_type, ->(type) { where(validator_type: type) }
+  scope :by_file, ->(file) { where(file_name: file) }
 end

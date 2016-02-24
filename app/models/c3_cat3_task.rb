@@ -2,7 +2,7 @@ class C3Cat3Task < Task
   def validators
     @validators = [::Validators::MeasurePeriodValidator.new,
                    ::Validators::QrdaCat3Validator.new(product_test.expected_results, true),
-                   ::Validators::CmsQRDA3ChematronValidator]
+                   ::Validators::CMSQRDA3SchematronValidator.new]
   end
 
   def execute(file, sibling_execution_id)
