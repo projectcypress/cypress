@@ -99,10 +99,11 @@ class C2TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
+
       # 9 is for all of the sub measures to be searched for
-      # 12 for missing supplemental data
+      # 46 for missing supplemental data
       # 2 for incorrect measure ids
-      assert_equal 23, te.execution_errors.length, 'should error on missing measure entry'
+      assert_equal 57, te.execution_errors.length, 'should error on missing measure entry'
     end
   end
 

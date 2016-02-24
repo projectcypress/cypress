@@ -40,19 +40,15 @@ module Validators
         next unless stratification.nil? && ex_sup
 
         sup_keys = ex_sup.keys.reject(&:blank?)
-        # check to see if we expect sup data and if they provide it a short circuit the rest of the testing
-        # if they do not
-        if sup_keys.length > 0 && reported_sup.nil?
-          err = "supplemental data for #{pop_key} not found expected  #{ex_sup}"
-          add_error(err, :location => '/', :validator_type => :result_validation,
-                         :measure_id => measure_id, :stratification => stratification)
-        else
-          # for each supplemental data item (RACE, ETHNICITY,PAYER,SEX)
-          sup_keys.each do |sup_key|
-            sup_value = (ex_sup[sup_key] || {}).reject { |k, v| (k.blank? || v.blank? || v == 'UNK') }
-            reported_sup_value = reported_sup[sup_key]
-            check_supplemental_data(sup_value, reported_sup_value, pop_key, sup_key, measure_id)
-          end
+
+        # for each supplemental data item (RACE, ETHNICITY, PAYER, SEX)
+        sup_keys.each do |sup_key|
+          expect_sup_val = (ex_sup[sup_key] || {}).reject { |k, v| (k.blank? || v.blank? || v == 'UNK') }
+          report_sup_val = reported_sup.nil? ? nil : reported_sup[sup_key]
+          # keys_and_ids used to hold information that is displayed with an execution error. the variable also rhymes
+          keys_and_ids = { measure_id: measure_id, pop_key: pop_key, sup_key: sup_key }
+          check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids)
+          check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids)
         end
       end
     end
@@ -85,27 +81,27 @@ module Validators
       end
     end
 
-    def check_supplemental_data(expected_supplemental_value,
-                                reported_supplemantal_value,
-                                population_key,
-                                supplemental_data_key,
-                                measure_id)
-      if reported_supplemantal_value.nil?
-        err = "supplemental data for #{population_key} #{supplemental_data_key} #{expected_supplemental_value} expected but was not found"
-        add_error(err, :location => '/', :measure_id => measure_id, :validator_type => :result_validation)
-      else
-        expected_supplemental_value.each_pair do |code, value|
-          next unless code != 'UNK' && value != reported_supplemantal_value[code]
-          err = %(expected supplemental data for #{population_key} #{supplemental_data_key} #{code} value [#{value}]
-          does not match reported supplemental data value [#{reported_supplemantal_value[code]}])
-          add_error(err, :location => '/', :measure_id => measure_id, :validator_type => :result_validation)
-        end
-        reported_supplemantal_value.each_pair do |code, value|
-          next unless value > 0 && expected_supplemental_value[code].nil?
-          err = "unexpected supplemental data for #{population_key} #{supplemental_data_key} #{code}"
-          add_error(err, :location => '/', :measure_id => measure_id, :validator_type => :result_validation)
+    def check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids)
+      expect_sup_val.each_pair do |code, expect_val|
+        if report_sup_val.nil? || (code != 'UNK' && expect_val != report_sup_val[code])
+          report_val = report_sup_val.nil? ? 0 : report_sup_val[code]
+          add_sup_data_error(keys_and_ids, code, expect_val, report_val)
         end
       end
+    end
+
+    def check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids)
+      return if report_sup_val.nil?
+      report_sup_val.each_pair do |code, report_val|
+        add_sup_data_error(keys_and_ids, code, 0, report_val) if report_val > 0 && expect_sup_val[code].nil?
+      end
+    end
+
+    def add_sup_data_error(keys_and_ids, code, expect_val, report_val)
+      error_details = { type: 'supplemental_data', population_key: keys_and_ids.pop_key, data_type: keys_and_ids.sup_key,
+                        code: code, expected_value: expect_val, reported_value: report_val }
+      options = { :location => '/', :measure_id => keys_and_ids.measure_id, :validator_type => :result_validation, :error_details => error_details }
+      add_error('supplemental data error', options)
     end
   end
 end

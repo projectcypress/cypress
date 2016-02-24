@@ -64,7 +64,10 @@
       <%= render partial: 'test_executions/results/error_table', locals: { errors: qrda_errors, displaying_cat1: displaying_cat1, message_title: 'Error' } %>
     </div>
     <div class = 'tab-pane' id = <%= "reporting_tab_execution_#{execution.id}" %>>
-      <%= render partial: 'test_executions/results/error_table', locals: { errors: report_errors, displaying_cat1: displaying_cat1, message_title: 'Error' } %>
+      <% # supplemental data errors are reported in a separate table %>
+      <% report_sup_data_errors = supplemental_data_errors(report_errors) %>
+      <%= render partial: 'test_executions/results/error_table', locals: { errors: report_errors - report_sup_data_errors, displaying_cat1: displaying_cat1, message_title: 'Error' } %>
+      <%= render partial: 'test_executions/results/supplemental_data_error_table', locals: { errors: report_sup_data_errors } %>
     </div>
     <% if should_display_c3 %>
       <div class = 'tab-pane' id = <%= "submission_tab_execution_#{execution.id}" %>>

@@ -1,0 +1,33 @@
+<%
+
+# requires local variables:
+#   errors   (Array) of errors
+
+# Note: all errors should be from the same test execution
+
+%>
+
+<% return if errors.count == 0 %>
+
+<table class = 'table table-hover table-condensed'>
+  <thead>
+    <tr>
+      <th scope = 'col' class = 'col-sm-2'>Population ID</th>
+      <th scope = 'col' class = 'col-sm-2'>Supplemental Data Type</th>
+      <th scope = 'col' class = 'col-sm-2'>Code</th>
+      <th scope = 'col' class = 'col-sm-2'>Expected Value</th>
+      <th scope = 'col' class = 'col-sm-4'>Reported Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% errors.each do |err| %>
+      <tr>
+        <td><%= err.error_details.population_key %></td>
+        <td><%= err.error_details.data_type %></td>
+        <td><%= err.error_details.code %></td>
+        <td><%= err.error_details.expected_value %></td>
+        <td><%= err.error_details.reported_value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
