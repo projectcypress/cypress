@@ -19,4 +19,23 @@ module ChecklistTestsHelper
       return 'Fulfills - ' + data_criteria[referenced_criteria].description if data_criteria[referenced_criteria]
     end
   end
+
+  # argument fv stands for field_value (Hash)
+  def length_of_stay_string(fv)
+    msg = ''
+    if fv['low']
+      msg += "#{fv['low']['value']} #{fv['low']['unit']}"
+      msg += less_than_symbol(fv['low']['inclusive?'])
+    end
+    msg += 'stay'
+    if fv['high']
+      msg += less_than_symbol(fv['high']['inclusive?'])
+      msg += "#{fv['high']['value']} #{fv['high']['unit']}"
+    end
+    msg
+  end
+
+  def less_than_symbol(inclusive)
+    inclusive ? ' &#8804; ' : ' < '
+  end
 end
