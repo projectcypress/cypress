@@ -23,10 +23,17 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.vendor = @vendor
-    @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
-    @product.save!
-    flash_product_comment(@product.name, 'success', 'created')
-    goto_vendor(@vendor)
+    # TODO: Refactor this so we can't save products without measures in more concise code ;)
+    if params['product_test'] && params['product_test']['measure_ids'].length
+      @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq)
+      @product.save!
+      flash_product_comment(@product.name, 'success', 'created')
+      goto_vendor(@vendor)
+    else
+      setup_new
+      flash_product_comment(@product.name, 'danger', 'not created because it has no measures specified')
+      render :new
+    end
   rescue Mongoid::Errors::Validations
     setup_new
     @selected_measure_ids = params['product_test']['measure_ids'] if params['product_test'] && params['product_test']['measure_ids']
@@ -86,9 +93,8 @@ class ProductsController < ApplicationController
   end
 
   def set_measures
-    # TODO: Get latest version of each measure
-    @measures = Measure.top_level
-    @measures.sort_by! { |m| m.cms_id[3, m.cms_id.index('v') - 3].to_i } if @measures.all? { |m| !m.cms_id.nil? }
+    # TODO: Get the relevant bundle
+    @measures = Bundle.first.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type)
     @measures_categories = @measures.group_by(&:category)
   end
 

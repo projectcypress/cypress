@@ -139,7 +139,7 @@ $table-bg:                      #fff !default;
 //** Background color used for `.table-striped`.
 $table-bg-accent:               #f9f9f9 !default;
 //** Background color used for `.table-hover`.
-$table-bg-hover:                lighten($gray-lighter, 5%) !default;
+$table-bg-hover:                $gray-lighter !default;
 $table-bg-active:               $table-bg-hover !default;
 
 //** Border color for table and cell borders.
@@ -189,7 +189,7 @@ $btn-border-radius-small:        $border-radius-small !default;
 //##
 
 //** `<input>` background color
-$input-bg:                       lighten(desaturate($brand-info, 50%), 80%) !default;
+$input-bg:                       lighten($brand-primary, 55%) !default;
 //** `<input disabled>` background color
 $input-bg-disabled:              $gray-lighter !default;
 

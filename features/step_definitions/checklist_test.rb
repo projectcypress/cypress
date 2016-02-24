@@ -51,7 +51,7 @@ end
 # # # # # # # #
 
 Then(/^the user should see the checklist test$/) do
-  assert_text('Check source data scriteria to validate the EHR system for C1 certification.')
+  assert_text(APP_CONFIG['tests']['ChecklistTest']['description'])
 end
 
 Then(/^the user should see a button to revisit the checklist test$/) do
