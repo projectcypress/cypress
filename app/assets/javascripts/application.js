@@ -1,6 +1,7 @@
 //= require turbolinks
 //= require jquery
 //= require jquery_ujs
+//= require parsley/parsley
 //= require dataTables/jquery.dataTables
 //= require jquery-ui
 //= require bootstrap-sprockets
