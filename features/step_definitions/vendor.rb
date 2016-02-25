@@ -96,7 +96,7 @@ Then(/^the user should see a notification saying the vendor was created$/) do
 end
 
 Then(/^the user should see an error message saying the vendor has no name$/) do
-  page.assert_text "can't be blank"
+  page.assert_text 'This value is required'
 end
 
 Then(/^the user should see an error message saying the vendor name has been taken$/) do
