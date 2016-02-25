@@ -97,7 +97,7 @@
   },
   "DENEX": {
   },
-  "map_fn": "function () {value = {denominator:1, numerator: 1}; emit(ObjectId(), value);}",
+  "map_fn": "function () {var self=this; var value = {IPP:1, DENOM: 1,NUMER: 1, patient_id: self._id}; emit(ObjectId(), value);}",
   "measure": {
     "asthma_diagnosis_active": {
       "standard_concept": "asthma",

@@ -30,7 +30,8 @@ class MeasureTestTest < ActiveJob::TestCase
 
   def test_create_task_c1
     product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_records: true, duplicate_records: true)
-    pt = product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    pt = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
+                                       bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
     assert pt.tasks.c1_task, 'product test should have a c1_task'
     assert_equal false, pt.tasks.c2_task, 'product test should not have a c2_task'
