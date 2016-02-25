@@ -47,13 +47,6 @@ Scenario: Measure Group Unchecked After Deselecting Measure In Group
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
-Scenario: Measure Group Unchecked After Deselecting Measure In Selected Measures
-  When the user fills out all product information but measures
-  And the user selects a group of measures but deselects one from selected measures
-  Then the group of measures should no longer be selected
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
-
 Scenario: No Product Tests Created if Product is Not Validated
   When the user creates a product with no name and selects measures
   Then there should be no product tests in the database

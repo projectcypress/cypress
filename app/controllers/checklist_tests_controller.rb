@@ -39,10 +39,6 @@ class ChecklistTestsController < ProductTestsController
 
   private
 
-  def set_product
-    @product = Product.find(params[:product_id])
-  end
-
   def set_test
     @test = @product.product_tests.checklist_tests.first
   end

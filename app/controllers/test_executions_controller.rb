@@ -38,14 +38,6 @@ class TestExecutionsController < ApplicationController
     @product_test = @task.product_test
   end
 
-  def set_task
-    @task = Task.find(params[:task_id])
-  end
-
-  def set_test_execution
-    @test_execution = TestExecution.find(params[:id])
-  end
-
   def add_breadcrumbs
     add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(id: @product_test.product.vendor.id)
     add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(vendor_id: @product_test.product.vendor.id,
