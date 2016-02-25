@@ -107,3 +107,7 @@ group :test do
   gem 'brakeman', require: false
   gem 'bundler-audit'
 end
+
+group :production do
+  gem 'unicorn-rails'
+end

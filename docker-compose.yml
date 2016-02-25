@@ -2,6 +2,7 @@ cypress:
   build: ./
   ports:
     - "3000:3000"
+  command: /rails/cypress/rails-entrypoint.sh
   links:
     - mongodb:mongo
   env_file: .env-prod

@@ -13,6 +13,5 @@ RUN bundle install --without development test
 ADD . /rails/cypress
 
 RUN chmod 755 /rails/cypress/rails-entrypoint.sh
-ENTRYPOINT ["/rails/cypress/rails-entrypoint.sh"]
 
 EXPOSE 3000
