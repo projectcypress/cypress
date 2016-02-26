@@ -1,20 +1,20 @@
 <div class="panel panel-default">
   <div class="panel-heading"><h3 class='panel-title'><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h3></div>
 
-  <%= bootstrap_form_for [@product.vendor, @product] do |f| %>
+  <%= bootstrap_form_for [@product.vendor, @product], html: { "data-parsley-validate": '' } do |f| %>
     <div class="panel-body">
       <div class="row">
         <div class="col-md-6">
-          <%= f.text_field :name, autocomplete: 'off' %>
+          <%= f.text_field :name, autocomplete: 'off', data: { 'parsley-required': '', 'data-parsley-trigger': 'change', 'parsley-error-message': "Name can't be blank." } %>
           <%= f.text_field :version %>
           <%= f.text_area :description %>
 
           <fieldset>
             <legend class="control-label">Certification Types</legend>
+            <div id="certifications_errors_container"></div>
             <%= f.form_group help: "A product must certify to either C1 or C2." do %>
-              <%= f.errors_on :tests, hide_attribute_name: true %>
               <% APP_CONFIG.certifications.each do |c, certification| %>
-                <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
+                <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: { 'parsley-required': '', 'parsley-error-message': 'Must certify to at least C1 or C2.', 'parsley-multiple': 'certifications', 'parsley-errors-container': "#certifications_errors_container" } %>
               <% end %>
             <% end %>
           </fieldset>
@@ -31,8 +31,9 @@
 
           <fieldset>
             <legend class="control-label">Measures Options</legend>
+            <div id="simple_measures_errors_container"></div>
             <%= f.form_group :measure_selection, help: "Indicate the clinical quality measures Cypress should use to certify this product. Testing will be performed on a measure-by-measure basis. Click 'Custom' to specify individual measures." do %>
-              <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
+              <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: { 'parsley-required': '', 'parsley-error-message': 'Must select measures.', 'parsley-errors-container': "#simple_measures_errors_container" } %>
               <%= f.radio_button :measure_selection, "ep", label: "Eligible Provider eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
               <%= f.radio_button :measure_selection, "all", label: "All eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
               <%= f.radio_button :measure_selection, "custom", label: "Custom...", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
@@ -47,7 +48,7 @@
             <h3 id="select_custom_measures" class='panel-title'>Select Custom Measures <span class='selected-number'>(0)</span><span class='sr-only'>selected</span></h3>
           </div>
           <div class="panel-body">
-            <div class="col-md-12"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>
+            <div class="col-md-12" id="measures_errors_container"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>
             <div id="measure_tabs" class="measure-selection">
               <div class="sidebar">
                 <!-- set up a tab header for each measure group -->
@@ -84,6 +85,10 @@
                             value="<%= m.hqmf_id %>"
                             data-category="<%= category.tr(" '", "_") %>"
                             data-measure-type="<%= m.type %>"
+                            data-parsley-mincheck="1"
+                            data-parsley-required=""
+                            data-parsley-error-message="Must select measures"
+                            data-parsley-errors-container="#measures_errors_container"
                             aria-labelledby="select_custom_measures"
                             class="measure-checkbox"
                             <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %>
