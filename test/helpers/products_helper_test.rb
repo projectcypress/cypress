@@ -192,4 +192,9 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 1, passing
     assert_equal 2, total
   end
+
+  def test_all_records_for_product
+    records = all_records_for_product(@product)
+    assert_equal 0, records.length
+  end
 end
