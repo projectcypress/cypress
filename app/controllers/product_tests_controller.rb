@@ -28,7 +28,12 @@ class ProductTestsController < ApplicationController
   # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format
   def download
     format = params[:format] || 'qrda'
-    file = Cypress::CreateDownloadZip.create_test_zip(@product_test.id, format)
+
+    file = if format == 'qrda' && @product_test.patient_archive.file
+             @product_test.patient_archive.file
+           else
+             Cypress::CreateDownloadZip.create_test_zip(@product_test.id, format)
+           end
     file_name = "#{@product_test.cms_id}_#{@product_test.id}.#{format}.zip".tr(' ', '_')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: file_name
   end
