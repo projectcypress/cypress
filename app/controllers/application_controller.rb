@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery :with => :exception
+  # Prevent CSRF attacks with a null session
+  protect_from_forgery :with => :null_session
 
   before_action :authenticate_user!, :check_bundle_installed
+  around_action :catch_not_found
 
   rescue_from CanCan::AccessDenied do |exception|
     render text: exception, status: 401
@@ -89,5 +89,16 @@ class ApplicationController < ActionController::Base
       ability = k if actions.is_a?(Array) && actions.index(params[:action])
     end
     ability
+  end
+
+  def catch_not_found
+    yield
+  rescue Mongoid::Errors::DocumentNotFound, Mongoid::Errors::InvalidFind
+    render :nothing => true, :status => :not_found
+    # respond_to do |f|
+    #   f.html { }
+    #   f.json { render nothing: true, status: :not_found }
+    #   f.xml  { render nothing: true, status: :not_found }
+    # end
   end
 end

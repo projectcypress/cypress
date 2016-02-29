@@ -161,4 +161,14 @@ class BundlesControllerTest < ActionController::TestCase
     assert_equal 1, Bundle.where(_id: id).count, 'Should not have deleted bundle'
     assert_equal orig_count, Bundle.count, 'Should not have deleted Bundle'
   end
+
+  # # # # # # #
+  #   A P I   #
+  # # # # # # #
+
+  test 'should get index on json request' do
+    get :index, :format => :json
+    assert_response 200, 'response should be OK on bundle index'
+    assert_equal Bundle.all.count, JSON.parse(response.body).count, 'response body should have all bundles'
+  end
 end

@@ -8,7 +8,7 @@
 
 <% if product_test.state == :ready %>
   <p>Download and import this data into your EHR clinical quality measure calculator.</p>
-  <%= form_tag(download_product_test_path(product_test), method: 'get') do |f| %>
+  <%= form_tag(patients_product_test_path(product_test), method: 'get') do |f| %>
     <%= hidden_field_tag :id, :value => product_test.id %>
     <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
       <i class = 'fa fa-fw fa-download'></i> Download QRDA Cat I (.zip)

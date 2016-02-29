@@ -1,16 +1,32 @@
 class TestExecutionsController < ApplicationController
-  before_action :set_test_execution, only: [:destroy, :show]
-  before_action :set_task, only: [:new, :create, :show]
+  before_action :set_test_execution, only: [:show, :destroy]
+  before_action :set_task, only: [:index, :new, :create, :show]
   before_action :set_product_test, only: [:show, :new]
   before_action :add_breadcrumbs, only: [:show, :new]
+
+  respond_to :html, :json, :xml
+  respond_to :js, only: [:show]
+
+  def index
+    @test_executions = @task.test_executions
+    respond_with(@test_executions)
+  end
 
   def create
     authorize! :execute_task, @task.product_test.product.vendor
     @test_execution = @task.execute(params[:results])
-    redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id)
+    respond_with(@test_execution) do |f|
+      f.html { redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id) }
+      f.json { render :nothing => true, :status => :created, :location => task_test_execution_path(@task.id, @test_execution.id) }
+      f.xml  { render :nothing => true, :status => :created, :location => task_test_execution_path(@task.id, @test_execution.id) }
+    end
   rescue Mongoid::Errors::Validations
     alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
-    redirect_to new_task_test_execution_path(task_id: @task.id), flash: { alert: alert.html_safe }
+    respond_with(@test_execution) do |f|
+      f.html { redirect_to new_task_test_execution_path(task_id: @task.id), flash: { alert: alert.html_safe } }
+      f.json { render :nothing => true, :status => :unprocessable_entity }
+      f.xml  { render :nothing => true, :status => :unprocessable_entity }
+    end
   end
 
   def new
@@ -24,22 +40,23 @@ class TestExecutionsController < ApplicationController
 
   def show
     authorize! :read, @task.product_test.product.vendor
-    respond_to do |f|
-      f.html
-      f.js
-    end
+    respond_with(@test_execution)
   end
 
   def destroy
     authorize! :delete, @test_execution.task.product_test.product.vendor
     @test_execution.destroy!
-    render status: 204, text: 'Deleted'
+    render :nothing => true, status: :no_content
   end
 
   private
 
   def set_product_test
     @product_test = @task.product_test
+  end
+
+  def set_test_execution
+    @test_execution = TestExecution.find(params[:id])
   end
 
   def add_breadcrumbs

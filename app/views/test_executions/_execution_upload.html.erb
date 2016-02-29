@@ -13,8 +13,7 @@
   <% accept_type = 'text/xml' %>
 <% end %>
 
-<%= form_for(TestExecution.new, :html => { method: :post, :multipart => true }) do |f| %>
-  <%= hidden_field_tag :task_id, task.id %>
+<%= form_for(TestExecution.new, :html => { method: :post, :multipart => true }, url: task_test_executions_path(task)) do |f| %>
   <div class="fileinput fileinput-new input-group" data-provides="fileinput">
     <div class="form-control" data-trigger="fileinput">
       <i class="fa fa-fw fa-file fileinput-exists"></i>

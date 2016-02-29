@@ -1,23 +1,33 @@
 require 'cypress/pdf_report'
 
 class ProductsController < ApplicationController
-  before_action :set_vendor, only: [:new, :create, :index, :report]
+  before_action :set_vendor, only: [:index, :new, :create, :report, :patients]
   before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :update, :edit]
   before_action :authorize_vendor
   add_breadcrumb 'Dashboard', :vendors_path
 
+  respond_to :html, :json, :xml
+
   def index
-    goto_vendor(@vendor)
+    @products = @vendor.products
+    respond_with(@products)
+  end
+
+  def show
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
+    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
+    respond_with(@product)
   end
 
   def new
     @product = Product.new(vendor: @vendor)
     setup_new
-    respond_to do |format|
-      format.html
-      format.json { render json: { measures: @measures, measures_categories: @measures_categories, product: @product } }
-    end
+    respond_with(product: @product, measures: @measures, measure_categories: @measure_categories)
+    # respond_to do |format|
+    #   format.html
+    #   format.json { render json: { measures: @measures, measures_categories: @measures_categories, product: @product } }
+    # end
   end
 
   def create
@@ -62,24 +72,17 @@ class ProductsController < ApplicationController
     goto_vendor(@product.vendor)
   end
 
-  def show
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
-    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
-    respond_to do |format|
-      format.json { render json: [@product] }
-      format.js
-      format.html
-    end
-  end
-
-  def download_pdf
+  # always responds with a pdf file containing information on the certification status of the product
+  def report
     pdf = Cypress::PdfReport.new(@product).download_pdf
     send_data(pdf.to_pdf, filename: "Cypress_#{@product.name.underscore.dasherize}_report.pdf", type: 'application/pdf')
   end
 
-  def download_full_test_deck
+  # always responds with a zip file of (.qrda.zip files of (qrda category I documents))
+  def patients
     file = Cypress::CreateDownloadZip.create_total_test_zip(@product, 'qrda')
-    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
+    file_name = "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: file_name
   end
 
   private

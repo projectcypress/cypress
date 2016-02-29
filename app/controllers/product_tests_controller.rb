@@ -1,17 +1,11 @@
 class ProductTestsController < ApplicationController
-  before_action :set_product, only: [:index, :new, :create]
-  before_action :set_product_test, except: [:index, :new, :create]
-  before_action :authorize_vendor
+  before_action :set_product, only: [:index]
+  before_action :set_product_test, except: [:index]
+  before_action :authorize_vendor, only: [:index, :show, :patients]
   add_breadcrumb 'Dashboard', :vendors_path
 
   def index
     @product_tests = @product.product_tests
-  end
-
-  def edit
-  end
-
-  def update
   end
 
   def show
@@ -23,26 +17,16 @@ class ProductTestsController < ApplicationController
     end
   end
 
-  def destroy
-  end
-
-  # Save and serve up the Records associated with this ProductTest. Filetype is specified by :format
-  def download
-    format = params[:format] || 'qrda'
-
-    file = if format == 'qrda' && @product_test.patient_archive.file
-             @product_test.patient_archive.file
-           else
-             Cypress::CreateDownloadZip.create_test_zip(@product_test.id, format)
-           end
-    file_name = "#{@product_test.cms_id}_#{@product_test.id}.#{format}.zip".tr(' ', '_')
-    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: file_name
+  # always respond with a .qrda.zip file of qrda category I documents
+  def patients
+    file_name = "#{@product_test.cms_id}_#{@product_test.id}.qrda.zip".tr(' ', '_')
+    send_data @product_test.patient_archive.read, type: 'application/zip', disposition: 'attachment', filename: file_name
   end
 
   private
 
   def authorize_vendor
     vendor = @product ? @product.vendor : @product_test.product.vendor
-    authorize_request(vendor, read: ['download'])
+    authorize_request(vendor, read: ['patients'])
   end
 end

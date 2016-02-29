@@ -44,6 +44,10 @@ gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
+# RABL (Ruby API Builder Language) is a Rails ruby templating system for generating JSON, XML, MessagePack, PList and BSON.
+gem 'rabl'
+# A set of responders modules to dry up your Rails 4.2+ app.
+gem 'responders'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', :group => :doc
 

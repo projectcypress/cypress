@@ -10,7 +10,7 @@
 <% num_measure_tests_ready = product.product_tests.measure_tests.where(state: :ready).count %>
 <% if num_measure_tests_ready == num_measure_tests %>
   <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
-  <%= form_for product, url: { controller: 'products', action: 'download_full_test_deck' }, :html => { :method => 'GET' } do |f| %>
+  <%= form_for product, url: { controller: 'products', action: 'patients' }, :html => { :method => 'GET' } do |f| %>to report and patients respectively.
     <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
       <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
     <% end %>
