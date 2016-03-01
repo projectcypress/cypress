@@ -1,9 +1,17 @@
 #!/usr/bin/env ruby
+require 'pathname'
 
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path("../../Gemfile",
+  Pathname.new(__FILE__).realpath)
+
+
+require 'optparse'
 require 'mongoid'
 require 'health-data-standards'
 require 'quality-measure-engine'
-require 'optparse'
+
+Mongoid.logger.level = Logger::INFO
+Mongo::Logger.logger.level = Logger::WARN
 
 def generate_oid_dictionary(measure, bundle)
   valuesets = bundle.value_sets.in({oid: measure.oids})
@@ -65,20 +73,22 @@ def generate_header(provider = nil)
 end
 
 def capture_output
-  previous_stdout, $stdout = $stdout, StringIO.new
-  previous_stderr, $stderr = $stderr, StringIO.new
+  # previous_stdout, $stdout = $stdout, StringIO.new
+  # previous_stderr, $stderr = $stderr, StringIO.new
   yield
-  $stdout.string
+  # $stdout.string
+rescue Exception => e
+  print e.backtrace.join("\n")
 ensure
-  $stderr = previous_stderr
-  $stdout = previous_stdout
+  # $stderr = previous_stderr
+  # $stdout = previous_stdout
 end
 
 
 measure_ids = []
 zipfile = ""
 bundle = nil
-captured_output = capture_output do
+# captured_output = capture_output do
 
   OptionParser.new do |opts|
     opts.on("-m", "--measure MEASURE", "A measure HQMF id to test") do |mes|
@@ -106,6 +116,10 @@ captured_output = capture_output do
     ::Mongoid::Tasks::Database.create_indexes
   end
 
+  unless zipfile
+  puts "No Zip File provided"
+end
+
   zipfile = File.new(zipfile)
 
   Record.destroy_all
@@ -127,6 +141,6 @@ captured_output = capture_output do
       report = qr.calculate({bundle_id: bundle.id, oid_dictionary: dictionary}, false)
     end
   end
-end
+# end
 
 print generate_cat3(measure_ids, bundle.effective_date)
