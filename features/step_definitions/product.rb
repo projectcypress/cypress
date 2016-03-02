@@ -33,7 +33,9 @@ When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_
   steps %( When the user navigates to the create product page for vendor #{vendor_name} )
   page.fill_in 'Name', with: product_name
   page.find('#product_c1_test').click
-  page.find('#Asthma > div.checkbox').click
+  page.find('#product_measure_selection_custom').click
+  page.all('.sidebar a')[2].click
+  page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
 
@@ -48,7 +50,9 @@ When(/^the user creates a product with no name$/) do
   @product = FactoryGirl.build(:product_no_name)
   page.fill_in 'Name', with: @product.name
   page.find('#product_c1_test').click
-  page.find('#Asthma').click
+  page.find('#product_measure_selection_custom').click
+  page.all('.sidebar a')[2].click
+  page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
 
@@ -64,7 +68,9 @@ When(/^the user creates a product with no task type$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   @product = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product.name
-  page.find('#Asthma').click
+  page.find('#product_measure_selection_custom').click
+  page.all('.sidebar a')[2].click
+  page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
 
@@ -72,6 +78,7 @@ When(/^the user fills out all product information but measures$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   @product = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product.name
+  page.find('#product_measure_selection_custom').click
   page.find('#product_c1_test').click
 end
 
@@ -84,51 +91,40 @@ end
 
 When(/^the user creates a product with multiple measures from different groups$/) do
   steps %( When the user fills out all product information but measures )
-  page.find('#Asthma').click
-  click_link('Behavioral Health Adult (EP)')
-  page.find('#Behavioral_Health_Adult').click
+  page.all('.sidebar a')[2].click
+  page.find('input.measure-checkbox').click
+  page.all('.sidebar a')[3].click
+  page.find('input.measure-checkbox').click
   page.click_button 'Add Product'
 end
 
 When(/^the user creates a product with selecting a group of measures$/) do
   steps %( When the user fills out all product information but measures )
-  click_link('Miscellaneous (EH)')
-  page.find('#Miscellaneous_group').click
+  page.find("[href='#Miscellaneous_div']").click
+  page.find('input.measure_group_all').click
   page.click_button 'Add Product'
 end
 
 When(/^the user creates a product with selecting a measure then deselecting that measure$/) do
   steps %( When the user fills out all product information but measures )
-  page.find('#Asthma').click
-  page.find('#Asthma').click
+  page.all('.sidebar a')[2].click
+  page.all('input.measure-checkbox')[0].click
+  page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
 
 When(/^the user creates a product with selecting a group of measures then deselecting that group$/) do
   steps %( When the user fills out all product information but measures )
-  click_link('Miscellaneous (EH)')
-  page.find('#Miscellaneous_group').click
-  page.find('#Miscellaneous_group').click
-  page.click_button 'Add Product'
-end
-
-When(/^the user creates a product with selecting a measure then deselecting from selected measures$/) do
-  steps %( When the user fills out all product information but measures )
-  page.check('Asthma Assessment')
-  page.find('.selected-measure-list').uncheck('Asthma Assessment')
+  page.find("[href='#Miscellaneous_div']").click
+  page.find('input.measure_group_all').click
+  page.find('input.measure_group_all').click
   page.click_button 'Add Product'
 end
 
 And(/^the user selects a group of measures but deselects one$/) do
-  click_link('Miscellaneous (EH)')
-  page.find('#Miscellaneous_group').click
-  page.find('.measure_group', visible: true).uncheck('Aspirin Prescribed at Discharge')
-end
-
-And(/^the user selects a group of measures but deselects one from selected measures$/) do
-  click_link('Miscellaneous (EH)')
-  page.find('#Miscellaneous_group').click
-  page.find('.selected-measure-list').uncheck('Aspirin Prescribed at Discharge')
+  page.find("[href='#Miscellaneous_div']").click
+  page.find('input.measure_group_all').click
+  page.all('input.measure-checkbox')[0].click
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^
@@ -138,8 +134,9 @@ When(/^the user creates a product with no name and selects measures$/) do
   @product = FactoryGirl.build(:product_no_name)
   page.fill_in 'Name', with: @product.name
   page.find('#product_c1_test').click
-  click_link('Miscellaneous (EH)')
-  page.find('#Miscellaneous_group').click
+  page.find('#product_measure_selection_custom').click
+  page.find("[href='#Miscellaneous_div']").click
+  page.find('input.measure_group_all').click
   page.click_button 'Add Product'
 end
 
@@ -205,7 +202,7 @@ end
 # # # # # # # #
 
 Then(/^the user should see a notification saying the product was created$/) do
-  page.assert_text "Product '#{@product.name}' was created."
+  page.assert_text "'#{@product.name}' was created."
 end
 
 Then(/^the user should see an error message saying the product has no name$/) do
@@ -217,17 +214,17 @@ Then(/^the user should see an error message saying the product name has been tak
 end
 
 Then(/^the user should see an error message saying the product must certify to C1 or C2$/) do
-  page.assert_text 'must certify to at least C1 or C2'
+  page.assert_text 'Must certify to at least C1 or C2'
 end
 
 Then(/^the user should see an error message saying the product must have at least one measure$/) do
-  page.assert_text 'must specify least one measure for testing'
+  page.assert_text 'Must select measures'
 end
 
 # V V V Measure Selection V V V
 
 Then(/^the group of measures should no longer be selected$/) do
-  page.has_unchecked_field?('#Miscellaneous_group')
+  page.has_unchecked_field?('input.measure_group_all')
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^

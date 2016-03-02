@@ -22,7 +22,7 @@ And(/^the user views that product$/) do
 end
 
 And(/^the user views the manual entry tab$/) do
-  page.execute_script("$('#ChecklistTest').click()")
+  page.find("[href='#ChecklistTest']").click
 end
 
 # # # # # # # #
@@ -30,8 +30,8 @@ end
 # # # # # # # #
 
 When(/^the user generates a checklist test$/) do
-  page.execute_script("$('#ChecklistTest').click()")
-  find_button('Start Test').trigger('click')
+  steps %( And the user views the manual entry tab )
+  page.find("input[type = submit][value = 'Start Test']").click
 end
 
 #   A N D   #
@@ -51,7 +51,7 @@ end
 # # # # # # # #
 
 Then(/^the user should see the checklist test$/) do
-  assert_text('Check source data scriteria to validate the EHR system for C1 certification.')
+  assert_text(APP_CONFIG['tests']['ChecklistTest']['description'])
 end
 
 Then(/^the user should see a button to revisit the checklist test$/) do
@@ -59,6 +59,7 @@ Then(/^the user should see a button to revisit the checklist test$/) do
 end
 
 Then(/^the user should be able to generate another checklist test$/) do
+  steps %( And the user views the manual entry tab )
   assert_equal false, page.has_selector?("input[type = submit][value = 'View Test']")
   assert page.has_selector?("input[type = submit][value = 'Start Test']")
 end

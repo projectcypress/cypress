@@ -35,14 +35,6 @@ class TasksController < ApplicationController
 
   private
 
-  def set_product_test
-    @product_test = ProductTest.find(params[:product_test_id])
-  end
-
-  def set_task
-    @task = Task.find(params[:id])
-  end
-
   def task_type(type)
     type.camelize.constantize
   rescue

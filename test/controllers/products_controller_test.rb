@@ -37,7 +37,7 @@ class ProductsControllerTest < ActionController::TestCase
   end
 
   test 'should create' do
-    post :create, vendor_id: Vendor.first, product: { name: 'test_product', c1_test: true, measure_ids: [Measure.first.id] }
+    post :create, vendor_id: Vendor.first, product: { name: 'test_product', c1_test: true }, product_test: { measure_ids: [Measure.first.hqmf_id] }
     assert_response :redirect
     assert_not_nil assigns(:product)
   end

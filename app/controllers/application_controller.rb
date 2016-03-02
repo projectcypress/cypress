@@ -45,4 +45,31 @@ class ApplicationController < ActionController::Base
       flash[:alert] = alert.html_safe
     end
   end
+
+  def set_vendor
+    @vendor ||= params[:vendor_id] ? Vendor.find(params[:vendor_id]) : Vendor.find(params[:id])
+  end
+
+  def set_product
+    product_finder = @vendor ? @vendor.products : Product
+    @product ||= params[:product_id] ? product_finder.find(params[:product_id]) : product_finder.find(params[:id])
+  end
+
+  def set_product_test
+    @product_test ||= params[:product_test_id] ? ProductTest.find(params[:product_test_id]) : ProductTest.find(params[:id])
+  end
+
+  def set_task
+    @task ||= params[:task_id] ? Task.find(params[:task_id]) : Task.find(params[:id])
+  end
+
+  def set_test_execution
+    @test_execution ||= params[:test_execution_id] ? TestExecution.find(params[:test_execution_id]) : TestExecution.find(params[:id])
+  end
+
+  def flash_comment(name, notice_type, message)
+    # message should be past tense to make grammatical sense
+    flash[:notice] = "'#{name}' was #{message}."
+    flash[:notice_type] = notice_type
+  end
 end

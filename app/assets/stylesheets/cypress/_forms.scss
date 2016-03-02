@@ -6,17 +6,12 @@
 
   .help-block {
     margin-top: 0;
-    font-size: .85em;
     font-style: italic;
   }
 
   .label-block {
     display: block;
   }
-}
-
-.checkbox + .checkbox {
-  margin-top: 1em;
 }
 
 // need to overwrite .input-group-addon colors when buttons are involved
@@ -28,4 +23,27 @@
 
 .panel-title select {
   color: $text-color;
+}
+
+// special btn-checkbox class for checkboxes and radio buttons
+.radio .btn-checkbox,
+.checkbox .btn-checkbox {
+  box-shadow: none;
+  font-family: $font-family-sans-serif;
+  padding-left: 2em;
+  text-align: left;
+  white-space: normal;
+
+  &:hover,
+  &:focus {
+    color: $text-color;
+    background-color: $input-bg;
+  }
+}
+
+legend.control-label {
+  font-size: 1em;
+  font-weight: 700;
+  margin-bottom: -.25em;
+  border-bottom: none;
 }

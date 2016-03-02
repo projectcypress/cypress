@@ -37,14 +37,4 @@ class ProductTestsController < ApplicationController
     file_name = "#{@product_test.cms_id}_#{@product_test.id}.#{format}.zip".tr(' ', '_')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: file_name
   end
-
-  private
-
-  def set_product
-    @product = Product.find(params[:product_id])
-  end
-
-  def set_product_test
-    @product_test = ProductTest.find(params[:id])
-  end
 end

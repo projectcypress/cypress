@@ -23,10 +23,17 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.vendor = @vendor
-    @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
-    @product.save!
-    flash_product_comment(@product.name, 'success', 'created')
-    goto_vendor(@vendor)
+    # TODO: Refactor this so we can't save products without measures in more concise code
+    if params['product_test'] && params['product_test']['measure_ids']
+      @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq)
+      @product.save!
+      flash_comment(@product.name, 'success', 'created')
+      goto_vendor(@vendor)
+    else
+      setup_new
+      flash_comment(@product.name, 'danger', 'not created because it has no measures specified')
+      render :new
+    end
   rescue Mongoid::Errors::Validations
     setup_new
     @selected_measure_ids = params['product_test']['measure_ids'] if params['product_test'] && params['product_test']['measure_ids']
@@ -44,7 +51,7 @@ class ProductsController < ApplicationController
     @product.update_attributes(edit_product_params)
     @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
     @product.save!
-    flash_product_comment(@product.name, 'info', 'edited')
+    flash_comment(@product.name, 'info', 'edited')
     goto_vendor(@product.vendor)
   rescue Mongoid::Errors::Validations
     render :edit
@@ -52,7 +59,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    flash_product_comment(@product.name, 'danger', 'removed')
+    flash_comment(@product.name, 'danger', 'removed')
     goto_vendor(@product.vendor)
   end
 
@@ -80,20 +87,10 @@ class ProductsController < ApplicationController
     end
   end
 
-  def set_product
-    product_finder = @vendor ? @vendor.products : Product
-    @product = product_finder.find(params[:id])
-  end
-
   def set_measures
-    # TODO: Get latest version of each measure
-    @measures = Measure.top_level
-    @measures.sort_by! { |m| m.cms_id[3, m.cms_id.index('v') - 3].to_i } if @measures.all? { |m| !m.cms_id.nil? }
+    # TODO: Get the relevant bundle
+    @measures = Bundle.first.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type)
     @measures_categories = @measures.group_by(&:category)
-  end
-
-  def set_vendor
-    @vendor ||= Vendor.find(params[:vendor_id])
   end
 
   def setup_new
@@ -111,10 +108,5 @@ class ProductsController < ApplicationController
   def edit_product_params
     params[:product].permit(:name, :version, :description,
                             product_tests_attributes: [:id, :name, :measure_ids, :bundle_id, :_destroy])
-  end
-
-  def flash_product_comment(product_name, notice_type, action_type)
-    flash[:notice] = "Product '#{product_name}' was #{action_type}."
-    flash[:notice_type] = notice_type
   end
 end

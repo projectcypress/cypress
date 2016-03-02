@@ -69,6 +69,11 @@ module ProductsHelper
     end
   end
 
+  def type_counts(measures)
+    h = measures.map(&:type).each_with_object(Hash.new(0)) { |type, count| count[type.upcase] += 1 } # example { "EH"=> 4, "EP" => 2 }
+    h.map { |k, v| "#{v} #{k}" }.join(', ') # 4 EH, 2 EP
+  end
+
   # For pdf
   def all_records_for_product(product)
     records = []

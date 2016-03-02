@@ -11,19 +11,18 @@ class Product
   field :name, type: String
   field :version, type: String
   field :description, type: String
-  # field :ehr_type, type: String
   field :c1_test, type: Boolean
   field :c2_test, type: Boolean
   field :c3_test, type: Boolean
   field :c4_test, type: Boolean
   field :randomize_records, type: Boolean
   field :duplicate_records, type: Boolean, default: true
-  # field :measure_selection, type: String
+  field :measure_selection, type: String
 
   validates :name, presence: true,
                    uniqueness: { :scope => :vendor,
                                  :message => 'Product name was already taken. Please choose another.' }
-  # validates :ehr_type, presence: true, inclusion: { in: %w(provider hospital) }
+
   validate :meets_required_certification_types?
   validates :vendor, presence: true
 
