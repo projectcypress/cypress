@@ -45,15 +45,7 @@ class TestExecution
       execution_errors.build(:message => "#{task.records.count} files expected but was #{file_count}",
                              :msg_type => :error, :validator_type => :result_validation)
     end
-    (only_errors.count > 0) ? fail : pass
-  end
-
-  def only_errors
-    execution_errors.by_type(:error).entries
-  end
-
-  def only_warnings
-    execution_errors.by_type(:warning).entries
+    execution_errors.only_errors.count > 0 ? fail : pass
   end
 
   # Get the expected result for a particular measure
@@ -94,36 +86,17 @@ class TestExecution
     nil
   end
 
-  def c1_task?
-    return false unless task.has_attribute?(:_type)
-    task._type == 'C1Task'
+  def status
+    return 'passing' if passing?
+    return 'failing' if failing?
+    'incomplete'
   end
 
-  # only if validator is one of 'CDA SDTC Validator', 'QRDA Cat 1 R3 Validator', 'QRDA Cat 1 Validator', or 'QRDA Cat 3 Validator'
-  #   or if validator type is xml_validation
-  def qrda_errors
-    valid_strings = %w(CDA\ SDTC\ Validator QRDA\ Cat\ 1\ R3\ Validator QRDA\ Cat\ 1\ Validator QRDA\ Cat\ 3\ Validator)
-    execution_errors.select do |execution_error|
-      true if (execution_error.has_attribute?('validator') &&
-               valid_strings.include?(execution_error[:validator])) ||
-              (execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :xml_validation)
-    end
-  end
-
-  # only if validator is one of 'Cat 1 Measure ID Validator' or 'Cat 3 Measure ID Validator'
-  #   or if validator type is result_validation
-  def reporting_errors
-    execution_errors.select do |execution_error|
-      true if (execution_error.has_attribute?('validator') &&
-               %w(Cat\ 1\ Measure\ ID\ Validator Cat\ 3\ Measure\ ID\ Validator).include?(execution_error[:validator])) ||
-              (execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :result_validation)
-    end
-  end
-
-  # only if validator type is submission_validation
-  def submission_errors
-    execution_errors.select do |execution_error|
-      true if execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :submission_validation
-    end
+  # returns combined status including c3 test execution
+  # returns passing if both passing, incomplete if both incomplete, failing if both failing or mismatched
+  def status_with_sibling
+    return status unless sibling_execution
+    return status if status == sibling_execution.status
+    'failing' # failing if status's do not match
   end
 end

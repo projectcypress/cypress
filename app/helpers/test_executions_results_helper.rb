@@ -3,9 +3,10 @@ module TestExecutionsResultsHelper
     msg = ''
     msg << 'Most Recent - ' if is_most_recent
     msg << execution.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%b %d, %Y at %I:%M %p (%A)')
-    msg << ' (passing)' if execution.passing?
-    msg << ' (in progress)' if execution.incomplete?
-    if execution.failing?
+    case execution.status_with_sibling
+    when 'passing' then msg << ' (passing)'
+    when 'incomplete' then msg << ' (in progress)'
+    else # failing
       num_errors = execution.execution_errors.count
       num_errors += execution.sibling_execution.execution_errors.count if execution.sibling_execution
       msg << " (#{num_errors} errors)"

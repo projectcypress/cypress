@@ -24,8 +24,8 @@
             <%= test.display_name %>
           <% end %>
         </td>
-        <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat1_task } %></td>
-        <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat3_task } %></td>
+        <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat1_task, status: test.cat1_task.status } %></td>
+        <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat3_task, status: test.cat3_task.status } %></td>
       </tr>
     <% end %>
     <% if tests.any? { |test| test.state != :ready } %>

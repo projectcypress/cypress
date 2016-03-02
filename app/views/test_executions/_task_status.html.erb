@@ -11,6 +11,7 @@
 <% execution = task.most_recent_execution %>
 
 <% panel_class = current_task ? 'panel-primary' : 'panel-inactive' %>
+<% task_status = task.product_test._type == 'MeasureTest' ? task.status_with_sibling : task.status %>
 
 <div class = 'col-sm-4'>
   <div class = 'panel <%= panel_class %> task-panel'>
@@ -28,15 +29,15 @@
       <% if execution %>
         <div class = 'col-sm-6 text-center margin-top-1'>
           <% unless current_task %>
-            <span class = 'nested-link text-primary'><%= task.failing? || task.passing? ? 'view' : 'start' unless current_task %></span>
+            <span class = 'nested-link text-primary'><%= task_status == 'passing' || task_status == 'failing' ? 'view' : 'start' unless current_task %></span>
           <% end %>
         </div>
         <div class = 'col-sm-6 text-left margin-top-1'>
-          <% if task.passing? %>
+          <% if task_status == 'passing' %>
             <i class = 'fa fa-check text-success'></i><strong class = 'text-success'> Passing</strong>
-          <% elsif task.failing? %>
+          <% elsif task_status == 'failing' %>
             <i class = 'fa fa-times text-danger'></i><strong class = 'text-danger'> Failing</strong>
-          <% else %>
+          <% else # incomplete (in progress b/c execution exists) %>
             <strong class = 'text-info'>In Progress...</strong>
           <% end %>
         </div>

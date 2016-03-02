@@ -6,28 +6,28 @@
 #
 %>
 
-<% if execution.incomplete? || (execution.sibling_execution && execution.sibling_execution.incomplete?) %>
+<% case execution.status_with_sibling %>
+<% when 'incomplete' %>
   <h4><i class="fa fa-fw fa-refresh fa-spin text-info"></i>In Progress</h4>
   <p>You do not need to reload your browser. Results will automatically display when the tests are done running.</p>
   <% # ajax contacts test_execution's show controller action with format: 'js'. controller then directs to show.js.erb which will wait, then re-render %>
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
   </script>
-
-
-<% elsif execution.passing? %>
+  
+<% when 'passing' %>
   <h4><i class="fa fa-fw fa-check-circle text-success"></i> Passed</h4>
   <% if execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest' %>
-    <% submit_warnings = execution.sibling_execution.only_warnings %>
+    <% submit_warnings = execution.sibling_execution.execution_errors.only_warnings %>
     <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_warnings, displaying_cat1: displaying_cat1?(execution.task), message_title: 'Warning' } if submit_warnings.any? %>
   <% end %>
 
-<% else %>
-  <% qrda_errors = execution.qrda_errors %>
-  <% report_errors = execution.reporting_errors %>
+<% else # failing %>
+  <% qrda_errors = execution.execution_errors.qrda_errors %>
+  <% report_errors = execution.execution_errors.reporting_errors %>
   <% should_display_c3 = execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest' %>
-  <% submit_errors = should_display_c3 ? execution.sibling_execution.only_errors : [] %>
-  <% submit_warnings = should_display_c3 ? execution.sibling_execution.only_warnings : [] %>
+  <% submit_errors = should_display_c3 ? execution.sibling_execution.execution_errors.only_errors : [] %>
+  <% submit_warnings = should_display_c3 ? execution.sibling_execution.execution_errors.only_warnings : [] %>
 
   <% failure_message = " Failed with #{qrda_errors.count + report_errors.count + submit_errors.count} errors" %>
   <% failure_message += " and #{submit_warnings.count} warnings" if submit_warnings.any? %>
