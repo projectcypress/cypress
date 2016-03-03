@@ -8,7 +8,7 @@ class Cat1FilterTask < Task
   # do that validation here
   def validators
     @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, records, product_test.id),
-                   QrdaCat1Validator.new(product_test.bundle, false, product_test.measures)]
+                   QrdaCat1Validator.new(product_test.bundle, false, product_test.product.c3_test, product_test.measures)]
 
     @validators
   end
