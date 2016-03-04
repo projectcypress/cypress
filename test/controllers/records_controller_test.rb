@@ -23,12 +23,12 @@ class RecordsControllerTest < ActionController::TestCase
     assert assigns(:bundle)
   end
 
-  test 'should get index scoped to product_test' do
-    get :index, product_test_id: ProductTest.first
+  test 'should get index scoped to task' do
+    get :index, task_id: Task.first
     assert_response :success
     assert assigns(:records)
     assert assigns(:source)
-    assert assigns(:product_test)
+    assert assigns(:task)
   end
 
   test 'should get show' do
