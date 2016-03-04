@@ -6,9 +6,7 @@ class ChecklistTestsController < ProductTestsController
   before_action :set_measures, only: [:show]
 
   def create
-    # bundle ATTRIBUTE IS NOT CHOSEN CORRECTLY. MUST FIX LATER ~ JAEBIRD
-    @test = @product.product_tests.build({ name: 'c1 visual', measure_ids: interesting_measure_ids,
-                                           bundle_id: @product.product_tests.measure_tests.first.bundle_id }, ChecklistTest)
+    @test = @product.product_tests.build({ name: 'c1 visual', measure_ids: interesting_measure_ids }, ChecklistTest)
     @test.save!
     @test.create_checked_criteria
     redirect_to vendor_product_path(@product.vendor, @product, anchor: 'ChecklistTest')
@@ -50,7 +48,7 @@ class ChecklistTestsController < ProductTestsController
   end
 
   def set_measures
-    @measures = Measure.top_level.where(:hqmf_id.in => @test.measure_ids).sort_by(&:cms_int)
+    @measures = @test.measures.top_level.sort_by(&:cms_int)
   end
 
   # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

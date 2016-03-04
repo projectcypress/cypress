@@ -5,7 +5,7 @@ class ChecklistTest < ProductTest
   def num_measures_complete
     return 0 if checked_criteria.count == 0
     num_complete = 0
-    Measure.top_level.where(:hqmf_id.in => measure_ids).each do |measure|
+    measures.each do |measure|
       criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
       num_complete += 1 if criterias.count(&:completed) == criterias.count
     end
@@ -14,7 +14,7 @@ class ChecklistTest < ProductTest
 
   def num_measures_not_started
     num_not_started = 0
-    Measure.top_level.where(:hqmf_id.in => measure_ids).each do |measure|
+    measures.each do |measure|
       criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
       num_not_started += 1 unless criterias.count(&:completed) > 0
     end
@@ -36,7 +36,6 @@ class ChecklistTest < ProductTest
 
   def create_checked_criteria
     checked_criterias = []
-    measures = Measure.top_level.where(:hqmf_id.in => measure_ids)
     measure_criteria_map = {}
     measure_rank_map = {}
     checklist_measures = []

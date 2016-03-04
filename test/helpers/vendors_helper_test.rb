@@ -8,7 +8,8 @@ class VendorsHelperTest < ActiveJob::TestCase
     drop_database
     collection_fixtures('records', 'measures', 'vendors', 'products', 'product_tests', 'bundles')
 
-    @product = Product.new(vendor: Vendor.all.first, name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true)
+    @product = Product.new(vendor: Vendor.all.first, name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
+                           bundle_id: '4fdb62e01d41c820f6000001')
 
     setup_checklist_test
     setup_measure_tests
@@ -16,8 +17,8 @@ class VendorsHelperTest < ActiveJob::TestCase
   end
 
   def setup_checklist_test
-    checklist_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'],
-                                                    bundle_id: '4fdb62e01d41c820f6000001' }, ChecklistTest)
+    checklist_test = @product.product_tests.build({ name: 'c1 visual',
+                                                    measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'] }, ChecklistTest)
     checklist_test.save!
     checked_criterias = []
     measures = Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids)
@@ -34,12 +35,10 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def setup_measure_tests
     @product.product_tests.build({ name: 'test_product_test_name_1',
-                                   measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
-                                   bundle_id: '4fdb62e01d41c820f6000001'
+                                   measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
                                  }, MeasureTest).save!
     @product.product_tests.build({ name: 'test_product_test_name_2',
-                                   measure_ids: ['8A4D92B2-3887-5DF3-0139-11B262260A92'],
-                                   bundle_id: '4fdb62e01d41c820f6000001'
+                                   measure_ids: ['8A4D92B2-3887-5DF3-0139-11B262260A92']
                                  }, MeasureTest).save!
     @product.product_tests.measure_tests.each do |test|
       test.tasks.build({}, C1Task)

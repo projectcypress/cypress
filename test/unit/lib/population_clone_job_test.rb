@@ -3,7 +3,7 @@ require 'fileutils'
 
 class PopulationCloneJobTest < ActiveSupport::TestCase
   def setup
-    collection_fixtures('records', 'product_tests', 'bundles', 'measures')
+    collection_fixtures('records', 'products', 'product_tests', 'bundles', 'measures')
   end
 
   def test_perform_full_deck

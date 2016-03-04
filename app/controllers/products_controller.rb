@@ -22,6 +22,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.bundle = Bundle.default # TODO: remove this once it comes in from params
     @product.vendor = @vendor
     # TODO: Refactor this so we can't save products without measures in more concise code
     if params['product_test'] && params['product_test']['measure_ids']
@@ -94,7 +95,9 @@ class ProductsController < ApplicationController
 
   def set_measures
     # TODO: Get the relevant bundle
-    @measures = Bundle.first.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type)
+    @bundles = Bundle.all
+    @bundle = Bundle.default
+    @measures = @bundle.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type)
     @measures_categories = @measures.group_by(&:category)
   end
 
@@ -107,11 +110,11 @@ class ProductsController < ApplicationController
 
   def product_params
     params[:product].permit(:name, :version, :description, :ehr_type, :randomize_records, :duplicate_records, :c1_test, :c2_test, :c3_test, :c4_test,
-                            :measure_selection, product_tests_attributes: [:id, :name, :measure_ids, :bundle_id, :_destroy])
+                            :measure_selection, :bundle_id, product_tests_attributes: [:id, :name, :measure_ids, :_destroy])
   end
 
   def edit_product_params
     params[:product].permit(:name, :version, :description,
-                            product_tests_attributes: [:id, :name, :measure_ids, :bundle_id, :_destroy])
+                            product_tests_attributes: [:id, :name, :measure_ids, :_destroy])
   end
 end

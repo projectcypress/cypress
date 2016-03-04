@@ -39,13 +39,14 @@ class RecordsController < ApplicationController
     elsif params[:task_id]
       @task = Task.find(params[:task_id])
       @product_test = @task.product_test
+      @bundle = @product_test.bundle
       authorize! :read, @product_test.product.vendor
-      @measure = Measure.where(hqmf_id: @product_test.measure_ids.first).first
+      @measure = @product_test.measures.first
       @source = @product_test
       add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(task_id: @task.id)
       add_breadcrumb 'Patient List', records_path(task_id: @task.id)
     else
-      @bundle = Bundle.where(active: true).first
+      @bundle = Bundle.default
       @source = @bundle
       add_breadcrumb 'Master Patient List', :records_path
     end

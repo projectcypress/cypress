@@ -6,6 +6,7 @@ class Product
   belongs_to :vendor, index: true, touch: true
   has_many :product_tests, :dependent => :destroy
   accepts_nested_attributes_for :product_tests, allow_destroy: true
+  belongs_to :bundle, index: true
   # NOTE: more relationships must be defined
 
   field :name, type: String
@@ -18,6 +19,8 @@ class Product
   field :randomize_records, type: Boolean
   field :duplicate_records, type: Boolean, default: true
   field :measure_selection, type: String
+
+  delegate :effective_date, :to => :bundle
 
   validates :name, presence: true,
                    uniqueness: { :scope => :vendor,
@@ -77,15 +80,15 @@ class Product
     untouched_ids = measure_ids - to_remove_ids
     if c1_test || c2_test || c3_test
       new_ids.each do |new_measure_id|
-        measure = Measure.top_level.find_by(hqmf_id: new_measure_id)
+        measure = bundle.measures.top_level.find_by(hqmf_id: new_measure_id)
         product_tests.build({ name: measure.name, product: self, measure_ids: [new_measure_id],
-                              cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
+                              cms_id: measure.cms_id }, MeasureTest)
       end
     end
 
     to_remove_ids.each { |old_measure_id| product_tests.in(measure_ids: old_measure_id).destroy }
 
-    add_filtering_tests(ApplicationController.helpers.pick_measure_for_filtering_test(untouched_ids + new_ids)) if c4_test
+    add_filtering_tests(ApplicationController.helpers.pick_measure_for_filtering_test(untouched_ids + new_ids, bundle)) if c4_test
   end
 
   def add_filtering_tests(measure)
@@ -115,6 +118,6 @@ class Product
     # construct options hash from criteria array and create the test
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     product_tests.create({ name: measure.name, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
-                           bundle_id: measure.bundle_id, incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
+                           incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
   end
 end

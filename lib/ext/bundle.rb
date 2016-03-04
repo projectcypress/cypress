@@ -10,6 +10,15 @@ class Bundle
 
   def destroy
     results.destroy
+    Product.where(bundle_id: id).destroy_all
     delete
+  end
+
+  def self.default
+    find_by(active: true)
+  end
+
+  def self.first
+    fail 'Do not use Bundle.first as there may be multiple bundles and order is not guaranteed.'
   end
 end

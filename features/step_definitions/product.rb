@@ -4,7 +4,7 @@
 # # # # # # # # # # #
 
 def build_product
-  Product.new(name: 'Product 1', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'])
+  Product.new(name: 'Product 1', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'], bundle_id: '4fdb62e01d41c820f6000001')
 end
 
 # # # # # # # # #

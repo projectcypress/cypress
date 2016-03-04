@@ -14,8 +14,6 @@ class ProductTest
 
   has_many :records, :foreign_key => :test_id
 
-  belongs_to :bundle, index: true
-
   field :expected_results, type: Hash
   # this the hqmf id of the measure
   field :measure_ids, type: Array
@@ -31,7 +29,8 @@ class ProductTest
   validates :measure_ids, presence: true
   mount_uploader :patient_archive, PatientArchiveUploader
 
-  delegate :effective_date, :to => :bundle
+  delegate :effective_date, :to => :product
+  delegate :bundle, :to => :product
 
   def self.inherited(child)
     child.instance_eval do
@@ -43,13 +42,14 @@ class ProductTest
   end
 
   def generate_records
-    ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
+    ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
+                             'value.IPP' => { '$gt' => 0 }).collect do |pcv|
       pcv.value['medical_record_id']
     end
     ids.uniq!
 
     if product.randomize_records
-      random_ids = Record.where(test_id: nil).pluck('medical_record_number').uniq
+      random_ids = bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true).perform
     else

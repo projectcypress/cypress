@@ -3,7 +3,7 @@ include ApplicationHelper
 
 When(/^the user visits the records page$/) do
   visit '/records/'
-  @bundle = Bundle.where(:records.exists => true).first
+  @bundle = Bundle.default
   @measure = @bundle.measures.where(hqmf_id: '8A4D92B2-3946-CDAE-0139-7944ACB700BD').first
 end
 
@@ -15,7 +15,7 @@ end
 And(/^the user should see a way to filter patients$/) do
   page.assert_text 'Filter by Measure'
   options = ['All measures'] + @bundle.measures.map(&:display_name)
-  assert page.has_select?('measure_id', options: options)
+  assert page.has_select?('measure_id', with_options: options)
 end
 
 And(/^the user selects a measure from the dropdown$/) do
@@ -32,7 +32,7 @@ Then(/^the user should see results for that measure$/) do
 end
 
 When(/^the user visits a record$/) do
-  @bundle = Bundle.where(:records.exists => true).first
+  @bundle = Bundle.default
   @record = @bundle.records.where(_id: '4efa05ada9ffcce9010000dc').first
   visit "/records/#{@record.id}"
 end

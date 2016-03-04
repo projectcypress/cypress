@@ -7,7 +7,7 @@
   <br><strong>Report Released:</strong> <%= Time.new %>
   <br><strong>Vendor:</strong> <%= @product.vendor.name %>
   <br><strong>Product:</strong> <%= @product.name %>
-  <% bundle = @product.product_tests.first.bundle %>
+  <% bundle = @product.bundle %>
   <br><strong>Bundle:</strong> <%= "#{bundle.title} v#{bundle.version}" %>
   <br><strong>Cypress Version:</strong> 3.0
 
@@ -29,7 +29,7 @@
     <% @product.product_tests.measure_tests.each do |test| %>
       <tr>
         <td><%= "#{test.cms_id} #{test.name}" %></td>
-        <% measures = Measure.where(hqmf_id: test.measure_ids.first).all %>
+        <% measures = test.measures %>
         <td>
           <% if measures.count > 1 %>
             <ul class="list-unstyled">
@@ -91,7 +91,7 @@
   <h3 class = 'report-subsection-title'>C1 Manual Entry</h3>
   <% unless @product.product_tests.checklist_tests.count == 0 %>
     <% check_test = @product.product_tests.checklist_tests.first %>
-    <% Measure.top_level.where(:hqmf_id.in => check_test.measure_ids).each do |measure| %>
+    <% check_test.measures.top_level.each do |measure| %>
       <strong><%= "#{measure.cms_id} #{measure.name}" %></strong>
       <table class = 'table table-condensed'>
         <thead>
