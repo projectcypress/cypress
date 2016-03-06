@@ -1,4 +1,5 @@
 class TestExecutionJob < ActiveJob::Base
+  include Job::Status
   queue_as :default
 
   def perform(te, task, options = {})
