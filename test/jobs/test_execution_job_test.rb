@@ -13,9 +13,13 @@ class TestExecutionJobTest < ActiveJob::TestCase
     task = ptest.tasks.create({}, C2Task)
     te = task.test_executions.create({})
 
-    TestExecutionJob.perform_later(te, task)
+    job = TestExecutionJob.perform_later(te, task)
 
+    assert_not_nil job.tracker, "should have created a tracker for the job"
+    binding.pry
+    assert_equal :queued, job.tracker.status, "current status should be queued"
     assert_enqueued_jobs 1
+
   end
 
   def test_can_run_job

@@ -2,8 +2,9 @@ class Tracker
   include Mongoid::Document
   field :job_id
   field :job_class, type: String
-  field :status, type: Symbol
+  field :status, type: String
   field :log_message, type: Array, default: []
+  field :options, type: Hash, default: {}
 
   scope :working, -> { where("status" => :working) }
   scope :failed, -> {where("status" => :failed )}
@@ -20,19 +21,25 @@ class Tracker
   end
 
   def queued
-    status = :queued
+    status = "queued"
     log("queued")
+    save
   end
 
 
   def working
-    status = :working
+    status = "working"
     log("working")
   end
 
   def finished
-    status = :completed
+    status = "completed"
     log("completed")
+  end
+
+  def set_options(opts)
+    options = self.options.merge(opts)
+    save
   end
 
 end

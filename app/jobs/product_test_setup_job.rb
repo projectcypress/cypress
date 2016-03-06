@@ -1,6 +1,6 @@
 class ProductTestSetupJob < ActiveJob::Base
   queue_as :product_test_setup
-
+  include Job::Status
   def perform(product_test)
     product_test.building
     product_test.generate_records if product_test.records.count == 0
