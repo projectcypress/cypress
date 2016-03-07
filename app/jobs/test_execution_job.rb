@@ -3,7 +3,7 @@ class TestExecutionJob < ActiveJob::Base
   queue_as :default
 
   after_enqueue do|job|
-    job.tracker.set_options(test_execution_id: job.arguments[0].id,
+    job.tracker.add_options(test_execution_id: job.arguments[0].id,
                             task_id: job.arguments[1].id)
   end
   def perform(te, task, options = {})

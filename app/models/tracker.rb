@@ -35,7 +35,7 @@ class Tracker
     log('completed')
   end
 
-  def set_options(opts)
+  def add_options(opts)
     self.options = opts
     save
   end
