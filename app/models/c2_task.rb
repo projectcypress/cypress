@@ -23,4 +23,11 @@ class C2Task < Task
     te.save
     te
   end
+
+  # returns combined status including c3_cat3 task
+  def status_with_sibling
+    return status unless product_test.tasks.c3_cat3_task
+    return status if status == product_test.tasks.c3_cat3_task.status
+    'failing'
+  end
 end

@@ -30,4 +30,11 @@ class C1Task < Task
     patient_ids = product_test.results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
     product_test.records.in('_id' => patient_ids)
   end
+
+  # returns combined status including c3_cat1 task
+  def status_with_sibling
+    return status unless product_test.tasks.c3_cat1_task
+    return status if status == product_test.tasks.c3_cat1_task.status
+    'failing'
+  end
 end

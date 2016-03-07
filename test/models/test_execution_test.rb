@@ -26,12 +26,6 @@ class TestExecutionTest < ActiveSupport::TestCase
     assert te.passing?, 'te.passing? not returning true when execution is passing'
   end
 
-  def test_c1_task
-    task = @ptest.tasks.build({}, C1Task)
-    te = task.test_executions.build
-    assert te.c1_task?
-  end
-
   def test_qrda_reporting_and_submission_errors
     qrda_errors = [
       { validator: 'CDA SDTC Validator' },
@@ -52,8 +46,8 @@ class TestExecutionTest < ActiveSupport::TestCase
 
     te = TestExecution.new(execution_errors: execution_errors)
 
-    assert_equal te.qrda_errors.count, qrda_errors.count
-    assert_equal te.reporting_errors.count, reporting_errors.count
-    assert_equal te.submission_errors.count, submission_errors.count
+    assert_equal te.execution_errors.qrda_errors.count, qrda_errors.count
+    assert_equal te.execution_errors.reporting_errors.count, reporting_errors.count
+    assert_equal te.execution_errors.submission_errors.count, submission_errors.count
   end
 end

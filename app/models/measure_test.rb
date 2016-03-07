@@ -49,4 +49,36 @@ class MeasureTest < ProductTest
       product.c2_test = true
     end
   end
+
+  # passing only if both c1 and c3_cat1 tasks pass
+  # failing if either fail, incomlete otherwise
+  # should only be called if product.c1_test == true
+  def cat1_status
+    c1_task = tasks.c1_task
+    c3_task = tasks.c3_cat1_task
+    return c1_task.status unless c3_task
+    if c1_task.passing? && c3_task.passing?
+      'passing'
+    elsif c1_task.failing? || c3_task.failing?
+      'failing'
+    else
+      'incomplete'
+    end
+  end
+
+  # passing only if both c2 and c3_cat3 tasks pass
+  # failing if either fail, incomlete otherwise
+  # should only be called if product.c2_test == true
+  def cat3_status
+    c2_task = tasks.c2_task
+    c3_task = tasks.c3_cat3_task
+    return c2_task.status unless c3_task
+    if c2_task.passing? && c3_task.passing?
+      'passing'
+    elsif c2_task.failing? || c3_task.failing?
+      'failing'
+    else
+      'incomplete'
+    end
+  end
 end
