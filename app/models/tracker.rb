@@ -6,39 +6,37 @@ class Tracker
   field :log_message, type: Array, default: []
   field :options, type: Hash, default: {}
 
-  scope :working, -> { where("status" => :working) }
-  scope :failed, -> {where("status" => :failed )}
-  scope :queued, -> { where("status" => :queued )}
+  scope :working, -> { where('status' => :working) }
+  scope :failed, -> { where('status' => :failed) }
+  scope :queued, -> { where('status' => :queued) }
 
   def log(data)
     log_message.push(data)
     save
   end
 
-  def failed(error)
-    self.status= :failed
+  def failed(_error)
+    self.status = :failed
     log(e.message)
   end
 
   def queued
-    self.status= :queued
-    log("queued")
+    self.status = :queued
+    log('queued')
   end
 
-
   def working
-    self.status= :working
-    log("working")
+    self.status = :working
+    log('working')
   end
 
   def finished
-    self.status= :completed
-    log("completed")
+    self.status = :completed
+    log('completed')
   end
 
   def set_options(opts)
     self.options = opts
-    self.save
+    save
   end
-
 end

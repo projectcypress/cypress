@@ -19,17 +19,17 @@ module Job
       end
 
       def tracker
-        @tracker ||= Tracker.find_or_create_by(job_id: @job_id, job_class: self.class.to_s )
+        @tracker ||= Tracker.find_or_create_by(job_id: @job_id, job_class: self.class.to_s)
       end
     end
 
     class_methods do
       def tracker_for_job(job_id)
-        Tracker.where(job_id: job_id, job_class: self.to_s)
+        Tracker.where(job_id: job_id, job_class: to_s)
       end
 
       def trackers
-        Tracker.where(job_class: self.to_s)
+        Tracker.where(job_class: to_s)
       end
     end
   end

@@ -15,11 +15,10 @@ class TestExecutionJobTest < ActiveJob::TestCase
 
     job = TestExecutionJob.perform_later(te, task)
 
-    assert_not_nil job.tracker, "should have created a tracker for the job"
-    assert_equal job.arguments[0].id, job.tracker.options[:test_execution_id], "tracker should have set options for test execution id"
-    assert_equal :queued, job.tracker.status, "current status should be queued"
+    assert_not_nil job.tracker, 'should have created a tracker for the job'
+    assert_equal job.arguments[0].id, job.tracker.options[:test_execution_id], 'tracker should have set options for test execution id'
+    assert_equal :queued, job.tracker.status, 'current status should be queued'
     assert_enqueued_jobs 1
-
   end
 
   def test_can_run_job
