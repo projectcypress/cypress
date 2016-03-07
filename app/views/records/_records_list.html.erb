@@ -34,7 +34,7 @@
       <% @records.each do |r| %>
         <tr>
           <% if @product_test %>
-            <td><%= link_to full_name(r), record_path(:id => r.id, :product_test_id => @product_test.id) %></td>
+            <td><%= link_to full_name(r), record_path(:id => r.id, :task_id => @task.id) %></td>
           <% else %>
             <td><%= link_to full_name(r), record_path(:id => r.id) %></td>
           <% end %>
