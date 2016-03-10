@@ -20,7 +20,7 @@
       <th scope="col" class = 'col-sm-6 pointer-on-hover'>
         Measure Name
         <a>[sort]</a>
-      </th>  
+      </th>
     <% else %>
       <th scope="col" class = 'col-sm-8 pointer-on-hover'>
         Measure Name
@@ -43,7 +43,7 @@
   <tbody data-no-turbolink>
     <% tests.each do |test| %>
       <tr>
-        <td data-sort="<%= test.measures.first.cms_int %>"><%= test.cms_id %></td>
+        <td data-sort="<%= cms_int(test.cms_id) %>"><%= test.cms_id %></td>
         <td><%= test.name %></td>
         <% if @product.c1_test %>
           <td><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c1_task, status: test.cat1_status } %></td>
