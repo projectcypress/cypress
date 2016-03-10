@@ -40,26 +40,13 @@ class BundlesController < ApplicationController
   end
 
   def create
-    options = { delete_existing: false, update_measures: false, exclude_results: false }
-
+    #save file to a temporary location
     bundle_file = params['file']
-
-    fail 'Bundle must be a Zip file' unless File.extname(bundle_file.original_filename) == '.zip'
-
-    already_have_default = Bundle.where(active: true).exists?
-
-    importer = HealthDataStandards::Import::Bundle::Importer
-    @bundle = importer.import(bundle_file.tempfile, options)
-
-    if already_have_default
-      @bundle.active = false
-      @bundle.save!
-    end
-
+    FileUtils.mkdir_p(APP_CONFIG.bundle_file_path)
+    file_name = File.join(APP_CONFIG.bundle_file_path,"#{Time.now.to_i}_#{bundle_file.original_filename}")
+    FileUtils.mv(bundle_file.tempfile.path, file_name)
+    BundleUploadJob.perform_later(file_name)
     redirect_to bundles_url
-  rescue => e
-    flash[:alert] = e
-    render :new
   end
 
   def destroy
@@ -69,6 +56,14 @@ class BundlesController < ApplicationController
     Rails.cache.delete('any_installed_bundle')
 
     redirect_to bundles_url
+  end
+
+  def list_remote_bundles
+
+  end
+
+  def download_bundle
+
   end
 
   def find_bundle
