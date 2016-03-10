@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   before_action :set_vendor, only: [:new, :create, :index, :report]
   before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :update]
-
+  before_action :authorize_vendor
   add_breadcrumb 'Dashboard', :vendors_path
 
   def index
@@ -87,16 +87,12 @@ class ProductsController < ApplicationController
     end
   end
 
-  def authorize_vendor(vendor)
+  def authorize_vendor()
+    vendor = @vendor || @product.vendor
     authorize! :manage, vendor if params[:action] != :show
     authorize! :read, vendor if params[:action] == :show
   end
 
-  def set_product
-    product_finder = @vendor ? @vendor.products : Product
-    @product = product_finder.find(params[:id])
-    authorize_vendor(@product.vendor)
-  end
 
   def set_measures
     # TODO: Get the relevant bundle
@@ -104,10 +100,7 @@ class ProductsController < ApplicationController
     @measures_categories = @measures.group_by(&:category)
   end
 
-  def set_vendor
-    @vendor ||= Vendor.find(params[:vendor_id])
-    authorize_vendor(@vendor)
-  end
+
 
   def setup_new
     add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@product.vendor)

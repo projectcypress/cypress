@@ -30,7 +30,7 @@ class RecordsController < ApplicationController
 
   private
 
-  def authorize_vendor(vendor)
+  def authorize_vendor()
     authorize! :read, vendor
   end
 
@@ -42,7 +42,7 @@ class RecordsController < ApplicationController
     elsif params[:task_id]
       @task = Task.find(params[:task_id])
       @product_test = @task.product_test
-      authorize_vendor(@product_test.product.vendor)
+      authorize! :read, @product_test.product.vendor
       @measure = Measure.where(hqmf_id: @product_test.measure_ids.first).first
       @source = @product_test
       add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(task_id: @task.id)

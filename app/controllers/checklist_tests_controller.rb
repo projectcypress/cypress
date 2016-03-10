@@ -47,7 +47,7 @@ class ChecklistTestsController < ProductTestsController
 
   def set_product
     @product = Product.find(params[:product_id])
-    authorize_vendor(@product.vendor)
+    authorize_vendor
   end
 
   def set_test

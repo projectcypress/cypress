@@ -1,6 +1,7 @@
 class ProductTestsController < ApplicationController
   before_action :set_product, only: [:index, :new, :create]
   before_action :set_product_test, except: [:index, :new, :create]
+  before_action :authorize_vendor
   add_breadcrumb 'Dashboard', :vendors_path
 
   def index
@@ -40,17 +41,8 @@ class ProductTestsController < ApplicationController
 
   private
 
-  def set_product
-    @product = Product.find(params[:product_id])
-    authorize_vendor(@product.vendor)
-  end
-
-  def set_product_test
-    @product_test = ProductTest.find(params[:id])
-    authorize_vendor(@product_test.product.vendor)
-  end
-
-  def authorize_vendor(vendor)
+  def authorize_vendor()
+    vendor = @product ? @product.vendor : @product_test.product.vendor
     authorize! :manage, vendor if params[:action] != :show
     authorize! :read, vendor if params[:action] == :show
   end
