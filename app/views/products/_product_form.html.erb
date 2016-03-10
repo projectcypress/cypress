@@ -29,8 +29,13 @@
             <% end %>
           </fieldset>
 
-          <fieldset>
+          <fieldset id="measures_options">
             <legend class="control-label">Measures Options</legend>
+
+            <% unless @product.new_record? %>
+              <%= render :partial => 'alerts', locals: { alert: 'Changing selected measures will delete all associated product tests and test execution results for any removed measures. Be sure you want to do this before changing your selection.', confirmable: true } %>
+            <% end %>
+
             <div id="simple_measures_errors_container"></div>
             <%= f.form_group :measure_selection, help: "Indicate the clinical quality measures Cypress should use to certify this product. Testing will be performed on a measure-by-measure basis. Click 'Custom' to specify individual measures." do %>
               <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: { 'parsley-required': '', 'parsley-error-message': 'Must select measures.', 'parsley-errors-container': "#simple_measures_errors_container" } %>
@@ -65,14 +70,17 @@
                 </ul>
               </div>
               <div class="measure-list">
-
                 <% @measures_categories.sort.each do |category, measures| %>
                   <!-- set up a checkbox for each top-level measure in the group -->
                   <div id="<%= category.tr(" '", "_") %>_div" class="measure_group">
                     <% if measures.length > 1 %>
                     <div class="checkbox">
                       <label class="btn btn-checkbox">
-                        <input type="checkbox" id="<%= category.tr(" '", "_") %>" class="measure_group_all" /> Select all <%= measures.length %> <%= category %> measures
+                        <input type="checkbox"
+                          id="<%= category.tr(" '", "_") %>"
+                          class="measure_group_all"
+                          <%= 'disabled' if defined?(@selected_measure_ids) && !@product.new_record? %>/>
+                        Select all <%= measures.length %> <%= category %> measures
                       </label>
                     </div>
                     <% end %>
@@ -92,7 +100,7 @@
                             aria-labelledby="select_custom_measures"
                             class="measure-checkbox"
                             <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %>
-                            <%= 'disabled' if defined?(@selected_measure_ids) && params[:action] == "edit"  %>/>
+                            <%= 'disabled' if defined?(@selected_measure_ids) && !@product.new_record? %>/>
                           <strong><%= m.cms_id %></strong> <%= m.name %> (<%= m.type.upcase %>)
                         </label>
                       </div>
