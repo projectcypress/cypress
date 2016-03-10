@@ -12,7 +12,7 @@
     <td class = 'col-sm-2'></td>
   </thead>
   <tbody>
-    <% Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids).each do |measure| %>
+    <% Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids).sort_by(&:cms_int).each do |measure| %>
       <tr>
         <td><%= link_to "#{measure.cms_id} #{measure.name}", product_checklist_test_path(product, checklist_test, anchor: measure.cms_id) %></td>
         <td class = 'text-right'>

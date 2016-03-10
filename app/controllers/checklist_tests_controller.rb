@@ -44,7 +44,7 @@ class ChecklistTestsController < ProductTestsController
   end
 
   def set_measures
-    @measures = Measure.top_level.where(:hqmf_id.in => @test.measure_ids)
+    @measures = Measure.top_level.where(:hqmf_id.in => @test.measure_ids).sort_by(&:cms_int)
   end
 
   # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
