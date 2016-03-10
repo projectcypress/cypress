@@ -23,7 +23,6 @@ module Validators
 
     private
 
-    # rubocop:disable all
     def match_calculation_results(expected_result, reported_result)
       measure_id = expected_result['measure_id']
       check_for_reported_results_population_ids(expected_result, reported_result, measure_id)
@@ -52,7 +51,6 @@ module Validators
         end
       end
     end
-    # rubocop:enable all
 
     def check_for_reported_results_population_ids(expected_result, reported_result, measure_id)
       ids = expected_result['population_ids'].dup

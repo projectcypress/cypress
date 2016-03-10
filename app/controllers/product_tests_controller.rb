@@ -54,5 +54,4 @@ class ProductTestsController < ApplicationController
     authorize! :manage, vendor if params[:action] != :show
     authorize! :read, vendor if params[:action] == :show
   end
-
 end

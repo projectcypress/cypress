@@ -35,23 +35,22 @@ class RecordsController < ApplicationController
   end
 
   def set_record_source
-     if params[:bundle_id]
-       @bundle = Bundle.find(params[:bundle_id])
-       @source = @bundle
-       add_breadcrumb 'Master Patient List', :records_path
-     elsif params[:task_id]
-       @task = Task.find(params[:task_id])
-       @product_test = @task.product_test
-       authorize_vendor(@task.product_test.product.vendor)
-       @measure = Measure.where(hqmf_id: @product_test.measure_ids.first).first
-       @source = @product_test
-       add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(task_id: @task.id)
-       add_breadcrumb 'Patient List', records_path(task_id: @task.id)
-     else
-       @bundle = Bundle.where(active: true).first
-       @source = @bundle
-       add_breadcrumb 'Master Patient List', :records_path
-     end
-   end
-
+    if params[:bundle_id]
+      @bundle = Bundle.find(params[:bundle_id])
+      @source = @bundle
+      add_breadcrumb 'Master Patient List', :records_path
+    elsif params[:task_id]
+      @task = Task.find(params[:task_id])
+      @product_test = @task.product_test
+      authorize_vendor(@product_test.product.vendor)
+      @measure = Measure.where(hqmf_id: @product_test.measure_ids.first).first
+      @source = @product_test
+      add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(task_id: @task.id)
+      add_breadcrumb 'Patient List', records_path(task_id: @task.id)
+    else
+      @bundle = Bundle.where(active: true).first
+      @source = @bundle
+      add_breadcrumb 'Master Patient List', :records_path
+    end
+  end
 end

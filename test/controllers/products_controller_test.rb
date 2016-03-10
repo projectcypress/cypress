@@ -91,14 +91,12 @@ class ProductsControllerTest < ActionController::TestCase
   end
 
   test 'should create' do
-
     # do this for admin,atl,user:owner -- need negative test for non access
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       post :create, vendor_id: @vendor.id, product: { name: "test_product_#{rand}", c1_test: true, measure_ids: [Measure.first.id] }
-      assert_response :redirect, "#{@user.email} should have access #{response.status}"
+      assert_response :success, "#{@user.email} should have access #{response.status}"
       assert_not_nil assigns(:product)
     end
-
   end
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to create for unauthorized users ' do
@@ -130,13 +128,20 @@ class ProductsControllerTest < ActionController::TestCase
     end
   end
 
-
   test 'should generate a PDF report' do
-    get :download_pdf, vendor_id: Product.first.vendor, id: Product.first
-    assert_response :success
-    assert_equal 'application/pdf', response.headers['Content-Type']
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :download_pdf, vendor_id: @vendor.id, id: @first_product.id
+      assert_response :success, "#{@user.email} should have access "
+      assert_equal 'application/pdf', response.headers['Content-Type']
+    end
   end
 
+  test 'should restrict access to PDF report to unauthorized users' do
+    for_each_logged_in_user([OTHER_VENDOR]) do
+      get :download_pdf, vendor_id: @vendor.id, id: @first_product.id
+      assert_response 401
+    end
+  end
 
   test 'should be able to restrict access to update unauthorized users ' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
@@ -156,5 +161,4 @@ class ProductsControllerTest < ActionController::TestCase
       assert_response 401
     end
   end
-
 end

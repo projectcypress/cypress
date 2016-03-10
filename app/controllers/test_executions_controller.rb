@@ -32,7 +32,7 @@ class TestExecutionsController < ApplicationController
 
   def destroy
     authorize! :delete, @test_execution.task.product_test.product.vendor
-    @test_execution.destroy
+    @test_execution.destroy!
     render status: 204, text: 'Deleted'
   end
 

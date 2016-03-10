@@ -1,6 +1,6 @@
 class VendorsController < ApplicationController
   before_action :set_vendor, only: [:show, :update, :destroy, :edit]
-
+  before_action :authorize_vendor, only: [:show, :update, :destroy, :edit]
   # breadcrumbs
   add_breadcrumb 'Dashboard', :vendors_path
   add_breadcrumb 'Add Vendor',  :new_vendor_path,  only: [:new, :create]
@@ -66,14 +66,9 @@ class VendorsController < ApplicationController
 
   private
 
-  def authorize_vendor(vendor)
-    authorize! :manage, vendor if params[:action] != :show
-    authorize! :read, vendor if params[:action] == :show
-  end
-
-  def find_vendor
-    @vendor = Vendor.find(params[:id])
-    authorize_vendor(@vendor)
+  def authorize_vendor
+    authorize! :manage, @vendor if params[:action] != :show
+    authorize! :read, @vendor if params[:action] == :show
   end
 
   def vendor_params

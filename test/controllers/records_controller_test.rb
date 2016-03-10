@@ -30,8 +30,6 @@ class RecordsControllerTest < ActionController::TestCase
     end
   end
 
-
-
   test 'should get show' do
     # do this for all users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR, OTHER_VENDOR]) do
@@ -44,7 +42,7 @@ class RecordsControllerTest < ActionController::TestCase
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to product test records unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
-      get :index, product_test_id: @first_product.product_tests.first.id
+      get :index, task_id: @first_product.product_tests.first.tasks.first.id
       assert_response 401
     end
   end

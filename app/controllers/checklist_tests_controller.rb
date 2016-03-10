@@ -39,7 +39,8 @@ class ChecklistTestsController < ProductTestsController
 
   private
 
-  def authorize_vendor(vendor)
+  def authorize_vendor
+    vendor = @product.vendor
     authorize! :manage, vendor if params[:action] != :show
     authorize! :read, vendor if params[:action] == :show
   end

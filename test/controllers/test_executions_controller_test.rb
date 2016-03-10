@@ -45,11 +45,11 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # do this for admin,atl,user:owner -- need negative tests for non
     # access users
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      @first_task.test_executions.destroy
       te = @first_task.test_executions.create
-      id = te.id
-      delete :destroy, id: id
+      delete :destroy, id: te.id
       assert_response 204
-      assert_equal nil, TestExecution.where(_id: id).first, 'SHould have deleted test execution'
+      assert_equal nil, TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
     end
   end
 
