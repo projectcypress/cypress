@@ -1,3 +1,8 @@
+<%
+ #locals
+ confirmable ||= false
+%>
+
 <% if notice || alert %>
     <div class="clearfix alert <%= flash[:notice_type] ? "alert-#{flash[:notice_type]}" : "alert-info" %> <%= alert ? "alert-danger" : "" %> alert-dismissible" role="alert" aria-live="polite">
         <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"></button>
@@ -8,6 +13,9 @@
           </div>
           <div class="alertContent">
             <p><%= alert %></p>
+            <% if confirmable %>
+              <button type="button" class="btn btn-default btn-sm pull-right confirm" data-dismiss="alert">OK, I understand</button>
+            <% end %>
           </div>
         <% elsif notice %>
           <% if flash[:notice_type] == 'warning' %>
@@ -25,6 +33,9 @@
           <% end %>
           <div class="alertContent">
             <p><%= notice %></p>
+            <% if confirmable %>
+              <button type="button" class="btn btn-default btn-sm pull-right confirm" data-dismiss="alert">OK, I understand</button>
+            <% end %>
           </div>
         <% end %>
     </div>

@@ -64,14 +64,16 @@ ready = function() {
 
   // Checking a radio button indicating measure selection
   $('.btn-checkbox input[name="product[measure_selection]"]').on('change', function() {
-    var selection = $(this).val();
+    if ($(this).attr('disabled') != true) {
+      var selection = $(this).val();
 
-    if (selection == 'custom') {
-      ToggleCustomSelection('open');
-    }
-    else {
-      ToggleCustomSelection('close');
-      CheckMany(selection);
+      if (selection == 'custom') {
+        ToggleCustomSelection('open');
+      }
+      else {
+        ToggleCustomSelection('close');
+        CheckMany(selection);
+      }
     }
   });
 
@@ -83,6 +85,15 @@ ready = function() {
 
   // Checking an individual measure
   $('.measure-checkbox').on('change', this, UpdateGroupSelections);
+
+  // Enable changing measures
+  $('#measures_options').find('button.confirm').on('click', function (event) {
+    event.preventDefault();
+    $('.measure-list [type="checkbox"]').attr('disabled', false);
+    $('input[name="product[measure_selection]"]').attr('disabled', false);
+    $('input[name="product[measure_selection]"]').closest('.radio').removeClass('disabled');
+    $(event.currentTarget).closest('alert').find('.close').click();
+  });
 
   ///////////////////////
   // Do things on load //

@@ -30,3 +30,7 @@
 .breadcrumb-responsive + .alert {
   margin: -.5em 1em 2em;
 }
+// or for alerts shown after a .control-label
+.control-label + .alert {
+  margin: 1em auto;
+}
