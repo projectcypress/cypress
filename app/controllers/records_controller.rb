@@ -31,7 +31,6 @@ class RecordsController < ApplicationController
 
   private
 
-
   def set_record_source
     if params[:bundle_id]
       @bundle = Bundle.find(params[:bundle_id])
