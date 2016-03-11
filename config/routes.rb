@@ -33,8 +33,8 @@ Rails.application.routes.draw do
     member do
       post :set_default
     end
-
     resources :records, only: [:index]
+    resources :measures, only: [:index]
   end
 
   resources :records, only: [:index, :show] do
