@@ -114,6 +114,13 @@ class ActiveSupport::TestCase
 
     def for_each_logged_in_user(user_ids, &_block)
       User.find([user_ids]).each do |user|
+        # this needs to be here to deal with the controller caching the CanCan ability
+        # for the first user it sees during a test.  This is only a prblem during testing
+        # using this method because in production a new controller is created for every request
+        # During test a new controller is created per test, as this method makes multiple calls
+        # with different logged in users we need to ensure that each has a fresh controller to
+        # execute against to prevent CanCan Ability caching
+        @controller = @controller.class.new
         @user = user
         sign_in user
         yield

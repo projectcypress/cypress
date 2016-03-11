@@ -89,8 +89,7 @@ class ProductsController < ApplicationController
 
   def authorize_vendor
     vendor = @vendor || @product.vendor
-    authorize! :manage, vendor if params[:action] != :show
-    authorize! :read, vendor if params[:action] == :show
+    authorize_request(vendor, read: ['download_pdf'])
   end
 
   def set_measures

@@ -67,8 +67,7 @@ class VendorsController < ApplicationController
   private
 
   def authorize_vendor
-    authorize! :manage, @vendor if params[:action] != :show
-    authorize! :read, @vendor if params[:action] == :show
+    authorize_request(@vendor)
   end
 
   def vendor_params

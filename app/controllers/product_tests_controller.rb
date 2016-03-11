@@ -43,7 +43,6 @@ class ProductTestsController < ApplicationController
 
   def authorize_vendor
     vendor = @product ? @product.vendor : @product_test.product.vendor
-    authorize! :manage, vendor if params[:action] != :show
-    authorize! :read, vendor if params[:action] == :show
+    authorize_request(vendor, read: ['download'])
   end
 end

@@ -42,8 +42,7 @@ class ChecklistTestsController < ProductTestsController
   def authorize_vendor
     set_product
     vendor = @product ? @product.vendor : @product_test.product.vendor
-    authorize! :manage, vendor if params[:action] != :show
-    authorize! :read, vendor if params[:action] == :show
+    authorize_request(vendor)
   end
 
   def set_test
