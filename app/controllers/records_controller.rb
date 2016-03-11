@@ -30,7 +30,7 @@ class RecordsController < ApplicationController
 
   private
 
-  def authorize_vendor()
+  def authorize_vendor
     authorize! :read, vendor
   end
 

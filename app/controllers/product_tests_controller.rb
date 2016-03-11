@@ -41,7 +41,7 @@ class ProductTestsController < ApplicationController
 
   private
 
-  def authorize_vendor()
+  def authorize_vendor
     vendor = @product ? @product.vendor : @product_test.product.vendor
     authorize! :manage, vendor if params[:action] != :show
     authorize! :read, vendor if params[:action] == :show

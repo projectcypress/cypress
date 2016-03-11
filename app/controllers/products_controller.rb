@@ -87,20 +87,17 @@ class ProductsController < ApplicationController
     end
   end
 
-  def authorize_vendor()
+  def authorize_vendor
     vendor = @vendor || @product.vendor
     authorize! :manage, vendor if params[:action] != :show
     authorize! :read, vendor if params[:action] == :show
   end
-
 
   def set_measures
     # TODO: Get the relevant bundle
     @measures = Bundle.first.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type)
     @measures_categories = @measures.group_by(&:category)
   end
-
-
 
   def setup_new
     add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@product.vendor)

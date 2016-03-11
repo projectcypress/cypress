@@ -36,9 +36,8 @@ class TasksController < ApplicationController
 
   private
 
-  def authorize_vendor()
-    vendor = @product_test ? @product_test.product.vendor :
-                             @task.product_test.product.vendor
+  def authorize_vendor
+    vendor = @product_test ? @product_test.product.vendor : @task.product_test.product.vendor
     authorize! :manage, vendor if params[:action] != :show
     authorize! :read, vendor if params[:action] == :show
   end
