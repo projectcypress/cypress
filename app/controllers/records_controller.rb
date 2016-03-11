@@ -3,6 +3,7 @@ class RecordsController < ApplicationController
 
   def download_full_test_deck
     product = Product.find(params[:id])
+    authorize! :read, product.vendor
     file = Cypress::CreateDownloadZip.create_total_test_zip(product, 'qrda')
     file_name = "#{product.name}_#{product.id}.zip".tr(' ', '_')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: file_name
@@ -30,9 +31,6 @@ class RecordsController < ApplicationController
 
   private
 
-  def authorize_vendor
-    authorize! :read, vendor
-  end
 
   def set_record_source
     if params[:bundle_id]
