@@ -1,6 +1,7 @@
 class ProductTestsController < ApplicationController
   before_action :set_product, only: [:index, :new, :create]
   before_action :set_product_test, except: [:index, :new, :create]
+  before_action :authorize_vendor
   add_breadcrumb 'Dashboard', :vendors_path
 
   def index
@@ -36,5 +37,13 @@ class ProductTestsController < ApplicationController
            end
     file_name = "#{@product_test.cms_id}_#{@product_test.id}.#{format}.zip".tr(' ', '_')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: file_name
+  end
+
+  private
+
+  def authorize_vendor
+    vendor = @product ? @product.vendor : @product_test.product.vendor
+    authorize! :manage, vendor if params[:action] != :show
+    authorize! :read, vendor if params[:action] == :show
   end
 end

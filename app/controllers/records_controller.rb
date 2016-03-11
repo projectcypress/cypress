@@ -3,6 +3,7 @@ class RecordsController < ApplicationController
 
   def download_full_test_deck
     product = Product.find(params[:id])
+    authorize! :read, product.vendor
     file = Cypress::CreateDownloadZip.create_total_test_zip(product, 'qrda')
     file_name = "#{product.name}_#{product.id}.zip".tr(' ', '_')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: file_name
@@ -38,6 +39,7 @@ class RecordsController < ApplicationController
     elsif params[:task_id]
       @task = Task.find(params[:task_id])
       @product_test = @task.product_test
+      authorize! :read, @product_test.product.vendor
       @measure = Measure.where(hqmf_id: @product_test.measure_ids.first).first
       @source = @product_test
       add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(task_id: @task.id)

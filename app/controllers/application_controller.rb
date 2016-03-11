@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!, :check_bundle_installed
 
+  rescue_from CanCan::AccessDenied do |exception|
+    render text: exception, status: 401
+  end
+
   private
 
   # Overwriting the sign_out redirect path method
@@ -47,24 +51,24 @@ class ApplicationController < ActionController::Base
   end
 
   def set_vendor
-    @vendor ||= params[:vendor_id] ? Vendor.find(params[:vendor_id]) : Vendor.find(params[:id])
+    @vendor = params[:vendor_id] ? Vendor.find(params[:vendor_id]) : Vendor.find(params[:id])
   end
 
   def set_product
     product_finder = @vendor ? @vendor.products : Product
-    @product ||= params[:product_id] ? product_finder.find(params[:product_id]) : product_finder.find(params[:id])
+    @product = params[:product_id] ? product_finder.find(params[:product_id]) : product_finder.find(params[:id])
   end
 
   def set_product_test
-    @product_test ||= params[:product_test_id] ? ProductTest.find(params[:product_test_id]) : ProductTest.find(params[:id])
+    @product_test = params[:product_test_id] ? ProductTest.find(params[:product_test_id]) : ProductTest.find(params[:id])
   end
 
   def set_task
-    @task ||= params[:task_id] ? Task.find(params[:task_id]) : Task.find(params[:id])
+    @task = params[:task_id] ? Task.find(params[:task_id]) : Task.find(params[:id])
   end
 
   def set_test_execution
-    @test_execution ||= params[:test_execution_id] ? TestExecution.find(params[:test_execution_id]) : TestExecution.find(params[:id])
+    @test_execution = params[:test_execution_id] ? TestExecution.find(params[:test_execution_id]) : TestExecution.find(params[:id])
   end
 
   def flash_comment(name, notice_type, message)

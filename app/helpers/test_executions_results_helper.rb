@@ -24,7 +24,7 @@ module TestExecutionsResultsHelper
     end
     # sort by population key (IPP, DENOM, ...)
     return_errors.sort do |a, b|
-      a.error_details.population_key <=> a.error_details.population_key
+      a.error_details.population_key <=> b.error_details.population_key
     end
   end
 

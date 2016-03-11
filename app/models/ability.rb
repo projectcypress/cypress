@@ -1,14 +1,36 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(_user)
+  def initialize(user)
     # user ||= User.new # We either have a user OR we create a default user
 
     # if user.atl?
     #   can :manage, :all
     # end
-    can :manage, :all
+    if APP_CONFIG.ignore_roles || user.has_role?('admin')
+      can :manage, :all
+    else
+      can :manage, Vendor if user.has_role?('atl')
 
+      can :manage, Vendor do |vendor|
+        user.has_role?('owner', vendor)
+      end
+
+      can :create, Vendor if user.has_role?('user')
+
+      can :read, Vendor do |vendor|
+        user.has_role?('vendor', vendor) ||
+          user.has_role?('owner', vendor) ||
+          user.has_role?('atl')
+      end
+
+      can :execute_task, Vendor do |vendor|
+        user.has_role?('vendor', vendor) ||
+          user.has_role?('owner', vendor) ||
+          user.has_role?('atl')
+      end
+
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

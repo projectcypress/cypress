@@ -7,6 +7,7 @@ end
 Given(/^a user has an account$/) do
   User.all.destroy # FIXME: there's gotta be a better way
   @user = FactoryGirl.create(:user)
+  @user.add_role :admin
 end
 
 When(/^the user tries to log in with invalid information$/) do

@@ -2,7 +2,7 @@ class Vendor
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
-
+  resourcify
   has_many :products, :dependent => :destroy
   embeds_many :pocs, class_name: 'PointOfContact'
 
@@ -16,6 +16,20 @@ class Vendor
   field :zip, type: String
 
   validates :name, presence: true, uniqueness: { message: 'Vendor name was already taken. Please choose another.' }
+
+  def self.accessible_by(user)
+    # if admin or atl or ignore_roles get them all
+    # else get all vendors that the user is a owner or vendor on
+    if user.has_role?(:admin) || user.has_role?(:atl) || APP_CONFIG.ignore_roles
+      Vendor.all
+    else
+      vids = []
+      user.roles.each do |role|
+        vids << role.resource_id if role.resource_type == Vendor
+      end
+      Vendor.in(_id: vids)
+    end
+  end
 
   def status
     Rails.cache.fetch("#{cache_key}/status") do

@@ -4,7 +4,8 @@ SimpleCov.start 'rails'
 # MiniTest changes mean that our coverage suddenly dropped, since more controllers are being tested.
 # We dropped the value to 77 to be able to get pull requests pulled in. Needs to be brought back up as coverage goes back up.
 SimpleCov.minimum_coverage 77
-
+Mongo::Logger.logger.level = Logger::WARN
+APP_CONFIG['ignore_roles'] = false
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -22,7 +23,7 @@ include Warden::Test::Helpers
 Warden.test_mode!
 
 Mongoid.logger.level = Logger::INFO
-Mongo::Logger.logger.level = Logger::WARN
+
 class ActiveSupport::TestCase
   def teardown
     drop_database
@@ -55,10 +56,20 @@ class ActiveSupport::TestCase
     end
   end
 
+  def map_array(arr)
+    ret = []
+    arr.each do |v|
+      ret << value_or_bson(v)
+    end
+    ret
+  end
+
   def map_bson_ids(json)
     json.each_pair do |k, v|
       if v.is_a? Hash
         json[k] = value_or_bson(v)
+      elsif v.is_a? Array
+        json[k] = map_array(v)
       elsif k == 'create_at' || k == 'updated_at'
         json[k] = Time.at.utc(v)
       end
@@ -86,6 +97,28 @@ class ActiveSupport::TestCase
                                                         'value' => BSON::Code.new(fn)
                                                       }, upsert: true
                                                      )
+    end
+  end
+
+  class ActionController::TestCase
+    include Devise::TestHelpers
+    ADMIN = '4def93dd4f85cf8968000010'.freeze
+    ATL = '4def93dd4f85cf8968000001'.freeze
+    OWNER = '4def93dd4f85cf8968000002'.freeze
+    USER = '4def93dd4f85cf8968000002'.freeze
+    VENDOR = '4def93dd4f85cf8968000003'.freeze
+    OTHER_VENDOR = '4def93dd4f85cf8968000004'.freeze
+
+    EHR1 = '4f57a8791d41c851eb000002'.freeze
+    EHR2 = '4f636aba1d41c851eb00048c'.freeze
+
+    def for_each_logged_in_user(user_ids, &_block)
+      User.find([user_ids]).each do |user|
+        @user = user
+        sign_in user
+        yield
+        sign_out user
+      end
     end
   end
 

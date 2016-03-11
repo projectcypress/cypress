@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   before_action :set_vendor, only: [:new, :create, :index, :report]
   before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :update]
-
+  before_action :authorize_vendor
   add_breadcrumb 'Dashboard', :vendors_path
 
   def index
@@ -85,6 +85,12 @@ class ProductsController < ApplicationController
       f.json {} # <-- must be fixed later
       f.html { redirect_to vendor_path(vendor.id) }
     end
+  end
+
+  def authorize_vendor
+    vendor = @vendor || @product.vendor
+    authorize! :manage, vendor if params[:action] != :show
+    authorize! :read, vendor if params[:action] == :show
   end
 
   def set_measures

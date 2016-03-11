@@ -5,6 +5,9 @@ AllCops:
     - 'lib/tasks/cucumber.rake'
 Rails:
   Enabled: true
+Rails/HasAndBelongsToMany:
+  Exclude:
+    - 'app/models/role.rb'
 Metrics/LineLength:
   Max: 150
 Metrics/MethodLength:
@@ -23,6 +26,9 @@ Metrics/AbcSize:
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 10
+Metrics/PerceivedComplexity:
+  Max: 10
+
 Style/GuardClause:
   MinBodyLength: 100
 Style/HashSyntax:
