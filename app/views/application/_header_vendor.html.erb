@@ -13,7 +13,7 @@
     <h3 class="summary-title"><%= @vendor.name %> <% if @vendor.vendor_id? %>(ID: <%= @vendor.vendor_id %>)<% end %></h3>
 
     <% if @vendor.url? %>
-      <p><a href="<%= @vendor.url %>">Website</a>
+      <p><a href="<%= website_link(@vendor.url) %>" target="_blank"><%= website_link(@vendor.url) %></a>
     <% end %>
 
     <% vendor_address = formatted_vendor_address(@vendor) %>
