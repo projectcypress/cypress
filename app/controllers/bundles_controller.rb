@@ -3,6 +3,7 @@ class BundlesController < ApplicationController
 
   before_action :check_bundle_disabled_setting
   before_action :redirect_if_disabled, except: [:index]
+  before_action :require_admin
 
   add_breadcrumb 'Bundles', :bundles_path
   add_breadcrumb 'Add Bundle', :new_bundle_path, only: [:new, :create]
@@ -72,5 +73,11 @@ class BundlesController < ApplicationController
 
   def find_bundle
     @bundle = Bundle.find(params['id'])
+  end
+
+  private
+
+  def require_admin
+    authorize! :manage, Bundle.new
   end
 end

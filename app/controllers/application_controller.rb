@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
 
   private
 
+  DEFAULT_AUTH_MAPPING = { read: %w(show index), manage: %w(new create update destroy delete edit) }.freeze
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(_resource_or_scope)
     user_session_path
@@ -75,5 +76,18 @@ class ApplicationController < ActionController::Base
     # message should be past tense to make grammatical sense
     flash[:notice] = "'#{name}' was #{message}."
     flash[:notice_type] = notice_type
+  end
+
+  def authorize_request(vendor, auth_map = {})
+    ability ||= required_ability(auth_map) || required_ability(DEFAULT_AUTH_MAPPING) || :manage
+    authorize! ability, vendor
+  end
+
+  def required_ability(auth_map)
+    ability = nil
+    auth_map.each_pair do |k, actions|
+      ability = k if actions.is_a?(Array) && actions.index(params[:action])
+    end
+    ability
   end
 end
