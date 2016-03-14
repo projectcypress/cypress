@@ -1,5 +1,9 @@
 class MeasuresController < ApplicationController
+  respond_to :json, :xml
+
   def index
+    @measures = Bundle.find(params[:bundle_id]).measures
+    respond_with(@measures)
   end
 
   def grouped
