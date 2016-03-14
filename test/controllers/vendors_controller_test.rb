@@ -133,6 +133,17 @@ class VendorsControllerTest < ActionController::TestCase
     end
   end
 
+  # test post json in middle of body
+  test 'post json without setting format' do
+    vendor_index = 0
+    for_each_logged_in_user([ADMIN, ATL, USER]) do
+      request.headers['Content-Type'] = 'application/json'
+      post :create, vendor: { name: "test vendor #{vendor_index}", poc_attributes: { name: 'test poc' } }
+      assert_equal 'text/html; charset=utf-8', response.headers['Content-Type']
+      vendor_index += 1
+    end
+  end
+
   # XML
 
   test 'should get index with xml request' do

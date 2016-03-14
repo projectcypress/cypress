@@ -46,8 +46,10 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should get edit' do
     # do this for admin, atl and user:owner -- need negative test for users that
     # do not have access
+    pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+    pd.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      get :edit, id: @first_product.id
+      get :edit, id: pd.id
       assert_response :success, "#{@user.email} should have access "
       assert_not_nil assigns(:product)
       assert_not_nil assigns(:selected_measure_ids)
@@ -66,7 +68,7 @@ class ProductsControllerTest < ActionController::TestCase
     # do this for admin, atl and user:owner -- need negative test for users that
     # do not have access
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true)
+      pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
       pt.save!
       get :destroy, id: pt.id
       assert_response :redirect
@@ -100,15 +102,16 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should create' do
     # do this for admin,atl,user:owner -- need negative test for non access
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, vendor_id: @vendor.id, product: { name: "test_product_#{rand}", c1_test: true, measure_ids: [Measure.first.id] }
-      assert_response :success, "#{@user.email} should have access #{response.status}"
+      post :create, vendor_id: @vendor.id, product: { name: "test_product_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }
+      assert_response 302, "#{@user.email} should have access #{response.status}"
       assert_not_nil assigns(:product)
     end
   end
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to create for unauthorized users ' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
-      post :create, vendor_id: @vendor.id, product: { name: 'test_product', c1_test: true, measure_ids: [Measure.first.id] }
+      post :create, vendor_id: @vendor.id, product: { name: 'test_product', c1_test: true,
+                                                      measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }
       assert_response 401
     end
   end
@@ -116,10 +119,8 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should be able to update measures' do
     # do this for admin,atl,user:owner -- need negative test for non access
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true,
-                       bundle_id: '4fdb62e01d41c820f6000001')
-
-      ids = %w(0001, 0002, 0003, 0004)
+      ids = %w(8A4D92B2-3887-5DF3-0139-0D01C6626E46 8A4D92B2-3887-5DF3-0139-0D08A4BE7BE6)
+      pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ids, bundle_id: '4fdb62e01d41c820f6000001')
       ids.each do |mid|
         pt.product_tests.build({ name: 'test_#{mid}',
                                  measure_ids: [mid] }, MeasureTest).save!
@@ -128,7 +129,8 @@ class ProductsControllerTest < ActionController::TestCase
       assert_equal ids.sort, pt.measure_ids.sort, 'product should have same measure ids'
 
       new_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
-      put :update, id: pt.id, product: pt.attributes, product_test: { measure_ids: new_ids }
+      pt.attributes[:measure_ids] = new_ids
+      put :update, id: pt.id, product: pt.attributes
       pt.reload
       assert_response :redirect, "#{@user.email} should have access #{response.status}"
       assert_equal new_ids.sort, pt.measure_ids.sort
@@ -137,10 +139,8 @@ class ProductsControllerTest < ActionController::TestCase
 
   test 'should be able to restrict access to update unauthorized users ' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
-      pt = Product.new(vendor: @vendor.id, name: "test_product_#{rand}", c1_test: true,
-                       bundle_id: '4fdb62e01d41c820f6000001')
-
-      ids = %w('0001', '0002', '0003', '0004')
+      ids = %w(8A4D92B2-3887-5DF3-0139-0D01C6626E46 8A4D92B2-3887-5DF3-0139-0D08A4BE7BE6)
+      pt = Product.new(vendor: @vendor.id, name: "test_product_#{rand}", c1_test: true, measure_ids: ids, bundle_id: '4fdb62e01d41c820f6000001')
       ids.each do |mid|
         pt.product_tests.build({ name: 'test_#{mid}',
                                  measure_ids: [mid] }, MeasureTest).save!
@@ -201,13 +201,15 @@ class ProductsControllerTest < ActionController::TestCase
 
   test 'should get zip file of patients' do
     product = Product.first
-    perform_enqueued_jobs do
-      product_test = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
-                                                   bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
-      product_test.save!
-      get :patients, :format => :format_does_not_matter, :vendor_id => product.vendor.id, :id => product.id
-      assert_response 200, 'response should be OK for patients'
-      assert_equal 'application/zip', response.headers['Content-Type']
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      perform_enqueued_jobs do
+        product_test = product.product_tests.build({ name: "mtest #{rand}", measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
+                                                     bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+        product_test.save!
+        get :patients, :format => :format_does_not_matter, :vendor_id => product.vendor.id, :id => product.id
+        assert_response 200, 'response should be OK for patients'
+        assert_equal 'application/zip', response.headers['Content-Type']
+      end
     end
   end
 
@@ -251,11 +253,46 @@ class ProductsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :show, :format => :json, :id => Product.first.id
       assert_response 200, 'response should be OK on product show'
-      assert_not_empty JSON.parse(response.body)
+      json_response = JSON.parse(response.body)
+      assert_not_empty json_response
+      assert json_response.key?('product')
+      assert_has_product_attributes json_response['product']
     end
   end
 
-  # <-- Add create, update, and destroy
+  test 'should post create with json request' do
+    vendor = Vendor.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      post :create, :format => :json, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true,
+                                                                             measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }
+      assert_response 201, 'response should be Created on product create'
+      assert_equal(vendor_product_path(vendor, vendor.products.order_by(created_at: 'desc').first),
+                   response.location, 'response location should be product show')
+    end
+  end
+
+  test 'should put update with json request' do
+    product = Product.create!(vendor_id: Vendor.first.id, name: 'Product change my name',
+                              c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      product.name = "Product #{rand}"
+      put :update, :format => :json, :id => product.id, :product => product.attributes
+      assert_response 204, 'response should be No Content on product update'
+      assert_equal '', response.body
+    end
+  end
+
+  test 'should get destroy with json request' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+      pd.save!
+      delete :destroy, :format => :json, :id => pd.id
+      assert_response 204, 'response should be No Content on product destroy'
+      assert_equal '', response.body
+      get :show, :format => :json, :id => pd.id
+      assert_response 404, 'response should be Not Found because product should be destroyed'
+    end
+  end
 
   # XML
 
@@ -279,7 +316,39 @@ class ProductsControllerTest < ActionController::TestCase
     end
   end
 
-  # <-- Add create, update, and destroy
+  test 'should post create with xml request' do
+    vendor = Vendor.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      post :create, :format => :xml, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true,
+                                                                            measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }
+      assert_response 201, 'response should be Created on product create'
+      assert_equal(vendor_product_path(vendor, vendor.products.order_by(created_at: 'desc').first),
+                   response.location, 'response location should be product show')
+    end
+  end
+
+  test 'should put update with xml request' do
+    product = Product.create!(vendor_id: Vendor.first.id, name: 'Product change my name',
+                              c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      product.name = "Product #{rand}"
+      put :update, :format => :xml, :id => product.id, :product => product.attributes
+      assert_response 204, 'response should be No Content on product update'
+      assert_equal '', response.body
+    end
+  end
+
+  test 'should get destroy with xml request' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+      pd.save!
+      delete :destroy, :format => :xml, :id => pd.id
+      assert_response 204, 'response should be No Content on product destroy'
+      assert_equal '', response.body
+      get :show, :format => :xml, :id => pd.id
+      assert_response 404, 'response should be Not Found because product should be destroyed'
+    end
+  end
 
   # Unsuccessful Requests
 
@@ -290,7 +359,61 @@ class ProductsControllerTest < ActionController::TestCase
     end
   end
 
-  # <-- Add create
+  test 'should not post create with json request with bad vendor id' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      post :create, :format => :json, :vendor_id => 'bad id', :product => { name: "Product JSON post #{rand}", c1_test: true,
+                                                                            measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }
+      assert_response_not_found_and_empty_body response
+    end
+  end
+
+  test 'should not post create with json request with no name' do
+    vendor = Vendor.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      post :create, :format => :json, :vendor_id => vendor.id, :product => { c1_test: true,
+                                                                             measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }
+      assert_response 400, 'response should be Bad Request on product create'
+    end
+  end
+
+  test 'should not post create with json request with invalid measure ids' do
+    vendor = Vendor.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      post :create, :format => :json, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true,
+                                                                             measure_ids: ['invalid_measure_id'] }
+      assert_response 422, 'response should be Unprocessable Entity on product create'
+    end
+  end
+
+  test 'should not post create with json request with no or empty measure ids' do
+    vendor = Vendor.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      post :create, :format => :json, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true }
+      assert_response 400, 'response should be Bad Request on product create'
+      post :create, :format => :json, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true, measure_ids: [] }
+      assert_response 400, 'response should be Bad Request on product create'
+    end
+  end
+
+  test 'should not put update with json request with invalid measure ids' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      product = Product.create!(vendor_id: Vendor.first.id, name: "Product #{rand}",
+                                c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+      product.measure_ids = ['invalid_measure_id']
+      put :update, :format => :json, :id => product.id, :product => product.attributes
+      assert_response 422, 'response should be Unprocessable Entity on product update'
+    end
+  end
+
+  test 'should not put update with json request with empty measure ids' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      product = Product.create!(vendor_id: Vendor.first.id, name: "Product #{rand}",
+                                c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+      product.measure_ids = []
+      put :update, :format => :json, :id => product.id, :product => product.attributes
+      assert_response 422, 'response should be Bad Request on product update'
+    end
+  end
 
   # # # # # # # # # # #
   #   H E L P E R S   #
@@ -299,5 +422,13 @@ class ProductsControllerTest < ActionController::TestCase
   def assert_response_not_found_and_empty_body(response)
     assert_response 404, 'response should be Not Found if bad id given'
     assert_equal '', response.body, 'response body should be empty for Not Found'
+  end
+
+  # input 'hash' should be a product hash
+  def assert_has_product_attributes(hash)
+    %w(name version description c1_test c2_test c3_test c4_test
+       randomize_records duplicate_records measure_selection).each do |key|
+      assert hash.key?(key)
+    end
   end
 end

@@ -1,6 +1,7 @@
 class ProductTest
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
   include GlobalID::Identification
   include HealthDataStandards::CQM
 

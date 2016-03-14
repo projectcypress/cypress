@@ -74,7 +74,7 @@ class VendorsController < ApplicationController
   end
 
   def vendor_params
-    params[:vendor].permit :name, :vendor_id, :name, :url, :address, :state, :zip,
+    params[:vendor].permit :name, :vendor_id, :url, :address, :state, :zip,
                            pocs_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy]
   end
 end
