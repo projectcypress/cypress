@@ -8,12 +8,12 @@
     <%= f.url_field :url, label: 'URL', 'data-parsley-type':"url", 'data-parsley-trigger': 'change', autocorrect: 'off', autocapitalize: 'off' %>
     <%= f.text_field :address %>
     <%= f.text_field :state %>
-    <%= f.text_field :zip %>
+    <%= f.text_field :zip, 'data-parsley-type': "digits", 'data-parsley-length': "[5, 5]", 'data-parsley-length-message': "This value should be a 5 digit US zip code.", 'data-parsley-trigger': 'change' %>
 
     <%= f.fields_for :pocs do |poc_field| %>
       <div class="row">
         <%= poc_field.text_field :name, wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'POC Name' %>
-        <%= poc_field.email_field :email, autocorrect: 'off', autocapitalize: 'off', wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'Email'%>
+        <%= poc_field.email_field :email, autocorrect: 'off', autocapitalize: 'off', 'data-parsley-type':"email",  'data-parsley-trigger': 'change', wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'Email'%>
         <%= poc_field.phone_field :phone, wrapper: { class: 'col-sm-3' }, label_class: 'label-block', label: 'Telephone' %>
         <%= poc_field.text_field :contact_type, wrapper: { class: 'col-sm-2' }, label_class: 'label-block', label: 'Type of Contact' %>
         <%= f.link_to_remove "Remove", :class => "btn btn-xs btn-danger", :type => "button" %>
