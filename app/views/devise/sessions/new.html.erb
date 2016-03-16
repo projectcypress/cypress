@@ -1,22 +1,27 @@
-
 <div class="panel panel-default">
-
   <div class="panel-heading">
     <h3 class='panel-title'>Sign In</h3>
   </div>
 
-  <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name), html: { 'data-parsley-validate': '' }) do |f| %>
     <div class="panel-body">
-      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
-      <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
+      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
+        'data-parsley-required': '',
+        'data-parsley-type':"email",
+        'data-parsley-trigger': 'change' %>
+      <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
+        'data-parsley-required': '',
+        'data-parsley-trigger': 'change' %>
 
       <% if devise_mapping.rememberable? -%>
         <%= f.check_box :remember_me %>
       <% end -%>
     </div>
+
     <div class="panel-footer">
       <%= f.primary "Sign in" %>
     </div>
   <% end %>
 </div>
+
 <%= render "devise/shared/links" %>

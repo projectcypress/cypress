@@ -1,16 +1,28 @@
 <div class="panel panel-default">
-
   <div class="panel-heading">
     <h3 class='panel-title'>Sign Up</h3>
   </div>
 
-<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {"data-parsley-validate": ''}) do |f| %>
   <div class="panel-body">
-    <%= devise_error_messages! %>
-    <%= f.email_field :email, autocorrect: 'off', autocapitalize: 'off', autofocus: true %>
-    <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off', help: '8 characters minimum' %>
-    <%= f.password_field :password_confirmation, label: 'Confirm Password', autocomplete: "off", autocorrect: 'off', autocapitalize: 'off' %>
+    <%= f.email_field :email, autocorrect: 'off', autocapitalize: 'off', autofocus: true,
+      'data-parsley-required': '',
+      'data-parsley-type': "email",
+      'data-parsley-trigger': 'change' %>
+
+    <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
+      help: '8 characters minimum and include at least 3 of the following: lowercase letters, uppercase letters, digits, and special characters.',
+      'data-parsley-required': '',
+      'data-parsley-minlength': "8",
+      'data-parsley-minlength-message': "Password must be at least 8 characters long.",
+      'data-parsley-trigger': 'change' %>
+
+    <%= f.password_field :password_confirmation, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
+      label: 'Confirm Password',
+      'data-parsley-required': '',
+      'data-parsley-equalto': '#user_password',
+      'data-parsley-equalto-message': 'Passwords do not match',
+      'data-parsley-trigger': 'change' %>
   </div>
 
   <div class="panel-footer">
