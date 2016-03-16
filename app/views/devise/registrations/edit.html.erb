@@ -8,7 +8,7 @@
 
   <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <div class="panel-body">
-      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
+      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true, 'data-parsley-type':"email", 'data-parsley-trigger': 'change' %>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>

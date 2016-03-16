@@ -8,7 +8,7 @@
 
   <div class="panel-body">
     <%= devise_error_messages! %>
-    <%= f.email_field :email, autocorrect: 'off', autocapitalize: 'off', autofocus: true %>
+    <%= f.email_field :email, autocorrect: 'off', autocapitalize: 'off', autofocus: true, 'data-parsley-type':"email", 'data-parsley-trigger': 'change' %>
     <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off', help: '8 characters minimum' %>
     <%= f.password_field :password_confirmation, label: 'Confirm Password', autocomplete: "off", autocorrect: 'off', autocapitalize: 'off' %>
   </div>
