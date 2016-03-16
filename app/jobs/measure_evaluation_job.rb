@@ -1,6 +1,6 @@
 class MeasureEvaluationJob < ActiveJob::Base
   queue_as :default
-
+  include Job::Status
   def perform(test_or_task, options)
     if test_or_task.is_a? ProductTest
       perform_for_product_test(test_or_task, options)
