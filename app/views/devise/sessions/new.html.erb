@@ -7,8 +7,8 @@
 
   <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="panel-body">
-      <%= f.email_field :email, autofocus: true %>
-      <%= f.password_field :password, autocomplete: "off" %>
+      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
+      <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
 
       <% if devise_mapping.rememberable? -%>
         <%= f.check_box :remember_me %>
