@@ -5,7 +5,7 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %> 
+    <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true, 'data-parsley-type':"email", 'data-parsley-trigger': 'change', value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %> 
   </div>
 
   <div class="actions">
