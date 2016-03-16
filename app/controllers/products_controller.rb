@@ -3,7 +3,7 @@ require 'cypress/pdf_report'
 class ProductsController < ApplicationController
   before_action :set_vendor, only: [:new, :create, :index, :report]
   before_action :set_product, except: [:index, :new, :create]
-  before_action :set_measures, only: [:new, :update]
+  before_action :set_measures, only: [:new, :update, :edit]
   before_action :authorize_vendor
   add_breadcrumb 'Dashboard', :vendors_path
 
@@ -22,7 +22,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    @product.bundle = Bundle.default # TODO: remove this once it comes in from params
     @product.vendor = @vendor
     # TODO: Refactor this so we can't save products without measures in more concise code
     if params['product_test'] && params['product_test']['measure_ids']
@@ -44,7 +43,6 @@ class ProductsController < ApplicationController
   def edit
     add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
     add_breadcrumb 'Edit Product', :edit_vendor_path
-    set_measures
     @selected_measure_ids = @product.measure_ids
   end
 
@@ -79,6 +77,11 @@ class ProductsController < ApplicationController
     send_data(pdf.to_pdf, filename: "Cypress_#{@product.name.underscore.dasherize}_report.pdf", type: 'application/pdf')
   end
 
+  def download_full_test_deck
+    file = Cypress::CreateDownloadZip.create_total_test_zip(@product, 'qrda')
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
+  end
+
   private
 
   def goto_vendor(vendor)
@@ -94,9 +97,7 @@ class ProductsController < ApplicationController
   end
 
   def set_measures
-    # TODO: Get the relevant bundle
-    @bundles = Bundle.all
-    @bundle = Bundle.default
+    @bundle = (@product && @product.bundle) ? @product.bundle : Bundle.default
     @measures = @bundle.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type)
     @measures_categories = @measures.group_by(&:category)
   end
@@ -114,7 +115,6 @@ class ProductsController < ApplicationController
   end
 
   def edit_product_params
-    params[:product].permit(:name, :version, :description,
-                            product_tests_attributes: [:id, :name, :measure_ids, :_destroy])
+    params[:product].permit(:name, :version, :description, product_tests_attributes: [:id, :name, :measure_ids, :_destroy])
   end
 end

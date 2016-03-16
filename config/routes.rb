@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :products, only: [:show, :edit, :update, :destroy] do
     resources :product_tests, only: [:index, :new, :create, :show]
     resources :checklist_tests, only: [:create, :show, :update, :destroy]
+
+    member do
+      get :download_full_test_deck
+    end
   end
 
   resources :product_tests, only: [:show, :edit, :update, :destroy] do
@@ -20,7 +24,7 @@ Rails.application.routes.draw do
       get :download
     end
     resources :tasks, only: [:index, :new, :create]
-    resources :records, only: [:index]
+    resources :records, only: [:index, :show]
   end
 
   resources :tasks, only: [:show, :edit, :update, :destroy] do
@@ -33,19 +37,20 @@ Rails.application.routes.draw do
     member do
       post :set_default
     end
-    resources :records, only: [:index]
-    resources :measures, only: [:index]
-  end
-
-  resources :records, only: [:index, :show] do
-    collection do
-      get :by_measure
+    resources :records, only: [:index, :show] do
+      collection do
+        get :by_measure
+      end
     end
-
-    member do
-      get :download_full_test_deck
+    resources :measures, only: [:index] do
+      collection do
+        get :grouped
+      end
     end
   end
+
+  resources :records, only: [:index, :show]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
