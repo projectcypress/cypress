@@ -42,7 +42,7 @@ class ProductTestsControllerTest < ActionController::TestCase
   end
 
   test 'should get show measure test' do
-    mt = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    mt = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['0001'] }, MeasureTest)
     mt.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :show, id: mt.id, product_id: mt.product.id
@@ -52,7 +52,7 @@ class ProductTestsControllerTest < ActionController::TestCase
   end
 
   test 'should restrict acces to product measure  test show' do
-    mt = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    mt = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['0001'] }, MeasureTest)
     mt.save!
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :show, id: mt.id, product_id: mt.product.id

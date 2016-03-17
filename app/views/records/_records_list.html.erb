@@ -36,7 +36,7 @@
           <% if @product_test %>
             <td><%= link_to full_name(r), record_path(:id => r.id, :task_id => @task.id) %></td>
           <% else %>
-            <td><%= link_to full_name(r), record_path(:id => r.id) %></td>
+            <td><%= link_to full_name(r), bundle_record_path(@bundle, r) %></td>
           <% end %>
           <td><%= display_time(r.birthdate) %></td>
           <td><%= full_gender_name(r.gender) %></td>

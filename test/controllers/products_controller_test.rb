@@ -109,13 +109,13 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should be able to update measures' do
     # do this for admin,atl,user:owner -- need negative test for non access
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true)
+      pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true,
+                       bundle_id: '4fdb62e01d41c820f6000001')
 
       ids = %w(0001, 0002, 0003, 0004)
       ids.each do |mid|
         pt.product_tests.build({ name: 'test_#{mid}',
-                                 measure_ids: [mid],
-                                 bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest).save!
+                                 measure_ids: [mid] }, MeasureTest).save!
       end
       pt.save!
       assert_equal ids.sort, pt.measure_ids.sort, 'product should have same measure ids'
@@ -145,13 +145,13 @@ class ProductsControllerTest < ActionController::TestCase
 
   test 'should be able to restrict access to update unauthorized users ' do
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
-      pt = Product.new(vendor: @vendor.id, name: "test_product_#{rand}", c1_test: true)
+      pt = Product.new(vendor: @vendor.id, name: "test_product_#{rand}", c1_test: true,
+                       bundle_id: '4fdb62e01d41c820f6000001')
 
       ids = %w('0001', '0002', '0003', '0004')
       ids.each do |mid|
         pt.product_tests.build({ name: 'test_#{mid}',
-                                 measure_ids: [mid],
-                                 bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest).save!
+                                 measure_ids: [mid] }, MeasureTest).save!
       end
       pt.save!
       assert_equal ids, pt.measure_ids, 'product should have same measure ids'
@@ -159,6 +159,14 @@ class ProductsControllerTest < ActionController::TestCase
       new_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
       put :update, id: pt.id, product: pt.attributes, product_test: { measure_ids: new_ids }
       assert_response 401
+    end
+  end
+
+  test 'should not crash without a bundle installed' do
+    Bundle.all.destroy
+    for_each_logged_in_user([ADMIN]) do
+      get :new, vendor_id: @vendor.id
+      assert_response :success, 'new product page should not error when no bundles'
     end
   end
 end

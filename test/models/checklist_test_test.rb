@@ -5,10 +5,10 @@ class ChecklistTestTest < ActiveJob::TestCase
   def setup
     collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
     vendor = Vendor.create!(name: 'test_vendor_name')
-    product = vendor.products.create!(name: 'test_product', c1_test: true)
+    product = vendor.products.create!(name: 'test_product', c1_test: true,
+                                      bundle_id: '4fdb62e01d41c820f6000001')
     @test = product.product_tests.create!({ name: 'test_for_measure_1a',
-                                            measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'],
-                                            bundle_id: '4fdb62e01d41c820f6000001' }, ChecklistTest)
+                                            measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'] }, ChecklistTest)
   end
 
   def test_create

@@ -77,7 +77,7 @@ class FilteringTest < ProductTest
   end
 
   def lookup_problem
-    measure = Measure.find_by(hqmf_id: measure_ids.first)
+    measure = measures.first
     code_list_id = fallback_id = ''
     # determine which data criteira are diagnoses, and make sure we choose one that one of our records has
     # if we can't find one that matches a record, just use any diagnosis

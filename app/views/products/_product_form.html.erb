@@ -29,6 +29,23 @@
             <% end %>
           </fieldset>
 
+          <fieldset>
+            <legend class="control-label">Annual Update Bundle</legend>
+            <% if Bundle.count == 1 %>
+              <label class="h5"> <%= @bundle.title %> </label>
+              <%= hidden_field_tag 'product[bundle_id]', @bundle.id %>
+            <% elsif Bundle.count > 1 %>
+              <!-- loop through bundles & use radio buttons -->
+              <%= f.form_group :bundle_id, help: "Select the measure versions Cypress should use to certify this product." do %>
+                <% Bundle.all.each do |bundle| %>
+                  <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox", 
+                                     checked: bundle == @bundle, disabled: !@product.new_record? %>
+
+                <% end # bundle loop %>
+              <% end # form_group %>
+            <% end # bundles.count %>
+          </fieldset>
+
           <fieldset id="measures_options">
             <legend class="control-label">Measures Options</legend>
 
@@ -47,71 +64,8 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="panel panel-primary select-measures hidden">
-          <div class="panel-heading">
-            <h3 id="select_custom_measures" class='panel-title'>Select Custom Measures <span class='selected-number'>(0)</span><span class='sr-only'>selected</span></h3>
-          </div>
-          <div class="panel-body">
-            <div class="col-md-12" id="measures_errors_container"><%= f.errors_on :measure_tests, hide_attribute_name: true %></div>
-            <div id="measure_tabs" class="measure-selection">
-              <div class="sidebar">
-                <!-- set up a tab header for each measure group -->
-                <ul>
-                  <% @measures_categories.sort.each do |category, measures| %>
-                    <li>
-                      <a href="#<%= category.tr(" '", "_") %>_div">
-                        <%= "#{category}" %>
-                        (<%= type_counts(measures) %>)
-                        <span class="selected-number pull-right"></span>
-                      </a>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-              <div class="measure-list">
-                <% @measures_categories.sort.each do |category, measures| %>
-                  <!-- set up a checkbox for each top-level measure in the group -->
-                  <div id="<%= category.tr(" '", "_") %>_div" class="measure_group">
-                    <% if measures.length > 1 %>
-                    <div class="checkbox">
-                      <label class="btn btn-checkbox">
-                        <input type="checkbox"
-                          id="<%= category.tr(" '", "_") %>"
-                          class="measure_group_all"
-                          <%= 'disabled' if defined?(@selected_measure_ids) && !@product.new_record? %>/>
-                        Select all <%= measures.length %> <%= category %> measures
-                      </label>
-                    </div>
-                    <% end %>
-                    <% measures.sort_by(&:cms_int).each do |m| %>
-                      <div class="checkbox">
-                        <label class="btn btn-checkbox">
-                          <input type="checkbox"
-                            name="product_test[measure_ids][]"
-                            id="<%= m.hqmf_id %>"
-                            value="<%= m.hqmf_id %>"
-                            data-category="<%= category.tr(" '", "_") %>"
-                            data-measure-type="<%= m.type %>"
-                            data-parsley-mincheck="1"
-                            data-parsley-required=""
-                            data-parsley-error-message="Must select measures"
-                            data-parsley-errors-container="#measures_errors_container"
-                            aria-labelledby="select_custom_measures"
-                            class="measure-checkbox"
-                            <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %>
-                            <%= 'disabled' if defined?(@selected_measure_ids) && !@product.new_record? %>/>
-                          <strong><%= m.cms_id %></strong> <%= m.name %> (<%= m.type.upcase %>)
-                        </label>
-                      </div>
-                    <% end %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="row" id="measure_selection_section">
+       <%= render partial: 'measure_selection' %>
     </div>
 
     <div class="panel-footer">

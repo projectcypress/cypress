@@ -14,7 +14,7 @@ end
 # # # # # # # #
 
 When(/^the user creates a product with tasks (.*)$/) do |tasks|
-  @product = Product.new
+  @product = Product.new(bundle_id: @measure.bundle_id)
   @product.vendor = @vendor
   @product.name = 'Product 1'
   tasks = tasks.split(', ')
@@ -22,7 +22,7 @@ When(/^the user creates a product with tasks (.*)$/) do |tasks|
   @product.c2_test = tasks.include? 'c2'
   @product.c3_test = tasks.include? 'c3'
   @product.c4_test = tasks.include? 'c4'
-  @product.product_tests.build({ name: @measure.name, measure_ids: [@measure.id], bundle_id: @measure.bundle_id }, MeasureTest)
+  @product.product_tests.build({ name: @measure.name, measure_ids: [@measure.id] }, MeasureTest)
   @product_test = @product.product_tests.first
   @product.save!
 end

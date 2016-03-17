@@ -4,6 +4,12 @@ Background:
   Given the user is signed in
   And the user has created a vendor
 
+Scenario: View Create Product Page
+  When the user navigates to the create product page
+  Then the default bundle should be pre-selected
+  Then the page should be accessible according to: section508
+  Then the page should be accessible according to: wcag2aa
+
 Scenario: Successfully Create Product
   When the user creates a product using appropriate information
   Then the user should see a notification saying the product was created

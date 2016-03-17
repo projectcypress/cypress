@@ -3,8 +3,15 @@ include ApplicationHelper
 
 When(/^the user visits the records page$/) do
   visit '/records/'
-  @bundle = Bundle.where(:records.exists => true).first
+  @bundle = Bundle.default
+  @other_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
   @measure = @bundle.measures.where(hqmf_id: '8A4D92B2-3946-CDAE-0139-7944ACB700BD').first
+end
+
+And(/^there is only 1 bundle installed$/) do
+  Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).destroy_all
+  assert Bundle.count == 1
+  visit '/records/' # force reload the page
 end
 
 Then(/^the user should see a list of patients$/) do
@@ -15,7 +22,23 @@ end
 And(/^the user should see a way to filter patients$/) do
   page.assert_text 'Filter by Measure'
   options = ['All measures'] + @bundle.measures.map(&:display_name)
-  assert page.has_select?('measure_id', options: options)
+  assert page.has_select?('measure_id', with_options: options)
+end
+
+And(/^the user should see a way to switch bundles$/) do
+  assert Bundle.count > 1
+  page.assert_text 'Annual Update Bundle'
+  Bundle.all.each do |bundle|
+    assert page.find_field(bundle.title), "bundle #{bundle.title} not found on page"
+  end
+end
+
+And(/^the user should not see a way to switch bundles$/) do
+  page.assert_text 'Annual Update Bundle'
+  assert_raise Capybara::ElementNotFound do
+    page.find_field(@bundle.title)
+  end
+  page.assert_text @bundle.title
 end
 
 And(/^the user selects a measure from the dropdown$/) do
@@ -31,8 +54,16 @@ Then(/^the user should see results for that measure$/) do
   assert page.has_selector?('.result-marker'), 'no result marker'
 end
 
+And(/^the user selects a bundle$/) do
+  page.choose @other_bundle.title
+end
+
+Then(/^the user should see records for that bundle$/) do
+  assert page.has_selector?('table tbody tr', count: @other_bundle.records.length), 'different number'
+end
+
 When(/^the user visits a record$/) do
-  @bundle = Bundle.where(:records.exists => true).first
+  @bundle = Bundle.default
   @record = @bundle.records.where(_id: '4efa05ada9ffcce9010000dc').first
   visit "/records/#{@record.id}"
 end

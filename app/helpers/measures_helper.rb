@@ -1,6 +1,6 @@
 module MeasuresHelper
-  def pick_measure_for_filtering_test(available_measures)
-    Measure.top_level.find_by(hqmf_id: pick_measure_id_for_filtering_test(available_measures))
+  def pick_measure_for_filtering_test(available_measures, bundle)
+    bundle.measures.top_level.find_by(hqmf_id: pick_measure_id_for_filtering_test(available_measures, bundle))
   end
 
   # Pick a measure from the choices for the C4 filtering tests.
@@ -9,11 +9,11 @@ module MeasuresHelper
   # 2) CPC Measures
   # 3) Measures with Diagnosis Criteria
   # 4) Random Measure
-  def pick_measure_id_for_filtering_test(available_measures)
+  def pick_measure_id_for_filtering_test(available_measures, bundle)
     cpc_msrs = available_measures & APP_CONFIG['CPC_measures'].values.flatten
 
     # this seems slow but there doesn't seem to be any way to do it purely with mongo
-    with_diag = Measure.in(hqmf_id: available_measures).select { |m| measure_has_diagnosis_criteria?(m) }.collect!(&:hqmf_id)
+    with_diag = bundle.measures.in(hqmf_id: available_measures).select { |m| measure_has_diagnosis_criteria?(m) }.collect!(&:hqmf_id)
 
     cpc_and_diag = cpc_msrs & with_diag
     # not all cpc measures have a diagnosis, for example CMS 138

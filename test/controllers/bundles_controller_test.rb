@@ -71,7 +71,7 @@ class BundlesControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN]) do
       flunk 'Should have at least 2 test bundles' if Bundle.count < 2
 
-      active_bundle = Bundle.where('active' => true).first # there should only be one
+      active_bundle = Bundle.default
       inactive_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
 
       post :set_default, id: inactive_bundle._id
@@ -99,7 +99,7 @@ class BundlesControllerTest < ActionController::TestCase
       orig_bundle_count = Bundle.count
       orig_measure_count = Measure.count
       orig_record_count = Record.count
-      id = Bundle.first._id
+      id = '4fdb62e01d41c820f6000001'
 
       delete :destroy, id: id
 
@@ -112,7 +112,7 @@ class BundlesControllerTest < ActionController::TestCase
 
   test 'should not allow non admins to remove bundle' do
     for_each_logged_in_user([USER, OWNER, VENDOR]) do
-      id = Bundle.first._id
+      id = Bundle.default._id
       delete :destroy, id: id
       assert_response 401
     end
@@ -133,7 +133,7 @@ class BundlesControllerTest < ActionController::TestCase
     disable_page
     flunk 'Should have at least 2 test bundles' if Bundle.count < 2
 
-    active_bundle = Bundle.where('active' => true).first # there should only be one
+    active_bundle = Bundle.default
     inactive_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
 
     post :set_default, id: inactive_bundle._id
@@ -148,7 +148,7 @@ class BundlesControllerTest < ActionController::TestCase
   test 'should not be able to remove bundle when page disabled' do
     disable_page
     orig_count = Bundle.count
-    id = Bundle.first._id
+    id = Bundle.all.sample._id
 
     delete :destroy, id: id
 

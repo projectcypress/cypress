@@ -10,7 +10,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should get show' do
-    mt = @first_product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    mt = @first_product.product_tests.build({ name: 'mtest', measure_ids: ['0001'] }, MeasureTest)
     task = mt.tasks.build({}, C1Task)
     te = task.test_executions.build
     mt.save!
@@ -27,7 +27,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to show unauthorized users ' do
-    mt = @first_product.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    mt = @first_product.product_tests.build({ name: 'mtest', measure_ids: ['0001'] }, MeasureTest)
     task = mt.tasks.build({}, C1Task)
     te = task.test_executions.build
     mt.save!

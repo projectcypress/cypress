@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     Rails.cache.fetch('any_installed_bundle') do
       # cache this so that in the normal case, when the bundles are installed
       # it doesn't query the db on every request
-      HealthDataStandards::CQM::Bundle.first
+      HealthDataStandards::CQM::Bundle.all.sample
     end
   end
 

@@ -32,7 +32,7 @@ class MeasureTest < ProductTest
     if product.duplicate_records
       ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
       unless ids.nil? || ids.empty?
-        dups = Record.find(ids)
+        dups = records.find(ids)
         (rand(3) + 1).times do
           recs << dups.sample
         end

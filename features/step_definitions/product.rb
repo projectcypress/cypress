@@ -4,7 +4,7 @@
 # # # # # # # # # # #
 
 def build_product
-  Product.new(name: 'Product 1', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'])
+  Product.new(name: 'Product 1', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'], bundle_id: '4fdb62e01d41c820f6000001')
 end
 
 # # # # # # # # #
@@ -36,6 +36,12 @@ When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_
   page.find('#product_measure_selection_custom').click
   page.all('.sidebar a')[2].click
   page.all('input.measure-checkbox')[0].click
+  page.click_button 'Add Product'
+end
+
+When(/^the user navigates to the create product page$/) do
+  visit('/')
+  page.click_link @vendor.name
   page.click_button 'Add Product'
 end
 
@@ -219,6 +225,16 @@ end
 
 Then(/^the user should see an error message saying the product must have at least one measure$/) do
   page.assert_text 'Must select measures'
+end
+
+Then(/^the default bundle should be pre-selected$/) do
+  Bundle.all.each do |bundle|
+    if bundle.active
+      assert page.has_checked_field?(bundle.title), 'default bundle should be pre-selected'
+    else
+      assert page.has_unchecked_field?(bundle.title), 'non-default bundle should not be selected'
+    end
+  end
 end
 
 # V V V Measure Selection V V V

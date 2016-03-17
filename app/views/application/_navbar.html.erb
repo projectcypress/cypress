@@ -9,19 +9,29 @@
     <div class="collapse navbar-collapse" id="cypressNavbar">
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-          <li <% if (current_page?(:records) && params[:product_test_id]) || (!current_page?(:records) && !current_page?(edit_user_registration_path)) %>class="active"<% end %>>
+
+          <% curr_page = if current_page?(edit_user_registration_path) 
+                           :account
+                         elsif (controller.controller_name == 'records' && params[:bundle_id]) || current_page?(:records)
+                           :master_patient_list 
+                         else
+                           :dashboard 
+                         end
+           %>
+
+          <li <% if curr_page == :dashboard %>class="active"<% end %>>
             <%= link_to root_path, class: 'navbar-item'   do %>
             <i class="fa fa-fw fa-th-list" aria-hidden="true"></i>
             Dashboard
             <% end %>
           </li>
-          <li <% if current_page?(:records) && !params[:product_test_id] %>class="active"<% end %>>
+          <li <% if curr_page == :master_patient_list %>class="active"<% end %>>
             <%= link_to records_path, class: 'navbar-item'   do %>
             <i class="fa fa-fw fa-users" aria-hidden="true"></i>
             Master Patient List
             <% end %>
           </li>
-          <li <% if current_page?(edit_user_registration_path) %>class="active"<% end %>>
+          <li <% if curr_page == :account %>class="active"<% end %>>
             <%= link_to edit_user_registration_path, class: 'navbar-item'   do %>
             <i class="fa fa-fw fa-gears" aria-hidden="true"></i>
             Account
