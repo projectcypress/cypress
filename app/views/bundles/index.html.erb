@@ -44,4 +44,27 @@
 </table>
 
 
+<% if BundleUploadJob.trackers.count > 0  %>
+<p>
+<h1>Current Bundle Import Jobs</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class = "col-sm-4">File</th>
+      <th class = "col-sm-4">Status</th>
+      <th class = "text-center"></th>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% BundleUploadJob.trackers.each do |tracker| %>
+    <tr>
+      <td><%= tracker.options["original_filename"]%></td>
+      <td><%= tracker.status%></td>
+      <td><%= tracker.log_message.last%></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
 <%= render partial: 'remove_modal' %>

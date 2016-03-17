@@ -8,8 +8,6 @@ class BundlesControllerTest < ActionController::TestCase
     FileUtils.rm_rf(APP_CONFIG.bundle_file_path)
   end
 
-
-
   def disable_page
     APP_CONFIG['disable_bundle_page'] = true
   end
@@ -63,14 +61,16 @@ class BundlesControllerTest < ActionController::TestCase
       orig_count = Bundle.count
 
       upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/artifacts/qrda.zip'), 'application/zip')
-
+      assert_equal 0, BundleUploadJob.trackers.count, 'should be 0 trackers in db'
       perform_enqueued_jobs do
         post :create, file: upload
         assert_performed_jobs 1
+        assert_equal 1, BundleUploadJob.trackers.count, 'should be 1 tracker in db'
+        assert_equal :failed, BundleUploadJob.trackers.first.status, 'Status of tracker should be failed '
         assert_equal orig_count, Bundle.count, 'Should not have added new Bundle'
       end
     end
-    #assert_not_nil flash[:alert], 'Should have an error message'
+    # assert_not_nil flash[:alert], 'Should have an error message'
   end
 
   test 'should be able to change default bundle' do

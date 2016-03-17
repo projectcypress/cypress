@@ -40,12 +40,12 @@ class BundlesController < ApplicationController
   end
 
   def create
-    #save file to a temporary location
+    # save file to a temporary location
     bundle_file = params['file']
     FileUtils.mkdir_p(APP_CONFIG.bundle_file_path)
-    file_name = File.join(APP_CONFIG.bundle_file_path,"#{Time.now.to_i}_#{bundle_file.original_filename}")
+    file_name = File.join(APP_CONFIG.bundle_file_path, "#{Time.now.to_i}_#{bundle_file.original_filename}")
     FileUtils.mv(bundle_file.tempfile.path, file_name)
-    BundleUploadJob.perform_later(file_name)
+    BundleUploadJob.perform_later(file_name, bundle_file.original_filename)
     redirect_to bundles_url
   end
 
@@ -59,11 +59,9 @@ class BundlesController < ApplicationController
   end
 
   def list_remote_bundles
-
   end
 
   def download_bundle
-
   end
 
   def find_bundle

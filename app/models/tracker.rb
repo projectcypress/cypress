@@ -15,9 +15,9 @@ class Tracker
     save
   end
 
-  def failed(_error)
+  def failed(error)
     self.status = :failed
-    log(e.message)
+    log(error.message)
   end
 
   def queued

@@ -1,9 +1,16 @@
 class BundleUploadJob < ActiveJob::Base
-  DEFAULT_OPTIONS = { delete_existing: false, update_measures: false, exclude_results: false }
-  def perform(file, options = {})
+  include Job::Status
+  DEFAULT_OPTIONS = { delete_existing: false, update_measures: false, exclude_results: false }.freeze
+  after_enqueue do |job|
+    tracker = job.tracker
+    tracker.options['original_filename'] = job.arguments[1]
+    tracker.save
+  end
+  def perform(file, _original_file_name, options = {})
+    tracker.log('Importing')
     unless File.extname(file) == '.zip'
-      #tracker.fail 'Bundle must be a Zip file'
-      #tracker.log("file name #{file}")
+      # tracker.fail 'Bundle must be a Zip file'
+      # tracker.log("file name #{file}")
       return
     end
     bundle_file = File.new(file)
@@ -18,5 +25,4 @@ class BundleUploadJob < ActiveJob::Base
       @bundle.save!
     end
   end
-
 end
