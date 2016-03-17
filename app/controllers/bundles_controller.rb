@@ -43,9 +43,10 @@ class BundlesController < ApplicationController
     # save file to a temporary location
     bundle_file = params['file']
     FileUtils.mkdir_p(APP_CONFIG.bundle_file_path)
-    file_name = File.join(APP_CONFIG.bundle_file_path, "#{Time.now.to_i}_#{bundle_file.original_filename}")
-    FileUtils.mv(bundle_file.tempfile.path, file_name)
-    BundleUploadJob.perform_later(file_name, bundle_file.original_filename)
+    file_name = generate_file_path
+    file_path = File.join(APP_CONFIG.bundle_file_path, file_name)
+    FileUtils.mv(temp_file_path, file_path)
+    BundleUploadJob.perform_later(file_path, bundle_file.original_filename)
     redirect_to bundles_url
   end
 
@@ -63,6 +64,14 @@ class BundlesController < ApplicationController
   end
 
   private
+
+  def temp_file_path
+    params['file'].tempfile.path
+  end
+
+  def generate_file_path
+    "bundle_#{rand(Time.now.to_i)}.zip"
+  end
 
   def require_admin
     authorize! :manage, Bundle.new
