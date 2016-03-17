@@ -1,10 +1,11 @@
 require 'test_helper'
 class BundlesControllerTest < ActionController::TestCase
   include Devise::TestHelpers
-
+  include ActiveJob::TestHelper
   setup do
     collection_fixtures('bundles', 'measures', 'records', 'users', 'roles')
     enable_page
+    FileUtils.rm_rf(APP_CONFIG.bundle_file_path)
   end
 
   def disable_page
@@ -37,12 +38,13 @@ class BundlesControllerTest < ActionController::TestCase
       orig_record_count = Record.count
 
       upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/bundles/minimal_bundle.zip'), 'application/zip')
-
-      post :create, file: upload
-
-      assert_equal orig_bundle_count + 1, Bundle.count, 'Should have added 1 new Bundle'
-      assert orig_measure_count < Measure.count, 'Should have added new measures in the bundle'
-      assert orig_record_count < Record.count, 'Should have added new records in the bundle'
+      perform_enqueued_jobs do
+        post :create, file: upload
+        assert_performed_jobs 1
+        assert_equal orig_bundle_count + 1, Bundle.count, 'Should have added 1 new Bundle'
+        assert orig_measure_count < Measure.count, 'Should have added new measures in the bundle'
+        assert orig_record_count < Record.count, 'Should have added new records in the bundle'
+      end
     end
   end
 
@@ -59,12 +61,16 @@ class BundlesControllerTest < ActionController::TestCase
       orig_count = Bundle.count
 
       upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/artifacts/qrda.zip'), 'application/zip')
-
-      post :create, file: upload
-
-      assert_not_nil flash[:alert], 'Should have an error message'
-      assert_equal orig_count, Bundle.count, 'Should not have added new Bundle'
+      assert_equal 0, BundleUploadJob.trackers.count, 'should be 0 trackers in db'
+      perform_enqueued_jobs do
+        post :create, file: upload
+        assert_performed_jobs 1
+        assert_equal 1, BundleUploadJob.trackers.count, 'should be 1 tracker in db'
+        assert_equal :failed, BundleUploadJob.trackers.first.status, 'Status of tracker should be failed '
+        assert_equal orig_count, Bundle.count, 'Should not have added new Bundle'
+      end
     end
+    # assert_not_nil flash[:alert], 'Should have an error message'
   end
 
   test 'should be able to change default bundle' do

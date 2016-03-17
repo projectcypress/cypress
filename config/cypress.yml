@@ -13,7 +13,7 @@ enable_logging: false
 banner: false
 banner_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
 
-
+bundle_file_path: "temp/bundles"
 
 # ignore roles completely -- this is essientially the same as everyone in the system being an admin
 ignore_roles: true
@@ -103,7 +103,6 @@ default_provider:
       extension  : '6892960108'
     - root       : '2.16.840.1.113883.4.2'  #tin
       extension  : '1554520'
-
 
 certifications:
   C1:

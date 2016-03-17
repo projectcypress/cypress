@@ -40,26 +40,14 @@ class BundlesController < ApplicationController
   end
 
   def create
-    options = { delete_existing: false, update_measures: false, exclude_results: false }
-
+    # save file to a temporary location
     bundle_file = params['file']
-
-    fail 'Bundle must be a Zip file' unless File.extname(bundle_file.original_filename) == '.zip'
-
-    already_have_default = Bundle.where(active: true).exists?
-
-    importer = HealthDataStandards::Import::Bundle::Importer
-    @bundle = importer.import(bundle_file.tempfile, options)
-
-    if already_have_default
-      @bundle.active = false
-      @bundle.save!
-    end
-
+    FileUtils.mkdir_p(APP_CONFIG.bundle_file_path)
+    file_name = generate_file_path
+    file_path = File.join(APP_CONFIG.bundle_file_path, file_name)
+    FileUtils.mv(temp_file_path, file_path)
+    BundleUploadJob.perform_later(file_path, bundle_file.original_filename)
     redirect_to bundles_url
-  rescue => e
-    flash[:alert] = e
-    render :new
   end
 
   def destroy
@@ -76,6 +64,14 @@ class BundlesController < ApplicationController
   end
 
   private
+
+  def temp_file_path
+    params['file'].tempfile.path
+  end
+
+  def generate_file_path
+    "bundle_#{rand(Time.now.to_i)}.zip"
+  end
 
   def require_admin
     authorize! :manage, Bundle.new
