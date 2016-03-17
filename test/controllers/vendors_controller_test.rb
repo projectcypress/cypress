@@ -96,6 +96,14 @@ class VendorsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should not post create with json request if no name' do
+    for_each_logged_in_user([ADMIN, ATL, USER]) do
+      post :create, :format => :json, :vendor => { poc_attributes: { name: 'test poc' } }
+      assert_response 400, 'response should be Bad Request if no name given'
+      assert_equal '', response.body
+    end
+  end
+
   test 'should get success on update vendor with json request' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       patch :update, :format => :json, :id => Vendor.first.id, :vendor => { name: 'test name' }
@@ -183,6 +191,14 @@ class VendorsControllerTest < ActionController::TestCase
       post :create, :format => :xml, :vendor => { name: Vendor.first.name, poc_attributes: { name: 'test poc' } }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
       assert_not_nil response.body['errors']
+    end
+  end
+
+  test 'should not post create with xml request if no name' do
+    for_each_logged_in_user([ADMIN, ATL, USER]) do
+      post :create, :format => :xml, :vendor => { poc_attributes: { name: 'test poc' } }
+      assert_response 400, 'response should be Bad Request if no name given'
+      assert_equal '', response.body
     end
   end
 

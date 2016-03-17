@@ -35,7 +35,7 @@ class VendorsController < ApplicationController
     respond_with(@vendor) do |f|
       f.html { redirect_to root_path }
       f.json { render :nothing => true, :status => :created, :location => vendor_path(@vendor.id) }
-      f.xml { render :nothing => true, :status => :created, :location => vendor_path(@vendor.id) }
+      f.xml  { render :nothing => true, :status => :created, :location => vendor_path(@vendor.id) }
     end
   rescue Mongoid::Errors::Validations
     respond_with(@vendor) do |f|
@@ -74,7 +74,8 @@ class VendorsController < ApplicationController
   end
 
   def vendor_params
-    params[:vendor].permit :name, :vendor_id, :url, :address, :state, :zip,
-                           pocs_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy]
+    params.require(:vendor).require(:name)
+    params.require(:vendor).permit(:name, :vendor_id, :url, :address, :state, :zip,
+                                   pocs_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy])
   end
 end

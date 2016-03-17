@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
   def show
     add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
     add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
-    respond_with(@product)
+    respond_with(@product, &:js)
   end
 
   def new
@@ -37,21 +37,6 @@ class ProductsController < ApplicationController
       f.json { render :nothing => true, :status => :created, :location => vendor_product_path(@vendor, @product.id) }
       f.xml  { render :nothing => true, :status => :created, :location => vendor_product_path(@vendor, @product.id) }
     end
-    # TODO: Refactor this so we can't save products without measures in more concise code
-    # if params['product_test'] && params['product_test']['measure_ids']
-    #   @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq)
-    #   @product.save!
-    #   flash_comment(@product.name, 'success', 'created')
-    #   respond_with(@product) do |f|
-    #     f.html { redirect_to vendor_path(@vendor) }
-    #     f.json { render :nothing => true, :status => :created, :location => product_path(@product.id) }
-    #     f.xml { render :nothing => true, :status => :created, :location => product_path(@product.id) }
-    #   end
-    # else
-    #   setup_new
-    #   flash_comment(@product.name, 'danger', 'not created because it has no measures specified')
-    #   render :new
-    # end
   rescue Mongoid::Errors::Validations, Mongoid::Errors::DocumentNotFound
     respond_with(@product) do |f|
       f.html do
@@ -60,8 +45,6 @@ class ProductsController < ApplicationController
         render :new
       end
     end
-    # @selected_measure_ids = params['product_test']['measure_ids'] if params['product_test'] && params['product_test']['measure_ids']
-    # byebug
   end
 
   def edit
@@ -72,8 +55,6 @@ class ProductsController < ApplicationController
 
   def update
     @product.update_with_measure_tests(edit_product_params)
-    # @product.update_attributes(edit_product_params)
-    # @product.add_product_tests_to_product(params['product_test']['measure_ids'].uniq) if params['product_test']
     @product.save!
     flash_comment(@product.name, 'info', 'edited')
     respond_with(@product) do |f|
@@ -111,13 +92,6 @@ class ProductsController < ApplicationController
 
   private
 
-  # def goto_vendor(vendor)
-  #   respond_to do |f|
-  #     f.json {} # <-- must be fixed later
-  #     f.html { redirect_to vendor_path(vendor.id) }
-  #   end
-  # end
-
   def authorize_vendor
     vendor = @vendor || @product.vendor
     authorize_request(vendor, read: ['download_pdf'])
@@ -139,11 +113,11 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).require(:measure_ids)
     params.require(:product).require(:name)
-    params.require(:product).permit(:name, :version, :description, :randomize_records, :duplicate_records, :bundle_id,
+    params.require(:product).permit(:name, :version, :description, :randomize_records, :duplicate_records, :bundle_id, :measure_selection,
                                     :c1_test, :c2_test, :c3_test, :c4_test, measure_ids: [])
   end
 
   def edit_product_params
-    params.require(:product).permit(:name, :version, :description, measure_ids: [])
+    params.require(:product).permit(:name, :version, :description, :measure_selection, measure_ids: [])
   end
 end

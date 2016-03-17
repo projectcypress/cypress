@@ -7,7 +7,7 @@
 <%= render partial: 'checklist_status_display', locals: { product: @product } %>
 
 <% if @measures %>
-  <%= bootstrap_nested_form_for([@product, @test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
+  <%= bootstrap_nested_form_for([@product, @product_test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
     <% @measures.each do |measure| %>
       <div class = 'panel-group' id = '<%= measure.cms_id %>'>
         <div class = 'panel panel-default'>
@@ -29,7 +29,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <%= f.fields_for :checked_criteria, @test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
+                  <%= f.fields_for :checked_criteria, @product_test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
                     <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
                     <% if criteria.has_key?('description') %>
                       <tr>
@@ -58,6 +58,6 @@
 <%= render partial: 'remove_panel', locals: {
   name: 'delete checklist',
   type: 'visual test',
-  delete_path: product_checklist_test_path(@product, @test),
+  delete_path: product_checklist_test_path(@product, @product_test),
   message: 'Removing this C1 Visual Test will discard your answers to the checklist above for each measure. This will not remove any measures selected.'
 } %>

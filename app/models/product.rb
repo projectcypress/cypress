@@ -81,10 +81,6 @@ class Product
     errors.add(:measure_tests, 'Product must specify least one measure for testing.') unless product_tests.any?
   end
 
-  # def measure_ids
-  #   (product_tests.pluck(:measure_ids) || []).flatten.uniq
-  # end
-
   # updates product attributes and adds / removes measure tests
   # replaces all filtering tests and creates new filtering tests
   def update_with_measure_tests(product_params)
@@ -98,32 +94,6 @@ class Product
     (old_ids - new_ids).each { |measure_id| product_tests.in(measure_ids: measure_id).destroy }
     add_filtering_tests if c4_test
   end
-
-  # def validate_measure_ids(ids)
-  #   ids.each do |measure_id|
-  #     # errors.add(:measure_ids, 'must select measure ids') unless Measure.top_level.where(hqmf_id: measure_id).any?
-  #     byebug unless Measure.top_level.where(hqmf_id: measure_id).any?
-  #   end
-  # end
-
-  # def add_product_tests_to_product(added_measure_ids = [])
-  #   return if added_measure_ids.nil?
-
-  #   new_ids = added_measure_ids - measure_ids
-  #   to_remove_ids = measure_ids - added_measure_ids
-  #   untouched_ids = measure_ids - to_remove_ids
-  #   if c1_test || c2_test || c3_test
-  #     new_ids.each do |new_measure_id|
-  #       measure = Measure.top_level.find_by(hqmf_id: new_measure_id)
-  #       product_tests.build({ name: measure.name, product: self, measure_ids: [new_measure_id],
-  #                             cms_id: measure.cms_id, bundle_id: measure.bundle_id }, MeasureTest)
-  #     end
-  #   end
-
-  #   to_remove_ids.each { |old_measure_id| product_tests.in(measure_ids: old_measure_id).destroy }
-
-  #   add_filtering_tests(ApplicationController.helpers.pick_measure_for_filtering_test(untouched_ids + new_ids)) if c4_test
-  # end
 
   def add_filtering_tests
     measure = ApplicationController.helpers.pick_measure_for_filtering_test(measure_ids)

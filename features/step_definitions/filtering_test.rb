@@ -7,7 +7,7 @@
 
 And(/^the user has created a vendor with a product selecting C4 testing$/) do
   @vendor = Vendor.create!(name: 'test_vendor_name')
-  @product = @vendor.products.create!(name: 'test_product_name', c1_test: true, c4_test: true)
+  @product = @vendor.products.create!(name: 'test_product_name', c1_test: true, c4_test: true, measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'])
   @m_test = @product.product_tests.create!({ name: 'Hearing Screening Prior To Hospital Discharge', cms_id: 'CMS31v3',
                                              measure_ids: ['40280381-43DB-D64C-0144-5571970A2685']
                                            }, MeasureTest)

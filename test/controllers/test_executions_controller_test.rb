@@ -162,7 +162,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should get index with json request' do
     task = TestExecution.first.task
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :index, :format => :json, :task_id => task.id
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution index'
@@ -173,43 +173,37 @@ class TestExecutionsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should get test_execution with json request' do
+  test 'should get show with json request' do
     task = C1Task.first
     execution = task.test_executions.build({})
     execution.save!
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :show, :format => :json, :task_id => task.id, :id => execution.id
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution show'
-      assert_not_nil response_body['test_execution'], 'response body should include test_execution'
-      assert_equal 'pending', response_body['test_execution']['state'], 'test_execution should have state of pending'
+      assert_has_test_execution_attributes response_body['test_execution']
     end
   end
 
-  test 'should get response bad request if no test_execution' do
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      get :show, :format => :json, :task_id => C1Task.first.id, :id => 'bad_id'
-      assert_response 404, 'response should be Bad Request if no test_execution'
-      assert_equal '', response.body
+  test 'should get show with json request with no task_id' do
+    task = C1Task.first
+    execution = task.test_executions.build({})
+    execution.save!
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, :format => :json, :id => execution.id
+      response_body = JSON.parse(response.body)
+      assert_response 200, 'response should be OK if no task_id'
+      assert_has_test_execution_attributes response_body['test_execution']
     end
   end
 
   test 'should create test_execution with json request' do
     task = C1Task.first
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => task.id, :results => zip_upload
       assert_response 201, 'response should be Created on test_execution creation'
       assert_equal('', response.body, 'response body should be empty on test_execution creation')
       assert_equal(task_test_execution_path(task, task.most_recent_execution), response.location, 'response location should be test_execution show')
-    end
-  end
-
-  test 'should get response bad request if incorrect upload type for json request' do
-    task = C1Task.first
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, :format => :json, :task_id => task.id, :results => xml_upload
-      assert_response 422, 'response should be Unprocessable Entity if no test_execution'
-      assert_equal '', response.body
     end
   end
 
@@ -218,7 +212,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     task.product_test = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     task.product_test.save!
     task.save!
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
         post :create, :format => :json, :task_id => task.id, :results => zip_upload
         get :show, :format => :json, :task_id => task.id, :id => task.most_recent_execution.id
@@ -231,22 +225,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   # XML
 
-  test 'should get test_execution with xml request' do
-    task = C1Task.first
-    execution = task.test_executions.build({})
-    execution.save!
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      get :show, :format => :xml, :task_id => task.id, :id => execution.id
-      response_body = Hash.from_trusted_xml(response.body)
-      assert_response 200, 'response should be OK on test_execution show'
-      assert_not_nil response_body['test_execution'], 'response body should include test_execution'
-      assert_equal :pending, response_body['test_execution']['state'], 'test_execution should have state of pending'
-    end
-  end
-
   test 'should get index with xml request' do
     task = TestExecution.first.task
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :index, :format => :xml, :task_id => task.id
       response_body = Hash.from_trusted_xml(response.body)
       assert_response 200, 'response should be OK on test_execution index'
@@ -254,29 +235,33 @@ class TestExecutionsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should get test_execution with xml request with no task_id' do
+  test 'should get show with xml request' do
     task = C1Task.first
     execution = task.test_executions.build({})
     execution.save!
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      get :show, :format => :xml, :id => execution.id
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, :format => :xml, :task_id => task.id, :id => execution.id
       response_body = Hash.from_trusted_xml(response.body)
-      assert_response 404, 'response should be Bad Request if no test_execution'
-      assert_equal '', response.body
+      assert_response 200, 'response should be OK on test_execution show'
+      assert_has_test_execution_attributes response_body['test_execution']
     end
   end
 
-  test 'should get response bad request after xml request if no test_execution' do
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      get :show, :format => :xml, :task_id => C1Task.first.id, :id => 'bad_id'
-      assert_response 404, 'response should be Bad Request if no test_execution'
-      assert_equal '', response.body
+  test 'should get show with xml request with no task_id' do
+    task = C1Task.first
+    execution = task.test_executions.build({})
+    execution.save!
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, :format => :xml, :id => execution.id
+      response_body = Hash.from_trusted_xml(response.body)
+      assert_response 200, 'response should be OK if no task_id'
+      assert_has_test_execution_attributes response_body['test_execution']
     end
   end
 
   test 'should create test_execution with xml request' do
     task = C2Task.first
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :xml, :task_id => task.id, :results => xml_upload
       assert_response 201, 'response should be Created on test_execution creation'
       assert_equal('', response.body, 'response body should be empty on test_execution creation')
@@ -284,18 +269,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should get response bad request if incorrect upload type for xml request' do
-    task = C2Task.first
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, :format => :xml, :task_id => task.id, :results => zip_upload
-      assert_response 422, 'response should be Bad Request if no test_execution'
-      assert_equal '', response.body
-    end
-  end
-
   test 'should see execution_errors when test_execution is ready after xml request' do
     task = C2Task.first
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
         task.product_test = Product.first.product_tests.build({ name: 'mtest2', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
         task.product_test.save!
@@ -309,12 +285,53 @@ class TestExecutionsControllerTest < ActionController::TestCase
     end
   end
 
+  # Unsuccessful Requests
+
+  test 'should not get show with json request with bad test_execution id' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, :format => :json, :task_id => C1Task.first.id, :id => 'bad_id'
+      assert_response 404, 'response should be Bad Request if no test_execution'
+      assert_equal '', response.body
+    end
+  end
+
+  test 'should not create test_execution with json request with no upload' do
+    task = C1Task.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      post :create, :format => :xml, :task_id => task.id
+      assert_response 400, 'response should be Bad Request if no results given'
+      assert_equal '', response.body
+    end
+  end
+
+  test 'should not create test_execution with json request with nil upload' do
+    task = C1Task.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      post :create, :format => :xml, :task_id => task.id, :results => nil
+      assert_response 400, 'response should be Bad Request if nil results given'
+      assert_equal '', response.body
+    end
+  end
+
+  test 'should not create test_execution with json request if incorrect upload type' do
+    task = C1Task.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      post :create, :format => :json, :task_id => task.id, :results => xml_upload
+      assert_response 422, 'response should be Unprocessable Entity if no test_execution'
+      assert_equal '', response.body
+    end
+  end
+
   # # # # # # # # # # #
   #   H E L P E R S   #
   # # # # # # # # # # #
 
   def assert_valid_create_attributes(execution_hash)
     assert_equal 0, (execution_hash.keys - accepted_execution_show_attributes).count
+  end
+
+  def assert_has_test_execution_attributes(hash)
+    accepted_execution_show_attributes.each { |key| assert hash.key?(key), "response body should have key: #{key}" }
   end
 
   def zip_upload

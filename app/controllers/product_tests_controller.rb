@@ -1,20 +1,17 @@
 class ProductTestsController < ApplicationController
-  before_action :set_product, only: [:index]
-  before_action :set_product_test, except: [:index]
-  before_action :authorize_vendor, only: [:index, :show, :patients]
-  add_breadcrumb 'Dashboard', :vendors_path
+  before_action :set_product, except: [:show, :patients]
+  before_action :set_product_test, only: [:show, :update, :destroy, :patients]
+  before_action :authorize_vendor
+
+  respond_to :json, :xml
 
   def index
     @product_tests = @product.product_tests
+    respond_with(@product_tests)
   end
 
   def show
-    return unless @product_test[:_type] == 'MeasureTest'
-    if @product_test.tasks.c1_task
-      redirect_to new_task_test_execution_path(@product_test.tasks.c1_task)
-    elsif @product_test.tasks.c2_task
-      redirect_to new_task_test_execution_path(@product_test.tasks.c2_task)
-    end
+    respond_with(@product_test)
   end
 
   # always respond with a .qrda.zip file of qrda category I documents

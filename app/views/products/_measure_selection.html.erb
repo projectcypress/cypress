@@ -49,41 +49,6 @@
                     <%= f.check_box :measure_ids, measure_checkbox_attributes(m, category, @selected_measure_ids), m.hqmf_id, nil do %>
                       <strong><%= m.cms_id %></strong><%= " #{m.name} (#{m.type.upcase})" %>
                     <% end %>
-                    <%# i = 0 %>
-                    <%#= f.fields_for 'product_tests' do |pt| %>
-                      <%# i += 1 %>
-                      <%# if measure_checkbox_should_be_skipped?(pt, @product.product_tests, m, i == 1) %>
-                        <%# next %>
-                      <%# end %>
-                      <%#= pt.check_box :measure_ids, measure_checkbox_attributes(m, category, pt.options[:child_index]), m.hqmf_id, nil do %>
-                        <!-- <strong><%#= m.cms_id %></strong><%#= " #{m.name} (#{m.type.upcase})" %> -->
-                      <%# end %>
-                      <%#= pt.label m.hqmf_id do %>
-                      <%# end %>
-                      <%#= pt.collection_check_boxes :measure_ids, [m], :hqmf_id, :name, include_hidden: false do |cb| %>
-                        <%#= cb.label { cb.check_box(measure_checkbox_attributes(m, category)) } %>
-                      <%# end %>
-                      <%#= pt.label :measure_ids, class: 'btn btn-checkbox' do %>
-                        <%#= pt.check_box 'measure_ids[]', measure_checkbox_attributes(m, category), [m.hqmf_id], nil %>
-                      <%# end %>
-                    <%# end %>
-                    <!-- <label class="btn btn-checkbox">
-                      <input type="checkbox"
-                        name="product_test[measure_ids][]"
-                        id="<%#= m.hqmf_id %>"
-                        value="<%#= m.hqmf_id %>"
-                        data-category="<%#= category.tr(" '", "_") %>"
-                        data-measure-type="<%#= m.type %>"
-                        data-parsley-mincheck="1"
-                        data-parsley-required=""
-                        data-parsley-error-message="Must select measures"
-                        data-parsley-errors-container="#measures_errors_container"
-                        aria-labelledby="select_custom_measures"
-                        class="measure-checkbox"
-                        <%#= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %>
-                        <%#= 'disabled' if defined?(@selected_measure_ids) && !@product.new_record? %>/>
-                      <strong><%#= m.cms_id %></strong> <%#= m.name %> (<%#= m.type.upcase %>)
-                    </label> -->
                   </div>
                 <% end %>
               </div>
