@@ -98,7 +98,7 @@ class ProductsController < ApplicationController
 
   def set_measures
     @bundle = (@product && @product.bundle) ? @product.bundle : Bundle.default
-    @measures = @bundle.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type)
+    @measures = @bundle ? @bundle.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type) : []
     @measures_categories = @measures.group_by(&:category)
   end
 
@@ -115,6 +115,6 @@ class ProductsController < ApplicationController
   end
 
   def edit_product_params
-    params[:product].permit(:name, :version, :description, product_tests_attributes: [:id, :name, :measure_ids, :_destroy])
+    params[:product].permit(:name, :version, :description, :measure_selection, product_tests_attributes: [:id, :name, :measure_ids, :_destroy])
   end
 end

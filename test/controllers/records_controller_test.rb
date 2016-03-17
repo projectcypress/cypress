@@ -16,6 +16,14 @@ class RecordsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should not crash when no bundles' do
+    Bundle.all.destroy
+    for_each_logged_in_user([ADMIN]) do
+      get :index
+      assert_response :success
+    end
+  end
+
   test 'should get index scoped to bundle' do
     # do this for all users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR, OTHER_VENDOR]) do

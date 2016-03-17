@@ -39,6 +39,12 @@ When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_
   page.click_button 'Add Product'
 end
 
+When(/^the user navigates to the create product page$/) do
+  visit('/')
+  page.click_link @vendor.name
+  page.click_button 'Add Product'
+end
+
 When(/^the user navigates to the create product page for vendor (.*)$/) do |vendor_name|
   visit('/')
   page.click_link vendor_name
@@ -219,6 +225,16 @@ end
 
 Then(/^the user should see an error message saying the product must have at least one measure$/) do
   page.assert_text 'Must select measures'
+end
+
+Then(/^the default bundle should be pre-selected$/) do
+  Bundle.all.each do |bundle|
+    if bundle.active
+      assert page.has_checked_field?(bundle.title), 'default bundle should be pre-selected'
+    else
+      assert page.has_unchecked_field?(bundle.title), 'non-default bundle should not be selected'
+    end
+  end
 end
 
 # V V V Measure Selection V V V

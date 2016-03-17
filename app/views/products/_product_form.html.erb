@@ -32,9 +32,9 @@
           <fieldset>
             <legend class="control-label">Annual Update Bundle</legend>
             <% if Bundle.count == 1 %>
-              <!-- label --> <%= @bundle.title %>
-              <%= hidden_field_tag :bundle_id, @bundle.id %>
-            <% else %>
+              <label class="h5"> <%= @bundle.title %> </label>
+              <%= hidden_field_tag 'product[bundle_id]', @bundle.id %>
+            <% elsif Bundle.count > 1 %>
               <!-- loop through bundles & use radio buttons -->
               <%= f.form_group :bundle_id, help: "Select the measure versions Cypress should use to certify this product." do %>
                 <% Bundle.all.each do |bundle| %>

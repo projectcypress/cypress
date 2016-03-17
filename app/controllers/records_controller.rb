@@ -2,6 +2,12 @@ class RecordsController < ApplicationController
   before_action :set_record_source, only: [:index, :show, :by_measure]
 
   def index
+    unless Bundle.default
+      @records = []
+      @measures = []
+      add_breadcrumb 'Master Patient List', :records
+      return
+    end
     return redirect_to bundle_records_path(Bundle.default) unless params[:bundle_id] || params[:task_id]
 
     # TODO: Only show measures where there are patient results. CMS32v4 sub id c and d have no patients, for example.
@@ -43,6 +49,7 @@ class RecordsController < ApplicationController
       # TODO: figure out what scenarios lead to this branch and fix them
       @bundle = Bundle.default
       @source = @bundle
+      return unless @bundle
       add_breadcrumb 'Master Patient List', bundle_records_path(@bundle)
     end
   end

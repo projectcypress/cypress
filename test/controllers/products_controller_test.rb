@@ -161,4 +161,12 @@ class ProductsControllerTest < ActionController::TestCase
       assert_response 401
     end
   end
+
+  test 'should not crash without a bundle installed' do
+    Bundle.all.destroy
+    for_each_logged_in_user([ADMIN]) do
+      get :new, vendor_id: @vendor.id
+      assert_response :success, 'new product page should not error when no bundles'
+    end
+  end
 end
