@@ -38,6 +38,24 @@ class User
     end
   end
 
+  validate :password_complexity
+
+  def password_complexity
+    if password.present?
+      # returns nil if no match, index of match otherwise
+      lowcase = password =~ /^(?=.*[a-z])./
+      upcase = password =~ /^(?=.*[A-Z])./
+      num = password =~ /^(?=.*[\d])./
+      special = password =~ /^(?=.*[\W])./
+      unless [lowcase, upcase, num, special].compact.length >= 3
+        errors.add :password, 'password must include at least 3 of the following: lowercase letters, uppercase letters, digits, special characters'
+      end
+      if password == email
+        errors.add :password, 'email and password must be different'
+      end
+    end
+  end
+
   ## Confirmable
   # field :confirmation_token,   type: String
   # field :confirmed_at,         type: Time
