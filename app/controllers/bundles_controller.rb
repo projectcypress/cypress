@@ -58,12 +58,6 @@ class BundlesController < ApplicationController
     redirect_to bundles_url
   end
 
-  def list_remote_bundles
-  end
-
-  def download_bundle
-  end
-
   def find_bundle
     @bundle = Bundle.find(params['id'])
   end
