@@ -93,10 +93,12 @@ class TestExecution
   end
 
   # returns combined status including c3 test execution
-  # returns passing if both passing, incomplete if both incomplete, failing if both failing or mismatched
+  # returns passing if both passing, incomplete if either incomplete, failing if both complete and at least one failing
   def status_with_sibling
-    return status unless sibling_execution
-    return status if status == sibling_execution.status
+    sibling = sibling_execution
+    return status unless sibling
+    return status if status == sibling.status
+    return 'incomplete' if incomplete? || sibling.incomplete?
     'failing' # failing if status's do not match
   end
 end

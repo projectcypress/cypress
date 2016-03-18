@@ -33,8 +33,10 @@ class C1Task < Task
 
   # returns combined status including c3_cat1 task
   def status_with_sibling
-    return status unless product_test.tasks.c3_cat1_task
-    return status if status == product_test.tasks.c3_cat1_task.status
+    sibling = product_test.tasks.c3_cat1_task
+    return status unless sibling
+    return status if status == sibling.status
+    return 'incomplete' if incomplete? || sibling.incomplete?
     'failing'
   end
 end
