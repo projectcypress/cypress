@@ -5,7 +5,7 @@
     <div class="panel-body">
       <div class="row">
         <div class="col-md-6">
-          <%= f.text_field :name, autocomplete: 'off', data: { 'parsley-required': '', 'data-parsley-trigger': 'change', 'parsley-error-message': "Name can't be blank." } %>
+          <%= f.text_field :name, autocomplete: 'off', data: { 'parsley-required': '', 'parsley-trigger': 'blur', 'parsley-error-message': "Name can't be blank." } %>
           <%= f.text_field :version %>
           <%= f.text_area :description %>
 
@@ -14,7 +14,17 @@
             <div id="certifications_errors_container"></div>
             <%= f.form_group help: "A product must certify to either C1 or C2." do %>
               <% APP_CONFIG.certifications.each do |c, certification| %>
-                <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: { 'parsley-required': '', 'parsley-error-message': 'Must certify to at least C1 or C2.', 'parsley-multiple': 'certifications', 'parsley-errors-container': "#certifications_errors_container" } %>
+                <% if c == 'C1' || c == 'C2' %>
+                  <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: {
+                    'parsley-required': '',
+                    'parsley-trigger': 'blur',
+                    'parsley-mincheck': '1',
+                    'parsley-error-message': 'Must certify to at least C1 or C2.',
+                    'parsley-multiple': 'mandatory_certifications',
+                    'parsley-errors-container': "#certifications_errors_container" } %>
+                <% else %>
+                  <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
+                <% end %>
               <% end %>
             <% end %>
           </fieldset>
@@ -55,7 +65,11 @@
 
             <div id="simple_measures_errors_container"></div>
             <%= f.form_group :measure_selection, help: "Indicate the clinical quality measures Cypress should use to certify this product. Testing will be performed on a measure-by-measure basis. Click 'Custom' to specify individual measures." do %>
-              <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: { 'parsley-required': '', 'parsley-error-message': 'Must select measures.', 'parsley-errors-container': "#simple_measures_errors_container" } %>
+              <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: {
+                'parsley-required': '',
+                'parsley-trigger': 'blur change focusout',
+                'parsley-error-message': 'Must select measures.',
+                'parsley-errors-container': "#simple_measures_errors_container" } %>
               <%= f.radio_button :measure_selection, "ep", label: "Eligible Provider eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
               <%= f.radio_button :measure_selection, "all", label: "All eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
               <%= f.radio_button :measure_selection, "custom", label: "Custom...", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
@@ -69,7 +83,7 @@
     </div>
 
     <div class="panel-footer">
-      <%= f.submit submit_text, class: "btn btn-success" %>
+      <%= f.submit submit_text, class: "btn btn-success", disabled: true %>
       <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
     </div>
   <% end %>

@@ -1,25 +1,27 @@
-<h2>Change your password</h2>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class='panel-title'>Change your password</h3>
+  </div>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+<%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, "data-parsley-validate": '' }) do |f| %>
   <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+  <div class="panel-body">
+    <%= f.password_field :password, autofocus: true, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
+      'data-parsley-required': '',
+      'data-parsley-trigger': 'blur' %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
+      help: '8 characters minimum and include at least 3 of the following: lowercase letters, uppercase letters, digits, and special characters.',
+      'data-parsley-required': '',
+      'data-parsley-minlength': "8",
+      'data-parsley-minlength-message': "Password must be at least 8 characters long.",
+      'data-parsley-passwordcomplexity': '',
+      'data-parsley-trigger': 'blur' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
+  <div class="panel-footer">
+    <%= f.primary "Change my password", disabled: true %>
   </div>
 <% end %>
+</div>
 
 <%= render "devise/shared/links" %>

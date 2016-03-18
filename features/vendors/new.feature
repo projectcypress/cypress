@@ -13,7 +13,7 @@ Scenario: Successful Create Vendor
 
 Scenario: Unsuccessful Create Vendor Because No Name
   When the user creates a vendor with no name
-  Then the user should see an error message saying the vendor has no name
+  Then the user should not be able to create a vendor
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 

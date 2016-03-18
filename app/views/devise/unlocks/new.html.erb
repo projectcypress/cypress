@@ -1,16 +1,21 @@
-<h2>Resend unlock instructions</h2>
-
-<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class='panel-title'>Resend unlock instructions</h3>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Resend unlock instructions" %>
+<%= bootstrap_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, 'data-parsley-validate': '' }) do |f| %>
+
+  <div class="panel-body">
+    <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
+      'data-parsley-required': '',
+      'data-parsley-type':"email",
+      'data-parsley-trigger': 'blur' %>
+  </div>
+
+  <div class="panel-footer">
+    <%= f.primary "Resend unlock instructions", disabled: true %>
   </div>
 <% end %>
+</div>
 
 <%= render "devise/shared/links" %>

@@ -18,7 +18,7 @@ Scenario: Successfully Create Product
 
 Scenario: Unsuccessful Create Product Because No Name
   When the user creates a product with no name
-  Then the user should see an error message saying the product has no name
+  Then the user should not be able to create a product
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
@@ -30,7 +30,7 @@ Scenario: Unsuccessful Create Product Because Name Taken
 
 Scenario: Unsuccessful Create Product Because No Task Type Selected
   When the user creates a product with no task type
-  Then the user should see an error message saying the product must certify to C1 or C2
+  Then the user should not be able to create a product
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
@@ -50,12 +50,6 @@ Scenario: Measure Group Unchecked After Deselecting Measure In Group
   When the user fills out all product information but measures
   And the user selects a group of measures but deselects one
   Then the group of measures should no longer be selected
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
-
-Scenario: No Product Tests Created if Product is Not Validated
-  When the user creates a product with no name and selects measures
-  Then there should be no product tests in the database
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
