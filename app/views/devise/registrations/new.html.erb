@@ -8,7 +8,7 @@
     <%= f.email_field :email, autocorrect: 'off', autocapitalize: 'off', autofocus: true,
       'data-parsley-required': '',
       'data-parsley-type': "email",
-      'data-parsley-trigger': 'change' %>
+      'data-parsley-trigger': 'blur' %>
 
     <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
       help: '8 characters minimum and include at least 3 of the following: lowercase letters, uppercase letters, digits, and special characters.',
@@ -16,18 +16,18 @@
       'data-parsley-minlength': "8",
       'data-parsley-minlength-message': "Password must be at least 8 characters long.",
       'data-parsley-passwordcomplexity': '',
-      'data-parsley-trigger': 'change' %>
+      'data-parsley-trigger': 'blur' %>
 
     <%= f.password_field :password_confirmation, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
       label: 'Confirm Password',
       'data-parsley-required': '',
       'data-parsley-equalto': '#user_password',
       'data-parsley-equalto-message': 'Passwords do not match',
-      'data-parsley-trigger': 'change' %>
+      'data-parsley-trigger': 'blur' %>
   </div>
 
   <div class="panel-footer">
-    <%= f.primary "Sign up" %>
+    <%= f.primary "Sign up", disabled: true %>
   </div>
 <% end %>
 </div>

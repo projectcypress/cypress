@@ -85,7 +85,7 @@ ready_run_on_refresh_bundle = function() {
   // Checking a group of measures
   $('.measure_group_all').on('change', function () {
     $(this).closest('.measure_group').find('.measure-checkbox[data-category='+$(this).attr('id')+']')
-      .prop('checked', this.checked).change();
+      .prop('checked', this.checked).change().trigger('groupclick');
   });
 
   // Checking an individual measure
@@ -115,6 +115,14 @@ ready_run_once = function() {
   ////////////////////////////
   // Set up event listeners //
   ////////////////////////////
+  // make sure front-end form validations happen when needed
+  $('form[data-parsley-validate]').find('input[type="checkbox"], input[type="radio"]').on('click groupclick', function() {
+    $(this).parsley().validate(); // force re-validation
+    // sometimes when a field is found to be invalid, it doesn't
+    // trigger further validations on its own. so we do this manually.
+    // set on click and custom groupclick event to avoid triggering this
+    // every time inputs are changed programmatically
+  });
 
   // Checking a radio button indicating measure selection
   $('.btn-checkbox input[name="product[measure_selection]"]').on('change', function() {

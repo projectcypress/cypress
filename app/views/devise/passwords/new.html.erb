@@ -8,11 +8,11 @@
     <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
       'data-parsley-required': '',
       'data-parsley-type':"email",
-      'data-parsley-trigger': 'change' %>
+      'data-parsley-trigger': 'blur' %>
   </div>
 
   <div class="panel-footer">
-    <%= f.primary "Send me reset password instructions" %>
+    <%= f.primary "Send me reset password instructions", disabled: true %>
   </div>
 <% end %>
 </div>

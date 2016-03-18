@@ -8,18 +8,18 @@
   <div class="panel-body">
     <%= f.password_field :password, autofocus: true, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
       'data-parsley-required': '',
-      'data-parsley-trigger': 'change' %>
+      'data-parsley-trigger': 'blur' %>
     <%= f.password_field :password_confirmation, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
       help: '8 characters minimum and include at least 3 of the following: lowercase letters, uppercase letters, digits, and special characters.',
       'data-parsley-required': '',
       'data-parsley-minlength': "8",
       'data-parsley-minlength-message': "Password must be at least 8 characters long.",
       'data-parsley-passwordcomplexity': '',
-      'data-parsley-trigger': 'change' %>
+      'data-parsley-trigger': 'blur' %>
   </div>
 
   <div class="panel-footer">
-    <%= f.primary "Change my password" %>
+    <%= f.primary "Change my password", disabled: true %>
   </div>
 <% end %>
 </div>

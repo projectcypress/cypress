@@ -9,11 +9,11 @@
     <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
       'data-parsley-required': '',
       'data-parsley-type':"email",
-      'data-parsley-trigger': 'change' %>
+      'data-parsley-trigger': 'blur' %>
   </div>
 
   <div class="panel-footer">
-    <%= f.primary "Resend unlock instructions" %>
+    <%= f.primary "Resend unlock instructions", disabled: true %>
   </div>
 <% end %>
 </div>

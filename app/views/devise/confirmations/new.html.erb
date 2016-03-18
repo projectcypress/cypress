@@ -9,12 +9,12 @@
     <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
       'data-parsley-required': '',
       'data-parsley-type':"email",
-      'data-parsley-trigger': 'change',
+      'data-parsley-trigger': 'blur',
       value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
   </div>
 
   <div class="panel-footer">
-    <%= f.primary "Resend confirmation instructions" %>
+    <%= f.primary "Resend confirmation instructions", disabled: true %>
   </div>
 <% end %>
 </div>

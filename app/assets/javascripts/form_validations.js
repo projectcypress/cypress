@@ -1,6 +1,14 @@
 $(document).on('page:change', function(event) {
   // reinitialize parsley on turbolinks page:change
-  $('form').parsley();
+  var $forms = $('form[data-parsley-validate]');
+
+  if ($forms.length > 0) {
+    $forms.parsley().on('field:validate', function (fieldInstance) {
+      // enable the submit button if form is valid
+      var formIsValid = fieldInstance.parent.$element.parsley().isValid();
+      $('.btn[type="submit"]').attr('disabled', !formIsValid);
+    });
+  }
 });
 
 

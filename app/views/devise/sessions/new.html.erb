@@ -8,10 +8,10 @@
       <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
         'data-parsley-required': '',
         'data-parsley-type':"email",
-        'data-parsley-trigger': 'change' %>
+        'data-parsley-trigger': 'blur' %>
       <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
         'data-parsley-required': '',
-        'data-parsley-trigger': 'change' %>
+        'data-parsley-trigger': 'blur' %>
 
       <% if devise_mapping.rememberable? -%>
         <%= f.check_box :remember_me %>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="panel-footer">
-      <%= f.primary "Sign in" %>
+      <%= f.primary "Sign in", disabled: true %>
     </div>
   <% end %>
 </div>
