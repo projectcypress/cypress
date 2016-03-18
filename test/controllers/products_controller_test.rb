@@ -243,7 +243,7 @@ class ProductsControllerTest < ActionController::TestCase
       response_products = JSON.parse(response.body)
       assert_equal vendor.products.count, response_products.count, 'response body should have all products for vendor'
       response_products.each do |response_product|
-        assert response_product['product']
+        assert_has_product_attributes response_product
       end
     end
   end
@@ -255,8 +255,7 @@ class ProductsControllerTest < ActionController::TestCase
       assert_response 200, 'response should be OK on product show'
       json_response = JSON.parse(response.body)
       assert_not_empty json_response
-      assert json_response.key?('product')
-      assert_has_product_attributes json_response['product']
+      assert_has_product_attributes json_response
     end
   end
 

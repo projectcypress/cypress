@@ -24,7 +24,6 @@ class ProductsController < ApplicationController
     @product = Product.new(vendor: @vendor)
     # @product.product_tests.build
     setup_new
-    respond_with(@measures, @product) # TODO: add @measure_categories
   end
 
   def create

@@ -6,62 +6,9 @@ class ProductTestsControllerTest < ActionController::TestCase
   setup do
     collection_fixtures('vendors', 'products', 'product_tests', 'users', 'roles', 'bundles', 'measures')
     @vendor = Vendor.find(EHR1)
-    @first_product = @vendor.products.first
-    @first_test = @first_product.product_tests.first
+    @product = @vendor.products.first
+    @test = @product.product_tests.first
   end
-
-  # test 'should get index' do
-  #   for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-  #     get :index, product_id: @first_product.id
-  #     assert_response :success, "#{@user.email} should have access "
-  #     assert_not_nil assigns(:product_tests)
-  #     assert_not_nil assigns(:product)
-  #   end
-  # end
-
-  # test 'should restrict access to product test index' do
-  #   for_each_logged_in_user([OTHER_VENDOR]) do
-  #     get :index, product_id: @first_product.id
-  #     assert_response 401
-  #   end
-  # end
-
-  # test 'should get show' do
-  #   # do this for all users
-  #   for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-  #     my_product = @first_product.product_tests.first
-  #     get :show, id: my_product.id, product_id: @first_product.id
-  #     assert_response :success, "#{@user.email} should have access "
-  #     assert_not_nil assigns(:product_test)
-  #   end
-  # end
-
-  # test 'should restrict access to product test show' do
-  #   for_each_logged_in_user([OTHER_VENDOR]) do
-  #     my_product = @first_test
-  #     get :show, id: my_product.id, product_id: @first_product.id
-  #     assert_response 401
-  #   end
-  # end
-
-  # test 'should get show measure test' do
-  #   mt = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['0001'] }, MeasureTest)
-  #   mt.save!
-  #   for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-  #     get :show, id: mt.id, product_id: mt.product.id
-  #     assert_response :success, "#{@user.email} should have access "
-  #     assert_not_nil assigns(:product_test)
-  #   end
-  # end
-
-  # test 'should restrict access to product measure test show' do
-  #   mt = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['0001'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
-  #   mt.save!
-  #   for_each_logged_in_user([OTHER_VENDOR]) do
-  #     get :show, id: mt.id, product_id: mt.product.id
-  #     assert_response 401
-  #   end
-  # end
 
   test 'should be able to download zip file of patients' do
     product = Product.create!(vendor: Vendor.first, name: 'Product 1', c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
@@ -95,4 +42,97 @@ class ProductTestsControllerTest < ActionController::TestCase
     end
   end
   # need negative tests for user that does not have owner or vendor access
+
+  # # # # # # #
+  #   A P I   #
+  # # # # # # #
+
+  # json
+
+  test 'should get index with json request' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :index, :format => :json, :product_id => @product.id
+      assert_response 200, 'response should be OK on index'
+      assert_equal @product.product_tests.count, JSON.parse(response.body).count
+    end
+  end
+
+  test 'should get show with json request' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, :format => :json, :product_id => @product.id, :id => @test.id
+      assert_response 200, 'response should be OK on show'
+      assert_has_product_test_attributes JSON.parse(response.body)
+    end
+  end
+
+  test 'should get show with json request without product_id' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, :format => :json, :id => @test.id
+      assert_response 200, 'response should be OK on show'
+      assert_has_product_test_attributes JSON.parse(response.body)
+    end
+  end
+
+  # xml
+
+  test 'should get index with xml request' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :index, :format => :xml, :product_id => @product.id
+      assert_response 200, 'response should be OK on index'
+    end
+  end
+
+  test 'should get show with xml request' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, :format => :xml, :product_id => @product.id, :id => @test.id
+      assert_response 200, 'response should be OK on show'
+    end
+  end
+
+  test 'should get show with xml request without product_id' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, :format => :xml, :id => @test.id
+      assert_response 200, 'response should be OK on show'
+    end
+  end
+
+  # unsuccessful requests
+
+  test 'should restrict access to get index with json request' do
+    for_each_logged_in_user([OTHER_VENDOR]) do
+      get :index, :format => :json, :product_id => @product.id
+      assert_response 401, 'response should be Unauthorized on index'
+    end
+  end
+
+  test 'should not get index with json request with bad product_id' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :index, :format => :json, :product_id => 'bad_id'
+      assert_response 404, 'response should be Not Found on show with bad product_id'
+    end
+  end
+
+  test 'should restrict access to get show with json request' do
+    for_each_logged_in_user([OTHER_VENDOR]) do
+      get :show, :format => :xml, :product_id => @product.id, :id => @test.id
+      assert_response 401, 'response should be Unauthorized on show'
+    end
+  end
+
+  test 'should not get show with json request with bad id' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, :format => :json, :product_id => @product.id, :id => 'bad_id'
+      assert_response 404, 'response should be Not Found on show with bad product_test_id'
+    end
+  end
+
+  # # # # # # # # # #
+  #   H E L P E R   #
+  # # # # # # # # # #
+
+  def assert_has_product_test_attributes(hash)
+    %w(measure_ids name cms_id description state status_message).each do |key|
+      assert hash.key?(key)
+    end
+  end
 end

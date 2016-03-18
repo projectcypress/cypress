@@ -168,7 +168,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       assert_response 200, 'response should be OK on test_execution index'
       assert response_body.count > 0
       response_body.each do |response_object|
-        assert response_object['test_execution']
+        assert response_object
       end
     end
   end
@@ -181,7 +181,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       get :show, :format => :json, :task_id => task.id, :id => execution.id
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution show'
-      assert_has_test_execution_attributes response_body['test_execution']
+      assert_has_test_execution_attributes response_body
     end
   end
 
@@ -193,7 +193,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       get :show, :format => :json, :id => execution.id
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK if no task_id'
-      assert_has_test_execution_attributes response_body['test_execution']
+      assert_has_test_execution_attributes response_body
     end
   end
 
@@ -217,8 +217,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
         post :create, :format => :json, :task_id => task.id, :results => zip_upload
         get :show, :format => :json, :task_id => task.id, :id => task.most_recent_execution.id
         assert_response 200, 'response should be OK on test_execution show'
-        assert_not_equal 'pending', JSON.parse(response.body)['test_execution']['state']
-        assert_valid_create_attributes JSON.parse(response.body)['test_execution']
+        assert_not_equal 'pending', JSON.parse(response.body)['state']
+        assert_valid_create_attributes JSON.parse(response.body)
       end
     end
   end

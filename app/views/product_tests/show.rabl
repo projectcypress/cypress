@@ -1,3 +1,3 @@
 object @product_test
 
-attributes :id, :state, :_type, :name, :cms_id, :bundle_id, :measure_ids, :product_id
+attributes :cms_id, :created_at, :description, :measure_ids, :name, :patient_arcive, :state, :status_message, :_type, :updated_at
