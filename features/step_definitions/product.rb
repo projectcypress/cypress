@@ -59,7 +59,6 @@ When(/^the user creates a product with no name$/) do
   page.find('#product_measure_selection_custom').click
   page.all('.sidebar a')[2].click
   page.all('input.measure-checkbox')[0].click
-  page.click_button 'Add Product'
 end
 
 When(/^the user creates two products with the same name$/) do
@@ -77,7 +76,6 @@ When(/^the user creates a product with no task type$/) do
   page.find('#product_measure_selection_custom').click
   page.all('.sidebar a')[2].click
   page.all('input.measure-checkbox')[0].click
-  page.click_button 'Add Product'
 end
 
 When(/^the user fills out all product information but measures$/) do
@@ -86,11 +84,6 @@ When(/^the user fills out all product information but measures$/) do
   page.fill_in 'Name', with: @product.name
   page.find('#product_measure_selection_custom').click
   page.find('#product_c1_test').click
-end
-
-When(/^the user creates a product without selecting a measure$/) do
-  steps %( When the user fills out all product information but measures )
-  page.click_button 'Add Product'
 end
 
 # V V V Measure Selection V V V
@@ -134,17 +127,6 @@ And(/^the user selects a group of measures but deselects one$/) do
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^
-
-When(/^the user creates a product with no name and selects measures$/) do
-  steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
-  @product = FactoryGirl.build(:product_no_name)
-  page.fill_in 'Name', with: @product.name
-  page.find('#product_c1_test').click
-  page.find('#product_measure_selection_custom').click
-  page.find("[href='#Miscellaneous_div']").click
-  page.find('input.measure_group_all').click
-  page.click_button 'Add Product'
-end
 
 When(/^the user cancels creating a product$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
@@ -211,8 +193,8 @@ Then(/^the user should see a notification saying the product was created$/) do
   page.assert_text "'#{@product.name}' was created."
 end
 
-Then(/^the user should see an error message saying the product has no name$/) do
-  page.assert_text "can't be blank"
+Then(/^the user should not be able to create a product$/) do
+  assert_equal true, page.has_button?('Add Product', disabled: true)
 end
 
 Then(/^the user should see an error message saying the product name has been taken$/) do
@@ -244,10 +226,6 @@ Then(/^the group of measures should no longer be selected$/) do
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^
-
-Then(/^there should be no product tests in the database$/) do
-  assert_equal 0, ProductTest.all.count
-end
 
 Then(/^the user should not see the product$/) do
   page.assert_text @vendor.name

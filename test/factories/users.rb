@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
     email 'test@mitre.org'
-    password '12345678'
+    password 'Cypre$$v3'
   end
 end

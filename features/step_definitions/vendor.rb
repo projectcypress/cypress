@@ -1,8 +1,3 @@
-#
-# NOTE: CANNOT DO TESTING FOR POCS SINCE POC FIELDS DO NOT HAVE LABELS. THIS SHOULD BE FIXED
-#         ~ Jesse
-#
-
 # # # # # # # # #
 #   G I V E N   #
 # # # # # # # # #
@@ -36,7 +31,6 @@ end
 When(/^the user creates a vendor with no name$/) do
   @vendor = FactoryGirl.build(:vendor_no_name)
   page.fill_in 'Vendor Name', with: @vendor.name
-  page.click_button 'Create Vendor'
 end
 
 When(/^the user creates two vendors with the same name$/) do
@@ -95,8 +89,8 @@ Then(/^the user should see a notification saying the vendor was created$/) do
   page.assert_text 'was created'
 end
 
-Then(/^the user should see an error message saying the vendor has no name$/) do
-  page.assert_text 'This value is required'
+Then(/^the user should not be able to create a vendor$/) do
+  assert_equal true, page.has_button?('Create Vendor', disabled: true)
 end
 
 Then(/^the user should see an error message saying the vendor name has been taken$/) do
