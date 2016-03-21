@@ -23,9 +23,7 @@ class Product
 
   delegate :effective_date, :to => :bundle
 
-  validates :name, presence: true,
-                   uniqueness: { :scope => :vendor,
-                                 :message => 'Product name was already taken. Please choose another.' }
+  validates :name, presence: true, uniqueness: { :scope => :vendor, :message => 'Product name was already taken. Please choose another.' }
 
   validate :meets_required_certification_types?
   validate :valid_measure_ids?
@@ -88,7 +86,7 @@ class Product
     old_ids = measure_ids ? measure_ids : []
     update_attributes(product_params)
     (new_ids - old_ids).each do |measure_id|
-      m = Measure.top_level.find_by(hqmf_id: measure_id)
+      m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
       product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
     end
     (old_ids - new_ids).each { |measure_id| product_tests.in(measure_ids: measure_id).destroy }
@@ -96,7 +94,7 @@ class Product
   end
 
   def add_filtering_tests
-    measure = ApplicationController.helpers.pick_measure_for_filtering_test(measure_ids)
+    measure = ApplicationController.helpers.pick_measure_for_filtering_test(measure_ids, bundle)
     save!
     reload_relations
 

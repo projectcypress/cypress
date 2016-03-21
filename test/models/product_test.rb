@@ -112,7 +112,8 @@ class ProducTest < ActiveSupport::TestCase
   end
 
   def test_add_filtering_tests
-    pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'])
+    pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'],
+                     bundle_id: '4fdb62e01d41c820f6000001')
     pt.add_filtering_tests
     assert pt.product_tests.filtering_tests.count == 5
   end

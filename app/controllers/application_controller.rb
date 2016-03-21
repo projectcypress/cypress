@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
   def required_ability(auth_map)
     ability = nil
     auth_map.each_pair do |k, actions|
-      ability = k if actions.is_a?(Array) && actions.index(params[:action])
+      ability = k if actions.is_a?(Array) && actions.include?(params[:action])
     end
     ability
   end

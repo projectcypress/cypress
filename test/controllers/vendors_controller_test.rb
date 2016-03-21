@@ -105,8 +105,8 @@ class VendorsControllerTest < ActionController::TestCase
   end
 
   test 'should get success on update vendor with json request' do
-    for_each_logged_in_user([ADMIN, ATL, USER]) do
-      patch :update, :format => :json, :id => Vendor.first.id, :vendor => { name: 'test name' }
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      patch :update, :format => :json, :id => Vendor.find(EHR1).id, :vendor => { name: "Vendor #{rand}" }
       assert_response :no_content, 'response should be No Content'
       assert_equal '', response.body
       assert assigns(:vendor)
@@ -114,8 +114,9 @@ class VendorsControllerTest < ActionController::TestCase
   end
 
   test 'should get error on invalid update vendor with json request' do
-    for_each_logged_in_user([ADMIN, ATL, USER]) do
-      patch :update, :format => :json, :id => Vendor.order_by(:id => :desc).first.id, :vendor => { name: Vendor.order_by(:id => :desc).last.name }
+    vendor_taken_name = Vendor.create(name: "Vendor #{rand}")
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      patch :update, :format => :json, :id => Vendor.find(EHR1).id, :vendor => { name: vendor_taken_name.name }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
       assert_not_nil response.body['errors']
     end
@@ -123,8 +124,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get success on destroy vendor with json request' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
-      vendor = Vendor.new(name: 'test_vendor')
-      vendor.save
+      vendor = create_vendor_with_owner
       delete :destroy, :format => :json, :id => vendor.id
       assert_response :no_content, 'response should be No Content'
       assert_equal '', response.body
@@ -204,8 +204,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get success on destroy vendor with xml request' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
-      vendor = Vendor.new(name: 'test_vendor')
-      vendor.save
+      vendor = create_vendor_with_owner
       delete :destroy, :format => :xml, :id => vendor.id
       assert_response :no_content, 'response should be No Content'
       assert_equal '', response.body
@@ -215,11 +214,22 @@ class VendorsControllerTest < ActionController::TestCase
   end
 
   test 'should get success on update vendor with xml request' do
-    for_each_logged_in_user([ADMIN, ATL, USER]) do
-      patch :update, :format => :xml, :id => Vendor.first.id, :vendor => { name: 'test name' }
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      patch :update, :format => :xml, :id => Vendor.find(EHR1).id, :vendor => { name: "Vendor #{rand}" }
       assert_response :no_content, 'response should be No Content'
       assert_equal '', response.body
       assert assigns(:vendor)
     end
+  end
+
+  # # # # # # # # # # #
+  #   H E L P E R S   #
+  # # # # # # # # # # #
+
+  def create_vendor_with_owner
+    vendor = Vendor.new(name: "Vendor #{rand}")
+    @user.add_role :owner, vendor
+    vendor.save!
+    vendor
   end
 end

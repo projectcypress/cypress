@@ -161,9 +161,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   # JSON
 
   test 'should get index with json request' do
-    task = TestExecution.first.task
+    make_first_task_type('C1Task')
+    @first_task.test_executions.create
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, :format => :json, :task_id => task.id
+      get :index, :format => :json, :task_id => @first_task.id
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution index'
       assert response_body.count > 0
@@ -174,11 +175,11 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should get show with json request' do
-    task = C1Task.first
-    execution = task.test_executions.build({})
+    make_first_task_type('C1Task')
+    execution = @first_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :json, :task_id => task.id, :id => execution.id
+      get :show, :format => :json, :task_id => @first_task.id, :id => execution.id
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution show'
       assert_has_test_execution_attributes response_body
@@ -186,8 +187,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should get show with json request with no task_id' do
-    task = C1Task.first
-    execution = task.test_executions.build({})
+    make_first_task_type('C1Task')
+    execution = @first_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :show, :format => :json, :id => execution.id
@@ -198,24 +199,26 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should create test_execution with json request' do
-    task = C1Task.first
+    make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => task.id, :results => zip_upload
+      post :create, :format => :json, :task_id => @first_task.id, :results => zip_upload
       assert_response 201, 'response should be Created on test_execution creation'
       assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(task, task.most_recent_execution), response.location, 'response location should be test_execution show')
+      assert_equal(task_test_execution_path(@first_task, @first_task.most_recent_execution), response.location,
+                   'response location should be test_execution show')
     end
   end
 
   test 'should see execution_errors when test_execution is ready after json request' do
-    task = C1Task.first
-    task.product_test = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
-    task.product_test.save!
-    task.save!
+    make_first_task_type('C1Task')
+    @first_task.product_test = @first_product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
+                                                                    bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    @first_task.product_test.save!
+    @first_task.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        post :create, :format => :json, :task_id => task.id, :results => zip_upload
-        get :show, :format => :json, :task_id => task.id, :id => task.most_recent_execution.id
+        post :create, :format => :json, :task_id => @first_task.id, :results => zip_upload
+        get :show, :format => :json, :task_id => @first_task.id, :id => @first_task.most_recent_execution.id
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', JSON.parse(response.body)['state']
         assert_valid_create_attributes JSON.parse(response.body)
@@ -226,9 +229,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
   # XML
 
   test 'should get index with xml request' do
-    task = TestExecution.first.task
+    @first_task.test_executions.create
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, :format => :xml, :task_id => task.id
+      get :index, :format => :xml, :task_id => @first_task.id
       response_body = Hash.from_trusted_xml(response.body)
       assert_response 200, 'response should be OK on test_execution index'
       assert response_body['test_executions'].count > 0
@@ -236,11 +239,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should get show with xml request' do
-    task = C1Task.first
-    execution = task.test_executions.build({})
+    execution = @first_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :xml, :task_id => task.id, :id => execution.id
+      get :show, :format => :xml, :task_id => @first_task.id, :id => execution.id
       response_body = Hash.from_trusted_xml(response.body)
       assert_response 200, 'response should be OK on test_execution show'
       assert_has_test_execution_attributes response_body['test_execution']
@@ -248,8 +250,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should get show with xml request with no task_id' do
-    task = C1Task.first
-    execution = task.test_executions.build({})
+    execution = @first_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :show, :format => :xml, :id => execution.id
@@ -260,24 +261,24 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should create test_execution with xml request' do
-    task = C2Task.first
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :xml, :task_id => task.id, :results => xml_upload
+      post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
       assert_response 201, 'response should be Created on test_execution creation'
       assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(task, task.most_recent_execution), response.location, 'response location should be test_execution show')
+      assert_equal(task_test_execution_path(@first_task, @first_task.most_recent_execution), response.location,
+                   'response location should be test_execution show')
     end
   end
 
   test 'should see execution_errors when test_execution is ready after xml request' do
-    task = C2Task.first
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        task.product_test = Product.first.product_tests.build({ name: 'mtest2', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
-        task.product_test.save!
-        task.save!
-        post :create, :format => :xml, :task_id => task.id, :results => xml_upload
-        get :show, :format => :xml, :task_id => task.id, :id => task.most_recent_execution.id
+        @first_task.product_test = @first_product.product_tests.build({ name: 'mtest2', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
+                                                                        bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+        @first_task.product_test.save!
+        @first_task.save!
+        post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
+        get :show, :format => :xml, :task_id => @first_task.id, :id => @first_task.most_recent_execution.id
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
         assert_valid_create_attributes Hash.from_trusted_xml(response.body)['test_execution']
@@ -288,35 +289,36 @@ class TestExecutionsControllerTest < ActionController::TestCase
   # Unsuccessful Requests
 
   test 'should not get show with json request with bad test_execution id' do
+    make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :json, :task_id => C1Task.first.id, :id => 'bad_id'
+      get :show, :format => :json, :task_id => @first_task.id, :id => 'bad_id'
       assert_response 404, 'response should be Bad Request if no test_execution'
       assert_equal '', response.body
     end
   end
 
   test 'should not create test_execution with json request with no upload' do
-    task = C1Task.first
+    make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :xml, :task_id => task.id
+      post :create, :format => :json, :task_id => @first_task.id
       assert_response 400, 'response should be Bad Request if no results given'
       assert_equal '', response.body
     end
   end
 
   test 'should not create test_execution with json request with nil upload' do
-    task = C1Task.first
+    make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :xml, :task_id => task.id, :results => nil
+      post :create, :format => :json, :task_id => @first_task.id, :results => nil
       assert_response 400, 'response should be Bad Request if nil results given'
       assert_equal '', response.body
     end
   end
 
   test 'should not create test_execution with json request if incorrect upload type' do
-    task = C1Task.first
+    make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => task.id, :results => xml_upload
+      post :create, :format => :json, :task_id => @first_task.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if no test_execution'
       assert_equal '', response.body
     end
@@ -346,5 +348,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   def accepted_execution_show_attributes
     %w(state execution_errors created_at updated_at sibling_execution_id)
+  end
+
+  def make_first_task_type(type)
+    @first_task._type = type
+    @first_task.save!
   end
 end

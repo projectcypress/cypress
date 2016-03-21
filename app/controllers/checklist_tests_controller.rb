@@ -36,16 +36,6 @@ class ChecklistTestsController < ProductTestsController
 
   private
 
-  def authorize_vendor
-    set_product
-    vendor = @product ? @product.vendor : @product_test.product.vendor
-    authorize_request(vendor)
-  end
-
-  def set_test
-    @product_test = @product.product_tests.checklist_tests.first
-  end
-
   def set_measures
     @measures = @product_test.measures.top_level.sort_by(&:cms_int)
   end

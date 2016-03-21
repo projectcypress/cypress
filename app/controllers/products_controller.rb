@@ -22,7 +22,6 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new(vendor: @vendor)
-    # @product.product_tests.build
     setup_new
   end
 
@@ -93,7 +92,7 @@ class ProductsController < ApplicationController
 
   def authorize_vendor
     vendor = @vendor || @product.vendor
-    authorize_request(vendor, read: ['download_pdf'])
+    authorize_request(vendor, read: %w(report patients))
   end
 
   def set_measures

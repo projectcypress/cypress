@@ -10,7 +10,7 @@ class MeasuresControllerTest < ActionController::TestCase
   # json
 
   test 'should get index with json' do
-    bundle = Bundle.first
+    bundle = Bundle.default
     get :index, :format => :json, :bundle_id => bundle.id
     assert_response 200, 'response should be OK on product index'
     assert_equal bundle.measures.count, JSON.parse(response.body).count, 'response body should have all measures for bundle'
@@ -19,7 +19,7 @@ class MeasuresControllerTest < ActionController::TestCase
   # xml
 
   test 'should get index with xml' do
-    bundle = Bundle.first
+    bundle = Bundle.default
     get :index, :format => :json, :bundle_id => bundle.id
     assert_response 200, 'response should be OK on product index'
   end
