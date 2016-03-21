@@ -58,6 +58,10 @@ class Task
     status == 'failing'
   end
 
+  def incomplete?
+    status == 'incomplete'
+  end
+
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       recent_execution = most_recent_execution
