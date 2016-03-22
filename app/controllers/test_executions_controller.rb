@@ -1,16 +1,17 @@
 class TestExecutionsController < ApplicationController
+  include API::Controller
+
   before_action :set_test_execution, only: [:show, :destroy]
   before_action :set_task, only: [:index, :new, :create]
   before_action :set_task_from_test_execution, only: [:show]
   before_action :set_product_test_from_task, only: [:show, :new]
   before_action :add_breadcrumbs, only: [:show, :new]
 
-  respond_to :html, :json, :xml
   respond_to :js, only: [:show]
 
   def index
     @test_executions = @task.test_executions
-    respond_with(@test_executions)
+    respond_with(@test_executions.to_a)
   end
 
   def create

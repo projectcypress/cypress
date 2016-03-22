@@ -1,13 +1,13 @@
 class ProductTestsController < ApplicationController
+  include API::Controller
+
   before_action :set_product, except: [:show, :patients]
   before_action :set_product_test, only: [:show, :update, :destroy, :patients]
   before_action :authorize_vendor
 
-  respond_to :json, :xml
-
   def index
     @product_tests = @product.product_tests
-    respond_with(@product_tests)
+    respond_with(@product_tests.to_a)
   end
 
   def show

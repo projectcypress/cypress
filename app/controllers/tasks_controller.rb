@@ -1,9 +1,11 @@
 class TasksController < ApplicationController
+  include API::Controller
+
   before_action :set_task, only: [:edit, :update, :destroy, :show]
   before_action :set_product_test, only: [:index, :new]
   before_action :authorize_vendor
 
-  respond_to :html, :json, :xml
+  # respond_to :html, :json, :xml
 
   add_breadcrumb 'Dashboard', :vendors_path
 
@@ -16,7 +18,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = @product_test.tasks
-    respond_with(@tasks)
+    respond_with(@tasks.to_a)
   end
 
   def show

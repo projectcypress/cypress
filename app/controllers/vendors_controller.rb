@@ -1,8 +1,9 @@
+require 'api'
+
 class VendorsController < ApplicationController
+  include API::Controller
   before_action :set_vendor, only: [:show, :update, :destroy, :edit]
   before_action :authorize_vendor, only: [:show, :update, :destroy, :edit]
-
-  respond_to :html, :json, :xml
 
   # breadcrumbs
   add_breadcrumb 'Dashboard', :vendors_path
@@ -12,7 +13,7 @@ class VendorsController < ApplicationController
   def index
     # get all of the vendors that the user can see
     @vendors = Vendor.accessible_by(current_user).order(:updated_at => :desc) # Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
-    respond_with(@vendors)
+    respond_with(@vendors.to_a)
   end
 
   def show

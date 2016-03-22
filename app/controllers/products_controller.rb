@@ -1,17 +1,18 @@
 require 'cypress/pdf_report'
 
 class ProductsController < ApplicationController
+  include API::Controller
   before_action :set_vendor, only: [:index, :new, :create, :report, :patients]
   before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :edit, :update]
   before_action :authorize_vendor
   add_breadcrumb 'Dashboard', :vendors_path
 
-  respond_to :html, :json, :xml
+  respond_to :html, except: [:index]
 
   def index
     @products = @vendor.products
-    respond_with(@products)
+    respond_with(@products.to_a)
   end
 
   def show

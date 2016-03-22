@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Roar::Rails::ControllerAdditions
+
   # Prevent CSRF attacks with a null session
   protect_from_forgery :with => :null_session
 
