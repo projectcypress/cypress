@@ -1,4 +1,6 @@
 module TestExecutionsResultsHelper
+  include ActionView::Helpers::TextHelper
+  
   def get_select_history_message(execution, is_most_recent)
     msg = ''
     msg << 'Most Recent - ' if is_most_recent
@@ -9,7 +11,7 @@ module TestExecutionsResultsHelper
     else # failing
       num_errors = execution.execution_errors.count
       num_errors += execution.sibling_execution.execution_errors.count if execution.sibling_execution
-      msg << " (#{num_errors} errors)"
+      msg << " (#{pluralize(num_errors, 'error')})"
     end
     msg
   end

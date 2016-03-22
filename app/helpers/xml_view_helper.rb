@@ -39,16 +39,10 @@ module XmlViewHelper
   # used for errors popup in node partial
   #   returns title of popup, popup button text, and message in popup
   def popup_attributes(errors)
-    multiple_errors = errors.count > 1
-
-    title = 'Execution Error'
-    title << "s (#{errors.count})" if multiple_errors
-
-    button_text = ' view error'
-    button_text << "s (#{errors.count})" if multiple_errors
-
+    title = "Execution #{'Error'.pluralize(errors.count)} (#{errors.count})"
+    button_text = " view #{'error'.pluralize(errors.count)} (#{errors.count})"
     message = ''
-    if multiple_errors
+    if errors.count > 1
       errors.each do |error|
         # error_#{error.id} class is added so error can be highlighted if popup contains multiple errors
         message << "<li class = 'error_#{error.id}'>#{error.message}</li>"
