@@ -41,6 +41,7 @@ class C1TaskTest < ActiveSupport::TestCase
       te = task.execute(zip)
       te.reload
       assert_equal 1, te.execution_errors.length, 'should be 1 error from cat I archive'
+      assert_equal '4 files expected but was 5', te.execution_errors[0].message
     end
   end
 
@@ -51,6 +52,8 @@ class C1TaskTest < ActiveSupport::TestCase
       te = task.execute(zip)
       te.reload
       assert_equal 2, te.execution_errors.length, 'should be 2 errors from cat I archive'
+      assert_equal 'Patient name \'GP_PEDS CPPP\' declared in file not found in test records', te.execution_errors[0].message
+      assert_equal 'Records for patients GP_PEDS C not found in archive as expected', te.execution_errors[1].message
     end
   end
 
