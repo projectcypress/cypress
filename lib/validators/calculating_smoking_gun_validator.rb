@@ -30,7 +30,6 @@ module Validators
       doc_name = build_doc_name(doc)
       mrn = @names[doc_name]
       return nil unless mrn
-      @found_names << doc_name
       mrn
     end
 
@@ -86,7 +85,17 @@ module Validators
 
     def validate(doc, options)
       @can_continue = true
-      super unless validate_calculated_results(doc, options)
+      valid = validate_calculated_results(doc, options)
+      if valid
+        doc_name = build_doc_name(doc)
+        mrn = @names[doc_name]
+        @found_names << doc_name if mrn
+        # we still need to validate that the returned record is one of the test records
+        # and that it was expected to be returned (ie, in the IPP)
+        validate_name(doc_name, options) && validate_expected_results(doc_name, mrn, options)
+      else
+        super
+      end
     end
   end
 end
