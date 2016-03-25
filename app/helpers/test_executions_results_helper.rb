@@ -1,6 +1,6 @@
 module TestExecutionsResultsHelper
   include ActionView::Helpers::TextHelper
-  
+
   def get_select_history_message(execution, is_most_recent)
     msg = ''
     msg << 'Most Recent - ' if is_most_recent
