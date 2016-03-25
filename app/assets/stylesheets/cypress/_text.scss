@@ -12,3 +12,30 @@ main a:not(.btn):not(.task-switch-link) {
     font-size: 12px;
   }
 }
+
+.error-page {
+  background: url(geometry2.png);
+
+  body {
+    background-color: inherit;
+  }
+}
+
+.error-message {
+  @include center-block;
+
+  text-align: center;
+  width: 60%;
+  margin-top: 5em;
+
+  h1 {
+    font-size: 4em;
+    font-family: 'Ubuntu';
+    font-weight: 100;
+    line-height: 1.2;
+  }
+
+  .error-links {
+    margin-top: 1em;
+  }
+}
