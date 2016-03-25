@@ -8,6 +8,9 @@ class ProductTestsControllerTest < ActionController::TestCase
     @vendor = Vendor.find(EHR1)
     @product = @vendor.products.first
     @test = @product.product_tests.first
+    @test['_type'] = MeasureTest # each measure test should have a _type of MeasureTest and cms_id
+    @test['cms_id'] = 'CMS001'
+    @test.save!
   end
 
   test 'should be able to download zip file of patients' do
@@ -131,8 +134,7 @@ class ProductTestsControllerTest < ActionController::TestCase
   # # # # # # # # # #
 
   def assert_has_product_test_attributes(hash)
-    %w(measure_ids name cms_id description state status_message).each do |key|
-      assert hash.key?(key)
-    end
+    %w(name cms_id state type _links).each { |key| assert hash.key?(key), "product_test should have key #{key}" }
+    %w(self patients).each { |link_key| assert hash['_links'].key?(link_key), "product_test links should have key #{link_key}" }
   end
 end

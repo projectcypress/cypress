@@ -1,6 +1,7 @@
 class BundlesController < ApplicationController
-  before_action :find_bundle, only: [:set_default, :show, :destroy]
+  include API::Controller
 
+  before_action :find_bundle, only: [:set_default, :show, :destroy]
   before_action :check_bundle_disabled_setting
   before_action :redirect_if_disabled, except: [:index]
   before_action :require_admin
@@ -24,7 +25,7 @@ class BundlesController < ApplicationController
 
   def index
     @bundles = Bundle.all
-    respond_with(@bundles)
+    respond_with(@bundles.to_a)
   end
 
   def show

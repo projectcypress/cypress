@@ -9,6 +9,7 @@ class ProductsController < ApplicationController
   add_breadcrumb 'Dashboard', :vendors_path
 
   respond_to :html, except: [:index]
+  respond_to :json, :xml, except: [:new, :edit, :update]
 
   def index
     @products = @vendor.products
@@ -85,8 +86,7 @@ class ProductsController < ApplicationController
   # always responds with a zip file of (.qrda.zip files of (qrda category I documents))
   def patients
     file = Cypress::CreateDownloadZip.create_total_test_zip(@product, 'qrda')
-    file_name = "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
-    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: file_name
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
   end
 
   private

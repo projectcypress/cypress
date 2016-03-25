@@ -11,11 +11,13 @@ module ProductRepresenter
   property :randomize_records
   property :duplicate_records
   property :measure_ids
+  property :created_at
+  property :updated_at
 
   self.links = {
-    self: Proc.new { vendor_product_path(self.vendor, self) },
-    product_tests: Proc.new { product_product_tests_path(self) },
-    patients: Proc.new { patients_vendor_product_path(self.vendor, self) }
+    self: proc { vendor_product_path(vendor, self) },
+    product_tests: proc { product_product_tests_path(self) },
+    patients: proc { patients_vendor_product_path(vendor, self) }
   }
 
   self.embedded = {}

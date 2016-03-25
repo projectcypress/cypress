@@ -221,7 +221,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
         get :show, :format => :json, :task_id => @first_task.id, :id => @first_task.most_recent_execution.id
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', JSON.parse(response.body)['state']
-        assert_valid_create_attributes JSON.parse(response.body)
       end
     end
   end
@@ -281,7 +280,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
         get :show, :format => :xml, :task_id => @first_task.id, :id => @first_task.most_recent_execution.id
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
-        assert_valid_create_attributes Hash.from_trusted_xml(response.body)['test_execution']
       end
     end
   end
@@ -328,10 +326,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
   #   H E L P E R S   #
   # # # # # # # # # # #
 
-  def assert_valid_create_attributes(execution_hash)
-    assert_equal 0, (execution_hash.keys - accepted_execution_show_attributes).count
-  end
-
   def assert_has_test_execution_attributes(hash)
     accepted_execution_show_attributes.each { |key| assert hash.key?(key), "response body should have key: #{key}" }
   end
@@ -347,7 +341,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   def accepted_execution_show_attributes
-    %w(state execution_errors created_at updated_at sibling_execution_id)
+    %w(state created_at)
   end
 
   def make_first_task_type(type)

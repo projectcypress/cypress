@@ -10,14 +10,6 @@ class ProductsControllerTest < ActionController::TestCase
     @first_product = @vendor.products.first
   end
 
-  test 'should get index' do
-    # do this for admin,atl,owner and vendor -- need negative test for non access
-    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, vendor_id: @vendor.id
-      assert_response 200
-    end
-  end
-
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to index for unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
@@ -271,17 +263,6 @@ class ProductsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should put update with json request' do
-    product = Product.create!(vendor_id: Vendor.first.id, name: 'Product change my name',
-                              c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      product.name = "Product #{rand}"
-      put :update, :format => :json, :id => product.id, :product => product.attributes
-      assert_response 204, 'response should be No Content on product update'
-      assert_equal '', response.body
-    end
-  end
-
   test 'should get destroy with json request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
@@ -304,7 +285,7 @@ class ProductsControllerTest < ActionController::TestCase
       assert_response 200, 'response should be OK on product index'
       response_products = Hash.from_trusted_xml(response.body)
       assert response_products['products']
-      assert_equal vendor.products.count, response_products['products'].count, 'response body should have all products for vendor'
+      assert_equal vendor.products.count, response_products['products']['product'].count, 'response body should have all products for vendor'
     end
   end
 
@@ -326,17 +307,6 @@ class ProductsControllerTest < ActionController::TestCase
       assert_response 201, 'response should be Created on product create'
       assert_equal(vendor_product_path(vendor, vendor.products.order_by(created_at: 'desc').first),
                    response.location, 'response location should be product show')
-    end
-  end
-
-  test 'should put update with xml request' do
-    product = Product.create!(vendor_id: Vendor.first.id, name: 'Product change my name',
-                              c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      product.name = "Product #{rand}"
-      put :update, :format => :xml, :id => product.id, :product => product.attributes
-      assert_response 204, 'response should be No Content on product update'
-      assert_equal '', response.body
     end
   end
 
@@ -402,26 +372,6 @@ class ProductsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should not put update with json request with invalid measure ids' do
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      product = Product.create!(vendor_id: Vendor.first.id, name: "Product #{rand}",
-                                c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001')
-      product.measure_ids = ['invalid_measure_id']
-      put :update, :format => :json, :id => product.id, :product => product.attributes
-      assert_response 422, 'response should be Unprocessable Entity on product update'
-    end
-  end
-
-  test 'should not put update with json request with empty measure ids' do
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      product = Product.create!(vendor_id: Vendor.first.id, name: "Product #{rand}",
-                                c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001')
-      product.measure_ids = []
-      put :update, :format => :json, :id => product.id, :product => product.attributes
-      assert_response 422, 'response should be Bad Request on product update'
-    end
-  end
-
   # # # # # # # # # # #
   #   H E L P E R S   #
   # # # # # # # # # # #
@@ -433,9 +383,11 @@ class ProductsControllerTest < ActionController::TestCase
 
   # input 'hash' should be a product hash
   def assert_has_product_attributes(hash)
-    %w(name version description c1_test c2_test c3_test c4_test
-       randomize_records duplicate_records measure_selection).each do |key|
+    %w(name description randomize_records duplicate_records _links).each do |key|
       assert hash.key?(key)
+    end
+    %w(self product_tests patients).each do |link_key|
+      assert hash['_links'].key?(link_key)
     end
   end
 end

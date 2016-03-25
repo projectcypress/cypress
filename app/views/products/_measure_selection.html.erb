@@ -1,12 +1,3 @@
-<%
-
-# local variables
-#
-#   f   (product form)
-
-%>
-
-
 <div class="panel panel-primary select-measures hidden">
   <div class="panel-heading">
     <h3 id="select_custom_measures" class='panel-title'>Select Custom Measures <span class='selected-number'>(0)</span><span class='sr-only'>selected</span></h3>
@@ -46,9 +37,25 @@
                 <% end %>
                 <% measures.sort_by(&:cms_int).each do |m| %>
                   <div class = 'checkbox'>
-                    <%= f.check_box :measure_ids, measure_checkbox_attributes(m, category, @selected_measure_ids), m.hqmf_id, nil do %>
+                    <label class = 'btn btn-checkbox'>
+                      <input
+                        type = 'checkbox'
+                        name = 'product[measure_ids][]'
+                        class = 'measure-checkbox'
+                        id = <%= "product_measure_ids_#{m.hqmf_id}" %>
+                        value = <%= m.hqmf_id %>
+                        data-category = <%= category.tr(" '", '_') %>
+                        data-measure-type = <%= m.type %>
+                        data-parsley-mincheck = '1'
+                        data-parsley-required = ''
+                        data-parsley-error-message = 'Must select measures'
+                        data-parsley-errors-container = '#measures_errors_container'
+                        aria-labelledby = 'select_custom_measures'
+                        <%= 'checked' if @selected_measure_ids && @selected_measure_ids.include?(m.hqmf_id) %>
+                        <%= 'disabled' if @selected_measure_ids && !@product.new_record? %>
+                      >
                       <strong><%= m.cms_id %></strong><%= " #{m.name} (#{m.type.upcase})" %>
-                    <% end %>
+                    </label>
                   </div>
                 <% end %>
               </div>

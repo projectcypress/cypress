@@ -8,16 +8,6 @@ class TasksControllerTest < ActionController::TestCase
     @task = @test.tasks.first
   end
 
-  test 'should get index' do
-    # do this for admin,atl,user:owner and vendor -- need negative tests for non
-    # access users
-    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, product_test_id: @test.id
-      assert_response :success, "#{@user.email} should have access "
-      assert_not_nil assigns(:tasks)
-    end
-  end
-
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to index for unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
@@ -26,15 +16,6 @@ class TasksControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should get show' do
-    # do this for admin,atl,user:owner and vendor -- need negative tests for non
-    # access users
-    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, id: @task.id
-      assert_response :success, "#{@user.email} should have access "
-      assert_not_nil assigns(:task)
-    end
-  end
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to show for unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
@@ -135,8 +116,7 @@ class TasksControllerTest < ActionController::TestCase
   # # # # # # # # # #
 
   def assert_has_task_attributes(hash)
-    %w(options expected_results).each do |key|
-      assert hash.key?(key)
-    end
+    %w(type _links).each { |key| assert hash.key?(key) }
+    %w(self executions).each { |link_key| assert hash['_links'].key?(link_key) }
   end
 end

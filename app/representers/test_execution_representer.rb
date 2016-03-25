@@ -3,12 +3,12 @@ module TestExecutionRepresenter
 
   property :state
   property :execution_errors
-  property :created_at
-  property :updated_at
   property :sibling_execution_id
+  property :created_at
 
   self.links = {
-    self: Proc.new { task_test_execution_path(self.task, self) }
+    self: proc { task_test_execution_path(task, self) },
+    sibling_execution: proc { sibling_execution ? task_test_execution_path(sibling_execution.task, sibling_execution) : nil }
   }
 
   self.embedded = {

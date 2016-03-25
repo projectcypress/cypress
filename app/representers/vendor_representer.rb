@@ -1,18 +1,18 @@
 module VendorRepresenter
   include API::Representer
 
-  property :name
-  property :created_at
-  property :address
-  property :state
-  property :updated_at
-  property :url
   property :vendor_id
+  property :name
+  property :url
+  property :address
   property :zip
+  property :state
+  property :created_at
+  property :updated_at
 
   self.links = {
-    self: Proc.new { vendor_path(self) },
-    products: Proc.new { vendor_products_path(self) }
+    self: proc { vendor_path(self) },
+    products: proc { vendor_products_path(self) }
   }
 
   self.embedded = {

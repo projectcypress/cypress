@@ -4,7 +4,7 @@ module API
       name = target.controller_name
       singular_name = name.singularize
       singular_json_representer = make_singular_json_representer(singular_name)
-      plural_json_representer   = make_plural_json_representer(singular_name, singular_json_representer)
+      plural_json_representer   = make_plural_json_representer(singular_json_representer)
       singular_xml_representer  = make_singular_xml_representer(singular_name)
       plural_xml_representer    = make_plural_xml_representer(singular_name, singular_xml_representer)
 
@@ -49,20 +49,18 @@ module API
       new_module
     end
 
-    def self.make_plural_json_representer(class_name, singular_representer)
-      base = "#{class_name}_representer".classify.constantize
-      new_module = Module.new do
+    def self.make_plural_json_representer(singular_representer)
+      Module.new do
         include Representable::JSON::Collection
         items extend: singular_representer
       end
     end
 
     def self.make_plural_xml_representer(class_name, singular_representer)
-      base = "#{class_name}_representer".classify.constantize
-      new_module = Module.new do
+      Module.new do
         include Roar::XML
         include Representable::JSON::Collection
-        items extend: singular_representer, wrap: "#{class_name.downcase}".underscore.to_sym
+        items extend: singular_representer, wrap: class_name.downcase.pluralize.underscore.to_sym
       end
     end
   end
@@ -72,40 +70,6 @@ module API
       target.include(Roar::Representer)
       target.cattr_accessor :links
       target.cattr_accessor :embedded
-    end
-
-    module Embedded
-      module JSON
-        def self.included(target)
-          poc(target) if target.ancestors.include?(VendorRepresenter)
-        end
-
-        def self.poc(target)
-          target.collection :pocs, decorator: Class.new(Representable::Decorator) do
-            include Representable::JSON
-            property :name
-            property :email
-            property :phone
-            property :contact_type
-          end
-        end
-      end
-
-      module XML
-        def self.included(target)
-          poc(target) if target.ancestors.include?(VendorRepresenter)
-        end
-
-        def self.poc(target)
-          target.collection :pocs, decorator: Class.new(Representable::Decorator) do
-            include Representable::XML
-            property :name
-            property :email
-            property :phone
-            property :contact_type
-          end
-        end
-      end
     end
   end
 end
