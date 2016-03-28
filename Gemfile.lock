@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: d3d80573593d7709e634f85233c6cca4201b80cc
+  revision: 3e748b0d3e879702a01a300db15c132687730472
   branch: bump_mongoid
   specs:
     health-data-standards (3.6.1)
@@ -115,7 +115,7 @@ GEM
       slim (>= 1.3.6, < 4.0)
       terminal-table (~> 1.4)
     breadcrumbs_on_rails (2.3.1)
-    bson (4.0.3)
+    bson (4.0.4)
     bson_ext (1.5.1)
     builder (3.2.2)
     bundler-audit (0.4.0)
@@ -190,7 +190,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    domain_name (0.5.20160216)
+    domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
     dumb_delegator (0.8.0)
     equalizer (0.0.11)
@@ -275,7 +275,7 @@ GEM
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     modernizr-rails (2.7.1)
-    mongo (2.2.3)
+    mongo (2.2.4)
       bson (~> 4.0)
     mongoid (5.0.2)
       activemodel (~> 4.0)
@@ -537,6 +537,3 @@ DEPENDENCIES
   unicorn-rails
   web-console (~> 2.0)
   wkhtmltopdf-binary
-
-BUNDLED WITH
-   1.11.2

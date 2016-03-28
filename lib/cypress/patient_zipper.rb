@@ -34,7 +34,8 @@ module Cypress
     end
 
     def export(patient)
-      EXPORTER.export(patient, measures, start_time, end_time)
+      cms_compatible = true if patient.product_test && patient.product_test.product.c3_test
+      EXPORTER.export(patient, measures, start_time, end_time, nil, false, cms_compatible)
     end
   end
 

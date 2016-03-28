@@ -76,10 +76,10 @@ class C1TaskTest < ActiveSupport::TestCase
       te = task.execute(zip, nil)
       te.reload
 
-      assert_equal 21, te.execution_errors.by_file('0_Dental_Peds_A.xml').count
-      assert_equal 29, te.execution_errors.by_file('1_HIV_Peds_A.xml').count
-      assert_equal 37, te.execution_errors.by_file('2_GP_Peds_B.xml').count
-      assert_equal 36, te.execution_errors.by_file('3_GP_Peds_C.xml').count
+      assert_equal 20, te.execution_errors.by_file('0_Dental_Peds_A.xml').count
+      assert_equal 28, te.execution_errors.by_file('1_HIV_Peds_A.xml').count
+      assert_equal 33, te.execution_errors.by_file('2_GP_Peds_B.xml').count
+      assert_equal 32, te.execution_errors.by_file('3_GP_Peds_C.xml').count
     end
   end
 

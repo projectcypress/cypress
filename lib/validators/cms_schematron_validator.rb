@@ -23,21 +23,21 @@ module Validators
 
   class CMSQRDA3SchematronValidator < CMSSchematronValidator
     def initialize
-      super(File.join(Rails.root, 'resources', 'schematron', 'EP_CMS_2016_QRDA_Category_III_v2.sch'),
+      super(File.join(Rails.root, 'resources', 'schematron', 'EP CMS 2016 QRDA Category III v3.sch'),
             'CMS QRDA 3 Schematron Validator')
     end
   end
 
   class CMSQRDA1HQRSchematronValidator < CMSSchematronValidator
     def initialize
-      super(File.join(Rails.root, 'resources', 'schematron', 'HQR_CMS_2016_QRDA_Category_I_v2.1_cypress_20160127.sch'),
+      super(File.join(Rails.root, 'resources', 'schematron', 'HQR CMS 2016 QRDA Category I v3.sch'),
             'CMS QRDA 1 HQR Schematron Validator')
     end
   end
 
   class CMSQRDA1PQRSSchematronValidator < CMSSchematronValidator
     def initialize
-      super(File.join(Rails.root, 'resources', 'schematron', 'PQRS_CMS_2016_QRDA_Category_I_v2.1_cypress_20160127.sch'),
+      super(File.join(Rails.root, 'resources', 'schematron', 'PQRS CMS 2016 QRDA Category I v3.sch'),
             'CMS QRDA 1 PQRS Schematron Validator')
     end
   end
