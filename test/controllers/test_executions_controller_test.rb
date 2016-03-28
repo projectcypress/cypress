@@ -14,6 +14,15 @@ class TestExecutionsControllerTest < ActionController::TestCase
     @first_execution = @first_task.test_executions.first
   end
 
+  def setup_c4
+    product = @vendor.products.build(name: "Product #{rand}", c1_test: true, c4_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+    product.product_tests.build({ name: 'my filtering test', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
+                                  bundle_id: '4fdb62e01d41c820f6000001' }, FilteringTest)
+    product.save!
+    @task_cat1 = product.product_tests.first.tasks.where(_type: 'Cat1FilterTask').first
+    @task_cat3 = product.product_tests.first.tasks.where(_type: 'Cat3FilterTask').first
+  end
+
   test 'should get show' do
     mt = @first_product.product_tests.build({ name: 'mtest', measure_ids: ['0001'] }, MeasureTest)
     task = mt.tasks.build({}, C1Task)
@@ -152,6 +161,78 @@ class TestExecutionsControllerTest < ActionController::TestCase
     post :create, task_id: task.id, results: upload
 
     assert_equal old_count, task.test_executions.count
+  end
+
+  # # # # # # # # # # # # # # # #
+  #   C 4   F I L T E R I N G   #
+  # # # # # # # # # # # # # # # #
+
+  # JSON
+
+  test 'should create test_execution with json request with c4 cat 1 task' do
+    setup_c4
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      post :create, :format => :json, :task_id => @task_cat1.id, :results => zip_upload
+      assert_response 201, 'response should be Created on test_execution creation'
+      assert_equal('', response.body, 'response body should be empty on test_execution creation')
+      assert_equal(task_test_execution_path(@task_cat1, @task_cat1.most_recent_execution), response.location,
+                   'response location should be test_execution show')
+    end
+  end
+
+  test 'should create test_execution with json request with c4 cat 3 task' do
+    setup_c4
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      post :create, :format => :json, :task_id => @task_cat3.id, :results => xml_upload
+      assert_response 201, 'response should be Created on test_execution creation'
+      assert_equal('', response.body, 'response body should be empty on test_execution creation')
+      assert_equal(task_test_execution_path(@task_cat3, @task_cat3.most_recent_execution), response.location,
+                   'response location should be test_execution show')
+    end
+  end
+
+  # XML
+
+  test 'should create test_execution with xml request with c4 cat 1 task' do
+    setup_c4
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      post :create, :format => :xml, :task_id => @task_cat1.id, :results => zip_upload
+      assert_response 201, 'response should be Created on test_execution creation'
+      assert_equal('', response.body, 'response body should be empty on test_execution creation')
+      assert_equal(task_test_execution_path(@task_cat1, @task_cat1.most_recent_execution), response.location,
+                   'response location should be test_execution show')
+    end
+  end
+
+  test 'should create test_execution with xml request with c4 cat 3 task' do
+    setup_c4
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      post :create, :format => :xml, :task_id => @task_cat3.id, :results => xml_upload
+      assert_response 201, 'response should be Created on test_execution creation'
+      assert_equal('', response.body, 'response body should be empty on test_execution creation')
+      assert_equal(task_test_execution_path(@task_cat3, @task_cat3.most_recent_execution), response.location,
+                   'response location should be test_execution show')
+    end
+  end
+
+  # Unsuccessful Requests
+
+  test 'should not create test_execution with json request with cat 1 c4 task if incorrect upload type' do
+    setup_c4
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      post :create, :format => :json, :task_id => @task_cat1.id, :results => xml_upload
+      assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
+      assert_equal '', response.body
+    end
+  end
+
+  test 'should not create test_execution with json request with cat 3 c4 task if incorrect upload type' do
+    setup_c4
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      post :create, :format => :json, :task_id => @task_cat3.id, :results => zip_upload
+      assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
+      assert_equal '', response.body
+    end
   end
 
   # # # # # # #

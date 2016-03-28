@@ -12,6 +12,4 @@ module ProductTestRepresenter
     tasks: proc { product_test_tasks_path(self) },
     patients: proc { patients_product_test_path(self) }
   }
-
-  self.embedded = {}
 end

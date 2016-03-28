@@ -28,6 +28,7 @@ module API
           end
         end
       end
+      base.collections.each_pair { |collection_name, _| new_module.collection collection_name }
       new_module
     end
 
@@ -38,6 +39,7 @@ module API
         include Roar::Hypermedia
         include base
       end
+      base.collections.each_pair { |collection_name, collection_as| new_module.collection collection_name, wrap: collection_name, as: collection_as }
       base.links.each_pair { |link_name, link_url| new_module.link link_name, &link_url }
       base.embedded.each_pair do |embedded_name, embedded_vals|
         new_module.collection embedded_name, wrap: embedded_name, decorator: Class.new(Representable::Decorator) do
@@ -70,6 +72,10 @@ module API
       target.include(Roar::Representer)
       target.cattr_accessor :links
       target.cattr_accessor :embedded
+      target.cattr_accessor :collections
+      target.links = {}
+      target.embedded = {}
+      target.collections = {}
     end
   end
 end
