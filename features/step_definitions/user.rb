@@ -1,7 +1,52 @@
 Given(/^the user is signed in$/) do
   steps %( Given a user has an account )
   login_as @user, :scope => :user
+  steps %( Given the user is on the sign in page )
+end
+
+Given(/^the user is on the sign in page$/) do
   visit '/'
+end
+
+When(/^I click Sign up$/) do
+  page.click_link_or_button 'Sign up'
+  sleep(1) # Gross, but otherwise this randomly fails @SS
+end
+
+When(/^I fill in the form with correct information$/) do
+  steps %( When I fill in the form without accepting the T&C )
+  page.check 'I agree to the above Terms and Conditions'
+end
+
+Then(/^I should have a new account$/) do
+  assert_not_nil User.where(email: @email).first
+  assert_equal vendors_path, page.current_path
+end
+
+Then(/^I should not be able to submit the form$/) do
+  path = page.current_path
+  page.find("input[type='submit']").click
+  assert_equal path, page.current_path
+  assert_nil User.where(email: @email).first
+end
+
+When(/^I fill in the form without accepting the T&C$/) do
+  @email = 's@s.com'
+  @password = 'Password1'
+  page.fill_in 'Email', with: @email
+  page.fill_in 'Password', with: @password
+  page.fill_in 'Confirm Password', with: @password
+  page.fill_in 'Email', with: @email
+  page.fill_in 'Password', with: @password
+  page.fill_in 'Confirm Password', with: @password
+end
+
+Given(/^the user is on the sign up page$/) do
+  visit new_user_registration_path
+end
+
+Then(/^I should be on the account creation page$/) do
+  assert_equal new_user_registration_path, page.current_path
 end
 
 Given(/^a user has an account$/) do

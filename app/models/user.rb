@@ -26,6 +26,8 @@ class User
 
   field :approved, type: Boolean, default: APP_CONFIG.auto_approve || false
 
+  validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
+
   def active_for_authentication?
     super && approved?
   end

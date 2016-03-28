@@ -6,9 +6,14 @@ $(document).on('page:change', function(event) {
     $forms.parsley().on('field:validate', function (fieldInstance) {
       // enable the submit button if form is valid
       var formIsValid = fieldInstance.parent.$element.parsley().isValid();
+
       $('.btn[type="submit"]').attr('disabled', !formIsValid);
     });
   }
+
+  // Since autofocus fires before Parsley/Turbolinks, this fixes
+  // Parsley validation on autofocus elements @SS
+  $("input[autofocus='autofocus']").focus();
 });
 
 

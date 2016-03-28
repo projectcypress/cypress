@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class='panel-title'>Sign In</h3>
+    <h1 class='panel-title'>Sign In</h1>
   </div>
 
   <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name), html: { 'data-parsley-validate': '' }) do |f| %>
@@ -8,7 +8,7 @@
       <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
         'data-parsley-required': '',
         'data-parsley-type':"email",
-        'data-parsley-trigger': 'blur' %>
+        'data-parsley-trigger': 'focus' %>
       <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
         'data-parsley-required': '',
         'data-parsley-trigger': 'blur' %>
