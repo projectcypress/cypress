@@ -29,29 +29,29 @@
   <% submit_errors = should_display_c3 ? execution.sibling_execution.execution_errors.only_errors : [] %>
   <% submit_warnings = should_display_c3 ? execution.sibling_execution.execution_errors.only_warnings : [] %>
 
-  <% failure_message = " Failed with #{qrda_errors.count + report_errors.count + submit_errors.count} errors" %>
-  <% failure_message += " and #{submit_warnings.count} warnings" if submit_warnings.any? %>
+  <% failure_message = " Failed with #{pluralize(qrda_errors.count + report_errors.count + submit_errors.count, 'error')}" %>
+  <% failure_message += " and #{pluralize(submit_warnings.count, 'warning')}" if submit_warnings.any? %>
   <h4><i class="fa fa-fw fa-times-circle text-danger"></i><%= failure_message %></h4>
   <ul class = 'nav nav-tabs'>
     <li class = 'active'>
       <a data-toggle = 'tab' class = 'tab' href = <%= "#QRDA_tab_execution_#{execution.id}" %>>
-        <%= "QRDA Errors (#{qrda_errors.count})" %>
+        <%= "QRDA #{'Error'.pluralize(qrda_errors.count)} (#{qrda_errors.count})" %>
       </a>
     </li>
     <li>
       <a data-toggle = 'tab' class = 'tab' href = <%= "#reporting_tab_execution_#{execution.id}" %>>
-        <%= "Reporting Errors (#{report_errors.count})" %>
+        <%= "Reporting #{'Error'.pluralize(report_errors.count)} (#{report_errors.count})" %>
       </a>
     </li>
     <% if should_display_c3 %>
       <li>
         <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_tab_execution_#{execution.id}" %>>
-          <%= "Submission Errors (#{submit_errors.count})" %>
+          <%= "Submission #{'Error'.pluralize(submit_errors.count)} (#{submit_errors.count})" %>
         </a>
       </li>
       <li>
         <a data-toggle = 'tab' class = 'tab' href = <%= "#submission_warnings_tab_execution_#{execution.id}" %>>
-          <%= "Submission Warnings (#{submit_warnings.count})" %>
+          <%= "Submission #{'Warning'.pluralize(submit_warnings.count)} (#{submit_warnings.count})" %>
         </a>
       </li>
     <% end %>
