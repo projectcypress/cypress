@@ -3,10 +3,24 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery :with => :exception
 
-  before_action :authenticate_user!, :check_bundle_installed
+  before_action :authenticate_user!, :check_bundle_installed, except: [:page_not_found, :server_error]
 
   rescue_from CanCan::AccessDenied do |exception|
     render text: exception, status: 401
+  end
+
+  def page_not_found
+    respond_to do |format|
+      format.html { render template: 'errors/404', layout: 'layouts/errors', status: 404 }
+      format.all  { render text: '404 Not Found', status: 404 }
+    end
+  end
+
+  def server_error
+    respond_to do |format|
+      format.html { render template: 'errors/500', layout: 'layouts/errors', status: 500 }
+      format.all  { render text: '500 Server Error', status: 500 }
+    end
   end
 
   private

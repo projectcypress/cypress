@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
   root to: 'home#index'
 
+  get '404', to: 'application#page_not_found'
+  get '500', to: 'application#server_error'
+
   resources :vendors do
     resources :products, only: [:show, :index, :new, :create, :edit, :update, :destroy] do
       member do

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 8]><html class="no-js oldIE" lang="en-US"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en-US"><![endif]-->
+<!--[if IE 9]><html class="no-js ie9" lang="en-US"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html id="cypress3" lang="en-US" class="no-js not-ie error-page"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cypress</title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag :modernizr %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <% if APP_CONFIG['banner'] %>
+    <div class="demo"><%= APP_CONFIG['banner_message'].html_safe %></div>
+  <% end %>
+
+  <main aria-label="main section" id="main-content" class="container" role="main">
+    <div class="error-message">
+      <%= yield %>
+    </div>
+  </main>
+</body>
+</html>
