@@ -68,3 +68,27 @@
     padding: 1em;
   }
 }
+
+.vendor-details {
+  margin-left: 1.5em;
+  display: flex;
+  flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+
+  .fa-li {
+    color: $gray-light;
+  }
+
+  > li {
+    display: inline-block;
+    padding-right: 4em;
+    margin-bottom: .75em;
+    width: 100%;
+
+    &.point-of-contact {
+      width: calc(100% / 3);
+
+      .fa-ul { margin-left: 0; }
+    }
+  }
+}
