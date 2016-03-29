@@ -3,6 +3,8 @@ module Validators
     include Validators::Validator
     include HealthDataStandards::Validate
 
+    self.validator = :cms_schematron
+
     def initialize(schematron_file, name)
       @validator = Schematron::Validator.new(name, schematron_file)
     end

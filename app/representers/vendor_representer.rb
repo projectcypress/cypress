@@ -10,12 +10,12 @@ module VendorRepresenter
   property :created_at
   property :updated_at
 
+  self.embedded = {
+    points_of_contact: [:name, :email, :phone, :contact_type]
+  }
+
   self.links = {
     self: proc { vendor_path(self) },
     products: proc { vendor_products_path(self) }
-  }
-
-  self.embedded = {
-    pocs: [:name, :email, :phone, :contact_type]
   }
 end

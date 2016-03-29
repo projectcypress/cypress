@@ -4,7 +4,9 @@ module Validators
 
     attr_accessor :measures, :test_id, :sgd, :records, :names, :expected_records, :can_continue
     attr_reader :found_names
+
     self.validator_type = :result_validation
+    self.validator = :smoking_gun
 
     def initialize(measures, records, test_id, options = {})
       @measures = measures

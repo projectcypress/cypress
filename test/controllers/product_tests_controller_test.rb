@@ -1,7 +1,10 @@
 require 'test_helper'
+require 'api_test'
+
 class ProductTestsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   include ActiveJob::TestHelper
+  include ApiTest
 
   setup do
     collection_fixtures('vendors', 'products', 'product_tests', 'users', 'roles', 'bundles', 'measures')
@@ -134,7 +137,6 @@ class ProductTestsControllerTest < ActionController::TestCase
   # # # # # # # # # #
 
   def assert_has_product_test_attributes(hash)
-    %w(name cms_id state type _links).each { |key| assert hash.key?(key), "product_test should have key #{key}" }
-    %w(self patients).each { |link_key| assert hash['_links'].key?(link_key), "product_test links should have key #{link_key}" }
+    assert_has_attributes(hash, %w(name cms_id state type links), %w(self patients tasks))
   end
 end

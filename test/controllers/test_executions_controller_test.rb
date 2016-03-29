@@ -1,7 +1,10 @@
 require 'test_helper'
+require 'api_test'
+
 class TestExecutionsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   include ActiveJob::TestHelper
+  include ApiTest
 
   setup do
     collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'test_executions', 'users', 'roles',
@@ -408,7 +411,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   # # # # # # # # # # #
 
   def assert_has_test_execution_attributes(hash)
-    accepted_execution_show_attributes.each { |key| assert hash.key?(key), "response body should have key: #{key}" }
+    assert_has_attributes(hash, accepted_execution_show_attributes)
   end
 
   def zip_upload

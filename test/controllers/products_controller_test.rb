@@ -1,7 +1,10 @@
 require 'test_helper'
+require 'api_test'
+
 class ProductsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   include ActiveJob::TestHelper
+  include ApiTest
 
   setup do
     collection_fixtures('bundles', 'vendors', 'products', 'product_tests', 'tasks', 'users', 'measures', 'roles',
@@ -381,13 +384,7 @@ class ProductsControllerTest < ActionController::TestCase
     assert_equal '', response.body, 'response body should be empty for Not Found'
   end
 
-  # input 'hash' should be a product hash
   def assert_has_product_attributes(hash)
-    %w(name description randomize_records duplicate_records _links).each do |key|
-      assert hash.key?(key)
-    end
-    %w(self product_tests patients).each do |link_key|
-      assert hash['_links'].key?(link_key)
-    end
+    assert_has_attributes(hash, %w(name description randomize_records duplicate_records links), %w(self product_tests patients))
   end
 end

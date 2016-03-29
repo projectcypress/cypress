@@ -1,5 +1,9 @@
 require 'test_helper'
+require 'api_test'
+
 class TasksControllerTest < ActionController::TestCase
+  include ApiTest
+
   setup do
     collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'users', 'roles')
     @vendor = Vendor.find(EHR1)
@@ -116,7 +120,6 @@ class TasksControllerTest < ActionController::TestCase
   # # # # # # # # # #
 
   def assert_has_task_attributes(hash)
-    %w(type _links).each { |key| assert hash.key?(key) }
-    %w(self executions).each { |link_key| assert hash['_links'].key?(link_key) }
+    assert_has_attributes(hash, %w(type links), %w(self executions))
   end
 end

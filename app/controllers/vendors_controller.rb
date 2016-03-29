@@ -77,6 +77,6 @@ class VendorsController < ApplicationController
   def vendor_params
     params.require(:vendor).require(:name)
     params.require(:vendor).permit(:name, :vendor_id, :url, :address, :state, :zip,
-                                   pocs_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy])
+                                   points_of_contact_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy])
   end
 end

@@ -4,6 +4,8 @@ module Validators
     include Validators::Validator
     attr_accessor :reported_results
 
+    self.validator = :expected_results
+
     def initialize(expected_results)
       @expected_results = expected_results
       @reported_results = {}
@@ -58,8 +60,7 @@ module Validators
         message = %("Could not find entry for measure #{expected_result['measure_id']} with the following population ids ")
         message += ids.inspect
         # logger.call(message, _ids['stratification'])
-        add_error(message, :location => '/', :validator_type => :result_validation,
-                           :measure_id => measure_id, :stratification => ids['stratification'])
+        add_error(message, location: '/', measure_id: measure_id, stratification: ids['stratification'])
       end
     end
 
@@ -69,13 +70,11 @@ module Validators
         message = 'Could not find value'
         message += " for stratification #{stratification} " if stratification
         message += " for Population #{pop_key}"
-        add_error(message, :location => '/', :validator_type => :result_validation,
-                           :measure_id => measure_id, :stratification => stratification)
+        add_error(message, location: '/', measure_id: measure_id, stratification: stratification)
       elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
         err = %(expected #{pop_key} #{expected_result['population_ids'][pop_key]} value #{expected_result[pop_key]}
         does not match reported value #{reported_result[pop_key]})
-        add_error(err, :location => '/', :validator_type => :result_validation,
-                       :measure_id => measure_id, :stratification => stratification)
+        add_error(err, location: '/', measure_id: measure_id, stratification: stratification)
       end
     end
 
@@ -98,7 +97,7 @@ module Validators
     def add_sup_data_error(keys_and_ids, code, expect_val, report_val)
       error_details = { type: 'supplemental_data', population_key: keys_and_ids.pop_key, data_type: keys_and_ids.sup_key,
                         code: code, expected_value: expect_val, reported_value: report_val }
-      options = { :location => '/', :measure_id => keys_and_ids.measure_id, :validator_type => :result_validation, :error_details => error_details }
+      options = { location: '/', measure_id: keys_and_ids.measure_id, error_details: error_details }
       add_error('supplemental data error', options)
     end
   end

@@ -1,0 +1,226 @@
+#%RAML 0.8
+title: Cypress
+version: v1
+baseUri: https://{domain}
+securitySchemes:
+  - basic:
+      description: This API supports Basic Authentication.\n
+      type: Basic Authentication
+securedBy:
+  - basic
+baseUriParameters:
+  domain:
+    description: base URL of the Cypress server
+    type: string
+/vendors:
+  displayName: Vendors
+  description: A list of vendors undergoing certification
+  get:
+    description: View a list of vendors
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include schema/json/vendors.json
+  post:
+    description: Create a new vendor
+    body:
+      application/json:
+        schema: !include schema/json/vendor.json
+      application/xml:
+    responses:
+      201:
+        description: Successfully created a new vendor
+      422:
+        description: Invalid vendor
+  /{id}:
+    displayName: Vendor
+    description: A Vendor undergoing certification
+    uriParameters:
+      id:
+        displayName: Vendor ID
+        type: string
+    get:
+      description: View information about a vendor
+      responses:
+        200:
+          description: Vendor object in JSON/XML
+          body:
+            application/json:
+              schema: !include schema/json/vendor.json
+    put:
+      description: Update information about a vendor
+      body:
+        application/json:
+          schema: !include schema/json/vendor.json
+        application/xml:
+      responses:
+        200:
+          description: Vendor record updated
+    delete:
+      description: Delete a vendor
+      responses:
+        200:
+          description: Successfully deleted vendor
+    /products:
+      displayName: Product
+      description: A vendor's products
+      get:
+        description: View a list of the vendor's products undergoing certification
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include schema/json/products.json
+      post:
+        description: Create a new product for this vendor
+        body:
+          application/json:
+            schema: !include schema/json/product.json
+          application/xml:
+        responses:
+          201:
+            description: Product has been created
+          422:
+            description: Invalid Product
+      /{id}:
+        displayName: Product
+        description: Product undergoing certification testing
+        uriParameters:
+          id:
+            displayName: Product ID
+            type: integer
+        get:
+          description: View information about a Product
+          responses:
+            200:
+              description: Product is available for testing
+              body:
+                application/json:
+                  schema: !include schema/json/product.json
+        delete:
+          description: Delete a product
+/product/{product_id}/product_tests:
+  displayName: Product Tests (Single Measure Testing and Filter Tests)
+  uriParameters:
+    product_id:
+      displayName: Parent Task ID
+      type: string
+  get:
+    description: View list of a product's tests (One per measure for C1/C2, One for each C4 Filter)
+    responses:
+      200:
+        description: Product is available for testing
+        body:
+          application/json:
+            schema: !include schema/json/product_tests.json
+  /{id}:
+    uriParameters:
+      id:
+        displayName: Product test ID
+        type: string
+    get:
+      description: View a product test (such as a Single Measure Test or a C4 Filter)
+      responses:
+        200:
+          description: Product is available for testing
+          body:
+            application/json:
+              schema: !include schema/json/product_test.json
+/product_tests/{product_test_id}/tasks:
+  uriParameters:
+    product_test_id:
+      displayName: Parent resource product test ID
+      type: string
+  get:
+    description: List of testing tasks for a product ID
+    responses:
+      200:
+        description: List of tasks for a product test
+        body:
+          application/json:
+            schema: !include schema/json/tasks.json
+  /{id}:
+    uriParameters:
+      id:
+        displayName: Task ID
+        type: string
+    get:
+      description: A single task for a product test such as a single C1 measure task or a Filter task
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include schema/json/task.json
+/tasks/{task_id}/test_executions:
+  displayName: Task
+  uriParameters:
+    task_id:
+      displayName: Parent Task ID
+      type: string
+  get:
+    description: View a list of test executions
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include schema/json/test_executions.json
+  post:
+    description: Upload a new test artifact
+    body:
+      multipart/form-data:
+        formParameters:
+          file:
+            description: Artifact to be tested
+            required: true
+            type: file
+    responses:
+      201:
+        description: File Uploaded Successfully. Cypress is checking data for accuracy and correctness
+      422:
+        description: File uploaded is not processable by Cypress
+  /{id}:
+    uriParameters:
+      id:
+        displayName: Test Execution ID
+        type: string
+    get:
+      description: View information about a test execution
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include schema/json/execution_error.json
+    delete:
+      description: Delete a test execution
+      responses:
+        200:
+/bundles:
+  description: Bundles installed on the system
+  get:
+    description: View a list of all installed bundles
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include schema/json/bundles.json
+  /{id}:
+    description: Annual Update Bundle
+    uriParameters:
+      id:
+        displayName: Bundle ID
+    get:
+      description: View a list of all installed bundles
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include schema/json/bundle.json
+    /measures:
+      get:
+        description: List of measure in the bundle
+        responses:
+          200:
+            body:
+               application/json:
+                schema: !include schema/json/measures.json                

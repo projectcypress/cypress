@@ -17,10 +17,11 @@ module API
     def self.make_singular_json_representer(class_name)
       base = "#{class_name}_representer".classify.constantize
       new_module = Module.new do
-        include Roar::JSON::HAL
+        include Roar::JSON
+        include Roar::Hypermedia
         include base
       end
-      base.links.each_pair { |link_name, link_url| new_module.link link_name, &link_url }
+      base.collections.each_pair { |collection_name, _| new_module.collection collection_name }
       base.embedded.each_pair do |embedded_name, embedded_vals|
         new_module.collection embedded_name, embedded: true, decorator: Class.new(Representable::Decorator) do
           embedded_vals.each do |embedded_attr|
@@ -28,7 +29,7 @@ module API
           end
         end
       end
-      base.collections.each_pair { |collection_name, _| new_module.collection collection_name }
+      base.links.each_pair { |link_name, link_url| new_module.link link_name, &link_url }
       new_module
     end
 
@@ -40,7 +41,6 @@ module API
         include base
       end
       base.collections.each_pair { |collection_name, collection_as| new_module.collection collection_name, wrap: collection_name, as: collection_as }
-      base.links.each_pair { |link_name, link_url| new_module.link link_name, &link_url }
       base.embedded.each_pair do |embedded_name, embedded_vals|
         new_module.collection embedded_name, wrap: embedded_name, decorator: Class.new(Representable::Decorator) do
           embedded_vals.each do |embedded_attr|
@@ -48,6 +48,7 @@ module API
           end
         end
       end
+      base.links.each_pair { |link_name, link_url| new_module.link link_name, &link_url }
       new_module
     end
 
@@ -61,7 +62,7 @@ module API
     def self.make_plural_xml_representer(class_name, singular_representer)
       Module.new do
         include Roar::XML
-        include Representable::JSON::Collection
+        include Representable::XML::Collection
         items extend: singular_representer, wrap: class_name.downcase.pluralize.underscore.to_sym
       end
     end

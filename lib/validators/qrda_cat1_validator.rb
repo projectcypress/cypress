@@ -5,7 +5,7 @@ module Validators
     include Validators::Validator
     include HealthDataStandards::Validate
 
-    self.validator_type = :result_validation
+    self.validator = :qrda_cat1
 
     def initialize(bundle, is_c3_validation_task, test_has_c3, measures = [])
       @test_has_c3 = test_has_c3

@@ -3,7 +3,6 @@ module TestExecutionRepresenter
 
   property :state
   property :execution_errors
-  property :sibling_execution_id
   property :created_at
 
   self.links = {

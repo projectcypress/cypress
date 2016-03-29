@@ -2,6 +2,8 @@ module Validators
   class MeasurePeriodValidator < QrdaFileValidator
     include Validators::Validator
 
+    self.validator = :measure_period
+
     def initialize
     end
 

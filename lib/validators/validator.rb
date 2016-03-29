@@ -13,8 +13,7 @@ module Validators
     end
 
     def add_issue(msg, msg_type, options = {})
-      attributes = { message: msg, msg_type: msg_type,
-                     validator_type: self.class.validator_type }.merge(options)
+      attributes = { message: msg, msg_type: msg_type, validator: self.class.validator, validator_type: self.class.validator_type }.merge(options)
       @errors ||= []
       @errors << ::ExecutionError.new(attributes)
     end
@@ -24,7 +23,7 @@ module Validators
     end
 
     def self.included(receiver)
-      receiver.send :mattr_accessor, :validator_type
+      receiver.send :mattr_accessor, :validator, :validator_type
     end
 
     def can_continue
