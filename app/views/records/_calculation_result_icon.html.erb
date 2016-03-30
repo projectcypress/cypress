@@ -1,11 +1,13 @@
 <% if result && result > 0 %>
+  <span class="sr-only">Pass</span>
   <span class="fa-stack result-marker">
-    <i class="fa fa-circle fa-stack-2x"></i>
-    <i class="fa fa-circle-thin fa-stack-2x"></i>
+    <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+    <i class="fa fa-circle-thin fa-stack-2x" aria-hidden="true"></i>
     <% unless result == 1 %>
-      <strong class="fa-stack-1x result-text"><%= result %></strong>
+      <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= result %></strong>
     <% end %>
   </span>
 <% else %>
-  <i class="fa fa-circle-thin fa-2x empty-marker"></i>
+  <span class="sr-only">Fail</span>
+  <i class="fa fa-circle-thin fa-2x empty-marker" aria-hidden="true"></i>
 <% end %>
