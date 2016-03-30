@@ -1,11 +1,11 @@
 {
   "title": "Test Execution",
-  "id": "http://cypress.healthit.gov/schemas/product.json",
+  "id": "http://cypress.healthit.gov/schemas/test_execution.json",
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {
     "state": {"type": "string"},
-    "execution_errors": {"type": "array"},
+    "execution_errors": {"type": "array", "items": { "$ref": "execution_error" } },
     "created_at": {"type": "string", "format": "date-time"}
   },
     "links": [

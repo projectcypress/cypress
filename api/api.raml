@@ -83,13 +83,13 @@ baseUriParameters:
             description: Product has been created
           422:
             description: Invalid Product
-      /{id}:
+      /{product_id}:
         displayName: Product
         description: Product undergoing certification testing
         uriParameters:
-          id:
+          product_id:
             displayName: Product ID
-            type: integer
+            type: string
         get:
           description: View information about a Product
           responses:
@@ -100,7 +100,7 @@ baseUriParameters:
                   schema: !include schema/json/product.json
         delete:
           description: Delete a product
-/product/{product_id}/product_tests:
+/products/{product_id}/product_tests:
   displayName: Product Tests (Single Measure Testing and Filter Tests)
   uriParameters:
     product_id:
@@ -190,7 +190,7 @@ baseUriParameters:
         200:
           body:
             application/json:
-              schema: !include schema/json/execution_error.json
+              schema: !include schema/json/test_execution.json
     delete:
       description: Delete a test execution
       responses:
