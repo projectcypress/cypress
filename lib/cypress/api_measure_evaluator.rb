@@ -4,7 +4,11 @@ module Cypress
     def initialize(args = nil)
       @options = args ? args : {}
       @logger = Rails.logger
-      @cypress_host = @options[:cypress_host]
+      @cypress_host = if @options[:cypress_host]
+                        @options[:cypress_host]
+                      else
+                        'http://localhost:3000'
+                      end
     end
 
     def cleanup(*)
