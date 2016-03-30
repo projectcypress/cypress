@@ -17,7 +17,7 @@ class ProductTestsControllerTest < ActionController::TestCase
   end
 
   test 'should be able to download zip file of patients' do
-    product = Product.create!(vendor: Vendor.first, name: 'Product 1', c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
+    product = Product.create!(vendor: @vendor, name: 'Product 1', c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
                               measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
     product_test = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
                                                  bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
@@ -31,8 +31,8 @@ class ProductTestsControllerTest < ActionController::TestCase
   end
 
   test 'should restrict access to download zip' do
-    product_test = Product.first.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
-                                                       bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    product_test = @product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
+                                                  bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     product_test.save!
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :patients, :id => product_test.id, :format => :format_does_not_matter
