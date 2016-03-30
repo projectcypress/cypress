@@ -1,10 +1,10 @@
 <div class="panel panel-primary select-measures hidden">
   <div class="panel-heading">
-    <h3 id="select_custom_measures" class='panel-title'>Select Custom Measures <span class='selected-number'>(0)</span><span class='sr-only'>selected</span></h3>
+    <h1 id="select_custom_measures" class='panel-title'>Select Custom Measures <span class='selected-number'>(0)</span><span class='sr-only'>selected</span></h1>
   </div>
   <div class="panel-body">
     <div class="col-md-12" id="measures_errors_container"><!--%= f.errors_on :measure_tests, hide_attribute_name: true % --></div>
-    <div id="measure_selection_section">
+    <div>
         <div id="measure_tabs" class="measure-selection">
           <div class="sidebar">
             <!-- set up a tab header for each measure group -->
@@ -25,6 +25,7 @@
               <!-- set up a checkbox for each top-level measure in the group -->
               <div id="<%= category.tr(" '", "_") %>_div" class="measure_group">
                 <% if measures.length > 1 %>
+                <legend for="<%= category.tr(" '", "_") %>_fieldset">
                 <div class="checkbox">
                   <label class="btn btn-checkbox">
                     <input type="checkbox"
@@ -34,7 +35,9 @@
                     Select all <%= measures.length %> <%= category %> measures
                   </label>
                 </div>
+                </legend>
                 <% end %>
+                <fieldset id="<%= category.tr(" '", "_") %>_fieldset">
                 <% measures.sort_by(&:cms_int).each do |m| %>
                   <div class = 'checkbox'>
                     <label class = 'btn btn-checkbox'>
@@ -58,6 +61,7 @@
                     </label>
                   </div>
                 <% end %>
+                </fieldset>
               </div>
             <% end %>
           </div>
@@ -65,4 +69,3 @@
      </div>
   </div>
 </div>
-

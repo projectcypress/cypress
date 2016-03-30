@@ -15,12 +15,13 @@
         <tbody>
           <% @measures.where(continuous_variable: true).sort_by{ |m| [m.cms_int, m.sub_id] }.each do |m| %>
             <tr>
-              <td class="abbreviated">
+              <th class="abbreviated" scope="row">
                 <%= m.display_name %>
-              </td>
+              </th>
 
               <% RecordsHelper::CV_POPULATION_KEYS.each do |population| %>
                 <td class="text-center">
+                  <span class="sr-only">Measure <%= m.display_name %> population <%= population %> result: </span>
                   <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(@results, m, population) } %>
                 </td>
               <% end %>
@@ -43,11 +44,12 @@
         <tbody>
           <% @measures.where(continuous_variable: false).sort_by{ |m| [m.cms_int, m.sub_id] }.each do |m| %>
             <tr>
-              <td class="abbreviated">
+              <th class="abbreviated" scope="row">
                 <%= m.display_name %>
-              </td>
+              </th>
               <% RecordsHelper::PROPORTION_POPULATION_KEYS.each do |population| %>
                 <td class="text-center">
+                  <span class="sr-only">Measure <%= m.display_name %> population <%= population %> result: </span>
                   <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(@results, m, population) } %>
                 </td>
               <% end %>

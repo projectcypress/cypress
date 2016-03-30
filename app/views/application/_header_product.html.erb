@@ -8,7 +8,7 @@
         <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download Report
       <% end %>
     </div>
-    <h3 class="summary-title"><%= @product.name %> <% if @product.version? %>(Version: <%= @product.version %>)<% end %></h3>
+    <h1 class="summary-title"><%= @product.name %> <% if @product.version? %>(Version: <%= @product.version %>)<% end %></h1>
     <% if @product.description? %>
       <p><%= @product.description %>
     <% end %>

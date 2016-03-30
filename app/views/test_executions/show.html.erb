@@ -21,9 +21,9 @@
   <div class = 'col-sm-4'>
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title test-step">
+        <h1 class="panel-title test-step">
           1 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i>  Download Test Deck
-        </h3>
+        </h1>
       </div>
       <div class="panel-body">
         <div id = 'display_execution_download'>
@@ -36,9 +36,9 @@
   <div class = 'col-sm-8'>
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title test-step">
+        <h1 class="panel-title test-step">
           2 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i>  Upload files
-        </h3>
+        </h1>
       </div>
       <div class="panel-body">
         <p class = 'description' id='execution_upload_label'>
@@ -53,7 +53,7 @@
 <% if @task.most_recent_execution %>
   <div class = 'panel panel-default' id = 'results_panel'>
     <div class = 'panel-heading'>
-      <h3 class='panel-title'>
+      <h1 class='panel-title'>
         Results
         <div class = 'pull-right'>
           <select aria-label="View test execution" onchange = "location = this.options[this.selectedIndex].value;">
@@ -62,7 +62,7 @@
             <% end %>
           </select>
         </div>
-      </h3>
+      </h1>
     </div>
     <div class = 'panel-body' id = 'display_execution_results' >
       <%= render partial: 'execution_results', locals: { execution: @test_execution } %>
