@@ -45,19 +45,19 @@
   }
   Navigator.prototype.prev = function() {
     this.index = this.index  - 1;
-    if(this.index.isNaN || this.index < 0){this.index=0;}
+    if(isNaN(this.index)|| this.index < 0){this.index=0;}
     var tgt = $(this.targets[this.index]).attr('href');
     this.action(tgt);
   }
   Navigator.prototype.next = function() {
     this.index = this.index +1 ;
-    if(this.index.isNaN || this.index >= this.targets.length) { this.index = this.targets.length - 1;}
+    if(isNaN(this.index) || this.index >= this.targets.length) { this.index = this.targets.length - 1;}
     var tgt = $(this.targets[this.index]).attr('href');
     this.action(tgt);
   }
   Navigator.prototype.last = function() {
     this.index =  this.targets.length -1;
-    if(this.index.isNaN || this.index < 0){this.index=0;}
+    if(isNaN(this.index) || this.index < 0){this.index=0;}
     var tgt = $(this.targets[this.index]).attr('href');
     this.action(tgt);
   }
