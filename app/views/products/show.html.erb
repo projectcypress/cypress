@@ -4,7 +4,7 @@
 
   <div class = 'col-sm-8'>
     <div class = 'panel panel-default'>
-      <div class = 'panel-heading'><h3 class = 'panel-title'>Product Status</h3></div>
+      <div class = 'panel-heading'><h1 class = 'panel-title'>Product Status</h1></div>
       <div class = 'panel-body'>
         <table class = 'table table-hover table-condensed'>
           <thead>
@@ -41,7 +41,7 @@
     <% unless @product.product_tests.empty? %>
       <div class = 'panel panel-default'>
         <div class = 'panel-heading'>
-          <h3 class='panel-title'>Download Full Test Deck</h3>
+          <h1 class='panel-title'>Download Full Test Deck</h1>
         </div>
         <div class = 'panel-body' id = 'display_bulk_download'>
           <%= render partial: 'bulk_download', locals: { product: @product } %>
@@ -71,10 +71,10 @@
         <% if c == 'ChecklistTest' %>
           <% if @product.product_tests.checklist_tests.exists? %>
             <% checklist_test = @product.product_tests.checklist_tests.first %>
-            <h3>
+            <h1>
               Test Status
               <div class = 'inline-block pull-right'><%= button_to 'View Test', product_checklist_test_path(@product, checklist_test), class: 'btn btn-primary', method: :get %></div>
-            </h3>
+            </h1>
             <%= render partial: 'checklist_status_display', locals: { product: @product } %>
           <% else %>
             <div class = 'inline-block'><%= button_to 'Start Test', product_checklist_tests_path(@product), class: 'btn btn-primary', method: :post %></div>

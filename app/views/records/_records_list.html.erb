@@ -1,4 +1,4 @@
-<h2><%= @measure ? @measure.display_name : 'All' %> Patients</h2>
+<h1><%= @measure ? @measure.display_name : 'All' %> Patients</h1>
 
 <% if (@measure && records_by_measure(@records, @measure).length > 0) || !@measure %>
 <table class="table table-condensed table-hover">

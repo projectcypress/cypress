@@ -12,7 +12,7 @@
 
 <div class = 'row '>
   <div class = 'col-sm-6'>
-    <h4>Product Information</h4>
+    <h1>Product Information</h1>
     <dl class="dl-horizontal product-information">
       <dt>Vendor</dt>
       <dd><%= @product_test.product.vendor.name %></dd>
@@ -26,9 +26,9 @@
 
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title test-step">
+        <h1 class="panel-title test-step">
           1 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> Download Test Deck
-        </h3>
+        </h1>
       </div>
       <div class="panel-body">
         <%= form_for @product_test, url: { action: 'patients' }, :html => { :method => 'GET' } do |f| %>
@@ -41,7 +41,7 @@
   </div>
 
   <div class = 'col-sm-6'>
-    <h2 class = 'pull-left'>Current Test Status</h2>
+    <h1 class = 'pull-left'>Current Test Status</h1>
     <button class = 'btn btn-primary pull-right'>
       <i class = 'fa fa-fw fa-download'></i> Download Full Report
     </button>
@@ -93,9 +93,9 @@
     <div id = 'cat1'>
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h3 class="panel-title">
+          <h1 class="panel-title">
             2 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= "Upload for #{tab_label_1}" %>
-          </h3>
+          </h1>
         </div>
         <div class="panel-body">
           <p class = 'description'>
@@ -105,7 +105,7 @@
         </div>
       </div>
       <hr>
-      <h2 class="test-result">CAT 1 Test Results for <%= "#{@product_test.name}" %></h2>
+      <h1 class="test-result">CAT 1 Test Results for <%= "#{@product_test.name}" %></h1>
       <%= render partial: "test_execution_results", locals: { task: @product_test.tasks.c1_task } %>
     <% if c1 && c2 %>
       </div>
@@ -116,9 +116,9 @@
     <div id = 'cat3'>
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h3 class="panel-title">
+          <h1 class="panel-title">
             2 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= "Upload for #{tab_label_2}" %>
-          </h3>
+          </h1>
         </div>
         <div class="panel-body">
           <p class = 'description'>
@@ -128,7 +128,7 @@
         </div>
       </div>
       <hr>
-      <h2 class = 'test-result'><%= "CAT 3 Test Results for #{@product_test.name}" %></h2>
+      <h1 class = 'test-result'><%= "CAT 3 Test Results for #{@product_test.name}" %></h1>
       <%= render partial: "test_execution_results", locals: { task: @product_test.tasks.c2_task } %>
     <% if c1 && c2 %>
       </div>

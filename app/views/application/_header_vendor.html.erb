@@ -10,7 +10,7 @@
         <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Vendor
       <% end %>
     </div>
-    <h3 class="summary-title"><%= @vendor.name %> <% if @vendor.vendor_id? %>(ID: <%= @vendor.vendor_id %>)<% end %></h3>
+    <h1 class="summary-title"><%= @vendor.name %> <% if @vendor.vendor_id? %>(ID: <%= @vendor.vendor_id %>)<% end %></h1>
 
     <% if @vendor.url? %>
       <p><a href="<%= website_link(@vendor.url) %>" target="_blank"><%= website_link(@vendor.url) %></a>

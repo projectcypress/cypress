@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-  <div class="panel-heading"><h3 class='panel-title'><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h3></div>
+  <div class="panel-heading"><h1 class='panel-title'><%= submit_text %><%= @product.name ? ": "+ @product.name : "" %></h1></div>
 
   <%= bootstrap_nested_form_for [@product.vendor, @product], html: { "data-parsley-validate": '' } do |f| %>
     <div class="panel-body">

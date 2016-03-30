@@ -6,7 +6,7 @@
 <div class="row">
   <% if !@task && !@product_test %>
   <div class="col-md-5">
-    <h2>Annual Update Bundle</h2>
+    <h1>Annual Update Bundle</h1>
       <% if Bundle.count == 1 %>
         <!-- label --> <%= @bundle.title %>
       <% else %>
@@ -21,7 +21,7 @@
         <% end # form_group %>
         <% end %>
       <% end # bundles.count %>
-    <h2>Filter by Measure</h2>
+    <h1>Filter by Measure</h1>
     <label for="measure_id" class="sr-only">Filter the Master Patient List</label>
     <%= select_tag(:measure_id, options_for_select(@measures.map { |m| [m.display_name, by_measure_bundle_records_path(@bundle, :measure_id => m.hqmf_id, :sub_id => m.sub_id)] } ), class: 'form-control', include_blank: 'All measures') %>
   </div>

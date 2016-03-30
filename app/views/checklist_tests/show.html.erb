@@ -2,7 +2,7 @@
 
 <%= render partial: 'application/certification_bar', locals: { product: @product, active_certs: [true, false, false, false] } %>
 
-<h3>Manual Entry Checklist</h3>
+<h1>Manual Entry Checklist</h1>
 
 <%= render partial: 'checklist_status_display', locals: { product: @product } %>
 
@@ -12,9 +12,9 @@
       <div class = 'panel-group' id = '<%= measure.cms_id %>'>
         <div class = 'panel panel-default'>
           <div class = 'panel-heading'>
-            <h3 class='panel-title'>
+            <h1 class='panel-title'>
               <%= "#{measure.cms_id} #{measure.name}" %>
-            </h3>
+            </h1>
           </div>
           <div class = 'panel checklist-panel'>
             <div class = 'panel-body'>

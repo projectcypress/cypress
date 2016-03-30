@@ -16,7 +16,7 @@
 <div class = 'col-sm-4'>
   <div class = 'panel <%= panel_class %> task-panel'>
     <div class = 'panel-heading'>
-      <h3 class = 'panel-title text-center'><%= task_type_to_title(task._type, c3) %></h3>
+      <h1 class = 'panel-title text-center'><%= task_type_to_title(task._type, c3) %></h1>
     </div>
     <div class = 'panel-body'>
       <% get_error_counts(execution, task).each do |error_name, num_errors| %>
