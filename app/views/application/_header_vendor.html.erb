@@ -13,7 +13,7 @@
 
     <h1 class="summary-title"><%= @vendor.name %> <% if @vendor.vendor_id? %>(ID: <%= @vendor.vendor_id %>)<% end %></h1>
 
-    <% if @vendor.url? || @vendor.address? || !@vendor.pocs.empty? %>
+    <% if @vendor.url? || @vendor.address? || !@vendor.points_of_contact.empty? %>
       <ul class="fa-ul vendor-details">
         <% if @vendor.url? %>
           <li>
@@ -29,9 +29,9 @@
             <%= formatted_vendor_address(@vendor) %>
           </li>
         <% end %>
-        <% if !@vendor.pocs.empty? %>
+        <% if !@vendor.points_of_contact.empty? %>
         <span class="sr-only">Points of contact for vendor <%= @vendor.name %></span>
-          <% @vendor.pocs.each do |poc| %>
+          <% @vendor.points_of_contact.each do |poc| %>
             <li class="point-of-contact">
               <i class="fa-li fa fa-user" aria-hidden="true"></i>
               <%= poc.name %> <%= "(#{poc.contact_type})" if poc.contact_type? %>
