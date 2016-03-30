@@ -34,7 +34,7 @@ module Cypress
       # create vendor
       vendor_link = create_new_vendor('MeasureEvaluationVendor')
       # create a product for the vendor
-      product_link = create_new_product(@bundle_id, vendor_link, 'api_product_1', measures_list.uniq[0,5])
+      product_link = create_new_product(@bundle_id, vendor_link, 'api_product_1', measures_list.uniq)
       # get the product create
       single_product = call_get_product(product_link)
       # get the link to the product's product tests
