@@ -110,8 +110,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).require(:measure_ids)
-    params.require(:product).require(:name)
     params.require(:product).permit(:name, :version, :description, :randomize_records, :duplicate_records, :bundle_id, :measure_selection,
                                     :c1_test, :c2_test, :c3_test, :c4_test, measure_ids: [])
   end

@@ -40,7 +40,7 @@ class VendorsController < ApplicationController
     end
   rescue Mongoid::Errors::Validations
     respond_with(@vendor) do |f|
-      f.html { render :new }
+      f.html { render :new, :status => :bad_request }
     end
   end
 
@@ -56,7 +56,7 @@ class VendorsController < ApplicationController
     end
   rescue Mongoid::Errors::Validations
     respond_with(@vendor) do |f|
-      f.html { render :edit }
+      f.html { render :edit, :status => :bad_request }
     end
   end
 
@@ -75,7 +75,6 @@ class VendorsController < ApplicationController
   end
 
   def vendor_params
-    params.require(:vendor).require(:name)
     params.require(:vendor).permit(:name, :vendor_id, :url, :address, :state, :zip,
                                    points_of_contact_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy])
   end

@@ -99,8 +99,8 @@ class VendorsControllerTest < ActionController::TestCase
   test 'should not post create with json request if no name' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       post :create, :format => :json, :vendor => { poc_attributes: { name: 'test poc' } }
-      assert_response 400, 'response should be Bad Request if no name given'
-      assert_equal '', response.body
+      assert_response 422, 'response should be Unprocessable Entity if no name given'
+      assert_not_nil JSON.parse(response.body)['errors']
     end
   end
 
@@ -197,8 +197,8 @@ class VendorsControllerTest < ActionController::TestCase
   test 'should not post create with xml request if no name' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       post :create, :format => :xml, :vendor => { poc_attributes: { name: 'test poc' } }
-      assert_response 400, 'response should be Bad Request if no name given'
-      assert_equal '', response.body
+      assert_response 422, 'response should be Unprocessable Entity if no name given'
+      assert_not_nil Hash.from_trusted_xml(response.body)['errors']
     end
   end
 

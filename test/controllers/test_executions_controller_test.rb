@@ -225,7 +225,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat1.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_equal '', response.body
+      assert_not_nil JSON.parse(response.body)['errors']
     end
   end
 
@@ -234,7 +234,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat3.id, :results => zip_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_equal '', response.body
+      assert_not_nil JSON.parse(response.body)['errors']
     end
   end
 
@@ -383,8 +383,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id
-      assert_response 400, 'response should be Bad Request if no results given'
-      assert_equal '', response.body
+      assert_response 422, 'response should be Unprocessable Entity if no results given'
+      assert_not_nil JSON.parse(response.body)['errors']
     end
   end
 
@@ -392,8 +392,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => nil
-      assert_response 400, 'response should be Bad Request if nil results given'
-      assert_equal '', response.body
+      assert_response 422, 'response should be Unprocessable Entity if nil results given'
+      assert_not_nil JSON.parse(response.body)['errors']
     end
   end
 
@@ -402,7 +402,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if no test_execution'
-      assert_equal '', response.body
+      assert_not_nil JSON.parse(response.body)['errors']
     end
   end
 
