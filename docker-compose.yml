@@ -6,9 +6,11 @@ cypress:
   links:
     - mongodb:mongo
   env_file: .env-prod
+  restart: unless-stopped
 mongodb:
   image: mongo
   volumes:
     - /data/db:/data/db
   ports:
     - "27017:27017"
+  restart: unless-stopped
