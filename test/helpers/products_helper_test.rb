@@ -9,8 +9,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     collection_fixtures('records', 'measures', 'vendors', 'products', 'product_tests', 'bundles')
 
     @product = Product.new(vendor: Vendor.all.first, name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
-                           bundle_id: '4fdb62e01d41c820f6000001')
-
+                           bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'])
     setup_checklist_test
     setup_measure_tests
     setup_filtering_tests
@@ -154,7 +153,7 @@ class ProductsHelperTest < ActiveJob::TestCase
 
   def test_generate_filter_records
     @product.product_tests = nil
-    @product.add_filtering_tests(Measure.where(hqmf_id: '40280381-4600-425F-0146-1F8D3B750FAC').first)
+    @product.add_filtering_tests
     records = @product.product_tests.filtering_tests.first.records
     @product.product_tests.filtering_tests.each { |ft| assert ft.records == records }
   end

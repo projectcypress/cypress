@@ -2,7 +2,7 @@ Feature: C1 Visual Checklist Test
 
 Background:
   Given the user is signed in
-  And the user has created a vendor with a product selecting C1 testing and 5 measures
+  And the user has created a vendor with a product selecting C1 testing with one measure
   And the user views that product
 
 Scenario: Successful Revisit Checklist Test

@@ -161,4 +161,52 @@ class BundlesControllerTest < ActionController::TestCase
     assert_equal 1, Bundle.where(_id: id).count, 'Should not have deleted bundle'
     assert_equal orig_count, Bundle.count, 'Should not have deleted Bundle'
   end
+
+  # # # # # # #
+  #   A P I   #
+  # # # # # # #
+
+  # json
+
+  test 'should get index with json request' do
+    for_each_logged_in_user([ADMIN]) do
+      get :index, :format => :json
+      assert_response 200, 'response should be OK on bundle index'
+      assert_equal Bundle.all.count, JSON.parse(response.body).count, 'response body should have all bundles'
+    end
+  end
+
+  test 'should get show with json request' do
+    for_each_logged_in_user([ADMIN]) do
+      get :show, :format => :json, :id => Bundle.default.id
+      assert_response 200, 'response should be OK on bundle show'
+      assert_not_empty JSON.parse(response.body), 'response body should contain bundle'
+    end
+  end
+
+  # xml
+
+  test 'should get index with xml request' do
+    for_each_logged_in_user([ADMIN]) do
+      get :index, :format => :xml
+      assert_response 200, 'response should be OK on bundle index'
+    end
+  end
+
+  test 'should get show with xml request' do
+    for_each_logged_in_user([ADMIN]) do
+      get :show, :format => :xml, :id => Bundle.default.id
+      assert_response 200, 'response should be OK on bundle show'
+    end
+  end
+
+  # bad requests
+
+  test 'should not get show with json request with bad id' do
+    for_each_logged_in_user([ADMIN]) do
+      get :show, :format => :json, :id => 'bad_id'
+      assert_response 404, 'response should be Not Found if bad id given'
+      assert_equal '', response.body, 'response body should be empty for Not Found'
+    end
+  end
 end

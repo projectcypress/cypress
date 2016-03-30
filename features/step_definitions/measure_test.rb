@@ -14,23 +14,21 @@ end
 # # # # # # # #
 
 When(/^the user creates a product with tasks (.*)$/) do |tasks|
-  @product = Product.new(bundle_id: @measure.bundle_id)
-  @product.vendor = @vendor
-  @product.name = 'Product 1'
   tasks = tasks.split(', ')
-  @product.c1_test = tasks.include? 'c1'
-  @product.c2_test = tasks.include? 'c2'
-  @product.c3_test = tasks.include? 'c3'
-  @product.c4_test = tasks.include? 'c4'
-  @product.product_tests.build({ name: @measure.name, measure_ids: [@measure.id] }, MeasureTest)
+  @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: [@measure.hqmf_id], c1_test: tasks.include?('c1'),
+                         c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: @measure.bundle_id)
+  @product.save!
+  @product.product_tests.build({ name: @measure.name, measure_ids: [@measure.hqmf_id] }, MeasureTest)
   @product_test = @product.product_tests.first
   @product.save!
 end
 
 #   A N D   #
 
-And(/^the user views a product test for that product$/) do
-  visit "/products/#{@product.id}/product_tests/#{@product_test.id}"
+# only include one task_name for task_names
+And(/^the user views task (.*)$/) do |task_names|
+  task = task_names.include?('c1') ? @product_test.tasks.c1_task : @product_test.tasks.c2_task
+  visit new_task_test_execution_path(task)
 end
 
 And(/^the user switches to c2 certification$/) do

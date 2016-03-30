@@ -1,37 +1,29 @@
 class TasksController < ApplicationController
+  include API::Controller
+
   before_action :set_task, only: [:edit, :update, :destroy, :show]
-  before_action :set_product_test, only: [:index, :new, :create]
+  before_action :set_product_test, only: [:index, :new]
   before_action :authorize_vendor
+
+  respond_to :html, only: []
+
   add_breadcrumb 'Dashboard', :vendors_path
+
   class TypeNotFound < StandardError
   end
 
   rescue_from TypeNotFound do |exception|
     render text: exception, status: 500
   end
+
   def index
-    @tasks = @product_test.tasks
-  end
-
-  def new
-    @task = @product_test.tasks.build({}, task_type(params[:type]))
-  end
-
-  def create
-  end
-
-  def edit
-  end
-
-  def update
+    # only get C1, C2, and C4 tasks (no C3)
+    @tasks = @product_test.tasks.any_in(_type: %w(C1Task C2Task Cat1FilterTask Cat3FilterTask))
+    respond_with(@tasks.to_a)
   end
 
   def show
-  end
-
-  def destroy
-    @task.destroy
-    render status: 204, text: 'Deleted'
+    respond_with(@task)
   end
 
   private

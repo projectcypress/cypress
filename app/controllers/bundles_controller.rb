@@ -1,12 +1,16 @@
 class BundlesController < ApplicationController
-  before_action :find_bundle, only: [:set_default, :destroy]
+  include API::Controller
 
+  before_action :find_bundle, only: [:set_default, :show, :destroy]
   before_action :check_bundle_disabled_setting
   before_action :redirect_if_disabled, except: [:index]
   before_action :require_admin
 
   add_breadcrumb 'Bundles', :bundles_path
   add_breadcrumb 'Add Bundle', :new_bundle_path, only: [:new, :create]
+
+  respond_to :html, except: [:show]
+  respond_to :xml, :json, only: [:index, :show]
 
   def check_bundle_disabled_setting
     @disabled = APP_CONFIG['disable_bundle_page']
@@ -21,6 +25,11 @@ class BundlesController < ApplicationController
 
   def index
     @bundles = Bundle.all
+    respond_with(@bundles.to_a)
+  end
+
+  def show
+    respond_with(@bundle)
   end
 
   def new

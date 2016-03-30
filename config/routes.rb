@@ -5,13 +5,14 @@ Rails.application.routes.draw do
   resources :vendors do
     resources :products, only: [:show, :index, :new, :create, :edit, :update, :destroy] do
       member do
-        get :download_pdf
+        get :patients
+        get :report
       end
     end
   end
 
   resources :products, only: [:show, :edit, :update, :destroy] do
-    resources :product_tests, only: [:index, :new, :create, :show]
+    resources :product_tests, only: [:index, :show]
     resources :checklist_tests, only: [:create, :show, :update, :destroy]
 
     member do
@@ -19,19 +20,19 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :product_tests, only: [:show, :edit, :update, :destroy] do
+  resources :product_tests, only: [:show] do
     member do
-      get :download
+      get :patients
     end
-    resources :tasks, only: [:index, :new, :create]
+    resources :tasks, only: [:index, :show]
     resources :records, only: [:index, :show]
   end
 
-  resources :tasks, only: [:show, :edit, :update, :destroy] do
-    resources :test_executions, only: [:show, :new]
+  resources :tasks, only: [:show] do
+    resources :test_executions, only: [:index, :show, :new, :create, :destroy]
   end
 
-  resources :test_executions, only: [:show, :create, :destroy]
+  resources :test_executions, only: [:show, :destroy]
 
   resources :bundles do
     member do

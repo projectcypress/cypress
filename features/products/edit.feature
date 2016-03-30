@@ -6,7 +6,7 @@ Background:
 
 Scenario: Successful Edit Product
   When the user changes the name of the product
-  Then the user should see an notification saying the product was edited
+  Then the user should see a notification saying the product was edited
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 

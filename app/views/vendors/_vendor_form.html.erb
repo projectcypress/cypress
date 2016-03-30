@@ -10,7 +10,7 @@
     <%= f.text_field :state %>
     <%= f.text_field :zip, 'data-parsley-type': "digits", 'data-parsley-length': "[5, 5]", 'data-parsley-length-message': "This value should be a 5 digit US zip code.", 'data-parsley-trigger': 'blur' %>
 
-    <%= f.fields_for :pocs do |poc_field| %>
+    <%= f.fields_for :points_of_contact do |poc_field| %>
       <div class="row">
         <%= poc_field.text_field :name, wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'POC Name' %>
         <%= poc_field.email_field :email, autocorrect: 'off', autocapitalize: 'off', 'data-parsley-type':"email",  'data-parsley-trigger': 'blur', wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'Email'%>
@@ -20,7 +20,7 @@
       </div>
     <% end %>
 
-    <%= f.link_to_add "Add Point of Contact", :pocs, :class => "btn btn-default", :type => "button" %></p>
+    <%= f.link_to_add "Add Point of Contact", :points_of_contact, :class => "btn btn-default", :type => "button" %></p>
   </div>
 
   <div class="panel-footer">

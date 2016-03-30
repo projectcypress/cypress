@@ -1,0 +1,19 @@
+{
+  "title": "Bundle",
+  "id": "http://cypress.healthit.gov/schemas/bundle.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "title": {"type": "string"},
+    "version": {"type": "string"}
+  },
+    "links": [
+    {
+      "rel": "self",
+      "href": "/bundles/{id}"
+    }, {
+      "rel": "measures",
+      "href": "/bundles/{id}/measures"
+    }
+  ]
+}

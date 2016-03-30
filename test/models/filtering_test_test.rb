@@ -5,7 +5,7 @@ class FilteringTestTest < ActiveJob::TestCase
     collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'health_data_standards_svs_value_sets')
     vendor = Vendor.create(name: 'test_vendor_name')
     @product = vendor.products.create(name: 'test_product', randomize_records: true, c2_test: true, c4_test: true,
-                                      bundle_id: '4fdb62e01d41c820f6000001')
+                                      bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'])
   end
 
   def test_create

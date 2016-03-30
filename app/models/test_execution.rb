@@ -43,7 +43,7 @@ class TestExecution
     # only run for Cat1 tests
     if task._type == 'C1Task' && file_count != task.records.count
       execution_errors.build(:message => "#{task.records.count} files expected but was #{file_count}",
-                             :msg_type => :error, :validator_type => :result_validation)
+                             :msg_type => :error, :validator_type => :result_validation, :validator => :smoking_gun)
     end
     execution_errors.only_errors.count > 0 ? fail : pass
   end

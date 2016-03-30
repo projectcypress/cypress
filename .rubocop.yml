@@ -10,6 +10,8 @@ Rails/HasAndBelongsToMany:
     - 'app/models/role.rb'
 Metrics/LineLength:
   Max: 150
+  Exclude:
+    - 'test/**/*'
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20

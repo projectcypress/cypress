@@ -20,7 +20,7 @@
     <%= ' | ' if vendor_address && @vendor.url? %>
     <%= vendor_address if vendor_address %>
 
-    <%= ' | ' if !@vendor.pocs.empty? && (@vendor.url? || vendor_address) %>
-    <%= pluralize(@vendor.pocs.length, 'POC') unless @vendor.pocs.empty? %>
+    <%= ' | ' if !@vendor.points_of_contact.empty? && (@vendor.url? || vendor_address) %>
+    <%= pluralize(@vendor.points_of_contact.length, 'POC') unless @vendor.points_of_contact.empty? %>
   </div>
 </div>

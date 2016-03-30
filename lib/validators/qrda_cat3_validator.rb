@@ -4,6 +4,8 @@ module Validators
     include HealthDataStandards::Validate
     include Validators::Validator
 
+    self.validator = :qrda_cat3
+
     def initialize(expected_results, test_has_c3)
       @test_has_c3 = test_has_c3
       @expected_results = expected_results

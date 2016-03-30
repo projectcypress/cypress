@@ -1,0 +1,27 @@
+{
+  "title": "Vendor",
+  "id": "http://cypress.healthit.gov/schemas/vendor.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "vendor_id": {"type": "string"},
+    "name": {"type": "string"},
+    "url": {"type": "string"},
+    "address": {"type": "string"},
+    "zip": {"type": "string"},
+    "state": {"type": "string"},
+    "points_of_contact": { "type": "array", "items": { "$ref": "point_of_contact" } },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/vendors/{id}"
+    },
+    {
+      "rel": "products",
+      "href": "/vendors/{id}/products"
+    }
+  ]
+}

@@ -1,5 +1,9 @@
 class MeasuresController < ApplicationController
+  include API::Controller
+
   def index
+    @measures = Bundle.find(params[:bundle_id]).measures.top_level
+    respond_with(@measures.to_a)
   end
 
   def grouped

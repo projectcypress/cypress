@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery :with => :exception
+  include Roar::Rails::ControllerAdditions
+
+  # Prevent CSRF attacks with a null session
+  protect_from_forgery :with => :exception, :unless => -> { request.format.json? || request.format.xml? }
 
   before_action :authenticate_user!, :check_bundle_installed
+  around_action :catch_not_found
+  around_action :catch_parameter_missing
 
   rescue_from CanCan::AccessDenied do |exception|
     render text: exception, status: 401
@@ -86,8 +89,20 @@ class ApplicationController < ActionController::Base
   def required_ability(auth_map)
     ability = nil
     auth_map.each_pair do |k, actions|
-      ability = k if actions.is_a?(Array) && actions.index(params[:action])
+      ability = k if actions.is_a?(Array) && actions.include?(params[:action])
     end
     ability
+  end
+
+  def catch_not_found
+    yield
+  rescue Mongoid::Errors::DocumentNotFound, Mongoid::Errors::InvalidFind
+    render :nothing => true, :status => :not_found
+  end
+
+  def catch_parameter_missing
+    yield
+  rescue ActionController::ParameterMissing
+    render :nothing => true, :status => :bad_request
   end
 end

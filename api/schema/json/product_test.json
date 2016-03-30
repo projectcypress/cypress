@@ -1,0 +1,29 @@
+{
+  "title": "Product Test",
+  "id": "http://cypress.healthit.gov/schemas/product.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "name": {"type": "string"},
+    "cms_id": {"type": "string"},
+    "measure_id": {"type": "string"},
+    "type": {"type": "string"},
+    "state": {"type": "string"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/products/{product_id}/product_tests/{id}"
+    },
+    {
+      "rel": "tasks",
+      "href": "/product_tests/{id}/tasks"
+    },
+    {
+      "rel": "patients",
+      "href": "/product_tests/{id}/patients"
+    }
+  ]
+}

@@ -1,27 +1,25 @@
+require 'api'
+
 class VendorsController < ApplicationController
+  include API::Controller
   before_action :set_vendor, only: [:show, :update, :destroy, :edit]
   before_action :authorize_vendor, only: [:show, :update, :destroy, :edit]
+
   # breadcrumbs
   add_breadcrumb 'Dashboard', :vendors_path
   add_breadcrumb 'Add Vendor',  :new_vendor_path,  only: [:new, :create]
   add_breadcrumb 'Edit Vendor', :edit_vendor_path, only: [:edit, :update]
 
   def index
-    # need to get all of the vendors that the user can see
+    # get all of the vendors that the user can see
     @vendors = Vendor.accessible_by(current_user).order(:updated_at => :desc) # Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
-    respond_to do |f|
-      f.html
-      f.json { render json: @vendors }
-    end
+    respond_with(@vendors.to_a)
   end
 
   def show
     add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
     @products = Product.where(vendor_id: @vendor.id).order_by(state: 'desc')
-    respond_to do |f|
-      f.html
-      f.json { render json: @vendor }
-    end
+    respond_with(@vendor)
   end
 
   def new
@@ -35,12 +33,15 @@ class VendorsController < ApplicationController
     @vendor.save!
     current_user.add_role :owner, @vendor
     flash_comment(@vendor.name, 'success', 'created')
-    respond_to do |f|
-      f.json { redirect_to vendor_url(@vendor) } # TODO: this deals with API
+    respond_with(@vendor) do |f|
       f.html { redirect_to root_path }
+      f.json { render :nothing => true, :status => :created, :location => vendor_path(@vendor.id) }
+      f.xml  { render :nothing => true, :status => :created, :location => vendor_path(@vendor.id) }
     end
   rescue Mongoid::Errors::Validations
-    render :new
+    respond_with(@vendor) do |f|
+      f.html { render :new }
+    end
   end
 
   def edit
@@ -50,16 +51,19 @@ class VendorsController < ApplicationController
     @vendor.update_attributes(vendor_params)
     @vendor.save!
     flash_comment(@vendor.name, 'info', 'edited')
-    redirect_to root_path
+    respond_with(@vendor) do |f|
+      f.html { redirect_to root_path }
+    end
   rescue Mongoid::Errors::Validations
-    render :edit
+    respond_with(@vendor) do |f|
+      f.html { render :edit }
+    end
   end
 
   def destroy
     @vendor.destroy
     flash_comment(@vendor.name, 'danger', 'removed')
-    respond_to do |f|
-      f.json { render nothing: true, status: 201 }
+    respond_with(@vendor) do |f|
       f.html { redirect_to root_path }
     end
   end
@@ -71,7 +75,8 @@ class VendorsController < ApplicationController
   end
 
   def vendor_params
-    params[:vendor].permit :name, :vendor_id, :name, :vendor_id, :url, :address, :state, :zip,
-                           pocs_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy]
+    params.require(:vendor).require(:name)
+    params.require(:vendor).permit(:name, :vendor_id, :url, :address, :state, :zip,
+                                   points_of_contact_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy])
   end
 end

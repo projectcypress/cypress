@@ -5,19 +5,17 @@
 
 #   A N D   #
 
-And(/^the user has created a vendor with a product selecting C1 testing and 5 measures$/) do
+And(/^the user has created a vendor with a product selecting C1 testing with one measure$/) do
   @vendor = FactoryGirl.create(:vendor)
-  @product = Product.new(bundle_id: '4fdb62e01d41c820f6000001')
-  @product.vendor = @vendor
-  @product.name = 'Product 1'
-  @product.c1_test = true
+  @product = Product.new(vendor: @vendor, name: 'Product 1', c1_test: true, measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'],
+                         bundle_id: '4fdb62e01d41c820f6000001')
   @product.product_tests.build({ name: 'test_for_measure_1a',
                                  measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'] }, MeasureTest)
   @product.save!
 end
 
 And(/^the user views that product$/) do
-  visit "/vendors/#{@vendor.id}/products/#{@product.id}"
+  visit vendor_product_path(@vendor, @product)
 end
 
 And(/^the user views the manual entry tab$/) do

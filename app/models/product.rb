@@ -19,14 +19,14 @@ class Product
   field :randomize_records, type: Boolean
   field :duplicate_records, type: Boolean, default: true
   field :measure_selection, type: String
+  field :measure_ids, type: Array
 
   delegate :effective_date, :to => :bundle
 
-  validates :name, presence: true,
-                   uniqueness: { :scope => :vendor,
-                                 :message => 'Product name was already taken. Please choose another.' }
+  validates :name, presence: true, uniqueness: { :scope => :vendor, :message => 'Product name was already taken. Please choose another.' }
 
   validate :meets_required_certification_types?
+  validate :valid_measure_ids?
   validates :vendor, presence: true
 
   def status
@@ -64,34 +64,37 @@ class Product
     errors.add(:tests, 'Product must certify to at least C1 or C2.') unless c1_test || c2_test
   end
 
+  def valid_measure_ids?
+    # byebug if measure_ids == [] || measure_ids == nil
+    if measure_ids.nil? || measure_ids.empty?
+      errors.add(:measure_ids, 'must select at least one')
+    else
+      measure_ids.each do |measure_id|
+        errors.add(:measure_ids, 'must be valid hqmf ids') unless Measure.top_level.where(hqmf_id: measure_id).any?
+      end
+    end
+  end
+
   def at_least_one_measure?
     errors.add(:measure_tests, 'Product must specify least one measure for testing.') unless product_tests.any?
   end
 
-  def measure_ids
-    (product_tests.pluck(:measure_ids) || []).flatten.uniq
-  end
-
-  def add_product_tests_to_product(added_measure_ids = [])
-    return if added_measure_ids.nil?
-
-    new_ids = added_measure_ids - measure_ids
-    to_remove_ids = measure_ids - added_measure_ids
-    untouched_ids = measure_ids - to_remove_ids
-    if c1_test || c2_test || c3_test
-      new_ids.each do |new_measure_id|
-        measure = bundle.measures.top_level.find_by(hqmf_id: new_measure_id)
-        product_tests.build({ name: measure.name, product: self, measure_ids: [new_measure_id],
-                              cms_id: measure.cms_id }, MeasureTest)
-      end
+  # updates product attributes and adds / removes measure tests
+  # replaces all filtering tests and creates new filtering tests
+  def update_with_measure_tests(product_params)
+    new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : []
+    old_ids = measure_ids ? measure_ids : []
+    update_attributes(product_params)
+    (new_ids - old_ids).each do |measure_id|
+      m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
+      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
     end
-
-    to_remove_ids.each { |old_measure_id| product_tests.in(measure_ids: old_measure_id).destroy }
-
-    add_filtering_tests(ApplicationController.helpers.pick_measure_for_filtering_test(untouched_ids + new_ids, bundle)) if c4_test
+    (old_ids - new_ids).each { |measure_id| product_tests.in(measure_ids: measure_id).destroy }
+    add_filtering_tests if c4_test
   end
 
-  def add_filtering_tests(measure)
+  def add_filtering_tests
+    measure = ApplicationController.helpers.pick_measure_for_filtering_test(measure_ids, bundle)
     save!
     reload_relations
 

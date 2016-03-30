@@ -232,7 +232,7 @@ Then(/^the user should not see the product$/) do
   page.assert_no_text @product.name
 end
 
-Then(/^the user should see an notification saying the product was edited$/) do
+Then(/^the user should see a notification saying the product was edited$/) do
   page.assert_text 'was edited'
 end
 

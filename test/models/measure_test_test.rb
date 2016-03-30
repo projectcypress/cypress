@@ -3,7 +3,7 @@ class MeasureTestTest < ActiveJob::TestCase
   def setup
     collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
     @vendor = Vendor.create!(name: 'test_vendor_name')
-    @product = @vendor.products.create(name: 'test_product', bundle_id: '4fdb62e01d41c820f6000001')
+    @product = @vendor.products.create(name: 'test_product', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'], bundle_id: '4fdb62e01d41c820f6000001')
   end
 
   def test_more_than_one_measure
@@ -30,8 +30,9 @@ class MeasureTestTest < ActiveJob::TestCase
 
   def test_create_task_c1
     product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_records: true, duplicate_records: true,
-                                      bundle_id: '4fdb62e01d41c820f6000001')
-    pt = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'] }, MeasureTest)
+                                      bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
+    pt = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
+                                       bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
     pt.create_tasks
     assert pt.tasks.c1_task, 'product test should have a c1_task'
     assert_equal false, pt.tasks.c2_task, 'product test should not have a c2_task'
@@ -50,7 +51,7 @@ class MeasureTestTest < ActiveJob::TestCase
 
   def test_create_without_randomized_records
     product = @vendor.products.create(name: 'test_product_no_random', c2_test: true, randomize_records: false,
-                                      bundle_id: '4fdb62e01d41c820f6000001')
+                                      bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
     assert_enqueued_jobs 0
 
     pt = product.product_tests.build({ name: 'test_for_measure_1a',

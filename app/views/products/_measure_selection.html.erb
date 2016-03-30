@@ -36,23 +36,25 @@
                 </div>
                 <% end %>
                 <% measures.sort_by(&:cms_int).each do |m| %>
-                  <div class="checkbox">
-                    <label class="btn btn-checkbox">
-                      <input type="checkbox"
-                        name="product_test[measure_ids][]"
-                        id="<%= m.hqmf_id %>"
-                        value="<%= m.hqmf_id %>"
-                        data-category="<%= category.tr(" '", "_") %>"
-                        data-measure-type="<%= m.type %>"
-                        data-parsley-mincheck="1"
-                        data-parsley-required=""
-                        data-parsley-error-message="Must select measures"
-                        data-parsley-errors-container="#measures_errors_container"
-                        aria-labelledby="select_custom_measures"
-                        class="measure-checkbox"
-                        <%= 'checked' if defined?(@selected_measure_ids) && @selected_measure_ids.include?(m.hqmf_id) %>
-                        <%= 'disabled' if defined?(@selected_measure_ids) && !@product.new_record? %>/>
-                      <strong><%= m.cms_id %></strong> <%= m.name %> (<%= m.type.upcase %>)
+                  <div class = 'checkbox'>
+                    <label class = 'btn btn-checkbox'>
+                      <input
+                        type = 'checkbox'
+                        name = 'product[measure_ids][]'
+                        class = 'measure-checkbox'
+                        id = <%= "product_measure_ids_#{m.hqmf_id}" %>
+                        value = <%= m.hqmf_id %>
+                        data-category = <%= category.tr(" '", '_') %>
+                        data-measure-type = <%= m.type %>
+                        data-parsley-mincheck = '1'
+                        data-parsley-required = ''
+                        data-parsley-error-message = 'Must select measures'
+                        data-parsley-errors-container = '#measures_errors_container'
+                        aria-labelledby = 'select_custom_measures'
+                        <%= 'checked' if @selected_measure_ids && @selected_measure_ids.include?(m.hqmf_id) %>
+                        <%= 'disabled' if @selected_measure_ids && !@product.new_record? %>
+                      >
+                      <strong><%= m.cms_id %></strong><%= " #{m.name} (#{m.type.upcase})" %>
                     </label>
                   </div>
                 <% end %>
