@@ -25,9 +25,9 @@ $(function() {
       validateString: function(value, requirement) {
         var matches = 0;
         [/\d/, /[A-Z]/, /[a-z]/, /[\W]/].forEach(function(pattern){
-          if (value.match(pattern)) { matches++ };
+          if (value.match(pattern)) { matches++ }
         });
-        return (matches >= 3) ? true : false;
+        return (matches >= 3);
       },
       messages: {
         en: 'Does not have at least 3 of the specified character types.',

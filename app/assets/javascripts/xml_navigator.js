@@ -1,9 +1,9 @@
 !function ($) {
-  
+
   var pluginName = 'navigator',
       defaults = {
         first: '.nav-first', // selector for element to bind to 'first' action
-        prev: '.nav-prev',   // selector for elements to bind to 'prev' action 
+        prev: '.nav-prev',   // selector for elements to bind to 'prev' action
         next: '.nav-next',   // selector for elements to bind to 'next' action
         last: '.nav-last',   // selector for elements to find to 'last' action
         targets : 'body',
@@ -20,7 +20,7 @@
     this._name = pluginName;
     this.action = this.options.action;
     this.init();
-    
+
     return this;
   }
 
@@ -35,7 +35,7 @@
     this.$_prev.click($.proxy(this.prev, this));
     this.$_next.click($.proxy(this.next, this));
     this.$_last.click($.proxy(this.last, this));
-    
+
   };
 
   Navigator.prototype.first = function() {
@@ -45,21 +45,21 @@
   }
   Navigator.prototype.prev = function() {
     this.index = this.index  - 1;
-    if(this.index == NaN || this.index < 0){this.index=0;}
+    if(this.index.isNaN || this.index < 0){this.index=0;}
     var tgt = $(this.targets[this.index]).attr('href');
     this.action(tgt);
   }
   Navigator.prototype.next = function() {
     this.index = this.index +1 ;
-    if(this.index == NaN || this.index >= this.targets.length) { this.index = this.targets.length - 1;}
+    if(this.index.isNaN || this.index >= this.targets.length) { this.index = this.targets.length - 1;}
     var tgt = $(this.targets[this.index]).attr('href');
     this.action(tgt);
   }
   Navigator.prototype.last = function() {
     this.index =  this.targets.length -1;
-    if(this.index == NaN || this.index < 0){this.index=0;}
+    if(this.index.isNaN || this.index < 0){this.index=0;}
     var tgt = $(this.targets[this.index]).attr('href');
-    this.action(tgt);  
+    this.action(tgt);
   }
   Navigator.prototype.setIndex = function(href) {
     for(var i =0; i< this.targets.length; i++){
@@ -91,7 +91,7 @@
       var $win = $(window)
         , $head = $('.xml-nav', o)
         , isFixed = 0;
-   
+
       function processScroll() {
         if (!o.is(':visible')) return;
         var scrollTop = $win.scrollTop();
@@ -99,7 +99,7 @@
         var head_top = $head.offset().top - config.topOffset;
         if      (scrollTop >= head_top && !isFixed) { isFixed = 1; }
         else if (scrollTop < o_top && isFixed) { isFixed = 0; }
-      
+
         isFixed ? $head.show().addClass("navbar-fixed-top")
                 : $head.removeClass("navbar-fixed-top");
       }
@@ -108,5 +108,5 @@
     });
     return return_val;
   };
- 
+
 })(jQuery);
