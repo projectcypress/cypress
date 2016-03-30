@@ -4,6 +4,8 @@ module Cypress
     def initialize(args = nil)
       @options = args ? args : {}
       @logger = Rails.logger
+      @patient_link_product_test_hash = {}
+      @patient_links_task_hash = {}
       @cypress_host = if @options[:cypress_host]
                         @options[:cypress_host]
                       else
@@ -17,15 +19,12 @@ module Cypress
       @logger.info 'done'
     end
 
-    def run_measure_eval
-      patient_links_task_hash = {}
-      patient_link_product_test_hash = {}
+    def setup_vendor_tests
       measures_list = []
-
       # getting measures from bundles is a little convoluted
       bundles = parsed_api_object(call_get_bundles)
       measures_link = extract_link(bundles[0], 'measures')
-      bundle_id = measures_link.split('/')[2]
+      @bundle_id = measures_link.split('/')[2]
       measures = parsed_api_object(call_get_measures(measures_link))
 
       measures.each do |measure|
@@ -35,7 +34,7 @@ module Cypress
       # create vendor
       vendor_link = create_new_vendor('MeasureEvaluationVendor')
       # create a product for the vendor
-      product_link = create_new_product(bundle_id, vendor_link, 'api_product_1', measures_list.uniq[0,5])
+      product_link = create_new_product(@bundle_id, vendor_link, 'api_product_1', measures_list.uniq[0,5])
       # get the product create
       single_product = call_get_product(product_link)
       # get the link to the product's product tests
@@ -51,18 +50,20 @@ module Cypress
         # get link for patient download for product
         patient_download_link = extract_link(product_test, 'patients')
         # hash of patient list with product test tasks - this will be used for upload
-        patient_links_task_hash[patient_download_link] = parsed_api_object(product_test_tasks)
+        @patient_links_task_hash[patient_download_link] = parsed_api_object(product_test_tasks)
         # hash of patient list with product tests - this is used to see if the patiets are ready
-        patient_link_product_test_hash[patient_download_link] = extract_link(product_test, 'self')
+        @patient_link_product_test_hash[patient_download_link] = extract_link(product_test, 'self')
       end
+    end
 
+    def download_patient_test_data
       # array of all patient download links
-      not_dowloaded_test_patients = patient_links_task_hash.keys
+      not_dowloaded_test_patients = @patient_links_task_hash.keys
 
       # run until all patient links have been downloaded
       until not_dowloaded_test_patients.empty?
         patient_download_link = not_dowloaded_test_patients.pop
-        pt = parsed_api_object(call_get_product_test(patient_link_product_test_hash[patient_download_link]))
+        pt = parsed_api_object(call_get_product_test(@patient_link_product_test_hash[patient_download_link]))
         # if patient deck is ready, download - add download link back to array if not ready and shuffle
         # note, patient download link needs to get rescued...sometimes test is ready before zip is
         if pt.state == 'ready'
@@ -75,10 +76,15 @@ module Cypress
           not_dowloaded_test_patients.shuffle!
         end
       end
+    end
 
-      patient_links_task_hash.each do |patient_links|
+    def run_measure_eval
+      setup_vendor_tests
+      download_patient_test_data
+
+      @patient_links_task_hash.each do |patient_links|
         upload_c1_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2])
-        calcuate_cat_3(patient_links[0].split('/')[2], bundle_id)
+        calcuate_cat_3(patient_links[0].split('/')[2], @bundle_id)
         upload_c2_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2])
       end
     end

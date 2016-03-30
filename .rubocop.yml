@@ -19,6 +19,7 @@ Metrics/ClassLength:
   Max: 100
   Exclude:
     - 'test/**/*'
+    - 'lib/cypress/api_measure_evaluator.rb'
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be a Fixnum or
   # a Float.
