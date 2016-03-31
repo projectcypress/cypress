@@ -1,0 +1,85 @@
+.carousel {
+	margin-bottom: 0;
+	padding:0 40px;
+}
+
+.carousel-control {
+	left: -18px;
+}
+.carousel-control.right {
+	right: -18px;
+}
+
+
+.carousel a.carousel-control {
+	color: #FFF;
+	background-color: #757575;
+	opacity: 1;
+	filter: alpha(opacity=100);	
+}
+
+.carousel a.carousel-control:hover, .carousel a.carousel-control:focus, .carousel a.carousel-control:active {
+	color: #FF0;
+	background-color: #000;
+	text-decoration: none;
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+
+/* .carousel-indicators {
+	right: 50%;
+	top: auto;
+	bottom: 0px;
+	margin-right: -19px;
+}
+
+.carousel-indicators li {
+	background: #313030;
+}
+
+.carousel-indicators .active {
+background: #212020;
+} */
+
+.carousel {
+margin:20px 0px;
+}
+
+.carousel ul {
+margin:0;
+}
+
+.carousel ul li a {
+	display:block;
+	width:100%;
+	background:#dedede;
+	padding:20px;
+	color:#313030;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	border:1px solid #d0d0d0;
+}
+
+.carousel ul li a:hover, .carousel ul li a:active, .carousel ul li a:focus {
+	background:#313030;
+	text-decoration:none;
+	color:#fff;
+	border:1px solid #212020;
+}
+
+.carouselwrapper {
+	background:#f3f3f3;
+}
+
+.fivecolumn .col-md-2 {width: 17.94871794871795%;
+  *width: 17.884615384615383%;}
+  
+  
+  body .carousel-inner {
+  	overflow: hidden;
+  }
+  
+  body .sliding .carousel-inner {
+  	overflow: hidden;
+  }

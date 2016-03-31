@@ -1,0 +1,175 @@
+/************************ COLLAPSIBLE CONTENT ************************/
+/************************ not using now ******************************/
+.collapsibleBoxActive, .collapsibleBoxComplete, .collapsibleBoxInactive {
+    border-radius: 5px 5px 5px 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 10px 0 0;
+    clear: both;
+    overflow: hidden;
+    width: 100%;
+}
+
+.collapsible {
+    width: 100%;
+    float: left;
+}
+
+.collapsible-heading, .collapsible-heading-collapsed {
+    cursor: pointer;
+    float: right;
+    font-size: 14px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+
+.infoBoxBar .collapsible-heading {
+    margin-right: 20px;
+    padding-top: 5px;
+    outline-color: #046792;
+}
+
+.collapsible-heading-status {
+    position: absolute;
+    left: -99999px;
+}
+
+.collapsible-content {
+    float: left;
+    overflow: hidden;
+    width: 100%;
+    /* needed for tables to spread out */
+}
+
+.collapsible-content-collapsed {
+    display: none;
+}
+
+.collapsible span.avoidoverflow {
+    margin-right: 5em;
+}
+
+h2.collapsible, h3.collapsible {
+    color: #000;
+    font-size: 1.2em;
+    position: relative;
+    margin: 0.2em;
+    width: 100%;
+    cursor: pointer;
+}
+
+h2.collapsible a:focus, h3.collapsible a:focus {
+    outline-color: #009;
+}
+
+h2.collapsible .collapsible-heading, h2.collapsible .collapsible-heading-collapsed, h3.collapsible .collapsible-heading, h3.collapsible .collapsible-heading-collapsed {
+    padding: 0;
+    position: absolute;
+    right: 1em;
+    top: 0;
+}
+
+h2 .btn-small, h2 .btn-xmini {
+    font-size: .5em;
+}
+
+h2 .btn-link {
+    font-size: .75em;
+}
+
+.collapsibleDescription {
+    font-size: .875em;
+    font-weight: normal;
+    color: #000;
+}
+
+.collapsible-content h3 {
+    font-size: 1.25em;
+    font-weight: bold;
+    letter-spacing: -.03em;
+}
+
+.collapsible-content h4 {
+    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: .04em;
+}
+
+.collapsible-content p {
+    font-size: 1em;
+    line-height: 1.1em;
+}
+
+.collapsible-content p.normal-text {
+    font-size: 1em;
+    line-height: 1.33em;
+}
+
+.sourceText {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.eligibleNotes {
+    text-align: right;
+    float: right;
+    white-space: nowrap;
+}
+
+/************************ COLLAPSIBLE HEADING WITH ICON -- USED AS A DIV, NOT HEADING ************************/
+/* not using this? */
+.collapsible-heading-icon {
+    /*background: url(../../../../global/images/icon-triangle.png) right 6px no-repeat;*/
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.collapse-icon {
+    background: url(../../../../vendor/globalassets/images/icon-triangle.png) right 0px no-repeat;
+    background-position: right -84px;
+    margin-right: 5px;
+}
+
+.expand-icon {
+    background: url(../../../../vendor/globalassets/images/icon-triangle.png) right 0px no-repeat;
+    margin-right: 5px;
+}
+
+.collapsible-heading-collapsed-icon {
+    background-position: right -84px;
+}
+
+.collapsible-heading-toggle-icon {
+    text-decoration: none;
+    color: #333;
+}
+
+.collapsible-heading-status-icon {
+    position: absolute;
+    left: -99999px;
+}
+
+.collapsible-content-icon {
+    overflow: hidden;
+}
+
+.collapsible-content-collapsed-icon {
+    display: none;
+}
+
+.collapsible a.fontIconIndicator .toggleIcon {
+    font-size: 18px;
+    font-size: 1.1rem;
+}
+
+.collapsible a.fontIconIndicator:focus, .collapsible a.fontIconIndicator:hover, .collapsible a.fontIconIndicator:active {
+    text-decoration: none;
+}
