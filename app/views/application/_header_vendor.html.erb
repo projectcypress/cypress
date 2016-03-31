@@ -10,17 +10,63 @@
         <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Vendor
       <% end %>
     </div>
+
     <h1 class="summary-title"><%= @vendor.name %> <% if @vendor.vendor_id? %>(ID: <%= @vendor.vendor_id %>)<% end %></h1>
 
-    <% if @vendor.url? %>
-      <p><a href="<%= website_link(@vendor.url) %>" target="_blank"><%= website_link(@vendor.url) %></a>
+    <% if @vendor.url? || @vendor.address? || !@vendor.points_of_contact.empty? %>
+      <ul class="fa-ul vendor-details">
+        <% if @vendor.url? %>
+          <li>
+            <i class="fa-li fa fa-globe" aria-hidden="true"></i>
+            <span class="sr-only">Website for vendor <%= @vendor.name %></span>
+            <a href="<%= website_link(@vendor.url) %>"><%= website_link(@vendor.url) %></a>
+          </li>
+        <% end %>
+        <% if @vendor.address? %>
+          <li>
+            <i class="fa-li fa fa-home" aria-hidden="true"></i>
+            <span class="sr-only">Address for vendor <%= @vendor.name %></span>
+            <%= formatted_vendor_address(@vendor) %>
+          </li>
+        <% end %>
+        <% if !@vendor.points_of_contact.empty? %>
+        <span class="sr-only">Points of contact for vendor <%= @vendor.name %></span>
+          <% @vendor.points_of_contact.each do |poc| %>
+            <li class="point-of-contact">
+              <i class="fa-li fa fa-user" aria-hidden="true"></i>
+              <%= poc.name %> <%= "(#{poc.contact_type})" if poc.contact_type? %>
+              <% if poc.email? || poc.phone? %>
+                <ul class="fa-ul">
+                  <% if poc.email? %>
+                    <li>
+                      <i class="fa-li fa fa-envelope" aria-hidden="true"></i>
+                      <span class="sr-only">Email for <%= poc.name %></span>
+                      <a href="mailto:<%= poc.email %>?subject=Cypress%20testing%20for%20<%= @vendor.name %>">
+                        <%= poc.email %>
+                      </a>
+                    </li>
+                  <% end %>
+                  <% if poc.phone? %>
+                    <li>
+                      <i class="fa-li fa fa-phone" aria-hidden="true"></i>
+                      <span class="sr-only">Phone number for <%= poc.name %></span>
+                      <% if poc.phone.gsub(/[^0-9]/, '').length == 10 %>
+                        <a href="tel:<%= number_to_phone(poc.phone.gsub(/[^0-9]/, ''), country_code: 1) %>">
+                          <%= number_to_phone(poc.phone.gsub(/[^0-9]/, ''), area_code: true) %>
+                        </a>
+                      <% else %>
+                        <a href="tel:<%= poc.phone.gsub(/[^0-9]/, '') %>">
+                          <%= poc.phone.gsub(/[^0-9]/, '') %>
+                        </a>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
     <% end %>
-
-    <% vendor_address = formatted_vendor_address(@vendor) %>
-    <%= ' | ' if vendor_address && @vendor.url? %>
-    <%= vendor_address if vendor_address %>
-
-    <%= ' | ' if !@vendor.points_of_contact.empty? && (@vendor.url? || vendor_address) %>
-    <%= pluralize(@vendor.points_of_contact.length, 'POC') unless @vendor.points_of_contact.empty? %>
   </div>
 </div>
