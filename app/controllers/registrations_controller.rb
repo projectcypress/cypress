@@ -6,18 +6,12 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters
 
   def new
-    super
-  end
-
-  def create
+    @title = 'Create Account'
     super
   end
 
   def edit
-    super
-  end
-
-  def cancel
+    @title = 'Edit Account'
     super
   end
 

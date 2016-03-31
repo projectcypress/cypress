@@ -12,6 +12,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
                         'records', 'patient_populations')
     @vendor = Vendor.find(EHR1)
     @first_product = @vendor.products.first
+    @first_product.bundle = Bundle.default
+    @first_product.save
     @first_test = @first_product.product_tests.first
     @first_task = @first_test.tasks.first
     @first_execution = @first_task.test_executions.first

@@ -5,7 +5,7 @@ class HomeControllerTest < ActionController::TestCase
   test 'should get index without logged in user' do
     get :index
     assert_response :redirect
-    assert_redirected_to controller: 'devise/sessions', action: 'new'
+    assert_redirected_to controller: 'sessions', action: 'new'
   end
 
   test 'should get index with logged in user' do

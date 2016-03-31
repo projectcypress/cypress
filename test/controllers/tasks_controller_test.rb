@@ -5,7 +5,7 @@ class TasksControllerTest < ActionController::TestCase
   include ApiTest
 
   setup do
-    collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'users', 'roles')
+    collection_fixtures('vendors', 'bundles', 'measures', 'products', 'product_tests', 'tasks', 'users', 'roles')
     @vendor = Vendor.find(EHR1)
     @product = @vendor.products.first
     @test = @product.product_tests.first
