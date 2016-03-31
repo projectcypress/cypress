@@ -356,8 +356,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should see execution_errors when test_execution is ready after xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        @first_task.product_test = @first_product.product_tests.build({ name: 'mtest2', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
-                                                                        bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+        @first_task.product_test = @first_product.product_tests.build({ name: 'mtest2',
+                                                                        measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }, MeasureTest)
         @first_task.product_test.save!
         @first_task.save!
         post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
