@@ -48,13 +48,12 @@ class TestExecutionsController < ApplicationController
 
   private
 
-  # in separate function because rubocop assignment branch condition size was too high
   def rescue_create
     alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
     respond_with(@test_execution) do |f|
       f.html { redirect_to new_task_test_execution_path(task_id: @task.id), flash: { alert: alert.html_safe } }
-      f.json { render :nothing => true, :status => :unprocessable_entity }
-      f.xml  { render :nothing => true, :status => :unprocessable_entity }
+      f.json { render :json => { errors: 'invalid file upload. upload a zip for CAT I or XML for CAT III' }, :status => :unprocessable_entity }
+      f.xml  { render :xml => { errors: 'invalid file upload. upload a zip for CAT I or XML for CAT III' }, :status => :unprocessable_entity }
     end
   end
 
@@ -74,6 +73,6 @@ class TestExecutionsController < ApplicationController
   end
 
   def results_params
-    params.require(:results)
+    params[:results]
   end
 end

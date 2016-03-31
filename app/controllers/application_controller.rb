@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!, :check_bundle_installed, except: [:page_not_found, :server_error]
   around_action :catch_not_found
-  around_action :catch_parameter_missing
 
   rescue_from CanCan::AccessDenied do |exception|
     render text: exception, status: 401
@@ -112,11 +111,5 @@ class ApplicationController < ActionController::Base
     yield
   rescue Mongoid::Errors::DocumentNotFound, Mongoid::Errors::InvalidFind
     render :nothing => true, :status => :not_found
-  end
-
-  def catch_parameter_missing
-    yield
-  rescue ActionController::ParameterMissing
-    render :nothing => true, :status => :bad_request
   end
 end

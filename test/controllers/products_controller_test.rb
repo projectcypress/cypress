@@ -349,7 +349,7 @@ class ProductsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       post :create, :format => :json, :vendor_id => vendor.id, :product => { c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
                                                                              measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }
-      assert_response 400, 'response should be Bad Request on product create'
+      assert_response 422, 'response should be Unprocessable Entity on product create with no name'
     end
   end
 
@@ -368,10 +368,10 @@ class ProductsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       post :create, :format => :json, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true,
                                                                              bundle_id: '4fdb62e01d41c820f6000001' }
-      assert_response 400, 'response should be Bad Request on product create'
+      assert_response 422, 'response should be Unprocessable Entity on product create with no measure_ids'
       post :create, :format => :json, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true, measure_ids: [],
                                                                              bundle_id: '4fdb62e01d41c820f6000001' }
-      assert_response 400, 'response should be Bad Request on product create'
+      assert_response 422, 'response should be Unprocessable Entity on product create with empty measure_ids'
     end
   end
 
