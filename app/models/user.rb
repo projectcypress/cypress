@@ -2,9 +2,10 @@ class User
   include Mongoid::Document
   rolify
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :timeoutable
+         :recoverable, :rememberable, :trackable,
+         :validatable, :timeoutable, :lockable
 
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -23,6 +24,9 @@ class User
   field :last_sign_in_at,    type: Time
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
+
+  ## Lockable
+  field :locked_at, type: Time
 
   field :approved, type: Boolean, default: APP_CONFIG.auto_approve || false
 

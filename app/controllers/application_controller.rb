@@ -70,19 +70,23 @@ class ApplicationController < ActionController::Base
 
   def set_vendor
     @vendor = params[:vendor_id] ? Vendor.find(params[:vendor_id]) : Vendor.find(params[:id])
+    @title = @vendor.name
   end
 
   def set_product
     product_finder = @vendor ? @vendor.products : Product
     @product = params[:product_id] ? product_finder.find(params[:product_id]) : product_finder.find(params[:id])
+    @title = @product.name
   end
 
   def set_product_test
     @product_test = params[:product_test_id] ? ProductTest.find(params[:product_test_id]) : ProductTest.find(params[:id])
+    @title = "#{@product_test.product.name} C1 Manual Test" if @product_test.is_a?(ChecklistTest)
   end
 
   def set_task
     @task = params[:task_id] ? Task.find(params[:task_id]) : Task.find(params[:id])
+    @title = "#{@task.product_test.product.name} #{@task.product_test.cms_id} #{@task._type.titleize}"
   end
 
   def set_test_execution
