@@ -83,7 +83,7 @@
     </div>
 
     <div class="panel-footer">
-      <%= f.submit submit_text, class: "btn btn-success", disabled: true %>
+      <%= f.submit submit_text, class: "btn btn-success", disabled: @product.new_record? %>
       <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
     </div>
   <% end %>
