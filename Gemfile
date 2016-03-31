@@ -33,7 +33,6 @@ gem 'breadcrumbs_on_rails'
 gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git', branch: 'master'
 gem 'nested_form'
 gem 'jasny-bootstrap-rails'
-gem 'select2-rails'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
 
