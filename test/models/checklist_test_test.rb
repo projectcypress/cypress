@@ -33,12 +33,6 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 0, @test.num_measures_not_started
   end
 
-  def test_num_measures
-    assert_equal 1, @test.num_measures
-    @test.measure_ids << 'sample_measure_id'
-    assert_equal 2, @test.num_measures
-  end
-
   def test_measure_status
     measure_id = Measure.top_level.where(:hqmf_id.in => @test.measure_ids).first.id
     @test.create_checked_criteria

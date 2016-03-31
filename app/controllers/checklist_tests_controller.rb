@@ -37,7 +37,7 @@ class ChecklistTestsController < ProductTestsController
   private
 
   def set_measures
-    @measures = @product_test.measures.top_level.sort_by(&:cms_int)
+    @measures = @product_test.measures.sort_by(&:cms_int)
   end
 
   # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

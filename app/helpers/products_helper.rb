@@ -34,7 +34,7 @@ module ProductsHelper
   def checklist_status_values(test)
     return [0, 0, 0, 0] unless test
     passing = test.num_measures_complete
-    total = test.num_measures
+    total = test.measures.count
     not_started = test.num_measures_not_started
     failing = total - not_started - passing
     [passing, failing, not_started, total]

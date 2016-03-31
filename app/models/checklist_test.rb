@@ -21,8 +21,19 @@ class ChecklistTest < ProductTest
     num_not_started
   end
 
-  def num_measures
-    measure_ids.count
+  def measures
+    # measure list is changed once checklist is created, measures are based on checklist criteria
+    if !checked_criteria.empty?
+      measure_ids = []
+      checked_criteria.each do |critiera|
+        unless measure_ids.include? critiera.measure_id
+          measure_ids << critiera.measure_id
+        end
+      end
+      Measure.where(:_id.in => measure_ids)
+    else
+      super
+    end
   end
 
   def measure_status(measure_id)
@@ -45,8 +56,11 @@ class ChecklistTest < ProductTest
       measure_criteria_map[measure] = data_criteria_selector
       measure_rank_map[measure] = intereting_criteria
     end
-    # Selects first 4 measures by number of intereting data criteria
-    measure_rank_map.sort_by { |_key, value| value }.reverse.first(4).each do |value|
+    measure_rank_map.sort_by { |_key, value| value }.reverse_each do |value|
+      # If there are aleady 4 checklist measure, move on
+      next if checklist_measures.size > 3
+      # If the measure is already a checklist measure (due to submeasures), move on
+      next if checklist_measures.include? value[0].hqmf_id
       checklist_measures << value[0].hqmf_id
       measure_criteria_map[value[0]].each do |criteria_key|
         checked_criterias.push(measure_id: value[0].id.to_s, source_data_criteria: criteria_key, completed: false)
