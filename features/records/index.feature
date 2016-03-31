@@ -29,6 +29,7 @@ Scenario: Successful switch bundles
 
 Scenario: Successful filter records
   When the user visits the records page
+  And the user searches for a measure
   And the user selects a measure from the dropdown
   Then the user should see results for that measure
   Then the page should be accessible according to: section508
