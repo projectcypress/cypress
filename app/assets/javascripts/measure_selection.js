@@ -21,7 +21,7 @@ function ToggleCustomSelection(task) {
     }
   }
 
-  if (shouldHideView() !== undefined) {
+  if (typeof shouldHideView() !== "undefined") {
     $('.select-measures').toggleClass('hidden', shouldHideView());
   }
 }
@@ -57,7 +57,6 @@ function UpdateGroupSelections(event) {
 function UpdateMeasureSet(bundle_id) {
 
   $("#measure_selection_section").empty();
-      var ids = [];
       // get the measures for this type of test
       $.ajax({
           url: "/bundles/" + bundle_id + "/measures/grouped",
@@ -72,8 +71,6 @@ function UpdateMeasureSet(bundle_id) {
           }
       });
 }
-
-
 
 
 // these pieces need to run every time the bundle is changed
@@ -109,8 +106,6 @@ ready_run_on_refresh_bundle = function() {
 // these pieces should run only once, at page load
 var ready_run_once;
 ready_run_once = function() {
-
-
 
   ////////////////////////////
   // Set up event listeners //
