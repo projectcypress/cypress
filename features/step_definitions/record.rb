@@ -20,9 +20,8 @@ Then(/^the user should see a list of patients$/) do
 end
 
 And(/^the user should see a way to filter patients$/) do
-  page.assert_text 'Filter by Measure'
-  options = ['All measures'] + @bundle.measures.map(&:display_name)
-  assert page.has_select?('measure_id', with_options: options)
+  page.assert_text 'Type to search by measure'
+  assert page.has_selector?('#search_measures'), 'no search box'
 end
 
 And(/^the user should see a way to switch bundles$/) do
