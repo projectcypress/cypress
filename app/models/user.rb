@@ -32,6 +32,8 @@ class User
 
   validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
 
+  after_create :associate_points_of_contact
+
   def active_for_authentication?
     super && approved?
   end
@@ -59,6 +61,12 @@ class User
       if password == email
         errors.add :password, 'email and password must be different'
       end
+    end
+  end
+
+  def associate_points_of_contact
+    Vendor.where('points_of_contact.email' => email).each do |vendor|
+      add_role :vendor, vendor
     end
   end
 

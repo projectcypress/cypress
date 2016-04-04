@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class VendorTest < ActiveSupport::TestCase
+  VENDOR = '4def93dd4f85cf8968000003'.freeze
+  OTHER_VENDOR = '4def93dd4f85cf8968000004'.freeze
   def setup
+    collection_fixtures 'users'
     Vendor.all.destroy
   end
 
@@ -36,6 +39,54 @@ class VendorTest < ActiveSupport::TestCase
     p = PointOfContact.new(name: 'test_poc_name')
     p.vendor = v
     assert v.save!
+  end
+
+  def test_vendor_poc_can_be_associated_with_user
+    v = Vendor.new(name: 'test_vendor_name')
+    p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
+    p.vendor = v
+    assert v.save!
+    assert (p.user.has_role? :vendor, v), 'Point of contact should have been associated with user'
+  end
+
+  def test_updated_vendor_poc_can_be_associated_with_user
+    v = Vendor.new(name: 'test_vendor_name')
+    p = PointOfContact.new(name: 'test_poc_name')
+    p.vendor = v
+    assert v.save!
+    assert p.user.nil?, 'User for POC should be nil'
+    p.email = 'vendor@test.com'
+    p.save
+    assert (p.user.has_role? :vendor, v), 'Point of contact should have been associated with user'
+  end
+
+  def test_updated_vendor_poc_can_be_associated_with_user
+    v = Vendor.new(name: 'test_vendor_name')
+    p = PointOfContact.new(name: 'test_poc_name')
+    p.vendor = v
+    assert v.save!
+    assert p.user.nil?, 'User for POC should be nil'
+    p.email = 'vendor@test.com'
+    p.save
+    assert (p.user.has_role? :vendor, v), 'Point of contact should have been associated with user'
+  end
+
+  def test_changing_poc_email_updates_user_roles
+    v = Vendor.new(name: 'test_vendor_name')
+    p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
+    vu = User.find(VENDOR)
+    vo = User.find(OTHER_VENDOR)
+    p.vendor = v
+    assert v.save!
+    assert (p.user.has_role? :vendor, v), 'Point of contact should have been associated with user'
+    assert (p.user == vu), 'POC user should be same as vendor '
+    p.email = 'other@test.com'
+    p.save
+
+    vu.reload
+    assert (p.user.has_role? :vendor, v), 'Point of contact should have been associated with user'
+    assert (p.user == vo), 'POC user should be same as other vendor '
+    assert !vu.has_role?(:vendor, v), 'Vendor role should have been removed from vendor user'
   end
 
   def test_vendor_with_multiple_pocs_can_be_saved

@@ -2,6 +2,7 @@ class PointOfContact
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
+  include Mongoid::Changeable
 
   embedded_in :vendor
 
@@ -11,4 +12,40 @@ class PointOfContact
   field :email, type: String
   field :phone, type: String
   field :contact_type, type: String
+
+  before_save :check_for_email_changes
+  after_save :add_vendor_role
+  before_destroy :remove_vendor_role
+
+  def user
+    User.find_by(email: email) if email
+  rescue
+  end
+
+  def vendor_role?
+    user && user.has_role?(:vendor, vendor)
+  end
+
+  def remove_vendor_role
+    user.remove_role(:vendor, vendor) if user
+  end
+
+  def add_vendor_role
+    user.add_role(:vendor, vendor) if user && !vendor_role?
+  end
+
+  private
+
+  def check_for_email_changes
+    if changes['email']
+      old_email, new_email = changes['email']
+      if !old_email.nil? && !old_email.delete(' ').empty?
+        begin
+          u = User.find_by(email: old_email)
+          u.remove_role(:vendor, vendor)
+        rescue
+        end
+      end
+    end
+  end
 end
