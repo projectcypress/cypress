@@ -39,7 +39,7 @@ class VendorsController < ApplicationController
       f.xml  { render :nothing => true, :status => :created, :location => vendor_path(@vendor.id) }
     end
   rescue Mongoid::Errors::Validations
-    respond_with(@vendor) do |f|
+    respond_with_errors(@vendor) do |f|
       f.html { render :new, :status => :bad_request }
     end
   end
@@ -55,7 +55,7 @@ class VendorsController < ApplicationController
       f.html { redirect_to root_path }
     end
   rescue Mongoid::Errors::Validations
-    respond_with(@vendor) do |f|
+    respond_with_errors(@vendor) do |f|
       f.html { render :edit, :status => :bad_request }
     end
   end

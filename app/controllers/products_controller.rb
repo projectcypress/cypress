@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
       f.xml  { render :nothing => true, :status => :created, :location => vendor_product_path(@vendor, @product.id) }
     end
   rescue Mongoid::Errors::Validations, Mongoid::Errors::DocumentNotFound
-    respond_with(@product) do |f|
+    respond_with_errors(@product) do |f|
       f.html do
         setup_new
         @selected_measure_ids = product_params['measure_ids']

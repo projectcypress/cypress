@@ -1,5 +1,9 @@
 require 'test_helper'
+require 'api_test'
+
 class VendorsControllerTest < ActionController::TestCase
+  include ApiTest
+
   setup do
     collection_fixtures('vendors', 'products', 'users', 'roles')
   end
@@ -92,7 +96,7 @@ class VendorsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       post :create, :format => :json, :vendor => { name: Vendor.first.name, poc_attributes: { name: 'test poc' } }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
-      assert_not_nil response.body['errors']
+      assert_has_json_errors JSON.parse(response.body), 'name' => ['Vendor name was already taken. Please choose another.']
     end
   end
 
@@ -100,7 +104,7 @@ class VendorsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       post :create, :format => :json, :vendor => { poc_attributes: { name: 'test poc' } }
       assert_response 422, 'response should be Unprocessable Entity if no name given'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'name' => ['can\'t be blank']
     end
   end
 
@@ -118,7 +122,7 @@ class VendorsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       patch :update, :format => :json, :id => Vendor.find(EHR1).id, :vendor => { name: vendor_taken_name.name }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
-      assert_not_nil response.body['errors']
+      assert_has_json_errors JSON.parse(response.body), 'name' => ['Vendor name was already taken. Please choose another.']
     end
   end
 
@@ -190,7 +194,7 @@ class VendorsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       post :create, :format => :xml, :vendor => { name: Vendor.first.name, poc_attributes: { name: 'test poc' } }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
-      assert_not_nil response.body['errors']
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'name' => ['Vendor name was already taken. Please choose another.']
     end
   end
 
@@ -198,7 +202,7 @@ class VendorsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       post :create, :format => :xml, :vendor => { poc_attributes: { name: 'test poc' } }
       assert_response 422, 'response should be Unprocessable Entity if no name given'
-      assert_not_nil Hash.from_trusted_xml(response.body)['errors']
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'name' => ['can\'t be blank']
     end
   end
 
