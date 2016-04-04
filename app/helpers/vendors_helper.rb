@@ -25,7 +25,7 @@ module VendorsHelper
     h['cat1'] = Hash[%w(passing failing not_started total).zip(product_test_status_values(product.product_tests.measure_tests, 'C1Task'))]
     h['sums'] = h['cat1'].merge(h['checklist']) { |_key, old_val, new_val| old_val + new_val }
     h['href'] = "product_#{product.id}_c1"
-    h['checklist']['display_name'] = 'Manual Entry'
+    h['checklist']['display_name'] = 'Manual'
     h['cat1']['display_name'] = 'Cat I'
     h
   end
@@ -63,54 +63,23 @@ module VendorsHelper
     h
   end
 
-  def cert_type_to_display_name(cert_type)
-    case cert_type
-    when 'C1' then 'C1 certification (Record and Export)'
-    when 'C2' then 'C2 certification (Import and Calculate)'
-    when 'C3' then 'C3 certification (Submission)'
-    when 'C4' then 'C4 certification (Filtering)'
-    end
-  end
-
-  # cert_hash (Hash) should contain 'sums' hash containing number of 'passing', 'failing', 'not_started', and 'total'
-  # used for certification specifics popup on vendor show page
-  def cert_status(cert_hash)
-    if not_started_a_test?(cert_hash)
-      'Not Complete'
-    elsif cert_hash.sums.failing > 0
-      'Failing'
-    elsif cert_hash.sums.passing == cert_hash.sums.total
-      'Passing'
-    else
-      'Not Complete'
-    end
-  end
-
-  # returns true if a test type in the certification hash has no tests (total tests == 0)
-  def not_started_a_test?(cert_hash)
-    cert_hash.select { |_test_key, test_val| test_val.is_a?(Hash) && test_val.key?('display_name') }.each do |_test_key, test_val|
-      return true if test_val.total == 0
-    end
-    false
-  end
-
   # status should be 'Passing', 'Failing', or 'Not Complete'
-  # used for each certification specifics popup on vendor show page
-  def status_to_css_class(status)
-    case status
-    when 'Passing' then 'text-success'
-    when 'Failing' then 'text-danger'
-    else 'text-info'
-    end
-  end
+  # used for each certification status on vendor show page
+  def status_to_css_classes(status)
+    classes = {}
 
-  # displayed under each progress bar on vendor show page
-  def status_to_display_text(status, cert_type, cert_hash)
-    return 'not started' if cert_hash.sums.total == 0
     case status
-    when 'Passing' then "#{cert_type} certified"
-    when 'Failing' then "#{cert_hash.sums.failing} tests failing"
-    else "#{cert_hash.sums.not_started} tests to go"
+    when 'Passing'
+      classes['cell'] = 'status-passing'
+      classes['icon'] = 'fa-check'
+    when 'Failing'
+      classes['cell'] = 'status-failing'
+      classes['icon'] = 'fa-times'
+    else
+      classes['cell'] = 'status-not-started'
+      classes['icon'] = 'fa-circle-o'
     end
+
+    classes
   end
 end

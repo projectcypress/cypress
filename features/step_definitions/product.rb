@@ -135,6 +135,7 @@ When(/^the user cancels creating a product$/) do
 end
 
 When(/^the user changes the name of the product$/) do
+  page.click_link @product.name
   page.click_button 'Edit Product'
   @product_other = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product_other.name
@@ -142,6 +143,7 @@ When(/^the user changes the name of the product$/) do
 end
 
 When(/^the user removes the product$/) do
+  page.click_link @product.name
   page.click_button 'Edit Product'
   page.click_button 'Delete Product'
   page.fill_in 'Remove Name', with: @product.name
@@ -149,6 +151,7 @@ When(/^the user removes the product$/) do
 end
 
 When(/^the user removes the product from the vendor page$/) do
+  page.click_link @product.name
   page.click_button 'Edit Product'
   page.click_button 'Delete Product'
   page.fill_in 'Remove Name', with: @product.name
@@ -156,6 +159,7 @@ When(/^the user removes the product from the vendor page$/) do
 end
 
 When(/^the user cancels removing the product$/) do
+  page.click_link @product.name
   page.click_button 'Edit Product'
   page.click_button 'Delete Product'
   page.find('div.modal-footer').find('button', text: 'Cancel').click
