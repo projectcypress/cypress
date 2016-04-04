@@ -55,6 +55,14 @@ Rails.application.routes.draw do
 
   resources :records, only: [:index, :show]
 
+  namespace :admin do
+    resources :users do
+      member do
+        get :reset_password
+        get :toggle_approved
+      end
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

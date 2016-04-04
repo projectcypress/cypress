@@ -1,0 +1,33 @@
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Approved</th>
+      <th>Locked</th>
+      <th>Send Reset</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.approved %></td>
+      <td><%= !user.locked_at.nil? %></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<table>
+  <%= form_tag(admin_users_path , method: "post") do %>
+
+<tbody>
+  <tr><td>email</td><td><input name="email" type="text"></td><td><input type="submit" value="Add User"></td></tr>
+</tbody>
+<% end %>
+</table>
