@@ -1,0 +1,23 @@
+{
+  "title": "Errors",
+  "id": "http://cypress.healthit.gov/schemas/errors.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "messages": {
+            "type": "array",
+            "items": { "type" : "string" }
+          }
+        }
+      }
+    }
+  }
+}
