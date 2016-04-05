@@ -1,0 +1,643 @@
+/*
+    Unminified development version of the datepicker stylesheet. Please use the
+    minified version in production (remember to run a find/replace on the
+    file to update the image locations to suit your installation).
+*/
+
+/*
+    Hide the datepickers associated input by using a className
+*/
+.fd-hidden-input {
+    display: none;
+}
+
+/*
+    The wrapper div
+*/
+.date-picker {
+    position: absolute;
+    z-index: 9999;
+    text-align: center;
+    width: 350px;
+    /*height: 525px;*/
+    /*
+    Change the font-size to suit your needs. The following line is for the demo
+    that has a 14px font-size defined on the body tag.
+
+    All other rules are "em" based and inherit from the font-size set here.
+    */
+    font: 900 0.8em/1em 'Open Sans', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    background: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+/*
+    Styles for the static datePickers
+*/
+.static-datepicker {
+    position: relative;
+    top: 5px;
+    left: 0;
+    margin-bottom: 1.5em;
+}
+
+/*
+    If the datepicker has a valid date then use a different icon for the
+    activation button to let the user know. It's a little detail but it's the
+    little things in life etc
+*/
+.date-picker-dateval:link,
+.date-picker-dateval:visited {
+    background-position: 11px -57px;
+    color: #00688f;
+}
+
+/*
+    Disabled activation button
+*/
+.date-picker-control-disabled:link,
+.date-picker-control-disabled:visited,
+.date-picker-control-disabled:hover,
+.date-picker-control-disabled:active {
+    background-color: #E0E0E0;
+    background-position: 11px -21px;
+    cursor: not-allowed;
+    color: #888888;
+}
+
+.date-picker-control-disabled:hover span,
+.date-picker-control-disabled:active span {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/*
+    IE, older Safari & Opera. Seperate CSS rule seems to be required.
+*/
+.date-picker-control {
+    display: inline-block;
+}
+
+/*
+    Default datepicker "button" styles
+*/
+.date-picker th span {
+    display: block;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    line-height: 1em;
+    border: 0 none;
+    background: transparent;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*    The "month, year" display  */
+.date-picker .month-display,
+.date-picker .year-display {
+    display: inline;
+    font-weight: 700;
+    font-size: 1em;
+    color: #207b93;
+}
+
+/*
+    Generic button class for Next & Previous (both month & year) buttons
+*/
+.date-picker .prev-but,
+.date-picker .next-but {
+    font-weight: normal;
+    font-size: 2.4em;
+    font-family: georgia, times new roman, palatino, times, bookman, serif;
+    cursor: pointer;
+}
+
+.date-picker .prev-but,
+.date-picker .next-but,
+.date-picker .today-but {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+/*
+    Hover effect for Next & Previous (month, year) buttons
+*/
+.date-picker .prev-but:hover,
+.date-picker .next-but:hover,
+.date-picker .today-but:hover {
+    color: #029dd3;
+}
+
+.date-picker .prev-but:hover,
+.date-picker .next-but:hover {
+    /*
+    Uncomment this if you want a scale effect...
+
+    -webkit-transform:scale(1.6);
+       -moz-transform:scale(1.6);
+        -ms-transform:scale(1.6);
+         -o-transform:scale(1.6);
+            transform:scale(1.6);
+
+    text-shadow:0 2px 1px rgba(0,0,0,.4);
+    */
+}
+
+/*     Today button */
+.date-picker .today-but {
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 900;
+    font-size: .85em;
+    width: 100%;
+    text-decoration: none;
+    padding-top: 0.3em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/*     Disabled buttons */
+.date-picker-disabled .prev-but,
+.date-picker-disabled .next-but,
+.date-picker-disabled .today-but,
+.date-picker-disabled .prev-but:hover,
+.date-picker-disabled .next-but:hover,
+.date-picker-disabled .today-but:hover,
+.date-picker .prev-but.fd-disabled:hover,
+.date-picker .next-but.fd-disabled:hover,
+.date-picker .fd-disabled,
+.date-picker .fd-disabled:hover {
+    color: #aaa;
+    cursor: default !important;
+    opacity: 1;
+}
+
+.date-picker .prev-but.fd-disabled:hover,
+.date-picker .next-but.fd-disabled:hover {
+    /*
+    Uncomment this if you have uncommented the "scale" rules above
+
+    -webkit-transform:scale(1);
+       -moz-transform:scale(1);
+        -ms-transform:scale(1);
+         -o-transform:scale(1);
+            transform:scale(1);
+    */
+    text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/*     The gradient background image */
+.date-picker table,
+.date-picker td,
+.date-picker tbody th,
+.date-picker .day-disabled,
+.date-picker .date-picker-hover.day-disabled,
+.date-picker .date-picker-unused,
+.date-picker .month-out {
+    background-color: #fff;
+    /*   background-image:url(data:image/gif;base64,R0lGODlhJgBbAMQAAAAAAP////7+/v39/fz8/Pv7+/r6+vn5+fj4+Pf39/b29vX19fT09PPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6unp6ejo6Ofn5+bm5uXl5f///wAAAAAAAAAAACH5BAEAABwALAAAAAAmAFsAAAX/4CaOZGmeaKqubOu+cCzPWm3feK7vfO//wCAvQywaj8ikcslsOp/QJWZKrVqv2Kx2y+16v9qLeEwum8/otHqttrjf8Lh8Tq/b7/aKfs/v+/+AgYKDhIWGgRSJiouMjY6PkJGSkROVlpeYmZqbnJ2enRKhoqOkpaanqKmqqRGtrq+wsbKztLW2tRC5uru8vb6/wMHCwQ/FxsfIycrLzM3OzQ7R0tPU1dbX0Q3a29zd3t/g4eLj4gzm5+jp6uvs7e7v7gvy8/T19vf4+fr7+gr+/wADChxIsKDBgwYTKFzIsKHDhxAjSpwoEYHFixgzatzIsaPHjx4PiBxJsqTJkyhTi6pcybKly5QGYsqcSbOmzZs4c+rMWaCnz59AgwodSrSo0aIEkipdyrSp06dQo0qdSrUq1AFYs2rdyrWr169gw4odS/argLNo06pdy7at27dw48qd6zaA3bt48+rdy7ev37+AAwseTLiw4cOIEytezLix48eQI0ueTLmy5cuYM2vezLmz58+gQ4tOHAIAOw==);
+       background-repeat:repeat-x;
+       background-position:0 0;*/
+}
+
+.date-picker table {
+    table-layout: fixed;
+    empty-cells: show;
+    border-collapse: separate;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    text-align: center;
+    z-index: 2;
+    width: auto;
+    height: auto;
+    color: #333;
+    font-size: 1em;
+    /*   -webkit-border-radius:0.8em;
+          -moz-border-radius:0.8em;
+               border-radius:0.8em;
+       -webkit-box-shadow:0px 0px 5px #aaa;
+          -moz-box-shadow:0px 0px 5px #aaa;
+               box-shadow:0px 0px 5px #aaa;  */
+}
+
+/*     Common TD & TH styling */
+.date-picker td,
+.date-picker tbody th {
+    border: 0 none;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    width: 2.5em;
+    color: #000;
+    height: 2.5em;
+    overflow: hidden;
+    outline: transparent none 0px;
+    border: none;
+    text-transform: none;
+    font-weight: 700;
+    text-shadow: 0 1px #fff;
+}
+
+.date-picker th {
+    border: 0 none;
+    padding: 0;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: none;
+}
+
+.date-picker .date-picker-week-header {
+    font-style: oblique;
+    background: transparent;
+    cursor: default;
+}
+
+.date-picker .date-picker-thead .date-picker-week-header {
+    border: 0 none;
+    cursor: help;
+}
+
+/*
+    The "mon tue wed etc" day header styles
+*/
+.date-picker .date-picker-day-header {
+    cursor: help;
+    border: 0 none;
+    color: #000;
+    height: auto;
+    line-height: 1.5em;
+    padding: 0 5px;
+}
+
+/*     tfoot status bar */
+.date-picker .date-picker-statusbar {
+    cursor: default;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 0 none;
+    background: #fff;
+    height: 2.8em;
+}
+
+/*     TD cell that is _not_ used to display a day of the month */
+.date-picker .date-picker-unused {
+    border-color: #dcdcdc;
+    cursor: default !important;
+    background-position: 0 -25px;
+    color: #00688f;
+}
+
+/*     The TH cell used to display the "month, year" title */
+.date-picker .date-picker-title {
+    width: auto;
+    height: auto;
+    padding: 0.4em 0;
+    color: #073347;
+    font-size: 1.125em;
+    font-weight: bold;
+    line-height: 1.5em;
+    border-bottom: 1px solid #ccc;
+}
+
+/*     The "todays date" cell style */
+.date-picker .date-picker-today {
+    /*  background:#fff url(data:image/gif;base64,R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4D4biSJbmiabqyrbuC8fyLAcCgOf0zvf+DwwKhyJbDkdMKpfMpnNo1D2n1Kr1GowCsNyu99uNgsfksnlnPKvX7LbA5o7L51Q4/Y7P8+z6vv9fwgc4SJgnWIiYuHao2OgY9hgpecU4aXkJVIm5yQmj2QkaavIpWmpKapraiaraasnqGusIK1tbSGub64er23vH6xvsBixcfEZsnAyGrNyMxewcPQUtXb1EbZ0thK3d3cPtHV4jTl5Xft4Ejr4eyO6e9R7/LU8/UwAAOw==) no-repeat 0 0;*/
+}
+
+.date-picker .month-out.date-picker-highlight {}
+
+/*
+    The "highlight days" style
+*/
+.date-picker .date-picker-highlight {}
+
+/*
+    The "active cursor" style
+*/
+.date-picker td {
+    /*
+
+    Uncomment this if you want a transition on the cursor cells scale effect
+
+    -webkit-transition: all .2s ease;
+       -moz-transition: all .2s ease;
+        -ms-transition: all .2s ease;
+         -o-transition: all .2s ease;
+            transition: all .2s ease;
+    */
+}
+
+/*
+    Keyboard users get a scaled cursor. webKit exhibits buggy behaviour when
+    scaling TD cells so commented out until I find a curious CSS based fix.
+    HH: I commented out the rest as well since this triggered a bug in FF where focus events are incorrectly sent when removing a classname
+*/
+.date-picker-focus .date-picker-hover {
+    /*
+    -webkit-transform:scale(1.25);
+    */
+    /*
+       -moz-transform:scale(1.25);
+        -ms-transform:scale(1.25);
+         -o-transform:scale(1.25);
+            transform:scale(1.25);
+            */
+}
+
+.date-picker .date-picker-hover,
+.date-picker .month-out.date-picker-hover {
+    background: #046792;
+    outline: 2px solid #046792;
+    color: #fff;
+}
+
+/*
+    The "disabled days" style
+*/
+.date-picker .day-disabled {
+    color: #888;
+    cursor: default;
+    text-decoration: line-through;
+    background-position: 0 -15px;
+}
+
+.date-picker .month-out {
+    /*   border-color:#ddd;
+       border-color:rgba(220,220,220,0.8);*/
+    color: #aaa;
+    background-position: 0 -25px;
+}
+
+/*
+    The "selected date" style - color changed below also
+*/
+.date-picker .date-picker-selected-date {
+    /* border-color:#888 !important;
+     border-color:rgba(7,7,7,.6) !important;*/
+}
+
+/*
+    The date "out of range" style
+*/
+.date-picker .out-of-range,
+.date-picker .not-selectable {
+    color: #ccc;
+    font-style: oblique;
+    background: #fcfcfc;
+    cursor: default;
+}
+
+/*
+    Week number "out of range" && "month-out" styles
+*/
+.date-picker th.month-out,
+.date-picker th.out-of-range {
+    color: #aaa;
+    font-style: oblique;
+    background: #fcfcfc;
+}
+
+/*
+    Week numbers "out of range"
+*/
+.date-picker .out-of-range {
+    opacity: 0.6;
+}
+
+/*
+    Used when the entire grid is full but the next/prev months dates cannot be
+    selected
+*/
+.date-picker .not-selectable {
+    opacity: 0.8;
+}
+
+.date-picker tr {
+    display: table-row;
+}
+
+.date-picker sup {
+    font-size: 0.86em;
+    letter-spacing: normal;
+    text-transform: none;
+    height: 0;
+    line-height: 1;
+    position: relative;
+    top: -0.2em;
+    vertical-align: baseline !important;
+    vertical-align: top;
+}
+
+.date-picker .date-picker-day-header,
+.date-picker .month-display,
+.date-picker .year-display {
+    text-shadow: 0px 1px 1px #fff;
+}
+
+.date-picker .month-display,
+.date-picker .year-display {
+    cursor: default;
+}
+
+.date-picker td:focus,
+.date-picker .date-picker-hover {
+    z-index: 99999;
+    /*overflow:hidden;*/
+    /*
+    -moz-outline:0 none;
+         outline:0 none;
+    -o-highlight:0 none;
+    */
+}
+
+/*
+    The "pulse" animation on focused button and datepicker cursor
+*/
+.date-picker-focus .date-picker-hover,
+.date-picker-control:focus span {
+    /* HH: The pulsating animations caused a big amount of sluggishness when running a screen reader,
+    so sommented it out for now.
+    */
+    /*
+    -webkit-animation:fd-dp-pulse 2s infinite;
+       -moz-animation:fd-dp-pulse 2s infinite;
+        -ms-animation:fd-dp-pulse 2s infinite;
+         -o-animation:fd-dp-pulse 2s infinite;
+    */
+}
+
+/*
+    The "selected date" style
+*/
+.date-picker .date-picker-selected-date {
+    background-color: #046792;
+    color: #fff;
+    /*  color:rgba(3,3,3,.8);*/
+}
+
+/*
+    Remove the box-shadow for the inline datepickers
+*/
+.static-datepicker table {
+    -webkit-box-shadow: 0 0 0 transparent;
+    -moz-box-shadow: 0 0 0 transparent;
+    box-shadow: 0 0 0 transparent;
+}
+
+.date-picker-focus table {
+    border-color: #999;
+    border-color: rgba(153, 153, 153, 0.8);
+    -webkit-box-shadow: 0px 0px 5px #aaa;
+    -moz-box-shadow: 0px 0px 5px #aaa;
+    box-shadow: 0px 0px 5px #aaa;
+}
+
+/*
+    Draggable datepickers
+*/
+.date-picker .drag-enabled,
+.date-picker .drag-enabled span {
+    cursor: move;
+}
+
+/*
+    Disabled datePicker
+*/
+.date-picker-disabled table {
+    opacity: .8 !important;
+}
+
+.date-picker-disabled,
+.date-picker-disabled td,
+.date-picker-disabled th,
+.date-picker-disabled th span {
+    cursor: default !important;
+}
+
+.date-picker-disabled .prev-but:hover,
+.date-picker-disabled .next-but:hover {
+    /*
+    Uncomment this if you have used the previous scale rules previously
+    declared within the file (for the prev-but and next-but classes)
+
+    -webkit-transform:scale(1);
+       -moz-transform:scale(1);
+        -ms-transform:scale(1);
+         -o-transform:scale(1);
+            transform:scale(1);
+    */
+    text-shadow: none;
+}
+
+body.fd-drag-active {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+/*
+    Glow effect for the focused (keyboard active) cursor cell and popup
+    datepickers activation button
+*/
+@-webkit-keyframes fd-dp-pulse {
+    0% {
+        box-shadow: 0 0 4px rgba(100, 130, 170, 0.5);
+    }
+    20% {
+        box-shadow: 0 0 4px rgba(70, 130, 170, 0.6);
+    }
+    40% {
+        box-shadow: 0 0 5px rgba(40, 130, 170, 0.7);
+    }
+    60% {
+        box-shadow: 0 0 6px rgba(10, 130, 170, 0.8);
+    }
+    80% {
+        box-shadow: 0 0 5px rgba(40, 130, 170, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 4px rgba(70, 130, 170, 0.6);
+    }
+}
+
+
+@-moz-keyframes fd-dp-pulse {
+    0% {
+        box-shadow: 0 0 4px rgba(100, 130, 170, 0.5);
+    }
+    20% {
+        box-shadow: 0 0 4px rgba(70, 130, 170, 0.6);
+    }
+    40% {
+        box-shadow: 0 0 5px rgba(40, 130, 170, 0.7);
+    }
+    60% {
+        box-shadow: 0 0 6px rgba(10, 130, 170, 0.8);
+    }
+    80% {
+        box-shadow: 0 0 5px rgba(40, 130, 170, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 4px rgba(70, 130, 170, 0.6);
+    }
+}
+
+
+@-ms-keyframes fd-dp-pulse {
+    0% {
+        box-shadow: 0 0 4px rgba(100, 130, 170, 0.5);
+    }
+    20% {
+        box-shadow: 0 0 4px rgba(70, 130, 170, 0.6);
+    }
+    40% {
+        box-shadow: 0 0 5px rgba(40, 130, 170, 0.7);
+    }
+    60% {
+        box-shadow: 0 0 6px rgba(10, 130, 170, 0.8);
+    }
+    80% {
+        box-shadow: 0 0 5px rgba(40, 130, 170, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 4px rgba(70, 130, 170, 0.6);
+    }
+}
+
+
+@-o-keyframes fd-dp-pulse {
+    0% {
+        box-shadow: 0 0 3px rgba(100, 130, 170, 0.55);
+    }
+    20% {
+        box-shadow: 0 0 4px rgba(70, 130, 170, 0.6);
+    }
+    40% {
+        box-shadow: 0 0 5px rgba(40, 130, 170, 0.65);
+    }
+    60% {
+        box-shadow: 0 0 6px rgba(10, 130, 170, 0.7);
+    }
+    80% {
+        box-shadow: 0 0 5px rgba(40, 130, 170, 0.65);
+    }
+    100% {
+        box-shadow: 0 0 4px rgba(70, 130, 170, 0.6);
+    }
+}

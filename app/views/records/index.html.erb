@@ -4,8 +4,15 @@
   <h1>Patient List</h1>
 <% end %>
 <div class="row">
+  <div class="col-md-7 col-sm-8">
+    <h1>Filter Patients</h1>
+    <div class="form-group col-md-8 col-sm-10">
+      <label for="search_measures">Type to search by measure</label>
+      <input id="search_measures" type="search" class="form-control" placeholder="Type the name or CMS ID of a measure"/>
+    </div>
+  </div>
   <% if !@task && !@product_test %>
-  <div class="col-md-5">
+  <div class="col-md-5 col-sm-4">
     <h1>Annual Update Bundle</h1>
       <% if Bundle.count == 1 %>
         <!-- label --> <%= @bundle.title %>
@@ -21,12 +28,45 @@
         <% end # form_group %>
         <% end %>
       <% end # bundles.count %>
-    <h1>Filter by Measure</h1>
-    <label for="measure_id" class="sr-only">Filter the Master Patient List</label>
-    <%= select_tag(:measure_id, options_for_select(@measures.map { |m| [m.display_name, by_measure_bundle_records_path(@bundle, :measure_id => m.hqmf_id, :sub_id => m.sub_id)] } ), class: 'form-control', include_blank: 'All measures') %>
   </div>
   <% end %>
-  <div id="records_list" class="col-md-7">
+  <div id="records_list" class="col-sm-12">
     <%= render partial: 'records_list', locals: { records: @records } %>
   </div>
 </div>
+
+<script type="text/javascript">
+  // initialize jQueryUI Autocomplete for searching measures
+  $('#search_measures').autocomplete({
+    delay: 500,
+    source: <%= @measure_dropdown %>, // autocomplete suggestions
+    select: function(event, data) {  // fired on item select
+      // gets records by measure via AJAX and rerender the records list.
+      // data.item.value provides the URL for the selected measure
+      $.get(data.item.value);
+      // autocomplete's default action is to populate the input with the selected value
+      // prevent the user from seeing an ugly URL in their search box here
+      event.preventDefault();
+    },
+    focus: function(event, data) { event.preventDefault(); } // fired on item focus
+  });
+
+  // add and remove some classes from the generated autocomplete widget
+  $('#search_measures').data('ui-autocomplete')._renderItem = function(ul, item) {
+    return $('<li class="list-group-item">').append(item.label).appendTo(ul);
+  }
+  $('#search_measures').data('ui-autocomplete')._renderMenu = function(ul, items) {
+    var that = this;
+    $.each(items, function(index, item) {
+      that._renderItemData(ul, item);
+    });
+    $(ul).removeClass('ui-widget ui-widget-content').addClass('list-group');
+  }
+
+  // rerender the records list to show records from all measures if no value searched
+  $('#search_measures').on('blur', function() {
+    if (!$(this).val()) {
+      $("#records_list").html("<%= escape_javascript(render partial: 'records_list', locals: { records: @records } ) %>");
+    }
+  })
+</script>
