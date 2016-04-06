@@ -21,6 +21,7 @@ module Cypress
       if @options['disable_randomization']
         %w(randomize_demographics generate_provider randomization_ids).each { |k| @options.delete k }
       end
+      @generated_providers = [] if @options['generate_provider']
     end
 
     def perform
@@ -119,7 +120,9 @@ module Cypress
       prov = if @options['providers']
                @options['providers'].sample
              elsif @options['generate_provider']
-               generate_provider
+               # limit the number of generated providers to 3
+               generate_provider if @generated_providers.size < 3
+               @generated_providers.sample
              else
                Provider.default_provider
              end
@@ -127,8 +130,7 @@ module Cypress
     end
 
     def generate_provider
-      @prov ||= Provider.generate_provider
-      @prov
+      @generated_providers << Provider.generate_provider
     end
   end
 end

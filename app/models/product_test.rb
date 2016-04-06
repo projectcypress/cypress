@@ -52,7 +52,7 @@ class ProductTest
     if product.randomize_records
       random_ids = bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'randomization_ids' => random_ids,
-                                      'randomize_demographics' => true).perform
+                                      'randomize_demographics' => true, 'generate_provider' => product.c4_test).perform
     else
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'disable_randomization' => true).perform
     end
