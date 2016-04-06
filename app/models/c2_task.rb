@@ -24,6 +24,13 @@ class C2Task < Task
     te
   end
 
+  def good_results
+    cat1_zip = Cypress::CreateDownloadZip.create_zip(records, 'qrda')
+    c3c = Cypress::Cat3Calculator.new(product_test.measure_ids, product_test.bundle)
+    c3c.import_cat1_zip(cat1_zip)
+    c3c.generate_cat3
+  end
+
   # returns combined status including c3_cat3 task
   def status_with_sibling
     sibling = product_test.tasks.c3_cat3_task

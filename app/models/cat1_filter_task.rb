@@ -21,6 +21,10 @@ class Cat1FilterTask < Task
     te
   end
 
+  def good_results
+    Cypress::CreateDownloadZip.create_zip(records, 'qrda').read
+  end
+
   def records
     patient_ids = product_test.results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
     product_test.filtered_records.in('_id' => patient_ids)

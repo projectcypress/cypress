@@ -1,7 +1,8 @@
 require 'test_helper'
 class MeasureTestTest < ActiveJob::TestCase
   def setup
-    collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
+    collection_fixtures('patient_cache', 'records', 'bundles', 'measures',
+                        'health_data_standards_svs_value_sets')
     @vendor = Vendor.create!(name: 'test_vendor_name')
     @product = @vendor.products.create(name: 'test_product', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'], bundle_id: '4fdb62e01d41c820f6000001')
   end
