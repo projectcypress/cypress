@@ -42,6 +42,7 @@ class VendorTest < ActiveSupport::TestCase
   end
 
   def test_vendor_poc_can_be_associated_with_user
+    APP_CONFIG['auto_associate_pocs'] = true
     v = Vendor.new(name: 'test_vendor_name')
     p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
     p.vendor = v
@@ -50,6 +51,7 @@ class VendorTest < ActiveSupport::TestCase
   end
 
   def test_updated_vendor_poc_can_be_associated_with_user
+    APP_CONFIG['auto_associate_pocs'] = true
     v = Vendor.new(name: 'test_vendor_name')
     p = PointOfContact.new(name: 'test_poc_name')
     p.vendor = v
@@ -60,7 +62,17 @@ class VendorTest < ActiveSupport::TestCase
     assert (p.user.has_role? :vendor, v), 'Point of contact should have been associated with user'
   end
 
-  def test_updated_vendor_poc_can_be_associated_with_user
+  def test_vendor_poc_cannot_be_associated_with_user_if_turned_off
+    APP_CONFIG['auto_associate_pocs'] = false
+    v = Vendor.new(name: 'test_vendor_name')
+    p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
+    p.vendor = v
+    assert v.save!
+    assert !p.user.has_role?(:vendor, v), 'Point of contact users should not have vendor role '
+  end
+
+  def test_updated_vendor_poc_cannot_be_associated_with_user_if_turned_off
+    APP_CONFIG['auto_associate_pocs'] = false
     v = Vendor.new(name: 'test_vendor_name')
     p = PointOfContact.new(name: 'test_poc_name')
     p.vendor = v
@@ -68,10 +80,11 @@ class VendorTest < ActiveSupport::TestCase
     assert p.user.nil?, 'User for POC should be nil'
     p.email = 'vendor@test.com'
     p.save
-    assert (p.user.has_role? :vendor, v), 'Point of contact should have been associated with user'
+    assert !p.user.has_role?(:vendor, v), 'Point of contact users should not have vendor role '
   end
 
   def test_changing_poc_email_updates_user_roles
+    APP_CONFIG['auto_associate_pocs'] = true
     v = Vendor.new(name: 'test_vendor_name')
     p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
     vu = User.find(VENDOR)

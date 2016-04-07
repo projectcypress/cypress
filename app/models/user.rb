@@ -5,8 +5,12 @@ class User
   # :confirmable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable, :timeoutable, :lockable
+         :validatable, :timeoutable, :lockable, :confirmable
 
+  # confirmable
+  field  :confirmation_token, type: String
+  field  :confirmed_at, type: Time, default: proc { APP_CONFIG.auto_confirm ? Time.now.utc : nil }
+  field  :confirmation_sent_at, type: Time
   ## Database authenticatable
   field :email,              type: String, default: ''
   field :encrypted_password, type: String, default: ''
@@ -65,8 +69,10 @@ class User
   end
 
   def associate_points_of_contact
-    Vendor.where('points_of_contact.email' => email).each do |vendor|
-      add_role :vendor, vendor
+    if APP_CONFIG.auto_associate_pocs
+      Vendor.where('points_of_contact.email' => email).each do |vendor|
+        add_role :vendor, vendor
+      end
     end
   end
 

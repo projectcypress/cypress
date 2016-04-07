@@ -14,7 +14,7 @@ class PointOfContact
   field :contact_type, type: String
 
   before_save :check_for_email_changes
-  after_save :add_vendor_role
+  after_save :associate_vendors
   before_destroy :remove_vendor_role
 
   def user
@@ -35,6 +35,10 @@ class PointOfContact
   end
 
   private
+
+  def associate_vendors
+    add_vendor_role if APP_CONFIG.auto_associate_pocs
+  end
 
   def check_for_email_changes
     if changes['email']
