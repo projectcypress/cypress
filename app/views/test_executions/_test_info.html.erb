@@ -23,4 +23,8 @@
 
   <br/>
   <%= link_to 'View Patients', { controller: 'records', task_id: @task.id}, method: :get %>
+  <% if APP_CONFIG['enable_debug_features'] %>
+  <br/>
+  <%= link_to 'Get Known Good Result', good_results_task_path(@task), data: { no_turbolink: true } %>
+  <% end %>
 </div>

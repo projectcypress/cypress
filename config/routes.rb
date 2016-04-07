@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   end
 
   resources :tasks, only: [:show] do
+    member do
+      get :good_results
+    end
     resources :test_executions, only: [:index, :show, :new, :create, :destroy]
   end
 

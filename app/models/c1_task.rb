@@ -31,6 +31,10 @@ class C1Task < Task
     product_test.records.in('_id' => patient_ids)
   end
 
+  def good_results
+    Cypress::CreateDownloadZip.create_zip(records, 'qrda').read
+  end
+
   # returns combined status including c3_cat1 task
   def status_with_sibling
     sibling = product_test.tasks.c3_cat1_task
