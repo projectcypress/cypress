@@ -88,7 +88,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not be able to delete test execution if incorrect test_execution id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       @first_task.test_executions.destroy
-      te = @first_task.test_executions.create
+      @first_task.test_executions.create
       delete :destroy, task_id: @first_task.id, id: 'bad_id'
       assert_response 404, 'response should be Not Found if no test_execution'
       assert_equal '', response.body
@@ -222,12 +222,15 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   # Unsuccessful Requests
 
-  test 'should not create test_execution with json request with cat 1 c4 task if incorrect upload type' do
+  test 'should not create test_execution with cat 1 c4 task if incorrect upload type' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat1.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @task_cat1.id, :results => xml_upload
+      assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 
@@ -236,7 +239,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat3.id, :results => zip_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @task_cat3.id, :results => zip_upload
+      assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 
@@ -381,12 +387,15 @@ class TestExecutionsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should not create test_execution with json request with no upload' do
+  test 'should not create test_execution with no upload' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id
       assert_response 422, 'response should be Unprocessable Entity if no results given'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @first_task.id
+      assert_response 422, 'response should be Unprocessable Entity if no results given'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 
@@ -395,7 +404,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => nil
       assert_response 422, 'response should be Unprocessable Entity if nil results given'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @first_task.id, :results => nil
+      assert_response 422, 'response should be Unprocessable Entity if no results given'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 
@@ -404,7 +416,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if no test_execution'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
+      assert_response 422, 'response should be Unprocessable Entity if no results given'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 
