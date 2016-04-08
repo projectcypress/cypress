@@ -311,7 +311,7 @@ GEM
     parser (2.3.0.2)
       ast (~> 2.2)
     pdfkit (0.8.2)
-    phantomjs (2.1.1.0)
+    phantomjs (1.9.8.0)
     poltergeist (1.8.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -530,7 +530,7 @@ DEPENDENCIES
   overcommit
   parallel_tests
   pdfkit
-  phantomjs
+  phantomjs (~> 1.9.8.0)
   poltergeist
   pry
   pry-nav
@@ -552,3 +552,6 @@ DEPENDENCIES
   unicorn-rails
   web-console (~> 2.0)
   wkhtmltopdf-binary
+
+BUNDLED WITH
+   1.11.2
