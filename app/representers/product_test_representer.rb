@@ -1,3 +1,4 @@
+require 'representable/xml'
 module ProductTestRepresenter
   include API::Representer
 
