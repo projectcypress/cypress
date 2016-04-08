@@ -41,21 +41,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
- # if the jobs are not running then there will be no pid files in the pid direectory
- # they will not be running if the pid directory is not avaialable which will cause an
- # exception to be thrown
+  # if the jobs are not running then there will be no pid files in the pid direectory
+  # they will not be running if the pid directory is not avaialable which will cause an
+  # exception to be thrown
   def check_backend_jobs
-
     running = false
     begin
-      pids = Dir.new(APP_CONFIG.pid_dir).entries.length
-      running = pids > 0
+      running = Dir.new(APP_CONFIG.pid_dir).entries.length > 0
     rescue
     end
 
-    if running
-      flash.delete :backend_job_alert
-    else
+    unless running
       alert_msg = "The backend processes for setting up tests and perfroming measure calculations is not running.
                     Please refer to the Cypress installation manual for instructions on starting the processes."
       flash[:backend_job_alert] = alert_msg.html_safe
