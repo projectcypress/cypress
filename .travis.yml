@@ -18,6 +18,7 @@ before_script:
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
   - npm install -g eslint
+  - PHANTOMJS_CDNURL=http://cnpmjs.org/downloads npm install phantomjs@2.1.1
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 script:
   - bundle exec brakeman -qAzw1
