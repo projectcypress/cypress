@@ -4,7 +4,7 @@ class Vendor
   include Mongoid::Timestamps
   resourcify
   has_many :products, :dependent => :destroy
-  embeds_many :points_of_contact, class_name: 'PointOfContact'
+  embeds_many :points_of_contact, class_name: 'PointOfContact', cascade_callbacks: true
 
   accepts_nested_attributes_for :points_of_contact, allow_destroy: true, reject_if: -> (poc) { poc[:name].blank? }
 

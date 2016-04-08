@@ -27,7 +27,16 @@ enable_debug_features: false
 default_role: :user
 # wheather or not users are automatically approved without admin intervention
 auto_approve: true
+# sets whether or not Users are automatically linked to a Vendor based off the vendors points of contacts. Setting to true will
+# auto associate a User to a vendor when a user is created and a vendor point of contanct contains the same email address as the
+# user.  Likewise if a point of contact is added to a vendor and a User in the system has the same email address then the user
+# will be associated with the vendor.  The association is also automatically updated/rmoved when the user is removed from the system
+# or the point of contact is removed or updated from the vendor.  Setting this to true will also enable the devise plugin confirmable
+# which will require users to confirm their registration via an email link sent to their address.
+# Setting this to false disables the automatic associations as well as the devise confirmable pluggin
+auto_associate_pocs: false
 
+auto_confirm: true
 # setting to disable the bundles page until admin roles are available
 disable_bundle_page: false
 

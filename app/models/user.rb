@@ -5,8 +5,12 @@ class User
   # :confirmable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable, :timeoutable, :lockable
+         :validatable, :timeoutable, :lockable, :confirmable
 
+  # confirmable
+  field  :confirmation_token, type: String
+  field  :confirmed_at, type: Time, default: proc { APP_CONFIG.auto_confirm ? Time.now.utc : nil }
+  field  :confirmation_sent_at, type: Time
   ## Database authenticatable
   field :email,              type: String, default: ''
   field :encrypted_password, type: String, default: ''
@@ -31,6 +35,8 @@ class User
   field :approved, type: Boolean, default: APP_CONFIG.auto_approve || false
 
   validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
+
+  after_create :associate_points_of_contact
 
   def active_for_authentication?
     super && approved?
@@ -58,6 +64,14 @@ class User
       end
       if password == email
         errors.add :password, 'email and password must be different'
+      end
+    end
+  end
+
+  def associate_points_of_contact
+    if APP_CONFIG.auto_associate_pocs
+      Vendor.where('points_of_contact.email' => email).each do |vendor|
+        add_role :vendor, vendor
       end
     end
   end
