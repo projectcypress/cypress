@@ -31,6 +31,9 @@ baseUriParameters:
     responses:
       201:
         description: Successfully created a new vendor
+        body:
+          application/json:
+            schema: !include schema/json/vendor.json
       422:
         description: Invalid vendor
         body:
@@ -84,6 +87,9 @@ baseUriParameters:
         responses:
           201:
             description: Product has been created
+            body:
+              application/json:
+                schema: !include schema/json/product.json
           422:
             description: Invalid Product
             body:
@@ -183,6 +189,9 @@ baseUriParameters:
     responses:
       201:
         description: File Uploaded Successfully. Cypress is checking data for accuracy and correctness
+        body:
+          application/json:
+            schema: !include schema/json/test_execution.json
       422:
         description: File uploaded is not processable by Cypress
         body:

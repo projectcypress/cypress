@@ -35,8 +35,6 @@ class VendorsController < ApplicationController
     flash_comment(@vendor.name, 'success', 'created')
     respond_with(@vendor) do |f|
       f.html { redirect_to root_path }
-      f.json { render :nothing => true, :status => :created, :location => vendor_path(@vendor.id) }
-      f.xml  { render :nothing => true, :status => :created, :location => vendor_path(@vendor.id) }
     end
   rescue Mongoid::Errors::Validations
     respond_with_errors(@vendor) do |f|
