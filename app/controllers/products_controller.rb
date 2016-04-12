@@ -34,8 +34,6 @@ class ProductsController < ApplicationController
     flash_comment(@product.name, 'success', 'created')
     respond_with(@product) do |f|
       f.html { redirect_to vendor_path(@vendor) }
-      f.json { render :nothing => true, :status => :created, :location => vendor_product_path(@vendor, @product.id) }
-      f.xml  { render :nothing => true, :status => :created, :location => vendor_product_path(@vendor, @product.id) }
     end
   rescue Mongoid::Errors::Validations, Mongoid::Errors::DocumentNotFound
     respond_with_errors(@product) do |f|

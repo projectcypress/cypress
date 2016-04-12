@@ -261,8 +261,8 @@ class ProductsControllerTest < ActionController::TestCase
                                                                              measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
                                                                              bundle_id: '4fdb62e01d41c820f6000001' }
       assert_response 201, 'response should be Created on product create'
-      assert_equal(vendor_product_path(vendor, vendor.products.order_by(created_at: 'desc').first),
-                   response.location, 'response location should be product show')
+      assert response.location.end_with?(product_path(vendor.products.order_by(created_at: 'desc').first)),
+             'response location should be product show'
     end
   end
 
@@ -308,8 +308,8 @@ class ProductsControllerTest < ActionController::TestCase
                                                                             measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
                                                                             bundle_id: '4fdb62e01d41c820f6000001' }
       assert_response 201, 'response should be Created on product create'
-      assert_equal(vendor_product_path(vendor, vendor.products.order_by(created_at: 'desc').first),
-                   response.location, 'response location should be product show')
+      assert response.location.end_with?(product_path(vendor.products.order_by(created_at: 'desc').first)),
+             'response location should be product show'
     end
   end
 

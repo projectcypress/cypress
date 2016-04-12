@@ -19,8 +19,6 @@ class TestExecutionsController < ApplicationController
     @test_execution = @task.execute(results_params)
     respond_with(@test_execution) do |f|
       f.html { redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id) }
-      f.json { render :nothing => true, :status => :created, :location => task_test_execution_path(@task.id, @test_execution.id) }
-      f.xml  { render :nothing => true, :status => :created, :location => task_test_execution_path(@task.id, @test_execution.id) }
     end
   rescue Mongoid::Errors::Validations
     rescue_create

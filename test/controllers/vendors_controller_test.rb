@@ -83,7 +83,8 @@ class VendorsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       post :create, :format => :json, :vendor => { name: "test vendor #{vendor_index}", poc_attributes: { name: 'test poc' } }
       assert_response :created, 'response should be Created'
-      assert_equal '', response.body
+      assert_not_nil JSON.parse(response.body)
+      assert_equal "test vendor #{vendor_index}", JSON.parse(response.body)['name']
       assert assigns(:vendor)
       assert response.headers['Location']
       get :show, :format => :json, :id => response.headers['Location'].split('/').last
@@ -181,7 +182,8 @@ class VendorsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       post :create, :format => :xml, :vendor => { name: "test vendor #{vendor_index}", poc_attributes: { name: 'test poc' } }
       assert_response :created, 'response should be Created'
-      assert_equal '', response.body
+      assert_not_nil Hash.from_trusted_xml(response.body)
+      assert_equal "test vendor #{vendor_index}", Hash.from_trusted_xml(response.body)['vendor']['name']
       assert assigns(:vendor)
       assert response.headers['Location']
       get :show, :format => :xml, :id => response.headers['Location'].split('/').last

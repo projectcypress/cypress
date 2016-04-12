@@ -179,9 +179,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat1.id, :results => zip_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@task_cat1, @task_cat1.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil JSON.parse(response.body)
+      assert_equal 'pending', JSON.parse(response.body)['state']
+      assert response.location.end_with?(test_execution_path(@task_cat1.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -190,9 +191,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat3.id, :results => xml_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@task_cat3, @task_cat3.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil JSON.parse(response.body)
+      assert_equal 'pending', JSON.parse(response.body)['state']
+      assert response.location.end_with?(test_execution_path(@task_cat3.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -203,9 +205,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :xml, :task_id => @task_cat1.id, :results => zip_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@task_cat1, @task_cat1.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil Hash.from_trusted_xml(response.body)
+      assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
+      assert response.location.end_with?(test_execution_path(@task_cat1.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -214,9 +217,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :xml, :task_id => @task_cat3.id, :results => xml_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@task_cat3, @task_cat3.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil Hash.from_trusted_xml(response.body)
+      assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
+      assert response.location.end_with?(test_execution_path(@task_cat3.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -295,9 +299,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => zip_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@first_task, @first_task.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil JSON.parse(response.body)
+      assert_equal 'pending', JSON.parse(response.body)['state']
+      assert response.location.end_with?(test_execution_path(@first_task.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -355,9 +360,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@first_task, @first_task.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil Hash.from_trusted_xml(response.body)
+      assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
+      assert response.location.end_with?(test_execution_path(@first_task.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
