@@ -32,7 +32,7 @@ module ProductTestRepresenter
     property :address, extend: AddressRepresenter, if: ->(_) { self['addresses'] }, getter: ->(_) { self['addresses'].first }
   end
 
-  hash :provider_filters, :if => ->(_) { _type == 'FilteringTest' && options.filters.key?('providers') }, :wrap => :filters,
+  hash :provider_filters, :if => ->(_) { _type == 'FilteringTest' && options.filters.key?('providers') && state == :ready }, :wrap => :filters,
                           :as => :filters, :extend => ProviderRepresenter,
                           :getter => (lambda do |*|
                             filters_copy = options.filters.clone
@@ -41,7 +41,8 @@ module ProductTestRepresenter
                           end)
 
   hash :other_filters, :getter => ->(_) { options.filters.map { |filter_type, filter_val| [filter_type.to_s.singularize, filter_val.first] }.to_h },
-                       :if => ->(_) { _type == 'FilteringTest' && !options.filters['providers'] }, :wrap => :filters, :as => :filters
+                       :if => ->(_) { _type == 'FilteringTest' && !options.filters['providers'] && state == :ready },
+                       :wrap => :filters, :as => :filters
 
   self.links = {
     self: proc { product_product_test_path(product, self) },
