@@ -188,6 +188,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise_invitable (1.5.5)
+      actionmailer (>= 3.2.6, < 5)
+      devise (>= 3.2.0)
     diff-lcs (1.2.5)
     diffy (3.1.0)
     docile (1.1.5)
@@ -513,6 +516,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner!
   devise
+  devise_invitable
   factory_girl_rails
   faker (~> 1.5.0)
   font-awesome-sass
@@ -555,3 +559,6 @@ DEPENDENCIES
   unicorn-rails
   web-console (~> 2.0)
   wkhtmltopdf-binary
+
+BUNDLED WITH
+   1.11.2

@@ -8,22 +8,29 @@ module Admin
       @users = User.excludes(:id => current_user.id).order_by(email:  1)
     end
 
-    def create
-      #make sure the terms and conditions are set to true for admin created users
-      p = SecureRandom.hex + "!"
-      @user = User.new(email: params[:email],approved: true,  terms_and_conditions: "1", password: p, password_confirmation: p)
-      if @user.save
-        @user.send_reset_password_instructions
-        flash[:notice] = "Successfully created User."
-        redirect_to admin_users_path
-      else
-        render :action => 'new'
-      end
+    def edit
+      @user = User.find(params[:id])
     end
 
-    def reset_password
+    def show
       @user = User.find(params[:id])
-      @user.send_reset_password_instructions
+    end
+
+    def update
+      @user = User.find(params[:id])
+      @user.roles = []
+      @user.add_role params[:role].to_sym
+
+      params[:assignments].each do |ass|
+        @user.add_role ass[:role], Vendor.find(ass[:vendor_id])
+      end
+      @user.save
+      flash[:notice] = "Successfully updated user."
+      redirect_to admin_users_path
+    end
+
+    def send_invitation
+      User.invite!(:email => params[:email])
       redirect_to admin_users_path
     end
 
