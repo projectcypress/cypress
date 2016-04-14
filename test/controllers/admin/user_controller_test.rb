@@ -4,7 +4,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
 
   def setup
-    collection_fixtures "users"
+    collection_fixtures "users", "roles"
     @user = User.first
   end
 
@@ -39,7 +39,11 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test "Admin can view show " do
-
+    for_each_logged_in_user([ADMIN]) do
+      get :show , id: @user.id
+      assert_response :success
+      assert assigns(:user)
+    end
   end
 
   test "Non Admin cannot view show " do
@@ -61,37 +65,70 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test "Admin can delete user" do
-
+    u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    for_each_logged_in_user([ADMIN]) do
+      delete :destroy, id: u.id
+      assert_response 302
+      assert_equal 0, User.where("_id" => u.id).count()
+    end
   end
 
   test "Non Admin cannot delete user " do
     for_each_logged_in_user([OWNER,ATL,VENDOR]) do
-      delete id: @user.id
+      delete :destroy, id: @user.id
       assert_response 401
     end
   end
 
   test "Admin can send invitation " do
-
+    for_each_logged_in_user([ADMIN]) do
+      get :send_invitation, id: @user.id
+      assert_response 302
+    end
   end
 
   test "Non Admin cannot  send invitation " do
-
+    for_each_logged_in_user([OWNER,ATL,VENDOR]) do
+      get :send_invitation, id: @user.id
+      assert_response 401
+    end
   end
 
   test "Admin can toggle approved status " do
-
+     u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    approved = u.approved
+    for_each_logged_in_user([ADMIN]) do
+      get :toggle_approved, id: u.id
+      assert_response 302
+      assert_equal !approved,  User.find(u.id).approved
+      get :toggle_approved, id: u.id
+      assert_response 302
+      assert_equal approved, User.find(u.id).approved
+    end
   end
 
   test "Non Admin cannot toggle approved status " do
-
+    for_each_logged_in_user([OWNER,ATL,VENDOR]) do
+      get :toggle_approved, id: @user.id
+      assert_response 401
+    end
   end
 
   test "Admin can unlock a locked account " do
-
+     u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1', locked_at: Time.now.utc)
+    approved = u.approved
+    for_each_logged_in_user([ADMIN]) do
+      assert !u.locked_at.nil?
+      get :unlock, id: u.id
+      assert_response 302
+      assert User.find(u.id).locked_at.nil?
+    end
   end
 
   test "Non Admin cannot unlock a locked account" do
-
+    for_each_logged_in_user([OWNER,ATL,VENDOR]) do
+      get :unlock, id: @user.id
+      assert_response 401
+    end
   end
 end

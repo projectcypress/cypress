@@ -1,4 +1,3 @@
-require "securerandom"
 module Admin
   class UsersController < ApplicationController
     before_filter ->{  authorize! :manage, User}
@@ -26,19 +25,19 @@ module Admin
       end
       @user.save
       flash[:notice] = "Successfully updated user."
-      redirect_to admin_users_path
+      redirect_to action: :index
     end
 
     def send_invitation
       User.invite!(:email => params[:email])
-      redirect_to admin_users_path
+      redirect_to action: :index
     end
 
     def toggle_approved
       @user = User.find(params[:id])
       @user.approved = !@user.approved
       @user.save
-      redirect_to admin_users_path
+      redirect_to action: :index
     end
 
     def unlock
@@ -47,14 +46,14 @@ module Admin
       @user.failed_attempts = 0;
       @user.unlock_token = nil
       @user.save
-      redirect_to admin_users_path
+      redirect_to action: :index
     end
 
     def destroy
       @user = User.find(params[:id])
       if @user.destroy
         flash[:notice] = "Successfully deleted User."
-        redirect_to admin_users_path
+        redirect_to action: :index
       end
     end
 
