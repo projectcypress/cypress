@@ -24,18 +24,47 @@ module Cypress
       @logger.info 'done'
     end
 
+    def cleanup_hashes
+      @patient_link_product_test_hash = {}
+      @patient_links_task_hash = {}
+      @cat3_filter_hash = {}
+      @cat1_filter_hash = {}
+      @filter_patient_link = nil
+    end
+
     def run_measure_eval
-      setup_vendor_tests
+      measures_list = []
+      # getting measures from bundles is a little convoluted
+      bundles = parsed_api_object(call_get_bundles)
+      measures_link = extract_link(bundles[0], 'measures')
+      @bundle_id = measures_link.split('/')[2]
+      measures = parsed_api_object(call_get_measures(measures_link))
+      measures.each do |measure|
+        measures_list << measure['hqmf_id']
+      end
+
+      # create vendor
+      vendor_link = create_new_vendor('MeasureEvaluationVendor')
+      run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false)
+
+      measures_list.uniq.each do |measure|
+        run_vendor_tests(vendor_link, Array.new(1, measure), "Measures - #{measure}", true)
+      end
+    end
+
+    def run_vendor_tests(vendor_link, measures, product_name, skip_c1_test)
+      setup_vendor_test(vendor_link, measures, product_name, skip_c1_test)
       download_patient_test_data
       @patient_links_task_hash.each do |patient_links|
         calcuate_cat_3(patient_links[0].split('/')[2], @bundle_id)
-        upload_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2], true)
-        upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false)
+        upload_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2], true) unless skip_c1_test
+        upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
       end
-      sleep(4)
+      # sleep(4)
       download_filter_data
       calculate_filtered_cat3
       upload_c4_test_executions
+      cleanup_hashes
     end
 
     def upload_c4_test_executions
@@ -48,22 +77,9 @@ module Cypress
       File.delete('tmp/filter_patients.zip')
     end
 
-    def setup_vendor_tests
-      measures_list = []
-      # getting measures from bundles is a little convoluted
-      bundles = parsed_api_object(call_get_bundles)
-      measures_link = extract_link(bundles[0], 'measures')
-      @bundle_id = measures_link.split('/')[2]
-      measures = parsed_api_object(call_get_measures(measures_link))
-
-      measures.each do |measure|
-        measures_list << measure['hqmf_id']
-      end
-
-      # create vendor
-      vendor_link = create_new_vendor('MeasureEvaluationVendor')
+    def setup_vendor_test(vendor_link, measures, product_name, skip_c1_test)
       # create a product for the vendor
-      product_link = create_new_product(@bundle_id, vendor_link, 'api_product_1', measures_list.uniq)
+      product_link = create_new_product(@bundle_id, vendor_link, product_name, measures, skip_c1_test)
       # get the product create
       single_product = call_get_product(product_link)
       # get the link to the product's product tests
@@ -128,8 +144,13 @@ module Cypress
 
     # This uses Cypress to get the fitered information
     def download_filter_data
-      download_test_patients(@filter_patient_link, 'filter_patients')
+      test_patients_already_downloaded = false
       @cat1_filter_hash.each_key do |product_test|
+        next unless filter_test_ready?(product_test)
+        until File.exist?('tmp/filter_patients.zip')
+          test_patients_already_downloaded = download_test_patients(@filter_patient_link, 'filter_patients') unless test_patients_already_downloaded
+          sleep(1)
+        end
         pt_filters = parsed_api_object(call_get_product_test(product_test)).filters
         Zip::ZipFile.open('tmp/filter_patients.zip') do |zipfile|
           zipfile.entries.each do |entry|
@@ -143,6 +164,20 @@ module Cypress
           end
         end
       end
+    end
+
+    def filter_test_ready?(product_test)
+      count = 0
+      while parsed_api_object(call_get_product_test(product_test)).state != 'ready'
+        sleep(1)
+        count += 1
+        # this is only here since c4 tests can't build with unknown payer
+        next if count < 10
+        @cat1_filter_hash.delete(product_test)
+        @cat3_filter_hash.delete(product_test)
+        return false
+      end
+      true
     end
 
     def calculate_filtered_cat3
@@ -179,7 +214,9 @@ module Cypress
 
     def filter_problems(doc, filters)
       problem_array = []
-      problems_xpath = "//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']/cda:value/@sdtc:valueSet"
+      problems_xpath = %(//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']/cda:value/@sdtc:valueSet|
+        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']/cda:value/@sdtc:valueSet|
+        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']/cda:value/@sdtc:valueSet)
       problems = doc.xpath(problems_xpath)
       problems.each do |problem|
         problem_array << problem.value
@@ -194,10 +231,11 @@ module Cypress
       ethnic_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode/@code'
       payer_xpath = %(/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
         cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']/cda:value/@code)
+      payer_value = doc.at_xpath(payer_xpath).value if doc.at_xpath(payer_xpath)
       counter += 1 if filters.value?(doc.at_xpath(race_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(gender_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(ethnic_xpath).value)
-      counter += 1 if filters.value?(get_payer_name(doc.at_xpath(payer_xpath).value))
+      counter += 1 if filters.value?(get_payer_name(payer_value))
       return true if counter == 2
     end
 
@@ -238,11 +276,12 @@ module Cypress
                                   :headers => { :accept => :json, :content_type => :json }).headers[:location]
     end
 
-    def create_new_product(bundle_id, vendor_link, product_name, measure_list)
+    def create_new_product(bundle_id, vendor_link, product_name, measure_list, skip_c1_test)
+      c1_test = skip_c1_test ? '0' : '1'
       jdata = { product: { bundle_id: bundle_id,
                            name: product_name,
                            measure_ids: measure_list,
-                           c1_test: '1',
+                           c1_test: c1_test,
                            c2_test: '1',
                            c3_test: '1',
                            c4_test: '1',
@@ -309,7 +348,7 @@ module Cypress
       end
     end
 
-    def upload_test_execution(task_execution_path, product_test_id, is_cat_1)
+    def upload_test_execution(task_execution_path, product_test_id, is_cat_1, skip_c1_test = nil)
       resource = RestClient::Resource.new("#{@cypress_host}#{task_execution_path}", user: @username,
                                                                                     password: @password,
                                                                                     headers: { :accept => :json })
@@ -319,6 +358,7 @@ module Cypress
       else
         resource.post(results: File.new("tmp/#{product_test_id}.xml"))
         File.delete("tmp/#{product_test_id}.xml")
+        File.delete("tmp/#{product_test_id}.zip") if skip_c1_test
       end
     end
 
