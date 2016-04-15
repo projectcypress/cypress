@@ -4,7 +4,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
 
   def setup
-    collection_fixtures "users", "roles"
+    collection_fixtures "users", "roles", "vendors"
     @user = User.first
   end
 
@@ -54,7 +54,17 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test "Admin can update user" do
-
+    v = Vendor.first
+    u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    for_each_logged_in_user([ADMIN]) do
+      assert !u.has_role?(:user)
+      assert !u.has_role?( :owner, v)
+      patch :update , {id: u.id, role: :user, assignments: [{role: :owner,  vendor_id:v.id }]}
+      assert_response 302
+      u.reload
+      assert u.has_role?( :user)
+      assert u.has_role?( :owner, v)
+    end
   end
 
   test "Non Admin cannot update user " do

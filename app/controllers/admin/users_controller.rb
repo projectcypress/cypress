@@ -21,7 +21,7 @@ module Admin
       @user.add_role params[:role].to_sym
 
       params[:assignments].each do |ass|
-        @user.add_role ass[:role], Vendor.find(ass[:vendor_id])
+        @user.add_role(ass[:role], Vendor.find(ass[:vendor_id]))
       end
       @user.save
       flash[:notice] = "Successfully updated user."
