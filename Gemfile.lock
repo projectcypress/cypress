@@ -172,6 +172,7 @@ GEM
       nokogiri (~> 1.5)
       railties (>= 3, < 5)
     cucumber-wire (0.0.1)
+    daemons (1.2.2)
     debug_inspector (0.0.2)
     delayed_job (4.1.1)
       activesupport (>= 3.0, < 5.0)
@@ -509,6 +510,7 @@ DEPENDENCIES
   carrierwave
   carrierwave-mongoid
   cucumber-rails
+  daemons
   database_cleaner!
   devise
   factory_girl_rails
