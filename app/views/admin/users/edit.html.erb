@@ -39,12 +39,8 @@ Assignments:
  <div class="panel-footer">
    <button >Save</button> <button> Cancel</button>
  </div>
- <div class="panel panel-default">
-   <div class="panel-heading">
-     <h1 class='panel-title'>Delete User</h1>
-   </div>
-       <div class="panel-body">
-   <%= link_to "Back", :back, class: 'btn btn-default' %>
- </div>
- </div>
+
 </div>
+
+  <%= render partial: 'remove_modal' %>
+<%= render partial: 'remove_panel', locals: { name: @user.email, type: 'user', message: ' Be sure you want to do this.', delete_path: admin_user_path(@user) } %>
