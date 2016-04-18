@@ -20,7 +20,7 @@ module Admin
       @user.roles = []
       @user.add_role params[:role].to_sym
 
-      params[:assignments].each do |ass|
+      (params[:assignments] || []).each do |ass|
         @user.add_role(ass[:role], Vendor.find(ass[:vendor_id]))
       end
       @user.save

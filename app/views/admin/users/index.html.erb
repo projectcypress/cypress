@@ -1,33 +1,37 @@
-
-<table>
+<div class="col-md-12">
+<table class="table">
   <thead>
     <tr>
       <th>Email</th>
+      <th>Role</th>
       <th>Approved</th>
       <th>Locked</th>
-      <th>Send Reset</th>
+      <th>Assignments</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <% @users.each do |user| %>
+    <% @users.each do |user|
+    role = user.roles.where({resource_id: nil}).first
+    assignments = user.roles.where({resource_id: {"$ne"=> nil}})
+    %>
     <tr>
       <td><%= user.email %></td>
+      <td><%= role.name if role %></td>
       <td><%= user.approved %></td>
       <td><%= !user.locked_at.nil? %></td>
-      <td></td>
-      <td></td>
+      <td>
+        <table>
+          <% assignments.each do |ass| %>
+          <tr><td><%= ass.name %></td><td><%= ass.resource %></td></tr>
+        <%  end %>
+        </table>
+      </td>
+      <td><a class="btn-default" href="<%= edit_admin_user_path(user) %>"> Edit User </a></td>
     </tr>
     <% end %>
   </tbody>
 
 </table>
 
-<table>
-  <%= form_tag(admin_users_path , method: "post") do %>
-
-<tbody>
-  <tr><td>email</td><td><input name="email" type="text"></td><td><input type="submit" value="Add User"></td></tr>
-</tbody>
-<% end %>
-</table>
+</div>
