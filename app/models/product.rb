@@ -65,13 +65,11 @@ class Product
   end
 
   def valid_measure_ids?
-    # byebug if measure_ids == [] || measure_ids == nil
     if measure_ids.nil? || measure_ids.empty?
       errors.add(:measure_ids, 'must select at least one')
     else
-      measure_ids.each do |measure_id|
-        errors.add(:measure_ids, 'must be valid hqmf ids') unless Measure.top_level.where(hqmf_id: measure_id).any?
-      end
+      mids = measure_ids.uniq
+      errors.add(:measure_ids, 'must be valid hqmf ids') unless Measure.top_level.where(hqmf_id: { '$in' => mids }).length == mids.count
     end
   end
 
