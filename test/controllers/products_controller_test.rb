@@ -160,22 +160,21 @@ class ProductsControllerTest < ActionController::TestCase
 
   # report
 
-  test 'should generate a PDF report' do
+  test 'should generate a report' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :report, :format => :format_does_not_matter, :vendor_id => @vendor.id, :id => @first_product.id
       assert_response :success, "#{@user.email} should have access "
-      assert_equal 'application/pdf', response.headers['Content-Type']
     end
   end
 
-  test 'should restrict access to PDF report to unauthorized users' do
+  test 'should restrict access to report to unauthorized users' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :report, vendor_id: @vendor.id, id: @first_product.id
       assert_response 401
     end
   end
 
-  test 'should not generate a PDF report if invalid product_id' do
+  test 'should not generate a report if invalid product_id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       product = Product.first
       get :report, vendor_id: product.vendor.id, id: 'bad_id'

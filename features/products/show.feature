@@ -18,7 +18,7 @@ Scenario: Cannot View Download All Patients
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
-Scenario: Can Download PDF report
+Scenario: Can Download Report
   When all measure tests have a state of ready
   And the user visits the product page
-  Then the user should be able to download the PDF
+  Then the user should be able to view the report

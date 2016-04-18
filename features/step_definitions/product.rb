@@ -262,7 +262,7 @@ Then(/^the user should not be able to download all patients$/) do
   page.assert_text 'records are being built'
 end
 
-Then(/^the user should be able to download the PDF$/) do
+Then(/^the user should be able to view the report$/) do
   page.click_button 'Download Report'
-  assert_equal 'application/pdf', page.response_headers['Content-Type']
+  page.assert_text 'Report Summary'
 end
