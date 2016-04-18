@@ -1,10 +1,8 @@
-require 'cypress/pdf_report'
-
 class ProductsController < ApplicationController
   include API::Controller
   before_action :set_vendor, only: [:index, :new, :create, :report, :patients]
   before_action :set_product, except: [:index, :new, :create]
-  before_action :set_measures, only: [:new, :edit, :update]
+  before_action :set_measures, only: [:new, :edit, :update, :report]
   before_action :authorize_vendor
   add_breadcrumb 'Dashboard', :vendors_path
 
@@ -77,8 +75,6 @@ class ProductsController < ApplicationController
 
   # always responds with a pdf file containing information on the certification status of the product
   def report
-    pdf = Cypress::PdfReport.new(@product).download_pdf
-    send_data(pdf.to_pdf, filename: "Cypress_#{@product.name.underscore.dasherize}_report.pdf", type: 'application/pdf')
   end
 
   # always responds with a zip file of (.qrda.zip files of (qrda category I documents))
