@@ -32,7 +32,7 @@ module Cypress
       @filter_patient_link = nil
     end
 
-    def run_measure_eval
+    def run_measure_eval(c1_c2, c4)
       measures_list = []
       # getting measures from bundles is a little convoluted
       bundles = parsed_api_object(call_get_bundles)
@@ -45,10 +45,12 @@ module Cypress
 
       # create vendor
       vendor_link = create_new_vendor('MeasureEvaluationVendor')
-      run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false)
+      run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false) if c1_c2
 
-      measures_list.uniq.each do |measure|
-        run_vendor_tests(vendor_link, Array.new(1, measure), "Measures - #{measure}", true)
+      if c4
+        measures_list.uniq.each do |measure|
+          run_vendor_tests(vendor_link, Array.new(1, measure), "Measures - #{measure}", true)
+        end
       end
     end
 
@@ -105,7 +107,6 @@ module Cypress
         # hash of patient list with product tests - this is used to see if the patiets are ready
         @patient_link_product_test_hash[patient_download_link] = extract_link(product_test, 'self')
       elsif product_test.type == 'filter'
-        @filter_patient_link = extract_link(product_test, 'patients') if @filter_patient_link.nil?
         product_test_tasks_link = extract_link(product_test, 'tasks')
         # get product tasks objects
         product_test_tasks = parsed_api_object(call_get_product_test_tasks(product_test_tasks_link))
@@ -139,15 +140,16 @@ module Cypress
           not_dowloaded_test_patients << patient_download_link
           not_dowloaded_test_patients.shuffle!
         end
+        sleep(1)
       end
     end
 
     # This uses Cypress to get the fitered information
     def download_filter_data
-      test_patients_already_downloaded = false
       @cat1_filter_hash.each_key do |product_test|
         next unless filter_test_ready?(product_test)
         until File.exist?('tmp/filter_patients.zip')
+          @filter_patient_link = extract_link(parsed_api_object(call_get_product_test(product_test)), 'patients') if @filter_patient_link.nil?
           test_patients_already_downloaded = download_test_patients(@filter_patient_link, 'filter_patients') unless test_patients_already_downloaded
           sleep(1)
         end
@@ -172,7 +174,7 @@ module Cypress
         sleep(1)
         count += 1
         # this is only here since c4 tests can't build with unknown payer
-        next if count < 10
+        next if count < 20
         @cat1_filter_hash.delete(product_test)
         @cat3_filter_hash.delete(product_test)
         return false
@@ -214,9 +216,18 @@ module Cypress
 
     def filter_problems(doc, filters)
       problem_array = []
-      problems_xpath = %(//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']/cda:value/@sdtc:valueSet|
-        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']/cda:value/@sdtc:valueSet|
-        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']/cda:value/@sdtc:valueSet)
+      problems_xpath = %(//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
+        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
+        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
+        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']
+        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
+        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']
+        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
+        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']
+        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet)
       problems = doc.xpath(problems_xpath)
       problems.each do |problem|
         problem_array << problem.value
