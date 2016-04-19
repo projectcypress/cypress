@@ -193,7 +193,7 @@ class RecordFilterTest < ActiveSupport::TestCase
   def test_filter_problem
     selected_problem = %w(2.16.840.1.113883.3.464.1003.101.12.1001 2.16.840.1.113883.3.464.1003.101.12.1048).sample
 
-    filters = { 'problems' => [selected_problem] }
+    filters = { 'problems' => { oid: [selected_problem], hqmf_ids: ['2.16.840.1.113883.3.560.1.2'] } }
 
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, {}).to_a
 

@@ -45,7 +45,6 @@ class FilteringTest < ProductTest
     rand_record = records.sample
     # iterate over the filters and assign random codes
     options['filters'].each do |k, v|
-      next if v.count > 0
       case k
       when 'races'
         v << rand_record.race['code']
@@ -56,24 +55,13 @@ class FilteringTest < ProductTest
       when 'payers'
         v << rand_record.insurance_providers.first.name
       when 'providers'
-        options['filters']['providers'] = lookup_provider(rand_record)
+        options['filters']['providers'] = rand_record.lookup_provider(incl_addr)
       when 'problems'
-        v << lookup_problem
+        problem_oid = lookup_problem
+        options['filters']['problems'] = { oid: [problem_oid], hqmf_ids: hqmf_oids_for_problem(problem_oid) }
       end
     end
     save!
-  end
-
-  def lookup_provider(record)
-    provider = Provider.find(record.provider_performances.first['provider_id'])
-    addresses = []
-    provider.addresses.each do |address|
-      addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
-                     'country' => address.country }
-    end
-
-    return { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses } if incl_addr
-    { 'npis' => [provider.npi], 'tins' => [provider.tin] }
   end
 
   def lookup_problem
@@ -84,7 +72,8 @@ class FilteringTest < ProductTest
     measure.hqmf_document.source_data_criteria.each do |_criteria, criteria_hash|
       next unless criteria_hash.definition.eql? 'diagnosis'
       fallback_id = criteria_hash.code_list_id
-      if Cypress::RecordFilter.filter(records, { 'problems' => [criteria_hash.code_list_id] }, {}).count > 0
+      hqmf_oid = HQMF::DataCriteria.template_id_for_definition(criteria_hash.definition, criteria_hash.status, criteria_hash.negation)
+      if Cypress::RecordFilter.filter(records, { 'problems' => { oid: [criteria_hash.code_list_id], hqmf_ids: [hqmf_oid] } }, {}).count > 0
         code_list_id = criteria_hash.code_list_id
         break
       end
@@ -123,6 +112,16 @@ class FilteringTest < ProductTest
     end
 
     filters
+  end
+
+  def hqmf_oids_for_problem(problem_oid)
+    measure = measures.first
+    hqmf_oids = []
+    measure.hqmf_document.source_data_criteria.each do |_criteria, criteria_hash|
+      next unless criteria_hash.key?('code_list_id') && criteria_hash.code_list_id == problem_oid
+      hqmf_oids << HQMF::DataCriteria.template_id_for_definition(criteria_hash.definition, criteria_hash.status, criteria_hash.negation)
+    end
+    hqmf_oids.uniq
   end
 
   def filtered_records

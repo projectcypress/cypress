@@ -96,7 +96,7 @@ module Cypress
 
       # I think this whole section ending in relevant_codes
       # could possibly be combined into 1 mongo query that does everything
-      value_sets = HealthDataStandards::SVS::ValueSet.where('oid' => { '$in' => problem_filters })
+      value_sets = HealthDataStandards::SVS::ValueSet.where('oid' => { '$in' => problem_filters[:oid] })
 
       code_sets = value_sets.pluck('concepts')
 
@@ -110,8 +110,7 @@ module Cypress
       end
 
       relevant_codes.uniq!
-
-      problem_subquery = { '$elemMatch' => { 'codes.SNOMED-CT' => { '$in' => relevant_codes } } }
+      problem_subquery = { '$elemMatch' => { 'oid' => { '$in' => problem_filters[:hqmf_ids] }, 'codes.SNOMED-CT' => { '$in' => relevant_codes } } }
 
       conditions = { 'conditions' => problem_subquery }
       procedures = { 'procedures' => problem_subquery }

@@ -21,7 +21,7 @@ class FilteringTestsHelperTest < ActiveSupport::TestCase
       ethnicities: ['2135-2'],
       genders: ['F'],
       payers: ['Medicare'],
-      problems: ['2.16.840.1.113883.3.464.1003.101.12.1022']
+      problems: { oid: ['2.16.840.1.113883.3.464.1003.101.12.1022'] }
     }
   end
 
