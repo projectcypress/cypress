@@ -5,7 +5,6 @@
       <th>Email</th>
       <th>Role</th>
       <th>Approved</th>
-      <th>Locked</th>
       <th>Assignments</th>
       <th></th>
     </tr>
@@ -18,13 +17,16 @@
     <tr>
       <td><%= user.email %></td>
       <td><%= role.name if role %></td>
-      <td><%= user.approved %></td>
-      <td><%= !user.locked_at.nil? %></td>
+      <td><a href="<%= toggle_approved_admin_user_path(user) %>" data-turbolinks-action="replace"><%= user.approved %></a></td>
       <td>
-        <table>
-          <% assignments.each do |ass| %>
-          <tr><td><%= ass.name %></td><td><%= ass.resource %></td></tr>
-        <%  end %>
+        <table class"table">
+          <% assignments.each do |ass|
+            if ass.resource
+          %>
+          <tr><td><%= ass.name %></td><td><%= ass.resource.name %></td></tr>
+        <%  end
+          end
+       %>
         </table>
       </td>
       <td><a class="btn btn-default" href="<%= edit_admin_user_path(user) %>"><i class="fa fa-fw fa-wrench" aria-hidden="true"></i>Edit User </a></td>

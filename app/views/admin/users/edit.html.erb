@@ -2,44 +2,48 @@
   <div class="panel-heading">
     <h1 class='panel-title'>Edit User</h1>
   </div>
+  <%= bootstrap_form_for(@user, as: @user, url: admin_user_path(@user), html: { method: :put, 'data-parsley-validate': '' }) do |f| %>
   <div class="panel-body">
     <div class="col-md-6">
-  <%= bootstrap_form_for(@user, as: @user, url: admin_user_path(@user), html: { method: :put, 'data-parsley-validate': '' }) do |f| %>
-   <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
-    'data-parsley-required': '',
-    'data-parsley-type':"email",
-    'data-parsley-trigger': 'blur' %>
+      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
+      'data-parsley-required': '',
+      'data-parsley-type':"email",
+      'data-parsley-trigger': 'blur' %>
 
 
-  <div class="form_group">
-    <label class="control-label" for="user_role">Role</label>
-    <ul class="list-unstyled">
-      <li><input id="admin_radio" type="radio" name="role" value="admin" <%= "checked='true'" if @user.has_role? :admin %>> Admin</li>
-      <li><input id="atl_radio" type="radio" name="role" value="atl" <%= "checked='true'" if @user.has_role? :atl %>> Atl</li>
-      <li><input id="admin_radio" type="radio" name="role" value="user" <%= "checked='true'" if @user.has_role? :user %>> User</li>
-    </ul>
+      <div class="form_group">
+        <label class="control-label" for="user_role">Role</label>
+        <ul class="list-unstyled">
+          <li><input id="admin_radio" type="radio" name="role" value="admin" <%= "checked='true'" if @user.has_role? :admin %>> Admin</li>
+          <li><input id="atl_radio" type="radio" name="role" value="atl" <%= "checked='true'" if @user.has_role? :atl %>> Atl</li>
+          <li><input id="admin_radio" type="radio" name="role" value="user" <%= "checked='true'" if @user.has_role? :user %>> User</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      Assignments:
+      <div class="form_group">
+       <label for="role_select">Role </label> <select id="role_select" class="selectpicker"><%= options_for_select([['Owner','owner'],['Vendor','vendor']]) %></select>
+       <label for="vendor_select">Vendor </label> <select id="vendor_select" class="selectpicker"><%= options_for_select(Vendor.all.collect{|v| [v.name,v.id]}) %></select>
+       <button name="Add Assignment" onclick="">Add Assigment </button>
+      </div>
+        <div id="assignments">
+     <% @user.roles.where({resource_id: {"$ne" => nil}}).each_with_index do |r, index| %>
+      <div id="<%= r.id %>">
+        Role: <%= r.name%>   Vendor: <%= r.resource %> <br>
+        <input type="hidden" name="assignments[role][]" value="<%= r.name %>"/>
+        <input type="hidden" name="assignments[vendor_id][]" value="<%= r.resource_id %>"/>
+        <button onclick="$('#<%= r.id %>').remove()" >Remove </button>
+      </div>
+     <% end %>
+      </div>
+    </div>
+
   </div>
-</div>
-<div class="col-md-6">
-Assignments:
-  <div class="form_group">
-   <label for="role_select">Role </label> <select id="role_select" class="selectpicker"><%= options_for_select([['Owner','owner'],['Vendor','vendor']]) %></select>
-   <label for="vendor_select">Vendor </label> <select id="vendor_select" class="selectpicker"><%= options_for_select(Vendor.all.collect{|v| [v.name,v.id]}) %></select>
-   <button name="Add Assignment" >Add Assigment </button>
+  <div class="panel-footer">
+   <button class="btn btn-default" >Save</button> <a class="btn btn-default"  href="<%= admin_users_path %>"> Cancel</a>
   </div>
   <% end %>
- <% @user.roles.where({resource_id: {"$ne" => nil}}).each_with_index do |r, index| %>
-   Role: <%= r.name%>   Vendor: <%= r.resource %> <br>
-   <input type="hidden" name="assignments[<%= index %>].role" value="<%= r.name %>"/>
-   <input type="hidden" name="assignments[<%= index %>].vendor_id" value="<%= r.name %>"/>
- <% end %>
- </div>
-
- </div>
- <div class="panel-footer">
-   <button >Save</button> <button> Cancel</button>
- </div>
-
 </div>
 
   <%= render partial: 'remove_modal' %>
