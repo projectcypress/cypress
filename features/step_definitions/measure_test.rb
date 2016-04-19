@@ -65,7 +65,7 @@ And(/^the user uploads a CAT 3 XML file$/) do
 end
 
 And(/^the user uploads an invalid file$/) do
-  invalid_file_path = File.join(Rails.root, 'app/assets/images/checkmark.svg')
+  invalid_file_path = File.join(Rails.root, 'app/assets/images/icon.svg')
   page.attach_file('results', invalid_file_path, visible: false)
   page.find('#submit-upload').click
 end
