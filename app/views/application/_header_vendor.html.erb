@@ -32,10 +32,10 @@
           </li>
         <% end %>
         <% if !@vendor.points_of_contact.empty? %>
-        <span class="sr-only">Points of contact for vendor <%= @vendor.name %></span>
           <% @vendor.points_of_contact.each do |poc| %>
             <li class="point-of-contact">
               <i class="fa-li fa fa-user" aria-hidden="true"></i>
+              <span class="sr-only">Point of contact for vendor <%= @vendor.name %></span>
               <%= poc.name %> <%= "(#{poc.contact_type})" if poc.contact_type? %>
               <% if poc.email? || poc.phone? %>
                 <ul class="fa-ul">
