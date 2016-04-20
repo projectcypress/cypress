@@ -24,20 +24,25 @@
             <% @measures_categories.sort.each do |category, measures| %>
               <!-- set up a checkbox for each top-level measure in the group -->
               <div id="<%= category.tr(" '", "_") %>_div" class="measure_group">
-                <% if measures.length > 1 %>
-                <legend for="<%= category.tr(" '", "_") %>_fieldset">
-                <div class="checkbox">
-                  <label class="btn btn-checkbox">
-                    <input type="checkbox"
-                      id="<%= category.tr(" '", "_") %>"
-                      class="measure_group_all"
-                      <%= 'disabled' if defined?(@selected_measure_ids) && !@product.new_record? %>/>
-                    Select all <%= measures.length %> <%= category %> measures
-                  </label>
-                </div>
-                </legend>
-                <% end %>
                 <fieldset id="<%= category.tr(" '", "_") %>_fieldset">
+                    <% if measures.length > 1 %>
+                    <legend for="<%= category.tr(" '", "_") %>_fieldset">
+                    <div class="checkbox">
+                      <label class="btn btn-checkbox">
+                        <input type="checkbox"
+                          id="<%= category.tr(" '", "_") %>"
+                          class="measure_group_all"
+                          <%= 'disabled' if defined?(@selected_measure_ids) && !@product.new_record? %>/>
+                        Select all <%= measures.length %> <%= category %> measures
+                      </label>
+                    </div>
+                    </legend>
+                  <% else %>
+                    <legend class="sr-only">
+                      <%= category %> measures
+                    </legend>
+                  <% end %>
+
                 <% measures.sort_by(&:cms_int).each do |m| %>
                   <div class = 'checkbox'>
                     <label class = 'btn btn-checkbox'>
