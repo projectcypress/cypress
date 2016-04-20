@@ -25,15 +25,15 @@
       <div class="form_group">
        <label for="role_select">Role </label> <select id="role_select" class="selectpicker"><%= options_for_select([['Owner','owner'],['Vendor','vendor']]) %></select>
        <label for="vendor_select">Vendor </label> <select id="vendor_select" class="selectpicker"><%= options_for_select(Vendor.all.collect{|v| [v.name,v.id]}) %></select>
-       <button name="Add Assignment" onclick="">Add Assigment </button>
+       <button id="addAssignment" name="Add Assignment" >Add Assigment </button>
       </div>
         <div id="assignments">
      <% @user.roles.where({resource_id: {"$ne" => nil}}).each_with_index do |r, index| %>
-      <div id="<%= r.id %>">
+      <div >
         Role: <%= r.name%>   Vendor: <%= r.resource %> <br>
-        <input type="hidden" name="assignments[role][]" value="<%= r.name %>"/>
-        <input type="hidden" name="assignments[vendor_id][]" value="<%= r.resource_id %>"/>
-        <button onclick="$('#<%= r.id %>').remove()" >Remove </button>
+        <input type="hidden" name="assignments[<%= index %>][role]" value="<%= r.name %>"/>
+        <input type="hidden" name="assignments[<%= index %>][vendor_id]" value="<%= r.resource_id %>"/>
+        <button onclick="$(this).parent().remove()" >Remove </button>
       </div>
      <% end %>
       </div>

@@ -56,8 +56,8 @@ Rails.application.routes.draw do
   resources :records, only: [:index, :show]
 
   namespace :admin do
-    get "users/send_invitation"
-    resources :users do  
+    get 'users/send_invitation'
+    resources :users do
       member do
         get :unlock
         get :toggle_approved

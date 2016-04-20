@@ -2,7 +2,6 @@ require "test_helper"
 class Admin::UsersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
-
   def setup
     collection_fixtures "users", "roles", "vendors"
     @user = User.first
@@ -59,7 +58,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN]) do
       assert !u.has_role?(:user)
       assert !u.has_role?( :owner, v)
-      patch :update , {id: u.id, role: :user, assignments: [{role: :owner,  vendor_id:v.id }]}
+      patch :update , id: u.id, role: :user, assignments: [{role: :owner, vendor_id:v.id }]
       assert_response 302
       u.reload
       assert u.has_role?( :user)
@@ -69,7 +68,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test "Non Admin cannot update user " do
     for_each_logged_in_user([OWNER,ATL,VENDOR]) do
-      post :update,  id: @user.id
+      post :update, id: @user.id
       assert_response 401
     end
   end
@@ -110,7 +109,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN]) do
       get :toggle_approved, id: u.id
       assert_response 302
-      assert_equal !approved,  User.find(u.id).approved
+      assert_equal !approved, User.find(u.id).approved
       get :toggle_approved, id: u.id
       assert_response 302
       assert_equal approved, User.find(u.id).approved
