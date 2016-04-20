@@ -4,18 +4,19 @@
       <%= link_to root_path do %>cypress<% end %>
       <button type="button" class="navbar-toggle navbar-right" data-toggle="collapse" data-target="#cypressNavbar" aria-label="navigation menu" role="button" aria-controls="cypressNavbar" aria-expanded="false">
         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+        <span class="sr-only">Expand navigation menu</span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="cypressNavbar">
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
 
-          <% curr_page = if current_page?(edit_user_registration_path) 
+          <% curr_page = if current_page?(edit_user_registration_path)
                            :account
                          elsif (controller.controller_name == 'records' && params[:bundle_id]) || current_page?(:records)
-                           :master_patient_list 
+                           :master_patient_list
                          else
-                           :dashboard 
+                           :dashboard
                          end
            %>
 
