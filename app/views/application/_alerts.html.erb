@@ -5,7 +5,7 @@
 
 <% if notice || alert || flash[:backend_job_alert] %>
     <div class="clearfix alert <%= flash[:notice_type] ? "alert-#{flash[:notice_type]}" : "alert-info" %> <%= alert ? "alert-danger" : "" %> alert-dismissible" role="alert" aria-live="polite">
-        <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"><span class="sr-only">Close alert</span></button>
 
         <% if flash[:backend_job_alert] %>
           <div class="iconSpan pull-left">

@@ -1,6 +1,11 @@
 
 var ready;
 ready = function() {
+  // switch view to selected test execution
+  $("#view_execution").click(function(event) {
+    window.location.href = $("#select_execution").val();
+  });
+
   $("#submit-upload").click(function(event) {
     event.preventDefault();
     $("#new_test_execution").submit();
