@@ -145,7 +145,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     sign_in User.find(ADMIN)
     task = C1Task.first
     old_count = task.test_executions.count
-    file = File.new(File.join(Rails.root, 'app/assets/images/checkmark.svg'))
+    file = File.new(File.join(Rails.root, 'app/assets/images/icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
     post :create, task_id: task.id, results: upload
 
@@ -160,7 +160,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     task._type = 'C2Task'
     task.save!
     old_count = task.test_executions.count
-    file = File.new(File.join(Rails.root, 'app/assets/images/checkmark.svg'))
+    file = File.new(File.join(Rails.root, 'app/assets/images/icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
 
     post :create, task_id: task.id, results: upload

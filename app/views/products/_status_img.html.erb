@@ -1,7 +1,0 @@
-<% if task.status == 'passing' %>
-  <%= image_tag('checkmark.svg', :class => "mark-img") %>
-<% elsif task.status == 'failing' %>
-  <%= image_tag('errormark.svg', :class => "mark-img") %>
-<% elsif task.status == 'incomplete' %>
-  <%= image_tag('incomplete.svg', :class => "mark-img") %>
-<% end %>
