@@ -7,6 +7,8 @@
 //= require dataTables/jquery.dataTables
 //= require jquery-ui/autocomplete
 //= require jquery-ui/tabs
+//= require bootstrap/transition
+//= require bootstrap/modal
 //= require bootstrap/alert
 //= require bootstrap/tab
 //= require bootstrap/tooltip
