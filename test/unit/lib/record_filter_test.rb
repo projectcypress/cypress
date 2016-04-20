@@ -191,7 +191,7 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_filter_problem
-    selected_problem = %w(2.16.840.1.113883.3.464.1003.101.12.1001 2.16.840.1.113883.3.464.1003.101.12.1048).sample
+    selected_problem = %w(2.16.840.1.113883.3.464.1003.102.12.1023 2.16.840.1.113883.3.526.3.378).sample
 
     filters = { 'problems' => { oid: [selected_problem], hqmf_ids: ['2.16.840.1.113883.3.560.1.2'] } }
 
