@@ -311,7 +311,6 @@ GEM
       parallel
     parser (2.3.0.2)
       ast (~> 2.2)
-    pdfkit (0.8.2)
     phantomjs (1.9.8.0)
     poltergeist (1.8.1)
       capybara (~> 2.1)
@@ -362,8 +361,6 @@ GEM
     rake (10.5.0)
     rdoc (4.2.1)
       json (~> 1.4)
-    render_anywhere (0.0.12)
-      rails (>= 3.0.7)
     representable (2.3.0)
       uber (~> 0.0.7)
     responders (2.1.1)
@@ -486,7 +483,6 @@ GEM
     websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    wkhtmltopdf-binary (0.9.9.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     zip-zip (0.3)
@@ -531,14 +527,12 @@ DEPENDENCIES
   nested_form
   overcommit
   parallel_tests
-  pdfkit
   phantomjs (~> 1.9.8.0)
   poltergeist
   pry
   pry-nav
   quality-measure-engine!
   rails (~> 4.2.5.2)
-  render_anywhere
   responders
   roar-rails
   rolify
@@ -553,7 +547,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn-rails
   web-console (~> 2.0)
-  wkhtmltopdf-binary
 
 BUNDLED WITH
    1.11.2

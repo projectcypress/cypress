@@ -91,9 +91,9 @@ end
 When(/^the user creates a product with multiple measures from different groups$/) do
   steps %( When the user fills out all product information but measures )
   page.all('.sidebar a')[2].click
-  page.find('input.measure-checkbox').click
+  page.all('input.measure-checkbox')[0].click
   page.all('.sidebar a')[3].click
-  page.find('input.measure-checkbox').click
+  page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
 
@@ -262,7 +262,7 @@ Then(/^the user should not be able to download all patients$/) do
   page.assert_text 'records are being built'
 end
 
-Then(/^the user should be able to download the PDF$/) do
+Then(/^the user should be able to view the report$/) do
   page.click_button 'Download Report'
-  assert_equal 'application/pdf', page.response_headers['Content-Type']
+  page.assert_text 'Report Summary'
 end

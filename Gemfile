@@ -72,11 +72,6 @@ gem 'daemons'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Make PDFs
-gem 'wkhtmltopdf-binary'
-gem 'pdfkit'
-gem 'render_anywhere', require: false
-
 group :development, :test do
   gem 'rubocop', '0.36', require: false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
