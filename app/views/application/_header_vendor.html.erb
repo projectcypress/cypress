@@ -18,8 +18,10 @@
         <% if @vendor.url? %>
           <li>
             <i class="fa-li fa fa-globe" aria-hidden="true"></i>
-            <span class="sr-only">Website for vendor <%= @vendor.name %></span>
-            <a href="<%= website_link(@vendor.url) %>"><%= website_link(@vendor.url) %></a>
+            <a href="<%= website_link(@vendor.url) %>">
+              <span class="sr-only">Website for vendor <%= @vendor.name %></span>
+              <%= website_link(@vendor.url) %>
+            </a>
           </li>
         <% end %>
         <% if @vendor.address? %>
@@ -40,8 +42,8 @@
                   <% if poc.email? %>
                     <li>
                       <i class="fa-li fa fa-envelope" aria-hidden="true"></i>
-                      <span class="sr-only">Email for <%= poc.name %></span>
                       <a href="mailto:<%= poc.email %>?subject=Cypress%20testing%20for%20<%= @vendor.name %>">
+                        <span class="sr-only">Email for <%= poc.name %></span>
                         <%= poc.email %>
                       </a>
                     </li>
@@ -49,13 +51,14 @@
                   <% if poc.phone? %>
                     <li>
                       <i class="fa-li fa fa-phone" aria-hidden="true"></i>
-                      <span class="sr-only">Phone number for <%= poc.name %></span>
                       <% if poc.phone.gsub(/[^0-9]/, '').length == 10 %>
-                        <a href="tel:<%= number_to_phone(poc.phone.gsub(/[^0-9]/, ''), country_code: 1) %>" title="phone number for point of contact <%= poc.name %>">
+                        <a href="tel:<%= number_to_phone(poc.phone.gsub(/[^0-9]/, ''), country_code: 1) %>">
+                          <span class="sr-only">Phone number for <%= poc.name %></span>
                           <%= number_to_phone(poc.phone.gsub(/[^0-9]/, ''), area_code: true) %>
                         </a>
                       <% else %>
                         <a href="tel:<%= poc.phone.gsub(/[^0-9]/, '') %>">
+                          <span class="sr-only">Phone number for <%= poc.name %></span>
                           <%= poc.phone.gsub(/[^0-9]/, '') %>
                         </a>
                       <% end %>
