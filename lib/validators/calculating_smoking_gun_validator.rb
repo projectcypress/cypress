@@ -17,13 +17,15 @@ module Validators
       comp
     end
 
-    def parse_and_save_record(doc, te)
+    def parse_and_save_record(doc, te, options)
       record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
-
       record.test_id = te.id
       record.medical_record_number = rand(1_000_000_000_000_000)
       record.save
       record
+    rescue
+      add_error('File failed import', file_name: options[:file_name])
+      nil
     end
 
     def get_mrn(doc)
@@ -40,12 +42,12 @@ module Validators
       return false unless mrn
 
       passed = true
-      record = parse_and_save_record(doc, te)
+      record = parse_and_save_record(doc, te, options)
+      return false unless record
 
       @measures.each do |measure|
         ex_opts = { 'test_id' => te.id, 'bundle_id' => @bundle.id,  'effective_date' => te.task.effective_date,
-                    'enable_logging' => true, 'enable_rationale' => true,
-                    'oid_dictionary' => generate_oid_dictionary(measure, @bundle.id) }
+                    'enable_logging' => true, 'enable_rationale' => true, 'oid_dictionary' => generate_oid_dictionary(measure, @bundle.id) }
         @mre = QME::MapReduce::Executor.new(measure.hqmf_id, measure.sub_id, ex_opts)
 
         results = @mre.get_patient_result(record.medical_record_number)
