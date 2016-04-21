@@ -29,4 +29,16 @@ class Record
   def calculation_results
     HealthDataStandards::CQM::PatientCache.where('value.patient_id' => id).where('value.IPP'.to_sym.gt => 0)
   end
+
+  def lookup_provider(include_address = nil)
+    provider = Provider.find(provider_performances.first['provider_id'])
+    addresses = []
+    provider.addresses.each do |address|
+      addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
+                     'country' => address.country }
+    end
+
+    return { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses } if include_address
+    { 'npis' => [provider.npi], 'tins' => [provider.tin] }
+  end
 end

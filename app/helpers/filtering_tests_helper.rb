@@ -1,6 +1,7 @@
 module FilteringTestsHelper
   def display_filter_val(key, vals)
     return providers_val(vals) if key == 'providers'
+    return problems_val(vals) if key == 'problems'
     return [vals['min'] ? "min: #{vals['min']}" : '', vals['max'] ? "max: #{vals['max']}" : ''].reject(&:empty?).join(', ') if key == 'age'
     arr = []
     vals.each do |val|
@@ -9,11 +10,13 @@ module FilteringTestsHelper
         arr << "#{APP_CONFIG.randomization[key].find { |x| x.code == val }.name} (code: #{val})"
       when 'genders', 'payers'
         arr << val
-      when 'problems'
-        arr << "#{HealthDataStandards::SVS::ValueSet.where(oid: val).first.display_name} (code: #{val})"
       end
     end
     arr.join(', ')
+  end
+
+  def problems_val(val)
+    "#{HealthDataStandards::SVS::ValueSet.where(oid: val[:oid].first).first.display_name} (code: #{val[:oid].first})"
   end
 
   def providers_val(val)

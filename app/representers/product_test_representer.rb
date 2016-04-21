@@ -40,8 +40,13 @@ module ProductTestRepresenter
                             filters_copy
                           end)
 
+  hash :problem_filters,
+       :getter => ->(_) { options.filters.map { |filter_type, filter_val| [filter_type.to_s.singularize, filter_val['oid'].first] }.to_h },
+       :if => ->(_) { _type == 'FilteringTest' && options.filters.key?('problems') && state == :ready },
+       :wrap => :filters, :as => :filters
+
   hash :other_filters, :getter => ->(_) { options.filters.map { |filter_type, filter_val| [filter_type.to_s.singularize, filter_val.first] }.to_h },
-                       :if => ->(_) { _type == 'FilteringTest' && !options.filters['providers'] && state == :ready },
+                       :if => ->(_) { _type == 'FilteringTest' && !options.filters['providers'] && !options.filters['problems'] && state == :ready },
                        :wrap => :filters, :as => :filters
 
   self.links = {
