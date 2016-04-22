@@ -20,14 +20,43 @@ module TestExecutionsResultsHelper
   #   E r r o r   T a b l e s   #
   # # # # # # # # # # # # # # # #
 
-  def supplemental_data_errors(errors)
+  def population_data_errors(errors, population_type)
     return_errors = errors.select do |err|
-      err.has_attribute?('error_details') && err['error_details'].key?('type') && err['error_details']['type'] == 'supplemental_data'
+      err.has_attribute?('error_details') && err['error_details'].key?('type') && err['error_details']['type'] == population_type
     end
-    # sort by population key (IPP, DENOM, ...)
+    # sort by population id (since measures can have multiple IPP, DENOM, ...)
     return_errors.sort do |a, b|
-      a.error_details.population_key <=> b.error_details.population_key
+      a.error_details.population_id <=> b.error_details.population_id
     end
+  end
+
+  def population_errors_by_population_id(errors, population_id)
+    population_errors = errors.select do |err|
+      err.error_details['population_id'] == population_id && !err.error_details['stratification'] && err.error_details['type'] == 'population'
+    end
+    stratification_errors = errors.select do |err|
+      err.error_details['population_id'] == population_id && err.error_details['stratification'] && err.error_details['type'] == 'population'
+    end
+    supplemental_errors = errors.select do |err|
+      err.error_details['population_id'] == population_id && err.error_details['type'] == 'supplemental_data'
+    end
+    [population_errors, stratification_errors, supplemental_errors]
+  end
+
+  # Iterates through supplemental data errors to find populations that have errors messages.
+  def population_error_hash(pop_errors, sup_data_errors)
+    population_key_hash = {}
+    sup_data_errors.each do |supplemental_data_error|
+      unless population_key_hash.key? supplemental_data_error.error_details['population_id']
+        population_key_hash[supplemental_data_error.error_details['population_id']] = nil
+      end
+    end
+    pop_errors.each do |pop_error|
+      if pop_error.has_attribute?('error_details') && pop_error['error_details'].key?('population_id')
+        population_key_hash[pop_error.error_details['population_id']] = true
+      end
+    end
+    population_key_hash
   end
 
   # only use if an xpath location is specified for error
