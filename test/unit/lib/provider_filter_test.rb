@@ -1,6 +1,5 @@
 require 'test_helper'
 require 'fileutils'
-require 'pry'
 
 class ProviderFilterTest < ActiveSupport::TestCase
   def setup
