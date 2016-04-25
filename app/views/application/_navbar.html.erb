@@ -40,7 +40,7 @@
             Account
             <% end %>
           </li>
-          <% if can?(:manage, @all) %>
+          <% if current_user.has_role? :admin %>
             <li <% if curr_page == :admin %>class="active"<% end %>>
               <%= link_to admin_path, class: 'navbar-item'   do %>
               <i class="fa fa-fw fa-gears" aria-hidden="true"></i>
