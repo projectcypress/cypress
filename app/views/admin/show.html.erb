@@ -1,0 +1,39 @@
+<%
+  # local variables:
+  #
+  #   banner_message, address, port, domain, user_name, password
+%>
+
+<div data-no-turbolink class="settings-tabs">
+  <ul data-no-turbolink>
+    <% ['application_settings', 'application_status', 'user_management', 'bundle'].each do |target_id| %>
+      <li><a href = '#<%= target_id %>'><%= target_id.humanize.titleize %></a></li>
+    <% end %>
+  </ul>
+  <div id = "application_settings">
+    <div class="inline-block pull-right" >
+      <%= button_to edit_admin_settings_path, :method => :get, :class => "btn btn-sm btn-default" do %>
+      <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Application Settings
+    <% end %>
+    </div>
+    <div>
+      <b>Banner</b>
+      <p><%= banner_message %></p>
+    </div>
+    <br>
+    <div>
+      <b>Mailer</b>
+      <div>
+        <div>SMTP Server: <b><%= address %></b></div>
+        <div>Port: <b><%= port %></b></div>
+        <div>Domain: <b><%= domain %></b></div>
+        <div>Username: <b><%= user_name %></b></div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div id="application_status" ></div>
+  <div id="user_management" ></div>
+  <div id="bundle" ></div>
+</div>

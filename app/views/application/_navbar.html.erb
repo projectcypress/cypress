@@ -15,6 +15,8 @@
                            :account
                          elsif (controller.controller_name == 'records' && params[:bundle_id]) || current_page?(:records)
                            :master_patient_list
+                         elsif current_page?(admin_path)
+                           :admin
                          else
                            :dashboard
                          end
@@ -34,11 +36,18 @@
           </li>
           <li <% if curr_page == :account %>class="active"<% end %>>
             <%= link_to edit_user_registration_path, class: 'navbar-item'   do %>
-            <i class="fa fa-fw fa-gears" aria-hidden="true"></i>
+            <i class="fa fa-fw fa-user" aria-hidden="true"></i>
             Account
             <% end %>
           </li>
-
+          <% if can?(:manage, @all) %>
+            <li <% if curr_page == :admin %>class="active"<% end %>>
+              <%= link_to admin_path, class: 'navbar-item'   do %>
+              <i class="fa fa-fw fa-gears" aria-hidden="true"></i>
+              Admin
+              <% end %>
+            </li>
+          <% end %>
           <li>
             <%= link_to destroy_user_session_path, class: 'navbar-item'  do %>
                 <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
