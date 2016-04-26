@@ -21,7 +21,6 @@ class MeasureEvaluationJob < ActiveJob::Base
 
     product_test.expected_results = results
     product_test.save
-    product_test.ready
   end
 
   def eval_measures(measures, product_test, options, &_block)
