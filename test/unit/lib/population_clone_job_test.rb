@@ -42,15 +42,20 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   end
 
   def test_assigns_generated_provider
+    # 0 providers to start
+    assert_equal 0, Provider.count
     # ids passed in should clone just the 2 records
     pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(19 20),
                                           'test_id' => '4f636b3f1d41c851eb000491',
                                           'randomization_ids' => [],
                                           'generate_provider' => true)
     pcj.perform
-    prov = pcj.generate_provider # the generated provider, this is cached in the job
+    record = Record.where(test_id: '4f636b3f1d41c851eb000491').first
     assert_equal 17, Record.count
-    assert_equal 2, Record.where(test_id: '4f636b3f1d41c851eb000491', 'provider_performances.provider_id' => prov.id).count
+    # 2 providers were created
+    assert_equal 2, Provider.count
+    # provider in record matches ones of the generated providers
+    assert Provider.find(record.provider_performances.first.provider_id)
   end
 
   def test_perform_two_patients_randomized_ids

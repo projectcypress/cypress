@@ -160,22 +160,21 @@ class ProductsControllerTest < ActionController::TestCase
 
   # report
 
-  test 'should generate a PDF report' do
+  test 'should generate a report' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :report, :format => :format_does_not_matter, :vendor_id => @vendor.id, :id => @first_product.id
       assert_response :success, "#{@user.email} should have access "
-      assert_equal 'application/pdf', response.headers['Content-Type']
     end
   end
 
-  test 'should restrict access to PDF report to unauthorized users' do
+  test 'should restrict access to report to unauthorized users' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :report, vendor_id: @vendor.id, id: @first_product.id
       assert_response 401
     end
   end
 
-  test 'should not generate a PDF report if invalid product_id' do
+  test 'should not generate a report if invalid product_id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       product = Product.first
       get :report, vendor_id: product.vendor.id, id: 'bad_id'
@@ -261,8 +260,8 @@ class ProductsControllerTest < ActionController::TestCase
                                                                              measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
                                                                              bundle_id: '4fdb62e01d41c820f6000001' }
       assert_response 201, 'response should be Created on product create'
-      assert_equal(vendor_product_path(vendor, vendor.products.order_by(created_at: 'desc').first),
-                   response.location, 'response location should be product show')
+      assert response.location.end_with?(product_path(vendor.products.order_by(created_at: 'desc').first)),
+             'response location should be product show'
     end
   end
 
@@ -308,8 +307,8 @@ class ProductsControllerTest < ActionController::TestCase
                                                                             measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
                                                                             bundle_id: '4fdb62e01d41c820f6000001' }
       assert_response 201, 'response should be Created on product create'
-      assert_equal(vendor_product_path(vendor, vendor.products.order_by(created_at: 'desc').first),
-                   response.location, 'response location should be product show')
+      assert response.location.end_with?(product_path(vendor.products.order_by(created_at: 'desc').first)),
+             'response location should be product show'
     end
   end
 
@@ -350,6 +349,7 @@ class ProductsControllerTest < ActionController::TestCase
       post :create, :format => :json, :vendor_id => vendor.id, :product => { c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
                                                                              measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }
       assert_response 422, 'response should be Unprocessable Entity on product create with no name'
+      assert_has_json_errors JSON.parse(response.body), 'name' => ['can\'t be blank']
     end
   end
 
@@ -360,6 +360,18 @@ class ProductsControllerTest < ActionController::TestCase
                                                                              measure_ids: ['invalid_measure_id'],
                                                                              bundle_id: '4fdb62e01d41c820f6000001' }
       assert_response 422, 'response should be Unprocessable Entity on product create'
+      assert_has_json_errors JSON.parse(response.body), 'measure_ids' => ['must be valid hqmf ids']
+    end
+  end
+
+  test 'should not post create with xml request with invalid measure ids' do
+    vendor = Vendor.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      post :create, :format => :xml, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true,
+                                                                            measure_ids: ['invalid_measure_id'],
+                                                                            bundle_id: '4fdb62e01d41c820f6000001' }
+      assert_response 422, 'response should be Unprocessable Entity on product create'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'measure_ids' => ['must be valid hqmf ids']
     end
   end
 
@@ -369,9 +381,11 @@ class ProductsControllerTest < ActionController::TestCase
       post :create, :format => :json, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true,
                                                                              bundle_id: '4fdb62e01d41c820f6000001' }
       assert_response 422, 'response should be Unprocessable Entity on product create with no measure_ids'
+      assert_has_json_errors JSON.parse(response.body), 'measure_ids' => ['must select at least one']
       post :create, :format => :json, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true, measure_ids: [],
                                                                              bundle_id: '4fdb62e01d41c820f6000001' }
       assert_response 422, 'response should be Unprocessable Entity on product create with empty measure_ids'
+      assert_has_json_errors JSON.parse(response.body), 'measure_ids' => ['must select at least one']
     end
   end
 

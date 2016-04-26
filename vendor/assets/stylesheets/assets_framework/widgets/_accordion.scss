@@ -1,0 +1,57 @@
+.ui-accordion {
+    .ui-accordion-icons {
+        padding-left: 2.2em;
+    }
+    .ui-accordion-header {
+        background: $brand-disabled;
+        @include background($brand-disabled, $brand-white);
+        border: 1px solid #d3d3d3;
+        display: block;
+        cursor: pointer;
+        position: relative;
+        margin-top: 2px;
+        padding: .5em .5em .5em .7em;
+        min-height: 0;
+        &.ui-state-hover, &.ui-state-focus {
+            background: $brand-white;
+            @include background($brand-white, $brand-disabled);
+            border: 1px solid $gray-lightened;
+        }
+        &.ui-state-focus {
+            outline: 2px solid $outline-blue;
+            outline-offset: -6px;
+        }
+        .ui-icon {
+            text-indent: 0;
+            background-image: none;
+        }
+    }
+    .ui-state-default, .ui-state-default {
+        font-family: inherit;
+        color: #444;
+        font-weight: normal;
+    }
+    .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+        border: 1px solid;
+        background: $brand-white;
+        font-weight: normal;
+        color: #212121;
+    }
+    .ui-widget-content {
+        background-image: none;
+        a {
+            color: $link-color;
+            &:visited {
+                color: $link-visit-color;
+            }
+            &:hover {
+                color: $link-hover-color;
+                text-decoration: underline;
+            }
+            &:focus {
+                outline: 2px solid $outline-blue;
+                outline-offset: 2px;
+            }
+        }
+    }
+}

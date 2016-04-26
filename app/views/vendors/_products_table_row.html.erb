@@ -5,38 +5,19 @@
 %>
 
 <% product_status_values = get_product_status_values(product) %>
+<tr>
+  <th scope="row" class="product-name">
+    <%= link_to product.name, vendor_product_path(@vendor, product) %>
+  </th>
 
-<div class = 'row product-table-row'>
-  <div class = 'col-sm-2'><%= link_to product.name, vendor_product_path(@vendor, product) %></div>
-  <div class = 'col-sm-8'>
-
-    <% # certifaction status bar tabs %>
-    <ul class = 'nav'>
-      <% ['C1', 'C2', 'C3', 'C4'].each do |cert_type| %>
-        <li class = 'col-sm-3'>
-          <%= render partial: 'certification_progress_bar', locals: { cert_type: cert_type, cert_hash: product_status_values[cert_type] } if product_status_values.has_key?(cert_type) %>
-        </li>
-      <% end %>
-    </ul>
-
-    <% # carets %>
-    <% ['c1', 'c2', 'c3', 'c4'].each do |cert_type| %>
-      <div class = 'col-sm-3'><div class = 'caret-up hide <%= "product_#{product.id}_#{cert_type}" %>'></div></div>
+  <% ['C1', 'C2', 'C3', 'C4'].each do |cert_type| %>
+    <% if product_status_values.has_key?(cert_type) %>
+      <% cert_hash = product_status_values[cert_type].select { |test_key, test_val| test_val.is_a?(Hash) && test_val.key?('display_name') } %>
+      <td class='product-status'>
+        <%= render partial: 'certification_status', locals: { cert_type: cert_type, cert_hash: cert_hash } %>
+      </td>
+    <% else %>
+      <td></td>
     <% end %>
-
-    <% # certification specific popup %>
-    <div class = 'tab-content col-sm-12'>
-      <% ['C1', 'C2', 'C3', 'C4'].each do |cert_type| %>
-        <%= render partial: 'certification_specifics', locals: { cert_hash: product_status_values[cert_type],
-                                                                 display_name: cert_type_to_display_name(cert_type),
-                                                                 cert_status: cert_status(product_status_values[cert_type]) } if product_status_values.has_key?(cert_type) %>
-      <% end %>
-    </div>
-
-  </div>
-  <div class = 'col-sm-2'>
-    <%= button_to edit_vendor_product_path(@vendor, product), :method => :get, :class => "btn btn-sm btn-default pull-right" do %>
-      <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Product
-    <% end %>
-  </div>
-</div>
+  <% end %>
+</tr>

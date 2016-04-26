@@ -91,9 +91,9 @@ end
 When(/^the user creates a product with multiple measures from different groups$/) do
   steps %( When the user fills out all product information but measures )
   page.all('.sidebar a')[2].click
-  page.find('input.measure-checkbox').click
+  page.all('input.measure-checkbox')[0].click
   page.all('.sidebar a')[3].click
-  page.find('input.measure-checkbox').click
+  page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
 
@@ -135,6 +135,7 @@ When(/^the user cancels creating a product$/) do
 end
 
 When(/^the user changes the name of the product$/) do
+  page.click_link @product.name
   page.click_button 'Edit Product'
   @product_other = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product_other.name
@@ -142,6 +143,7 @@ When(/^the user changes the name of the product$/) do
 end
 
 When(/^the user removes the product$/) do
+  page.click_link @product.name
   page.click_button 'Edit Product'
   page.click_button 'Delete Product'
   page.fill_in 'Remove Name', with: @product.name
@@ -149,6 +151,7 @@ When(/^the user removes the product$/) do
 end
 
 When(/^the user removes the product from the vendor page$/) do
+  page.click_link @product.name
   page.click_button 'Edit Product'
   page.click_button 'Delete Product'
   page.fill_in 'Remove Name', with: @product.name
@@ -156,6 +159,7 @@ When(/^the user removes the product from the vendor page$/) do
 end
 
 When(/^the user cancels removing the product$/) do
+  page.click_link @product.name
   page.click_button 'Edit Product'
   page.click_button 'Delete Product'
   page.find('div.modal-footer').find('button', text: 'Cancel').click
@@ -258,7 +262,7 @@ Then(/^the user should not be able to download all patients$/) do
   page.assert_text 'records are being built'
 end
 
-Then(/^the user should be able to download the PDF$/) do
+Then(/^the user should be able to view the report$/) do
   page.click_button 'Download Report'
-  assert_equal 'application/pdf', page.response_headers['Content-Type']
+  page.assert_text 'Report Summary'
 end

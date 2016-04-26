@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/DatabaseCleaner/database_cleaner.git
-  revision: 1cab518efb4cd4d24b751252ab88fe562e302d33
+  revision: f15d7610a801e40d1570b56e869e563cdcff198a
   specs:
-    database_cleaner (1.5.1)
+    database_cleaner (1.5.3)
 
 GIT
   remote: https://github.com/bootstrap-ruby/rails-bootstrap-forms.git
@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/quality-measure-engine.git
-  revision: 9f2efa88332acccd75bf92f55424583f173a3859
+  revision: d07dc1657afd633ea12499e170baef4796858aad
   branch: bump_mongoid
   specs:
     quality-measure-engine (3.1.1)
@@ -85,45 +85,42 @@ GEM
     ansi (1.5.0)
     arel (6.0.3)
     ast (2.2.0)
-    autoprefixer-rails (6.3.1)
+    autoprefixer-rails (6.3.6)
       execjs
-      json
-    axe-matchers (1.1.1)
+    axe-matchers (1.2.1)
       dumb_delegator (~> 0.8)
       virtus (~> 1.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    backports (3.6.7)
-    bcrypt (3.1.10)
+    backports (3.6.8)
+    bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    brakeman (3.1.5)
+    brakeman (3.2.1)
       erubis (~> 2.6)
-      fastercsv (~> 1.5)
       haml (>= 3.0, < 5.0)
       highline (>= 1.6.20, < 2.0)
-      multi_json (~> 1.2)
-      ruby2ruby (>= 2.1.1, < 2.3.0)
-      ruby_parser (~> 3.7.0)
+      ruby2ruby (~> 2.3.0)
+      ruby_parser (~> 3.8.1)
       safe_yaml (>= 1.0)
       sass (~> 3.0)
       slim (>= 1.3.6, < 4.0)
       terminal-table (~> 1.4)
     breadcrumbs_on_rails (2.3.1)
-    bson (4.0.4)
+    bson (4.1.0)
     bson_ext (1.5.1)
     builder (3.2.2)
-    bundler-audit (0.4.0)
+    bundler-audit (0.5.0)
       bundler (~> 1.2)
       thor (~> 0.18)
-    byebug (8.2.2)
+    byebug (8.2.4)
     cancancan (1.13.1)
-    capybara (2.6.2)
+    capybara (2.7.0)
       addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -144,7 +141,7 @@ GEM
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
-    coderay (1.1.0)
+    coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     coffee-rails (4.1.1)
@@ -155,7 +152,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.1)
-    cucumber (2.3.2)
+    cucumber (2.3.3)
       builder (>= 2.1.2)
       cucumber-core (~> 1.4.0)
       cucumber-wire (~> 0.0.1)
@@ -172,6 +169,7 @@ GEM
       nokogiri (~> 1.5)
       railties (>= 3, < 5)
     cucumber-wire (0.0.1)
+    daemons (1.2.3)
     debug_inspector (0.0.2)
     delayed_job (4.1.1)
       activesupport (>= 3.0, < 5.0)
@@ -181,15 +179,14 @@ GEM
       mongoid-compatibility
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (3.5.6)
+    devise (4.0.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
+      railties (>= 4.1.0, < 5.1)
       responders
-      thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise_invitable (1.5.5)
-      actionmailer (>= 3.2.6, < 5)
+    devise_invitable (1.6.0)
+      actionmailer (>= 3.2.6)
       devise (>= 3.2.0)
     diff-lcs (1.2.5)
     diffy (3.1.0)
@@ -202,10 +199,10 @@ GEM
     ethon (0.8.1)
       ffi (>= 1.3.0)
     execjs (2.6.0)
-    factory_girl (4.5.0)
+    factory_girl (4.7.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.6.0)
-      factory_girl (~> 4.5.0)
+    factory_girl_rails (4.7.0)
+      factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
@@ -213,7 +210,6 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.0)
       faraday (>= 0.7.4, < 0.10)
-    fastercsv (1.5.5)
     ffi (1.9.10)
     font-awesome-sass (4.5.0)
       sass (>= 3.2)
@@ -233,11 +229,11 @@ GEM
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
-    ice_nine (0.11.1)
+    ice_nine (0.11.2)
     iniparse (1.4.2)
     jasny-bootstrap-rails (3.1.3)
       railties (>= 3.0)
-    jbuilder (2.4.0)
+    jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jquery-datatables-rails (3.3.0)
@@ -260,8 +256,8 @@ GEM
       nokogiri (>= 1.5.9)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
-    mail (2.6.3)
-      mime-types (>= 1.16, < 3)
+    mail (2.6.4)
+      mime-types (>= 1.16, < 4)
     memoist (0.9.3)
     metaclass (0.0.4)
     method_source (0.8.2)
@@ -271,7 +267,7 @@ GEM
     minitest-rails (2.2.0)
       minitest (~> 5.7)
       railties (~> 4.1)
-    minitest-reporters (1.1.7)
+    minitest-reporters (1.1.8)
       ansi
       builder
       minitest (>= 5.0)
@@ -294,7 +290,7 @@ GEM
       mongoid (>= 3.0, < 6.0)
     mongoid-tree (2.0.1)
       mongoid (>= 4.0, < 6.0)
-    multi_json (1.11.2)
+    multi_json (1.11.3)
     multi_test (0.1.2)
     multipart-post (2.0.0)
     nested_form (0.3.2)
@@ -305,17 +301,16 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     origin (2.2.0)
     orm_adapter (0.5.0)
-    overcommit (0.32.0)
+    overcommit (0.33.0)
       childprocess (~> 0.5.8)
       iniparse (~> 1.4)
-    parallel (1.6.1)
-    parallel_tests (2.4.0)
+    parallel (1.8.0)
+    parallel_tests (2.5.0)
       parallel
-    parser (2.3.0.2)
+    parser (2.3.0.7)
       ast (~> 2.2)
-    pdfkit (0.8.2)
-    phantomjs (2.1.1.0)
-    poltergeist (1.8.1)
+    phantomjs (1.9.8.0)
+    poltergeist (1.9.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
@@ -360,15 +355,13 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
-    raindrops (0.15.0)
-    rake (10.5.0)
-    rdoc (4.2.1)
+    raindrops (0.16.0)
+    rake (11.1.2)
+    rdoc (4.2.2)
       json (~> 1.4)
-    render_anywhere (0.0.12)
-      rails (>= 3.0.7)
     representable (2.3.0)
       uber (~> 0.0.7)
-    responders (2.1.1)
+    responders (2.1.2)
       railties (>= 4.2.0, < 5.1)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -383,42 +376,41 @@ GEM
       roar (>= 1.0.0, <= 1.1.0)
       test_xml (>= 0.1.6)
       uber (>= 0.0.5)
-    rolify (5.0.0)
+    rolify (5.1.0)
     rubocop (0.36.0)
       parser (>= 2.3.0.0, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
-    ruby-progressbar (1.7.5)
-    ruby2ruby (2.2.0)
+    ruby-progressbar (1.8.0)
+    ruby2ruby (2.3.0)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
-    ruby_parser (3.7.3)
+    ruby_parser (3.8.1)
       sexp_processor (~> 4.1)
     rubyzip (1.2.0)
     safe_yaml (1.0.4)
-    sass (3.4.21)
+    sass (3.4.22)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    scss_lint (0.44.0)
-      rake (~> 10.0)
+    scss_lint (0.48.0)
+      rake (>= 0.9, < 12)
       sass (~> 3.4.15)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    select2-rails (4.0.1)
-      thor (~> 0.14)
     selenium-webdriver (2.48.0)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sexp_processor (4.6.1)
-    simplecov (0.11.1)
+    settingslogic (2.0.9)
+    sexp_processor (4.7.0)
+    simplecov (0.11.2)
       docile (~> 1.1.0)
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
@@ -427,10 +419,10 @@ GEM
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
-    sprockets (3.5.2)
+    sprockets (3.6.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.0.3)
+    sprockets-rails (3.0.4)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
@@ -459,15 +451,13 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uber (0.0.15)
-    uglifier (2.7.2)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
+    uglifier (3.0.0)
+      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    unicorn (5.0.1)
+    unicorn (5.1.0)
       kgio (~> 2.6)
-      rack
       raindrops (~> 0.7)
     unicorn-rails (2.2.0)
       rack
@@ -486,11 +476,10 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
-    websocket (1.2.2)
+    websocket (1.2.3)
     websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    wkhtmltopdf-binary (0.9.9.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     zip-zip (0.3)
@@ -514,6 +503,7 @@ DEPENDENCIES
   carrierwave
   carrierwave-mongoid
   cucumber-rails
+  daemons
   database_cleaner!
   devise
   devise_invitable
@@ -535,14 +525,12 @@ DEPENDENCIES
   nested_form
   overcommit
   parallel_tests
-  pdfkit
-  phantomjs
+  phantomjs (~> 1.9.8.0)
   poltergeist
   pry
   pry-nav
   quality-measure-engine!
   rails (~> 4.2.5.2)
-  render_anywhere
   responders
   roar-rails
   rolify
@@ -550,15 +538,14 @@ DEPENDENCIES
   sass-rails (~> 5.0.4)
   scss_lint
   sdoc (~> 0.4.0)
-  select2-rails
   selenium-webdriver (= 2.48.0)
+  settingslogic
   simplecov
   travis
   turbolinks
   uglifier (>= 1.3.0)
   unicorn-rails
   web-console (~> 2.0)
-  wkhtmltopdf-binary
 
 BUNDLED WITH
    1.11.2

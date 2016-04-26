@@ -1,4 +1,5 @@
-var ready = function(){
+
+var assignmentsReady = function(){
   var assignmentIndex = 1000;
   var  addAssignment = function(e){
     assignmentIndex++;
@@ -23,4 +24,15 @@ var ready = function(){
 
 }
 
-$(document).ready(ready)
+$(document).ready(assignmentsReady)
+
+// Place all the behaviors and hooks related to the matching controller here.
+// All this logic will automatically be available in application.js.
+
+var ready;
+ready = function() {
+  $('.settings-tabs').tabs();
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

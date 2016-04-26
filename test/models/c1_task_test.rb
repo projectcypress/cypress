@@ -109,6 +109,17 @@ class C1TaskTest < ActiveSupport::TestCase
       # extra record has qrda errors but those should not be validated (in either case)
     end
   end
+
+  def test_task_good_results_should_pass
+    task = @product_test.tasks.create({}, C1Task)
+    testfile = Tempfile.new(['good_results_debug_file', '.zip'])
+    testfile.write task.good_results
+    perform_enqueued_jobs do
+      te = task.execute(testfile)
+      te.reload
+      assert_equal 0, te.execution_errors.count, 'test execution with known good results should have no errors'
+    end
+  end
 end
 
 require_relative '../helpers/caching_test'

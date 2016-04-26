@@ -88,7 +88,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not be able to delete test execution if incorrect test_execution id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       @first_task.test_executions.destroy
-      te = @first_task.test_executions.create
+      @first_task.test_executions.create
       delete :destroy, task_id: @first_task.id, id: 'bad_id'
       assert_response 404, 'response should be Not Found if no test_execution'
       assert_equal '', response.body
@@ -145,7 +145,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     sign_in User.find(ADMIN)
     task = C1Task.first
     old_count = task.test_executions.count
-    file = File.new(File.join(Rails.root, 'app/assets/images/checkmark.svg'))
+    file = File.new(File.join(Rails.root, 'app/assets/images/icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
     post :create, task_id: task.id, results: upload
 
@@ -160,7 +160,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     task._type = 'C2Task'
     task.save!
     old_count = task.test_executions.count
-    file = File.new(File.join(Rails.root, 'app/assets/images/checkmark.svg'))
+    file = File.new(File.join(Rails.root, 'app/assets/images/icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
 
     post :create, task_id: task.id, results: upload
@@ -179,9 +179,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat1.id, :results => zip_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@task_cat1, @task_cat1.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil JSON.parse(response.body)
+      assert_equal 'pending', JSON.parse(response.body)['state']
+      assert response.location.end_with?(test_execution_path(@task_cat1.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -190,9 +191,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat3.id, :results => xml_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@task_cat3, @task_cat3.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil JSON.parse(response.body)
+      assert_equal 'pending', JSON.parse(response.body)['state']
+      assert response.location.end_with?(test_execution_path(@task_cat3.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -203,9 +205,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :xml, :task_id => @task_cat1.id, :results => zip_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@task_cat1, @task_cat1.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil Hash.from_trusted_xml(response.body)
+      assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
+      assert response.location.end_with?(test_execution_path(@task_cat1.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -214,20 +217,24 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :xml, :task_id => @task_cat3.id, :results => xml_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@task_cat3, @task_cat3.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil Hash.from_trusted_xml(response.body)
+      assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
+      assert response.location.end_with?(test_execution_path(@task_cat3.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
   # Unsuccessful Requests
 
-  test 'should not create test_execution with json request with cat 1 c4 task if incorrect upload type' do
+  test 'should not create test_execution with cat 1 c4 task if incorrect upload type' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat1.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @task_cat1.id, :results => xml_upload
+      assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 
@@ -236,7 +243,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat3.id, :results => zip_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @task_cat3.id, :results => zip_upload
+      assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 
@@ -289,9 +299,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => zip_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@first_task, @first_task.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil JSON.parse(response.body)
+      assert_equal 'pending', JSON.parse(response.body)['state']
+      assert response.location.end_with?(test_execution_path(@first_task.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -349,9 +360,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
       assert_response 201, 'response should be Created on test_execution creation'
-      assert_equal('', response.body, 'response body should be empty on test_execution creation')
-      assert_equal(task_test_execution_path(@first_task, @first_task.most_recent_execution), response.location,
-                   'response location should be test_execution show')
+      assert_not_nil Hash.from_trusted_xml(response.body)
+      assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
+      assert response.location.end_with?(test_execution_path(@first_task.most_recent_execution)),
+             'response location should be test_execution show'
     end
   end
 
@@ -381,12 +393,15 @@ class TestExecutionsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should not create test_execution with json request with no upload' do
+  test 'should not create test_execution with no upload' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id
       assert_response 422, 'response should be Unprocessable Entity if no results given'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @first_task.id
+      assert_response 422, 'response should be Unprocessable Entity if no results given'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 
@@ -395,7 +410,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => nil
       assert_response 422, 'response should be Unprocessable Entity if nil results given'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @first_task.id, :results => nil
+      assert_response 422, 'response should be Unprocessable Entity if no results given'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 
@@ -404,7 +422,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if no test_execution'
-      assert_not_nil JSON.parse(response.body)['errors']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
+      assert_response 422, 'response should be Unprocessable Entity if no results given'
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
     end
   end
 

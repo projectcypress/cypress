@@ -15,7 +15,7 @@ class Provider
     prov.given_name = APP_CONFIG['randomization']['names']['first'][%w(M F).sample].sample
     prov.family_name = APP_CONFIG['randomization']['names']['last'].sample
     prov.npi = NpiGenerator.generate
-    prov.tin = rand.to_s[2..8]
+    prov.tin = rand.to_s[2..10]
     prov.save!
     prov
   end

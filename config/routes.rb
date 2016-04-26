@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   end
 
   resources :tasks, only: [:show] do
+    member do
+      get :good_results
+    end
     resources :test_executions, only: [:index, :show, :new, :create, :destroy]
   end
 
@@ -55,7 +58,11 @@ Rails.application.routes.draw do
 
   resources :records, only: [:index, :show]
 
-  namespace :admin do
+
+  resource :admin, only: [:show], controller: 'admin'
+
+  namespace 'admin' do
+    resource :settings, only: [:show, :edit, :update]
     get 'users/send_invitation'
     resources :users do
       member do
@@ -64,6 +71,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -16,7 +16,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <a href="#main-content" class="sr-only">Skip to main content</a>
+  <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
 
   <% if APP_CONFIG['banner'] %>
     <div class="demo"><%= APP_CONFIG['banner_message'].html_safe %></div>
@@ -34,7 +34,7 @@
 
   </header>
 
-  <main aria-label="main section" id="main-content" class="container" role="main">
+  <main aria-label="main section" id="main-content" class="container" role="main" tabindex="-1">
     <div class="col-sm-12">
       <%= yield %>
     </div>

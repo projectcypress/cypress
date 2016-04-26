@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks with a null session
   protect_from_forgery :with => :exception, :unless => -> { request.format.json? || request.format.xml? }
 
-  before_action :authenticate_user!, :check_bundle_installed, except: [:page_not_found, :server_error]
+  before_action :authenticate_user!, :check_bundle_installed, :check_backend_jobs, except: [:page_not_found, :server_error]
   around_action :catch_not_found
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -38,6 +38,23 @@ class ApplicationController < ActionController::Base
       # cache this so that in the normal case, when the bundles are installed
       # it doesn't query the db on every request
       HealthDataStandards::CQM::Bundle.all.sample
+    end
+  end
+
+  # if the jobs are not running then there will be no pid files in the pid direectory
+  # they will not be running if the pid directory is not avaialable which will cause an
+  # exception to be thrown
+  def check_backend_jobs
+    running = false
+    begin
+      running = Dir.new(APP_CONFIG.pid_dir).entries.length > 0
+    rescue
+    end
+
+    unless running
+      alert_msg = "The backend processes for setting up tests and perfroming measure calculations is not running.
+                    Please refer to the Cypress installation manual for instructions on starting the processes."
+      flash[:backend_job_alert] = alert_msg.html_safe
     end
   end
 

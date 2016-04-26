@@ -33,7 +33,6 @@ gem 'breadcrumbs_on_rails'
 gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git', branch: 'master'
 gem 'nested_form'
 gem 'jasny-bootstrap-rails'
-gem 'select2-rails'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
 
@@ -44,8 +43,6 @@ gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-# # RABL (Ruby API Builder Language) is a Rails ruby templating system for generating JSON, XML, MessagePack, PList and BSON.
-# gem 'rabl'
 # A set of responders modules to dry up your Rails 4.2+ app.
 gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
@@ -55,6 +52,8 @@ gem 'sdoc', '~> 0.4.0', :group => :doc
 
 gem 'carrierwave'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
+
+gem 'settingslogic'
 
 # bubble up errors from embedded documents in Mongoid.
 # gem 'mongoid-embedded-errors'
@@ -67,16 +66,13 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 gem 'devise_invitable'
+gem 'daemons'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-# Make PDFs
-gem 'wkhtmltopdf-binary'
-gem 'pdfkit'
-gem 'render_anywhere', require: false
 
 group :development, :test do
   gem 'rubocop', '0.36', require: false
@@ -87,7 +83,7 @@ group :development, :test do
   gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
   gem 'travis'
   gem 'poltergeist'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
+  gem 'phantomjs', '~> 1.9.8.0', require: 'phantomjs/poltergeist'
   gem 'scss_lint', require: false
   gem 'capybara'
   gem 'capybara-accessible'

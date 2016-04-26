@@ -6,7 +6,8 @@ class C2TaskTest < ActiveSupport::TestCase
 
   def setup
     collection_fixtures('product_tests', 'products', 'bundles',
-                        'measures', 'records', 'patient_cache')
+                        'measures', 'records', 'patient_cache',
+                        'health_data_standards_svs_value_sets')
     @product_test = ProductTest.find('51703a6a3054cf8439000044')
   end
 
@@ -138,6 +139,18 @@ class C2TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = c2_task.execute(xml)
       assert_equal c3_task.test_executions.first.id.to_s, te.sibling_execution_id
+    end
+  end
+
+  def test_task_good_results_should_pass
+    ptest = ProductTest.find('51703a883054cf84390000d3')
+    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    xml = Tempfile.new(['good_results_debug_file', '.xml'])
+    xml.write task.good_results
+    perform_enqueued_jobs do
+      te = task.execute(xml)
+      te.reload
+      assert_equal 0, te.execution_errors.count, 'test execution with known good results should not have any errors'
     end
   end
 end

@@ -147,31 +147,13 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 2, cert.sums.total
   end
 
-  def test_cert_type_to_display_name
-    assert_equal 'C1 certification (Record and Export)', cert_type_to_display_name('C1')
-    assert_equal 'C2 certification (Import and Calculate)', cert_type_to_display_name('C2')
-    assert_equal 'C3 certification (Submission)', cert_type_to_display_name('C3')
-    assert_equal 'C4 certification (Filtering)', cert_type_to_display_name('C4')
-  end
-
-  def test_cert_status
-    certs = get_product_status_values(@product)
-    assert_equal 'Failing', cert_status(certs.C1)
-    assert_equal 'Not Complete', cert_status(certs.C2)
-    assert_equal 'Passing', cert_status(certs.C4)
-  end
-
-  def test_status_to_css_class
-    assert_equal 'text-success', status_to_css_class('Passing')
-    assert_equal 'text-danger', status_to_css_class('Failing')
-    assert_equal 'text-info', status_to_css_class('Not Complete')
-  end
-
-  def test_status_to_display_text
-    certs = get_product_status_values(@product)
-    assert_equal 'C1 certified', status_to_display_text('Passing', 'C1', certs.C1)
-    assert_equal '1 tests failing', status_to_display_text('Failing', 'C1', certs.C1)
-    assert_equal '2 tests to go', status_to_display_text('Not Complete', 'C3', certs.C3)
+  def test_status_to_css_classes
+    assert_equal 'status-passing', status_to_css_classes('Passing')['cell']
+    assert_equal 'fa-check', status_to_css_classes('Passing')['icon']
+    assert_equal 'status-failing', status_to_css_classes('Failing')['cell']
+    assert_equal 'fa-times', status_to_css_classes('Failing')['icon']
+    assert_equal 'status-not-started', status_to_css_classes('Not Complete')['cell']
+    assert_equal 'fa-circle-o', status_to_css_classes('Not Complete')['icon']
   end
 
   def test_get_product_status_values_performs_caching

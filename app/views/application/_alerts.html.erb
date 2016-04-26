@@ -3,10 +3,21 @@
  confirmable ||= false
 %>
 
-<% if notice || alert %>
+<% if notice || alert || flash[:backend_job_alert] %>
     <div class="clearfix alert <%= flash[:notice_type] ? "alert-#{flash[:notice_type]}" : "alert-info" %> <%= alert ? "alert-danger" : "" %> alert-dismissible" role="alert" aria-live="polite">
-        <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"><span class="sr-only">Close alert</span></button>
 
+        <% if flash[:backend_job_alert] %>
+          <div class="iconSpan pull-left">
+              <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>
+          </div>
+          <div class="alertContent">
+            <p><%= flash[:backend_job_alert] %></p>
+            <% if confirmable %>
+              <button type="button" class="btn btn-default btn-sm pull-right confirm" data-dismiss="alert">OK, I understand</button>
+            <% end %>
+          </div>
+        <% end %>
         <% if alert %>
           <div class="iconSpan pull-left">
               <i class="fa fa-fw fa-2x fa-exclamation-circle"></i>

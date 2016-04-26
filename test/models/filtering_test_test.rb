@@ -36,7 +36,7 @@ class FilteringTestTest < ActiveJob::TestCase
     assert filter_test.options['filters']['genders'].count == 1
     assert filter_test.options['filters']['payers'].count == 1
     providers_assertions(filter_test)
-    assert filter_test.options['filters']['problems'].count == 1
+    assert filter_test.options['filters']['problems']['oid'].count == 1
   end
 
   def providers_assertions(filter_test)

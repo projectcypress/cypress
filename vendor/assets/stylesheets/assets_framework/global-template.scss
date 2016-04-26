@@ -1,0 +1,81 @@
+/**********************
+***   Global SASS   ***
+**********************/
+@import "font-awesome/font-awesome";
+@import "widgets/collapsible";
+
+/**********************
+***  Global styles  ***
+**********************/
+
+body {
+    color: $brand-default-text-color;
+    font-size: $font-size-base;
+}
+
+h1, .h1 {
+    color: $header1-color;
+    @include font-size-REM($font-size-h1);
+}
+
+h2, .h2 {
+    color: $header2-color;
+    @include font-size-REM($font-size-h2);
+}
+
+h3, .h3 {
+    @include font-size-REM($font-size-h3);
+}
+
+h4, .h4 {
+    @include font-size-REM($font-size-h4);
+}
+
+h5, .h5 {
+    @include font-size-REM($font-size-h5);
+}
+
+h6, .h6 {
+    @include font-size-REM($font-size-h6);
+}
+
+input[readonly] {
+    cursor: not-allowed;
+}
+
+/* hide HCM test element during page load */
+#hcTest {
+    left: -9999em;
+    height: 0;
+    position: absolute;
+    width: 0;
+}
+
+/* this assists window resize scripts in assets.responsive.js */
+#screen-indicator {
+    position: absolute;
+    height: 0;
+    width: 0;
+    z-index: 1;
+    @media (max-width: 1199px) {
+        z-index: 8;
+    }
+    @media (max-width: 991px) {
+        z-index: 7;
+    }
+    @media (max-width: 767px) {
+        z-index: 6;
+    }
+    @media (min-width: 480px) {
+        z-index: 5;
+    }
+    @media (min-width: 768px) {
+        z-index: 4;
+    }
+    @media (min-width: 992px) {
+        z-index: 3;
+    }
+    @media (min-width: 1200px) {
+        z-index: 2;
+    }
+}

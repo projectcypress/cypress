@@ -18,18 +18,31 @@ bundle_file_path: "temp/bundles"
 # ignore roles completely -- this is essientially the same as everyone in the system being an admin
 ignore_roles: true
 
+# enable the "debug features" such as allowing QA testers to produce known good results for a task
+enable_debug_features: false
+
 # the default role to assign to a user upon at creation -- this should be either admin,atl, user or nil
 # a user without a role will not be able to create or view any vendors .  You may want to set this to nil
 # when an admin is required to approve new users and have the admin set the role there
 default_role: :user
 # wheather or not users are automatically approved without admin intervention
 auto_approve: true
+# sets whether or not Users are automatically linked to a Vendor based off the vendors points of contacts. Setting to true will
+# auto associate a User to a vendor when a user is created and a vendor point of contanct contains the same email address as the
+# user.  Likewise if a point of contact is added to a vendor and a User in the system has the same email address then the user
+# will be associated with the vendor.  The association is also automatically updated/rmoved when the user is removed from the system
+# or the point of contact is removed or updated from the vendor.  Setting this to true will also enable the devise plugin confirmable
+# which will require users to confirm their registration via an email link sent to their address.
+# Setting this to false disables the automatic associations as well as the devise confirmable pluggin
+auto_associate_pocs: false
 
+auto_confirm: true
 # setting to disable the bundles page until admin roles are available
-disable_bundle_page: true
+disable_bundle_page: false
 
 file_upload_root: "data/upload/"
 
+pid_dir: "./tmp/delayed_pids"
 # Configuration for values to use when randomizing patients in test decks
 randomization:
   names:
@@ -44,10 +57,10 @@ randomization:
     - code       : 2028-9
       name       : Asian
       codeSystem : 2.16.840.1.113883.6.238
-    - code       : 2058-6
+    - code       : 2054-5
       name       : Black or African American
       codeSystem : 2.16.840.1.113883.6.238
-    - code       : 2054-5
+    - code       : 2076-8
       name       : Native Hawaiian or Other Pacific Islander
       codeSystem : 2.16.840.1.113883.6.238
     - code       : 2131-1
@@ -106,23 +119,27 @@ default_provider:
 
 certifications:
   C1:
-    title: 'C1 Test - Record and Export'
+    title: 'C1 Test'
+    subtitle: 'Record and Export'
     description:  => 'EHRs must be able to export a data file that includes all of the data captured for every tested CQM.'
     tests:
       - 'MeasureTest'
       - 'ChecklistTest'
   C2:
-    title: 'C2 Test - Import and Calculate'
+    title: 'C2 Test'
+    subtitle: 'Import & Calculate'
     description: 'EHR technology must be able to electronically import a data file and use such data to perform calculations.'
     tests:
       - 'MeasureTest'
   C3:
-    title: 'C3 Test - Data Submission'
+    title: 'C3 Test'
+    subtitle: 'Data Submission'
     description: 'EHRs must enable a user to electronically create a data file for transmission of clinical quality measurement data.'
     tests:
       - 'MeasureTest'
   C4:
-    title: 'C4 Test - Data Filtering'
+    title: 'C4 Test'
+    subtitle: 'Data Filtering'
     description: 'EHRs must be able to filter patient records based on data criteria.'
     tests:
       - 'FilteringTest'

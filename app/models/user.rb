@@ -5,8 +5,13 @@ class User
   # :confirmable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable, :timeoutable, :lockable, :invitable
+         :validatable, :timeoutable, :lockable, :invitable,
+         :confirmable
 
+  # confirmable
+  field  :confirmation_token, type: String
+  field  :confirmed_at, type: Time, default: proc { APP_CONFIG.auto_confirm ? Time.now.utc : nil }
+  field  :confirmation_sent_at, type: Time
   ## Database authenticatable
   field :email,              type: String, default: ''
   field :encrypted_password, type: String, default: ''
@@ -40,9 +45,12 @@ class User
   index(invitation_token: 1)
   index(invitation_by_id: 1)
 
+
   field :approved, type: Boolean, default: APP_CONFIG.auto_approve || false
 
   validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
+
+  after_create :associate_points_of_contact
 
   def active_for_authentication?
     super && approved?
@@ -74,6 +82,7 @@ class User
     end
   end
 
+
   def toggle_approved
     approved = !approved
     save
@@ -82,4 +91,13 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  def associate_points_of_contact
+    if APP_CONFIG.auto_associate_pocs
+      Vendor.where('points_of_contact.email' => email).each do |vendor|
+        add_role :vendor, vendor
+      end
+    end
+  end
+
 end

@@ -1,71 +1,48 @@
-.product-table-header {
-  margin-bottom: 1em;
-}
-
-.product-table-row {
-
-  margin-top: 10px;
-
-  .certification-tab {
-    padding: 0 0 5px;
+.products-table {
+  .products-certification {
+    width: 20%;
   }
 
-  .certification-tab:focus,
-  .certification-tab:hover {
-    background-color: $body-bg;
+  > thead > tr > th,
+  > thead > tr > td {
+    border-bottom-color: $gray;
   }
 
-  .certification-tab:hover {
-    text-decoration: underline;
+  > tbody > tr > th,
+  > tbody > tr > td {
+    border-top-color: $gray;
   }
 
-  a > span {
-    font-weight: normal;
+  .product-name {
+    font-size: 1.25em;
   }
 
-  ul {
-    list-style-type: none;
-  }
+  .product-status {
+    padding: .5em 1em 0;
 
-  .tab-content {
-    margin-top: 0;
-
-    .active {
-      margin-bottom: 1em;
+    thead th {
+      border-bottom: 1px solid $gray-light;
+      font-size: .85em;
+      font-weight: 500;
     }
-  }
 
-  .progress-bar-info {
-    background-color: $state-info-bg;
-  }
+    .status-passing {
+      color: $state-success-text;
+      background: $state-success-bg;
+      border: 1px solid darken($state-success-bg, 20%);
+    }
 
-  .progress-bar-success {
-    background-color: $state-success-bg;
-  }
+    .status-failing {
+      color: $state-danger-text;
+      background: $state-danger-bg;
+      border: 1px solid darken($state-danger-bg, 20%);
+    }
 
-  .close-certification-specifics:hover {
-    cursor: pointer;
-  }
-
-  .progress {
-    margin-bottom: 0;
-  }
-
-  .caret-up {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-
-    border-bottom: 10px solid $gray-light;
-
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .certification-specifics {
-    border: 1px solid $gray-light;
-    padding: 1em;
+    .status-not-started {
+      color: $state-info-text;
+      background: $state-info-bg;
+      border: 1px solid darken($state-info-bg, 20%);
+    }
   }
 }
 

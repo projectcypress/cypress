@@ -8,17 +8,23 @@
     <% end %>
   </p>
 <% else %>
-  <div class = 'row product-table-header'>
-    <div class = 'col-sm-2'><h1 class = 'inline'>Products</h1></div>
-    <div class = 'col-sm-8'>
-      <div class = 'col-sm-3 text-center'><strong>C1</strong></div>
-      <div class = 'col-sm-3 text-center'><strong>C2</strong></div>
-      <div class = 'col-sm-3 text-center'><strong>C3</strong></div>
-      <div class = 'col-sm-3 text-center'><strong>C4</strong></div>
-    </div>
-    <div class = 'col-sm-2'></div>
-  </div>
-  <% @products.each do |product| %>
-    <%= render partial: 'products_table_row', locals: { product: product } %>
-  <% end %>
+  <h1>Products</h1>
+  <table class="table products-table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <% ['C1', 'C2', 'C3', 'C4'].each do |cert_type| %>
+          <th scope="col" class='products-certification text-center'>
+            <%= cert_type %> Certification
+            <br><%= APP_CONFIG.certifications[cert_type]['subtitle'] %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <%= render partial: 'products_table_row', locals: { product: product } %>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>

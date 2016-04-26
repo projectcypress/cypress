@@ -19,8 +19,6 @@ class TestExecutionsController < ApplicationController
     @test_execution = @task.execute(results_params)
     respond_with(@test_execution) do |f|
       f.html { redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id) }
-      f.json { render :nothing => true, :status => :created, :location => task_test_execution_path(@task.id, @test_execution.id) }
-      f.xml  { render :nothing => true, :status => :created, :location => task_test_execution_path(@task.id, @test_execution.id) }
     end
   rescue Mongoid::Errors::Validations
     rescue_create
@@ -50,10 +48,11 @@ class TestExecutionsController < ApplicationController
 
   def rescue_create
     alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
+    error_response = { errors: [{ field: 'results', messages: ['invalid file upload. upload a zip for CAT I or XML for CAT III'] }] }
     respond_with(@test_execution) do |f|
       f.html { redirect_to new_task_test_execution_path(task_id: @task.id), flash: { alert: alert.html_safe } }
-      f.json { render :json => { errors: 'invalid file upload. upload a zip for CAT I or XML for CAT III' }, :status => :unprocessable_entity }
-      f.xml  { render :xml => { errors: 'invalid file upload. upload a zip for CAT I or XML for CAT III' }, :status => :unprocessable_entity }
+      f.json { render :json => error_response, :status => :unprocessable_entity }
+      f.xml  { render :xml => error_response[:errors].to_xml(:root => :errors, :skip_types => true), :status => :unprocessable_entity }
     end
   end
 
