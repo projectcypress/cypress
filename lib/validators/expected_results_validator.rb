@@ -32,7 +32,7 @@ module Validators
       # remove the stratification entry if its there, not needed to test against values
       stratification = ids.delete('stratification')
       stratification ||= ids.delete('STRAT')
-      ids.keys.each do |pop_key|
+      ids.each do |pop_key, pop_id|
         next unless expected_result[pop_key].present?
         check_population(expected_result, reported_result, pop_key, stratification, measure_id)
         # Check supplemental data elements
@@ -47,7 +47,7 @@ module Validators
           expect_sup_val = (ex_sup[sup_key] || {}).reject { |k, v| (k.blank? || v.blank? || v == 'UNK') }
           report_sup_val = reported_sup.nil? ? nil : reported_sup[sup_key]
           # keys_and_ids used to hold information that is displayed with an execution error. the variable also rhymes
-          keys_and_ids = { measure_id: measure_id, pop_key: pop_key, sup_key: sup_key }
+          keys_and_ids = { measure_id: measure_id, pop_key: pop_key, pop_id: pop_id, sup_key: sup_key }
           check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids)
           check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids)
         end
@@ -72,9 +72,12 @@ module Validators
         message += " for Population #{pop_key}"
         add_error(message, location: '/', measure_id: measure_id, stratification: stratification)
       elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
-        err = %(expected #{pop_key} #{expected_result['population_ids'][pop_key]} value #{expected_result[pop_key]}
+        err = %(Expected #{pop_key} #{expected_result['population_ids'][pop_key]} value #{expected_result[pop_key]}
         does not match reported value #{reported_result[pop_key]})
-        add_error(err, location: '/', measure_id: measure_id, stratification: stratification)
+        error_details = { type: 'population', population_id: expected_result['population_ids'][pop_key], stratification: stratification,
+                          expected_value: expected_result[pop_key], reported_value: reported_result[pop_key] }
+        options = { location: '/', measure_id: measure_id, error_details: error_details }
+        add_error(err, options)
       end
     end
 
@@ -95,7 +98,8 @@ module Validators
     end
 
     def add_sup_data_error(keys_and_ids, code, expect_val, report_val)
-      error_details = { type: 'supplemental_data', population_key: keys_and_ids.pop_key, data_type: keys_and_ids.sup_key,
+      error_details = { type: 'supplemental_data', population_key: keys_and_ids.pop_key,
+                        population_id: keys_and_ids.pop_id, data_type: keys_and_ids.sup_key,
                         code: code, expected_value: expect_val, reported_value: report_val }
       options = { location: '/', measure_id: keys_and_ids.measure_id, error_details: error_details }
       add_error('supplemental data error', options)
