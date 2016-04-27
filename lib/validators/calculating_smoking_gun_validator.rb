@@ -6,15 +6,23 @@ module Validators
       super
     end
 
-    def compare_results(original, calculated, options)
-      comp = true
-      %w(IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP values).each do |pop|
-        next unless original[pop] != calculated[pop]
-        add_error("Calculated value for #{pop} does not match expected value  #{original[pop]} / #{calculated[pop]}",
-                  file_name: options[:file_name])
-        comp = false
+    def compare_results(original, calculated, options, previously_passed)
+      if original.nil? && calculated.nil?
+        true && previously_passed
+      else
+        comp = true
+        %w(IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP values).each do |pop|
+          calculated_value = calculated.nil? ? 0 : calculated[pop].to_i
+          original_value = original.value[pop].nil? ? 0 : original.value[pop].to_i
+          next unless original_value != calculated_value
+          pop_statment = options[:population_ids][pop]
+          pop_statment << " Stratification #{options[:population_ids]['STRAT']}" if options[:population_ids]['STRAT']
+          add_error("Calculated value (#{calculated_value}) for #{pop} (#{pop_statment}) does not match expected value (#{original_value})",
+                    file_name: options[:file_name])
+          comp = false
+        end
+        previously_passed && comp
       end
-      comp
     end
 
     def parse_and_save_record(doc, te, options)
@@ -49,17 +57,13 @@ module Validators
         ex_opts = { 'test_id' => te.id, 'bundle_id' => @bundle.id,  'effective_date' => te.task.effective_date,
                     'enable_logging' => true, 'enable_rationale' => true, 'oid_dictionary' => generate_oid_dictionary(measure, @bundle.id) }
         @mre = QME::MapReduce::Executor.new(measure.hqmf_id, measure.sub_id, ex_opts)
-
         results = @mre.get_patient_result(record.medical_record_number)
-
         original_results = QME::PatientCache.where('value.medical_record_id' => mrn, 'value.test_id' => @test_id,
                                                    'value.measure_id' => measure.hqmf_id, 'value.sub_id' => measure.sub_id).first
-        passed = if original_results.nil? && results.nil?
-                   true && passed
-                 else
-                   passed && compare_results(original_results.value, results, options)
-                 end
+        options[:population_ids] = measure.population_ids
+        passed = compare_results(original_results, results, options, passed)
       end
+      record.destroy
       passed
     end
 
