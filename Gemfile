@@ -43,8 +43,6 @@ gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-# # RABL (Ruby API Builder Language) is a Rails ruby templating system for generating JSON, XML, MessagePack, PList and BSON.
-# gem 'rabl'
 # A set of responders modules to dry up your Rails 4.2+ app.
 gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
@@ -54,6 +52,8 @@ gem 'sdoc', '~> 0.4.0', :group => :doc
 
 gem 'carrierwave'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
+
+gem 'settingslogic'
 
 # bubble up errors from embedded documents in Mongoid.
 # gem 'mongoid-embedded-errors'

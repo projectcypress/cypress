@@ -1,0 +1,24 @@
+<%
+  # local variables:
+  #
+  #   banner_message, address, port, domain, user_name, password
+%>
+
+<div class="panel panel-default">
+  <div class="panel-heading"><h1 class='panel-title'>Edit Settings</h1></div>
+  <%= bootstrap_form_tag url: admin_settings_path, method: :put do |f| %>
+    <div class="panel-body">
+        <%= f.text_area :banner_message, label: "Banner", value: banner_message %>
+        <div class="row">
+          <%= f.text_field :address, wrapper: { class: "col-sm-10" },  label: "SMTP Server", value: address %>
+          <%= f.number_field :port, wrapper: { class: "col-sm-2" }, label: "Port", maxLength: 5, value: port %>
+        </div>
+        <%= f.text_field :domain, label: "Mailer Domain", value: domain %>
+        <%= f.text_field :user_name, label: "Mailer Username", value: user_name %>
+        <%= f.password_field :password, label: "Mailer Password", value: password %>
+    </div>
+    <div class="panel-footer">
+      <%= f.submit "Submit Changes", :class => "btn btn-success", :id => "submit_button" %>
+    </div>
+  <% end %>
+</div>
