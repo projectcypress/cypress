@@ -6,7 +6,7 @@
 
 <% product_status_values = get_product_status_values(product) %>
 <tr>
-  <th scope="row" class="product-name">
+  <th class = "abbreviated" scope="row" class="product-name">
     <%= link_to product.name, vendor_product_path(@vendor, product) %>
   </th>
 
