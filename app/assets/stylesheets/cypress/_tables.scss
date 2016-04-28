@@ -10,6 +10,7 @@
       overflow: hidden;
     }
   }
+
   .abbreviated-multiline {
     overflow: hidden;
     position: relative; 
@@ -25,12 +26,14 @@
       overflow: hidden;
     }
   }
+
   .abbreviated-multiline:before {
     content: '...';
     position: absolute;
     right: 0;
     bottom: 0;
   }
+  
   .abbreviated-multiline:after {
     content: '';
     position: absolute;
