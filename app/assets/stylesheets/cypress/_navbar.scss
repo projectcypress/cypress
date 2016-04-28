@@ -59,6 +59,10 @@
   padding: 8px 10px;
   background-color: $navbar-inverse-bg;
   color: $navbar-inverse-link-color;
+  max-width: 24em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   a {
     padding: 6px 0;

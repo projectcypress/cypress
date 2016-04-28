@@ -1,14 +1,47 @@
 .table {
   .abbreviated {
-    max-width: 12em;
+    max-width: 16em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 
     &:hover {
       white-space: normal;
-      overflow: auto;
+      overflow: hidden;
     }
+  }
+
+  .abbreviated-multiline {
+    overflow: hidden;
+    position: relative; 
+    line-height: 1.2em;
+    max-height: 6em; 
+    text-align: justify;  
+    margin-right: -1em;
+    padding-right: 1em;
+    
+    &:hover {
+      white-space: normal;
+      max-height: 10.9em;
+      overflow: hidden;
+    }
+  }
+
+  .abbreviated-multiline:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .abbreviated-multiline:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: white;
   }
 
   .result-marker {
