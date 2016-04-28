@@ -27,7 +27,7 @@
       <% @vendors.each do |vendor| %>
         <tr>
           <td><%= vendor.status %></td>
-          <td class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></td>
+          <td><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></td>
           <td class = "text-center"><%= vendor.products ? vendor.products_passing.count : 0 %></td>
           <td class = "text-center"><%= vendor.products ? vendor.products_failing.count : 0 %></td>
           <td class = "text-center"><%= vendor.products ? vendor.products_incomplete.count : 0 %></td>
