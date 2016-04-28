@@ -22,7 +22,8 @@ module VendorsHelper
     h = {}
     h['checklist'] = Hash[%w(passing failing not_started total).zip(checklist_status_values(product.product_tests.checklist_tests.first))]
     if h['checklist']['total'] == 0
-      h['checklist']['not_started'] = product.measure_ids.size > 3 ? 4 : product.measure_ids.size
+      default_number = CAT1_CONFIG['number_of_checklist_measures']
+      h['checklist']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
     end
     h['cat1'] = Hash[%w(passing failing not_started total).zip(product_test_status_values(product.product_tests.measure_tests, 'C1Task'))]
     h['sums'] = h['cat1'].merge(h['checklist']) { |_key, old_val, new_val| old_val + new_val }
