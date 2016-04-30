@@ -3,6 +3,8 @@ class Product
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
 
+  default_scope -> { order(:updated_at => :desc) }
+
   belongs_to :vendor, index: true, touch: true
   has_many :product_tests, :dependent => :destroy
   accepts_nested_attributes_for :product_tests, allow_destroy: true
