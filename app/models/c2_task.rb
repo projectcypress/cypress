@@ -18,7 +18,7 @@ class C2Task < Task
   def execute(file)
     te = test_executions.create(expected_results: expected_results, artifact: Artifact.new(file: file))
     te.save!
-    TestExecutionJob.perform_later(te, self, validate_reporting: product_test.product.c3_test)
+    TestExecutionJob.perform_later(te, self)
     te.sibling_execution_id = product_test.tasks.c3_cat3_task.execute(file, te.id).id if product_test.product.c3_test
     te.save
     te
