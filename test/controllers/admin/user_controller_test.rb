@@ -37,20 +37,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     end
   end
 
-  test "Admin can view show " do
-    for_each_logged_in_user([ADMIN]) do
-      get :show , id: @user.id
-      assert_response :success
-      assert assigns(:user)
-    end
-  end
 
-  test "Non Admin cannot view show " do
-    for_each_logged_in_user([OWNER,ATL,VENDOR]) do
-      get :show, id: @user.id
-      assert_response 401
-    end
-  end
 
   test "Admin can update user" do
     v = Vendor.first
@@ -58,7 +45,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN]) do
       assert !u.has_role?(:user)
       assert !u.has_role?( :owner, v)
-      patch :update , id: u.id, role: :user, assignments: [{role: :owner, vendor_id:v.id }]
+      patch :update , id: u.id, role: :user, assignments: {"0" => {role: :owner, vendor_id:v.id }}
       assert_response 302
       u.reload
       assert u.has_role?( :user)
