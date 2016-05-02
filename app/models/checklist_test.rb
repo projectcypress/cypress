@@ -58,7 +58,7 @@ class ChecklistTest < ProductTest
     end
     measure_rank_map.sort_by { |_key, value| value }.reverse_each do |value|
       # If there are aleady 4 checklist measure, move on
-      next if checklist_measures.size > 3
+      next if checklist_measures.size > CAT1_CONFIG['number_of_checklist_measures'] - 1
       # If the measure is already a checklist measure (due to submeasures), move on
       next if checklist_measures.include? value[0].hqmf_id
       checklist_measures << value[0].hqmf_id
