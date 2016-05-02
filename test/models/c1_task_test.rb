@@ -89,7 +89,8 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip)
       te.reload
-      assert_equal 2, te.execution_errors.length, 'should be 2 calculation errors from cat I archive'
+      # 1 NUMER and 2 DENEX population
+      assert_equal 3, te.execution_errors.length, 'should be 3 calculation errors from cat I archive'
     end
   end
 

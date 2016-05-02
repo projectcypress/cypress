@@ -4,6 +4,15 @@ main a:not(.btn):not(.task-switch-link) {
 
 .summary-title {
   margin-top: 10px;
+  max-width: 30em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+      white-space: normal;
+      overflow: hidden;
+  }
 }
 
 .terms {

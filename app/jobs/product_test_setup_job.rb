@@ -11,5 +11,6 @@ class ProductTestSetupJob < ActiveJob::Base
       MeasureEvaluationJob.perform_now(product_test, {})
     end
     product_test.archive_records if product_test.patient_archive.filename.nil?
+    product_test.ready
   end
 end

@@ -7,7 +7,9 @@
 <% product_status_values = get_product_status_values(product) %>
 <tr>
   <th scope="row" class="product-name">
-    <%= link_to product.name, vendor_product_path(@vendor, product) %>
+    <div class = "abbreviated-multiline">
+      <%= link_to product.name, vendor_product_path(@vendor, product) %>
+  </div>
   </th>
 
   <% ['C1', 'C2', 'C3', 'C4'].each do |cert_type| %>

@@ -1,4 +1,3 @@
-
 var assignmentsReady = function(){
   var assignmentIndex = 1000;
   var  addAssignment = function(e){

@@ -21,7 +21,9 @@ module VendorsHelper
   def c1_values(product)
     h = {}
     h['checklist'] = Hash[%w(passing failing not_started total).zip(checklist_status_values(product.product_tests.checklist_tests.first))]
-    h['checklist']['not_started'] = h['checklist']['total'] = 1 if h['checklist']['total'] == 0 # manual entry displays as not started if not started
+    if h['checklist']['total'] == 0
+      h['checklist']['not_started'] = product.measure_ids.size > 3 ? 4 : product.measure_ids.size
+    end
     h['cat1'] = Hash[%w(passing failing not_started total).zip(product_test_status_values(product.product_tests.measure_tests, 'C1Task'))]
     h['sums'] = h['cat1'].merge(h['checklist']) { |_key, old_val, new_val| old_val + new_val }
     h['href'] = "product_#{product.id}_c1"

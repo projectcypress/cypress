@@ -83,7 +83,7 @@ group :development, :test do
   gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
   gem 'travis'
   gem 'poltergeist'
-  gem 'phantomjs', '~> 1.9.8.0', require: 'phantomjs/poltergeist'
+  # gem 'phantomjs', '~> 1.9.8.0', require: 'phantomjs/poltergeist'
   gem 'scss_lint', require: false
   gem 'capybara'
   gem 'capybara-accessible'
