@@ -27,15 +27,21 @@
        <label for="vendor_select">Vendor </label> <select id="vendor_select" class="selectpicker"><%= options_for_select(Vendor.all.collect{|v| [v.name,v.id]}) %></select>
        <button id="addAssignment" name="Add Assignment" >Add Assigment </button>
       </div>
-        <div id="assignments">
+        <div >
+              <table class="table" id="assignments">
      <% @user.roles.where({resource_id: {"$ne" => nil}}).each_with_index do |r, index| %>
-      <div >
-        Role: <%= r.name%>   Vendor: <%= r.resource %> <br>
-        <input type="hidden" name="assignments[<%= index %>][role]" value="<%= r.name %>"/>
-        <input type="hidden" name="assignments[<%= index %>][vendor_id]" value="<%= r.resource_id %>"/>
-        <button onclick="$(this).parent().remove()" >Remove </button>
-      </div>
+
+              <tr>
+                <td class="col-sm-3"> <%= r.name%></td>
+                <td class="col-sm-9"> <%= r.resource.name %></td>
+                <td>
+                  <input type="hidden" name="assignments[<%= index %>][role]" value="<%= r.name %>"/>
+                  <input type="hidden" name="assignments[<%= index %>][vendor_id]" value="<%= r.resource_id %>"/>
+                  <button onclick="$(this).parent().parent().remove(); return false" >Remove </button>
+                </td>
+              </tr>
      <% end %>
+       </table>
       </div>
     </div>
 

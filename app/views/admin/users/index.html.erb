@@ -23,7 +23,7 @@
           <% assignments.each do |ass|
             if ass.resource
           %>
-          <tr><td><%= ass.name %></td><td><%= ass.resource.name %></td></tr>
+          <tr><td class="col-sm-3"><%= ass.name %></td><td class="col-sm-9"><%= ass.resource.name %></td></tr>
         <%  end
           end
        %>
