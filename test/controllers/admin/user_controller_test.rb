@@ -37,8 +37,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
     end
   end
 
-
-
   test "Admin can update user" do
     v = Vendor.first
     u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')

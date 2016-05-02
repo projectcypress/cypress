@@ -3,7 +3,6 @@ module Admin
     before_action -> { authorize! :manage, User }
     add_breadcrumb 'Users', '/admin/users'
 
-
     def index
       # dont allow them to muck with their own account
       @users = User.excludes(id: current_user.id).order_by(email:  1)
@@ -58,7 +57,9 @@ module Admin
         redirect_to_admin
       end
     end
+
     private
+
     def redirect_to_admin
       redirect_to "#{admin_path}#user_management"
     end

@@ -30,7 +30,6 @@ module Admin
       smtp_hash[:password] = params[:password]
       Rails.application.config.action_mailer.smtp_settings.merge!(smtp_hash)
       redirect_to admin_path(anchor: 'application_settings')
-
     end
 
     def valid_port?(port_str)

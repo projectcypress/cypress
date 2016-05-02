@@ -45,7 +45,6 @@ class User
   index(invitation_token: 1)
   index(invitation_by_id: 1)
 
-
   field :approved, type: Boolean, default: APP_CONFIG.auto_approve || false
 
   validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
@@ -82,7 +81,6 @@ class User
     end
   end
 
-
   def toggle_approved
     approved = !approved
     save
@@ -99,5 +97,4 @@ class User
       end
     end
   end
-
 end
