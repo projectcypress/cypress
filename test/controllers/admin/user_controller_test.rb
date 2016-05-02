@@ -1,5 +1,6 @@
 require "test_helper"
-class Admin::UsersControllerTest < ActionController::TestCase
+module Admin
+  class UsersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   def setup
@@ -125,4 +126,5 @@ class Admin::UsersControllerTest < ActionController::TestCase
       assert_response 401
     end
   end
+end
 end
