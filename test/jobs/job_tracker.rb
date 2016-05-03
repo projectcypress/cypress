@@ -4,7 +4,7 @@ class JobStatusTest < ActiveJob::TestCase
   class FailedJob < ActiveJob::Base
     include Job::Status
     def perform
-      fail 'Failed'
+      raise 'Failed'
     end
   end
 

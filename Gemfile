@@ -75,7 +75,7 @@ gem 'daemons'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'rubocop', '0.36', require: false
+  gem 'rubocop', '0.39', require: false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'overcommit'

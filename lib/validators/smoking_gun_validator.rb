@@ -79,7 +79,7 @@ module Validators
         patient_sgd.each do |dc|
           next if dc[:template] == 'N/A'
           add_error("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
-                    file_name: options[:file_name]) if find_dc_nodes(doc, dc).length == 0
+                    file_name: options[:file_name]) if find_dc_nodes(doc, dc).empty?
         end
       end
     end

@@ -346,7 +346,7 @@ module Cypress
                                                                                   password: @password)
       begin
         response = resource.get
-        if response.size > 0
+        if !response.empty?
           File.open("tmp/#{file_name}.zip", 'wb') do |output|
             output.write(response)
           end

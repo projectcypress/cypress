@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   add_breadcrumb 'Admin', :admin_path
-  before_action -> { fail CanCan::AccessDenied.new, 'Forbidden' unless current_user.has_role? :admin }
+  before_action -> { raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.has_role? :admin }
 
   def show
     smtp_settings = Rails.application.config.action_mailer.smtp_settings

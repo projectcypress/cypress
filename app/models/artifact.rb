@@ -56,14 +56,18 @@ class Artifact
     count
   end
 
+  #
   def get_file(name)
+    data = nil
     if archive?
-      return get_archived_file(name)
+      data =  get_archived_file(name)
     elsif file.uploaded_filename == name
-      return file.read
+      data = file.read
     end
+    data
   end
 
+  #
   def get_archived_file(name)
     data = nil
     Zip::ZipFile.open(file.path) do |zipfile|

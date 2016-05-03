@@ -74,7 +74,7 @@ class ProductTest
   end
 
   def execute(_params)
-    fail NotImplementedError
+    raise NotImplementedError
   end
 
   def results

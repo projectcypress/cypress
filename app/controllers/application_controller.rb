@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   def check_backend_jobs
     running = false
     begin
-      running = Dir.new(APP_CONFIG.pid_dir).entries.length > 0
+      running = !Dir.new(APP_CONFIG.pid_dir).entries.empty?
     rescue
     end
 
