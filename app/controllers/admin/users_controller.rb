@@ -19,7 +19,7 @@ module Admin
     def update
       @user = User.find(params[:id])
       @user.roles = []
-      @user.add_role params[:role].to_sym
+      @user.add_role params[:role]
       assignments = params[:assignments].values if params[:assignments]
       (assignments || []).each do |ass|
         @user.add_role(ass[:role], Vendor.find(ass[:vendor_id]))
