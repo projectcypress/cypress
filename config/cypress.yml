@@ -13,6 +13,14 @@ enable_logging: false
 banner: false
 banner_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
 
+# mailer settings
+mailer_address: ""
+mailer_port: 
+mailer_domain: ""
+mailer_user_name: ""
+mailer_password: ""
+mailer_authentication: :plain
+
 bundle_file_path: "temp/bundles"
 
 # ignore roles completely -- this is essientially the same as everyone in the system being an admin

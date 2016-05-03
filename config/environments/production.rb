@@ -66,12 +66,12 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: '',
-    port: '',
-    domain: '',
-    user_name: '',
-    password: '',
-    authentication: ''
+    address: Settings[:mailer_address],
+    port: Settings[:mailer_port],
+    domain: Settings[:mailer_domain],
+    user_name: Settings[:mailer_user_name],
+    password: Settings[:mailer_password],
+    authentication: Settings[:mailer_authentication]
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

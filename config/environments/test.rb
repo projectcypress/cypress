@@ -36,6 +36,16 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Note that these will not be used because delivery_method is :test. These are here so tests don't break.
+  config.action_mailer.smtp_settings = {
+    address: Settings[:mailer_address],
+    port: Settings[:mailer_port],
+    domain: Settings[:mailer_domain],
+    user_name: Settings[:mailer_user_name],
+    password: Settings[:mailer_password],
+    authentication: Settings[:mailer_authentication]
+  }
+
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
 
@@ -44,14 +54,4 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: '',
-    port: '',
-    domain: '',
-    user_name: '',
-    password: '',
-    authentication: ''
-  }
 end
