@@ -1,3 +1,4 @@
+/*eslint max-statements: ["error", 15]*/
 var assignmentsReady = function(){
   var assignmentIndex = 1000;
   var  addAssignment = function(e){
