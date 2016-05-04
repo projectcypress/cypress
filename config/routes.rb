@@ -62,6 +62,13 @@ Rails.application.routes.draw do
 
   namespace 'admin' do
     resource :settings, only: [:show, :edit, :update]
+    get 'users/send_invitation'
+    resources :users do
+      member do
+        get :unlock
+        get :toggle_approved
+      end
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

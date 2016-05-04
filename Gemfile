@@ -65,7 +65,9 @@ gem 'settingslogic'
 gem 'devise'
 gem 'cancancan'
 gem 'rolify'
+gem 'devise_invitable'
 gem 'daemons'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -73,7 +75,7 @@ gem 'daemons'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'rubocop', '0.36', require: false
+  gem 'rubocop', '0.39', require: false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'overcommit'

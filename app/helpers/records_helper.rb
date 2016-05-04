@@ -30,6 +30,6 @@ module RecordsHelper
   def records_by_measure(records, measure)
     # Returns array of records that have at least one calculation result for the given measure id
 
-    records.select { |r| r.calculation_results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id).length > 0 }
+    records.select { |r| !r.calculation_results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id).empty? }
   end
 end

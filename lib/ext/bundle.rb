@@ -21,6 +21,6 @@ class Bundle
   end
 
   def self.first
-    fail 'Do not use Bundle.first as there may be multiple bundles and order is not guaranteed.'
+    raise 'Do not use Bundle.first as there may be multiple bundles and order is not guaranteed.'
   end
 end

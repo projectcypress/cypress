@@ -5,7 +5,8 @@ class User
   # :confirmable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable, :timeoutable, :lockable, :confirmable
+         :validatable, :timeoutable, :lockable, :invitable,
+         :confirmable
 
   # confirmable
   field  :confirmation_token, type: String
@@ -30,8 +31,19 @@ class User
   field :last_sign_in_ip,    type: String
 
   ## Lockable
-  field :locked_at, type: Time
-  field :failed_attempts, type: Integer, default: 0
+  field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
+  field :unlock_token,    type: String # Only if unlock strategy is :email or :both
+  field :locked_at,       type: Time
+
+  ## invitable
+  field :invitation_token, type: String
+  field :invitation_created_at, type: Time
+  field :invitation_sent_at, type: Time
+  field :invitation_accepted_at, type: Time
+  field :invitation_limit, type: Integer
+
+  index(invitation_token: 1)
+  index(invitation_by_id: 1)
 
   field :approved, type: Boolean, default: APP_CONFIG.auto_approve || false
 
@@ -68,6 +80,15 @@ class User
       end
     end
   end
+
+  def toggle_approved
+    approved = !approved
+    save
+  end
+  ## Lockable
+  # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
+  # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
+  # field :locked_at,       type: Time
 
   def associate_points_of_contact
     if APP_CONFIG.auto_associate_pocs

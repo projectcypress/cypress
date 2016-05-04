@@ -1,7 +1,7 @@
 module Admin
   class SettingsController < ApplicationController
     add_breadcrumb 'Admin', :admin_path
-    before_action -> { fail CanCan::AccessDenied.new, 'Forbidden' unless current_user.has_role? :admin }
+    before_action -> { raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.has_role? :admin }
 
     def show
       redirect_to admin_path(anchor: 'application_settings')

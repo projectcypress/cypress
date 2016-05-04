@@ -30,10 +30,11 @@
         <div>Username: <b><%= user_name %></b></div>
       </div>
     </div>
-    
   </div>
 
   <div id="application_status" ></div>
-  <div id="user_management" ></div>
+  <div id="user_management" >
+    <%= render partial: "user_list" %>
+  </div>
   <div id="bundle" ></div>
 </div>
