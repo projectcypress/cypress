@@ -21,15 +21,37 @@ module Admin
     end
 
     def update
-      Settings[:banner_message] = params[:banner_message]
-      smtp_hash = {}
-      smtp_hash[:address] = params[:address] unless params[:address].empty?
-      smtp_hash[:port] = params[:port] unless params[:port].empty? || !valid_port?(params[:port])
-      smtp_hash[:domain] = params[:domain]
-      smtp_hash[:user_name] = params[:user_name]
-      smtp_hash[:password] = params[:password]
-      Rails.application.config.action_mailer.smtp_settings.merge!(smtp_hash)
+      write_settings_to_yml(params)
       redirect_to admin_path(anchor: 'application_settings')
+    end
+
+    private
+
+    def write_settings_to_yml(settings)
+      yaml_text = File.read("#{Rails.root}/config/cypress.yml")
+      write_banner_message(settings, yaml_text)
+      write_mailer_settings(settings, yaml_text)
+      File.open("#{Rails.root}/config/cypress.yml", 'w') { |file| file.puts yaml_text }
+    end
+
+    def write_banner_message(settings, yaml_text)
+      yaml_text.sub!(/^\s*banner_message: "(.*)"/, "banner_message: \"#{settings['banner_message']}\"")
+      Settings[:banner_message] = settings['banner_message']
+    end
+
+    def write_mailer_settings(settings, yaml_text)
+      settings.each_pair do |key, val|
+        key_str = key.to_s
+        next unless key_str.include? 'mailer_'
+        if key_str == 'mailer_port'
+          val = val == '' ? nil : val.to_i
+          yaml_text.sub!(/^\s*#{key_str}: (.*)/, "#{key_str}: #{val}")
+        else
+          yaml_text.sub!(/^\s*#{key_str}: "(.*)"/, "#{key_str}: \"#{val}\"")
+        end
+        env_config_key = key_str.sub('mailer_', '').to_sym
+        Rails.application.config.action_mailer.smtp_settings[env_config_key] = val
+      end
     end
 
     def valid_port?(port_str)
