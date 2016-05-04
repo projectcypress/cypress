@@ -1,7 +1,7 @@
 <%
   # local variables:
   #
-  #   banner_message, address, port, domain, user_name, password
+  #   banner_message, address, port, domain, user_name, password, mode, mode_settings, roles
 %>
 
 <div class="panel panel-default">
@@ -16,6 +16,23 @@
         <%= f.text_field :mailer_domain, label: "Mailer Domain", value: domain %>
         <%= f.text_field :mailer_user_name, label: "Mailer Username", value: user_name %>
         <%= f.password_field :mailer_password, label: "Mailer Password", value: password %>
+        <%= f.form_group :mode, label: { text: "Application Mode" } do %>
+          <%= f.radio_button :mode, "internal", label: "Internal", checked: mode == "Internal" %>
+          <%= f.radio_button :mode, "demo", label: "Demo", checked: mode == "Demo" %>
+          <%= f.radio_button :mode, "atl", label: "ATL", checked: mode == "ATL" %>
+          <%= f.radio_button :mode, "custom", label: "Custom", checked: mode == "Custom" %>
+          <%=f.fields_for :custom_options do |custom_form| %>
+            <%= custom_form.form_group :auto_approve, label: { text: "Auto Approve" } do %>
+              <%= custom_form.radio_button :auto_approve, "enable", label: "Enable", inline: true, checked: mode_settings.auto_approve %>
+              <%= custom_form.radio_button :auto_approve, "disable", label: "Disable", inline: true, checked: !mode_settings.auto_approve %>
+            <% end %>
+            <%= custom_form.form_group :ignore_roles, label: { text: "Ignore Roles" } do %>
+              <%= custom_form.radio_button :ignore_roles, "enable", label: "Enable", inline: true, checked: mode_settings.ignore_roles %>
+              <%= custom_form.radio_button :ignore_roles, "disable", label: "Disable", inline: true, checked: !mode_settings.ignore_roles  %>
+            <% end %>
+            <%= custom_form.select :default_role, roles, selected: mode_settings.default_role %>
+          <% end %>
+        <% end %>
     </div>
     <div class="panel-footer">
       <%= f.submit "Submit Changes", :class => "btn btn-success", :id => "submit_button" %>

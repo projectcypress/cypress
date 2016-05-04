@@ -16,11 +16,15 @@ module Admin
         port: smtp_settings.port,
         domain: smtp_settings.domain,
         user_name: smtp_settings.user_name,
-        password: smtp_settings.password
+        password: smtp_settings.password,
+        mode: ApplicationController.helpers.application_mode,
+        mode_settings: ApplicationController.helpers.application_mode_settings,
+        roles: %w(User ATL Admin None)
       }
     end
 
     def update
+      update_application_mode params[:mode], params[:custom_options]
       write_settings_to_yml(params)
       redirect_to admin_path(anchor: 'application_settings')
     end
@@ -31,11 +35,12 @@ module Admin
       yaml_text = File.read("#{Rails.root}/config/cypress.yml")
       write_banner_message(settings, yaml_text)
       write_mailer_settings(settings, yaml_text)
+      write_mode_settings(yaml_text)
       File.open("#{Rails.root}/config/cypress.yml", 'w') { |file| file.puts yaml_text }
     end
 
     def write_banner_message(settings, yaml_text)
-      yaml_text.sub!(/^\s*banner_message: "(.*)"/, "banner_message: \"#{settings['banner_message']}\"")
+      sub_yaml_setting('banner_message', settings['banner_message'], yaml_text)
       Settings[:banner_message] = settings['banner_message']
     end
 
@@ -43,14 +48,46 @@ module Admin
       settings.each_pair do |key, val|
         key_str = key.to_s
         next unless key_str.include? 'mailer_'
-        if key_str == 'mailer_port'
-          val = val == '' ? nil : val.to_i
-          yaml_text.sub!(/^\s*#{key_str}: (.*)/, "#{key_str}: #{val}")
-        else
-          yaml_text.sub!(/^\s*#{key_str}: "(.*)"/, "#{key_str}: \"#{val}\"")
-        end
+        val = val == '' ? nil : val.to_i if key_str == 'mailer_port'
+        sub_yaml_setting(key_str, val, yaml_text)
         env_config_key = key_str.sub('mailer_', '').to_sym
         Rails.application.config.action_mailer.smtp_settings[env_config_key] = val
+      end
+    end
+
+    def write_mode_settings(yaml_text)
+      sub_yaml_setting('auto_approve', Settings[:auto_approve], yaml_text)
+      sub_yaml_setting('ignore_roles', Settings[:ignore_roles], yaml_text)
+      sub_yaml_setting('default_role', Settings[:default_role], yaml_text)
+    end
+
+    def sub_yaml_setting(key, val, yaml_text)
+      if val.is_a? String
+        yaml_text.sub!(/^\s*#{key}: "(.*)"/, "#{key}: \"#{val}\"")
+      elsif val.is_a? Symbol
+        yaml_text.sub!(/^\s*#{key}: (.*)/, "#{key}: :#{val}")
+      else
+        yaml_text.sub!(/^\s*#{key}: (.*)/, "#{key}: #{val}")
+      end
+    end
+
+    def update_application_mode(mode_name, options = {})
+      if mode_name == 'internal'
+        Settings[:auto_approve] = false
+        Settings[:ignore_roles] = true
+        Settings[:default_role] = nil
+      elsif mode_name == 'demo'
+        Settings[:auto_approve] = false
+        Settings[:ignore_roles] = false
+        Settings[:default_role] = :user
+      elsif mode_name == 'atl'
+        Settings[:auto_approve] = true
+        Settings[:ignore_roles] = false
+        Settings[:default_role] = nil
+      elsif mode_name == 'custom'
+        Settings[:auto_approve] = options['auto_approve'] == 'enable'
+        Settings[:ignore_roles] = options['ignore_roles'] == 'enable'
+        Settings[:default_role] = options['default_role'] == 'None' ? nil : options['default_role'].underscore.to_sym
       end
     end
 
