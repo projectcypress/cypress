@@ -6,7 +6,7 @@
 
 <div data-no-turbolink class="settings-tabs">
   <ul data-no-turbolink>
-    <% ['application_settings', 'application_status', 'user_management', 'bundle'].each do |target_id| %>
+    <% ['application_settings', 'user_management', 'application_status', 'bundle'].each do |target_id| %>
       <li><a href = '#<%= target_id %>'><%= target_id.humanize.titleize %></a></li>
     <% end %>
   </ul>
@@ -43,9 +43,15 @@
     </div>
   </div>
 
-  <div id="application_status" ></div>
   <div id="user_management" >
     <%= render partial: "user_list" %>
   </div>
-  <div id="bundle" ></div>
+
+  <div id="application_status" >
+    <h2>This feature is coming soon</h2>
+  </div>
+  
+  <div id="bundle" >
+    <h2>This feature is coming soon</h2>
+  </div>
 </div>
