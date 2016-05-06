@@ -139,7 +139,7 @@ Devise.setup do |config|
   # Devise 4.1 settings
   config.reconfirmable = true
   config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
-  config.sign_out_via = :delete
+  config.sign_out_via = :get
   config.skip_session_storage = [:http_auth]
   config.strip_whitespace_keys = [:email]
 
