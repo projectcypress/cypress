@@ -3,6 +3,9 @@ class Vendor
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
   resourcify
+
+  default_scope -> { order(:updated_at => :desc) }
+
   has_many :products, :dependent => :destroy
   embeds_many :points_of_contact, class_name: 'PointOfContact', cascade_callbacks: true
 

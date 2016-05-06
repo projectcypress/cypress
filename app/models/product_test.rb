@@ -5,6 +5,8 @@ class ProductTest
   include GlobalID::Identification
   include HealthDataStandards::CQM
 
+  default_scope -> { order(:updated_at => :desc) }
+
   # TODO: Use real attributes?
   scope :measure_tests, -> { where(_type: 'MeasureTest') }
   scope :checklist_tests, -> { where(_type: 'ChecklistTest') }
