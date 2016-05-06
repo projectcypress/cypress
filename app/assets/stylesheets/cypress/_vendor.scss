@@ -1,8 +1,6 @@
-.products-table {
-  .products-certification {
-    width: 20%;
-  }
-
+.styled-status-table {
+  margin-bottom: 0;
+  
   > thead > tr > th,
   > thead > tr > td {
     border-bottom-color: $gray;
@@ -13,36 +11,44 @@
     border-top-color: $gray;
   }
 
-  .product-name {
+  > tbody > tr > th {
     font-size: 1.25em;
   }
 
-  .product-status {
-    padding: .5em 1em 0;
+  .products-certification {
+    width: 20%;
+  }
 
-    thead th {
-      border-bottom: 1px solid $gray-light;
-      font-size: .85em;
-      font-weight: 500;
-    }
+  .vendor-status {
+    width: 12%;
+  }
 
-    .status-passing {
-      color: $state-success-text;
-      background: $state-success-bg;
-      border: 1px solid darken($state-success-bg, 20%);
-    }
+  td thead th {
+    border-bottom: 1px solid $gray-light;
+    font-size: .85em;
+    font-weight: 500;
+  }
 
-    .status-failing {
-      color: $state-danger-text;
-      background: $state-danger-bg;
-      border: 1px solid darken($state-danger-bg, 20%);
-    }
+  .status-passing {
+    color: $state-success-text;
+    background: $state-success-bg;
+    border: 1px solid darken($state-success-bg, 20%);
+  }
 
-    .status-not-started {
-      color: $state-info-text;
-      background: $state-info-bg;
-      border: 1px solid darken($state-info-bg, 20%);
-    }
+  .status-failing {
+    color: $state-danger-text;
+    background: $state-danger-bg;
+    border: 1px solid darken($state-danger-bg, 20%);
+  }
+
+  .status-not-started {
+    color: $state-info-text;
+    background: $state-info-bg;
+    border: 1px solid darken($state-info-bg, 20%);
+  }
+
+  .table {
+    margin-bottom: 0;
   }
 }
 

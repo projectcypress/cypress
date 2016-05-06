@@ -95,56 +95,55 @@ class VendorsHelperTest < ActiveJob::TestCase
   end
 
   def assert_c1(cert)
-    assert_equal 1, cert.checklist.not_started
-    assert_equal 1, cert.checklist.total
+    assert_equal 0, cert['Manual'].passing
+    assert_equal 0, cert['Manual'].failing
+    assert_equal 1, cert['Manual'].not_started
+    assert_equal 1, cert['Manual'].total
 
-    assert_equal 1, cert.cat1.failing
-    assert_equal 1, cert.cat1.not_started
-    assert_equal 2, cert.cat1.total
-
-    assert_equal 0, cert.sums.passing
-    assert_equal 1, cert.sums.failing
-    assert_equal 2, cert.sums.not_started
-    assert_equal 3, cert.sums.total
+    assert_equal 0, cert['Cat I'].passing
+    assert_equal 1, cert['Cat I'].failing
+    assert_equal 1, cert['Cat I'].not_started
+    assert_equal 2, cert['Cat I'].total
   end
 
   def assert_c2(cert)
-    assert_equal 1, cert.cat3.passing
-    assert_equal 1, cert.cat3.not_started
-    assert_equal 2, cert.cat3.total
-
-    assert_equal 1, cert.sums.passing
-    assert_equal 0, cert.sums.failing
-    assert_equal 1, cert.sums.not_started
-    assert_equal 2, cert.sums.total
+    assert_equal 1, cert['Cat III'].passing
+    assert_equal 0, cert['Cat III'].failing
+    assert_equal 1, cert['Cat III'].not_started
+    assert_equal 2, cert['Cat III'].total
   end
 
   def assert_c3(cert)
-    assert_equal 1, cert.cat1.passing
-    assert_equal 1, cert.cat1.not_started
-    assert_equal 2, cert.cat1.total
+    assert_equal 1, cert['Cat I'].passing
+    assert_equal 0, cert['Cat I'].failing
+    assert_equal 1, cert['Cat I'].not_started
+    assert_equal 2, cert['Cat I'].total
 
-    assert_equal 1, cert.cat3.failing
-    assert_equal 1, cert.cat3.not_started
-    assert_equal 2, cert.cat3.total
-
-    assert_equal 1, cert.sums.passing
-    assert_equal 1, cert.sums.failing
-    assert_equal 2, cert.sums.not_started
-    assert_equal 4, cert.sums.total
+    assert_equal 0, cert['Cat III'].passing
+    assert_equal 1, cert['Cat III'].failing
+    assert_equal 1, cert['Cat III'].not_started
+    assert_equal 2, cert['Cat III'].total
   end
 
   def assert_c4(cert)
-    assert_equal 1, cert.cat1.passing
-    assert_equal 1, cert.cat1.total
+    assert_equal 1, cert['Cat I'].passing
+    assert_equal 0, cert['Cat I'].failing
+    assert_equal 0, cert['Cat I'].not_started
+    assert_equal 1, cert['Cat I'].total
 
-    assert_equal 1, cert.cat3.passing
-    assert_equal 1, cert.cat3.total
+    assert_equal 1, cert['Cat III'].passing
+    assert_equal 0, cert['Cat III'].failing
+    assert_equal 0, cert['Cat III'].not_started
+    assert_equal 1, cert['Cat III'].total
+  end
 
-    assert_equal 2, cert.sums.passing
-    assert_equal 0, cert.sums.failing
-    assert_equal 0, cert.sums.not_started
-    assert_equal 2, cert.sums.total
+  def test_vendor_statuses
+    vendor_status = vendor_statuses(@product.vendor)
+
+    assert_equal 0, vendor_status['passing']
+    assert_equal 1, vendor_status['failing']
+    assert_equal 3, vendor_status['incomplete']
+    assert_equal 4, vendor_status['total']
   end
 
   def test_status_to_css_classes
@@ -152,8 +151,8 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 'fa-check', status_to_css_classes('Passing')['icon']
     assert_equal 'status-failing', status_to_css_classes('Failing')['cell']
     assert_equal 'fa-times', status_to_css_classes('Failing')['icon']
-    assert_equal 'status-not-started', status_to_css_classes('Not Complete')['cell']
-    assert_equal 'fa-circle-o', status_to_css_classes('Not Complete')['icon']
+    assert_equal 'status-not-started', status_to_css_classes('Not_started')['cell']
+    assert_equal 'fa-circle-o', status_to_css_classes('Not_started')['icon']
   end
 
   def test_get_product_status_values_performs_caching

@@ -11,28 +11,29 @@
   <% end %>
 
   <h1>All Vendors</h1>
-  <table class="table table-hover">
+  <table class="table styled-status-table">
     <thead>
       <tr>
-        <th scope="col" class = "col-sm-1">Status</th>
-        <th scope="col" class = "col-sm-3">Vendor</th>
-        <th scope="col" class = "text-center">Passing Products</th>
-        <th scope="col" class = "text-center">Failing Products</th>
-        <th scope="col" class = "text-center">Incomplete Products</th>
-        <th scope="col" class = "text-center">Total Products</th>
+        <th scope="col">Vendor</th>
+
+        <% %w(passing failing incomplete total\ products).each do |status| %>
+          <th scope="col" class = "vendor-status text-center"><%= status.titleize %></th>
+        <% end %>
+
         <th scope="col"><span class="sr-only">Actions</span></th>
       </tr>
     </thead>
     <tbody>
       <% @vendors.each do |vendor| %>
         <tr>
-          <td><%= vendor.status %></td>
-          <td><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></td>
-          <td class = "text-center"><%= vendor.products ? vendor.products_passing.count : 0 %></td>
-          <td class = "text-center"><%= vendor.products ? vendor.products_failing.count : 0 %></td>
-          <td class = "text-center"><%= vendor.products ? vendor.products_incomplete.count : 0 %></td>
-          <td class = "text-center"><%= vendor.products ? vendor.products.count : 0 %></td>
-          <td class="text-center">
+          <th scope="row"><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></th>
+
+          <% vendor_hash = vendor_statuses(vendor) %>
+          <% %w(passing failing incomplete total).each do |status| %>
+            <%= render partial: 'status_cells', locals: { status_hash: vendor_hash, status: status } %>
+          <% end %>
+
+          <td class="text-right">
             <%= button_to edit_vendor_path(vendor), :method => :get, :class => "btn btn-sm btn-default" do %>
               <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Vendor
             <% end %>
