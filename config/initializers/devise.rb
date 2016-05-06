@@ -136,6 +136,13 @@ Devise.setup do |config|
   # change their passwords.
   config.reset_password_within = 2.hours
 
+  # Devise 4.1 settings
+  config.reconfirmable = true
+  config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  config.sign_out_via = :get
+  config.skip_session_storage = [:http_auth]
+  config.strip_whitespace_keys = [:email]
+
   # ==> Configuration for :encryptable
   # Allow you to use another encryption algorithm besides bcrypt (default). You can use
   # :sha1, :sha512 or encryptors from others authentication tools as :clearance_sha1,

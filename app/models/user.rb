@@ -14,6 +14,7 @@ class User
   field  :confirmation_sent_at, type: Time
   ## Database authenticatable
   field :email,              type: String, default: ''
+  field :unconfirmed_email
   field :encrypted_password, type: String, default: ''
 
   ## Recoverable
