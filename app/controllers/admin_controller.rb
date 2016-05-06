@@ -10,7 +10,9 @@ class AdminController < ApplicationController
       port: smtp_settings.port,
       domain: smtp_settings.domain,
       user_name: smtp_settings.user_name,
-      password: smtp_settings.password
+      password: smtp_settings.password,
+      mode_settings: ApplicationController.helpers.application_mode_settings,
+      mode: ApplicationController.helpers.application_mode
     }
   end
 end

@@ -1,14 +1,17 @@
 <%
   # local variables:
   #
-  #   banner_message, address, port, domain, user_name, password
+  #   banner_message, address, port, domain, user_name, password, mode, mode_settings, roles
 %>
 
 <div class="panel panel-default">
   <div class="panel-heading"><h1 class='panel-title'>Edit Settings</h1></div>
   <%= bootstrap_form_tag url: admin_settings_path, method: :put do |f| %>
     <div class="panel-body">
-        <%= f.text_area :banner_message, label: "Banner", value: banner_message %>
+      <%= f.text_area :banner_message, label: "Banner", value: banner_message %>
+
+      <fieldset>
+        <legend>Email Settings</legend>
         <div class="row">
           <%= f.text_field :mailer_address, wrapper: { class: "col-sm-10" },  label: "SMTP Server", value: address %>
           <%= f.number_field :mailer_port, wrapper: { class: "col-sm-2" }, label: "Port", maxLength: 5, value: port %>
@@ -16,6 +19,34 @@
         <%= f.text_field :mailer_domain, label: "Mailer Domain", value: domain %>
         <%= f.text_field :mailer_user_name, label: "Mailer Username", value: user_name %>
         <%= f.password_field :mailer_password, label: "Mailer Password", value: password %>
+      </fieldset>
+
+      <fieldset>
+        <legend>Application Mode</legend>
+        <%= f.radio_button :mode, "internal", label: "Internal", checked: mode == "Internal" %>
+        <%= f.radio_button :mode, "demo", label: "Demo", checked: mode == "Demo" %>
+        <%= f.radio_button :mode, "atl", label: "ATL", checked: mode == "ATL" %>
+        <%= f.radio_button :mode, "custom", label: "Custom", checked: mode == "Custom" %>
+      </fieldset>
+
+      <div id="settings-custom" class="panel panel-default">
+        <div class="panel-body">
+          <fieldset>
+            <legend>Custom Mode Options</legend>
+            <%= f.fields_for :custom_options do |custom_form| %>
+              <%= custom_form.form_group :auto_approve, label: { text: "Auto Approve", id: "auto-approve" } do %>
+                <%= custom_form.radio_button :auto_approve, "enable", label: "Enable", inline: true, checked: mode_settings.auto_approve, 'aria-labelledby' => "auto-approve" %>
+                <%= custom_form.radio_button :auto_approve, "disable", label: "Disable", inline: true, checked: !mode_settings.auto_approve, 'aria-labelledby' => "auto-approve" %>
+              <% end %>
+              <%= custom_form.form_group :ignore_roles, label: { text: "Ignore Roles", id: "ignore-roles" } do %>
+                <%= custom_form.radio_button :ignore_roles, "enable", label: "Enable", inline: true, checked: mode_settings.ignore_roles, 'aria-labelledby' => "ignore-roles" %>
+                <%= custom_form.radio_button :ignore_roles, "disable", label: "Disable", inline: true, checked: !mode_settings.ignore_roles, 'aria-labelledby' => "ignore-roles"  %>
+              <% end %>
+              <%= custom_form.select :default_role, roles, selected: mode_settings.default_role %>
+            <% end %>
+          </fieldset>
+        </div>
+      </div>
     </div>
     <div class="panel-footer">
       <%= f.submit "Submit Changes", :class => "btn btn-success", :id => "submit_button" %>

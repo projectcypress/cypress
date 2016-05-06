@@ -32,6 +32,18 @@ $(document).ready(assignmentsReady)
 var ready;
 ready = function() {
   $('.settings-tabs').tabs();
+
+  var $customModeButtons = $('[name="[mode]"]');
+
+  $customModeButtons.on('change', function() {
+    if ($customModeButtons.filter(':checked').val() == "custom") {
+      $('#settings-custom').show();
+    } else {
+      $('#settings-custom').hide();
+    }
+  });
+
+  $customModeButtons.trigger('change');
 };
 
 $(document).ready(ready);
