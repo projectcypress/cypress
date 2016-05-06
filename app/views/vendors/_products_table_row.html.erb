@@ -7,7 +7,7 @@
 <% product_status_values = get_product_status_values(product) %>
 <tr>
   <th scope="row" class="product-name">
-    <div class = "abbreviated-multiline">
+    <div data-no-turbolink class = "abbreviated-multiline">
       <%= link_to product.name, vendor_product_path(@vendor, product) %>
   </div>
   </th>
