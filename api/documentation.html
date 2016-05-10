@@ -1,0 +1,593 @@
+<!DOCTYPE HTML><html><head><title>Cypress API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.4.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Cypress API documentation <small>version v1</small></h1><p>https://{domain}</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="vendors" class="panel-title">Vendors</h3></div><div class="panel-body"><div class="top-resource-description"><p>A list of vendors undergoing certification</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_vendors"><span class="parent"></span>/vendors</a> <span class="methods"><a href="#vendors_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#vendors_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_vendors" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#vendors_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View a list of vendors</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#vendors_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a new vendor</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="vendors_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/vendors</h4></div><div class="modal-body"><div class="alert alert-info"><p>View a list of vendors</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#vendors_get_response" data-toggle="tab">Response</a></li><li><a href="#vendors_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="vendors_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Vendors",
+  "id": "http://cypress.healthit.gov/schemas/vendors.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": { "$ref": "vendor" }
+}</code></pre></div><div class="tab-pane" id="vendors_get_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="vendors_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/vendors</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a new vendor</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#vendors_post_request" data-toggle="tab">Request</a></li><li><a href="#vendors_post_response" data-toggle="tab">Response</a></li><li><a href="#vendors_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="vendors_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Vendor",
+  "id": "http://cypress.healthit.gov/schemas/vendor.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "vendor_id": {"type": "string"},
+    "name": {"type": "string"},
+    "url": {"type": "string"},
+    "address": {"type": "string"},
+    "zip": {"type": "string"},
+    "state": {"type": "string"},
+    "points_of_contact": { "type": "array", "items": { "$ref": "point_of_contact" } },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/vendors/{id}"
+    },
+    {
+      "rel": "products",
+      "href": "/vendors/{id}/products"
+    }
+  ]
+}
+</code></pre><p><strong>Type: application/xml</strong></p></div><div class="tab-pane" id="vendors_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>Successfully created a new vendor</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Vendor",
+  "id": "http://cypress.healthit.gov/schemas/vendor.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "vendor_id": {"type": "string"},
+    "name": {"type": "string"},
+    "url": {"type": "string"},
+    "address": {"type": "string"},
+    "zip": {"type": "string"},
+    "state": {"type": "string"},
+    "points_of_contact": { "type": "array", "items": { "$ref": "point_of_contact" } },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/vendors/{id}"
+    },
+    {
+      "rel": "products",
+      "href": "/vendors/{id}/products"
+    }
+  ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>Invalid vendor</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Errors",
+  "id": "http://cypress.healthit.gov/schemas/errors.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "messages": {
+            "type": "array",
+            "items": { "type" : "string" }
+          }
+        }
+      }
+    }
+  }
+}</code></pre></div><div class="tab-pane" id="vendors_post_securedby">Secured by basic</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_vendors__id_"><span class="parent">/vendors</span>/{id}</a> <span class="methods"><a href="#vendors__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#vendors__id__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#vendors__id__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_vendors__id_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A Vendor undergoing certification</p></div><div class="list-group"><div onclick="window.location.href = '#vendors__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View information about a vendor</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#vendors__id__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update information about a vendor</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#vendors__id__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a vendor</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="vendors__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/vendors</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>View information about a vendor</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#vendors__id__get_request" data-toggle="tab">Request</a></li><li><a href="#vendors__id__get_response" data-toggle="tab">Response</a></li><li><a href="#vendors__id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="vendors__id__get_request"><h3>URI Parameters</h3><ul><li><strong>Vendor ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="vendors__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Vendor object in JSON/XML</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Vendor",
+  "id": "http://cypress.healthit.gov/schemas/vendor.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "vendor_id": {"type": "string"},
+    "name": {"type": "string"},
+    "url": {"type": "string"},
+    "address": {"type": "string"},
+    "zip": {"type": "string"},
+    "state": {"type": "string"},
+    "points_of_contact": { "type": "array", "items": { "$ref": "point_of_contact" } },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/vendors/{id}"
+    },
+    {
+      "rel": "products",
+      "href": "/vendors/{id}/products"
+    }
+  ]
+}
+</code></pre></div><div class="tab-pane" id="vendors__id__get_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="vendors__id__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/vendors</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update information about a vendor</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#vendors__id__put_request" data-toggle="tab">Request</a></li><li><a href="#vendors__id__put_response" data-toggle="tab">Response</a></li><li><a href="#vendors__id__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="vendors__id__put_request"><h3>URI Parameters</h3><ul><li><strong>Vendor ID</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Vendor",
+  "id": "http://cypress.healthit.gov/schemas/vendor.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "vendor_id": {"type": "string"},
+    "name": {"type": "string"},
+    "url": {"type": "string"},
+    "address": {"type": "string"},
+    "zip": {"type": "string"},
+    "state": {"type": "string"},
+    "points_of_contact": { "type": "array", "items": { "$ref": "point_of_contact" } },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/vendors/{id}"
+    },
+    {
+      "rel": "products",
+      "href": "/vendors/{id}/products"
+    }
+  ]
+}
+</code></pre><p><strong>Type: application/xml</strong></p></div><div class="tab-pane" id="vendors__id__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Vendor record updated</p></div><div class="tab-pane" id="vendors__id__put_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="vendors__id__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/vendors</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a vendor</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#vendors__id__delete_request" data-toggle="tab">Request</a></li><li><a href="#vendors__id__delete_response" data-toggle="tab">Response</a></li><li><a href="#vendors__id__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="vendors__id__delete_request"><h3>URI Parameters</h3><ul><li><strong>Vendor ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="vendors__id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Successfully deleted vendor</p></div><div class="tab-pane" id="vendors__id__delete_securedby">Secured by basic</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_vendors__id__products"><span class="parent">/vendors/{id}</span>/products</a> <span class="methods"><a href="#vendors__id__products_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#vendors__id__products_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_vendors__id__products" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A vendor&#39;s products</p></div><div class="list-group"><div onclick="window.location.href = '#vendors__id__products_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View a list of the vendor&#39;s products undergoing certification</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#vendors__id__products_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a new product for this vendor</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="vendors__id__products_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/vendors/{id}</span>/products</h4></div><div class="modal-body"><div class="alert alert-info"><p>View a list of the vendor&#39;s products undergoing certification</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#vendors__id__products_get_request" data-toggle="tab">Request</a></li><li><a href="#vendors__id__products_get_response" data-toggle="tab">Response</a></li><li><a href="#vendors__id__products_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="vendors__id__products_get_request"><h3>URI Parameters</h3><ul><li><strong>Vendor ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="vendors__id__products_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Products",
+  "id": "http://cypress.healthit.gov/schemas/products.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": { "$ref": "product" }
+}</code></pre></div><div class="tab-pane" id="vendors__id__products_get_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="vendors__id__products_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/vendors/{id}</span>/products</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a new product for this vendor</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#vendors__id__products_post_request" data-toggle="tab">Request</a></li><li><a href="#vendors__id__products_post_response" data-toggle="tab">Response</a></li><li><a href="#vendors__id__products_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="vendors__id__products_post_request"><h3>URI Parameters</h3><ul><li><strong>Vendor ID</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Product",
+  "id": "http://cypress.healthit.gov/schemas/product.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "name": {"type": "string"},
+    "version": {"type": "string"},
+    "description": {"type": "string"},
+    "bundle_id": {"type": "string"},
+    "c1_test": {"type": "boolean"},
+    "c2_test": {"type": "boolean"},
+    "c3_test": {"type": "boolean"},
+    "c4_test": {"type": "boolean"},
+    "randomize_records": {"type": "boolean"},
+    "duplicate_records": {"type": "boolean"},
+    "measure_ids": {"type": "array"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/vendors/{vendor_id}/products/{id}"
+    },
+    {
+      "rel": "product_tests",
+      "href": "/products/{id}/product_tests"
+    },
+    {
+      "rel": "patients",
+      "href": "/vendors/{vendor_id}/products/{id}/patients"
+    }
+  ]
+}
+</code></pre><p><strong>Type: application/xml</strong></p></div><div class="tab-pane" id="vendors__id__products_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>Product has been created</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Product",
+  "id": "http://cypress.healthit.gov/schemas/product.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "name": {"type": "string"},
+    "version": {"type": "string"},
+    "description": {"type": "string"},
+    "bundle_id": {"type": "string"},
+    "c1_test": {"type": "boolean"},
+    "c2_test": {"type": "boolean"},
+    "c3_test": {"type": "boolean"},
+    "c4_test": {"type": "boolean"},
+    "randomize_records": {"type": "boolean"},
+    "duplicate_records": {"type": "boolean"},
+    "measure_ids": {"type": "array"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/vendors/{vendor_id}/products/{id}"
+    },
+    {
+      "rel": "product_tests",
+      "href": "/products/{id}/product_tests"
+    },
+    {
+      "rel": "patients",
+      "href": "/vendors/{vendor_id}/products/{id}/patients"
+    }
+  ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>Invalid Product</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Errors",
+  "id": "http://cypress.healthit.gov/schemas/errors.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "messages": {
+            "type": "array",
+            "items": { "type" : "string" }
+          }
+        }
+      }
+    }
+  }
+}</code></pre></div><div class="tab-pane" id="vendors__id__products_post_securedby">Secured by basic</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_vendors__id__products__product_id_"><span class="parent">/vendors/{id}/products</span>/{product_id}</a> <span class="methods"><a href="#vendors__id__products__product_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#vendors__id__products__product_id__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_vendors__id__products__product_id_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Product undergoing certification testing</p></div><div class="list-group"><div onclick="window.location.href = '#vendors__id__products__product_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View information about a Product</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#vendors__id__products__product_id__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a product</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="vendors__id__products__product_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/vendors/{id}/products</span>/{product_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>View information about a Product</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#vendors__id__products__product_id__get_request" data-toggle="tab">Request</a></li><li><a href="#vendors__id__products__product_id__get_response" data-toggle="tab">Response</a></li><li><a href="#vendors__id__products__product_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="vendors__id__products__product_id__get_request"><h3>URI Parameters</h3><ul><li><strong>Vendor ID</strong>: <em>required (string)</em></li><li><strong>Product ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="vendors__id__products__product_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Product is available for testing</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Product",
+  "id": "http://cypress.healthit.gov/schemas/product.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "name": {"type": "string"},
+    "version": {"type": "string"},
+    "description": {"type": "string"},
+    "bundle_id": {"type": "string"},
+    "c1_test": {"type": "boolean"},
+    "c2_test": {"type": "boolean"},
+    "c3_test": {"type": "boolean"},
+    "c4_test": {"type": "boolean"},
+    "randomize_records": {"type": "boolean"},
+    "duplicate_records": {"type": "boolean"},
+    "measure_ids": {"type": "array"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/vendors/{vendor_id}/products/{id}"
+    },
+    {
+      "rel": "product_tests",
+      "href": "/products/{id}/product_tests"
+    },
+    {
+      "rel": "patients",
+      "href": "/vendors/{vendor_id}/products/{id}/patients"
+    }
+  ]
+}
+</code></pre></div><div class="tab-pane" id="vendors__id__products__product_id__get_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="vendors__id__products__product_id__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/vendors/{id}/products</span>/{product_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a product</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#vendors__id__products__product_id__delete_request" data-toggle="tab">Request</a></li><li><a href="#vendors__id__products__product_id__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="vendors__id__products__product_id__delete_request"><h3>URI Parameters</h3><ul><li><strong>Vendor ID</strong>: <em>required (string)</em></li><li><strong>Product ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="vendors__id__products__product_id__delete_securedby">Secured by basic</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="products__product_id__product_tests" class="panel-title">Product Tests (Single Measure Testing and Filter Tests)</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_products__product_id__product_tests"><span class="parent"></span>/products/{product_id}/product_tests</a> <span class="methods"><a href="#products__product_id__product_tests_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_products__product_id__product_tests" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#products__product_id__product_tests_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View list of a product&#39;s tests (One per measure for C1/C2, One for each C4 Filter)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="products__product_id__product_tests_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/products/{product_id}/product_tests</h4></div><div class="modal-body"><div class="alert alert-info"><p>View list of a product&#39;s tests (One per measure for C1/C2, One for each C4 Filter)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#products__product_id__product_tests_get_request" data-toggle="tab">Request</a></li><li><a href="#products__product_id__product_tests_get_response" data-toggle="tab">Response</a></li><li><a href="#products__product_id__product_tests_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="products__product_id__product_tests_get_request"><h3>URI Parameters</h3><ul><li><strong>Parent Task ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="products__product_id__product_tests_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Product is available for testing</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Product Tests",
+  "id": "http://cypress.healthit.gov/schemas/product_tests.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": { "$ref": "product_test" }
+}</code></pre></div><div class="tab-pane" id="products__product_id__product_tests_get_securedby">Secured by basic</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_products__product_id__product_tests__id_"><span class="parent">/products/{product_id}/product_tests</span>/{id}</a> <span class="methods"><a href="#products__product_id__product_tests__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_products__product_id__product_tests__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#products__product_id__product_tests__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View a product test (such as a Single Measure Test or a C4 Filter)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="products__product_id__product_tests__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/products/{product_id}/product_tests</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>View a product test (such as a Single Measure Test or a C4 Filter)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#products__product_id__product_tests__id__get_request" data-toggle="tab">Request</a></li><li><a href="#products__product_id__product_tests__id__get_response" data-toggle="tab">Response</a></li><li><a href="#products__product_id__product_tests__id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="products__product_id__product_tests__id__get_request"><h3>URI Parameters</h3><ul><li><strong>Parent Task ID</strong>: <em>required (string)</em></li><li><strong>Product test ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="products__product_id__product_tests__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Product is available for testing</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Product Test",
+  "id": "http://cypress.healthit.gov/schemas/product.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "name": {"type": "string"},
+    "cms_id": {"type": "string"},
+    "measure_id": {"type": "string"},
+    "type": {"type": "string"},
+    "state": {"type": "string"},
+    "filters" : {
+      "type" : "object",
+      "properties" : {
+        "problem" : {"type": "string"},
+        "gender" : {"type": "string"},
+        "payer" : {"type": "string"},
+        "race" : {"type": "string"},
+        "ethnicity" : {"type": "string"},
+        "provider" : {
+          "type" : "object",
+          "properties" : {
+            "npi" : {"type": "string"},
+            "tin" : {"type": "string"},
+            "address" : {
+              "type" : "object",
+              "properties" : {
+                "street" : {"type": "string"},
+                "city" : {"type": "string"},
+                "state" : {"type": "string"},
+                "zip" : {"type": "string"},
+                "country" : {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/products/{product_id}/product_tests/{id}"
+    },
+    {
+      "rel": "tasks",
+      "href": "/product_tests/{id}/tasks"
+    },
+    {
+      "rel": "patients",
+      "href": "/product_tests/{id}/patients"
+    }
+  ]
+}
+</code></pre></div><div class="tab-pane" id="products__product_id__product_tests__id__get_securedby">Secured by basic</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="product_tests__product_test_id__tasks" class="panel-title">/product_tests/{product_test_id}/tasks</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_product_tests__product_test_id__tasks"><span class="parent"></span>/product_tests/{product_test_id}/tasks</a> <span class="methods"><a href="#product_tests__product_test_id__tasks_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_product_tests__product_test_id__tasks" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#product_tests__product_test_id__tasks_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>List of testing tasks for a product ID</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="product_tests__product_test_id__tasks_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/product_tests/{product_test_id}/tasks</h4></div><div class="modal-body"><div class="alert alert-info"><p>List of testing tasks for a product ID</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#product_tests__product_test_id__tasks_get_request" data-toggle="tab">Request</a></li><li><a href="#product_tests__product_test_id__tasks_get_response" data-toggle="tab">Response</a></li><li><a href="#product_tests__product_test_id__tasks_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="product_tests__product_test_id__tasks_get_request"><h3>URI Parameters</h3><ul><li><strong>Parent resource product test ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="product_tests__product_test_id__tasks_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>List of tasks for a product test</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Tasks",
+  "id": "http://cypress.healthit.gov/schemas/tasks.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": { "$ref": "task" }
+}</code></pre></div><div class="tab-pane" id="product_tests__product_test_id__tasks_get_securedby">Secured by basic</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_product_tests__product_test_id__tasks__id_"><span class="parent">/product_tests/{product_test_id}/tasks</span>/{id}</a> <span class="methods"><a href="#product_tests__product_test_id__tasks__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_product_tests__product_test_id__tasks__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#product_tests__product_test_id__tasks__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>A single task for a product test such as a single C1 measure task or a Filter task</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="product_tests__product_test_id__tasks__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/product_tests/{product_test_id}/tasks</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>A single task for a product test such as a single C1 measure task or a Filter task</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#product_tests__product_test_id__tasks__id__get_request" data-toggle="tab">Request</a></li><li><a href="#product_tests__product_test_id__tasks__id__get_response" data-toggle="tab">Response</a></li><li><a href="#product_tests__product_test_id__tasks__id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="product_tests__product_test_id__tasks__id__get_request"><h3>URI Parameters</h3><ul><li><strong>Parent resource product test ID</strong>: <em>required (string)</em></li><li><strong>Task ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="product_tests__product_test_id__tasks__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Task",
+  "id": "http://cypress.healthit.gov/schemas/product.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "type": {"type": "string"}
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/product_tests/{product_test_id}/tasks/{id}"
+    },
+    {
+      "rel": "executions",
+      "href": "/tasks/{task_id}/test_executions"
+    }
+  ]
+}
+</code></pre></div><div class="tab-pane" id="product_tests__product_test_id__tasks__id__get_securedby">Secured by basic</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="tasks__task_id__test_executions" class="panel-title">Task</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_tasks__task_id__test_executions"><span class="parent"></span>/tasks/{task_id}/test_executions</a> <span class="methods"><a href="#tasks__task_id__test_executions_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#tasks__task_id__test_executions_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_tasks__task_id__test_executions" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#tasks__task_id__test_executions_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View a list of test executions</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#tasks__task_id__test_executions_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Upload a new test artifact</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="tasks__task_id__test_executions_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/tasks/{task_id}/test_executions</h4></div><div class="modal-body"><div class="alert alert-info"><p>View a list of test executions</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#tasks__task_id__test_executions_get_request" data-toggle="tab">Request</a></li><li><a href="#tasks__task_id__test_executions_get_response" data-toggle="tab">Response</a></li><li><a href="#tasks__task_id__test_executions_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tasks__task_id__test_executions_get_request"><h3>URI Parameters</h3><ul><li><strong>Parent Task ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="tasks__task_id__test_executions_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Test Executions",
+  "id": "http://cypress.healthit.gov/schemas/test_executions.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": { "$ref": "test_executions" }
+}</code></pre></div><div class="tab-pane" id="tasks__task_id__test_executions_get_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="tasks__task_id__test_executions_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/tasks/{task_id}/test_executions</h4></div><div class="modal-body"><div class="alert alert-info"><p>Upload a new test artifact</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#tasks__task_id__test_executions_post_request" data-toggle="tab">Request</a></li><li><a href="#tasks__task_id__test_executions_post_response" data-toggle="tab">Response</a></li><li><a href="#tasks__task_id__test_executions_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tasks__task_id__test_executions_post_request"><h3>URI Parameters</h3><ul><li><strong>Parent Task ID</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: multipart/form-data</strong></p><strong>Form Parameters</strong><ul><li><strong>file</strong>: <em>required (file)</em><p>Artifact to be tested</p></li></ul></div><div class="tab-pane" id="tasks__task_id__test_executions_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>File Uploaded Successfully. Cypress is checking data for accuracy and correctness</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Test Execution",
+  "id": "http://cypress.healthit.gov/schemas/test_execution.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "state": {"type": "string"},
+    "execution_errors": {"type": "array", "items": { "$ref": "execution_error" } },
+    "created_at": {"type": "string", "format": "date-time"}
+  },
+    "links": [
+    {
+      "rel": "self",
+      "href": "/tasks{task_id}/test_executions/{id}"
+    }
+  ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>File uploaded is not processable by Cypress</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Errors",
+  "id": "http://cypress.healthit.gov/schemas/errors.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "messages": {
+            "type": "array",
+            "items": { "type" : "string" }
+          }
+        }
+      }
+    }
+  }
+}</code></pre></div><div class="tab-pane" id="tasks__task_id__test_executions_post_securedby">Secured by basic</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_tasks__task_id__test_executions__id_"><span class="parent">/tasks/{task_id}/test_executions</span>/{id}</a> <span class="methods"><a href="#tasks__task_id__test_executions__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#tasks__task_id__test_executions__id__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_tasks__task_id__test_executions__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#tasks__task_id__test_executions__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View information about a test execution</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#tasks__task_id__test_executions__id__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a test execution</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="tasks__task_id__test_executions__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/tasks/{task_id}/test_executions</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>View information about a test execution</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#tasks__task_id__test_executions__id__get_request" data-toggle="tab">Request</a></li><li><a href="#tasks__task_id__test_executions__id__get_response" data-toggle="tab">Response</a></li><li><a href="#tasks__task_id__test_executions__id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tasks__task_id__test_executions__id__get_request"><h3>URI Parameters</h3><ul><li><strong>Parent Task ID</strong>: <em>required (string)</em></li><li><strong>Test Execution ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="tasks__task_id__test_executions__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Test Execution",
+  "id": "http://cypress.healthit.gov/schemas/test_execution.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "state": {"type": "string"},
+    "execution_errors": {"type": "array", "items": { "$ref": "execution_error" } },
+    "created_at": {"type": "string", "format": "date-time"}
+  },
+    "links": [
+    {
+      "rel": "self",
+      "href": "/tasks{task_id}/test_executions/{id}"
+    }
+  ]
+}
+</code></pre></div><div class="tab-pane" id="tasks__task_id__test_executions__id__get_securedby">Secured by basic</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="tasks__task_id__test_executions__id__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/tasks/{task_id}/test_executions</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a test execution</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#tasks__task_id__test_executions__id__delete_request" data-toggle="tab">Request</a></li><li><a href="#tasks__task_id__test_executions__id__delete_response" data-toggle="tab">Response</a></li><li><a href="#tasks__task_id__test_executions__id__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tasks__task_id__test_executions__id__delete_request"><h3>URI Parameters</h3><ul><li><strong>Parent Task ID</strong>: <em>required (string)</em></li><li><strong>Test Execution ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="tasks__task_id__test_executions__id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2></div><div class="tab-pane" id="tasks__task_id__test_executions__id__delete_securedby">Secured by basic</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="bundles" class="panel-title">/bundles</h3></div><div class="panel-body"><div class="top-resource-description"><p>Bundles installed on the system</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_bundles"><span class="parent"></span>/bundles</a> <span class="methods"><a href="#bundles_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_bundles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#bundles_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View a list of all installed bundles</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="bundles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/bundles</h4></div><div class="modal-body"><div class="alert alert-info"><p>View a list of all installed bundles</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#bundles_get_response" data-toggle="tab">Response</a></li><li><a href="#bundles_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="bundles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Bundles",
+  "id": "http://cypress.healthit.gov/schemas/bundles.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": { "$ref": "bundle" }
+}</code></pre></div><div class="tab-pane" id="bundles_get_securedby">Secured by basic</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_bundles__id_"><span class="parent">/bundles</span>/{id}</a> <span class="methods"><a href="#bundles__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_bundles__id_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Annual Update Bundle</p></div><div class="list-group"><div onclick="window.location.href = '#bundles__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View a list of all installed bundles</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="bundles__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/bundles</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>View a list of all installed bundles</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#bundles__id__get_request" data-toggle="tab">Request</a></li><li><a href="#bundles__id__get_response" data-toggle="tab">Response</a></li><li><a href="#bundles__id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="bundles__id__get_request"><h3>URI Parameters</h3><ul><li><strong>Bundle ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="bundles__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Bundle",
+  "id": "http://cypress.healthit.gov/schemas/bundle.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "title": {"type": "string"},
+    "version": {"type": "string"}
+  },
+    "links": [
+    {
+      "rel": "self",
+      "href": "/bundles/{id}"
+    }, {
+      "rel": "measures",
+      "href": "/bundles/{id}/measures"
+    }
+  ]
+}</code></pre></div><div class="tab-pane" id="bundles__id__get_securedby">Secured by basic</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_bundles__id__measures"><span class="parent">/bundles/{id}</span>/measures</a> <span class="methods"><a href="#bundles__id__measures_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_bundles__id__measures" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#bundles__id__measures_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>List of measure in the bundle</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="bundles__id__measures_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/bundles/{id}</span>/measures</h4></div><div class="modal-body"><div class="alert alert-info"><p>List of measure in the bundle</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>This API supports Basic Authentication.\n</p></div><ul class="nav nav-tabs"><li class="active"><a href="#bundles__id__measures_get_request" data-toggle="tab">Request</a></li><li><a href="#bundles__id__measures_get_response" data-toggle="tab">Response</a></li><li><a href="#bundles__id__measures_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="bundles__id__measures_get_request"><h3>URI Parameters</h3><ul><li><strong>Bundle ID</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="bundles__id__measures_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Measures",
+  "id": "http://cypress.healthit.gov/schemas/measures.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": { "$ref": "measure" }
+}</code></pre></div><div class="tab-pane" id="bundles__id__measures_get_securedby">Secured by basic</div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#vendors">Vendors</a></li><li><a href="#products__product_id__product_tests">Product Tests (Single Measure Testing and Filter Tests)</a></li><li><a href="#product_tests__product_test_id__tasks">/product_tests/{product_test_id}/tasks</a></li><li><a href="#tasks__task_id__test_executions">Task</a></li><li><a href="#bundles">/bundles</a></li></ul></div></div></div></div></body></html>
