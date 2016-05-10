@@ -12,8 +12,7 @@ module Validators
       else
         comp = true
         %w(IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP values).each do |pop|
-          calculated_value = calculated.nil? ? 0 : calculated[pop].to_i
-          original_value = original.value[pop].nil? ? 0 : original.value[pop].to_i
+          original_value, calculated_value, pop = extract_calcuated_and_original_results(original, calculated, pop)
           next unless original_value != calculated_value
           pop_statment = options[:population_ids][pop]
           pop_statment << " Stratification #{options[:population_ids]['STRAT']}" if options[:population_ids]['STRAT']
@@ -23,6 +22,20 @@ module Validators
         end
         previously_passed && comp
       end
+    end
+
+    def extract_calcuated_and_original_results(original, calculated, pop)
+      # set original value to 0 if it wasn't calculated
+      original_value = original.nil? || original.value[pop].nil? ? 0.0 : original.value[pop]
+      # set calculated value to 0 if there is no calculation for the measure or population
+      calculated_value = calculated.nil? || calculated[pop].nil? ? 0.0 : calculated[pop]
+      if pop == 'values'
+        pop = 'OBSERV'
+        # the orginal and calculated values should be an array make empty if it doesn't exist
+        original_value = [] if original.nil? || !original.is_a?(Array)
+        calculated_value = [] if calculated.nil? || !calculated.is_a?(Array)
+      end
+      [original_value, calculated_value, pop]
     end
 
     def parse_and_save_record(doc, te, options)
@@ -52,7 +65,6 @@ module Validators
       passed = true
       record = parse_and_save_record(doc, te, options)
       return false unless record
-
       @measures.each do |measure|
         ex_opts = { 'test_id' => te.id, 'bundle_id' => @bundle.id,  'effective_date' => te.task.effective_date,
                     'enable_logging' => true, 'enable_rationale' => true, 'oid_dictionary' => generate_oid_dictionary(measure, @bundle.id) }
