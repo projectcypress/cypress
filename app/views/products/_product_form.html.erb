@@ -48,7 +48,7 @@
               <!-- loop through bundles & use radio buttons -->
               <%= f.form_group :bundle_id, help: "Select the measure versions Cypress should use to certify this product." do %>
                 <% Bundle.all.each do |bundle| %>
-                  <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
+                  <%= f.radio_button :bundle_id, bundle.id, label: "#{bundle.title} #{bundle.version}", label_class: "btn btn-checkbox",
                                      checked: bundle == @bundle, disabled: !@product.new_record? %>
 
                 <% end # bundle loop %>
