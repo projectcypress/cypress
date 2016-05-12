@@ -13,8 +13,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 3e748b0d3e879702a01a300db15c132687730472
-  branch: bump_mongoid
+  revision: 56ad26bec8ea2de068c641a20c04f718a0f84342
+  branch: mongoid5
   specs:
     health-data-standards (3.6.1)
       activesupport (~> 4.2.0)
@@ -34,10 +34,10 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/quality-measure-engine.git
-  revision: d07dc1657afd633ea12499e170baef4796858aad
+  revision: 284bd90f8fc00e650630c0d6567f05f8a63347ad
   branch: bump_mongoid
   specs:
-    quality-measure-engine (3.1.1)
+    quality-measure-engine (3.1.2)
       delayed_job_mongoid (~> 2.2.0)
       mongoid (~> 5.0.0)
       rubyzip (>= 1.0.0)
@@ -548,4 +548,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.11.2
+   1.12.1
