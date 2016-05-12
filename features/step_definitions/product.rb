@@ -198,7 +198,8 @@ Then(/^the user should see a notification saying the product was created$/) do
 end
 
 Then(/^the user should not be able to create a product$/) do
-  assert_equal true, page.has_button?('Add Product', disabled: true)
+  page.click_button 'Add Product'
+  page.assert_no_text "'#{@product.name}' was created."
 end
 
 Then(/^the user should see an error message saying the product name has been taken$/) do

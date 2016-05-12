@@ -90,7 +90,7 @@ Then(/^the user should see a notification saying the vendor was created$/) do
 end
 
 Then(/^the user should not be able to create a vendor$/) do
-  assert_equal true, page.has_button?('Create Vendor', disabled: true)
+  page.assert_no_text 'was created'
 end
 
 Then(/^the user should see an error message saying the vendor name has been taken$/) do

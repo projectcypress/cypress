@@ -3,15 +3,10 @@
     <h1 class='panel-title'>Sign In</h1>
   </div>
 
-  <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name), html: { 'data-parsley-validate': '' }) do |f| %>
+  <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="panel-body">
-      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
-        'data-parsley-required': '',
-        'data-parsley-type':"email",
-        'data-parsley-trigger': 'focus' %>
-      <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
-        'data-parsley-required': '',
-        'data-parsley-trigger': 'blur' %>
+      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
+      <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
 
       <% if devise_mapping.rememberable? -%>
         <%= f.check_box :remember_me %>

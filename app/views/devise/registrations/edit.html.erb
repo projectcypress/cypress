@@ -5,21 +5,15 @@
     <h1 class='panel-title'>Edit <%= resource_name.to_s.humanize %></h1>
   </div>
 
-  <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, 'data-parsley-validate': '' }) do |f| %>
+  <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <div class="panel-body">
-      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
-        'data-parsley-required': '',
-        'data-parsley-type':"email",
-        'data-parsley-trigger': 'blur' %>
+      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
 
-      <%= f.password_field :current_password, label: 'Password',  autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
-        help: 'we need your current password to confirm your changes',
-        'data-parsley-required': '',
-        'data-parsley-trigger': 'blur' %>
+      <%= f.password_field :current_password, label: 'Password',  autocomplete: "off", autocapitalize: 'off', autocorrect: 'off', help: 'we need your current password to confirm your changes' %>
       <%= f.password_field :password, label: 'New Password', autocomplete: "off", autocapitalize: 'off', autocorrect: 'off', help: "leave blank if you don't want to change it" %>
       <%= f.password_field :password_confirmation, label: 'Confirm New Password', autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
     </div>

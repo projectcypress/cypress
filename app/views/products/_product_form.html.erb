@@ -9,7 +9,7 @@
           <%= f.text_field :version %>
           <%= f.text_area :description %>
 
-          <fieldset>
+          <fieldset id="certification_options">
             <legend class="control-label">Certification Types</legend>
             <div id="certifications_errors_container"></div>
             <%= f.form_group help: "A product must certify to either C1 or C2." do %>
@@ -17,7 +17,8 @@
                 <% if c == 'C1' || c == 'C2' %>
                   <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: {
                     'parsley-required': '',
-                    'parsley-trigger': 'blur',
+                    'parsley-trigger': 'change',
+                    'parsley-class-handler': "#certification_options",
                     'parsley-mincheck': '1',
                     'parsley-error-message': 'Must certify to at least C1 or C2.',
                     'parsley-multiple': 'mandatory_certifications',
@@ -68,6 +69,7 @@
               <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: {
                 'parsley-required': '',
                 'parsley-trigger': 'blur change focusout',
+                'parsley-class-handler': "#measures_options",
                 'parsley-error-message': 'Must select measures.',
                 'parsley-errors-container': "#simple_measures_errors_container" } %>
               <%= f.radio_button :measure_selection, "ep", label: "Eligible Provider eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
