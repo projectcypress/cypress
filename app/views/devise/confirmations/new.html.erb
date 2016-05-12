@@ -3,18 +3,15 @@
     <h1 class='panel-title'>Resend confirmation instructions</h1>
   </div>
 
-<%= bootstrap_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, "data-parsley-validate": '' }) do |f| %>
+<%= bootstrap_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
 
   <div class="panel-body">
     <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
-      'data-parsley-required': '',
-      'data-parsley-type':"email",
-      'data-parsley-trigger': 'blur',
       value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
   </div>
 
   <div class="panel-footer">
-    <%= f.primary "Resend confirmation instructions", disabled: true %>
+    <%= f.primary "Resend confirmation instructions" %>
   </div>
 <% end %>
 </div>

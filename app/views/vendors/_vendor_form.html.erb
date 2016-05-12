@@ -3,7 +3,7 @@
 
 <%= bootstrap_nested_form_for @vendor, html: {id: "add_vendor_form", "data-parsley-validate": ''} do |f| %>
   <div class="panel-body">
-    <%= f.text_field :name, label: 'Vendor Name', autocomplete: 'off', required: '', 'data-parsley-required': '', 'data-parsley-trigger': 'blur'%>
+    <%= f.text_field :name, label: 'Vendor Name', autocomplete: 'off', required: '', 'data-parsley-required': '', 'data-parsley-trigger': 'change'%>
     <%= f.text_field :vendor_id, label: 'Vendor ID' %>
     <%= f.url_field :url, label: 'URL', 'data-parsley-type':"url", 'data-parsley-trigger': 'blur', autocorrect: 'off', autocapitalize: 'off' %>
     <%= f.text_field :address %>
@@ -13,7 +13,7 @@
     <%= f.fields_for :points_of_contact do |poc_field| %>
       <div class="row">
         <%= poc_field.text_field :name, wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'POC Name' %>
-        <%= poc_field.email_field :email, autocorrect: 'off', autocapitalize: 'off', 'data-parsley-type':"email",  'data-parsley-trigger': 'blur', wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'Email'%>
+        <%= poc_field.email_field :email, autocorrect: 'off', autocapitalize: 'off', wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'Email'%>
         <%= poc_field.phone_field :phone, wrapper: { class: 'col-sm-3' }, label_class: 'label-block', label: 'Telephone' %>
         <%= poc_field.text_field :contact_type, wrapper: { class: 'col-sm-2' }, label_class: 'label-block', label: 'Type of Contact' %>
         <%= f.link_to_remove "Remove", :class => "btn btn-xs btn-danger", :type => "button" %>
@@ -24,7 +24,7 @@
   </div>
 
   <div class="panel-footer">
-    <%= f.submit submit_text, :class => "btn btn-success", :id => "submit_button", disabled: @vendor.new_record? %>
+    <%= f.submit submit_text, :class => "btn btn-success", :id => "submit_button" %>
     <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
   </div>
 <% end %>

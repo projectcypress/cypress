@@ -3,16 +3,13 @@
     <h1 class='panel-title'>Forgot your password?</h1>
   </div>
 
-<%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, 'data-parsley-validate': '' }) do |f| %>
+<%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <div class="panel-body">
-    <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
-      'data-parsley-required': '',
-      'data-parsley-type':"email",
-      'data-parsley-trigger': 'blur' %>
+    <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
   </div>
 
   <div class="panel-footer">
-    <%= f.primary "Send me reset password instructions", disabled: true %>
+    <%= f.primary "Send me reset password instructions" %>
   </div>
 <% end %>
 </div>
