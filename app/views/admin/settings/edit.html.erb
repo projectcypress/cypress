@@ -42,6 +42,10 @@
                 <%= custom_form.radio_button :ignore_roles, "enable", label: "Enable", inline: true, checked: mode_settings.ignore_roles, 'aria-labelledby' => "ignore-roles" %>
                 <%= custom_form.radio_button :ignore_roles, "disable", label: "Disable", inline: true, checked: !mode_settings.ignore_roles, 'aria-labelledby' => "ignore-roles"  %>
               <% end %>
+              <%= custom_form.form_group :debug_features, label: { text: "Debug Features", id: "debug-features" } do %>
+                <%= custom_form.radio_button :debug_features, "enable", label: "Enable", inline: true, checked: mode_settings.debug_features, 'aria-labelledby' => "debug-features" %>
+                <%= custom_form.radio_button :debug_features, "disable", label: "Disable", inline: true, checked: !mode_settings.debug_features, 'aria-labelledby' => "debug-features"  %>
+              <% end %>
               <%= custom_form.select :default_role, roles, selected: mode_settings.default_role %>
             <% end %>
           </fieldset>

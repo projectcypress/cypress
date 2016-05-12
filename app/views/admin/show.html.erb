@@ -1,7 +1,7 @@
 <%
   # local variables:
   #
-  #   banner_message, address, port, domain, user_name, password, mode, mode_settings
+  #   banner_message, address, port, domain, user_name, password, mode, mode_settings, debug_features
 %>
 
 <div data-no-turbolink class="settings-tabs">
@@ -35,10 +35,11 @@
 
       <div class="col-sm-6">
         <legend>Application Mode</legend>
-        <div>Cypress is currently running in <strong><%= mode %> mode</strong></div>
+        <div>Cypress is currently running in <strong><%= mode %> mode</strong>.</div>
         <div>Users <strong><%= mode_settings.auto_approve ? "will" : "will not" %></strong> be automatically approved.</div>
         <div>Access <strong><%= mode_settings.ignore_roles ? "will not" : "will" %></strong> be restricted by role.</div>
         <div>A default role <strong><%= mode_settings.default_role == "None"  ? "will not" : "will" %></strong> be set for new users<%= mode_settings.default_role == "None" ? "." : ": #{mode_settings.default_role}" %></div>
+        <div>Debug features are currently <strong><%= debug_features ? "enabled" : "disabled" %></strong>.</div>
       </div>
     </div>
   </div>
@@ -50,7 +51,7 @@
   <div id="application_status" >
     <h2>This feature is coming soon</h2>
   </div>
-  
+
   <div id="bundle" >
     <h2>This feature is coming soon</h2>
   </div>
