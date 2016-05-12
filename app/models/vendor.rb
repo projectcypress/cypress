@@ -28,7 +28,7 @@ class Vendor
     else
       vids = []
       user.roles.each do |role|
-        vids << role.resource_id if role.resource_type == Vendor
+        vids << role.resource_id if role.resource_type == 'Vendor'
       end
       Vendor.in(_id: vids)
     end
