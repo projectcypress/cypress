@@ -4,12 +4,11 @@ THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLU
 Schematron generated from Trifolia on 7/16/2015
 -->
 <!-- 
-2016 CMS QRDA Category III Schematron for Eligible Professional (EP) Programs, Version 3
+2016 CMS QRDA Category III Schematron for Eligible Professional (EP) Programs, Version 2.2
 
-2/25/2016
-Manually changed a-1109-711290 to conform to the IG where the component is now MAY and renumbered it to a-1109-711213
-Manually changed a-1109-17581 to properly count the templateID and not the abservation
-Manually removed a-77-18236 since a-1109-711291 overwrote this
+Updated 4/15/2016
+
+Fixed QRDA-251 by manually removing a-1109-711290 to conform to the IG where the component is now MAY
 -->
 <sch:schema xmlns:voc="http://www.lantanagroup.com/voc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdtc="urn:hl7-org:sdtc" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -551,7 +550,7 @@ Manually removed a-77-18236 since a-1109-711291 overwrote this
       <sch:assert id="a-77-18232" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.27.3.6'])=1">SHALL contain exactly one [1..1] templateId (CONF:18232) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.27.3.6" (CONF:18233).</sch:assert>
       <sch:assert id="a-77-18234" test="count(cda:code)=1">SHALL contain exactly one [1..1] code (CONF:18234).</sch:assert>
       <sch:assert id="a-77-18235" test="cda:code[@code='184100006' and @codeSystem='2.16.840.1.113883.6.96']">This code SHALL contain exactly one [1..1] @code="184100006" Patient sex (CodeSystem: SNOMED CT urn:oid:2.16.840.1.113883.6.96 STATIC) (CONF:18235).</sch:assert>
-      <!--<sch:assert id="a-77-18236" test="count(cda:value[@xsi:type='CD'])=1">SHALL contain exactly one [1..1] value with @xsi:type="CD", where the code SHALL be selected from ValueSet Administrative Gender (HL7 V3) urn:oid:2.16.840.1.113883.1.11.1 DYNAMIC (CONF:18236).</sch:assert>-->
+      <sch:assert id="a-77-18236" test="count(cda:value[@xsi:type='CD'])=1">SHALL contain exactly one [1..1] value with @xsi:type="CD", where the code SHALL be selected from ValueSet Administrative Gender (HL7 V3) urn:oid:2.16.840.1.113883.1.11.1 DYNAMIC (CONF:18236).</sch:assert>
     </sch:rule>
     <sch:rule id="r-urn-oid-2.16.840.1.113883.10.20.27.3.6-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.6']]">
       <sch:extends rule="r-urn-oid-2.16.840.1.113883.10.20.27.3.6-errors-abstract" />
@@ -730,7 +729,9 @@ Manually removed a-77-18236 since a-1109-711291 overwrote this
     </sch:rule>
     <sch:rule id="r-urn-oid-2.16.840.1.113883.10.20.27.3.17-errors" context="cda:organizer[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.17']]">
       <sch:extends rule="r-urn-oid-2.16.840.1.113883.10.20.27.3.17-errors-abstract" />
-      <sch:assert id="a-1109-711213" test="not(cda:component) or cda:component[count(cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.25']])=1]">MAY contain zero or more [0..*] component (CONF:711290) such that it SHALL contain exactly one [1..1] Performance Rate for Proportion Measure (CMS EP) (identifier: urn:oid:2.16.840.1.113883.10.20.27.3.25) (CONF:711213).</sch:assert>
+      <!--
+        <sch:assert id="a-1109-711290" test="count(cda:component[count(cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.25']])=1]) &gt; 0">SHALL contain at least one [1..*] component (CONF:711290) such that it SHALL contain exactly one [1..1] Performance Rate for Proportion Measure (CMS EP) (identifier: urn:oid:2.16.840.1.113883.10.20.27.3.25) (CONF:711213).</sch:assert>
+      -->
       <sch:assert id="a-1109-18425" test="count(cda:component[count(cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.16']])=1]) &gt; 0">SHALL contain at least one [1..*] component (CONF:18425) such that it SHALL contain exactly one [1..1] Measure Data (CMS EP) (identifier: urn:oid:2.16.840.1.113883.10.20.27.3.16) (CONF:711296).</sch:assert>
     </sch:rule>
     <sch:rule id="r-urn-oid-2.16.840.1.113883.10.20.27.3.17-17890-branch-17890-errors-abstract" abstract="true">
@@ -743,7 +744,7 @@ Manually removed a-77-18236 since a-1109-711291 overwrote this
   <sch:pattern id="p-urn-oid-2.16.840.1.113883.10.20.27.3.20-errors">
     <sch:rule id="r-urn-oid-2.16.840.1.113883.10.20.27.3.20-errors-abstract" abstract="true">
       <sch:extends rule="r-urn-oid-2.16.840.1.113883.10.20.27.3.4-errors-abstract" />
-      <sch:assert id="a-1109-17581" test="count(cda:entryRelationship[@typeCode='SUBJ'][@inversionInd='true']/cda:observation[count(cda:templateId[@root='2.16.840.1.113883.10.20.27.3.24'])=1])=1">SHALL contain exactly one [1..1] entryRelationship (CONF:17581) such that it SHALL contain exactly one [1..1] Aggregate Count (CMS EP) (identifier: urn:oid:2.16.840.1.113883.10.20.27.3.24) (CONF:711197). SHALL contain exactly one [1..1] @typeCode="SUBJ" (CONF:17582). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:17583).</sch:assert>
+      <sch:assert id="a-1109-17581" test="count(cda:entryRelationship[@typeCode='SUBJ'][@inversionInd='true'][count(cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.24']])=1])=1">SHALL contain exactly one [1..1] entryRelationship (CONF:17581) such that it SHALL contain exactly one [1..1] Aggregate Count (CMS EP) (identifier: urn:oid:2.16.840.1.113883.10.20.27.3.24) (CONF:711197). SHALL contain exactly one [1..1] @typeCode="SUBJ" (CONF:17582). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:17583).</sch:assert>
       <sch:assert id="a-1109-17577" test="count(cda:code)=1">SHALL contain exactly one [1..1] code (CONF:17577).</sch:assert>
       <sch:assert id="a-1109-17579" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:17579).</sch:assert>
       <sch:assert id="a-1109-18204" test="count(cda:reference)=1">SHALL contain exactly one [1..1] reference (CONF:18204).</sch:assert>
