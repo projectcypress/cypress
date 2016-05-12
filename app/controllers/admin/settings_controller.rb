@@ -59,6 +59,7 @@ module Admin
       sub_yaml_setting('auto_approve', Settings[:auto_approve], yaml_text)
       sub_yaml_setting('ignore_roles', Settings[:ignore_roles], yaml_text)
       sub_yaml_setting('default_role', Settings[:default_role], yaml_text)
+      sub_yaml_setting('enable_debug_features', Settings[:enable_debug_features], yaml_text)
     end
 
     def sub_yaml_setting(key, val, yaml_text)
@@ -73,21 +74,13 @@ module Admin
 
     def update_application_mode(mode_name, options = {})
       if mode_name == 'internal'
-        Settings[:auto_approve] = false
-        Settings[:ignore_roles] = true
-        Settings[:default_role] = nil
+        ApplicationController.helpers.mode_internal
       elsif mode_name == 'demo'
-        Settings[:auto_approve] = false
-        Settings[:ignore_roles] = false
-        Settings[:default_role] = :user
+        ApplicationController.helpers.mode_demo
       elsif mode_name == 'atl'
-        Settings[:auto_approve] = true
-        Settings[:ignore_roles] = false
-        Settings[:default_role] = nil
+        ApplicationController.helpers.mode_atl
       elsif mode_name == 'custom'
-        Settings[:auto_approve] = options['auto_approve'] == 'enable'
-        Settings[:ignore_roles] = options['ignore_roles'] == 'enable'
-        Settings[:default_role] = options['default_role'] == 'None' ? nil : options['default_role'].underscore.to_sym
+        ApplicationController.helpers.mode_custom options
       end
     end
 

@@ -12,7 +12,8 @@ class AdminController < ApplicationController
       user_name: smtp_settings.user_name,
       password: smtp_settings.password,
       mode_settings: ApplicationController.helpers.application_mode_settings,
-      mode: ApplicationController.helpers.application_mode
+      mode: ApplicationController.helpers.application_mode,
+      debug_features: Settings.enable_debug_features
     }
   end
 end
