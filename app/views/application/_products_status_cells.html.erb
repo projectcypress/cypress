@@ -1,0 +1,38 @@
+<%
+
+# local variable 'product'
+
+%>
+
+<% product_status_values = get_product_status_values(product) %>
+
+<% ['C1', 'C2', 'C3', 'C4'].each do |cert_type| %>
+  <% if product_status_values.has_key?(cert_type) %>
+    <% cert_hash = product_status_values[cert_type] %>
+    <td>
+      <table class='table table-condensed'>
+        <thead>
+          <tr>
+            <% cert_hash.each_key do |cert_key| %>
+              <th scope="col" class="text-center col-xs-6">
+                <%= cert_key %>
+              </th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% %w(passing failing not_started).each do |status| %>
+            <% classes = status_to_css_classes(status.capitalize) %>
+            <tr>
+              <% cert_hash.each_value do |cert_status_hash| %>
+                <%= render partial: 'status_cells', locals: { status_hash: cert_status_hash, status: status } %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </td>
+  <% else %>
+    <td class="text-muted text-center">N/A</td>
+  <% end %>
+<% end %>

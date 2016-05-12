@@ -40,7 +40,7 @@ module ProductsHelper
     [passing, failing, not_started, total]
   end
 
-  def product_test_status_values(tests, task_type)
+  def product_test_statuses(tests, task_type)
     tasks = []
     tests.each { |test| tasks << test.tasks.where(_type: task_type) }
     tasks.empty? ? [0, 0, 0, 0] : tasks_values(tasks)
@@ -50,12 +50,6 @@ module ProductsHelper
     status_values = []
     %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
     status_values << tasks.count # total number of product tests
-  end
-
-  def filtering_test_status_values_summed(tests)
-    cat1 = product_test_status_values(tests, 'Cat1FilterTask')
-    cat3 = product_test_status_values(tests, 'Cat3FilterTask')
-    cat1.map.with_index { |cat1_elem, i| cat1_elem + cat3[i] }
   end
 
   def certifications(product)
