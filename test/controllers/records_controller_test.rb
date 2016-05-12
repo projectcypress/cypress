@@ -5,7 +5,7 @@ class RecordsControllerTest < ActionController::TestCase
   setup do
     collection_fixtures('bundles', 'records', 'vendors', 'products', 'product_tests', 'tasks', 'users', 'measures', 'roles')
     @vendor = Vendor.find(EHR1)
-    @first_product = @vendor.products.first
+    @first_product = @vendor.products.where(name: 'Vendor 1 Product 1').first
   end
 
   test 'should redirect from index to default bundle' do
@@ -47,7 +47,8 @@ class RecordsControllerTest < ActionController::TestCase
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to product test records unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
-      get :index, task_id: @first_product.product_tests.first.tasks.first.id
+      task_id = @first_product.product_tests.where(name: 'vendor1 product1 test1').first.tasks.first.id
+      get :index, task_id: task_id
       assert_response 401
     end
   end
