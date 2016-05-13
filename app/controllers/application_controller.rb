@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
     end
 
     unless running
-      alert_msg = "The backend processes for setting up tests and perfroming measure calculations is not running.
+      alert_msg = "The backend processes for setting up tests and performing measure calculations are not running.
                     Please refer to the Cypress installation manual for instructions on starting the processes."
       flash[:backend_job_alert] = alert_msg.html_safe
     end
