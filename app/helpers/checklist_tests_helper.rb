@@ -1,5 +1,5 @@
 module ChecklistTestsHelper
-  def checklist_test_criteria_attribute(criteria)
+  def checklist_test_criteria_attribute(measure, criteria)
     if criteria[:field_values]
       if criteria[:field_values].keys[0] == 'FLFS'
         fulfills_reference(measure, criteria[:field_values]['FLFS'].reference)

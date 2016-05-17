@@ -114,7 +114,7 @@
             <tr>
               <td><%= render partial: 'products/report/status_icon', locals: { passing: check_crit.completed } %></td>
               <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
-              <td><%= checklist_test_criteria_attribute(criteria) %></td>
+              <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
             </tr>
           <% end %>
         </tbody>

@@ -36,7 +36,7 @@
                         <td><%= criteria_field.check_box :completed %></td>
                         <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
                         <td><%= criteria[:code_list_id] %></td>
-                        <td><%= checklist_test_criteria_attribute(criteria) %></td>
+                        <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
                         <td><%= render partial: 'field_values', locals: { field_values: criteria['field_values'] } if criteria['field_values'] %></td>
                       </tr>
                     <% end %>
