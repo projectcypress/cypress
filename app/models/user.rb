@@ -51,6 +51,7 @@ class User
   validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
 
   after_create :associate_points_of_contact
+  after_create :assign_default_role
 
   def active_for_authentication?
     super && approved?
@@ -97,5 +98,10 @@ class User
         add_role :vendor, vendor
       end
     end
+  end
+
+  def assign_default_role
+    dr = APP_CONFIG.default_role
+    add_role dr if dr
   end
 end

@@ -40,7 +40,9 @@ module Admin
 
     test 'Admin can update user' do
       v = Vendor.first
+      APP_CONFIG['default_role'] = nil
       u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+
       for_each_logged_in_user([ADMIN]) do
         assert !u.has_role?(:user)
         assert !u.has_role?(:owner, v)

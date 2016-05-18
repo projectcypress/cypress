@@ -28,4 +28,15 @@ class UserTest < ActiveSupport::TestCase
     u = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     assert !u.has_role?(:vendor, v), 'User should not be assocaited with the vendor'
   end
+
+  def test_assign_default_role
+    APP_CONFIG['default_role'] = :user
+    u = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    assert u.has_role? :user
+    assert u.has_role? 'user'
+
+    APP_CONFIG['default_role'] = nil
+    u = User.create(email: 'vendor2@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    assert_equal 0, u.roles.length, 'user should not have any roles assigned '
+  end
 end
