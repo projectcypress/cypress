@@ -5,23 +5,21 @@
 %>
 
 <p class="description">Remove any patients not meeting the following criteria.</p>
-<% @task.product_test.options.filters.map do |key, val| %>
-  <dl class="">
-    <dt><%= key.titleize %></dt>
+<% @task.product_test.options.filters.map do |filter_name, val| %>
+  <dl class="filters-list">
+    <dt><%= filter_name.titleize %></dt>
     <dd>
-      <dl class="dl-horizontal">
-        <% display_filter_val(key, val).each do |filter| %>
-          <% if filter.is_a?(Hash) %>
-            <% filter.each_pair do |k, v| %>
-              <dt><%= k %></dt>
-              <dd><%= v %></dd>
-            <% end %>
-          <% else %>
-            <dt>Value</dt>
-            <dd><%= filter %></dd>
+      <% filter_values = display_filter_val(filter_name, val) %>
+      <% filter_values.each do |filter_val| %>
+        <% if filter_val.is_a?(Hash) %>
+          <% filter_val.each_pair do |value_key, value_val| %>
+            <p><strong><%= value_key %></strong>
+            <%= value_val %></p>
           <% end %>
+        <% else %>
+          <%= filter_val %>
         <% end %>
-      </dl>
+      <% end %>
     </dd>
   </dl>
 <% end %>

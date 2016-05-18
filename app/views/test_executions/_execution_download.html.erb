@@ -6,17 +6,19 @@
 #
 %>
 
-<% if product_test.state == :ready %>
-  <p>Download and import this data into your EHR clinical quality measure calculator.</p>
-  <%= form_tag(patients_product_test_path(product_test), method: 'get') do |f| %>
-    <%= hidden_field_tag :id, :value => product_test.id %>
-    <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
-      <i class = 'fa fa-fw fa-download'></i> Download QRDA Cat I (.zip)
+<div id = 'display_execution_download'>
+  <% if product_test.state == :ready %>
+    <p>Download and import this data into your EHR clinical quality measure calculator.</p>
+    <%= form_tag(patients_product_test_path(product_test), method: 'get') do |f| %>
+      <%= hidden_field_tag :id, :value => product_test.id %>
+      <%= button_tag(type: 'submit', class: 'btn btn-info') do %>
+        <i class = 'fa fa-fw fa-download'></i> Download QRDA Cat I (.zip)
+      <% end %>
     <% end %>
+  <% else %>
+    <p><i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i> Cypress is building test patients for this measure. You will be able to download a zip file of QRDA Category 1 documents. </p>
+    <script>
+      $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_download' }});
+    </script>
   <% end %>
-<% else %>
-  <p><i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i> Cypress is building test patients for this measure. You will be able to download a zip file of QRDA Category 1 documents. </p>
-  <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_download' }});
-  </script>
-<% end %>
+</div>

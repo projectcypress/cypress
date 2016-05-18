@@ -8,7 +8,8 @@ module FilteringTestsHelper
     vals.each do |val|
       case filter_name
       when 'races', 'ethnicities'
-        arr << "#{APP_CONFIG.randomization[key].find { |x| x.code == val }.name} (code: #{val})"
+        key_name = APP_CONFIG.randomization[filter_name].find { |x| x.code == val }.name
+        arr << "#{key_name} (code: #{val})"
       when 'genders', 'payers'
         arr << val
       end
@@ -24,7 +25,7 @@ module FilteringTestsHelper
   end
 
   def problems_val(val)
-    "#{HealthDataStandards::SVS::ValueSet.where(oid: val[:oid].first).first.display_name} (code: #{val[:oid].first})"
+    ["#{HealthDataStandards::SVS::ValueSet.where(oid: val[:oid].first).first.display_name} (code: #{val[:oid].first})"]
   end
 
   def providers_val(val)
