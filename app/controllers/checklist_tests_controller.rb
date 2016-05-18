@@ -12,9 +12,7 @@ class ChecklistTestsController < ProductTestsController
 
   def show
     @product = @product_test.product
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
-    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
-    add_breadcrumb 'Test: ' + @product_test.name, product_checklist_test_path(@product, @product_test)
+    set_breadcrumbs
   end
 
   def update
@@ -24,6 +22,9 @@ class ChecklistTestsController < ProductTestsController
       format.html { redirect_to product_checklist_test_path(@product, @product_test) }
     end
   rescue Mongoid::Errors::Validations
+    @product = @product_test.product
+    set_measures
+    set_breadcrumbs
     render :show
   end
 
@@ -35,6 +36,12 @@ class ChecklistTestsController < ProductTestsController
   end
 
   private
+
+  def set_breadcrumbs
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
+    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
+    add_breadcrumb 'Test: ' + @product_test.name, product_checklist_test_path(@product, @product_test)
+  end
 
   def set_measures
     @measures = @product_test.measures.sort_by(&:cms_int)
@@ -48,6 +55,6 @@ class ChecklistTestsController < ProductTestsController
   # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
   def checklist_test_params
-    params[:product_test].permit(checked_criteria_attributes: [:id, :_destroy, :completed])
+    params[:product_test].permit(checked_criteria_attributes: [:id, :_destroy, :completed, :code, :attribute_code])
   end
 end

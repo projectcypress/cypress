@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ChecklistTestTest < ActiveJob::TestCase
   def setup
-    collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
+    collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'health_data_standards_svs_value_sets')
     vendor = Vendor.create!(name: 'test_vendor_name')
     product = vendor.products.create!(name: 'test_product', c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
                                       measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'])
@@ -40,5 +40,38 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'failed', @test.measure_status(measure_id)
     @test.checked_criteria.each { |criteria| criteria.completed = true }
     assert_equal 'passed', @test.measure_status(measure_id)
+  end
+
+  def test_get_valuesets_for_dc
+    @test.create_checked_criteria
+    assert !@test.checked_criteria[0].get_all_valuesets_for_dc(@test.measures.first.id).empty?, 'should be atleast one valuset for a data criteria'
+  end
+
+  def test_inappropriate_code_for_vs
+    @test.create_checked_criteria
+    checked_criteria = @test.checked_criteria[0]
+    checked_criteria.completed = true
+    checked_criteria.code = 'thisisntacode'
+    checked_criteria.save
+    assert_equal 1, checked_criteria.errors.size, 'should be 1 error for trying to save an incorrect code'
+  end
+
+  def test_inappropriate_code_for_attribute_vs
+    @test.create_checked_criteria
+    checked_criteria = @test.checked_criteria[0]
+    checked_criteria.completed = true
+    checked_criteria.attribute_code = 'thisalsoisntacode'
+    checked_criteria.save
+    assert_equal 1, checked_criteria.errors.size, 'should be 1 error for trying to save an incorrect code'
+  end
+
+  def test_appropriate_code_for_attribute_vs
+    @test.create_checked_criteria
+    checked_criteria = @test.checked_criteria[0]
+    checked_criteria.completed = true
+    checked_criteria.code = 'F32.9'
+    checked_criteria.attribute_code = '63161005'
+    checked_criteria.save
+    assert_equal 0, checked_criteria.errors.size, 'checked criteria should save without errors'
   end
 end
