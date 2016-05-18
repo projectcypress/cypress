@@ -23,7 +23,7 @@ module AdminHelper
   end
 
   def mode_demo?
-    !Settings[:auto_approve] && !Settings[:ignore_roles] && Settings[:enable_debug_features] && Settings[:default_role] == :user
+    Settings[:auto_approve] && !Settings[:ignore_roles] && Settings[:enable_debug_features] && Settings[:default_role] == :user
   end
 
   def mode_atl?
@@ -38,7 +38,7 @@ module AdminHelper
   end
 
   def mode_demo
-    Settings[:auto_approve] = false
+    Settings[:auto_approve] = true
     Settings[:ignore_roles] = false
     Settings[:default_role] = :user
     Settings[:enable_debug_features] = true
