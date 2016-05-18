@@ -4,6 +4,7 @@ class AdminController < ApplicationController
 
   def show
     smtp_settings = Rails.application.config.action_mailer.smtp_settings
+    @bundles = Bundle.all
     render locals: {
       banner_message: Settings.banner_message,
       address: smtp_settings.address,

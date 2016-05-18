@@ -40,10 +40,7 @@ Rails.application.routes.draw do
 
   resources :test_executions, only: [:show, :destroy]
 
-  resources :bundles do
-    member do
-      post :set_default
-    end
+  resources :bundles, only: [:index, :show] do
     resources :records, only: [:index, :show] do
       collection do
         get :by_measure
@@ -67,6 +64,11 @@ Rails.application.routes.draw do
       member do
         get :unlock
         get :toggle_approved
+      end
+    end
+    resources :bundles, except: [:update] do
+      member do
+        post :set_default
       end
     end
   end
