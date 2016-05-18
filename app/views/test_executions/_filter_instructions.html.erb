@@ -1,0 +1,27 @@
+<%
+
+# local variable 'task'. must be a FilteringTest
+
+%>
+
+<p class="description">Remove any patients not meeting the following criteria.</p>
+<% @task.product_test.options.filters.map do |key, val| %>
+  <dl class="">
+    <dt><%= key.titleize %></dt>
+    <dd>
+      <dl class="dl-horizontal">
+        <% display_filter_val(key, val).each do |filter| %>
+          <% if filter.is_a?(Hash) %>
+            <% filter.each_pair do |k, v| %>
+              <dt><%= k %></dt>
+              <dd><%= v %></dd>
+            <% end %>
+          <% else %>
+            <dt>Value</dt>
+            <dd><%= filter %></dd>
+          <% end %>
+        <% end %>
+      </dl>
+    </dd>
+  </dl>
+<% end %>

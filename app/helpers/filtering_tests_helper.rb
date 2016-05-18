@@ -1,18 +1,26 @@
 module FilteringTestsHelper
-  def display_filter_val(key, vals)
-    return providers_val(vals) if key == 'providers'
-    return problems_val(vals) if key == 'problems'
-    return [vals['min'] ? "min: #{vals['min']}" : '', vals['max'] ? "max: #{vals['max']}" : ''].reject(&:empty?).join(', ') if key == 'age'
+  def display_filter_val(filter_name, vals)
+    return providers_val(vals) if filter_name == 'providers'
+    return problems_val(vals) if filter_name == 'problems'
+    return age_val(vals) if filter_name == 'age'
+
     arr = []
     vals.each do |val|
-      case key
+      case filter_name
       when 'races', 'ethnicities'
         arr << "#{APP_CONFIG.randomization[key].find { |x| x.code == val }.name} (code: #{val})"
       when 'genders', 'payers'
         arr << val
       end
     end
-    arr.join(', ')
+    arr
+  end
+
+  def age_val(val)
+    arr = []
+    arr << { Minimum: val['min'] } if val['min']
+    arr << { Maximum: val['max'] } if val['max']
+    arr
   end
 
   def problems_val(val)
@@ -21,9 +29,13 @@ module FilteringTestsHelper
 
   def providers_val(val)
     arr = []
-    arr << "NPIS: #{val.npis.join(', ')}"
-    arr << "TINS: #{val.tins.join(', ')}"
-    val.addresses.each { |address| arr << address.map { |_k, v| v }.join(', ') } if val.key?('addresses') || val.key?(:addresses)
-    arr.join(' | ')
+    arr << { NPIs: val.npis.join(',') }
+    arr << { TINs: val.tins.join(',') }
+
+    if val.key?('addresses') || val.key?(:addresses)
+      arr << { Addresses: val.addresses.map.map(&:values).map { |a| a.join(', ') }.join(' and ') }
+    end
+
+    arr
   end
 end
