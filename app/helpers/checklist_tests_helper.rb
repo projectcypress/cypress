@@ -1,5 +1,5 @@
 module ChecklistTestsHelper
-  def checklist_test_criteria_attribute(criteria)
+  def checklist_test_criteria_attribute(measure, criteria)
     if criteria[:field_values]
       if criteria[:field_values].keys[0] == 'FLFS'
         fulfills_reference(measure, criteria[:field_values]['FLFS'].reference)
@@ -37,5 +37,9 @@ module ChecklistTestsHelper
 
   def less_than_symbol(inclusive)
     inclusive ? ' &#8804; ' : ' < '
+  end
+
+  def coded_attribute?(criteria)
+    true if criteria[:field_values] && criteria[:field_values].values[0].type == 'CD'
   end
 end

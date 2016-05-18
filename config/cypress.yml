@@ -165,6 +165,14 @@ tests:
   ChecklistTest:
     title: 'Manual Entry Test'
     description: 'Validate the EHR system for C1 certification by manually entering specified patient data for the following measures.'
+    instructions:
+      - 'Create one patient for each measure below.'
+      - 'Each patient must contain all required Data Criteria, for the selected measure, to pass certification.'
+      - 'If a Data Criteria has value sets listed, an appropriate code needs to be entered into the "Code" text box.'
+      - 'If a Data Criteria has an Attribute listed, it needs to be entered into the patient record.'
+      - 'If an Attribute has a value set, an appropriate code needs to be entered into the "Attribute Code" text box.'
+      - '"Completed" will be checked, by an ATL, upon visual inspection that the Data Criteria has been entered into the patient record.'
+      - 'Code validation will be run upon saving. The test results will not be saved if errors exist, unchecking "Complete" allows for invalid results to be saved.'
     certifications:
       - 'C1'
 

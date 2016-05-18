@@ -4,8 +4,9 @@
 
 <h1>Manual Entry Checklist</h1>
 
-<%= render partial: 'checklist_status_display', locals: { product: @product } %>
+<%= render partial: 'application/instructions', locals: { instructions: APP_CONFIG['tests']['ChecklistTest']['instructions'] } %>
 
+<%= render partial: 'checklist_status_display', locals: { product: @product } %>
 <% if @measures %>
   <%= bootstrap_nested_form_for([@product, @product_test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
     <% @measures.each do |measure| %>
@@ -22,10 +23,12 @@
                 <thead>
                   <tr>
                     <th class = 'col-sm-2'>Completed?</th>
-                    <th class = 'col-sm-2'>Description</th>
+                    <th class = 'col-sm-2'>Data Criteria</th>
                     <th class = 'col-sm-3'>Value Set</th>
+                    <th class = 'col-sm-2'>Code</th>
                     <th class = 'col-sm-2'>Required Attributes</th>
                     <th class = 'col-sm-3'>Attribute Details</th>
+                    <th class = 'col-sm-2'>Attribute Code</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -34,10 +37,23 @@
                     <% if criteria.has_key?('description') %>
                       <tr>
                         <td><%= criteria_field.check_box :completed %></td>
-                        <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
-                        <td><%= criteria[:code_list_id] %></td>
-                        <td><%= checklist_test_criteria_attribute(criteria) %></td>
+                        <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
+                        <% if valuessets.empty? %>
+                          <td/>
+                          <td/>
+                          <td/>
+                        <% else %>
+                          <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                          <td><span><%= valuessets.join(', ') %></span></td>
+                          <td><%= criteria_field.text_field :code, hide_label: true %></td>
+                        <% end %>
+                        <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
                         <td><%= render partial: 'field_values', locals: { field_values: criteria['field_values'] } if criteria['field_values'] %></td>
+                        <% if coded_attribute?(criteria) %>
+                          <td><%= criteria_field.text_field :attribute_code, hide_label: true %></td>
+                        <% else %>
+                          <td/>
+                        <% end %>
                       </tr>
                     <% end %>
                   <% end %>

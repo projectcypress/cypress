@@ -52,15 +52,15 @@ class ChecklistTest < ProductTest
     checklist_measures = []
     # For each measure selected iterate on finding interesting data criteria
     measures.each do |measure|
-      data_criteria_selector, intereting_criteria = data_criteria_selector(measure)
-      measure_criteria_map[measure] = data_criteria_selector
-      measure_rank_map[measure] = intereting_criteria
+      measure_criteria_map[measure], measure_rank_map[measure] = data_criteria_selector(measure)
     end
-    measure_rank_map.sort_by { |_key, value| value }.reverse_each do |value|
-      # If there are aleady 4 checklist measure, move on
-      next if checklist_measures.size > CAT1_CONFIG['number_of_checklist_measures'] - 1
-      # If the measure is already a checklist measure (due to submeasures), move on
-      next if checklist_measures.include? value[0].hqmf_id
+    measure_ranks = measure_rank_map.sort_by { |_key, value| value }
+    # Added 4 'measures' due to account for submeasures
+    top = measure_ranks.pop(CAT1_CONFIG['number_of_checklist_measures'] + 4).shuffle
+    measure_ranks += top
+    measure_ranks.reverse_each do |value|
+      # If there are aleady 4 checklist measure or If the measure is already a checklist measure (due to submeasures), move on
+      next if (checklist_measures.size > CAT1_CONFIG['number_of_checklist_measures'] - 1) || (checklist_measures.include? value[0].hqmf_id)
       checklist_measures << value[0].hqmf_id
       measure_criteria_map[value[0]].each do |criteria_key|
         checked_criterias.push(measure_id: value[0].id.to_s, source_data_criteria: criteria_key, completed: false)
