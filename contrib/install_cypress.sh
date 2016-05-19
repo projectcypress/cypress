@@ -40,7 +40,7 @@
 ##############################################################################
 
 # Variables that determine the versions of components we will install
-cypress_tag="v3.0.0alpha5"
+cypress_tag="v3.0.0alpha6"
 install_ruby_ver="2.2.3"
 install_bundler_ver="1.11"
 # install_libxml_ver="2.8.0"
