@@ -1,0 +1,109 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "default_user": "ubuntu",
+    "default_pwd": "CypressPwd",
+    "vpc_id": "",
+    "subnet_id": ""
+  },
+  "builders": [
+
+    {
+      "name": "cypress.v3.0.0.amazonaws",
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "us-east-1",
+      "source_ami": "ami-5aa69030",
+      "instance_type": "t2.small",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "ami_virtualization_type": "hvm",
+      "ssh_username": "ubuntu",
+      "ami_name": "cypress_3.0.0alpha5",
+      "ami_block_device_mappings": [ {
+        "device_name": "/dev/sda1",
+        "volume_size": 20,
+        "delete_on_termination": "true"
+      }],
+      "launch_block_device_mappings": [ {
+        "device_name": "/dev/sda1",
+        "volume_size": 20,
+        "delete_on_termination": "true"
+      }]
+    },
+
+    {
+      "name": "cypress.v3.0.0.vmware",
+      "vm_name": "cypressv300alpha5",
+      "type": "vmware-iso",
+      "guest_os_type": "ubuntu-64",
+      "iso_urls": [
+        "http://releases.ubuntu.com/14.04/ubuntu-14.04.4-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.4-server-amd64.iso"
+      ],
+      "iso_checksum": "2ac1f3e0de626e54d05065d6f549fa3a",
+      "iso_checksum_type": "md5",
+      "ssh_username": "{{user `default_user`}}",
+      "ssh_password": "{{user `default_pwd`}}",
+      "http_directory": "./install_files",
+      "headless": true,
+      "boot_wait": "10s",
+      "format": "ova",
+      "ssh_timeout": "20m",
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{.Name}} ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "shutdown_command": "echo '{{user `default_pwd`}}' | sudo -S -E shutdown -P now",
+      "vmdk_name": "disk",
+      "disk_type_id": "0",
+      "vmx_data": {
+        "MemTrimRate": "0",
+        "sched.mem.pshare.enable": "FALSE",
+        "mainMem.useNamedFile": "FALSE",
+        "prefvmx.minVmMemPct": "100",
+        "memsize": "1024",
+        "numvcpus": "2",
+        "cpuid.coresPerSocket": "1"
+      },
+      "disk_size": "20000"
+    }
+
+  ],
+
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+    "inline": [
+      "sleep 30",
+      "apt-get update",
+      "apt-get -y upgrade",
+      "shutdown -r now",
+      "sleep 60"
+    ]
+  },{
+    "type": "shell",
+    "execute_command": "chmod +x {{ .Path }}; echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S /bin/bash '{{ .Path }}'",
+    "script": "./install_cypress.sh",
+    "environment_vars": [
+      "headless=true"
+    ]
+  }],
+
+  "post-processors": [
+  {
+    "type": "ovftool",
+    "only": ["cypress.v3.0.0.vmware"],
+    "format": "ova"
+    }
+  ]
+}
