@@ -78,6 +78,7 @@ group :development, :test do
   gem 'rubocop', '0.39', require: false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rubycritic'
   gem 'overcommit'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'

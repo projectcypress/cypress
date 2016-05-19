@@ -27,5 +27,6 @@ script:
   - bundle exec bundle-audit check
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
+  - bundle exec rubycritic app -s 85 --mode-ci
   - bundle exec rake test
   - bundle exec rake cucumber
