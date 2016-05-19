@@ -8,7 +8,6 @@ services:
 branches:
   only:
   - master
-  - cypress3
 notifications:
   email:
     recipients:
@@ -27,6 +26,6 @@ script:
   - bundle exec bundle-audit check
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
-  - bundle exec rubycritic app -s 85 --mode-ci
+  - bundle exec rubycritic app lib -s 80 --mode-ci
   - bundle exec rake test
   - bundle exec rake cucumber
