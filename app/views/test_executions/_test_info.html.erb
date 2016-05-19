@@ -4,22 +4,10 @@
 
 %>
 
-<% test = @task.product_test %>
-<% viewing_measure_test = test._type == 'MeasureTest' %>
-
 <div class = 'col-sm-4'>
-  <h1><%= viewing_measure_test ? 'Measure Information' : 'Filter Information' %></h1>
-  <strong>Measure: </strong><span><%= test.name %></span><br/>
-  <strong>CMS ID: </strong><span><%= test.cms_id %></span><br/>
-
-  <% unless viewing_measure_test %>
-    <br/>
-    <% test.options.filters.map do |key, val| %>
-      <strong><%= "#{key.titleize}: " %></strong>
-      <span><%= display_filter_val(key, val) %></span>
-      <br/>
-    <% end %>
-  <% end %>
+  <h1>Test Information</h1>
+  <strong>Measure: </strong><span><%= @task.product_test.name %></span><br/>
+  <strong>CMS ID: </strong><span><%= @task.product_test.cms_id %></span><br/>
 
   <br/>
   <%= link_to 'View Patients', { controller: 'records', task_id: @task.id}, method: :get %>

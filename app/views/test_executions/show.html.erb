@@ -17,37 +17,32 @@
   <%= render partial: 'task_status_wrapper', locals: { task: cat3_task, current_task: !displaying_cat1 } if cat3_task %>
 </div>
 
-<div class = 'row margin-top-1'>
-  <div class = 'col-sm-4'>
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h1 class="panel-title test-step">
-          1 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i>  Download Test Deck
-        </h1>
-      </div>
-      <div class="panel-body">
-        <div id = 'display_execution_download'>
-          <%= render partial: 'execution_download', locals: { product_test: @product_test } %>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class = 'test-steps'>
+  <% if viewing_measure_test %>
+    <% steps = [
+      { title: 'Download Test Deck', partial: 'execution_download'},
+      { title: 'Upload Files', partial: 'execution_upload'}
+      ] %>
+  <% elsif @task.product_test._type == 'FilteringTest' %>
+    <% steps = [
+      { title: 'Download Test Deck', partial: 'execution_download'},
+      { title: 'Filter Patients', partial: 'filter_instructions'},
+      { title: 'Upload Files', partial: 'execution_upload'}
+      ] %>
+  <% end %>
 
-  <div class = 'col-sm-8'>
+  <% steps.each_with_index do |step, index| %>
     <div class="panel panel-info">
       <div class="panel-heading">
         <h1 class="panel-title test-step">
-          2 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i>  Upload files
+          <%= index + 1 %> <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= step.title %>
         </h1>
       </div>
       <div class="panel-body">
-        <p class = 'description' id='execution_upload_label'>
-          <%= "Upload results from the EHR system in the form of a #{get_upload_type(displaying_cat1)} to get test results. This will automatically run a test execution." %>
-        </p>
-        <%= render partial: 'execution_upload', locals: { task: @task, label: 'execution_upload_label' } %>
+        <%= render partial: step.partial, locals: { product_test: @product_test, task: @task } %>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
 <% if @task.most_recent_execution %>
