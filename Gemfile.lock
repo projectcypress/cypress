@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 56ad26bec8ea2de068c641a20c04f718a0f84342
+  revision: 9ba4bf002da042cddff4dc2275da75adf064bd90
   branch: mongoid5
   specs:
     health-data-standards (3.6.1)
@@ -141,6 +141,8 @@ GEM
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
+    codeclimate-engine-rb (0.3.1)
+      virtus (~> 1.0)
     coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -151,6 +153,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    colorize (0.7.7)
     concurrent-ruby (1.0.2)
     cucumber (2.3.3)
       builder (>= 2.1.2)
@@ -211,6 +214,13 @@ GEM
     faraday_middleware (0.10.0)
       faraday (>= 0.7.4, < 0.10)
     ffi (1.9.10)
+    flay (2.7.0)
+      erubis (~> 2.7.0)
+      ruby_parser (~> 3.0)
+      sexp_processor (~> 4.0)
+    flog (4.3.2)
+      ruby_parser (~> 3.1, > 3.1.0)
+      sexp_processor (~> 4.4)
     font-awesome-sass (4.5.0)
       sass (>= 3.2)
     gh (0.14.0)
@@ -263,7 +273,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
-    minitest (5.8.4)
+    minitest (5.9.0)
     minitest-rails (2.2.0)
       minitest (~> 5.7)
       railties (~> 4.1)
@@ -358,6 +368,10 @@ GEM
     rake (11.1.2)
     rdoc (4.2.2)
       json (~> 1.4)
+    reek (4.0.2)
+      codeclimate-engine-rb (~> 0.3.1)
+      parser (~> 2.3, >= 2.3.0.6)
+      rainbow (~> 2.0)
     representable (2.3.0)
       uber (~> 0.0.7)
     responders (2.2.0)
@@ -388,6 +402,15 @@ GEM
       sexp_processor (~> 4.0)
     ruby_parser (3.8.1)
       sexp_processor (~> 4.1)
+    rubycritic (2.9.1)
+      colorize
+      flay (= 2.7.0)
+      flog (= 4.3.2)
+      launchy (= 2.4.3)
+      parser (= 2.3.1.0)
+      reek (= 4.0.2)
+      ruby_parser (~> 3.8)
+      virtus (~> 1.0)
     rubyzip (1.2.0)
     safe_yaml (1.0.4)
     sass (3.4.22)
@@ -535,6 +558,7 @@ DEPENDENCIES
   roar-rails
   rolify
   rubocop (= 0.39)
+  rubycritic
   sass-rails (~> 5.0.4)
   scss_lint
   sdoc (~> 0.4.0)
@@ -548,4 +572,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.12.1
+   1.12.4
