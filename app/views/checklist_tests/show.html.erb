@@ -25,10 +25,10 @@
                     <th class = 'col-sm-2'>Completed?</th>
                     <th class = 'col-sm-2'>Data Criteria</th>
                     <th class = 'col-sm-3'>Value Set</th>
-                    <th class = 'col-sm-2'>Code</th>
+                    <th class = 'col-sm-2'>Recorded Code</th>
                     <th class = 'col-sm-2'>Required Attributes</th>
-                    <th class = 'col-sm-3'>Attribute Details</th>
-                    <th class = 'col-sm-2'>Attribute Code</th>
+                    <th class = 'col-sm-3'>Attribute Details/Value Set</th>
+                    <th class = 'col-sm-2'>Recorded Attribute Value</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,11 +48,13 @@
                           <td><%= criteria_field.text_field :code, hide_label: true %></td>
                         <% end %>
                         <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
-                        <td><%= render partial: 'field_values', locals: { field_values: criteria['field_values'] } if criteria['field_values'] %></td>
+                        <td><%= render partial: 'field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
                         <% if coded_attribute?(criteria) %>
                           <td><%= criteria_field.text_field :attribute_code, hide_label: true %></td>
+                        <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['field_values'] %>
+                          <td><%= criteria_field.text_field :recorded_result, hide_label: true %></td>
                         <% else %>
-                          <td/>
+                          </td>
                         <% end %>
                       </tr>
                     <% end %>

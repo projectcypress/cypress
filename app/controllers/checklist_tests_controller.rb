@@ -55,6 +55,6 @@ class ChecklistTestsController < ProductTestsController
   # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
   def checklist_test_params
-    params[:product_test].permit(checked_criteria_attributes: [:id, :_destroy, :completed, :code, :attribute_code])
+    params[:product_test].permit(checked_criteria_attributes: [:id, :_destroy, :completed, :code, :attribute_code, :recorded_result])
   end
 end

@@ -9,18 +9,32 @@ class ChecklistSourceDataCriteria
   field :source_data_criteria, type: String # this is the name of the source_data_criteria
 
   field :completed, type: Boolean
+  field :recorded_result, type: String
   field :code, type: String
   field :attribute_code, type: String
 
   validate :code_matches_valueset?
   validate :attribute_code_matches_valueset?
+  validate :result_completed?
+
+  def result_completed?
+    if recorded_result && completed
+      errors.add(:recorded_result, 'Value must be entered.') if recorded_result == ''
+    end
+  end
 
   def attribute_code_matches_valueset?
     # validate if an attribute_code is required, and the completed box is checked
     if attribute_code && completed
       measure = Measure.find_by(_id: measure_id)
       criteria = measure.hqmf_document[:data_criteria].select { |key| key == source_data_criteria }.values.first
-      valueset = [criteria[:field_values].values[0].code_list_id]
+      valueset = if criteria[:field_values]
+                   [criteria[:field_values].values[0].code_list_id]
+                 elsif criteria[:value]
+                   [criteria[:value].code_list_id]
+                 else
+                   [criteria.negation_code_list_id]
+                 end
       errors.add(:attribute_code, 'Code must be from valueset listed.') unless code_in_valuesets(valueset, attribute_code)
     end
   end
