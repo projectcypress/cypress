@@ -48,7 +48,7 @@
                           <td><%= criteria_field.text_field :code, hide_label: true %></td>
                         <% end %>
                         <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
-                        <td><%= render partial: 'field_values', locals: { field_values: criteria['field_values'] } if criteria['field_values'] %></td>
+                        <td><%= render partial: 'field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id']} if criteria['field_values'] || criteria['negation_code_list_id']%></td>
                         <% if coded_attribute?(criteria) %>
                           <td><%= criteria_field.text_field :attribute_code, hide_label: true %></td>
                         <% else %>

@@ -20,7 +20,11 @@ class ChecklistSourceDataCriteria
     if attribute_code && completed
       measure = Measure.find_by(_id: measure_id)
       criteria = measure.hqmf_document[:data_criteria].select { |key| key == source_data_criteria }.values.first
-      valueset = [criteria[:field_values].values[0].code_list_id]
+      valueset = if criteria[:field_values]
+                   [criteria[:field_values].values[0].code_list_id]
+                 else
+                   [criteria.negation_code_list_id]
+                 end
       errors.add(:attribute_code, 'Code must be from valueset listed.') unless code_in_valuesets(valueset, attribute_code)
     end
   end
