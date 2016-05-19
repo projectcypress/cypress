@@ -40,6 +40,6 @@ module ChecklistTestsHelper
   end
 
   def coded_attribute?(criteria)
-    true if criteria[:field_values] && criteria[:field_values].values[0].type == 'CD'
+    true if criteria[:field_values] && criteria[:field_values].values[0].type == 'CD' || criteria['negation_code_list_id']
   end
 end
