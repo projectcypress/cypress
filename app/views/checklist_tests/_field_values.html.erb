@@ -10,10 +10,10 @@
 <% else %>
   <% field_values.each do |fv_key, fv_val| %>
     <% case fv_val['type'] %>
-	  <% when 'CD' %>
-	    <%= "#{fv_val['title']}: #{fv_val['code_list_id']}" %>
+    <% when 'CD' %>
+      <%= "#{fv_val['title']}: #{fv_val['code_list_id']}" %>
     <% when 'IVL_PQ' %>
       <%= raw length_of_stay_string(fv_val) %>
-	  <% end %>
+    <% end %>
   <%end%>
 <% end %>
