@@ -1,7 +1,7 @@
 <%
   # local variables:
   #
-  #   banner_message, address, port, domain, user_name, password, mode, mode_settings, roles
+  #   banner_message, smtp_settings, mode, mode_settings, roles
 %>
 
 <div class="panel panel-default">
@@ -13,12 +13,12 @@
       <fieldset>
         <legend>Email Settings</legend>
         <div class="row">
-          <%= f.text_field :mailer_address, wrapper: { class: "col-sm-10" },  label: "SMTP Server", value: address %>
-          <%= f.number_field :mailer_port, wrapper: { class: "col-sm-2" }, label: "Port", maxLength: 5, value: port %>
+          <%= f.text_field :mailer_address, wrapper: { class: "col-sm-10" },  label: "SMTP Server", value: smtp_settings.address %>
+          <%= f.number_field :mailer_port, wrapper: { class: "col-sm-2" }, label: "Port", maxLength: 5, value: smtp_settings.port %>
         </div>
-        <%= f.text_field :mailer_domain, label: "Mailer Domain", value: domain %>
-        <%= f.text_field :mailer_user_name, label: "Mailer Username", value: user_name %>
-        <%= f.password_field :mailer_password, label: "Mailer Password", value: password %>
+        <%= f.text_field :mailer_domain, label: "Mailer Domain", value: smtp_settings.domain %>
+        <%= f.text_field :mailer_user_name, label: "Mailer Username", value: smtp_settings.user_name %>
+        <%= f.password_field :mailer_password, label: "Mailer Password", value: smtp_settings.password %>
       </fieldset>
 
       <fieldset>

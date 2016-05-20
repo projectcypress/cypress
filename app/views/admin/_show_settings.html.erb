@@ -1,0 +1,36 @@
+<%
+  # local variables:
+  #
+  #   banner_message, smtp_settings, mode, mode_settings, debug_features
+%>
+<div class="inline-block pull-right">
+  <%= button_to edit_admin_settings_path, :method => :get, :class => "btn btn-default" do %>
+    <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Application Settings
+  <% end %>
+</div>
+
+<legend>Banner Message</legend>
+<p class="configured-banner">
+  <%= banner_message %>
+</p>
+
+<div class="row">
+  <div class="col-sm-6">
+    <legend>Mailer</legend>
+    <dl class="dl-horizontal configured-mailer">
+      <dt>SMTP Server</dt><dd><%= smtp_settings.address.present? ? smtp_settings.address : 'not configured' %></dd>
+      <dt>Port</dt><dd><%= smtp_settings.port.present? ? smtp_settings.port : 'not configured' %></dd>
+      <dt>Domain</dt><dd><%= smtp_settings.domain.present? ? smtp_settings.domain : 'not configured' %></dd>
+      <dt>Username</dt><dd><%= smtp_settings.user_name.present? ? smtp_settings.user_name : 'not configured' %></dd>
+    </dl>
+  </div>
+
+  <div class="col-sm-6">
+    <legend>Application Mode</legend>
+    <div>Cypress is currently running in <strong><%= mode %> mode</strong>.</div>
+    <div>Users <strong><%= mode_settings.auto_approve ? "will" : "will not" %></strong> be automatically approved.</div>
+    <div>Access <strong><%= mode_settings.ignore_roles ? "will not" : "will" %></strong> be restricted by role.</div>
+    <div>A default role <strong><%= mode_settings.default_role == "None"  ? "will not" : "will" %></strong> be set for new users<%= mode_settings.default_role == "None" ? "." : ": #{mode_settings.default_role}" %></div>
+    <div>Debug features are currently <strong><%= debug_features ? "enabled" : "disabled" %></strong>.</div>
+  </div>
+</div>
