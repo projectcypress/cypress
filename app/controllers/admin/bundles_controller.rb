@@ -1,9 +1,8 @@
 module Admin
-  class BundlesController < ApplicationController
+  class BundlesController < AdminController
     respond_to :html
 
     before_action :find_bundle, only: [:set_default, :destroy]
-    before_action :require_admin
 
     add_breadcrumb 'Admin', :admin_bundles_path
     add_breadcrumb 'Add Bundle', :new_admin_bundle_path, only: [:new]
@@ -57,10 +56,6 @@ module Admin
 
     def generate_file_path
       "bundle_#{rand(Time.now.to_i)}.zip"
-    end
-
-    def require_admin
-      raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.has_role? :admin
     end
   end
 end

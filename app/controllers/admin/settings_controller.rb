@@ -1,22 +1,16 @@
 module Admin
-  class SettingsController < ApplicationController
+  class SettingsController < AdminController
     add_breadcrumb 'Admin', :admin_path
-    before_action -> { raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.has_role? :admin }
 
     def show
       redirect_to admin_path(anchor: 'application_settings')
     end
 
     def edit
-      add_breadcrumb 'Edit', :edit_settings_path
-      smtp_settings = Rails.application.config.action_mailer.smtp_settings
+      add_breadcrumb 'Edit Settings', :edit_settings_path
       render locals: {
         banner_message: Settings.banner_message,
-        address: smtp_settings.address,
-        port: smtp_settings.port,
-        domain: smtp_settings.domain,
-        user_name: smtp_settings.user_name,
-        password: smtp_settings.password,
+        smtp_settings: Rails.application.config.action_mailer.smtp_settings,
         mode: ApplicationController.helpers.application_mode,
         mode_settings: ApplicationController.helpers.application_mode_settings,
         roles: %w(User ATL Admin None)
@@ -24,6 +18,8 @@ module Admin
     end
 
     def update
+      # require 'pry'
+      # binding.pry
       update_application_mode params[:mode], params[:custom_options]
       write_settings_to_yml(params)
       redirect_to admin_path(anchor: 'application_settings')

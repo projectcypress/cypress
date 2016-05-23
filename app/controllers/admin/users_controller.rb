@@ -1,14 +1,13 @@
 module Admin
-  class UsersController < ApplicationController
-    before_action -> { authorize! :manage, User }
-    add_breadcrumb 'Users', '/admin/users'
+  class UsersController < AdminController
+    add_breadcrumb 'Admin', :admin_path
 
     def index
-      # dont allow them to muck with their own account
-      @users = User.excludes(id: current_user.id).order_by(email:  1)
+      redirect_to admin_path(anchor: 'user_management')
     end
 
     def edit
+      add_breadcrumb 'Edit Users', :edit_users_path
       @user = User.find(params[:id])
     end
 
