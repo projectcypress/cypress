@@ -71,7 +71,7 @@ class Product
       errors.add(:measure_ids, 'must select at least one')
     else
       mids = measure_ids.uniq
-      errors.add(:measure_ids, 'must be valid hqmf ids') unless Measure.top_level.where(hqmf_id: { '$in' => mids }).length == mids.count
+      errors.add(:measure_ids, 'must be valid hqmf ids') unless Measure.top_level.where(hqmf_id: { '$in' => mids }).length >= mids.count
     end
   end
 
@@ -99,7 +99,7 @@ class Product
     reload_relations
 
     if product_tests.filtering_tests.count == 0
-      criteria = %w(races ethnicities genders payers).shuffle
+      criteria = %w(races ethnicities genders payers age).shuffle
       filter_tests = []
       filter_tests << build_filtering_test(measure, criteria[0, 2])
       filter_tests << build_filtering_test(measure, criteria[2, 2])
@@ -109,9 +109,7 @@ class Product
                         build_filtering_test(measure, ['problems'])
                       else
                         # the measure doesn't have a diagnosis so instead create a new demographics task
-                        # we used the combos [0,1] and [2,3] previously
-                        # so to make a unique third test here use any combo that has 0 or 1 first and 2 or 3 second
-                        build_filtering_test(measure, criteria.values_at([0, 1].sample, [2, 3].sample))
+                        build_filtering_test(measure, criteria.values_at(4, (0..3).to_a.sample))
                       end
       ApplicationController.helpers.generate_filter_records(filter_tests)
     end
