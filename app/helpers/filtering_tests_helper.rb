@@ -17,6 +17,15 @@ module FilteringTestsHelper
     arr
   end
 
+  def display_filter_title(filter_name, task)
+    if filter_name == 'age'
+      eff_date = task.product_test.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%b %d, %Y at %I:%M %p')
+      return "Age As Of #{eff_date}"
+    end
+
+    filter_name.titleize
+  end
+
   def age_val(val)
     arr = []
     arr << { Minimum: val['min'] } if val['min']
