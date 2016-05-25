@@ -19,7 +19,7 @@ module FilteringTestsHelper
 
   def display_filter_title(filter_name, task)
     if filter_name == 'age'
-      eff_date = task.product_test.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%b %d, %Y at %I:%M %p')
+      eff_date = task.product_test.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%b %d, %Y')
       return "Age As Of #{eff_date}"
     end
 
