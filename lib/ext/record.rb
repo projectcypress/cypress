@@ -20,6 +20,11 @@ class Record
     end
   end
 
+  def age_at(date)
+    dob = Time.at(birthdate).utc
+    date.year - dob.year - ((date.month > dob.month || (date.month == dob.month && date.day >= dob.day)) ? 0 : 1)
+  end
+
   def original_record
     if self['original_medical_record_number']
       return bundle.records.where('medical_record_number' => self['original_medical_record_number']).first

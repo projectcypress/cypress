@@ -19,7 +19,7 @@ class FilteringTestTest < ActiveJob::TestCase
   end
 
   def test_pick_filter_criteria
-    criteria = %w(races ethnicities genders payers providers problems)
+    criteria = %w(races ethnicities genders payers providers problems age)
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
                            measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
@@ -37,6 +37,13 @@ class FilteringTestTest < ActiveJob::TestCase
     assert filter_test.options['filters']['payers'].count == 1
     providers_assertions(filter_test)
     assert filter_test.options['filters']['problems']['oid'].count == 1
+  end
+
+  def age_assertions(filter_test)
+    age_filter = filter_test.options['filters']['age']
+    assert age_filter.count == 1
+    assert age_filter[:min] || age_filter[:max]
+    assert age_filter[:min] > 0 if age_filter[:min]
   end
 
   def providers_assertions(filter_test)

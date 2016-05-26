@@ -7,7 +7,7 @@
 <p class="description">Remove any patients not meeting the following criteria.</p>
 <% @task.product_test.options.filters.map do |filter_name, val| %>
   <dl class="filters-list">
-    <dt><%= filter_name.titleize %></dt>
+    <dt><%= display_filter_title(filter_name, @task) %></dt>
     <dd>
       <% filter_values = display_filter_val(filter_name, val) %>
       <% filter_values.each do |filter_val| %>
@@ -20,6 +20,7 @@
           <%= filter_val %>
         <% end %>
       <% end %>
+
     </dd>
   </dl>
 <% end %>
