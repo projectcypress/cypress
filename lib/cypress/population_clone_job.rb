@@ -130,7 +130,8 @@ module Cypress
     end
 
     def generate_provider
-      @generated_providers << Provider.generate_provider
+      measure = @test.measures.first
+      @generated_providers << Provider.generate_provider(measure_type: measure.type)
     end
   end
 end
