@@ -15,7 +15,7 @@ ready = function() {
   });
 };
 
-reticulateSplines = function() {
+var reticulateSplines = function() {
     if ($('#display_bulk_download').length && $('#display_bulk_download').find('p:first').text().indexOf('being built') > -1) {
         $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'bulk_download' }});
     }
