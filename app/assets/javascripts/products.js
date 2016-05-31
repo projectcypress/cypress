@@ -16,15 +16,17 @@ ready = function() {
 };
 
 reticulateSplines = function() {
-    if ($('#display_bulk_download').length) {
+    if ($('#display_bulk_download').length && $('#display_bulk_download').find('p:first').text().indexOf('being built') > -1) {
         $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'bulk_download' }});
     }
 
-    if ($('#display_measure_tests_table').length) {
+    if ($('#display_measure_tests_table').length && ($('#display_measure_tests_table').find('i.fa-refresh').length
+        || $('#display_measure_tests_table').find('span.text-muted').text().indexOf('queued') > -1)) {
       $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'measure_tests_table' }});
     }
 
-    if ($('#display_filtering_test_status_display').length) {
+    if ($('#display_filtering_test_status_display').length && ($('#display_filtering_test_status_display').find('i.fa-refresh').length
+        || $('#display_filtering_test_status_display').find('span.text-muted').text().indexOf('queued') > -1)) {
       $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'filtering_test_status_display' }});
     }
 }
