@@ -4,8 +4,8 @@
   #   banner_message, smtp_settings, mode, mode_settings, debug_features
 %>
 
-<div data-no-turbolink class="settings-tabs">
-  <ul data-no-turbolink>
+<div class="settings-tabs">
+  <ul>
     <% ['application_settings', 'user_management', 'bundles', 'application_status'].each do |target_id| %>
       <li><a href = '#<%= target_id %>'><%= target_id.humanize.titleize %></a></li>
     <% end %>
