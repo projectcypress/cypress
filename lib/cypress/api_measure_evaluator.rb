@@ -1,7 +1,9 @@
 # :nocov:
+require 'time'
 module Cypress
   class ApiMeasureEvaluator
     def initialize(username, password, args = nil)
+      @allowable_population_ids = []
       @options = args ? args : {}
       @logger = Rails.logger
       @patient_link_product_test_hash = {}
@@ -9,6 +11,7 @@ module Cypress
       @cat3_filter_hash = {}
       @cat1_filter_hash = {}
       @filter_patient_link = nil
+      @hqmf_path = @options[:hqmf_path]
       @cypress_host = if @options[:cypress_host]
                         @options[:cypress_host]
                       else
@@ -32,7 +35,32 @@ module Cypress
       @filter_patient_link = nil
     end
 
+    def parse_hqmf_for_population_ids
+      Zip::ZipFile.open(@hqmf_path) do |zipfile|
+        zipfile.entries.each do |entry|
+          doc = Nokogiri::XML(zipfile.read(entry))
+          doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+          doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+          filter_out_populations(doc)
+        end
+      end
+    end
+
+    def filter_out_populations(doc)
+      population_names = %w(denominator initialPopulation denominatorExclusions denominatorExceptions numerator
+                            measurePopulation measurePopulationExclusions MeasureObservations)
+      population_names.each do |population_name|
+        population_xpath = %(/cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection/cda:component
+          //cda:id[@extension = '#{population_name}'])
+        pop_ids = doc.xpath(population_xpath)
+        pop_ids.each do |pop_id|
+          @allowable_population_ids << pop_id['root'] if pop_id
+        end
+      end
+    end
+
     def run_measure_eval(c1_c2, c4)
+      parse_hqmf_for_population_ids if @hqmf_path
       measures_list = []
       # getting measures from bundles is a little convoluted
       bundles = parsed_api_object(call_get_bundles)
@@ -153,13 +181,13 @@ module Cypress
           test_patients_already_downloaded = download_test_patients(@filter_patient_link, 'filter_patients') unless test_patients_already_downloaded
           sleep(1)
         end
-        pt_filters = parsed_api_object(call_get_product_test(product_test)).filters
+        parsed_product_test = parsed_api_object(call_get_product_test(product_test))
         Zip::ZipFile.open('tmp/filter_patients.zip') do |zipfile|
           zipfile.entries.each do |entry|
             doc = Nokogiri::XML(zipfile.read(entry))
             doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
             doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-            next unless filter_out_patients(doc, pt_filters)
+            next unless filter_out_patients(doc, parsed_product_test)
             Zip::ZipFile.open("tmp/#{product_test.split('/')[4]}.zip", Zip::File::CREATE) do |z|
               z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
             end
@@ -188,10 +216,12 @@ module Cypress
       end
     end
 
-    def filter_out_patients(doc, filters)
+    def filter_out_patients(doc, product_test)
+      filters = product_test.filters
+      creation_time = product_test.created_at
       return filter_providers(doc, filters) if filters.key?('provider')
       return filter_problems(doc, filters) if filters.key?('problem')
-      filter_demographics(doc, filters)
+      filter_demographics(doc, filters, creation_time)
     end
 
     def filter_providers(doc, filters)
@@ -235,19 +265,46 @@ module Cypress
       return true if problem_array.include? filters['problem']
     end
 
-    def filter_demographics(doc, filters)
+    def filter_demographics(doc, filters, creation_time)
       counter = 0
+      age_filter_holder = nil
       race_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode/@code'
       gender_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode/@code'
       ethnic_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode/@code'
       payer_xpath = %(/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
         cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']/cda:value/@code)
       payer_value = doc.at_xpath(payer_xpath).value if doc.at_xpath(payer_xpath)
+      if filters.key?('age')
+        age_filter_holder = filters['age']
+        counter += 1 if compare_age(doc, age_filter_holder, creation_time)
+        filters.delete('age')
+      end
       counter += 1 if filters.value?(doc.at_xpath(race_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(gender_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(ethnic_xpath).value)
       counter += 1 if filters.value?(get_payer_name(payer_value))
+      filters['age'] = age_filter_holder if age_filter_holder
       return true if counter == 2
+    end
+
+    def compare_age(doc, age_filter, creation_time)
+      age_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime/@value'
+      patient_birth_time = HealthDataStandards::Util::HL7Helper.timestamp_to_integer(doc.at_xpath(age_xpath).value)
+      filter_time = Time.parse(creation_time).to_i
+      age_shit = 31_556_952 * age_filter[1]
+      if age_filter[0] == 'max'
+        # Need to add a year e.g. you are 8 until you are 9.
+        # This is currently simplistic, since it doesn't take birth 'time' into consideration
+        if filter_time < patient_birth_time + age_shit + 31_556_952
+          true
+        else
+          false
+        end
+      elsif filter_time > patient_birth_time + age_shit
+        true
+      else
+        false
+      end
     end
 
     def get_payer_name(payer_code)
@@ -368,8 +425,21 @@ module Cypress
         File.delete("tmp/#{product_test_id}.zip")
       else
         resource.post(results: File.new("tmp/#{product_test_id}.xml"))
+        verify_population_ids(product_test_id) if @hqmf_path
         File.delete("tmp/#{product_test_id}.xml")
         File.delete("tmp/#{product_test_id}.zip") if skip_c1_test
+      end
+    end
+
+    def verify_population_ids(product_test_id)
+      doc = Nokogiri::XML(File.new("tmp/#{product_test_id}.xml"))
+      doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+      population_xpath = %(/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer
+        /cda:component/cda:observation/cda:reference/cda:externalObservation/cda:id)
+      pop_ids = doc.xpath(population_xpath)
+      pop_ids.each do |pop_id|
+        @logger.error "#{pop_id['root']} should not be in measure check bonnie bundler" unless @allowable_population_ids.include? pop_id['root']
       end
     end
 
