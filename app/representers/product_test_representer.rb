@@ -7,6 +7,7 @@ module ProductTestRepresenter
   property :measure_id, getter: ->(_args) { measure_ids.first }
   property :type, getter: ->(_args) { _type == 'MeasureTest' ? 'measure' : 'filter' }
   property :state
+  property :created_at
 
   module ProviderRepresenter
     include Representable::XML

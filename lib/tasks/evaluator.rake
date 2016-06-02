@@ -34,19 +34,19 @@ namespace :evaluator do
     mev.evaluate_all_cat1
   end
 
-  task :api_evaluate_c1_c2, [:cypress_host] => :setup do |_, args|
+  task :api_evaluate_c1_c2, [:cypress_host, :hqmf_path] => :setup do |_, args|
     api_ev = Cypress::ApiMeasureEvaluator.new(ENV['USERNAME'], ENV['PASSWORD'], args.to_hash)
     api_ev.cleanup
     api_ev.run_measure_eval(true, false)
   end
 
-  task :api_evaluate_c4, [:cypress_host] => :setup do |_, args|
+  task :api_evaluate_c4, [:cypress_host, :hqmf_path] => :setup do |_, args|
     api_ev = Cypress::ApiMeasureEvaluator.new(ENV['USERNAME'], ENV['PASSWORD'], args.to_hash)
     api_ev.cleanup
     api_ev.run_measure_eval(false, true)
   end
 
-  task :api_evaluate_all, [:cypress_host] => :setup do |_, args|
+  task :api_evaluate_all, [:cypress_host, :hqmf_path] => :setup do |_, args|
     api_ev = Cypress::ApiMeasureEvaluator.new(ENV['USERNAME'], ENV['PASSWORD'], args.to_hash)
     api_ev.cleanup
     api_ev.run_measure_eval(true, true)
