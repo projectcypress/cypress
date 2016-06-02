@@ -16,7 +16,7 @@ module Cypress
       end
 
       if input_filters['types']
-        query_pieces << { 'type' => { '$in' => input_filters['types'] } }
+        query_pieces << { 'specialty' => { '$in' => input_filters['types'] } }
       end
 
       if input_filters['addresses']

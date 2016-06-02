@@ -45,7 +45,7 @@ class ProviderFilterTest < ActiveSupport::TestCase
   end
 
   def test_filter_type
-    selected_type = 'ep'
+    selected_type = '200000000X'
 
     filters = { 'types' => [selected_type] }
 
@@ -55,9 +55,9 @@ class ProviderFilterTest < ActiveSupport::TestCase
 
     @all_providers.each do |p|
       if filtered_providers.include? p
-        assert_equal selected_type, p['type'], 'Filtered record set includes a record that does not match criteria'
+        assert_equal selected_type, p.specialty, 'Filtered record set includes a record that does not match criteria'
       else
-        assert_not_equal selected_type, p['type'], 'Filtered record set does not include a record that matches criteria'
+        assert_not_equal selected_type, p.specialty, 'Filtered record set does not include a record that matches criteria'
       end
     end
   end
