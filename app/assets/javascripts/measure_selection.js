@@ -156,5 +156,4 @@ ready_run_once = function() {
   ready_run_on_refresh_bundle();
 };
 
-$(document).ready(ready_run_once);
 $(document).on('page:load', ready_run_once);
