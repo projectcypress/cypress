@@ -4,28 +4,24 @@
 
 %>
 
-<table class = 'table table-hover table-condensed'>
+<table class = 'table'>
   <thead>
-    <td class = 'col-sm-1'></td>
-    <td class = 'col-sm-5'></td>
-    <th class = 'col-sm-3'><strong>CAT I</strong></th>
-    <th class = 'col-sm-3'><strong>CAT III</strong></th>
+    <th class="no-wrap" scope="col">Filtering Criteria</th>
+    <th class="no-wrap" scope="col">CAT I</th>
+    <th class="no-wrap" scope="col">CAT III</th>
   </thead>
   <tbody>
     <% tests.each do |test| %>
       <tr>
-        <td></td>
-        <td>
-          <% visibility = test.task_status('Cat1FilterTask') == 'passing' && test.task_status('Cat3FilterTask') == 'passing' ? '' : 'invisible' %>
-          <i class = 'fa fa-fw fa-check text-success <%= visibility %>'></i>
+        <td class="no-wrap">
           <% if test.display_name.to_s == '' %>
             <%= test.options.filters.keys.join('/').titleize %>
           <% else %>
             <%= test.display_name %>
           <% end %>
         </td>
-        <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat1_task, status: test.cat1_task.status } %></td>
-        <td><%= render partial: 'product_test_link', locals: { test: test, task: test.cat3_task, status: test.cat3_task.status } %></td>
+        <td class="no-wrap"><%= render partial: 'product_test_link', locals: { test: test, task: test.cat1_task, status: test.cat1_task.status } %></td>
+        <td class="no-wrap"><%= render partial: 'product_test_link', locals: { test: test, task: test.cat3_task, status: test.cat3_task.status } %></td>
       </tr>
     <% end %>
     <% if tests.any? { |test| test.state != :ready } %>

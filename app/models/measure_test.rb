@@ -61,8 +61,10 @@ class MeasureTest < ProductTest
       'passing'
     elsif c1_task.failing? || c3_task.failing?
       'failing'
-    else
+    elsif c1_task.incomplete? || c3_task.incomplete?
       'incomplete'
+    else
+      'unstarted'
     end
   end
 
@@ -77,8 +79,10 @@ class MeasureTest < ProductTest
       'passing'
     elsif c2_task.failing? || c3_task.failing?
       'failing'
-    else
+    elsif c2_task.incomplete? || c3_task.incomplete?
       'incomplete'
+    else
+      'unstarted'
     end
   end
 end

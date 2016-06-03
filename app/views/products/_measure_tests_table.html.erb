@@ -10,33 +10,28 @@
 <% c2_label += ' and C3' if @product.c3_test %>
 <% c1_and_c2 = @product.c1_test && @product.c2_test %>
 
-<table class = 'table table-hover table-condensed' id = 'measure_tests_table'>
+<table class = 'table' id = 'measure_tests_table'>
   <thead>
-    <th scope="col" class = 'col-sm-2 pointer-on-hover'>
+    <th scope="col" class = 'no-wrap pointer-on-hover'>
       CMS ID
-      <a>[sort]</a>
     </th>
     <% if c1_and_c2 %>
-      <th scope="col" class = 'col-sm-6 pointer-on-hover'>
+      <th scope="col" class = 'no-wrap pointer-on-hover'>
         Measure Name
-        <a>[sort]</a>
       </th>
     <% else %>
-      <th scope="col" class = 'col-sm-8 pointer-on-hover'>
+      <th scope="col" class = 'no-wrap pointer-on-hover'>
         Measure Name
-        <a>[sort]</a>
       </th>
     <% end %>
     <% if @product.c1_test %>
-      <th scope="col" class = 'col-sm-2 pointer-on-hover'>
+      <th scope="col" class = 'no-wrap pointer-on-hover'>
         <%= c1_label %>
-        <a>[sort]</a>
       </th>
     <% end %>
     <% if @product.c2_test %>
-      <th scope="col" class = 'col-sm-2 pointer-on-hover'>
+      <th scope="col" class = 'no-wrap pointer-on-hover'>
         <%= c2_label %>
-        <a>[sort]</a>
       </th>
     <% end %>
   </thead>
@@ -46,10 +41,10 @@
         <td data-sort="<%= cms_int(test.cms_id) %>"><%= test.cms_id %></td>
         <td><%= test.name %></td>
         <% if @product.c1_test %>
-          <td><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c1_task, status: test.cat1_status } %></td>
+          <td class="no-wrap" data-order="<%= set_sorting(test, test.cat1_status) %>"><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c1_task, status: test.cat1_status } %></td>
         <% end %>
         <% if @product.c2_test %>
-          <td><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c2_task, status: test.cat3_status } %></td>
+          <td class="no-wrap" data-order="<%= set_sorting(test, test.cat3_status) %>"><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c2_task, status: test.cat3_status } %></td>
         <% end %>
       </tr>
     <% end %>

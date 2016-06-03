@@ -48,4 +48,25 @@ module FilteringTestsHelper
 
     arr
   end
+
+  def generate_filter_records(filter_tests)
+    return unless filter_tests
+    test = filter_tests.pop
+    test.generate_records
+    test.save
+    test.queued
+    ProductTestSetupJob.perform_later(test)
+    records = test.records
+    filter_tests.each do |ft|
+      records.collect do |r|
+        r2 = r.clone
+        r2.test_id = ft.id
+        r2.save
+        r2
+      end
+      ft.save
+      ft.queued
+      ProductTestSetupJob.perform_later(ft)
+    end
+  end
 end
