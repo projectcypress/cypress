@@ -34,6 +34,9 @@
         <%= c2_label %>
       </th>
     <% end %>
+    <th scope="col" class="no-wrap">
+      Last Updated
+    </th>
   </thead>
   <tbody>
     <% tests.each do |test| %>
@@ -46,6 +49,8 @@
         <% if @product.c2_test %>
           <td class="no-wrap" data-order="<%= set_sorting(test, test.cat3_status) %>"><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c2_task, status: test.cat3_status } %></td>
         <% end %>
+        <td class="no-wrap" data-order="<%= test.updated_at %>"><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i>
+          <%= local_time_ago(test.updated_at) %></td>
       </tr>
     <% end %>
     <% if tests.any? { |test| test.state != :ready } %>
