@@ -13,19 +13,34 @@ class ChecklistSourceDataCriteria
   field :code, type: String
   field :attribute_code, type: String
 
-  validate :code_matches_valueset?
-  validate :attribute_code_matches_valueset?
-  validate :result_completed?
+  field :code_complete, type: Boolean
+  field :attribute_complete, type: Boolean
+  field :result_complete, type: Boolean
+
+  def validate_criteria
+    result_completed?
+    attribute_code_matches_valueset?
+    code_matches_valueset?
+    complete?
+  end
+
+  def complete?
+    self.completed = if code.blank? && attribute_code.blank? && recorded_result.blank?
+                       nil
+                     else
+                       code_complete != false && attribute_complete != false && result_complete != false
+                     end
+  end
 
   def result_completed?
-    if recorded_result && completed
-      errors.add(:recorded_result, 'Value must be entered.') if recorded_result == ''
+    if recorded_result
+      self.result_complete = recorded_result == '' ? false : true
     end
   end
 
   def attribute_code_matches_valueset?
     # validate if an attribute_code is required, and the completed box is checked
-    if attribute_code && completed
+    if attribute_code
       measure = Measure.find_by(_id: measure_id)
       criteria = measure.hqmf_document[:data_criteria].select { |key| key == source_data_criteria }.values.first
       valueset = if criteria[:field_values]
@@ -35,15 +50,15 @@ class ChecklistSourceDataCriteria
                  else
                    [criteria.negation_code_list_id]
                  end
-      errors.add(:attribute_code, 'Code must be from valueset listed.') unless code_in_valuesets(valueset, attribute_code)
+      self.attribute_complete = code_in_valuesets(valueset, attribute_code)
     end
   end
 
   def code_matches_valueset?
     # validate if an code is required, and the completed box is checked
-    if code && completed
+    if code
       valuesets = get_all_valuesets_for_dc(measure_id)
-      errors.add(:code, 'Code must be from valueset listed.') unless code_in_valuesets(valuesets, code)
+      self.code_complete = code_in_valuesets(valuesets, code)
     end
   end
 

@@ -52,8 +52,9 @@ class ChecklistTestTest < ActiveJob::TestCase
     checked_criteria = @test.checked_criteria[0]
     checked_criteria.completed = true
     checked_criteria.code = 'thisisntacode'
+    checked_criteria.validate_criteria
     checked_criteria.save
-    assert_equal 1, checked_criteria.errors.size, 'should be 1 error for trying to save an incorrect code'
+    assert_equal false, checked_criteria.code_complete, 'code complete should be false when incorrect code is provided'
   end
 
   def test_inappropriate_code_for_attribute_vs
@@ -61,8 +62,9 @@ class ChecklistTestTest < ActiveJob::TestCase
     checked_criteria = @test.checked_criteria[0]
     checked_criteria.completed = true
     checked_criteria.attribute_code = 'thisalsoisntacode'
+    checked_criteria.validate_criteria
     checked_criteria.save
-    assert_equal 1, checked_criteria.errors.size, 'should be 1 error for trying to save an incorrect code'
+    assert_equal false, checked_criteria.attribute_complete, 'attribute complete should be false when incorrect code is provided'
   end
 
   def test_appropriate_code_for_attribute_vs
@@ -71,7 +73,9 @@ class ChecklistTestTest < ActiveJob::TestCase
     checked_criteria.completed = true
     checked_criteria.code = 'F32.9'
     checked_criteria.attribute_code = '63161005'
+    checked_criteria.validate_criteria
     checked_criteria.save
-    assert_equal 0, checked_criteria.errors.size, 'checked criteria should save without errors'
+    assert_equal true, checked_criteria.code_complete, 'code complete should be true when correct code is provided'
+    assert_equal true, checked_criteria.attribute_complete, 'attribute complete should be true when correct code is provided'
   end
 end
