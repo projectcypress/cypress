@@ -13,13 +13,13 @@
 
   .abbreviated-multiline {
     overflow: hidden;
-    position: relative; 
+    position: relative;
     line-height: 1.2em;
-    max-height: 6em; 
-    text-align: justify;  
+    max-height: 6em;
+    text-align: justify;
     margin-right: -1em;
     padding-right: 1em;
-    
+
     &:hover {
       white-space: normal;
       max-height: 10.9em;
@@ -33,7 +33,7 @@
     right: 0;
     bottom: 0;
   }
-  
+
   .abbreviated-multiline:after {
     content: '';
     position: absolute;
@@ -66,4 +66,8 @@
 .table > tfoot > tr > th,
 .table > tfoot > tr > td {
   vertical-align: middle;
+}
+
+.dataTable thead th {
+  padding-right: 1.5em; // make sure the sorting icon is visible
 }
