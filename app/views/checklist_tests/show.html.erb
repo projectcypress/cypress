@@ -44,7 +44,7 @@
                           <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
                           <td><span><%= valuessets.join(', ') %></span></td>
                           <td>
-                            <% if criteria_field.object.completed.nil? %>
+                            <% if criteria_field.object.complete?.nil? %>
                               <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
                             <% elsif criteria_field.object.code_complete %>
                               <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
@@ -58,7 +58,7 @@
                         <td><%= render partial: 'field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
                         <% if coded_attribute?(criteria) %>
                           <td>
-                            <% if criteria_field.object.completed.nil? %>
+                            <% if criteria_field.object.complete?.nil? %>
                               <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
                             <% elsif criteria_field.object.attribute_complete %>
                               <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
@@ -69,7 +69,7 @@
                           </td>
                         <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['field_values'] %>
                           <td>
-                            <% if criteria_field.object.completed.nil? %>
+                            <% if criteria_field.object.complete?.nil? %>
                               <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
                             <% elsif criteria_field.object.result_complete %>
                               <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>

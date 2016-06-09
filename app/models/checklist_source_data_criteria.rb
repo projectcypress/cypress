@@ -8,7 +8,6 @@ class ChecklistSourceDataCriteria
   field :measure_id, type: String
   field :source_data_criteria, type: String # this is the name of the source_data_criteria
 
-  field :completed, type: Boolean
   field :recorded_result, type: String
   field :code, type: String
   field :attribute_code, type: String
@@ -25,11 +24,11 @@ class ChecklistSourceDataCriteria
   end
 
   def complete?
-    self.completed = if code.blank? && attribute_code.blank? && recorded_result.blank?
-                       nil
-                     else
-                       code_complete != false && attribute_complete != false && result_complete != false
-                     end
+    if code.blank? && attribute_code.blank? && recorded_result.blank?
+      nil
+    else
+      code_complete != false && attribute_complete != false && result_complete != false
+    end
   end
 
   def result_completed?
@@ -39,7 +38,7 @@ class ChecklistSourceDataCriteria
   end
 
   def attribute_code_matches_valueset?
-    # validate if an attribute_code is required, and the completed box is checked
+    # validate if an attribute_code is required and is correct
     if attribute_code
       measure = Measure.find_by(_id: measure_id)
       criteria = measure.hqmf_document[:data_criteria].select { |key| key == source_data_criteria }.values.first
@@ -55,7 +54,7 @@ class ChecklistSourceDataCriteria
   end
 
   def code_matches_valueset?
-    # validate if an code is required, and the completed box is checked
+    # validate if an code is required and is correct
     if code
       valuesets = get_all_valuesets_for_dc(measure_id)
       self.code_complete = code_in_valuesets(valuesets, code)
