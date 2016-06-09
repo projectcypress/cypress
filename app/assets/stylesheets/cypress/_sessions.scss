@@ -1,0 +1,56 @@
+.splash-panel {
+  height: 350px;
+  background: url('cypress_bg_cropped.png');
+  background-size: auto 350px;
+}
+
+.splash-title-container {
+  display: inline-block;
+  margin-left: 9%;
+  margin-top: 80px;
+  width: 45%;
+  color: $brand-white;
+  text-align: left;
+
+  h1 {
+    margin-top: 0;
+    font-size: 60px;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  h2 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: 100;
+  }
+
+  p {
+    font-size: 10px;
+    font-weight: 100;
+  }
+}
+
+.sign-in-panel {
+  display: inline;
+  width: 300px;
+  float: right;
+  position: absolute;
+  margin-top: 20px;
+  right: 4%;
+}
+
+.splash-info-panels-container {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.splash-info-panel {
+  display: inline-block;
+  margin: 5px;
+  width: 350px;
+  height: 368px;
+  text-align: left;
+  vertical-align: top;
+}

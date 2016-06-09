@@ -54,6 +54,17 @@
                  Log Out
             <% end %>
           </li>
+        <% else %>
+          <li <% if current_page?(new_user_session_path) %>class="active"<% end %>>
+            <%= link_to new_user_session_path, class: 'navbar-item' do %>
+              Sign In
+            <% end %>
+          </li>
+          <li <% if current_page?(new_user_registration_path) %>class="active"<% end %>>
+            <%= link_to new_user_registration_path, class: 'navbar-item' do %>
+              Sign Up
+            <% end %>
+          </li>
         <% end %>
       </ul>
     </div>
