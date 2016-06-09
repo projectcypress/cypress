@@ -87,7 +87,7 @@ When(/^the user logs out$/) do
 end
 
 Then(/^the user should see an log in error message$/) do
-  page.assert_text 'Invalid email or password.'
+  page.assert_text 'Invalid Email or password.'
 end
 
 Then(/^the user should see an log in success message$/) do

@@ -6,7 +6,7 @@ class C3Cat1Task < Task
                                                          suppress_errors: true, validate_inclusion_only: true),
                    ::Validators::MeasurePeriodValidator.new,
                    ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.measures)]
-    @validators << cms_cat1_schematron_validator
+    @validators << cms_cat1_schematron_validator if product_test.bundle.cms_schematron
     @validators
   end
 

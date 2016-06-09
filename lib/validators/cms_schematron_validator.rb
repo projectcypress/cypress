@@ -29,25 +29,22 @@ module Validators
 
   class CMSQRDA3SchematronValidator < CMSSchematronValidator
     def initialize(bundle_version = APP_CONFIG.default_bundle)
-      super(File.join(Rails.root, 'resources', 'schematron', schematron_folder_for_bundle_version(bundle_version) ,'EP_CAT_III.sch'),
+      super(File.join(Rails.root, 'resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP_CAT_III.sch'),
             'CMS QRDA 3 Schematron Validator')
     end
   end
 
   class CMSQRDA1HQRSchematronValidator < CMSSchematronValidator
     def initialize(bundle_version = APP_CONFIG.default_bundle)
-      super(File.join(Rails.root, 'resources', 'schematron', schematron_folder_for_bundle_version(bundle_version) ,'EH_CAT_I.sch'),
+      super(File.join(Rails.root, 'resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EH_CAT_I.sch'),
             'CMS QRDA 1 HQR Schematron Validator')
     end
   end
 
   class CMSQRDA1PQRSSchematronValidator < CMSSchematronValidator
     def initialize(bundle_version = APP_CONFIG.default_bundle)
-      
-      super(File.join(Rails.root, 'resources', 'schematron', schematron_folder_for_bundle_version(bundle_version) ,'EP_CAT_I.sch'),
+      super(File.join(Rails.root, 'resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP_CAT_I.sch'),
             'CMS QRDA 1 PQRS Schematron Validator')
     end
   end
-
-  
 end

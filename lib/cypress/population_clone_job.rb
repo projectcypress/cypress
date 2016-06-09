@@ -106,11 +106,7 @@ module Cypress
     end
 
     def patch_insurance_provider(patient)
-      insurance_codes = {
-        'MA' => '1',
-        'MC' => '2',
-        'OT' => '349'
-      }
+      insurance_codes = { 'MA' => '1', 'MC' => '2', 'OT' => '349' }
       patient.insurance_providers.each do |ip|
         ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty?
       end
@@ -124,7 +120,8 @@ module Cypress
                generate_provider if @generated_providers.size < 3
                @generated_providers.sample
              else
-               Provider.default_provider
+               measure = @test.measures.first
+               Provider.default_provider(measure_type: measure.type)
              end
       patient.provider_performances.build(provider: prov) if prov
     end

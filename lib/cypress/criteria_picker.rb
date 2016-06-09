@@ -45,12 +45,13 @@ module Cypress
       code_list_id = fallback_id = ''
       # determine which data criteira are diagnoses, and make sure we choose one that one of our records has
       # if we can't find one that matches a record, just use any diagnosis
-      measure.hqmf_document.source_data_criteria.each do |_criteria, criteria_hash|
-        next unless criteria_hash.definition.eql? 'diagnosis'
-        fallback_id = criteria_hash.code_list_id
-        hqmf_oid = HQMF::DataCriteria.template_id_for_definition(criteria_hash.definition, criteria_hash.status, criteria_hash.negation)
-        if Cypress::RecordFilter.filter(records, { 'problems' => { oid: [criteria_hash.code_list_id], hqmf_ids: [hqmf_oid] } }, {}).count > 0
-          code_list_id = criteria_hash.code_list_id
+      measure.hqmf_document.source_data_criteria.each do |_criteria, cr_hash|
+        next unless cr_hash.definition.eql? 'diagnosis'
+        fallback_id = cr_hash.code_list_id
+        hqmf_oid = HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'])
+        hqmf_oid ||= HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'], 'r2')
+        if Cypress::RecordFilter.filter(records, { 'problems' => { oid: [cr_hash.code_list_id], hqmf_ids: [hqmf_oid] } }, {}).count > 0
+          code_list_id = cr_hash.code_list_id
           break
         end
       end
@@ -61,9 +62,11 @@ module Cypress
     def self.hqmf_oids_for_problem(problem_oid, measures)
       measure = measures.first
       hqmf_oids = []
-      measure.hqmf_document.source_data_criteria.each do |_criteria, criteria_hash|
-        next unless criteria_hash.key?('code_list_id') && criteria_hash.code_list_id == problem_oid
-        hqmf_oids << HQMF::DataCriteria.template_id_for_definition(criteria_hash.definition, criteria_hash.status, criteria_hash.negation)
+      measure.hqmf_document.source_data_criteria.each do |_criteria, cr_hash|
+        next unless cr_hash.key?('code_list_id') && cr_hash.code_list_id == problem_oid
+        hqmf_oid = HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'])
+        hqmf_oid ||= HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'], 'r2')
+        hqmf_oids << hqmf_oid
       end
       hqmf_oids.uniq
     end

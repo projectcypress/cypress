@@ -14,6 +14,14 @@ class Bundle
     delete
   end
 
+  def qrda_version
+    ApplicationController.helpers.config_for_version(version).qrda_version
+  end
+
+  def cms_schematron
+    ApplicationController.helpers.config_for_version(version).schematron
+  end
+
   def self.default
     find_by(active: true)
   rescue

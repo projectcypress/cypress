@@ -8,7 +8,7 @@ module ChecklistTestsHelper
       end
     elsif criteria[:negation]
       'Negation Code'
-    elsif criteria[:value]
+    elsif criteria[:value] && criteria[:value][:system] != 'Administrative Sex'
       'Result'
     else
       ''
@@ -45,7 +45,7 @@ module ChecklistTestsHelper
     if criteria[:field_values]
       true if criteria[:field_values].values[0].type == 'CD'
     elsif criteria[:value]
-      true if criteria[:value].type == 'CD'
+      true if criteria[:value].type == 'CD' && criteria[:value][:system] != 'Administrative Sex'
     elsif criteria['negation_code_list_id']
       true
     end
