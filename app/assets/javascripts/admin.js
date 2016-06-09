@@ -24,7 +24,8 @@ var assignmentsReady = function(){
 
 }
 
-$(document).ready(assignmentsReady)
+$(document).ready(assignmentsReady);
+$(document).on('page:load', assignmentsReady);
 
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
