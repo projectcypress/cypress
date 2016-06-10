@@ -117,6 +117,39 @@ class ProducTest < ActiveSupport::TestCase
     pt.add_filtering_tests
     assert pt.product_tests.filtering_tests.count == 5
   end
+
+  def test_interesting_measure_ids
+    pt = Product.new(vendor: @vendor, name: 'my_product', c1_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'])
+    pt.product_tests.build({ name: 'my_product_test', measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'] }, MeasureTest)
+    pt.save!
+    assert pt.interesting_measure_ids.count > 0
+  end
+
+  def test_add_checklist_test
+    pt = Product.new(vendor: @vendor, name: 'my_product', c1_test: true, measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'],
+                     bundle_id: '4fdb62e01d41c820f6000001')
+    pt.product_tests.build({ name: 'first measure test', measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'] }, MeasureTest)
+    pt.save!
+    pt.add_checklist_test
+    assert pt.product_tests.checklist_tests.count > 0
+    assert pt.product_tests.checklist_tests.first.measure_ids.include? '40280381-4BE2-53B3-014C-0F589C1A1C39'
+
+    # test if old product test can be deleted (since measure with id ending in 1C39 was removed) and new checklist test created
+    pt.product_tests.destroy { |test| test }
+    pt.product_tests.build({ name: 'second measure test', measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'] }, MeasureTest)
+    pt.save!
+    pt.add_checklist_test
+    assert pt.product_tests.checklist_tests.count > 0
+    assert pt.product_tests.checklist_tests.first.measure_ids.include? '40280381-4B9A-3825-014B-C1A59E160733'
+
+    # test checklist tests should not change if new measures are added to product
+    old_checklist_test = pt.product_tests.checklist_tests.first
+    new_id = '8A4D92B2-3887-5DF3-0139-0D01C6626E46'
+    pt.product_tests.build({ name: 'third measure test', measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'] }, MeasureTest)
+    pt.save!
+    pt.add_checklist_test
+    assert pt.product_tests.checklist_tests.first == old_checklist_test
+  end
 end
 
 class ProductCachingTest < CachingTest
@@ -133,9 +166,9 @@ class ProductCachingTest < CachingTest
   end
 
   def test_product_test_groups_are_cached_after_checking_each
-    @product.product_tests_passing
-    @product.product_tests_failing
-    @product.product_tests_incomplete
+    @product.product_tests_for_status('passing')
+    @product.product_tests_for_status('failing')
+    @product.product_tests_for_status('incomplete')
     assert Rails.cache.exist?("#{@product.cache_key}/product_tests_passing"), "cache key for product's passing products tests should exist"
     assert Rails.cache.exist?("#{@product.cache_key}/product_tests_failing"), "cache key for product's failing products tests should exist"
     assert Rails.cache.exist?("#{@product.cache_key}/product_tests_incomplete"), "cache key for product's incomplete products tests should exist"

@@ -34,9 +34,9 @@ class Product
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       total = product_tests.count
-      if product_tests_failing.count > 0
+      if product_tests_for_status('failing').count > 0
         'failing'
-      elsif product_tests_passing.count == total && total > 0
+      elsif product_tests_for_status('passing').count == total && total > 0
         'passing'
       else
         'incomplete'
@@ -44,21 +44,9 @@ class Product
     end
   end
 
-  def product_tests_passing
-    Rails.cache.fetch("#{cache_key}/product_tests_passing") do
-      product_tests.select { |product_test| product_test.status == 'passing' }
-    end
-  end
-
-  def product_tests_failing
-    Rails.cache.fetch("#{cache_key}/product_tests_failing") do
-      product_tests.select { |product_test| product_test.status == 'failing' }
-    end
-  end
-
-  def product_tests_incomplete
-    Rails.cache.fetch("#{cache_key}/product_tests_incomplete") do
-      product_tests.select { |product_test| product_test.status == 'incomplete' }
+  def product_tests_for_status(status)
+    Rails.cache.fetch("#{cache_key}/product_tests_#{status}") do
+      product_tests.select { |product_test| product_test.status == status }
     end
   end
 
@@ -80,17 +68,37 @@ class Product
   end
 
   # updates product attributes and adds / removes measure tests
+  # replaces checklist tests if any c1 checklist measures are removed
   # replaces all filtering tests and creates new filtering tests
   def update_with_measure_tests(product_params)
-    new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : []
     old_ids = measure_ids ? measure_ids : []
+    new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : old_ids
     update_attributes(product_params)
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
       product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
     end
-    (old_ids - new_ids).each { |measure_id| product_tests.in(measure_ids: measure_id).destroy }
+    # remove measure and checklist tests if their measure ids have been removed
+    product_tests.in(measure_ids: (old_ids - new_ids)).destroy
     add_filtering_tests if c4_test
+  end
+
+  # builds a checklist test if product does not have a checklist test
+  def add_checklist_test
+    if product_tests.checklist_tests.empty?
+      checklist_test = product_tests.build({ name: 'c1 visual', measure_ids: interesting_measure_ids }, ChecklistTest)
+      checklist_test.save!
+      checklist_test.create_checked_criteria
+    end
+  end
+
+  # - - - - - - - - - #
+  #   P R I V A T E   #
+  # - - - - - - - - - #
+
+  # we want to find a better way to select interesting measure ids ~ Jesse
+  def interesting_measure_ids
+    product_tests.measure_tests.map { |test| test.measure_ids.first }
   end
 
   def add_filtering_tests

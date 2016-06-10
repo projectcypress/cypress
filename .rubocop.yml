@@ -25,7 +25,7 @@ Metrics/AbcSize:
   # a Float.
   Max: 32
   Exclude:
-    - 'test/models/measure_test_test.rb'
+    - 'test/**/*.rb'
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 10
