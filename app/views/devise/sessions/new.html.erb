@@ -1,28 +1,33 @@
 <div class="splash-panel">
   <div class="splash-title-container">
     <h1>cypress</h1>
-    <h2>Rigorouts &amp; repeatable testing of Electronic Health Records</h2>
+    <h2>Rigorous &amp; repeatable testing of Electronic Health Records</h2>
     <p>Powered by Super Duper Testing Labs</p>
-  </div>class="
-  <div class="panel panel-default sign-in-panel">
-    <div class="panel-heading">
-      <h1 class='panel-title'>Sign In</h1>
+  </div>
+  <div class="sign-in-panel-container">
+    <div class="panel panel-default sign-in-panel">
+      <div class="panel-heading">
+        <h1 class="panel-title">Sign In</h1>
+      </div>
+
+      <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="panel-body">
+          <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
+          <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
+
+          <% if devise_mapping.rememberable? -%>
+            <%= f.check_box :remember_me %>
+          <% end -%>
+        </div>
+
+        <div class="panel-footer">
+          <%= f.primary "Sign in" %>
+        </div>
+      <% end %>
     </div>
-
-    <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="panel-body">
-        <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
-        <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
-
-        <% if devise_mapping.rememberable? -%>
-          <%= f.check_box :remember_me %>
-        <% end -%>
-      </div>
-
-      <div class="panel-footer">
-        <%= f.primary "Sign in" %>
-      </div>
-    <% end %>
+    <div class="sign-in-panel-footer">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
 </div>
 <div class="splash-info-panels-container">
@@ -66,4 +71,3 @@
   </div>
 </div>
 <br>
-<%= render "devise/shared/links" %>
