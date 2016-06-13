@@ -24,8 +24,13 @@
     <i class = 'fa fa-fw fa-play-circle text-danger' aria-hidden="true"></i>
     <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-danger" %>
   <% when 'incomplete' %>
-    <i class = 'fa fa-fw fa-play-circle text-info' aria-hidden="true"></i>
-    <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>
+    <% if task.most_recent_execution %>
+      <i class = 'fa fa-fw fa-gavel fa-spin text-testing' aria-hidden = 'true'></i>
+      <%= link_to 'testing', new_task_test_execution_path(task), :class => 'label label-default' %>
+    <% else %>
+      <i class = 'fa fa-fw fa-play-circle text-info' aria-hidden="true"></i>
+      <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>
+    <% end %>
   <% else %>
     <i class = 'fa fa-fw fa-play-circle text-info' aria-hidden="true"></i>
     <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>

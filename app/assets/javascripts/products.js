@@ -22,12 +22,14 @@ var reticulateSplines = function() {
     }
 
     if ($('#display_measure_tests_table').length && ($('#display_measure_tests_table').find('i.fa-refresh').length ||
-        $('#display_measure_tests_table').find('span.text-muted').text().indexOf('queued') > -1)) {
+        $('#display_measure_tests_table').find('span.text-muted').text().indexOf('queued') > -1) ||
+        $('#display_measure_tests_table').find('i.fa-gavel').length) {
       $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'measure_tests_table' }});
     }
 
     if ($('#display_filtering_test_status_display').length && ($('#display_filtering_test_status_display').find('i.fa-refresh').length ||
-        $('#display_filtering_test_status_display').find('span.text-muted').text().indexOf('queued') > -1)) {
+        $('#display_filtering_test_status_display').find('span.text-muted').text().indexOf('queued') > -1) ||
+        $('#display_measure_tests_table').find('i.fa-gavel').length) {
       $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'filtering_test_status_display' }});
     }
 };

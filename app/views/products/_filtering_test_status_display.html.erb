@@ -27,7 +27,7 @@
           <%= local_time_ago(test.updated_at) %></td>
       </tr>
     <% end %>
-    <% if tests.any? { |test| test.state != :ready } %>
+    <% if tests.any? { |test| should_reload_measure_test?(test) } %>
       <script>
         $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_status_display' }});
       </script>

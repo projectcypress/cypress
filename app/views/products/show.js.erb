@@ -11,7 +11,7 @@
   <% end %>
 
 <% elsif params[:partial] == 'measure_tests_table' %>
-  <% if @product.product_tests.measure_tests.any? { |test| test.state != :ready } %>
+  <% if @product.product_tests.measure_tests.any? { |test| should_reload_measure_test?(test) } %>
     setTimeout(function(){
     $('#display_measure_tests_table').html("<%= escape_javascript render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>");
     }, 2000);
@@ -20,7 +20,7 @@
   <% end %>
 
 <% elsif params[:partial] == 'filtering_test_status_display' %>
-  <% if @product.product_tests.filtering_tests.any? { |test| test.state != :ready } %>
+  <% if @product.product_tests.filtering_tests.any? { |test| should_reload_measure_test?(test) } %>
     setTimeout(function(){
     $('#display_filtering_test_status_display').html("<%= escape_javascript render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } %>");
     }, 2000);
