@@ -14,11 +14,13 @@ banner: false
 banner_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
 
 # mailer settings
-mailer_address: ""
-mailer_port:
-mailer_domain: ""
-mailer_user_name: ""
-mailer_password: ""
+website_domain: <%= ENV["WEBSITE_DOMAIN"] %>
+website_port: <%= ENV["WEBSITE_PORT"] || 80 %>
+mailer_address: <%= ENV["MAILER_ADDRESS"] %>
+mailer_port: <%= ENV["MAILER_PORT"] %>
+mailer_domain: <%= ENV["MAILER_DOMAIN"] %>
+mailer_user_name: <%= ENV["MAILER_USER_NAME"] %>
+mailer_password: <%= ENV["MAILER_PASSWORD"] %>
 mailer_authentication: :plain
 
 bundle_file_path: "temp/bundles"
