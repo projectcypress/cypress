@@ -18,11 +18,9 @@
 PreCommit:
   RuboCop:
     enabled: true
-  TravisLint:
-    enabled: true
   EsLint:
     enabled: true
-    exclude: ['vendor/assets/javascripts/**/*', 'test/fixtures/**/*'] 
+    exclude: ['vendor/assets/javascripts/**/*', 'test/fixtures/**/*']
   ScssLint:
     enabled: true
     exclude: ['vendor/assets/stylesheets/**/*']
