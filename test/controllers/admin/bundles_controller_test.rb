@@ -64,6 +64,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
   end
 
   test 'should be able to change default bundle' do
+    yml_text = File.read("#{Rails.root}/config/cypress.yml")
     for_each_logged_in_user([ADMIN]) do
       flunk 'Should have at least 2 test bundles' if Bundle.count < 2
 
@@ -78,6 +79,8 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       assert inactive_bundle.active, 'new default bundle should be active'
       assert !active_bundle.active, 'old default bundle should no longer be active'
     end
+    # revert change to cypress.yml
+    File.open("#{Rails.root}/config/cypress.yml", 'w') { |file| file.puts yml_text }
   end
 
   test 'should not allow a non admin to change default bundle' do

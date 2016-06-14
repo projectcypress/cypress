@@ -20,7 +20,8 @@ module Admin
 
       @bundle.active = true
       @bundle.save!
-
+      Settings[:default_bundle] = @bundle.version
+      sub_yml_setting('default_bundle', Settings[:default_bundle])
       redirect_to admin_path(anchor: 'bundles')
     end
 
