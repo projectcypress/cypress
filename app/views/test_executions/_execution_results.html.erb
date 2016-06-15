@@ -8,7 +8,7 @@
 
 <% case execution.status_with_sibling %>
 <% when 'incomplete' %>
-  <h1><i class="fa fa-fw fa-refresh fa-spin text-info"></i>In Progress</h1>
+  <p class="lead row bg-info execution-status"><i class="fa fa-fw fa-refresh fa-spin text-info"></i> In Progress</p>
   <p>You do not need to reload your browser. Results will automatically display when the tests are done running.</p>
   <% # ajax contacts test_execution's show controller action with format: 'js'. controller then directs to show.js.erb which will wait, then re-render %>
   <script>
@@ -16,7 +16,7 @@
   </script>
   
 <% when 'passing' %>
-  <h1><i class="fa fa-fw fa-check-circle text-success"></i> Passed</h1>
+  <p class="lead row bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> Passed</p>
   <% if execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest' %>
     <% submit_warnings = execution.sibling_execution.execution_errors.only_warnings %>
     <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_warnings, displaying_cat1: displaying_cat1?(execution.task), message_title: 'Warning' } if submit_warnings.any? %>
@@ -56,6 +56,10 @@
       </li>
     <% end %>
   </ul>
+  <p class="lead row bg-danger execution-status">
+    <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i>
+    <%= execution_failure_message(execution) %>
+  </p>
 
   <% displaying_cat1 = displaying_cat1?(execution.task) %>
 
