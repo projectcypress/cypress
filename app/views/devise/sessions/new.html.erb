@@ -1,22 +1,73 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h1 class='panel-title'>Sign In</h1>
+<div class="splash-panel">
+  <div class="splash-title-container">
+    <h1>cypress</h1>
+    <h2>Rigorous &amp; repeatable testing of Electronic Health Records</h2>
+    <p>Powered by Super Duper Testing Labs</p>
   </div>
+  <div class="sign-in-panel-container">
+    <div class="panel panel-default sign-in-panel">
+      <div class="panel-heading">
+        <h1 class="panel-title">Sign In</h1>
+      </div>
 
-  <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="panel-body">
-      <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
-      <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
+      <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="panel-body">
+          <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
+          <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
 
-      <% if devise_mapping.rememberable? -%>
-        <%= f.check_box :remember_me %>
-      <% end -%>
+          <% if devise_mapping.rememberable? -%>
+            <%= f.check_box :remember_me %>
+          <% end -%>
+        </div>
+
+        <div class="panel-footer">
+          <%= f.primary "Sign in" %>
+        </div>
+      <% end %>
     </div>
-
-    <div class="panel-footer">
-      <%= f.primary "Sign in" %>
+    <div class="sign-in-panel-footer">
+      <%= render "devise/shared/links" %>
     </div>
-  <% end %>
+  </div>
 </div>
-
-<%= render "devise/shared/links" %>
+<div class="splash-info-panels-container">
+  <div class="panel panel-default splash-info-panel">
+    <div class="panel-heading">
+      <h1 class="panel-title">What is Cypress?</h1>
+    </div>
+      <div class="panel-body">
+        <p>
+          Cypress is the rigorous and repeatable testing tool of Electronic Health Records (EHRs) and EHR modules in calculating Advanced Care Information (ACI) Clinical Quality Measures (CQMs). The Cypress tool is open source and freely available for use or adoption by the health IT community including EHR vendors and Authorized Testing Labs. Cypress serves as the official testing tool for the 2016 EHR Certification program supported by the Office of the National Coordinator for Health IT (ONC).
+        </p>
+        <br>
+        <p>
+          For more information, visit the <a href="http://projectcypress.org/">Project Cypress site.</a>
+        </p>
+      </div>
+  </div>
+  <div class="panel panel-default splash-info-panel">
+    <div class="panel-heading">
+      <h1 class="panel-title">CQM Certification</h1>
+    </div>
+      <div class="panel-body">
+        <p>Cypress tests four different certification criteria:</p>
+        <ul>
+          <li>Capture and Export - the ability of EHR technology to capture clinical data and export it in a format usable by other EHRs</li>
+          <li>Import and Calculate - the ability of EHR technology to import data from other EHRs and perform CQM calculations</li>
+          <li>Submission - the ability of EHR technology to create a standard data file that can be electronically submitted to Centers for Medicaid &amp; Medicare Services (CMS)</li>
+          <li>Filtering - the ability of EHR technology to filter clinical data based on different data types</li>
+        </ul>
+      </div>
+  </div>
+  <div class="panel panel-default splash-info-panel">
+    <div class="panel-heading">
+      <h1 class="panel-title">How Testing Works</h1>
+    </div>
+      <div class="panel-body">
+        <p>
+          The Cypress software includes a standard test data of synthetic patient records that exercises all of the ACI CQMs, for Eligible Professionals (EP) and Eligible Hospitals (EH). The Cypress test data is available in standard formats (XML and HTML). Testers download data from Cypress, manipulate it with the EHR technology, and upload the results to Cypress for validation. Cypress then provides a report of any errors detected in the uploaded results. Testing may be performed manually or through an API (see the Cypress API documentation for more information).
+        </p>
+      </div>
+  </div>
+</div>
+<br>
