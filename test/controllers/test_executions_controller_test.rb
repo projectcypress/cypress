@@ -10,6 +10,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'test_executions', 'users', 'roles',
                         'bundles', 'measures', 'health_data_standards_svs_value_sets', 'artifacts',
                         'records', 'patient_populations')
+    load_library_functions
     @vendor = Vendor.find(EHR1)
     @first_product = @vendor.products.where(name: 'Vendor 1 Product 1').first
     @first_product.bundle = Bundle.default
