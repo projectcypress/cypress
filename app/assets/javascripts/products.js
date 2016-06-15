@@ -14,6 +14,11 @@ ready = function() {
     stateSave: true, /* preserves order on reload */
     info: false
   });
+
+  /* submit upload when file is attached */
+  $('.multi-upload-field').on('change', function(ev) {
+    $(this).parent().siblings('.multi-upload-submit').click();
+  });
 };
 
 var reticulateSplines = function() {
@@ -29,7 +34,7 @@ var reticulateSplines = function() {
 
     if ($('#display_filtering_test_status_display').length && ($('#display_filtering_test_status_display').find('i.fa-refresh').length ||
         $('#display_filtering_test_status_display').find('span.text-muted').text().indexOf('queued') > -1) ||
-        $('#display_measure_tests_table').find('i.fa-gavel').length) {
+        $('#display_filtering_test_status_display').find('i.fa-gavel').length) {
       $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'filtering_test_status_display' }});
     }
 };

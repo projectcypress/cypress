@@ -183,10 +183,79 @@ When(/^all measure tests do not have a state of ready$/) do
   pt.save!
 end
 
+When(/^the user visits the product page$/) do
+  product = Product.first
+  visit vendor_product_path(product.vendor, product)
+end
+
+When(/^the user adds a product test$/) do
+  # measure to add
+  measure_id = '40280381-43DB-D64C-0144-5571970A2685'
+  product = Product.first
+  product.measure_ids << measure_id
+  product.save!
+  product_test = product.product_tests.build({ name: "measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+  product_test.save!
+  task = product_test.tasks.build({}, C1Task)
+  task.save!
+end
+
 #   A N D   #
 
-And(/^the user visits the product page$/) do
-  visit "/vendors/#{Vendor.first.id}/products/#{Product.first.id}"
+# product test number the number of product test (1 indexed) for upload in order of most recently created
+And(/^the user uploads a cat I document to product test (.*)$/) do |product_test_number|
+  html_id = td_div_id_for_cat1_task_for_product_test(product_test_number)
+  attach_zip_to_multi_upload(html_id)
+end
+
+And(/^the user adds cat I tasks to all product tests$/) do
+  product = Product.first
+  product.c1_test = true
+  product.save!
+  product.product_tests.measure_tests.each do |pt|
+    task = pt.tasks.build({ product_test: pt }, C1Task)
+    task.save!
+  end
+end
+
+And(/^the user uploads a cat III document to product test (.*)$/) do |product_test_number|
+  html_id = td_div_id_for_cat3_task_for_product_test(product_test_number)
+  attach_xml_to_multi_upload(html_id)
+end
+
+# product test number the number of product test (1 indexed) for upload in order of most recently created
+def td_div_id_for_cat1_task_for_product_test(product_test_number)
+  product_test = Product.first.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
+  task = product_test.tasks.c1_task
+  "#wrapper-task-id-#{task.id.to_s}"
+end
+
+def td_div_id_for_cat3_task_for_product_test(product_test_number)
+  product_test = Product.first.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
+  task = product_test.tasks.c2_task
+  "#wrapper-task-id-#{task.id.to_s}"
+end
+
+def attach_zip_to_multi_upload(html_id)
+  show_hidden_upload_field(html_id)
+
+  # attach zip file to multi-upload field
+  zip_path = File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip')
+  page.find(html_id).attach_file('test_execution[results]', zip_path, visible: false)
+end
+
+def attach_xml_to_multi_upload(html_id)
+  show_hidden_upload_field(html_id)
+
+  # attach zip file to multi-upload field
+  xml_path = File.join(Rails.root, 'test/fixtures/product_tests/cms111v3_catiii.xml')
+  page.find(html_id).attach_file('test_execution[results]', xml_path, visible: false)
+end
+
+# show input file upload html element. this is a known issue with capybara. capybara is unable to find inputs with surrounding <label> tags
+def show_hidden_upload_field(html_id)
+  script = "$('#{html_id}').find('input.multi-upload-field').removeClass('hidden').css({display: 'block'})"
+  page.execute_script(script)
 end
 
 # # # # # # # #
@@ -266,4 +335,16 @@ end
 Then(/^the user should be able to view the report$/) do
   page.click_button 'Download Report'
   page.assert_text 'Report Summary'
+end
+
+Then(/^the user should see a cat I test testing for product test (.*)$/) do |product_test_number|
+  html_id = td_div_id_for_cat1_task_for_product_test(product_test_number)
+  html_elem = page.find(html_id)
+  html_elem.assert_text 'testing...'
+end
+
+Then(/^the user should see a cat III test testing for product test (.*)$/) do |product_test_number|
+  html_id = td_div_id_for_cat3_task_for_product_test(product_test_number)
+  html_elem = page.find(html_id)
+  html_elem.assert_text 'testing...'
 end

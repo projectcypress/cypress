@@ -50,6 +50,28 @@ module VendorsHelper
     h
   end
 
+  # returns zero for all values if test is false
+  def checklist_status_values(test)
+    return [0, 0, 0, 0] unless test
+    passing = test.num_measures_complete
+    total = test.measures.count
+    not_started = test.num_measures_not_started
+    failing = total - not_started - passing
+    [passing, failing, not_started, total]
+  end
+
+  def product_test_statuses(tests, task_type)
+    tasks = []
+    tests.each { |test| tasks << test.tasks.where(_type: task_type) }
+    tasks.empty? ? [0, 0, 0, 0] : tasks_values(tasks)
+  end
+
+  def tasks_values(tasks)
+    status_values = []
+    %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
+    status_values << tasks.count # total number of product tests
+  end
+
   # status should be 'Passing', 'Failing', or 'Not Complete'
   # used for each certification status on vendor show page
   def status_to_css_classes(status)

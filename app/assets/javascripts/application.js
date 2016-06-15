@@ -3,6 +3,7 @@
 //= require turbolinks
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require parsley/parsley
 //= require dataTables/jquery.dataTables
 //= require jquery-ui/autocomplete

@@ -1,0 +1,9 @@
+<% # currently only used by product show page for ajax call to create test execution %>
+
+<% # set product for /products/measure_tests_table partial %>
+<% @product = @test_execution.task.product_test.product %>
+
+<% # set PATH_INFO so AJAX call can be made in /products/measure_tests_table partial. this AJAX call is for reloading each product_test_link %>
+<% request.env['PATH_INFO'] = vendor_product_path(@product.vendor, @product) %>
+
+$.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: '/products/product_test_link', task_id: "<%= params[:task_id] %>" }});

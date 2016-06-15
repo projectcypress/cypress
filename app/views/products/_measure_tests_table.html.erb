@@ -44,19 +44,14 @@
         <td data-sort="<%= cms_int(test.cms_id) %>"><%= test.cms_id %></td>
         <td><%= test.name %></td>
         <% if @product.c1_test %>
-          <td class="no-wrap" data-order="<%= set_sorting(test, test.cat1_status) %>"><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c1_task, status: test.cat1_status } %></td>
+          <td id = "<%= id_for_html_wrapper_of_task(test.tasks.c1_task) %>" class="no-wrap" data-order="<%= set_sorting(test, test.cat1_status) %>"><%= render partial: '/products/product_test_link', locals: { test: test, task: test.tasks.c1_task } %></td>
         <% end %>
         <% if @product.c2_test %>
-          <td class="no-wrap" data-order="<%= set_sorting(test, test.cat3_status) %>"><%= render partial: 'product_test_link', locals: { test: test, task: test.tasks.c2_task, status: test.cat3_status } %></td>
+          <td id = "<%= id_for_html_wrapper_of_task(test.tasks.c2_task) %>" class="no-wrap" data-order="<%= set_sorting(test, test.cat3_status) %>"><%= render partial: '/products/product_test_link', locals: { test: test, task: test.tasks.c2_task } %></td>
         <% end %>
         <td class="no-wrap" data-order="<%= test.updated_at %>"><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i>
           <%= local_time_ago(test.updated_at) %></td>
       </tr>
     <% end %>
-    <% if tests.any? { |test| should_reload_measure_test?(test) } %>
-      <script>
-        $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'measure_tests_table' }});
-      </script>
-    <% end%>
   </tbody>
 </table>

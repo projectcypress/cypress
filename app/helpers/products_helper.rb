@@ -22,28 +22,6 @@ module ProductsHelper
     product_test_form.object.measure_ids.first != cur_measure.hqmf_id
   end
 
-  # returns zero for all values if test is false
-  def checklist_status_values(test)
-    return [0, 0, 0, 0] unless test
-    passing = test.num_measures_complete
-    total = test.measures.count
-    not_started = test.num_measures_not_started
-    failing = total - not_started - passing
-    [passing, failing, not_started, total]
-  end
-
-  def product_test_statuses(tests, task_type)
-    tasks = []
-    tests.each { |test| tasks << test.tasks.where(_type: task_type) }
-    tasks.empty? ? [0, 0, 0, 0] : tasks_values(tasks)
-  end
-
-  def tasks_values(tasks)
-    status_values = []
-    %w(passing failing incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
-    status_values << tasks.count # total number of product tests
-  end
-
   def certifications(product)
     # Get a hash of certification types for this product
     certs = {
@@ -61,11 +39,6 @@ module ProductsHelper
 
   def product_certifying_to(product, certification_test)
     (certification_test['certifications'] & certifications(product).keys) != []
-  end
-
-  def type_counts(measures)
-    h = measures.map(&:type).each_with_object(Hash.new(0)) { |type, count| count[type.upcase] += 1 } # example { "EH"=> 4, "EP" => 2 }
-    h.map { |k, v| "#{v} #{k}" }.join(', ') # 4 EH, 2 EP
   end
 
   def set_sorting(test, test_status)
@@ -96,5 +69,41 @@ module ProductsHelper
       end
     end
     records.any? ? records.sort_by { |r| r[:new_name] }.uniq : records
+  end
+
+  # input tasks should be array of (c1 or c2 task) and (c3 task if c3 was selected on product)
+  # true if the task's product test is still building or if there is a test execution currently running
+  def should_reload_product_test_link?(tasks)
+    return true if tasks.first.product_test.state != :ready
+    return true if tasks.any? { |task| task.most_recent_execution && task.most_recent_execution.state == :pending }
+    false
+  end
+
+  # returns the status of the combined tasks for a product test
+  #   all tasks must pass to return 'passing'
+  #   if one test fails, return 'failing'
+  def tasks_status(tasks)
+    return tasks.first.status if tasks.count == 0
+    return 'passing' if tasks.all?(&:passing?)
+    return 'failing' if tasks.any?(&:failing?)
+    return 'incomplete' if tasks.any?(&:incomplete?)
+    'unstarted'
+  end
+
+  def id_for_html_wrapper_of_task(task)
+    "wrapper-task-id-#{task.id.to_s}"
+  end
+
+  # returns array of tasks. includes a c3 task if it exists
+  # input should be a c1 or c2 task
+  def with_c3_task(task)
+    return [task] unless task.product_test.product.c3_test
+    case task._type
+    when 'C1Task'
+      return [task, task.product_test.tasks.c3_cat1_task]
+    when 'C2Task'
+      return [task, task.product_test.tasks.c3_cat3_task]
+    end
+    [task]
   end
 end
