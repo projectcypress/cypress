@@ -17,10 +17,10 @@
   <% case status %>
   <% when 'passing' %>
     <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
-    <%= link_to 'view', new_task_test_execution_path(task) %>
+    <%= link_to 'passed', new_task_test_execution_path(task) %>
   <% when 'failing' %>
     <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
-    <%= link_to 'retry', new_task_test_execution_path(task) %>
+    <%= link_to 'failed', new_task_test_execution_path(task) %>
   <% else %>
     <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
     <%= link_to 'start', new_task_test_execution_path(task) %>
