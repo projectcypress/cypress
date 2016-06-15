@@ -44,6 +44,7 @@
 .ui-tabs:not(.ui-tabs-vertical) {
 
   > .ui-tabs-nav {
+    border-bottom: 1px solid $gray-light;
     padding-left: 0;
 
     li {
@@ -57,9 +58,7 @@
   }
 
   > .ui-tabs-panel {
-    border: 1px solid $gray;
-    border-radius: 0;
-    padding: 2em;
+    padding: 2em 0;
   }
 }
 
@@ -122,6 +121,41 @@
     .ui-tabs .ui-tabs-panel {
       border: 0;
       padding: 1em 0;
+    }
+  }
+}
+
+.file-error-tabs {
+  > .ui-tabs-nav {
+    border-right: 2px solid $gray-light;
+
+    li {
+      border: 0;
+      border-right-style: solid;
+      border-right-width: 10px;
+      margin: 0;
+      width: 100%;
+    }
+
+    .ui-state-default {
+      background: $body-bg;
+      border-color: $body-bg;
+    }
+
+    .ui-tabs-active.ui-state-active {
+      background: $gray-lighter;
+      border-color: $gray-lighter;
+      margin: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: .25em;
+        right: -12px;
+        border-color: transparent $gray-light transparent transparent;
+        border-style: solid;
+        border-width: 13px;
+      }
     }
   }
 }

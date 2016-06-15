@@ -21,24 +21,52 @@ module XmlViewHelper
     [error_map, error_attributes]
   end
 
-  # for each file in the test_execution, matches XML locations to error ids
-  #   then returns an object containing the error_maps, error_attributes, and file_errors for each file
-  def get_error_mapping(test_execution)
-    error_mapping = []
-    unless test_execution.new_record?
-      test_execution.artifact.each_file do |name, data|
-        doc = data_to_doc(data)
-        file_errors = test_execution.execution_errors.where(file_name: name)
-        error_map, error_attributes = match_xml_locations_to_error_ids(doc, file_errors)
-        error_mapping << { doc: doc, error_map: error_map, error_attributes: error_attributes, file: name, file_errors: file_errors }
-      end
+  def error_hash(doc, file_errors)
+    return 0 unless file_errors.count
+    error_map, error_attributes = match_xml_locations_to_error_ids(doc, file_errors)
+
+    {
+      doc: doc,
+      execution_errors: file_errors,
+      error_map: error_map,
+      error_attributes: error_attributes
+    }
+  end
+
+  def get_nonfile_errors(execution)
+    messages1 = execution.execution_errors.by_file(nil).map(&:message)
+    messages2 = execution.sibling_execution ? execution.sibling_execution.execution_errors.by_file(nil).map(&:message) : []
+
+    (messages1 + messages2).uniq
+  end
+
+  def collected_errors(execution)
+    # gonna return all the errors for this execution, structured in a reasonable way.
+    collected_errors = { nonfile: get_nonfile_errors(execution), files: {} }
+
+    execution.artifact.file_names.each do |this_name|
+      file_error_hash = {}
+      all_errs = execution.execution_errors.by_file(this_name)
+      related_errs = execution.sibling_execution.execution_errors.by_file(this_name) if execution.sibling_execution # c3
+
+      next unless (all_errs.count + related_errs.count) > 0
+      doc = data_to_doc(execution.artifact.get_archived_file(this_name))
+
+      file_error_hash['QRDA'] = error_hash(doc, all_errs.qrda_errors)
+      file_error_hash['Reporting'] = error_hash(doc, all_errs.reporting_errors)
+      file_error_hash['Submission'] = related_errs ? error_hash(doc, related_errs.only_errors) : []
+      file_error_hash['Warnings'] = related_errs ? error_hash(doc, related_errs.only_warnings) : []
+
+      collected_errors[:files][this_name] = file_error_hash
     end
-    error_mapping
+
+    collected_errors
   end
 
   # used for errors popup in node partial
   #   returns title of popup, popup button text, and message in popup
   def popup_attributes(errors)
+    return unless errors.count > 0
     title = "Execution #{'Error'.pluralize(errors.count)} (#{errors.count})"
     button_text = " view #{'error'.pluralize(errors.count)} (#{errors.count})"
     message = ''

@@ -14,6 +14,10 @@
     <%# update panel color %>
     $("#results_panel").removeClass("panel-info").addClass("panel-<%= execution_status_class(@test_execution) %>");
     $("#view_execution").removeClass("btn-info").addClass("btn-<%= execution_status_class(@test_execution) %>");
+
+    <%# run some more scripts to properly initialize the
+     failing/passing execution page %>
+    initializeTestExecutionResults();
   <% end %>
 
 <% elsif params[:partial] == 'execution_download' %>
