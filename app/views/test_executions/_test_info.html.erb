@@ -7,6 +7,7 @@
 <div class = 'col-sm-4'>
   <h1>Test Information</h1>
   <strong>Measure: </strong><span><%= @task.product_test.name %></span><br/>
+  <strong>HQMF ID: </strong><span><%= @task.product_test.measure_ids.join(',') %></span><br/>
   <strong>CMS ID: </strong><span><%= @task.product_test.cms_id %></span><br/>
 
   <br/>

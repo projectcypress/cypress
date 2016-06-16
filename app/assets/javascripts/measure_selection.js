@@ -94,7 +94,7 @@ ready_run_on_refresh_bundle = function() {
 
   // Instantiate tabs
   $('#measure_tabs').tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
-  $('#measure_tabs li').removeClass("ui-corner-top").addClass("ui-corner-left");
+  $('#measure_tabs > ul > li').removeClass("ui-corner-top");
 
   // Trigger change events for already-checked inputs
   $('.measure-list .measure-checkbox:checked').trigger('change');

@@ -722,28 +722,28 @@ $panel-footer-bg:             $gray-lighter !default;
 $panel-inner-border:          transparent !default;
 
 $panel-default-text:          lighten($brand-primary, 55%) !default;
-$panel-default-border:        darken($brand-primary, 5%) !default;
-$panel-default-heading-bg:    $panel-default-border !default;
+$panel-default-heading-bg:    darken($brand-primary, 5%) !default;
+$panel-default-border:        transparentize($brand-primary, 0.8) !default;
 
 $panel-primary-text:          lighten($brand-primary, 55%) !default;
-$panel-primary-border:        darken($brand-primary, 5%) !default;
-$panel-primary-heading-bg:    $panel-primary-border !default;
+$panel-primary-heading-bg:    darken($brand-primary, 5%) !default;
+$panel-primary-border:        transparentize($brand-primary, 0.8) !default;
 
 $panel-success-text:          lighten($state-success-text, 60%) !default;
-$panel-success-border:        darken($brand-success, 10%) !default;
-$panel-success-heading-bg:    $panel-success-border !default;
+$panel-success-heading-bg:    darken($brand-success, 10%) !default;
+$panel-success-border:        transparentize($brand-success, 0.8) !default;
 
 $panel-info-text:             lighten($state-info-text, 50%) !default;
-$panel-info-border:           darken($brand-info, 5%) !default;
-$panel-info-heading-bg:       $panel-info-border !default;
+$panel-info-heading-bg:       darken($brand-info, 5%) !default;
+$panel-info-border:           transparentize($brand-info, 0.8) !default;
 
 $panel-warning-text:          lighten($state-warning-text, 50%) !default;
-$panel-warning-border:        darken($brand-warning, 5%) !default;
-$panel-warning-heading-bg:    $panel-warning-border !default;
+$panel-warning-heading-bg:    darken($brand-warning, 5%) !default;
+$panel-warning-border:        transparentize($brand-warning, 0.8) !default;
 
 $panel-danger-text:           lighten($state-danger-text, 55%) !default;
-$panel-danger-border:         darken($brand-danger, 5%) !default;
-$panel-danger-heading-bg:     $panel-danger-border !default;
+$panel-danger-heading-bg:     darken($brand-danger, 5%) !default;
+$panel-danger-border:         transparentize($brand-danger, 0.8) !default;
 
 
 //== Thumbnails

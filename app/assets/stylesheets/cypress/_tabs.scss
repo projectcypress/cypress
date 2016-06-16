@@ -9,12 +9,27 @@
     border-color: $gray-lighter;
     color: $text-color;
     white-space: normal;
+
+    .ui-tabs-anchor {
+      font-size: small;
+    }
   }
 
   .ui-tabs-active.ui-state-active {
     background: $body-bg;
     border-color: $gray-light;
-    font-size: 1.25em;
+
+    .ui-tabs-anchor {
+      font-weight: bold;
+    }
+  }
+
+  .ui-state-disabled,
+  .ui-widget-content .ui-state-disabled,
+  .ui-widget-header .ui-state-disabled {
+    opacity: 1;
+    background: $body-bg;
+    border-color: $body-bg;
   }
 }
 
@@ -28,22 +43,22 @@
 
 .ui-tabs:not(.ui-tabs-vertical) {
 
-  .ui-tabs-nav {
+  > .ui-tabs-nav {
+    border-bottom: 1px solid $gray-light;
     padding-left: 0;
 
     li {
-      margin-top: .6em;
+      margin-top: .5em;
     }
 
     .ui-tabs-active.ui-state-active {
-      margin-top: 0;
+      margin-top: .25em;
+      padding-top: .25em;
     }
   }
 
-  .ui-tabs-panel {
-    border: 1px solid $gray;
-    border-radius: 0;
-    padding: 2em;
+  > .ui-tabs-panel {
+    padding: 2em 0;
   }
 }
 
@@ -53,7 +68,7 @@
 
 .ui-tabs-vertical {
 
-  .ui-tabs-nav {
+  > .ui-tabs-nav {
     padding: 0;
     float: left;
     width: 40%;
@@ -69,6 +84,7 @@
       }
 
       .ui-tabs-anchor {
+        font-weight: normal;
         width: 100%;
       }
     }
@@ -80,8 +96,66 @@
     }
   }
 
-  .ui-tabs-panel {
+  > .ui-tabs-panel {
     float: right;
     width: 60%;
+
+    .ui-tabs .ui-tabs-anchor {
+      font-weight: normal;
+    }
+  }
+}
+
+.short-tabs.ui-tabs-vertical {
+  > .ui-tabs-nav {
+    width: 25%;
+  }
+
+  > .ui-tabs-panel {
+    width: 75%;
+    padding-top: 0;
+    padding-right: 0;
+
+    h2 { margin-top: 0; }
+
+    .ui-tabs .ui-tabs-panel {
+      border: 0;
+      padding: 1em 0;
+    }
+  }
+}
+
+.file-error-tabs {
+  > .ui-tabs-nav {
+    border-right: 2px solid $gray-light;
+
+    li {
+      border: 0;
+      border-right-style: solid;
+      border-right-width: 10px;
+      margin: 0;
+      width: 100%;
+    }
+
+    .ui-state-default {
+      background: $body-bg;
+      border-color: $body-bg;
+    }
+
+    .ui-tabs-active.ui-state-active {
+      background: $gray-lighter;
+      border-color: $gray-lighter;
+      margin: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: .25em;
+        right: -12px;
+        border-color: transparent $gray-light transparent transparent;
+        border-style: solid;
+        border-width: 13px;
+      }
+    }
   }
 }

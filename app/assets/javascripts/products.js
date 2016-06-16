@@ -6,6 +6,7 @@ ready = function() {
   // Also see measure_selection.js
 
   $('.product-test-tabs').tabs();
+  $('.product-test-tabs > ul > li').removeClass("ui-corner-top");
 
   $('#measure_tests_table').DataTable({
     searching: false,

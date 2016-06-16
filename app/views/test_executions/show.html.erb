@@ -46,7 +46,7 @@
 </div>
 
 <% if @task.most_recent_execution %>
-  <div class = 'panel panel-default' id = 'results_panel'>
+  <div class = 'panel panel-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>
     <div class = 'panel-heading'>
       <h1 class='panel-title'>
         Results
@@ -56,7 +56,7 @@
               <option value = <%= task_test_execution_path(@task, execution) %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i == 0) %></option>
             <% end %>
           </select>
-          <button id="view_execution" class="btn btn-xs btn-info">Refresh View</button>
+          <button id="view_execution" class="btn btn-xs btn-<%= execution_status_class(@test_execution) %>">Refresh View</button>
         </div>
       </h1>
     </div>
