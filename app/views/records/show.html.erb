@@ -64,6 +64,8 @@
     <dl class="dl-horizontal">
       <dt>DOB</dt><dd><%= display_time(@record['birthdate']) %></dd>
       <dt>Gender</dt><dd><%= full_gender_name(@record['gender']) %></dd>
+      <dt>Race</dt><dd><%= @record['race']['name'] %></dd>
+      <dt>Ethnicity</dt><dd><%= @record['ethnicity']['name'] %></dd>
     </dl>
     <% RecordsHelper::SECTIONS.each do |s| %>
       <div class="panel panel-default patient-details">
