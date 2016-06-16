@@ -7,8 +7,7 @@ class VendorsController < ApplicationController
 
   # breadcrumbs
   add_breadcrumb 'Dashboard', :vendors_path
-  add_breadcrumb 'Add Vendor',  :new_vendor_path,  only: [:new, :create]
-
+  add_breadcrumb 'Add Vendor', :new_vendor_path, only: [:new, :create]
 
   def index
     # get all of the vendors that the user can see
@@ -43,13 +42,13 @@ class VendorsController < ApplicationController
   end
 
   def edit
-      add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
-      add_breadcrumb 'Edit Vendor', :edit_vendor_path
+    add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
+    add_breadcrumb 'Edit Vendor', :edit_vendor_path
   end
 
   def update
-      add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
-      add_breadcrumb 'Edit Vendor', :edit_vendor_path
+    add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
+    add_breadcrumb 'Edit Vendor', :edit_vendor_path
     @vendor.update_attributes(vendor_params)
     @vendor.save!
     flash_comment(@vendor.name, 'info', 'edited')
