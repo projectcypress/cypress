@@ -67,8 +67,7 @@ class TestExecutionsController < ApplicationController
   def add_breadcrumbs
     add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(id: @product_test.product.vendor.id)
-    add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(vendor_id: @product_test.product.vendor.id,
-                                                                                 id: @product_test.product.id)
+    add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(vendor_id: @product_test.product.vendor.id,                                                                       id: @product_test.product.id)
     add_breadcrumb 'Test: ' + @product_test.name, product_product_test_path(product_id: @product_test.product.id, id: @product_test.id)
   end
 

@@ -67,6 +67,9 @@ class RecordsController < ApplicationController
     authorize! :read, @product_test.product.vendor
     @measure = @product_test.measures.first
     @source = @product_test
+    add_breadcrumb 'Dashboard', :vendors_path
+    add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(id: @product_test.product.vendor.id)
+    add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(vendor_id: @product_test.product.vendor.id,
     add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(task_id: @task.id)
     add_breadcrumb 'Patient List', records_path(task_id: @task.id)
     @title = "#{@task.product_test.product.name} #{@task._type.titleize} #{@task.product_test.measures.first.cms_id} Patients"
