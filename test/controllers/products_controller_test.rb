@@ -98,7 +98,7 @@ class ProductsControllerTest < ActionController::TestCase
     # do this for admin,atl,user:owner -- need negative test for non access
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       post :create, vendor_id: @vendor.id, product: { name: "test_product_#{rand}", c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
-                                                      measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }
+                                                      measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'] }
       assert_response 302, "#{@user.email} should have access #{response.status}"
       assert_not_nil assigns(:product)
     end
@@ -115,7 +115,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should be able to update measures' do
     # do this for admin,atl,user:owner -- need negative test for non access
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      ids = %w(8A4D92B2-3887-5DF3-0139-0D01C6626E46 8A4D92B2-3887-5DF3-0139-0D08A4BE7BE6)
+      ids = %w(40280381-4BE2-53B3-014C-0F589C1A1C39)
       pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ids, bundle_id: '4fdb62e01d41c820f6000001')
       ids.each do |mid|
         pt.product_tests.build({ name: 'test_#{mid}',
@@ -124,7 +124,7 @@ class ProductsControllerTest < ActionController::TestCase
       pt.save!
       assert_equal ids.sort, pt.measure_ids.sort, 'product should have same measure ids'
 
-      new_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
+      new_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
       pt.attributes[:measure_ids] = new_ids
       put :update, id: pt.id, product: pt.attributes
       pt.reload
@@ -156,6 +156,38 @@ class ProductsControllerTest < ActionController::TestCase
       get :new, vendor_id: @vendor.id
       assert_response :success, 'new product page should not error when no bundles'
     end
+  end
+
+  # checklist test
+
+  test 'edit product name should not change checklist test' do
+    product = create_product_with_checklist_test(['40280381-4BE2-53B3-014C-0F589C1A1C39'])
+    old_checklist_test = product.product_tests.checklist_tests.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      product.attributes['name'] = "my product new name #{rand}"
+      put :update, id: product.id, product: product.attributes
+      assert product.product_tests.checklist_tests.first == old_checklist_test
+    end
+  end
+
+  test 'removing measure test used in checklist test should change measure used in checklist test' do
+    product = create_product_with_checklist_test(['40280381-4BE2-53B3-014C-0F589C1A1C39'])
+    old_checklist_test = product.product_tests.checklist_tests.first
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      product.attributes['measure_ids'] = ['40280381-4B9A-3825-014B-C1A59E160733']
+      put :update, id: product.id, product: product.attributes
+      assert product.product_tests.checklist_tests.first != old_checklist_test
+    end
+  end
+
+  # helper for checklist test tests
+  def create_product_with_checklist_test(measure_ids)
+    pt = Product.new(vendor: @vendor, name: "p_#{rand}", c1_test: true, measure_ids: measure_ids,
+                     bundle_id: '4fdb62e01d41c820f6000001')
+    pt.product_tests.build({ name: 'my_measure_test', measure_ids: measure_ids }, MeasureTest)
+    pt.save!
+    pt.add_checklist_test
+    pt
   end
 
   # report

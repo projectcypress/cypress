@@ -4,7 +4,7 @@
 # # # # # # # # # # #
 
 def build_product
-  Product.new(name: 'Product 1', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'], bundle_id: '4fdb62e01d41c820f6000001')
+  Product.new(name: 'Product 1', measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'], bundle_id: '4fdb62e01d41c820f6000001')
 end
 
 # # # # # # # # #
@@ -32,7 +32,7 @@ end
 When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_name, vendor_name|
   steps %( When the user navigates to the create product page for vendor #{vendor_name} )
   page.fill_in 'Name', with: product_name
-  page.find('#product_c1_test').click
+  page.find('#product_c2_test').click
   page.find('#product_measure_selection_custom').click
   page.all('.sidebar a')[2].click
   page.all('input.measure-checkbox')[0].click
@@ -83,7 +83,7 @@ When(/^the user fills out all product information but measures$/) do
   @product = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product.name
   page.find('#product_measure_selection_custom').click
-  page.find('#product_c1_test').click
+  page.find('#product_c2_test').click
 end
 
 # V V V Measure Selection V V V

@@ -4,7 +4,7 @@ class ChecklistTestsController < ProductTestsController
   before_action :set_measures, only: [:show]
 
   def create
-    @product_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: interesting_measure_ids }, ChecklistTest)
+    @product_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: @product.interesting_measure_ids }, ChecklistTest)
     @product_test.save!
     @product_test.create_checked_criteria
     redirect_to vendor_product_path(@product.vendor, @product, anchor: 'ChecklistTest')
@@ -47,13 +47,6 @@ class ChecklistTestsController < ProductTestsController
   def set_measures
     @measures = @product_test.measures.sort_by(&:cms_int)
   end
-
-  # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
-  def interesting_measure_ids
-    @product.product_tests.measure_tests.map { |test| test.measure_ids.first } # Probably not the way we want to choose measures ~ Jaebird
-  end
-
-  # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
   def checklist_test_params
     params[:product_test].permit(checked_criteria_attributes: [:id, :_destroy, :completed, :code, :attribute_code, :recorded_result])
