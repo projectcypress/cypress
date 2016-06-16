@@ -70,7 +70,8 @@ class ProductsHelperTest < ActiveJob::TestCase
 
   def test_checklist_status_values_failing
     test = @product.product_tests.checklist_tests.first
-    test.checked_criteria.first.completed = true
+    test.checked_criteria.first.code_complete = true
+    test.checked_criteria.first.code = '123'
     passing, failing, not_started, total = checklist_status_values(test)
 
     assert_equal 0, passing
@@ -81,7 +82,10 @@ class ProductsHelperTest < ActiveJob::TestCase
 
   def test_checklist_status_values_passing
     test = @product.product_tests.checklist_tests.first
-    test.checked_criteria.each { |criteria| criteria.completed = true }
+    test.checked_criteria.each do |criteria|
+      criteria.code_complete = true
+      criteria.code = '123'
+    end
     passing, failing, not_started, total = checklist_status_values(test)
 
     assert_equal 1, passing

@@ -7,7 +7,7 @@ class ChecklistTest < ProductTest
     num_complete = 0
     measures.each do |measure|
       criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
-      num_complete += 1 if criterias.count(&:completed) == criterias.count
+      num_complete += 1 if criterias.count(&:complete?) == criterias.count
     end
     num_complete
   end
@@ -16,7 +16,7 @@ class ChecklistTest < ProductTest
     num_not_started = 0
     measures.each do |measure|
       criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
-      num_not_started += 1 unless criterias.count(&:completed) > 0
+      num_not_started += 1 unless criterias.count(&:complete?) > 0
     end
     num_not_started
   end
@@ -38,8 +38,8 @@ class ChecklistTest < ProductTest
 
   def measure_status(measure_id)
     criterias = checked_criteria.select { |criteria| criteria.measure_id == measure_id.to_s }
-    return 'not_started' if criterias.count { |criteria| criteria.completed.nil? } == criterias.count
-    pass_count = criterias.count(&:completed)
+    return 'not_started' if criterias.count { |criteria| criteria.complete?.nil? } == criterias.count
+    pass_count = criterias.count(&:complete?)
     pass_count == criterias.count ? 'passed' : 'failed'
   end
 
@@ -61,7 +61,7 @@ class ChecklistTest < ProductTest
       next if (checklist_measures.size > CAT1_CONFIG['number_of_checklist_measures'] - 1) || (checklist_measures.include? value[0].hqmf_id)
       checklist_measures << value[0].hqmf_id
       measure_criteria_map[value[0]].each do |criteria_key|
-        checked_criterias.push(measure_id: value[0].id.to_s, source_data_criteria: criteria_key, completed: nil)
+        checked_criterias.push(measure_id: value[0].id.to_s, source_data_criteria: criteria_key)
       end
     end
     # Measure ids updated to the ones selected for measure test

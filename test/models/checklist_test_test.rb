@@ -27,7 +27,10 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 0, @test.num_measures_complete
     assert_equal 1, @test.num_measures_not_started
     @test.create_checked_criteria
-    @test.checked_criteria.each { |criteria| criteria.completed = true }
+    @test.checked_criteria.each do |criteria|
+      criteria.code_complete = true
+      criteria.code = '123'
+    end
     assert_equal 1, @test.num_measures_complete
     assert_equal 0, @test.num_measures_not_started
   end
@@ -36,9 +39,13 @@ class ChecklistTestTest < ActiveJob::TestCase
     measure_id = Measure.top_level.where(:hqmf_id.in => @test.measure_ids).first.id
     @test.create_checked_criteria
     assert_equal 'not_started', @test.measure_status(measure_id)
-    @test.checked_criteria.first.completed = true
+    @test.checked_criteria.first.code_complete = false
+    @test.checked_criteria.first.code = '123'
     assert_equal 'failed', @test.measure_status(measure_id)
-    @test.checked_criteria.each { |criteria| criteria.completed = true }
+    @test.checked_criteria.each do |criteria|
+      criteria.code_complete = true
+      criteria.code = '123'
+    end
     assert_equal 'passed', @test.measure_status(measure_id)
   end
 
@@ -50,7 +57,6 @@ class ChecklistTestTest < ActiveJob::TestCase
   def test_inappropriate_code_for_vs
     @test.create_checked_criteria
     checked_criteria = @test.checked_criteria[0]
-    checked_criteria.completed = true
     checked_criteria.code = 'thisisntacode'
     checked_criteria.validate_criteria
     checked_criteria.save
@@ -60,7 +66,6 @@ class ChecklistTestTest < ActiveJob::TestCase
   def test_inappropriate_code_for_attribute_vs
     @test.create_checked_criteria
     checked_criteria = @test.checked_criteria[0]
-    checked_criteria.completed = true
     checked_criteria.attribute_code = 'thisalsoisntacode'
     checked_criteria.validate_criteria
     checked_criteria.save
@@ -70,7 +75,6 @@ class ChecklistTestTest < ActiveJob::TestCase
   def test_appropriate_code_for_attribute_vs
     @test.create_checked_criteria
     checked_criteria = @test.checked_criteria[0]
-    checked_criteria.completed = true
     checked_criteria.code = 'F32.9'
     checked_criteria.attribute_code = '63161005'
     checked_criteria.validate_criteria
