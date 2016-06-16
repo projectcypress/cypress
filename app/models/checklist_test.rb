@@ -38,11 +38,9 @@ class ChecklistTest < ProductTest
 
   def measure_status(measure_id)
     criterias = checked_criteria.select { |criteria| criteria.measure_id == measure_id.to_s }
-    case criterias.count(&:completed)
-    when 0 then 'not_started'
-    when criterias.count then 'passed'
-    else 'failed'
-    end
+    return 'not_started' if criterias.count { |criteria| criteria.completed.nil? } == criterias.count
+    pass_count = criterias.count(&:completed)
+    pass_count == criterias.count ? 'passed' : 'failed'
   end
 
   def create_checked_criteria
@@ -63,7 +61,7 @@ class ChecklistTest < ProductTest
       next if (checklist_measures.size > CAT1_CONFIG['number_of_checklist_measures'] - 1) || (checklist_measures.include? value[0].hqmf_id)
       checklist_measures << value[0].hqmf_id
       measure_criteria_map[value[0]].each do |criteria_key|
-        checked_criterias.push(measure_id: value[0].id.to_s, source_data_criteria: criteria_key, completed: false)
+        checked_criterias.push(measure_id: value[0].id.to_s, source_data_criteria: criteria_key, completed: nil)
       end
     end
     # Measure ids updated to the ones selected for measure test

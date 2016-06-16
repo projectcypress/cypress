@@ -172,8 +172,8 @@ tests:
       - 'If a Data Criteria has value sets listed, an appropriate code needs to be entered into the "Code" text box.'
       - 'If a Data Criteria has an Attribute listed, it needs to be entered into the patient record.'
       - 'If an Attribute has a value set, an appropriate code needs to be entered into the "Attribute Code" text box.'
-      - '"Completed" will be checked, by an ATL, upon visual inspection that the Data Criteria has been entered into the patient record.'
-      - 'Code validation will be run upon saving. The test results will not be saved if errors exist, unchecking "Complete" allows for invalid results to be saved.'
+      - 'Code validation will be run upon saving.'
+      - 'Result, Date Times, Cumulative Medication Durations and Length of Stay are to be recorded as free text.  ATLs will record the values they have observed being entered into the system under test.'
     certifications:
       - 'C1'
 

@@ -22,13 +22,12 @@
               <table class = 'table table-sm'>
                 <thead>
                   <tr>
-                    <th class = 'col-sm-2'>Completed?</th>
                     <th class = 'col-sm-2'>Data Criteria</th>
                     <th class = 'col-sm-3'>Value Set</th>
-                    <th class = 'col-sm-2'>Code</th>
+                    <th class = 'col-sm-2'>Recorded Code</th>
                     <th class = 'col-sm-2'>Required Attributes</th>
-                    <th class = 'col-sm-3'>Attribute Details</th>
-                    <th class = 'col-sm-2'>Attribute Code</th>
+                    <th class = 'col-sm-3'>Attribute Details/Value Set</th>
+                    <th class = 'col-sm-2'>Recorded Attribute Value</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -36,7 +35,6 @@
                     <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
                     <% if criteria.has_key?('description') %>
                       <tr>
-                        <td><%= criteria_field.check_box :completed %></td>
                         <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
                         <% if valuessets.empty? %>
                           <td/>
@@ -45,14 +43,43 @@
                         <% else %>
                           <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
                           <td><span><%= valuessets.join(', ') %></span></td>
-                          <td><%= criteria_field.text_field :code, hide_label: true %></td>
+                          <td>
+                            <% if criteria_field.object.complete?.nil? %>
+                              <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                            <% elsif criteria_field.object.code_complete %>
+                              <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                            <% else %>
+                              <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
+                            <% end %>
+                            <%= criteria_field.text_field :code, hide_label: true %>
+                          </td>
                         <% end %>
                         <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
-                        <td><%= render partial: 'field_values', locals: { field_values: criteria['field_values'] } if criteria['field_values'] %></td>
+                        <td><%= render partial: 'field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
                         <% if coded_attribute?(criteria) %>
-                          <td><%= criteria_field.text_field :attribute_code, hide_label: true %></td>
+                          <td>
+                            <% if criteria_field.object.complete?.nil? %>
+                              <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                            <% elsif criteria_field.object.attribute_complete %>
+                              <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                            <% else %>
+                              <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
+                            <% end %>
+                            <%= criteria_field.text_field :attribute_code, hide_label: true %>
+                          </td>
+                        <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['field_values'] %>
+                          <td>
+                            <% if criteria_field.object.complete?.nil? %>
+                              <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                            <% elsif criteria_field.object.result_complete %>
+                              <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                            <% else %>
+                              <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
+                            <% end %>
+                            <%= criteria_field.text_field :recorded_result, hide_label: true %>
+                          </td>
                         <% else %>
-                          <td/>
+                          </td>
                         <% end %>
                       </tr>
                     <% end %>

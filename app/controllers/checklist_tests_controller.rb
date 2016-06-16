@@ -17,6 +17,7 @@ class ChecklistTestsController < ProductTestsController
 
   def update
     @product_test.update_attributes(checklist_test_params)
+    @product_test.checked_criteria.each(&:validate_criteria)
     @product_test.save!
     respond_to do |format|
       format.html { redirect_to product_checklist_test_path(@product, @product_test) }
@@ -55,6 +56,6 @@ class ChecklistTestsController < ProductTestsController
   # CHOOSE INTERESTING CRITERIA HERE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
   def checklist_test_params
-    params[:product_test].permit(checked_criteria_attributes: [:id, :_destroy, :completed, :code, :attribute_code])
+    params[:product_test].permit(checked_criteria_attributes: [:id, :_destroy, :completed, :code, :attribute_code, :recorded_result])
   end
 end

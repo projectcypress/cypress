@@ -8,6 +8,8 @@ module ChecklistTestsHelper
       end
     elsif criteria[:negation]
       'Negation Code'
+    elsif criteria[:value]
+      'Result'
     else
       ''
     end
@@ -40,6 +42,12 @@ module ChecklistTestsHelper
   end
 
   def coded_attribute?(criteria)
-    true if criteria[:field_values] && criteria[:field_values].values[0].type == 'CD'
+    if criteria[:field_values]
+      true if criteria[:field_values].values[0].type == 'CD'
+    elsif criteria[:value]
+      true if criteria[:value].type == 'CD'
+    elsif criteria['negation_code_list_id']
+      true
+    end
   end
 end
