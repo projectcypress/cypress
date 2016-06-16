@@ -39,6 +39,7 @@ class ChecklistTestsController < ProductTestsController
   private
 
   def set_breadcrumbs
+    add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
     add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
     add_breadcrumb 'Test: ' + @product_test.name, product_checklist_test_path(@product, @product_test)
