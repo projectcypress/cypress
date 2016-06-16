@@ -47,15 +47,15 @@ module XmlViewHelper
     execution.artifact.file_names.each do |this_name|
       file_error_hash = {}
       all_errs = execution.execution_errors.by_file(this_name)
-      related_errs = execution.sibling_execution.execution_errors.by_file(this_name) if execution.sibling_execution # c3
+      related_errs = execution.sibling_execution ? execution.sibling_execution.execution_errors.by_file(this_name) : [] # c3
 
       next unless (all_errs.count + related_errs.count) > 0
       doc = data_to_doc(execution.artifact.get_archived_file(this_name))
 
       file_error_hash['QRDA'] = error_hash(doc, all_errs.qrda_errors)
       file_error_hash['Reporting'] = error_hash(doc, all_errs.reporting_errors)
-      file_error_hash['Submission'] = related_errs ? error_hash(doc, related_errs.only_errors) : []
-      file_error_hash['Warnings'] = related_errs ? error_hash(doc, related_errs.only_warnings) : []
+      file_error_hash['Submission'] = related_errs.count > 0 ? error_hash(doc, related_errs.only_errors) : []
+      file_error_hash['Warnings'] = related_errs.count > 0 ? error_hash(doc, related_errs.only_warnings) : []
 
       collected_errors[:files][this_name] = file_error_hash
     end

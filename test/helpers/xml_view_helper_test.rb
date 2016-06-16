@@ -21,30 +21,32 @@ class XmlViewHelperTest < ActiveSupport::TestCase
     end
   end
 
-  def test_get_error_mapping
-    error_maps = get_error_mapping(@te)
-    assert_equal 4, error_maps[0][:file_errors].collect(&:location).compact.count, 'should contain four locations for errors'
+  def test_collected_errors
+    errs = collected_errors(@te)
+    assert_equal 0, errs.nonfile.count
+    assert_equal 4, errs.files.keys.count, 'should contain four files with errors'
+    assert_equal %w(QRDA Reporting Submission Warnings), errs.files['0_Dental_Peds_A.xml'].keys, 'should contain right error keys for each file'
+  end
+
+  def test_popup_attributes_multiple_errors
+    errs = collected_errors(@te)
+    error = errs.files['0_Dental_Peds_A.xml']['QRDA'].execution_errors
+    title, button_text, message = popup_attributes(error)
+
+    assert_match 'Execution Errors', title
+    assert_match error.count.to_s, title
+    assert_match 'view errors', button_text
+    assert_match error.count.to_s, button_text
+    assert_match '<li', message
   end
 
   def test_popup_attributes_one_error
-    error_maps = get_error_mapping(@te)
-    errors = [error_maps[0][:file_errors][0]]
-    title, button_text, message = popup_attributes(errors)
+    errs = collected_errors(@te)
+    error = [errs.files['3_GP_Peds_C.xml']['QRDA'].execution_errors.first] # get just one error
+    title, button_text, message = popup_attributes(error)
 
     assert_match 'Execution Error', title
     assert_match 'view error', button_text
     assert_no_match '<li', message
-  end
-
-  def test_popup_attributes_multiple_errors
-    error_maps = get_error_mapping(@te)
-    errors = error_maps[0][:file_errors]
-    title, button_text, message = popup_attributes(errors)
-
-    assert_match 'Execution Errors', title
-    assert_match errors.count.to_s, title
-    assert_match 'view errors', button_text
-    assert_match errors.count.to_s, button_text
-    assert_match '<li', message
   end
 end
