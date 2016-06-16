@@ -9,20 +9,25 @@
 %>
 <% if test.state != :ready %>
   <% if test.state == :queued %>
-    <i class="fa fa-fw fa-play-circle text-info invisible" aria-hidden="true"></i> <span class="text-muted">queued</span>
+    <i class="fa fa-fw fa-circle text-muted" aria-hidden="true"></i>
+    <span class="label label-default">queued</span>
   <% else test.state == :building %>
-    <i class="fa fa-fw fa-refresh fa-spin" aria-hidden="true"></i> building
+    <i class="fa fa-fw fa-cog fa-spin" aria-hidden="true"></i>
+    <span class="label label-default">building</span>
   <% end %>
 <% else %>
   <% case status %>
   <% when 'passing' %>
-    <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
-    <%= link_to 'view', new_task_test_execution_path(task) %>
+    <i class = 'fa fa-fw fa-check-circle text-success' aria-hidden="true"></i>
+    <%= link_to 'view', new_task_test_execution_path(task), :class => "label label-success" %>
   <% when 'failing' %>
-    <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
-    <%= link_to 'retry', new_task_test_execution_path(task) %>
+    <i class = 'fa fa-fw fa-play-circle text-danger' aria-hidden="true"></i>
+    <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-danger" %>
+  <% when 'incomplete' %>
+    <i class = 'fa fa-fw fa-play-circle text-info' aria-hidden="true"></i>
+    <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>
   <% else %>
-    <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
-    <%= link_to 'start', new_task_test_execution_path(task) %>
+    <i class = 'fa fa-fw fa-play-circle text-info' aria-hidden="true"></i>
+    <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>
   <% end %>
 <% end %>

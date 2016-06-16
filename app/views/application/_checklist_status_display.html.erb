@@ -8,14 +8,14 @@
 
 <table class = 'table table-hover table-condensed'>
   <thead>
-    <td class = 'col-sm-10'></td>
-    <td class = 'col-sm-2'></td>
+    <th class="no-wrap" scope="col">Manual Entry Test</th>
+    <th class="no-wrap" scope="col">Status</th>
   </thead>
   <tbody>
     <% checklist_test.measures.sort_by(&:cms_int).each do |measure| %>
       <tr>
         <td><%= link_to "#{measure.cms_id} #{measure.name}", product_checklist_test_path(product, checklist_test, anchor: measure.cms_id) %></td>
-        <td class = 'text-right'>
+        <td class="no-wrap">
           <% case checklist_test.measure_status(measure.id) %>
           <% when 'passed' %>
             <strong class = 'text-success'>Passing</strong>

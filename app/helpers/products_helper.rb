@@ -22,14 +22,6 @@ module ProductsHelper
     product_test_form.object.measure_ids.first != cur_measure.hqmf_id
   end
 
-  def cms_int(cms_id)
-    # this is here because sometimes we only have the cms_id string and not the measure
-    return 0 unless cms_id
-    start_marker = 'CMS'
-    end_marker = 'v'
-    cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i
-  end
-
   # returns zero for all values if test is false
   def checklist_status_values(test)
     return [0, 0, 0, 0] unless test
@@ -71,30 +63,25 @@ module ProductsHelper
     (certification_test['certifications'] & certifications(product).keys) != []
   end
 
-  def generate_filter_records(filter_tests)
-    return unless filter_tests
-    test = filter_tests.pop
-    test.generate_records
-    test.save
-    test.queued
-    ProductTestSetupJob.perform_later(test)
-    records = test.records
-    filter_tests.each do |ft|
-      records.collect do |r|
-        r2 = r.clone
-        r2.test_id = ft.id
-        r2.save
-        r2
-      end
-      ft.save
-      ft.queued
-      ProductTestSetupJob.perform_later(ft)
-    end
-  end
-
   def type_counts(measures)
     h = measures.map(&:type).each_with_object(Hash.new(0)) { |type, count| count[type.upcase] += 1 } # example { "EH"=> 4, "EP" => 2 }
     h.map { |k, v| "#{v} #{k}" }.join(', ') # 4 EH, 2 EP
+  end
+
+  def set_sorting(test, test_status)
+    return 1 if test.state == :queued
+    return 2 if test.state == :building
+
+    case test_status
+    when 'passing'
+      return 5
+    when 'failing'
+      return 4
+    when 'incomplete'
+      return 3
+    else
+      return 6
+    end
   end
 
   # For pdf

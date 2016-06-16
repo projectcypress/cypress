@@ -1,5 +1,5 @@
-main a:not(.btn):not(.task-switch-link) {
-  font-weight: bold;
+a.label {
+  color: $brand-white;
 }
 
 .summary-title {
@@ -10,8 +10,8 @@ main a:not(.btn):not(.task-switch-link) {
   text-overflow: ellipsis;
 
   &:hover {
-      white-space: normal;
-      overflow: hidden;
+    white-space: normal;
+    overflow: hidden;
   }
 }
 
@@ -60,4 +60,8 @@ main:focus { outline: none; }
   }
 
   dd { font-weight: bold; }
+}
+
+.no-wrap {
+  white-space: nowrap;
 }

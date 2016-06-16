@@ -36,6 +36,8 @@ gem 'jasny-bootstrap-rails'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
 
+gem 'local_time'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
