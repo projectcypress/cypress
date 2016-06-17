@@ -25,7 +25,7 @@
       'data-parsley-equalto-message'=> 'Passwords do not match',
       'data-parsley-trigger'=> 'change' %>
 
-    <%= link_to "Terms and Conditions", { controller: 'static_pages', action: 'terms_and_conditions' } %>
+    <%= link_to "Terms and Conditions", terms_and_conditions_path %>
 
       <div class="accept_terms">
         <%= f.check_box :terms_and_conditions,
