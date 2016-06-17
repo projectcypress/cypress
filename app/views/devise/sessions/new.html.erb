@@ -37,11 +37,14 @@
     </div>
       <div class="panel-body">
         <p>
-          Cypress is the rigorous and repeatable testing tool of Electronic Health Records (EHRs) and EHR modules in calculating Advanced Care Information (ACI) Clinical Quality Measures (CQMs). The Cypress tool is open source and freely available for use or adoption by the health IT community including EHR vendors and Authorized Testing Labs. Cypress serves as the official testing tool for the 2016 EHR Certification program supported by the Office of the National Coordinator for Health IT (ONC).
+          Cypress is the open source, rigorous and repeatable testing tool of Electronic Health Records (EHRs) and EHR modules in calculating Advanced Care Information (ACI) Clinical Quality Measures (CQMs).
+          It is available for use or adoption by the health IT community including EHR vendors and Authorized Testing Labs.
         </p>
-        <br>
         <p>
-          For more information, visit the <a href="http://projectcypress.org/">Project Cypress site.</a>
+          Cypress serves as the official testing tool for the 2016 EHR Certification program supported by the Office of the National Coordinator for Health IT (ONC).
+        </p>
+        <p>
+          For more information, visit the <a href="http://healthit.gov/cypress">Project Cypress site.</a>
         </p>
       </div>
   </div>
@@ -52,20 +55,31 @@
       <div class="panel-body">
         <p>Cypress tests four different certification criteria:</p>
         <ul>
-          <li>Capture and Export - the ability of EHR technology to capture clinical data and export it in a format usable by other EHRs</li>
-          <li>Import and Calculate - the ability of EHR technology to import data from other EHRs and perform CQM calculations</li>
-          <li>Submission - the ability of EHR technology to create a standard data file that can be electronically submitted to Centers for Medicaid &amp; Medicare Services (CMS)</li>
-          <li>Filtering - the ability of EHR technology to filter clinical data based on different data types</li>
+          <li>Record and Export - Record clinical data and export it in a format usable by other EHRs</li>
+          <li>Import and Calculate - Import data from other EHRs and perform CQM calculations</li>
+          <li>Report - Create standard data files that can be electronically submitted to quality reporting programs</li>
+          <li>Data Filter - Filter clinical data based on patient and provider data</li>
         </ul>
+        <p>
+          Testing may be performed manually or through an API (see the Cypress API documentation included in source for more information).
+        </p>
       </div>
   </div>
   <div class="panel panel-default splash-info-panel">
     <div class="panel-heading">
-      <h1 class="panel-title">How Testing Works</h1>
+      <h1 class="panel-title">
+        Using Cypress
+      </h1>
     </div>
       <div class="panel-body">
         <p>
-          The Cypress software includes a standard test data of synthetic patient records that exercises all of the ACI CQMs, for Eligible Professionals (EP) and Eligible Hospitals (EH). The Cypress test data is available in standard formats (XML and HTML). Testers download data from Cypress, manipulate it with the EHR technology, and upload the results to Cypress for validation. Cypress then provides a report of any errors detected in the uploaded results. Testing may be performed manually or through an API (see the Cypress API documentation for more information).
+          The Cypress software includes a standard test data of synthetic patient records that exercises all of the ACI CQMs, for Eligible Professionals (EP) and Eligible Hospitals (EH).
+        </p>
+        <p>
+          Testers download patient data from Cypress, manipulate it with the EHR technology, and upload the results to Cypress for validation. Cypress then provides a report of any errors detected in the uploaded results.
+        </p>
+        <p>
+          Usage of Cypress requires a <a href="https://uts.nlm.nih.gov//home.html">UMLS account</a> in order to sign into the <a href="https://cypressdemo.healthit.gov">Cypress Demo Server</a> or download the CQMs.
         </p>
       </div>
   </div>
