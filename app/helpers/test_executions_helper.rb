@@ -10,8 +10,8 @@ module TestExecutionsHelper
     case task_type
     when 'C1Task' then c3 ? 'C1 and C3' : 'C1'
     when 'C2Task' then c3 ? 'C2 and C3' : 'C2'
-    when 'Cat1FilterTask' then 'Cat 1'
-    when 'Cat3FilterTask' then 'Cat 3'
+    when 'Cat1FilterTask' then 'QRDA Category I'
+    when 'Cat3FilterTask' then 'QRDA Category III'
     end
   end
 
