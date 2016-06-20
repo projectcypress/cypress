@@ -3,6 +3,10 @@ module ApplicationHelper
     Time.at(seconds_since_epoch).utc.strftime('%m/%d/%Y') || '?'
   end
 
+  def display_time_to_minutes(seconds_since_epoch)
+    Time.at(seconds_since_epoch).utc.strftime('%m/%d/%Y %l:%M%P')
+  end
+
   def website_link(url_string)
     uri = URI.parse(url_string)
     return url_string if uri.scheme
