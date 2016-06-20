@@ -14,6 +14,7 @@ module Validators
     # Nothing to see here - Move along
     def validate(file, options = {})
       @document = get_document(file)
+      @file_name = options[:file_name]
       @expected_results.each_pair do |key, expected_result|
         result_key = expected_result['population_ids'].dup
         reported_result, _errors = extract_results_by_ids(expected_result['measure_id'], result_key, @document)
@@ -60,7 +61,7 @@ module Validators
         message = %("Could not find entry for measure #{expected_result['measure_id']} with the following population ids ")
         message += ids.inspect
         # logger.call(message, _ids['stratification'])
-        add_error(message, location: '/', measure_id: measure_id, stratification: ids['stratification'])
+        add_error(message, location: '/', measure_id: measure_id, stratification: ids['stratification'], file_name: @file_name)
       end
     end
 
@@ -76,7 +77,7 @@ module Validators
         does not match reported value #{reported_result[pop_key]})
         error_details = { type: 'population', population_id: expected_result['population_ids'][pop_key], stratification: stratification,
                           expected_value: expected_result[pop_key], reported_value: reported_result[pop_key] }
-        options = { location: '/', measure_id: measure_id, error_details: error_details }
+        options = { location: '/', measure_id: measure_id, error_details: error_details, file_name: @file_name }
         add_error(err, options)
       end
     end
@@ -101,7 +102,7 @@ module Validators
       error_details = { type: 'supplemental_data', population_key: keys_and_ids.pop_key,
                         population_id: keys_and_ids.pop_id, data_type: keys_and_ids.sup_key,
                         code: code, expected_value: expect_val, reported_value: report_val }
-      options = { location: '/', measure_id: keys_and_ids.measure_id, error_details: error_details }
+      options = { location: '/', measure_id: keys_and_ids.measure_id, error_details: error_details, file_name: @file_name }
       add_error('supplemental data error', options)
     end
   end
