@@ -10,6 +10,7 @@ module Admin
       add_breadcrumb 'Edit Settings', :edit_settings_path
       render locals: {
         banner_message: Settings.banner_message,
+        banner: Settings.banner,
         smtp_settings: Rails.application.config.action_mailer.smtp_settings,
         mode: ApplicationController.helpers.application_mode,
         mode_settings: ApplicationController.helpers.application_mode_settings,
@@ -33,7 +34,9 @@ module Admin
 
     def write_banner_message(settings)
       sub_yml_setting('banner_message', settings['banner_message'])
+      sub_yml_setting('banner', settings['banner'] == '1')
       Settings[:banner_message] = settings['banner_message']
+      Settings[:banner] = settings['banner'] == '1'
     end
 
     def write_mailer_settings(settings)

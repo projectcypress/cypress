@@ -9,6 +9,7 @@
   <%= bootstrap_form_tag url: admin_settings_path, method: :put do |f| %>
     <div class="panel-body">
       <%= f.text_area :banner_message, label: "Banner", value: banner_message %>
+      <%= f.check_box :banner, label: "Display banner?", checked: banner %>
 
       <fieldset>
         <legend>Email Settings</legend>
