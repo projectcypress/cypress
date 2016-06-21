@@ -55,6 +55,9 @@ gem 'sdoc', '~> 0.4.0', :group => :doc
 gem 'carrierwave'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 
+# AJAX file uploads
+gem 'remotipart', '~> 1.2'
+
 gem 'settingslogic'
 
 # bubble up errors from embedded documents in Mongoid.

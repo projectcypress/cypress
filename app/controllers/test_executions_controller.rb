@@ -7,7 +7,7 @@ class TestExecutionsController < ApplicationController
   before_action :set_product_test_from_task, only: [:show, :new]
   before_action :add_breadcrumbs, only: [:show, :new]
 
-  respond_to :js, only: [:show]
+  respond_to :js, only: [:show, :create]
 
   def index
     @test_executions = @task.test_executions
@@ -72,6 +72,11 @@ class TestExecutionsController < ApplicationController
   end
 
   def results_params
-    params[:results]
+    # reqests from outside test execution page will have :results inside :test_execution in params
+    if params[:results]
+      params[:results]
+    elsif params[:test_execution]
+      params[:test_execution][:results]
+    end
   end
 end

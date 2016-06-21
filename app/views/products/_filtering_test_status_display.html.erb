@@ -21,16 +21,15 @@
             <%= test.display_name %>
           <% end %>
         </td>
-        <td class="no-wrap"><%= render partial: 'product_test_link', locals: { test: test, task: test.cat1_task, status: test.cat1_task.status } %></td>
-        <td class="no-wrap"><%= render partial: 'product_test_link', locals: { test: test, task: test.cat3_task, status: test.cat3_task.status } %></td>
+        <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat1_task) %>">
+          <%= render partial: '/products/product_test_link', locals: { test: test, task: test.cat1_task } %>
+        </td>
+        <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat3_task) %>">
+          <%= render partial: '/products/product_test_link', locals: { test: test, task: test.cat3_task } %>
+        </td>
         <td class="no-wrap"><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i>
           <%= local_time_ago(test.updated_at) %></td>
       </tr>
     <% end %>
-    <% if tests.any? { |test| test.state != :ready } %>
-      <script>
-        $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_status_display' }});
-      </script>
-    <% end%>
   </tbody>
 </table>

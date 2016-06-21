@@ -1,3 +1,5 @@
+require 'test_helper'
+
 class MeasureHelperTest < ActiveSupport::TestCase
   def setup
     collection_fixtures('measures', 'bundles')
@@ -46,5 +48,33 @@ class MeasureHelperTest < ActiveSupport::TestCase
     assert item
     assert correct.include?(item)
     assert !incorrect.include?(item)
+  end
+
+  def test_should_reload_measure_test
+    test = ProductTest.new(:name => 'my product test', :state => :not_ready)
+    assert ApplicationController.helpers.should_reload_measure_test?(test)
+
+    # product tests with no test executions should not be reloaded
+    test.state = :ready
+    assert !ApplicationController.helpers.should_reload_measure_test?(test)
+    test.tasks.build
+    assert !ApplicationController.helpers.should_reload_measure_test?(test)
+
+    # product tests with test executions that are passing or failing should not be reloaded
+    test = product_test_with_test_execution_with_state(:failing)
+    assert !ApplicationController.helpers.should_reload_measure_test?(test)
+    test = product_test_with_test_execution_with_state(:passing)
+    assert !ApplicationController.helpers.should_reload_measure_test?(test)
+
+    # product tests with test executions that are pending should be reloaded
+    test = product_test_with_test_execution_with_state(:pending)
+    assert ApplicationController.helpers.should_reload_measure_test?(test)
+  end
+
+  def product_test_with_test_execution_with_state(state)
+    test = ProductTest.new(:state => :ready)
+    task = test.tasks.build
+    task.test_executions.build(state: state)
+    test
   end
 end

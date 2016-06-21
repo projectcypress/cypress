@@ -55,6 +55,7 @@ end
 # # # # # # # #
 
 Then(/^the user should see the CAT 1 test$/) do
+  sleep(0.5)
   assert page.has_content?('a zip file of QRDA Category I documents')
 end
 

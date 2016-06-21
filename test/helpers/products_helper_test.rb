@@ -58,72 +58,6 @@ class ProductsHelperTest < ActiveJob::TestCase
   #   T E S T S   #
   # # # # # # # # #
 
-  def test_checklist_status_values_not_started
-    test = @product.product_tests.checklist_tests.first
-    passing, failing, not_started, total = checklist_status_values(test)
-
-    assert_equal 0, passing
-    assert_equal 0, failing
-    assert_equal 1, not_started
-    assert_equal 1, total
-  end
-
-  def test_checklist_status_values_failing
-    test = @product.product_tests.checklist_tests.first
-    test.checked_criteria.first.code_complete = true
-    test.checked_criteria.first.code = '123'
-    passing, failing, not_started, total = checklist_status_values(test)
-
-    assert_equal 0, passing
-    assert_equal 1, failing
-    assert_equal 0, not_started
-    assert_equal 1, total
-  end
-
-  def test_checklist_status_values_passing
-    test = @product.product_tests.checklist_tests.first
-    test.checked_criteria.each do |criteria|
-      criteria.code_complete = true
-      criteria.code = '123'
-    end
-    passing, failing, not_started, total = checklist_status_values(test)
-
-    assert_equal 1, passing
-    assert_equal 0, failing
-    assert_equal 0, not_started
-    assert_equal 1, total
-  end
-
-  def test_product_test_statuses_not_started
-    passing, failing, not_started, total = product_test_statuses(@product.product_tests.measure_tests, 'C1Task')
-
-    assert_equal 0, passing
-    assert_equal 0, failing
-    assert_equal total, not_started
-  end
-
-  def test_product_test_statuses_passing
-    tests = @product.product_tests.measure_tests
-    tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :passed).save
-    passing, failing, not_started, total = product_test_statuses(tests, 'C1Task')
-
-    assert_equal 1, passing
-    assert_equal 0, failing
-    assert_equal 1, not_started
-    assert_equal 2, total
-  end
-
-  def test_product_test_statuses_failing
-    tests = @product.product_tests.measure_tests
-    tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :failed).save
-    passing, failing, not_started, total = product_test_statuses(tests, 'C1Task')
-
-    assert_equal 0, passing
-    assert_equal 1, failing
-    assert_equal 1, not_started
-    assert_equal 2, total
-  end
-
   def test_generate_filter_records
     @product.product_tests = nil
     @product.add_filtering_tests
@@ -131,38 +65,84 @@ class ProductsHelperTest < ActiveJob::TestCase
     @product.product_tests.filtering_tests.each { |ft| assert ft.records == records }
   end
 
-  def test_product_test_statuses_cat1
-    tests = @product.product_tests.measure_tests
-    c1_execution = tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :failed)
-    c3_execution = tests.first.tasks.where(_type: 'C3Cat1Task').first.test_executions.build(:state => :passed)
-    c1_execution.sibling_execution_id = c3_execution.id
-    c1_execution.save
-    c3_execution.save
-    passing, failing, not_started, total = product_test_statuses(tests, 'C3Cat1Task')
-
-    assert_equal 1, passing
-    assert_equal 0, failing
-    assert_equal 1, passing
-    assert_equal 2, total
-  end
-
-  def test_product_test_statuses_cat3
-    tests = @product.product_tests.measure_tests
-    c2_execution = tests.first.tasks.where(_type: 'C2Task').first.test_executions.build(:state => :failed)
-    c3_execution = tests.first.tasks.where(_type: 'C3Cat3Task').first.test_executions.build(:state => :passed)
-    c2_execution.sibling_execution_id = c3_execution.id
-    c2_execution.save
-    c3_execution.save
-    passing, failing, not_started, total = product_test_statuses(tests, 'C3Cat3Task')
-
-    assert_equal 1, passing
-    assert_equal 0, failing
-    assert_equal 1, passing
-    assert_equal 2, total
-  end
-
   def test_all_records_for_product
     records = all_records_for_product(@product)
     assert_equal 0, records.length
+  end
+
+  def test_should_reload_product_test_link
+    product = Product.new
+    measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
+    # product test not ready
+    pt = ProductTest.new(:state => :not_ready, :name => 'my product test name 1', :measure_ids => measure_ids, :product => product)
+    task = pt.tasks.build
+    pt.save!
+    task.save!
+    assert_equal true, should_reload_product_test_link?([task])
+
+    # product test is ready, task is pending
+    pt = ProductTest.new(:state => :ready, :name => 'my product test name 2', :measure_ids => measure_ids, :product => product)
+    tasks = build_tasks_with_test_execution_states([:pending]).each { |tsk| tsk.product_test = pt }
+    pt.save!
+    assert_equal true, should_reload_product_test_link?(tasks)
+
+    # product test is ready, task is not pending
+    pt = ProductTest.new(:state => :ready, :name => 'my product test name 3', :measure_ids => measure_ids, :product => product)
+    tasks = build_tasks_with_test_execution_states([:other_state]).each { |tsk| tsk.product_test = pt }
+    pt.save!
+    assert_equal false, should_reload_product_test_link?(tasks)
+
+    # product test is ready, one task not pending while other task is pending
+    pt = ProductTest.new(:state => :ready, :name => 'my product test name 4', :measure_ids => measure_ids, :product => product)
+    tasks = build_tasks_with_test_execution_states([:other_state, :pending]).each { |tsk| tsk.product_test = pt }
+    pt.save!
+    assert_equal true, should_reload_product_test_link?(tasks)
+  end
+
+  def test_tasks_status
+    assert_equal 'passing', tasks_status(build_tasks_with_test_execution_states([:passed]))
+    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:failed]))
+    assert_equal 'incomplete', tasks_status(build_tasks_with_test_execution_states([:other_state]))
+
+    assert_equal 'passing', tasks_status(build_tasks_with_test_execution_states([:passed, :passed]))
+    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:passed, :failed]))
+    assert_equal 'incomplete', tasks_status(build_tasks_with_test_execution_states([:passed, :other_state]))
+
+    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:failed, :failed]))
+    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:failed, :other_state]))
+
+    assert_equal 'incomplete', tasks_status(build_tasks_with_test_execution_states([:other_state, :other_state]))
+  end
+
+  def build_tasks_with_test_execution_states(states)
+    tasks = []
+    states.each do |state|
+      task = Task.new
+      task.save!
+      task.test_executions.create!(state: state)
+      tasks << task
+    end
+    tasks
+  end
+
+  def test_with_c3_task
+    measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
+    product = Product.new(vendor: Vendor.all.first, name: 'my product', c1_test: true, c2_test: true, bundle_id: '4fdb62e01d41c820f6000001',
+                          measure_ids: measure_ids)
+    product.save!
+    pt = ProductTest.new(name: 'my product test name 1', measure_ids: measure_ids, product: product)
+    pt.save!
+    c1_task = pt.tasks.build({}, C1Task)
+    c2_task = pt.tasks.build({}, C2Task)
+    pt.tasks.each(&:save!)
+    assert_equal [c1_task], with_c3_task(c1_task)
+    assert_equal [c2_task], with_c3_task(c2_task)
+
+    product.c3_test = true
+    c3_cat1_task = pt.tasks.build({}, C3Cat1Task)
+    c3_cat3_task = pt.tasks.build({}, C3Cat3Task)
+    pt.tasks.each(&:save!)
+    assert_equal [c1_task, c3_cat1_task], with_c3_task(c1_task)
+    assert_equal [c2_task, c3_cat3_task], with_c3_task(c2_task)
   end
 end

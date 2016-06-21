@@ -10,21 +10,10 @@
     $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
   <% end %>
 
-<% elsif params[:partial] == 'measure_tests_table' %>
-  <% if @product.product_tests.measure_tests.any? { |test| test.state != :ready } %>
-    setTimeout(function(){
-    $('#display_measure_tests_table').html("<%= escape_javascript render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>");
-    }, 2000);
-  <% else %>
-    $('#display_measure_tests_table').html("<%= escape_javascript render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>");
-  <% end %>
-
-<% elsif params[:partial] == 'filtering_test_status_display' %>
-  <% if @product.product_tests.filtering_tests.any? { |test| test.state != :ready } %>
-    setTimeout(function(){
-    $('#display_filtering_test_status_display').html("<%= escape_javascript render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } %>");
-    }, 2000);
-  <% else %>
-    $('#display_filtering_test_status_display').html("<%= escape_javascript render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } %>");
-  <% end %>
+<% elsif params[:partial] == '/products/product_test_link' %>
+  <% task = Task.find(params[:task_id]) %>
+  <% wrapper_id = id_for_html_wrapper_of_task(task) %>
+  setTimeout(function() {
+    $("#<%= wrapper_id %>").html("<%= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
+  }, 500);
 <% end %>

@@ -29,4 +29,21 @@ module MeasuresHelper
     return false unless measure && measure.hqmf_document && measure.hqmf_document['source_data_criteria']
     measure.hqmf_document['source_data_criteria'].values.any? { |criteria| criteria['definition'] == 'diagnosis' }
   end
+
+  # used in _measure_tests_table.html.erb view
+  # returns true if measure test is not ready (not built yet) or if measure test has a test execution that is running
+  def should_reload_measure_test?(test)
+    return true if test.state != :ready
+    test.tasks.each do |task|
+      task.test_executions.each do |execution|
+        return true if execution.state == :pending
+      end
+    end
+    false
+  end
+
+  def type_counts(measures)
+    h = measures.map(&:type).each_with_object(Hash.new(0)) { |type, count| count[type.upcase] += 1 } # example { "EH"=> 4, "EP" => 2 }
+    h.map { |k, v| "#{v} #{k}" }.join(', ') # 4 EH, 2 EP
+  end
 end
