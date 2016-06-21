@@ -373,23 +373,27 @@ end
 Then(/^the user should see a cat I test testing for product test (.*)$/) do |product_test_number|
   html_id = td_div_id_for_cat1_task_for_product_test(product_test_number)
   html_elem = page.find(html_id)
+  wait_for_ajax
   html_elem.assert_text 'testing...'
 end
 
 Then(/^the user should see a cat III test testing for product test (.*)$/) do |product_test_number|
   html_id = td_div_id_for_cat3_task_for_product_test(product_test_number)
   html_elem = page.find(html_id)
+  wait_for_ajax
   html_elem.assert_text 'testing...'
 end
 
 Then(/^the user should see a cat I test testing for filtering test (.*)$/) do |filtering_test_number|
   html_id = td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
   html_elem = page.find(html_id)
+  wait_for_ajax
   html_elem.assert_text 'testing...'
 end
 
 Then(/^the user should see a cat III test testing for filtering test (.*)$/) do |filtering_test_number|
   html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
   html_elem = page.find(html_id)
+  wait_for_ajax
   html_elem.assert_text 'testing...'
 end
