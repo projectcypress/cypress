@@ -1,0 +1,24 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "d6df58aadc41dbadaa5d296dc67de5e42e04951241348f8f617453da81fbea77",
+      "message": "Unescaped model attribute",
+      "file": "app/views/layouts/application.html.erb",
+      "line": 21,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Settings.banner_message",
+      "render_path": [{"type":"controller","class":"Admin::BundlesController","method":"index","line":12,"file":"app/controllers/admin/bundles_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "layouts/application"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "This field (banner_message) is assumed to be safe, as it can only be updated by admin users."
+    }
+  ],
+  "updated": "2016-06-21 14:55:09 -0400",
+  "brakeman_version": "3.2.1"
+}
