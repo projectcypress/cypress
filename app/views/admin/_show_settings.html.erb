@@ -1,7 +1,7 @@
 <%
   # local variables:
   #
-  #   banner_message, smtp_settings, mode, mode_settings, debug_features
+  #   banner, banner_message, smtp_settings, mode, mode_settings, debug_features
 %>
 <div class="inline-block pull-right">
   <%= button_to edit_admin_settings_path, :method => :get, :class => "btn btn-default" do %>
@@ -12,6 +12,11 @@
 <legend>Banner Message</legend>
 <p class="configured-banner">
   <%= banner_message %>
+</p>
+
+<legend>Display Banner?</legend>
+<p class="configured-banner">
+  <%= banner ? "Yes" : "No" %>
 </p>
 
 <div class="row">

@@ -8,6 +8,7 @@ class AdminController < ApplicationController
     @users = User.excludes(id: current_user.id).order_by(email:  1)
     render locals: {
       banner_message: Settings.banner_message,
+      banner: Settings.banner,
       smtp_settings: Rails.application.config.action_mailer.smtp_settings,
       mode: ApplicationController.helpers.application_mode,
       mode_settings: ApplicationController.helpers.application_mode_settings,
