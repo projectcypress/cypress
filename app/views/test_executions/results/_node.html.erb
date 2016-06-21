@@ -16,7 +16,7 @@
 <div <%=  error_id ? %{id=xerror_#{error_id}} : '' %> class="indent ">
   <% if error_id %>
     <% # create error message to be displayed in popup %>
-    <% errors = execution_errors.select { |ee|  ee.location == error_map.invert[error_id] }.sort(&:msg_type) %>
+    <% errors = execution_errors.select { |ee|  ee.location == error_map.invert[error_id] }.sort_by(&:msg_type) %>
     <% errors.each do |err| %>
       <span id = <%= "error_#{err.id}" %>></span>
     <% end %>

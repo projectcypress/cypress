@@ -43,14 +43,13 @@ module XmlViewHelper
   def collected_errors(execution)
     # gonna return all the errors for this execution, structured in a reasonable way.
     collected_errors = { nonfile: get_nonfile_errors(execution), files: {} }
-
     execution.artifact.file_names.each do |this_name|
       file_error_hash = {}
       all_errs = execution.execution_errors.by_file(this_name)
       related_errs = execution.sibling_execution ? execution.sibling_execution.execution_errors.by_file(this_name) : [] # c3
 
       next unless (all_errs.count + related_errs.count) > 0
-      doc = data_to_doc(execution.artifact.get_archived_file(this_name))
+      doc = get_file(execution.artifact, this_name)
 
       file_error_hash['QRDA'] = error_hash(doc, all_errs.qrda_errors)
       file_error_hash['Reporting'] = error_hash(doc, all_errs.reporting_errors)
@@ -61,6 +60,10 @@ module XmlViewHelper
     end
 
     collected_errors
+  end
+
+  def get_file(artifact, file_name)
+    artifact.content_type == 'text/xml' ? data_to_doc(artifact.get_file(file_name)) : data_to_doc(artifact.get_archived_file(file_name))
   end
 
   # used for errors popup in node partial
