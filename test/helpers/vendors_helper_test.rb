@@ -99,41 +99,41 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 1, cert['Manual'].not_started
     assert_equal 1, cert['Manual'].total
 
-    assert_equal 0, cert['Cat I'].passing
-    assert_equal 1, cert['Cat I'].failing
-    assert_equal 1, cert['Cat I'].not_started
-    assert_equal 2, cert['Cat I'].total
+    assert_equal 0, cert['QRDA Category I'].passing
+    assert_equal 1, cert['QRDA Category I'].failing
+    assert_equal 1, cert['QRDA Category I'].not_started
+    assert_equal 2, cert['QRDA Category I'].total
   end
 
   def assert_c2(cert)
-    assert_equal 1, cert['Cat III'].passing
-    assert_equal 0, cert['Cat III'].failing
-    assert_equal 1, cert['Cat III'].not_started
-    assert_equal 2, cert['Cat III'].total
+    assert_equal 1, cert['QRDA Category III'].passing
+    assert_equal 0, cert['QRDA Category III'].failing
+    assert_equal 1, cert['QRDA Category III'].not_started
+    assert_equal 2, cert['QRDA Category III'].total
   end
 
   def assert_c3(cert)
-    assert_equal 1, cert['Cat I'].passing
-    assert_equal 0, cert['Cat I'].failing
-    assert_equal 1, cert['Cat I'].not_started
-    assert_equal 2, cert['Cat I'].total
+    assert_equal 1, cert['QRDA Category I'].passing
+    assert_equal 0, cert['QRDA Category I'].failing
+    assert_equal 1, cert['QRDA Category I'].not_started
+    assert_equal 2, cert['QRDA Category I'].total
 
-    assert_equal 0, cert['Cat III'].passing
-    assert_equal 1, cert['Cat III'].failing
-    assert_equal 1, cert['Cat III'].not_started
-    assert_equal 2, cert['Cat III'].total
+    assert_equal 0, cert['QRDA Category III'].passing
+    assert_equal 1, cert['QRDA Category III'].failing
+    assert_equal 1, cert['QRDA Category III'].not_started
+    assert_equal 2, cert['QRDA Category III'].total
   end
 
   def assert_c4(cert)
-    assert_equal 1, cert['Cat I'].passing
-    assert_equal 0, cert['Cat I'].failing
-    assert_equal 0, cert['Cat I'].not_started
-    assert_equal 1, cert['Cat I'].total
+    assert_equal 1, cert['QRDA Category I'].passing
+    assert_equal 0, cert['QRDA Category I'].failing
+    assert_equal 0, cert['QRDA Category I'].not_started
+    assert_equal 1, cert['QRDA Category I'].total
 
-    assert_equal 1, cert['Cat III'].passing
-    assert_equal 0, cert['Cat III'].failing
-    assert_equal 0, cert['Cat III'].not_started
-    assert_equal 1, cert['Cat III'].total
+    assert_equal 1, cert['QRDA Category III'].passing
+    assert_equal 0, cert['QRDA Category III'].failing
+    assert_equal 0, cert['QRDA Category III'].not_started
+    assert_equal 1, cert['QRDA Category III'].total
   end
 
   def test_vendor_statuses

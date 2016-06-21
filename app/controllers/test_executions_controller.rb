@@ -48,7 +48,8 @@ class TestExecutionsController < ApplicationController
 
   def rescue_create
     alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
-    error_response = { errors: [{ field: 'results', messages: ['invalid file upload. upload a zip for CAT I or XML for CAT III'] }] }
+    error_response = { errors: [{ field: 'results',
+                                  messages: ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III'] }] }
     respond_with(@test_execution) do |f|
       f.html { redirect_to new_task_test_execution_path(task_id: @task.id), flash: { alert: alert.html_safe } }
       f.json { render :json => error_response, :status => :unprocessable_entity }

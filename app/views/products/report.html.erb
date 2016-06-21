@@ -23,10 +23,10 @@
       <tr>
         <th scope="col">Measure Name</th>
         <th scope="col">Submeasures</th>
-        <%= @product.c1_test ? "<th scope='col' class = 'text-center'>C1 Cat I</th>".html_safe : "<td></td>".html_safe %>
-        <%= @product.c2_test ? "<th scope='col' class = 'text-center'>C2 Cat III</th>".html_safe : "<td></td>".html_safe %>
-        <%= @product.c1_test && @product.c3_test ? "<th scope='col' class = 'text-center'>C3 Cat I</th>".html_safe : "<td></td>".html_safe %>
-        <%= @product.c2_test && @product.c3_test ? "<th scope='col' class = 'text-center'>C3 Cat III</th>".html_safe : "<td></td>".html_safe %>
+        <%= @product.c1_test ? "<th scope='col' class = 'text-center'>C1 QRDA Category I</th>".html_safe : "<td></td>".html_safe %>
+        <%= @product.c2_test ? "<th scope='col' class = 'text-center'>C2 QRDA Category III</th>".html_safe : "<td></td>".html_safe %>
+        <%= @product.c1_test && @product.c3_test ? "<th scope='col' class = 'text-center'>C3 QRDA Category I</th>".html_safe : "<td></td>".html_safe %>
+        <%= @product.c2_test && @product.c3_test ? "<th scope='col' class = 'text-center'>C3 QRDA Category III</th>".html_safe : "<td></td>".html_safe %>
       </tr>
     </thead>
     <tbody>
@@ -69,8 +69,8 @@
     <table class = 'table table-condensed'>
       <thead><tr>
         <th scope="col">Filters</th>
-        <th scope="col" class = 'text-center'>Cat I</th>
-        <th scope="col" class = 'text-center'>Cat III</th>
+        <th scope="col" class = 'text-center'>QRDA Category I</th>
+        <th scope="col" class = 'text-center'>QRDA Category III</th>
       </tr></thead>
       <tbody>
         <% @product.product_tests.filtering_tests.each do |test| %>
@@ -156,19 +156,19 @@
 
   <% # C3 Cat 1 Not Started Measure Tests %>
   <% c3_cat1_not_started_tasks = @product.product_tests.measure_tests.collect { |test| test.tasks.c1_task if test.tasks.c3_cat1_task.status == 'incomplete' }.compact %>
-  <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C3 Cat I Not Started Measure Tests', tasks: c3_cat1_not_started_tasks, c3: true } %>
+  <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C3 QRDA Category I Not Started Measure Tests', tasks: c3_cat1_not_started_tasks, c3: true } %>
 
   <% # C3 Cat 1 Failing Measure Tests %>
   <% c3_cat1_failing_tasks = @product.product_tests.measure_tests.collect { |test| test.tasks.c1_task if test.tasks.c3_cat1_task.status == 'failing' }.compact %>
-  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C3 Cat I Failing Measure Tests', tasks: c3_cat1_failing_tasks, c3: true } %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C3 QRDA Category I Failing Measure Tests', tasks: c3_cat1_failing_tasks, c3: true } %>
 
   <% # C3 Cat 3 Not Started Measure Tests %>
   <% c3_cat3_not_started_tasks = @product.product_tests.measure_tests.collect { |test| test.tasks.c2_task if test.tasks.c3_cat3_task.status == 'incomplete' }.compact %>
-  <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C3 Cat III Not Started Measure Tests', tasks: c3_cat3_not_started_tasks, c3: true } %>
+  <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C3 QRDA Category III Not Started Measure Tests', tasks: c3_cat3_not_started_tasks, c3: true } %>
 
   <% # C3 Cat 3 Failing Measure Tests %>
   <% c3_cat3_failing_tasks = @product.product_tests.measure_tests.collect { |test| test.tasks.c2_task if test.tasks.c3_cat3_task.status == 'failing' }.compact %>
-  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C3 Cat III Failing Measure Tests', tasks: c3_cat3_failing_tasks, c3: true } %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C3 QRDA Category III Failing Measure Tests', tasks: c3_cat3_failing_tasks, c3: true } %>
 </section>
 <% end %>
 
@@ -179,19 +179,19 @@
 
   <% # C4 Cat 1 Not Started Measure Tests %>
   <% c4_cat1_not_started_tasks = @product.product_tests.filtering_tests.collect { |test| test.cat1_task if test.task_status('Cat1FilterTask') == 'incomplete' }.compact %>
-  <%= render partial: 'products/report/filtering_tests_list', locals: { title: 'C4 Cat I Not Started Measure Tests', tasks: c4_cat1_not_started_tasks } %>
+  <%= render partial: 'products/report/filtering_tests_list', locals: { title: 'C4 QRDA Category I Not Started Measure Tests', tasks: c4_cat1_not_started_tasks } %>
 
   <% # C4 Cat 1 Failing Measure Tests %>
   <% c4_cat1_failing_tasks = @product.product_tests.filtering_tests.collect { |test| test.cat1_task if test.task_status('Cat1FilterTask') == 'failing' }.compact %>
-  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C4 Cat I Failing Measure Tests', tasks: c4_cat1_failing_tasks, c3: false, c4: true } %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C4 QRDA Category I Failing Measure Tests', tasks: c4_cat1_failing_tasks, c3: false, c4: true } %>
 
   <% # C4 Cat 3 Not Started Measure Tests %>
   <% c4_cat3_not_started_tasks = @product.product_tests.filtering_tests.collect { |test| test.cat3_task if test.task_status('Cat3FilterTask') == 'incomplete' }.compact %>
-  <%= render partial: 'products/report/filtering_tests_list', locals: { title: 'C4 Cat III Not Started Measure Tests', tasks: c4_cat3_not_started_tasks } %>
+  <%= render partial: 'products/report/filtering_tests_list', locals: { title: 'C4 QRDA Category III Not Started Measure Tests', tasks: c4_cat3_not_started_tasks } %>
 
   <% # C4 Cat 3 Failing Measure Tests %>
   <% c4_cat3_failing_tasks = @product.product_tests.filtering_tests.collect { |test| test.cat3_task if test.task_status('Cat3FilterTask') == 'failing' }.compact %>
-  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C4 Cat III Failing Measure Tests', tasks: c4_cat3_failing_tasks, c3: false, c4: true } %>
+  <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C4 QRDA Category III Failing Measure Tests', tasks: c4_cat3_failing_tasks, c3: false, c4: true } %>
 </section>
 <% end %>
 

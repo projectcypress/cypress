@@ -232,10 +232,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat1.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
       post :create, :format => :xml, :task_id => @task_cat1.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
   end
 
@@ -244,10 +244,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @task_cat3.id, :results => zip_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
       post :create, :format => :xml, :task_id => @task_cat3.id, :results => zip_upload
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
-      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
   end
 
@@ -399,10 +399,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id
       assert_response 422, 'response should be Unprocessable Entity if no results given'
-      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
       post :create, :format => :xml, :task_id => @first_task.id
       assert_response 422, 'response should be Unprocessable Entity if no results given'
-      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
   end
 
@@ -411,10 +411,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => nil
       assert_response 422, 'response should be Unprocessable Entity if nil results given'
-      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
       post :create, :format => :xml, :task_id => @first_task.id, :results => nil
       assert_response 422, 'response should be Unprocessable Entity if no results given'
-      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
   end
 
@@ -423,10 +423,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       post :create, :format => :json, :task_id => @first_task.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if no test_execution'
-      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
       post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if no results given'
-      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for CAT I or XML for CAT III']
+      assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
   end
 

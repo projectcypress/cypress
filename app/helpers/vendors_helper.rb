@@ -12,7 +12,7 @@ module VendorsHelper
       h['C1'] = c1_status_values(product) if product.c1_test
       h['C2'] = c2_status_values(product) if product.c2_test
       h['C3'] = c3_status_values(product) if product.c3_test
-      h['C4'] = c4_status_values(product) if product.c4_test
+      h['C4'] = c4_status_values(product.product_tests.filtering_tests) if product.c4_test
       h
     end
   end
@@ -24,13 +24,13 @@ module VendorsHelper
       default_number = CAT1_CONFIG['number_of_checklist_measures']
       h['Manual']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
     end
-    h['Cat I'] = Hash[%w(passing failing not_started total).zip(product_test_statuses(product.product_tests.measure_tests, 'C1Task'))]
+    h['QRDA Category I'] = Hash[%w(passing failing not_started total).zip(product_test_statuses(product.product_tests.measure_tests, 'C1Task'))]
     h
   end
 
   def c2_status_values(product)
     h = {}
-    h['Cat III'] = Hash[%w(passing failing not_started total).zip(product_test_statuses(product.product_tests.measure_tests, 'C2Task'))]
+    h['QRDA Category III'] = Hash[%w(passing failing not_started total).zip(product_test_statuses(product.product_tests.measure_tests, 'C2Task'))]
     h
   end
 
@@ -38,15 +38,15 @@ module VendorsHelper
     h = {}
     cat1_status_values = product.c1_test ? product_test_statuses(product.product_tests.measure_tests, 'C3Cat1Task') : [0, 0, 0, 0]
     cat3_status_values = product.c2_test ? product_test_statuses(product.product_tests.measure_tests, 'C3Cat3Task') : [0, 0, 0, 0]
-    h['Cat I'] = Hash[%w(passing failing not_started total).zip(cat1_status_values)]
-    h['Cat III'] = Hash[%w(passing failing not_started total).zip(cat3_status_values)]
+    h['QRDA Category I'] = Hash[%w(passing failing not_started total).zip(cat1_status_values)]
+    h['QRDA Category III'] = Hash[%w(passing failing not_started total).zip(cat3_status_values)]
     h
   end
 
-  def c4_status_values(product)
+  def c4_status_values(filtering_tests)
     h = {}
-    h['Cat I'] = Hash[%w(passing failing not_started total).zip(product_test_statuses(product.product_tests.filtering_tests, 'Cat1FilterTask'))]
-    h['Cat III'] = Hash[%w(passing failing not_started total).zip(product_test_statuses(product.product_tests.filtering_tests, 'Cat3FilterTask'))]
+    h['QRDA Category I'] = Hash[%w(passing failing not_started total).zip(product_test_statuses(filtering_tests, 'Cat1FilterTask'))]
+    h['QRDA Category III'] = Hash[%w(passing failing not_started total).zip(product_test_statuses(filtering_tests, 'Cat3FilterTask'))]
     h
   end
 
