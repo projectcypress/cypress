@@ -1,16 +1,15 @@
 <%= render partial: 'remove_modal' %>
 
 <div>
-  <h5>Account Details </h5>
-  <dl class="dl-horizontal">
-    <dt>Email </dt><dd><%= resource.email %></dd>
-    <dt>Registered </dt><dd><%= display_time(resource.confirmed_at) %></dd>
-    <dt>Vendors </dt><dd><%= Vendor.accessible_by(resource).count %></dd>
+  <h3>Account Details </h3>
+  <dl>
+    <dt style="float:left; padding-right: 5px;">Registered </dt><dd><%= display_time(resource.confirmed_at) %></dd>
+    <dt style="float:left; padding-right: 5px;">Vendors </dt><dd><%= Vendor.accessible_by(resource).count %></dd>
       <% numProducts = 0 %>
       <% Vendor.accessible_by(resource).each do |v| %>
         <% numProducts += v.products.count %>
       <%end%>
-    <dt>Products </dt><dd><%= numProducts %></dd>
+    <dt style="float:left; padding-right: 5px;">Products </dt><dd><%= numProducts %></dd>
   </dl>
 </div>
 
