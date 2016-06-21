@@ -6,6 +6,20 @@ effective_date:
 version: 3.0.0alpha6
 default_bundle: "2.7.0"
 
+
+# Specify the folder to look for the schematron files in based on bundle version these folders are in ./resources/schematron/
+# Schematron files need to be named:
+  # EP_CAT_1.sch
+  # EP_CAT_3.sch
+  # EH_CAT_1.sch
+# Inside the specified folder. 
+# The highest matching version will be used. Ie if bundle version is 3.0.0  the schematrons would be 3.0.0 
+# In the case of none of them being valid it will default to the first one 
+version_config:
+  '>2.9.0': 
+      schematron: "bundle_2_9_9"
+      qrda_version: "foo"
+
 enable_logging: false
 
 #set to true to enable a banner at the top of every page with the "banner_message" text from below

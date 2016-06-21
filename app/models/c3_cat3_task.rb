@@ -8,7 +8,7 @@ class C3Cat3Task < Task
 
   def cms_cat3_schematron_validator
     measure = product_test.measures[0]
-    @validators << ::Validators::CMSQRDA3SchematronValidator.new if measure.type == 'ep'
+    @validators << ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version) if measure.type == 'ep'
   end
 
   def execute(file, sibling_execution_id)
