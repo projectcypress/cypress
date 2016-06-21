@@ -39,7 +39,7 @@ module Validators
     end
 
     def parse_and_save_record(doc, te, options)
-      record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
+      record = GoCDATools::Import::GoImporter.instance.parse_with_ffi(doc)
       record.test_id = te.id
       record.medical_record_number = rand(1_000_000_000_000_000)
       record.save

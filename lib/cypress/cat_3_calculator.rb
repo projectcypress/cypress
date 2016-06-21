@@ -67,10 +67,7 @@ module Cypress
     end
 
     def import_cat1_file(doc)
-      doc = Nokogiri::XML(doc)
-      doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-      doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-      record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
+      record = GoCDATools::Import::GoImporter.instance.parse_with_ffi(doc)
       record.test_id = @correlation_id
       record.medical_record_number = rand(1_000_000_000_000_000)
       record.save
