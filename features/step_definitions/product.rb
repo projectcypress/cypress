@@ -170,14 +170,14 @@ When(/^the user views the product$/) do
   page.click_link @product.name
 end
 
-When(/^all measure tests have a state of ready$/) do
+When(/^all product tests have a state of ready$/) do
   ProductTest.all.each do |pt|
     pt.state = :ready
     pt.save!
   end
 end
 
-When(/^all measure tests do not have a state of ready$/) do
+When(/^all product tests do not have a state of ready$/) do
   pt = ProductTest.first
   pt.state = :nah_man_im_like_lightyears_away_from_bein_ready
   pt.save!
@@ -186,6 +186,10 @@ end
 When(/^the user visits the product page$/) do
   product = Product.first
   visit vendor_product_path(product.vendor, product)
+end
+
+When(/^the user switches to the filtering test tab$/) do
+  page.click_link 'CQM Filtering Test'
 end
 
 When(/^the user adds a product test$/) do
@@ -198,6 +202,13 @@ When(/^the user adds a product test$/) do
   product_test.save!
   task = product_test.tasks.build({}, C1Task)
   task.save!
+end
+
+And(/^filtering tests are added to product$/) do
+  product = Product.first
+  product.c4_test = true
+  product.save!
+  product.add_filtering_tests
 end
 
 #   A N D   #
@@ -223,6 +234,16 @@ And(/^the user uploads a cat III document to product test (.*)$/) do |product_te
   attach_xml_to_multi_upload(html_id)
 end
 
+And(/^the user uploads a cat I document to filtering test (.*)$/) do |filtering_test_number|
+  html_id = td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
+  attach_zip_to_multi_upload(html_id)
+end
+
+And(/^the user uploads a cat III document to filtering test (.*)$/) do |filtering_test_number|
+  html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
+  attach_xml_to_multi_upload(html_id)
+end
+
 # product test number the number of product test (1 indexed) for upload in order of most recently created
 def td_div_id_for_cat1_task_for_product_test(product_test_number)
   product_test = Product.first.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
@@ -233,6 +254,18 @@ end
 def td_div_id_for_cat3_task_for_product_test(product_test_number)
   product_test = Product.first.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
   task = product_test.tasks.c2_task
+  "#wrapper-task-id-#{task.id.to_s}"
+end
+
+def td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
+  filtering_test = Product.first.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
+  task = filtering_test.tasks.cat1_filter_task
+  "#wrapper-task-id-#{task.id.to_s}"
+end
+
+def td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
+  filtering_test = Product.first.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
+  task = filtering_test.tasks.cat3_filter_task
   "#wrapper-task-id-#{task.id.to_s}"
 end
 
@@ -345,6 +378,18 @@ end
 
 Then(/^the user should see a cat III test testing for product test (.*)$/) do |product_test_number|
   html_id = td_div_id_for_cat3_task_for_product_test(product_test_number)
+  html_elem = page.find(html_id)
+  html_elem.assert_text 'testing...'
+end
+
+Then(/^the user should see a cat I test testing for filtering test (.*)$/) do |filtering_test_number|
+  html_id = td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
+  html_elem = page.find(html_id)
+  html_elem.assert_text 'testing...'
+end
+
+Then(/^the user should see a cat III test testing for filtering test (.*)$/) do |filtering_test_number|
+  html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
   html_elem = page.find(html_id)
   html_elem.assert_text 'testing...'
 end
