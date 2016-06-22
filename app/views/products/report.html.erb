@@ -1,5 +1,7 @@
 <div class="product-report">
-
+<% add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor) %>
+<% add_breadcrumb 'Product: ' + @product.name, product_path(@product) %>
+<% add_breadcrumb 'Report' %>
 <section>
   <h1>Report Summary</h1>
   <dl class="dl-horizontal">
