@@ -34,7 +34,7 @@ When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_
   page.fill_in 'Name', with: product_name
   page.find('#product_c2_test').click
   page.find('#product_measure_selection_custom').click
-  page.all('.sidebar a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[2].click
   page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
@@ -57,7 +57,7 @@ When(/^the user creates a product with no name$/) do
   page.fill_in 'Name', with: @product.name
   page.find('#product_c1_test').click
   page.find('#product_measure_selection_custom').click
-  page.all('.sidebar a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[2].click
   page.all('input.measure-checkbox')[0].click
 end
 
@@ -74,7 +74,7 @@ When(/^the user creates a product with no task type$/) do
   @product = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product.name
   page.find('#product_measure_selection_custom').click
-  page.all('.sidebar a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[2].click
   page.all('input.measure-checkbox')[0].click
 end
 
@@ -90,9 +90,9 @@ end
 
 When(/^the user creates a product with multiple measures from different groups$/) do
   steps %( When the user fills out all product information but measures )
-  page.all('.sidebar a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[2].click
   page.all('input.measure-checkbox')[0].click
-  page.all('.sidebar a')[3].click
+  page.all('#measure_tabs .ui-tabs-nav a')[3].click
   page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
@@ -100,13 +100,13 @@ end
 When(/^the user creates a product with selecting a group of measures$/) do
   steps %( When the user fills out all product information but measures )
   page.find("[href='#Miscellaneous_div']").click
-  page.find('input.measure_group_all').click
+  page.find('input.measure-group-all').click
   page.click_button 'Add Product'
 end
 
 When(/^the user creates a product with selecting a measure then deselecting that measure$/) do
   steps %( When the user fills out all product information but measures )
-  page.all('.sidebar a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[2].click
   page.all('input.measure-checkbox')[0].click
   page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
@@ -115,14 +115,14 @@ end
 When(/^the user creates a product with selecting a group of measures then deselecting that group$/) do
   steps %( When the user fills out all product information but measures )
   page.find("[href='#Miscellaneous_div']").click
-  page.find('input.measure_group_all').click
-  page.find('input.measure_group_all').click
+  page.find('input.measure-group-all').click
+  page.find('input.measure-group-all').click
   page.click_button 'Add Product'
 end
 
 And(/^the user selects a group of measures but deselects one$/) do
   page.find("[href='#Miscellaneous_div']").click
-  page.find('input.measure_group_all').click
+  page.find('input.measure-group-all').click
   page.all('input.measure-checkbox')[0].click
 end
 
@@ -329,7 +329,7 @@ end
 # V V V Measure Selection V V V
 
 Then(/^the group of measures should no longer be selected$/) do
-  page.has_unchecked_field?('input.measure_group_all')
+  page.has_unchecked_field?('input.measure-group-all')
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^
