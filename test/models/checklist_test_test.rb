@@ -23,6 +23,39 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert @test.checked_criteria.count > 0, 'should create checked criteria for one measure'
   end
 
+  def test_status
+    # all incomplete checked criteria
+    product = @test.product
+    product.product_tests.each(&:destroy)
+    checklist_test = create_checklist_test_for_product_with_measure_id(product, '40280381-4BE2-53B3-014C-0F589C1A1C39')
+    assert_equal 'incomplete', checklist_test.status
+
+    # one complete checked criteria, all others incomplete
+    complete_checked_criteria(checklist_test.checked_criteria.first)
+    assert_equal 'incomplete', checklist_test.status
+
+    # all complete checked criteria
+    checklist_test.checked_criteria.each { |checked_criteria| complete_checked_criteria(checked_criteria) }
+    assert_equal 'passing', checklist_test.status
+  end
+
+  def create_checklist_test_for_product_with_measure_id(product, measure_id)
+    checklist_test = product.product_tests.build({ name: "my product test for measure id #{measure_id}", measure_ids: [measure_id] }, ChecklistTest)
+    checklist_test.save!
+    checklist_test.create_checked_criteria
+    checklist_test
+  end
+
+  def complete_checked_criteria(checked_criteria)
+    random_number = rand
+    checked_criteria.code = "my code #{random_number}"
+    checked_criteria.attribute_code = "my attribute code #{random_number}"
+    checked_criteria.recorded_result = "my recorded result #{random_number}"
+    checked_criteria.code_complete = true
+    checked_criteria.attribute_complete = true
+    checked_criteria.result_complete = true
+  end
+
   def test_num_measures_complete_and_num_measures_not_started
     assert_equal 0, @test.num_measures_complete
     assert_equal 1, @test.num_measures_not_started
