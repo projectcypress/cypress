@@ -34,6 +34,14 @@
             Master Patient List
             <% end %>
           </li>
+          <% if mode_internal? || mode_demo? %>
+          <li>
+          <%= link_to '/cvu', class: 'navbar-item', target: '_blank'   do %>
+              <i class="fa fa-fw fa-check-square-o" aria-hidden="true"></i>
+              Validation Utility
+              <% end %>
+          </li>
+          <% end %>
           <li <% if curr_page == :account %>class="active"<% end %>>
             <%= link_to edit_user_registration_path, class: 'navbar-item'   do %>
             <i class="fa fa-fw fa-user" aria-hidden="true"></i>
