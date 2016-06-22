@@ -147,16 +147,6 @@ def map_bson_ids(json)
   json
 end
 
-def wait_for_ajax
-  Timeout.timeout(Capybara.default_max_wait_time) do
-    loop until finished_all_ajax_requests?
-  end
-end
-
-def finished_all_ajax_requests?
-  page.evaluate_script('jQuery.active').zero?
-end
-
 Before do
   Mongoid.default_client['users'].drop
   Mongoid.default_client['vendors'].drop

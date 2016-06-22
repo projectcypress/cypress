@@ -52,7 +52,7 @@ Scenario: Can Multi Upload To Filtering Test
   And all product tests have a state of ready
   And the user visits the product page
   And the user switches to the filtering test tab
-  And the user uploads a cat I document to filtering test 1
   And the user uploads a cat III document to filtering test 1
+  And the user uploads a cat I document to filtering test 1
   Then the user should see a cat I test testing for filtering test 1
   And the user should see a cat III test testing for filtering test 1
