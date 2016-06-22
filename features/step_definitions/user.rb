@@ -68,7 +68,7 @@ end
 
 When(/^the user clicks an account link$/) do
   visit '/'
-  page.click_link('Account')
+  page.click_link(@user.email)
 end
 
 When(/^the user should see an edit account page$/) do

@@ -1,10 +1,22 @@
 <%= render partial: 'remove_modal' %>
 
+<div>
+  <h3>Account Details </h3>
+  <dl>
+    <dt style="float:left; padding-right: 5px;">Registered </dt><dd><%= display_time(resource.confirmed_at) %></dd>
+    <dt style="float:left; padding-right: 5px;">Vendors </dt><dd><%= Vendor.accessible_by(resource).count %></dd>
+      <% numProducts = 0 %>
+      <% Vendor.accessible_by(resource).each do |v| %>
+        <% numProducts += v.products.count %>
+      <%end%>
+    <dt style="float:left; padding-right: 5px;">Products </dt><dd><%= numProducts %></dd>
+  </dl>
+</div>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h1 class='panel-title'>Edit <%= resource_name.to_s.humanize %></h1>
   </div>
-
   <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <div class="panel-body">
       <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
