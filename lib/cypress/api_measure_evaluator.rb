@@ -23,7 +23,7 @@ module Cypress
 
     def cleanup(*)
       @logger.info 'Cleaning database...'
-      Vendor.where(name: 'MeasureEvaluationVendor').destroy_all
+      Vendor.where(name: /MeasureEvaluationVendor/).destroy_all
       @logger.info 'done'
     end
 
@@ -61,38 +61,40 @@ module Cypress
 
     def run_measure_eval(c1_c2, c4)
       parse_hqmf_for_population_ids if @hqmf_path
-      measures_list = []
+
       # getting measures from bundles is a little convoluted
       bundles = parsed_api_object(call_get_bundles)
-      measures_link = extract_link(bundles[0], 'measures')
-      @bundle_id = measures_link.split('/')[2]
-      measures = parsed_api_object(call_get_measures(measures_link))
-      measures.each do |measure|
-        measures_list << measure['hqmf_id']
-      end
+      bundles.each do |bundle|
+        measures_list = []
+        measures_link = extract_link(bundle, 'measures')
+        bundle_id = measures_link.split('/')[2]
+        measures = parsed_api_object(call_get_measures(measures_link))
+        measures.each do |measure|
+          measures_list << measure['hqmf_id']
+        end
 
-      # create vendor
-      vendor_link = create_new_vendor('MeasureEvaluationVendor')
-      run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false) if c1_c2
+        # create vendor
+        vendor_link = create_new_vendor("MeasureEvaluationVendor - #{bundle_id}")
+        run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false, bundle_id) if c1_c2
 
-      if c4
+        next unless c4
         measures_list.uniq.each do |measure|
-          run_vendor_tests(vendor_link, Array.new(1, measure), "Measures - #{measure}", true)
+          run_vendor_tests(vendor_link, Array.new(1, measure), "Measures - #{measure}", true, bundle_id)
         end
       end
     end
 
-    def run_vendor_tests(vendor_link, measures, product_name, skip_c1_test)
-      setup_vendor_test(vendor_link, measures, product_name, skip_c1_test)
+    def run_vendor_tests(vendor_link, measures, product_name, skip_c1_test, bundle_id)
+      setup_vendor_test(vendor_link, measures, product_name, skip_c1_test, bundle_id)
       download_patient_test_data
       @patient_links_task_hash.each do |patient_links|
-        calcuate_cat_3(patient_links[0].split('/')[2], @bundle_id)
+        calcuate_cat_3(patient_links[0].split('/')[2], bundle_id)
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2], true) unless skip_c1_test
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
       end
       # sleep(4)
       download_filter_data
-      calculate_filtered_cat3
+      calculate_filtered_cat3(bundle_id)
       upload_c4_test_executions
       cleanup_hashes
     end
@@ -107,9 +109,9 @@ module Cypress
       File.delete('tmp/filter_patients.zip')
     end
 
-    def setup_vendor_test(vendor_link, measures, product_name, skip_c1_test)
+    def setup_vendor_test(vendor_link, measures, product_name, skip_c1_test, bundle_id)
       # create a product for the vendor
-      product_link = create_new_product(@bundle_id, vendor_link, product_name, measures, skip_c1_test)
+      product_link = create_new_product(bundle_id, vendor_link, product_name, measures, skip_c1_test)
       # get the product create
       single_product = call_get_product(product_link)
       # get the link to the product's product tests
@@ -210,9 +212,9 @@ module Cypress
       true
     end
 
-    def calculate_filtered_cat3
+    def calculate_filtered_cat3(bundle_id)
       @cat3_filter_hash.each_key do |product_test|
-        calcuate_cat_3(product_test.split('/')[4], @bundle_id)
+        calcuate_cat_3(product_test.split('/')[4], bundle_id)
       end
     end
 
@@ -247,16 +249,16 @@ module Cypress
     def filter_problems(doc, filters)
       problem_array = []
       problems_xpath = %(//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']
-        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
-        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']
-        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
-        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']
-        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
-        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.135']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']
         /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
         //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']
         /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
         //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']
+        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
+        //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.135']
         /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet)
       problems = doc.xpath(problems_xpath)
       problems.each do |problem|

@@ -6,16 +6,16 @@ class C3Cat1Task < Task
                                                          suppress_errors: true, validate_inclusion_only: true),
                    ::Validators::MeasurePeriodValidator.new,
                    ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.measures)]
-    @validators << cms_cat1_schematron_validator
+    @validators << cms_cat1_schematron_validator if product_test.bundle.cms_schematron
     @validators
   end
 
   def cms_cat1_schematron_validator
     measure = product_test.measures[0]
     if measure.type == 'eh'
-      ::Validators::CMSQRDA1HQRSchematronValidator.new
+      ::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version)
     else
-      ::Validators::CMSQRDA1PQRSSchematronValidator.new
+      ::Validators::CMSQRDA1PQRSSchematronValidator.new(product_test.bundle.version)
     end
   end
 

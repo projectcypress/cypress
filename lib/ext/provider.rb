@@ -1,9 +1,10 @@
 class Provider
-  def self.default_provider
-    prov = where(default: true).first
+  def self.default_provider(options = {})
+    prov = where(default: true, specialty: default_specialty(options[:measure_type])).first
     if prov.nil?
       prov = Provider.new(APP_CONFIG['default_provider'])
       prov[:default] = true
+      prov.specialty = default_specialty(options[:measure_type])
       prov.save
     end
     prov
@@ -16,13 +17,17 @@ class Provider
     prov.family_name = APP_CONFIG['randomization']['names']['last'].sample
     prov.npi = NpiGenerator.generate
     prov.tin = rand.to_s[2..10]
-    prov.specialty = case options[:measure_type]
-                     when 'ep'
-                       '207Q00000X' # (Allopathic & Osteopathic Physicians/Family Practice)
-                     when 'eh'
-                       '282N00000X' # (Hospitals/General Acute Care Hospital)
-                     end
+    prov.specialty = default_specialty(options[:measure_type])
     prov.save!
     prov
+  end
+
+  def self.default_specialty(measure_type)
+    case measure_type
+    when 'ep'
+      '207Q00000X' # (Allopathic & Osteopathic Physicians/Family Practice)
+    when 'eh'
+      '282N00000X' # (Hospitals/General Acute Care Hospital)
+    end
   end
 end

@@ -8,7 +8,7 @@
 <% if negation %>
   <%= "#{negation}" %>
 <% elsif result %>
-  <% if result.type == 'CD' %>
+  <% if result.type == 'CD' && result['code_list_id'] %>
     <%= "#{result.code_list_id}" %>
   <% end %>
 <% else %>

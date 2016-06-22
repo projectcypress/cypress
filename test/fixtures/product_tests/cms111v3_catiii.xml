@@ -1,1705 +1,1562 @@
-<!DOCTYPE html>
-<html lang="en" >
-
-<head>
-  <script>
-window.ts_endpoint_url = "https:\/\/slack.com\/beacon\/timing";
-
-(function(e) {
-  var n=Date.now?Date.now():+new Date,r=e.performance||{},t=[],a={},i=function(e,n){for(var r=0,a=t.length,i=[];a>r;r++)t[r][e]==n&&i.push(t[r]);return i},o=function(e,n){for(var r,a=t.length;a--;)r=t[a],r.entryType!=e||void 0!==n&&r.name!=n||t.splice(a,1)};r.now||(r.now=r.webkitNow||r.mozNow||r.msNow||function(){return(Date.now?Date.now():+new Date)-n}),r.mark||(r.mark=r.webkitMark||function(e){var n={name:e,entryType:"mark",startTime:r.now(),duration:0};t.push(n),a[e]=n}),r.measure||(r.measure=r.webkitMeasure||function(e,n,r){n=a[n].startTime,r=a[r].startTime,t.push({name:e,entryType:"measure",startTime:n,duration:r-n})}),r.getEntriesByType||(r.getEntriesByType=r.webkitGetEntriesByType||function(e){return i("entryType",e)}),r.getEntriesByName||(r.getEntriesByName=r.webkitGetEntriesByName||function(e){return i("name",e)}),r.clearMarks||(r.clearMarks=r.webkitClearMarks||function(e){o("mark",e)}),r.clearMeasures||(r.clearMeasures=r.webkitClearMeasures||function(e){o("measure",e)}),e.performance=r,"function"==typeof define&&(define.amd||define.ajs)&&define("performance",[],function(){return r}) // eslint-disable-line
-})(window);
-
-</script>
-<script>;(function() {
-
-'use strict';
-
-
-window.TSMark = function(mark_label) {
-  if (!window.performance || !window.performance.mark) return;
-  performance.mark(mark_label);
-};
-window.TSMark('start_load');
-
-
-window.TSMeasureAndBeacon = function(measure_label, start_mark_label) {
-  if (start_mark_label === 'start_nav' && window.performance && window.performance.timing) {
-    window.TSBeacon(measure_label, (new Date()).getTime() - performance.timing.navigationStart);
-    return;
-  }
-  if (!window.performance || !window.performance.mark || !window.performance.measure) return;
-  performance.mark(start_mark_label + '_end');
-  try {
-    performance.measure(measure_label, start_mark_label, start_mark_label + '_end');
-    window.TSBeacon(measure_label, performance.getEntriesByName(measure_label)[0].duration);
-  } catch(e) { return; }
-};
-
-
-window.TSBeacon = function(label, value) {
-  var endpoint_url = window.ts_endpoint_url || 'https://slack.com/beacon/timing';
-  (new Image()).src = endpoint_url + '?data=' + encodeURIComponent(label + ':' + value);
-};
-
-})();
-</script>
- 
-
-<script>
-window.TSMark('step_load');
-</script>  <noscript><meta http-equiv="refresh" content="0; URL=/files/dczulada/F0FNZ3STS/cms111v3_catiii.xml?nojsmode=1" /></noscript>
-<script type="text/javascript">
-(function() {
-  var start_time = Date.now();
-  var logs = [];
-  var connecting = true;
-  var ever_connected = false;
-  var log_namespace;
-    
-  var logWorker = function(ob) {
-    var log_str = ob.secs+' start_label:'+ob.start_label+' measure_label:'+ob.measure_label+' description:'+ob.description;
-    
-    if (TS.timing.getLatestMark(ob.start_label)){
-      TS.timing.measure(ob.measure_label, ob.start_label);
-      TS.log(88, log_str);
-      
-      if (ob.do_reset) {
-        window.TSMark(ob.start_label);
-      }
-    } else {
-      TS.maybeWarn(88, 'not timing: '+log_str);
-    }
-  }
-  
-  var log = function(k, description) {
-    var secs = (Date.now()-start_time)/1000;
-
-    logs.push({
-      k: k,
-      d: description,
-      t: secs,
-      c: !!connecting
-    })
-  
-    if (!window.boot_data) return;
-    if (!window.TS) return;
-    if (!TS.timing) return;
-    if (!connecting) return;
-    
-    // lazy assignment
-    log_namespace = log_namespace || (function() {
-      if (boot_data.app == 'client') return 'client';
-      if (boot_data.app == 'space') return 'post';
-      if (boot_data.app == 'api') return 'apisite';
-      if (boot_data.app == 'mobile') return 'mobileweb';
-      if (boot_data.app == 'web' || boot_data.app == 'oauth') return 'web';
-      return 'unknown';
-    })();
-    
-    logWorker({
-      k: k,
-      secs: secs,
-      description: description,
-      start_label: ever_connected ? 'start_reconnect' : 'start_load',
-      measure_label: 'v2_'+log_namespace+(ever_connected ? '_reconnect__' : '_load__')+k,
-      do_reset: false,
-    });
-    
-    logWorker({
-      k: k,
-      secs: secs,
-      description: description,
-      start_label: ever_connected ? 'step_reconnect' : 'step_load',
-      measure_label: 'v1_'+log_namespace+(ever_connected ? '_reconnect_step__' : '_load_step__')+k,
-      do_reset: true,
-    });
-  }
-  
-  var setConnecting = function(val) {
-    val = !!val;
-    if (val == connecting) return;
-    
-    if (val) {
-      log('start');
-      if (ever_connected) {
-        // we just started reconnecting, so reset timing
-        window.TSMark('start_reconnect');
-        window.TSMark('step_reconnect');
-        window.TSMark('step_load');
-      }
-    
-      connecting = val;
-      log('start');
-    } else {
-      log('over');
-      ever_connected = true;
-      connecting = val;
-    }
-  }
-  
-  window.TSConnLogger = {
-    log: log,
-    logs: logs,
-    start_time: start_time,
-    setConnecting: setConnecting
-  }
-})();
-
-if(self!==top)window.document.write("\u003Cstyle>body * {display:none !important;}\u003C\/style>\u003Ca href=\"#\" onclick="+
-"\"top.location.href=window.location.href\" style=\"display:block !important;padding:10px\">Go to Slack.com\u003C\/a>");
-</script>
-
-
-<script type="text/javascript">
-window.callSlackAPIUnauthed = function(method, args, callback) {
-  var url = '/api/'+method+'?t='+Date.now();
-  var req = new XMLHttpRequest();
-  
-  req.onreadystatechange = function() {
-    if (req.readyState == 4) {
-      req.onreadystatechange = null;
-      var obj;
-      
-      if (req.status == 200) {
-        if (req.responseText.indexOf('{') == 0) {
-          try {
-            eval('obj = '+req.responseText);
-          } catch (err) {
-            console.warn('unable to do anything with api rsp');
-          }
-        }
-      }
-      
-      obj = obj || {
-        ok: false  
-      }
-      
-      callback(obj.ok, obj, args);
-    }
-  }
-  
-  req.open('POST', url, 1);
-  req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-  var args2 = [];
-  for (i in args) {
-    args2[args2.length] = encodeURIComponent(i)+'='+encodeURIComponent(args[i]);
-  }
-
-  req.send(args2.join('&'));
-}
-</script>
-
-      
-  
-  <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', "UA-106458-17", 'slack.com');
-        ga('send', 'pageview');
-
-    
-    (function(e,c,b,f,d,g,a){e.SlackBeaconObject=d;
-    e[d]=e[d]||function(){(e[d].q=e[d].q||[]).push([1*new Date(),arguments])};
-    e[d].l=1*new Date();g=c.createElement(b);a=c.getElementsByTagName(b)[0];
-    g.async=1;g.src=f;a.parentNode.insertBefore(g,a)
-    })(window,document,"script","https://slack.global.ssl.fastly.net/dcf8/js/libs/beacon.js","sb");
-    sb('set', 'token', '3307f436963e02d4f9eb85ce5159744c');
-
-          sb('set', 'user_id', "U0B1YFPV2");
-              sb('set', 'user_' + "batch", "immediate-launch");
-              sb('set', 'user_' + "created", "2015-09-21");
-            sb('set', 'name_tag', "mitrecypress" + '/' + "jesse");
-        sb('track', 'pageview');
-
-    function track(a){ga('send','event','web',a);sb('track',a);}
-
-  </script>
-
-
-    <script type='text/javascript'>
-    
-    (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-    for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-    
-
-    mixpanel.init("12d52d8633a5b432975592d13ebd3f34");
-
-    
-      function mixpanel_track(){if(window.mixpanel)mixpanel.track.apply(mixpanel, arguments);}
-      function mixpanel_track_forms(){if(window.mixpanel)mixpanel.track_forms.apply(mixpanel, arguments);}
-      function mixpanel_track_links(){if(window.mixpanel)mixpanel.track_links.apply(mixpanel, arguments);}
-    
-  </script>
-  
-      <meta name="referrer" content="no-referrer">
-      <meta name="superfish" content="nofish">
-  <script type="text/javascript">
-
-
-
-var TS_last_log_date = null;
-var TSMakeLogDate = function() {
-  var date = new Date();
-
-  var y = date.getFullYear();
-  var mo = date.getMonth()+1;
-  var d = date.getDate();
-
-  var time = {
-    h: date.getHours(),
-    mi: date.getMinutes(),
-    s: date.getSeconds(),
-    ms: date.getMilliseconds()
-  };
-
-  Object.keys(time).map(function(moment, index) {
-    if (moment == 'ms') {
-      if (time[moment] < 10) {
-        time[moment] = time[moment]+'00';
-      } else if (time[moment] < 100) {
-        time[moment] = time[moment]+'0';
-      }
-    } else if (time[moment] < 10) {
-      time[moment] = '0' + time[moment];
-    }
-  });
-
-  var str = y + '/' + mo + '/' + d + ' ' + time.h + ':' + time.mi + ':' + time.s + '.' + time.ms;
-  if (TS_last_log_date) {
-    var diff = date-TS_last_log_date;
-    //str+= ' ('+diff+'ms)';
-  }
-  TS_last_log_date = date;
-  return str+' ';
-}
-
-var TSSSB = {
-  env: (function() {
-    var v = {
-      win_ssb_version: null,
-      win_ssb_version_minor: null,
-      mac_ssb_version: null,
-      mac_ssb_version_minor: null,
-      mac_ssb_build: null,
-      lin_ssb_version: null,
-      lin_ssb_version_minor: null
-    }
-    
-    var is_win = (navigator.appVersion.indexOf("Windows") !== -1);
-    var is_lin = (navigator.appVersion.indexOf("Linux") !== -1);
-    var is_mac = !!(navigator.userAgent.match(/(OS X)/g));
-
-    if (navigator.userAgent.match(/(Slack_SSB)/g) || navigator.userAgent.match(/(Slack_WINSSB)/g)) {
-      // Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.55.3 (KHTML, like Gecko) Slack_SSB/0.32
-      var parts = navigator.userAgent.split('/');
-      var version_str = parts[parts.length-1];
-      var version_float = parseFloat(version_str);
-      var versionA = version_str.split('.');
-      var version_minor = (versionA.length == 3) ? parseInt(versionA[2]) : 0;
-  
-      if (navigator.userAgent.match(/(AtomShell)/g)) {
-        // Electron-based app
-        if (is_lin) {
-          v.lin_ssb_version = version_float;
-          v.lin_ssb_version_minor = version_minor;
-        } else {
-          v.win_ssb_version = version_float;
-          v.win_ssb_version_minor = version_minor;
-        }
-      } else {
-        // MacGap-based app
-        v.mac_ssb_version = version_float;
-        v.mac_ssb_version_minor = version_minor;
-        
-        // buildVersion() only available in 2.0 + (and not early builds)
-        // returns a string like "2.0.0 (7447)" and we want the part in parens
-        var app_ver = window.macgap && macgap.app && macgap.app.buildVersion && macgap.app.buildVersion();
-        var matches = String(app_ver).match(/(?:\()(.*)(?:\))/);
-        v.mac_ssb_build = (matches && matches.length == 2) ? parseInt(matches[1] || 0) : 0;
-      }
-    }
-
-    return v;
-  })(),
-  
-  
-
-  call: function() {
-    return false;
-  }
-
-  
-}
-
-</script>  <script type="text/javascript">
-    
-    var was_TS = window.TS;
-    delete window.TS;
-    TSSSB.call('didFinishLoading');
-    if (was_TS) window.TS = was_TS;
-  </script>
-      <meta charset="utf-8">
-    <title>CMS111v3_catIII.xml | Cypress Slack</title>
-    <meta name="author" content="Slack">
-
-  
-        
-                  
-  
-
-    
-        <!-- output_css "core" -->
-    <link href="https://slack.global.ssl.fastly.net/a18a/style/rollup-plastic.css" rel="stylesheet" type="text/css">
-
-    <!-- output_css "before_file_pages" -->
-    <link href="https://slack.global.ssl.fastly.net/e9e7/style/libs/codemirror.css" rel="stylesheet" type="text/css">
-
-  <!-- output_css "file_pages" -->
-    <link href="https://slack.global.ssl.fastly.net/8aec/style/rollup-file_pages.css" rel="stylesheet" type="text/css">
-
-  <!-- output_css "regular" -->
-    <link href="https://slack.global.ssl.fastly.net/5181/style/print.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/508c4/style/libs/lato-1-compressed.css" rel="stylesheet" type="text/css">
-
-  
-
-  
-  
-  
-
-  <!--[if lt IE 9]>
-  <script src="https://slack.global.ssl.fastly.net/ef0d/js/libs/html5shiv.js"></script>
-  <![endif]-->
-
-  
-<link id="favicon" rel="shortcut icon" href="https://slack.global.ssl.fastly.net/66f9/img/icons/favicon-32.png" sizes="16x16 32x32 48x48" type="image/png" />
-
-<link rel="icon" href="https://slack.global.ssl.fastly.net/ba3c/img/icons/app-256.png" sizes="256x256" type="image/png" />
-
-<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://slack.global.ssl.fastly.net/66f9/img/icons/ios-152.png" />
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://slack.global.ssl.fastly.net/66f9/img/icons/ios-144.png" />
-<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://slack.global.ssl.fastly.net/66f9/img/icons/ios-120.png" />
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://slack.global.ssl.fastly.net/66f9/img/icons/ios-114.png" />
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://slack.global.ssl.fastly.net/0dc1/img/icons/ios-72.png" />
-<link rel="apple-touch-icon-precomposed" href="https://slack.global.ssl.fastly.net/66f9/img/icons/ios-57.png" />
-
-<meta name="msapplication-TileColor" content="#FFFFFF" />
-<meta name="msapplication-TileImage" content="https://slack.global.ssl.fastly.net/66f9/img/icons/app-144.png" />  <script>
-!function(a,b){function c(a,b){try{if("function"!=typeof a)return a;if(!a.bugsnag){var c=e();a.bugsnag=function(d){if(b&&b.eventHandler&&(u=d),v=c,!y){var e=a.apply(this,arguments);return v=null,e}try{return a.apply(this,arguments)}catch(f){throw l("autoNotify",!0)&&(x.notifyException(f,null,null,"error"),s()),f}finally{v=null}},a.bugsnag.bugsnag=a.bugsnag}return a.bugsnag}catch(d){return a}}function d(){B=!1}function e(){var a=document.currentScript||v;if(!a&&B){var b=document.scripts||document.getElementsByTagName("script");a=b[b.length-1]}return a}function f(a){var b=e();b&&(a.script={src:b.src,content:l("inlineScript",!0)?b.innerHTML:""})}function g(b){var c=l("disableLog"),d=a.console;void 0===d||void 0===d.log||c||d.log("[Bugsnag] "+b)}function h(b,c,d){if(d>=5)return encodeURIComponent(c)+"=[RECURSIVE]";d=d+1||1;try{if(a.Node&&b instanceof a.Node)return encodeURIComponent(c)+"="+encodeURIComponent(r(b));var e=[];for(var f in b)if(b.hasOwnProperty(f)&&null!=f&&null!=b[f]){var g=c?c+"["+f+"]":f,i=b[f];e.push("object"==typeof i?h(i,g,d):encodeURIComponent(g)+"="+encodeURIComponent(i))}return e.join("&")}catch(j){return encodeURIComponent(c)+"="+encodeURIComponent(""+j)}}function i(a,b){if(null==b)return a;a=a||{};for(var c in b)if(b.hasOwnProperty(c))try{a[c]=b[c].constructor===Object?i(a[c],b[c]):b[c]}catch(d){a[c]=b[c]}return a}function j(a,b){a+="?"+h(b)+"&ct=img&cb="+(new Date).getTime();var c=new Image;c.src=a}function k(a){var b={},c=/^data\-([\w\-]+)$/;if(a)for(var d=a.attributes,e=0;e<d.length;e++){var f=d[e];if(c.test(f.nodeName)){var g=f.nodeName.match(c)[1];b[g]=f.value||f.nodeValue}}return b}function l(a,b){C=C||k(J);var c=void 0!==x[a]?x[a]:C[a.toLowerCase()];return"false"===c&&(c=!1),void 0!==c?c:b}function m(a){return a&&a.match(D)?!0:(g("Invalid API key '"+a+"'"),!1)}function n(b,c){var d=l("apiKey");if(m(d)&&A){A-=1;var e=l("releaseStage"),f=l("notifyReleaseStages");if(f){for(var h=!1,k=0;k<f.length;k++)if(e===f[k]){h=!0;break}if(!h)return}var n=[b.name,b.message,b.stacktrace].join("|");if(n!==w){w=n,u&&(c=c||{},c["Last Event"]=q(u));var o={notifierVersion:H,apiKey:d,projectRoot:l("projectRoot")||a.location.protocol+"//"+a.location.host,context:l("context")||a.location.pathname,userId:l("userId"),user:l("user"),metaData:i(i({},l("metaData")),c),releaseStage:e,appVersion:l("appVersion"),url:a.location.href,userAgent:navigator.userAgent,language:navigator.language||navigator.userLanguage,severity:b.severity,name:b.name,message:b.message,stacktrace:b.stacktrace,file:b.file,lineNumber:b.lineNumber,columnNumber:b.columnNumber,payloadVersion:"2"},p=x.beforeNotify;if("function"==typeof p){var r=p(o,o.metaData);if(r===!1)return}return 0===o.lineNumber&&/Script error\.?/.test(o.message)?g("Ignoring cross-domain script error. See https://bugsnag.com/docs/notifiers/js/cors"):(j(l("endpoint")||G,o),void 0)}}}function o(){var a,b,c=10,d="[anonymous]";try{throw new Error("")}catch(e){a="<generated>\n",b=p(e)}if(!b){a="<generated-ie>\n";var f=[];try{for(var h=arguments.callee.caller.caller;h&&f.length<c;){var i=E.test(h.toString())?RegExp.$1||d:d;f.push(i),h=h.caller}}catch(j){g(j)}b=f.join("\n")}return a+b}function p(a){return a.stack||a.backtrace||a.stacktrace}function q(a){var b={millisecondsAgo:new Date-a.timeStamp,type:a.type,which:a.which,target:r(a.target)};return b}function r(a){if(a){var b=a.attributes;if(b){for(var c="<"+a.nodeName.toLowerCase(),d=0;d<b.length;d++)b[d].value&&"null"!=b[d].value.toString()&&(c+=" "+b[d].name+'="'+b[d].value+'"');return c+">"}return a.nodeName}}function s(){z+=1,a.setTimeout(function(){z-=1})}function t(a,b,c){var d=a[b],e=c(d);a[b]=e}var u,v,w,x={},y=!0,z=0,A=10;x.noConflict=function(){return a.Bugsnag=b,x},x.refresh=function(){A=10},x.notifyException=function(a,b,c,d){b&&"string"!=typeof b&&(c=b,b=void 0),c||(c={}),f(c),n({name:b||a.name,message:a.message||a.description,stacktrace:p(a)||o(),file:a.fileName||a.sourceURL,lineNumber:a.lineNumber||a.line,columnNumber:a.columnNumber?a.columnNumber+1:void 0,severity:d||"warning"},c)},x.notify=function(b,c,d,e){n({name:b,message:c,stacktrace:o(),file:a.location.toString(),lineNumber:1,severity:e||"warning"},d)};var B="complete"!==document.readyState;document.addEventListener?(document.addEventListener("DOMContentLoaded",d,!0),a.addEventListener("load",d,!0)):a.attachEvent("onload",d);var C,D=/^[0-9a-f]{32}$/i,E=/function\s*([\w\-$]+)?\s*\(/i,F="https://notify.bugsnag.com/",G=F+"js",H="2.4.7",I=document.getElementsByTagName("script"),J=I[I.length-1];if(a.atob){if(a.ErrorEvent)try{0===new a.ErrorEvent("test").colno&&(y=!1)}catch(K){}}else y=!1;if(l("autoNotify",!0)){t(a,"onerror",function(b){return function(c,d,e,g,h){var i=l("autoNotify",!0),j={};!g&&a.event&&(g=a.event.errorCharacter),f(j),v=null,i&&!z&&n({name:h&&h.name||"window.onerror",message:c,file:d,lineNumber:e,columnNumber:g,stacktrace:h&&p(h)||o(),severity:"error"},j),b&&b(c,d,e,g,h)}});var L=function(a){return function(b,d){if("function"==typeof b){b=c(b);var e=Array.prototype.slice.call(arguments,2);return a(function(){b.apply(this,e)},d)}return a(b,d)}};t(a,"setTimeout",L),t(a,"setInterval",L),a.requestAnimationFrame&&t(a,"requestAnimationFrame",function(a){return function(b){return a(c(b))}}),a.setImmediate&&t(a,"setImmediate",function(a){return function(){var b=Array.prototype.slice.call(arguments);return b[0]=c(b[0]),a.apply(this,b)}}),"EventTarget Window Node ApplicationCache AudioTrackList ChannelMergerNode CryptoOperation EventSource FileReader HTMLUnknownElement IDBDatabase IDBRequest IDBTransaction KeyOperation MediaController MessagePort ModalWindow Notification SVGElementInstance Screen TextTrack TextTrackCue TextTrackList WebSocket WebSocketWorker Worker XMLHttpRequest XMLHttpRequestEventTarget XMLHttpRequestUpload".replace(/\w+/g,function(b){var d=a[b]&&a[b].prototype;d&&d.hasOwnProperty&&d.hasOwnProperty("addEventListener")&&(t(d,"addEventListener",function(a){return function(b,d,e,f){return d&&d.handleEvent&&(d.handleEvent=c(d.handleEvent,{eventHandler:!0})),a.call(this,b,c(d,{eventHandler:!0}),e,f)}}),t(d,"removeEventListener",function(a){return function(b,d,e,f){return a.call(this,b,d,e,f),a.call(this,b,c(d),e,f)}}))})}a.Bugsnag=x,"function"==typeof define&&define.amd?define([],function(){return x}):"object"==typeof module&&"object"==typeof module.exports&&(module.exports=x)}(window,window.Bugsnag);
-Bugsnag.apiKey = "2a86b308af5a81d2c9329fedfb4b30c7";
-Bugsnag.appVersion = "c53a71fec63b48d2485adc1d7f20b00366f60036" + '-' + "1449080502";
-Bugsnag.endpoint = "https://errors-webapp.slack-core.com/js";
-Bugsnag.releaseStage = "prod";
-Bugsnag.autoNotify = false;
-Bugsnag.user = {id:"U0B1YFPV2",name:"jesse",email:"jeaton@mitre.org"};
-Bugsnag.metaData = {};
-Bugsnag.metaData.team = {id:"T054ZMYDX",name:"Cypress",domain:"mitrecypress"};
-Bugsnag.refresh_interval = setInterval(function () { (window.TS && window.TS.client) ? Bugsnag.refresh() : clearInterval(Bugsnag.refresh_interval); }, 15 * 60 * 1000);
-</script>
-</head>
-
-<body class="">
-
-            <script>
-    
-      var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      if (w > 1440) document.querySelector('body').classList.add('widescreen');
-    
-    </script>
-  
-    
-  
-
-      <nav id="site_nav" class="no_transition">
-
-  <div id="site_nav_contents">
-
-    <div id="user_menu">
-      <div id="user_menu_contents">
-        <div id="user_menu_avatar">
-                    <span class="member_image thumb_48" style="background-image: url('https://avatars.slack-edge.com/2015-09-28/11478531350_3d703cb07649c1e00f89_192.jpg')" data-thumb-size="48" data-member-id="U0B1YFPV2"></span>
-          <span class="member_image thumb_36" style="background-image: url('https://avatars.slack-edge.com/2015-09-28/11478531350_3d703cb07649c1e00f89_72.jpg')" data-thumb-size="36" data-member-id="U0B1YFPV2"></span>
-        </div>
-        <h3>Signed in as</h3>
-        <span id="user_menu_name">jesse</span>
-      </div>
-    </div>
-
-    <div class="nav_contents">
-
-      <ul class="primary_nav">
-        <li><a href="/home"><i class="ts_icon ts_icon_home"></i>Home</a></li>
-        <li><a href="/account"><i class="ts_icon ts_icon_user"></i>Account & Profile</a></li>
-        <li><a href="/services/new"><i class="ts_icon ts_icon_plug"></i>Integrations</a></li>
-        <li><a href="/archives"><i class="ts_icon ts_icon_inbox"></i>Message Archives</a></li>
-        <li><a href="/files"><i class="ts_icon ts_icon_file"></i>Files</a></li>
-        <li><a href="/team"><i class="ts_icon ts_icon_team_directory"></i>Team Directory</a></li>
-                  <li><a href="/stats"><i class="ts_icon ts_icon_dashboard"></i>Statistics</a></li>
-                          <li><a href="/customize"><i class="ts_icon ts_icon_magic"></i>Customize</a></li>
-                          <li><a href="/account/team"><i class="ts_icon ts_icon_cog_o"></i>Team Settings</a></li>
-              </ul>
-
-      
-    </div>
-
-    <div id="footer">
-
-      <ul id="footer_nav">
-        <li><a href="/is">Tour</a></li>
-        <li><a href="/downloads">Download Apps</a></li>
-        <li><a href="/brand-guidelines">Brand Guidelines</a></li>
-        <li><a href="/help">Help</a></li>
-        <li><a href="https://api.slack.com" target="_blank">API<i class="ts_icon ts_icon_external_link small_left_margin ts_icon_inherit"></i></a></li>
-                <li><a href="/pricing">Pricing</a></li>
-        <li><a href="/help/requests/new">Contact</a></li>
-        <li><a href="/terms-of-service">Policies</a></li>
-        <li><a href="http://slackhq.com/" target="_blank">Our Blog</a></li>
-        <li><a href="https://slack.com/signout/5169746473?crumb=s-1449080862-ce8f12b62c-%E2%98%83">Sign Out<i class="ts_icon ts_icon_sign_out small_left_margin ts_icon_inherit"></i></a></li>
-      </ul>
-
-      <p id="footer_signature">Made with <i class="ts_icon ts_icon_heart"></i> by Slack</p>
-
-    </div>
-
-  </div>
-</nav>  
-      <header>
-              <a id="menu_toggle" class="no_transition">
-          <span class="menu_icon"></span>
-          <span class="menu_label">Menu</span>
-          <span class="vert_divider"></span>
-        </a>
-        <h1 id="header_team_name" class="inline_block no_transition">
-          <a href="/home">
-            <i class="ts_icon ts_icon_home" /></i>
-            Cypress
-          </a>
-        </h1>
-        <div class="header_nav">
-          <div class="header_btns float_right">
-            <a id="team_switcher">
-              <i class="ts_icon ts_icon_th_large ts_icon_inherit"></i>
-              <span class="block label">Teams</span>
-            </a>
-            <a href="/help" id="help_link">
-              <i class="ts_icon ts_icon_life_ring ts_icon_inherit"></i>
-              <span class="block label">Help</span>
-            </a>
-            <a href="/messages">
-              <img src="https://slack.global.ssl.fastly.net/66f9/img/icons/ios-64.png" srcset="https://slack.global.ssl.fastly.net/66f9/img/icons/ios-32.png 1x, https://slack.global.ssl.fastly.net/66f9/img/icons/ios-64.png 2x" />
-              <span class="block label">Launch</span>
-            </a>
-          </div>
-                                    <ul id="header_team_nav">
-                                                                <li >
-                                    <a href="https://open-health-services.slack.com/home" target="https://open-health-services.slack.com/">
-                                                                                                                    <i class="team_icon default" >OH</i>
-                                                                            <span class="switcher_label team_name">Open Health Services</span>
-                                    </a>
-                                  </li>
-                                                                <li class="active">
-                                    <a href="https://mitrecypress.slack.com/home" target="https://mitrecypress.slack.com/">
-                                                                              <i class="ts_icon ts_icon_check_circle_o active_icon"></i>
-                                                                                                                    <i class="team_icon default" style="background: #0D7E83;">C</i>
-                                                                            <span class="switcher_label team_name">Cypress</span>
-                                    </a>
-                                  </li>
-                                                            <li id="add_team_option"><a href="https://slack.com/signin" target="_blank"><i class="ts_icon ts_icon_plus team_icon"></i> <span class="switcher_label">Sign in to another team...</span></a></li>
-                          </ul>
-                              </div>
-      
-      
-    </header>
-  
-  <div id="page" >
-
-    <div id="page_contents" class="">
-
-<p class="print_only">
-  <strong>Created by dczulada on December 2, 2015 at 1:18 PM</strong><br />
-  <span class="subtle_silver break_word">https://mitrecypress.slack.com/files/dczulada/F0FNZ3STS/cms111v3_catiii.xml</span>
-</p>
-
-<div class="file_header_container no_print"></div>
-
-<div class="alert_container">
-    <div class="file_public_link_shared alert" style="display: none;">
-    
-  <i class="ts_icon ts_icon_link"></i> Public Link: <a class="file_public_link" href="https://slack-files.com/T054ZMYDX-F0FNZ3STS-c886a04b7c" target="new">https://slack-files.com/T054ZMYDX-F0FNZ3STS-c886a04b7c</a>
-</div></div>
-
-<div id="file_page" class="card top_padding">
-
-  <p class="small subtle_silver no_print meta">
-    35KB XML snippet created on <span class="date">December 2nd 2015</span>.
-    This file is private.    <span class="file_share_list"></span>
-  </p>
-
-  <a id="file_action_cog" class="action_cog action_cog_snippet float_right no_print">
-    <span>Actions </span><i class="ts_icon ts_icon_cog"></i>
-  </a>
-  <a id="snippet_expand_toggle" class="float_right no_print">
-    <i class="ts_icon ts_icon_expand "></i>
-    <i class="ts_icon ts_icon_compress hidden"></i>
-  </a>
-
-  <div class="large_bottom_margin clearfix">
-    <pre id="file_contents">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;ClinicalDocument xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
- xmlns=&quot;urn:hl7-org:v3&quot;
- xmlns:cda=&quot;urn:hl7-org:v3&quot;&gt;
-
-  &lt;!--
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE ClinicalDocument SYSTEM "file:/Users/bobd/Downloads/qrda_cat3_good.xml">
+<?xml-stylesheet type="text/xsl" href="qrda.xsl"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="urn:hl7-org:v3 QRDA_CATIII_Testing_20121129/CDA/infrastructure/cda/CDA_SDTC.xsd"
+ xmlns="urn:hl7-org:v3"
+ xmlns:cda="urn:hl7-org:v3">
+
+  <!-- 
     ********************************************************
     CDA Header
     ********************************************************
-  --&gt;
-  &lt;realmCode code=&quot;US&quot;/&gt;
-  &lt;typeId root=&quot;2.16.840.1.113883.1.3&quot; extension=&quot;POCD_HD000040&quot;/&gt;
-  &lt;!-- QRDA Category III Release 1 template ID (this template ID differs from QRDA III comment only template ID). --&gt;
-  &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.1.1&quot;/&gt;
-  &lt;id root=&#039;d8991600-7b4e-0133-885b-20999b0ed66f&#039; extension=&quot;CypressExtension&quot;/&gt;
+  -->
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <!-- QRDA Category III Release 1 template ID (this template ID differs from QRDA III comment only template ID). -->
+  <templateId root="2.16.840.1.113883.10.20.27.1.1"/>
+  <id root="88414c01-715a-45bb-83bb-db7ac860fe9d"/>
+  <!-- SHALL QRDA III document type code -->
+  <code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
+    displayName="Quality Reporting Document Architecture Calculated Summary Report"/>
+  <!-- SHALL Title, SHOULD have this content -->
+  <title>QRDA Calculated Summary Report</title>
+  <!-- SHALL  -->
+  <effectiveTime value="20120513"/>
+  <confidentialityCode codeSystem="2.16.840.1.113883.5.25" code="N"/>
+  <languageCode code="en-US"/>
+  <!-- SHOULD The version of the file being submitted. -->
+  <versionNumber value="1"/>
+  <!-- SHALL contain recordTarget and ID - but ID is nulled to NA. This is an aggregate summary report. Therefore CDA's required patient identifier is nulled. -->
+  <recordTarget>
+    <patientRole>
+      <id nullFlavor="NA"/>
+    </patientRole>
+  </recordTarget>
+  <!-- SHALL have 1..* author. MAY be device or person. 
+    The author of the CDA document in this example is a device at a data submission vendor/registry. -->
+  <author>
+    <time value="20130418165454"/>
+    <assignedAuthor>
+      <!-- Registry author ID -->
+      <id extension="Cypress" root="MITRE"/>
+      <assignedAuthoringDevice>
+        <softwareName></softwareName>
+      </assignedAuthoringDevice>
+      <representedOrganization>
+        <!-- Represents unique registry organization TIN -->
+        <id root="root" extension="ext"/>
+        <!-- Contains name - specific registry not required-->
+        <name></name>
+      </representedOrganization>
+    </assignedAuthor>
+  </author>
+  <!-- The custodian of the CDA document is the same as the legal authenticator in this 
+  example and represents the reporting organization. -->
+  <!-- SHALL -->
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+        <!-- SHALL have an id - This is an example root -->
+        <id root="root"/>
+        <!-- SHOULD Name not required -->
+        <name>Cypress</name>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  <!-- The legal authenticator of the CDA document is a single person who is at the 
+    same organization as the custodian in this example. This element must be present. -->
+  <!-- SHALL -->
+  <legalAuthenticator>
+    <!-- SHALL -->
+    <time value="20130418165454"/>
+    <!-- SHALL -->
+    <signatureCode code="S"/>
+    <assignedEntity>
+      <!-- SHALL ID -->
+      <id root="root"/>
+      <!-- SHALL -->
+      <representedOrganization>
+        <!-- SHALL Id -->
+        <!-- example root -->
+        <id root="root"/>
+      </representedOrganization>
+    </assignedEntity>
+  </legalAuthenticator>
+  
 
-
-  &lt;!-- SHALL QRDA III document type code --&gt;
-  &lt;code code=&quot;55184-6&quot; codeSystem=&quot;2.16.840.1.113883.6.1&quot; codeSystemName=&quot;LOINC&quot;
-    displayName=&quot;Quality Reporting Document Architecture Calculated Summary Report&quot;/&gt;
-  &lt;!-- SHALL Title, SHOULD have this content --&gt;
-  &lt;title&gt;QRDA Calculated Summary Report&lt;/title&gt;
-  &lt;!-- SHALL  --&gt;
-  &lt;effectiveTime value=&quot;20151202181718&quot;/&gt;
-  &lt;confidentialityCode codeSystem=&quot;2.16.840.1.113883.5.25&quot; code=&quot;N&quot;/&gt;
-  &lt;languageCode code=&quot;en&quot;/&gt;
-  &lt;!-- SHOULD The version of the file being submitted. --&gt;
-  &lt;versionNumber value=&quot;1&quot;/&gt;
-  &lt;!-- SHALL contain recordTarget and ID - but ID is nulled to NA. This is an aggregate summary report. Therefore CDA&#039;s required patient identifier is nulled. --&gt;
-  &lt;recordTarget&gt;
-    &lt;patientRole&gt;
-      &lt;id nullFlavor=&quot;NA&quot;/&gt;
-    &lt;/patientRole&gt;
-  &lt;/recordTarget&gt;
-
-   &lt;!-- SHALL have 1..* author. MAY be device or person. 
-    The author of the CDA document in this example is a device at a data submission vendor/registry. --&gt;
-  &lt;author&gt;
-    &lt;time value=&quot;20151202131718&quot;/&gt;
-    &lt;assignedAuthor&gt;
-      &lt;!-- Registry author ID --&gt;
-      &lt;id root=&#039;authorRoot&#039; extension=&quot;authorExtension&quot;/&gt;
-
-      
-      
-
-       &lt;assignedAuthoringDevice&gt;
-         &lt;manufacturerModelName&gt;deviceModel&lt;/manufacturerModelName&gt;
-         &lt;softwareName&gt;deviceName&lt;/softwareName&gt;
-       &lt;/assignedAuthoringDevice&gt;
-     
-     &lt;representedOrganization&gt;
-  &lt;!-- Represents unique registry organization TIN --&gt;
-   &lt;id root=&#039;authorsOrganizationRoot&#039; extension=&quot;authorsOrganizationExt&quot;/&gt;
-
-  &lt;!-- Contains name - specific registry not required--&gt;
-  &lt;name&gt;&lt;/name&gt;
-&lt;/representedOrganization&gt;
-
-    &lt;/assignedAuthor&gt;
-  &lt;/author&gt;
-
-  &lt;!-- SHALL have 1..* author. MAY be device or person.
-    The author of the CDA document in this example is a device at a data submission vendor/registry. --&gt;
-
-  &lt;!-- The custodian of the CDA document is the same as the legal authenticator in this
-  example and represents the reporting organization. --&gt;
-  &lt;!-- SHALL --&gt;
-  &lt;custodian&gt;
-    &lt;assignedCustodian&gt;
-      &lt;representedCustodianOrganization&gt;
-  &lt;!-- Represents unique registry organization TIN --&gt;
-   &lt;id root=&#039;custodianOrganizationRoot&#039; extension=&quot;custodianOrganizationExt&quot;/&gt;
-
-  &lt;!-- Contains name - specific registry not required--&gt;
-  &lt;name&gt;&lt;/name&gt;
-&lt;/representedCustodianOrganization&gt;
-    &lt;/assignedCustodian&gt;
-  &lt;/custodian&gt;
-  &lt;!-- The legal authenticator of the CDA document is a single person who is at the
-    same organization as the custodian in this example. This element must be present. --&gt;
-  &lt;!-- SHALL --&gt;
-  &lt;legalAuthenticator&gt;
-    &lt;!-- SHALL --&gt;
-    &lt;time value=&quot;20151202181718&quot;/&gt;
-    &lt;!-- SHALL --&gt;
-    &lt;signatureCode code=&quot;S&quot;/&gt;
-    &lt;assignedEntity&gt;
-      &lt;!-- SHALL ID --&gt;
-      &lt;id root=&#039;legalAuthenticatorRoot&#039; extension=&quot;legalAuthenticatorExt&quot;/&gt;
-
-      
-      &lt;assignedPerson&gt;
-        &lt;name&gt;
-           &lt;given&gt;&lt;/given&gt;
-           &lt;family&gt;&lt;/family&gt;
-        &lt;/name&gt;
-     &lt;/assignedPerson&gt;
-
-      &lt;representedOrganization&gt;
-  &lt;!-- Represents unique registry organization TIN --&gt;
-   &lt;id root=&#039;legalAuthenticatorOrgRoot&#039; extension=&quot;legalAuthenticatorOrgExt&quot;/&gt;
-
-  &lt;!-- Contains name - specific registry not required--&gt;
-  &lt;name&gt;&lt;/name&gt;
-&lt;/representedOrganization&gt;
-    &lt;/assignedEntity&gt;
-  &lt;/legalAuthenticator&gt;
-
-  &lt;documentationOf typeCode=&quot;DOC&quot;&gt;
-  &lt;serviceEvent classCode=&quot;PCPR&quot;&gt; &lt;!-- care provision --&gt;
-    &lt;!-- No provider data found in the patient record
-         putting in a fake provider --&gt;
-    &lt;effectiveTime&gt;
-      &lt;low value=&quot;20020716&quot;/&gt;
-      &lt;high value=&quot;20151202181718&quot;/&gt;
-    &lt;/effectiveTime&gt;
-    &lt;!-- You can include multiple performers, each with an NPI, TIN, CCN. --&gt;
-    &lt;performer typeCode=&quot;PRF&quot;&gt;
-      &lt;time&gt;
-        &lt;low value=&quot;20020716&quot;/&gt;
-        &lt;high value=&quot;20151202181718&quot;/&gt;
-      &lt;/time&gt;
-      &lt;assignedEntity&gt;
-        &lt;!-- This is the provider NPI --&gt;
-        &lt;id root=&quot;2.16.840.1.113883.4.6&quot; extension=&quot;111111111&quot; /&gt;
-        &lt;representedOrganization&gt;
-          &lt;!-- This is the organization TIN --&gt;
-          &lt;id root=&quot;2.16.840.1.113883.4.2&quot; extension=&quot;1234567&quot; /&gt;
-          &lt;!-- This is the organization CCN --&gt;
-          &lt;id root=&quot;2.16.840.1.113883.4.336&quot; extension=&quot;54321&quot; /&gt;
-        &lt;/representedOrganization&gt;
-      &lt;/assignedEntity&gt;
-    &lt;/performer&gt;
-  &lt;/serviceEvent&gt;
-&lt;/documentationOf&gt;
-
-
-
-  &lt;!--
+  <!-- 
 ********************************************************
 CDA Body
 ********************************************************
---&gt;
-  &lt;component&gt;
-    &lt;structuredBody&gt;
-      &lt;!--
+-->
+  <component>
+    <structuredBody>
+      <!-- 
 ********************************************************
-QRDA Category III Reporting Parameters
+QRDA Category III Reporting Parameters 
 ********************************************************
---&gt;
-      &lt;component&gt;
-        &lt;section&gt;
-          &lt;!-- This is the templateId for Reporting Parameters section --&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.17.2.1&quot;/&gt;
+-->
 
-          &lt;!-- This is the templateId for the QRDA III Reporting Parameters Section --&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.2.2&quot;/&gt;
-
-          &lt;code code=&quot;55187-9&quot; codeSystem=&quot;2.16.840.1.113883.6.1&quot;/&gt;
-          &lt;title&gt;Reporting Parameters&lt;/title&gt;
-          &lt;text&gt;
-            &lt;list&gt;
-              &lt;item&gt;Reporting period: January 1st, 2013 00:00 - December 31st, 2013 23:59&lt;/item&gt;
-            &lt;/list&gt;
-          &lt;/text&gt;
-          &lt;entry typeCode=&quot;DRIV&quot;&gt;
-            &lt;act classCode=&quot;ACT&quot; moodCode=&quot;EVN&quot;&gt;
-              &lt;!-- This is the templateId for Reporting Parameters Act --&gt;
-              &lt;templateId root=&quot;2.16.840.1.113883.10.20.17.3.8&quot;/&gt;
-              &lt;id extension=&quot;296E5BF61A3BDA711B384B9C82A27BC9&quot; /&gt;
-              &lt;code code=&quot;252116004&quot; codeSystem=&quot;2.16.840.1.113883.6.96&quot; displayName=&quot;Observation Parameters&quot;/&gt;
-              &lt;effectiveTime&gt;
-                &lt;low value=&quot;20130101000000&quot;/&gt;
-                &lt;high value=&quot;20131231235959&quot;/&gt;
-              &lt;/effectiveTime&gt;
-            &lt;/act&gt;
-          &lt;/entry&gt;
-        &lt;/section&gt;
-      &lt;/component&gt;
-      &lt;!--
+      <component>
+        <section>
+          <!-- Reporting Parameters templateId -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.1"/>
+          <!-- QRDA Category III Reporting Parameters templateId -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.2"/>
+          <code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Reporting Parameters</title>
+          <text>
+            <list>
+              <item>Reporting period: 01 January 2012 - 31 March 2012</item>
+              <item>First encounter: 05 January 2012</item>
+              <item>Last encounter: 24 March 2012</item>
+            </list>
+          </text>
+          <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+              <id root="55a43e20-6463-46eb-81c3-9a3a1ad41225"/>
+              <code code="252116004" codeSystem="2.16.840.1.113883.6.96"
+                displayName="Observation Parameters"/>
+              <!-- This reporting period shows that Good Health Clinic is sending data for the first quarter of the year.
+              The referenced measure definition may be valid for the entire year or more-->
+              <effectiveTime>
+                <low value="20130101"/>
+                <!-- The first day of the period reported. -->
+                <high value="20131231"/>
+                <!-- The last day of the period reported. -->
+              </effectiveTime>
+            </act>
+          </entry>
+          <entry>
+            <encounter classCode="ENC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.27.3.11"/>
+              <!-- The month, day and year of the first service
+                encounter of the reporting period (From date) -->
+              <effectiveTime>
+                <low value="20120105"/>
+              </effectiveTime>
+            </encounter>
+          </entry>
+          <entry>
+            <encounter classCode="ENC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.27.3.12"/>
+              <!-- The month, day and year of the last service
+                encounter of the reporting period (To date) -->
+              <effectiveTime>
+                <low nullFlavor="NI"/>
+                <high value="20120324"/>
+              </effectiveTime>
+            </encounter>
+          </entry>
+        </section>
+      </component>
+      <!-- 
 ********************************************************
 Measure Section
 ********************************************************
---&gt;
-      &lt;component&gt;
-        &lt;section&gt;
-          &lt;!-- Implied template Measure Section templateId --&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.24.2.2&quot;/&gt;
-          &lt;!-- In this case the query is using an eMeasure --&gt;
-          &lt;!-- QRDA Category III Measure Section template --&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.2.1&quot;/&gt;
-          &lt;code code=&quot;55186-1&quot; codeSystem=&quot;2.16.840.1.113883.6.1&quot;/&gt;
-          &lt;title&gt;Measure Section&lt;/title&gt;
-          &lt;text&gt;
+-->
+      <component>
+        <section>
+          <!-- Implied template Measure Section templateId -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+          <!-- In this case the query is using an eMeasure -->
+          <!-- QRDA Category III Measure Section template -->
+          <templateId root="2.16.840.1.113883.10.20.27.2.1"/>
+          <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Measure Section</title>
+          <text>
+             
+          </text>
+          <!-- 
+            Proportion measure example 
+          -->
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- Implied template Measure Reference templateId -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
+              <templateId root="2.16.840.1.113883.10.20.27.3.1"/>
+              <id extension="8A4D92B2-397A-48D2-0139-7CC6B5B8011E"/>
+              <statusCode code="completed"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: required Id but not restricted to the eMeasure Document/Id-->
+                  <!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure -->
+                  <id root="2.16.840.1.113883.4.738" extension="8A4D92B2-397A-48D2-0139-7CC6B5B8011E"/>
+                  
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Weight Assessment and Counseling for Nutrition and Physical Activity for Children and Adolescents</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root="0B63F730-25D6-4248-B11F-8C09C66A04EB"/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            
 
-          &lt;/text&gt;
-          &lt;entry&gt;
-            &lt;organizer classCode=&quot;CLUSTER&quot; moodCode=&quot;EVN&quot;&gt;
-              &lt;!-- Implied template Measure Reference templateId --&gt;
-              &lt;templateId root=&quot;2.16.840.1.113883.10.20.24.3.98&quot;/&gt;
-              &lt;!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template --&gt;
-              &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.1&quot;/&gt;
-              &lt;id extension=&quot;40280381-43DB-D64C-0144-64E3651A2DCC&quot;/&gt;
-              &lt;statusCode code=&quot;completed&quot;/&gt;
-              &lt;reference typeCode=&quot;REFR&quot;&gt;
-                &lt;externalDocument classCode=&quot;DOC&quot; moodCode=&quot;EVN&quot;&gt;
-                  &lt;!-- SHALL: required Id but not restricted to the eMeasure Document/Id--&gt;
-                  &lt;!-- QualityMeasureDocument/id This is the version specific identifier for eMeasure --&gt;
-                  &lt;id root=&quot;2.16.840.1.113883.4.738&quot; extension=&quot;40280381-43DB-D64C-0144-64E3651A2DCC&quot;/&gt;
-
-                  &lt;!-- SHOULD This is the title of the eMeasure --&gt;
-                  &lt;text&gt;Median Admit Decision Time to ED Departure Time for Admitted Patients&lt;/text&gt;
-                  &lt;!-- SHOULD: setId is the eMeasure version neutral id  --&gt;
-                  &lt;setId root=&quot;979F21BD-3F93-4CDD-8273-B23DFE9C0513&quot;/&gt;
-                  &lt;!-- This is the sequential eMeasure Version number --&gt;
-                  &lt;versionNumber value=&quot;1&quot;/&gt;
-                &lt;/externalDocument&gt;
-              &lt;/reference&gt;
-
-              &lt;component&gt;
+              <!-- SHALL 1..* (one for each population) Measure Data template -->
+              <!-- NOTE AT THE BOTTOM OF THIS ORGANIZER is the reference for the entire population that starts with the first component
+                observation at the top within the measure data template.  There are other external references contained within the 
+                entryRelationships below.  -->
+              <!-- This is the population as in IPP, numerator, denominator, etc. If there are multiple
+              populations, use the same method, but refer to IPP1, numerator1, IPP2, numerator2, etc -->
               
-&lt;!--   MEASURE DATA REPORTING FOR    IPP  66708786-C35D-4BA1-97F9-A3E17AC18AF8  --&gt;
-&lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-  &lt;!-- Measure Data template --&gt;
-  &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.5&quot;/&gt;
-  &lt;code code=&quot;ASSERTION&quot; 
-        codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-        displayName=&quot;Assertion&quot; 
-        codeSystemName=&quot;ActCode&quot;/&gt;
-  &lt;statusCode code=&quot;completed&quot;/&gt;
-  &lt;value xsi:type=&quot;CD&quot; code=&quot;IPP&quot; 
-         codeSystem=&quot;2.16.840.1.113883.5.1063&quot;  
-         codeSystemName=&quot;ObservationValue&quot;/&gt;
-  &lt;!-- Aggregate Count --&gt;
-  &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-      &lt;code code=&quot;MSRAGG&quot; 
-        displayName=&quot;rate aggregation&quot; 
-        codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-        codeSystemName=&quot;ActCode&quot;/&gt;
-      &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-      &lt;methodCode code=&quot;COUNT&quot; 
-        displayName=&quot;Count&quot; 
-        codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-        codeSystemName=&quot;ObservationMethod&quot;/&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="IPP"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
 
-  &lt;!--  Startification Reporting Template for IPP  66708786-C35D-4BA1-97F9-A3E17AC18AF8  Stratification 40280381-3D27-5493-013D-4D8E56A965F2   --&gt;
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="4"/>
 
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.4&quot;/&gt;
-      &lt;code code=&quot;ASSERTION&quot; 
-            codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-            displayName=&quot;Assertion&quot; 
-            codeSystemName=&quot;ActCode&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;value xsi:type=&quot;CD&quot; nullFlavor=&quot;OTH&quot;&gt;
-       &lt;originalText&gt;Stratum&lt;/originalText&gt;
-      &lt;/value&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;0&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-      &lt;reference typeCode=&quot;REFR&quot;&gt;
-        &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;id root=&quot;40280381-3D27-5493-013D-4D8E56A965F2&quot;/&gt;
-        &lt;/externalObservation&gt;
-      &lt;/reference&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
 
-  &lt;!--  Startification Reporting Template for IPP  66708786-C35D-4BA1-97F9-A3E17AC18AF8  Stratification 40280381-3D27-5493-013D-4D8E566C65F0   --&gt;
 
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.4&quot;/&gt;
-      &lt;code code=&quot;ASSERTION&quot; 
-            codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-            displayName=&quot;Assertion&quot; 
-            codeSystemName=&quot;ActCode&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;value xsi:type=&quot;CD&quot; nullFlavor=&quot;OTH&quot;&gt;
-       &lt;originalText&gt;Stratum&lt;/originalText&gt;
-      &lt;/value&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-      &lt;reference typeCode=&quot;REFR&quot;&gt;
-        &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;id root=&quot;40280381-3D27-5493-013D-4D8E566C65F0&quot;/&gt;
-        &lt;/externalObservation&gt;
-      &lt;/reference&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;
 
-  &lt;!--  Startification Reporting Template for IPP  66708786-C35D-4BA1-97F9-A3E17AC18AF8  Stratification 40280381-3D27-5493-013D-4D8E562965EE   --&gt;
+                
 
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.4&quot;/&gt;
-      &lt;code code=&quot;ASSERTION&quot; 
-            codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-            displayName=&quot;Assertion&quot; 
-            codeSystemName=&quot;ActCode&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;value xsi:type=&quot;CD&quot; nullFlavor=&quot;OTH&quot;&gt;
-       &lt;originalText&gt;Stratum&lt;/originalText&gt;
-      &lt;/value&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-      &lt;reference typeCode=&quot;REFR&quot;&gt;
-        &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;id root=&quot;40280381-3D27-5493-013D-4D8E562965EE&quot;/&gt;
-        &lt;/externalObservation&gt;
-      &lt;/reference&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;
-   
-   &lt;!--    SEX Supplemental Data Reporting for IPP  66708786-C35D-4BA1-97F9-A3E17AC18AF8      --&gt; 
-         
-    &lt;!--                            Supplemental Date Template                                                  --&gt;
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
 
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;!-- Sex Supplemental Data --&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.6&quot;/&gt;
-        &lt;id nullFlavor=&quot;NA&quot; /&gt;
-      &lt;code code=&quot;184100006&quot; 
-            codeSystem=&quot;2.16.840.1.113883.6.96&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;effectiveTime&gt;
-        &lt;low nullFlavor=&quot;NA&quot;/&gt;
-        &lt;high nullFlavor=&quot;NA&quot;/&gt;
-      &lt;/effectiveTime&gt;
-      
-      &lt;value xsi:type=&quot;CD&quot; 
-             code=&quot;M&quot;
-             codeSystem=&quot;2.16.840.1.113883.5.1&quot;/&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;!-- Aggregate Count template --&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;    
 
-    &lt;!--     ETHNICITY Supplemental Data Reporting  for IPP  66708786-C35D-4BA1-97F9-A3E17AC18AF8     --&gt; 
 
-    &lt;!--                            Supplemental Date Template                                                  --&gt;
 
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;!-- Ethnicity Supplemental Data --&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.7&quot;/&gt;
-        &lt;id nullFlavor=&quot;NA&quot; /&gt;
-      &lt;code code=&quot;364699009&quot; 
-            codeSystem=&quot;2.16.840.1.113883.6.96&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;effectiveTime&gt;
-        &lt;low nullFlavor=&quot;NA&quot;/&gt;
-        &lt;high nullFlavor=&quot;NA&quot;/&gt;
-      &lt;/effectiveTime&gt;
-      
-      &lt;value xsi:type=&quot;CD&quot; 
-             code=&quot;2186-5&quot;
-             codeSystem=&quot;2.16.840.1.113883.6.238&quot;/&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;!-- Aggregate Count template --&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;    
 
-   &lt;!--      RACE Supplemental Data Reporting  for IPP  66708786-C35D-4BA1-97F9-A3E17AC18AF8 --&gt; 
 
-    &lt;!--                            Supplemental Date Template                                                  --&gt;
 
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;!-- Race Supplemental Data --&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.8&quot;/&gt;
-        &lt;id nullFlavor=&quot;NA&quot; /&gt;
-      &lt;code code=&quot;103579009&quot; 
-            codeSystem=&quot;2.16.840.1.113883.6.96&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;effectiveTime&gt;
-        &lt;low nullFlavor=&quot;NA&quot;/&gt;
-        &lt;high nullFlavor=&quot;NA&quot;/&gt;
-      &lt;/effectiveTime&gt;
-      
-      &lt;value xsi:type=&quot;CD&quot; 
-             code=&quot;1002-5&quot;
-             codeSystem=&quot;2.16.840.1.113883.6.238&quot;/&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;!-- Aggregate Count template --&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;    
 
- &lt;!--         PAYER Supplemental Data Reporting   forIPP  66708786-C35D-4BA1-97F9-A3E17AC18AF8   --&gt;        
-   &lt;!--                            Supplemental Date Template                                                  --&gt;
 
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;!-- Payer Supplemental Data --&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.9&quot;/&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.24.3.55&quot;/&gt;
-        &lt;id nullFlavor=&quot;NA&quot; /&gt;
-      &lt;code code=&quot;48768-6&quot; 
-            codeSystem=&quot;2.16.840.1.113883.6.1&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;effectiveTime&gt;
-        &lt;low nullFlavor=&quot;NA&quot;/&gt;
-        &lt;high nullFlavor=&quot;NA&quot;/&gt;
-      &lt;/effectiveTime&gt;
-      
-      &lt;value xsi:type=&quot;CD&quot; 
-             code=&quot;349&quot;
-             codeSystem=&quot;2.16.840.1.113883.3.221.5&quot;/&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;!-- Aggregate Count template --&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;    
-  &lt;reference typeCode=&quot;REFR&quot;&gt;
-     &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-        &lt;id root=&quot;66708786-C35D-4BA1-97F9-A3E17AC18AF8&quot;/&gt;
-     &lt;/externalObservation&gt;
-  &lt;/reference&gt;
-&lt;/observation&gt;
-              &lt;/component&gt;
-              &lt;component&gt;
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="3"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>            
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="M"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="3"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E83A6DA6-D34E-4107-8431-2FB2C86738C7"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="4"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="3"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="4"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="M"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="3"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>  
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="A08E22DD-9B31-40AD-BA5C-5DB43F8FFBE4"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="1"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E60D324E-7606-42C2-8E46-5EE29289725D"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="1"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="1"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Ethnicity Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.7"/>
+                      <id nullFlavor="NA" />
+                      <code code="364699009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="2186-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Race Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.8"/>
+                      <id nullFlavor="NA" />
+                      <code code="103579009" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="1002-5"
+                        codeSystem="2.16.840.1.113883.6.238"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+                  
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Sex Supplemental Data -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.6"/>
+                      <id nullFlavor="NA" />
+                      <code code="184100006" 
+                        codeSystem="2.16.840.1.113883.6.96"/>
+                      <statusCode code="completed"/>
+                      
+                      <value xsi:type="CD" 
+                        code="F"
+                        codeSystem="2.16.840.1.113883.5.1"/>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <!-- Aggregate Count template -->
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                          <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                          <value xsi:type="INT" value="1"/>
+                          <methodCode code="COUNT" 
+                            displayName="Count" 
+                            codeSystem="2.16.840.1.113883.5.84" 
+                            codeSystemName="ObservationMethod"/>
+                        </observation>
+                      </entryRelationship>
+                    </observation>
+                  </entryRelationship>    
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="FE61FF42-F9EF-4ADA-9D3F-E734B8D70E87"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="0"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E3ACA22F-9239-417D-8074-E4882FB0F848"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- Measure Data template -->
+                  <templateId root="2.16.840.1.113883.10.20.27.3.5"/>
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"
+                    displayName="Assertion" codeSystemName="ActCode"/>
+                  <statusCode code="completed"/>
+                  <!-- SHALL value with SHOULD be from valueSetName="ObservationPopulationInclusion"  
+                    valueSetOid="2.16.840.1.113883.1.11.20369"  Binding: Dynamic
+                  -->
+                  <value xsi:type="CD" code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.1063"
+                    displayName="initial patient population"
+                    codeSystemName="ObservationValue"/>
+                
+
+                  <!-- SHALL contain aggregate count template -->
+                  <entryRelationship typeCode="SUBJ" inversionInd="true">
+                    <!-- Aggregate Count (2.16.840.1.113883.10.20.27.3.3) -->
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Aggregate Count template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                      <!-- SHALL single value binding -->
+                      <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                      <value xsi:type="INT" value="0"/>
+
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                      <!--  SHALL value xsi:type="INT"-->
+                                          </observation>
+                  </entryRelationship>
+
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="95DF97E7-810D-48A5-8F02-99FA4B384A7B"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                
+
+                  <!-- MAY 0..* Reporting Stratum template -->
+                  <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <!-- Reporting Stratum template -->
+                      <templateId root="2.16.840.1.113883.10.20.27.3.4"/>
+                      <code code="ASSERTION"
+                        codeSystem="2.16.840.1.113883.5.4"
+                        displayName="Assertion" codeSystemName="ActCode"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="CD" nullFlavor="OTH">
+                        <originalText>Stratum</originalText>
+                      </value>
+                      <entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <!-- SHALL 1..1 Aggregate Count template -->
+                          <templateId root="2.16.840.1.113883.10.20.27.3.3"/>
+                            <code code="MSRAGG" 
+                            displayName="rate aggregation" 
+                            codeSystem="2.16.840.1.113883.5.4" 
+                            codeSystemName="ActCode"/>
+                            <value xsi:type="INT" value="0"/>
+                      <methodCode code="COUNT" displayName="Count"
+                        codeSystem="2.16.840.1.113883.5.84"
+                        codeSystemName="ObservationMethod"/>
+                          
+                        </observation>
+                      </entryRelationship>
+
+
+
+
+
+
+
+
+
+
+
+                      <reference typeCode="REFR">
+                        <!-- reference to the relevant strata in the eMeasure -->
+                        <externalObservation classCode="OBS" moodCode="EVN">
+                          <!-- Reference to the third defined Stratum -->
+                          <id root="5722134D-5F7C-42AD-914B-E73B4C366D55"/>
+                        </externalObservation>
+                      </reference>
+                    </observation>
+                  </entryRelationship>
+                  
+
+
+                  
+                  <!-- SHALL 1..1  (Note: this is the reference for the entire population starting with the first component
+                    observation at the top within the measure data template-->
+                  <reference typeCode="REFR">
+                    <!-- reference to the relevant population in the eMeasure -->
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="84C557E8-41B1-43F6-8C1B-1D204335AAFB"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+              </component>
+
               
-&lt;!--   MEASURE DATA REPORTING FOR    MSRPOPL  67190FF7-2DFB-4AC8-ABE2-7B8431D58822  --&gt;
-&lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-  &lt;!-- Measure Data template --&gt;
-  &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.5&quot;/&gt;
-  &lt;code code=&quot;ASSERTION&quot; 
-        codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-        displayName=&quot;Assertion&quot; 
-        codeSystemName=&quot;ActCode&quot;/&gt;
-  &lt;statusCode code=&quot;completed&quot;/&gt;
-  &lt;value xsi:type=&quot;CD&quot; code=&quot;MSRPOPL&quot; 
-         codeSystem=&quot;2.16.840.1.113883.5.1063&quot;  
-         codeSystemName=&quot;ObservationValue&quot;/&gt;
-  &lt;!-- Aggregate Count --&gt;
-  &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-      &lt;code code=&quot;MSRAGG&quot; 
-        displayName=&quot;rate aggregation&quot; 
-        codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-        codeSystemName=&quot;ActCode&quot;/&gt;
-      &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-      &lt;methodCode code=&quot;COUNT&quot; 
-        displayName=&quot;Count&quot; 
-        codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-        codeSystemName=&quot;ObservationMethod&quot;/&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;
-
-  &lt;!--  Startification Reporting Template for MSRPOPL  67190FF7-2DFB-4AC8-ABE2-7B8431D58822  Stratification 40280381-3D27-5493-013D-4D8E56A965F2   --&gt;
-
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.4&quot;/&gt;
-      &lt;code code=&quot;ASSERTION&quot; 
-            codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-            displayName=&quot;Assertion&quot; 
-            codeSystemName=&quot;ActCode&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;value xsi:type=&quot;CD&quot; nullFlavor=&quot;OTH&quot;&gt;
-       &lt;originalText&gt;Stratum&lt;/originalText&gt;
-      &lt;/value&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;0&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-      &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-  &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-    &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.2&quot;/&gt;
-    &lt;code nullFlavor=&quot;OTH&quot;&gt;
-      &lt;originalText&gt;Time Difference&lt;/originalText&gt;
-    &lt;/code&gt;
-    &lt;statusCode code=&quot;completed&quot;/&gt;
-    &lt;value xsi:type=&quot;PQ&quot; value=&quot;0.0&quot; unit=&quot;min&quot;/&gt;
-    &lt;methodCode code=&quot;MEDIAN&quot; 
-                displayName=&quot;Median&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                codeSystemName=&quot;ObservationMethod&quot;/&gt;
-    &lt;reference typeCode=&quot;REFR&quot;&gt;
-      &lt;!-- reference to the relevant measure observation in the eMeasure --&gt;
-      &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-        &lt;id root=&quot;B9352E6D-C82D-424A-A1D3-05A1F3FBAED3&quot;/&gt;
-      &lt;/externalObservation&gt;
-    &lt;/reference&gt;
-  &lt;/observation&gt;
-&lt;/entryRelationship&gt;  
-      &lt;reference typeCode=&quot;REFR&quot;&gt;
-        &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;id root=&quot;40280381-3D27-5493-013D-4D8E56A965F2&quot;/&gt;
-        &lt;/externalObservation&gt;
-      &lt;/reference&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;
-
-  &lt;!--  Startification Reporting Template for MSRPOPL  67190FF7-2DFB-4AC8-ABE2-7B8431D58822  Stratification 40280381-3D27-5493-013D-4D8E566C65F0   --&gt;
-
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.4&quot;/&gt;
-      &lt;code code=&quot;ASSERTION&quot; 
-            codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-            displayName=&quot;Assertion&quot; 
-            codeSystemName=&quot;ActCode&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;value xsi:type=&quot;CD&quot; nullFlavor=&quot;OTH&quot;&gt;
-       &lt;originalText&gt;Stratum&lt;/originalText&gt;
-      &lt;/value&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-      &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-  &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-    &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.2&quot;/&gt;
-    &lt;code nullFlavor=&quot;OTH&quot;&gt;
-      &lt;originalText&gt;Time Difference&lt;/originalText&gt;
-    &lt;/code&gt;
-    &lt;statusCode code=&quot;completed&quot;/&gt;
-    &lt;value xsi:type=&quot;PQ&quot; value=&quot;20.0&quot; unit=&quot;min&quot;/&gt;
-    &lt;methodCode code=&quot;MEDIAN&quot; 
-                displayName=&quot;Median&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                codeSystemName=&quot;ObservationMethod&quot;/&gt;
-    &lt;reference typeCode=&quot;REFR&quot;&gt;
-      &lt;!-- reference to the relevant measure observation in the eMeasure --&gt;
-      &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-        &lt;id root=&quot;B9352E6D-C82D-424A-A1D3-05A1F3FBAED3&quot;/&gt;
-      &lt;/externalObservation&gt;
-    &lt;/reference&gt;
-  &lt;/observation&gt;
-&lt;/entryRelationship&gt;  
-      &lt;reference typeCode=&quot;REFR&quot;&gt;
-        &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;id root=&quot;40280381-3D27-5493-013D-4D8E566C65F0&quot;/&gt;
-        &lt;/externalObservation&gt;
-      &lt;/reference&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;
-
-  &lt;!--  Startification Reporting Template for MSRPOPL  67190FF7-2DFB-4AC8-ABE2-7B8431D58822  Stratification 40280381-3D27-5493-013D-4D8E562965EE   --&gt;
-
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.4&quot;/&gt;
-      &lt;code code=&quot;ASSERTION&quot; 
-            codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-            displayName=&quot;Assertion&quot; 
-            codeSystemName=&quot;ActCode&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;value xsi:type=&quot;CD&quot; nullFlavor=&quot;OTH&quot;&gt;
-       &lt;originalText&gt;Stratum&lt;/originalText&gt;
-      &lt;/value&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-      &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-  &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-    &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.2&quot;/&gt;
-    &lt;code nullFlavor=&quot;OTH&quot;&gt;
-      &lt;originalText&gt;Time Difference&lt;/originalText&gt;
-    &lt;/code&gt;
-    &lt;statusCode code=&quot;completed&quot;/&gt;
-    &lt;value xsi:type=&quot;PQ&quot; value=&quot;20.0&quot; unit=&quot;min&quot;/&gt;
-    &lt;methodCode code=&quot;MEDIAN&quot; 
-                displayName=&quot;Median&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                codeSystemName=&quot;ObservationMethod&quot;/&gt;
-    &lt;reference typeCode=&quot;REFR&quot;&gt;
-      &lt;!-- reference to the relevant measure observation in the eMeasure --&gt;
-      &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-        &lt;id root=&quot;B9352E6D-C82D-424A-A1D3-05A1F3FBAED3&quot;/&gt;
-      &lt;/externalObservation&gt;
-    &lt;/reference&gt;
-  &lt;/observation&gt;
-&lt;/entryRelationship&gt;  
-      &lt;reference typeCode=&quot;REFR&quot;&gt;
-        &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;id root=&quot;40280381-3D27-5493-013D-4D8E562965EE&quot;/&gt;
-        &lt;/externalObservation&gt;
-      &lt;/reference&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;
-   
-   &lt;!--    SEX Supplemental Data Reporting for MSRPOPL  67190FF7-2DFB-4AC8-ABE2-7B8431D58822      --&gt; 
-         
-    &lt;!--                            Supplemental Date Template                                                  --&gt;
-
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;!-- Sex Supplemental Data --&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.6&quot;/&gt;
-        &lt;id nullFlavor=&quot;NA&quot; /&gt;
-      &lt;code code=&quot;184100006&quot; 
-            codeSystem=&quot;2.16.840.1.113883.6.96&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;effectiveTime&gt;
-        &lt;low nullFlavor=&quot;NA&quot;/&gt;
-        &lt;high nullFlavor=&quot;NA&quot;/&gt;
-      &lt;/effectiveTime&gt;
-      
-      &lt;value xsi:type=&quot;CD&quot; 
-             code=&quot;M&quot;
-             codeSystem=&quot;2.16.840.1.113883.5.1&quot;/&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;!-- Aggregate Count template --&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;    
-
-    &lt;!--     ETHNICITY Supplemental Data Reporting  for MSRPOPL  67190FF7-2DFB-4AC8-ABE2-7B8431D58822     --&gt; 
-
-    &lt;!--                            Supplemental Date Template                                                  --&gt;
-
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;!-- Ethnicity Supplemental Data --&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.7&quot;/&gt;
-        &lt;id nullFlavor=&quot;NA&quot; /&gt;
-      &lt;code code=&quot;364699009&quot; 
-            codeSystem=&quot;2.16.840.1.113883.6.96&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;effectiveTime&gt;
-        &lt;low nullFlavor=&quot;NA&quot;/&gt;
-        &lt;high nullFlavor=&quot;NA&quot;/&gt;
-      &lt;/effectiveTime&gt;
-      
-      &lt;value xsi:type=&quot;CD&quot; 
-             code=&quot;2186-5&quot;
-             codeSystem=&quot;2.16.840.1.113883.6.238&quot;/&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;!-- Aggregate Count template --&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;    
-
-   &lt;!--      RACE Supplemental Data Reporting  for MSRPOPL  67190FF7-2DFB-4AC8-ABE2-7B8431D58822 --&gt; 
-
-    &lt;!--                            Supplemental Date Template                                                  --&gt;
-
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;!-- Race Supplemental Data --&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.8&quot;/&gt;
-        &lt;id nullFlavor=&quot;NA&quot; /&gt;
-      &lt;code code=&quot;103579009&quot; 
-            codeSystem=&quot;2.16.840.1.113883.6.96&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;effectiveTime&gt;
-        &lt;low nullFlavor=&quot;NA&quot;/&gt;
-        &lt;high nullFlavor=&quot;NA&quot;/&gt;
-      &lt;/effectiveTime&gt;
-      
-      &lt;value xsi:type=&quot;CD&quot; 
-             code=&quot;1002-5&quot;
-             codeSystem=&quot;2.16.840.1.113883.6.238&quot;/&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;!-- Aggregate Count template --&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;    
-
- &lt;!--         PAYER Supplemental Data Reporting   forMSRPOPL  67190FF7-2DFB-4AC8-ABE2-7B8431D58822   --&gt;        
-   &lt;!--                            Supplemental Date Template                                                  --&gt;
-
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-    &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-      &lt;!-- Payer Supplemental Data --&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.9&quot;/&gt;
-        &lt;templateId root=&quot;2.16.840.1.113883.10.20.24.3.55&quot;/&gt;
-        &lt;id nullFlavor=&quot;NA&quot; /&gt;
-      &lt;code code=&quot;48768-6&quot; 
-            codeSystem=&quot;2.16.840.1.113883.6.1&quot;/&gt;
-      &lt;statusCode code=&quot;completed&quot;/&gt;
-      &lt;effectiveTime&gt;
-        &lt;low nullFlavor=&quot;NA&quot;/&gt;
-        &lt;high nullFlavor=&quot;NA&quot;/&gt;
-      &lt;/effectiveTime&gt;
-      
-      &lt;value xsi:type=&quot;CD&quot; 
-             code=&quot;349&quot;
-             codeSystem=&quot;2.16.840.1.113883.3.221.5&quot;/&gt;
-      &lt;entryRelationship typeCode=&quot;SUBJ&quot; inversionInd=&quot;true&quot;&gt;
-        &lt;!-- Aggregate Count template --&gt;
-        &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-          &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.3&quot;/&gt;
-          &lt;code code=&quot;MSRAGG&quot; 
-                displayName=&quot;rate aggregation&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.4&quot; 
-                codeSystemName=&quot;ActCode&quot;/&gt;
-          &lt;value xsi:type=&quot;INT&quot; value=&quot;4&quot;/&gt;
-          &lt;methodCode code=&quot;COUNT&quot; 
-                      displayName=&quot;Count&quot; 
-                      codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                      codeSystemName=&quot;ObservationMethod&quot;/&gt;
-        &lt;/observation&gt;
-      &lt;/entryRelationship&gt;
-    &lt;/observation&gt;
-  &lt;/entryRelationship&gt;    
-  &lt;entryRelationship typeCode=&quot;COMP&quot;&gt;
-  &lt;observation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-    &lt;templateId root=&quot;2.16.840.1.113883.10.20.27.3.2&quot;/&gt;
-    &lt;code nullFlavor=&quot;OTH&quot;&gt;
-      &lt;originalText&gt;Time Difference&lt;/originalText&gt;
-    &lt;/code&gt;
-    &lt;statusCode code=&quot;completed&quot;/&gt;
-    &lt;value xsi:type=&quot;PQ&quot; value=&quot;20.0&quot; unit=&quot;min&quot;/&gt;
-    &lt;methodCode code=&quot;MEDIAN&quot; 
-                displayName=&quot;Median&quot; 
-                codeSystem=&quot;2.16.840.1.113883.5.84&quot; 
-                codeSystemName=&quot;ObservationMethod&quot;/&gt;
-    &lt;reference typeCode=&quot;REFR&quot;&gt;
-      &lt;!-- reference to the relevant measure observation in the eMeasure --&gt;
-      &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-        &lt;id root=&quot;B9352E6D-C82D-424A-A1D3-05A1F3FBAED3&quot;/&gt;
-      &lt;/externalObservation&gt;
-    &lt;/reference&gt;
-  &lt;/observation&gt;
-&lt;/entryRelationship&gt;  
-  &lt;reference typeCode=&quot;REFR&quot;&gt;
-     &lt;externalObservation classCode=&quot;OBS&quot; moodCode=&quot;EVN&quot;&gt;
-        &lt;id root=&quot;67190FF7-2DFB-4AC8-ABE2-7B8431D58822&quot;/&gt;
-     &lt;/externalObservation&gt;
-  &lt;/reference&gt;
-&lt;/observation&gt;
-              &lt;/component&gt;
-            &lt;/organizer&gt;
-          &lt;/entry&gt;
-        &lt;/section&gt;
-      &lt;/component&gt;
-    &lt;/structuredBody&gt;
-  &lt;/component&gt;
-&lt;/ClinicalDocument&gt;</pre>
-
-    <p class="file_page_meta no_print" style="line-height: 1.5rem;">
-      <label class="checkbox normal mini float_right no_top_padding no_min_width">
-        <input type="checkbox" id="file_preview_wrap_cb"> wrap long lines
-      </label>
-    </p>
-
-  </div>
-
-  <div id="comments_holder" class="clearfix clear_both">
-  <div class="col span_1_of_6"></div>
-  <div class="col span_4_of_6 no_right_padding">
-    <div id="file_page_comments">
-          </div>  
-    <form action="https://mitrecypress.slack.com/files/dczulada/F0FNZ3STS/cms111v3_catiii.xml" 
-    id="file_comment_form" 
-          class="comment_form"
-        method="post">
-      <a href="/team/jesse" class="member_preview_link" data-member-id="U0B1YFPV2" >
-      <span class="member_image thumb_36" style="background-image: url('https://avatars.slack-edge.com/2015-09-28/11478531350_3d703cb07649c1e00f89_72.jpg')" data-thumb-size="36" data-member-id="U0B1YFPV2"></span>
-    </a>    
-    <input type="hidden" name="addcomment" value="1" />
-  <input type="hidden" name="crumb" value="s-1449080862-d685a21290-☃" />
-
-  <textarea id="file_comment" data-el-id-to-keep-in-view="file_comment_submit_btn" class="small comment_input small_bottom_margin autogrow-short" name="comment" wrap="virtual" ></textarea>
-  <span class="input_note float_left cloud_silver file_comment_tip">shift+enter to add a new line</span>  <button id="file_comment_submit_btn" type="submit" class="btn float_right  ladda-button" data-style="expand-right"><span class="ladda-label">Add Comment</span></button>
-</form>
-
-<form
-    id="file_edit_comment_form" 
-          class="edit_comment_form hidden"
-        method="post">
-    <textarea id="file_edit_comment" class="small comment_input small_bottom_margin" name="comment" wrap="virtual"></textarea><br>
-  <span class="input_note float_left cloud_silver file_comment_tip">shift+enter to add a new line</span>  <input type="submit" class="save btn float_right " value="Save" />
-  <button class="cancel btn btn_outline float_right small_right_margin ">Cancel</button>
-</form>  
-  </div>
-  <div class="col span_1_of_6"></div>
-</div>
-</div>
-
-  
-
-    
-  </div>
-  <div id="overlay"></div>
-</div>
-
-
-
-
-
-<script type="text/javascript">
-var cdn_url = "https:\/\/slack.global.ssl.fastly.net";
-var inc_js_setup_data = {
-  emoji_sheets: {
-    apple: 'https://slack.global.ssl.fastly.net/d4bf/img/emoji_2015_2/sheet_apple_64_indexed_256colors.png',
-    google: 'https://slack.global.ssl.fastly.net/d4bf/img/emoji_2015_2/sheet_google_64_indexed_128colors.png',
-    twitter: 'https://slack.global.ssl.fastly.net/d4bf/img/emoji_2015_2/sheet_twitter_64_indexed_128colors.png',
-    emojione: 'https://slack.global.ssl.fastly.net/d4bf/img/emoji_2015_2/sheet_emojione_64_indexed_128colors.png',
-  },
-};
-</script>
-      <script type="text/javascript">
-<!--
-  // common boot_data
-  var boot_data = {
-    start_ms: Date.now(),
-    app: 'web',
-    user_id: 'U0B1YFPV2',
-    no_login: false,
-    version_ts: '1449080502',
-    version_uid: 'c53a71fec63b48d2485adc1d7f20b00366f60036',
-    cache_version: "v11-mouse",
-    cache_ts_version: "v1-cat",
-    redir_domain: 'slack-redir.net',
-    signin_url: 'https://slack.com/signin',
-    abs_root_url: 'https://slack.com/',
-    api_url: '/api/',
-    team_url: 'https://mitrecypress.slack.com/',
-    image_proxy_url: 'https://slack-imgs.com/',
-    beacon_timing_url: "https:\/\/slack.com\/beacon\/timing",
-    beacon_error_url: "https:\/\/slack.com\/beacon\/error",
-    api_token: 'xoxs-5169746473-11066533988-11066373011-0e5bcb23d6',
-    ls_disabled: false,
-
-    feature_status: false,
-    feature_archive_viewer: true,
-
-    notification_sounds: [{"value":"b2.mp3","label":"Ding","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/b2.mp3"},{"value":"animal_stick.mp3","label":"Boing","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/animal_stick.mp3"},{"value":"been_tree.mp3","label":"Drop","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/been_tree.mp3"},{"value":"complete_quest_requirement.mp3","label":"Ta-da","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/complete_quest_requirement.mp3"},{"value":"confirm_delivery.mp3","label":"Plink","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/confirm_delivery.mp3"},{"value":"flitterbug.mp3","label":"Wow","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/flitterbug.mp3"},{"value":"here_you_go_lighter.mp3","label":"Here you go","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/here_you_go_lighter.mp3"},{"value":"hi_flowers_hit.mp3","label":"Hi","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/hi_flowers_hit.mp3"},{"value":"item_pickup.mp3","label":"Yoink","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/item_pickup.mp3"},{"value":"knock_brush.mp3","label":"Knock Brush","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/knock_brush.mp3"},{"value":"save_and_checkout.mp3","label":"Woah!","url":"https:\/\/slack.global.ssl.fastly.net\/dfc0\/sounds\/push\/save_and_checkout.mp3"},{"value":"none","label":"None"}],
-    alert_sounds: [{"value":"frog.mp3","label":"Frog","url":"https:\/\/slack.global.ssl.fastly.net\/a34a\/sounds\/frog.mp3"}],
-    call_sounds: [{"value":"call\/alert.mp3","label":"Alert","url":"https:\/\/slack.global.ssl.fastly.net\/b6a68\/sounds\/call\/alert.mp3"},{"value":"call\/incoming_ring.mp3","label":"Incoming ring","url":"https:\/\/slack.global.ssl.fastly.net\/b6a68\/sounds\/call\/incoming_ring.mp3"},{"value":"call\/outgoing_ring.mp3","label":"Outgoing ring","url":"https:\/\/slack.global.ssl.fastly.net\/b6a68\/sounds\/call\/outgoing_ring.mp3"},{"value":"call\/pop.mp3","label":"Incoming reaction","url":"https:\/\/slack.global.ssl.fastly.net\/fa957\/sounds\/call\/pop.mp3"},{"value":"call\/they_left_call.mp3","label":"They left call","url":"https:\/\/slack.global.ssl.fastly.net\/b6a68\/sounds\/call\/they_left_call.mp3"},{"value":"call\/you_left_call.mp3","label":"You left call","url":"https:\/\/slack.global.ssl.fastly.net\/b6a68\/sounds\/call\/you_left_call.mp3"},{"value":"call\/they_joined_call.mp3","label":"They joined call","url":"https:\/\/slack.global.ssl.fastly.net\/b6a68\/sounds\/call\/they_joined_call.mp3"},{"value":"call\/you_joined_call.mp3","label":"You joined call","url":"https:\/\/slack.global.ssl.fastly.net\/b6a68\/sounds\/call\/you_joined_call.mp3"}],
-
-    feature_api_extended_2fa_backup: false,
-    feature_member_viz_perf: false,
-    feature_message_replies: false,
-    feature_mpim_client: true,
-    feature_new_message_markup: true,
-    feature_ui_reference_v2: false,
-    feature_fullscreen_prefs: false,
-    feature_setactive_use_ms: true,
-    feature_payments_stripe: true,
-    feature_strike: true,
-    feature_show_version_info: false,
-    feature_ephemeral_attachments: false,
-    feature_varietypack_optin: true,
-    feature_deprecate_url_download: true,
-    feature_rxn_skin_tone_modifiers: true,
-    feature_all_skin_tones: false,
-    feature_help_case_feedback: true,
-    feature_spaces: true,
-    feature_pass_the_baton: false,
-    feature_a11y_keyboard_shortcuts: false,
-    feature_email_integration: true,
-    feature_email_ingestion: false,
-    feature_attachments_inline: false,
-    feature_fix_files: true,
-    feature_files_list: true,
-    feature_chat_sounds: false,
-    feature_image_proxy: true,
-    feature_channel_eventlog_client: true,
-    feature_macssb1_banner: true,
-    feature_winssb1_banner: true,
-    feature_winssb_beta_channel: false,
-    feature_latest_event_ts: true,
-    feature_elide_closed_dms: true,
-    feature_client_allow_demand_fetching: true,
-    feature_no_redirects_in_ssb: true,
-    feature_referer_policy: true,
-    feature_client_exif_orientation_on_uploads: true,
-    feature_pricing_page_tweet_carousel: true,
-    feature_archived_channels_in_quick_switcher: false,
-    feature_more_field_in_message_attachments: false,
-    feature_user_hidden_msgs: false,
-    feature_file_url_private_conversion: false,
-    feature_screenhero: false,
-    feature_custom_fields: true,
-    feature_in_app_photo: true,
-    feature_non_admin_invites: false,
-    feature_integrations_message_preview: false,
-    feature_enterprise_api: false,
-    feature_lite_to_free: true,
-    feature_bot_profile: false,
-    feature_two_factor_via_sms: true,
-    feature_two_factor_for_teams: true,
-    feature_signup_invite_step: true,
-    feature_separate_private_channels: true,
-    feature_private_channels: true,
-    feature_mpim_restrictions: false,
-    feature_filter_select_component: true,
-    feature_subteams: true,
-    feature_subteams_hard_delete: false,
-    feature_no_unread_counts: true,
-    feature_web_cache_users: true,
-    feature_command_list_metadata: true,
-    feature_slack_command_button_use: true,
-    feature_slack_command_button_create: true,
-    feature_js_raf_queue: false,
-    feature_downloads_enhancements: true,
-    feature_marketing_video_getting_started: true,
-    feature_getvisibletopbanners_performance: false,
-    feature_channel_page_perf: false,
-    feature_shared_channels: false,
-    feature_fast_files_flexpane: false,
-    feature_no_has_files: true,
-    feature_tab_complete_search_changed: false,
-    feature_whats_new: true,
-    feature_log_client_errors_to_elk: true,
-    feature_custom_saml_signin_button_label: false,
-    feature_app_directory: false,
-    feature_subteams_auto_suggest: true,
-    feature_subteams_at_mention_tweaks: false,
-    feature_dnd_client: false,
-    feature_file_viewer: false,
-    feature_fix_thumbsup_sorting: true,
-    feature_admin_alphabetic_subset: false,
-
-    img: {
-      app_icon: 'https://slack.global.ssl.fastly.net/272a/img/slack_growl_icon.png'
-    },
-    page_needs_custom_emoji: false
-  };
-
-
-
-  // client boot data
-      boot_data.login_data = null;
-  
-//-->
-</script>      
-  
-          <!-- output_js "core" -->
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/fa96/js/rollup-core_required_libs.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/67dc/js/rollup-core_required_ts.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/da1f/js/TS.web.js" crossorigin="anonymous"></script>
-
-  <!-- output_js "core_web" -->
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/594b/js/rollup-core_web.js" crossorigin="anonymous"></script>
-
-  <!-- output_js "secondary" -->
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/6400f/js/rollup-secondary_a_required.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/d755/js/rollup-secondary_b_required.js" crossorigin="anonymous"></script>
-
-      <!-- output_js "regular" -->
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/5070/js/TS.web.comments.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/dce9/js/TS.web.file.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/e26c/js/libs/codemirror.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/9e78/js/codemirror_load.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/8287/js/TS.ui.messages.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/cee3/js/TS.user_groups.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/209e5/js/TS.ui.admin_user_groups.js" crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-  <!--
-    boot_data.page_needs_custom_emoji = true;
-    
-    boot_data.file = {"id":"F0FNZ3STS","created":1449080336,"timestamp":1449080336,"name":"CMS111v3_catIII.xml","title":"CMS111v3_catIII.xml","mimetype":"text\/plain","filetype":"xml","pretty_type":"XML","user":"U054BUGR4","editable":true,"size":35706,"mode":"snippet","is_external":false,"external_type":"","is_public":false,"public_url_shared":false,"display_as_bot":false,"username":"","url":"https:\/\/slack-files.com\/files-pub\/T054ZMYDX-F0FNZ3STS-c886a04b7c\/cms111v3_catiii.xml","url_download":"https:\/\/slack-files.com\/files-pub\/T054ZMYDX-F0FNZ3STS-c886a04b7c\/download\/cms111v3_catiii.xml","url_private":"https:\/\/files.slack.com\/files-pri\/T054ZMYDX-F0FNZ3STS\/cms111v3_catiii.xml","url_private_download":"https:\/\/files.slack.com\/files-pri\/T054ZMYDX-F0FNZ3STS\/download\/cms111v3_catiii.xml","permalink":"https:\/\/mitrecypress.slack.com\/files\/dczulada\/F0FNZ3STS\/cms111v3_catiii.xml","permalink_public":"https:\/\/slack-files.com\/T054ZMYDX-F0FNZ3STS-c886a04b7c","edit_link":"https:\/\/mitrecypress.slack.com\/files\/dczulada\/F0FNZ3STS\/cms111v3_catiii.xml\/edit","preview":"\u003C?xml version=\"1.0\" encoding=\"utf-8\"?\u003E\n\u003CClinicalDocument xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\"\n xmlns=\"urn:hl7-org:v3\"\n xmlns:cda=\"urn:hl7-org:v3\"\u003E\n","preview_highlight":"\u003Cdiv class=\"CodeMirror cm-s-default CodeMirrorServer\"\u003E\n\u003Cdiv class=\"CodeMirror-code\"\u003E\n\u003Cdiv\u003E\u003Cpre\u003E\u003Cspan class=\"cm-meta\"\u003E&lt;?xml\u003C\/span\u003E \u003Cspan class=\"cm-meta\"\u003Eversion=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;\u003C\/span\u003E\u003C\/pre\u003E\u003C\/div\u003E\n\u003Cdiv\u003E\u003Cpre\u003E\u003Cspan class=\"cm-tag cm-bracket\"\u003E&lt;\u003C\/span\u003E\u003Cspan class=\"cm-tag\"\u003EClinicalDocument\u003C\/span\u003E \u003Cspan class=\"cm-attribute\"\u003Exmlns:xsi\u003C\/span\u003E=\u003Cspan class=\"cm-string\"\u003E&quot;http:\/\/www.w3.org\/2001\/XMLSchema-instance&quot;\u003C\/span\u003E\u003C\/pre\u003E\u003C\/div\u003E\n\u003Cdiv\u003E\u003Cpre\u003E \u003Cspan class=\"cm-attribute\"\u003Exmlns\u003C\/span\u003E=\u003Cspan class=\"cm-string\"\u003E&quot;urn:hl7-org:v3&quot;\u003C\/span\u003E\u003C\/pre\u003E\u003C\/div\u003E\n\u003Cdiv\u003E\u003Cpre\u003E \u003Cspan class=\"cm-attribute\"\u003Exmlns:cda\u003C\/span\u003E=\u003Cspan class=\"cm-string\"\u003E&quot;urn:hl7-org:v3&quot;\u003C\/span\u003E\u003Cspan class=\"cm-tag cm-bracket\"\u003E&gt;\u003C\/span\u003E\u003C\/pre\u003E\u003C\/div\u003E\n\u003C\/div\u003E\n\u003C\/div\u003E\n","lines":893,"lines_more":888,"channels":[],"groups":[],"ims":["D0B25B2D8"],"comments_count":0};
-    boot_data.file.comments = [];
-
-    
-
-    var g_editor;
-
-    $(function(){
-
-      var wrap_long_lines = !!TS.model.code_wrap_long_lines;
-
-      g_editor = CodeMirror(function(elt){
-        var content = document.getElementById("file_contents");
-        content.parentNode.replaceChild(elt, content);
-      }, {
-        value: $('#file_contents').text(),
-        lineNumbers: true,
-        matchBrackets: true,
-        indentUnit: 4,
-        indentWithTabs: true,
-        enterMode: "keep",
-        tabMode: "shift",
-        viewportMargin: Infinity,
-        readOnly: true,
-        lineWrapping: wrap_long_lines
-      });
-
-      $('#file_preview_wrap_cb').bind('change', function(e) {
-        TS.model.code_wrap_long_lines = $(this).prop('checked');
-        g_editor.setOption('lineWrapping', TS.model.code_wrap_long_lines);
-      })
-
-      $('#file_preview_wrap_cb').prop('checked', wrap_long_lines);
-
-      CodeMirror.switchSlackMode(g_editor, "xml");
-    });
-
-    
-    $('#file_comment').css('overflow', 'hidden').autogrow();
-  //-->
-  </script>
-
-      <script type="text/javascript">TS.boot(boot_data);</script>
-  <!-- slack-www312 / 2015-12-02 10:27:42 / vc53a71fec63b48d2485adc1d7f20b00366f60036 -->
-<style>.color_9f69e7:not(.nuc) {color:#9F69E7;}.color_4bbe2e:not(.nuc) {color:#4BBE2E;}.color_e7392d:not(.nuc) {color:#E7392D;}.color_3c989f:not(.nuc) {color:#3C989F;}.color_674b1b:not(.nuc) {color:#674B1B;}.color_e96699:not(.nuc) {color:#E96699;}.color_e0a729:not(.nuc) {color:#E0A729;}.color_684b6c:not(.nuc) {color:#684B6C;}.color_5b89d5:not(.nuc) {color:#5B89D5;}.color_2b6836:not(.nuc) {color:#2B6836;}.color_99a949:not(.nuc) {color:#99A949;}.color_df3dc0:not(.nuc) {color:#DF3DC0;}.color_4cc091:not(.nuc) {color:#4CC091;}.color_9b3b45:not(.nuc) {color:#9B3B45;}.color_d58247:not(.nuc) {color:#D58247;}.color_bb86b7:not(.nuc) {color:#BB86B7;}.color_5a4592:not(.nuc) {color:#5A4592;}.color_db3150:not(.nuc) {color:#DB3150;}.color_235e5b:not(.nuc) {color:#235E5B;}.color_9e3997:not(.nuc) {color:#9E3997;}.color_53b759:not(.nuc) {color:#53B759;}.color_c386df:not(.nuc) {color:#C386DF;}.color_385a86:not(.nuc) {color:#385A86;}.color_a63024:not(.nuc) {color:#A63024;}.color_5870dd:not(.nuc) {color:#5870DD;}.color_ea2977:not(.nuc) {color:#EA2977;}.color_50a0cf:not(.nuc) {color:#50A0CF;}.color_d55aef:not(.nuc) {color:#D55AEF;}.color_d1707d:not(.nuc) {color:#D1707D;}.color_43761b:not(.nuc) {color:#43761B;}.color_e06b56:not(.nuc) {color:#E06B56;}.color_8f4a2b:not(.nuc) {color:#8F4A2B;}.color_902d59:not(.nuc) {color:#902D59;}.color_de5f24:not(.nuc) {color:#DE5F24;}.color_a2a5dc:not(.nuc) {color:#A2A5DC;}.color_827327:not(.nuc) {color:#827327;}.color_3c8c69:not(.nuc) {color:#3C8C69;}.color_8d4b84:not(.nuc) {color:#8D4B84;}.color_84b22f:not(.nuc) {color:#84B22F;}.color_4ec0d6:not(.nuc) {color:#4EC0D6;}.color_e23f99:not(.nuc) {color:#E23F99;}.color_e475df:not(.nuc) {color:#E475DF;}.color_619a4f:not(.nuc) {color:#619A4F;}.color_a72f79:not(.nuc) {color:#A72F79;}.color_7d414c:not(.nuc) {color:#7D414C;}.color_aba727:not(.nuc) {color:#ABA727;}.color_965d1b:not(.nuc) {color:#965D1B;}.color_4d5e26:not(.nuc) {color:#4D5E26;}.color_dd8527:not(.nuc) {color:#DD8527;}.color_bd9336:not(.nuc) {color:#BD9336;}.color_e85d72:not(.nuc) {color:#E85D72;}.color_dc7dbb:not(.nuc) {color:#DC7DBB;}.color_bc3663:not(.nuc) {color:#BC3663;}.color_9d8eee:not(.nuc) {color:#9D8EEE;}.color_8469bc:not(.nuc) {color:#8469BC;}.color_73769d:not(.nuc) {color:#73769D;}.color_b14cbc:not(.nuc) {color:#B14CBC;}</style>
-</body>
-</html>
+            </organizer>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>
