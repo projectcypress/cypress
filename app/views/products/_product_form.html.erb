@@ -61,7 +61,10 @@
             <legend class="control-label">Measures Options</legend>
 
             <% unless @product.new_record? %>
-              <%= render :partial => 'alerts', locals: { alert: 'Changing selected measures will delete all associated product tests and test execution results for any removed measures. Be sure you want to do this before changing your selection.', confirmable: true } %>
+              <%= render :partial => 'alert', locals: {
+                    alert_type: 'warning',
+                    message: 'Changing selected measures will delete all associated product tests and test execution results for any removed measures. Be sure you want to do this before changing your selection.',
+                    confirmation: 'Yes, let me adjust my measures' } %>
             <% end %>
 
             <div id="simple_measures_errors_container"></div>
