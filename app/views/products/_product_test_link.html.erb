@@ -22,11 +22,11 @@
 <% else %>
   <% case tasks_status(tasks) %>
   <% when 'passing' %>
-    <i class = 'fa fa-fw fa-check-circle text-success invisible' aria-hidden="true"></i>
+    <i class = 'fa fa-fw fa-check-circle text-success' aria-hidden="true"></i>
     <%= link_to 'view', new_task_test_execution_path(task), :class => "label label-success" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'failing' %>
-    <i class = 'fa fa-fw fa-play-circle text-danger invisible' aria-hidden="true"></i>
+    <i class = 'fa fa-fw fa-play-circle text-danger' aria-hidden="true"></i>
     <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-danger" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'incomplete' %>
@@ -34,7 +34,7 @@
       <i class = 'fa fa-fw fa-gavel fa-spin text-testing' aria-hidden = 'true'></i>
       <%= link_to 'testing...', new_task_test_execution_path(task), :class => 'label label-default' %>
     <% else %>
-      <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+      <i class = 'fa fa-fw fa-play-circle text-info' aria-hidden="true"></i>
       <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>
       <%= render partial: '/products/product_test_upload', locals: { task: task } %>
     <% end %>
