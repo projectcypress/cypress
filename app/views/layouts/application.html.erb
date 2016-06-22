@@ -29,7 +29,13 @@
       <% if user_signed_in? %>
         <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
       <% end %>
-      <%= render :partial => 'alerts' %>
+
+      <% flash.each do |type, message| %>
+        <% alert_type = %w(success warning danger).include? type ? type : 'info' %>
+        <%= render :partial => 'alert', locals: {
+              alert_type: alert_type,
+              message: message } %>
+      <% end %>
     </div>
 
   </header>
