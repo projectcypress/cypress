@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
     @product.save!
     flash_comment(@product.name, 'success', 'created')
     respond_with(@product) do |f|
-      f.html { add_checklist_test_and_redirect(product_params, @vendor) }
+      f.html { redirect_to vendor_path(@vendor) }
     end
   rescue Mongoid::Errors::Validations, Mongoid::Errors::DocumentNotFound
     respond_with_errors(@product) do |f|
@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
     @product.save!
     flash_comment(@product.name, 'info', 'edited')
     respond_with(@product) do |f|
-      f.html { add_checklist_test_and_redirect(edit_product_params, @product.vendor) }
+      f.html { redirect_to vendor_path(@product.vendor) }
     end
   rescue Mongoid::Errors::Validations, Mongoid::Errors::DocumentNotFound
     respond_with(@product) do |f|
@@ -111,10 +111,5 @@ class ProductsController < ApplicationController
 
   def edit_product_params
     params.require(:product).permit(:name, :version, :description, :measure_selection, measure_ids: [])
-  end
-
-  def add_checklist_test_and_redirect(params, vendor)
-    @product.add_checklist_test if @product.c1_test
-    redirect_to vendor_path(vendor)
   end
 end

@@ -2,6 +2,11 @@ class ChecklistTest < ProductTest
   embeds_many :checked_criteria, class_name: 'ChecklistSourceDataCriteria'
   accepts_nested_attributes_for :checked_criteria, allow_destroy: true
 
+  def status
+    return 'incomplete' if measures.empty?
+    num_measures_complete == measures.count ? 'passing' : 'incomplete'
+  end
+
   def num_measures_complete
     return 0 if checked_criteria.count == 0
     num_complete = 0
@@ -24,13 +29,11 @@ class ChecklistTest < ProductTest
   def measures
     # measure list is changed once checklist is created, measures are based on checklist criteria
     if !checked_criteria.empty?
-      measure_ids = []
+      m_ids = []
       checked_criteria.each do |critiera|
-        unless measure_ids.include? critiera.measure_id
-          measure_ids << critiera.measure_id
-        end
+        m_ids << critiera.measure_id unless m_ids.include? critiera.measure_id
       end
-      Measure.where(:_id.in => measure_ids)
+      Measure.where(:_id.in => m_ids)
     else
       super
     end

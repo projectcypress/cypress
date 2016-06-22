@@ -37,7 +37,7 @@ class Product
       if product_tests_for_status('failing').count > 0
         'failing'
       elsif product_tests_for_status('passing').count == total && total > 0
-        'passing'
+        c1_test && product_tests.checklist_tests.empty? ? 'incomplete' : 'passing'
       else
         'incomplete'
       end
@@ -80,7 +80,9 @@ class Product
     end
     # remove measure and checklist tests if their measure ids have been removed
     product_tests.in(measure_ids: (old_ids - new_ids)).destroy
+    save!
     add_filtering_tests if c4_test
+    add_checklist_test if c1_test
   end
 
   # builds a checklist test if product does not have a checklist test
@@ -103,24 +105,22 @@ class Product
 
   def add_filtering_tests
     measure = ApplicationController.helpers.pick_measure_for_filtering_test(measure_ids, bundle)
-    save!
     reload_relations
 
-    if product_tests.filtering_tests.count == 0
-      criteria = %w(races ethnicities genders payers age).shuffle
-      filter_tests = []
-      filter_tests << build_filtering_test(measure, criteria[0, 2])
-      filter_tests << build_filtering_test(measure, criteria[2, 2])
-      filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
-      filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
-      filter_tests << if ApplicationController.helpers.measure_has_diagnosis_criteria?(measure)
-                        build_filtering_test(measure, ['problems'])
-                      else
-                        # the measure doesn't have a diagnosis so instead create a new demographics task
-                        build_filtering_test(measure, criteria.values_at(4, (0..3).to_a.sample))
-                      end
-      ApplicationController.helpers.generate_filter_records(filter_tests)
-    end
+    return if product_tests.filtering_tests.any?
+    criteria = %w(races ethnicities genders payers age).shuffle
+    filter_tests = []
+    filter_tests << build_filtering_test(measure, criteria[0, 2])
+    filter_tests << build_filtering_test(measure, criteria[2, 2])
+    filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
+    filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
+    filter_tests << if ApplicationController.helpers.measure_has_diagnosis_criteria?(measure)
+                      build_filtering_test(measure, ['problems'])
+                    else
+                      # the measure doesn't have a diagnosis so instead create a new demographics task
+                      build_filtering_test(measure, criteria.values_at(4, (0..3).to_a.sample))
+                    end
+    ApplicationController.helpers.generate_filter_records(filter_tests)
   end
 
   def build_filtering_test(measure, criteria, display_name = '', incl_addr = true)

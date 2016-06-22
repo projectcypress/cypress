@@ -289,7 +289,7 @@ class ProductsControllerTest < ActionController::TestCase
     vendor = Vendor.first
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       post :create, :format => :json, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true,
-                                                                             measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
+                                                                             measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'],
                                                                              bundle_id: '4fdb62e01d41c820f6000001' }
       assert_response 201, 'response should be Created on product create'
       assert response.location.end_with?(product_path(vendor.products.order_by(created_at: 'desc').first)),
@@ -299,7 +299,7 @@ class ProductsControllerTest < ActionController::TestCase
 
   test 'should get destroy with json request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
+      pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'],
                        bundle_id: '4fdb62e01d41c820f6000001')
       pd.save!
       delete :destroy, :format => :json, :id => pd.id
@@ -307,6 +307,17 @@ class ProductsControllerTest < ActionController::TestCase
       assert_equal '', response.body
       get :show, :format => :json, :id => pd.id
       assert_response 404, 'response should be Not Found because product should be destroyed'
+    end
+  end
+
+  test 'should create manual checklist on product create when c1 is selected' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      product_name = "my product name #{rand}"
+      post :create, :format => :json, :vendor_id => Vendor.first.id, :product => { name: product_name, c1_test: true,
+                                                                                   measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'],
+                                                                                   bundle_id: '4fdb62e01d41c820f6000001' }
+      product = Product.where(name: product_name).first
+      assert product.product_tests.checklist_tests.any?
     end
   end
 
@@ -336,7 +347,7 @@ class ProductsControllerTest < ActionController::TestCase
     vendor = Vendor.first
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       post :create, :format => :xml, :vendor_id => vendor.id, :product => { name: "Product JSON post #{rand}", c1_test: true,
-                                                                            measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
+                                                                            measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'],
                                                                             bundle_id: '4fdb62e01d41c820f6000001' }
       assert_response 201, 'response should be Created on product create'
       assert response.location.end_with?(product_path(vendor.products.order_by(created_at: 'desc').first)),
@@ -346,7 +357,7 @@ class ProductsControllerTest < ActionController::TestCase
 
   test 'should get destroy with xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
+      pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'],
                        bundle_id: '4fdb62e01d41c820f6000001')
       pd.save!
       delete :destroy, :format => :xml, :id => pd.id

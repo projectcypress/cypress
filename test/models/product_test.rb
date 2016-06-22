@@ -114,6 +114,7 @@ class ProducTest < ActiveSupport::TestCase
   def test_add_filtering_tests
     pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'],
                      bundle_id: '4fdb62e01d41c820f6000001')
+    pt.save!
     pt.add_filtering_tests
     assert pt.product_tests.filtering_tests.count == 5
   end
@@ -149,6 +150,59 @@ class ProducTest < ActiveSupport::TestCase
     pt.save!
     pt.add_checklist_test
     assert pt.product_tests.checklist_tests.first == old_checklist_test
+  end
+
+  # # # # # # # # # # # # # # # #
+  #   S T A T U S   T E S T S   #
+  # # # # # # # # # # # # # # # #
+
+  def test_product_status
+    product = Product.new(vendor: @vendor, name: 'my product', c1_test: true, measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'])
+    product.save!
+    product_test = product.product_tests.build({ name: 'my product test 1', measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'] }, MeasureTest)
+    product_test.save!
+
+    # status should be incomplete if all product tests passing but no manual checklist test exists
+    product_test.tasks.first.test_executions.create!(:state => :passed)
+    assert_equal 'incomplete', product.status
+
+    # if product does not need to certify for c1, than product should pass
+    product.c1_test = nil
+    product.c2_test = true
+    product.save!
+    assert_equal 'passing', product.status
+    product.c1_test = true
+    product.c2_test = nil
+    product.save!
+
+    # adding a complete checklist test will make product pass
+    create_complete_checklist_test_for_product(product, product.measure_ids.first)
+    assert_equal 'passing', product.status
+
+    # one failing product test will fail the product
+    product_test = product.product_tests.build({ name: 'my product test 2', measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'] }, MeasureTest)
+    product_test.save!
+    product_test.tasks.first.test_executions.create!(:state => :failed)
+    assert_equal 'failing', product.status
+  end
+
+  def test_product_status_failing_if_one_product_test_are_fails
+    measure_id = '40280381-4BE2-53B3-014C-0F589C1A1C39'
+    product = Product.new(vendor: @vendor, name: 'my product', c1_test: true, measure_ids: [measure_id])
+    product_test = product.product_tests.build({ name: "my product test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+    product_test.save!
+    test_execution = product_test.tasks.first.test_executions.build(:state => :passed)
+    product.save!
+  end
+
+  def create_complete_checklist_test_for_product(product, measure_id)
+    # id_of_measure is _id attribute on measure. checked_criteria use this mongoid id as a unique identifier for measures to avoid submeasures
+    id_of_measure = Measure.top_level.where(hqmf_id: measure_id).first.id
+    criterias = [ChecklistSourceDataCriteria.new(code: 'my code', attribute_code: 'my attribute code', recorded_result: 'my recorded result',
+                                                 code_complete: true, attribute_complete: true, result_complete: true, measure_id: id_of_measure)]
+    checklist_test = product.product_tests.build({ name: 'my checklist test', checked_criteria: criterias,
+                                                   measure_ids: [measure_id] }, ChecklistTest)
+    checklist_test.save!
   end
 end
 
