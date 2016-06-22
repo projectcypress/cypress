@@ -37,7 +37,7 @@ class Product
       if product_tests_for_status('failing').count > 0
         'failing'
       elsif product_tests_for_status('passing').count == total && total > 0
-        'passing'
+        c1_test && product_tests.checklist_tests.empty? ? 'incomplete' : 'passing'
       else
         'incomplete'
       end

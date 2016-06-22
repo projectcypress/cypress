@@ -151,6 +151,42 @@ class ProducTest < ActiveSupport::TestCase
     pt.add_checklist_test
     assert pt.product_tests.checklist_tests.first == old_checklist_test
   end
+
+  # # # # # # # # # # # # # # # #
+  #   S T A T U S   T E S T S   #
+  # # # # # # # # # # # # # # # #
+
+  def test_product_status_incomplete_for_all_passing_product_tests_but_no_manual_checklist_test_exists
+    measure_id = '40280381-4BE2-53B3-014C-0F589C1A1C39'
+    product = Product.new(vendor: @vendor, name: 'my product', c1_test: true, measure_ids: [measure_id])
+    product.save!
+    product_test = product.product_tests.build({ name: "my product test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+    product_test.save!
+    test_execution = product_test.tasks.first.test_executions.build(:state => :passed)
+    test_execution.save!
+    assert_equal 'incomplete', product.status
+
+    # adding a complete checklist test will make product pass
+    create_complete_checklist_test_for_product(product, product.measure_ids.first)
+    assert_equal 'passing', product.status
+  end
+
+  def create_complete_checklist_test_for_product(product, measure_id)
+    # id_of_measure is _id attribute on measure. checked_criteria use this mongoid id as a unique identifier for measures to avoid submeasures
+    id_of_measure = Measure.top_level.where(hqmf_id: measure_id).first.id
+    criterias = [ChecklistSourceDataCriteria.new(code: 'my code', attribute_code: 'my attribute code', recorded_result: 'my recorded result',
+                                                 code_complete: true, attribute_complete: true, result_complete: true, measure_id: id_of_measure)]
+    checklist_test = product.product_tests.build({ name: 'my checklist test', checked_criteria: criterias,
+                                                   measure_ids: [measure_id] }, ChecklistTest)
+    checklist_test.save!
+  end
+
+  # come back and write tests for status
+
+  # statuses should be array of strings where strings can be 'passing', 'failing', or 'incomplete'
+  def create_product_tests_with_statuses(statuses)
+    # write function here
+  end
 end
 
 class ProductCachingTest < CachingTest
