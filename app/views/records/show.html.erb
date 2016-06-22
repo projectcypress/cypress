@@ -1,6 +1,6 @@
 <h1>Patient Information for <%= full_name(@record) %></h1>
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-6">
     <h2>Measure Information</h2>
     <% if @measures.where(continuous_variable: true).length > 0 %>
       <table class="table table-condensed">
@@ -59,7 +59,7 @@
       </table>
     <% end %>
   </div>
-  <div class="col-md-7">
+  <div class="col-md-6">
     <h2>Patient Details</h2>
     <dl class="dl-horizontal">
       <dt>DOB</dt><dd><%= display_time(@record['birthdate']) %></dd>
@@ -77,12 +77,24 @@
               <h4><%= dc['description'] %></h4>
               <dl class="dl-horizontal">
                 <% dc['codes'].each do |code_system, code| %>
-                  <dt><%= code_system %></dt> <dd><%= code.join(", ") %></dd>
+                  <dt><%= code_system %></dt><dd><%= code.join(", ") %></dd>
                 <% end %>
               </dl>
               <dl class="dl-horizontal">
-                <dt>Start Time</dt> <dd><%= display_time(dc['start_time']) if dc['start_time'] %></dd>
-                <dt>End Time</dt> <dd><%= display_time(dc['end_time']) if dc['end_time'] %></dd>
+                <% if dc.respond_to?(:negationInd) && dc.negationInd %>
+                  <dt>Not Performed</dt><dd><%=HealthDataStandards::SVS::ValueSet.where({"concepts.code": dc.negationReason.code, "concepts.code_system_name": dc.negationReason.code_system}).first.concepts.select {|c| c.code == dc.negationReason.code}.first.display_name[/.*(?= )/] %></dd>
+                  <dt>Time</dt><dd><%=display_time_to_minutes(dc['start_time'])%></dd>
+                <%else%>
+                  <dt><%= "Start Time" if dc['start_time']%></dt> <dd><%= display_time_to_minutes(dc['start_time']) if dc['start_time'] %></dd>
+                  <dt><%="End Time" if dc['end_time']%></dt> <dd><%= display_time_to_minutes(dc['end_time']) if dc['end_time'] %></dd>
+                <%end%>
+                <br>
+                <% RecordsHelper::FIELDS.each do |f|%>
+                  <% if dc[f] %>
+                    <dt><%= ("Results" if f == 'values') || f.underscore.humanize.titleize%></dt>
+                    <dd><%= simple_format(display_field(dc[f]))%></dd>
+                  <%end%>
+                <%end%>
               </dl>
             </div>
             <% end %>
