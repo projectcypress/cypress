@@ -112,7 +112,7 @@
           <% check_test.checked_criteria.all(measure_id: measure.id).each do |check_crit| %>
             <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == check_crit.source_data_criteria }.values.first %>
             <tr>
-              <td><%= render partial: 'products/report/status_icon', locals: { passing: check_crit.completed } %></td>
+              <td><%= render partial: 'products/report/status_icon', locals: { passing: check_crit.complete? } %></td>
               <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
               <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
             </tr>

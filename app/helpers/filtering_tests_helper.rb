@@ -1,5 +1,6 @@
 module FilteringTestsHelper
   def display_filter_val(filter_name, vals)
+    return [] if vals == [] # ie, the filter values haven't been chosen yet
     return providers_val(vals) if filter_name == 'providers'
     return problems_val(vals) if filter_name == 'problems'
     return age_val(vals) if filter_name == 'age'
