@@ -44,7 +44,7 @@ end
 When(/^the user creates a vendor with a name of (.*)$/) do |name|
   steps %( When the user visits the create vendor page )
   page.fill_in 'Vendor Name', with: name
-  page.click_button 'Create Vendor'
+  page.click_button 'Add Vendor'
 end
 
 When(/^the user cancels creating a vendor$/) do
@@ -57,7 +57,7 @@ When(/^the user edits the vendor$/) do
   visit '/'
   page.click_button 'Edit Vendor'
   page.fill_in 'URL', with: 'www.example.com'
-  page.click_button 'Submit Changes'
+  page.click_button 'Edit Vendor'
 end
 
 When(/^the user removes the vendor$/) do

@@ -139,7 +139,7 @@ When(/^the user changes the name of the product$/) do
   page.click_button 'Edit Product'
   @product_other = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product_other.name
-  page.click_button 'Update Product'
+  page.click_button 'Edit Product'
 end
 
 When(/^the user removes the product$/) do

@@ -30,7 +30,7 @@
       <%= f.password_field :password_confirmation, label: 'Confirm New Password', autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
     </div>
     <div class="panel-footer">
-      <%= f.primary "Update" %>
+      <%= f.primary "Edit " + resource_name.to_s.humanize %>
       <%= link_to "Back", :back, class: 'btn btn-default' %>
     </div>
   <% end %>
