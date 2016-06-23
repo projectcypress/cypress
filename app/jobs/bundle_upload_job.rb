@@ -1,5 +1,6 @@
 class BundleUploadJob < ActiveJob::Base
   include Job::Status
+  include CypressYaml
   DEFAULT_OPTIONS = { delete_existing: false, update_measures: false, exclude_results: false }.freeze
   after_enqueue do |job|
     tracker = job.tracker
@@ -23,6 +24,9 @@ class BundleUploadJob < ActiveJob::Base
     if already_have_default
       @bundle.active = false
       @bundle.save!
+    else
+      Settings[:default_bundle] = @bundle.version
+      sub_yml_setting('default_bundle', Settings[:default_bundle])
     end
   end
 end

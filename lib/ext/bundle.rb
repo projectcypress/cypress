@@ -25,7 +25,11 @@ class Bundle
   def self.default
     find_by(active: true)
   rescue
-    nil
+    most_recent
+  end
+
+  def self.most_recent
+    where(version: pluck(:version).max).first
   end
 
   def self.first

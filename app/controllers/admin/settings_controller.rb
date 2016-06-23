@@ -1,5 +1,6 @@
 module Admin
   class SettingsController < AdminController
+    include CypressYaml
     add_breadcrumb 'Admin', :admin_path
 
     def show
