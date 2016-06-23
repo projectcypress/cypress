@@ -3,7 +3,7 @@ effective_date:
   month: 12
   day: 31
 
-version: 3.0.0alpha6
+version: 3.0.0beta1
 
 default_bundle: 2016.0.0
 
@@ -12,9 +12,9 @@ default_bundle: 2016.0.0
   # EP_CAT_1.sch
   # EP_CAT_3.sch
   # EH_CAT_1.sch
-# Inside the specified folder. 
-# The highest matching version will be used. Ie if bundle version is 3.0.0  the schematrons would be 3.0.0 
-# In the case of none of them being valid it will default to the first one 
+# Inside the specified folder.
+# The highest matching version will be used. Ie if bundle version is 3.0.0  the schematrons would be 3.0.0
+# In the case of none of them being valid it will default to the first one
 version_config:
   '>2.9.0':
       schematron: "bundle_2_9_9"
