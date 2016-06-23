@@ -1,5 +1,6 @@
 module Admin
   class BundlesController < AdminController
+    include CypressYaml
     respond_to :html
 
     before_action :find_bundle, only: [:set_default, :destroy]
