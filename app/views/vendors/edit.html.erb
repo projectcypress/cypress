@@ -3,7 +3,7 @@
 
   <%= render partial: 'remove_modal' %>
 
-  <%= render :partial => 'vendor_form', locals: {submit_text: 'Submit Changes'} %>
+  <%= render :partial => 'vendor_form', locals: {submit_text: 'Edit Vendor'} %>
 
   <%= render partial: 'remove_panel', locals: { name: @vendor.name, type: 'vendor', message: 'Removing a vendor will also delete all associated products, product tests, and test execution results. Be sure you want to do this.', delete_path: vendor_path(@vendor) } %>
 
