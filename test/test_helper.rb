@@ -5,7 +5,6 @@ SimpleCov.start 'rails'
 # We dropped the value to 77 to be able to get pull requests pulled in. Needs to be brought back up as coverage goes back up.
 SimpleCov.minimum_coverage 77
 Mongo::Logger.logger.level = Logger::WARN
-APP_CONFIG['ignore_roles'] = false
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -25,6 +24,10 @@ Warden.test_mode!
 Mongoid.logger.level = Logger::INFO
 
 class ActiveSupport::TestCase
+  def setup
+    Settings[:ignore_roles] = false
+  end
+
   def teardown
     drop_database
   end

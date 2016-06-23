@@ -46,7 +46,7 @@ class User
   index(invitation_token: 1)
   index(invitation_by_id: 1)
 
-  field :approved, type: Boolean, default: APP_CONFIG.auto_approve || false
+  field :approved, type: Boolean, default: Settings[:auto_approve] || false
 
   validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
 
@@ -101,7 +101,7 @@ class User
   end
 
   def assign_default_role
-    dr = APP_CONFIG.default_role
+    dr = Settings[:default_role]
     add_role dr if dr
   end
 end

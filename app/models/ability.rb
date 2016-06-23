@@ -7,7 +7,7 @@ class Ability
     # if user.atl?
     #   can :manage, :all
     # end
-    if APP_CONFIG.ignore_roles || user.has_role?('admin')
+    if Settings[:ignore_roles] || user.has_role?('admin')
       can :manage, :all
     else
       can :manage, Vendor if user.has_role?('atl')

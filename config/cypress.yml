@@ -12,9 +12,9 @@ default_bundle: 2016.0.0
   # EP_CAT_1.sch
   # EP_CAT_3.sch
   # EH_CAT_1.sch
-# Inside the specified folder. 
-# The highest matching version will be used. Ie if bundle version is 3.0.0  the schematrons would be 3.0.0 
-# In the case of none of them being valid it will default to the first one 
+# Inside the specified folder.
+# The highest matching version will be used. Ie if bundle version is 3.0.0  the schematrons would be 3.0.0
+# In the case of none of them being valid it will default to the first one
 version_config:
   '>2.9.0':
       schematron: "bundle_2_9_9"
@@ -41,18 +41,18 @@ mailer_authentication: :plain
 
 bundle_file_path: "temp/bundles"
 
-# ignore roles completely -- this is essientially the same as everyone in the system being an admin
-ignore_roles: true
+# ignore roles completely -- this is essientially the same as everyone in the system being an admin, default true
+ignore_roles: <%= if ENV['IGNORE_ROLES'].nil? then true else ENV['IGNORE_ROLES'] end %>
 
-# enable the "debug features" such as allowing QA testers to produce known good results for a task
-enable_debug_features: true
+# enable the "debug features" such as allowing QA testers to produce known good results for a task, default true
+enable_debug_features: <%= if ENV['ENABLE_DEBUG_FEATURES'].nil? then true else ENV['ENABLE_DEBUG_FEATURES'] end %>
 
 # the default role to assign to a user upon at creation -- this should be either admin,atl, user or nil
 # a user without a role will not be able to create or view any vendors .  You may want to set this to nil
-# when an admin is required to approve new users and have the admin set the role there
-default_role: :user
-# wheather or not users are automatically approved without admin intervention
-auto_approve: true
+# when an admin is required to approve new users and have the admin set the role there, default :user
+default_role: <%= if !ENV["DEFAULT_ROLE"].nil? && ENV["DEFAULT_ROLE"].empty? then nil else (ENV["DEFAULT_ROLE"] || ":user") end %>
+# wheather or not users are automatically approved without admin intervention, default true
+auto_approve: <%= if ENV['AUTO_APPROVE'].nil? then true else ENV['AUTO_APPROVE'] end %>
 # sets whether or not Users are automatically linked to a Vendor based off the vendors points of contacts. Setting to true will
 # auto associate a User to a vendor when a user is created and a vendor point of contanct contains the same email address as the
 # user.  Likewise if a point of contact is added to a vendor and a User in the system has the same email address then the user
