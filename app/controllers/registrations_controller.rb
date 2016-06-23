@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
-  add_breadcrumb 'New Account',  :new_user_registration_path,  only: [:new, :create]
-  add_breadcrumb 'Edit Account', :edit_user_registration_path, only: [:edit, :update]
+  add_breadcrumb 'New Account', :new_user_registration_path, only: [:new, :create]
+  add_breadcrumb 'Edit User', :edit_user_registration_path, only: [:edit, :update]
   add_breadcrumb 'Cancel Account', :cancel_user_registration_path, only: [:cancel]
 
   before_action :configure_permitted_parameters
@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
-    @title = 'Edit Account'
+    @title = 'Edit User'
     super
   end
 
