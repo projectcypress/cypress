@@ -32,13 +32,15 @@
         </div>
 
         <div class="col-md-6">
-          <fieldset>
-            <legend class="control-label">Records Options</legend>
-            <%= f.form_group help: "Recommended for most robust testing." do %>
-              <%= f.check_box :randomize_records, label: 'Randomize Records', label_class: "btn btn-checkbox", checked: @product.new_record? ? true : @product.randomize_records, disabled: !@product.new_record? %>
-              <%= f.check_box :duplicate_records, label: 'Duplicate Records', label_class: "btn btn-checkbox", checked: @product.new_record? ? true : @product.duplicate_records, disabled: !@product.new_record? %>
-            <% end %>
-          </fieldset>
+          <% unless current_user.has_role?('atl')%>
+            <fieldset>
+              <legend class="control-label">Records Options</legend>
+              <%= f.form_group help: "Recommended for most robust testing." do %>
+                <%= f.check_box :randomize_records, label: 'Randomize Records', label_class: "btn btn-checkbox", checked: @product.new_record? ? true : @product.randomize_records, disabled: !@product.new_record? %>
+                <%= f.check_box :duplicate_records, label: 'Duplicate Records', label_class: "btn btn-checkbox", checked: @product.new_record? ? true : @product.duplicate_records, disabled: !@product.new_record? %>
+              <% end %>
+            </fieldset>
+          <%end%>
 
           <fieldset>
             <legend class="control-label">Annual Update Bundle</legend>
