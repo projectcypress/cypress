@@ -196,24 +196,4 @@
   <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C4 QRDA Category III Failing Measure Tests', tasks: c4_cat3_failing_tasks, c3: false, c4: true } %>
 </section>
 <% end %>
-
-<% if all_records_for_product(@product).any? %>
-<section>
-  <h1>Record Name Matching</h1>
-  <table class="table table-condensed">
-    <thead>
-      <th scope="col">Name</th>
-      <th scope="col">Original</th>
-    </thead>
-    <tbody>
-      <% all_records_for_product(@product).each do |r| %>
-        <tr>
-          <td><%= r.new_name %></td>
-          <td><%= r.original %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</section>
-<% end %>
 </div>
