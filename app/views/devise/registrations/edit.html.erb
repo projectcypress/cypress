@@ -3,7 +3,7 @@
 <div>
   <h3>Account Details </h3>
   <dl>
-    <dt style="float:left; padding-right: 5px;">Registered </dt><dd><%= display_time(resource.confirmed_at) %></dd>
+    <dt style="float:left; padding-right: 5px;">Registered </dt><dd><%= local_time_ago(resource.confirmed_at) %></dd>
     <dt style="float:left; padding-right: 5px;">Vendors </dt><dd><%= Vendor.accessible_by(resource).count %></dd>
       <% numProducts = 0 %>
       <% Vendor.accessible_by(resource).each do |v| %>

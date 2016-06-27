@@ -21,7 +21,7 @@
     <div class = 'panel-body'>
       <% get_error_counts(execution, task).each do |error_name, num_errors| %>
         <div class = 'col-sm-6 text-right'><%= error_name %></div>
-        <div class = 'col-sm-6 text-left'><%= num_errors %></div>
+        <div class = 'col-sm-6 text-left'><%= num_errors || "--" %></div>
       <% end %>
       <div class = 'col-sm-6 text-right'>Execution Date</div>
       <div class = 'col-sm-6 text-left'><%= execution ? date_of_execution(execution) : '--' %></div>

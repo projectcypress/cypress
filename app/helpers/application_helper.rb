@@ -1,10 +1,10 @@
 module ApplicationHelper
   def display_time(seconds_since_epoch)
-    Time.at(seconds_since_epoch).utc.strftime('%m/%d/%Y') || '?'
+    Time.at(seconds_since_epoch).utc.strftime('%Y-%m-%d') || '?'
   end
 
   def display_time_to_minutes(seconds_since_epoch)
-    Time.at(seconds_since_epoch).utc.strftime('%m/%d/%Y %l:%M%P')
+    Time.at(seconds_since_epoch).utc.strftime('%Y-%m-%d %l:%M%P')
   end
 
   def website_link(url_string)
