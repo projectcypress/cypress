@@ -5,6 +5,9 @@
   <thead>
     <tr>
       <th scope="col">Patient Name</th>
+      <% if @product_test && (current_user.has_role?('atl') || current_user.has_role?('admin'))%>
+        <th scope="col">Template Name</th>
+      <%end%>
       <th scope="col">DOB</th>
       <th scope="col">Gender</th>
       <% if @measure %>
@@ -30,7 +33,7 @@
         </tr>
       <% end %>
     <% else %>
-      <!-- will show all records --> 
+      <!-- will show all records -->
       <% @records.each do |r| %>
         <tr>
           <% if @product_test %>
@@ -38,6 +41,10 @@
           <% else %>
             <td><%= link_to full_name(r), bundle_record_path(@bundle, r) %></td>
           <% end %>
+          <% if @product_test && (current_user.has_role?('atl') || current_user.has_role?('admin')) %>
+            <% original_patient = r.bundle.records.find_by(medical_record_number: r.original_medical_record_number) %>
+            <td> <%="#{original_patient.first} #{original_patient.last}"%> </td>
+            <%end%>
           <td><%= display_time(r.birthdate) %></td>
           <td><%= full_gender_name(r.gender) %></td>
           <!-- will show calculation results for product test records -->
