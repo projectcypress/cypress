@@ -18,7 +18,11 @@ class TestExecutionsController < ApplicationController
     authorize! :execute_task, @task.product_test.product.vendor
     @test_execution = @task.execute(results_params)
     respond_with(@test_execution) do |f|
-      f.html { redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id) }
+      if @task._type == 'C1ManualTask'
+        f.html { redirect_to product_checklist_test_path(@task.product_test.product, @task.product_test) }
+      else
+        f.html { redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id) }
+      end
     end
   rescue Mongoid::Errors::Validations
     rescue_create
@@ -69,6 +73,8 @@ class TestExecutionsController < ApplicationController
     add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(@product_test.product.vendor)
     add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(@product_test.product.vendor, @product_test.product)
+    add_breadcrumb 'Checklist Dashboard: ' + @product_test.name, product_checklist_test_path(@product_test.product,
+                                                                                             @product_test) if @product_test._type == 'ChecklistTest'
     add_breadcrumb 'Test: ' + @product_test.name, product_product_test_path(@product_test.product, @product_test)
   end
 

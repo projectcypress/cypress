@@ -20,6 +20,12 @@ class Task
     false
   end
 
+  def self.c1_manual_task
+    find_by(_type: 'C1ManualTask')
+  rescue
+    false
+  end
+
   def self.c2_task
     find_by(_type: 'C2Task')
   rescue

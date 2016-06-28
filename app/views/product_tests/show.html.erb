@@ -101,7 +101,7 @@
           <p class = 'description'>
             <%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %>
           </p>
-          <%= render partial: 'test_execution_upload', locals: { task: @product_test.tasks.c1_task } %>
+          <%= render partial: 'test_execution_upload', locals: { disable: false, task: @product_test.tasks.c1_task } %>
         </div>
       </div>
       <hr>
@@ -124,7 +124,7 @@
           <p class = 'description'>
             <%= "Upload your CAT 3 XML file to get test results for #{tab_label_2} certifications. This will automatically run a test execution." %>
           </p>
-          <%= render partial: 'test_execution_upload', locals: { task: @product_test.tasks.c2_task } %>
+          <%= render partial: 'test_execution_upload', locals: { disable: false, task: @product_test.tasks.c2_task } %>
         </div>
       </div>
       <hr>

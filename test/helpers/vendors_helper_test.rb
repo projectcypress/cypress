@@ -170,6 +170,7 @@ class VendorsHelperTest < ActiveJob::TestCase
     test = @product.product_tests.checklist_tests.first
     test.checked_criteria.first.code_complete = true
     test.checked_criteria.first.code = '123'
+    test.checked_criteria.first.passed_qrda = true
     passing, failing, not_started, total = checklist_status_values(test)
 
     assert_equal 0, passing
@@ -183,6 +184,7 @@ class VendorsHelperTest < ActiveJob::TestCase
     test.checked_criteria.each do |criteria|
       criteria.code_complete = true
       criteria.code = '123'
+      criteria.passed_qrda = true
     end
     passing, failing, not_started, total = checklist_status_values(test)
 

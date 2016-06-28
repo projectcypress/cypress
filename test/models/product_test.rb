@@ -199,7 +199,8 @@ class ProducTest < ActiveSupport::TestCase
     # id_of_measure is _id attribute on measure. checked_criteria use this mongoid id as a unique identifier for measures to avoid submeasures
     id_of_measure = Measure.top_level.where(hqmf_id: measure_id).first.id
     criterias = [ChecklistSourceDataCriteria.new(code: 'my code', attribute_code: 'my attribute code', recorded_result: 'my recorded result',
-                                                 code_complete: true, attribute_complete: true, result_complete: true, measure_id: id_of_measure)]
+                                                 code_complete: true, attribute_complete: true, result_complete: true,
+                                                 passed_qrda: true, measure_id: id_of_measure)]
     checklist_test = product.product_tests.build({ name: 'my checklist test', checked_criteria: criterias,
                                                    measure_ids: [measure_id] }, ChecklistTest)
     checklist_test.save!

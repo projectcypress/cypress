@@ -3,11 +3,12 @@
 # inputs:
 #
 #   task (c1task or c2task)
+#   disable
 
 %>
 
 <p class = 'description' id='execution_upload_label'>
-  <%= "Upload results from the EHR system in the form of a #{get_upload_type(displaying_cat1?(@task))} to get test results. This will automatically run a test execution." %>
+  <%= "Upload results from the EHR system in the form of a #{get_upload_type(displaying_cat1?(task))} to get test results. This will automatically run a test execution." %>
 </p>
 
 <% if displaying_cat1?(task) %>
@@ -15,17 +16,20 @@
 <% else %>
   <% accept_type = 'text/xml' %>
 <% end %>
-
 <%= form_for(TestExecution.new, :html => { method: :post, :multipart => true }, url: task_test_executions_path(task)) do |f| %>
   <div class="fileinput fileinput-new input-group" data-provides="fileinput">
     <div class="form-control" data-trigger="fileinput">
       <i class="fa fa-fw fa-file fileinput-exists"></i>
       <span class="fileinput-filename"></span>
     </div>
-    <span class="input-group-addon btn btn-info btn-file">
+    <% if disable %>
+      <span class="input-group-addon btn btn-info btn-file disabled">
+    <% else %>
+      <span class="input-group-addon btn btn-info btn-file active">
+    <% end %>
       <span class="fileinput-new"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</span>
       <span class="fileinput-exists"><i class="fa fa-fw fa-refresh"></i> Change</span>
-      <%= file_field_tag :results, class: 'upload-results', accept: accept_type, :aria => { labelledby: 'execution_upload_label', hidden: true } %>
+      <%= file_field_tag :results, class: 'upload-results', :disabled => disable, accept: accept_type, :aria => { labelledby: 'execution_upload_label', hidden: true } %>
     </span>
     <a id = 'submit-upload' class="input-group-addon fileinput-exists btn btn-success"><i class="fa fa-fw fa-upload"></i> Upload</a>
   </div>

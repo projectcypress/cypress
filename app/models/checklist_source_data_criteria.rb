@@ -11,24 +11,29 @@ class ChecklistSourceDataCriteria
   field :recorded_result, type: String
   field :code, type: String
   field :attribute_code, type: String
+  field :passed_qrda, type: Boolean
 
   field :code_complete, type: Boolean
   field :attribute_complete, type: Boolean
   field :result_complete, type: Boolean
 
   def validate_criteria
+    self.passed_qrda = false
     result_completed?
     attribute_code_matches_valueset?
     code_matches_valueset?
-    complete?
   end
 
-  def complete?
+  def checklist_complete?
     if code.blank? && attribute_code.blank? && recorded_result.blank?
       nil
     else
       code_complete != false && attribute_complete != false && result_complete != false
     end
+  end
+
+  def complete?
+    checklist_complete? && passed_qrda == true
   end
 
   def result_completed?
@@ -61,6 +66,12 @@ class ChecklistSourceDataCriteria
     end
   end
 
+  def printable_name
+    measure = Measure.find_by(_id: measure_id)
+    sdc = measure.hqmf_document[:data_criteria].select { |key, value| key == source_data_criteria }.values.first
+    sdc['status'] ? "#{measure.cms_id} - #{sdc['definition']}, #{sdc['status']}" : "#{measure.cms_id} - #{sdc['definition']}"
+  end
+
   # goes through all data criteria in a measure to find valuesets that have the same type, status and field values
   def get_all_valuesets_for_dc(measure_id)
     measure = Measure.find_by(_id: measure_id)
@@ -83,11 +94,7 @@ class ChecklistSourceDataCriteria
     include_vset = false
     if data_criteria.type.to_s == criteria['type'] && data_criteria.status == criteria['status']
       # if the criteria has a field_value, check it is the same as the data_criteria, else return true
-      include_vset = if criteria['field_values']
-                       compare_field_values(data_criteria, criteria)
-                     else
-                       true
-                     end
+      include_vset = criteria['field_values'] ? compare_field_values(data_criteria, criteria) : true
     end
     data_criteria.code_list_id if include_vset
   end

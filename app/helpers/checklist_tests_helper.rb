@@ -1,4 +1,13 @@
 module ChecklistTestsHelper
+  def disable_qrda_submission?
+    number_of_criteria = @product_test.checked_criteria.size
+    count = 0
+    @product_test.checked_criteria.each do |criteria|
+      count += 1 if criteria.checklist_complete?
+    end
+    number_of_criteria != count ? true : false
+  end
+
   def checklist_test_criteria_attribute(measure, criteria)
     if criteria[:field_values]
       if criteria[:field_values].keys[0] == 'FLFS'

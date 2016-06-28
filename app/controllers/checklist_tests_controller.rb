@@ -2,17 +2,20 @@ class ChecklistTestsController < ProductTestsController
   include HealthDataStandards::Export::Helper::ScoopedViewHelper
 
   before_action :set_measures, only: [:show]
+  respond_to :js, only: [:show]
 
   def create
     @product_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: @product.interesting_measure_ids }, ChecklistTest)
     @product_test.save!
     @product_test.create_checked_criteria
+    C1ManualTask.new(product_test: @product_test).save!
     redirect_to vendor_product_path(@product.vendor, @product, anchor: 'ChecklistTest')
   end
 
   def show
     @product = @product_test.product
     set_breadcrumbs
+    respond_with(@product, @product_test, &:js)
   end
 
   def update
@@ -42,7 +45,7 @@ class ChecklistTestsController < ProductTestsController
     add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
     add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
-    add_breadcrumb 'Test: ' + @product_test.name, product_checklist_test_path(@product, @product_test)
+    add_breadcrumb 'Checklist Dashboard: ' + @product_test.name, product_checklist_test_path(@product, @product_test)
   end
 
   def set_measures

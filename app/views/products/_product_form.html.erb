@@ -68,7 +68,6 @@
                     messages: 'Changing selected measures will delete all associated product tests and test execution results for any removed measures. Be sure you want to do this before changing your selection.',
                     confirmation: 'Yes, let me adjust my measures' } %>
             <% end %>
-
             <div id="simple_measures_errors_container"></div>
             <%= f.form_group :measure_selection, help: "Indicate the clinical quality measures Cypress should use to certify this product. Testing will be performed on a measure-by-measure basis. Click 'Custom' to specify individual measures." do %>
               <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: {

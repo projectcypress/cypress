@@ -54,6 +54,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     checked_criteria.code_complete = true
     checked_criteria.attribute_complete = true
     checked_criteria.result_complete = true
+    checked_criteria.passed_qrda = true
   end
 
   def test_num_measures_complete_and_num_measures_not_started
@@ -63,6 +64,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     @test.checked_criteria.each do |criteria|
       criteria.code_complete = true
       criteria.code = '123'
+      criteria.passed_qrda = true
     end
     assert_equal 1, @test.num_measures_complete
     assert_equal 0, @test.num_measures_not_started
@@ -78,6 +80,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     @test.checked_criteria.each do |criteria|
       criteria.code_complete = true
       criteria.code = '123'
+      criteria.passed_qrda = true
     end
     assert_equal 'passed', @test.measure_status(measure_id)
   end
