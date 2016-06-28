@@ -41,12 +41,11 @@
                           <td/>
                           <td/>
                         <% else %>
-                          <% vsets = HealthDataStandards::SVS::ValueSet.in(oid: valuessets).where(bundle_id: @product_test.bundle.id) %>
                           <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
                           <td><span>
                             <ul class='list-unstyled'>
-                            <% vsets.each do |vs| %> 
-                            <li class="valueset-listitem"><%= "#{vs.display_name}: #{vs.oid}" %></li>
+                            <% valuessets.each do |vs| %> 
+                            <li class="valueset-listitem"><%= "#{lookup_valueset_name(vs)}" %></li>
                             <% end %>
                             </ul>
                           </span></td>

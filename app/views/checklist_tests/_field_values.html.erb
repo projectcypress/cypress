@@ -6,10 +6,10 @@
 
 %>
 <% if negation %>
-  <%= "#{negation}" %>
+  <%= "#{lookup_valueset_name(negation)}" %>
 <% elsif result %>
   <% if result.type == 'CD' && result['code_list_id'] %>
-    <%= "#{result.code_list_id}" %>
+    <%= "#{lookup_valueset_name(result.code_list_id)}" %>
   <% end %>
 <% else %>
   <% field_values.each do |fv_key, fv_val| %>
