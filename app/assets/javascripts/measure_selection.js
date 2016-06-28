@@ -26,7 +26,6 @@ function ToggleCustomSelection(task) {
   }
 }
 
-
 function UpdateGroupSelections(event) {
   var measure_category = $(event.currentTarget).attr('data-category');
   var $groupChecks = $('.measure-group .measure-checkbox[data-category='+ measure_category +']');
@@ -72,7 +71,6 @@ function UpdateMeasureSet(bundle_id) {
       });
 }
 
-
 // these pieces need to run every time the bundle is changed
 // (they act on the measures which have been reloaded by ajax,
 //  not the controls which are fixed)
@@ -99,8 +97,6 @@ ready_run_on_refresh_bundle = function() {
   // Trigger change events for already-checked inputs
   $('.measure-group .measure-checkbox:checked').trigger('change');
   $('input[name="product[measure_selection]"]:checked').trigger('change');
-
-
 };
 
 // these pieces should run only once, at page load
@@ -134,7 +130,6 @@ ready_run_once = function() {
     }
   });
 
-
   // Enable changing measures
   $('#measures_options').find('button.confirm').on('click', function (event) {
     event.preventDefault();
@@ -143,6 +138,13 @@ ready_run_once = function() {
     $('input[name="product[measure_selection]"]').closest('.radio').removeClass('disabled');
     $(event.currentTarget).closest('alert').find('.close').click();
   });
+
+  $('.clear-measures-btn').on('click', function(event) {
+    $('.measure-group .measure-checkbox').prop('checked', false).change();
+    this.blur();
+    // $('clear-measures-btn').setAttribute("aria-pressed", false);
+  });
+
 
   // Changing the bundle
   $('.btn-checkbox input[name="product[bundle_id]"]').on('change', function() {
