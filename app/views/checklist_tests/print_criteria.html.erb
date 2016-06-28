@@ -1,0 +1,72 @@
+<% checklist_test = @product.product_tests.checklist_tests.first %>
+
+<div class="product-report">
+
+<h1>Criteria List for C1 Manual Entry Test</h1>
+
+<% add_breadcrumb 'Dashboard', vendors_path %>
+<% add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor) %>
+<% add_breadcrumb 'Product: ' + @product.name, product_path(@product) %>
+<% add_breadcrumb 'Test: ' + checklist_test.name, product_checklist_test_path(@product, checklist_test) %>
+<% add_breadcrumb 'Criteria List' %>
+
+<% if checklist_test.measures %>
+  <%= bootstrap_nested_form_for([@product, checklist_test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
+    <% checklist_test.measures.each do |measure| %>
+      <div class = 'panel-group' id = '<%= measure.cms_id %>'>
+        <div class = 'panel panel-default'>
+          <div class = 'panel-heading'>
+            <h1 class='panel-title'>
+              <%= "#{measure.cms_id} #{measure.name}" %>
+            </h1>
+          </div>
+          <div class = 'panel checklist-panel'>
+            <div class = 'panel-body'>
+              <table class = 'table table-sm'>
+                <thead>
+                  <tr>
+                    <th class = 'col-sm-1'>Data Criteria</th>
+                    <th class = 'col-sm-4'>Value Set(s)</th>
+                    <th class = 'col-sm-2'>Required Attributes</th>
+                    <th class = 'col-sm-3'>Attribute Details/Value Set</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%= f.fields_for :checked_criteria, checklist_test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
+                    <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
+                    <% if criteria.has_key?('description') %>
+                      <tr>
+                        <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
+                        <% if valuessets.empty? %>
+                          <td/>
+                          <td/>
+                        <% else %>
+                          <% vsets = HealthDataStandards::SVS::ValueSet.in(oid: valuessets).where(bundle_id: checklist_test.bundle.id) %>
+                          <td style="vertical-align: top"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                          <td><span>
+                            <ul class='list-unstyled'>
+                            <% vsets.each do |vs| %>
+                            <li class="valueset-listitem"><%= "#{vs.display_name}:"%><br><%= " #{vs.oid}" %></li>
+                            <%= "Codes:" %><br>
+                              <%vs.categories.each do |code, name| %>
+                                <%= code %>
+                              <%end%><br>
+                            <br>
+                            <% end %>
+                            </ul>
+                          </span></td>
+                        <% end %>
+                        <td style="vertical-align:top"><%= checklist_test_criteria_attribute(measure, criteria) %></td>
+                        <td style="vertical-align:top"><%= render partial: 'field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

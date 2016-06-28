@@ -2,6 +2,11 @@
 
 <%= render partial: 'application/certification_bar', locals: { product: @product, active_certs: [true, false, false, false] } %>
 
+<div class="panel-actions pull-right">
+  <%= button_to print_criteria_product_checklist_test_path(@product, @product_test), :method => :get, :class => "btn btn-default" do %>
+    <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download Criteria List
+  <% end %>
+</div>
 <h1>Manual Entry Checklist</h1>
 
 <%= render partial: 'application/instructions', locals: { instructions: APP_CONFIG['tests']['ChecklistTest']['instructions'] } %>

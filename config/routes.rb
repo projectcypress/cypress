@@ -16,8 +16,11 @@ Rails.application.routes.draw do
 
   resources :products, only: [:show, :edit, :update, :destroy] do
     resources :product_tests, only: [:index, :show]
-    resources :checklist_tests, only: [:create, :show, :update, :destroy]
-
+    resources :checklist_tests, only: [:create, :show, :update, :destroy] do
+      member do
+        get :print_criteria
+      end
+    end
     member do
       get :download_full_test_deck
     end
