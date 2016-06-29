@@ -50,4 +50,10 @@ module ChecklistTestsHelper
       true
     end
   end
+
+  def lookup_valueset_name(oid)
+    vs = HealthDataStandards::SVS::ValueSet.where(oid: oid)
+    return oid unless vs && vs.first
+    "#{vs.first.display_name}: #{oid}"
+  end
 end

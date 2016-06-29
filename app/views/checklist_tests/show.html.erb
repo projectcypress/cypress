@@ -23,7 +23,7 @@
                 <thead>
                   <tr>
                     <th class = 'col-sm-2'>Data Criteria</th>
-                    <th class = 'col-sm-3'>Value Set</th>
+                    <th class = 'col-sm-3'>Value Set(s)</th>
                     <th class = 'col-sm-2'>Recorded Code</th>
                     <th class = 'col-sm-2'>Required Attributes</th>
                     <th class = 'col-sm-3'>Attribute Details/Value Set</th>
@@ -42,7 +42,13 @@
                           <td/>
                         <% else %>
                           <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
-                          <td><span><%= valuessets.join(', ') %></span></td>
+                          <td><span>
+                            <ul class='list-unstyled'>
+                            <% valuessets.each do |vs| %> 
+                            <li class="valueset-listitem"><%= "#{lookup_valueset_name(vs)}" %></li>
+                            <% end %>
+                            </ul>
+                          </span></td>
                           <td>
                             <% if criteria_field.object.complete?.nil? %>
                               <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
