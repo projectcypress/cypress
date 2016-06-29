@@ -9,7 +9,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   setup do
     collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'test_executions', 'users', 'roles',
                         'bundles', 'measures', 'health_data_standards_svs_value_sets', 'artifacts',
-                        'records', 'patient_populations')
+                        'records', 'patient_populations', 'providers')
     load_library_functions
     @vendor = Vendor.find(EHR1)
     @first_product = @vendor.products.where(name: 'Vendor 1 Product 1').first
@@ -30,12 +30,28 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should get show' do
-    mt = @first_product.product_tests.build({ name: 'mtest', measure_ids: ['0001'] }, MeasureTest)
-    task = mt.tasks.build({}, C1Task)
-    te = task.test_executions.build
-    mt.save!
+    # change product test to measure test, create test execution for measure test
+    test = ProductTest.find('51703a883054cf84390000d3')
+    test._type = MeasureTest
+    test.save!
+    test = ProductTest.find(test.id) # reload test variable to it is a measure test instead of product test
+    product = test.product
+    product.vendor = @vendor
+    product.c1_test = true
+    product.measure_ids = test.measure_ids
+    product.save!
+    task = test.tasks.build({}, C1Task)
     task.save!
+    te = task.test_executions.build
     te.save!
+
+    # add provider performance to each record associated with the measure test
+    provider = Provider.find('53b2c4414d4d32139c730000')
+    test.records.each do |record|
+      pp = record.provider_performances.build(provider: provider)
+      pp.save!
+    end
+
     # do this for admin,atl,user:owner and vendor -- need negative tests for non
     # access users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do

@@ -85,4 +85,8 @@ class MeasureTest < ProductTest
       'unstarted'
     end
   end
+
+  def provider
+    Provider.find(records.first.provider_performances.first.provider_id)
+  end
 end

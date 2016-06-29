@@ -9,6 +9,7 @@ Scenario: Successfully View a Measure Test
   When the user creates a product with tasks c1
   And the user views task c1
   Then the user should see the upload functionality for that product test
+  Then the user should see provider information
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
@@ -16,6 +17,7 @@ Scenario: View Only C1 Execution Page
   When the user creates a product with tasks c1
   And the user views task c1
   Then the user should only see the c1 execution page
+  Then the user should see provider information
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
@@ -23,6 +25,7 @@ Scenario: View Only C2 Execution Page
   When the user creates a product with tasks c2
   And the user views task c2
   Then the user should only see the c2 execution page
+  Then the user should see provider information
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 

@@ -9,11 +9,13 @@ Background:
 Scenario: Successful View CAT 1 Filtering Test
   When the user views the CAT 1 test for the first filter task
   Then the user should see the CAT 1 test
+  Then the user should not see provider information
 
 Scenario: Successful View CAT 3 Filtering Test After Viewing CAT 1
   When the user views the CAT 1 test for the first filter task
   And the user views the CAT 3 test from the CAT 1 page
   Then the user should see the CAT 3 test
+  Then the user should not see provider information
 
 Scenario: Successful Download CAT 1 Zip File From Filter Task
   When the user views the CAT 1 test for the first filter task

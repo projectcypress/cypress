@@ -64,6 +64,12 @@ Then(/^the user should see the CAT 3 test$/) do
   assert page.has_content?('a QRDA Category III XML document')
 end
 
+Then(/^the user should not see provider information$/) do
+  page.assert_no_text 'Provider Name'
+  page.assert_no_text 'Provider NPI'
+  page.assert_no_text 'Provider TIN'
+end
+
 # 'Then the user should be able to download a CAT 1 zip file' included in step_definitions/measure_test.rb
 
 # 'Then the user should see test results' included in step_definitions/measure_test.rb
