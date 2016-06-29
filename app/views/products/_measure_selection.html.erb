@@ -1,6 +1,8 @@
 <div class="panel panel-primary select-measures hidden">
-  <div class="panel-heading">
-    <h1 id="select_custom_measures" class='panel-title'>Select Custom Measures <span class='selected-number'>(0)</span><span class='sr-only'>selected</span></h1>
+  <div class="panel-heading clearfix">
+    <h1 id="select_custom_measures" class='panel-title measures-title-panel'>Select Custom Measures <span class='selected-number'>(0)</span><span class='sr-only'>selected</span>
+      <button type="button" class="btn btn-default btn-sm pull-right clear-measures-btn">Clear all</button>
+    </h1>
   </div>
   <div class="panel-body">
     <div class="col-md-12" id="measures_errors_container"><!--%= f.errors_on :measure_tests, hide_attribute_name: true % --></div>
