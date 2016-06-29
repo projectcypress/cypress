@@ -36,6 +36,9 @@ class ChecklistTestsController < ProductTestsController
     end
   end
 
+  def print_criteria
+  end
+
   private
 
   def set_breadcrumbs
