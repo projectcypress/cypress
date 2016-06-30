@@ -14,7 +14,7 @@
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
   </script>
-  
+
 <% when 'passing' %>
   <p class="lead row bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> Passed</p>
   <% if execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest' %>
@@ -48,16 +48,22 @@
           <a href=<%= "##{execution.id}_#{file_name}" %>>
             <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
             <% if total_errors > 0 %>
-              <i aria-hidden='true' class='fa fa-fw fa-times text-danger'></i>
-              <%= file_name %>
-              <span class="badge pull-right">
-                <%= total_errors %>
-                <span class="sr-only">errors</span>
-              </span>
+              <div class="file-name">
+                <i aria-hidden='true' class='fa fa-fw fa-times text-danger'></i>
+                <%= file_name %>
+              </div>
+              <div class="file-badge">
+                <span class="badge pull-right">
+                  <%= total_errors %>
+                  <span class="sr-only">errors</span>
+                </span>
+              </div>
             <% else %>
-              <i aria-hidden='true' class='fa fa-fw fa-check text-success'></i>
-              <%= file_name %>
-              <span class="sr-only">no errors</span>
+              <div class="file-name">
+                <i aria-hidden='true' class='fa fa-fw fa-check text-success'></i>
+                <%= file_name %>
+                <span class="sr-only">no errors</span>
+              </div>
             <% end %>
           </a>
         </li>

@@ -135,6 +135,22 @@
       border-right-width: 10px;
       margin: 0;
       width: 100%;
+
+      .ui-tabs-anchor {
+        display: flex;
+
+        .file-name {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          min-width: 0;
+          padding-right: .5em;
+        }
+
+        .file-badge {
+          flex: 1;
+        }
+      }
     }
 
     .ui-state-default {
