@@ -12,7 +12,7 @@
           <fieldset id="certification_options">
             <legend class="control-label">Certification Types</legend>
             <div id="certifications_errors_container"></div>
-            <%= f.form_group help: "A product must certify to either C1 or C2." do %>
+            <%= f.form_group help: "A product must at least certify to C1 or C2." do %>
               <% APP_CONFIG.certifications.each do |c, certification| %>
                 <% if c == 'C1' || c == 'C2' %>
                   <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: {
@@ -20,7 +20,7 @@
                     'parsley-trigger': 'change',
                     'parsley-class-handler': "#certification_options",
                     'parsley-mincheck': '1',
-                    'parsley-error-message': 'Must certify to at least C1 or C2.',
+                    'parsley-error-message': 'Must at least certify to C1 or C2.',
                     'parsley-multiple': 'mandatory_certifications',
                     'parsley-errors-container': "#certifications_errors_container" } %>
                 <% else %>
