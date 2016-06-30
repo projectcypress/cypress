@@ -31,10 +31,12 @@
       <% end %>
 
       <% flash.each do |type, message| %>
+        <% unless type.to_s == 'timedout' %>
         <% alert_type = %w(success warning danger).include? type ? type : 'info' %>
         <%= render :partial => 'alert', locals: {
               alert_type: alert_type,
               message: message } %>
+        <% end %>
       <% end %>
     </div>
 
