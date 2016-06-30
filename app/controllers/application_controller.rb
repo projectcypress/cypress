@@ -109,10 +109,9 @@ class ApplicationController < ActionController::Base
     @test_execution = params[:test_execution_id] ? TestExecution.find(params[:test_execution_id]) : TestExecution.find(params[:id])
   end
 
-  def flash_comment(name, notice_type, message)
-    # message should be past tense to make grammatical sense
-    flash[:notice] = "'#{name}' was #{message}."
-    flash[:notice_type] = notice_type
+  def flash_comment(name, notice_type, verb)
+    flash[notice_type] ||= [] # don't overwrite other messages of this type
+    flash[notice_type] << "'#{name}' was #{verb}." # message should be past tense to make grammatical sense
   end
 
   def authorize_request(vendor, auth_map = {})

@@ -30,11 +30,13 @@
         <%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
       <% end %>
 
-      <% flash.each do |type, message| %>
-        <% alert_type = %w(success warning danger).include? type ? type : 'info' %>
+      <% flash.each do |type, messages| %>
+        <% unless type.to_s == 'timedout' %>
+        <% alert_type = %w(success warning danger).include?(type) ? type : 'info' %>
         <%= render :partial => 'alert', locals: {
               alert_type: alert_type,
-              message: message } %>
+              messages: messages } %>
+        <% end %>
       <% end %>
     </div>
 
