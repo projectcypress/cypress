@@ -2,7 +2,7 @@
  #locals
  confirmation ||= false
  alert_type ||= 'info'
- message
+ messages
 %>
 
 <% alert_icon = case alert_type
@@ -24,13 +24,14 @@
       <i class="fa fa-fw fa-2x <%= alert_icon %>"></i>
     </div>
     <div class="alertContent">
-      <p><%= message %></p>
+      <% [*messages].each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
       <button type="button" class="btn btn-<%= alert_type %> btn-sm pull-right confirm" data-dismiss="alert"><%= confirmation %></button>
     </div>
   </div>
 
 <% else %>
-
   <div class="clearfix alert alert-<%= alert_type %> alert-dismissible" role="alert" aria-live="polite">
     <button type="button" class="close fa fa-fw fa-close" data-dismiss="alert" aria-label="Close"><span class="sr-only">Close alert</span></button>
 
@@ -38,7 +39,9 @@
       <i class="fa fa-fw fa-2x <%= alert_icon %>"></i>
     </div>
     <div class="alertContent">
-      <p><%= message %></p>
+      <% [*messages].each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
     </div>
   </div>
 

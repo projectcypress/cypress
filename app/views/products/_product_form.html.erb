@@ -65,7 +65,7 @@
             <% unless @product.new_record? %>
               <%= render :partial => 'alert', locals: {
                     alert_type: 'warning',
-                    message: 'Changing selected measures will delete all associated product tests and test execution results for any removed measures. Be sure you want to do this before changing your selection.',
+                    messages: 'Changing selected measures will delete all associated product tests and test execution results for any removed measures. Be sure you want to do this before changing your selection.',
                     confirmation: 'Yes, let me adjust my measures' } %>
             <% end %>
 
