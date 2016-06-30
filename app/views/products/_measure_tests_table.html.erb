@@ -16,25 +16,25 @@
       CMS ID
     </th>
     <% if c1_and_c2 %>
-      <th scope="col" class = 'col-sm-6 no-wrap pointer-on-hover'>
+      <th scope="col" class = 'col-sm-5 pointer-on-hover'>
         Measure Name
       </th>
     <% else %>
-      <th scope="col" class = 'no-wrap pointer-on-hover'>
+      <th scope="col" class = 'col-sm-5 pointer-on-hover'>
         Measure Name
       </th>
     <% end %>
     <% if @product.c1_test %>
-      <th scope="col" class = 'no-wrap pointer-on-hover'>
+      <th scope="col" class = 'col-sm-2 no-wrap pointer-on-hover'>
         <%= c1_label %>
       </th>
     <% end %>
     <% if @product.c2_test %>
-      <th scope="col" class = 'no-wrap pointer-on-hover'>
+      <th scope="col" class = 'col-sm-2 no-wrap pointer-on-hover'>
         <%= c2_label %>
       </th>
     <% end %>
-    <th scope="col" class="no-wrap">
+    <th scope="col">
       Last Updated
     </th>
   </thead>
