@@ -106,4 +106,16 @@ module ProductsHelper
     end
     [task]
   end
+
+  # only yeilds tasks whose product test links need to be reloaded
+  def tasks_needing_reload(product)
+    tasks = []
+    product.product_tests.each do |test|
+      test.tasks.each do |task|
+        next unless %w(C1Task C2Task Cat1FilterTask Cat3FilterTask).include? task.class.to_s
+        tasks << task if should_reload_product_test_link?(with_c3_task(task))
+      end
+    end
+    tasks
+  end
 end

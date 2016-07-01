@@ -170,6 +170,26 @@ When(/^the user views the product$/) do
   page.click_link @product.name
 end
 
+When(/^the product test is (.*)$/) do |state|
+  test = ProductTest.first # should only be one product test
+  test.state = state.to_sym
+  test.save!
+end
+
+When(/^a task for the product test is testing$/) do
+  test = ProductTest.first
+  test.tasks.first.test_executions.create!(:state => :pending)
+end
+
+When(/^a task for the product test has failed$/) do
+  test = ProductTest.first
+  task = test.tasks.first
+  test.tasks.first.test_executions.create!(:state => :failed) unless task.most_recent_execution
+  execution = task.most_recent_execution
+  execution.state = :failed
+  execution.save!
+end
+
 When(/^all product tests have a state of ready$/) do
   ProductTest.all.each do |pt|
     pt.state = :ready
@@ -379,6 +399,14 @@ end
 
 Then(/^the user should not be able to download the report$/) do
   page.assert_no_text 'Download Report'
+end
+
+Then(/^the user should see a (.*) product test$/) do |product_test_link_status|
+  page.assert_text product_test_link_status
+end
+
+Then(/^the user should see a product test that has failed$/) do
+  page.assert_text 'retry'
 end
 
 Then(/^the user should see a cat I test testing for product test (.*)$/) do |product_test_number|

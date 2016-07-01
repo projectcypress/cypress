@@ -1,19 +1,18 @@
-
-<% if params[:partial] == 'bulk_download' %>
-  <% if @product.product_tests.measure_tests.where(:state.nin => [:ready]).count > 0 %>
-    <% # wait 2 seconds. then reload the page %>
-    setTimeout(function(){
-      $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
-    }, 2000);
-  <% else %>
-    <% # don't wait. just load the bulk download %>
-    $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
+<% if params[:task_ids] %>
+  <% tasks_going_to_need_reloading = Task.where(:_id.in => params[:task_ids].split(",")) %>
+  <% # itereate through any tasks that are still not ready %>
+  <% tasks_going_to_need_reloading.each do |task| %>
+    $("#<%= id_for_html_wrapper_of_task(task) %>").html("<%= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
   <% end %>
 
-<% elsif params[:partial] == '/products/product_test_link' %>
-  <% task = Task.find(params[:task_id]) %>
-  <% wrapper_id = id_for_html_wrapper_of_task(task) %>
-  setTimeout(function() {
-    $("#<%= wrapper_id %>").html("<%= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
-  }, 500);
+  <% tasks = tasks_needing_reload(@product) %>
+  <% if tasks.any? %>
+    <% task_ids = tasks.collect { |task| task.id.to_s }.join(',') %>
+    setTimeout(function() {
+      $.ajax({url: "<%= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script', data: { task_ids: "<%= task_ids %>" }});
+    }, 500);
+  <% else %>
+    <% # reload the bulk download partial %>
+    $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
+  <% end %>
 <% end %>
