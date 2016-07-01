@@ -57,11 +57,14 @@
     </tr>
   </thead>
   <tbody>
-    <% BundleUploadJob.trackers.each do |tracker| %>
+    <% BundleUploadJob.trackers.reverse_each do |tracker| %>
     <tr>
       <td><%= tracker.options["original_filename"]%></td>
       <td><%= tracker.status%></td>
       <td><%= tracker.log_message.last%></td>
+      <td>
+        <%= link_to "", admin_tracker_path(tracker), :method => :delete, :class => "close fa fa-fw fa-close" if tracker.status == :failed %>
+      </td>
     </tr>
     <% end %>
   </tbody>
