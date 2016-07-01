@@ -202,16 +202,23 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   end
 
   def test_perform_on_measure_test_creates_patients_with_same_provider
-    # change product test to measure test
-    test = ProductTest.find('4f5a606b1d41c851eb000484')
-    test._type = 'MeasureTest'
+    product = Product.find('4f57a88a1d41c851eb000004')
+    test = product.product_tests.build({ name: "my measure test #{rand}", measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'] }, MeasureTest)
     test.save!
 
     # make one record (pre-cloned record) have a provider performance. PopulationCloneJob should take care of this
-    Record.where(test_id: nil).sample.provider_performances << ProviderPerformance.new(provider: Provider.find(BSON::ObjectId('53b2c4414d4d32139c730000')))
+    provider = Provider.find(BSON::ObjectId('53b2c4414d4d32139c730000'))
+    Record.where(test_id: nil).sample.provider_performances << ProviderPerformance.new(provider: provider)
+
+    # add provider to test before clone job
+    test.provider = provider
+    test.save!
 
     # create cloned record for measure test
     records = clone_records(test)
+
+    # population clone job should set provider for measure test
+    assert_equal provider, ProductTest.find(test.id).provider
 
     assert_equal 8, records.count
     assert records.all { |record| record.provider_performances.any? }

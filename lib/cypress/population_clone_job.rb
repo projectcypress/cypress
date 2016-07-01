@@ -33,11 +33,9 @@ module Cypress
 
       # get single provider if @test is a measure test. measure tests have a single provider for each record while filtering tests can have different
       # providers for each record
-      provider = @test.class == MeasureTest ? Provider.generate_provider(measure_type: @test.measures.first.type) : nil
+      provider = @test.provider if @test.class == MeasureTest
 
-      patients.each do |patient|
-        clone_and_save_record(patient, provider)
-      end
+      patients.each { |patient| clone_and_save_record(patient, provider) }
     end
 
     def find_patients_to_clone
@@ -49,7 +47,6 @@ module Cypress
                  else
                    @test.bundle.records.where(test_id: nil).to_a
                  end
-      patients
     end
 
     def randomize_ids(patients)

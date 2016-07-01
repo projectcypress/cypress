@@ -47,6 +47,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
     # add provider performance to each record associated with the measure test
     provider = Provider.find('53b2c4414d4d32139c730000')
+    test.provider = provider
+    test.save!
     test.records.each do |record|
       pp = record.provider_performances.build(provider: provider)
       pp.save!

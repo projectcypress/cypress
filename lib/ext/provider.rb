@@ -1,4 +1,6 @@
 class Provider
+  has_many :measure_tests
+
   def self.default_provider(options = {})
     prov = where(default: true, specialty: default_specialty(options[:measure_type])).first
     if prov.nil?

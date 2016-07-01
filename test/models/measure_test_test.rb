@@ -136,4 +136,12 @@ class MeasureTestTest < ActiveJob::TestCase
     assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
+
+  def test_generate_provider
+    test = @product.product_tests.build({ name: "my measure test #{rand}", measure_ids: @product.measure_ids }, MeasureTest)
+    test.generate_provider
+
+    test.reload
+    assert_not_equal nil, test.provider
+  end
 end
