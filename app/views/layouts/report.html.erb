@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 8]><html class="no-js oldIE" lang="en-US"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en-US"><![endif]-->
+<!--[if IE 9]><html class="no-js ie9" lang="en-US"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html id="cypress3" lang="en-US" class="no-js not-ie"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= make_title %></title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <style type="text/css">
+    <%= Rails.application.assets.find_asset('application.css').to_s.html_safe %>
+  </style>
+</head>
+<body>
+  <main aria-label="main section" id="main-content" class="container" role="main" tabindex="-1">
+    <div class="col-sm-12">
+      <%= yield %>
+    </div>
+  </main>
+</body>
+
+</html>

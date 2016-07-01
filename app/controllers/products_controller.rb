@@ -74,8 +74,12 @@ class ProductsController < ApplicationController
     end
   end
 
-  # always responds with a pdf file containing information on the certification status of the product
+  # always responds with a zip file containing information on the certification status of the product
+  # includes an html report plus all the test records and files
   def report
+    report_content = render_to_string layout: 'report'
+    file = Cypress::CreateDownloadZip.create_combined_report_zip(@product, report_content)
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}_report.zip".tr(' ', '_')
   end
 
   # always responds with a zip file of (.qrda.zip files of (qrda category I documents))
