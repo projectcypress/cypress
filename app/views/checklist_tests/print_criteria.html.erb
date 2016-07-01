@@ -41,16 +41,14 @@
                           <td/>
                           <td/>
                         <% else %>
-                          <% vsets = HealthDataStandards::SVS::ValueSet.in(oid: valuessets).where(bundle_id: checklist_test.bundle.id) %>
+                          <% vsets = HealthDataStandards::SVS::ValueSet.in(oid: valuessets).where(bundle_id: Bundle.default) %>
                           <td style="vertical-align: top"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
                           <td><span>
                             <ul class='list-unstyled'>
                             <% vsets.each do |vs| %>
                             <li class="valueset-listitem"><%= "#{vs.display_name}:"%><br><%= " #{vs.oid}" %></li>
                             <%= "Codes:" %><br>
-                              <%vs.categories.each do |code, name| %>
-                                <%= code %>
-                              <%end%><br>
+                              
                             <br>
                             <% end %>
                             </ul>

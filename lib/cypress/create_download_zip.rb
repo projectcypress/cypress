@@ -1,5 +1,6 @@
 module Cypress
   class CreateDownloadZip
+    include ChecklistTestsHelper
     def self.create_test_zip(test_id, format = 'html')
       pt = ProductTest.find(test_id)
       create_zip(pt.records.to_a, format)
@@ -43,6 +44,25 @@ module Cypress
               add_file_to_zip(z, mre_filename, most_recent_execution.artifact.file.read)
             end
           end
+        end
+      end
+      file
+    end
+
+    def self.create_c1_criteria_zip(checklist_test, criteria_list)
+      file = Tempfile.new("c1_sample_patients-#{Time.now.to_i}.zip")
+      example_patients = {}
+      checklist_test.measures.each do |m|
+        example_patients[m.cms_id] = Cypress::ExamplePatientFinder.find_example_patient(m)
+      end
+      mes, sd, ed = Cypress::PatientZipper.mes_start_end(example_patients.values)
+      formatter = Cypress::QRDAExporter.new(mes, sd, ed)
+      Zip::ZipOutputStream.open(file.path) do |z|
+        z.put_next_entry('criteria_list.html')
+        z << criteria_list
+        example_patients.each do |measure_id, patient|
+          z.put_next_entry("sample patient for #{measure_id}.xml")
+          z << formatter.export(patient)
         end
       end
       file

@@ -40,6 +40,9 @@ class ChecklistTestsController < ProductTestsController
   end
 
   def print_criteria
+    criteria_list = render_to_string layout: 'report'
+    zip = Cypress::CreateDownloadZip.create_c1_criteria_zip(@product.product_tests.checklist_tests.first, criteria_list).read
+    send_data zip, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}_c1_manual_criteria.zip".tr(' ', '_')
   end
 
   private
