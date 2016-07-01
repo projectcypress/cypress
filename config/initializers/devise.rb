@@ -4,11 +4,6 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = 'registration@projectcypress.org'
-  config.secret_key = if Rails.env.development? || Rails.env.test?
-                        ('x' * 30) # meets minimum requirement of 30 chars long
-                      else
-                        ENV['DEVISE_SECRET_KEY']
-                      end
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
