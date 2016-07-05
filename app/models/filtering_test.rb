@@ -52,6 +52,12 @@ class FilteringTest < ProductTest
     save!
   end
 
+  def name_slug
+    return options['filters'].keys.join('_') if display_name == ''
+
+    display_name.gsub(/[^0-9A-Za-z.\-]+/, '_').downcase
+  end
+
   # Final Rule defines 9 different criteria that can be filtered:
   #
   # (A) TIN .................... (F) Age

@@ -24,28 +24,33 @@ module Cypress
     end
 
     def self.create_combined_report_zip(product, report_content)
-      measure_tests = MeasureTest.where(product_id: product.id)
       file = Tempfile.new("combined-report-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
-        z.put_next_entry('product_report.html')
-        z << report_content
+        add_file_to_zip(z, 'product_report.html', report_content)
 
-        measure_tests.each do |m|
-          z.put_next_entry("#{m.cms_id}/#{m.cms_id}_#{m.id}_records.qrda.zip".tr(' ', '_'))
-          z << m.patient_archive.read
+        product.product_tests.each do |m|
+          next if m.is_a?(ChecklistTest)
+          filter_folder = m.is_a?(FilteringTest) ? '/' + m.name_slug : ''
 
-          # most recent test executions
+          folder_name = "#{m._type.underscore.dasherize}s/#{m.cms_id}#{filter_folder}"
+
+          add_file_to_zip(z, "#{folder_name}/records/#{m.cms_id}_#{m.id}.qrda.zip", m.patient_archive.read)
 
           m.tasks.each do |t|
             most_recent_execution = t.most_recent_execution
             if most_recent_execution
-              z.put_next_entry("#{m.cms_id}/#{most_recent_execution.artifact.file.uploaded_filename}")
-              z << most_recent_execution.artifact.file.read
+              mre_filename = "#{folder_name}/uploads/#{most_recent_execution.artifact.file.uploaded_filename}"
+              add_file_to_zip(z, mre_filename, most_recent_execution.artifact.file.read)
             end
           end
         end
       end
       file
+    end
+
+    def self.add_file_to_zip(z, file_name, file_content)
+      z.put_next_entry(file_name)
+      z << file_content
     end
   end
 end
