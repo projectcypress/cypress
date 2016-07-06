@@ -16,14 +16,12 @@ do
   fi
 done
 
-if [[ -z "${PACKER_BUILD_NAME}" ]]; then
-  echo "PACKER_BUILD_NAME folder must be specified"
+if [[ -z $1 ]]; then
+  echo "First parameter must be a path to an OVF file."
   exit 1
 fi
 
-for ovf in "output-$PACKER_BUILD_NAME"/*.ovf; do
-  name=$(basename "${ovf}" .ovf).ova
-  ovftool --compress=9 -o "${ovf}" "${name}"
-done
-
-rm -rf "output-$PACKER_BUILD_NAME" &>/dev/null
+if [[ $1 =~ \.ovf$ ]]; then
+  name=$(basename "${1}" .ovf).ova
+  ovftool --compress=9 -o "${1}" "${name}"
+fi
