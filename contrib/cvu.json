@@ -77,6 +77,9 @@
         "<enter><wait>"
       ],
       "shutdown_command": "echo '{{user `default_pwd`}}' | sudo -S -E shutdown -P now",
+      "export_opts": [
+        "--manifest"
+      ],
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "1024"],
         ["modifyvm", "{{.Name}}", "--cpus", "2"]
