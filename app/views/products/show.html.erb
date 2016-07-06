@@ -41,7 +41,7 @@
 
 </div>
 
-<% if config_for_version(@product.bundle.version).schematron_banner%>
+<% if config_for_version(@product.bundle.version)["schematron_banner"]%>
   <%=render partial: 'alert', locals: {alert_type: 'danger', messages: [config_for_version(@product.bundle.version).schematron_banner]} %>
 <% end %>
 
