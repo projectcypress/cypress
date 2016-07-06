@@ -110,13 +110,19 @@
     "type": "shell",
     "inline": ["sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+NOPASSWD:ALL/%sudo ALL=(ALL:ALL) ALL/' /etc/sudoers"],
     "only": ["cvu.v3.0.0.ovf"]
+  },
+  {
+    "type": "shell",
+    "execute_command": "echo '{{user `default_pwd`}}' | sudo -S -E bash '{{.Path}}'",
+    "script": "scripts/cleanup.sh",
+    "only": ["cvu.v3.0.0.ovf"]
   }],
 
   "post-processors": [
-  {
-    "type": "compress",
-    "only": ["cvu.v3.0.0.ovf"],
-    "output": "{{.BuildName}}.tar.gz"
+    {
+      "type": "shell-local",
+      "script": "scripts/ovf_to_ova.sh",
+      "only": ["cvu.v3.0.0.ovf"]
     }
   ]
 }
