@@ -43,8 +43,8 @@ class C1ManualTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip)
       te.reload
-      assert_equal false, @checklist_test.checked_criteria.first.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
-      assert_equal false, @checklist_test.checked_criteria.last.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
+      assert_equal nil, @checklist_test.checked_criteria.first.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
+      assert_equal nil, @checklist_test.checked_criteria.last.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
     end
   end
 

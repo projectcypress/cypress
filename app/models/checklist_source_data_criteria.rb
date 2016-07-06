@@ -33,7 +33,7 @@ class ChecklistSourceDataCriteria
   end
 
   def complete?
-    checklist_complete? && passed_qrda == true
+    checklist_complete? && passed_qrda
   end
 
   def result_completed?

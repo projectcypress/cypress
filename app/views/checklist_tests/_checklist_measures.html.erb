@@ -21,18 +21,18 @@
               <%= "#{measure.cms_id} #{measure.name}" %>
             </h1>
           </div>
-          <div class = 'panel checklist-panel'>
-            <div class = 'panel-body'>
-              <table class = 'table table-sm'>
+          <div class = 'panel-body'>
+            <div class = 'checklist-panel'>
+              <table class = 'table table-condensed'>
                 <thead>
                   <tr>
-                    <th class = 'col-sm-2'>Validated in QRDA</th>
-                    <th class = 'col-sm-2'>Data Criteria</th>
-                    <th class = 'col-sm-3'>Value Set(s)</th>
-                    <th class = 'col-sm-2'>Recorded Code</th>
-                    <th class = 'col-sm-2'>Required Attributes</th>
-                    <th class = 'col-sm-3'>Attribute Details/Value Set</th>
-                    <th class = 'col-sm-2'>Recorded Attribute Value</th>
+                    <th class = 'col-sm-1' scope = 'col'>Validated in QRDA</th>
+                    <th class = 'col-sm-2' scope = 'col'>Data Criteria</th>
+                    <th class = 'col-sm-2' scope = 'col'>Value Set(s)</th>
+                    <th class = 'col-sm-2' scope = 'col'>Recorded Code</th>
+                    <th class = 'col-sm-1' scope = 'col'>Required Attributes</th>
+                    <th class = 'col-sm-2' scope = 'col'>Attribute Details/Value Set</th>
+                    <th class = 'col-sm-2' scope = 'col'>Recorded Attribute Value</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -42,6 +42,7 @@
                       <tr>
                         <td>
                           <% if criteria_field.object.passed_qrda %>
+                            <span class="sr-only">Passes QRDA</span>
                             <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
                           <% else %>
                             <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>

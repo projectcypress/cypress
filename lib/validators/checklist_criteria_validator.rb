@@ -17,9 +17,7 @@ module Validators
       end
     end
 
-    # Validates a QRDA Cat I file.  This routine will validate the file against the CDA schema as well as the
-    # Generic QRDA Cat I schematron rules and the measure specific rules for each of the measures passed in.
-    # THe result will be an Array of execution errors or an empty array if there were no errors.
+    # Validates a QRDA Cat I file.  This routine will validate the file against the checklist criteria
     def validate(file, options = {})
       @file = file
       @criteria_list.each do |criteria|
@@ -33,11 +31,14 @@ module Validators
       sdc = measure.hqmf_document[:data_criteria].select { |key| key == checked_criteria.source_data_criteria }.values.first
       hqmf_oid = HQMF::DataCriteria.template_id_for_definition(sdc['definition'], sdc['status'], sdc['negation'])
       hqmf_oid ||= HQMF::DataCriteria.template_id_for_definition(sdc['definition'], sdc['status'], sdc['negation'], 'r2')
+      # demographics do not have an associated template
       if hqmf_oid == '2.16.840.1.113883.3.560.1.406' || hqmf_oid == '2.16.840.1.113883.3.560.1.403'
         validate_demographics(hqmf_oid, checked_criteria)
       else
         template = HealthDataStandards::Export::QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_oid(hqmf_oid, 'r3_1').split('_').first
+        # find valuesets relevant to the data criteria
         valuesets = checked_criteria.get_all_valuesets_for_dc(checked_criteria.measure_id)
+        # find all nodes that fulfill the data criteria, this is defined in checklist result extractor
         find_dc_node(template, valuesets, checked_criteria, sdc)
       end
     end

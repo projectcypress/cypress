@@ -3,23 +3,19 @@
 <%= render partial: 'application/certification_bar', locals: { product: product, active_certs: [true, false, false, false] } %>
 <h1>Manual Entry Checklist</h1>
 
-<div class = 'panel-body' id = 'display_checklist_status' >
+<div id = 'display_checklist_status' >
 <%= render partial: 'checklist_status_display', locals: { product: product } %>
 </div>
 
   <div class = 'test-steps'>
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h1 class="panel-title test-step">
-          <%= 1 %> <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= 'Checklist Instructions' %>
-        </h1>
+        <h1 class="panel-title test-step">1<i class="fa fa-fw fa-bolt" aria-hidden="true"></i>Checklist Instructions</h1>
       </div>
-      <div class="panel-body">
-        <%= render partial: 'checklist_instructions', locals: { instructions: APP_CONFIG['tests']['ChecklistTest']['instructions'] } %>
-      </div>
+      <%= render partial: 'checklist_instructions', locals: { instructions: APP_CONFIG['tests']['ChecklistTest']['instructions'] } %>
     </div>
   </div>
-  <div class = 'panel-body' id = 'display_checklist_measures' >
+  <div id = 'display_checklist_measures' >
   <%= render partial: 'checklist_measures', locals: { product_test: @product_test, product: @product_test.product } %>
   </div>
   <div class = 'test-steps'>

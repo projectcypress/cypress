@@ -1,7 +1,15 @@
 <div class="panel-body">
   <ul>
     <% instructions.each do |instruction| %>
-      <li><%= instruction %></li>
+      <li><%= instruction['instruction'] %>
+        <% if instruction['subinstructions'] %>
+         <ul>
+            <% instruction['subinstructions'].each do |subinstruction| %>
+              <li><%= subinstruction %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 </div>

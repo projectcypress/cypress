@@ -184,15 +184,17 @@ tests:
     title: 'Manual Entry Test'
     description: 'Validate the EHR system for C1 certification by manually entering specified patient data for the following measures.'
     instructions:
-      - 'Fill in the Data Criteria Checklist below.'
-      - 'If a Data Criteria has value sets listed, an appropriate code needs to be entered into the "Code" text box.'
-      - 'If an Attribute has a value set, an appropriate code needs to be entered into the "Attribute Code" text box.'
-      - 'Code validation will be run upon saving.'
-      - 'Result, Date Times, Cumulative Medication Durations, Fulfills, and Length of Stay are to be recorded as free text.  ATLs will record the values they have observed being entered into the system under test.'
-      - 'Create (atleast) one patient for each measure below.'
-      - 'The created patients must contain all required Data Criteria, for the selected measures, to pass certification.'
-      - 'Export the created patients as QRDA Category I, and create a zip file.'
-      - 'Upload zip file with created test patients.'
+      - instruction: 'Fill in the Data Criteria Checklist below.'
+        subinstructions:
+          - 'If a Data Criteria has value sets listed, an appropriate code needs to be entered into the "Recorded Code" text box.'
+          - 'If an Attribute has a value set, an appropriate code needs to be entered into the "Recorded Attribute Code" text box.'
+          - 'Codes are validated upon saving.'
+          - 'Result, Date Times, Cumulative Medication Durations, Fulfills, and Length of Stay are to be recorded as free text.  ATLs will record the values they have observed being entered into the system under test.'
+      - instruction: 'Create (at least) one patient for each measure below.'
+        subinstructions:
+        - 'The created patients must contain all required Data Criteria, for the selected measures, to pass certification.'
+        - 'Export the created patients as QRDA Category I, and create a zip file.'
+      - instruction: 'Upload zip file with created test patients.'
     certifications:
       - 'C1'
 
