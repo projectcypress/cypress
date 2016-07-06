@@ -6,8 +6,7 @@
 #
 %>
 
-<% case execution.status_with_sibling %>
-<% when 'incomplete' %>
+<% if execution.status_with_sibling == 'incomplete' %>
   <p class="lead row bg-info execution-status"><i class="fa fa-fw fa-refresh fa-spin text-info"></i> In Progress</p>
   <p>You do not need to reload your browser. Results will automatically display when the tests are done running.</p>
   <% # ajax contacts test_execution's show controller action with format: 'js'. controller then directs to show.js.erb which will wait, then re-render %>
@@ -15,19 +14,15 @@
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
   </script>
 
-<% when 'passing' %>
-  <p class="lead row bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> Passed</p>
-  <% if execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest' %>
-    <% submit_warnings = execution.sibling_execution.execution_errors.only_warnings %>
-    <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_warnings, message_title: 'Warning' } if submit_warnings.any? %>
+<% else %>
+  <% if passing = execution.status_with_sibling == 'passing'%>
+    <p class="lead row bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> Passed</p>
+  <% else %>
+    <p class="lead row bg-danger execution-status">
+      <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i>
+      <%= execution_failure_message(execution) %>
+    </p>
   <% end %>
-
-<% else # failing %>
-
-  <p class="lead row bg-danger execution-status">
-    <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i>
-    <%= execution_failure_message(execution) %>
-  </p>
 
   <% collected_errors = collected_errors(execution) %>
 
@@ -40,7 +35,7 @@
     </ul>
   <% end %>
 
-  <h2>Errors and Warnings</h2>
+  <h2><%= "Errors and " unless passing %>Warnings</h2>
   <div id="xml-tabs" class="hidden file-error-tabs short-tabs">
     <ul>
       <% collected_errors.files.each do |file_name, error_result| %>
@@ -49,7 +44,11 @@
             <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
             <% if total_errors > 0 %>
               <div class="file-name">
-                <i aria-hidden='true' class='fa fa-fw fa-times text-danger'></i>
+                <% if error_result.keys.any? { |s| s != 'Warnings' && error_result[s].execution_errors.count > 0} %>
+                  <i aria-hidden='true' class='fa fa-fw fa-times text-danger'></i>
+                <% else %>
+                  <i aria-hidden='true' class='fa fa-fw fa-exclamation-triangle text-warning'></i>
+                <% end %>
                 <%= file_name %>
               </div>
               <div class="file-badge">
@@ -79,7 +78,7 @@
           </p>
         <% else %>
           <p class="lead">
-            <%= "#{file_name} - #{total_errors} errors and warnings" %>
+            <%= "#{file_name} - #{total_errors} " + (passing ? "warnings" : "errors and warnings") %>
           </p>
 
           <% identifier = "#{execution.id}_#{file_name}" %>
@@ -95,7 +94,7 @@
             <% error_result.each do |error_type, error_hash| %>
               <div id=<%= "#{error_type}_#{identifier}" %>>
                 <% if error_hash.execution_errors.count > 0 %>
-                  <% message_title = error_type == 'Warning' ? 'Warning' : 'Error' %>
+                  <% message_title = error_type == 'Warnings' ? 'Warning' : 'Error' %>
 
                   <% if error_type == "Reporting" %>
                     <% report_sup_data_errors = population_data_errors(error_hash.execution_errors, 'supplemental_data') %>
