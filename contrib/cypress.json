@@ -20,7 +20,7 @@
       "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "ami_name": "cypress_3.0.0beta1",
+      "ami_name": "cypress_3.0.0beta2",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 20,
@@ -34,7 +34,7 @@
     },
     {
       "name": "cypress.v3.0.0.ovf",
-      "vm_name": "cypressv300beta1",
+      "vm_name": "cypressv300beta2",
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
       "iso_urls": [
@@ -77,6 +77,9 @@
         "<enter><wait>"
       ],
       "shutdown_command": "echo '{{user `default_pwd`}}' | sudo -S -E shutdown -P now",
+      "export_opts": [
+        "--manifest"
+      ],
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "1024"],
         ["modifyvm", "{{.Name}}", "--cpus", "2"]
@@ -110,13 +113,19 @@
     "type": "shell",
     "inline": ["sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+NOPASSWD:ALL/%sudo ALL=(ALL:ALL) ALL/' /etc/sudoers"],
     "only": ["cypress.v3.0.0.ovf"]
+  },
+  {
+    "type": "shell",
+    "execute_command": "echo '{{user `default_pwd`}}' | sudo -S -E bash '{{.Path}}'",
+    "script": "scripts/cleanup.sh",
+    "only": ["cypress.v3.0.0.ovf"]
   }],
 
   "post-processors": [
-  {
-    "type": "compress",
-    "only": ["cypress.v3.0.0.ovf"],
-    "output": "{{.BuildName}}.tar.gz"
+    {
+      "type": "shell-local",
+      "script": "scripts/ovf_to_ova.sh",
+      "only": ["cypress.v3.0.0.ovf"]
     }
   ]
 }
