@@ -31,6 +31,29 @@ Scenario: AJAX Reload Product Test Links with Statuses
   When a task for the product test has failed
   Then the user should see a product test that has failed
 
+Scenario: Can See Progress for Bulk Download
+  When two product tests are created for product
+  And all measure tests for product have state of building
+  And the user visits the product page
+  Then the user should see 0 of 3 measure tests ready in bulk download
+  When a building measure test becomes ready
+  Then the user should see 1 of 3 measure tests ready in bulk download
+  When a building measure test becomes ready
+  Then the user should see 2 of 3 measure tests ready in bulk download
+  When a building measure test becomes ready
+  Then the user should see the bulk download
+
+Scenario: Can See Ready Product Test Links
+  When two product tests are created for product
+  And all measure tests for product have state of building
+  And the user visits the product page
+  When a building measure test becomes ready
+  Then the user should see product test links for all ready measure tests
+  When a building measure test becomes ready
+  Then the user should see product test links for all ready measure tests
+  When a building measure test becomes ready
+  Then the user should see product test links for all ready measure tests
+
 Scenario: Can Download Report in ATL Mode
   When all product tests have a state of ready
   And the application is in ATL mode

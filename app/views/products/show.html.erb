@@ -87,6 +87,10 @@
 <% if tasks.any? %>
   <% task_ids = tasks.collect { |task| task.id.to_s }.join(',') %>
   <script>
-    $.ajax({url: "<%= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script', data: { task_ids: "<%= task_ids %>" }});
+    var task_ids_needing_reload = [];
+    <% tasks.each do |task| %>
+      task_ids_needing_reload.push("<%= task.id %>")
+    <% end %>
+    $.ajax({url: "<%= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script' });
   </script>
 <% end %>

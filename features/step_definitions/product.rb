@@ -208,6 +208,31 @@ When(/^the user visits the product page$/) do
   visit vendor_product_path(product.vendor, product)
 end
 
+# CAT1_CONFIG.keys.select { |hqmf_oid| Measure.all.collect { |meas| meas.hqmf_id }.include? hqmf_oid }
+# ["40280381-4BE2-53B3-014C-0F589C1A1C39", "40280381-4B9A-3825-014B-C1A59E160733"]
+When(/^two product tests are created for product$/) do
+  product = Product.first
+  measure_ids = ["40280381-4BE2-53B3-014C-0F589C1A1C39", "40280381-4B9A-3825-014B-C1A59E160733"]
+
+  measure_ids.each do |measure_id|
+    test = product.product_tests.build({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
+    test.save!
+  end
+end
+
+When(/^all measure tests for product have state of (.*)$/) do |state|
+  Product.first.product_tests.measure_tests.each do |test|
+    test.state = state.to_s
+    test.save!
+  end
+end
+
+When(/^a building measure test becomes ready$/) do
+  mtest = Product.first.product_tests.measure_tests.select { |test| test.state == :building }.sample
+  mtest.state = :ready
+  mtest.save!
+end
+
 When(/^the user switches to the filtering test tab$/) do
   page.click_link 'CQM Filtering Test'
 end
@@ -382,6 +407,24 @@ end
 Then(/^the user should see the product information$/) do
   page.assert_text @product.name
   page.assert_text @vendor.name
+end
+
+# current is the current number of measure tests with the state of :ready
+# total is the total number of measure tests
+Then(/^the user should see (.*) of (.*) measure tests ready in bulk download$/) do |current, total|
+  page.assert_text "#{current} of #{total} measures ready"
+end
+
+Then(/^the user should see the bulk download$/) do
+  page.assert_text 'Download All Patients (.zip)'
+end
+
+Then(/^the user should see product test links for all ready measure tests$/) do
+  Product.first.product_tests.measure_tests.select { |test| test.state == :ready }.each do |test|
+    test.tasks.select { |task| task.class == C1Task || task.class == C2Task }.each do |task|
+      page.find("#wrapper-task-id-#{task.id.to_s}").assert_text 'start'
+    end
+  end
 end
 
 Then(/^the user should be able to download all patients$/) do

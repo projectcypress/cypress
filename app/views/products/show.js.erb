@@ -1,18 +1,48 @@
-<% if params[:task_ids] %>
-  <% tasks_going_to_need_reloading = Task.where(:_id.in => params[:task_ids].split(",")) %>
+<%# if params[:task_ids] %>
+  <% #tasks_going_to_need_reloading = Task.where(:_id.in => params[:task_ids].split(",")) %>
   <% # itereate through any tasks that are still not ready %>
-  <% tasks_going_to_need_reloading.each do |task| %>
-    $("#<%= id_for_html_wrapper_of_task(task) %>").html("<%= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
+
+  <% @product.product_tests.measure_tests.each do |test| %>
+    <% test.tasks.each do |task| # fix to use only non-c3 tasks %>
+      if (task_ids_needing_reload.includes("<%= task.id.to_s %>")) {
+        $("#<%= id_for_html_wrapper_of_task(task) %>").html("<%= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
+      }
+    <% end %>
   <% end %>
+
+  // Object.keys(tasks_needing_reload).forEach(function (key) { 
+  //   var value = tasks_needing_reload[key]
+  //   $(key).html(value)
+  // });
+
+  console.log("number of keys needing reload is " + Object.keys(tasks_needing_reload).length)
+
+  if (Object.keys(tasks_needing_reload).length != 0) {
+    $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
+  }
+  <%# tasks_going_to_need_reloading.each do |task| %>
+    // $("#<%#= id_for_html_wrapper_of_task(task) %>").html("<%#= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
+  <%# end %>
+
+  <%# if tasks_going_to_need_reloading.any? %>
+    <% # reload the bulk download partial %>
+    // $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
+  <%# end %>
 
   <% tasks = tasks_needing_reload(@product) %>
   <% if tasks.any? %>
-    <% task_ids = tasks.collect { |task| task.id.to_s }.join(',') %>
+    var task_ids_needing_reload = [];
+    <% tasks.each do |task| %>
+      task_ids_needing_reload.push("<%= task.id %>")
+    <% end %>
     setTimeout(function() {
-      $.ajax({url: "<%= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script', data: { task_ids: "<%= task_ids %>" }});
+      $.ajax({url: "<%= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script' });
     }, 500);
-  <% else %>
-    <% # reload the bulk download partial %>
-    $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
+    <%# key = id_for_html_wrapper_of_task(task) %>
+    <%# val = escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>
+    <%# task_ids = tasks.collect { |task| task.id.to_s }.join(',') %>
+    // setTimeout(function() {
+    //   $.ajax({url: "<%#= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script', data: { task_ids: "<%#= task_ids %>" }});
+    // }, 2000);
   <% end %>
-<% end %>
+<%# end %>

@@ -107,7 +107,7 @@ module ProductsHelper
     [task]
   end
 
-  # only yeilds tasks whose product test links need to be reloaded
+  # only yields tasks whose product test links need to be reloaded
   def tasks_needing_reload(product)
     tasks = []
     product.product_tests.each do |test|
