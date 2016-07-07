@@ -19,7 +19,7 @@ module AdminHelper
   end
 
   def mode_internal?
-    !Settings[:auto_approve] && Settings[:ignore_roles] && Settings[:enable_debug_features] && Settings[:default_role].nil?
+    Settings[:auto_approve] && Settings[:ignore_roles] && Settings[:enable_debug_features] && Settings[:default_role].nil?
   end
 
   def mode_demo?
@@ -27,11 +27,11 @@ module AdminHelper
   end
 
   def mode_atl?
-    Settings[:auto_approve] && !Settings[:ignore_roles] && !Settings[:enable_debug_features] && Settings[:default_role].nil?
+    !Settings[:auto_approve] && !Settings[:ignore_roles] && !Settings[:enable_debug_features] && Settings[:default_role].nil?
   end
 
   def mode_internal
-    Settings[:auto_approve] = false
+    Settings[:auto_approve] = true
     Settings[:ignore_roles] = true
     Settings[:default_role] = nil
     Settings[:enable_debug_features] = true
@@ -45,7 +45,7 @@ module AdminHelper
   end
 
   def mode_atl
-    Settings[:auto_approve] = true
+    Settings[:auto_approve] = false
     Settings[:ignore_roles] = false
     Settings[:default_role] = nil
     Settings[:enable_debug_features] = false
