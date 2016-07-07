@@ -42,7 +42,7 @@ gem 'local_time'
 # gem 'therubyracer', platforms: :ruby
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '2.5.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # A set of responders modules to dry up your Rails 4.2+ app.
@@ -67,7 +67,7 @@ gem 'settingslogic'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Devise is the gem we use for user authentication
-gem 'devise'
+gem 'devise', '4.1.1'
 gem 'cancancan'
 gem 'rolify'
 gem 'devise_invitable'
