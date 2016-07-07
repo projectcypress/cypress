@@ -56,12 +56,12 @@ module Cypress
         example_patients[m.cms_id] = Cypress::ExamplePatientFinder.find_example_patient(m)
       end
       mes, sd, ed = Cypress::PatientZipper.mes_start_end(example_patients.values)
-      formatter = Cypress::QRDAExporter.new(mes, sd, ed)
+      formatter = Cypress::HTMLExporter.new(mes, sd, ed)
       Zip::ZipOutputStream.open(file.path) do |z|
         z.put_next_entry('criteria_list.html')
         z << criteria_list
         example_patients.each do |measure_id, patient|
-          z.put_next_entry("sample patient for #{measure_id}.xml")
+          z.put_next_entry("sample patient for #{measure_id}.html")
           z << formatter.export(patient)
         end
       end
