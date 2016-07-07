@@ -18,10 +18,17 @@ Scenario: Cannot View Download All Patients
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
-Scenario: Can Download Report
+Scenario: Can Download Report in ATL Mode
   When all product tests have a state of ready
+  And the application is in ATL mode
   And the user visits the product page
-  Then the user should be able to view the report
+  Then the user should be able to download the report
+
+Scenario: Cannot Download Report
+  When all product tests have a state of ready
+  And the application is not in ATL mode
+  And the user visits the product page
+  Then the user should not be able to download the report
 
 Scenario: Can Multi Upload Cat I
   When all product tests have a state of ready

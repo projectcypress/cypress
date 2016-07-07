@@ -4,8 +4,5 @@
 
 %>
 
-<% icon_image_class = passing ? 'fa-check' : 'fa-times' %>
-<% icon_color_class = passing ? 'text-success' : 'text-danger' %>
-
-<i aria-hidden="true" class = '<%= "fa fa-lg #{icon_image_class} #{icon_color_class}" %>'></i>
+<span aria-hidden="true" class='<%= passing ? 'text-success' : 'text-danger' %>'><%= passing ? '✓' : 'X' %></span>
 <span class="sr-only"><%= passing ? 'passing' : 'failing' %></span>
