@@ -7,7 +7,7 @@ module Cypress
       example = nil
       records.each do |patient|
         result_value = patient.calculation_results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id)
-        match_ipp = get_result_value(result_value, 'IPP')
+        match_ipp = get_result_value(result_value, 'DENOM')
         next unless match_ipp && match_ipp > 0
         count = population_matches_for_patient(result_value, measure)
         return patient if count == 1
