@@ -6,8 +6,7 @@
 #
 %>
 
-<% case execution.status_with_sibling %>
-<% when 'incomplete' %>
+<% if execution.status_with_sibling == 'incomplete' %>
   <p class="lead row bg-info execution-status"><i class="fa fa-fw fa-refresh fa-spin text-info"></i> In Progress</p>
   <p>You do not need to reload your browser. Results will automatically display when the tests are done running.</p>
   <% # ajax contacts test_execution's show controller action with format: 'js'. controller then directs to show.js.erb which will wait, then re-render %>
@@ -15,19 +14,15 @@
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
   </script>
 
-<% when 'passing' %>
-  <p class="lead row bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> Passed</p>
-  <% if execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest' %>
-    <% submit_warnings = execution.sibling_execution.execution_errors.only_warnings %>
-    <%= render partial: 'test_executions/results/error_table', locals: { errors: submit_warnings, message_title: 'Warning' } if submit_warnings.any? %>
+<% else %>
+  <% if passing = execution.status_with_sibling == 'passing'%>
+    <p class="lead row bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> Passed</p>
+  <% else %>
+    <p class="lead row bg-danger execution-status">
+      <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i>
+      <%= execution_failure_message(execution) %>
+    </p>
   <% end %>
-
-<% else # failing %>
-
-  <p class="lead row bg-danger execution-status">
-    <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i>
-    <%= execution_failure_message(execution) %>
-  </p>
 
   <% collected_errors = collected_errors(execution) %>
 
@@ -40,94 +35,100 @@
     </ul>
   <% end %>
 
-  <h2>Errors and Warnings</h2>
-  <div id="xml-tabs" class="hidden file-error-tabs short-tabs">
-    <ul>
-      <% collected_errors.files.each do |file_name, error_result| %>
-        <li>
-          <a href=<%= "##{execution.id}_#{file_name}" %>>
-            <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
-            <% if total_errors > 0 %>
-              <div class="file-name">
-                <i aria-hidden='true' class='fa fa-fw fa-times text-danger'></i>
-                <%= file_name %>
-              </div>
-              <div class="file-badge">
-                <span class="badge pull-right">
-                  <%= total_errors %>
-                  <span class="sr-only">errors</span>
-                </span>
-              </div>
-            <% else %>
-              <div class="file-name">
-                <i aria-hidden='true' class='fa fa-fw fa-check text-success'></i>
-                <%= file_name %>
-                <span class="sr-only">no errors</span>
-              </div>
-            <% end %>
-          </a>
-        </li>
-      <% end %>
-    </ul>
-
-    <% collected_errors.files.each do |file_name, error_result| %>
-      <div id=<%= "#{execution.id}_#{file_name}" %>>
-        <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
-        <% if total_errors == 0 %>
-          <p class="lead">
-            <%= "#{file_name} - No problems found" %>
-          </p>
-        <% else %>
-          <p class="lead">
-            <%= "#{file_name} - #{total_errors} errors and warnings" %>
-          </p>
-
-          <% identifier = "#{execution.id}_#{file_name}" %>
-          <div class="xml-error-tabs">
-            <ul>
-              <% error_result.each do |error_type, error_hash| %>
-                <li><a href = <%= "##{error_type}_#{identifier}" %>>
-                  <%= "#{error_type} " %> <span><%= "(#{error_hash.execution_errors.count})" %></span>
-                </a></li>
-              <% end %>
-            </ul>
-
-            <% error_result.each do |error_type, error_hash| %>
-              <div id=<%= "#{error_type}_#{identifier}" %>>
-                <% if error_hash.execution_errors.count > 0 %>
-                  <% message_title = error_type == 'Warning' ? 'Warning' : 'Error' %>
-
-                  <% if error_type == "Reporting" %>
-                    <% report_sup_data_errors = population_data_errors(error_hash.execution_errors, 'supplemental_data') %>
-                    <% pop_errors = population_data_errors(error_hash.execution_errors - report_sup_data_errors, 'population') %>
-                    <% non_pop_errors = error_hash.execution_errors - report_sup_data_errors - pop_errors %>
-                    <%= render partial: 'test_executions/results/error_table', locals: { errors: non_pop_errors, message_title: message_title } %>
-                    <%= render partial: 'test_executions/results/supplemental_data_error_table', locals: { errors: report_sup_data_errors + pop_errors, pop_errors_hash: population_error_hash(pop_errors, report_sup_data_errors) } %>
+  <% if collected_errors.files.values.any? { |err| err.count > 0 } %>
+    <h2><%= "Errors and " unless passing %>Warnings</h2>
+    <div id="xml-tabs" class="hidden file-error-tabs short-tabs">
+      <ul>
+        <% collected_errors.files.each do |file_name, error_result| %>
+          <li>
+            <a href=<%= "##{execution.id}_#{file_name}" %>>
+              <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
+              <% if total_errors > 0 %>
+                <div class="file-name">
+                  <% if error_result.keys.any? { |s| s != 'Warnings' && error_result[s].execution_errors.count > 0} %>
+                    <i aria-hidden='true' class='fa fa-fw fa-times text-danger'></i>
                   <% else %>
-                    <%= render partial: 'test_executions/results/error_table', locals: {
-                      errors: error_hash.execution_errors,
-                      message_title: message_title
-                      } %>
+                    <i aria-hidden='true' class='fa fa-fw fa-exclamation-triangle text-warning'></i>
                   <% end %>
-
-                  <div class="xml-view">
-                    <%= render partial: "test_executions/results/xmlnav" %>
-                    <h3>Uploaded File</h3>
-                    <div class="xml-frame">
-                      <%= render partial: 'test_executions/results/node', :locals => error_hash %>
-                    </div>
-                  </div>
-                <% else %>
-                  <p class="lead">
-                    <i class="fa fa-fw fa-check text-success" aria-hidden="true"></i>
-                    <%= "#{error_type} - No problems found" %>
-                  </p>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
+                  <%= file_name %>
+                </div>
+                <div class="file-badge">
+                  <span class="badge pull-right">
+                    <%= total_errors %>
+                    <span class="sr-only">errors</span>
+                  </span>
+                </div>
+              <% else %>
+                <div class="file-name">
+                  <i aria-hidden='true' class='fa fa-fw fa-check text-success'></i>
+                  <%= file_name %>
+                  <span class="sr-only">no errors</span>
+                </div>
+              <% end %>
+            </a>
+          </li>
         <% end %>
-      </div>
-    <% end %>
-  </div>
+      </ul>
+
+      <% collected_errors.files.each do |file_name, error_result| %>
+        <div id=<%= "#{execution.id}_#{file_name}" %>>
+          <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
+          <% if total_errors == 0 %>
+            <p class="lead">
+              <%= "#{file_name} - No problems found" %>
+            </p>
+          <% else %>
+            <p class="lead">
+              <%= "#{file_name} - #{total_errors} " + (passing ? "warnings" : "errors and warnings") %>
+            </p>
+
+            <% identifier = "#{execution.id}_#{file_name}" %>
+            <div class="xml-error-tabs">
+              <ul>
+                <% error_result.each do |error_type, error_hash| %>
+                  <li><a href = <%= "##{error_type}_#{identifier}" %>>
+                    <%= "#{error_type} " %> <span><%= "(#{error_hash.execution_errors.count})" %></span>
+                  </a></li>
+                <% end %>
+              </ul>
+
+              <% error_result.each do |error_type, error_hash| %>
+                <div id=<%= "#{error_type}_#{identifier}" %>>
+                  <% if error_hash.execution_errors.count > 0 %>
+                    <% message_title = error_type == 'Warnings' ? 'Warning' : 'Error' %>
+
+                    <% if error_type == "Reporting" %>
+                      <% report_sup_data_errors = population_data_errors(error_hash.execution_errors, 'supplemental_data') %>
+                      <% pop_errors = population_data_errors(error_hash.execution_errors - report_sup_data_errors, 'population') %>
+                      <% non_pop_errors = error_hash.execution_errors - report_sup_data_errors - pop_errors %>
+                      <%= render partial: 'test_executions/results/error_table', locals: { errors: non_pop_errors, message_title: message_title } %>
+                      <%= render partial: 'test_executions/results/supplemental_data_error_table', locals: { errors: report_sup_data_errors + pop_errors, pop_errors_hash: population_error_hash(pop_errors, report_sup_data_errors) } %>
+                    <% else %>
+                      <%= render partial: 'test_executions/results/error_table', locals: {
+                        errors: error_hash.execution_errors,
+                        message_title: message_title
+                        } %>
+                    <% end %>
+
+                    <div class="xml-view">
+                      <%= render partial: "test_executions/results/xmlnav" %>
+                      <h3>Uploaded File</h3>
+                      <div class="xml-frame">
+                        <%= render partial: 'test_executions/results/node', :locals => error_hash %>
+                      </div>
+                    </div>
+                  <% else %>
+                    <p class="lead">
+                      <i class="fa fa-fw fa-check text-success" aria-hidden="true"></i>
+                      <%= "#{error_type} - No problems found" %>
+                    </p>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
