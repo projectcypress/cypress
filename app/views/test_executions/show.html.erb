@@ -29,6 +29,10 @@
       { title: 'Filter Patients', partial: 'filter_instructions'},
       { title: 'Upload Files', partial: 'execution_upload'}
       ] %>
+  <% elsif @task.product_test._type == 'ChecklistTest' %>
+    <% steps = [
+      { title: 'Upload Files', partial: 'execution_upload'}
+      ] %>
   <% end %>
 
   <% steps.each_with_index do |step, index| %>
@@ -39,7 +43,7 @@
         </h1>
       </div>
       <div class="panel-body">
-        <%= render partial: step.partial, locals: { product_test: @product_test, task: @task } %>
+        <%= render partial: step.partial, locals: { disable: false, product_test: @product_test, task: @task } %>
       </div>
     </div>
   <% end %>

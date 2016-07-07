@@ -91,6 +91,7 @@ class Product
       checklist_test = product_tests.build({ name: 'c1 visual', measure_ids: interesting_measure_ids }, ChecklistTest)
       checklist_test.save!
       checklist_test.create_checked_criteria
+      C1ManualTask.new(product_test: checklist_test).save!
     end
   end
 
@@ -110,8 +111,7 @@ class Product
     return if product_tests.filtering_tests.any?
     criteria = %w(races ethnicities genders payers age).shuffle
     filter_tests = []
-    filter_tests << build_filtering_test(measure, criteria[0, 2])
-    filter_tests << build_filtering_test(measure, criteria[2, 2])
+    filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
     filter_tests << if ApplicationController.helpers.measure_has_diagnosis_criteria?(measure)

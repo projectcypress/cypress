@@ -2,8 +2,7 @@ module TestExecutionsHelper
   include TestExecutionsResultsHelper
 
   def displaying_cat1?(task)
-    test = task.product_test
-    (test._type == 'MeasureTest' && task._type == 'C1Task') || (test._type == 'FilteringTest' && task._type == 'Cat1FilterTask')
+    (task._type == 'C1Task') || (task._type == 'Cat1FilterTask') || task._type == 'C1ManualTask'
   end
 
   def task_type_to_title(task_type, c3)
