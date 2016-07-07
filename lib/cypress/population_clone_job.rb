@@ -31,9 +31,11 @@ module Cypress
       # grab a random number of records and then randomize the dates between +- 10 days
       randomize_ids patients if options['randomization_ids']
 
-      patients.each do |patient|
-        clone_and_save_record(patient)
-      end
+      # get single provider if @test is a measure test. measure tests have a single provider for each record while filtering tests can have different
+      # providers for each record
+      provider = @test.provider if @test.class == MeasureTest
+
+      patients.each { |patient| clone_and_save_record(patient, provider) }
     end
 
     def find_patients_to_clone
@@ -45,7 +47,6 @@ module Cypress
                  else
                    @test.bundle.records.where(test_id: nil).to_a
                  end
-      patients
     end
 
     def randomize_ids(patients)
@@ -62,16 +63,17 @@ module Cypress
       end
     end
 
-    def clone_and_save_record(record, date_shift = nil)
+    # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
+    def clone_and_save_record(record, provider = nil)
       cloned_patient = record.clone
       cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
       DemographicsRandomizer.randomize(cloned_patient) if options['randomize_demographics']
-      cloned_patient.shift_dates(date_shift) if date_shift
       cloned_patient.test_id = options['test_id']
       patch_insurance_provider(record)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']
-      assign_provider(cloned_patient)
+      # assign existing provider if provider argument is not nil (should be when @test is a measure test)
+      provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
     end
 
@@ -127,8 +129,12 @@ module Cypress
     end
 
     def generate_provider
-      measure = @test.measures.first
-      @generated_providers << Provider.generate_provider(measure_type: measure.type)
+      @generated_providers << Provider.generate_provider(measure_type: @test.measures.first.type)
+    end
+
+    def assign_existing_provider(patient, provider)
+      patient.provider_performances.each(&:destroy)
+      patient.provider_performances.build(provider: provider)
     end
   end
 end

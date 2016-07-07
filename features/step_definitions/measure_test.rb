@@ -21,6 +21,13 @@ When(/^the user creates a product with tasks (.*)$/) do |tasks|
   @product.product_tests.build({ name: @measure.name, measure_ids: [@measure.hqmf_id] }, MeasureTest)
   @product_test = @product.product_tests.first
   @product.save!
+
+  # create record and assign provider for product test
+  provider = Provider.find('53b2c4414d4d32139c730000')
+  @product_test.provider = provider
+  @product_test.save!
+  provider_performance = ProviderPerformance.new(provider: provider, provider_id: provider.id)
+  Record.create!(test_id: @product_test.id, provider_performances: [provider_performance])
 end
 
 #   A N D   #
@@ -77,6 +84,12 @@ end
 Then(/^the user should see the upload functionality for that product test$/) do
   page.assert_text @measure.name
   page.assert_text 'Download Test Deck'
+end
+
+Then(/^the user should see provider information$/) do
+  page.assert_text 'Provider Name'
+  page.assert_text 'Provider NPI'
+  page.assert_text 'Provider TIN'
 end
 
 Then(/^the user should only see the c1 execution page$/) do

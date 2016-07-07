@@ -12,6 +12,8 @@ require 'capybara/accessible'
 
 require 'axe/cucumber/step_definitions'
 
+include HealthDataStandards::CQM
+
 Mongoid.logger.level = Logger::INFO
 Mongo::Logger.logger.level = Logger::INFO
 
@@ -153,5 +155,5 @@ Before do
   Mongoid.default_client['products'].drop
   Mongoid.default_client['product_tests'].drop
 
-  collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
+  collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'providers')
 end

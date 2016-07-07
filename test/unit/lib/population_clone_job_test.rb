@@ -2,8 +2,10 @@ require 'test_helper'
 require 'fileutils'
 
 class PopulationCloneJobTest < ActiveSupport::TestCase
+  include HealthDataStandards::CQM
+
   def setup
-    collection_fixtures('records', 'products', 'product_tests', 'bundles', 'measures')
+    collection_fixtures('records', 'products', 'product_tests', 'bundles', 'measures', 'patient_cache', 'providers')
   end
 
   def test_perform_full_deck
@@ -42,6 +44,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   end
 
   def test_assigns_generated_provider
+    Provider.all.each(&:destroy)
     # 0 providers to start
     assert_equal 0, Provider.count
     # ids passed in should clone just the 2 records
@@ -183,6 +186,56 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert found_random == true, 'Did not find any evidence that payer was randomized.  Since there are only three ' \
       'possible payers there is some mathematical chance that this might happen, but it is slim (1/10,000)!'
   end
-end
 
-# rubocop:enable Metrics/ClassLength
+  def test_clone_and_save_record_with_provider
+    test = ProductTest.find('4f5a606b1d41c851eb000484')
+    record = test.bundle.records.where(test_id: nil).sample
+    provider = Provider.generate_provider(measure_type: test.measures.first.type)
+
+    pcj = Cypress::PopulationCloneJob.new({ 'test_id' => test.id }.stringify_keys!)
+    pcj.clone_and_save_record(record, provider)
+    cloned_record = Record.find_by(test_id: test.id)
+
+    cloned_record.provider_performances.each do |provider_performance|
+      assert_equal provider.id, provider_performance.provider_id
+    end
+  end
+
+  def test_perform_on_measure_test_creates_patients_with_same_provider
+    product = Product.find('4f57a88a1d41c851eb000004')
+    test = product.product_tests.build({ name: "my measure test #{rand}", measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'] }, MeasureTest)
+    test.save!
+
+    # make one record (pre-cloned record) have a provider performance. PopulationCloneJob should take care of this
+    provider = Provider.find(BSON::ObjectId('53b2c4414d4d32139c730000'))
+    Record.where(test_id: nil).sample.provider_performances << ProviderPerformance.new(provider: provider)
+
+    # add provider to test before clone job
+    test.provider = provider
+    test.save!
+
+    # create cloned record for measure test
+    records = clone_records(test)
+
+    # population clone job should set provider for measure test
+    assert_equal provider, ProductTest.find(test.id).provider
+
+    assert_equal 8, records.count
+    assert records.all { |record| record.provider_performances.any? }
+
+    # assert provider for each record on the measure test are the same
+    first_provider = records.first.provider_performances.first.provider
+    records.each do |record|
+      assert_equal first_provider, record.provider_performances.first.provider
+    end
+  end
+
+  def clone_records(product_test, options = {})
+    options['test_id'] = product_test.id unless options['test_id']
+    options['subset_id'] = 'all'
+    options['randomize_demographics'] = true
+    pcj = Cypress::PopulationCloneJob.new(options.stringify_keys!)
+    pcj.perform
+    Record.where(test_id: product_test.id)
+  end
+end

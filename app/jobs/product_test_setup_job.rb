@@ -3,6 +3,7 @@ class ProductTestSetupJob < ActiveJob::Base
   include Job::Status
   def perform(product_test)
     product_test.building
+    product_test.generate_provider if product_test.is_a? MeasureTest
     product_test.generate_records if product_test.records.count == 0
     product_test.pick_filter_criteria if product_test.is_a? FilteringTest
     if product_test.respond_to? :patient_cache_filter

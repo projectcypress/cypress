@@ -1,4 +1,6 @@
 class MeasureTest < ProductTest
+  belongs_to :provider, index: true
+
   validate :at_most_one_measure?
 
   def at_most_one_measure?
@@ -23,6 +25,11 @@ class MeasureTest < ProductTest
       C2Task.new(product_test: self).save!
       C3Cat3Task.new(product_test: self).save! if product.c3_test
     end
+  end
+
+  def generate_provider
+    self.provider = Provider.generate_provider(measure_type: measures.first.type)
+    save!
   end
 
   def archive_records
