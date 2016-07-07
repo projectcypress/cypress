@@ -71,6 +71,7 @@ Rails.application.routes.draw do
         post :set_default
       end
     end
+    resources :trackers, only: [:destroy]
   end
 
   get 'terms_and_conditions' => 'static_pages#terms_and_conditions'
