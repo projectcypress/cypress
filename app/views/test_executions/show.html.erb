@@ -49,6 +49,10 @@
   <% end %>
 </div>
 
+<% if config_for_version(@task.product_test.bundle.version)["schematron_banner"]%>
+  <%=render partial: 'alert', locals: {alert_type: 'danger', messages: [config_for_version(@task.product_test.bundle.version).schematron_banner]} %>
+<% end %>
+
 <% if @task.most_recent_execution %>
   <div class = 'panel panel-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>
     <div class = 'panel-heading'>
