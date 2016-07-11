@@ -1,39 +1,48 @@
 <%# if params[:task_ids] %>
-  <% #tasks_going_to_need_reloading = Task.where(:_id.in => params[:task_ids].split(",")) %>
-  <% # itereate through any tasks that are still not ready %>
+  <%#tasks_going_to_need_reloading = Task.where(:_id.in => params[:task_ids].split(",")) %>
+  <%# itereate through any tasks that are still not ready %>
 
+  <% # see if any tasks need to be reloaded. this will happen on next AJAX call (500 ms in the future) when the product test state or %>
+  <% #   test execution state could have possibly changed %>
+  <% tasks = tasks_needing_reload(@product) %>
+
+  <% # render all product test links that were not finished 500 ms ago (any task in task_ids_needing_reload javascript variable) %>
   <% @product.product_tests.measure_tests.each do |test| %>
     <% test.tasks.each do |task| # fix to use only non-c3 tasks %>
-      if (task_ids_needing_reload.includes("<%= task.id.to_s %>")) {
+      if (task_ids_remaining.includes("<%= task.id.to_s %>")) {
         $("#<%= id_for_html_wrapper_of_task(task) %>").html("<%= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
       }
     <% end %>
   <% end %>
+
+  // console.log(string(task_ids_remaining))
+  // debugger
 
   // Object.keys(tasks_needing_reload).forEach(function (key) { 
   //   var value = tasks_needing_reload[key]
   //   $(key).html(value)
   // });
 
-  console.log("number of keys needing reload is " + Object.keys(tasks_needing_reload).length)
+  // console.log("number of keys needing reload is " + Object.keys(tasks_needing_reload).length)
 
-  if (Object.keys(tasks_needing_reload).length != 0) {
-    $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
-  }
+  // if (Object.keys(tasks_needing_reload).length != 0) {
+  //   $('#display_bulk_download').html("<%#= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
+  // }
   <%# tasks_going_to_need_reloading.each do |task| %>
     // $("#<%#= id_for_html_wrapper_of_task(task) %>").html("<%#= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
   <%# end %>
 
   <%# if tasks_going_to_need_reloading.any? %>
-    <% # reload the bulk download partial %>
+    <%# reload the bulk download partial %>
     // $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
   <%# end %>
 
-  <% tasks = tasks_needing_reload(@product) %>
+  <% # add all tasks that need to be reloaded to the "task_ids_remaining" javascript variable. if there are any of these tasks, wait 500 ms %>
+  <% #   then call this show.js.erb file again %>
   <% if tasks.any? %>
-    var task_ids_needing_reload = [];
+    task_ids_remaining = []
     <% tasks.each do |task| %>
-      task_ids_needing_reload.push("<%= task.id %>")
+      task_ids_remaining.push("<%= task.id.to_s %>")
     <% end %>
     setTimeout(function() {
       $.ajax({url: "<%= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script' });
@@ -44,5 +53,13 @@
     // setTimeout(function() {
     //   $.ajax({url: "<%#= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script', data: { task_ids: "<%#= task_ids %>" }});
     // }, 2000);
+  <% end %>
+
+  <% if params[:task_id] %>
+    $("#<%= id_for_html_wrapper_of_task(task) %>").html("<%= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
+    if ()
+    setTimeout(function() {
+      $.ajax({url: "<%= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script', data: { task_ids: "<%= params[:task_id] %>" }});
+    }, 500);
   <% end %>
 <%# end %>

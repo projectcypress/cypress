@@ -44,3 +44,9 @@
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% end %>
 <% end %>
+
+<script>
+  $('.multi-upload-field').on('change', function(ev) {
+    $(this).parent().siblings('.multi-upload-submit').click();
+  });
+</script>
