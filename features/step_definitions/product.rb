@@ -170,6 +170,26 @@ When(/^the user views the product$/) do
   page.click_link @product.name
 end
 
+When(/^the product test is (.*)$/) do |state|
+  test = ProductTest.first # should only be one product test
+  test.state = state.to_sym
+  test.save!
+end
+
+When(/^a task for the product test is testing$/) do
+  test = ProductTest.first
+  test.tasks.first.test_executions.create!(:state => :pending)
+end
+
+When(/^a task for the product test has failed$/) do
+  test = ProductTest.first
+  task = test.tasks.first
+  test.tasks.first.test_executions.create!(:state => :failed) unless task.most_recent_execution
+  execution = task.most_recent_execution
+  execution.state = :failed
+  execution.save!
+end
+
 When(/^all product tests have a state of ready$/) do
   ProductTest.all.each do |pt|
     pt.state = :ready
@@ -186,6 +206,31 @@ end
 When(/^the user visits the product page$/) do
   product = Product.first
   visit vendor_product_path(product.vendor, product)
+end
+
+# CAT1_CONFIG.keys.select { |hqmf_oid| Measure.all.collect { |meas| meas.hqmf_id }.include? hqmf_oid }
+# ["40280381-4BE2-53B3-014C-0F589C1A1C39", "40280381-4B9A-3825-014B-C1A59E160733"]
+When(/^two product tests are created for product$/) do
+  product = Product.first
+  measure_ids = ["40280381-4BE2-53B3-014C-0F589C1A1C39", "40280381-4B9A-3825-014B-C1A59E160733"]
+
+  measure_ids.each do |measure_id|
+    test = product.product_tests.build({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
+    test.save!
+  end
+end
+
+When(/^all measure tests for product have state of (.*)$/) do |state|
+  Product.first.product_tests.measure_tests.each do |test|
+    test.state = state.to_s
+    test.save!
+  end
+end
+
+When(/^a building measure test becomes ready$/) do
+  mtest = Product.first.product_tests.measure_tests.select { |test| test.state == :building }.sample
+  mtest.state = :ready
+  mtest.save!
 end
 
 When(/^the user switches to the filtering test tab$/) do
@@ -364,6 +409,24 @@ Then(/^the user should see the product information$/) do
   page.assert_text @vendor.name
 end
 
+# current is the current number of measure tests with the state of :ready
+# total is the total number of measure tests
+Then(/^the user should see (.*) of (.*) measure tests ready in bulk download$/) do |current, total|
+  page.assert_text "#{current} of #{total} measures ready"
+end
+
+Then(/^the user should see the bulk download$/) do
+  page.assert_text 'Download All Patients (.zip)'
+end
+
+Then(/^the user should see product test links for all ready measure tests$/) do
+  Product.first.product_tests.measure_tests.select { |test| test.state == :ready }.each do |test|
+    test.tasks.select { |task| task.class == C1Task || task.class == C2Task }.each do |task|
+      page.find("#wrapper-task-id-#{task.id.to_s}").assert_text 'start'
+    end
+  end
+end
+
 Then(/^the user should be able to download all patients$/) do
   page.assert_text 'Download All Patients'
 end
@@ -379,6 +442,14 @@ end
 
 Then(/^the user should not be able to download the report$/) do
   page.assert_no_text 'Download Report'
+end
+
+Then(/^the user should see a (.*) product test$/) do |product_test_link_status|
+  page.assert_text product_test_link_status
+end
+
+Then(/^the user should see a product test that has failed$/) do
+  page.assert_text 'retry'
 end
 
 Then(/^the user should see a cat I test testing for product test (.*)$/) do |product_test_number|

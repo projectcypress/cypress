@@ -16,9 +16,9 @@ ready = function() {
   });
 
   /* submit upload when file is attached */
-  $('.multi-upload-field').on('change', function(ev) {
-    $(this).parent().siblings('.multi-upload-submit').click();
-  });
+  // $('.multi-upload-field').on('change', function(ev) {
+  //   $(this).parent().siblings('.multi-upload-submit').click();
+  // });
 };
 
 var reticulateSplines = function() {

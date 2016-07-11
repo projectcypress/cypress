@@ -81,3 +81,15 @@
     <% end %>
   <% end %>
 </div>
+
+<% tasks = tasks_needing_reload(@product) %>
+<% if tasks.any? %>
+  <%# task_ids = tasks.collect { |task| task.id.to_s }.join(',') %>
+  <script>
+    var task_ids_remaining = [];
+    <% tasks.each do |task| %>
+      task_ids_remaining.push("<%= task.id.to_s %>")
+    <% end %>
+    $.ajax({url: "<%= vendor_product_path(@product.vendor, @product) %>", type: "GET", dataType: 'script' });
+  </script>
+<% end %>

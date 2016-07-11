@@ -126,23 +126,95 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_with_c3_task
-    measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
-    product = Product.new(vendor: Vendor.all.first, name: 'my product', c1_test: true, c2_test: true, bundle_id: '4fdb62e01d41c820f6000001',
-                          measure_ids: measure_ids)
-    product.save!
-    pt = ProductTest.new(name: 'my product test name 1', measure_ids: measure_ids, product: product)
-    pt.save!
-    c1_task = pt.tasks.build({}, C1Task)
-    c2_task = pt.tasks.build({}, C2Task)
-    pt.tasks.each(&:save!)
-    assert_equal [c1_task], with_c3_task(c1_task)
-    assert_equal [c2_task], with_c3_task(c2_task)
+    measure_id = '8A4D92B2-397A-48D2-0139-B0DC53B034A7'
 
-    product.c3_test = true
-    c3_cat1_task = pt.tasks.build({}, C3Cat1Task)
-    c3_cat3_task = pt.tasks.build({}, C3Cat3Task)
-    pt.tasks.each(&:save!)
-    assert_equal [c1_task, c3_cat1_task], with_c3_task(c1_task)
-    assert_equal [c2_task, c3_cat3_task], with_c3_task(c2_task)
+    # without c3 tasks
+    test = create_product_with_product_test_and_tasks(measure_id, true, true, false, false)
+    assert_equal [test.tasks.c1_task], with_c3_task(test.tasks.c1_task)
+    assert_equal [test.tasks.c2_task], with_c3_task(test.tasks.c2_task)
+
+    # with c3 tasks
+    test = create_product_with_product_test_and_tasks(measure_id, true, true, true, false)
+    assert_equal [test.tasks.c1_task, test.tasks.c3_cat1_task], with_c3_task(test.tasks.c1_task)
+    assert_equal [test.tasks.c2_task, test.tasks.c3_cat3_task], with_c3_task(test.tasks.c2_task)
+
+    # filtering tests should only return same task
+    test = create_product_with_product_test_and_tasks(measure_id, true, true, false, true)
+    assert_equal [test.tasks.cat1_filter_task], with_c3_task(test.tasks.cat1_filter_task)
+    assert_equal [test.tasks.cat3_filter_task], with_c3_task(test.tasks.cat3_filter_task)
+
+    # filtering tests should only return same tasks, even if c3_test selected
+    test = create_product_with_product_test_and_tasks(measure_id, true, true, true, true)
+    assert_equal [test.tasks.cat1_filter_task], with_c3_task(test.tasks.cat1_filter_task)
+    assert_equal [test.tasks.cat3_filter_task], with_c3_task(test.tasks.cat3_filter_task)
+  end
+
+  def test_tasks_needing_reload
+    measure_id = '8A4D92B2-397A-48D2-0139-B0DC53B034A7'
+
+    # no tasks should need reload if no test executions exist
+    test = create_product_with_product_test_and_tasks(measure_id, true, true, true, true)
+    assert_equal 0, tasks_needing_reload(test.product).count
+
+    # task with test execution pending should need a reload
+    test = create_product_with_product_test_and_tasks(measure_id, true, true, true, true)
+    test.tasks.c1_task.test_executions.create!(:state => :pending)
+    tasks = tasks_needing_reload(test.product)
+    assert_equal 1, tasks.count
+    assert_equal test.tasks.c1_task, tasks.first
+
+    # tasks with test executions pending should need reloading
+    test = create_product_with_product_test_and_tasks(measure_id, true, true, true, true)
+    test.tasks.c1_task.test_executions.create!(:state => :pending)
+    test.tasks.cat1_filter_task.test_executions.create!(:state => :pending)
+    assert_equal 2, tasks_needing_reload(test.product).count
+
+    # all tasks with building product test should need reloading
+    test = create_product_with_product_test_and_tasks(measure_id, true, true, true, true)
+    test.state = :building
+    test.save!
+    # exclude both c3 tasks from needing reload since c3 test executions are run through c1 and c2 tasks
+    tasks = tasks_needing_reload(test.product)
+    assert_equal 4, tasks.count
+    tasks.each do |task|
+      assert %w(C1Task C2Task Cat1FilterTask Cat3FilterTask).include? task.class.to_s
+    end
+  end
+
+  def test_tasks_needing_reload_with_test_executions
+    measure_id = '8A4D92B2-397A-48D2-0139-B0DC53B034A7'
+
+    # any tasks that have a test execution and are pending should be reloaded
+    test = create_product_with_product_test_and_tasks(measure_id, true, true, true, true)
+    test.tasks.c1_task.test_executions.create!(:state => :pending)
+    assert_equal 1, tasks_needing_reload(test.product).count
+    test.tasks.c2_task.test_executions.create!(:state => :pending)
+    test.reload
+    assert_equal 2, tasks_needing_reload(test.product).count
+    test.tasks.cat1_filter_task.test_executions.create!(:state => :passed)
+    test.reload
+    assert_equal 2, tasks_needing_reload(test.product).count
+  end
+
+  def create_product_with_product_test_and_tasks(measure_id, c1_test, c2_test, c3_test, c4_test)
+    product = Product.new(vendor: Vendor.all.first, name: "my product #{rand}", c1_test: c1_test, c2_test: c2_test, c3_test: c3_test,
+                          c4_test: c4_test, bundle_id: '4fdb62e01d41c820f6000001', measure_ids: [measure_id])
+    product.save!
+    test = ProductTest.new(:name => "my product test #{rand}", :measure_ids => [measure_id], :product => product, :state => :ready)
+    test.save!
+    if c1_test
+      test.tasks.build({}, C1Task)
+      test.tasks.build({}, C3Cat1Task) if c3_test
+    end
+    if c2_test
+      test.tasks.build({}, C2Task)
+      test.tasks.build({}, C3Cat3Task) if c3_test
+    end
+    if c4_test
+      test.tasks.build({}, Cat1FilterTask)
+      test.tasks.build({}, Cat3FilterTask)
+    end
+    test.tasks.each(&:save!)
+    test
   end
 end

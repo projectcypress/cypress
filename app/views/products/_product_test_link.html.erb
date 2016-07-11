@@ -45,8 +45,8 @@
   <% end %>
 <% end %>
 
-<% if should_reload_product_test_link?(tasks) %>
-  <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: '/products/product_test_link', task_id: "<%= task.id.to_s %>" }});
-  </script>
-<% end %>
+<script>
+  $('.multi-upload-field').on('change', function(ev) {
+    $(this).parent().siblings('.multi-upload-submit').click();
+  });
+</script>
