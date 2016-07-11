@@ -93,6 +93,8 @@ class ChecklistSourceDataCriteria
   def include_valueset(data_criteria, criteria)
     include_vset = false
     if data_criteria.type.to_s == criteria['type'] && data_criteria.status == criteria['status']
+      # value set should not be included if there is a negation, and the negation doesn't match
+      return nil if criteria.negation && criteria.negation_code_list_id != data_criteria.negation_code_list_id
       # if the criteria has a field_value, check it is the same as the data_criteria, else return true
       include_vset = criteria['field_values'] ? compare_field_values(data_criteria, criteria) : true
     end
