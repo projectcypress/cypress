@@ -48,20 +48,21 @@ class ChecklistTest < ProductTest
 
   def create_checked_criteria
     checked_criterias = []
-    measure_criteria_map = {}
-    measure_rank_map = {}
     checklist_measures = []
+
     # For each measure selected iterate on finding interesting data criteria
-    measures.each do |measure|
-      measure_criteria_map[measure], measure_rank_map[measure] = data_criteria_selector(measure)
-    end
-    measure_ranks = measure_rank_map.sort_by { |_key, value| value }
-    # Added 4 'measures' due to account for submeasures
-    top = measure_ranks.pop(CAT1_CONFIG['number_of_checklist_measures'] + 4).shuffle
-    measure_ranks += top
+    measure_criteria_map, measure_ranks = criteria_map_and_measure_ranks
+
+    # include all measures in checklist measures if c2 was not selected (and there are no measure tests)
+    include_all_measures = product.product_tests.measure_tests.count == 0
+
+    # shuffle the top 8 (4 + 4) measures if all measures are not being included
+    measure_ranks, max_num_checklist_measures = shuffle_top_measures(measure_ranks, include_all_measures)
+
+    # create checked criteria
     measure_ranks.reverse_each do |value|
-      # If there are aleady 4 checklist measure or If the measure is already a checklist measure (due to submeasures), move on
-      next if (checklist_measures.size > CAT1_CONFIG['number_of_checklist_measures'] - 1) || (checklist_measures.include? value[0].hqmf_id)
+      next if checklist_measures.include? value[0].hqmf_id                                      # skip submeasures
+      next if !include_all_measures && checklist_measures.size > max_num_checklist_measures - 1 # skip if four checklist measures already exist
       checklist_measures << value[0].hqmf_id
       measure_criteria_map[value[0]].each do |criteria_key|
         checked_criterias.push(measure_id: value[0].id.to_s, source_data_criteria: criteria_key)
@@ -71,6 +72,27 @@ class ChecklistTest < ProductTest
     self.measure_ids = checklist_measures
     self.checked_criteria = checked_criterias
     save!
+  end
+
+  def criteria_map_and_measure_ranks
+    measure_criteria_map = {}
+    measure_rank_map = {}
+    measures.each do |measure|
+      measure_criteria_map[measure], measure_rank_map[measure] = data_criteria_selector(measure)
+    end
+    measure_ranks = measure_rank_map.sort_by { |_key, value| value }
+    [measure_criteria_map, measure_ranks]
+  end
+
+  # edits the order of the top 8 (4 + 4) measures
+  def shuffle_top_measures(measure_ranks, include_all_measures = false)
+    max_num_checklist_measures = product.measure_ids.count
+    unless include_all_measures
+      max_num_checklist_measures = CAT1_CONFIG['number_of_checklist_measures']
+      top = measure_ranks.pop(max_num_checklist_measures + 4).shuffle
+      measure_ranks += top
+    end
+    [measure_ranks, max_num_checklist_measures]
   end
 
   def data_criteria_selector(measure)

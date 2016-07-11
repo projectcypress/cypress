@@ -119,13 +119,6 @@ class ProducTest < ActiveSupport::TestCase
     assert pt.product_tests.filtering_tests.count == 5
   end
 
-  def test_interesting_measure_ids
-    pt = Product.new(vendor: @vendor, name: 'my_product', c1_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'])
-    pt.product_tests.build({ name: 'my_product_test', measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'] }, MeasureTest)
-    pt.save!
-    assert pt.interesting_measure_ids.count > 0
-  end
-
   def test_add_checklist_test
     pt = Product.new(vendor: @vendor, name: 'my_product', c1_test: true, measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'],
                      bundle_id: '4fdb62e01d41c820f6000001')
@@ -138,6 +131,7 @@ class ProducTest < ActiveSupport::TestCase
     # test if old product test can be deleted (since measure with id ending in 1C39 was removed) and new checklist test created
     pt.product_tests.destroy { |test| test }
     pt.product_tests.build({ name: 'second measure test', measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'] }, MeasureTest)
+    pt.measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
     pt.save!
     pt.add_checklist_test
     assert pt.product_tests.checklist_tests.count > 0
@@ -150,6 +144,66 @@ class ProducTest < ActiveSupport::TestCase
     pt.save!
     pt.add_checklist_test
     assert pt.product_tests.checklist_tests.first == old_checklist_test
+  end
+
+  def test_add_checklist_test_adds_tests_and_tasks_if_appropriate
+    measure_id = '40280381-4B9A-3825-014B-C1A59E160733'
+    product = @vendor.products.create!(name: "my product #{rand}", measure_ids: [measure_id], c2_test: true, bundle_id: '4fdb62e01d41c820f6000001')
+    product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
+
+    # should create no product tests if c1 was not selected
+    product.add_checklist_test
+    assert_equal 0, product.product_tests.checklist_tests.count
+
+    # should create only a c1_manual_task if only c1 and not c3 is selected
+    product.c1_test = true
+    product.save!
+    product.add_checklist_test
+    assert_equal 1, product.product_tests.checklist_tests.count
+    assert_equal 1, product.product_tests.checklist_tests.first.tasks.count
+    assert_equal C1ManualTask, product.product_tests.checklist_tests.first.tasks.first.class
+
+    product.product_tests.checklist_tests.each(&:destroy)
+    assert_equal 0, product.product_tests.checklist_tests.count
+
+    # should create c1_manual_task and c3_manual_task if both c1 and c3 are selected
+    product.c3_test = true
+    product.save!
+    product.add_checklist_test
+    assert_equal 1, product.product_tests.checklist_tests.count
+    assert_equal 2, product.product_tests.checklist_tests.first.tasks.count
+
+    manual_tasks = product.product_tests.checklist_tests.first.tasks
+    assert_equal_arrays(manual_tasks.collect(&:class), [C1ManualTask, C3ManualTask])
+  end
+
+  def test_add_checklist_test_adds_correct_number_of_measures_for_checked_criteria
+    measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733', '40280381-4BE2-53B3-014C-0F589C1A1C39']
+    product = @vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, c1_test: true, bundle_id: '4fdb62e01d41c820f6000001')
+    CAT1_CONFIG['number_of_checklist_measures'] = 1
+
+    # create measure tests for each of the measure ids
+    product.measure_ids.each do |measure_id|
+      product.product_tests.create!({ name: "measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+    end
+
+    # should only create checked criteria for a single measure
+    product.add_checklist_test
+    assert_equal 1, product.product_tests.checklist_tests.count
+    assert_equal 1, product.product_tests.checklist_tests.first.measures.count
+
+    # remove all measure tests so creating checked criteria will use all measures
+    # also remove all checklist tests
+    product.product_tests.each(&:destroy)
+
+    # should create checked criteria for all measures
+    product.add_checklist_test
+    assert_equal 1, product.product_tests.checklist_tests.count
+    assert_equal product.measure_ids.count, product.product_tests.checklist_tests.first.measures.count
+  end
+
+  def assert_equal_arrays(arr1, arr2)
+    assert (arr1 - arr2).empty?
   end
 
   # # # # # # # # # # # # # # # #

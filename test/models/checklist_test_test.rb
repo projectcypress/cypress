@@ -23,6 +23,35 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert @test.checked_criteria.count > 0, 'should create checked criteria for one measure'
   end
 
+  def test_create_checked_criteria_with_existing_measure_tests
+    product = @test.product
+    product.c2_test = true
+    product.measure_ids << '8A4D92B2-397A-48D2-0139-C648B33D5582'
+    product.save!
+    product.measure_ids.each do |measure_id|
+      product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+    end
+
+    CAT1_CONFIG['number_of_checklist_measures'] = 1
+    @test.create_checked_criteria
+    assert @test.checked_criteria.count > 0, 'should create multiple checked criteria'
+    assert_equal 1, @test.measures.count, 'should create checked criteria for one measure since number_of_checked_measures is set to 1'
+  end
+
+  def test_create_checked_criteria_without_existing_measure_tests
+    product = @test.product
+    product.c2_test = false
+    product.measure_ids << '40280381-4BE2-53B3-014C-0F589C1A1C39'
+    product.save!
+    product.product_tests.measure_tests.each(&:destroy)
+    @test.measure_ids = product.measure_ids
+
+    CAT1_CONFIG['number_of_checklist_measures'] = 1
+    @test.create_checked_criteria
+    assert @test.checked_criteria.count > 0, 'should create multiple checked criteria'
+    assert_equal product.measure_ids.count, @test.measures.count, 'should create checked criteria for all measures since'
+  end
+
   def test_status
     # all incomplete checked criteria
     product = @test.product
