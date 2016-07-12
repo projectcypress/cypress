@@ -19,10 +19,13 @@ version_config:
   '>2.9.0':
       schematron: "bundle_2_9_9"
       qrda_version: "r3"
+      schematron_warnings: 
+        - "The EH schematrons haven't been finalized for this year yet and results here should be considered preliminary."
   '~>2016.0.0':
       schematron: false
       qrda_version: "r3_1"
-      schematron_banner: "The EH schematrons haven't been finalized for this year yet and results here should be considered preliminary."
+      schematron_warnings: 
+        - "The EH schematrons haven't been finalized for this year yet and results here should be considered preliminary."
 
 enable_logging: false
 
