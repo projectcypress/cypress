@@ -73,18 +73,24 @@ class Product
   # replaces checklist tests if any c1 checklist measures are removed
   # replaces all filtering tests and creates new filtering tests
   def update_with_measure_tests(product_params)
-    old_ids = measure_ids ? measure_ids : []
-    new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : old_ids
-    update_attributes(product_params)
-    (new_ids - old_ids).each do |measure_id|
-      m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
-      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
-    end
-    # remove measure and checklist tests if their measure ids have been removed
-    product_tests.in(measure_ids: (old_ids - new_ids)).destroy
+    add_measure_tests(product_params)
     save!
     add_filtering_tests if c4_test
     add_checklist_test if c1_test
+  end
+
+  def add_measure_tests(product_params)
+    old_ids = measure_ids ? measure_ids : []
+    new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : old_ids
+    update_attributes(product_params)
+    if c2_test
+      (new_ids - old_ids).each do |measure_id|
+        m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
+        product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
+      end
+    end
+    # remove measure and checklist tests if their measure ids have been removed
+    product_tests.in(measure_ids: (old_ids - new_ids)).destroy
   end
 
   # builds a checklist test if product does not have a checklist test
