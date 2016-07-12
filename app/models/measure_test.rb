@@ -68,6 +68,8 @@ class MeasureTest < ProductTest
       'passing'
     elsif c1_task.failing? || c3_task.failing?
       'failing'
+    elsif c1_task.errored? || c3_task.errored?
+      'errored'
     elsif c1_task.incomplete? || c3_task.incomplete?
       'incomplete'
     else
@@ -86,6 +88,8 @@ class MeasureTest < ProductTest
       'passing'
     elsif c2_task.failing? || c3_task.failing?
       'failing'
+    elsif c2_task.errored? || c3_task.errored?
+      'errored'
     elsif c2_task.incomplete? || c3_task.incomplete?
       'incomplete'
     else

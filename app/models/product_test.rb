@@ -105,6 +105,8 @@ class ProductTest
         'failing'
       elsif tasks_by_status('passing').count == total && total > 0
         'passing'
+      elsif tasks_by_status('errored').count > 0
+        'errored'
       else
         'incomplete'
       end

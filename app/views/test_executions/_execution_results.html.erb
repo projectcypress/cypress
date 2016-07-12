@@ -14,6 +14,9 @@
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
   </script>
 
+<% elsif execution.status_with_sibling == 'errored' %>
+  <p class="lead row bg-warning execution-status"><i class="fa fa-fw fa-exclamation-circle text-warning" aria-hidden="true"></i> An internal error occured</p>
+
 <% else %>
   <% if passing = execution.status_with_sibling == 'passing'%>
     <div class="row">

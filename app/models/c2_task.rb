@@ -36,6 +36,7 @@ class C2Task < Task
     sibling = product_test.tasks.c3_cat3_task
     return status unless sibling
     return status if status == sibling.status
+    return 'errored' if errored? || sibling.errored?
     return 'incomplete' if incomplete? || sibling.incomplete?
     'failing'
   end

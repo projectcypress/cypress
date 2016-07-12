@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-          <% %w(passing failing not_started).each do |status| %>
+          <% %w(passing failing errored not_started).each do |status| %>
             <% classes = status_to_css_classes(status.capitalize) %>
             <tr>
               <% cert_hash.each_value do |cert_status_hash| %>

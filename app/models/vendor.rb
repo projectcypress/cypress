@@ -41,6 +41,8 @@ class Vendor
         'failing'
       elsif products_passing.count == total && total > 0
         'passing'
+      elsif products_errored.count > 0
+        'errored'
       else
         'incomplete'
       end
@@ -56,6 +58,12 @@ class Vendor
   def products_failing
     Rails.cache.fetch("#{cache_key}/products_failing") do
       products.select { |product| product.status == 'failing' }
+    end
+  end
+
+  def products_errored
+    Rails.cache.fetch("#{cache_key}/products_errored") do
+      products.select { |product| product.status == 'errored' }
     end
   end
 

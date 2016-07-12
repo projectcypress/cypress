@@ -25,9 +25,13 @@
     <i class = 'fa fa-fw fa-check-circle text-success' aria-hidden="true"></i>
     <%= link_to 'view', new_task_test_execution_path(task), :class => "label label-success" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
-  <% when 'failing' %>
+  <% when 'failing'%>
     <i class = 'fa fa-fw fa-play-circle text-danger' aria-hidden="true"></i>
     <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-danger" %>
+    <%= render partial: '/products/product_test_upload', locals: { task: task } %>
+  <% when 'errored'%>
+    <i class = 'fa fa-fw fa-exclamation-circle text-warning' aria-hidden="true"></i>
+    <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-warning" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'incomplete' %>
     <% if should_reload_product_test_link?(tasks) %>

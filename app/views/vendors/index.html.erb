@@ -16,7 +16,7 @@
       <tr>
         <th scope="col">Vendor</th>
 
-        <% %w(passing failing incomplete total\ products).each do |status| %>
+        <% %w(passing failing errored incomplete total\ products).each do |status| %>
           <th scope="col" class = "vendor-status text-center"><%= status.titleize %></th>
         <% end %>
 
@@ -29,7 +29,7 @@
           <th scope="row"><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></th>
 
           <% vendor_hash = vendor_statuses(vendor) %>
-          <% %w(passing failing incomplete total).each do |status| %>
+          <% %w(passing failing errored incomplete total).each do |status| %>
             <%= render partial: 'status_cells', locals: { status_hash: vendor_hash, status: status } %>
           <% end %>
 

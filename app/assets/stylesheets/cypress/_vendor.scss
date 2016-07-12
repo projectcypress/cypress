@@ -1,6 +1,6 @@
 .styled-status-table {
   margin-bottom: 0;
-  
+
   > thead > tr > th,
   > thead > tr > td {
     border-bottom-color: $gray;
@@ -39,6 +39,12 @@
     color: $state-danger-text;
     background: $state-danger-bg;
     border: 1px solid darken($state-danger-bg, 20%);
+  }
+
+  .status-errored {
+    color: $state-warning-text;
+    background: $state-warning-bg;
+    border: 1px solid darken($state-warning-bg, 20%);
   }
 
   .status-not-started {

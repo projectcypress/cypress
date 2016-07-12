@@ -85,6 +85,8 @@ module TestExecutionsHelper
       return 'info'
     when 'passing'
       return 'success'
+    when 'errored'
+      return 'warning'
     else
       return 'danger'
     end
