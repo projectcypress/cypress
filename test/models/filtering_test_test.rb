@@ -57,7 +57,7 @@ class FilteringTestTest < ActiveJob::TestCase
     test = @product.product_tests.create!({ name: 'test_for_measure_1a',
                                             measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
                                             options: { 'filters' => {} } }, FilteringTest)
-    test.tasks.first.test_executions.build(:state => :passed).save!
+    test.tasks.find_by(_type: 'Cat1FilterTask').test_executions.build(:state => :passed).save!
 
     assert_equal 'passing', test.task_status('Cat1FilterTask')
     assert_equal 'incomplete', test.task_status('Cat3FilterTask')

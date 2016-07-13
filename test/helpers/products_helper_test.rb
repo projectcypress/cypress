@@ -8,7 +8,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     drop_database
     collection_fixtures('records', 'measures', 'vendors', 'products', 'product_tests', 'bundles')
 
-    @product = Product.new(vendor: Vendor.all.first, name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
+    @product = Product.new(vendor: Vendor.find('4f57a8791d41c851eb000002'), name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
                            bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'])
     setup_checklist_test
     setup_measure_tests
@@ -22,7 +22,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     measures = Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids)
     measures.each do |measure|
       # chose criteria randomly
-      criterias = measure['hqmf_document']['source_data_criteria'].sort_by { rand }.first(5)
+      criterias = measure['hqmf_document']['source_data_criteria'].sort_by { rand }[0..4]
       criterias.each do |criteria_key, _criteria_value|
         checked_criterias.push(measure_id: measure.id.to_s, source_data_criteria: criteria_key, completed: false)
       end
@@ -61,7 +61,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   def test_generate_filter_records
     @product.product_tests = nil
     @product.add_filtering_tests
-    records = @product.product_tests.filtering_tests.first.records
+    records = @product.product_tests.filtering_tests.find_by(cms_id: 'CMS31v3').records
     @product.product_tests.filtering_tests.each { |ft| assert ft.records == records }
   end
 
@@ -127,7 +127,7 @@ class ProductsHelperTest < ActiveJob::TestCase
 
   def test_with_c3_task
     measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
-    product = Product.new(vendor: Vendor.all.first, name: 'my product', c1_test: true, c2_test: true, bundle_id: '4fdb62e01d41c820f6000001',
+    product = Product.new(vendor: Vendor.find('4f57a8791d41c851eb000002'), name: 'my product', c1_test: true, c2_test: true, bundle_id: '4fdb62e01d41c820f6000001',
                           measure_ids: measure_ids)
     product.save!
     pt = ProductTest.new(name: 'my product test name 1', measure_ids: measure_ids, product: product)

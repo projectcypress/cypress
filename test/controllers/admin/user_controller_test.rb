@@ -4,7 +4,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   def setup
     collection_fixtures 'users', 'roles', 'vendors'
-    @user = User.first
+    @user = User.find('4def93dd4f85cf8968000001')
   end
 
   test 'Admin can view index ' do
@@ -37,7 +37,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test 'Admin can update user' do
-    v = Vendor.first
+    v = Vendor.find('4f57a8791d41c851eb000002')
     Settings[:default_role] = nil
     u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 

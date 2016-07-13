@@ -7,9 +7,9 @@ class TasksControllerTest < ActionController::TestCase
   setup do
     collection_fixtures('vendors', 'bundles', 'measures', 'products', 'product_tests', 'tasks', 'users', 'roles')
     @vendor = Vendor.find(EHR1)
-    @product = @vendor.products.where(name: 'Vendor 1 Product 1').first
-    @test = @product.product_tests.where(name: 'vendor1 product1 test1').first
-    @task = @test.tasks.first
+    @product = @vendor.products.where(name: 'Vendor 1 Product 1').find('4f57a88a1d41c851eb000004')
+    @test = @product.product_tests.where(name: 'vendor1 product1 test1').find('4f58f8de1d41c851eb000478')
+    @task = @test.tasks.find('4f57a88a1d41c851eb000010')
   end
 
   # need negative tests for user that does not have owner or vendor access

@@ -240,7 +240,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     filters = { 'providers' => prov_filters }
 
     # assign the provider and make sure we can find it
-    patient = Record.first
+    patient = Record.find('4f5bb2ef1d41c841b3000502')
 
     patient.provider_performances.build(provider: prov)
     patient.save!

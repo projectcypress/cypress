@@ -178,13 +178,13 @@ When(/^all product tests have a state of ready$/) do
 end
 
 When(/^all product tests do not have a state of ready$/) do
-  pt = ProductTest.first
+  pt = ProductTest.find_by(cms_id: 'CMS155v1')
   pt.state = :nah_man_im_like_lightyears_away_from_bein_ready
   pt.save!
 end
 
 When(/^the user visits the product page$/) do
-  product = Product.first
+  product = Product.find_by(name: 'Product 1')
   visit vendor_product_path(product.vendor, product)
 end
 
@@ -195,7 +195,7 @@ end
 When(/^the user adds a product test$/) do
   # measure to add
   measure_id = '40280381-43DB-D64C-0144-5571970A2685'
-  product = Product.first
+  product = Product.find_by(name: 'Product 1')
   product.measure_ids << measure_id
   product.save!
   product_test = product.product_tests.build({ name: "measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
@@ -205,7 +205,7 @@ When(/^the user adds a product test$/) do
 end
 
 And(/^filtering tests are added to product$/) do
-  product = Product.first
+  product = Product.find_by(name: 'Product 1')
   product.c4_test = true
   product.save!
   product.add_filtering_tests
@@ -220,7 +220,7 @@ And(/^the user uploads a cat I document to product test (.*)$/) do |product_test
 end
 
 And(/^the user adds cat I tasks to all product tests$/) do
-  product = Product.first
+  product = Product.find_by(name: 'Product 1')
   product.c1_test = true
   product.save!
   product.product_tests.measure_tests.each do |pt|
@@ -254,25 +254,29 @@ end
 
 # product test number the number of product test (1 indexed) for upload in order of most recently created
 def td_div_id_for_cat1_task_for_product_test(product_test_number)
-  product_test = Product.first.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
+  product = Product.find_by(name: 'Product 1')
+  product_test = product.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
   task = product_test.tasks.c1_task
   "#wrapper-task-id-#{task.id.to_s}"
 end
 
 def td_div_id_for_cat3_task_for_product_test(product_test_number)
-  product_test = Product.first.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
+  product = Product.find_by(name: 'Product 1')
+  product_test = product.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
   task = product_test.tasks.c2_task
   "#wrapper-task-id-#{task.id.to_s}"
 end
 
 def td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
-  filtering_test = Product.first.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
+  product = Product.find_by(name: 'Product 1')
+  filtering_test = product.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
   task = filtering_test.tasks.cat1_filter_task
   "#wrapper-task-id-#{task.id.to_s}"
 end
 
 def td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
-  filtering_test = Product.first.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
+  product = Product.find_by(name: 'Product 1')
+  filtering_test = product.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
   task = filtering_test.tasks.cat3_filter_task
   "#wrapper-task-id-#{task.id.to_s}"
 end

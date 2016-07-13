@@ -43,7 +43,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
     end
   end
 
-  test 'shoud deny access to import for non admin users ' do
+  test 'should deny access to import for non admin users ' do
     for_each_logged_in_user([USER, OWNER, VENDOR]) do
       upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/bundles/minimal_bundle.zip'), 'application/zip')
       post :create, file: upload

@@ -12,11 +12,11 @@ class TestExecutionsControllerTest < ActionController::TestCase
                         'records', 'patient_populations', 'providers')
     load_library_functions
     @vendor = Vendor.find(EHR1)
-    @first_product = @vendor.products.where(name: 'Vendor 1 Product 1').first
+    @first_product = @vendor.products.where(name: 'Vendor 1 Product 1').find('4f57a88a1d41c851eb000004')
     @first_product.bundle = Bundle.default
     @first_product.save
-    @first_test = @first_product.product_tests.where(name: 'vendor1 product1 test1').first
-    @first_task = @first_test.tasks.first
+    @first_test = @first_product.product_tests.where(name: 'vendor1 product1 test1').find('4f58f8de1d41c851eb000478')
+    @first_task = @first_test.tasks.find('4f57a88a1d41c851eb000010')
     @first_execution = @first_task.test_executions.first
   end
 
@@ -25,8 +25,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     product.product_tests.build({ name: 'my filtering test', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
                                   bundle_id: '4fdb62e01d41c820f6000001' }, FilteringTest)
     product.save!
-    @task_cat1 = product.product_tests.first.tasks.where(_type: 'Cat1FilterTask').first
-    @task_cat3 = product.product_tests.first.tasks.where(_type: 'Cat3FilterTask').first
+    @task_cat1 = product.product_tests.find_by(name: 'my filtering test').tasks.where(_type: 'Cat1FilterTask').first
+    @task_cat3 = product.product_tests.find_by(name: 'my filtering test').tasks.where(_type: 'Cat3FilterTask').first
   end
 
   test 'should get show' do
@@ -162,7 +162,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # only need to do this for admin -- its checking error in file and the
     # access is already tested
     sign_in User.find(ADMIN)
-    task = C1Task.first
+    task = C1Task.find('4f57a88a1d41c851eb000004')
     old_count = task.test_executions.count
     file = File.new(File.join(Rails.root, 'app/assets/images/icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
@@ -175,7 +175,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # only need to do this for admin -- its checking error in file and the
     # access is already tested
     sign_in User.find(ADMIN)
-    task = C1Task.first
+    task = C1Task.find('4f57a88a1d41c851eb000004')
     task._type = 'C2Task'
     task.save!
     old_count = task.test_executions.count
