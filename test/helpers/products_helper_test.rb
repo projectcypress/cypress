@@ -70,6 +70,71 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 0, records.length
   end
 
+  def test_should_show_product_tests_tab
+    measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
+    vendor = @product.vendor
+    vendor.products.each(&:destroy)
+    product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001')
+    product.measure_ids.each do |measure_id|
+      product.product_tests.create!({ name: "my measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+      product.product_tests.create!({ name: "my filtering test for measure id #{measure_id}", measure_ids: [measure_id] }, FilteringTest)
+    end
+
+    # should show measure tests
+    assert_equal true, should_show_product_tests_tab?(product, 'MeasureTest')
+
+    # should not show measure tests
+    product.product_tests.measure_tests.each(&:destroy)
+    assert_equal false, should_show_product_tests_tab?(product, 'MeasureTest')
+
+    # should show filtering tests
+    assert_equal true, should_show_product_tests_tab?(product, 'FilteringTest')
+
+    # should not show filtering tests
+    product.product_tests.filtering_tests.each(&:destroy)
+    assert_equal false, should_show_product_tests_tab?(product, 'FilteringTest')
+
+    # should show checklist test tab
+    assert_equal true, should_show_product_tests_tab?(product, 'ChecklistTest')
+
+    # should not show checklist test tab
+    product.c1_test = false
+    product.c2_test = true
+    product.save!
+    assert_equal false, should_show_product_tests_tab?(product, 'ChecklistTest')
+  end
+
+  def test_perform_c3_certification_during_measure_test_message
+    measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
+    vendor = @product.vendor
+    vendor.products.each(&:destroy)
+    product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001')
+
+    # no message since c3_test is not true
+    assert_equal '', perform_c3_certification_during_measure_test_message(product, 'MeasureTest')
+
+    # no message since test type is not 'MeasureTest'
+    product.c3_test = true
+    product.save!
+    assert_equal '', perform_c3_certification_during_measure_test_message(product, 'FilteringTest')
+
+    # message only has c1
+    assert_equal ' C3 certifications will automatically be performed during C1 certifications.',
+                 perform_c3_certification_during_measure_test_message(product, 'MeasureTest')
+
+    # message has both c1 and c2
+    product.c2_test = true
+    product.save!
+    assert_equal ' C3 certifications will automatically be performed during C1 and C2 certifications.',
+                 perform_c3_certification_during_measure_test_message(product, 'MeasureTest')
+
+    # message only has c2
+    product.c1_test = false
+    product.save!
+    assert_equal ' C3 certifications will automatically be performed during C2 certifications.',
+                 perform_c3_certification_during_measure_test_message(product, 'MeasureTest')
+  end
+
   def test_should_reload_product_test_link
     product = Product.new
     measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']

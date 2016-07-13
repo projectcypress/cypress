@@ -24,6 +24,24 @@ end
 #   W H E N   #
 # # # # # # # #
 
+# certs argument stands for certifications and should be a comma separated list of some of these values: c1, c2, c3, c4
+When(/^a user creates a product with (.*) certifications and visits that product page$/) do |certs|
+  certs = certs.split(', ')
+  steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
+  product_name = "my product #{rand}"
+  page.fill_in 'Name', with: product_name
+  page.find('#product_c1_test').click if certs.include? 'c1'
+  page.find('#product_c2_test').click if certs.include? 'c2'
+  page.find('#product_c3_test').click if certs.include? 'c3'
+  page.find('#product_c4_test').click if certs.include? 'c4'
+  page.find('#product_measure_selection_custom').click
+  page.all('#measure_tabs .ui-tabs-nav a')[1].click # should tab for "Behavioral Health Adult"
+  page.all('input.measure-checkbox')[1].click # should get measure for "Depression Remission at Twelve Months"
+  page.click_button 'Add Product'
+  product = Product.find_by(name: product_name)
+  visit vendor_product_path(product.vendor, product)
+end
+
 When(/^the user creates a product using appropriate information$/) do
   @product = build_product
   steps %( When the user creates a product with name #{@product.name} for vendor #{@vendor.name} )
@@ -367,6 +385,37 @@ Then(/^the user should see the product information$/) do
   page.assert_text @product.name
   page.assert_text @vendor.name
 end
+
+# V V V product tests tabs V V V #
+
+Then(/^the user should see the measure tests tab$/) do
+  page.assert_text 'Measure Tests'
+  find('#MeasureTest').assert_text 'Test the EHR system\'s ability to record and export (C1), import'
+end
+
+Then(/^the user should not see the measure tests tab$/) do
+  page.assert_no_text 'Measure Tests'
+end
+
+Then(/^the user should see the filtering tests tab$/) do
+  page.assert_text 'CQM Filtering Test'
+  find('#FilteringTest').assert_text 'Test the EHR system\'s ability to filter patient records'
+end
+
+Then(/^the user should not see the filtering tests tab$/) do
+  page.assert_no_text 'CQM Filtering Test'
+end
+
+Then(/^the user should see the checklist tests tab$/) do
+  page.assert_text 'Manual Entry Test'
+  find('#ChecklistTest').assert_text 'Validate the EHR system for C1 certification by manually entering specified patient data for the following'
+end
+
+Then(/^the user should not see the checklist tests tab$/) do
+  page.assert_no_text 'Manual Entry Test'
+end
+
+# ^ ^ ^ product tests tabs ^ ^ ^ #
 
 Then(/^the user should be able to download all patients$/) do
   page.assert_text 'Download All Patients'
