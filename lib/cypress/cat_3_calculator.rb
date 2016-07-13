@@ -85,7 +85,7 @@ module Cypress
         qr.calculate({ 'prefilter' => { test_id: @correlation_id }, oid_dictionary: generate_oid_dictionary, bundle_id: @bundle.id }, false)
       end
       exporter = HealthDataStandards::Export::Cat3.new
-      end_date = Time.at(@bundle.effective_date.to_i).utc
+      end_date = Time.at(@bundle.effective_date.to_i).in_time_zone
       xml = exporter.export(HealthDataStandards::CQM::Measure.top_level.where(hqmf_id: @measure.hqmf_id),
                             generate_header,
                             @bundle.effective_date.to_i,

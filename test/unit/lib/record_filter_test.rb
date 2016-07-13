@@ -56,7 +56,7 @@ class RecordFilterTest < ActiveSupport::TestCase
 
   def test_filter_age_max
     ## reminder: for dates, > means later/younger...
-    now = Time.now.utc
+    now = Time.now.in_time_zone
 
     target_age = Random.rand(100)
 
@@ -67,7 +67,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     validate_record_count(@all_records, filtered_records)
 
     @all_records.each do |r|
-      dob = Time.at(r.birthdate).utc
+      dob = Time.at(r.birthdate).in_time_zone
       patient_age = age_on_date(dob, now)
 
       if filtered_records.include? r
@@ -81,9 +81,9 @@ class RecordFilterTest < ActiveSupport::TestCase
   def test_filter_age_targeted
     # Pick a patient, get their age, filter by that age
     # and make sure the patient is in the results
-    now = Time.now.utc
+    now = Time.now.in_time_zone
     patient = @all_records.sample
-    dob = Time.at(patient.birthdate).utc
+    dob = Time.at(patient.birthdate).in_time_zone
     target_age = age_on_date(dob, now)
 
     filters = { 'age' => { 'max' => target_age } }
@@ -95,7 +95,7 @@ class RecordFilterTest < ActiveSupport::TestCase
 
   def test_filter_age_min
     ## reminder: for dates, > means later/younger...
-    now = Time.now.utc
+    now = Time.now.in_time_zone
 
     target_age = Random.rand(100)
 
@@ -106,7 +106,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     validate_record_count(@all_records, filtered_records)
 
     @all_records.each do |r|
-      dob = Time.at(r.birthdate).utc
+      dob = Time.at(r.birthdate).in_time_zone
       patient_age = age_on_date(dob, now)
 
       if filtered_records.include? r
@@ -121,11 +121,11 @@ class RecordFilterTest < ActiveSupport::TestCase
     # the "edge case" for age filtering is when the patient's birthdate is on the effective date
 
     patient = @all_records.sample
-    birthdate = Time.at(patient.birthdate).utc
+    birthdate = Time.at(patient.birthdate).in_time_zone
 
     # CASE 1
     age = Random.rand(100)
-    effective_date = Time.utc(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0)
+    effective_date = Time.local(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0).in_time_zone
 
     filters = { 'age' => { 'min' => age } }
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
@@ -134,7 +134,7 @@ class RecordFilterTest < ActiveSupport::TestCase
 
     # CASE 2
     age = Random.rand(100)
-    effective_date = Time.utc(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0)
+    effective_date = Time.local(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0).in_time_zone
 
     filters = { 'age' => { 'max' => age } }
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
@@ -144,11 +144,11 @@ class RecordFilterTest < ActiveSupport::TestCase
 
   def test_filter_age_edge_case_exclusive
     patient = @all_records.sample
-    birthdate = Time.at(patient.birthdate).utc
+    birthdate = Time.at(patient.birthdate).in_time_zone
 
     # CASE 1
     age = Random.rand(100)
-    effective_date = Time.utc(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0)
+    effective_date = Time.local(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0).in_time_zone
 
     filters = { 'age' => { 'min' => age + 1 } }
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
@@ -157,7 +157,7 @@ class RecordFilterTest < ActiveSupport::TestCase
 
     # CASE 2
     age = Random.rand(100)
-    effective_date = Time.utc(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0)
+    effective_date = Time.local(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0).in_time_zone
 
     filters = { 'age' => { 'max' => age - 1 } }
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a

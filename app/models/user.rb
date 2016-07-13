@@ -10,7 +10,7 @@ class User
 
   # confirmable
   field  :confirmation_token, type: String
-  field  :confirmed_at, type: Time, default: proc { APP_CONFIG.auto_confirm ? Time.now.utc : nil }
+  field  :confirmed_at, type: Time, default: proc { APP_CONFIG.auto_confirm ? Time.now.in_time_zone : nil }
   field  :confirmation_sent_at, type: Time
   ## Database authenticatable
   field :email,              type: String, default: ''
