@@ -147,4 +147,37 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal true, checked_criteria.code_complete, 'code complete should be true when correct code is provided'
     assert_equal true, checked_criteria.attribute_complete, 'attribute complete should be true when correct code is provided'
   end
+
+  def test_build_execution_errors_for_incomplete_checked_criteria
+    @test.create_checked_criteria
+    task = @test.tasks.create({}, C1ManualTask)
+
+    execution = task.test_executions.build
+    assert_equal 0, execution.execution_errors.count
+    @test.build_execution_errors_for_incomplete_checked_criteria(execution)
+    execution.save!
+    assert_equal @test.checked_criteria.count, execution.execution_errors.count
+
+    # make one checked criteria complete
+    simplify_criteria(@test)
+
+    execution = task.test_executions.build
+    assert_equal 0, execution.execution_errors.count
+    @test.build_execution_errors_for_incomplete_checked_criteria(execution)
+    execution.save!
+    assert_equal @test.checked_criteria.count - 1, execution.execution_errors.count, 'should have one less execution error'
+  end
+
+  def simplify_criteria(test)
+    criterias = test.checked_criteria
+    criterias[0].source_data_criteria = 'DiagnosisActiveMajorDepressionIncludingRemission_precondition_40'
+    criterias[0].code = '14183003'
+    criterias[0].code_complete = true
+    criterias[0].attribute_code = '63161005'
+    criterias[0].attribute_complete = true
+    criterias[0].result_complete = true
+    criterias[0].passed_qrda = true
+    test.checked_criteria = criterias
+    test.save!
+  end
 end

@@ -95,6 +95,21 @@ class ChecklistTest < ProductTest
     [measure_ranks, max_num_checklist_measures]
   end
 
+  def build_execution_errors_for_incomplete_checked_criteria(execution)
+    checked_criteria.each do |crit|
+      next if crit.complete?
+      msg = "#{cms_id_from_measure_id(crit.measure_id)}: data criteria\"#{crit.source_data_criteria}\" not complete"
+      # did not add ":validator_type =>", not sure if this will be an issue in execution show
+      execution.execution_errors.build(:message => msg, :msg_type => :error, :validator => :qrda_cat1)
+    end
+  end
+
+  def cms_id_from_measure_id(measure_id)
+    Measure.find_by(_id: measure_id).cms_id
+  rescue
+    'cms id not found'
+  end
+
   def data_criteria_selector(measure)
     # Criterias to be used in C1 checklist
     criterias = []

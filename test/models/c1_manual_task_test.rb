@@ -83,6 +83,24 @@ class C1ManualTaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_execute_should_create_an_error_for_each_incomplete_checked_criteria
+    Task.all.each(&:destroy)
+    task = @checklist_test.tasks.create!({}, C1ManualTask)
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_incorrect_codes.zip'))
+
+    # screw up one of the checked criterias
+    criteria = @checklist_test.checked_criteria[0]
+    criteria.code = '3'
+    criteria.code_complete = false
+    @checklist_test.checked_criteria[0] = criteria
+    @checklist_test.save!
+
+    perform_enqueued_jobs do
+      execution = task.execute(zip)
+      assert true
+    end
+  end
+
   def simplify_criteria
     criteria = @checklist_test.checked_criteria[0, 2]
     criteria[0].source_data_criteria = 'DiagnosisActiveMajorDepressionIncludingRemission_precondition_40'

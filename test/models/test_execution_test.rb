@@ -2,6 +2,7 @@ require 'test_helper'
 class TestExecutionTest < ActiveSupport::TestCase
   def setup
     drop_database
+    collection_fixtures('measures', 'bundles')
     vendor = Vendor.create(name: 'test_vendor_name')
     product = vendor.products.create(name: 'test_product')
     @ptest = product.product_tests.build(name: 'ptest', measure_ids: ['1a'])
@@ -49,5 +50,22 @@ class TestExecutionTest < ActiveSupport::TestCase
     assert_equal te.execution_errors.qrda_errors.count, qrda_errors.count
     assert_equal te.execution_errors.reporting_errors.count, reporting_errors.count
     assert_equal te.execution_errors.submission_errors.count, submission_errors.count
+  end
+
+  def test_validate_artifact_builds_execution_errors_for_incomplete_checked_criteria
+    measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
+    vendor = Vendor.new(name: "my vendor #{rand}")
+    vendor.save!
+    product = vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001', c1_test: true)
+    test = product.product_tests.create!({ name: "my checklist test #{rand}", measure_ids: measure_ids }, ChecklistTest)
+    test.create_checked_criteria
+    task = test.tasks.create!({}, C1ManualTask)
+    execution = task.test_executions.build
+
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_incorrect_codes.zip'))
+    execution.artifact = Artifact.new(file: zip)
+
+    execution.validate_artifact(task.validators, execution.artifact)
+    assert_equal test.checked_criteria.count, execution.execution_errors.select { |err| err.validator == 'qrda_cat1' }.count
   end
 end
