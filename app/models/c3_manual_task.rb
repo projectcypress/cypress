@@ -8,10 +8,11 @@ class C3ManualTask < Task
     @validators
   end
 
-  def execute(file)
+  def execute(file, sibling_execution_id)
     te = test_executions.new(artifact: Artifact.new(file: file))
     te.save!
     TestExecutionJob.perform_later(te, self)
+    te.sibling_execution_id = sibling_execution_id
     te.save
     te
   end

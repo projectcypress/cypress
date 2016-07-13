@@ -48,6 +48,41 @@ class C1ManualTaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_execute_should_not_execute_a_sibling_execution_on_c3_manual_task_if_c3_not_selected
+    Task.all.each(&:destroy)
+    task = @checklist_test.tasks.create!({}, C1ManualTask)
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_correct_codes.zip'))
+    perform_enqueued_jobs do
+      execution = task.execute(zip)
+      assert_not_equal nil, execution
+      assert_equal 1, @checklist_test.tasks.count { |task| task.test_executions.any? }, 'only one task with any test executions'
+      assert_equal 1, @checklist_test.tasks.count { |task| task.test_executions.count }, 'only one test execution for checklist test'
+      assert_equal 1, task.test_executions.count
+    end
+  end
+
+  def test_execute_should_execute_a_sibling_execution_on_c3_manual_task_if_c3_selected
+    Task.all.each(&:destroy)
+
+    # select c3 on product
+    product = @checklist_test.product
+    product.c3_test = true
+    product.save!
+
+    task = @checklist_test.tasks.create!({}, C1ManualTask)
+    @checklist_test.tasks.create!({}, C3ManualTask)
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_correct_codes.zip'))
+    perform_enqueued_jobs do
+      execution = task.execute(zip)
+      assert_not_equal nil, execution
+      assert_equal 2, @checklist_test.tasks.count { |task| task.test_executions.any? }, 'two tasks (one c1, one c3), both with test executions'
+      assert_equal 2, @checklist_test.tasks.count { |task| task.test_executions.count }, 'two test execution for checklist test'
+      assert_equal 1, task.test_executions.count
+      sibling_task = task.test_executions.first.sibling_execution.task
+      assert_equal 1, sibling_task.test_executions.count
+    end
+  end
+
   def simplify_criteria
     criteria = @checklist_test.checked_criteria[0, 2]
     criteria[0].source_data_criteria = 'DiagnosisActiveMajorDepressionIncludingRemission_precondition_40'
