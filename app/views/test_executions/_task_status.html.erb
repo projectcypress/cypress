@@ -38,7 +38,7 @@
           <% elsif task_status == 'failing' %>
             <i class = 'fa fa-times text-danger'></i><strong class = 'text-danger'> Failing</strong>
           <% elsif task_status == 'errored' %>
-            <i class = 'fa fa-exclamation text-warning'><strong class = 'text-warning'> Internal Error</strong></i>
+            <i class = 'fa fa-exclamation text-warning'></i><strong class = 'text-warning'> Internal Error</strong>
           <% else # incomplete (in progress b/c execution exists) %>
             <strong class = 'text-info'>In Progress...</strong>
           <% end %>
