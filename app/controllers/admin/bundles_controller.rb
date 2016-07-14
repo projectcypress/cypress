@@ -5,7 +5,6 @@ module Admin
 
     before_action :find_bundle, only: [:set_default, :destroy]
 
-    add_breadcrumb 'Admin', :admin_bundles_path
     add_breadcrumb 'Add Bundle', :new_admin_bundle_path, only: [:new]
 
     def index
