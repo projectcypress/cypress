@@ -83,11 +83,9 @@ class Product
     old_ids = measure_ids ? measure_ids : []
     new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : old_ids
     update_attributes(product_params)
-    if c2_test
-      (new_ids - old_ids).each do |measure_id|
-        m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
-        product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
-      end
+    (new_ids - old_ids).each do |measure_id|
+      m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
+      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest) if c2_test
     end
     # remove measure and checklist tests if their measure ids have been removed
     product_tests.in(measure_ids: (old_ids - new_ids)).destroy
@@ -96,8 +94,7 @@ class Product
   # builds a checklist test if product does not have a checklist test
   def add_checklist_test
     if product_tests.checklist_tests.empty? && c1_test
-      checklist_test = product_tests.build({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
-      checklist_test.save!
+      checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
       checklist_test.create_checked_criteria
       checklist_test.tasks.create!({}, C1ManualTask)
       checklist_test.tasks.create!({}, C3ManualTask) if c3_test

@@ -60,22 +60,17 @@ module VendorsHelper
     not_started = test.num_measures_not_started
     failing = total - not_started - passing
     errored = 0
+    checklist_status_values_with_test_execution(test, passing, failing, errored, not_started, total)
+  end
+
+  def checklist_status_values_with_test_execution(test, passing, failing, errored, not_started, total)
     task = test.tasks.c1_manual_task
-    if task
-      execution = task.most_recent_execution
-      if execution
-        total += 1
-        case execution.status_with_sibling
-        when 'passing'
-          passing += 1
-        when 'failing'
-          failing += 1
-        else
-          not_started += 1
-        end
-      end
-    end
-    [passing, failing, not_started, total]
+    return [passing, failing, errored, not_started, total] unless task
+    execution = task.most_recent_execution
+    return [passing, failing, errored, not_started, total] unless task.most_recent_execution
+    return [passing + 1, failing, errored, not_started, total + 1] if execution.status_with_sibling == 'passing'
+    return [passing, failing + 1, errored, not_started, total + 1] if execution.status_with_sibling == 'failing'
+    [passing, failing, errored, not_started + 1, total + 1]
   end
 
   def product_test_statuses(tests, task_type)
