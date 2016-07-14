@@ -66,6 +66,17 @@ class ChecklistTestTest < ActiveJob::TestCase
     # all complete checked criteria
     checklist_test.checked_criteria.each { |checked_criteria| complete_checked_criteria(checked_criteria) }
     assert_equal 'passing', checklist_test.status
+
+    # add a c1 manual task with test execution
+    product.c3_test = true
+    product.save!
+    assert_equal 'incomplete', checklist_test.status
+    task = checklist_test.tasks.create!({}, C1ManualTask)
+    assert_equal 'incomplete', checklist_test.status
+    task.test_executions.create!(:state => :pending)
+    assert_equal 'incomplete', checklist_test.status
+    task.test_executions.create!(:state => :passed)
+    assert_equal 'passing', checklist_test.status
   end
 
   def create_checklist_test_for_product_with_measure_id(product, measure_id)

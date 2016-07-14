@@ -6,11 +6,10 @@ class ChecklistTest < ProductTest
 
   def status
     return 'incomplete' if measures.empty?
-    if product.c3_test && tasks.c1_manual_task
-      execution = tasks.c1_manual_task.most_recent_execution
-      return num_measures_complete == measures.count && execution && execution.status_with_sibling == 'passing'
-    end
-    num_measures_complete == measures.count ? 'passing' : 'incomplete'
+    return 'incomplete' if num_measures_complete != measures.count
+    return 'passing' unless product.c3_test
+    return 'incomplete' unless tasks.c1_manual_task && tasks.c1_manual_task.most_recent_execution
+    tasks.c1_manual_task.most_recent_execution.status_with_sibling == 'passing' ? 'passing' : 'incomplete'
   end
 
   def num_measures_complete

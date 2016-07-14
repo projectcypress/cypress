@@ -69,4 +69,28 @@ class TestExecutionTest < ActiveSupport::TestCase
     num_failed_criteria = test.checked_criteria.select { |crit| !crit.passed_qrda }.count
     assert_equal num_failed_criteria, execution.execution_errors.select { |err| err.validator == 'qrda_cat1' }.count
   end
+
+  def test_executions_pending
+    measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
+    vendor = Vendor.create!(name: "my vendor #{rand}")
+    product = vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001', c1_test: true,
+                                      c3_test: true)
+    test = product.product_tests.create!({ name: "measure test for measure #{measure_ids.first}", measure_ids: measure_ids }, MeasureTest)
+    c1_task = test.tasks.create!({}, C1Task)
+    c3_task = test.tasks.create!({}, C3Cat1Task)
+
+    c1_execution = c1_task.test_executions.create!(:state => :pending)
+    assert_equal true, c1_execution.executions_pending?
+
+    c1_execution.state = :passed
+    assert_equal false, c1_execution.executions_pending?
+
+    c3_execution = c3_task.test_executions.create!(:state => :pending, :sibling_execution_id => c1_execution.id)
+    c1_execution.sibling_execution_id = c3_execution.id
+    assert_equal true, c1_execution.executions_pending?
+
+    c3_execution.state = :failed
+    c3_execution.save!
+    assert_equal false, c1_execution.executions_pending?
+  end
 end

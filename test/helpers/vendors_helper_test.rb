@@ -208,6 +208,39 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal total, not_started
   end
 
+  def test_checklist_status_values_with_test_execution
+    assert_equal 1, @product.product_tests.checklist_tests.count
+    test = @product.product_tests.checklist_tests.first
+    c1_task = test.tasks.create!({}, C1ManualTask)
+    c3_task = test.tasks.create!({}, C3ManualTask)
+
+    # both executions passing
+    c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_execution = c3_task.test_executions.create!(:state => :passed, :_id => '54321', :sibling_execution_id => '12345')
+    assert_equal [2, 1, 1, 4], checklist_status_values_with_test_execution(test, 1, 1, 1, 3)
+
+    test.tasks.each { |task| task.test_executions.each(&:destroy) }
+
+    # one execution failing, one passing
+    c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_execution = c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
+    assert_equal [1, 2, 1, 4], checklist_status_values_with_test_execution(test, 1, 1, 1, 3)
+
+    test.tasks.each { |task| task.test_executions.each(&:destroy) }
+
+    # one execution pending, one passing
+    c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_execution = c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345')
+    assert_equal [1, 1, 2, 4], checklist_status_values_with_test_execution(test, 1, 1, 1, 3)
+
+    test.tasks.each { |task| task.test_executions.each(&:destroy) }
+
+    # one execution pending, one failing
+    c1_execution = c1_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_execution = c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345')
+    assert_equal [1, 1, 2, 4], checklist_status_values_with_test_execution(test, 1, 1, 1, 3)
+  end
+
   def test_product_test_statuses_passing
     tests = @product.product_tests.measure_tests
     tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C1Task').first.test_executions.build(:state => :passed).save
