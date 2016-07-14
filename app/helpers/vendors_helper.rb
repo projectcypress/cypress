@@ -60,7 +60,22 @@ module VendorsHelper
     not_started = test.num_measures_not_started
     failing = total - not_started - passing
     errored = 0
-    [passing, failing, errored, not_started, total]
+    task = test.tasks.c1_manual_task
+    if task
+      execution = task.most_recent_execution
+      if execution
+        total += 1
+        case execution.status_with_sibling
+        when 'passing'
+          passing += 1
+        when 'failing'
+          failing += 1
+        else
+          not_started += 1
+        end
+      end
+    end
+    [passing, failing, not_started, total]
   end
 
   def product_test_statuses(tests, task_type)

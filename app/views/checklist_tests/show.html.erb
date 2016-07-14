@@ -1,6 +1,6 @@
 <%= render partial: 'remove_modal' %>
 <% product = @product %>
-<%= render partial: 'application/certification_bar', locals: { product: product, active_certs: [true, false, false, false] } %>
+<%= render partial: 'application/certification_bar', locals: { product: product, active_certs: [true, false, product.c3_test, false] } %>
 
 <div class="panel-actions pull-right">
   <%= button_to print_criteria_product_checklist_test_path(@product, @product_test), :method => :get, :class => "btn btn-default" do %>
@@ -8,11 +8,6 @@
   <% end %>
 </div>
 <h1>Manual Entry Checklist</h1>
-
-<div id = 'display_checklist_status' >
-<%= render partial: 'checklist_status_display', locals: { product: product } %>
-</div>
-
   <div class = 'test-steps'>
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -20,9 +15,6 @@
       </div>
       <%= render partial: 'checklist_instructions', locals: { instructions: APP_CONFIG['tests']['ChecklistTest']['instructions'] } %>
     </div>
-  </div>
-  <div id = 'display_checklist_measures' >
-  <%= render partial: 'checklist_measures', locals: { product_test: @product_test, product: @product_test.product } %>
   </div>
   <div class = 'test-steps'>
     <div class="panel panel-info">
@@ -36,9 +28,23 @@
       </div>
     </div>
   </div>
-<%= render partial: 'remove_panel', locals: {
-  name: 'delete checklist',
-  type: 'visual test',
-  delete_path: product_checklist_test_path(product, @product_test),
-  message: 'Removing this C1 Visual Test will discard your answers to the checklist above for each measure. This will not remove any measures selected.'
-} %>
+  <div class = 'test-steps'>
+    <div class = 'panel panel-info'>
+      <div class = 'panel-heading'>
+        <h1 class = 'panel-title test-step'>
+          3 <i class = 'fa fa-fw fa-bolt' aria-hidden = 'true'></i> View Results
+        </h1>
+      </div>
+      <div class = 'panel-body'>
+        <div id = 'display_checklist_status' >
+          <%= render partial: 'checklist_status_display', locals: { product: product } %>
+        </div>
+        <div id = 'display_checklist_execution_results'>
+          <%= render partial: 'checklist_execution_results', locals: { execution: @product_test.tasks.c1_manual_task.most_recent_execution } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id = 'display_checklist_measures' >
+    <%= render partial: 'checklist_measures', locals: { product_test: @product_test, product: @product_test.product } %>
+  </div>

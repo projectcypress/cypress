@@ -4,6 +4,10 @@ class ChecklistTest < ProductTest
 
   def status
     return 'incomplete' if measures.empty?
+    if product.c3_test && tasks.c1_manual_task
+      execution = tasks.c1_manual_task.most_recent_execution
+      return num_measures_complete == measures.count && execution && execution.status_with_sibling == 'passing'
+    end
     num_measures_complete == measures.count ? 'passing' : 'incomplete'
   end
 
@@ -97,7 +101,7 @@ class ChecklistTest < ProductTest
 
   def build_execution_errors_for_incomplete_checked_criteria(execution)
     checked_criteria.each do |crit|
-      next if crit.complete?
+      next if crit.passed_qrda
       msg = "#{cms_id_from_measure_id(crit.measure_id)}: data criteria\"#{crit.source_data_criteria}\" not complete"
       # did not add ":validator_type =>", not sure if this will be an issue in execution show
       execution.execution_errors.build(:message => msg, :msg_type => :error, :validator => :qrda_cat1)

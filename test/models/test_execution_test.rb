@@ -66,6 +66,7 @@ class TestExecutionTest < ActiveSupport::TestCase
     execution.artifact = Artifact.new(file: zip)
 
     execution.validate_artifact(task.validators, execution.artifact)
-    assert_equal test.checked_criteria.count, execution.execution_errors.select { |err| err.validator == 'qrda_cat1' }.count
+    num_failed_criteria = test.checked_criteria.select { |crit| !crit.passed_qrda }.count
+    assert_equal num_failed_criteria, execution.execution_errors.select { |err| err.validator == 'qrda_cat1' }.count
   end
 end

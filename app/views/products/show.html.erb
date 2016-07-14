@@ -62,6 +62,9 @@
               <div class = 'inline-block pull-right'><%= button_to 'View Test', product_checklist_test_path(@product, checklist_test), class: 'btn btn-primary', method: :get %></div>
             </h1>
             <%= render partial: 'checklist_status_display', locals: { product: @product } %>
+            <div id = 'display_checklist_execution_results'>
+              <%= render partial: 'checklist_execution_results', locals: { execution: @product.product_tests.checklist_tests.first.tasks.c1_manual_task.most_recent_execution } %>
+            </div>
           <% else %>
             <div class = 'inline-block'><%= button_to 'Start Test', product_checklist_tests_path(@product), class: 'btn btn-primary', method: :post %></div>
             <span>This test does not need to completed all at once. You can always come back once the test is started.</span>

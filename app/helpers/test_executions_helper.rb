@@ -18,7 +18,7 @@ module TestExecutionsHelper
   # returns an array of booleans [c1, c2, c3, c4]. true if page is testing these certification types
   def current_certifications(task_type, c3_task)
     return [false, false, false, true] if task_type == 'Cat1FilterTask' || task_type == 'Cat3FilterTask'
-    [task_type == 'C1Task', task_type == 'C2Task', c3_task, false]
+    [task_type == 'C1Task' || task_type == 'C1ManualTask', task_type == 'C2Task', c3_task, false]
   end
 
   # returns the number of each type of error
@@ -68,7 +68,7 @@ module TestExecutionsHelper
   end
 
   def execution_failure_message(execution)
-    should_display_c3 = execution.task.product_test.product.c3_test && execution.task.product_test._type == 'MeasureTest'
+    should_display_c3 = execution.sibling_execution ? true : false
     combined_errors = should_display_c3 ? execution.execution_errors + execution.sibling_execution.execution_errors : execution.execution_errors
 
     all_warnings, all_errors = combined_errors.partition { |e| e.msg_type == :warning }
@@ -89,6 +89,19 @@ module TestExecutionsHelper
       return 'warning'
     else
       return 'danger'
+    end
+  end
+
+  def info_title_for_product_test(product_test)
+    case product_test._type
+    when 'MeasureTest'
+      'Measure Test Information'
+    when 'FilteringTest'
+      'Filtering Test Information'
+    when 'ChecklistTest'
+      'Manual Entry Test Information'
+    else
+      'Test Information'
     end
   end
 end

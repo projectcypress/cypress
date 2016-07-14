@@ -116,4 +116,11 @@ class TestExecution
     return 'errored' if errored? || sibling.errored?
     'failing' # failing if status's do not match
   end
+
+  # checks
+  def executions_pending?
+    c3_execution = sibling_execution
+    return state == :pending unless c3_execution
+    state == :pending || c3_execution.state == :pending
+  end
 end
