@@ -6,7 +6,7 @@ module Validators
     self.validator = :cms_schematron
     @bundle_version = APP_CONFIG.default_bundle
 
-    def initialize(schematron_file, name, bundle_version=APP_CONFIG.default_bundle)
+    def initialize(schematron_file, name, bundle_version = APP_CONFIG.default_bundle)
       @validator = Schematron::Validator.new(name, schematron_file)
       @bundle_version = bundle_version
     end
@@ -15,12 +15,10 @@ module Validators
       ApplicationController.helpers.config_for_version(bundle_version).schematron
     end
 
-
-
     def validate(file, options = {})
       @options = options
       doc = get_document(file)
-      class_name = self.class.to_s.split("::")[-1]
+      class_name = self.class.to_s.split('::')[-1]
       default_errors = ApplicationController.helpers.config_for_version(@bundle_version)["#{class_name}_warnings"]
       default_errors.each do |error|
         add_warning error, :validator_type => :xml_validation, :file_name => @options[:file_name]
@@ -33,7 +31,6 @@ module Validators
                     :validator_type => :xml_validation,
                     :file_name => @options[:file_name]
       end
-
     end
   end
 
