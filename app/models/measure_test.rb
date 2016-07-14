@@ -64,17 +64,7 @@ class MeasureTest < ProductTest
     c1_task = tasks.c1_task
     c3_task = tasks.c3_cat1_task
     return c1_task.status unless c3_task
-    if c1_task.passing? && c3_task.passing?
-      'passing'
-    elsif c1_task.failing? || c3_task.failing?
-      'failing'
-    elsif c1_task.errored? || c3_task.errored?
-      'errored'
-    elsif c1_task.incomplete? || c3_task.incomplete?
-      'incomplete'
-    else
-      'unstarted'
-    end
+    test_status c1_task, c3_task
   end
 
   # passing only if both c2 and c3_cat3 tasks pass
@@ -84,16 +74,20 @@ class MeasureTest < ProductTest
     c2_task = tasks.c2_task
     c3_task = tasks.c3_cat3_task
     return c2_task.status unless c3_task
-    if c2_task.passing? && c3_task.passing?
-      'passing'
-    elsif c2_task.failing? || c3_task.failing?
-      'failing'
-    elsif c2_task.errored? || c3_task.errored?
-      'errored'
-    elsif c2_task.incomplete? || c3_task.incomplete?
-      'incomplete'
-    else
-      'unstarted'
-    end
+    test_status c2_task, c3_task
+  end
+end
+
+def test_status(task1, task2)
+  if task1.passing? && task2.passing?
+    'passing'
+  elsif task1.failing? || task2.failing?
+    'failing'
+  elsif task1.errored? || task2.errored?
+    'errored'
+  elsif task1.incomplete? || task2.incomplete?
+    'incomplete'
+  else
+    'unstarted'
   end
 end

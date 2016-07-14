@@ -38,8 +38,8 @@ module VendorsHelper
 
   def c3_status_values(product)
     h = {}
-    cat1_status_values = product.c1_test ? product_test_statuses(product.product_tests.measure_tests, 'C3Cat1Task') : [0, 0, 0, 0]
-    cat3_status_values = product.c2_test ? product_test_statuses(product.product_tests.measure_tests, 'C3Cat3Task') : [0, 0, 0, 0]
+    cat1_status_values = product.c1_test ? product_test_statuses(product.product_tests.measure_tests, 'C3Cat1Task') : [0, 0, 0, 0, 0]
+    cat3_status_values = product.c2_test ? product_test_statuses(product.product_tests.measure_tests, 'C3Cat3Task') : [0, 0, 0, 0, 0]
     h['QRDA Category I'] = Hash[%w(passing failing errored not_started total).zip(cat1_status_values)]
     h['QRDA Category III'] = Hash[%w(passing failing errored not_started total).zip(cat3_status_values)]
     h
@@ -54,12 +54,13 @@ module VendorsHelper
 
   # returns zero for all values if test is false
   def checklist_status_values(test)
-    return [0, 0, 0, 0] unless test
+    return [0, 0, 0, 0, 0] unless test
     passing = test.num_measures_complete
     total = test.measures.count
     not_started = test.num_measures_not_started
     failing = total - not_started - passing
-    [passing, failing, not_started, total]
+    errored = 0
+    [passing, failing, errored, not_started, total]
   end
 
   def product_test_statuses(tests, task_type)

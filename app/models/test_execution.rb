@@ -111,6 +111,7 @@ class TestExecution
     return status unless sibling
     return status if status == sibling.status
     return 'incomplete' if incomplete? || sibling.incomplete?
+    return 'failing' if failing? || sibling.failing?
     return 'errored' if errored? || sibling.errored?
     'failing' # failing if status's do not match
   end
