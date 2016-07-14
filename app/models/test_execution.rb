@@ -47,7 +47,7 @@ class TestExecution
     end
     execution_errors.only_errors.count > 0 ? fail : pass
   rescue
-    error
+    errored
   end
 
   # Get the expected result for a particular measure
@@ -86,7 +86,7 @@ class TestExecution
     save
   end
 
-  def error
+  def errored
     self.state = :errored
     save
   end

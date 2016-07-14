@@ -14,72 +14,23 @@
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
   </script>
 
-<% elsif execution.status_with_sibling == 'passing' || execution.status_with_sibling == 'failing' %>
+<% else %>
   <% if passing = execution.status_with_sibling == 'passing'%>
-    <div class="row">
-      <div class="col-sm-7">
-        <p class="lead bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> Passed</p>
-        <div class="row">
-          <div class="col-sm-6">
-            <% if execution.task.product_test._type == 'MeasureTest' %>
-              <% cat1_task = execution.task.product_test.tasks.c1_task %>
-              <% cat3_task = execution.task.product_test.tasks.c2_task %>
-            <% else %>
-              <% cat1_task = execution.task.product_test.tasks.cat1_filter_task %>
-              <% cat3_task = execution.task.product_test.tasks.cat3_filter_task %>
-            <% end %>
-
-            <ul class="fa-ul">
-              <% if displaying_cat1?(execution.task) %>
-                <% if cat3_task && cat3_task.status != "passing" %>
-                  <li>
-                    <i class="fa-li fa fa-list" aria-hidden="true"></i>
-                    <%= link_to "Try the associated QRDA Category III Measure Test", new_task_test_execution_path(cat3_task) %>
-                  </li>
-                <% end %>
-              <% else %>
-                <% if cat1_task && cat1_task.status != "passing" %>
-                  <li>
-                    <i class="fa-li fa fa-list" aria-hidden="true"></i>
-                    <%= link_to "Try the associated QRDA Category I Measure Test", new_task_test_execution_path(cat1_task) %>
-                  </li>
-                <% end %>
-              <% end %>
-            </ul>
-          </div>
-          <div class="col-sm-6">
-            <ul class="fa-ul">
-              <% if execution.task.product_test.product.c1_test %>
-                <li>
-                  <i class="fa-li fa fa-list" aria-hidden="true"></i>
-                  <%= link_to 'Try a different Measure Test', vendor_product_path(execution.task.product_test.product.vendor.id, execution.task.product_test.product.id) + "#MeasureTest" %>
-                </li>
-                <li>
-                  <i class="fa-li fa fa-eye" aria-hidden="true"></i>
-                  <%= link_to 'Try a Manual Test', vendor_product_path(execution.task.product_test.product.vendor.id, execution.task.product_test.product.id) + "#ChecklistTest" %>
-                </li>
-              <% end %>
-
-              <% if execution.task.product_test.product.c4_test %>
-                <li>
-                  <i class="fa-li fa fa-filter" aria-hidden="true"></i>
-                  <%= link_to 'Try a Filtering Test', vendor_product_path(execution.task.product_test.product.vendor.id, execution.task.product_test.product.id) + "#FilteringTest" %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <div class="execution-information bg-info">
-          <ul class="list-unstyled">
-            <li><strong>Test Date:</strong> <%= local_time(execution.updated_at) %></li>
-            <li><strong>Files Uploaded:</strong> <%= execution.artifact['file'] %></li>
-            <li><strong>Total Test Executions:</strong> <%= execution.task.test_executions.count %></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'test_executions/results/passing_result', locals: { execution: execution, execution_type: nil } %>
+  <% elsif execution.errored? || execution.sibling_execution.errored? %>
+    <% [execution, execution.sibling_execution].each do |ex| %>
+      <% ex_type = ex.task._type[0, 2] # get first two letters e.g. C1 or C3 %>
+      <% if ex.errored? %>
+        <p class="lead row bg-warning execution-status"><i class="fa fa-fw fa-exclamation-circle text-warning" aria-hidden="true"></i> <%= ex_type %> Execution: An internal error occured</p>
+      <% elsif ex.passing? %>
+        <%= render partial: 'test_executions/results/passing_result', locals: { execution: ex, execution_type: ex_type } %>
+      <% elsif ex.failing? %>
+        <p class="lead row bg-danger execution-status">
+          <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i> <%= ex_type %> Execution:
+          <%= execution_failure_message(ex) %>
+        </p>
+      <% end %>
+    <% end %>
   <% else %>
     <p class="lead row bg-danger execution-status">
       <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i>
@@ -193,20 +144,5 @@
         </div>
       <% end %>
     </div>
-  <% end %>
-
-<% elsif execution.status_with_sibling == 'errored' %>
-  <% [execution, execution.sibling_execution].each do |ex| %>
-    <% ex_type = ex.task._type[0, 2] %>
-    <% if ex.errored? %>
-      <p class="lead row bg-warning execution-status"><i class="fa fa-fw fa-exclamation-circle text-warning" aria-hidden="true"></i> <%= ex_type %> Execution: An internal error occured</p>
-    <% elsif ex.passing? %>
-      <p class="lead row bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> <%= ex_type %> Execution passed</p>
-    <% elsif ex.failing? %>
-      <p class="lead row bg-danger execution-status">
-        <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i>
-        <%= execution_failure_message(ex) %>
-      </p>
-    <% end %>
   <% end %>
 <% end %>
