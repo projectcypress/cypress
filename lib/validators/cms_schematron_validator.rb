@@ -26,7 +26,7 @@ module Validators
         end
       end
       if @validator
-        errors = @validator.validate(doc, options) 
+        errors = @validator.validate(doc, options)
         errors.each do |error|
           add_warning error.message,
                       :location => error.location,
