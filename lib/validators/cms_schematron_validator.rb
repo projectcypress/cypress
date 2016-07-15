@@ -7,7 +7,7 @@ module Validators
     @bundle_version = APP_CONFIG.default_bundle
 
     def initialize(schematron_file, name, bundle_version = APP_CONFIG.default_bundle)
-      @validator = Schematron::Validator.new(name, schematron_file)
+      @validator = Schematron::Validator.new(name, schematron_file) if File.exists?(schematron_file)
       @bundle_version = bundle_version
     end
 
@@ -25,13 +25,15 @@ module Validators
           add_warning error, :validator_type => :xml_validation, :file_name => @options[:file_name]
         end
       end
-      errors = @validator.validate(doc, options)
-      errors.each do |error|
-        add_warning error.message,
-                    :location => error.location,
-                    :validator => error.validator,
-                    :validator_type => :xml_validation,
-                    :file_name => @options[:file_name]
+      if @validator
+        errors = @validator.validate(doc, options) 
+        errors.each do |error|
+          add_warning error.message,
+                      :location => error.location,
+                      :validator => error.validator,
+                      :validator_type => :xml_validation,
+                      :file_name => @options[:file_name]
+        end
       end
     end
   end
