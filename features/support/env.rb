@@ -155,5 +155,5 @@ Before do
   Mongoid.default_client['products'].drop
   Mongoid.default_client['product_tests'].drop
 
-  collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'providers')
+  collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'providers', 'query_cache')
 end

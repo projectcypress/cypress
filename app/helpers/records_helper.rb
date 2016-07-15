@@ -58,4 +58,8 @@ module RecordsHelper
     end
     display_text
   end
+
+  def coverage_for_measure(measure_id, sub_id, bundle_id)
+    QueryCache.where(measure_id: measure_id, sub_id: sub_id, bundle_id: bundle_id, test_id: nil).first['bonnie_coverage']
+  end
 end

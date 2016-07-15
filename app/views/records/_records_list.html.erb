@@ -1,5 +1,8 @@
-<h1><%= @measure ? @measure.display_name : 'All' %> Patients</h1>
-
+<h1><%= @measure ? @measure.display_name : 'All' %> Patients
+<% if @measure && coverage_for_measure(@measure.hqmf_id, @measure.sub_id, @measure.bundle_id)%>
+  - Logic Coverage <%= coverage_for_measure(@measure.hqmf_id, @measure.sub_id, @measure.bundle_id) %>%
+<% end %>
+</h1>
 <% if (@measure && records_by_measure(@records, @measure).length > 0) || !@measure %>
 <table class="table table-condensed table-hover">
   <thead>
