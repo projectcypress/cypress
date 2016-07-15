@@ -9,7 +9,7 @@ class TestExecutionJobTest < ActiveJob::TestCase
   def test_can_queue_job
     assert_enqueued_jobs 0
 
-    ptest = ProductTest.first
+    ptest = ProductTest.find('51703a4e3054cf8439000004')
     task = ptest.tasks.create({}, C2Task)
     te = task.test_executions.create({})
 

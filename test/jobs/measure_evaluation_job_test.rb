@@ -26,7 +26,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     QME::QualityReport.any_instance.stubs(:result).returns(@result)
     QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
     assert_enqueued_jobs 0
-    prod = Product.first
+    prod = Product.find('4f57a88a1d41c851eb000004')
     perform_enqueued_jobs do
       ptest = prod.product_tests.create({ name: 'test_for_measure_job_calculation',
                                           measure_ids: ['8A4D92B2-3887-5DF3-0139-0C4E41594C98'] }, MeasureTest)
@@ -44,7 +44,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     QME::QualityReport.any_instance.stubs(:result).returns(@result)
     QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
     assert_enqueued_jobs 0
-    prod = Product.first
+    prod = Product.find('4f57a88a1d41c851eb000004')
     perform_enqueued_jobs do
       ptest = prod.product_tests.create({ name: 'test_for_measure_job_calculation',
                                           measure_ids: ['8A4D92B2-3887-5DF3-0139-0C4E41594C98'] }, MeasureTest)

@@ -19,7 +19,7 @@ When(/^I fill in the form with correct information$/) do
 end
 
 Then(/^I should have a new account$/) do
-  assert_not_nil User.where(email: @email).first
+  assert_not_nil User.find_by(email: @email)
   assert_equal vendors_path, page.current_path
 end
 

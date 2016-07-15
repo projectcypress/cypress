@@ -9,8 +9,8 @@ class ProductTestsControllerTest < ActionController::TestCase
   setup do
     collection_fixtures('vendors', 'products', 'product_tests', 'users', 'roles', 'bundles', 'measures')
     @vendor = Vendor.find(EHR1)
-    @product = @vendor.products.first
-    @test = @product.product_tests.first
+    @product = @vendor.products.find('4f57a88a1d41c851eb000004')
+    @test = @product.product_tests.find('4f58f8de1d41c851eb000478')
     @test['_type'] = MeasureTest # each measure test should have a _type of MeasureTest and cms_id
     @test['cms_id'] = 'CMS001'
     @test.save!

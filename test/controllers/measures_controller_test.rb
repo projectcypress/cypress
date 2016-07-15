@@ -4,7 +4,7 @@ class MeasuresControllerTest < ActionController::TestCase
 
   setup do
     collection_fixtures('bundles', 'measures', 'users')
-    sign_in User.first
+    sign_in User.find('4def93dd4f85cf8968000001')
   end
 
   # json

@@ -61,7 +61,7 @@ class MeasureTestTest < ActiveJob::TestCase
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
       assert_equal 1, pt.records.count, 'product test creation should have created specific number of test records'
-      patient = pt.records.first
+      patient = pt.records.find_by(first: 'Selena')
       assert_equal 'Selena', patient.first, 'Patient name should not be randomized'
       assert_equal 'Lotherberg', patient.last, 'Patient name should not be randomized'
       assert_equal '19', patient.medical_record_number, 'Patient record # should not be randomized'

@@ -6,7 +6,7 @@
 #   A N D   #
 
 And(/^the user has selected a measure$/) do
-  @measure = Measure.all.first
+  @measure = Measure.first
 end
 
 # # # # # # # #
@@ -54,7 +54,7 @@ And(/^the product test state is set to ready$/) do
 end
 
 And(/^the product test state is not set to ready$/) do
-  pt = ProductTest.first
+  pt = ProductTest.find_by(name: 'Asthma Assessment')
   pt.state = :garbablargblarg
   pt.save!
 end

@@ -43,22 +43,22 @@ class TestExecutionHelper < ActiveSupport::TestCase
   def test_get_title_message_cat1_singlular
     setup_product_tests(true, false, false, true, filt1: 'val1')
 
-    assert_equal get_title_message(@m_test, @m_test.tasks.first), 'C1 certification for TEST_CMSID test_measure_test_name'
-    assert_equal get_title_message(@f_test, @f_test.tasks.first), 'CQM Filter Filt1 for TEST_CMSID test_filtering_test_name'
+    assert_equal get_title_message(@m_test, @m_test.tasks.find_by(_type: 'C1Task')), 'C1 certification for TEST_CMSID test_measure_test_name'
+    assert_equal get_title_message(@f_test, @f_test.tasks.find_by(_type: 'Cat1FilterTask')), 'CQM Filter Filt1 for TEST_CMSID test_filtering_test_name'
   end
 
   def test_get_title_message_cat1_plural
     setup_product_tests(true, false, true, true, filt1: 'val1', filt2: 'val2')
 
-    assert_equal get_title_message(@m_test, @m_test.tasks.first), 'C1 and C3 certifications for TEST_CMSID test_measure_test_name'
-    assert_equal get_title_message(@f_test, @f_test.tasks.first), 'CQM Filters Filt1/Filt2 for TEST_CMSID test_filtering_test_name'
+    assert_equal get_title_message(@m_test, @m_test.tasks.find_by(_type: 'C1Task')), 'C1 and C3 certifications for TEST_CMSID test_measure_test_name'
+    assert_equal get_title_message(@f_test, @f_test.tasks.find_by(_type: 'Cat1FilterTask')), 'CQM Filters Filt1/Filt2 for TEST_CMSID test_filtering_test_name'
   end
 
   def test_get_title_message_cat3
     setup_product_tests(false, true, false, true, filt1: 'val1')
 
-    assert_equal get_title_message(@m_test, @m_test.tasks.first), 'C2 certification for TEST_CMSID test_measure_test_name'
-    assert_equal get_title_message(@f_test, @f_test.tasks.first), 'CQM Filter Filt1 for TEST_CMSID test_filtering_test_name'
+    assert_equal get_title_message(@m_test, @m_test.tasks.find_by(_type: 'C2Task')), 'C2 certification for TEST_CMSID test_measure_test_name'
+    assert_equal get_title_message(@f_test, @f_test.tasks.find_by(_type: 'Cat1FilterTask')), 'CQM Filter Filt1 for TEST_CMSID test_filtering_test_name'
   end
 
   def test_get_upload_type

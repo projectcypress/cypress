@@ -63,7 +63,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get show with json request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :json, :id => Vendor.first.id
+      get :show, :format => :json, :id => Vendor.find('4f57a8791d41c851eb000002').id
       assert_response :success, 'response should be OK on vendor show'
       assert assigns(:vendor)
       assert_not_nil JSON.parse(response.body)
@@ -95,7 +95,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get error on invalid create vendor with json request' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
-      post :create, :format => :json, :vendor => { name: Vendor.first.name, poc_attributes: { name: 'test poc' } }
+      post :create, :format => :json, :vendor => { name: Vendor.find('4f57a8791d41c851eb000002').name, poc_attributes: { name: 'test poc' } }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
       assert_has_json_errors JSON.parse(response.body), 'name' => ['Vendor name was already taken. Please choose another.']
     end
@@ -170,7 +170,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get show with xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :xml, :id => Vendor.first.id
+      get :show, :format => :xml, :id => Vendor.find('4f57a8791d41c851eb000002').id
       assert_response :success, 'response should be OK on vendor show'
       assert assigns(:vendor)
       assert_not_equal '', response.body
@@ -194,7 +194,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get error on invalid create vendor with xml request' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
-      post :create, :format => :xml, :vendor => { name: Vendor.first.name, poc_attributes: { name: 'test poc' } }
+      post :create, :format => :xml, :vendor => { name: Vendor.find('4f57a8791d41c851eb000002').name, poc_attributes: { name: 'test poc' } }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'name' => ['Vendor name was already taken. Please choose another.']
     end

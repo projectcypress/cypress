@@ -10,7 +10,7 @@ class HomeControllerTest < ActionController::TestCase
 
   test 'should get index with logged in user' do
     collection_fixtures('users')
-    sign_in User.first
+    sign_in User.find('4def93dd4f85cf8968000001')
 
     get :index
     assert_response :redirect
