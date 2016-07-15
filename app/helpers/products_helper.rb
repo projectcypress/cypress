@@ -22,23 +22,23 @@ module ProductsHelper
     product_test_form.object.measure_ids.first != cur_measure.hqmf_id
   end
 
-  def certifications(product)
-    # Get a hash of certification types for this product
-    certs = {
-      'C1' => product.c1_test, 'C2' => product.c2_test,
-      'C3' => product.c3_test, 'C4' => product.c4_test
-    }
-
-    product_certifications = {}
-
-    certs.each do |k, v|
-      product_certifications[k] = APP_CONFIG.certifications[k] if v
+  def should_show_product_tests_tab?(product, test_type)
+    case test_type
+    when 'MeasureTest'
+      return product.product_tests.measure_tests.any?
+    when 'FilteringTest'
+      return product.product_tests.filtering_tests.any?
+    when 'ChecklistTest'
+      return product.c1_test # should not check for existance of checklist test since there a user can delete checklist tests
+    else
+      return product.product_tests.any?
     end
-    product_certifications
   end
 
-  def product_certifying_to(product, certification_test)
-    (certification_test['certifications'] & certifications(product).keys) != []
+  def perform_c3_certification_during_measure_test_message(product, test_type)
+    return '' unless test_type == 'MeasureTest' && product.c3_test
+    certifications = [product.c1_test ? 'C1' : nil, product.c2_test ? 'C2' : nil].compact.join(' and ')
+    " C3 certifications will automatically be performed during #{certifications} certifications."
   end
 
   def set_sorting(test, test_status)

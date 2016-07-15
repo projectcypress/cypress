@@ -54,9 +54,8 @@ And(/^the product test state is set to ready$/) do
 end
 
 And(/^the product test state is not set to ready$/) do
-  pt = ProductTest.find_by(name: 'Asthma Assessment')
-  pt.state = :garbablargblarg
-  pt.save!
+  @product_test.state = :garbablargblarg
+  @product_test.save!
 end
 
 And(/^the user uploads a CAT 1 zip file$/) do

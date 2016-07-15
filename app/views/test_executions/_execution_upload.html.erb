@@ -7,9 +7,17 @@
 
 %>
 
-<p class = 'description' id='execution_upload_label'>
-  <%= "Upload results from the EHR system in the form of a #{get_upload_type(displaying_cat1?(task))} to get test results. This will automatically run a test execution." %>
-</p>
+<% if disable %>
+  <p>
+    <span class = 'text-danger'>
+      Complete the checklist before you upload results from your EHR system.
+    </span>
+  </p>
+<% else %>
+  <p class = 'description' id='execution_upload_label'>
+    <%= "Upload results from the EHR system in the form of a #{get_upload_type(displaying_cat1?(task))} to get test results. This will automatically run a test execution." %>
+  </p>
+<% end %>
 
 <% if displaying_cat1?(task) %>
   <% accept_type = 'application/zip' %>

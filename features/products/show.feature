@@ -4,6 +4,30 @@ Background:
   Given the user is signed in
   And the user has created a vendor with a product
 
+Scenario: Successful View Measure Test Tab
+  When a user creates a product with c2 certifications and visits that product page
+  Then the user should see the measure tests tab
+
+Scenario: Successful Not View Measure Test Tab
+  When a user creates a product with c1 certifications and visits that product page
+  Then the user should not see the measure tests tab
+
+Scenario: Successful View Filtering Test Tab
+  When a user creates a product with c1, c4 certifications and visits that product page
+  Then the user should see the filtering tests tab
+
+Scenario: Successful Not View Filtering Test Tab
+  When a user creates a product with c1 certifications and visits that product page
+  Then the user should not see the filtering tests tab
+
+Scenario: Successful View Checklist Test Tab
+  When a user creates a product with c1 certifications and visits that product page
+  Then the user should see the checklist tests tab
+
+Scenario: Successful Not View Checklist Test Tab
+  When a user creates a product with c2 certifications and visits that product page
+  Then the user should not see the checklist tests tab
+
 Scenario: Successful Download All Patients
   When all product tests have a state of ready
   And the user visits the product page

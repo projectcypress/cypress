@@ -73,38 +73,37 @@ class Product
   # replaces checklist tests if any c1 checklist measures are removed
   # replaces all filtering tests and creates new filtering tests
   def update_with_measure_tests(product_params)
-    old_ids = measure_ids ? measure_ids : []
-    new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : old_ids
-    update_attributes(product_params)
-    (new_ids - old_ids).each do |measure_id|
-      m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
-      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
-    end
-    # remove measure and checklist tests if their measure ids have been removed
-    product_tests.in(measure_ids: (old_ids - new_ids)).destroy
+    add_measure_tests(product_params)
     save!
     add_filtering_tests if c4_test
     add_checklist_test if c1_test
   end
 
+  def add_measure_tests(product_params)
+    old_ids = measure_ids ? measure_ids : []
+    new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : old_ids
+    update_attributes(product_params)
+    (new_ids - old_ids).each do |measure_id|
+      m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
+      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest) if c2_test
+    end
+    # remove measure and checklist tests if their measure ids have been removed
+    product_tests.in(measure_ids: (old_ids - new_ids)).destroy
+  end
+
   # builds a checklist test if product does not have a checklist test
   def add_checklist_test
-    if product_tests.checklist_tests.empty?
-      checklist_test = product_tests.build({ name: 'c1 visual', measure_ids: interesting_measure_ids }, ChecklistTest)
-      checklist_test.save!
+    if product_tests.checklist_tests.empty? && c1_test
+      checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
       checklist_test.create_checked_criteria
-      C1ManualTask.new(product_test: checklist_test).save!
+      checklist_test.tasks.create!({}, C1ManualTask)
+      checklist_test.tasks.create!({}, C3ManualTask) if c3_test
     end
   end
 
   # - - - - - - - - - #
   #   P R I V A T E   #
   # - - - - - - - - - #
-
-  # we want to find a better way to select interesting measure ids ~ Jesse
-  def interesting_measure_ids
-    product_tests.measure_tests.map { |test| test.measure_ids.first }
-  end
 
   def add_filtering_tests
     measure = ApplicationController.helpers.pick_measure_for_filtering_test(measure_ids, bundle)

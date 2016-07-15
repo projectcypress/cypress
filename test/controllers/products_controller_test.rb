@@ -176,7 +176,7 @@ class ProductsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       product.attributes['measure_ids'] = ['40280381-4B9A-3825-014B-C1A59E160733']
       put :update, id: product.id, product: product.attributes
-      assert product.product_tests.checklist_tests.first != old_checklist_test
+      assert_not_equal old_checklist_test, product.product_tests.checklist_tests.first
     end
   end
 

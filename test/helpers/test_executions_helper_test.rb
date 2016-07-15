@@ -18,12 +18,12 @@ class TestExecutionHelper < ActiveSupport::TestCase
   end
 
   def setup_product_tests(c1, c2, c3, c4, filters)
-    product = @vendor.products.create(name: 'test_product_name', c1_test: c1, c2_test: c2, c3_test: c3, c4_test: c4,
-                                      measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'])
-    @m_test = product.product_tests.create({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
-                                             measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'] }, MeasureTest)
-    @f_test = product.product_tests.create({ name: 'test_filtering_test_name', cms_id: 'TEST_CMSID',
-                                             measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'], options: { filters: filters } }, FilteringTest)
+    product = @vendor.products.create!(name: 'test_product_name', c1_test: c1, c2_test: c2, c3_test: c3, c4_test: c4,
+                                       measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'])
+    @m_test = product.product_tests.create!({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
+                                              measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'] }, MeasureTest)
+    @f_test = product.product_tests.create!({ name: 'test_filtering_test_name', cms_id: 'TEST_CMSID',
+                                              measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'], options: { filters: filters } }, FilteringTest)
   end
 
   # # # # # # # # #
@@ -127,5 +127,30 @@ class TestExecutionHelper < ActiveSupport::TestCase
     a = { file_name: 'delta', location: '/div[1]/div[1]/div[2]' }
     b = { file_name: 'delta', location: '/div[1]/div[2]/div[1]' }
     assert_equal(-1, compare_error_locations_across_files(a, b))
+  end
+
+  def test_info_title_for_product_test
+    assert_equal 'Measure Test Information', info_title_for_product_test(MeasureTest.new)
+    assert_equal 'Filtering Test Information', info_title_for_product_test(FilteringTest.new)
+    assert_equal 'Manual Entry Test Information', info_title_for_product_test(ChecklistTest.new)
+    assert_equal 'Test Information', info_title_for_product_test(ProductTest.new)
+  end
+
+  def test_current_certifications
+    # c1 and c2 measure tests
+    assert_equal [true, false, false, false], current_certifications('C1Task', false)
+    assert_equal [false, true, false, false], current_certifications('C2Task', false)
+    assert_equal [true, false, true, false], current_certifications('C1Task', true)
+    assert_equal [false, true, true, false], current_certifications('C2Task', true)
+
+    # filtering tests
+    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', false)
+    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', true)
+    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', false)
+    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', true)
+
+    # checklist tests
+    assert_equal [true, false, false, false], current_certifications('C1ManualTask', false)
+    assert_equal [true, false, true, false], current_certifications('C1ManualTask', true)
   end
 end

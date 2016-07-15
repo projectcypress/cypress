@@ -40,14 +40,18 @@ class TestExecution
     validators.each do |validator|
       execution_errors.concat validator.errors
     end
-    # only run for Cat1 tests
+    conditionally_add_task_specific_errors(file_count)
+    execution_errors.only_errors.count > 0 ? fail : pass
+  rescue
+    errored
+  end
+
+  def conditionally_add_task_specific_errors(file_count)
     if task._type == 'C1Task' && file_count != task.records.count
       execution_errors.build(:message => "#{task.records.count} files expected but was #{file_count}",
                              :msg_type => :error, :validator_type => :result_validation, :validator => :smoking_gun)
     end
-    execution_errors.only_errors.count > 0 ? fail : pass
-  rescue
-    errored
+    task.product_test.build_execution_errors_for_incomplete_checked_criteria(self) if task._type == 'C1ManualTask'
   end
 
   # Get the expected result for a particular measure
@@ -114,5 +118,12 @@ class TestExecution
     return 'failing' if failing? || sibling.failing?
     return 'errored' if errored? || sibling.errored?
     'failing' # failing if status's do not match
+  end
+
+  # checks
+  def executions_pending?
+    c3_execution = sibling_execution
+    return state == :pending unless c3_execution
+    state == :pending || c3_execution.state == :pending
   end
 end

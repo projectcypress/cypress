@@ -42,21 +42,19 @@
 
 <div class="product-test-tabs">
   <ul>
-    <% APP_CONFIG.tests.each do |c, certification_test| %>
-      <% if product_certifying_to(@product, certification_test) %>
-        <li><a href="#<%= "#{c}" %>"><%= "#{certification_test['title']}" %></a></li>
+    <% APP_CONFIG.tests.each do |test_type, test_info| %>
+      <% if should_show_product_tests_tab?(@product, test_type) %>
+        <li><a href="#<%= "#{test_type}" %>"><%= "#{test_info['title']}" %></a></li>
       <% end %>
     <% end %>
   </ul>
 
-  <% APP_CONFIG.tests.each do |c, certification_test| %>
-    <% if product_certifying_to(@product, certification_test) %>
-      <div id="<%= c %>">
-        <p class = 'lead'>
-          <%= certification_test['description'] %>
-          <%= " C3 certifications will automatically be performed during #{[@product.c1_test ? 'C1' : nil, @product.c2_test ? 'C2' : nil].compact.join(' and ')} certifications." if c == 'MeasureTest' && @product.c3_test %>
-        </p>
-        <% if c == 'ChecklistTest' %>
+  <% APP_CONFIG.tests.each do |test_type, test_info| %>
+    <% if should_show_product_tests_tab?(@product, test_type) %>
+      <div id="<%= test_type %>">
+        <p class = 'lead'><%= "#{test_info['description']} #{perform_c3_certification_during_measure_test_message(@product, test_type)}" %></p>
+
+        <% if test_type == 'ChecklistTest' %>
           <% if @product.product_tests.checklist_tests.exists? %>
             <% checklist_test = @product.product_tests.checklist_tests.first %>
             <h1>
@@ -64,14 +62,19 @@
               <div class = 'inline-block pull-right'><%= button_to 'View Test', product_checklist_test_path(@product, checklist_test), class: 'btn btn-primary', method: :get %></div>
             </h1>
             <%= render partial: 'checklist_status_display', locals: { product: @product } %>
+            <div id = 'display_checklist_execution_results'>
+              <%= render partial: 'checklist_execution_results', locals: { execution: @product.product_tests.checklist_tests.first.tasks.c1_manual_task.most_recent_execution } %>
+            </div>
           <% else %>
             <div class = 'inline-block'><%= button_to 'Start Test', product_checklist_tests_path(@product), class: 'btn btn-primary', method: :post %></div>
             <span>This test does not need to completed all at once. You can always come back once the test is started.</span>
           <% end %>
-        <% elsif c == 'FilteringTest' %>
+
+        <% elsif test_type == 'FilteringTest' %>
           <div id="display_filtering_test_status_display">
             <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } if @product.product_tests.filtering_tests.exists? %>
           </div>
+
         <% else %>
           <div id="display_measure_tests_table">
             <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>

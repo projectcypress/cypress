@@ -23,6 +23,35 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert @test.checked_criteria.count > 0, 'should create checked criteria for one measure'
   end
 
+  def test_create_checked_criteria_with_existing_measure_tests
+    product = @test.product
+    product.c2_test = true
+    product.measure_ids << '8A4D92B2-397A-48D2-0139-C648B33D5582'
+    product.save!
+    product.measure_ids.each do |measure_id|
+      product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+    end
+
+    CAT1_CONFIG['number_of_checklist_measures'] = 1
+    @test.create_checked_criteria
+    assert @test.checked_criteria.count > 0, 'should create multiple checked criteria'
+    assert_equal 1, @test.measures.count, 'should create checked criteria for one measure since number_of_checked_measures is set to 1'
+  end
+
+  def test_create_checked_criteria_without_existing_measure_tests
+    product = @test.product
+    product.c2_test = false
+    product.measure_ids << '40280381-4BE2-53B3-014C-0F589C1A1C39'
+    product.save!
+    product.product_tests.measure_tests.each(&:destroy)
+    @test.measure_ids = product.measure_ids
+
+    CAT1_CONFIG['number_of_checklist_measures'] = 1
+    @test.create_checked_criteria
+    assert @test.checked_criteria.count > 0, 'should create multiple checked criteria'
+    assert_equal product.measure_ids.count, @test.measures.count, 'should create checked criteria for all measures since'
+  end
+
   def test_status
     # all incomplete checked criteria
     product = @test.product
@@ -36,6 +65,17 @@ class ChecklistTestTest < ActiveJob::TestCase
 
     # all complete checked criteria
     checklist_test.checked_criteria.each { |checked_criteria| complete_checked_criteria(checked_criteria) }
+    assert_equal 'passing', checklist_test.status
+
+    # add a c1 manual task with test execution
+    product.c3_test = true
+    product.save!
+    assert_equal 'incomplete', checklist_test.status
+    task = checklist_test.tasks.create!({}, C1ManualTask)
+    assert_equal 'incomplete', checklist_test.status
+    task.test_executions.create!(:state => :pending)
+    assert_equal 'incomplete', checklist_test.status
+    task.test_executions.create!(:state => :passed)
     assert_equal 'passing', checklist_test.status
   end
 
@@ -117,5 +157,38 @@ class ChecklistTestTest < ActiveJob::TestCase
     checked_criteria.save
     assert_equal true, checked_criteria.code_complete, 'code complete should be true when correct code is provided'
     assert_equal true, checked_criteria.attribute_complete, 'attribute complete should be true when correct code is provided'
+  end
+
+  def test_build_execution_errors_for_incomplete_checked_criteria
+    @test.create_checked_criteria
+    task = @test.tasks.create({}, C1ManualTask)
+
+    execution = task.test_executions.build
+    assert_equal 0, execution.execution_errors.count
+    @test.build_execution_errors_for_incomplete_checked_criteria(execution)
+    execution.save!
+    assert_equal @test.checked_criteria.count, execution.execution_errors.count
+
+    # make one checked criteria complete
+    simplify_criteria(@test)
+
+    execution = task.test_executions.build
+    assert_equal 0, execution.execution_errors.count
+    @test.build_execution_errors_for_incomplete_checked_criteria(execution)
+    execution.save!
+    assert_equal @test.checked_criteria.count - 1, execution.execution_errors.count, 'should have one less execution error'
+  end
+
+  def simplify_criteria(test)
+    criterias = test.checked_criteria
+    criterias[0].source_data_criteria = 'DiagnosisActiveMajorDepressionIncludingRemission_precondition_40'
+    criterias[0].code = '14183003'
+    criterias[0].code_complete = true
+    criterias[0].attribute_code = '63161005'
+    criterias[0].attribute_complete = true
+    criterias[0].result_complete = true
+    criterias[0].passed_qrda = true
+    test.checked_criteria = criterias
+    test.save!
   end
 end

@@ -5,7 +5,7 @@ class ChecklistTestsController < ProductTestsController
   respond_to :js, only: [:show]
 
   def create
-    @product_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: @product.interesting_measure_ids }, ChecklistTest)
+    @product_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: @product.measure_ids }, ChecklistTest)
     @product_test.save!
     @product_test.create_checked_criteria
     C1ManualTask.new(product_test: @product_test).save!
