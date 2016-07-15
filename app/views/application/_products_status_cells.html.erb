@@ -15,7 +15,7 @@
           <tr>
             <% cert_hash.each_key do |cert_key| %>
               <th scope="col" class="text-center col-xs-6 text-nowrap">
-                <%= cert_key %>
+                <%= cert_key.sub(/ /, '<br/>').html_safe %>
               </th>
             <% end %>
           </tr>

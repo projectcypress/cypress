@@ -1,8 +1,7 @@
-<% if !@task && !@product_test %>
-  <h1>Master Patient List</h1>
-<% else %>
+<% if @task && @product_test %>
   <h1>Patient List</h1>
-<% end %>
+<% else %>
+  <h1>Master Patient List</h1>
 <div class="row">
   <div class="col-md-7 col-sm-8">
     <h1>Filter Patients</h1>
@@ -21,13 +20,14 @@
         <%= bootstrap_form_tag do |f| %>
         <%= f.form_group :bundle_id do %>
           <% Bundle.all.each do |bundle| %>
-            <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox", 
+            <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
                                checked: bundle == @bundle %>
 
           <% end # bundle loop %>
         <% end # form_group %>
         <% end %>
       <% end # bundles.count %>
+  <%end%>
   </div>
   <% end %>
   <div id="records_list" class="col-sm-12">
