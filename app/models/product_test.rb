@@ -45,8 +45,7 @@ class ProductTest
   end
 
   def generate_records
-    ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                             'value.IPP' => { '$gt' => 0 }).collect do |pcv|
+    ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
       pcv.value['medical_record_id']
     end
     ids.uniq!
@@ -100,11 +99,12 @@ class ProductTest
 
   def status
     Rails.cache.fetch("#{cache_key}/status") do
-      total = tasks.count
       if tasks_by_status('failing').count > 0
         'failing'
-      elsif tasks_by_status('passing').count == total && total > 0
+      elsif tasks_by_status('passing').count == tasks.count && tasks.count > 0
         'passing'
+      elsif tasks_by_status('errored').count > 0
+        'errored'
       else
         'incomplete'
       end

@@ -47,13 +47,15 @@ module ProductsHelper
 
     case test_status
     when 'passing'
-      return 5
+      return 6
     when 'failing'
+      return 5
+    when 'errored'
       return 4
     when 'incomplete'
       return 3
     else
-      return 6
+      return 7
     end
   end
 
@@ -86,6 +88,7 @@ module ProductsHelper
     return tasks.first.status if tasks.count == 0
     return 'passing' if tasks.all?(&:passing?)
     return 'failing' if tasks.any?(&:failing?)
+    return 'errored' if tasks.any?(&:errored?)
     return 'incomplete' if tasks.any?(&:incomplete?)
     'unstarted'
   end

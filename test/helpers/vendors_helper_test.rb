@@ -142,6 +142,7 @@ class VendorsHelperTest < ActiveJob::TestCase
     vendor_status = vendor_statuses(@product.vendor)
 
     assert_equal 0, vendor_status['passing']
+    assert_equal 0, vendor_status['errored']
     assert_equal 1, vendor_status['failing']
     assert_equal 3, vendor_status['incomplete']
     assert_equal 4, vendor_status['total']
@@ -154,14 +155,16 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 'fa-times', status_to_css_classes('Failing')['icon']
     assert_equal 'status-not-started', status_to_css_classes('Not_started')['cell']
     assert_equal 'fa-circle-o', status_to_css_classes('Not_started')['icon']
+    assert_equal 'fa-exclamation', status_to_css_classes('Errored')['icon']
   end
 
   def test_checklist_status_values_not_started
     test = @product.product_tests.checklist_tests.first
-    passing, failing, not_started, total = checklist_status_values(test)
+    passing, failing, errored, not_started, total = checklist_status_values(test)
 
     assert_equal 0, passing
     assert_equal 0, failing
+    assert_equal 0, errored
     assert_equal 1, not_started
     assert_equal 1, total
   end
@@ -171,10 +174,11 @@ class VendorsHelperTest < ActiveJob::TestCase
     test.checked_criteria.first.code_complete = true
     test.checked_criteria.first.code = '123'
     test.checked_criteria.first.passed_qrda = true
-    passing, failing, not_started, total = checklist_status_values(test)
+    passing, failing, errored, not_started, total = checklist_status_values(test)
 
     assert_equal 0, passing
     assert_equal 1, failing
+    assert_equal 0, errored
     assert_equal 0, not_started
     assert_equal 1, total
   end
@@ -186,29 +190,32 @@ class VendorsHelperTest < ActiveJob::TestCase
       criteria.code = '123'
       criteria.passed_qrda = true
     end
-    passing, failing, not_started, total = checklist_status_values(test)
+    passing, failing, errored, not_started, total = checklist_status_values(test)
 
     assert_equal 1, passing
     assert_equal 0, failing
+    assert_equal 0, errored
     assert_equal 0, not_started
     assert_equal 1, total
   end
 
   def test_product_test_statuses_not_started
-    passing, failing, not_started, total = product_test_statuses(@product.product_tests.measure_tests, 'C1Task')
+    passing, failing, errored, not_started, total = product_test_statuses(@product.product_tests.measure_tests, 'C1Task')
 
     assert_equal 0, passing
     assert_equal 0, failing
+    assert_equal 0, errored
     assert_equal total, not_started
   end
 
   def test_product_test_statuses_passing
     tests = @product.product_tests.measure_tests
     tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :passed).save
-    passing, failing, not_started, total = product_test_statuses(tests, 'C1Task')
+    passing, failing, errored, not_started, total = product_test_statuses(tests, 'C1Task')
 
     assert_equal 1, passing
     assert_equal 0, failing
+    assert_equal 0, errored
     assert_equal 1, not_started
     assert_equal 2, total
   end
@@ -216,10 +223,23 @@ class VendorsHelperTest < ActiveJob::TestCase
   def test_product_test_statuses_failing
     tests = @product.product_tests.measure_tests
     tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :failed).save
-    passing, failing, not_started, total = product_test_statuses(tests, 'C1Task')
+    passing, failing, errored, not_started, total = product_test_statuses(tests, 'C1Task')
 
     assert_equal 0, passing
     assert_equal 1, failing
+    assert_equal 0, errored
+    assert_equal 1, not_started
+    assert_equal 2, total
+  end
+
+  def test_product_test_statuses_errored
+    tests = @product.product_tests.measure_tests
+    tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :errored).save
+    passing, failing, errored, not_started, total = product_test_statuses(tests, 'C1Task')
+
+    assert_equal 0, passing
+    assert_equal 0, failing
+    assert_equal 1, errored
     assert_equal 1, not_started
     assert_equal 2, total
   end
@@ -231,11 +251,27 @@ class VendorsHelperTest < ActiveJob::TestCase
     c1_execution.sibling_execution_id = c3_execution.id
     c1_execution.save
     c3_execution.save
-    passing, failing, _, total = product_test_statuses(tests, 'C3Cat1Task')
+    passing, failing, errored, _, total = product_test_statuses(tests, 'C3Cat1Task')
 
     assert_equal 1, passing
     assert_equal 0, failing
     assert_equal 1, passing
+    assert_equal 0, errored
+    assert_equal 2, total
+  end
+
+  def test_product_test_statuses_cat1_errored
+    tests = @product.product_tests.measure_tests
+    c1_execution = tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(:state => :passed)
+    c3_execution = tests.first.tasks.where(_type: 'C3Cat1Task').first.test_executions.build(:state => :errored)
+    c1_execution.sibling_execution_id = c3_execution.id
+    c1_execution.save
+    c3_execution.save
+    passing, failing, errored, _, total = product_test_statuses(tests, 'C3Cat1Task')
+
+    assert_equal 0, failing
+    assert_equal 0, passing
+    assert_equal 1, errored
     assert_equal 2, total
   end
 
@@ -246,11 +282,27 @@ class VendorsHelperTest < ActiveJob::TestCase
     c2_execution.sibling_execution_id = c3_execution.id
     c2_execution.save
     c3_execution.save
-    passing, failing, _, total = product_test_statuses(tests, 'C3Cat3Task')
+    passing, failing, errored, _, total = product_test_statuses(tests, 'C3Cat3Task')
 
     assert_equal 1, passing
     assert_equal 0, failing
     assert_equal 1, passing
+    assert_equal 0, errored
+    assert_equal 2, total
+  end
+
+  def test_product_test_statuses_cat3_errored
+    tests = @product.product_tests.measure_tests
+    c2_execution = tests.first.tasks.where(_type: 'C2Task').first.test_executions.build(:state => :failed)
+    c3_execution = tests.first.tasks.where(_type: 'C3Cat3Task').first.test_executions.build(:state => :errored)
+    c2_execution.sibling_execution_id = c3_execution.id
+    c2_execution.save
+    c3_execution.save
+    passing, failing, errored, _, total = product_test_statuses(tests, 'C3Cat3Task')
+
+    assert_equal 0, passing
+    assert_equal 0, failing
+    assert_equal 1, errored
     assert_equal 2, total
   end
 

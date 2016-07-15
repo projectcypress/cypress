@@ -12,10 +12,12 @@
 
   <% # display provider information if the product test is a measure test %>
   <% if task.product_test.class == MeasureTest %>
-    <br/>
     <% provider = task.product_test.provider %>
-    <% { 'Name' => "#{provider.family_name}, #{provider.given_name}", 'NPI' => provider.npi, 'TIN' => provider.tin }.each do |label, value| %>
-      <strong><%= "Provider #{label}: " %></strong><span><%= value %></span><br/>
+    <% unless provider.nil? %>
+      <br/>
+      <% { 'Name' => "#{provider.family_name}, #{provider.given_name}", 'NPI' => provider.npi, 'TIN' => provider.tin }.each do |label, value| %>
+        <strong><%= "Provider #{label}: " %></strong><span><%= value %></span><br/>
+      <% end %>
     <% end %>
   <% end %>
 

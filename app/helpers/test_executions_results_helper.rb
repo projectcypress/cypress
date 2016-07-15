@@ -8,6 +8,7 @@ module TestExecutionsResultsHelper
     case execution.status_with_sibling
     when 'passing' then msg << ' (passing)'
     when 'incomplete' then msg << ' (in progress)'
+    when 'errored' then msg << ' (internal error)'
     else # failing
       num_errors = execution.execution_errors.count
       num_errors += execution.sibling_execution.execution_errors.count if execution.sibling_execution

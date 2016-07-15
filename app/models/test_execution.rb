@@ -46,6 +46,8 @@ class TestExecution
                              :msg_type => :error, :validator_type => :result_validation, :validator => :smoking_gun)
     end
     execution_errors.only_errors.count > 0 ? fail : pass
+  rescue
+    errored
   end
 
   # Get the expected result for a particular measure
@@ -66,8 +68,12 @@ class TestExecution
     state == :failed
   end
 
+  def errored?
+    state == :errored
+  end
+
   def incomplete?
-    (!passing? && !failing?)
+    (!passing? && !failing? && !errored?)
   end
 
   def pass
@@ -80,6 +86,11 @@ class TestExecution
     save
   end
 
+  def errored
+    self.state = :errored
+    save
+  end
+
   def sibling_execution
     TestExecution.find(sibling_execution_id)
   rescue
@@ -89,6 +100,7 @@ class TestExecution
   def status
     return 'passing' if passing?
     return 'failing' if failing?
+    return 'errored' if errored?
     'incomplete'
   end
 
@@ -99,6 +111,8 @@ class TestExecution
     return status unless sibling
     return status if status == sibling.status
     return 'incomplete' if incomplete? || sibling.incomplete?
+    return 'failing' if failing? || sibling.failing?
+    return 'errored' if errored? || sibling.errored?
     'failing' # failing if status's do not match
   end
 end

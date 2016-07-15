@@ -64,6 +64,10 @@ class Task
     status == 'failing'
   end
 
+  def errored?
+    status == 'errored'
+  end
+
   def incomplete?
     status == 'incomplete'
   end
@@ -76,6 +80,8 @@ class Task
         'passing'
       elsif recent_execution.failing?
         'failing'
+      elsif recent_execution.errored?
+        'errored'
       else
         'incomplete'
       end
