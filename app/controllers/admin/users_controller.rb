@@ -1,7 +1,5 @@
 module Admin
   class UsersController < AdminController
-    add_breadcrumb 'Admin', :admin_path
-
     def index
       redirect_to admin_path(anchor: 'user_management')
     end
