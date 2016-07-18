@@ -24,7 +24,7 @@
     <tr>
       <td><%= link_to 'View Results', new_task_test_execution_path(execution.task) %></td>
       <% # for both c1 and c3 executions (if they exist) %>
-      <% [execution, c3_execution].reject { |exec| exec.nil? }.each do |exec| %>
+      <% [execution, c3_execution].compact.each do |exec| %>
         <td>
           <% case exec.status %>
           <% when 'passing' %>
