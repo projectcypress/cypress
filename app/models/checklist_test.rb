@@ -103,7 +103,7 @@ class ChecklistTest < ProductTest
   def build_execution_errors_for_incomplete_checked_criteria(execution)
     checked_criteria.each do |crit|
       next if crit.passed_qrda
-      msg = "#{cms_id_from_measure_id(crit.measure_id)}: data criteria\"#{crit.source_data_criteria}\" not complete"
+      msg = "#{crit.printable_name} not complete"
       # did not add ":validator_type =>", not sure if this will be an issue in execution show
       execution.execution_errors.build(:message => msg, :msg_type => :error, :validator => :qrda_cat1)
     end
