@@ -96,8 +96,10 @@ module Validators
     def find_template_with_code(nodes, template, valueset, code)
       codenodes = nil
       nodes.each do |node|
+        # No longer need to check once a matching node is found
+        next if codenodes
         codenodes = if nodes.size > 1
-                      node.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']") unless codenodes
+                      [node.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")]
                     else
                       node.xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")
                     end
