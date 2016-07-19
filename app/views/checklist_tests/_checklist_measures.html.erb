@@ -28,11 +28,11 @@
                   <tr>
                     <th class = 'col-sm-1' scope = 'col'>Validated in QRDA</th>
                     <th class = 'col-sm-2' scope = 'col'>Data Criteria</th>
-                    <th class = 'col-sm-2' scope = 'col'>Value Set(s)</th>
-                    <th class = 'col-sm-2' scope = 'col'>Recorded Code</th>
+                    <th class = 'col-sm-1' scope = 'col'>Section</th>
                     <th class = 'col-sm-1' scope = 'col'>Required Attributes</th>
-                    <th class = 'col-sm-2' scope = 'col'>Attribute Details/Value Set</th>
-                    <th class = 'col-sm-2' scope = 'col'>Recorded Attribute Value</th>
+                    <th class = 'col-sm-3' scope = 'col'>Value Set(s)</th>
+                    <th class = 'col-sm-3' scope = 'col'>Recorded Code/Attribute Value</th>
+                    <th>
                   </tr>
                 </thead>
                 <tbody>
@@ -40,7 +40,7 @@
                     <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
                     <% if criteria.has_key?('description') %>
                       <tr>
-                        <td>
+                        <td rowspan="3">
                           <% if criteria_field.object.passed_qrda %>
                             <span class="sr-only">Passes QRDA</span>
                             <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
@@ -50,14 +50,20 @@
                         </td>
                         <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
                         <% if valuessets.empty? %>
+                          <td rowspan="3"/>
+                          <tr>
+                            <td/>
                           <td/>
                           <td/>
-                          <td/>
+                        </tr>
                         <% else %>
-                          <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                          <td rowspan="3"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                          <tr>
+                          <td> <strong>Valuesets</strong> </td>
+                          <td/>
                           <td><span>
                             <ul class='list-unstyled'>
-                            <% valuessets.each do |vs| %> 
+                            <% valuessets.each do |vs| %>
                             <li class="valueset-listitem"><%= "#{lookup_valueset_name(vs)}" %></li>
                             <% end %>
                             </ul>
@@ -70,9 +76,12 @@
                             <% else %>
                               <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
                             <% end %>
-                            <%= criteria_field.text_field :code, hide_label: true %>
+                            <%= criteria_field.text_field :code, hide_label: false %>
                           </td>
+                        </tr>
                         <% end %>
+                        <tr>
+                          <td> <strong> Attributes </strong> </td>
                         <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
                         <td><%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
                         <% if coded_attribute?(criteria) %>
@@ -84,7 +93,7 @@
                             <% else %>
                               <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
                             <% end %>
-                            <%= criteria_field.text_field :attribute_code, hide_label: true %>
+                            <%= criteria_field.text_field :attribute_code, hide_label: false %>
                           </td>
                         <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['field_values'] %>
                           <td>
@@ -95,11 +104,12 @@
                             <% else %>
                               <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
                             <% end %>
-                            <%= criteria_field.text_field :recorded_result, hide_label: true %>
+                            <%= criteria_field.text_field :recorded_result, hide_label: false %>
                           </td>
                         <% else %>
                           </td>
                         <% end %>
+                      </tr>
                       </tr>
                     <% end %>
                   <% end %>
