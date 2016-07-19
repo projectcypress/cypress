@@ -19,12 +19,14 @@
       <h1 class = 'panel-title text-center'><%= task_type_to_title(task._type, c3) %></h1>
     </div>
     <div class = 'panel-body'>
+      <dl class = 'dl-horizontal'>
       <% get_error_counts(execution, task).each do |error_name, num_errors| %>
-        <div class = 'col-sm-6 text-right'><%= error_name %></div>
-        <div class = 'col-sm-6 text-left'><%= num_errors || "--" %></div>
+        <dt><%= error_name %></dt>
+        <dd class = 'text-nowrap'><%= num_errors || "--" %></dd>
       <% end %>
-      <div class = 'col-sm-6 text-right'>Execution Date</div>
-      <div class = 'col-sm-6 text-left'><%= execution ? date_of_execution(execution) : '--' %></div>
+      <dt>Execution Date</dt>
+      <dd class = 'text-nowrap'><%= execution ? date_of_execution(execution) : '--' %></dd>
+      </dl>
 
       <% if execution %>
         <div class = 'col-sm-6 text-center margin-top-1'>
