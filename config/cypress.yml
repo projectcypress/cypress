@@ -3,7 +3,7 @@ effective_date:
   month: 12
   day: 31
 
-version: 3.0.0beta2
+version: 3.0.0
 
 default_bundle: "2016.0.0"
 
@@ -22,9 +22,9 @@ version_config:
   '~>2016.0.0':
       schematron: "2016.0.0"
       qrda_version: "r3_1"
-      CMSQRDA3SchematronValidator_warnings: 
-      CMSQRDA1HQRSchematronValidator_warnings: 
-      CMSQRDA1PQRSSchematronValidator_warnings: 
+      CMSQRDA3SchematronValidator_warnings:
+      CMSQRDA1HQRSchematronValidator_warnings:
+      CMSQRDA1PQRSSchematronValidator_warnings:
         - "These schematrons haven't been finalized yet"
 
 enable_logging: false

@@ -20,7 +20,7 @@
       "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "ami_name": "cypress_3.0.0beta2",
+      "ami_name": "cypress_3.0.0rc1",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 20,
@@ -34,7 +34,7 @@
     },
     {
       "name": "cypress.v3.0.0.ovf",
-      "vm_name": "cypressv300beta2",
+      "vm_name": "cypressv300rc1",
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
       "iso_urls": [
