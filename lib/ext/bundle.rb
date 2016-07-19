@@ -29,7 +29,7 @@ class Bundle
   end
 
   def self.most_recent
-    where(version: pluck(:version).max).first
+    where(version: pluck(:version).max_by { |v| v.split('.').map(&:to_i) }).first
   end
 
   def self.first
