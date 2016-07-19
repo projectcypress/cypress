@@ -60,6 +60,15 @@ legend.control-label {
   }
 }
 
+.fileinput-filename {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  padding-left: 30px;
+}
+
 [data-trigger="fileinput"].form-control {
   white-space: nowrap;
   text-overflow: ellipsis;
