@@ -15,3 +15,10 @@
   <% end %>
   <%= f.submit 'my submit button', class: 'hidden multi-upload-submit', id: "multi-upload-submit-#{unique_id}" %>
 <% end %>
+
+<script>
+  /* submit upload when file is attached */
+  $('<%= "#multi-upload-field-#{unique_id}" %>').on('change', function(ev) {
+    $('<%= "#multi-upload-submit-#{unique_id}" %>').click();
+  });
+</script>
