@@ -270,33 +270,47 @@ And(/^the user uploads a cat III document to filtering test (.*)$/) do |filterin
   attach_xml_to_multi_upload(html_id)
 end
 
+When(/^all test executions for product test (.*) have the state of (.*)$/) do |product_test_number, execution_state|
+  give_all_test_executions_state(nth_measure_test(product_test_number), execution_state)
+end
+
+When(/^all test executions for filtering test (.*) have the state of (.*)$/) do |filtering_test_number, execution_state|
+  give_all_test_executions_state(nth_filtering_test(filtering_test_number), execution_state)
+end
+
+def give_all_test_executions_state(product_test, execution_state)
+  product_test.tasks.each do |task|
+    task.test_executions.each do |execution|
+      execution.state = execution_state.parameterize.underscore.to_sym
+      execution.save!
+    end
+  end
+end
+
 # product test number the number of product test (1 indexed) for upload in order of most recently created
 def td_div_id_for_cat1_task_for_product_test(product_test_number)
-  product = Product.find_by(name: 'Product 1')
-  product_test = product.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
-  task = product_test.tasks.c1_task
-  "#wrapper-task-id-#{task.id.to_s}"
+  "#wrapper-task-id-#{nth_measure_test(product_test_number).tasks.c1_task.id}"
 end
 
 def td_div_id_for_cat3_task_for_product_test(product_test_number)
-  product = Product.find_by(name: 'Product 1')
-  product_test = product.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[product_test_number.to_i - 1]
-  task = product_test.tasks.c2_task
-  "#wrapper-task-id-#{task.id.to_s}"
+  "#wrapper-task-id-#{nth_measure_test(product_test_number).tasks.c2_task.id}"
+end
+
+# one indexed. ex.) mesure_test_number == 1 is the first measure test created
+def nth_measure_test(measure_test_number)
+  Product.find_by(name: 'Product 1').product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[measure_test_number.to_i - 1]
 end
 
 def td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
-  product = Product.find_by(name: 'Product 1')
-  filtering_test = product.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
-  task = filtering_test.tasks.cat1_filter_task
-  "#wrapper-task-id-#{task.id.to_s}"
+  "#wrapper-task-id-#{nth_filtering_test(filtering_test_number).tasks.cat1_filter_task.id}"
 end
 
 def td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
-  product = Product.find_by(name: 'Product 1')
-  filtering_test = product.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
-  task = filtering_test.tasks.cat3_filter_task
-  "#wrapper-task-id-#{task.id.to_s}"
+  "#wrapper-task-id-#{nth_filtering_test(filtering_test_number).tasks.cat3_filter_task.id}"
+end
+
+def nth_filtering_test(filtering_test_number)
+  Product.find_by(name: 'Product 1').product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
 end
 
 def attach_zip_to_multi_upload(html_id)
@@ -434,26 +448,40 @@ Then(/^the user should not be able to download the report$/) do
   page.assert_no_text 'Download Report'
 end
 
-Then(/^the user should see a cat I test testing for product test (.*)$/) do |product_test_number|
+Then(/^the user should see a cat I test (.*) for product test (.*)$/) do |task_status, product_test_number|
   html_id = td_div_id_for_cat1_task_for_product_test(product_test_number)
   html_elem = page.find(html_id)
-  html_elem.assert_text 'testing...'
+  html_elem.assert_text task_status_to_task_link_text(task_status)
 end
 
-Then(/^the user should see a cat III test testing for product test (.*)$/) do |product_test_number|
+Then(/^the user should see a cat III test (.*) for product test (.*)$/) do |task_status, product_test_number|
   html_id = td_div_id_for_cat3_task_for_product_test(product_test_number)
   html_elem = page.find(html_id)
-  html_elem.assert_text 'testing...'
+  html_elem.assert_text task_status_to_task_link_text(task_status)
 end
 
-Then(/^the user should see a cat I test testing for filtering test (.*)$/) do |filtering_test_number|
+Then(/^the user should see a cat I test (.*) for filtering test (.*)$/) do |task_status, filtering_test_number|
   html_id = td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
   html_elem = page.find(html_id)
-  html_elem.assert_text 'testing...'
+  html_elem.assert_text task_status_to_task_link_text(task_status)
 end
 
-Then(/^the user should see a cat III test testing for filtering test (.*)$/) do |filtering_test_number|
+Then(/^the user should see a cat III test (.*) for filtering test (.*)$/) do |task_status, filtering_test_number|
   html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
   html_elem = page.find(html_id)
-  html_elem.assert_text 'testing...'
+  html_elem.assert_text task_status_to_task_link_text(task_status)
+end
+
+# task status should be one of 'testing', 'passing', 'failing'
+def task_status_to_task_link_text(task_status)
+  case task_status
+  when 'passing'
+    'view'
+  when 'failing'
+    'retry'
+  when 'testing'
+    'testing...'
+  when 'incomplete'
+    'start'
+  end
 end
