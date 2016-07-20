@@ -1,3 +1,4 @@
+include ProductsHelper
 
 # # # # # # # # #
 #   G I V E N   #
@@ -6,12 +7,13 @@
 #   A N D   #
 
 And(/^the user has created a vendor with a product selecting C1 testing with one measure$/) do
+  measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
   @vendor = FactoryGirl.create(:vendor)
-  @product = Product.new(vendor: @vendor, name: 'Product 1', c1_test: true, measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'],
-                         bundle_id: '4fdb62e01d41c820f6000001')
-  @product.product_tests.build({ name: 'test_for_measure_1a',
-                                 measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'] }, MeasureTest)
+  @product = Product.new(vendor: @vendor, name: 'Product 1', c1_test: true, measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001')
+  @product.product_tests.build({ name: 'test_for_measure_1a', measure_ids: measure_ids }, MeasureTest)
+  checklist_test = @product.product_tests.build({ name: 'manual entry test', measure_ids: measure_ids }, ChecklistTest)
   @product.save!
+  checklist_test.tasks.create!({}, C1ManualTask)
 end
 
 And(/^the user views that product$/) do
@@ -19,17 +21,13 @@ And(/^the user views that product$/) do
 end
 
 And(/^the user views the manual entry tab$/) do
-  page.find("[href='#ChecklistTest']").click
+  html_id = html_id_for_tab(@product, 'ChecklistTest')
+  page.find("[href='##{html_id}']").click
 end
 
 # # # # # # # #
 #   W H E N   #
 # # # # # # # #
-
-When(/^the user generates a checklist test$/) do
-  steps %( And the user views the manual entry tab )
-  page.find("input[type = submit][value = 'Start Test']").click
-end
 
 # certification types should be a comma separated list either: 'c1' or 'c1, c3'
 When(/^the user creates a product that certifies (.*) and visits the manual entry page$/) do |certification_types|
@@ -48,7 +46,7 @@ end
 
 #   A N D   #
 
-And(/^the user views that checklist test$/) do
+When(/^the user views that checklist test$/) do
   page.find("input[type = submit][value = 'View Test']").click
 end
 
@@ -128,7 +126,8 @@ Then(/^the user should see the checklist test$/) do
 end
 
 Then(/^the user should see a button to revisit the checklist test$/) do
-  assert page.has_selector?("input[type = submit][value = 'View Test']")
+  assert page.find('#c1_manual').has_link? 'CMS159v4 Depression Remission at Twelve Months'
+  # assert page.has_selector?("input[type = submit][value = 'View Test']")
 end
 
 Then(/^the user should be able to generate another checklist test$/) do

@@ -22,10 +22,10 @@
           <% end %>
         </td>
         <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat1_task) %>">
-          <%= render partial: '/products/product_test_link', locals: { test: test, task: test.cat1_task } %>
+          <%= render partial: 'filtering_test_link', locals: { test: test, task: test.cat1_task } %>
         </td>
         <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat3_task) %>">
-          <%= render partial: '/products/product_test_link', locals: { test: test, task: test.cat3_task } %>
+          <%= render partial: 'filtering_test_link', locals: { test: test, task: test.cat3_task } %>
         </td>
         <td class="no-wrap"><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i>
           <%= local_time_ago(test.updated_at) %></td>

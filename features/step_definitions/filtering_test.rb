@@ -1,3 +1,4 @@
+include ProductsHelper
 
 # # # # # # # # #
 #   G I V E N   #
@@ -6,21 +7,24 @@
 #   A N D   #
 
 And(/^the user has created a vendor with a product selecting C4 testing$/) do
+  measure_ids = ['40280381-43DB-D64C-0144-5571970A2685']
+  bundle_id = Measure.first.bundle_id
   @vendor = Vendor.create!(name: 'test_vendor_name')
-  @product = @vendor.products.create!(name: 'test_product_name', c1_test: true, c4_test: true, measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'])
-  @m_test = @product.product_tests.create!({ name: 'Hearing Screening Prior To Hospital Discharge', cms_id: 'CMS31v3',
-                                             measure_ids: ['40280381-43DB-D64C-0144-5571970A2685']
-                                           }, MeasureTest)
-  @f_test_1 = @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'CMS31v3', measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'],
+  @product = @vendor.products.create!(name: 'test_product_name', c1_test: true, c4_test: true, measure_ids: measure_ids, bundle_id: bundle_id)
+  @m_test = @product.product_tests.create!({ name: 'Measure Test 1', cms_id: 'CMS31v3', measure_ids: measure_ids }, MeasureTest)
+  @f_test_1 = @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'CMS31v3', measure_ids: measure_ids,
                                                options: { filters: { filt1: ['val1'], filt2: ['val2'] } }
                                              }, FilteringTest)
-  @f_test_2 = @product.product_tests.create!({ name: 'Filter Test 2', cms_id: 'CMS31v3', measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'],
+  @f_test_2 = @product.product_tests.create!({ name: 'Filter Test 2', cms_id: 'CMS31v3', measure_ids: measure_ids,
                                                options: { filters: { filt3: ['val2'], filt4: ['val4'] } }
                                              }, FilteringTest)
+  checklist_test = @product.product_tests.create!({ name: 'my checklist test', measure_ids: measure_ids }, ChecklistTest)
+  checklist_test.tasks.create!({}, C1ManualTask)
 end
 
 And(/^the user visits the product show page with the filter test tab selected$/) do
-  visit "/vendors/#{@vendor.id}/products/#{@product.id}#FilteringTest"
+  html_id_for_tab(@product, 'FilteringTest')
+  visit "/vendors/#{@vendor.id}/products/#{@product.id}##{html_id_for_tab(@product, 'FilteringTest')}"
 end
 
 And(/^the first filter task state has been set to ready$/) do

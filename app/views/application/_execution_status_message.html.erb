@@ -1,0 +1,28 @@
+<%
+
+# local variables
+#
+#   execution
+
+%>
+
+<% unless execution %>
+  <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+  <span class = 'text-info'>Not Started</span>
+<% else %>
+  <% classes = status_to_css_classes(execution.status.capitalize) %>
+  <% case execution.status %>
+  <% when 'passing' %>
+    <i aria-hidden = 'true' class = 'fa fa-fw fa-check text-success'></i>
+    <strong class = 'text-success'>Passed</strong>
+  <% when 'failing' %>
+    <i aria-hidden = 'true' class = 'fa fa-fw fa-times text-danger'></i>
+    <strong class = 'text-danger'>Failed</strong>
+  <% when 'errored' %>
+    <i aria-hidden = 'true' class = 'fa fa-fw fa-exclamation text-warning'></i>
+    <strong class = 'text-warning'>Errored</strong>
+  <% else %>
+    <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+    <strong class = 'text-info'>In Progress</strong>
+  <% end %>
+<% end %>

@@ -5,12 +5,15 @@
 %>
 
 <% checklist_test = product.product_tests.checklist_tests.first %>
-<% if checklist_test.tasks[0].most_recent_execution && checklist_test.tasks[0].most_recent_execution.incomplete? %>
-<script>
-  $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_status_display' }});
-</script>
-<p class="lead row bg-info execution-status"><i class="fa fa-fw fa-refresh fa-spin text-info"></i> In Progress</p>
+<% return unless checklist_test %>
+
+<% if checklist_test.tasks.any? && checklist_test.tasks[0].most_recent_execution && checklist_test.tasks[0].most_recent_execution.incomplete? %>
+  <script>
+    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_status_display' }});
+  </script>
+  <p class="lead row bg-info execution-status"><i class="fa fa-fw fa-refresh fa-spin text-info"></i> In Progress</p>
 <% end %>
+
 <table class = 'table table-hover table-condensed'>
   <thead>
     <th class="no-wrap" scope="col">Manual Entry Test</th>

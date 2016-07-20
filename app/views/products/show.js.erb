@@ -1,4 +1,7 @@
 
+<% # should use below to reload product status table %>
+// $('#product_status_cells_wrapper').html("<%#= escape_javascript render partial: 'products_status_cells', locals: { product: @product } %>");
+
 <% if params[:partial] == 'bulk_download' %>
   <% if @product.product_tests.measure_tests.where(:state.nin => [:ready]).count > 0 %>
     <% # wait 2 seconds. then reload the page %>
@@ -10,10 +13,17 @@
     $('#display_bulk_download').html("<%= escape_javascript render partial: 'bulk_download', locals: { product: @product } %>");
   <% end %>
 
-<% elsif params[:partial] == '/products/product_test_link' %>
+<% elsif params[:partial] == 'filtering_test_link' %>
   <% task = Task.find(params[:task_id]) %>
   <% wrapper_id = id_for_html_wrapper_of_task(task) %>
   setTimeout(function() {
-    $("#<%= wrapper_id %>").html("<%= escape_javascript render partial: '/products/product_test_link', locals: { test: task.product_test, task: task } %>");
+    $("#<%= wrapper_id %>").html("<%= escape_javascript render partial: 'filtering_test_link', locals: { test: task.product_test, task: task } %>");
+  }, 500);
+
+<% elsif params[:partial] == 'measure_tests_table_row' %>
+  <% task = Task.find(params[:task_id]) %>
+  <% wrapper_id = measure_tests_table_row_wrapper_id(task) %>
+  setTimeout(function() {
+    $("#<%= wrapper_id %>").html("<%= escape_javascript render partial: 'measure_tests_table_row', locals: { task: task } %>");
   }, 500);
 <% end %>

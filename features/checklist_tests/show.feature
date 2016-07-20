@@ -6,7 +6,7 @@ Background:
   And the user views that product
 
 Scenario: Successful Revisit Checklist Test
-  When the user generates a checklist test
+  When the user views the manual entry tab
   And the user views that product
   And the user views the manual entry tab
   Then the user should see a button to revisit the checklist test

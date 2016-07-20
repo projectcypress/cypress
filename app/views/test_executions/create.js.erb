@@ -6,4 +6,11 @@
 <% # set PATH_INFO so AJAX call can be made in /products/measure_tests_table partial. this AJAX call is for reloading each product_test_link %>
 <% request.env['PATH_INFO'] = vendor_product_path(@product.vendor, @product) %>
 
-$.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: '/products/product_test_link', task_id: "<%= params[:task_id] %>" }});
+<% task = Task.find(params[:task_id]) %>
+<% is_measure_test_execution = task.product_test._type == 'MeasureTest' %>
+
+<% if is_measure_test_execution %>
+  $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'measure_tests_table_row', task_id: "<%= params[:task_id] %>" }});
+<% else # is filtering test execution %>
+  $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_link', task_id: "<%= params[:task_id] %>" }});
+<% end %>
