@@ -37,7 +37,7 @@
     <% end %>
       <span class="fileinput-new"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</span>
       <span class="fileinput-exists"><i class="fa fa-fw fa-refresh"></i> Change</span>
-      <%= file_field_tag :results, class: 'upload-results', :disabled => disable, accept: accept_type, :aria => { labelledby: 'execution_upload_label', hidden: true } %>
+      <%= file_field_tag :results, class: 'upload-results', :disabled => disable, accept: accept_type, :aria => { label: 'execution_upload_label', hidden: true } %>
     </span>
     <a id = 'submit-upload' class="input-group-addon fileinput-exists btn btn-success"><i class="fa fa-fw fa-upload"></i> Upload</a>
   </div>
