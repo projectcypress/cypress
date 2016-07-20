@@ -15,6 +15,13 @@ ready = function() {
     info: false
   });
 
+  $('#filtering_test_status_display').DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true, /* preserves order on reload */
+    info: false
+  });
+
   /* submit upload when file is attached */
   $('.multi-upload-field').on('change', function(ev) {
     $(this).parent().siblings('.multi-upload-submit').click();

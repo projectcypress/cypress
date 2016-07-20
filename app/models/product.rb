@@ -66,7 +66,7 @@ class Product
   end
 
   def at_least_one_measure?
-    errors.add(:measure_tests, 'Product must specify least one measure for testing.') unless product_tests.any?
+    errors.add(:measure_tests, 'Product must specify at least one measure for testing.') unless product_tests.any?
   end
 
   # updates product attributes and adds / removes measure tests
@@ -115,12 +115,8 @@ class Product
     filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
-    filter_tests << if ApplicationController.helpers.measure_has_diagnosis_criteria?(measure)
-                      build_filtering_test(measure, ['problems'])
-                    else
-                      # the measure doesn't have a diagnosis so instead create a new demographics task
-                      build_filtering_test(measure, criteria.values_at(4, (0..3).to_a.sample))
-                    end
+    criteria = ApplicationController.helpers.measure_has_diagnosis_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
+    filter_tests << build_filtering_test(measure, criteria)
     ApplicationController.helpers.generate_filter_records(filter_tests)
   end
 

@@ -73,7 +73,7 @@ module TestExecutionsHelper
 
     all_warnings, all_errors = combined_errors.partition { |e| e.msg_type == :warning }
 
-    failure_message = "Failed with #{pluralize(all_errors.uniq { |e| [e.message, e.location, e.file_name] }.count, 'error')}"
+    failure_message = "Failed with #{pluralize(all_errors.count, 'error')}"
     failure_message += " and #{pluralize(all_warnings.uniq { |e| [e.message, e.location, e.file_name] }.count, 'warning')}" if all_warnings.any?
 
     failure_message
