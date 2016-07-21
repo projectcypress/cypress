@@ -163,9 +163,9 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 'text-warning', status_to_css_classes('errored')['text']
   end
 
-  def test_checklist_status_values_not_started
+  def test_manual_status_vals_not_started
     test = @product.product_tests.checklist_tests.find_by(name: 'c1 visual')
-    passing, failing, errored, not_started, total = checklist_status_values(test)
+    passing, failing, errored, not_started, total = manual_status_vals(test)
 
     assert_equal 0, passing
     assert_equal 0, failing
@@ -174,12 +174,12 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 1, total
   end
 
-  def test_checklist_status_values_failing
+  def test_manual_status_vals_failing
     test = @product.product_tests.checklist_tests.first
     test.checked_criteria.first.code_complete = true
     test.checked_criteria.first.code = '123'
     test.checked_criteria.first.passed_qrda = true
-    passing, failing, errored, not_started, total = checklist_status_values(test)
+    passing, failing, errored, not_started, total = manual_status_vals(test)
 
     assert_equal 0, passing
     assert_equal 1, failing
@@ -188,14 +188,14 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 1, total
   end
 
-  def test_checklist_status_values_passing
+  def test_manual_status_vals_passing
     test = @product.product_tests.checklist_tests.find_by(name: 'c1 visual')
     test.checked_criteria.each do |criteria|
       criteria.code_complete = true
       criteria.code = '123'
       criteria.passed_qrda = true
     end
-    passing, failing, errored, not_started, total = checklist_status_values(test)
+    passing, failing, errored, not_started, total = manual_status_vals(test)
 
     assert_equal 1, passing
     assert_equal 0, failing
@@ -214,57 +214,57 @@ class VendorsHelperTest < ActiveJob::TestCase
   end
 
   # returns [checklist_test, c1_manual_task, c3_manual_task]
-  def setup_checklist_status_values_for_test_execution
+  def setup_manual_status_vals_for_test_execution
     assert_equal 1, @product.product_tests.checklist_tests.count
     test = @product.product_tests.checklist_tests.first
     [test, test.tasks.create!({}, C1ManualTask), test.tasks.create!({}, C3ManualTask)]
   end
 
-  def test_checklist_status_values_for_test_execution_both_executions_passing
-    test, c1_task, c3_task = setup_checklist_status_values_for_test_execution
+  def test_manual_status_vals_for_test_execution_both_executions_passing
+    test, c1_task, c3_task = setup_manual_status_vals_for_test_execution
     c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
     c3_execution = c3_task.test_executions.create!(:state => :passed, :_id => '54321', :sibling_execution_id => '12345')
-    assert_equal [1, 0, 0, 0, 1], checklist_status_values_for_test_execution(test)
+    assert_equal [1, 0, 0, 0, 1], manual_status_vals_for_test_execution(test)
   end
 
-  def test_checklist_status_values_for_test_execution_one_execution_failing_one_passing
-    test, c1_task, c3_task = setup_checklist_status_values_for_test_execution
+  def test_manual_status_vals_for_test_execution_one_execution_failing_one_passing
+    test, c1_task, c3_task = setup_manual_status_vals_for_test_execution
     c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
     c3_execution = c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
-    assert_equal [0, 1, 0, 0, 1], checklist_status_values_for_test_execution(test)
+    assert_equal [0, 1, 0, 0, 1], manual_status_vals_for_test_execution(test)
   end
 
-  def test_checklist_status_values_for_test_execution_one_execution_pending_one_passing
-    test, c1_task, c3_task = setup_checklist_status_values_for_test_execution
+  def test_manual_status_vals_for_test_execution_one_execution_pending_one_passing
+    test, c1_task, c3_task = setup_manual_status_vals_for_test_execution
     c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
     c3_execution = c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345')
-    assert_equal [0, 0, 0, 1, 1], checklist_status_values_for_test_execution(test)
+    assert_equal [0, 0, 0, 1, 1], manual_status_vals_for_test_execution(test)
   end
 
-  def test_checklist_status_values_for_test_execution_one_execution_errored_one_passing
-    test, c1_task, c3_task = setup_checklist_status_values_for_test_execution
+  def test_manual_status_vals_for_test_execution_one_execution_errored_one_passing
+    test, c1_task, c3_task = setup_manual_status_vals_for_test_execution
     c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
     c3_execution = c3_task.test_executions.create!(:state => :errored, :_id => '54321', :sibling_execution_id => '12345')
-    assert_equal [0, 0, 1, 0, 1], checklist_status_values_for_test_execution(test)
+    assert_equal [0, 0, 1, 0, 1], manual_status_vals_for_test_execution(test)
   end
 
   # pending executions should take precedence over failing executions
-  def test_checklist_status_values_for_test_execution_one_execution_pending_one_failing
-    test, c1_task, c3_task = setup_checklist_status_values_for_test_execution
+  def test_manual_status_vals_for_test_execution_one_execution_pending_one_failing
+    test, c1_task, c3_task = setup_manual_status_vals_for_test_execution
     c1_execution = c1_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321')
     c3_execution = c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345')
-    assert_equal [0, 0, 0, 1, 1], checklist_status_values_for_test_execution(test)
+    assert_equal [0, 0, 0, 1, 1], manual_status_vals_for_test_execution(test)
   end
 
   # failing executions should take precedence over errored executions
-  def test_checklist_status_values_for_test_execution_one_execution_errored_one_failing
-    test, c1_task, c3_task = setup_checklist_status_values_for_test_execution
+  def test_manual_status_vals_for_test_execution_one_execution_errored_one_failing
+    test, c1_task, c3_task = setup_manual_status_vals_for_test_execution
     c1_execution = c1_task.test_executions.create!(:state => :errored, :_id => '12345', :sibling_execution_id => '54321')
     c3_execution = c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
-    assert_equal [0, 1, 0, 0, 1], checklist_status_values_for_test_execution(test)
+    assert_equal [0, 1, 0, 0, 1], manual_status_vals_for_test_execution(test)
   end
 
-  def test_checklist_status_values_with_checklist_status_values_for_test_execution
+  def test_manual_status_vals_with_manual_status_vals_for_test_execution
     assert_equal 1, @product.product_tests.checklist_tests.count
     test = @product.product_tests.checklist_tests.first
 
@@ -275,7 +275,7 @@ class VendorsHelperTest < ActiveJob::TestCase
       criteria.passed_qrda = true
     end
 
-    assert_equal [1, 0, 0, 0, 1], checklist_status_values(test)
+    assert_equal [1, 0, 0, 0, 1], manual_status_vals(test)
 
     # add test executions that are failing
     c1_task = test.tasks.create!({}, C1ManualTask)
@@ -283,7 +283,7 @@ class VendorsHelperTest < ActiveJob::TestCase
     c1_execution = c1_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321')
     c3_execution = c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
 
-    assert_equal [1, 1, 0, 0, 2], checklist_status_values(test)
+    assert_equal [1, 1, 0, 0, 2], manual_status_vals(test)
   end
 
   def test_product_test_statuses_passing
