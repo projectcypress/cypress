@@ -19,7 +19,7 @@
   <tbody>
     <% checklist_test.measures.sort_by(&:cms_int).each do |measure| %>
       <tr>
-        <td><%= link_to "#{measure.cms_id} #{measure.name}", product_checklist_test_path(@product, checklist_test) %></td>
+        <td><%= link_to "#{measure.cms_id} #{measure.name}", product_checklist_test_path(@product, checklist_test, anchor: "#{measure.cms_id}") %></td>
         <td class="no-wrap">
           <% case checklist_test.measure_status(measure.id) %>
           <% when 'passed' %>

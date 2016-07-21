@@ -17,8 +17,7 @@ module Cypress
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
         measure_tests.each do |m|
-          z.put_next_entry("#{m.cms_id}_#{m.id}.#{format}.zip".tr(' ', '_'))
-          z << m.patient_archive.read
+          add_file_to_zip(z, "#{m.cms_id}_#{m.id}.#{format}.zip".tr(' ', '_'), m.patient_archive.read)
         end
       end
       file
@@ -58,11 +57,9 @@ module Cypress
       mes, sd, ed = Cypress::PatientZipper.mes_start_end(example_patients.values)
       formatter = Cypress::HTMLExporter.new(mes, sd, ed)
       Zip::ZipOutputStream.open(file.path) do |z|
-        z.put_next_entry('criteria_list.html')
-        z << criteria_list
+        add_file_to_zip(z, 'criteria_list.html', criteria_list)
         example_patients.each do |measure_id, patient|
-          z.put_next_entry("sample patient for #{measure_id}.html")
-          z << formatter.export(patient)
+          add_file_to_zip(z, "sample patient for #{measure_id}.html", formatter.export(patient))
         end
       end
       file
