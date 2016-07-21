@@ -25,21 +25,22 @@ module VendorsHelper
     classes = {}
 
     case status
-    when 'Passing'
+    when 'passing'
       classes['cell'] = 'status-passing'
       classes['icon'] = 'fa-check'
-    when 'Failing'
+      classes['text'] = 'text-success'
+    when 'failing'
       classes['cell'] = 'status-failing'
       classes['icon'] = 'fa-times'
-    when 'Incomplete'
-      classes['cell'] = 'status-not-started'
-      classes['icon'] = 'fa-circle-o'
-    when 'Errored'
+      classes['text'] = 'text-danger'
+    when 'errored'
       classes['cell'] = 'status-errored'
       classes['icon'] = 'fa-exclamation'
-    when 'Not_started'
+      classes['text'] = 'text-warning'
+    else
       classes['cell'] = 'status-not-started'
       classes['icon'] = 'fa-circle-o'
+      classes['text'] = 'text-info'
     end
 
     classes

@@ -35,4 +35,29 @@ module ApplicationHelper
     end_marker = 'v'
     cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i
   end
+
+  def product_status_row(hash, status)
+    # uses the hash provided by the get_product_status_values method
+    row_values = [0, 0, 0, 0, 0, 0, 0, 0]
+
+    if hash.key?('C1')
+      row_values[0] = hash['C1']['Manual'][status]
+      row_values[1] = hash['C1']['QRDA Category I'][status]
+    end
+
+    row_values[2] = hash['C2']['QRDA Category III'][status] if hash.key?('C2')
+
+    if hash.key?('C3')
+      row_values[3] = 0 # placeholder for C3 Manual
+      row_values[4] = hash['C3']['QRDA Category I'][status]
+      row_values[5] = hash['C3']['QRDA Category III'][status]
+    end
+
+    if hash.key?('C4')
+      row_values[6] = hash['C4']['QRDA Category I'][status]
+      row_values[7] = hash['C4']['QRDA Category III'][status]
+    end
+
+    row_values
+  end
 end

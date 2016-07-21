@@ -9,3 +9,10 @@
   background-color: $brand-primary-highlight;
   height: 6px;
 }
+
+// Mixins
+@mixin hidden-cell() {
+  // we want to hide it visually, but it's ok to reveal to screen readers
+  visibility: hidden;
+  border: 0;
+}

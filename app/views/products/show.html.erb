@@ -1,31 +1,11 @@
 <%= render partial: 'header_product', locals: { product: @product } %>
 <div class="row">
 
-  <div class = 'col-sm-8'>
-    <div class = 'panel panel-default'>
-      <div class = 'panel-heading'><h1 class = 'panel-title'>Product Status</h1></div>
-      <div class = 'panel-body'>
-
-        <table class="table styled-status-table">
-          <thead>
-            <tr>
-              <% ['C1', 'C2', 'C3', 'C4'].each do |cert_type| %>
-                <th scope="col" class='products-certification text-center'>
-                  <%= cert_type %>
-                  <br><small><%= APP_CONFIG.certifications[cert_type]['subtitle'] %></small>
-                </th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><%= render partial: 'products_status_cells', locals: { product: @product } %></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <div class = 'col-md-8'>
+    <%= render partial: 'product_status_table', locals: { product: @product } %>
   </div>
 
-  <div class = 'col-sm-4'>
+  <div class = 'col-md-4'>
     <% unless @product.product_tests.empty? %>
       <div class = 'panel panel-default'>
         <div class = 'panel-heading'>
@@ -37,9 +17,7 @@
       </div>
     <% end %>
   </div>
-
 </div>
-
 
 <div class="product-test-tabs">
   <ul>

@@ -1,61 +1,25 @@
-.styled-status-table {
-  margin-bottom: 0;
+.status-passing {
+  color: $state-success-text;
+  background: $state-success-bg;
+  border: 1px solid darken($state-success-bg, 20%);
+}
 
-  > thead > tr > th,
-  > thead > tr > td {
-    border-bottom-color: $gray;
-  }
+.status-failing {
+  color: $state-danger-text;
+  background: $state-danger-bg;
+  border: 1px solid darken($state-danger-bg, 20%);
+}
 
-  > tbody > tr > th,
-  > tbody > tr > td {
-    border-top-color: $gray;
-  }
+.status-errored {
+  color: $state-warning-text;
+  background: $state-warning-bg;
+  border: 1px solid darken($state-warning-bg, 20%);
+}
 
-  > tbody > tr > th {
-    font-size: 1.25em;
-  }
-
-  .products-certification {
-    width: 20%;
-  }
-
-  .vendor-status {
-    width: 12%;
-  }
-
-  td thead th {
-    border-bottom: 1px solid $gray-light;
-    font-size: .85em;
-    font-weight: 500;
-  }
-
-  .status-passing {
-    color: $state-success-text;
-    background: $state-success-bg;
-    border: 1px solid darken($state-success-bg, 20%);
-  }
-
-  .status-failing {
-    color: $state-danger-text;
-    background: $state-danger-bg;
-    border: 1px solid darken($state-danger-bg, 20%);
-  }
-
-  .status-errored {
-    color: $state-warning-text;
-    background: $state-warning-bg;
-    border: 1px solid darken($state-warning-bg, 20%);
-  }
-
-  .status-not-started {
-    color: $state-info-text;
-    background: $state-info-bg;
-    border: 1px solid darken($state-info-bg, 20%);
-  }
-
-  .table {
-    margin-bottom: 0;
-  }
+.status-not-started {
+  color: $state-info-text;
+  background: $state-info-bg;
+  border: 1px solid darken($state-info-bg, 20%);
 }
 
 .vendor-details {

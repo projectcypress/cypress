@@ -11,3 +11,90 @@
   vertical-align: middle;
   line-height: 28px;
 }
+
+.table-product-status {
+  margin: 0 0 4em;
+
+  > thead > tr:nth-child(1) > th:not(.product-name) {
+    border: 1px $gray-light solid;
+    text-align: center;
+  }
+
+  > thead > tr:nth-child(2) > th,
+  > thead > tr:nth-child(2) > td {
+    border-bottom: 2px $gray-darker solid;
+    font-size: smaller;
+    text-align: center;
+  }
+
+  > tbody > tr > td {
+    border-top-color: $gray-lighter;
+  }
+
+  .product-name {
+    background: $brand-primary;
+    color: $brand-white;
+    font-size: 1.5em;
+    font-weight: 500;
+    max-width: 12em;
+    width: 12em;
+    padding: .5em;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-bottom: 2px $gray-darker solid;
+
+    a {
+      color: $brand-white;
+    }
+  }
+
+  .test-status {
+    font-weight: 300;
+  }
+
+  .total_status_count {
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  &.hide-c1 {
+    // C1 is columns 2 and 3
+    > thead > tr > th.c1-heading,
+    > tbody > tr > td:nth-child(2),
+    > tbody > tr > td:nth-child(3) {
+      @include hidden-cell();
+    }
+  }
+
+  &.hide-c2 {
+    // C2 is column 4
+    > thead > tr > th.c2-heading,
+    > tbody > tr > td:nth-child(4) {
+      @include hidden-cell();
+    }
+  }
+
+  &.hide-c3 {
+    // C3 is columns 5, 6, and 7
+    > thead > tr > th.c3-heading,
+    > tbody > tr > td:nth-child(5),
+    > tbody > tr > td:nth-child(6),
+    > tbody > tr > td:nth-child(7) {
+      @include hidden-cell();
+    }
+  }
+
+  &.hide-c4 {
+    // C4 is columns 8 and 9
+    > thead > tr > th.c4-heading,
+    > tbody > tr > td:nth-child(8),
+    > tbody > tr > td:nth-child(9) {
+      @include hidden-cell();
+    }
+  }
+}
+
+.vendor-product-status .table-product-status {
+  margin-top: 2em;
+}
