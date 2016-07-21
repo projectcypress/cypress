@@ -14,9 +14,9 @@
       <div class="form_group">
         <label class="control-label" for="user_role">Role</label>
         <ul class="list-unstyled">
-          <li><input id="admin_radio" type="radio" name="role" value="admin" <%= "checked='true'" if @user.has_role? :admin %>> Admin</li>
-          <li><input id="atl_radio" type="radio" name="role" value="atl" <%= "checked='true'" if @user.has_role? :atl %>> Atl</li>
-          <li><input id="admin_radio" type="radio" name="role" value="user" <%= "checked='true'" if @user.has_role? :user %>> User</li>
+          <li><input id="admin_radio" type="radio" name="role" value="admin" <%= "checked='true'" if @user.user_role? :admin %>> Admin</li>
+          <li><input id="atl_radio" type="radio" name="role" value="atl" <%= "checked='true'" if @user.user_role? :atl %>> Atl</li>
+          <li><input id="admin_radio" type="radio" name="role" value="user" <%= "checked='true'" if @user.user_role? :user %>> User</li>
         </ul>
       </div>
     </div>

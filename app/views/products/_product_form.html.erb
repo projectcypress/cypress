@@ -32,7 +32,7 @@
         </div>
 
         <div class="col-md-6">
-          <% unless current_user.has_role?('atl')%>
+          <% unless current_user.user_role?('atl')%>
             <fieldset>
               <legend class="control-label">Records Options</legend>
               <%= f.form_group help: "Recommended for most robust testing." do %>

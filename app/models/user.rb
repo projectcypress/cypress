@@ -104,4 +104,8 @@ class User
     dr = Settings[:default_role]
     add_role dr if dr
   end
+
+  def user_role?(*args)
+    has_role?(*args) || Settings[:ignore_roles]
+  end
 end
