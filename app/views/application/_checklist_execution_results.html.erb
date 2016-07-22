@@ -2,12 +2,13 @@
 
 # local variables
 #
-#   execution (TestExecution)
+#   task (C1ManualTask)
 
 %>
 
-<% return unless execution %>
-<% c3_execution = execution.sibling_execution %>
+<% execution = task.most_recent_execution %>
+<% c3_execution = execution ? execution.sibling_execution : nil %>
+<% should_include_c3 = task.product_test.product.c3_test %>
 
 <table class = 'table table-hover table-condensed'>
   <thead>
@@ -15,43 +16,49 @@
       Upload Results
     </th>
     <th class = 'no-wrap' scope = 'col'>C1 Upload Results</th>
-    <% if c3_execution %>
+    <% if should_include_c3 %>
       <th class = 'no-wrap' scope = 'col'>C3 Upload Results</th>
     <% end %>
     <th class = 'no-wrap' scope = 'col'>Status</th>
   </thead>
   <tbody>
     <tr>
-      <td><%= link_to 'View Results', new_task_test_execution_path(execution.task) %></td>
+      <% unless execution.nil? %>
+        <td><%= link_to 'View Results', new_task_test_execution_path(execution.task) %></td>
+      <% else %>
+        <td></td>
+      <% end %>
       <% # for both c1 and c3 executions (if they exist) %>
-      <% [execution, c3_execution].compact.each do |exec| %>
-        <td>
-          <% case exec.status %>
-          <% when 'passing' %>
-            <strong class = 'text-success'>Passing</strong>
-          <% when 'failing' %>
-            <strong class = 'text-danger'><%= "Failing with #{exec.execution_errors.count} errors" %></strong>
-          <% else %>
-            <strong class = 'text-info'>In Progress</strong>
-          <% end %>
-        </td>
+      <% [execution, c3_execution].each do |exec| %>
+        <td><%= render partial: 'execution_status_message', locals: { execution: exec } %></td>
       <% end %>
       <td>
-        <% case execution.status_with_sibling %>
-        <% when 'passing' %>
-          <strong class = 'text-success'>Passing</strong>
-        <% when 'failing' %>
-          <strong class = 'text-danger'>Failing</strong>
+        <% unless execution.nil? %>
+          <% case execution.status_with_sibling %>
+          <% when 'passing' %>
+            <i aria-hidden = 'true' class = 'fa fa-fw fa-check text-success'></i>
+            <strong class = 'text-success'>Passing</strong>
+          <% when 'failing' %>
+            <i aria-hidden = 'true' class = 'fa fa-fw fa-times text-danger'></i>
+            <strong class = 'text-danger'>Failing</strong>
+          <% when 'errored' %>
+            <i aria-hidden = 'true' class = 'fa fa-fw fa-exclamation text-warning'></i>
+            <strong class = 'text-warning'>Errored</strong>
+          <% else %>
+            <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+            <strong class = 'text-info'>In Progress</strong>
+          <% end %>
         <% else %>
-          <strong class = 'text-info'>In Progress</strong>
+          <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+          <span class = 'text-info'>Not Started</span>
         <% end %>
       </td>
     </tr>
   </tbody>
 </table>
 
-<% if execution.executions_pending? %>
+<% if !execution.nil? && execution.executions_pending? %>
   <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_execution_results', test_execution_id: "<%= execution.id.to_s %>" }});
+    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_execution_results', task_id: "<%= task.id.to_s %>" }});
   </script>
 <% end %>

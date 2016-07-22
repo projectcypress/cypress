@@ -15,14 +15,14 @@
       $('#display_checklist_status').html("<%= escape_javascript render partial: 'checklist_status_display', locals: { product: @product_test.product } %>");
    <% end %>
 <% elsif params[:partial] == 'checklist_execution_results' %>
-  <% if params[:test_execution_id] %>
-    <% execution = TestExecution.find(params[:test_execution_id]) %>
-    <% if execution.executions_pending? %>
+  <% if params[:task_id] %>
+    <% task = Task.find(params[:task_id]) %>
+    <% if task.most_recent_execution && task.most_recent_execution.executions_pending? %>
       setTimeout(function(){
-        $('#display_checklist_execution_results').html("<%= escape_javascript render partial: 'checklist_execution_results', locals: { execution: execution } %>");
+        $('#display_checklist_execution_results').html("<%= escape_javascript render partial: 'checklist_execution_results', locals: { task: task } %>");
       }, 2000);
     <% else %>
-      $('#display_checklist_execution_results').html("<%= escape_javascript render partial: 'checklist_execution_results', locals: { execution: execution } %>");
+      $('#display_checklist_execution_results').html("<%= escape_javascript render partial: 'checklist_execution_results', locals: { task: task } %>");
     <% end %>
   <% end %>
 <% end %>

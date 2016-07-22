@@ -39,7 +39,7 @@
           <%= render partial: 'checklist_status_display', locals: { product: product } %>
         </div>
         <div id = 'display_checklist_execution_results'>
-          <%= render partial: 'checklist_execution_results', locals: { execution: @product_test.tasks.c1_manual_task.most_recent_execution } %>
+          <%= render partial: 'checklist_execution_results', locals: { task: @product_test.tasks.c1_manual_task } %>
         </div>
       </div>
     </div>

@@ -168,5 +168,20 @@ Then(/^the user should see upload results for (.*) certifications$/) do |certifi
 end
 
 Then(/^the user should see (.*) for upload results$/) do |status|
-  assert page.find('#display_checklist_execution_results').assert_text status.capitalize
+  assert page.find('#display_checklist_execution_results').assert_text task_status_to_execution_status_message(status)
+end
+
+def task_status_to_execution_status_message(task_status)
+  case task_status
+  when 'passing'
+    'Passed'
+  when 'failing'
+    'Failed'
+  when 'testing'
+    'In Progress'
+  when 'errored'
+    'Errored'
+  when 'incomplete'
+    'Not Started'
+  end
 end
