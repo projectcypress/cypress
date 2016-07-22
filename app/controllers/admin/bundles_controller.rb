@@ -16,24 +16,30 @@ module Admin
     end
 
     def set_default
-      Bundle.where(active: true).update_all(active: false)
-
-      @bundle.active = true
-      @bundle.save!
-      Settings[:default_bundle] = @bundle.version
-      sub_yml_setting('default_bundle', Settings[:default_bundle])
+      unless @bundle.active
+        Bundle.where(active: true).update_all(active: false)
+        @bundle.active = true
+        @bundle.save!
+        Bundle.find_by(id: @bundle.id).active = true
+        Settings[:default_bundle] = @bundle.version
+        sub_yml_setting('default_bundle', Settings[:default_bundle])
+      end
       redirect_to admin_path(anchor: 'bundles')
     end
 
     def create
       # save file to a temporary location
-      bundle_file = params['file']
-      FileUtils.mkdir_p(APP_CONFIG.bundle_file_path)
-      file_name = generate_file_path
-      file_path = File.join(APP_CONFIG.bundle_file_path, file_name)
-      FileUtils.mv(temp_file_path, file_path)
-      BundleUploadJob.perform_later(file_path, bundle_file.original_filename)
-      redirect_to admin_path(anchor: 'bundles')
+      if params['file']
+        bundle_file = params['file']
+        FileUtils.mkdir_p(APP_CONFIG.bundle_file_path)
+        file_name = generate_file_path
+        file_path = File.join(APP_CONFIG.bundle_file_path, file_name)
+        FileUtils.mv(temp_file_path, file_path)
+        BundleUploadJob.perform_later(file_path, bundle_file.original_filename)
+        redirect_to admin_path(anchor: 'bundles')
+      else
+        redirect_to new_admin_bundle_path
+      end
     end
 
     def destroy
