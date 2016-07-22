@@ -107,7 +107,12 @@
   {
     "type": "chef-solo",
     "cookbook_paths": ["cookbooks"],
-    "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::install_cvu]" ]
+    "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::install_cvu]" ],
+    "json": {
+      "cypress": {
+          "generate_secrets_on_restart": true
+      }
+    }
   },
   {
     "type": "shell",
