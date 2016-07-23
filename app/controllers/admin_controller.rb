@@ -19,6 +19,6 @@ class AdminController < ApplicationController
   private
 
   def require_admin
-    raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.has_role? :admin
+    raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.user_role? :admin
   end
 end

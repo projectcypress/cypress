@@ -23,7 +23,7 @@ class Vendor
   def self.accessible_by(user)
     # if admin or atl or ignore_roles get them all
     # else get all vendors that the user is a owner or vendor on
-    if user.has_role?(:admin) || user.has_role?(:atl) || Settings[:ignore_roles]
+    if user.user_role?(:admin) || user.user_role?(:atl)
       Vendor.all
     else
       vids = []

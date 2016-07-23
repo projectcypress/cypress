@@ -48,7 +48,7 @@
             <%= current_user.email.truncate(20) %>
             <% end %>
           </li>
-          <% if current_user.has_role? :admin %>
+          <% if current_user.user_role? :admin%>
             <li <% if curr_page == :admin %>class="active"<% end %>>
               <%= link_to admin_path, class: 'navbar-item'   do %>
               <i class="fa fa-fw fa-gears" aria-hidden="true"></i>
