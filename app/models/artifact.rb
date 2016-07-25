@@ -71,9 +71,11 @@ class Artifact
   #
   def get_archived_file(name)
     data = nil
+    encoding = name.encoding
     Zip::ZipFile.open(file.path) do |zipfile|
-      data = zipfile.read(name)
+      data = zipfile.read(name.force_encoding('ASCII-8BIT'))
     end
+    name.force_encoding(encoding)
     data
   end
 
