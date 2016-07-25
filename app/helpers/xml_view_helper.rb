@@ -63,7 +63,7 @@ module XmlViewHelper
   end
 
   def get_file(artifact, file_name)
-    artifact.content_type == 'text/xml' ? data_to_doc(artifact.get_file(file_name)) : data_to_doc(artifact.get_archived_file(file_name))
+    data_to_doc(artifact.get_file(file_name))
   end
 
   # used for errors popup in node partial
