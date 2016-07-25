@@ -48,7 +48,7 @@ module ApplicationHelper
     row_values[2] = hash['C2']['QRDA Category III'][status] if hash.key?('C2')
 
     if hash.key?('C3')
-      row_values[3] = hash['C3']['Manual'][status]
+      row_values[3] = hash['C3']['Manual'][status] if hash.key?('C1') # C3 only has manual tests if C1
       row_values[4] = hash['C3']['QRDA Category I'][status]
       row_values[5] = hash['C3']['QRDA Category III'][status]
     end

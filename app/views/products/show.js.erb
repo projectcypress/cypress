@@ -1,7 +1,4 @@
 
-<% # should use below to reload product status table %>
-// $('#product_status_cells_wrapper').html("<%#= escape_javascript render partial: 'products_status_cells', locals: { product: @product } %>");
-
 <% if params[:partial] == 'bulk_download' %>
   <% if @product.product_tests.measure_tests.where(:state.nin => [:ready]).count > 0 %>
     <% # wait 2 seconds. then reload the page %>

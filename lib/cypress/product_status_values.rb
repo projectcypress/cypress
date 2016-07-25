@@ -2,7 +2,7 @@ module Cypress
   module ProductStatusValues
     def c1_status_values(product)
       h = {}
-      h['Manual'] = Hash[%w(passing failing errored not_started total).zip(manual_status_valss(product.product_tests.checklist_tests.first, 'C1'))]
+      h['Manual'] = Hash[%w(passing failing errored not_started total).zip(manual_status_vals(product.product_tests.checklist_tests.first, 'C1'))]
       if h['Manual']['total'] == 0
         default_number = CAT1_CONFIG['number_of_checklist_measures']
         h['Manual']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
