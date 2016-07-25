@@ -15,7 +15,7 @@ class ProductTest
   belongs_to :product, index: true, touch: true
   has_many :tasks, :dependent => :destroy
 
-  has_many :records, :foreign_key => :test_id
+  has_many :records, :dependent => :destroy, :foreign_key => :test_id
 
   field :expected_results, type: Hash
   # this the hqmf id of the measure
