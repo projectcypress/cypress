@@ -26,6 +26,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :checklist_tests, only: [:create, :show, :update, :destroy] do
+    member do
+      get 'measure/:measure_id', action: 'measure', as: 'measure'
+    end
+  end
+
   resources :product_tests, only: [:show] do
     member do
       get :patients

@@ -117,6 +117,15 @@ def wait_for_all_delayed_jobs_to_run
   end
 end
 
+When(/^the user visits the individual measure checklist page for measure (.*)$/) do |measure_number|
+  measure = nth_measure(measure_number)
+  visit measure_checklist_test_path(@test, measure)
+end
+
+def nth_measure(measure_number)
+  @test.measures.sort { |x, y| x.created_at <=> y.created_at }[measure_number.to_i - 1]
+end
+
 # # # # # # # #
 #   T H E N   #
 # # # # # # # #
@@ -184,4 +193,11 @@ def task_status_to_execution_status_message(task_status)
   when 'incomplete'
     'Not Started'
   end
+end
+
+Then(/^the user should see the individual measure checklist page for measure (.*)$/) do |measure_number|
+  measure = nth_measure(measure_number)
+  page.assert_text(measure.cms_id)
+  page.assert_text(measure.name)
+  page.assert_text 'Return to Manual Entry Test'
 end

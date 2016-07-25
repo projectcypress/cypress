@@ -80,3 +80,9 @@ Scenario: Upload Cat I with QRDA Error on C3 Manual Task Execution but Valid Sou
   Then the user should see they are passing the manual entry test
   And the user should see upload results for c1, c3 certifications
   And the user should see failing for upload results
+
+Scenario: Viewing an Individual Measure for Checklist Test
+  When the user creates a product that certifies c1, c3 and visits the manual entry page
+  And the user fills out the manual entry with good data
+  And the user visits the individual measure checklist page for measure 1
+  Then the user should see the individual measure checklist page for measure 1

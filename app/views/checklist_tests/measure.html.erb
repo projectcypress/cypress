@@ -1,0 +1,25 @@
+<% product = @product_test.product %>
+
+<%= render partial: 'application/certification_bar', locals: { product: product, active_certs: [true, false, product.c3_test, false] } %>
+
+<br/>
+<%= link_to(product_checklist_test_path(@product, @product_test), class: 'btn btn-primary') do %>
+  <i class = 'fa fa-fw fa-angle-left' aria-hidden = 'true'></i>Return to Manual Entry Test
+<% end %>
+
+<div class = 'test-steps'>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h1 class="panel-title test-step">1<i class="fa fa-fw fa-bolt" aria-hidden="true"></i>Checklist Instructions</h1>
+    </div>
+    <%= render partial: 'checklist_instructions', locals: { instructions: APP_CONFIG['tests']['ChecklistTest']['instructions'] } %>
+  </div>
+</div>
+
+<div id='save_options'>
+  <% unless @product_test.status != 'passing' %>
+    <%= render :partial => 'alert', locals: { alert_type: 'warning', messages: 'Saving this checklist will overide previous results.', confirmation: 'Yes, let me save this checklist' } %>
+  <% end %>
+</div>
+
+<%= render partial: 'checklist_measure', locals: { product: @product_test.product, product_test: @product_test, measure: @measure } %>

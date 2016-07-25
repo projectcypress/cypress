@@ -1,8 +1,8 @@
 class ProductTestsController < ApplicationController
   include API::Controller
 
-  before_action :set_product, except: [:show, :patients]
-  before_action :set_product_test, only: [:show, :update, :destroy, :patients]
+  before_action :set_product, except: [:show, :patients, :measure]
+  before_action :set_product_test, only: [:show, :update, :destroy, :patients, :measure]
   before_action :authorize_vendor
 
   def index
