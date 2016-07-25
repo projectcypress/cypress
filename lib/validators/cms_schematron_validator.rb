@@ -26,6 +26,13 @@ module Validators
         end
       end
       if @validator
+        file_errors = doc.errors.select{|e| e.fatal?||e.error?}
+        if file_errors
+          file_errors.each do |error|
+            add_error error, :validator_type => :xml_validation, :file_name => @options[:file_name]
+          end
+          return
+        end
         errors = @validator.validate(doc, options)
         errors.each do |error|
           add_warning error.message,
