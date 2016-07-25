@@ -78,6 +78,11 @@ module TestExecutionsResultsHelper
     a.location <=> b.location
   end
 
+  def filename_slug(execution, file_name, use_selector = false)
+    selector = use_selector ? '#' : ''
+    "#{selector}#{execution.id}_#{file_name.parameterize}"
+  end
+
   private
 
   def currently_viewing_c1?(task)

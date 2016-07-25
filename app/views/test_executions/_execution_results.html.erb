@@ -55,7 +55,7 @@
       <ul>
         <% collected_errors.files.each do |file_name, error_result| %>
           <li>
-            <a href=<%= "##{execution.id}_#{file_name}" %>>
+            <a href="<%= filename_slug(execution, file_name, true) %>">
               <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
               <% if total_errors > 0 %>
                 <div class="file-name">
@@ -85,7 +85,8 @@
       </ul>
 
       <% collected_errors.files.each do |file_name, error_result| %>
-        <div id=<%= "#{execution.id}_#{file_name}" %>>
+        <% identifier = filename_slug(execution, file_name) %>
+        <div id="<%= identifier %>">
           <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
           <% if total_errors == 0 %>
             <p class="lead">
@@ -95,8 +96,6 @@
             <p class="lead">
               <%= "#{file_name} - #{total_errors} " + (passing ? "warnings" : "errors and warnings") %>
             </p>
-
-            <% identifier = "#{execution.id}_#{file_name}" %>
             <div class="xml-error-tabs">
               <ul>
                 <% error_result.each do |error_type, error_hash| %>
