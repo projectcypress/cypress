@@ -58,6 +58,34 @@
     font-weight: 700;
   }
 
+  // draws borders around each certification type
+  > thead > tr:nth-child(2) > th:nth-child(1),
+  > tbody > tr > td:nth-child(2),
+  > thead > tr:nth-child(2) > th:nth-child(3),
+  > tbody > tr > td:nth-child(4),
+  > thead > tr:nth-child(2) > th:nth-child(4),
+  > tbody > tr > td:nth-child(5),
+  > thead > tr:nth-child(2) > th:nth-child(7),
+  > tbody > tr > td:nth-child(8) {
+    border-left: 1px $gray-darker solid;
+  }
+
+  > thead > tr:nth-child(2) > th:nth-child(2),
+  > tbody > tr > td:nth-child(3),
+  > thead > tr:nth-child(2) > th:nth-child(3),
+  > tbody > tr > td:nth-child(4),
+  > thead > tr:nth-child(2) > th:nth-child(6),
+  > tbody > tr > td:nth-child(7),
+  > thead > tr:nth-child(2) > th:nth-child(8),
+  > tbody > tr > td:nth-child(9) {
+    border-right: 1px $gray-darker solid;
+  }
+
+  > tbody > tr:nth-last-child(2) > td {
+    border-bottom: 1px $gray-darker solid;
+  }
+
+  // reduces the visual appearance of certain parts of the table
   &.hide-c1 {
     // C1 is columns 2 and 3
     > thead > tr > th.c1-heading,
@@ -92,6 +120,10 @@
     > tbody > tr > td:nth-child(9) {
       @include hidden-cell();
     }
+  }
+
+  > thead > tr:nth-child(2) > th.hide-test {
+    @include hidden-header-cell();
   }
 }
 

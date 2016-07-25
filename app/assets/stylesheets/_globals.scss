@@ -12,7 +12,12 @@
 
 // Mixins
 @mixin hidden-cell() {
-  // we want to hide it visually, but it's ok to reveal to screen readers
-  visibility: hidden;
+  // we want visually reduce the appearance, but it's ok to reveal to screen readers
+  color: $gray-light;
   border: 0;
+}
+
+@mixin hidden-header-cell() {
+  color: $gray-light;
+  border-bottom: 0;
 }
