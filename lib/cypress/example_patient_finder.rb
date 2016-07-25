@@ -4,7 +4,9 @@ module Cypress
       measure = Measure.find_by name: measure.name
       populations = measure.continuous_variable ? %w(IPP MSRPOPL MSRPOPLEX OBSERV) : %w(IPP DENOM NUMER DENEX DENEXCEP)
       example_patient = example_patient_by_pop(measure, populations, populations[1])
-      !example_patient.nil? ? example_patient : example_patient_by_pop(measure, populations, 'IPP')
+      example_patient = !example_patient.nil? ? example_patient : example_patient_by_pop(measure, populations, 'IPP')
+      # if you still don't have a patient, find one from sub population a
+      !example_patient.nil? ? example_patient : example_patient_by_pop((Measure.find_by name: measure.name, sub_id: 'a'), populations, 'IPP')
     end
 
     def self.example_patient_by_pop(measure, populations, pop)
