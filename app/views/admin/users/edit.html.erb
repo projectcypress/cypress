@@ -7,8 +7,11 @@
     <div class="col-md-6">
       <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
       'data-parsley-required': '',
-      'data-parsley-type':"email",
+      'data-parsley-type': 'email',
       'data-parsley-trigger': 'blur' %>
+      <% if @user.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %></div>
+      <% end %>
 
 
       <div class="form_group">
