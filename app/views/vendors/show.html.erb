@@ -8,31 +8,10 @@
     <% end %>
   </p>
 <% else %>
-  <h1>Products</h1>
-  <table class="table styled-status-table">
-    <thead>
-      <tr>
-        <th scope="col">Product</th>
-        <% ['C1', 'C2', 'C3', 'C4'].each do |cert_type| %>
-          <th scope="col" class='products-certification text-center'>
-            <%= cert_type %>
-            <br><small><%= APP_CONFIG.certifications[cert_type]['subtitle'] %></small>
-          </th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <% @products.each do |product| %>
-        <tr>
-          <th scope="row" class="product-name">
-            <div class = "abbreviated-multiline">
-              <%= link_to product.name, vendor_product_path(@vendor, product) %>
-            </div>
-          </th>
-
-          <%= render partial: 'products_status_cells', locals: { product: product } %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <h1><%= @products.count %> Products</h1>
+  <div class="vendor-product-status">
+    <% @products.each do |product| %>
+      <%= render partial: 'product_status_table', locals: { show_product_link: true, product: product } %>
+    <% end %>
+  </div>
 <% end %>

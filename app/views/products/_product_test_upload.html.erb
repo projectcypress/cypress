@@ -3,14 +3,17 @@
 # local variables:
 #
 #   task
+#   label_class [optional]
 
 %>
+
+<% label_class ||= 'label-default' %>
 
 <% accept_type = displaying_cat1?(task) ? 'application/zip' : 'text/xml' %>
 <% unique_id = task.id # value unique to this form %>
 
 <%= form_for(TestExecution.new, html: { method: :post, multipart: true, id: "multi-upload-form-#{unique_id}", class: 'inline' }, :authenticity_token => true, remote: true, url: task_test_executions_path(task)) do |f| %>
-  <%= f.label :results, 'upload', class: 'inline label label-default pointer-on-hover', for: "multi-upload-field-#{unique_id}" do %>
+  <%= f.label :results, 'upload', class: "inline label #{label_class} pointer-on-hover", for: "multi-upload-field-#{unique_id}" do %>
      upload<%= f.file_field :results, class: 'hidden multi-upload-field', accept: accept_type, id: "multi-upload-field-#{unique_id}" %>
   <% end %>
   <%= f.submit 'my submit button', class: 'hidden multi-upload-submit', id: "multi-upload-submit-#{unique_id}" %>
@@ -21,4 +24,4 @@
   $('<%= "#multi-upload-field-#{unique_id}" %>').on('change', function(ev) {
     $('<%= "#multi-upload-submit-#{unique_id}" %>').click();
   });
-</script>
+</script> 

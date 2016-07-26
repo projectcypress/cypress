@@ -119,12 +119,12 @@
             <% if product_test.status != 'passing' %>
               <div class = 'panel-footer'>
                 <%= f.submit 'Save', class: 'btn btn-default' %>
-                <span class = 'small-indent'>This saves the entire checklist page</span>
+                <span class = 'small-indent'>This saves the entire Manual Entry Test page</span>
               </div>
             <% else %>
               <div class = 'panel-footer'>
                 <%= f.submit 'Save', class: 'btn btn-danger', disabled: true %>
-                <span class = 'small-indent'>This saves the entire checklist page, and will override previous results</span>
+                <span class = 'small-indent'>This saves the entire Manual Entry Test page, and will override previous results</span>
               </div>
             <% end %>
           </div>

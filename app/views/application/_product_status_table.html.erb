@@ -1,0 +1,63 @@
+<%#
+  local variable 'product' and 'show_product_link' boolean
+%>
+
+<% show_product_link ||= false %>
+<% product_status_values = get_product_status_values(product) %>
+
+<% not_certifying = '' %>
+<% not_certifying << 'hide-c1 ' unless product.c1_test %>
+<% not_certifying << 'hide-c2 ' unless product.c2_test %>
+<% not_certifying << 'hide-c3 ' unless product.c3_test %>
+<% not_certifying << 'hide-c4' unless product.c4_test %>
+
+<table class="table table-condensed table-product-status <%= not_certifying %>">
+  <thead>
+    <tr>
+      <% if show_product_link %>
+        <th scope="col" rowspan="2" class="product-name">
+          <%= link_to product.name, vendor_product_path(product.vendor, product) %>
+        </th>
+      <% else %>
+        <td rowspan="2"><span class="sr-only">Status</span></td>
+      <% end %>
+      <th scope="col" colspan="2" class="c1-heading">C1</th>
+      <th scope="col" class="c2-heading">C2</th>
+      <th scope="col" colspan="3" class="c3-heading">C3</th>
+      <th scope="col" colspan="2" class="c4-heading">C4</th>
+    </tr>
+    <tr>
+      <th scope="col" class="c1-heading">Manual</th>
+      <th scope="col" class="c1-heading <%= 'hide-test' unless product.c2_test %>">QRDA-I</th>
+      <th scope="col" class="c2-heading">QRDA-III</th>
+      <th scope="col" class="c3-heading <%= 'hide-test' unless product.c1_test %>">Manual</th>
+      <th scope="col" class="c3-heading <%= 'hide-test' unless product.c1_test and product.c2_test %>">QRDA-I</th>
+      <th scope="col" class="c3-heading <%= 'hide-test' unless product.c2_test %>">QRDA-III</th>
+      <th scope="col" class="c4-heading">QRDA-I</th>
+      <th scope="col" class="c4-heading">QRDA-III</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% %w(passing failing not_started errored).each do |status| %>
+      <% values = product_status_row(product_status_values, status) %>
+      <% total = values.inject(:+) %>
+      <% classes = status_to_css_classes(status) %>
+
+      <tr <%= 'hidden' if (status == 'errored' && total == 0) %>>
+        <th scope="row" class="test-status <%= classes['text'] %>">
+          <i aria-hidden="true" class="fa fa-fw <%= classes['icon'] %>"></i>
+          <span class="total_status_count"><%= total %></span>
+          <%= status.humanize %> Tests
+        </th>
+
+        <% values.each do |value| %>
+          <% if value > 0 %>
+            <td class="<%= classes['cell'] %> text-center"><%= value %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

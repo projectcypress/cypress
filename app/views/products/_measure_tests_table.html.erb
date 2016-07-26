@@ -1,56 +1,32 @@
 <%
 
-# local variable 'tests'
+# local variables
+#
+#   tasks (array of Task)
 
 %>
 
-<% c1_label = 'C1' %>
-<% c2_label = 'C2' %>
-<% c1_label += ' and C3' if @product.c3_test %>
-<% c2_label += ' and C3' if @product.c3_test %>
-<% c1_and_c2 = @product.c1_test && @product.c2_test %>
+<% return unless tasks.any? %>
 
-<table class = 'table' id = 'measure_tests_table'>
+<% product = tasks.first.product_test.product %>
+<% first_results_col_label = tasks.first._type == 'C1Task' ? 'C1 Results' : 'C2 Results' %>
+<% include_c3 = product.c3_test %>
+
+<table class = 'table table-hover measure_tests_table'>
   <thead>
-    <th scope="col" class = 'no-wrap pointer-on-hover'>
-      CMS ID
-    </th>
-    <% if c1_and_c2 %>
-      <th scope="col" class = 'col-sm-5 pointer-on-hover'>
-        Measure Name
-      </th>
-    <% else %>
-      <th scope="col" class = 'col-sm-5 pointer-on-hover'>
-        Measure Name
-      </th>
+    <th scope = 'col' class = 'col-sm-1 no-wrap pointer-on-hover'>CMS ID</th>
+    <th scope = 'col' class = 'col-sm-4 pointer-on-hover'>Measure Name</th>
+    <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'><%= first_results_col_label %></th>
+    <% if include_c3 %>
+      <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'>C3 Results</th>
     <% end %>
-    <% if @product.c1_test %>
-      <th scope="col" class = 'col-sm-2 no-wrap pointer-on-hover'>
-        <%= c1_label %>
-      </th>
-    <% end %>
-    <% if @product.c2_test %>
-      <th scope="col" class = 'col-sm-2 no-wrap pointer-on-hover'>
-        <%= c2_label %>
-      </th>
-    <% end %>
-    <th scope="col">
-      Last Updated
-    </th>
+    <th scope = 'col' class = 'col-sm-1'>Quick Upload</th>
+    <th scope = 'col' class = 'col-sm-1'>Last Updated</th>
   </thead>
   <tbody>
-    <% tests.each do |test| %>
-      <tr>
-        <td data-sort="<%= cms_int(test.cms_id) %>"><%= test.cms_id %></td>
-        <td><%= test.name%></td>
-        <% if @product.c1_test %>
-          <td id = "<%= id_for_html_wrapper_of_task(test.tasks.c1_task) %>" class="no-wrap" data-order="<%= set_sorting(test, test.cat1_status) %>"><%= render partial: '/products/product_test_link', locals: { test: test, task: test.tasks.c1_task } %></td>
-        <% end %>
-        <% if @product.c2_test %>
-          <td id = "<%= id_for_html_wrapper_of_task(test.tasks.c2_task) %>" class="no-wrap" data-order="<%= set_sorting(test, test.cat3_status) %>"><%= render partial: '/products/product_test_link', locals: { test: test, task: test.tasks.c2_task } %></td>
-        <% end %>
-        <td class="no-wrap" data-order="<%= test.updated_at %>"><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i>
-          <%= local_time_ago(test.updated_at) %></td>
+    <% tasks.each do |task| %>
+      <tr id = '<%= measure_tests_table_row_wrapper_id(task) %>'>
+        <%= render partial: 'measure_tests_table_row', locals: { task: task } %>
       </tr>
     <% end %>
   </tbody>

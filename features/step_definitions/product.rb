@@ -1,3 +1,4 @@
+include ProductsHelper
 
 # # # # # # # # # # #
 #   H E L P E R S   #
@@ -40,6 +41,7 @@ When(/^a user creates a product with (.*) certifications and visits that product
   page.click_button 'Add Product'
   product = Product.find_by(name: product_name)
   visit vendor_product_path(product.vendor, product)
+  @product = product
 end
 
 When(/^the user creates a product using appropriate information$/) do
@@ -202,18 +204,14 @@ When(/^all product tests do not have a state of ready$/) do
 end
 
 When(/^the user visits the product page$/) do
-  product = Product.find_by(name: 'Product 1')
+  product = @product
   visit vendor_product_path(product.vendor, product)
-end
-
-When(/^the user switches to the filtering test tab$/) do
-  page.click_link 'CQM Filtering Test'
 end
 
 When(/^the user adds a product test$/) do
   # measure to add
   measure_id = '40280381-43DB-D64C-0144-5571970A2685'
-  product = Product.find_by(name: 'Product 1')
+  product = @product
   product.measure_ids << measure_id
   product.save!
   product_test = product.product_tests.build({ name: "measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
@@ -223,7 +221,7 @@ When(/^the user adds a product test$/) do
 end
 
 And(/^filtering tests are added to product$/) do
-  product = Product.find_by(name: 'Product 1')
+  product = @product
   product.c4_test = true
   product.save!
   product.add_filtering_tests
@@ -238,7 +236,7 @@ And(/^the user uploads a cat I document to product test (.*)$/) do |product_test
 end
 
 And(/^the user adds cat I tasks to all product tests$/) do
-  product = Product.find_by(name: 'Product 1')
+  product = @product
   product.c1_test = true
   product.save!
   product.product_tests.measure_tests.each do |pt|
@@ -287,6 +285,22 @@ def give_all_test_executions_state(product_test, execution_state)
   end
 end
 
+When(/^the user switches to the manual entry tab$/) do
+  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'ChecklistTest')}\"]").click
+end
+
+When(/^the user switches to the c1 measure test tab$/) do
+  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', true)}\"]").click
+end
+
+When(/^the user switches to the c2 measure test tab$/) do
+  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', false)}\"]").click
+end
+
+When(/^the user switches to the filtering test tab$/) do
+  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'FilteringTest')}\"]").click
+end
+
 # product test number the number of product test (1 indexed) for upload in order of most recently created
 def td_div_id_for_cat1_task_for_product_test(product_test_number)
   "#wrapper-task-id-#{nth_measure_test(product_test_number).tasks.c1_task.id}"
@@ -298,7 +312,7 @@ end
 
 # one indexed. ex.) mesure_test_number == 1 is the first measure test created
 def nth_measure_test(measure_test_number)
-  Product.find_by(name: 'Product 1').product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[measure_test_number.to_i - 1]
+  @product.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[measure_test_number.to_i - 1]
 end
 
 def td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
@@ -310,7 +324,7 @@ def td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
 end
 
 def nth_filtering_test(filtering_test_number)
-  Product.find_by(name: 'Product 1').product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
+  @product.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
 end
 
 def attach_zip_to_multi_upload(html_id)
@@ -318,7 +332,7 @@ def attach_zip_to_multi_upload(html_id)
 
   # attach zip file to multi-upload field
   zip_path = File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip')
-  page.find(html_id).attach_file('test_execution[results]', zip_path, visible: false)
+  page.find(html_id, visible: false).attach_file('test_execution[results]', zip_path, visible: false)
 end
 
 def attach_xml_to_multi_upload(html_id)
@@ -326,7 +340,7 @@ def attach_xml_to_multi_upload(html_id)
 
   # attach zip file to multi-upload field
   xml_path = File.join(Rails.root, 'test/fixtures/product_tests/cms111v3_catiii.xml')
-  page.find(html_id).attach_file('test_execution[results]', xml_path, visible: false)
+  page.find(html_id, visible: false).attach_file('test_execution[results]', xml_path, visible: false)
 end
 
 # show input file upload html element. this is a known issue with capybara. capybara is unable to find inputs with surrounding <label> tags
@@ -402,10 +416,33 @@ end
 
 # V V V product tests tabs V V V #
 
-Then(/^the user should see the measure tests tab$/) do
-  page.assert_text 'Measure Tests'
-  find('#MeasureTest').assert_text 'Test the EHR system\'s ability to record and export (C1), import'
+Then(/^the user should see the the appropriate tabs$/) do
+  if @product.c1_test
+    title, description, html_id = title_description_and_html_id_for(@product, 'ChecklistTest')
+    assert_tab_and_content_exist(title, description, html_id)
+  end
+  if @product.c2_test
+    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', true)
+    assert_tab_and_content_exist(title, description, html_id) if @product.c1_test
+    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', false)
+    assert_tab_and_content_exist(title, description, html_id)
+  end
+  if @product.c4_test
+    title, description, html_id = title_description_and_html_id_for(@product, 'FilteringTest')
+    # byebug
+    assert_tab_and_content_exist(title, description, html_id)
+  end
 end
+
+def assert_tab_and_content_exist(title, description, html_id)
+  page.click_link title
+  find("##{html_id}").assert_text description
+end
+
+# Then(/^the user should see the measure tests tab$/) do
+#   page.assert_text 'Measure Tests'
+#   find(html_id_for_tab(@product, 'MeasureTest', true)).assert_text 'Test the EHR system\'s ability to record and export (C1), import'
+# end
 
 Then(/^the user should not see the measure tests tab$/) do
   page.assert_no_text 'Measure Tests'
@@ -449,27 +486,45 @@ Then(/^the user should not be able to download the report$/) do
 end
 
 Then(/^the user should see a cat I test (.*) for product test (.*)$/) do |task_status, product_test_number|
-  html_id = td_div_id_for_cat1_task_for_product_test(product_test_number)
-  html_elem = page.find(html_id)
-  html_elem.assert_text task_status_to_task_link_text(task_status)
+  html_id_for_measure_test_table_row = "##{measure_tests_table_row_wrapper_id(nth_measure_test(product_test_number).tasks.c1_task)}"
+
+  # html_id = td_div_id_for_cat1_task_for_product_test(product_test_number)
+  measure_table_row_element = page.find(html_id_for_measure_test_table_row, visible: false)
+  # byebug
+  measure_table_row_element.assert_text task_status_to_execution_status_message(task_status)
 end
 
 Then(/^the user should see a cat III test (.*) for product test (.*)$/) do |task_status, product_test_number|
   html_id = td_div_id_for_cat3_task_for_product_test(product_test_number)
-  html_elem = page.find(html_id)
+  html_elem = page.find(html_id, visible: false)
   html_elem.assert_text task_status_to_task_link_text(task_status)
 end
 
 Then(/^the user should see a cat I test (.*) for filtering test (.*)$/) do |task_status, filtering_test_number|
   html_id = td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
-  html_elem = page.find(html_id)
+  html_elem = page.find(html_id, visible: false)
   html_elem.assert_text task_status_to_task_link_text(task_status)
 end
 
 Then(/^the user should see a cat III test (.*) for filtering test (.*)$/) do |task_status, filtering_test_number|
   html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
-  html_elem = page.find(html_id)
+  html_elem = page.find(html_id, visible: false)
   html_elem.assert_text task_status_to_task_link_text(task_status)
+end
+
+def task_status_to_execution_status_message(task_status)
+  case task_status
+  when 'passing'
+    'Passed'
+  when 'failing'
+    'Failed'
+  when 'testing'
+    'In Progress'
+  when 'errored'
+    'Errored'
+  when 'incomplete'
+    'Not Started'
+  end
 end
 
 # task status should be one of 'testing', 'passing', 'failing'

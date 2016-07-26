@@ -9,3 +9,15 @@
   background-color: $brand-primary-highlight;
   height: 6px;
 }
+
+// Mixins
+@mixin hidden-cell() {
+  // we want visually reduce the appearance, but it's ok to reveal to screen readers
+  color: $gray-light;
+  border: 0;
+}
+
+@mixin hidden-header-cell() {
+  color: $gray-light;
+  border-bottom: 0;
+}

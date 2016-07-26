@@ -1,31 +1,11 @@
 <%= render partial: 'header_product', locals: { product: @product } %>
 <div class="row">
 
-  <div class = 'col-sm-8'>
-    <div class = 'panel panel-default'>
-      <div class = 'panel-heading'><h1 class = 'panel-title'>Product Status</h1></div>
-      <div class = 'panel-body'>
-
-        <table class="table styled-status-table">
-          <thead>
-            <tr>
-              <% ['C1', 'C2', 'C3', 'C4'].each do |cert_type| %>
-                <th scope="col" class='products-certification text-center'>
-                  <%= cert_type %>
-                  <br><small><%= APP_CONFIG.certifications[cert_type]['subtitle'] %></small>
-                </th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><%= render partial: 'products_status_cells', locals: { product: @product } %></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <div class = 'col-md-8'>
+    <%= render partial: 'product_status_table', locals: { product: @product } %>
   </div>
 
-  <div class = 'col-sm-4'>
+  <div class = 'col-md-4'>
     <% unless @product.product_tests.empty? %>
       <div class = 'panel panel-default'>
         <div class = 'panel-heading'>
@@ -37,51 +17,41 @@
       </div>
     <% end %>
   </div>
-
 </div>
-
 
 <div class="product-test-tabs">
   <ul>
-    <% APP_CONFIG.tests.each do |test_type, test_info| %>
-      <% if should_show_product_tests_tab?(@product, test_type) %>
-        <li><a href="#<%= "#{test_type}" %>"><%= "#{test_info['title']}" %></a></li>
-      <% end %>
+    <% each_tab(@product) do |test_type, title, _, html_id| %>
+      <li><a href = '<%= "##{html_id}" %>'><%= title %></a></li>
     <% end %>
   </ul>
 
-  <% APP_CONFIG.tests.each do |test_type, test_info| %>
-    <% if should_show_product_tests_tab?(@product, test_type) %>
-      <div id="<%= test_type %>">
-        <p class = 'lead'><%= "#{test_info['description']} #{perform_c3_certification_during_measure_test_message(@product, test_type)}" %></p>
+  <% each_tab(@product) do |test_type, title, description, html_id| %>
+    <div id = '<%= html_id %>'>
+      <p class = 'lead'><%= description %></p>
 
-        <% if test_type == 'ChecklistTest' %>
-          <% if @product.product_tests.checklist_tests.exists? %>
-            <% checklist_test = @product.product_tests.checklist_tests.first %>
-            <h1>
-              Test Status
-              <div class = 'inline-block pull-right'><%= button_to 'View Test', product_checklist_test_path(@product, checklist_test), class: 'btn btn-primary', method: :get %></div>
-            </h1>
-            <%= render partial: 'checklist_status_display', locals: { product: @product } %>
-            <div id = 'display_checklist_execution_results'>
-              <%= render partial: 'checklist_execution_results', locals: { execution: @product.product_tests.checklist_tests.first.tasks.c1_manual_task.most_recent_execution } %>
-            </div>
-          <% else %>
-            <div class = 'inline-block'><%= button_to 'Start Test', product_checklist_tests_path(@product), class: 'btn btn-primary', method: :post %></div>
-            <span>This test does not need to completed all at once. You can always come back once the test is started.</span>
-          <% end %>
+      <% # Manual Entry Tab %>
+      <% if test_type == 'ChecklistTest' %>
+        <%= render partial: 'checklist_status_display', locals: { product: @product } %>
+        <div id = 'display_checklist_execution_results'>
+          <%= render partial: 'checklist_execution_results', locals: { task: @product.product_tests.checklist_tests.first.tasks.c1_manual_task } %>
+        </div>
+      <% end %>
 
-        <% elsif test_type == 'FilteringTest' %>
-          <div id="display_filtering_test_status_display">
-            <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } if @product.product_tests.filtering_tests.exists? %>
-          </div>
+      <% # Measure Test Tabs (both C1 or C2 tabs) %>
+      <% if test_type == 'MeasureTest' %>
+        <div id="display_measure_tests_table">
+          <%= render partial: 'measure_tests_table', locals: { tasks: measure_test_tasks(@product, title.include?('C1')) } %>
+        </div>
+      <% end %>
 
-        <% else %>
-          <div id="display_measure_tests_table">
-            <%= render partial: 'measure_tests_table', locals: { tests: @product.product_tests.measure_tests } %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+      <% # Filtering Test Tab %>
+      <% if test_type == 'FilteringTest' %>
+        <div id="display_filtering_test_status_display">
+          <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } %>
+        </div>
+      <% end %>
+
+    </div>
   <% end %>
 </div>

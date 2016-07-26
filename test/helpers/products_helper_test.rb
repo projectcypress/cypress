@@ -164,6 +164,48 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal true, should_reload_product_test_link?(tasks)
   end
 
+  def setup_product_test_and_task_for_should_reload_measure_test_row_test
+    measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
+    vendor = Vendor.create!(name: "my vendor #{rand}")
+    product = vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001', c1_test: true)
+    product_test = product.product_tests.create!(:state => :pending, :name => "my product test #{rand}", :measure_ids => measure_ids)
+    task = product_test.tasks.create!
+    [product_test, task]
+  end
+
+  def test_should_reload_measure_test_row
+    product_test, task = setup_product_test_and_task_for_should_reload_measure_test_row_test
+
+    # product test with :pending state should need reloading
+    assert_equal true, should_reload_measure_test_row?(task)
+
+    # product test with :ready state should not need reloading
+    product_test.state = :ready
+    product_test.save!
+    assert_equal false, should_reload_measure_test_row?(task)
+
+    # if task has a pending most recent execution then needs reloading
+    execution = task.test_executions.create!(:state => :pending)
+    assert_equal true, should_reload_measure_test_row?(task)
+
+    # if task has a passing most recent execution then does not need reloading
+    execution.state = :passed
+    execution.save!
+    assert_equal false, should_reload_measure_test_row?(task)
+
+    # if execution has a sibling execution that is pending then needs reloading
+    sibling_task = product_test.tasks.create!
+    sibling_execution = sibling_task.test_executions.create!(:sibling_execution_id => execution.id, :state => :pending)
+    execution.sibling_execution_id = sibling_execution.id
+    execution.save!
+    assert_equal true, should_reload_measure_test_row?(task)
+
+    # if both executions are finished then does not need reloading
+    sibling_execution.state = :failed
+    sibling_execution.save!
+    assert_equal false, should_reload_measure_test_row?(task)
+  end
+
   def test_tasks_status
     assert_equal 'passing', tasks_status(build_tasks_with_test_execution_states([:passed]))
     assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:failed]))
@@ -209,5 +251,150 @@ class ProductsHelperTest < ActiveJob::TestCase
     pt.tasks.each(&:save!)
     assert_equal [c1_task, c3_cat1_task], with_c3_task(c1_task)
     assert_equal [c2_task, c3_cat3_task], with_c3_task(c2_task)
+  end
+
+  def test_each_tab_c1_only
+    make_product_certify(@product, true, false, false, false)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+
+    assert_equal 1, test_types.count, 'should only have a manual entry tab'
+    assert_equal 'C1 Manual', titles[0]
+  end
+
+  def test_each_tab_c1_c2
+    make_product_certify(@product, true, true, false, false)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+
+    assert_equal 3, test_types.count, 'should have manual entry, c1 measure, and c2 measure tabs'
+    assert_equal 'C1 Manual', titles[0]
+    assert_equal 'C1 (QRDA-I)', titles[1]
+    assert_equal 'C2 (QRDA-III)', titles[2]
+  end
+
+  def test_each_tab_c1_c3
+    make_product_certify(@product, true, false, true, false)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+
+    assert_equal 1, test_types.count, 'should only have manual entry tab'
+    assert_equal 'C1 + C3 Manual', titles[0]
+  end
+
+  def test_each_tab_c1_c4
+    make_product_certify(@product, true, false, false, true)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+
+    assert_equal 2, test_types.count, 'should have manual entry tab and filtering test tab'
+    assert_equal 'C1 Manual', titles[0]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
+  end
+
+  def test_each_tab_c1_c3_c4
+    make_product_certify(@product, true, false, true, true)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+
+    assert_equal 2, test_types.count, 'should have manual entry tab and filtering test tab'
+    assert_equal 'C1 + C3 Manual', titles[0]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
+  end
+
+  def test_each_tab_c1_c2_c3
+    make_product_certify(@product, true, true, true, false)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+    assert_equal 3, test_types.count, 'should have manual entry, c1 measure, and c2 measure tabs'
+    assert_equal 'C1 + C3 Manual', titles[0]
+    assert_equal 'C1 + C3 (QRDA-I)', titles[1]
+    assert_equal 'C2 + C3 (QRDA-III)', titles[2]
+  end
+
+  def test_each_tab_c1_c2_c4
+    make_product_certify(@product, true, true, false, true)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+    assert_equal 4, test_types.count, 'should have manual entry, c1 measure, c2 measure, and c4 filtering tabs'
+    assert_equal 'C1 Manual', titles[0]
+    assert_equal 'C1 (QRDA-I)', titles[1]
+    assert_equal 'C2 (QRDA-III)', titles[2]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[3]
+  end
+
+  def test_each_tab_c1_c2_c3_c4
+    make_product_certify(@product, true, true, true, true)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+    assert_equal 4, test_types.count, 'should have manual entry, c1 measure, c2 measure, and c4 filtering tabs'
+    assert_equal 'C1 + C3 Manual', titles[0]
+    assert_equal 'C1 + C3 (QRDA-I)', titles[1]
+    assert_equal 'C2 + C3 (QRDA-III)', titles[2]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[3]
+  end
+
+  def test_each_tab_c2_only
+    make_product_certify(@product, false, true, false, false)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+
+    assert_equal 1, test_types.count, 'should only have a c2 measure tab'
+    assert_equal 'C2 (QRDA-III)', titles[0]
+  end
+
+  def test_each_tab_c2_c3
+    make_product_certify(@product, false, true, true, false)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+    assert_equal 1, test_types.count, 'should only have c2 measure tab'
+    assert_equal 'C2 + C3 (QRDA-III)', titles[0]
+  end
+
+  def test_each_tab_c2_c4
+    make_product_certify(@product, false, true, false, true)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+    assert_equal 2, test_types.count, 'should have c2 measure and c4 filtering tabs'
+    assert_equal 'C2 (QRDA-III)', titles[0]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
+  end
+
+  def test_each_tab_c2_c3_c4
+    make_product_certify(@product, false, true, true, true)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+    assert_equal 2, test_types.count, 'should have c2 measure and c4 filtering tabs'
+    assert_equal 'C2 + C3 (QRDA-III)', titles[0]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
+  end
+
+  def get_test_types_titles_and_descriptions(product)
+    test_types = []
+    titles = []
+    descriptions = []
+    each_tab(product) do |test_type, title|
+      test_types << test_type
+      titles << title
+      descriptions << descriptions
+    end
+    [test_types, titles, descriptions]
+  end
+
+  def make_product_certify(product, c1 = false, c2 = false, c3 = false, c4 = false)
+    product.c1_test = c1
+    product.c2_test = c2
+    product.c3_test = c3
+    product.c4_test = c4
+    product.save!
+    product.product_tests.checklist_tests.each(&:destroy) unless c1
+    product.product_tests.measure_tests.each(&:destroy) unless c2
+    product.product_tests.filtering_tests.each(&:destroy) unless c4
+  end
+
+  def test_title_for
+    assert_equal 'C1 Manual', title_for(Product.new(c1: true), 'ChecklistTest')
+    assert_equal 'C1 + C3 Manual', title_for(Product.new(c1_test: true, c3_test: true), 'ChecklistTest')
+
+    assert_equal 'C1 (QRDA-I)', title_for(Product.new(c1_test: true), 'MeasureTest', true)
+    assert_equal 'C1 + C3 (QRDA-I)', title_for(Product.new(c1_test: true, c3_test: true), 'MeasureTest', true)
+
+    assert_equal 'C2 (QRDA-III)', title_for(Product.new(c2_test: true), 'MeasureTest', false)
+    assert_equal 'C2 + C3 (QRDA-III)', title_for(Product.new(c2_test: true, c3_test: true), 'MeasureTest', false)
+
+    assert_equal 'C4 (QRDA-I and QRDA-III)', title_for(Product.new(c4_test: true), 'FilteringTest')
+  end
+
+  def test_measure_test_tasks
+    assert measure_test_tasks(@product, true).all? { |task| task._type == 'C1Task' }
+    assert measure_test_tasks(@product, false).all? { |task| task._type == 'C2Task' }
   end
 end

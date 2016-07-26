@@ -1,0 +1,37 @@
+<%
+
+# local variables
+#
+#   task  (Task)        for MeasureTest: should be C1Task or C2Task. should NOT be C3Cat1Task or C3Cat3Task since c3 test executions are executed
+
+%>
+
+<% test = task.product_test %>
+<% tasks = with_c3_task(task) %>
+
+<% if test.state != :ready %>
+  <% if test.state == :queued %>
+    <i class="fa fa-fw fa-circle text-muted" aria-hidden="true"></i>
+    <span class="label label-default">queued</span>
+  <% else test.state == :building %>
+    <i class="fa fa-fw fa-cog fa-spin" aria-hidden="true"></i>
+    <span class="label label-default">building</span>
+  <% end %>
+<% else %>
+  <% case tasks_status(tasks) %>
+  <% when 'passing' || 'failing' || 'errored' %>
+    <i class = 'fa fa-fw fa-gavel invisible' aria-hidden = 'true'></i>
+    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'label-info' } %>
+  <% when 'incomplete' %>
+    <% if should_reload_measure_test_row?(task) %>
+      <i class = 'fa fa-fw fa-gavel fa-spin text-testing' aria-hidden = 'true'></i>
+      <span class = 'label label-default'>testing...</span>
+    <% else %>
+      <i class = 'fa fa-fw fa-gavel invisible' aria-hidden = 'true'></i>
+      <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'label-info' } %>
+    <% end %>
+  <% else %>
+    <i class = 'fa fa-fw fa-gavel invisible' aria-hidden = 'true'></i>
+    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'label-info' } %>
+  <% end %>
+<% end %>

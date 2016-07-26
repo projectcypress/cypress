@@ -26,6 +26,9 @@ Metrics/AbcSize:
   Max: 32
   Exclude:
     - 'test/**/*.rb'
+Metrics/ModuleLength:
+  Exclude:
+    - 'app/helpers/products_helper.rb'
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 10

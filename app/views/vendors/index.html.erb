@@ -11,28 +11,43 @@
   <% end %>
 
   <h1>All Vendors</h1>
-  <table class="table styled-status-table">
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">Vendor</th>
-
-        <% %w(passing failing errored incomplete total\ products).each do |status| %>
-          <th scope="col" class = "vendor-status text-center"><%= status.titleize %></th>
-        <% end %>
-
+        <th scope="col">Products</th>
+        <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-check text-success"></i> Passing</th>
+        <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-times text-danger"></i> Failing</th>
+        <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-exclamation text-warning"></i> Errored</th>
+        <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-circle-o text-info"></i> Incomplete</th>
         <th scope="col"><span class="sr-only">Actions</span></th>
       </tr>
     </thead>
     <tbody>
       <% @vendors.each do |vendor| %>
+        <% vendor_statuses = vendor_statuses(vendor) %>
         <tr>
           <th scope="row"><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></th>
+          <td>
+            <% if vendor.products.count == 0 %>
+              <%= button_to new_vendor_product_path(vendor), :method => :get, :class => "btn btn-primary btn-sm" do %>
+                <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Product
+              <% end %>
+            <% else %>
+              <%= vendor.products.count %>
+            <% end %>
+          </td>
 
-          <% vendor_hash = vendor_statuses(vendor) %>
-          <% %w(passing failing errored incomplete total).each do |status| %>
-            <%= render partial: 'status_cells', locals: { status_hash: vendor_hash, status: status } %>
+          <% %w(passing failing errored incomplete).each do |status| %>
+            <% if vendor_statuses[status] > 0 %>
+              <% classes = status_to_css_classes(status) %>
+              <td class="<%= classes['cell'] %> text-center">
+                <%= vendor_statuses[status] %>
+              </td>
+            <% else %>
+              <td></td>
+            <% end %>
           <% end %>
-
           <td class="text-right">
             <%= button_to edit_vendor_path(vendor), :method => :get, :class => "btn btn-sm btn-default" do %>
               <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Vendor

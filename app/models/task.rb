@@ -95,8 +95,8 @@ class Task
   end
 
   # returns the most recent execution for this task
-  # if there are none, returns false
+  # if there are none, returns nil
   def most_recent_execution
-    test_executions.any? ? test_executions.order_by(created_at: 'desc').first : false
+    test_executions.any? ? test_executions.order_by(created_at: 'desc').first : nil
   end
 end
