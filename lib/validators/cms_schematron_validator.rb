@@ -7,7 +7,7 @@ module Validators
     @bundle_version = APP_CONFIG.default_bundle
 
     def initialize(schematron_file, name, bundle_version = APP_CONFIG.default_bundle)
-      @validator = Schematron::Validator.new(name, schematron_file) if File.exists?(schematron_file)
+      @validator = Schematron::Validator.new(name, schematron_file) if File.exist?(schematron_file)
       @bundle_version = bundle_version
     end
 
@@ -15,6 +15,7 @@ module Validators
       ApplicationController.helpers.config_for_version(bundle_version).schematron
     end
 
+    # rubocop:disable Metrics/MethodLength
     def validate(file, options = {})
       @options = options
       doc = get_document(file)
@@ -26,12 +27,11 @@ module Validators
         end
       end
       if @validator
-        file_errors = doc.errors.select{|e| e.fatal?||e.error?}
+        file_errors = doc.errors.select { |e| e.fatal? || e.error? }
         if file_errors
           file_errors.each do |error|
             add_error error, :validator_type => :xml_validation, :file_name => @options[:file_name]
           end
-          return
         end
         errors = @validator.validate(doc, options)
         errors.each do |error|
