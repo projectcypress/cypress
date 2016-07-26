@@ -44,22 +44,28 @@ module XmlViewHelper
     # gonna return all the errors for this execution, structured in a reasonable way.
     collected_errors = { nonfile: get_nonfile_errors(execution), files: {} }
     execution.artifact.file_names.each do |this_name|
-      file_error_hash = {}
       all_errs = execution.execution_errors.by_file(this_name.force_encoding('UTF-8'))
       related_errs = execution.sibling_execution ? execution.sibling_execution.execution_errors.by_file(this_name) : [] # c3
       next unless (all_errs.count + related_errs.count) > 0
       doc = get_file(execution.artifact, this_name)
-      file_error_hash['QRDA'] = error_hash(doc, all_errs.qrda_errors)
-      file_error_hash['Reporting'] = error_hash(doc, all_errs.reporting_errors)
-      file_error_hash['Submission'] = related_errs.count > 0 ? error_hash(doc, related_errs.only_errors) : { execution_errors: [] }
-      file_error_hash['Warnings'] = related_errs.count > 0 ? error_hash(doc, related_errs.only_warnings) : { execution_errors: [] }
-      collected_errors[:files][this_name] = file_error_hash
+      collected_errors[:files][this_name] = create_file_error_hash(doc, all_errs, related_errs)
     end
     collected_errors
+  rescue => e
+    { nonfile: [], files: {}, exception: e }
   end
 
   def get_file(artifact, file_name)
     data_to_doc(artifact.get_file(file_name))
+  end
+
+  def create_file_error_hash(doc, all_errs, related_errs)
+    file_error_hash = {}
+    file_error_hash['QRDA'] = error_hash(doc, all_errs.qrda_errors)
+    file_error_hash['Reporting'] = error_hash(doc, all_errs.reporting_errors)
+    file_error_hash['Submission'] = related_errs.count > 0 ? error_hash(doc, related_errs.only_errors) : { execution_errors: [] }
+    file_error_hash['Warnings'] = related_errs.count > 0 ? error_hash(doc, related_errs.only_warnings) : { execution_errors: [] }
+    file_error_hash
   end
 
   # used for errors popup in node partial
