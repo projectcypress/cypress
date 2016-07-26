@@ -68,17 +68,11 @@ class ApplicationController < ActionController::Base
       Rails.cache.delete('any_installed_bundle')
 
       bundle_references = APP_CONFIG['references']['bundles']
-      prev_bundle = bundle_references['previous']
-      curr_bundle = bundle_references['current']
       install_instr = APP_CONFIG['references']['install_guide']
 
-      prev_bundle_link = view_context.link_to prev_bundle['title'], prev_bundle['url']
-      curr_bundle_link = view_context.link_to curr_bundle['title'], curr_bundle['url']
       install_instr_link = view_context.link_to install_instr['title'], install_instr['url']
-
       alert = "There are no bundles currently available.
-               To use Cypress, please download and import either the #{prev_bundle_link} or the #{curr_bundle_link}.
-                For more information, see the #{install_instr_link}."
+               Please follow the #{install_instr_link} to get started."
 
       flash[:alert] = alert.html_safe
     end
