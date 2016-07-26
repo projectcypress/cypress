@@ -32,7 +32,10 @@
 
       <% # Manual Entry Tab %>
       <% if test_type == 'ChecklistTest' %>
-        <%= render partial: 'checklist_status_display', locals: { product: @product } %>
+        <% checklist_test = @product.product_tests.checklist_tests.first %>
+        <%= button_to 'View Manual Entry', product_checklist_test_path(@product, checklist_test), class: 'btn btn-primary', method: :get %><p></p>
+        <% has_many_measures = checklist_test.measures.count > CAT1_CONFIG['number_of_checklist_measures'] %>
+        <%= render partial: 'checklist_status_display', locals: { product: @product, has_many_measures: has_many_measures } %>
         <div id = 'display_checklist_execution_results'>
           <%= render partial: 'checklist_execution_results', locals: { task: @product.product_tests.checklist_tests.first.tasks.c1_manual_task } %>
         </div>

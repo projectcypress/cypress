@@ -17,7 +17,7 @@ module Admin
       @user = User.find(params[:id])
       @user.roles = []
       @user.add_role params[:role]
-      @user.email = params[:user][:email] if params[:user][:email]
+      @user.email = params[:user][:email] if params[:user] && params[:user][:email]
       assignments = params[:assignments].values if params[:assignments]
       (assignments || []).each do |ass|
         @user.add_role(ass[:role], Vendor.find(ass[:vendor_id]))

@@ -2,6 +2,7 @@ class ChecklistTestsController < ProductTestsController
   include HealthDataStandards::Export::Helper::ScoopedViewHelper
 
   before_action :set_measures, only: [:show]
+  before_action :set_measure, only: [:measure]
   respond_to :js, only: [:show]
 
   def create
@@ -39,6 +40,12 @@ class ChecklistTestsController < ProductTestsController
     end
   end
 
+  def measure
+    @product = @product_test.product
+    set_breadcrumbs
+    add_breadcrumb "Measure: #{@measure.cms_id}", measure_checklist_test_path(@product_test, @measure)
+  end
+
   def print_criteria
     criteria_list = render_to_string layout: 'report'
     zip = Cypress::CreateDownloadZip.create_c1_criteria_zip(@product.product_tests.checklist_tests.first, criteria_list).read
@@ -56,6 +63,10 @@ class ChecklistTestsController < ProductTestsController
 
   def set_measures
     @measures = @product_test.measures.sort_by(&:cms_int)
+  end
+
+  def set_measure
+    @measure = Measure.find_by(_id: params[:measure_id])
   end
 
   def checklist_test_params

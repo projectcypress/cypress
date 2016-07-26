@@ -1,4 +1,6 @@
 <% product = @product %>
+<% has_many_measures = @product_test.measures.count > CAT1_CONFIG['number_of_checklist_measures'] %>
+
 <%= render partial: 'application/certification_bar', locals: { product: product, active_certs: [true, false, product.c3_test, false] } %>
 
 <div class="panel-actions pull-right">
@@ -7,43 +9,45 @@
   <% end %>
 </div>
 <h1>Manual Entry Test</h1>
-  <div class = 'test-steps'>
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h1 class="panel-title test-step">1<i class="fa fa-fw fa-bolt" aria-hidden="true"></i>Manual Entry Instructions</h1>
-      </div>
-      <%= render partial: 'checklist_instructions', locals: { instructions: APP_CONFIG['tests']['ChecklistTest']['instructions'] } %>
+<div class = 'test-steps'>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h1 class="panel-title test-step">1<i class="fa fa-fw fa-bolt" aria-hidden="true"></i>Manual Entry Instructions</h1>
+    </div>
+    <%= render partial: 'checklist_instructions', locals: { instructions: APP_CONFIG['tests']['ChecklistTest']['instructions'] } %>
+  </div>
+</div>
+<div class = 'test-steps'>
+  <div class="panel panel-info">
+    <div class="panel-heading disable">
+      <h1 class="panel-title test-step disable">
+        <%= 2 %> <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= 'Upload Files' %>
+      </h1>
+    </div>
+    <div class="panel-body">
+      <%= render partial: 'test_executions/execution_upload', locals: { disable: disable_qrda_submission?, product_test: @product_test, task: @product_test.tasks.c1_manual_task } %>
     </div>
   </div>
-  <div class = 'test-steps'>
-    <div class="panel panel-info">
-      <div class="panel-heading disable">
-        <h1 class="panel-title test-step disable">
-          <%= 2 %> <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= 'Upload Files' %>
-        </h1>
+</div>
+<div class = 'test-steps'>
+  <div class = 'panel panel-info'>
+    <div class = 'panel-heading'>
+      <h1 class = 'panel-title test-step'>
+        3 <i class = 'fa fa-fw fa-bolt' aria-hidden = 'true'></i> View Results
+      </h1>
+    </div>
+    <div class = 'panel-body'>
+      <div id = 'display_checklist_status' >
+        <%= render partial: 'checklist_status_display', locals: { product: product, has_many_measures: has_many_measures } %>
       </div>
-      <div class="panel-body">
-        <%= render partial: 'test_executions/execution_upload', locals: { disable: disable_qrda_submission?, product_test: @product_test, task: @product_test.tasks.c1_manual_task } %>
+      <div id = 'display_checklist_execution_results'>
+        <%= render partial: 'checklist_execution_results', locals: { task: @product_test.tasks.c1_manual_task } %>
       </div>
     </div>
   </div>
-  <div class = 'test-steps'>
-    <div class = 'panel panel-info'>
-      <div class = 'panel-heading'>
-        <h1 class = 'panel-title test-step'>
-          3 <i class = 'fa fa-fw fa-bolt' aria-hidden = 'true'></i> View Results
-        </h1>
-      </div>
-      <div class = 'panel-body'>
-        <div id = 'display_checklist_status' >
-          <%= render partial: 'checklist_status_display', locals: { product: product } %>
-        </div>
-        <div id = 'display_checklist_execution_results'>
-          <%= render partial: 'checklist_execution_results', locals: { task: @product_test.tasks.c1_manual_task } %>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
+<% unless has_many_measures %>
   <div id = 'display_checklist_measures' >
     <%= render partial: 'checklist_measures', locals: { product_test: @product_test, product: @product_test.product } %>
   </div>
+<% end %>
