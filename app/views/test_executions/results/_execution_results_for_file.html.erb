@@ -1,0 +1,75 @@
+<%
+
+# local variables:
+#
+#   execution              (test_execution)
+#   file_name              (string)
+#   error_result           (some crazy hash)
+#   is_passing             (bool)
+#   on_execution_show_page (bool)            used to determine if a link to individual file results page should be displayed
+
+%>
+
+<% num_errors = error_result.keys.map { |s| error_result[s].execution_errors.count }.reduce(&:+) %>
+
+<% if num_errors == 0 %>
+  <p class = 'lead'><%= "#{file_name} - No problems found" %></p>
+  <% return %>
+<% end %>
+
+<p class="lead">
+  <%= "#{file_name} - #{num_errors} " + (is_passing ? "warnings" : "errors and warnings") %>
+</p>
+
+<% if on_execution_show_page %>
+  <%= button_to 'View Uploaded XML with Errors', file_result_test_execution_path(execution, route_file_name(file_name)), :method => :get, :class => 'btn btn-primary' %>
+  <br/>
+<% end %>
+
+<% identifier = "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>
+<div class="xml-error-tabs">
+  <ul>
+    <% error_result.each do |error_type, error_hash| %>
+      <li>
+        <%= link_to "##{error_type}_#{identifier}" do %>
+          <%= error_type %> <span>(<%= error_hash.execution_errors.count %>)</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <% error_result.each do |error_type, error_hash| %>
+    <div id=<%= "#{error_type}_#{identifier}" %>>
+      <% if error_hash.execution_errors.count > 0 %>
+        <% message_title = error_type == 'Warnings' ? 'Warning' : 'Error' %>
+
+        <% if error_type == "Reporting" %>
+          <% report_sup_data_errors = population_data_errors(error_hash.execution_errors, 'supplemental_data') %>
+          <% pop_errors = population_data_errors(error_hash.execution_errors - report_sup_data_errors, 'population') %>
+          <% non_pop_errors = error_hash.execution_errors - report_sup_data_errors - pop_errors %>
+          <%= render partial: 'test_executions/results/error_table', locals: { errors: non_pop_errors, message_title: message_title } %>
+          <%= render partial: 'test_executions/results/supplemental_data_error_table', locals: { errors: report_sup_data_errors + pop_errors, pop_errors_hash: population_error_hash(pop_errors, report_sup_data_errors) } %>
+        <% else %>
+          <%= render partial: 'test_executions/results/error_table', locals: {
+            errors: error_hash.execution_errors,
+            message_title: message_title
+            } %>
+        <% end %>
+
+        <% unless on_execution_show_page %>
+          <div class="xml-view">
+            <%= render partial: "test_executions/results/xmlnav" %>
+            <h3>Uploaded File</h3>
+            <div class="xml-frame">
+              <%= render partial: 'test_executions/results/node', :locals => error_hash %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="lead">
+          <i class="fa fa-fw fa-check text-success" aria-hidden="true"></i>
+          <%= "#{error_type} - No problems found" %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

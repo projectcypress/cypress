@@ -47,7 +47,11 @@ Rails.application.routes.draw do
     resources :test_executions, only: [:index, :show, :new, :create, :destroy]
   end
 
-  resources :test_executions, only: [:show, :destroy]
+  resources :test_executions, only: [:show, :destroy] do
+    member do
+      get 'file_result/:file_name', action: 'file_result', as: 'file_result'
+    end
+  end
 
   resources :bundles, only: [:index, :show] do
     resources :records, only: [:index, :show] do

@@ -1,5 +1,6 @@
 module TestExecutionsHelper
   include TestExecutionsResultsHelper
+  include Cypress::ErrorCollector
 
   def displaying_cat1?(task)
     (task._type == 'C1Task') || (task._type == 'Cat1FilterTask') || task._type == 'C1ManualTask'
@@ -103,5 +104,9 @@ module TestExecutionsHelper
     else
       'Test Information'
     end
+  end
+
+  def route_file_name(file_name)
+    file_name.dup.tr('.', '_').force_encoding('UTF-8')
   end
 end
