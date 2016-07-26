@@ -32,7 +32,7 @@ module Validators
       hqmf_oid = HQMF::DataCriteria.template_id_for_definition(sdc['definition'], sdc['status'], sdc['negation'])
       hqmf_oid ||= HQMF::DataCriteria.template_id_for_definition(sdc['definition'], sdc['status'], sdc['negation'], 'r2')
       # demographics do not have an associated template
-      if hqmf_oid == '2.16.840.1.113883.3.560.1.406' || hqmf_oid == '2.16.840.1.113883.3.560.1.403'
+      if ['2.16.840.1.113883.3.560.1.406', '2.16.840.1.113883.3.560.1.403', '2.16.840.1.113883.3.560.1.402'].include?(hqmf_oid)
         validate_demographics(hqmf_oid, checked_criteria)
       else
         template = HealthDataStandards::Export::QRDA::EntryTemplateResolver.qrda_oid_for_hqmf_oid(hqmf_oid, 'r3_1').split('_').first
@@ -46,7 +46,8 @@ module Validators
     def validate_demographics(hqmf_oid, checked_criteria)
       xpath_map = {
         '2.16.840.1.113883.3.560.1.406' => "//cda:patient/cda:raceCode[@code='#{checked_criteria.code}']",
-        '2.16.840.1.113883.3.560.1.403' => "//cda:patient/cda:ethnicGroupCode[@code='#{checked_criteria.code}']"
+        '2.16.840.1.113883.3.560.1.403' => "//cda:patient/cda:ethnicGroupCode[@code='#{checked_criteria.code}']",
+        '2.16.840.1.113883.3.560.1.402' => "//cda:patient/cda:administrativeGenderCode[@code='#{checked_criteria.code}']"
       }
       results = @file.xpath(xpath_map[hqmf_oid])
       if results

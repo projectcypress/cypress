@@ -7,16 +7,16 @@ module Validators
       'FACILITY_LOCATION_ARRIVAL_DATETIME' => "./cda:participant[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.100']]/cda:time/cda:low",
       'FACILITY_LOCATION_DEPARTURE_DATETIME' => "./cda:participant[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.100']]/cda:time/cda:high",
       'FLFS' => "./sdtc:inFulfillmentOf1/sdtc:templateId[@root='2.16.840.1.113883.10.20.24.3.126']",
-      'INCISION_DATETIME' => "./cda:entryRelationship/cda:templateId[@root='2.16.840.1.113883.10.20.24.3.89']/cda:effectiveTime",
+      'INCISION_DATETIME' => "./cda:entryRelationship/cda:procedure[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.89']]/cda:effectiveTime",
       'LENGTH_OF_STAY' => './cda:effectiveTime[./cda:low and ./cda:high]',
-      'START_DATETIME' => './cda:effectiveTime/cda:low'
+      'START_DATETIME' => "./cda:author[./cda:templateId[@root='2.16.840.1.113883.10.20.22.4.119']]/cda:time"
     }.freeze
 
     # find all nodes that fulfill the data criteria
     def find_dc_node(template, valuesets, checked_criteria, source_criteria)
       passing = false
       # find nodes to search for the criteria
-      nodes = template_nodes(source_criteria, checked_criteria)
+      negated_template, nodes = template_nodes(source_criteria, checked_criteria)
       # if the checked criteria has a code, the code and attributes will be checked
       # if the checked criteria does not have a code (e.g. Transfers), on the attiributes will be checked
       if checked_criteria.code
@@ -27,13 +27,13 @@ module Validators
           # once you find a matching node, you can stop
           next unless codenodes.empty?
           # If there is a negation, search for the code within the template
-          codenodes = find_template_with_code(nodes, template, valueset, checked_criteria.code)
+          codenodes = find_template_with_code(nodes, template, valueset, checked_criteria.code, negated_template)
           # When you get nodes that include a code, determine if it meets additinal criteria
           passing = passing_dc?(codenodes, source_criteria, checked_criteria)
         end
       elsif checked_criteria.attribute_code # CMS188v6
         valueset = source_criteria[:field_values].values[0].code_list_id
-        codenodes = find_template_with_code([@file], template, valueset, checked_criteria.attribute_code)
+        codenodes = find_template_with_code([@file], template, valueset, checked_criteria.attribute_code, negated_template)
         passing = true unless codenodes.empty?
       end
       if passing
@@ -82,29 +82,33 @@ module Validators
 
     # find nodes to search for the criteria
     def template_nodes(source_criteria, checked_criteria)
-      # if the source criteria has a negation, return the list of nodes with the correction negation code list
       # if the source criteria does not have a negation, the whole document is returned to search
-      if source_criteria['negation'] == true
-        @file.xpath("//cda:templateId[@root='2.16.840.1.113883.10.20.24.3.88']/..//*[@sdtc:valueSet='#{source_criteria['negation_code_list_id']}'
-          and @code='#{checked_criteria.attribute_code}']")
-      else
-        [@file]
-      end
+      # if the source criteria has a negation, return the list of nodes with the correction negation code list
+      return false, [@file] unless source_criteria['negation'] == true
+      [true, @file.xpath("//cda:templateId[@root='2.16.840.1.113883.10.20.24.3.88']
+        /..//*[@sdtc:valueSet='#{source_criteria['negation_code_list_id']}' and @code='#{checked_criteria.attribute_code}']")]
     end
 
     # searches all nodes to find ones with the correct template, valueset and code
-    def find_template_with_code(nodes, template, valueset, code)
-      codenodes = nil
-      nodes.each do |node|
-        # No longer need to check once a matching node is found
-        next if codenodes
-        codenodes = if nodes.size > 1
-                      [node.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")]
-                    else
-                      node.xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")
-                    end
-      end
+    def find_template_with_code(nodes, template, valueset, code, negated_template)
+      return find_negated_code(nodes, template, valueset, code) if negated_template
+      # if it isn't a negation, the file node is the first
+      codenodes = nodes.first.xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")
       codenodes || []
+    end
+
+    def find_negated_code(nodes, template, valueset, code)
+      # Return node once a matching node is found
+      nodes.each do |node|
+        # the negated device, order does not have a template id.
+        if template == '2.16.840.1.113883.10.20.24.3.9'
+          cn = node.parent.parent.parent.at_xpath("//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")
+        else
+          cn = node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")
+        end
+        return [cn] unless cn.nil?
+      end
+      []
     end
 
     # searches a node for the existance of the attribute criteria, each field_value has a xpath relative to the template root
@@ -121,7 +125,7 @@ module Validators
         'ORDINALITY' => "./cda:entryRelationship/cda:observation[./code[@code='260870009']]/cda:value[@code='#{code}']",
         'PRINCIPAL_DIAGNOSIS' => "./cda:entryRelationship/cda:observation[./cda:code[@code='8319008']]/cda:value[@code='#{code}']", # CMS188v6
         'REASON' => "./cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.88']]/cda:value[@code='#{code}']",
-        'RESULT' => "./cda:value[@code='#{code}]", 'ROUTE' => "//cda:routeCode[@code='#{code}]",
+        'RESULT' => "./cda:value[@code='#{code}]", 'ROUTE' => "../../../cda:routeCode[@code='#{code}']",
         'SEVERITY' => "./cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.22.4.8']]/cda:value[@code='#{code}']"
       }
       # XPATH_CONSTS are the expressions without codes
