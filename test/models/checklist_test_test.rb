@@ -111,7 +111,7 @@ class ChecklistTestTest < ActiveJob::TestCase
   end
 
   def test_measure_status
-    measure_id = Measure.top_level.where(:hqmf_id.in => @test.measure_ids).first.id
+    measure_id = Measure.top_level.where(:hqmf_id.in => @test.measure_ids, :bundle_id => @test.product.bundle_id).first.id
     @test.create_checked_criteria
     assert_equal 'not_started', @test.measure_status(measure_id)
     @test.checked_criteria.first.code_complete = false
