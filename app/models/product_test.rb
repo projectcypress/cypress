@@ -118,10 +118,10 @@ class ProductTest
   end
 
   def start_date
-    Time.at(bundle.measure_period_start).utc
+    Time.at(bundle.measure_period_start).in_time_zone
   end
 
   def end_date
-    Time.at(effective_date).utc
+    Time.at(effective_date).in_time_zone
   end
 end

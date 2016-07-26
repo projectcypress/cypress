@@ -74,7 +74,7 @@ class ActiveSupport::TestCase
       elsif v.is_a? Array
         json[k] = map_array(v)
       elsif k == 'create_at' || k == 'updated_at'
-        json[k] = Time.at.utc(v)
+        json[k] = Time.at.local(v).in_time_zone
       end
     end
     json

@@ -31,7 +31,7 @@ class Record
   end
 
   def age_at(date)
-    dob = Time.at(birthdate).utc
+    dob = Time.at(birthdate).in_time_zone
     date.year - dob.year - ((date.month > dob.month || (date.month == dob.month && date.day >= dob.day)) ? 0 : 1)
   end
 

@@ -59,7 +59,7 @@ module Cypress
     def self.randomize_payer(insurance_provider, birthdate)
       payer = APP_CONFIG['randomization']['payers'].sample
       # if the payer is Medicare and the patient is < 65 years old at the beginning of the measurement period, try again
-      while payer['name'] == 'Medicare' && Time.at(birthdate).utc > Time.new(APP_CONFIG['effective_date']['year']).utc.years_ago(65)
+      while payer['name'] == 'Medicare' && Time.at(birthdate).in_time_zone > Time.new(APP_CONFIG['effective_date']['year']).in_time_zone.years_ago(65)
         payer = APP_CONFIG['randomization']['payers'].sample
       end
       insurance_provider.codes = {}

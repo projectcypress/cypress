@@ -41,7 +41,7 @@ module TestExecutionsHelper
   end
 
   def date_of_execution(execution)
-    display_time_to_minutes(execution.created_at.in_time_zone('Eastern Time (US & Canada)'))
+    display_time_to_minutes(execution.created_at)
   end
 
   def get_title_message(test, task)
