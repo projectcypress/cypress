@@ -17,6 +17,7 @@ class Artifact
   before_save :update_asset_attributes
 
   def correct_file_type
+    return unless file_changed?
     content_extension = file.content_type ? MIME_FILE_TYPES[file.content_type] : nil
     case content_extension
     when :zip

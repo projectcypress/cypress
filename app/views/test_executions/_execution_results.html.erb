@@ -21,7 +21,7 @@
     <% [execution, execution.sibling_execution].compact.each do |ex| %>
       <% ex_type = ex.task._type[0, 2] # get first two letters e.g. C1 or C3 %>
       <% if ex.errored? %>
-        <p class="lead row bg-warning execution-status"><i class="fa fa-fw fa-exclamation-circle text-warning" aria-hidden="true"></i> <%= ex_type %> Execution: An internal error occured</p>
+        <p class="lead row bg-warning execution-status"><i class="fa fa-fw fa-exclamation-circle text-warning" aria-hidden="true"></i> <%= ex_type %> Execution: An internal error occurred</p>
       <% elsif ex.passing? %>
         <%= render partial: 'test_executions/results/passing_result', locals: { execution: ex, execution_type: ex_type } %>
       <% elsif ex.failing? %>
@@ -39,6 +39,12 @@
   <% end %>
 
   <% collected_errors = collected_errors(execution) %>
+
+  <% if collected_errors[:exception] %>
+    <h2>An internal error occurred when loading this page</h2>
+    <p><%= collected_errors[:exception] %></p>
+    <span class="help-block">Please report this issue to the Cypress team at <a href="https://github.com/projectcypress/cypress/issues" target="_blank">https://github.com/projectcypress/cypress/issues</a> and include: the uploaded file, the measure being tested, and the error message received.</span>
+  <% end %>
 
   <% if collected_errors.nonfile.count > 0 %>
     <h2>Missing or Duplicate Files</h2>
