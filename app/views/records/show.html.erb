@@ -1,5 +1,6 @@
 <h1>Patient Information for <%= full_name(@record) %></h1>
 <div class="row">
+<% unless @product_test %>
   <div class="col-md-6">
     <h2>Measure Information</h2>
     <% if @measures.where(continuous_variable: true).length > 0 %>
@@ -59,6 +60,8 @@
       </table>
     <% end %>
   </div>
+<% end %>
+
   <div class="col-md-6">
     <h2>Patient Details</h2>
     <dl class="dl-horizontal">
