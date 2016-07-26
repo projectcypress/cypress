@@ -20,8 +20,11 @@
     <%= render partial: "user_list" %>
   </div>
 
-  <div id="bundles" >
-    <%= render partial: "bundle_list"%>
+  <div id="bundles">
+    <div id="display_bundle_list" >
+      <%= render partial: "bundle_list"%>
+    </div>
+    <%= render partial: 'remove_modal' %>
   </div>
 
   <!-- <div id="application_status" >
