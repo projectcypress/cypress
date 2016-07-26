@@ -81,8 +81,8 @@
         "--manifest"
       ],
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "1024"],
-        ["modifyvm", "{{.Name}}", "--cpus", "2"]
+        ["modifyvm", "{{.Name}}", "--memory", "4096"],
+        ["modifyvm", "{{.Name}}", "--cpus", "4"]
       ],
       "disk_size": "20000"
     }
