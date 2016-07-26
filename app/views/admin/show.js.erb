@@ -1,0 +1,9 @@
+<% if params[:partial] == 'bundle_list' %>
+  <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count > 0 %>
+    setTimeout(function(){
+      $('#display_bundle_list').html("<%= escape_javascript render partial: '/admin/bundle_list' %>");
+    }, 2000);
+  <% else %>
+    $('#display_bundle_list').html("<%= escape_javascript render partial: '/admin/bundle_list' %>");
+  <% end %>
+<% end %>
