@@ -34,7 +34,7 @@ module Cypress
       opts = args ? @options.merge(args) : @options
 
       @logger.info 'Generating Cat III tests...'
-      tests = Measure.top_level.collect do |t|
+      tests = Bundle.default.measures.top_level.collect do |t|
         opts[:measure] = t
         generate_test(opts)
       end

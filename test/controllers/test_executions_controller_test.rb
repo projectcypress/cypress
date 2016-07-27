@@ -21,7 +21,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   def setup_c4
-    product = @vendor.products.build(name: "Product #{rand}", c1_test: true, c4_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+    product = @vendor.products.build(name: "Product #{rand}", c1_test: true, c4_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001')
     product.product_tests.build({ name: 'my filtering test', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
                                   bundle_id: '4fdb62e01d41c820f6000001' }, FilteringTest)
     product.save!

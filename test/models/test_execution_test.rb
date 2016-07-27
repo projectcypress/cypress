@@ -4,7 +4,7 @@ class TestExecutionTest < ActiveSupport::TestCase
     drop_database
     collection_fixtures('measures', 'bundles')
     vendor = Vendor.create(name: 'test_vendor_name')
-    product = vendor.products.create(name: 'test_product')
+    product = vendor.products.create(name: 'test_product', bundle_id: '4fdb62e01d41c820f6000001')
     @ptest = product.product_tests.build(name: 'ptest', measure_ids: ['1a'])
     @task = @ptest.tasks.build
   end

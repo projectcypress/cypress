@@ -32,7 +32,7 @@ end
 def generate_cat3(measure_ids, effective_date)
   exporter = HealthDataStandards::Export::Cat3.new
   end_date = Time.at(effective_date.to_i + 59).in_time_zone
-  filter = measure_ids==["all"] ? {} : {:hqmf_id.in => measure_ids}
+  filter = measure_ids==["all"] ? {} : {:hqmf_id.in => measure_ids, :bundle_id => Bundle.default.id }
   return exporter.export(HealthDataStandards::CQM::Measure.top_level.where(filter),
         generate_header,
         effective_date.to_i,

@@ -19,7 +19,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def setup_product_tests(c1, c2, c3, c4, filters)
     product = @vendor.products.create!(name: 'test_product_name', c1_test: c1, c2_test: c2, c3_test: c3, c4_test: c4,
-                                       measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'])
+                                       measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'], bundle_id: '4fdb62e01d41c820f6000001')
     @m_test = product.product_tests.create!({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
                                               measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'] }, MeasureTest)
     @f_test = product.product_tests.create!({ name: 'test_filtering_test_name', cms_id: 'TEST_CMSID',

@@ -20,7 +20,7 @@ class VendorsHelperTest < ActiveJob::TestCase
                                                     measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'] }, ChecklistTest)
     checklist_test.save!
     checked_criterias = []
-    measures = Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids)
+    measures = Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids, :bundle_id => @product.bundle_id)
     measures.each do |measure|
       # chose criteria randomly
       criterias = measure['hqmf_document']['source_data_criteria'].sort_by { rand }[0..4]

@@ -4,7 +4,7 @@ module Cypress
 
     def initialize(measure_ids, bundle)
       @correlation_id = BSON::ObjectId.new
-      filter = { :hqmf_id.in => measure_ids }
+      filter = { :hqmf_id.in => measure_ids, :bundle_id => bundle.id }
       @measure = HealthDataStandards::CQM::Measure.top_level.where(filter).first
       @bundle = bundle
     end
@@ -86,7 +86,7 @@ module Cypress
       end
       exporter = HealthDataStandards::Export::Cat3.new
       end_date = Time.at(@bundle.effective_date.to_i).in_time_zone
-      xml = exporter.export(HealthDataStandards::CQM::Measure.top_level.where(hqmf_id: @measure.hqmf_id),
+      xml = exporter.export(HealthDataStandards::CQM::Measure.top_level.where(hqmf_id: @measure.hqmf_id, bundle_id: @bundle.id),
                             generate_header,
                             @bundle.effective_date.to_i,
                             end_date.years_ago(1) + 1,

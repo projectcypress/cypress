@@ -61,7 +61,7 @@ class Product
       errors.add(:measure_ids, 'must select at least one')
     else
       mids = measure_ids.uniq
-      errors.add(:measure_ids, 'must be valid hqmf ids') unless Measure.top_level.where(hqmf_id: { '$in' => mids }).length >= mids.count
+      errors.add(:measure_ids, 'must be valid hqmf ids') unless bundle.measures.top_level.where(hqmf_id: { '$in' => mids }).length >= mids.count
     end
   end
 

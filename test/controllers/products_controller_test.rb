@@ -41,7 +41,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should get edit' do
     # do this for admin, atl and user:owner -- need negative test for users that
     # do not have access
-    pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+    pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001')
     pd.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       get :edit, id: pd.id
@@ -63,7 +63,7 @@ class ProductsControllerTest < ActionController::TestCase
     # do this for admin, atl and user:owner -- need negative test for users that
     # do not have access
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
+      pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001')
       pt.save!
       get :destroy, id: pt.id
       assert_response :redirect
