@@ -30,7 +30,7 @@
       <% end %>
       <% # for both c1 and c3 executions (if they exist) %>
       <% [execution, c3_execution].each do |exec| %>
-        <td><%= render partial: 'execution_status_message', locals: { execution: exec } %></td>
+        <td><%= render partial: 'execution_status_message', locals: { execution: exec, test_state: task.product_test.state } %></td>
       <% end %>
       <td>
         <% unless execution.nil? %>

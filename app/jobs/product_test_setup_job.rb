@@ -13,5 +13,9 @@ class ProductTestSetupJob < ActiveJob::Base
     end
     product_test.archive_records if product_test.patient_archive.filename.nil?
     product_test.ready
+  rescue StandardError => e
+    product_test.status_message = e.message
+    product_test.errored
+    product_test.save!
   end
 end

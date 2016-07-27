@@ -6,7 +6,10 @@
 
 %>
 
-<% unless execution %>
+<% if test_state == :errored %>
+  <i aria-hidden='true' class = 'fa fa-fw fa-exclamation text-warning'</i>
+  <strong class="text-info">Internal Error</strong>
+<% elsif !execution %>
   <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
   <span class = 'text-info'>Not Started</span>
 <% else %>

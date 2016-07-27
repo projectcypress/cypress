@@ -15,6 +15,8 @@
       <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
     <% end %>
   <% end %>
+<% elsif product.product_tests.measure_tests.where(state: :errored).count > 0 %>
+  One or more of the product tests did not build correctly.
 <% else %>
   <p>Patient records are being built for each measure.</p>
   <p><i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i><%= " #{num_measure_tests_ready} of #{num_measure_tests} measures ready" %></p>
