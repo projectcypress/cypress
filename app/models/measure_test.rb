@@ -47,6 +47,10 @@ class MeasureTest < ProductTest
     end
     Cypress::PatientZipper.zip(file, recs, :qrda)
     self.patient_archive = file
+
+    file = Tempfile.new("product_test-html-#{id}.zip")
+    Cypress::PatientZipper.zip(file, recs, :html)
+    self.html_archive = file
     save
   end
 

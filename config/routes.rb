@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :product_tests, only: [:show] do
     member do
       get :patients
+      get :html_patients
     end
     resources :tasks, only: [:index, :show]
     resources :records, only: [:index, :show]
