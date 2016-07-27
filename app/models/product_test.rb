@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class ProductTest
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -31,6 +32,7 @@ class ProductTest
   validates :product, presence: true
   validates :measure_ids, presence: true
   mount_uploader :patient_archive, PatientArchiveUploader
+  mount_uploader :html_archive, PatientArchiveUploader
 
   delegate :effective_date, :to => :product
   delegate :bundle, :to => :product
@@ -63,6 +65,10 @@ class ProductTest
     file = Tempfile.new("product_test-#{id}.zip")
     Cypress::PatientZipper.zip(file, records, :qrda)
     self.patient_archive = file
+
+    file = Tempfile.new("product_test-html-#{id}.zip")
+    Cypress::PatientZipper.zip(file, records, :html)
+    self.html_archive = file
     save
   end
 

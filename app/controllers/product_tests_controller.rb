@@ -1,8 +1,8 @@
 class ProductTestsController < ApplicationController
   include API::Controller
 
-  before_action :set_product, except: [:show, :patients, :measure]
-  before_action :set_product_test, only: [:show, :update, :destroy, :patients, :measure]
+  before_action :set_product, except: [:show, :patients, :measure, :html_patients]
+  before_action :set_product_test, only: [:show, :update, :destroy, :patients, :measure, :html_patients]
   before_action :authorize_vendor
 
   def index
@@ -18,6 +18,11 @@ class ProductTestsController < ApplicationController
   def patients
     file_name = "#{@product_test.cms_id}_#{@product_test.id}.qrda.zip".tr(' ', '_')
     send_data @product_test.patient_archive.read, type: 'application/zip', disposition: 'attachment', filename: file_name
+  end
+
+  def html_patients
+    file_name = "#{@product_test.cms_id}_#{@product_test.id}.html.zip".tr(' ', '_')
+    send_data @product_test.html_archive.read, type: 'application/zip', disposition: 'attachment', filename: file_name
   end
 
   private

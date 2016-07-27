@@ -1,5 +1,8 @@
 <% if @task && @product_test %>
   <h1>Patient List</h1>
+  <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default pull-right" do %>
+    <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download HTML Patients
+  <% end %>
 <% else %>
   <h1>Master Patient List</h1>
 <div class="row">
