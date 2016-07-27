@@ -115,13 +115,13 @@ module Validators
     def find_attribute_values(node, code, source_criteria)
       # xpath expressions with codes
       xpath_map = {
-        'ANATOMICAL_LOCATION_SITE' => "./cda:targetSiteCode[@code='#{code}']", 'LATERALITY' => "./cda:targetSiteCode[@code='#{code}']",
+        'ANATOMICAL_LOCATION_SITE' => "./cda:targetSiteCode[@code='#{code}']",
         'DIAGNOSIS' => "./cda:entryRelationship/cda:act[./cda:code[@code='29308-4']]/cda:entryRelationship
-                       /cda:observation/cda:value[@code='#{code}']",
+                       /cda:observation/cda:value[@code='#{code}']", 'ORDINAL' => "./cda:priorityCode[@code='#{code}']",
         'DISCHARGE_STATUS' => "./sdtc:dischargeDispositionCode[@code='#{code}']", # CMS31v5
         'FACILITY_LOCATION' => "./cda:participant[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.100']]
                                /cda:participantRole/cda:code[@code='#{code}']",
-        'ORDINAL' => "./cda:priorityCode[@code='#{code}']", # CMS178v6
+        'LATERALITY' => "./cda:value/cda:qualifier[./cda:name/@code='182353008']/cda:value[@code='#{code}']",
         'ORDINALITY' => "./cda:entryRelationship/cda:observation[./code[@code='260870009']]/cda:value[@code='#{code}']",
         'PRINCIPAL_DIAGNOSIS' => "./cda:entryRelationship/cda:observation[./cda:code[@code='8319008']]/cda:value[@code='#{code}']", # CMS188v6
         'REASON' => "./cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.88']]/cda:value[@code='#{code}']",
