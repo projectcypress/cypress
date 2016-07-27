@@ -429,20 +429,14 @@ Then(/^the user should see the the appropriate tabs$/) do
   end
   if @product.c4_test
     title, description, html_id = title_description_and_html_id_for(@product, 'FilteringTest')
-    # byebug
     assert_tab_and_content_exist(title, description, html_id)
   end
 end
 
 def assert_tab_and_content_exist(title, description, html_id)
   page.click_link title
-  find("##{html_id}").assert_text description
+  find("##{html_id}", visible: false).assert_text description
 end
-
-# Then(/^the user should see the measure tests tab$/) do
-#   page.assert_text 'Measure Tests'
-#   find(html_id_for_tab(@product, 'MeasureTest', true)).assert_text 'Test the EHR system\'s ability to record and export (C1), import'
-# end
 
 Then(/^the user should not see the measure tests tab$/) do
   page.assert_no_text 'Measure Tests'

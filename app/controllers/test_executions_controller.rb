@@ -82,8 +82,7 @@ class TestExecutionsController < ApplicationController
     add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(@product_test.product.vendor)
     add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(@product_test.product.vendor, @product_test.product)
-    add_breadcrumb 'Checklist Dashboard: ' + @product_test.name, product_checklist_test_path(@product_test.product,
-                                                                                             @product_test) if @product_test._type == 'ChecklistTest'
+    add_breadcrumb 'Manual Entry Test', product_checklist_test_path(@product_test.product, @product_test) if @product_test._type == 'ChecklistTest'
     add_test_execution_breadcrumb
   end
 
