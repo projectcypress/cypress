@@ -1,5 +1,8 @@
 module Cypress
   module ErrorCollector
+    class FileNotFound < StandardError
+    end
+
     def collected_errors(execution)
       # gonna return all the errors for this execution, structured in a reasonable way.
       collected_errors = { nonfile: get_nonfile_errors(execution), files: {} }
@@ -13,6 +16,19 @@ module Cypress
       collected_errors
     rescue => e
       { nonfile: [], files: {}, exception: e }
+    end
+
+    # returns [file_name, error_result]
+    def file_name_and_error_result_from_execution(execution)
+      errs = collected_errors(execution)
+      files = errs.files.select { |file_name, _| route_file_name(file_name) == params[:file_name] }
+      file_name_and_error_result_from_files(files, params[:file_name])
+    end
+
+    def file_name_and_error_result_from_files(files, file_name)
+      [files.first[0], files.first[1]]
+    rescue
+      raise Mongoid::Errors::DocumentNotFound.new FileNotFound, "could not find results for file #{file_name}"
     end
 
     private
@@ -76,6 +92,21 @@ module Cypress
       end
 
       [error_map, error_attributes]
+    end
+
+    def get_error_id(element, uuid)
+      element = element.root if node_type(element.type) == :document
+      element['error_id'] = uuid.generate.to_s unless element['error_id']
+      element['error_id']
+    end
+
+    NODE_TYPES = {
+      1 => :element, 2 => :attribute, 3 => :text, 4 => :cdata, 5 => :ent_ref, 6 => :entity,
+      7 => :instruction, 8 => :comment, 9 => :document, 10 => :doc_type, 11 => :doc_frag, 12 => :notaion
+    }.freeze
+
+    def node_type(type)
+      NODE_TYPES[type]
     end
   end
 end

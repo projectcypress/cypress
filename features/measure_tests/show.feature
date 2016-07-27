@@ -95,3 +95,12 @@ Scenario: Unsuccessful Upload CAT 3 XML Because Incorrect File Type
   And the user should see no execution results
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
+
+Scenario: Successful View Uploaded XML for Measure Test
+  When the user creates a product with tasks c2
+  And the user views task c2
+  And the user uploads a CAT 3 XML file
+  And the user waits for results then views task c2
+  Then the user should see a link to view the the uploaded xml
+  When the user views the uploaded xml
+  Then the user should see the uploaded xml

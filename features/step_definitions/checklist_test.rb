@@ -111,12 +111,6 @@ def upload_and_submit(file_path)
   page.find('#submit-upload').click
 end
 
-def wait_for_all_delayed_jobs_to_run
-  Delayed::Job.each do |delayed_job|
-    Delayed::Worker.new.run(delayed_job)
-  end
-end
-
 When(/^the user visits the individual measure checklist page for measure (.*)$/) do |measure_number|
   measure = nth_measure(measure_number)
   visit measure_checklist_test_path(@test, measure)

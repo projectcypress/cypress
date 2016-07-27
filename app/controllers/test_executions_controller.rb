@@ -5,8 +5,8 @@ class TestExecutionsController < ApplicationController
 
   before_action :set_test_execution, only: [:show, :destroy, :file_result]
   before_action :set_task, only: [:index, :new, :create]
-  before_action :set_task_from_test_execution, only: [:show]
-  before_action :set_product_test_from_task, only: [:show, :new]
+  before_action :set_task_from_test_execution, only: [:show, :file_result]
+  before_action :set_product_test_from_task, only: [:show, :new, :file_result]
   before_action :add_breadcrumbs, only: [:show, :new]
 
   respond_to :js, only: [:show, :create]
@@ -51,12 +51,10 @@ class TestExecutionsController < ApplicationController
   end
 
   def file_result
-    @task = @test_execution.task
-    @product_test = @task.product_test
-    authorize! :read, @product_test.product.vendor
+    authorize! :execute_task, @product_test.product.vendor
     add_breadcrumbs
     add_breadcrumb "File Results: #{route_file_name(params[:file_name])}"
-    file_name_and_error_result_from_execution(@test_execution)
+    @file_name, @error_result = file_name_and_error_result_from_execution(@test_execution)
   end
 
   private
@@ -78,13 +76,6 @@ class TestExecutionsController < ApplicationController
 
   def set_product_test_from_task
     @product_test = @task.product_test
-  end
-
-  def file_name_and_error_result_from_execution(execution)
-    errs = collected_errors(execution)
-    files = errs.files.select { |file_name, _| route_file_name(file_name) == params[:file_name] }
-    @file_name = files.first[0]
-    @error_result = files.first[1]
   end
 
   def add_breadcrumbs
