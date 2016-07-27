@@ -4,28 +4,40 @@ Background:
   Given the user is signed in
   And the user has created a vendor with a product
 
-Scenario: Successful View Measure Test Tab
-  When a user creates a product with c2 certifications and visits that product page
-  Then the user should see the the appropriate tabs
-
-Scenario: Successful Not View Measure Test Tab
+Scenario: Successful Select C1 and View Tabs
   When a user creates a product with c1 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
-Scenario: Successful View Filtering Test Tab
+Scenario: Successful Select C2 and View Tabs
+  When a user creates a product with c2 certifications and visits that product page
+  Then the user should see the the appropriate tabs
+
+Scenario: Successful Select C1 and C3 and View Tabs
+  When a user creates a product with c1, c3 certifications and visits that product page
+  Then the user should see the the appropriate tabs
+
+Scenario: Successful Select C1 and C4 and View Tabs
   When a user creates a product with c1, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
-Scenario: Successful Not View Filtering Test Tab
-  When a user creates a product with c1 certifications and visits that product page
+Scenario: Successful Select C2 and C3 and View Tabs
+  When a user creates a product with c2, c3 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
-Scenario: Successful View Checklist Test Tab
-  When a user creates a product with c1 certifications and visits that product page
+Scenario: Successful Select C2 and C4 and View Tabs
+  When a user creates a product with c2, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
-Scenario: Successful Not View Checklist Test Tab
-  When a user creates a product with c2 certifications and visits that product page
+Scenario: Successful Select C1 and C2 and C3 and View Tabs
+  When a user creates a product with c1, c2, c3 certifications and visits that product page
+  Then the user should see the the appropriate tabs
+
+Scenario: Successful Select C1 and C2 and C4 and View Tabs
+  When a user creates a product with c1, c2, c4 certifications and visits that product page
+  Then the user should see the the appropriate tabs
+
+Scenario: Successful Select C1 and C2 and C3 and C4 and View Tabs
+  When a user creates a product with c1, c2, c3, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Download All Patients

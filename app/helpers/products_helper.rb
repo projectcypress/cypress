@@ -143,7 +143,7 @@ module ProductsHelper
   end
 
   def html_id_for_tab(product, test_type, is_c1_measure_test = true)
-    title_for(product, test_type, is_c1_measure_test).tr(' ', '_').tr('(', '_').tr(')', '_').underscore
+    title_for(product, test_type, is_c1_measure_test).tr(' ', '_').tr('(', '_').tr(')', '_').tr('+', '_').underscore
   end
 
   # input test_type should only be 'ChecklistTest', 'MeasureTest', or 'FilteringTest'
