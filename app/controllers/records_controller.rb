@@ -11,7 +11,7 @@ class RecordsController < ApplicationController
     end
     return redirect_to bundle_records_path(Bundle.default) unless params[:bundle_id] || params[:task_id]
     # TODO: Only show measures where there are patient results. CMS32v4 sub id c and d have no patients, for example.
-    @records = @source.records
+    @records = @source.records.sort_by(&:first)
     # create json with the display_name and url for each measure
     @measure_dropdown = @source.measures
                                .sort_by { |m| [m.cms_int, m.sub_id] }
