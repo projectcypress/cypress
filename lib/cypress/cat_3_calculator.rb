@@ -91,6 +91,7 @@ module Cypress
                             @bundle.effective_date.to_i,
                             end_date.years_ago(1) + 1,
                             end_date,
+                            @bundle.qrda3_version,
                             nil,
                             @correlation_id)
       QME::PatientCache.where(test_id: @correlation_id).destroy_all

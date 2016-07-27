@@ -18,6 +18,10 @@ class Bundle
     ApplicationController.helpers.config_for_version(version).qrda_version
   end
 
+  def qrda3_version
+    ApplicationController.helpers.config_for_version(version).qrda3_version
+  end
+
   def cms_schematron
     ApplicationController.helpers.config_for_version(version).schematron
   end

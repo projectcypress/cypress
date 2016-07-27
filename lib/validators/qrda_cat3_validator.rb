@@ -6,7 +6,8 @@ module Validators
 
     self.validator = :qrda_cat3
 
-    def initialize(expected_results, test_has_c3)
+    def initialize(expected_results, test_has_c3, bundle)
+      @bundle = bundle
       @test_has_c3 = test_has_c3
       @expected_results = expected_results
     end
@@ -20,7 +21,11 @@ module Validators
         add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name])
       else
         add_errors Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])
-        add_errors Cat3.instance.validate(@doc, file_name: @options[:file_name])
+        if @bundle.qrda3_version == 'r1'
+          add_errors Cat3.instance.validate(@doc, file_name: @options[:file_name])
+        elsif @bundle.qrda3_version == 'r1_1'
+          add_errors Cat3R11.instance.validate(@doc, file_name: @options[:file_name])
+        end
         add_errors CDA.instance.validate(@doc, file_name: @options[:file_name])
       end
     end

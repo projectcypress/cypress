@@ -9,7 +9,7 @@ class C2Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results, product_test.product.c3_test),
+    @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results, product_test.product.c3_test, product_test.bundle),
                    ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
 
     @validators

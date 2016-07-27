@@ -1,7 +1,7 @@
 class C3Cat3Task < Task
   def validators
     @validators = [::Validators::MeasurePeriodValidator.new,
-                   ::Validators::QrdaCat3Validator.new(product_test.expected_results, true)]
+                   ::Validators::QrdaCat3Validator.new(product_test.expected_results, true, product_test.bundle)]
     cms_cat3_schematron_validator if product_test.bundle.cms_schematron
     @validators
   end
