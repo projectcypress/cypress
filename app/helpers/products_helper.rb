@@ -76,13 +76,13 @@ module ProductsHelper
   # input tasks should be array of (c1 or c2 task) and (c3 task if c3 was selected on product)
   # true if the task's product test is still building or if there is a test execution currently running
   def should_reload_product_test_link?(tasks)
-    return true if tasks.first.product_test.state != :ready
+    return true if tasks.first.product_test.state != :ready && tasks.first.product_test.state != :errored
     return true if tasks.any? { |task| task.most_recent_execution && task.most_recent_execution.state == :pending }
     false
   end
 
   def should_reload_measure_test_row?(task)
-    return true if task.product_test.state != :ready
+    return true if task.product_test.state != :ready && task.product_test.state != :errored
     executions = [task.most_recent_execution]
     executions << task.most_recent_execution.sibling_execution if task.most_recent_execution
     return true if executions.compact.any? { |execution| execution.state == :pending }

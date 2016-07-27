@@ -15,9 +15,12 @@
   <% if test.state == :queued %>
     <i class="fa fa-fw fa-circle text-muted" aria-hidden="true"></i>
     <span class="label label-default">queued</span>
-  <% else test.state == :building %>
+  <% elsif test.state == :building %>
     <i class="fa fa-fw fa-cog fa-spin" aria-hidden="true"></i>
     <span class="label label-default">building</span>
+  <% elsif test.state == :errored %>
+  <i aria-hidden='true' class = 'fa fa-fw fa-exclamation text-warning'</i>
+  <strong class="text-info">Internal Error</strong>
   <% end %>
 <% else %>
   <% case tasks_status(tasks) %>

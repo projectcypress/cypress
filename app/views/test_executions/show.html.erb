@@ -20,18 +20,18 @@
 <div class = 'test-steps'>
   <% if viewing_measure_test %>
     <% steps = [
-      { title: 'Download Test Deck', partial: 'execution_download'},
-      { title: 'Upload Files', partial: 'execution_upload'}
+      { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% elsif @task.product_test._type == 'FilteringTest' %>
     <% steps = [
-      { title: 'Download Test Deck', partial: 'execution_download'},
-      { title: 'Filter Patients', partial: 'filter_instructions'},
-      { title: 'Upload Files', partial: 'execution_upload'}
+      { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
+      { title: 'Filter Patients', partial: 'filter_instructions', disable: false, disable_msg: '' },
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% elsif @task.product_test._type == 'ChecklistTest' %>
     <% steps = [
-      { title: 'Upload Files', partial: 'execution_upload'}
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% end %>
 
@@ -43,7 +43,7 @@
         </h1>
       </div>
       <div class="panel-body">
-        <%= render partial: step.partial, locals: { disable: false, product_test: @product_test, task: @task } %>
+        <%= render partial: step.partial, locals: { disable: step.disable, disable_msg: step.disable_msg, product_test: @product_test, task: @task } %>
       </div>
     </div>
   <% end %>

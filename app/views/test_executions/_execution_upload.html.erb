@@ -8,9 +8,10 @@
 %>
 
 <% if disable %>
+  <% disable_msg ||= 'Fill in the Data Criteria fields before you upload results from your EHR system.' %>
   <p>
     <span class = 'text-danger'>
-      Fill in the Data Criteria fields before you upload results from your EHR system.
+      <%= disable_msg %>
     </span>
   </p>
 <% else %>
