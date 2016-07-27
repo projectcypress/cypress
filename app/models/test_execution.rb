@@ -3,6 +3,7 @@ class TestExecution
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
   include GlobalID::Identification
+  # include Cypress::ErrorCollector
 
   field :state, :type => Symbol, :default => :pending
   field :expected_results, type: Hash

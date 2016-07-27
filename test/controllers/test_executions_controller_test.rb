@@ -5,6 +5,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   include ActiveJob::TestHelper
   include ApiTest
+  include TestExecutionsHelper
 
   setup do
     collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'test_executions', 'users', 'roles',
@@ -185,6 +186,100 @@ class TestExecutionsControllerTest < ActionController::TestCase
     post :create, task_id: task.id, results: upload
 
     assert_equal old_count, task.test_executions.count
+  end
+
+  # file_result
+
+  test 'should be able to get file_result if valid execution id and file name' do
+    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
+      execution, file_name = create_execution_with_task_type(task_type)
+      for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+        get :file_result, id: execution.id, file_name: route_file_name(file_name)
+        assert_response 200, "should be able to find file with file name \"#{file_name}\""
+      end
+    end
+  end
+
+  test 'other vendors should not be able to get file_result' do
+    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
+      execution, file_name = create_execution_with_task_type(task_type)
+      for_each_logged_in_user([OTHER_VENDOR]) do
+        get :file_result, id: execution.id, file_name: route_file_name(file_name)
+        assert_response 401, "other vendor should not be authorized to view file: \"#{file_name}\""
+      end
+    end
+  end
+
+  test 'should not be able to get file_result if invalid execution id' do
+    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
+      execution, file_name = create_execution_with_task_type(task_type)
+      for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+        bad_execution_id = "bad id #{rand}"
+        get :file_result, id: bad_execution_id, file_name: route_file_name(file_name)
+        assert_response 404, "should not be able to find file with bad execution id \"#{bad_execution_id}\""
+        assert_equal 'Not Found', response.message
+      end
+    end
+  end
+
+  test 'should not be able to get file_result if invalid file_name' do
+    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
+      execution, file_name = create_execution_with_task_type(task_type)
+      for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+        bad_file_name = "bad file name #{rand}"
+        get :file_result, id: execution.id, file_name: route_file_name(bad_file_name)
+        assert_response 404, "should not be able to find file with bad file name \"#{bad_file_name}\""
+        assert_equal 'Not Found', response.message
+      end
+    end
+  end
+
+  def create_execution_with_task_type(task_type)
+    c1, c2, c4 = c1_c2_c4_from_task_type(task_type)
+    measure_ids = ['40280381-4BE2-53B3-014C-0F589C1A1C39']
+    product = @vendor.products.create!(name: "my product #{rand}", bundle_id: '4fdb62e01d41c820f6000001', measure_ids: measure_ids,
+                                       c1_test: c1, c2_test: c2, c4_test: c4)
+    test = product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: measure_ids }, MeasureTest)
+    task = create_task_from_task_type(test, task_type)
+    execution = task.test_executions.create!
+    case task_type
+    when 'C1Task', 'Cat1FilterTask', 'C1ManualTask'
+      file_name = 'c1_manual_incorrect_codes.zip'
+    when 'C2Task', 'Cat3FilterTask'
+      file_name = 'cms111v3_catiii.xml'
+    end
+    file = File.new(File.join(Rails.root, "test/fixtures/product_tests/#{file_name}"))
+    Artifact.create!(test_execution: execution, file: file)
+    unzipped_file_name = execution.artifact.file_names.first
+    execution.execution_errors.create!(:message => "my error message #{rand}", :msg_type => :my_msg_type, :file_name => unzipped_file_name)
+    [execution, unzipped_file_name]
+  end
+
+  # returns [c1, c2, c4]
+  def c1_c2_c4_from_task_type(task_type)
+    case task_type
+    when 'C1Task', 'C1ManualTask'
+      [true, false, false]
+    when 'C2Task'
+      [false, true, false]
+    when 'Cat1FilterTask', 'Cat3FilterTask'
+      [true, false, true]
+    end
+  end
+
+  def create_task_from_task_type(test, task_type)
+    case task_type
+    when 'C1Task'
+      test.tasks.create!({}, C1Task)
+    when 'C2Task'
+      test.tasks.create!({}, C2Task)
+    when 'Cat1FilterTask'
+      test.tasks.create!({}, Cat1FilterTask)
+    when 'Cat3FilterTask'
+      test.tasks.create!({}, Cat3FilterTask)
+    when 'C1ManualTask'
+      test.tasks.create!({}, C1ManualTask)
+    end
   end
 
   # # # # # # # # # # # # # # # #

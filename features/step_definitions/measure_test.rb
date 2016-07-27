@@ -1,3 +1,4 @@
+include TestExecutionsHelper
 
 # # # # # # # # #
 #   G I V E N   #
@@ -14,13 +15,12 @@ end
 # # # # # # # #
 
 When(/^the user creates a product with tasks (.*)$/) do |tasks|
+  measure_ids = ['40280381-4BE2-53B3-014C-0F589C1A1C39']
   tasks = tasks.split(', ')
-  @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: [@measure.hqmf_id], c1_test: tasks.include?('c1'),
+  @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, c1_test: tasks.include?('c1'),
                          c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: @measure.bundle_id)
   @product.save!
-  @product.product_tests.build({ name: @measure.name, measure_ids: [@measure.hqmf_id] }, MeasureTest)
-  @product_test = @product.product_tests.first
-  @product.save!
+  @product_test = @product.product_tests.create!({ name: @measure.name, measure_ids: measure_ids }, MeasureTest)
 
   # create record and assign provider for product test
   provider = Provider.find('53b2c4414d4d32139c730000')
@@ -76,6 +76,18 @@ And(/^the user uploads an invalid file$/) do
   page.find('#submit-upload').click
 end
 
+# task_names should be either 'c1', 'c2', or both
+When(/^the user waits for results then views task (.*)$/) do |task_names|
+  wait_for_all_delayed_jobs_to_run
+  task = task_names.include?('c1') ? @product_test.tasks.c1_task : @product_test.tasks.c2_task
+  visit new_task_test_execution_path(task)
+end
+
+When(/^the user views the uploaded xml$/) do
+  # page.click_button 'View Uploaded XML with Errors'
+  visit file_result_test_execution_path(@product_test.tasks.c2_task.most_recent_execution, route_file_name('cms111v3_catiii.xml'))
+end
+
 # # # # # # # #
 #   T H E N   #
 # # # # # # # #
@@ -92,13 +104,13 @@ Then(/^the user should see provider information$/) do
 end
 
 Then(/^the user should only see the c1 execution page$/) do
-  page.assert_text 'C1'
-  page.assert_no_text 'C2'
+  page.find('#task_status_display').assert_text 'C1'
+  page.find('#task_status_display').assert_no_text 'C2'
 end
 
 Then(/^the user should only see the c2 execution page$/) do
-  page.assert_text 'C2'
-  page.assert_no_text 'C1'
+  page.find('#task_status_display').assert_text 'C2'
+  page.find('#task_status_display').assert_no_text 'C1'
 end
 
 Then(/^the user should see the c2 execution page$/) do
@@ -134,4 +146,12 @@ end
 
 And(/^the user should see no execution results$/) do
   page.assert_no_text 'Results'
+end
+
+Then(/^the user should see a link to view the the uploaded xml$/) do
+  page.find(:xpath, "//input[@value='View Uploaded XML with Errors']")
+end
+
+Then(/^the user should see the uploaded xml$/) do
+  page.assert_text '<?xml versio'
 end

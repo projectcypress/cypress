@@ -1,10 +1,12 @@
 class TestExecutionsController < ApplicationController
   include API::Controller
+  include TestExecutionsHelper
+  include Cypress::ErrorCollector
 
-  before_action :set_test_execution, only: [:show, :destroy]
+  before_action :set_test_execution, only: [:show, :destroy, :file_result]
   before_action :set_task, only: [:index, :new, :create]
-  before_action :set_task_from_test_execution, only: [:show]
-  before_action :set_product_test_from_task, only: [:show, :new]
+  before_action :set_task_from_test_execution, only: [:show, :file_result]
+  before_action :set_product_test_from_task, only: [:show, :new, :file_result]
   before_action :add_breadcrumbs, only: [:show, :new]
 
   respond_to :js, only: [:show, :create]
@@ -48,6 +50,13 @@ class TestExecutionsController < ApplicationController
     render :nothing => true, :status => :no_content
   end
 
+  def file_result
+    authorize! :execute_task, @product_test.product.vendor
+    add_breadcrumbs
+    add_breadcrumb "File Results: #{route_file_name(params[:file_name])}"
+    @file_name, @error_result = file_name_and_error_result_from_execution(@test_execution)
+  end
+
   private
 
   def rescue_create
@@ -75,7 +84,15 @@ class TestExecutionsController < ApplicationController
     add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(@product_test.product.vendor, @product_test.product)
     add_breadcrumb 'Checklist Dashboard: ' + @product_test.name, product_checklist_test_path(@product_test.product,
                                                                                              @product_test) if @product_test._type == 'ChecklistTest'
-    add_breadcrumb 'Test: ' + @product_test.name, product_product_test_path(@product_test.product, @product_test)
+    add_test_execution_breadcrumb
+  end
+
+  def add_test_execution_breadcrumb
+    if @task.most_recent_execution
+      add_breadcrumb 'Test: ' + @product_test.name, task_test_execution_path(task_id: @task.id, id: @task.most_recent_execution.id)
+    else
+      add_breadcrumb 'Test: ' + @product_test.name, ''
+    end
   end
 
   def results_params
@@ -85,5 +102,9 @@ class TestExecutionsController < ApplicationController
     elsif params[:test_execution]
       params[:test_execution][:results]
     end
+  end
+
+  def file_params
+    params.require(:file_name)
   end
 end

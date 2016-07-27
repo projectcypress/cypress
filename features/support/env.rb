@@ -149,6 +149,12 @@ def map_bson_ids(json)
   json
 end
 
+def wait_for_all_delayed_jobs_to_run
+  Delayed::Job.each do |delayed_job|
+    Delayed::Worker.new.run(delayed_job)
+  end
+end
+
 Before do
   Mongoid.default_client['users'].drop
   Mongoid.default_client['vendors'].drop

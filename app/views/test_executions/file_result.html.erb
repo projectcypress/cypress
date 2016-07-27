@@ -1,0 +1,19 @@
+<%= render partial: 'application/certification_bar', locals: { product: @task.product_test.product, active_certs: current_certifications(@task._type, @task.product_test.product.c3_test) } %>
+
+<% is_passing = @test_execution.status_with_sibling == 'passing' %>
+
+<br/>
+<%= link_to(task_test_execution_path(@task, @test_execution), class: 'btn btn-primary') do %>
+  <i class = 'fa fa-fw fa-angle-left' aria-hidden = 'true'></i>Return to Testing
+<% end %>
+<br/>
+<br/>
+
+<div class = 'panel panel-default' id = 'results_panel'>
+  <div class = 'panel-heading'>
+    <h1 class='panel-title'>Results</h1>
+  </div>
+  <div class = 'panel-body' id = 'display_execution_results' >
+    <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: @test_execution, file_name: @file_name, error_result: @error_result, is_passing: is_passing, on_execution_show_page: false } %>
+  </div>
+</div>
