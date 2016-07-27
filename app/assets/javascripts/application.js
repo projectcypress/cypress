@@ -14,6 +14,7 @@
 //= require bootstrap/tab
 //= require bootstrap/tooltip
 //= require bootstrap/popover
+//= require bootstrap/collapse
 //= require jquery-ui/accordion
 //= require jquery-ui/button
 //= require jquery-ui/dialog
@@ -27,7 +28,6 @@
 //= require assets_framework/breadcrumb
 //= require jquery_nested_form
 //= require jasny-bootstrap.min
-//= require bootstrap.min
 //= require local_time
 //= require_tree .
 
