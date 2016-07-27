@@ -103,6 +103,11 @@ class ProductTest
     save
   end
 
+  def errored
+    self.state = :errored
+    save
+  end
+
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       if tasks_by_status('failing').count > 0
