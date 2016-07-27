@@ -18,9 +18,8 @@ module Cypress
     def initialize(options)
       @options = options
 
-      if @options['disable_randomization']
-        %w(randomize_demographics generate_provider randomization_ids).each { |k| @options.delete k }
-      end
+      %w(randomize_demographics generate_provider randomization_ids).each { |k| @options.delete k } if @options['disable_randomization']
+
       @generated_providers = [] if @options['generate_provider']
     end
 
@@ -66,6 +65,7 @@ module Cypress
     # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
     def clone_and_save_record(record, provider = nil)
       cloned_patient = record.clone
+      unnumerify cloned_patient if record.first =~ /\d/ || record.last =~ /\d/
       cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
       DemographicsRandomizer.randomize(cloned_patient) if options['randomize_demographics']
@@ -75,6 +75,13 @@ module Cypress
       # assign existing provider if provider argument is not nil (should be when @test is a measure test)
       provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
+    end
+
+    def unnumerify(patient)
+      [%w(0 ZERO), %w(1 ONE), %w(2 TWO), %w(3 THREE), %w(4 FOUR), %w(5 FIVE), %w(6 SIX), %w(7 SEVEN), %w(8 EIGHT), %w(9 NINE)].each do |replacement|
+        patient.first.gsub!(replacement[0], replacement[1])
+        patient.last.gsub!(replacement[0], replacement[1])
+      end
     end
 
     def randomize_entry_ids(cloned_patient)
@@ -109,9 +116,7 @@ module Cypress
 
     def patch_insurance_provider(patient)
       insurance_codes = { 'MA' => '1', 'MC' => '2', 'OT' => '349' }
-      patient.insurance_providers.each do |ip|
-        ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty?
-      end
+      patient.insurance_providers.each { |ip| ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty? }
     end
 
     def assign_provider(patient)
