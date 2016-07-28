@@ -20,6 +20,7 @@ class ChecklistTestsController < ProductTestsController
   end
 
   def update
+    @product = @product_test.product
     @product_test.update_attributes(checklist_test_params)
     @product_test.checked_criteria.each(&:validate_criteria)
     @product_test.save!
