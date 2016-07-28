@@ -1,3 +1,5 @@
+<%= content_for(:body_attributes) do %>data-no-turbolink<% end %>
+
 <% displaying_cat1 = displaying_cat1?(@task) %>
 <% viewing_measure_test = @task.product_test._type == 'MeasureTest' %>
 
