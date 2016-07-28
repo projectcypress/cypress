@@ -15,7 +15,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body <%= yield(:body_attributes) %>>
   <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
 
   <% if Settings.banner %>
