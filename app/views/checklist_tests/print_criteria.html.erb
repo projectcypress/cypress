@@ -41,7 +41,6 @@
                           <td/>
                           <td/>
                         <% else %>
-                          <% vsets = HealthDataStandards::SVS::ValueSet.in(oid: valuessets).where(bundle_id: measure.bundle_id) %>
                           <td style="vertical-align: top"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
                           <td><span>
                             <ul class='list-unstyled'>
