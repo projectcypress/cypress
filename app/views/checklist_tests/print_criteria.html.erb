@@ -45,12 +45,9 @@
                           <td style="vertical-align: top"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
                           <td><span>
                             <ul class='list-unstyled'>
-                            <% vsets.each do |vs| %>
-                            <li class="valueset-listitem"><%= "#{vs.display_name}:"%><br><%= " #{vs.oid}" %></li>
-                            <%= "Codes:" %><br>
-                              
-                            <br>
-                            <% end %>
+                              <% valuessets.each do |vs| %>
+                              <li class="valueset-listitem"><%= "#{lookup_valueset_name(vs)}" %></li>
+                              <% end %>
                             </ul>
                           </span></td>
                         <% end %>

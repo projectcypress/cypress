@@ -1,7 +1,6 @@
 module Cypress
   class ExamplePatientFinder
     def self.find_example_patient(measure)
-      measure = Measure.find_by name: measure.name
       populations = measure.continuous_variable ? %w(IPP MSRPOPL MSRPOPLEX OBSERV) : %w(IPP DENOM NUMER DENEX DENEXCEP)
       example_patient = example_patient_by_pop(measure, populations, populations[1])
       example_patient = !example_patient.nil? ? example_patient : example_patient_by_pop(measure, populations, 'IPP')
@@ -12,7 +11,7 @@ module Cypress
     def self.example_patient_by_pop(measure, populations, pop)
       simplest = 100
       example_patient = nil
-      Bundle.default.records.each do |record|
+      Bundle.find(measure.bundle_id).records.each do |record|
         result_value = record.calculation_results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id)
         match = get_result_value(result_value, pop)
         next unless match && match > 0
