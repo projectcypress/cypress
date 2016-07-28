@@ -16,7 +16,7 @@ module Admin
     end
 
     def set_default
-      unless @bundle.active
+      unless @bundle.version == Settings[:default_bundle]
         Bundle.where(active: true).update_all(active: false)
         @bundle.active = true
         @bundle.save!
