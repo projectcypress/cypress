@@ -15,13 +15,13 @@
     <% @bundles.each do |bundle| %>
       <% unless bundle.respond_to?('done_importing') && !bundle.done_importing %>
         <tr>
-          <td> <%= bundle.title %> <%= '(Default)' if bundle.version == Settings[:default_bundle] %> </td>
+          <td> <%= bundle.title %> <%= '(Default)' if bundle.active %> </td>
           <td class = "text-center"><%= bundle.version %></td>
           <td class="text-center">
 
             <% unless @disabled %>
 
-              <% unless bundle.version == Settings[:default_bundle] %>
+              <% unless bundle.active %>
                 <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-xs btn-default" %>
                 <%= render partial: 'remove_button', locals: {
                                 button_text: 'Remove',
