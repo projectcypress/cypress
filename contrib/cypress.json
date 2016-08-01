@@ -33,10 +33,10 @@
       }]
     },
     {
-      "name": "cypress.v3.0.0.ovf",
-      "vm_name": "cypressv300rc1",
-      "type": "virtualbox-iso",
-      "guest_os_type": "Ubuntu_64",
+      "name": "cypress.v3.0.0.vmware",
+      "vm_name": "cypressv300",
+      "type": "vmware-iso",
+      "guest_os_type": "ubuntu-64",
       "iso_urls": [
         "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
         "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso"
@@ -48,7 +48,7 @@
       "http_directory": "./install_files",
       "headless": true,
       "boot_wait": "10s",
-      "format": "ovf",
+      "format": "vmx",
       "ssh_timeout": "20m",
       "boot_command": [
         "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
@@ -77,13 +77,17 @@
         "<enter><wait>"
       ],
       "shutdown_command": "echo '{{user `default_pwd`}}' | sudo -S -E shutdown -P now",
-      "export_opts": [
-        "--manifest"
-      ],
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "4096"],
-        ["modifyvm", "{{.Name}}", "--cpus", "4"]
-      ],
+      "vmdk_name": "disk",
+      "disk_type_id": "0",
+      "vmx_data": {
+        "MemTrimRate": "0",
+        "sched.mem.pshare.enable": "FALSE",
+        "mainMem.useNamedFile": "FALSE",
+        "prefvmx.minVmMemPct": "100",
+        "memsize": "4096",
+        "numvcpus": "4",
+        "cpuid.coresPerSocket": "1"
+      },
       "disk_size": "20000"
     }
   ],
@@ -102,7 +106,7 @@
   {
     "type": "shell",
     "inline": ["echo '{{user `default_pwd`}}' | sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+ALL/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers"],
-    "only": ["cypress.v3.0.0.ovf"]
+    "only": ["cypress.v3.0.0.vmware"]
   },
   {
     "type": "chef-solo",
@@ -110,7 +114,7 @@
     "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::install_cypress]" ],
     "json": {
       "cypress": {
-          "cypress_git_revision": "v3.0.0rc1",
+          "cypress_git_revision": "v3.0.0",
           "generate_secrets_on_restart": true
       }
     }
@@ -118,20 +122,20 @@
   {
     "type": "shell",
     "inline": ["sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+NOPASSWD:ALL/%sudo ALL=(ALL:ALL) ALL/' /etc/sudoers"],
-    "only": ["cypress.v3.0.0.ovf"]
+    "only": ["cypress.v3.0.0.vmware"]
   },
   {
     "type": "shell",
     "execute_command": "echo '{{user `default_pwd`}}' | sudo -S -E bash '{{.Path}}'",
     "script": "scripts/cleanup.sh",
-    "only": ["cypress.v3.0.0.ovf"]
+    "only": ["cypress.v3.0.0.vmware"]
   }],
 
   "post-processors": [
     {
       "type": "shell-local",
-      "script": "scripts/ovf_to_ova.sh",
-      "only": ["cypress.v3.0.0.ovf"]
+      "script": "scripts/vmx_to_ova.sh",
+      "only": ["cypress.v3.0.0.vmware"]
     }
   ]
 }
