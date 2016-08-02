@@ -76,6 +76,7 @@ class VendorsController < ApplicationController
   end
 
   def vendor_params
+    params[:vendor][:name].strip! if params[:vendor][:name]
     params.require(:vendor).permit(:name, :vendor_id, :url, :address, :state, :zip,
                                    points_of_contact_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy])
   end
