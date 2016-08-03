@@ -12,6 +12,24 @@ module Cypress
       file
     end
 
+    def self.all_patients
+      file = file = Tempfile.new("all-patients-#{Time.now.to_i}")
+      Zip::ZipOutputStream.open(file.path) do |z|
+        Bundle.each do |bundle|
+          records = bundle.records
+          %w(html qrda).each do |format|
+            extensions = { html: 'html', qrda: 'xml' }
+            formatter = formatter_for_patients(records, format)
+            records.each do |r|
+              filename = "#{bundle.title}/#{format}_records/#{r.first}_#{r.last}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
+              add_file_to_zip(z, filename, formatter.export(r))
+            end
+          end
+        end
+      end
+      file
+    end
+
     def self.create_total_test_zip(product, format = 'qrda')
       measure_tests = MeasureTest.where(product_id: product.id)
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
@@ -54,8 +72,7 @@ module Cypress
       checklist_test.measures.each do |m|
         example_patients[m.cms_id] = Cypress::ExamplePatientFinder.find_example_patient(m)
       end
-      mes, sd, ed = Cypress::PatientZipper.mes_start_end(example_patients.values)
-      formatter = Cypress::HTMLExporter.new(mes, sd, ed)
+      formatter = formatter_for_patients(records, 'html')
       Zip::ZipOutputStream.open(file.path) do |z|
         add_file_to_zip(z, 'criteria_list.html', criteria_list)
         example_patients.each do |measure_id, patient|
@@ -68,6 +85,16 @@ module Cypress
     def self.add_file_to_zip(z, file_name, file_content)
       z.put_next_entry(file_name)
       z << file_content
+    end
+
+    def self.formatter_for_patients(records, format)
+      mes, sd, ed = Cypress::PatientZipper.mes_start_end(records)
+      if format == 'html'
+        formatter = Cypress::HTMLExporter.new(mes, sd, ed)
+      elsif format == 'qrda'
+        formatter = Cypress::QRDAExporter.new(mes, sd, ed)
+      end
+      formatter
     end
   end
 end

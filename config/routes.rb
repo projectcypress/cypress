@@ -67,7 +67,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :records, only: [:index, :show]
+  resources :records, only: [:index, :show] do
+    collection do
+      get :download_mpl
+    end
+  end
 
   resource :admin, only: [:show], controller: 'admin'
 
