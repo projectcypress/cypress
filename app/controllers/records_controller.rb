@@ -35,6 +35,11 @@ class RecordsController < ApplicationController
     end
   end
 
+  def download_mpl
+    file = Cypress::CreateDownloadZip.all_patients
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: 'Master_Patient_List.zip'
+  end
+
   private
 
   def set_record_source
