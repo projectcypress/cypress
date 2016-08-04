@@ -57,7 +57,7 @@ When(/^the user edits the vendor$/) do
   visit '/'
   page.click_button 'Edit Vendor'
   page.fill_in 'URL', with: 'www.example.com'
-  page.click_button 'Edit Vendor'
+  page.click_button 'Save Changes'
 end
 
 When(/^the user removes the vendor$/) do
