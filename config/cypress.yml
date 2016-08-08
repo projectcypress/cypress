@@ -39,27 +39,27 @@ banner_message: "This server is for demonstration purposes; data on it will be r
 # mailer settings
 website_domain: <%= ENV["WEBSITE_DOMAIN"] %>
 website_port: <%= ENV["WEBSITE_PORT"] || 80 %>
-mailer_address: <%= ENV["MAILER_ADDRESS"] %>
-mailer_port: <%= ENV["MAILER_PORT"] %>
-mailer_domain: <%= ENV["MAILER_DOMAIN"] %>
-mailer_user_name: <%= ENV["MAILER_USER_NAME"] %>
-mailer_password: <%= ENV["MAILER_PASSWORD"] %>
+mailer_address: ""
+mailer_port: 
+mailer_domain: ""
+mailer_user_name: ""
+mailer_password: ""
 mailer_authentication: :plain
 
 bundle_file_path: "temp/bundles"
 
 # ignore roles completely -- this is essientially the same as everyone in the system being an admin, default true
-ignore_roles: <%= if ENV['IGNORE_ROLES'].nil? then true else ENV['IGNORE_ROLES'] end %>
+ignore_roles: false
 
 # enable the "debug features" such as allowing QA testers to produce known good results for a task, default true
-enable_debug_features: <%= if ENV['ENABLE_DEBUG_FEATURES'].nil? then true else ENV['ENABLE_DEBUG_FEATURES'] end %>
+enable_debug_features: false
 
 # the default role to assign to a user upon at creation -- this should be either admin,atl, user or nil
 # a user without a role will not be able to create or view any vendors .  You may want to set this to nil
 # when an admin is required to approve new users and have the admin set the role there, default :user
-default_role: <%= if !ENV["DEFAULT_ROLE"].nil? && ENV["DEFAULT_ROLE"].empty? then nil else (ENV["DEFAULT_ROLE"] || ":user") end %>
+default_role: 
 # wheather or not users are automatically approved without admin intervention, default true
-auto_approve: <%= if ENV['AUTO_APPROVE'].nil? then true else ENV['AUTO_APPROVE'] end %>
+auto_approve: false
 # sets whether or not Users are automatically linked to a Vendor based off the vendors points of contacts. Setting to true will
 # auto associate a User to a vendor when a user is created and a vendor point of contanct contains the same email address as the
 # user.  Likewise if a point of contact is added to a vendor and a User in the system has the same email address then the user

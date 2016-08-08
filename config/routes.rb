@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     resources :records, only: [:index, :show] do
       collection do
         get :by_measure
+        get :download_mpl
       end
     end
     resources :measures, only: [:index] do
