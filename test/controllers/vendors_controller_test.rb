@@ -74,7 +74,7 @@ class VendorsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :show, :format => :json, :id => '123'
       assert_response :not_found, 'response should be Not Found with invalid vendor ID'
-      assert_equal '', response.body
+      assert_equal 'Not Found', response.message
     end
   end
 
@@ -142,7 +142,6 @@ class VendorsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       delete :destroy, :format => :json, :id => '123'
       assert_response :not_found, 'response should be Not Found with invalid Vendor ID'
-      assert_equal '', response.body
     end
   end
 

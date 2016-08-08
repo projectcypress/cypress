@@ -51,7 +51,7 @@ class BundlesControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN]) do
       get :show, :format => :json, :id => 'bad_id'
       assert_response 404, 'response should be Not Found if bad id given'
-      assert_equal '', response.body, 'response body should be empty for Not Found'
+      assert_equal 'Not Found', response.message
     end
   end
 end

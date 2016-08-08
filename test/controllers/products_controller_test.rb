@@ -211,7 +211,7 @@ class ProductsControllerTest < ActionController::TestCase
       product = Product.find('4f57a88a1d41c851eb000004')
       get :report, vendor_id: product.vendor.id, id: 'bad_id'
       assert_response 404, 'response should be Unprocessable Entity on report if bad id'
-      assert_equal '', response.body
+      assert_equal 'Not Found', response.message
     end
   end
 
@@ -220,7 +220,7 @@ class ProductsControllerTest < ActionController::TestCase
       product = Product.find('4f57a88a1d41c851eb000004')
       get :report, vendor_id: 'bad_id', id: product.id
       assert_response 404, 'response should be Unprocessable Entity on report if bad id'
-      assert_equal '', response.body
+      assert_equal 'Not Found', response.message
     end
   end
 
@@ -243,7 +243,7 @@ class ProductsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :patients, vendor_id: Product.find('4f57a88a1d41c851eb000004').vendor.id, id: 'bad_id'
       assert_response 404, 'response should be Unprocessable Entity on report if bad id'
-      assert_equal '', response.body
+      assert_equal 'Not Found', response.message
     end
   end
 
@@ -251,7 +251,7 @@ class ProductsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :patients, vendor_id: 'bad_id', id: '4f57a88a1d41c851eb000004'
       assert_response 404, 'response should be Unprocessable Entity on report if bad id'
-      assert_equal '', response.body
+      assert_equal 'Not Found', response.message
     end
   end
 
@@ -438,7 +438,7 @@ class ProductsControllerTest < ActionController::TestCase
 
   def assert_response_not_found_and_empty_body(response)
     assert_response 404, 'response should be Not Found if bad id given'
-    assert_equal '', response.body, 'response body should be empty for Not Found'
+    assert_equal 'Not Found', response.message
   end
 
   def assert_has_product_attributes(hash)

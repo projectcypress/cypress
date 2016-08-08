@@ -111,7 +111,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       @first_task.test_executions.create
       delete :destroy, task_id: @first_task.id, id: 'bad_id'
       assert_response 404, 'response should be Not Found if no test_execution'
-      assert_equal '', response.body
+      assert_equal 'Not Found', response.message
     end
   end
 
@@ -503,7 +503,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :show, :format => :json, :task_id => @first_task.id, :id => 'bad_id'
       assert_response 404, 'response should be Bad Request if no test_execution'
-      assert_equal '', response.body
+      assert_equal 'Not Found', response.message
     end
   end
 
