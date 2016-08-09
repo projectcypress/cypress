@@ -82,31 +82,39 @@ module TestExecutionsHelper
 
   def execution_status_class(execution)
     case execution.status_with_sibling
-    when 'incomplete'
-      return 'info'
-    when 'passing'
-      return 'success'
-    when 'errored'
-      return 'warning'
-    else
-      return 'danger'
+    when 'incomplete' then return 'info'
+    when 'passing' then return 'success'
+    when 'errored' then return 'warning'
+    else return 'danger'
     end
   end
 
   def info_title_for_product_test(product_test)
     case product_test._type
-    when 'MeasureTest'
-      'Measure Test Information'
-    when 'FilteringTest'
-      'Filtering Test Information'
-    when 'ChecklistTest'
-      'Manual Entry Test Information'
-    else
-      'Test Information'
+    when 'MeasureTest' then 'Measure Test Information'
+    when 'FilteringTest' then 'Filtering Test Information'
+    when 'ChecklistTest' then 'Manual Entry Test Information'
+    else 'Test Information'
     end
   end
 
   def route_file_name(file_name)
     file_name.dup.tr('.', '_').force_encoding('UTF-8')
+  end
+
+  def iterate_task(task, direction)
+    tests = task.product_test.product.product_tests
+    tests = if task._type == 'Cat1FilterTask' || task._type == 'Cat3FilterTask'
+              tests.filtering_tests.sort_by { |t| cms_int(t.cms_id) }
+            else
+              tests.measure_tests.sort_by { |t| cms_int(t.cms_id) }
+            end
+    index = tests.index(task.product_test)
+    next_test = if direction == 'next'
+                  tests[(index + 1) % tests.count]
+                else
+                  tests[(index - 1 + tests.count) % tests.count]
+                end
+    next_test.tasks.find_by(_type: task._type)
   end
 end
