@@ -31,17 +31,17 @@ class FilteringTestTest < ActiveJob::TestCase
   end
 
   def options_assertions(filter_test)
-    assert filter_test.options['filters']['races'].count == 1
-    assert filter_test.options['filters']['ethnicities'].count == 1
-    assert filter_test.options['filters']['genders'].count == 1
-    assert filter_test.options['filters']['payers'].count == 1
+    assert_equal 1, filter_test.options['filters']['races'].count
+    assert_equal 1, filter_test.options['filters']['ethnicities'].count
+    assert filter_test.options['filters']['genders'].count
+    assert_equal 1, filter_test.options['filters']['payers'].count
     providers_assertions(filter_test)
-    assert filter_test.options['filters']['problems']['oid'].count == 1
+    assert_equal 1, filter_test.options['filters']['problems']['oid'].count
   end
 
   def age_assertions(filter_test)
     age_filter = filter_test.options['filters']['age']
-    assert age_filter.count == 1
+    assert_equal 1, age_filter.count == 1
     assert age_filter[:min] || age_filter[:max]
     assert age_filter[:min] > 0 if age_filter[:min]
   end
@@ -71,11 +71,11 @@ class FilteringTestTest < ActiveJob::TestCase
 
   def test_cat1_and_cat3_tasks
     test = @product.product_tests.create({}, FilteringTest)
-    assert_equal test.cat1_task, false
-    assert_equal test.cat3_task, false
+    assert_not test.cat1_task
+    assert_not test.cat3_task
 
     test.create_tasks
-    assert_not_equal test.cat1_task, false
-    assert_not_equal test.cat3_task, false
+    assert test.cat1_task
+    assert test.cat3_task
   end
 end

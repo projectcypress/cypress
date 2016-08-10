@@ -65,8 +65,6 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_equal [@insurance_provider], @record.insurance_providers
   end
 
-  # rubocop:disable Metrics/AbcSize
-
   def test_randomize_address
     Cypress::DemographicsRandomizer.randomize_address(@record)
     addr = @record.addresses[0]
@@ -104,8 +102,6 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_equal @ethnicity, @record.ethnicity
     assert_equal [@address], @record.addresses
   end
-
-  # rubocop:enable Metrics/AbcSize
 
   def assert_payer_data_is_valid
     ip = @record.insurance_providers[0]

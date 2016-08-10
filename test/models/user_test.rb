@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
   # end
   def test_user_can_be_associated_with_poc
     APP_CONFIG['auto_associate_pocs'] = true
-    Vendor.all.destroy
+    Vendor.destroy_all
     v = Vendor.new(name: 'test_vendor_name')
     p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
     p.vendor = v
@@ -19,7 +19,7 @@ class UserTest < ActiveSupport::TestCase
 
   def test_user_cannot_be_associated_with_poc_if_turned_off
     APP_CONFIG['auto_associate_pocs'] = false
-    Vendor.all.destroy
+    Vendor.destroy_all
     v = Vendor.new(name: 'test_vendor_name')
     p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
     p.vendor = v
@@ -37,6 +37,6 @@ class UserTest < ActiveSupport::TestCase
 
     Settings[:default_role] = nil
     u = User.create(email: 'vendor2@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
-    assert_equal 0, u.roles.length, 'user should not have any roles assigned '
+    assert_empty u.roles, 'user should not have any roles assigned '
   end
 end

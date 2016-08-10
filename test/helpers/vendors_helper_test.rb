@@ -222,45 +222,45 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def test_manual_status_vals_for_execution_both_executions_passing
     test, c1_task, c3_task = setup_manual_status_vals_for_execution
-    c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
-    c3_execution = c3_task.test_executions.create!(:state => :passed, :_id => '54321', :sibling_execution_id => '12345')
+    c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_task.test_executions.create!(:state => :passed, :_id => '54321', :sibling_execution_id => '12345')
     assert_equal [1, 0, 0, 0, 1], manual_status_vals_for_execution(test, 'C1')
   end
 
   def test_manual_status_vals_for_test_execution_one_execution_failing_one_passing
     test, c1_task, c3_task = setup_manual_status_vals_for_execution
-    c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
-    c3_execution = c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
+    c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
     assert_equal [0, 1, 0, 0, 1], manual_status_vals_for_execution(test, 'C1')
   end
 
   def test_manual_status_vals_for_test_execution_one_execution_pending_one_passing
     test, c1_task, c3_task = setup_manual_status_vals_for_execution
-    c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
-    c3_execution = c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345')
+    c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345')
     assert_equal [0, 0, 0, 1, 1], manual_status_vals_for_execution(test, 'C1')
   end
 
   def test_manual_status_vals_for_test_execution_one_execution_errored_one_passing
     test, c1_task, c3_task = setup_manual_status_vals_for_execution
-    c1_execution = c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
-    c3_execution = c3_task.test_executions.create!(:state => :errored, :_id => '54321', :sibling_execution_id => '12345')
+    c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_task.test_executions.create!(:state => :errored, :_id => '54321', :sibling_execution_id => '12345')
     assert_equal [0, 0, 1, 0, 1], manual_status_vals_for_execution(test, 'C1')
   end
 
   # pending executions should take precedence over failing executions
   def test_manual_status_vals_for_test_execution_one_execution_pending_one_failing
     test, c1_task, c3_task = setup_manual_status_vals_for_execution
-    c1_execution = c1_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321')
-    c3_execution = c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345')
+    c1_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345')
     assert_equal [0, 0, 0, 1, 1], manual_status_vals_for_execution(test, 'C1')
   end
 
   # failing executions should take precedence over errored executions
   def test_manual_status_vals_for_test_execution_one_execution_errored_one_failing
     test, c1_task, c3_task = setup_manual_status_vals_for_execution
-    c1_execution = c1_task.test_executions.create!(:state => :errored, :_id => '12345', :sibling_execution_id => '54321')
-    c3_execution = c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
+    c1_task.test_executions.create!(:state => :errored, :_id => '12345', :sibling_execution_id => '54321')
+    c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
     assert_equal [0, 1, 0, 0, 1], manual_status_vals_for_execution(test, 'C1')
   end
 
@@ -280,8 +280,8 @@ class VendorsHelperTest < ActiveJob::TestCase
     # add test executions that are failing
     c1_task = test.tasks.create!({}, C1ManualTask)
     c3_task = test.tasks.create!({}, C3ManualTask)
-    c1_execution = c1_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321')
-    c3_execution = c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
+    c1_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321')
+    c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
 
     assert_equal [1, 1, 0, 0, 2], manual_status_vals(test, 'C1')
   end

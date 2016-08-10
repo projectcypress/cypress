@@ -68,20 +68,6 @@ class C1TaskTest < ActiveSupport::TestCase
     end
   end
 
-  def test_should_be_able_to_tell_when_potentialy_too_much_data_is_in_documents
-    ptest = ProductTest.find('51703a883054cf84390000d3')
-    task = ptest.tasks.create({}, C3Cat1Task)
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
-    perform_enqueued_jobs do
-      te = task.execute(zip, nil)
-      te.reload
-      assert_equal 11, te.execution_errors.by_file('0_Dental_Peds_A.xml').count
-      assert_equal 13, te.execution_errors.by_file('1_HIV_Peds_A.xml').count
-      assert_equal 13, te.execution_errors.by_file('2_GP_Peds_B.xml').count
-      assert_equal 13, te.execution_errors.by_file('3_GP_Peds_C.xml').count
-    end
-  end
-
   def test_should_be_able_to_tell_when_calculation_errors_exist
     task = @product_test.tasks.create({}, C1Task)
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_bad_calculation.zip'))

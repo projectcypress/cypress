@@ -12,7 +12,7 @@ class ArtifactTest < ActiveSupport::TestCase
     filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
     artifact = Artifact.new(file: File.new(filename))
     expected.each do |n|
-      assert !artifact.get_file(n).nil?
+      assert artifact.get_file(n)
     end
   end
 
@@ -135,7 +135,7 @@ class ArtifactTest < ActiveSupport::TestCase
       filename = "#{root}/bad_file_extension.#{ext}"
       FileUtils.touch(filename)
       artifact = Artifact.new(file: File.new(filename))
-      assert !artifact.save, "File should not save with un whitelisted extension #{ext}"
+      assert_not artifact.save, "File should not save with un whitelisted extension #{ext}"
     end
 
     FileUtils.rm_rf(root)

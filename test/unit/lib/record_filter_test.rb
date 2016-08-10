@@ -16,9 +16,9 @@ class RecordFilterTest < ActiveSupport::TestCase
 
     @all_records.each do |r|
       if filtered_records.include? r
-        assert(r.gender == selected_gender, 'Filtered record set includes a record that does not match criteria')
+        assert_equal(selected_gender, r.gender, 'Filtered record set includes a record that does not match criteria')
       else
-        assert(r.gender != selected_gender, 'Filtered record set does not include a record that matches criteria')
+        assert_not_equal(selected_gender, r.gender, 'Filtered record set does not include a record that matches criteria')
       end
     end
   end
@@ -31,9 +31,9 @@ class RecordFilterTest < ActiveSupport::TestCase
 
     @all_records.each do |r|
       if filtered_records.include? r
-        assert(r.race['code'] == selected_race, 'Filtered record set includes a record that does not match criteria')
+        assert_equal(selected_race, r.race['code'], 'Filtered record set includes a record that does not match criteria')
       else
-        assert(r.race['code'] != selected_race, 'Filtered record set does not include a record that matches criteria')
+        assert_not_equal(selected_race, r.race['code'], 'Filtered record set does not include a record that matches criteria')
       end
     end
   end
@@ -47,9 +47,9 @@ class RecordFilterTest < ActiveSupport::TestCase
 
     @all_records.each do |r|
       if filtered_records.include? r
-        assert(r.ethnicity['code'] == selected_ethn, 'Filtered record set includes a record that does not match criteria')
+        assert_equal(selected_ethn, r.ethnicity['code'], 'Filtered record set includes a record that does not match criteria')
       else
-        assert(r.ethnicity['code'] != selected_ethn, 'Filtered record set does not include a record that matches criteria')
+        assert_not_equal(selected_ethn, r.ethnicity['code'], 'Filtered record set does not include a record that matches criteria')
       end
     end
   end
@@ -153,7 +153,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     filters = { 'age' => { 'min' => age + 1 } }
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
 
-    assert !filtered_records.include?(patient)
+    assert_not filtered_records.include?(patient)
 
     # CASE 2
     age = Random.rand(100)
@@ -162,7 +162,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     filters = { 'age' => { 'max' => age - 1 } }
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, effective_date: effective_date).to_a
 
-    assert !filtered_records.include?(patient)
+    assert_not filtered_records.include?(patient)
   end
 
   # helper function to calculate age
@@ -180,7 +180,7 @@ class RecordFilterTest < ActiveSupport::TestCase
       if filtered_records.include? r
         assert(record_has_payer?(r, selected_payer), 'Filtered record set includes a record that does not match criteria')
       else
-        assert(!record_has_payer?(r, selected_payer), 'Filtered record set does not include a record that matches criteria')
+        assert_not(record_has_payer?(r, selected_payer), 'Filtered record set does not include a record that matches criteria')
       end
     end
   end
@@ -214,7 +214,7 @@ class RecordFilterTest < ActiveSupport::TestCase
       if filtered_records.include? r
         assert(record_has_problem?(r, relevant_codes), 'Filtered record set includes a record that does not match criteria')
       else
-        assert(!record_has_problem?(r, relevant_codes), 'Filtered record set does not include a record that matches criteria')
+        assert_not(record_has_problem?(r, relevant_codes), 'Filtered record set does not include a record that matches criteria')
       end
     end
   end
@@ -254,7 +254,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     assert(all_records.count >= filtered_records.count, 'Filtered set of records is larger than original Unfiltered set')
 
     if expected_count > -1
-      assert(expected_count == filtered_records.count, 'Filtered set of records does not match expected count')
+      assert_equal(expected_count, filtered_records.count, 'Filtered set of records does not match expected count')
     end
   end
 end

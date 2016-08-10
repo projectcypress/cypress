@@ -212,7 +212,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should not be able to get file_result if invalid execution id' do
     %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
-      execution, file_name = create_execution_with_task_type(task_type)
+      _execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
         bad_execution_id = "bad id #{rand}"
         get :file_result, id: bad_execution_id, file_name: route_file_name(file_name)
@@ -224,7 +224,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should not be able to get file_result if invalid file_name' do
     %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
-      execution, file_name = create_execution_with_task_type(task_type)
+      execution, _file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
         bad_file_name = "bad file name #{rand}"
         get :file_result, id: execution.id, file_name: route_file_name(bad_file_name)

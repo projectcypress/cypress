@@ -32,8 +32,8 @@ class C1ManualTaskTest < ActiveSupport::TestCase
       te = task.execute(zip)
       te.reload
       @checklist_test.reload
-      assert_equal true, @checklist_test.checked_criteria.first.complete?, 'checklist test criteria should be true with QRDA entry'
-      assert_equal true, @checklist_test.checked_criteria.last.complete?, 'checklist test criteria should be true with QRDA entry'
+      assert @checklist_test.checked_criteria.first.complete?, 'checklist test criteria should be true with QRDA entry'
+      assert @checklist_test.checked_criteria.last.complete?, 'checklist test criteria should be true with QRDA entry'
     end
   end
 
@@ -43,26 +43,26 @@ class C1ManualTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip)
       te.reload
-      assert_equal nil, @checklist_test.checked_criteria.first.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
-      assert_equal nil, @checklist_test.checked_criteria.last.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
+      assert_not @checklist_test.checked_criteria.first.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
+      assert_not @checklist_test.checked_criteria.last.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
     end
   end
 
   def test_execute_should_not_execute_a_sibling_execution_on_c3_manual_task_if_c3_not_selected
-    Task.all.each(&:destroy)
+    Task.destroy_all
     task = @checklist_test.tasks.create!({}, C1ManualTask)
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_correct_codes.zip'))
     perform_enqueued_jobs do
       execution = task.execute(zip)
-      assert_not_equal nil, execution
-      assert_equal 1, @checklist_test.tasks.count { |task| task.test_executions.any? }, 'only one task with any test executions'
-      assert_equal 1, @checklist_test.tasks.count { |task| task.test_executions.count }, 'only one test execution for checklist test'
+      assert execution
+      assert_equal 1, @checklist_test.tasks.count { |t| t.test_executions.any? }, 'only one task with any test executions'
+      assert_equal 1, @checklist_test.tasks.count { |t| t.test_executions.count }, 'only one test execution for checklist test'
       assert_equal 1, task.test_executions.count
     end
   end
 
   def test_execute_should_execute_a_sibling_execution_on_c3_manual_task_if_c3_selected
-    Task.all.each(&:destroy)
+    Task.destroy_all
 
     # select c3 on product
     product = @checklist_test.product
@@ -74,30 +74,12 @@ class C1ManualTaskTest < ActiveSupport::TestCase
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_correct_codes.zip'))
     perform_enqueued_jobs do
       execution = task.execute(zip)
-      assert_not_equal nil, execution
-      assert_equal 2, @checklist_test.tasks.count { |task| task.test_executions.any? }, 'two tasks (one c1, one c3), both with test executions'
-      assert_equal 2, @checklist_test.tasks.count { |task| task.test_executions.count }, 'two test execution for checklist test'
+      assert execution
+      assert_equal 2, @checklist_test.tasks.count { |t| t.test_executions.any? }, 'two tasks (one c1, one c3), both with test executions'
+      assert_equal 2, @checklist_test.tasks.count { |t| t.test_executions.count }, 'two test execution for checklist test'
       assert_equal 1, task.test_executions.count
       sibling_task = task.test_executions.first.sibling_execution.task
       assert_equal 1, sibling_task.test_executions.count
-    end
-  end
-
-  def test_execute_should_create_an_error_for_each_incomplete_checked_criteria
-    Task.all.each(&:destroy)
-    task = @checklist_test.tasks.create!({}, C1ManualTask)
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_incorrect_codes.zip'))
-
-    # screw up one of the checked criterias
-    criteria = @checklist_test.checked_criteria[0]
-    criteria.code = '3'
-    criteria.code_complete = false
-    @checklist_test.checked_criteria[0] = criteria
-    @checklist_test.save!
-
-    perform_enqueued_jobs do
-      execution = task.execute(zip)
-      assert true
     end
   end
 

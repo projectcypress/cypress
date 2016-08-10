@@ -15,6 +15,6 @@ class ProductTestSetupJobTest < ActiveJob::TestCase
     ProductTestSetupJob.perform_now(test)
     test.reload
 
-    assert_not_equal nil, test.provider
+    assert test.provider
   end
 end
