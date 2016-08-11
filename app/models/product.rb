@@ -101,6 +101,14 @@ class Product
     end
   end
 
+  # This method does nothing more than attempt to cleanup a lot of data instead of making rails do it,
+  # since rails is really bad at cleaning up quickly.
+  def destroy
+    ProductTest.destroy_by_ids(product_test_ids)
+
+    super
+  end
+
   # - - - - - - - - - #
   #   P R I V A T E   #
   # - - - - - - - - - #
