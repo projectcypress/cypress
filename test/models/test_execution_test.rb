@@ -65,7 +65,7 @@ class TestExecutionTest < ActiveSupport::TestCase
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_incorrect_codes.zip'))
     execution.artifact = Artifact.new(file: zip)
 
-    execution.validate_artifact(task.validators, execution.artifact)
+    execution.validate_artifact(task.validators, execution.artifact, task: task)
     num_failed_criteria = test.checked_criteria.select { |crit| !crit.passed_qrda }.count
     assert_equal num_failed_criteria, execution.execution_errors.select { |err| err.validator == 'qrda_cat1' }.count
   end
