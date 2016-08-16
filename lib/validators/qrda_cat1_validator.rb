@@ -32,7 +32,8 @@ module Validators
       end
 
       validation_errors.each do |error|
-        type = :error
+        # errors for data criteria outside the measure definition are now warnings
+        type = (error.message.include? 'data criteria outside') ? :warning : :error
         if error.validator && error.validator.upcase.include?('QRDA') && !@test_has_c3
           type = :warning
         end
