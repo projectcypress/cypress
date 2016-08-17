@@ -26,12 +26,15 @@
       <% unless execution.nil? %>
         <td><%= link_to 'View Results', new_task_test_execution_path(execution.task) %></td>
       <% else %>
-        <td></td>
+        <td>  <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+          <span class = 'text-info'>Not Started</span>
+        </td>
       <% end %>
       <% # for both c1 and c3 executions (if they exist) %>
-      <% [execution, c3_execution].each do |exec| %>
-        <td><%= render partial: 'execution_status_message', locals: { execution: exec, test_state: task.product_test.state } %></td>
-      <% end %>
+        <td><%= render partial: 'execution_status_message', locals: { execution: execution, test_state: task.product_test.state } %></td>
+        <% if should_include_c3 %>
+        <td><%= render partial: 'execution_status_message', locals: { execution: c3_execution, test_state: task.product_test.state } %></td>
+        <% end %>
       <td>
         <% unless execution.nil? %>
           <% case execution.status_with_sibling %>
