@@ -124,6 +124,6 @@ class ApplicationController < ActionController::Base
   def catch_not_found
     yield
   rescue Mongoid::Errors::DocumentNotFound, Mongoid::Errors::InvalidFind
-    render :nothing => true, :status => :not_found
+    page_not_found
   end
 end

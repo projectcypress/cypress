@@ -44,7 +44,7 @@ class ProductTestsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :patients, :format => :format_does_not_matter, :id => 'bad_id'
       assert_response 404, 'response should be Not Found on patients if bad id'
-      assert_equal '', response.body
+      assert_equal 'Not Found', response.message
     end
   end
   # need negative tests for user that does not have owner or vendor access

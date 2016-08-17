@@ -29,6 +29,6 @@ class MeasuresControllerTest < ActionController::TestCase
   test 'should not get index with json with bad bundle id' do
     get :index, :format => :json, :bundle_id => 'bad_id'
     assert_response 404, 'response should be Not Found if bad id given'
-    assert_equal '', response.body, 'response body should be empty for Not Found'
+    assert_equal 'Not Found', response.message
   end
 end
