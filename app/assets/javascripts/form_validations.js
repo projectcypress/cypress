@@ -21,4 +21,15 @@ $(function() {
         en: 'Does not have at least 3 of the specified character types.',
       }
     });
+
+  window.Parsley
+    .addValidator('phonenumber', {
+      requirementType: 'regexp',
+      validateString: function(value, requirement) {
+        return value.search(/[A-Za-z]/) == -1;
+      },
+      messages: {
+        en: 'This value may not contain letters.'
+      }
+    });
 });
