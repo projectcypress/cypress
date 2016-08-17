@@ -21,7 +21,7 @@ if [[ -z $1 ]]; then
   exit 1
 fi
 
-if [[ $1 =~ \.ovf$ ]]; then
-  name=$(basename "${1}" .ovf).ova
+if [[ $1 =~ \.vmx$ ]]; then
+  name=$(basename "${1}" .vmx).ova
   ovftool --compress=9 -o "${1}" "${name}"
 fi
