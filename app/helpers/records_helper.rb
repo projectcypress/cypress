@@ -62,4 +62,9 @@ module RecordsHelper
   def coverage_for_measure(measure_id, sub_id, bundle_id)
     QueryCache.where(measure_id: measure_id, sub_id: sub_id, bundle_id: bundle_id, test_id: nil).first['bonnie_coverage']
   end
+
+  def hide_patient_calculation?
+    # Hide measure calculation if it is a product test, Cypress is in ATL Mode and the current user is not an ATL or admin
+    @product_test && ApplicationController.helpers.mode_atl? && (!current_user.user_role?('admin') && !current_user.user_role?('atl'))
+  end
 end
