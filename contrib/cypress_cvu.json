@@ -9,7 +9,7 @@
   },
   "builders": [
     {
-      "name": "cypress.cvu.v3.0.0.amazonaws",
+      "name": "cypress.cvu.amazonaws",
       "type": "amazon-ebs",
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
@@ -20,7 +20,7 @@
       "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "ami_name": "cypress_cvu_3.0.0rc1",
+      "ami_name": "cypress_cvu_3.0.1",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 20,
@@ -33,8 +33,8 @@
       }]
     },
     {
-      "name": "cypress.cvu.v3.0.0.vmware",
-      "vm_name": "cypresscvuv300",
+      "name": "cypress.cvu.vmware",
+      "vm_name": "cypresscvuv301",
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
@@ -106,15 +106,17 @@
   {
     "type": "shell",
     "inline": ["echo '{{user `default_pwd`}}' | sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+ALL/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers"],
-    "only": ["cypress.cvu.v3.0.0.vmware"]
+    "only": ["cypress.cvu.vmware"]
   },
   {
     "type": "chef-solo",
     "cookbook_paths": ["cookbooks"],
+    "install_command": "curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v 12.13",
     "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::default]" ],
     "json": {
       "cypress": {
-          "cypress_git_revision": "v3.0.0",
+          "cypress_git_revision": "v3.0.1",
+          "cvu_git_revision": "v3.0.1",
           "generate_secrets_on_restart": true
       }
     }
@@ -122,7 +124,7 @@
   {
     "type": "shell",
     "inline": ["sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+NOPASSWD:ALL/%sudo ALL=(ALL:ALL) ALL/' /etc/sudoers"],
-    "only": ["cypress.cvu.v3.0.0.vmware"]
+    "only": ["cypress.cvu.vmware"]
   },
   {
     "type": "shell",
@@ -134,7 +136,7 @@
     {
       "type": "shell-local",
       "script": "scripts/vmx_to_ova.sh",
-      "only": ["cypress.cvu.v3.0.0.vmware"]
+      "only": ["cypress.cvu.vmware"]
     }
   ]
 }

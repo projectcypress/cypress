@@ -9,7 +9,7 @@
   },
   "builders": [
     {
-      "name": "cvu.v3.0.0.amazonaws",
+      "name": "cvu.amazonaws",
       "type": "amazon-ebs",
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
@@ -20,7 +20,7 @@
       "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "ami_name": "cvu_3.0.0rc1",
+      "ami_name": "cvu_3.0.1",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 20,
@@ -33,8 +33,8 @@
       }]
     },
     {
-      "name": "cvu.v3.0.0.vmware",
-      "vm_name": "cvuv300",
+      "name": "cvu.vmware",
+      "vm_name": "cvuv301",
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
@@ -106,14 +106,16 @@
   {
     "type": "shell",
     "inline": ["echo '{{user `default_pwd`}}' | sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+ALL/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers"],
-    "only": ["cvu.v3.0.0.vmware"]
+    "only": ["cvu.vmware"]
   },
   {
     "type": "chef-solo",
     "cookbook_paths": ["cookbooks"],
+    "install_command": "curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v 12.13",
     "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::install_cvu]" ],
     "json": {
       "cypress": {
+          "cvu_git_revision": "v3.0.1",
           "generate_secrets_on_restart": true
       }
     }
@@ -121,20 +123,20 @@
   {
     "type": "shell",
     "inline": ["sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+NOPASSWD:ALL/%sudo ALL=(ALL:ALL) ALL/' /etc/sudoers"],
-    "only": ["cvu.v3.0.0.vmware"]
+    "only": ["cvu.vmware"]
   },
   {
     "type": "shell",
     "execute_command": "echo '{{user `default_pwd`}}' | sudo -S -E bash '{{.Path}}'",
     "script": "scripts/cleanup.sh",
-    "only": ["cvu.v3.0.0.vmware"]
+    "only": ["cvu.vmware"]
   }],
 
   "post-processors": [
     {
       "type": "shell-local",
       "script": "scripts/vmx_to_ova.sh",
-      "only": ["cvu.v3.0.0.vmware"]
+      "only": ["cvu.vmware"]
     }
   ]
 }
