@@ -432,6 +432,26 @@ class ProductsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should strip trailing whitespace from name on create' do
+    # do this for admin,atl,user:owner -- need negative test for non access
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      name = "test_product_#{rand}"
+      post :create, vendor_id: @vendor.id, product: { name: "#{name} ", c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
+                                                      measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'] }
+      assert_equal name, assigns(:product)[:name], 'Product did not strip trailing whitespace from name on create'
+    end
+  end
+
+  test 'should strip trailing whitespace from name on update' do
+    product = create_product_with_checklist_test(['40280381-4BE2-53B3-014C-0F589C1A1C39'])
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      name = "p_#{rand}"
+      product.name = "#{name} "
+      put :update, id: product.id, product: product.attributes
+      assert_equal name, assigns(:product)[:name], 'Product did not strip trailing whitespace from name on update'
+    end
+  end
+
   # # # # # # # # # # #
   #   H E L P E R S   #
   # # # # # # # # # # #
