@@ -51,7 +51,7 @@ class ProductTest
       pcv.value['medical_record_id']
     end
     # selects between half and all of the unique ids
-    ids = ids.uniq.sample(rand((ids.count + 1) / 2) + ids.count / 2 + 1)
+    ids = ids.uniq.sample(rand((ids.count / 2.0).ceil..(ids.count)))
     if product.randomize_records
       random_ids = bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'randomization_ids' => random_ids,
