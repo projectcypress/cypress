@@ -108,6 +108,7 @@ module Cypress
     end
 
     def next_medical_record_number
+      @rand_prefix ||= @options['job_id']
       @rand_prefix ||= Time.new.to_i
       @current_index ||= 0
       @current_index += 1
