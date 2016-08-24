@@ -25,7 +25,7 @@
     <% if @measure && !@product_test %>
       <% records_by_measure(@records, @measure).each do |r| %>
         <tr>
-          <td><%= link_to full_name(r), record_path(:id => r.id) %></td>
+          <td><%= link_to full_name(r), bundle_record_path(@bundle, r) %></td>
           <td><%= display_time(r.birthdate) %></td>
           <td><%= full_gender_name(r.gender) %></td>
           <% @measure.population_ids.keys().each do |population| %>
