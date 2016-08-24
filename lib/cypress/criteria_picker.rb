@@ -50,10 +50,11 @@ module Cypress
         fallback_id = cr_hash.code_list_id
         hqmf_oid = HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'])
         hqmf_oid ||= HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'], 'r2')
-        if Cypress::RecordFilter.filter(records, { 'problems' => { oid: [cr_hash.code_list_id], hqmf_ids: [hqmf_oid] } }, {}).count > 0
-          code_list_id = cr_hash.code_list_id
-          break
-        end
+        next unless Cypress::RecordFilter.filter(records,
+                                                 { 'problems' => { oid: [cr_hash.code_list_id], hqmf_ids: [hqmf_oid] } },
+                                                 bundle_id: measure.bundle_id).count > 0
+        code_list_id = cr_hash.code_list_id
+        break
       end
 
       code_list_id.empty? ? fallback_id : code_list_id

@@ -16,7 +16,7 @@ module Cypress
       end
 
       if input_filters['problems']
-        query_pieces << build_problem_query(input_filters['problems'])
+        query_pieces << build_problem_query(input_filters['problems'], options)
       end
 
       if input_filters['providers']
@@ -88,7 +88,7 @@ module Cypress
       age_query
     end
 
-    def self.build_problem_query(problem_filters)
+    def self.build_problem_query(problem_filters, options)
       # given a value set, find conditions and procedures where the diagnosis code matches
 
       # mongo has no joins or inner querying so we have to first fetch the given codes
@@ -96,7 +96,7 @@ module Cypress
 
       # I think this whole section ending in relevant_codes
       # could possibly be combined into 1 mongo query that does everything
-      value_sets = HealthDataStandards::SVS::ValueSet.where('oid' => { '$in' => problem_filters[:oid] })
+      value_sets = HealthDataStandards::SVS::ValueSet.where('bundle_id' => options[:bundle_id], 'oid' => { '$in' => problem_filters[:oid] })
 
       code_sets = value_sets.pluck('concepts')
 
