@@ -34,6 +34,20 @@ class Vendor
     end
   end
 
+  # This method does nothing more than attempt to cleanup a lot of data instead of making rails do it,
+  # since rails is really bad at cleaning up quickly. Note that this bypasses the dependent => destroy
+  # calls on product, product tests, etc, all the way down and does them manually. This means that
+  # if any of those structures change then this code will need to be updated accordingly.
+  def destroy
+    product_tests = ProductTest.where(:product_id.in => product_ids)
+    product_test_ids = product_tests.pluck(:_id)
+    ProductTest.destroy_by_ids(product_test_ids)
+
+    Product.in(id: product_ids).delete
+
+    super
+  end
+
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       total = products.count

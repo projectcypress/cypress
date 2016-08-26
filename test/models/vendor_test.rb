@@ -131,6 +131,13 @@ class VendorTest < ActiveSupport::TestCase
       assert v.save!
     end
   end
+
+  def test_vendor_can_be_destroyed
+    v = Vendor.create!(name: 'test_vendor_name')
+    assert_difference 'Vendor.count', -1 do
+      v.destroy
+    end
+  end
 end
 
 class VendorCachingTest < CachingTest

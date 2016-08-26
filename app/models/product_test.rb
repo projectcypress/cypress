@@ -46,6 +46,28 @@ class ProductTest
     super
   end
 
+  # This is a helper method for the vendor and product cleanup code. It takes a collection of
+  # product test ID's and deletes those ProducTests along with all associated data.
+  def self.destroy_by_ids(product_test_ids)
+    tasks = Task.where(:product_test_id.in => product_test_ids)
+    task_ids = tasks.pluck(:_id)
+    records = Record.where(:test_id.in => product_test_ids)
+    record_ids = records.pluck(:_id)
+    test_executions = TestExecution.where(:task_id.in => task_ids)
+    test_execution_ids = test_executions.pluck(:_id)
+
+    records.delete
+    tasks.delete
+    test_executions.delete
+
+    # Artifact runs a destroy instead of a delete in order to invoke the file callbacks from
+    # carrierwave. Without this the system would be left with a lot of uploaded files on it
+    # long after the parent data was destroyed.
+    Artifact.where(:test_execution_id.in => test_execution_ids).destroy
+    HealthDataStandards::CQM::PatientCache.where(:'value.patient_id'.in => record_ids).delete
+    ProductTest.in(id: product_test_ids).delete
+  end
+
   def generate_records
     ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
       pcv.value['medical_record_id']
