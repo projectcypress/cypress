@@ -70,7 +70,8 @@ class RecordsController < ApplicationController
     @product_test = @task.product_test
     @bundle = @product_test.bundle
     authorize! :read, @product_test.product.vendor
-    @measure = @product_test.measures.first
+    @measure = @product_test.measures.where(sub_id: params['sub_id']).first
+    @measure ||= @product_test.measures.first
     @source = @product_test
     breadcrumbs_for_test_path
     @title = "#{@task.product_test.product.name} #{@task._type.titleize} #{@task.product_test.measures.first.cms_id} Patients"
