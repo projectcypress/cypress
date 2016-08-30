@@ -44,14 +44,15 @@
       <% # Measure Test Tabs (both C1 or C2 tabs) %>
       <% if test_type == 'MeasureTest' %>
         <div id="display_measure_tests_table">
-          <%= render partial: 'measure_tests_table', locals: { tasks: measure_test_tasks(@product, title.include?('C1')) } %>
+          <%= render partial: 'measure_tests_table', locals: { product: @product, get_c1_tasks: title.include?('C1'),
+            html_id: html_id } %>
         </div>
       <% end %>
 
       <% # Filtering Test Tab %>
       <% if test_type == 'FilteringTest' %>
         <div id="display_filtering_test_status_display">
-          <%= render partial: 'filtering_test_status_display', locals: { tests: @product.product_tests.filtering_tests } %>
+          <%= render partial: 'filtering_test_status_display', locals: { product: @product, html_id: html_id } %>
         </div>
       <% end %>
 

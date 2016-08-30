@@ -2,10 +2,13 @@
 
 # local variables
 #
-#   tasks (array of Task)
+#   product (The parent product we are fetching tasks for)
+#   get_c1_tasks (whether the measure tasks we fetch should include c1 tasks)
 
 %>
-
+<% # Convert get_c1_tasks into a boolean if it is a string. %>
+<% get_c1_tasks = get_c1_tasks.eql? "true" if get_c1_tasks.is_a? String %>
+<% tasks = measure_test_tasks(@product, get_c1_tasks) %>
 <% return unless tasks.any? %>
 
 <% product = tasks.first.product_test.product %>
@@ -26,8 +29,16 @@
   <tbody>
     <% tasks.each do |task| %>
       <tr id = '<%= measure_tests_table_row_wrapper_id(task) %>'>
-        <%= render partial: 'measure_tests_table_row', locals: { task: task } %>
+        <%= render partial: 'measure_tests_table_row', locals: { task: task, parent_reloading: true } %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<% if should_reload_measure_test_table?(tasks) %>
+  <script>
+    $(document).ready(function() {
+      $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'measure_tests_table', should_include_c1: "<%= get_c1_tasks %>", html_id: "<%= html_id %>" }});
+    });
+  </script>
+<% end %>
