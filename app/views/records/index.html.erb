@@ -1,21 +1,23 @@
 <% if @task && @product_test %>
   <h1>Patient List</h1>
   <div>
-    <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default pull-right" do %>
-      <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download HTML Patients
-    <% end %>
-    <% if @measure && @measure.sub_id %>
-      <div class="btn-group pull-right">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sub measures<span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <% submeasures = HealthDataStandards::CQM::Measure.where(hqmf_id: @measure.hqmf_id).sort_by(&:sub_id) %>
-          <% submeasures.each do |submeasure| %>
-            <li><%= link_to submeasure.display_name, { controller: 'records', task_id: @task.id, sub_id: submeasure.sub_id}, method: :get %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <div class="pull-right">
+      <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default" do %>
+        <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download HTML Patients
+      <% end %>
+      <% if @measure && @measure.sub_id %>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sub measures<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <% submeasures = HealthDataStandards::CQM::Measure.where(hqmf_id: @measure.hqmf_id).sort_by(&:sub_id) %>
+            <% submeasures.each do |submeasure| %>
+              <li><%= link_to "#{submeasure.display_name} - #{submeasure.subtitle}", { controller: 'records', task_id: @task.id, sub_id: submeasure.sub_id}, method: :get %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
   <div>
 <% else %>
   <h1>Master Patient List</h1>
