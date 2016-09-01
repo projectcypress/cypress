@@ -1,6 +1,7 @@
 <h1>Patient Information for <%= full_name(@record) %></h1>
 <div class="row">
-<% unless @product_test %>
+<!-- Show measure calculation unless the list is for a product test, Cypress is in ATL Mode and the current user is not an ATL or admin -->
+<% unless @product_test && hide_patient_calculation? %>
   <div class="col-md-6">
     <h2>Measure Information</h2>
     <% if @measures.where(continuous_variable: true).length > 0 %>
