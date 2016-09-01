@@ -68,7 +68,7 @@ class ProductTest
     ProductTest.in(id: product_test_ids).delete
   end
 
-  def generate_records
+  def generate_records(job_id = nil)
     ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
       pcv.value['medical_record_id']
     end
@@ -77,7 +77,7 @@ class ProductTest
     if product.randomize_records
       random_ids = bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'randomization_ids' => random_ids,
-                                      'randomize_demographics' => true, 'generate_provider' => product.c4_test).perform
+                                      'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
     else
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'disable_randomization' => true).perform
     end
