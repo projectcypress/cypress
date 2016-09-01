@@ -75,7 +75,9 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, nil)
       te.reload
-      assert_equal 11, te.execution_errors.by_file('0_Dental_Peds_A.xml').count
+      assert_equal 12, te.execution_errors.by_file('0_Dental_Peds_A.xml').count
+      assert_equal 1, te.execution_errors.by_file('0_Dental_Peds_A.xml').where(:message => 'File appears to contain data criteria outside that '\
+        'required by the measures. Valuesets in file not in measures tested 2.16.840.1.113883.3.464.1003.101.12.1023\'', :msg_type => :warning).size
       assert_equal 13, te.execution_errors.by_file('1_HIV_Peds_A.xml').count
       assert_equal 13, te.execution_errors.by_file('2_GP_Peds_B.xml').count
       assert_equal 13, te.execution_errors.by_file('3_GP_Peds_C.xml').count
