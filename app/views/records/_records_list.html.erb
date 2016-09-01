@@ -28,12 +28,10 @@
           <td><%= link_to full_name(r), record_path(:id => r.id) %></td>
           <td><%= display_time(r.birthdate) %></td>
           <td><%= full_gender_name(r.gender) %></td>
-          <% unless hide_patient_calculation? %>
-            <% @measure.population_ids.keys().each do |population| %>
-              <td class="text-center">
-                <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(r.calculation_results, @measure, population) } %>
-              </td>
-            <% end %>
+          <% @measure.population_ids.keys().each do |population| %>
+            <td class="text-center">
+              <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(r.calculation_results, @measure, population) } %>
+            </td>
           <% end %>
         </tr>
       <% end %>
@@ -53,7 +51,7 @@
           <td><%= display_time(r.birthdate) %></td>
           <td><%= full_gender_name(r.gender) %></td>
           <!-- will show calculation results for product test records -->
-          <% if @measure && !hide_patient_calculation? %>
+          <% if @measure && !(@product_test && hide_patient_calculation?) %>
             <% @measure.population_ids.keys().each do |population| %>
               <td class="text-center">
                 <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(r.calculation_results, @measure, population) } %>
