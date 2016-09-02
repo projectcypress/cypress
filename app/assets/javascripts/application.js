@@ -15,6 +15,7 @@
 //= require bootstrap/tooltip
 //= require bootstrap/popover
 //= require bootstrap/collapse
+//= require bootstrap/dropdown
 //= require jquery-ui/accordion
 //= require jquery-ui/button
 //= require jquery-ui/dialog
