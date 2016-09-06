@@ -3,8 +3,8 @@ Feature: C4 Filtering Test
 Background:
   Given the user is signed in
   And the user has created a vendor with a product selecting C4 testing
-  And the user visits the product show page with the filter test tab selected
   And the first filter task state has been set to ready
+  And the user visits the product show page with the filter test tab selected
 
 Scenario: Successful View CAT 1 Filtering Test
   When the user views the CAT 1 test for the first filter task

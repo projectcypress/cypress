@@ -3,8 +3,11 @@
 # local variables
 #
 #   task       (Task)
-
+#   parent_reloading is a boolean stating whether or not the measure_tests_table is already reloading via ajax, in order to make
+#   sure we don't reload at the same time and double up on requests.
 %>
+
+<% parent_reloading = false unless (defined? parent_reloading) %>
 
 <% test = task.product_test %>
 <% include_c3 = test.product.c3_test %>
@@ -27,8 +30,11 @@
   <i class="fa fa-fw fa-clock-o" aria-hidden="true"></i><%= local_time_ago(task.updated_at) %>
 </td>
 
-<% if should_reload_measure_test_row?(task) %>
+<% # Only reload if the measure_tests_table isn't reloading for us. (This currently only happens in create.js.erb) %>
+<% if measure_test_running_for_row?(task) && !parent_reloading %>
   <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'measure_tests_table_row', task_id: "<%= task.id.to_s %>" }});
+    $(document).ready(function() {
+      $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'measure_tests_table_row', task_id: "<%= task.id.to_s %>" }});
+    });
   </script>
 <% end %>
