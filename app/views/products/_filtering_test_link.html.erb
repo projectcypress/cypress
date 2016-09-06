@@ -9,6 +9,7 @@
 
 %>
 
+<% parent_reloading = false unless (defined? parent_reloading) %>
 <% tasks = with_c3_task(task) %>
 
 <% if test.state != :ready %>
@@ -52,8 +53,10 @@
   <% end %>
 <% end %>
 
-<% if should_reload_product_test_link?(tasks) %>
+<% if should_reload_product_test_link?(tasks) && !parent_reloading %>
   <script>
+  $(document).ready(function() {
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_link', task_id: "<%= task.id.to_s %>" }});
+  });
   </script>
 <% end %>

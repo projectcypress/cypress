@@ -30,6 +30,19 @@ class FilteringTestTest < ActiveJob::TestCase
     options_assertions(ft)
   end
 
+  def test_problem_filter
+    criteria = %w(problems)
+    options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+    ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
+    ft.save!
+    ft.generate_records
+    ft.reload
+    ft.pick_filter_criteria
+    # There should be at least one record that meets the problem filter
+    assert !ft.filtered_records.empty?
+  end
+
   def options_assertions(filter_test)
     assert_equal 1, filter_test.options['filters']['races'].count
     assert_equal 1, filter_test.options['filters']['ethnicities'].count

@@ -81,11 +81,29 @@ module ProductsHelper
     false
   end
 
-  def should_reload_measure_test_row?(task)
+  def should_reload_product_test_status_display?(tests)
+    tests.each do |test|
+      if should_reload_product_test_link?(with_c3_task(test.cat1_task)) || should_reload_product_test_link?(with_c3_task(test.cat3_task))
+        return true
+      end
+    end
+    false
+  end
+
+  def measure_test_running_for_row?(task)
     return true if task.product_test.state != :ready && task.product_test.state != :errored
     executions = [task.most_recent_execution]
     executions << task.most_recent_execution.sibling_execution if task.most_recent_execution
     return true if executions.compact.any? { |execution| execution.state == :pending }
+    false
+  end
+
+  # Takes a collection of tasks and determines if a measure test is running for any of the tasks.
+  # If one is then we need to be refreshing the measure tests table.
+  def should_reload_measure_test_table?(tasks)
+    tasks.each do |task|
+      return true if measure_test_running_for_row?(task)
+    end
     false
   end
 
