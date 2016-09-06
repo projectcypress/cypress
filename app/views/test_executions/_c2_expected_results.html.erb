@@ -1,0 +1,34 @@
+<% if @task.product_test.expected_results %>
+<h1>Expected Aggregate Results</h1>
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Measure Name</th>
+      <% population_keys = @task.product_test.expected_results.first[1].population_ids.keys %>
+      <% population_keys.each do |population| %>
+        <th scope="col" class="text-center"><%= population %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Only show records that are part of the measures IPP-->
+    <% @task.product_test.expected_results.each do |expected_result| %>
+      <tr>
+        <% mes = if @task.product_test.expected_results.size > 1
+                    HealthDataStandards::CQM::Measure.where(hqmf_id: expected_result[1]['measure_id'], sub_id: expected_result[0][-1,1]).first
+                 else
+                    HealthDataStandards::CQM::Measure.where(hqmf_id: expected_result[1]['measure_id']).first
+                 end %>
+        <td><%= "#{mes.name} - #{mes.subtitle}" %></td>
+        <% expected_result[1].population_ids.keys().each do |population| %>
+          <% if population_keys.include?  population %>
+            <td class="text-center">
+              <%= render partial: '/records/calculation_result_icon', locals: { result: expected_result[1][population] } %>
+            </td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
