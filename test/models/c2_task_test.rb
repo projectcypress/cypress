@@ -25,8 +25,7 @@ class C2TaskTest < ActiveSupport::TestCase
   end
 
   def test_execute
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_good.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
@@ -36,66 +35,58 @@ class C2TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_not_error_when_measure_period_is_wrong_without_c3
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_mp.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
-      assert_equal 0, te.execution_errors.length, 'should have no errors for the invalid reporting period'
+      assert_empty te.execution_errors, 'should have no errors for the invalid reporting period'
     end
   end
 
   def test_should_cause_error_when_stratifications_are_missing
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
       # Missing strat for the 1 numerator that has data
       assert_equal 1, te.execution_errors.length, 'should error on missing stratifications'
+      assert_match(/\ACould not find value for stratification [a-zA-Z\d\-]{36}  for Population \w+\z/, te.execution_errors[0].message)
     end
   end
 
   def test_should_cause_error_when_supplemental_data_is_missing
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
       # checked 3 times for each numerator -- we should do something about that
-      assert_equal 3, te.execution_errors.length, 'should error on missing supplemetnal data'
-    end
-  end
-
-  def test_should_cause_error_when_not_all_populations_are_accounted_for
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
-    xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml', 'text/xml')
-    perform_enqueued_jobs do
-      te = task.execute(xml)
-      te.reload
-      assert_equal 1, te.execution_errors.length, 'should error on missing populations'
+      assert_equal 3, te.execution_errors.length, 'should error on missing supplemental data'
+      te.execution_errors.each do |ee|
+        assert_equal :result_validation, ee.validator_type
+        assert_equal 'supplemental data error', ee.message
+      end
     end
   end
 
   def test_should_cause_error_when_the_schema_structure_is_bad
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_schematron.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
       # 3 errors 1 for schema validation and 2 schematron issues for realmcode
       assert_equal 3, te.execution_errors.length, 'should error on bad schematron'
+      te.execution_errors.each do |ee|
+        assert_equal :xml_validation, ee.validator_type
+      end
     end
   end
 
   def test_should_cause_error_when_measure_is_not_included_in_report
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
@@ -109,20 +100,19 @@ class C2TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_cause_error_when_extra_supplemental_data_is_provided
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
       # 1 Error for additional Race
       assert_equal 1, te.execution_errors.length, 'should error on additional supplemental data'
+      assert_equal 'supplemental data error', te.execution_errors[0].message
     end
   end
 
   def test_should_not_cause_error_when_extra_supplemental_data_provided_has_zero_value
-    ptest = ProductTest.find('51703a6a3054cf8439000044')
-    task = ptest.tasks.create({ expected_results: ptest.expected_results }, C2Task)
+    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental_is_zero.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
@@ -150,7 +140,7 @@ class C2TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
-      assert_equal 0, te.execution_errors.count, 'test execution with known good results should not have any errors'
+      assert_empty te.execution_errors, 'test execution with known good results should not have any errors'
     end
   end
 end

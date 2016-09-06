@@ -47,6 +47,12 @@ class ActiveSupport::TestCase
     Mongoid.default_client[collection].drop
   end
 
+  def arrays_equivalent(a1, a2)
+    return true if a1 == a2
+    return false unless a1 && a2 # either one is nil
+    a1.count == a2.count && (a1 - a2).empty? && (a2 - a1).empty?
+  end
+
   def value_or_bson(v)
     if v.is_a? Hash
       if v['$oid']

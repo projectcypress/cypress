@@ -31,7 +31,7 @@ class Cat3FilterTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(xml)
       te.reload
-      assert_equal 0, te.execution_errors.count, 'test execution with known good results should not have any errors'
+      assert_empty te.execution_errors, 'test execution with known good results should not have any errors'
     end
   end
 end

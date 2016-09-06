@@ -100,7 +100,7 @@ class ProducTest < ActiveSupport::TestCase
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
-    assert_equal false, pt.product_tests.checklist_tests.exists?
+    assert_not pt.product_tests.checklist_tests.exists?
   end
 
   def test_create_checklist_test
@@ -135,7 +135,7 @@ class ProducTest < ActiveSupport::TestCase
                      bundle_id: '4fdb62e01d41c820f6000001')
     pt.save!
     pt.add_filtering_tests
-    assert pt.product_tests.filtering_tests.count == 5
+    assert_equal 5, pt.product_tests.filtering_tests.count
   end
 
   def test_add_checklist_test
@@ -158,7 +158,6 @@ class ProducTest < ActiveSupport::TestCase
 
     # test checklist tests should not change if new measures are added to product
     old_checklist_test = pt.product_tests.checklist_tests.first
-    new_id = '8A4D92B2-3887-5DF3-0139-0D01C6626E46'
     pt.product_tests.build({ name: 'third measure test', measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'] }, MeasureTest)
     pt.save!
     pt.add_checklist_test
@@ -193,7 +192,7 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal 2, product.product_tests.checklist_tests.first.tasks.count
 
     manual_tasks = product.product_tests.checklist_tests.first.tasks
-    assert_equal_arrays(manual_tasks.collect(&:class), [C1ManualTask, C3ManualTask])
+    assert arrays_equivalent(manual_tasks.collect(&:class), [C1ManualTask, C3ManualTask])
   end
 
   def test_add_checklist_test_adds_correct_number_of_measures_for_checked_criteria
@@ -219,10 +218,6 @@ class ProducTest < ActiveSupport::TestCase
     product.add_checklist_test
     assert_equal 1, product.product_tests.checklist_tests.count
     assert_equal product.measure_ids.count, product.product_tests.checklist_tests.first.measures.count
-  end
-
-  def assert_equal_arrays(arr1, arr2)
-    assert (arr1 - arr2).empty?
   end
 
   # # # # # # # # # # # # # # # #
@@ -264,7 +259,7 @@ class ProducTest < ActiveSupport::TestCase
     product = Product.new(vendor: @vendor, name: 'my product', c1_test: true, measure_ids: [measure_id], bundle_id: '4fdb62e01d41c820f6000001')
     product_test = product.product_tests.build({ name: "my product test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
     product_test.save!
-    test_execution = product_test.tasks.first.test_executions.build(:state => :passed)
+    product_test.tasks.first.test_executions.build(:state => :passed)
     product.save!
   end
 

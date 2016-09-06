@@ -44,7 +44,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   end
 
   def test_assigns_generated_provider
-    Provider.all.each(&:destroy)
+    Provider.destroy_all
     # 0 providers to start
     assert_equal 0, Provider.count
     # ids passed in should clone just the 2 records
@@ -109,7 +109,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     Record.where(test_id: '4f5a606b1d41c851eb000484').each do |record|
       found_random = true unless old_record_races["#{record.first} #{record.last}"] == record.race['code']
     end
-    assert found_random == true, 'Did not find any evidence that race was randomized.'
+    assert found_random, 'Did not find any evidence that race was randomized.'
   end
 
   def test_perform_randomized_ethnicities
@@ -132,7 +132,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     Record.where(test_id: '4f5a606b1d41c851eb000484').each do |record|
       found_random = true unless old_record_ethnicities["#{record.first} #{record.last}"] == record.ethnicity['code']
     end
-    assert found_random == true, 'Did not find any evidence that ethnicity was randomized.  Since there are only two ' \
+    assert found_random, 'Did not find any evidence that ethnicity was randomized.  Since there are only two ' \
       'possible ethnicities there is some mathematical chance that this might happen, but it is slim (4/1000)!'
   end
 

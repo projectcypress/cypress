@@ -21,7 +21,7 @@ class C3ManualTaskTest < ActiveSupport::TestCase
 
   def test_validators_exist
     validators = [MeasurePeriodValidator, QrdaCat1Validator]
-    assert (validators - @task.validators.collect(&:class)).empty?
+    assert arrays_equivalent(validators, @task.validators.collect(&:class))
   end
 
   # TODO: add tests for good and bad test executions

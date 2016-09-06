@@ -13,7 +13,7 @@ module Validators
     end
 
     def validate(file, options = {})
-      @doc = file
+      @doc = get_document(file)
       @options = options
 
       # I don't like this right now but do it this way just to get things moving

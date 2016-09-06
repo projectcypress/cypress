@@ -5,7 +5,7 @@ class VendorTest < ActiveSupport::TestCase
   OTHER_VENDOR = '4def93dd4f85cf8968000004'.freeze
   def setup
     collection_fixtures 'users'
-    Vendor.all.destroy
+    Vendor.destroy_all
   end
 
   def test_new_vendor_can_be_made

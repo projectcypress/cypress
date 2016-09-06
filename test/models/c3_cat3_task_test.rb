@@ -13,7 +13,7 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
   end
 
   def test_task_should_include_c3_cat3_validators
-    assert @task.validators.count { |v| v.is_a?(MeasurePeriodValidator) } > 0
+    assert @task.validators.any? { |v| v.is_a?(MeasurePeriodValidator) }
   end
 
   def test_should_cause_error_when_measure_is_not_included_in_report_with_c3
@@ -33,7 +33,9 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = @task.execute(xml, nil)
       te.reload
-      assert_equal 3, te.execution_errors.length, 'should have 1 error for the invalid performance rate'
+      assert te.execution_errors.length > 1, 'should have 1 error for the invalid performance rate'
+      msg = 'Reported Performance Rate of 0.833 for Numerator E60D324E-7606-42C2-8E46-5EE29289725D does not match expected value of 0.333333.'
+      assert_equal msg, te.execution_errors[0].message
     end
   end
 
@@ -42,7 +44,9 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = @task.execute(xml, nil)
       te.reload
-      assert_equal 4, te.execution_errors.length, 'should have 2 errors for the invalid reporting period'
+      assert te.execution_errors.length > 2, 'should have 2 errors for the invalid reporting period'
+      assert_equal 'Reported Measurement Period should start on 20150101', te.execution_errors[0].message
+      assert_equal 'Reported Measurement Period should end on 20151231', te.execution_errors[1].message
     end
   end
 end
