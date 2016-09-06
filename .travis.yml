@@ -3,6 +3,14 @@ cache:
   - bundler
   - node_modules
 sudo: false
+addons:
+  apt:
+    sources:
+      - mongodb-upstart
+      - mongodb-3.0-precise
+    packages:
+      - mongodb-org-server
+      - mongodb-org-shell
 services:
   - mongodb
 branches:
