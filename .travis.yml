@@ -35,5 +35,5 @@ script:
   - bundle exec bundle-audit check
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
-  - bundle exec rake test
-  - bundle exec rake cucumber
+  - travis_retry bundle exec rake test
+  - travis_retry bundle exec rake cucumber
