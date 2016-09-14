@@ -72,7 +72,7 @@ module Cypress
       checklist_test.measures.each do |m|
         example_patients[m.cms_id] = Cypress::ExamplePatientFinder.find_example_patient(m)
       end
-      formatter = formatter_for_patients(records, 'html')
+      formatter = formatter_for_patients(example_patients.values, 'html')
       Zip::ZipOutputStream.open(file.path) do |z|
         add_file_to_zip(z, 'criteria_list.html', criteria_list)
         example_patients.each do |measure_id, patient|
