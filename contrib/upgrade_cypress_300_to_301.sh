@@ -33,22 +33,19 @@ function pull_git_tag() {
 
 function cypress_cvu_shared_upgrade_commands() {
   export RAILS_ENV=production
+  # This fixes permission issues caused by the previous upgrade script.
+  sudo chown -R cypress:cypress tmp public
   # Try to run the commands as the cypress user, if we get a nonzero return value then try again
   # as root.
-  sudo -E -u cypress env PATH=$PATH bundle install
+  sudo -E -u cypress env PATH=$PATH bundle install > /dev/null
   rc=$?
-  if [[ $rc == 0 ]]; then
-    echo "We have permission to run bundle as the user cypress, using cypress to run bundler commands."
-    sudo -E -u cypress env PATH=$PATH bundle exec rake tmp:clear
-    sudo -E -u cypress env PATH=$PATH bundle exec rake assets:clobber
-    sudo -E -u cypress env PATH=$PATH bundle exec rake assets:precompile
-  else
-    echo "We do NOT have permission to run bundle as the user cypress, using root to run bundler commands."
+  if [[ $rc != 0 ]]; then
+    echo "We do NOT have permission to run bundle as the user cypress, using root to run bundle install."
     bundle install
-    bundle exec rake tmp:clear
-    bundle exec rake assets:clobber
-    bundle exec rake assets:precompile
   fi
+  sudo -E -u cypress env PATH=$PATH bundle exec rake tmp:clear
+  sudo -E -u cypress env PATH=$PATH bundle exec rake assets:clobber
+  sudo -E -u cypress env PATH=$PATH bundle exec rake assets:precompile
 }
 
 function upgrade_cypress() {
