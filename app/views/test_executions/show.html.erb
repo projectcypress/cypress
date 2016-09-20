@@ -58,8 +58,8 @@
   <% end %>
 </div>
 
-<% if @task._type == "C2Task" && !hide_patient_calculation? %>
-  <%= render partial: 'c2_expected_results', locals: { task: @task } %>
+<% if (@task._type == "C2Task" && !hide_patient_calculation?) || (@task.product_test._type == 'FilteringTest' && can_view_c4_expected_results) %>
+  <%= render partial: 'expected_results', locals: { task: @task } %>
 <% end %>
 
 <% if @task.most_recent_execution %>

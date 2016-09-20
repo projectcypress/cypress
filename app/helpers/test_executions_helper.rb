@@ -61,11 +61,7 @@ module TestExecutionsHelper
   end
 
   def get_upload_type(is_displaying_cat1)
-    if is_displaying_cat1
-      'zip file of QRDA Category I documents'
-    else
-      'QRDA Category III XML document'
-    end
+    is_displaying_cat1 ? 'zip file of QRDA Category I documents' : 'QRDA Category III XML document'
   end
 
   def execution_failure_message(execution)
@@ -116,5 +112,9 @@ module TestExecutionsHelper
                   tests[(index - 1 + tests.count) % tests.count]
                 end
     next_test.tasks.find_by(_type: task._type)
+  end
+
+  def can_view_c4_expected_results
+    true unless current_user.user_role?(:vendor, @task.product_test.product.vendor) && ApplicationController.helpers.mode_atl?
   end
 end
