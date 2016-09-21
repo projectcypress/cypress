@@ -28,11 +28,11 @@ class ExecutionError
   end
 
   def self.only_cms_warnings
-    where(cms: true).entries
+    by_type(:warning).where(cms: true).entries
   end
 
   def self.non_cms_warnings
-    where(cms: false).entries
+    by_type(:warning).where(cms: false).entries
   end
 
   # only if validator is one of 'CDA SDTC Validator', 'QRDA Cat 1 R3 Validator', 'QRDA Cat 1 Validator', or 'QRDA Cat 3 Validator'
