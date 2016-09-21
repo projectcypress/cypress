@@ -11,6 +11,7 @@ class ExecutionError
   field :stratification, type: String
   field :location
   field :file_name, type: String
+  field :cms, type: Boolean, default: false
   validates :msg_type, presence: true
   validates :message, presence: true
 
@@ -24,6 +25,14 @@ class ExecutionError
 
   def self.only_warnings
     by_type(:warning).entries
+  end
+
+  def self.only_cms_warnings
+    where(cms: true).entries
+  end
+
+  def self.non_cms_warnings
+    where(cms: false).entries
   end
 
   # only if validator is one of 'CDA SDTC Validator', 'QRDA Cat 1 R3 Validator', 'QRDA Cat 1 Validator', or 'QRDA Cat 3 Validator'
