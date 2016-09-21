@@ -25,7 +25,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
     errs = collected_errors(@te)
     assert_equal 0, errs.nonfile.count
     assert_equal 4, errs.files.keys.count, 'should contain four files with errors'
-    assert_equal %w(QRDA Reporting Submission Warnings), errs.files['0_Dental_Peds_A.xml'].keys, 'should contain right error keys for each file'
+    assert_equal ['QRDA', 'Reporting', 'Submission', 'CMS Warnings', 'Other Warnings'], errs.files['0_Dental_Peds_A.xml'].keys, 'should contain right error keys for each file'
   end
 
   def test_popup_attributes_multiple_errors
