@@ -13,18 +13,14 @@ function pull_git_tag() {
   rc=$?
   if [[ $rc == 0 ]]; then
     echo "We have permission to pull cypress as the user cypress, using cypress to run git commands."
-    sudo -u cypress git fetch —all
+    sudo -u cypress git fetch --all
     sudo -u cypress git checkout origin/master
-    # sudo -u cypress git fetch --all
-    # sudo -u cypress git checkout origin/cypress301
     sudo -u cypress git stash pop
   else
     echo "We do NOT have permission to pull cypress as the user cypress, using root to run git commands."
     git -c user.name=tmp -c user.name=tmp -c user.email=tmp@tmp.com stash
-    git fetch --tags
-    git checkout tags/$VERSION
-    # git fetch --all
-    # git checkout origin/cypress301
+    git git fetch --all
+    git checkout origin/master
     git stash pop
   fi
 }
