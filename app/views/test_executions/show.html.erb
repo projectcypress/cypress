@@ -10,14 +10,16 @@
   <% cat3_task = @task.product_test.tasks.cat3_filter_task %>
 <% end %>
 <%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.product.c3_test) } %>
-<div class="panel clearfix">
-  <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
-    <i class="fa fa-fw fa-step-backward" aria-hidden="true"></i> Previous Test: <%= iterate_task(@task, 'prev').product_test.cms_id %>
-  <% end %>
-  <%= button_to new_task_test_execution_path(iterate_task(@task, 'next').id), :method => :get, :class => "btn btn-default pull-right" do %>
-    Next Test: <%= iterate_task(@task, 'next').product_test.cms_id %> <i class="fa fa-fw fa-step-forward" aria-hidden="true"></i>
-  <% end %>
-</div>
+<% unless @task._type == 'C1ManualTask' || @task._type == 'C3ManualTask' %>
+  <div class="panel clearfix">
+    <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
+      <i class="fa fa-fw fa-step-backward" aria-hidden="true"></i> Previous Test: <%= iterate_task(@task, 'prev').product_test.cms_id %>
+    <% end %>
+    <%= button_to new_task_test_execution_path(iterate_task(@task, 'next').id), :method => :get, :class => "btn btn-default pull-right" do %>
+      Next Test: <%= iterate_task(@task, 'next').product_test.cms_id %> <i class="fa fa-fw fa-step-forward" aria-hidden="true"></i>
+    <% end %>
+  </div>
+<% end %>
 <div class = 'row'>
   <%= render partial: 'test_info', locals: { task: @task } %>
   <%= render partial: 'task_status_wrapper', locals: { task: cat1_task, current_task: displaying_cat1 } if cat1_task %>
@@ -58,7 +60,7 @@
 
 <% if @task._type == "C2Task" && !hide_patient_calculation? %>
   <%= render partial: 'c2_expected_results', locals: { task: @task } %>
-<% end %> 
+<% end %>
 
 <% if @task.most_recent_execution %>
   <div class = 'panel panel-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>
