@@ -65,7 +65,7 @@
               <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
               <% if total_errors > 0 %>
                 <div class="file-name">
-                  <% if error_result.keys.any? { |s| s != 'Warnings' && error_result[s].execution_errors.count > 0} %>
+                  <% if error_result.keys.any? { |s| s != 'Other Warnings' && s != 'CMS Warnings' && error_result[s].execution_errors.count > 0} %>
                     <i aria-hidden='true' class='fa fa-fw fa-times text-danger'></i>
                   <% else %>
                     <i aria-hidden='true' class='fa fa-fw fa-exclamation-triangle text-warning'></i>

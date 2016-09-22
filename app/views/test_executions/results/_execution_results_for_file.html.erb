@@ -31,16 +31,16 @@
   <ul>
     <% error_result.each do |error_type, error_hash| %>
       <li>
-        <%= link_to "##{error_type}_#{identifier}" do %>
+        <%= link_to "##{error_type.tr(' ', '_')}_#{identifier}" do %>
           <%= error_type %> <span>(<%= error_hash.execution_errors.count %>)</span>
         <% end %>
       </li>
     <% end %>
   </ul>
   <% error_result.each do |error_type, error_hash| %>
-    <div id=<%= "#{error_type}_#{identifier}" %>>
+    <div id=<%= "#{error_type.tr(' ', '_')}_#{identifier}" %>>
       <% if error_hash.execution_errors.count > 0 %>
-        <% message_title = error_type == 'Warnings' ? 'Warning' : 'Error' %>
+        <% message_title = error_type == 'Other Warnings' || error_type == 'CMS Warnings' ? 'Warning' : 'Error' %>
 
         <% if error_type == "Reporting" %>
           <% report_sup_data_errors = population_data_errors(error_hash.execution_errors, 'supplemental_data') %>
@@ -64,11 +64,6 @@
             </div>
           </div>
         <% end %>
-      <% else %>
-        <p class="lead">
-          <i class="fa fa-fw fa-check text-success" aria-hidden="true"></i>
-          <%= "#{error_type} - No problems found" %>
-        </p>
       <% end %>
     </div>
   <% end %>
