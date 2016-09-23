@@ -1,4 +1,8 @@
-FROM rails:4.2.5
+FROM ruby:2.2
+
+RUN apt-get update \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES 1
