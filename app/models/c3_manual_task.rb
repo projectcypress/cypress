@@ -3,8 +3,7 @@ class C3ManualTask < Task
   include ::Validators
 
   def validators
-    @validators = [::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.measures),
-                   ::Validators::MeasurePeriodValidator.new]
+    @validators = [::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.measures)]
     @validators
   end
 
