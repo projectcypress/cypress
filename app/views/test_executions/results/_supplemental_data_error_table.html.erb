@@ -43,11 +43,13 @@
       <% end %>
       <% if stratification_errors %>
         <% stratification_errors.each do |err| %>
-          <td>STRAT (<%= err.error_details['stratification'] %>)</td>
-          <td/>
-          <td/>
-          <td><%= err.error_details['expected_value'] %></td>
-          <td><%= err.error_details['reported_value'] %></td>
+          <tr>
+            <td>STRAT (<%= err.error_details['stratification'] %>)</td>
+            <td/>
+            <td/>
+            <td><%= err.error_details['expected_value'] %></td>
+            <td><%= err.error_details['reported_value'] %></td>
+          </tr>
         <% end %>
       <% end %>
     </tbody>
