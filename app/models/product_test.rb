@@ -69,17 +69,12 @@ class ProductTest
   end
 
   def generate_records(job_id = nil)
-    ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
-      pcv.value['medical_record_id']
-    end
-    # selects between half and all of the unique ids
-    ids = ids.uniq.sample(rand((ids.count / 2.0).ceil..(ids.count)))
     if product.randomize_records
       random_ids = bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
-      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'randomization_ids' => random_ids,
+      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
     else
-      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => ids, 'disable_randomization' => true).perform
+      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'disable_randomization' => true).perform
     end
   end
 
@@ -156,5 +151,28 @@ class ProductTest
 
   def end_date
     Time.at(effective_date).in_time_zone
+  end
+
+  private
+
+  def master_patient_ids
+    mpl_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
+      pcv.value['medical_record_id']
+    end
+    mpl_ids.uniq!
+    if product.randomize_records
+      denom_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.DENOM' => { '$gt' => 0 }).collect do |pcv|
+        pcv.value['medical_record_id']
+      end
+      denom_ids.uniq!
+      msrpopl_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.MSRPOPL' => { '$gt' => 0 }).collect do |pcv|
+        pcv.value['medical_record_id']
+      end
+      msrpopl_ids.uniq!
+      ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
+      ipp_ids = ipp_ids.sample(rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
+      return ipp_ids + denom_ids + msrpopl_ids
+    end
+    mpl_ids
   end
 end
