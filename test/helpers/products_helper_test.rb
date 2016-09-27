@@ -9,7 +9,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     collection_fixtures('records', 'measures', 'vendors', 'products', 'product_tests', 'bundles')
 
     @product = Product.new(vendor: Vendor.find('4f57a8791d41c851eb000002'), name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
-                           bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'])
+                           bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'], randomize_records: false)
     setup_checklist_test
     setup_measure_tests
     setup_filtering_tests
