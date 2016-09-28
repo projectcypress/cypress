@@ -42,7 +42,7 @@ module Validators
                                        :validator_type => :xml_validation, :file_name => error.file_name
       end
       # dont' validate measures for C1 Manual or C3 Manual
-      validate_measures(doc) unless %w('C1ManualTask', 'C3ManualTask').include? options.task._type
+      validate_measures(doc) unless %w(C1ManualTask C3ManualTask).include? options.task._type
       nil
     end
 

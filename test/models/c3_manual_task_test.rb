@@ -20,7 +20,7 @@ class C3ManualTaskTest < ActiveSupport::TestCase
   end
 
   def test_validators_exist
-    validators = [MeasurePeriodValidator, QrdaCat1Validator]
+    validators = [QrdaCat1Validator]
     assert arrays_equivalent(validators, @task.validators.collect(&:class))
   end
 
