@@ -58,9 +58,7 @@
   <% end %>
 </div>
 
-<% if @task._type == "C2Task" && !hide_patient_calculation? %>
-  <%= render partial: 'c2_expected_results', locals: { task: @task } %>
-<% end %>
+<%= render partial: 'expected_results', locals: { task: @task } if should_display_expected_results(@task) %>
 
 <% if @task.most_recent_execution %>
   <div class = 'panel panel-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>

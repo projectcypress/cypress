@@ -61,11 +61,7 @@ module TestExecutionsHelper
   end
 
   def get_upload_type(is_displaying_cat1)
-    if is_displaying_cat1
-      'zip file of QRDA Category I documents'
-    else
-      'QRDA Category III XML document'
-    end
+    is_displaying_cat1 ? 'zip file of QRDA Category I documents' : 'QRDA Category III XML document'
   end
 
   def execution_failure_message(execution)
@@ -116,5 +112,9 @@ module TestExecutionsHelper
                   tests[(index - 1 + tests.count) % tests.count]
                 end
     next_test.tasks.find_by(_type: task._type)
+  end
+
+  def should_display_expected_results(task)
+    !hide_patient_calculation? && (task._type == 'C2Task' || task.product_test._type == 'FilteringTest')
   end
 end

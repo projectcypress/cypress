@@ -12,12 +12,25 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
   @vendor = Vendor.create!(name: 'test_vendor_name')
   @product = @vendor.products.create!(name: 'test_product_name', c1_test: true, c4_test: true, measure_ids: measure_ids, bundle_id: bundle_id)
   @m_test = @product.product_tests.create!({ name: 'Measure Test 1', cms_id: 'CMS31v3', measure_ids: measure_ids }, MeasureTest)
-  @f_test_1 = @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'CMS31v3', measure_ids: measure_ids,
-                                               options: { filters: { filt1: ['val1'], filt2: ['val2'] } }
-                                             }, FilteringTest)
-  @f_test_2 = @product.product_tests.create!({ name: 'Filter Test 2', cms_id: 'CMS31v3', measure_ids: measure_ids,
-                                               options: { filters: { filt3: ['val2'], filt4: ['val4'] } }
-                                             }, FilteringTest)
+
+  criteria = %w(races ethnicities)
+  options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+  @f_test_1 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
+                                measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
+  @f_test_1.save!
+  @f_test_1.generate_records
+  @f_test_1.reload
+  @f_test_1.pick_filter_criteria
+
+  criteria = %w(genders age)
+  options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+  @f_test_2 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
+                                measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
+  @f_test_2.save!
+  @f_test_2.generate_records
+  @f_test_2.reload
+  @f_test_2.pick_filter_criteria
+
   checklist_test = @product.product_tests.create!({ name: 'my checklist test', measure_ids: measure_ids }, ChecklistTest)
   checklist_test.tasks.create!({}, C1ManualTask)
 end
