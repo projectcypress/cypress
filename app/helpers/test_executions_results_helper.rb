@@ -21,6 +21,19 @@ module TestExecutionsResultsHelper
   #   E r r o r   T a b l e s   #
   # # # # # # # # # # # # # # # #
 
+  def error_table_heading(population_errors, stratification_errors, supp_data_errors)
+    if !population_errors.blank?
+      %(#{population_errors.first.message}. The following errors were also identified for this population.)
+    elsif !supp_data_errors.blank?
+      %(The following errors were identified for #{supp_data_errors.first.error_details['population_key']}
+      #{supp_data_errors.first.error_details['population_id']}.)
+    elsif !stratification_errors.blank?
+      %(The following errors were identified for
+      #{@task.product_test.expected_results.first[1].population_ids.key(stratification_errors.first.error_details['population_id'])}
+      #{stratification_errors.first.error_details['population_id']}.)
+    end
+  end
+
   def population_data_errors(errors, population_type)
     return_errors = errors.select do |err|
       err.has_attribute?('error_details') && err['error_details'].key?('type') && err['error_details']['type'] == population_type
