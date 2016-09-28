@@ -115,7 +115,6 @@ module TestExecutionsHelper
   end
 
   def should_display_expected_results(task)
-    can_view_c4_expected_results = !(current_user.user_role?(:vendor, @task.product_test.product.vendor) && ApplicationController.helpers.mode_atl?)
-    (task._type == 'C2Task' && !hide_patient_calculation?) || (task.product_test._type == 'FilteringTest' && can_view_c4_expected_results)
+    !hide_patient_calculation? && (task._type == 'C2Task' || task.product_test._type == 'FilteringTest')
   end
 end
