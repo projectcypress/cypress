@@ -18,7 +18,7 @@ class Product
   field :c2_test, type: Boolean
   field :c3_test, type: Boolean
   field :c4_test, type: Boolean
-  field :randomize_records, type: Boolean
+  field :randomize_records, type: Boolean, default: true
   field :duplicate_records, type: Boolean, default: true
   field :measure_selection, type: String
   field :measure_ids, type: Array
