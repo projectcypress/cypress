@@ -40,6 +40,12 @@ function cypress_cvu_shared_upgrade_commands() {
   sudo -E -u cypress env PATH=$PATH bundle exec rake tmp:clear
   sudo -E -u cypress env PATH=$PATH bundle exec rake assets:clobber
   sudo -E -u cypress env PATH=$PATH bundle exec rake assets:precompile
+  # If there is a unicorn config file available and we are using unicorn then update the unicorn
+  # startup script to use it.
+  if [ -f config/unicorn.rb ]; then
+    echo "Adding unicorn config to "
+    sed -E -i '/(--config-file|-c)/!s/unicorn --port ([0-9]{1,5})/unicorn --port \1 --config-file config\/unicorn.rb/' /etc/systemd/system/`basename "$PWD"`.service
+  fi
 }
 
 function upgrade_cypress() {
@@ -80,6 +86,7 @@ if [ "$CYPRESS_FOUND" = "true" ]; then
   upgrade_cypress
 
   echo "Restarting Cypress service..."
+  systemctl daemon-reload
   systemctl restart cypress
 
   echo "Restarting Cypress Delayed Worker service..."
@@ -108,6 +115,7 @@ if [ "$CVU_FOUND" = "true" ]; then
   upgrade_cvu
 
   echo "Restarting Cypress Validation Utility service..."
+  systemctl daemon-reload
   systemctl restart cypress-validation-utility
 fi
 
