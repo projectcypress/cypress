@@ -64,6 +64,9 @@ Scenario: Can Download Report
   Then the user should be able to download the report
 
 Scenario: Cannot Download Report when not an ATL in ATL mode
+  Given the user is signed in as a non admin
+  Given the user has created a vendor
+  Given the user is owner of the vendor
   When a user creates a product with c2 certifications and visits that product page
   And all product tests have a state of ready
   And the application is in ATL mode
