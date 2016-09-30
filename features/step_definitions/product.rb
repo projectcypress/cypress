@@ -12,6 +12,19 @@ end
 #   G I V E N   #
 # # # # # # # # #
 
+Given(/^the user is signed in as a non admin$/) do
+  User.all.destroy # FIXME: there's gotta be a better way
+  @user = FactoryGirl.create(:user)
+  @user.approved = true
+  login_as @user, :scope => :user
+  Settings[:ignore_roles] = false
+  steps %( Given the user is on the sign in page )
+end
+
+Given(/^the user is owner of the vendor$/) do
+  @user.add_role(:owner, @vendor)
+end
+
 #   A N D   #
 
 And(/^the user has created a vendor with a product$/) do
