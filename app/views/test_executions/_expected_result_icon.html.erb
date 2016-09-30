@@ -1,0 +1,9 @@
+<% if result && result > 0 %>
+  <span class="sr-only">Pass</span>
+  <span class="result-marker">
+    <strong class="result-text"><span class="sr-only">value of </span><%= result %></strong>
+  </span>
+<% else %>
+  <span class="sr-only">Fail</span>
+  <i class="fa fa-circle-thin fa-2x empty-marker" aria-hidden="true"></i>
+<% end %>

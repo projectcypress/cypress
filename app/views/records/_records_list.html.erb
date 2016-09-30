@@ -30,7 +30,7 @@
           <td><%= full_gender_name(r.gender) %></td>
           <% @measure.population_ids.keys().each do |population| %>
             <td class="text-center">
-              <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(r.calculation_results, @measure, population) } %>
+              <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(r.calculation_results, @measure, population), episode_of_care: @measure.episode_of_care } %>
             </td>
           <% end %>
         </tr>
@@ -54,7 +54,7 @@
           <% if @measure && !(@product_test && hide_patient_calculation?) %>
             <% @measure.population_ids.keys().each do |population| %>
               <td class="text-center">
-                <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(r.calculation_results, @measure, population) } %>
+                <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(r.calculation_results, @measure, population), episode_of_care: @measure.episode_of_care } %>
               </td>
             <% end %>
           <% end %>
