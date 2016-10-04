@@ -8,18 +8,35 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
                         'health_data_standards_svs_value_sets')
     @product_test = ProductTest.find('51703a6a3054cf8439000044')
     @validator = ExpectedResultsValidator.new(@product_test.expected_results)
+    @task = C2Task.new
+    @task.product_test = @product_test
   end
 
   def test_validate_good_file
     file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_good.xml')).read
 
-    @validator.validate(file)
+    @validator.validate(file, 'task' => @task)
     assert_empty @validator.errors
+  end
+
+  def test_validate_good_qrda_1_1_file
+    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_good_1_1.xml')).read
+    @task.bundle.version = '2016.0.0'
+    @validator.validate(file, 'task' => @task)
+    assert_empty @validator.errors
+  end
+
+  def test_validate_bad_qrda_1_1_file
+    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_1_1_not_ipop.xml')).read
+    @task.bundle.version = '2016.0.0'
+    @validator.validate(file, 'task' => @task)
+    assert_equal 'Could not find value for Population IPOP', @validator.errors[0].message
+    assert_equal 24, @validator.errors.length, 'should error on missing measure entry'
   end
 
   def test_validate_missing_stratifications
     file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml')).read
-    @validator.validate(file)
+    @validator.validate(file, 'task' => @task)
 
     errors = @validator.errors
 
@@ -29,7 +46,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
   def test_validate_missing_supplemental_data
     file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental.xml')).read
-    @validator.validate(file)
+    @validator.validate(file, 'task' => @task)
 
     errors = @validator.errors
 
@@ -42,7 +59,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
   def test_validate_extra_data
     file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental.xml')).read
-    @validator.validate(file)
+    @validator.validate(file, 'task' => @task)
 
     errors = @validator.errors
 

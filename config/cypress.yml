@@ -15,12 +15,16 @@ default_bundle: "3.0.0"
 # Inside the specified folder.
 # The highest matching version will be used. Ie if bundle version is 3.0.0  the schematrons would be 3.0.0
 # In the case of none of them being valid it will default to the first one
+# modified_population_labels are used to indicate when the population code required by the qrda version differs from the population code in QME
 version_config:
   '>2.9.0':
       schematron: "bundle_2_9_9"
       qrda_version: "r3"
       qrda3_version: "r1"
+      modified_population_labels:
   '~>2016.0.0':
+      modified_population_labels:
+        IPP: 'IPOP'
       schematron: "2016.0.0"
       qrda_version: "r3_1"
       qrda3_version: "r1_1"

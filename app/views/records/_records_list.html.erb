@@ -15,7 +15,7 @@
       <th scope="col">Gender</th>
       <% if @measure && (current_user.user_role?('admin') || current_user.user_role?('atl'))%>
         <% @measure.population_ids.keys().each do |population| %>
-          <th scope="col" class="text-center"><%= population %></th>
+          <th scope="col" class="text-center"><%= population_label(@bundle, population) %></th>
         <% end %>
       <% end %>
     </tr>

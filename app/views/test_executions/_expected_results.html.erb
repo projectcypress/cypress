@@ -15,7 +15,7 @@
       <th scope="col">Measure Name</th>
       <% population_keys = @task.product_test.expected_results.first[1].population_ids.keys %>
       <% population_keys.each do |population| %>
-        <th scope="col" class="text-center"><%= population %></th>
+        <th scope="col" class="text-center"><%= population_label(@task.bundle, population) %></th>
       <% end %>
     </tr>
   </thead>
