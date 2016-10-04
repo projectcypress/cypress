@@ -20,7 +20,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
       assert_equal 'example.com', Rails.application.config.action_mailer.smtp_settings.domain
       assert_equal 'testuser', Rails.application.config.action_mailer.smtp_settings.user_name
       assert_equal 'password123', Rails.application.config.action_mailer.smtp_settings.password
-      assert_equal 'Custom', ApplicationController.helpers.application_mode
+      assert_equal 'Custom', @controller.application_mode
       assert_equal false, Settings['auto_approve']
       assert_equal false, Settings['ignore_roles']
       assert_equal :admin, Settings['default_role']
