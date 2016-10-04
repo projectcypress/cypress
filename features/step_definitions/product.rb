@@ -258,14 +258,6 @@ And(/^the user adds cat I tasks to all product tests$/) do
   end
 end
 
-And(/^the application is in ATL mode$/) do
-  ApplicationController.helpers.mode_atl
-end
-
-And(/^the application is not in ATL mode$/) do
-  ApplicationController.helpers.mode_internal
-end
-
 And(/^the user uploads a cat III document to product test (.*)$/) do |product_test_number|
   html_id = td_div_id_for_cat3_task_for_product_test(product_test_number)
   attach_xml_to_multi_upload(html_id)

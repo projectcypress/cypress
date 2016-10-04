@@ -59,17 +59,15 @@ Scenario: Cannot View Download All Patients
 Scenario: Can Download Report
   When a user creates a product with c2 certifications and visits that product page
   And all product tests have a state of ready
-  And the application is not in ATL mode
   And the user visits the product page
   Then the user should be able to download the report
 
-Scenario: Cannot Download Report when not an ATL in ATL mode
+Scenario: Cannot Download Report when not an ATL
   Given the user is signed in as a non admin
   Given the user has created a vendor
   Given the user is owner of the vendor
   When a user creates a product with c2 certifications and visits that product page
   And all product tests have a state of ready
-  And the application is in ATL mode
   And the user visits the product page
   Then the user should not be able to download the report
 
