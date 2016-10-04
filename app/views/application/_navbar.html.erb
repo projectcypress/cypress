@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
-      <%= link_to root_path do %>cypress <small><%= APP_CONFIG.version %></small><% end %>
+      <%= link_to root_path do %>cypress <small><%= Cypress::Application::VERSION %></small><% end %>
       <button type="button" class="navbar-toggle navbar-right" data-toggle="collapse" data-target="#cypressNavbar" aria-label="navigation menu" role="button" aria-controls="cypressNavbar" aria-expanded="false">
         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
         <span class="sr-only">Expand navigation menu</span>
