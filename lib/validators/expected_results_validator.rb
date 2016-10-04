@@ -15,7 +15,9 @@ module Validators
     def validate(file, options = {})
       @document = get_document(file)
       @file_name = options[:file_name]
+      @modified_population_labels = options['task'].bundle.modified_population_labels
       @expected_results.each_pair do |key, expected_result|
+        expected_result = update_expected_population_ids(expected_result) if @modified_population_labels
         result_key = expected_result['population_ids'].dup
         reported_result, _errors = extract_results_by_ids(expected_result['measure_id'], result_key, @document)
         @reported_results[key] = reported_result
@@ -53,6 +55,20 @@ module Validators
           check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids)
         end
       end
+    end
+
+    # Labels for populations can change over time, this will replace the QME population code with the code used in the specified qrda version
+    # e.g. IPP is IPOP in QRDA Cat III R1.1
+    def update_expected_population_ids(expected_result)
+      @modified_population_labels.each do |original_label, modified_label|
+        expected_result[modified_label] = expected_result[original_label]
+        expected_result.delete(original_label)
+        expected_result['population_ids'][modified_label] = expected_result['population_ids'][original_label]
+        expected_result['population_ids'].delete(original_label)
+        expected_result['supplemental_data'][modified_label] = expected_result['supplemental_data'][original_label]
+        expected_result['supplemental_data'].delete(original_label)
+      end
+      expected_result
     end
 
     def check_for_reported_results_population_ids(expected_result, reported_result, measure_id)

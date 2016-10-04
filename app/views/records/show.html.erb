@@ -10,7 +10,7 @@
           <tr>
             <td></td>
             <% RecordsHelper::CV_POPULATION_KEYS.each do |population| %>
-              <th scope="col" class="text-center"><%= population %></th>
+              <th scope="col" class="text-center"><%= population_label(@bundle, population) %></th>
             <% end %>
           </tr>
         </thead>
@@ -39,7 +39,7 @@
           <tr>
             <td></td>
             <% RecordsHelper::PROPORTION_POPULATION_KEYS.each do |population| %>
-              <th scope="col" class="text-center"><%= population %></th>
+              <th scope="col" class="text-center"><%= population_label(@bundle, population) %></th>
             <% end %>
           </tr>
         </thead>

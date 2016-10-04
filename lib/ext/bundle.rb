@@ -26,6 +26,10 @@ class Bundle
     ApplicationController.helpers.config_for_version(version).schematron
   end
 
+  def modified_population_labels
+    ApplicationController.helpers.config_for_version(version).modified_population_labels
+  end
+
   def self.default
     find_by(active: true)
   rescue

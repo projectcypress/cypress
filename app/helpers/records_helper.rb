@@ -67,4 +67,8 @@ module RecordsHelper
     # Hide measure calculation if Cypress is in ATL Mode and the current user is not an ATL or admin
     mode_atl? && (!current_user.user_role?('admin') && !current_user.user_role?('atl'))
   end
+
+  def population_label(bundle, pop)
+    bundle.modified_population_labels && bundle.modified_population_labels[pop] ? bundle.modified_population_labels[pop] : pop
+  end
 end
