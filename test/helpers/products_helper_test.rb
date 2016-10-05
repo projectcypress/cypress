@@ -394,7 +394,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_measure_test_tasks
-    assert measure_test_tasks(@product, true).all? { |task| task._type == 'C1Task' }
-    assert measure_test_tasks(@product, false).all? { |task| task._type == 'C2Task' }
+    assert measure_test_tasks(@product, true).all? { |task| task.is_a? C1Task }
+    assert measure_test_tasks(@product, false).all? { |task| task.is_a? C2Task }
   end
 end

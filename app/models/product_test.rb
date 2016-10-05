@@ -105,24 +105,11 @@ class ProductTest
     PatientCache.where('value.test_id' => id).order_by(['value.last', :asc])
   end
 
-  def ready
-    self.state = :ready
-    save
-  end
-
-  def queued
-    self.state = :queued
-    save
-  end
-
-  def building
-    self.state = :building
-    save
-  end
-
-  def errored
-    self.state = :errored
-    save
+  [:ready, :queued, :building, :errored].each do |test_state|
+    define_method test_state do
+      self.state = test_state
+      save
+    end
   end
 
   def status

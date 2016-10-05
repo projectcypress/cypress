@@ -127,10 +127,10 @@ module ProductsHelper
   # input should be a c1 or c2 task
   def with_c3_task(task)
     return [task] unless task.product_test.product.c3_test
-    case task._type
-    when 'C1Task'
+    case task
+    when C1Task
       return [task, task.product_test.tasks.c3_cat1_task]
-    when 'C2Task'
+    when C2Task
       return [task, task.product_test.tasks.c3_cat3_task]
     end
     [task]

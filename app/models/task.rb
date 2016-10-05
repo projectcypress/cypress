@@ -14,68 +14,26 @@ class Task
   delegate :effective_date, :to => :product_test
   delegate :bundle, :to => :product_test
 
-  def self.c1_task
-    find_by(_type: 'C1Task')
-  rescue
-    false
+  %w(
+    C1Task C1ManualTask C3ManualTask C2Task C3Cat1Task
+    C3Cat3Task Cat1FilterTask Cat3FilterTask
+  ).each do |task_type|
+    # Define methods for fetching specific types of tasks,
+    # for example (Task.c1_task, Task.cat1_filter_task, etc)
+    define_singleton_method task_type.underscore do
+      begin
+        find_by(_type: task_type)
+      rescue
+        false
+      end
+    end
   end
 
-  def self.c1_manual_task
-    find_by(_type: 'C1ManualTask')
-  rescue
-    false
-  end
-
-  def self.c3_manual_task
-    find_by(_type: 'C3ManualTask')
-  rescue
-    false
-  end
-
-  def self.c2_task
-    find_by(_type: 'C2Task')
-  rescue
-    false
-  end
-
-  def self.c3_cat1_task
-    find_by(_type: 'C3Cat1Task')
-  rescue
-    false
-  end
-
-  def self.c3_cat3_task
-    find_by(_type: 'C3Cat3Task')
-  rescue
-    false
-  end
-
-  def self.cat1_filter_task
-    find_by(_type: 'Cat1FilterTask')
-  rescue
-    false
-  end
-
-  def self.cat3_filter_task
-    find_by(_type: 'Cat3FilterTask')
-  rescue
-    false
-  end
-
-  def passing?
-    status == 'passing'
-  end
-
-  def failing?
-    status == 'failing'
-  end
-
-  def errored?
-    status == 'errored'
-  end
-
-  def incomplete?
-    status == 'incomplete'
+  # Defines methods for checking task status (task.passing?, etc)
+  %w(passing failing errored incomplete).each do |task_state|
+    define_method "#{task_state}?" do
+      status == task_state
+    end
   end
 
   def status

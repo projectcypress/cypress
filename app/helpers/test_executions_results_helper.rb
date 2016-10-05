@@ -93,10 +93,6 @@ module TestExecutionsResultsHelper
 
   private
 
-  def currently_viewing_c1?(task)
-    task._type == 'C1Task'
-  end
-
   # used for sorting errors by appearance in xml
   #   if no doc or xml element found then line number of 0 is returned
   def error_to_line_number(error, doc)

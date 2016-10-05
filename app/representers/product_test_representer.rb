@@ -33,7 +33,7 @@ module ProductTestRepresenter
     property :address, extend: AddressRepresenter, if: ->(_) { self['addresses'] }, getter: ->(_) { self['addresses'].first }
   end
 
-  hash :provider_filters, :if => ->(_) { _type == 'FilteringTest' && options.filters.key?('providers') && state == :ready }, :wrap => :filters,
+  hash :provider_filters, :if => ->(_) { is_a?(FilteringTest) && options.filters.key?('providers') && state == :ready }, :wrap => :filters,
                           :as => :filters, :extend => ProviderRepresenter,
                           :getter => (lambda do |*|
                             filters_copy = options.filters.clone

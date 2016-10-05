@@ -1,7 +1,7 @@
 <%= content_for(:body_attributes) do %>data-no-turbolink<% end %>
 
 <% displaying_cat1 = displaying_cat1?(@task) %>
-<% viewing_measure_test = @task.product_test._type == 'MeasureTest' %>
+<% viewing_measure_test = @task.product_test.is_a? MeasureTest %>
 <% if viewing_measure_test %>
   <% cat1_task = @task.product_test.tasks.c1_task %>
   <% cat3_task = @task.product_test.tasks.c2_task %>
@@ -10,7 +10,7 @@
   <% cat3_task = @task.product_test.tasks.cat3_filter_task %>
 <% end %>
 <%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.product.c3_test) } %>
-<% unless @task._type == 'C1ManualTask' || @task._type == 'C3ManualTask' %>
+<% unless @task.is_a?(C1ManualTask) || @task.is_a?(C3ManualTask) %>
   <div class="panel clearfix">
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
       <i class="fa fa-fw fa-step-backward" aria-hidden="true"></i> Previous Test: <%= iterate_task(@task, 'prev').product_test.cms_id %>
@@ -32,13 +32,13 @@
       { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
-  <% elsif @task.product_test._type == 'FilteringTest' %>
+  <% elsif @task.product_test.is_a? FilteringTest %>
     <% steps = [
       { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
       { title: 'Filter Patients', partial: 'filter_instructions', disable: false, disable_msg: '' },
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
-  <% elsif @task.product_test._type == 'ChecklistTest' %>
+  <% elsif @task.product_test.is_a? ChecklistTest %>
     <% steps = [
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>

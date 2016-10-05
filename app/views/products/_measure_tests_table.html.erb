@@ -12,7 +12,7 @@
 <% return unless tasks.any? %>
 
 <% product = tasks.first.product_test.product %>
-<% first_results_col_label = tasks.first._type == 'C1Task' ? 'C1 Results' : 'C2 Results' %>
+<% first_results_col_label = tasks.first.is_a?(C1Task) ? 'C1 Results' : 'C2 Results' %>
 <% include_c3 = product.c3_test %>
 
 <table class = 'table table-hover measure_tests_table'>

@@ -3,7 +3,7 @@ module TestExecutionsHelper
   include Cypress::ErrorCollector
 
   def displaying_cat1?(task)
-    (task._type == 'C1Task') || (task._type == 'Cat1FilterTask') || task._type == 'C1ManualTask'
+    task.is_a?(C1Task) || task.is_a?(Cat1FilterTask) || task.is_a?(C1ManualTask)
   end
 
   def task_type_to_title(task_type, c3)
@@ -47,7 +47,7 @@ module TestExecutionsHelper
 
   def get_title_message(test, task)
     msg = ''
-    if test._type == 'MeasureTest'
+    if test.is_a? MeasureTest
       msg << task_type_to_title(task._type, task.product_test.product.c3_test)
       msg << ' certification'
       msg << 's' if test.product.c3_test
@@ -86,10 +86,10 @@ module TestExecutionsHelper
   end
 
   def info_title_for_product_test(product_test)
-    case product_test._type
-    when 'MeasureTest' then 'Measure Test Information'
-    when 'FilteringTest' then 'Filtering Test Information'
-    when 'ChecklistTest' then 'Manual Entry Test Information'
+    case product_test
+    when MeasureTest then 'Measure Test Information'
+    when FilteringTest then 'Filtering Test Information'
+    when ChecklistTest then 'Manual Entry Test Information'
     else 'Test Information'
     end
   end
@@ -100,7 +100,7 @@ module TestExecutionsHelper
 
   def iterate_task(task, direction)
     tests = task.product_test.product.product_tests
-    tests = if task._type == 'Cat1FilterTask' || task._type == 'Cat3FilterTask'
+    tests = if task.is_a?(Cat1FilterTask) || task.is_a?(Cat3FilterTask)
               tests.filtering_tests.sort_by { |t| cms_int(t.cms_id) }
             else
               tests.measure_tests.sort_by { |t| cms_int(t.cms_id) }
@@ -115,6 +115,6 @@ module TestExecutionsHelper
   end
 
   def should_display_expected_results(task)
-    !hide_patient_calculation? && (task._type == 'C2Task' || task.product_test._type == 'FilteringTest')
+    !hide_patient_calculation? && (task.is_a?(C2Task) || task.product_test.is_a?(FilteringTest))
   end
 end

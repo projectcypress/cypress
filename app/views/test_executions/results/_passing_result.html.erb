@@ -3,7 +3,7 @@
     <p class="lead bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> <%= execution_type + " Execution: " unless execution_type.nil? %>Passed</p>
     <div class="row">
       <div class="col-sm-6">
-        <% if execution.task.product_test._type == 'MeasureTest' %>
+        <% if execution.task.product_test.is_a? MeasureTest %>
           <% cat1_task = execution.task.product_test.tasks.c1_task %>
           <% cat3_task = execution.task.product_test.tasks.c2_task %>
         <% else %>
