@@ -5,6 +5,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   def setup
     collection_fixtures 'users', 'roles', 'vendors'
     @user = User.find('4def93dd4f85cf8968000001')
+    Settings[:ignore_roles] = false
   end
 
   test 'Admin can view index ' do
