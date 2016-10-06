@@ -10,7 +10,7 @@ class ChecklistTestsController < ProductTestsController
     @product_test.save!
     @product_test.create_checked_criteria
     C1ManualTask.new(product_test: @product_test).save!
-    redirect_to vendor_product_path(@product.vendor, @product, anchor: 'ChecklistTest')
+    redirect_to vendor_product_path(@product.vendor_id, @product, anchor: 'ChecklistTest')
   end
 
   def show
@@ -37,7 +37,7 @@ class ChecklistTestsController < ProductTestsController
   def destroy
     @product_test.destroy
     respond_to do |format|
-      format.html { redirect_to vendor_product_path(@product.vendor, @product) }
+      format.html { redirect_to vendor_product_path(@product.vendor_id, @product) }
     end
   end
 
@@ -57,8 +57,8 @@ class ChecklistTestsController < ProductTestsController
 
   def set_breadcrumbs
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
-    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor_id)
+    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
     add_breadcrumb 'Manual Entry Test', product_checklist_test_path(@product, @product_test)
   end
 

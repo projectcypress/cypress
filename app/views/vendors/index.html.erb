@@ -29,12 +29,12 @@
         <tr>
           <th scope="row"><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></th>
           <td>
-            <% if vendor.products.count == 0 %>
+            <% if vendor_statuses['total'] == 0 %>
               <%= button_to new_vendor_product_path(vendor), :method => :get, :class => "btn btn-primary btn-sm" do %>
                 <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Product
               <% end %>
             <% else %>
-              <%= vendor.products.count %>
+              <%= vendor_statuses['total'] %>
             <% end %>
           </td>
 

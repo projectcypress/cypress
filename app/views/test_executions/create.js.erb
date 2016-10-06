@@ -4,7 +4,7 @@
 <% @product = @test_execution.task.product_test.product %>
 
 <% # set PATH_INFO so AJAX call can be made in /products/measure_tests_table partial. this AJAX call is for reloading each product_test_link %>
-<% request.env['PATH_INFO'] = vendor_product_path(@product.vendor, @product) %>
+<% request.env['PATH_INFO'] = vendor_product_path(@product.vendor_id, @product) %>
 
 <% task = Task.find(params[:task_id]) %>
 <% is_measure_test_execution = task.product_test._type == 'MeasureTest' %>
