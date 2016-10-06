@@ -63,27 +63,17 @@ class Vendor
     end
   end
 
-  def products_passing
-    Rails.cache.fetch("#{cache_key}/products_passing") do
-      products.select { |product| product.status == 'passing' }
+  %w(passing failing errored incomplete).each do |product_state|
+    define_method "products_#{product_state}" do
+      Rails.cache.fetch("#{cache_key}/products_#{product_state}") do
+        products.select { |product| product.status == product_state }
+      end
     end
-  end
 
-  def products_failing
-    Rails.cache.fetch("#{cache_key}/products_failing") do
-      products.select { |product| product.status == 'failing' }
-    end
-  end
-
-  def products_errored
-    Rails.cache.fetch("#{cache_key}/products_errored") do
-      products.select { |product| product.status == 'errored' }
-    end
-  end
-
-  def products_incomplete
-    Rails.cache.fetch("#{cache_key}/products_incomplete") do
-      products.select { |product| product.status == 'incomplete' }
+    define_method "products_#{product_state}_count" do
+      Rails.cache.fetch("#{cache_key}/products_#{product_state}_count") do
+        products.count { |product| product.status == product_state }
+      end
     end
   end
 end

@@ -48,10 +48,10 @@ module VendorsHelper
 
   def vendor_statuses(vendor)
     h = {}
-    h['passing'] = vendor.products_passing.count
-    h['failing'] = vendor.products_failing.count
-    h['errored'] = vendor.products_errored.count
-    h['incomplete'] = vendor.products_incomplete.count
+    h['passing'] = vendor.products_passing_count
+    h['failing'] = vendor.products_failing_count
+    h['errored'] = vendor.products_errored_count
+    h['incomplete'] = vendor.products_incomplete_count
     h['total'] = vendor.products.count
     h
   end
