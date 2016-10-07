@@ -15,7 +15,7 @@
         <legend>Email Settings</legend>
         <div class="row">
           <%= f.text_field :mailer_address, wrapper: { class: "col-sm-10" },  label: "SMTP Server", value: smtp_settings.address %>
-          <%= f.number_field :mailer_port, wrapper: { class: "col-sm-2" }, label: "Port", maxLength: 5, value: smtp_settings.port %>
+          <%= f.number_field :mailer_port, wrapper: { class: "col-sm-2" }, label: "Port", value: smtp_settings.port, min: 1, max: 65535 %>
         </div>
         <%= f.text_field :mailer_domain, label: "Mailer Domain", value: smtp_settings.domain %>
         <%= f.text_field :mailer_user_name, label: "Mailer Username", value: smtp_settings.user_name %>
