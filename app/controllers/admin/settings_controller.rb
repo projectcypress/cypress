@@ -12,8 +12,8 @@ module Admin
         banner_message: Settings.banner_message,
         banner: Settings.banner,
         smtp_settings: Rails.application.config.action_mailer.smtp_settings,
-        mode: ApplicationController.helpers.application_mode,
-        mode_settings: ApplicationController.helpers.application_mode_settings,
+        mode: application_mode,
+        mode_settings: application_mode_settings,
         roles: %w(User ATL Admin None)
       }
     end
@@ -59,13 +59,13 @@ module Admin
 
     def update_application_mode(mode_name, options = {})
       if mode_name == 'internal'
-        ApplicationController.helpers.mode_internal
+        mode_internal
       elsif mode_name == 'demo'
-        ApplicationController.helpers.mode_demo
+        mode_demo
       elsif mode_name == 'atl'
-        ApplicationController.helpers.mode_atl
+        mode_atl
       elsif mode_name == 'custom'
-        ApplicationController.helpers.mode_custom options
+        mode_custom options
       end
     end
 
