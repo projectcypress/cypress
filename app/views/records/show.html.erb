@@ -24,7 +24,7 @@
               <% RecordsHelper::CV_POPULATION_KEYS.each do |population| %>
                 <td class="text-center">
                   <span class="sr-only">Measure <%= m.display_name %> population <%= population %> result: </span>
-                  <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(@results, m, population) } %>
+                  <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(@results, m, population), episode_of_care: m.episode_of_care } %>
                 </td>
               <% end %>
             </tr>
@@ -52,7 +52,7 @@
               <% RecordsHelper::PROPORTION_POPULATION_KEYS.each do |population| %>
                 <td class="text-center">
                   <span class="sr-only">Measure <%= m.display_name %> population <%= population %> result: </span>
-                  <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(@results, m, population) } %>
+                  <%= render partial: 'calculation_result_icon', locals: { result: get_result_value(@results, m, population), episode_of_care: m.episode_of_care } %>
                 </td>
               <% end %>
             </tr>

@@ -3,7 +3,7 @@
   <span class="fa-stack result-marker">
     <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
     <i class="fa fa-circle-thin fa-stack-2x" aria-hidden="true"></i>
-    <% unless result == 1 %>
+    <% unless result == 1 && !episode_of_care %>
       <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= result %></strong>
     <% end %>
   </span>
