@@ -1,6 +1,7 @@
 module ChecklistTestsHelper
   def disable_qrda_submission?
-    !@product_test.checked_criteria.all?(&:checklist_complete?) || @product_test.state == :errored
+    # only disable if none of the measures have all good checklist criteria
+    @product_test.checked_criteria.group_by(&:measure_id).values.all? { |cc_group| cc_group.any? { |cc| !cc.checklist_complete? } }
   end
 
   def checklist_test_criteria_attribute(measure, criteria)
