@@ -10,6 +10,9 @@ gem 'bson_ext'
 
 gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'mongoid5'
 
+gem 'go-cda-tools', git: 'https://github.com/projectcypress/go-cda-tools.git', branch: 'master'
+# gem 'go-cda-tools', path: '../go-cda-tools'
+
 gem 'quality-measure-engine',
     git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
 
@@ -33,6 +36,8 @@ gem 'breadcrumbs_on_rails'
 gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git', branch: 'master'
 gem 'nested_form'
 gem 'jasny-bootstrap-rails'
+
+gem 'os'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
 

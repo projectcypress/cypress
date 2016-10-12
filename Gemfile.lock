@@ -1,15 +1,22 @@
 GIT
   remote: https://github.com/DatabaseCleaner/database_cleaner.git
-  revision: f052d64d3be9351a98a99e932a59be528ccc561c
+  revision: de085dd5c64c59d60b0ca7bc63bbb2d1e0072dbb
   specs:
     database_cleaner (1.5.3)
 
 GIT
   remote: https://github.com/bootstrap-ruby/rails-bootstrap-forms.git
-  revision: e83b7d9a6588a83da241f12851ef126d49bf0d62
+  revision: 1f93ff54e0f09e9ebf7d78bb8673029f49b84482
   branch: master
   specs:
-    bootstrap_form (2.4.0)
+    bootstrap_form (2.5.2)
+
+GIT
+  remote: https://github.com/projectcypress/go-cda-tools.git
+  revision: d28de80126d7b380c67e662d6fc0973fdbd245c9
+  branch: master
+  specs:
+    go-cda-tools (0.0.0)
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
@@ -85,9 +92,9 @@ GEM
     ansi (1.5.0)
     arel (6.0.3)
     ast (2.3.0)
-    autoprefixer-rails (6.3.7)
+    autoprefixer-rails (6.5.0.2)
       execjs
-    axe-matchers (1.2.1)
+    axe-matchers (1.3.1)
       dumb_delegator (~> 0.8)
       virtus (~> 1.0)
     axiom-types (0.1.1)
@@ -97,20 +104,20 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.6)
+    bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    brakeman (3.3.2)
-    breadcrumbs_on_rails (2.3.1)
+    brakeman (3.4.0)
+    breadcrumbs_on_rails (3.0.1)
     bson (4.1.1)
     bson_ext (1.5.1)
     builder (3.2.2)
     bundler-audit (0.5.0)
       bundler (~> 1.2)
       thor (~> 0.18)
-    byebug (9.0.5)
+    byebug (9.0.6)
     cancancan (1.15.0)
-    capybara (2.7.1)
+    capybara (2.10.1)
       addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -125,9 +132,9 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
-    carrierwave-mongoid (0.9.0)
+    carrierwave-mongoid (0.10.0)
       carrierwave (>= 0.8.0, < 0.12.0)
-      mongoid (>= 3.0, < 6.0)
+      mongoid (>= 3.0, < 7.0)
       mongoid-grid_fs (>= 1.3, < 3.0)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
@@ -153,14 +160,14 @@ GEM
       multi_test (>= 0.1.2)
     cucumber-core (1.5.0)
       gherkin (~> 4.0)
-    cucumber-rails (1.4.3)
+    cucumber-rails (1.4.5)
       capybara (>= 1.1.2, < 3)
-      cucumber (>= 1.3.8, < 3)
+      cucumber (>= 1.3.8, < 4)
       mime-types (>= 1.16, < 4)
       nokogiri (~> 1.5)
-      railties (>= 3, < 5)
+      railties (>= 3, < 5.1)
     cucumber-wire (0.0.1)
-    daemons (1.2.3)
+    daemons (1.2.4)
     debug_inspector (0.0.2)
     delayed_job (4.1.2)
       activesupport (>= 3.0, < 5.1)
@@ -176,9 +183,9 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
-    devise_invitable (1.6.0)
-      actionmailer (>= 3.2.6)
-      devise (>= 3.2.0)
+    devise_invitable (1.7.0)
+      actionmailer (>= 4.0.0)
+      devise (>= 4.0.0)
     diff-lcs (1.2.5)
     diffy (3.1.0)
     docile (1.1.5)
@@ -195,21 +202,21 @@ GEM
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
-    ffi (1.9.13)
+    ffi (1.9.14)
     font-awesome-sass (4.6.2)
       sass (>= 3.2)
     gherkin (4.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     highline (1.7.8)
-    http-cookie (1.0.2)
+    http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.7.0)
     ice_nine (0.11.2)
     iniparse (1.4.2)
     jasny-bootstrap-rails (3.1.3)
       railties (>= 3.0)
-    jbuilder (2.5.0)
+    jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jquery-datatables-rails (3.3.0)
@@ -239,22 +246,22 @@ GEM
     memoist (0.9.3)
     metaclass (0.0.4)
     method_source (0.8.2)
-    mime-types (2.99.2)
-    mimemagic (0.3.1)
+    mime-types (2.99.3)
+    mimemagic (0.3.2)
     mini_portile2 (2.1.0)
-    minitest (5.9.0)
+    minitest (5.9.1)
     minitest-rails (2.2.1)
       minitest (~> 5.7)
       railties (~> 4.1)
-    minitest-reporters (1.1.10)
+    minitest-reporters (1.1.11)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    mocha (1.1.0)
+    mocha (1.2.0)
       metaclass (~> 0.0.1)
     modernizr-rails (2.7.1)
-    mongo (2.2.7)
+    mongo (2.3.0)
       bson (~> 4.1)
     mongoid (5.0.2)
       activemodel (~> 4.0)
@@ -264,34 +271,32 @@ GEM
     mongoid-compatibility (0.4.0)
       activesupport
       mongoid (>= 2.0)
-    mongoid-grid_fs (2.2.2)
+    mongoid-grid_fs (2.3.0)
       mime-types (>= 1.0, < 4.0)
-      mongoid (>= 3.0, < 6.0)
+      mongoid (>= 3.0, < 7.0)
     mongoid-tree (2.0.1)
       mongoid (>= 4.0, < 6.0)
     multi_json (1.12.1)
     multi_test (0.1.2)
     nested_form (0.3.2)
     netrc (0.11.0)
-    newrelic_rpm (3.16.0.318)
-    nokogiri (1.6.8)
+    newrelic_rpm (3.16.3.323)
+    nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
     origin (2.2.0)
     orm_adapter (0.5.0)
-    overcommit (0.34.2)
+    os (0.9.6)
+    overcommit (0.36.0)
       childprocess (~> 0.5.8)
       iniparse (~> 1.4)
     parallel (1.9.0)
-    parallel_tests (2.6.0)
+    parallel_tests (2.9.0)
       parallel
-    parser (2.3.1.2)
+    parser (2.3.1.4)
       ast (~> 2.2)
-    pkg-config (1.1.7)
-    poltergeist (1.9.0)
+    poltergeist (1.11.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
-      multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     protected_attributes (1.0.9)
@@ -330,14 +335,14 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
-    raindrops (0.16.0)
-    rake (11.2.2)
+    raindrops (0.17.0)
+    rake (11.3.0)
     rdoc (4.2.2)
       json (~> 1.4)
-    remotipart (1.2.1)
+    remotipart (1.3.1)
     representable (2.3.0)
       uber (~> 0.0.7)
-    responders (2.2.0)
+    responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -368,10 +373,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    scss_lint (0.49.0)
+    scss_lint (0.50.2)
       rake (>= 0.9, < 12)
       sass (~> 3.4.20)
-    sdoc (0.4.1)
+    sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     selenium-webdriver (2.48.0)
@@ -389,7 +394,7 @@ GEM
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.1.1)
+    sprockets-rails (3.2.0)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
@@ -405,16 +410,16 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uber (0.0.15)
-    uglifier (3.0.0)
+    uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    unicode-display_width (1.1.0)
+    unicode-display_width (1.1.1)
     unicorn (5.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    unicorn-rails (2.2.0)
+    unicorn-rails (2.2.1)
       rack
       unicorn
     uuid (2.3.8)
@@ -465,6 +470,7 @@ DEPENDENCIES
   factory_girl_rails
   faker (~> 1.5.0)
   font-awesome-sass
+  go-cda-tools!
   health-data-standards!
   jasny-bootstrap-rails
   jbuilder (~> 2.0)
@@ -481,6 +487,7 @@ DEPENDENCIES
   mongoid (~> 5.0.0)
   nested_form
   newrelic_rpm
+  os
   overcommit
   parallel_tests
   poltergeist

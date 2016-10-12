@@ -51,7 +51,7 @@ module Cypress
 
       vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
       product = Product.find_or_create_by(name: 'MeasureEvaluationProduct', vendor_id: vendor.id, c1_test: true, c2_test: true, c3_test: true,
-                                          randomize_records: true)
+                                          randomize_records: true, measure_ids: [opts[:measure].hqmf_id])
 
       MeasureTest.find_or_create_by(name: opts[:measure].name, bundle: bundle.id, product: product,
                                     measure_ids: [opts[:measure].hqmf_id],
