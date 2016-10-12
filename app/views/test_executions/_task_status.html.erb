@@ -11,7 +11,7 @@
 <% execution = task.most_recent_execution %>
 
 <% panel_class = current_task ? 'panel-primary' : 'panel-inactive' %>
-<% task_status = task.product_test._type == 'MeasureTest' ? task.status_with_sibling : task.status %>
+<% task_status = task.product_test.is_a?(MeasureTest) ? task.status_with_sibling : task.status %>
 
 <div class = 'col-sm-4'>
   <div class = 'panel <%= panel_class %> task-panel'>

@@ -7,7 +7,7 @@
 <% request.env['PATH_INFO'] = vendor_product_path(@product.vendor, @product) %>
 
 <% task = Task.find(params[:task_id]) %>
-<% is_measure_test_execution = task.product_test._type == 'MeasureTest' %>
+<% is_measure_test_execution = task.product_test.is_a? MeasureTest %>
 
 <% if is_measure_test_execution %>
   $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'measure_tests_table_row', task_id: "<%= params[:task_id] %>" }});

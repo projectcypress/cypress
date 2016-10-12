@@ -6,16 +6,16 @@
 
 <div class = 'col-sm-4'>
   <h1><%= info_title_for_product_test(task.product_test) %></h1>
-  <% unless task.product_test._type == 'ChecklistTest' %>
+  <% unless task.product_test.is_a? ChecklistTest %>
     <strong>Measure: </strong><span><%= task.product_test.name %></span><br/>
   <% end %>
   <strong>HQMF ID: </strong><span><%= @task.product_test.measure_ids.join(',') %></span><br/>
-  <% unless task.product_test._type == 'ChecklistTest' %>
+  <% unless task.product_test.is_a? ChecklistTest %>
     <strong>CMS ID: </strong><span><%= task.product_test.cms_id %></span><br/>
   <% end %>
 
   <% # display provider information if the product test is a measure test %>
-  <% if task.product_test.class == MeasureTest %>
+  <% if task.product_test.is_a? MeasureTest %>
     <% provider = task.product_test.provider %>
     <% unless provider.nil? %>
       <br/>
@@ -26,7 +26,7 @@
   <% end %>
 
   <br/>
-  <% unless @task._type == 'C1ManualTask' %>
+  <% unless @task.is_a? C1ManualTask %>
   <%= link_to 'View Patients', { controller: 'records', task_id: @task.id}, method: :get %>
   <% if Settings['enable_debug_features'] %>
   <br/>

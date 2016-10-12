@@ -13,7 +13,7 @@ class FilteringTest < ProductTest
   end
 
   def cat1_task
-    cat1_tasks = tasks.select { |task| task._type == 'Cat1FilterTask' }
+    cat1_tasks = tasks.select { |task| task.is_a? Cat1FilterTask }
     if cat1_tasks.empty?
       false
     else
@@ -22,7 +22,7 @@ class FilteringTest < ProductTest
   end
 
   def cat3_task
-    cat3_tasks = tasks.select { |task| task._type == 'Cat3FilterTask' }
+    cat3_tasks = tasks.select { |task| task.is_a? Cat3FilterTask }
     if cat3_tasks.empty?
       false
     else
