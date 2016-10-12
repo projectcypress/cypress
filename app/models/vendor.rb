@@ -51,11 +51,11 @@ class Vendor
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       total = products.count
-      if products_failing.count > 0
+      if products_failing_count > 0
         'failing'
-      elsif products_passing.count == total && total > 0
+      elsif products_passing_count == total && total > 0
         'passing'
-      elsif products_errored.count > 0
+      elsif products_errored_count > 0
         'errored'
       else
         'incomplete'
