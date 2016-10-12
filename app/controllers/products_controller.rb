@@ -15,8 +15,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
-    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor_id)
+    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
     respond_with(@product, &:js)
   end
 
@@ -44,8 +44,8 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor)
-    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor, @product)
+    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor_id)
+    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
     add_breadcrumb 'Edit Product', :edit_vendor_path
     @selected_measure_ids = @product.measure_ids
   end
@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
     @product.save!
     flash_comment(@product.name, 'info', 'edited')
     respond_with(@product) do |f|
-      f.html { redirect_to vendor_path(@product.vendor) }
+      f.html { redirect_to vendor_path(@product.vendor_id) }
     end
   rescue Mongoid::Errors::Validations, Mongoid::Errors::DocumentNotFound
     respond_with(@product) do |f|
@@ -70,7 +70,7 @@ class ProductsController < ApplicationController
     @product.destroy
     flash_comment(@product.name, 'danger', 'removed')
     respond_with(@product) do |f|
-      f.html { redirect_to vendor_path(@product.vendor) }
+      f.html { redirect_to vendor_path(@product.vendor_id) }
     end
   end
 
@@ -102,7 +102,7 @@ class ProductsController < ApplicationController
   end
 
   def setup_new
-    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@product.vendor)
+    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@product.vendor_id)
     add_breadcrumb 'Add Product', :new_vendor_path
     set_measures
     params[:action] = 'new'

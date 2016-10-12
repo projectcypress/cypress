@@ -16,7 +16,7 @@
     <tr>
       <% if show_product_link %>
         <th scope="col" rowspan="2" class="product-name">
-          <%= link_to product.name, vendor_product_path(product.vendor, product) %>
+          <%= link_to product.name, vendor_product_path(product.vendor_id, product) %>
         </th>
       <% else %>
         <td rowspan="2"><span class="sr-only">Status</span></td>
