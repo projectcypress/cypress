@@ -30,6 +30,16 @@ function pull_git_tag() {
     # pull in case we're on a branch
     sudo -u cypress git pull
     sudo -u cypress git stash pop
+    rc=$?
+    if [[ $rc != 0 ]]; then
+      sudo -u cypress cp config/cypress.yml config/cypress.yml.old
+      echo "WARNING: Unable to merge cypress config cleanly, you will need to manually reset your settings in `pwd`/config/cypress.yml manually or through the admin control panel."
+      echo "The old version of your config file can be found at `pwd`/config/cypress.yml.old"
+      # First time marks conflict as resolved, second unstages changes
+      sudo -u cypress git reset HEAD config/cypress.yml
+      sudo -u cypress git reset HEAD config/cypress.yml
+      sudo -u cypress git stash drop
+    fi
   else
     echo "Handling previous error..."
     echo "We do NOT have permission to pull cypress as the user cypress, using root to run git commands."
@@ -39,6 +49,16 @@ function pull_git_tag() {
     # pull in case we're on a branch
     git pull
     git stash pop
+    rc=$?
+    if [[ $rc != 0 ]]; then
+      cp config/cypress.yml config/cypress.yml.old
+      echo "WARNING: Unable to merge cypress config cleanly, you will need to manually reset your settings in `pwd`/config/cypress.yml manually or through the admin control panel."
+      echo "The old version of your config file can be found at `pwd`/config/cypress.yml.old"
+      # First time marks conflict as resolved, second unstages changes
+      git reset HEAD config/cypress.yml
+      git reset HEAD config/cypress.yml
+      git stash drop
+    fi
   fi
 }
 
