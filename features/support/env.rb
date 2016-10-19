@@ -139,11 +139,12 @@ end
 
 def map_bson_ids(json)
   json.each_pair do |k, v|
-    if v.is_a? Hash
+    if v.is_a? Array
+      json[k] = v.map { |av| value_or_bson(av) }
+    elsif v.is_a? Hash
       json[k] = value_or_bson(v)
     elsif k == 'create_at' || k == 'updated_at'
       json[k] = Time.at.local(v).in_time_zone
-      # json[k] = v
     end
   end
   json
