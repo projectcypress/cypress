@@ -54,7 +54,7 @@ class ChecklistSourceDataCriteria
                  else
                    [criteria.negation_code_list_id]
                  end
-      self.attribute_complete = code_in_valuesets(valueset, attribute_code)
+      self.attribute_complete = code_in_valuesets(valueset, attribute_code, measure.bundle_id)
     end
   end
 
@@ -62,7 +62,7 @@ class ChecklistSourceDataCriteria
     # validate if an code is required and is correct
     if code
       valuesets = get_all_valuesets_for_dc(measure_id)
-      self.code_complete = code_in_valuesets(valuesets, code)
+      self.code_complete = code_in_valuesets(valuesets, code, Measure.find_by(_id: measure_id).bundle_id)
     end
   end
 
@@ -117,7 +117,7 @@ class ChecklistSourceDataCriteria
   end
 
   # searches an array of valuesets for a code
-  def code_in_valuesets(valuesets, input_code)
-    !HealthDataStandards::SVS::ValueSet.where('concepts.code' => input_code).in(oid: valuesets).empty?
+  def code_in_valuesets(valuesets, input_code, bundle_id)
+    !HealthDataStandards::SVS::ValueSet.where('concepts.code' => input_code).in(oid: valuesets, bundle_id: bundle_id).empty?
   end
 end
