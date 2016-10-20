@@ -13,7 +13,7 @@ module Cypress
     end
 
     def self.all_patients
-      file = file = Tempfile.new("all-patients-#{Time.now.to_i}")
+      file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
         Bundle.each do |bundle|
           records = bundle.records
