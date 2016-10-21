@@ -82,6 +82,16 @@ module Cypress
       file
     end
 
+    def self.export_log_files
+      file = Tempfile.new("application_logs-#{Time.now.to_i}.zip")
+      Zip::ZipOutputStream.open(file.path) do |z|
+        Dir.glob('*/*.log') do |log_file|
+          add_file_to_zip(z, log_file, IO.read(log_file))
+        end
+      end
+      file
+    end
+
     def self.add_file_to_zip(z, file_name, file_content)
       z.put_next_entry(file_name)
       z << file_content

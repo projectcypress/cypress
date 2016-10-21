@@ -1,0 +1,52 @@
+<div class="inline-block pull-right">
+  <%= button_to admin_download_logs_path, :method => :get, :class => "btn btn-default" do %>
+    <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download Application Logs
+  <% end %>
+</div>
+
+<% cpu_count = @system_usage_stats.cpus.count %>
+<legend>Average CPU Usage (<%= pluralize(cpu_count, "CPU") %>)</legend>
+<% @system_usage_stats.load_average.each_pair do |key, avg_load| %>
+  <b><%= "Past #{key.to_s}".humanize %></b>
+  <% percentage = (avg_load > cpu_count) ? 100 : (avg_load / cpu_count * 100).round %>
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped <%= 'progress-bar-danger' if percentage.eql? 100 %> active" role="progressbar"
+    aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= percentage %>%">
+      <%= avg_load.round(2) %>
+    </div>
+  </div>
+<% end %>
+
+<legend>Memory Usage</legend>
+<div class="progress">
+  <% memory_usage = @system_usage_stats.memory %>
+  <% total_memory = memory_usage.wired + memory_usage.active + memory_usage.inactive + memory_usage.free %>
+  <% wired_percentage_used = (memory_usage.wired / total_memory.to_f) * 100 %>
+  <div class="progress-bar progress-bar-striped progress-bar-danger active" role="progressbar" style="width:<%= wired_percentage_used %>%">
+    Wired
+  </div>
+  <% active_percentage_used = (memory_usage.active / total_memory.to_f) * 100 %>
+  <div class="progress-bar progress-bar-striped progress-bar-warning active" role="progressbar" style="width:<%= active_percentage_used %>%">
+    Active
+  </div>
+  <% inactive_percentage_used = (memory_usage.inactive / total_memory.to_f) * 100 %>
+  <div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar" style="width:<%= inactive_percentage_used %>%">
+    Inactive
+  </div>
+</div>
+
+<legend>Disk Usage</legend>
+<% @system_usage_stats.disks.each do |disk| %>
+  <b>Mount point <%= disk.mount %></b>
+  <% percentage = 100 - ((disk.available_blocks / disk.total_blocks.to_f) * 100).round %>
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped active" role="progressbar"
+    aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= percentage %>%">
+      <%= percentage %>%
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'application_status' }});
+</script>

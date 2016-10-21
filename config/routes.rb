@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   namespace 'admin' do
     resource :settings, only: [:show, :edit, :update]
     get 'users/send_invitation'
+    get :download_logs
     resources :users do
       member do
         get :unlock
