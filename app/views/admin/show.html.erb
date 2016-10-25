@@ -6,7 +6,7 @@
 
 <div class="settings-tabs">
   <ul>
-    <% ['application_settings', 'user_management', 'bundles'].each do |target_id| %>
+    <% ['application_settings', 'user_management', 'bundles', 'application_status'].each do |target_id| %>
       <li><a href = '#<%= target_id %>'><%= target_id.humanize.titleize %></a></li>
     <% end %>
   </ul>
@@ -27,8 +27,8 @@
     <%= render partial: 'remove_modal' %>
   </div>
 
-  <!-- <div id="application_status" >
-    <h2>This feature is coming soon</h2>
-  </div> -->
+  <div id="application_status" >
+    <%= render partial: 'application_status' %>
+  </div>
 
 </div>

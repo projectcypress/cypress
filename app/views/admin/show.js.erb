@@ -6,4 +6,8 @@
   <% else %>
     $('#display_bundle_list').html("<%= escape_javascript render partial: '/admin/bundle_list' %>");
   <% end %>
+<% elsif params[:partial] == 'application_status' %>
+  setTimeout(function(){
+    $('#application_status').html("<%= escape_javascript render partial: '/admin/application_status' %>");
+  }, 10000);
 <% end %>

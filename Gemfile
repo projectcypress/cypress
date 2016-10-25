@@ -60,6 +60,9 @@ gem 'remotipart', '~> 1.2'
 
 gem 'settingslogic'
 
+# Server usage statistics
+gem 'vmstat'
+
 # bubble up errors from embedded documents in Mongoid.
 # gem 'mongoid-embedded-errors'
 

@@ -13,7 +13,7 @@ module Cypress
     end
 
     def self.all_patients
-      file = file = Tempfile.new("all-patients-#{Time.now.to_i}")
+      file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
         Bundle.each do |bundle|
           records = bundle.records
@@ -77,6 +77,16 @@ module Cypress
         add_file_to_zip(z, 'criteria_list.html', criteria_list)
         example_patients.each do |measure_id, patient|
           add_file_to_zip(z, "sample patient for #{measure_id}.html", formatter.export(patient))
+        end
+      end
+      file
+    end
+
+    def self.export_log_files
+      file = Tempfile.new("application_logs-#{Time.now.to_i}.zip")
+      Zip::ZipOutputStream.open(file.path) do |z|
+        Dir.glob('*/*.log') do |log_file|
+          add_file_to_zip(z, log_file, IO.read(log_file))
         end
       end
       file

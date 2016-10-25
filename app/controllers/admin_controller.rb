@@ -6,6 +6,7 @@ class AdminController < ApplicationController
     @bundles = Bundle.all
     # dont allow them to muck with their own account
     @users = User.excludes(id: current_user.id).order_by(email:  1)
+    @system_usage_stats = Vmstat.snapshot
     render locals: {
       banner_message: Settings.banner_message,
       banner: Settings.banner,
@@ -14,6 +15,11 @@ class AdminController < ApplicationController
       mode_settings: application_mode_settings,
       debug_features: Settings.enable_debug_features
     }
+  end
+
+  def download_logs
+    zip = Cypress::CreateDownloadZip.export_log_files.read
+    send_data zip, type: 'application/zip', disposition: 'attachment', filename: "application_logs-#{Time.now.to_i}.zip"
   end
 
   def application_mode_settings
