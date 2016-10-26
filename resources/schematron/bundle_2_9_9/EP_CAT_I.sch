@@ -4,9 +4,11 @@ THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLU
 Schematron generated from Trifolia on 7/16/2015
 -->
 <!-- 
-2016 CMS QRDA Category I Schematron for Physician Quality Reporting System (PQRS), Version 2.2
+2016 CMS QRDA Category I Schematron for Physician Quality Reporting System (PQRS)
 
-Updated 4/15/2016
+Version 2.3
+
+Updated 4/15/2016 by Michael Holck
 
 Fixed QRDA-282 where CMS_0051 and CMS_0039 where implemented as separate assertions incorrectly
 Fixed QRDA-279 for missing and incorrect assertions in QRDA Category I Report documentationOf
@@ -18,7 +20,14 @@ Fixed QRDA-305 by changing the extension on rule 1140-13821 to the correct exten
 Fixed QRDA-296 by implementing the test to check for one postalCode
 Fixed QRDA-280 by changing the context on US Realm Patient Name 
   r-urn-oid-2.16.840.1.113883.10.20.22.5.1.1-errors to only those specified as such
-Fixed issue with a-1098-7133 checking for codesystem which is a SHOULD constraint in the error phase 
+Fixed issue with a-1098-7133 checking for codesystem which is a SHOULD constraint in the error phase
+
+Update 9/30/2016 by Michael Holck
+
+Addressed the issue with QRDA-336 about requiring LOINC codes even though they are a SHOULD constraint
+edited the following tests to remove the check for codeSystem='2.16.840.1.113883.6.1'
+1140-28026
+1098-30784
 -->
 <sch:schema xmlns:voc="http://www.lantanagroup.com/voc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdtc="urn:hl7-org:sdtc" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -1102,7 +1111,7 @@ Fixed issue with a-1098-7133 checking for codesystem which is a SHOULD constrain
     <sch:rule id="r-urn-oid-2.16.840.1.113883.10.20.22.4.121-errors-abstract" abstract="true">
       <sch:assert id="a-1098-30418" test="@classCode='OBS'">SHALL contain exactly one [1..1] @classCode="OBS" Observation (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:1098-30418).</sch:assert>
       <sch:assert id="a-1098-30419" test="@moodCode='GOL'">SHALL contain exactly one [1..1] @moodCode="GOL" Goal (CodeSystem: ActMood urn:oid:2.16.840.1.113883.5.1001) (CONF:1098-30419).</sch:assert>
-      <sch:assert id="a-1098-30784" test="count(cda:code[@codeSystem='2.16.840.1.113883.6.1' or @nullFlavor])=1">SHALL contain exactly one [1..1] code, which SHOULD be selected from CodeSystem LOINC (urn:oid:2.16.840.1.113883.6.1) (CONF:1098-30784).</sch:assert>
+      <sch:assert id="a-1098-30784" test="count(cda:code)=1">SHALL contain exactly one [1..1] code, which SHOULD be selected from CodeSystem LOINC (urn:oid:2.16.840.1.113883.6.1) (CONF:1098-30784).</sch:assert>
       <sch:assert id="a-1098-30995" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.119']]) &gt; 0">SHALL contain at least one [1..*] Author Participation (identifier: urn:oid:2.16.840.1.113883.10.20.22.4.119) (CONF:1098-30995).</sch:assert>
       <sch:assert id="a-1098-32332" test="count(cda:id) &gt; 0">SHALL contain at least one [1..*] id (CONF:1098-32332).</sch:assert>
       <sch:assert id="a-1098-32333" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:1098-32333).</sch:assert>
@@ -2877,7 +2886,7 @@ Fixed issue with a-1098-7133 checking for codesystem which is a SHOULD constrain
   <sch:pattern id="p-urn-hl7ii-2.16.840.1.113883.10.20.24.3.119-2014-12-01-errors">
     <sch:rule id="r-urn-hl7ii-2.16.840.1.113883.10.20.24.3.119-2014-12-01-errors-abstract" abstract="true">
       <sch:assert id="a-1140-28025" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.24.3.119'][@extension='2014-12-01'])=1">SHALL contain exactly one [1..1] templateId (CONF:1140-28025) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.119" (CONF:1140-28028). SHALL contain exactly one [1..1] @extension="2014-12-01" (CONF:1140-28029).</sch:assert>
-      <sch:assert id="a-1140-28026" test="count(cda:code[@codeSystem='2.16.840.1.113883.6.1' or @nullFlavor])=1">SHALL contain exactly one [1..1] code, which SHOULD be selected from CodeSystem LOINC (urn:oid:2.16.840.1.113883.6.1) (CONF:1140-28026).</sch:assert>
+      <sch:assert id="a-1140-28026" test="count(cda:code)=1">SHALL contain exactly one [1..1] code, which SHOULD be selected from CodeSystem LOINC (urn:oid:2.16.840.1.113883.6.1) (CONF:1140-28026).</sch:assert>
       <sch:assert id="a-1140-28027" test="count(cda:value)=1">SHALL contain exactly one [1..1] value (CONF:1140-28027).</sch:assert>
       <sch:assert id="a-1140-28033" test="@classCode='OBS'">SHALL contain exactly one [1..1] @classCode="OBS" Observation (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:1140-28033).</sch:assert>
       <sch:assert id="a-1140-28034" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" Event (CodeSystem: ActMood urn:oid:2.16.840.1.113883.5.1001) (CONF:1140-28034).</sch:assert>
