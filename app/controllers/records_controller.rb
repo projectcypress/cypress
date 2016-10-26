@@ -9,22 +9,26 @@ class RecordsController < ApplicationController
 
       return
     end
+
     return redirect_to bundle_records_path(Bundle.default) unless params[:bundle_id] || params[:task_id]
     # TODO: Only show measures where there are patient results. CMS32v4 sub id c and d have no patients, for example.
-    @records = @source.records.sort_by(&:first)
+    @records = @source.records.order_by(:first => 'asc')
     # create json with the display_name and url for each measure
-    @measure_dropdown = @source.measures
-                               .sort_by { |m| [m.cms_int, m.sub_id] }
-                               .map do |m|
-                                 { label: m.display_name,
-                                   value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, sub_id: m.sub_id) }
-                               end.to_json.html_safe
+    @measure_dropdown = Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
+                        @source.measures
+                           .order_by(cms_int: 1, sub_id: 1)
+                           .map do |m|
+                             { label: m.display_name,
+                               value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, sub_id: m.sub_id) }
+                           end.to_json.html_safe
+                         end
   end
 
   def show
     @record = @source.records.find(params[:id])
     @results = @record.calculation_results
     @measures = @source.measures.where(:hqmf_id.in => @results.map(:value).map(&:measure_id)).where(:sub_id.in => @results.map(:value).map(&:sub_id))
+    expires_in 1.week, public: true
     add_breadcrumb 'Patient: ' + @record.first + ' ' + @record.last, :record_path
   end
 
@@ -32,11 +36,21 @@ class RecordsController < ApplicationController
     @records = @source.records
     if params[:measure_id]
       @measure = @source.measures.find_by(hqmf_id: params[:measure_id], sub_id: params[:sub_id])
+      expires_in 1.week, public: true
     end
   end
 
   def download_mpl
-    file = Cypress::CreateDownloadZip.all_patients
+    bundle_str = Bundle.all.map(&:id).join('_')
+    file_path = File.join(Rails.root, 'tmp', 'cache', "bundle_mpl_#{bundle_str}.zip")
+
+    if File.exist?(file_path)
+      file = File.new(file_path)
+    else
+      file = Cypress::CreateDownloadZip.all_patients
+      FileUtils.cp(file.path, file_path)
+    end
+    expires_in 1.month, public: true
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: 'Master_Patient_List.zip'
   end
 
