@@ -118,6 +118,6 @@ class ChecklistSourceDataCriteria
 
   # searches an array of valuesets for a code
   def code_in_valuesets(valuesets, input_code, bundle_id)
-    !HealthDataStandards::SVS::ValueSet.where('concepts.code' => input_code).in(oid: valuesets, bundle_id: bundle_id).empty?
+    !HealthDataStandards::SVS::ValueSet.where('concepts.code' => input_code, bundle_id: bundle_id).in(oid: valuesets).empty?
   end
 end
