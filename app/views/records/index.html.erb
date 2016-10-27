@@ -20,7 +20,6 @@
   </div>
 
 <% else %>
-
   <h1>Master Patient List</h1>
   <div class="pull-right button-row">
     <%= button_to download_mpl_records_path(@bundle), :method => :get, :class => "btn btn-default" do %>
@@ -60,11 +59,13 @@
 
 <% end %>
 
-<div class="row">
-  <div id="records_list" class="col-sm-12">
-    <%= render partial: 'records_list', locals: { records: @records } %>
+<% cache @records do %>
+  <div class="row">
+    <div id="records_list" class="col-sm-12">
+      <%= render partial: 'records_list', locals: { records: @records } %>
+    </div>
   </div>
-</div>
+<% end #cache records %>
 
 <script type="text/javascript">
   // initialize jQueryUI Autocomplete for searching measures
