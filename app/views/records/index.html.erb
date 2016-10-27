@@ -20,8 +20,7 @@
   </div>
 
 <% else %>
-
-  <% cache "master_patient_list" do %>
+  <% cache "master_patient_list_#{Bundle.all.pluck(:id).join("_")}" do %>
     <h1>Master Patient List</h1>
     <div class="pull-right button-row">
       <%= button_to download_mpl_records_path(@bundle), :method => :get, :class => "btn btn-default" do %>
