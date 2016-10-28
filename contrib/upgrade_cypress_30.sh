@@ -6,8 +6,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-CYPRESS_VERSION='v3.0.2'
-CVU_VERSION='v3.0.1'
+CYPRESS_VERSION='v3.0.3'
+CVU_VERSION='v3.0.3'
 
 if [[ ! -z "$1" ]]; then
     CYPRESS_VERSION="$1"
@@ -35,9 +35,9 @@ function pull_git_tag() {
       sudo -u cypress cp config/cypress.yml config/cypress.yml.old
       echo "WARNING: Unable to merge cypress config cleanly, you will need to manually reset your settings in `pwd`/config/cypress.yml manually or through the admin control panel."
       echo "The old version of your config file can be found at `pwd`/config/cypress.yml.old"
-      # First time marks conflict as resolved, second unstages changes
+      # Since the file is in an unclean state, we reset it back to how it looked in upstream.
       sudo -u cypress git reset HEAD config/cypress.yml
-      sudo -u cypress git reset HEAD config/cypress.yml
+      sudo -u cypress git checkout config/cypress.yml
       sudo -u cypress git stash drop
     fi
   else
