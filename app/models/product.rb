@@ -85,7 +85,9 @@ class Product
     update_attributes(product_params)
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
-      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest) if c2_test
+      #create and store a new random seed for debugging repeatability
+      random_seed = Random.new_seed
+      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id, rand_seed: random_seed}, MeasureTest) if c2_test
     end
     # remove measure and checklist tests if their measure ids have been removed
     product_tests.in(measure_ids: (old_ids - new_ids)).destroy

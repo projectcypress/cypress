@@ -49,14 +49,15 @@ module Cypress
     end
 
     def randomize_ids(patients)
-      how_many = rand(5) + 1
+      prng = Random.new(@test.rand_seed)
+      how_many = prng.rand(5) + 1
       randomization_ids = options['randomization_ids'].shuffle[0..how_many]
       random_records = @test.bundle.records.where(test_id: nil).in(medical_record_number: randomization_ids).to_a
 
       random_records.each do |patient|
         seconds = 1_944_000 # 60 secs per min * 60 min per hour * 24 hours in day * 10 days
-        plus_minus = rand(2) == 0 ? 1 : -1 # use this to make move dates forward or backwards
-        date_shift = rand(seconds) * plus_minus
+        plus_minus = prng.rand(2) == 0 ? 1 : -1 # use this to make move dates forward or backwards
+        date_shift = prng.rand(seconds) * plus_minus
         patient.shift_dates(date_shift)
         patients << patient
       end
