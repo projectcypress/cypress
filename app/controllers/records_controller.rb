@@ -41,17 +41,16 @@ class RecordsController < ApplicationController
   end
 
   def download_mpl
-    bundle_str = Bundle.all.map(&:id).join('_')
-    file_path = File.join(Rails.root, 'tmp', 'cache', "bundle_mpl_#{bundle_str}.zip")
+    bundle = Bundle.find(BSON::ObjectId.from_string(params[:format]))
+    file_path = File.join(Rails.root, 'tmp', 'cache', "bundle_#{bundle.id}_mpl.zip")
 
-    if File.exist?(file_path)
-      file = File.new(file_path)
-    else
-      file = Cypress::CreateDownloadZip.all_patients
-      FileUtils.cp(file.path, file_path)
+    unless File.exist?(file_path)
+      MplDownloadCreateJob.perform_now(bundle.id.to_s)
     end
+
+    file = File.new(file_path)
     expires_in 1.month, public: true
-    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: 'Master_Patient_List.zip'
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
   end
 
   private
