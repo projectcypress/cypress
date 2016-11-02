@@ -49,9 +49,10 @@ module Cypress
     end
 
     def randomize_ids(patients)
-      prng = Random.new(@test.rand_seed)
+      prng = Random.new(@test.rand_seed.to_i)
       how_many = prng.rand(5) + 1
-      randomization_ids = options['randomization_ids'].shuffle[0..how_many]
+      byebug
+      randomization_ids = options['randomization_ids'].shuffle(random:prng)[0..how_many]
       random_records = @test.bundle.records.where(test_id: nil).in(medical_record_number: randomization_ids).to_a
 
       random_records.each do |patient|

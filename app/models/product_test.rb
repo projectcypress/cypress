@@ -26,7 +26,7 @@ class ProductTest
   field :cms_id, type: String
   field :description, type: String
   field :state, :type => Symbol, :default => :pending
-  field :rand_seed, type: Integer
+  field :rand_seed, type: String
 
   field :status_message, type: String
   validates :name, presence: true
