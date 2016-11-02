@@ -10,9 +10,8 @@ class MplDownloadCreateJob < ActiveJob::Base
     tracker.log('Creating Download')
     bundle = Bundle.find(BSON::ObjectId.from_string(bundle_id))
     path = File.join(Rails.root, 'tmp', 'cache', 'bundle_download', bundle.id.to_s)
-    zip_path = File.join(Rails.root, 'tmp', 'cache', "bundle_#{bundle.id}_mpl.zip")
     Cypress::CreateDownloadZip.bundle_directory(bundle, path)
-    zfg = ZipFileGenerator.new(path, zip_path)
+    zfg = ZipFileGenerator.new(path, bundle.mpl_path)
     zfg.write
     FileUtils.rm_rf(path)
   end

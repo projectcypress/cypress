@@ -42,13 +42,12 @@ class RecordsController < ApplicationController
 
   def download_mpl
     bundle = Bundle.find(BSON::ObjectId.from_string(params[:format]))
-    file_path = File.join(Rails.root, 'tmp', 'cache', "bundle_#{bundle.id}_mpl.zip")
 
-    unless File.exist?(file_path)
+    unless File.exist?(bundle.mpl_path)
       MplDownloadCreateJob.perform_now(bundle.id.to_s)
     end
 
-    file = File.new(file_path)
+    file = File.new(bundle.mpl_path)
     expires_in 1.month, public: true
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
   end
