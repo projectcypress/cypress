@@ -35,7 +35,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/bundles/minimal_bundle.zip'), 'application/zip')
       perform_enqueued_jobs do
         post :create, file: upload
-        assert_performed_jobs 1
+        assert_performed_jobs 2
         assert_equal orig_bundle_count + 1, Bundle.count, 'Should have added 1 new Bundle'
         assert orig_measure_count < Measure.count, 'Should have added new measures in the bundle'
         assert orig_record_count < Record.count, 'Should have added new records in the bundle'
