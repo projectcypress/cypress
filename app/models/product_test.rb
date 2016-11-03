@@ -38,6 +38,8 @@ class ProductTest
   delegate :effective_date, :to => :product
   delegate :bundle, :to => :product
 
+  before_create :generate_random_seed
+
   def self.inherited(child)
     child.instance_eval do
       def model_name
@@ -162,5 +164,10 @@ class ProductTest
       return ipp_ids + denom_ids + msrpopl_ids
     end
     mpl_ids
+  end
+
+  def generate_random_seed
+    #create and store a new random seed for debugging repeatability
+    self.rand_seed = Random.new_seed.to_s
   end
 end
