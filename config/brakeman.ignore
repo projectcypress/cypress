@@ -1,7 +1,25 @@
 {
   "ignored_warnings": [
-    {}
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "8cbd192252dfa52c3403db8c9cb8dc1ad0b2c03ad3800ece4a11841d1e4157e2",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/records_controller.rb",
+      "line": 51,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.new(Bundle.find(BSON::ObjectId.from_string(params[:format])).mpl_path)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RecordsController",
+        "method": "download_mpl"
+      },
+      "user_input": "params[:format]",
+      "confidence": "Weak",
+      "note": ""
+    }
   ],
-  "updated": "2016-06-21 14:55:09 -0400",
-  "brakeman_version": "3.2.1"
+  "updated": "2016-11-03 14:03:27 -0400",
+  "brakeman_version": "3.3.2"
 }

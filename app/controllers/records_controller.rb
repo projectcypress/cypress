@@ -41,15 +41,19 @@ class RecordsController < ApplicationController
   end
 
   def download_mpl
-    bundle = Bundle.find(BSON::ObjectId.from_string(params[:format]))
+    if BSON::ObjectId.legal?(params[:format])
+      bundle = Bundle.find(BSON::ObjectId.from_string(params[:format]))
 
-    unless File.exist?(bundle.mpl_path)
-      MplDownloadCreateJob.perform_now(bundle.id.to_s)
+      unless File.exist?(bundle.mpl_path)
+        MplDownloadCreateJob.perform_now(bundle.id.to_s)
+      end
+
+      file = File.new(bundle.mpl_path)
+      expires_in 1.month, public: true
+      send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
+    else
+      render nothing: true, status: 400
     end
-
-    file = File.new(bundle.mpl_path)
-    expires_in 1.month, public: true
-    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
   end
 
   private
