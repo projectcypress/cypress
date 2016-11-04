@@ -1,7 +1,7 @@
 module Cypress
   module DataCriteriaSelector
     def data_criteria_selector(measure, prng)
-    	  byebug
+    	#byebug
       # Criterias to be used in C1 checklist
       criterias = []
       # Possible data criterias that don't have attributes or negations

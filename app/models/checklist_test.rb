@@ -35,8 +35,8 @@ class ChecklistTest < ProductTest
     # measure list is changed once checklist is created, measures are based on checklist criteria
     if !checked_criteria.empty?
       m_ids = []
-      checked_criteria.each do |critiera|
-        m_ids << critiera.measure_id unless m_ids.include? critiera.measure_id
+      checked_criteria.each do |criteria|
+        m_ids << criteria.measure_id unless m_ids.include? criteria.measure_id
       end
       Measure.where(:_id.in => m_ids)
     else
@@ -54,7 +54,7 @@ class ChecklistTest < ProductTest
   def create_checked_criteria
     checked_criterias = []
     checklist_measures = []
-	byebug
+	  #byebug
     prng = Random.new(self.rand_seed.to_i)
 
     # For each measure selected iterate on finding interesting data criteria
@@ -93,7 +93,7 @@ class ChecklistTest < ProductTest
 
   # edits the order of the top 8 (4 + 4) measures
   def shuffle_top_measures(measure_ranks, include_all_measures = false, prng)
-  byebug
+  #byebug
     max_num_checklist_measures = product.measure_ids.count
     unless include_all_measures
       max_num_checklist_measures = CAT1_CONFIG['number_of_checklist_measures']

@@ -191,4 +191,38 @@ class ChecklistTestTest < ActiveJob::TestCase
     test.checked_criteria = criterias
     test.save!
   end
+
+  def test_repeatability_with_random_seed
+    #create new tests with same seed
+    random = Random.new_seed
+    test_1 = @test.product.product_tests.create!({ name: 'test_for_measure_1a',
+                                            measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733']}, ChecklistTest)
+    test_2 = @test.product.product_tests.create!({ name: 'test_for_measure_1a',
+                                            measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733']}, ChecklistTest)
+    
+    test_1.rand_seed = random
+    test_2.rand_seed = random
+    test_1.save!
+    test_2.save!
+    assert_equal test_1.rand_seed, test_2.rand_seed
+
+    test_1.create_checked_criteria
+    test_2.create_checked_criteria
+    
+    #compare each checked criteria mongoid measure ids
+    test_1.checked_criteria.each_index do |x|
+      assert_equal test_1.checked_criteria.fetch(x).measure_id, test_2.checked_criteria.fetch(x).measure_id, 'random repeatability error: checklist test checked criteria measure id not matched'
+    end
+
+    #compare each checked criteria source data criteria
+    test_1.checked_criteria.each_index do |x|
+      assert_equal test_1.checked_criteria.fetch(x).source_data_criteria, test_2.checked_criteria.fetch(x).source_data_criteria, 'random repeatability error: checklist test checked criteria source data not matched'
+    end
+
+    #compare each official measure id
+    test_1.measure_ids.each_index do |x|
+      assert_equal test_1.measure_ids.fetch(x), test_2.measure_ids.fetch(x), 'random repeatability error: checklist test measure id not matched'
+    end
+
+  end
 end
