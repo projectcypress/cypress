@@ -55,11 +55,14 @@ class ApplicationController < ActionController::Base
   end
 
   def any_bundle
-    Rails.cache.fetch('any_installed_bundle') do
-      # cache this so that in the normal case, when the bundles are installed
-      # it doesn't query the db on every request
-      HealthDataStandards::CQM::Bundle.all.sample
+    if Rails.cache.exist?('any_installed_bundle')
+      bundle = Rails.cache.read('any_installed_bundle')
+    else
+      bundle = HealthDataStandards::CQM::Bundle.all.sample
+      # Only cache the bundle if it is not nil
+      Rails.cache.write('any_installed_bundle', bundle) if bundle
     end
+    bundle
   end
 
   # if the jobs are not running then there will be no pid files in the pid direectory
@@ -80,22 +83,14 @@ class ApplicationController < ActionController::Base
   end
 
   def check_bundle_installed
-    if any_bundle
-      flash.delete :alert if flash[:alert] && flash[:alert].include?('There are no bundles currently available')
-      # shouldn't be necessary but the flash alert seems to stick around one pageload after a bundle is installed
-    else
-      # this is a hack - ideally we wouldn't cache nil in the first place
-      # but this forces it to check every time only if it wasn't found before
-      Rails.cache.delete('any_installed_bundle')
-
+    unless any_bundle
       bundle_references = APP_CONFIG['references']['bundles']
       install_instr = APP_CONFIG['references']['install_guide']
 
       install_instr_link = view_context.link_to install_instr['title'], install_instr['url']
-      alert = "There are no bundles currently available.
-               Please follow the #{install_instr_link} to get started."
 
-      flash[:alert] = alert.html_safe
+      flash.now[:no_bundle_alert] = "There are no bundles currently available.
+                                      Please follow the #{install_instr_link} to get started.".html_safe
     end
   end
 
