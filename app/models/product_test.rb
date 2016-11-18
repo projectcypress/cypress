@@ -83,11 +83,23 @@ class ProductTest
 
   def archive_records
     file = Tempfile.new("product_test-#{id}.zip")
-    Cypress::PatientZipper.zip(file, records, :qrda)
+    recs = records.to_a
+
+    if product.duplicate_records
+      prng = Random.new(rand_seed.to_i)
+      ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
+      unless ids.nil? || ids.empty?
+        dups = records.find(ids)
+        (prng.rand(3) + 1).times do
+          recs << dups.sample(random: prng)
+        end
+      end
+    end
+    Cypress::PatientZipper.zip(file, recs, :qrda)
     self.patient_archive = file
 
     file = Tempfile.new("product_test-html-#{id}.zip")
-    Cypress::PatientZipper.zip(file, records, :html)
+    Cypress::PatientZipper.zip(file, recs, :html)
     self.html_archive = file
     save
   end
