@@ -18,17 +18,18 @@ module Cypress
 
     def self.age(record, options = {})
       age = record.age_at(options[:effective_date])
+      prng = options[:prng]
 
       # select min or max randomly
       # if max, shift age criteria up, if min shift age down
       # ex, the patient is 33, if we pick min set it to 30, if max set it to 36
 
-      min_age = age - rand(2..10)
-      max_age = age + rand(2..10)
+      min_age = age - prng.rand(2..10)
+      max_age = age + prng.rand(2..10)
 
       return { max: max_age } if min_age <= 1
 
-      [{ min: min_age }, { max: max_age }].sample
+      [{ min: min_age }, { max: max_age }].sample(random:prng)
     end
 
     def self.providers(record, options = {})

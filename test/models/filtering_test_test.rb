@@ -91,4 +91,35 @@ class FilteringTestTest < ActiveJob::TestCase
     assert test.cat1_task
     assert test.cat3_task
   end
+
+  def test_repeatability_with_random_seed
+    #create new tests with same seed
+    seed = Random.new_seed
+    puts 'seed: '
+    puts seed
+    options = { 'filters' => {} }
+    test_1 = @product.product_tests.build({ name: 'test_for_measure_1a',
+                                        measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                        options: options }, FilteringTest)
+    test_2 = @product.product_tests.build({ name: 'test_for_measure_1a',
+                                        measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                        options: options }, FilteringTest)
+    test_1.save!
+    test_2.save!
+
+    test_1.rand_seed = seed
+    test_2.rand_seed = seed
+    test_1.save!
+    test_2.save!
+    assert_equal test_1.rand_seed, test_2.rand_seed, 'random repeatability error: random seeds don\'t match'
+
+    test_1.create_tasks
+    test_2.create_tasks
+
+    test_1.options['filters'].each do |k,v|
+      assert_equal test_1.options['filters'][k], test_2.options['filters'][k], 'random repeatability error: filtering test filters do not match'
+    end
+
+  end
+
 end
