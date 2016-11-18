@@ -32,29 +32,6 @@ class MeasureTest < ProductTest
     save!
   end
 
-  def archive_records
-    file = Tempfile.new("product_test-#{id}.zip")
-    recs = records.to_a
-
-    if product.duplicate_records
-      prng = Random.new(rand_seed.to_i)
-      ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
-      unless ids.nil? || ids.empty?
-        dups = records.find(ids)
-        (prng.rand(3) + 1).times do
-          recs << dups.sample(random: prng)
-        end
-      end
-    end
-    Cypress::PatientZipper.zip(file, recs, :qrda)
-    self.patient_archive = file
-
-    file = Tempfile.new("product_test-html-#{id}.zip")
-    Cypress::PatientZipper.zip(file, recs, :html)
-    self.html_archive = file
-    save
-  end
-
   def product_c1_and_c2_if_only_c3(product)
     if product.c3_test && !product.c1_test && !product.c2_test
       product.c1_test = true
