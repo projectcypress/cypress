@@ -12,6 +12,14 @@
   line-height: 28px;
 }
 
+.select-measures {
+  // Disable IE clear button since there is no event that fires after
+  // the field has been cleared
+  .search::-ms-clear {
+    display: none;
+  }
+}
+
 .table-product-status {
   margin: 0 0 4em;
 
