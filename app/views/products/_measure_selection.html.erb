@@ -5,6 +5,10 @@
     </h1>
   </div>
   <div class="panel-body">
+    <div class="form-group col-md-5 col-sm-12 ui-front">
+      <label for="product_search_measures">Type to filter by measure</label>
+      <input id="product_search_measures" type="search" class="form-control search" placeholder="Type a keyword or CMS ID of a measure"/>
+    </div>
     <div class="col-md-12" id="measures_errors_container"><!--%= f.errors_on :measure_tests, hide_attribute_name: true % --></div>
     <div>
         <div id="measure_tabs" class="measure-selection">
@@ -12,9 +16,8 @@
           <ul>
             <% @measures_categories.sort.each do |category, measures| %>
               <li>
-                <a href="#<%= category.tr(" '", "_") %>_div">
-                  <%= "#{category}" %>
-                  (<%= type_counts(measures) %>)
+                <a href="#<%= get_div_name(category) %>">
+                  <%= formatted_type_counts(category, measures) %>
                   <span class="selected-number pull-right"></span>
                 </a>
               </li>
@@ -23,7 +26,7 @@
 
           <% @measures_categories.sort.each do |category, measures| %>
             <!-- set up a checkbox for each top-level measure in the group -->
-            <div id="<%= category.tr(" '", "_") %>_div" class="measure-group">
+            <div id="<%= get_div_name(category) %>" class="measure-group">
               <fieldset id="<%= category.tr(" '", "_") %>_fieldset">
                   <% if measures.length > 1 %>
                   <legend for="<%= category.tr(" '", "_") %>_fieldset">
@@ -44,7 +47,7 @@
                 <% end %>
 
               <% measures.sort_by(&:cms_int).each do |m| %>
-                <div class = 'checkbox'>
+                <div class = 'checkbox' id = '<%= m.hqmf_id %>' >
                   <label class = 'btn btn-checkbox'>
                     <input
                       type = 'checkbox'
