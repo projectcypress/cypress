@@ -63,6 +63,7 @@ Rails.application.routes.draw do
     resources :measures, only: [:index] do
       collection do
         get :grouped
+        get 'filtered(/:filter)', to: 'measures#filtered'
       end
     end
   end

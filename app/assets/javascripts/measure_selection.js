@@ -53,6 +53,58 @@ function UpdateGroupSelections(event) {
 
 }
 
+// This function is called whenever a successful measure filter ajax request is made.
+// It hides the measures that do not match the search parameters.
+function filterVisibleMeasures(searchbox, returned_measures) {
+  // Collect up all measure checkboxes and their accompanying description
+  var measures = $('.measure-group .checkbox')
+
+  // If the searchbox is empty, show everything. This fixes the "select all"
+  // option from being permantently hidden
+  if(searchbox.val() == "") {
+    $.each(measures, function() {
+      $(this).show()
+    });
+  } else {
+    // If the searchbox is not empty then filter measures based on the returned results
+    $.each(measures, function() {
+      if($.inArray(this.id, returned_measures) >= 0) {
+        $(this).show()
+      } else {
+        $(this).hide()
+      }
+    });
+  }
+}
+
+// This function is called whenever a successful measure filter ajax request is made.
+// It hides the measure tabs that do not match the search parameters.
+function filterVisibleMeasureTabs(searchbox, measure_tabs_response) {
+
+  // Collect up all measure tabs
+  var measure_tabs = $("[role='tablist'] [role='tab']")
+
+  // Iterate over all measure tabs and remove ones that were not included in filtered measure
+  // tabs in the measure_tabs_response variable.
+  $.each(measure_tabs, function() {
+    var current_tab_name = $(this).attr('aria-controls')
+
+    if(current_tab_name in measure_tabs_response) {
+      $(this).show()
+      // Save the children of the element before changing the contents
+      var $cache = $(this).contents('a').children();
+      $(this).contents('a').text(measure_tabs_response[current_tab_name]).append($cache)
+    } else {
+      $(this).hide()
+    }
+  });
+
+  // If the current ui tab is not visible then grab the first one that is and activate it
+  if(!($("[role='tablist'] [role='tab'].ui-tabs-active").is(':visible'))) {
+    measure_tabs.find(':visible:first').first().click()
+  }
+}
+
 function UpdateMeasureSet(bundle_id) {
 
   $("#measure_selection_section").empty();
@@ -152,6 +204,33 @@ ready_run_once = function() {
       var selection = $(this).val();
       UpdateMeasureSet(selection);
     }
+  });
+
+  // Disable enter key from submitting the add or edit product form when in the measure search box
+  $('#product_search_measures').keypress(function(event) {
+    if (event.keyCode == 13) {
+      return false;
+    }
+  });
+
+  // Filter the available measures when a user types in the measure filter box
+  $('#product_search_measures').on('keyup', function () {
+    // Fetch the currently selected bundle from the list on the top of the page.
+    var bundle_id = $('input[name="product[bundle_id]"]:checked').val()
+    // Remove or urlencode any special characters from the search query
+    var current_search = encodeURIComponent($('#product_search_measures').val().replace(/[!'()*]/g, ""))
+    // Searchbox is #product_search_measures which is currently the parent.
+    var searchbox = $(this)
+
+    $.ajax({
+      url: "/bundles/" + bundle_id + "/measures/filtered/" + current_search,
+      type: "GET",
+      dataType: "json",
+      success: function(data, textStatus, xhr) {
+        filterVisibleMeasures(searchbox, data.measures)
+        filterVisibleMeasureTabs(searchbox, data.measure_tabs)
+      }
+    });
   });
 
   // run this piece once too
