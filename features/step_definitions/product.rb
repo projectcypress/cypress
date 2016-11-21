@@ -52,9 +52,10 @@ When(/^a user creates a product with (.*) certifications and visits that product
   page.all('#measure_tabs .ui-tabs-nav a')[1].click # should tab for "Behavioral Health Adult"
   page.all('input.measure-checkbox')[1].click # should get measure for "Depression Remission at Twelve Months"
   page.click_button 'Add Product'
-  product = Product.find_by(name: product_name)
-  visit vendor_product_path(product.vendor, product)
-  @product = product
+  page.click_link product_name
+  # By running find_by after we have already clicked a link to the same product we are trying to find,
+  # we are able to avoid a race condition where the product is not yet created when we run the find_by.
+  @product = Product.find_by(name: product_name)
 end
 
 When(/^the user creates a product using appropriate information$/) do
