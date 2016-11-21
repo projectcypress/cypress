@@ -68,7 +68,7 @@ function filterVisibleMeasures(searchbox, returned_measures) {
   } else {
     // If the searchbox is not empty then filter measures based on the returned results
     $.each(measures, function() {
-      if($.inArray(this.id, returned_measures) !== -1) {
+      if($.inArray(this.id, returned_measures) >= 0) {
         $(this).show()
       } else {
         $(this).hide()
@@ -229,9 +229,6 @@ ready_run_once = function() {
       success: function(data, textStatus, xhr) {
         filterVisibleMeasures(searchbox, data.measures)
         filterVisibleMeasureTabs(searchbox, data.measure_tabs)
-      },
-      error: function(xhr, textStatus, err) {
-        console.log("Error: Search could not be performed at this time." + err);
       }
     });
   });
