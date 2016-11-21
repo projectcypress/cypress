@@ -32,7 +32,7 @@ else
   Capybara.javascript_driver = :accessible_poltergeist
 end
 
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 15
 # Capybara.ignore_hidden_elements = false
 
 # Capybara defaults to CSS3 selectors rather than XPath.
