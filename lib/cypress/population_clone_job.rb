@@ -36,7 +36,10 @@ module Cypress
       # providers for each record
       provider = @test.provider if @test.class == MeasureTest
 
-      patients.each { |patient| clone_and_save_record(patient, provider, prng) }
+      allow_dups = @test.product.allow_duplicate_names
+      #byebug
+
+      patients.each { |patient| clone_and_save_record(patient, provider, prng, allow_dups) }
     end
 
     def find_patients_to_clone
@@ -66,12 +69,12 @@ module Cypress
     end
 
     # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
-    def clone_and_save_record(record, provider = nil, prng)
+    def clone_and_save_record(record, provider = nil, prng, allow_dups)
       cloned_patient = record.clone
       unnumerify cloned_patient if record.first =~ /\d/ || record.last =~ /\d/
       cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
-      DemographicsRandomizer.randomize(cloned_patient, prng) if options['randomize_demographics']
+      DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
       cloned_patient.test_id = options['test_id']
       patch_insurance_provider(record)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']

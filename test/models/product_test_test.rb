@@ -54,6 +54,7 @@ class ProductTestTest < ActiveJob::TestCase
     @product.c4_test = true
     @product.randomize_records = true
     @product.duplicate_records = true
+    @product.allow_duplicate_names = true
     @product.measure_ids = ['8A4D92B2-397A-48D2-0139-C648B33D5582']
     @product.save!
 
@@ -95,9 +96,9 @@ class ProductTestTest < ActiveJob::TestCase
 
 
       #compare records
-      byebug
+      #byebug
       test_1.records.each_index do |x|
-        byebug
+        #byebug
         patient_1 = test_1.records.fetch(x)
         patient_2 = test_2.records.fetch(x)
 
@@ -114,7 +115,7 @@ class ProductTestTest < ActiveJob::TestCase
           assert_equal provider_perform_1.start_date , provider_perform_2.start_date , 'random repeatability error: provider performance start dates different'
           assert_equal provider_perform_1.end_date , provider_perform_2.end_date , 'random repeatability error: provider performance end dates different'
         end
-        
+
         #assert patient_1.compare_sections(patient_2), 'random repeatability error: sections different'
         #compare patient sections
         sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment, 
