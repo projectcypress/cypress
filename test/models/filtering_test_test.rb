@@ -113,6 +113,7 @@ class FilteringTestTest < ActiveJob::TestCase
     test_2.save!
     assert_equal test_1.rand_seed, test_2.rand_seed, 'random repeatability error: random seeds don\'t match'
 
+    #create tasks and test equivalence of randomized components
     test_1.create_tasks
     test_2.create_tasks
 

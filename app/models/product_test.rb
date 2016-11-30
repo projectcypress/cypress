@@ -168,6 +168,6 @@ class ProductTest
 
   def generate_random_seed
     #create and store a new random seed for debugging repeatability
-    self.rand_seed = Random.new_seed.to_s
+    self.rand_seed = Random.new_seed.to_s if !self.rand_seed
   end
 end
