@@ -114,7 +114,15 @@ class ProductTestTest < ActiveJob::TestCase
           assert_equal provider_perform_1.start_date , provider_perform_2.start_date , 'random repeatability error: provider performance start dates different'
           assert_equal provider_perform_1.end_date , provider_perform_2.end_date , 'random repeatability error: provider performance end dates different'
         end
-        assert patient_1.compare_sections(patient_2), 'random repeatability error: sections different'
+        
+        #assert patient_1.compare_sections(patient_2), 'random repeatability error: sections different'
+        #compare patient sections
+        sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment, 
+                :medications, :procedures, :results, :communications, :family_history, :social_history, :vital_signs, :support, :advance_directives,
+                :functional_statuses] #skip insurance provider section
+        sections.each do |sec|
+          assert_equal (patient_1.send sec), (patient_2.send sec), 'error'
+        end
 
         #compare race, ethnicity, address, insurance
         assert_equal patient_1.race, patient_2.race, 'random repeatability error: races different'

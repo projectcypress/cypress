@@ -17,7 +17,7 @@ module Cypress
       @used_names[record.gender] ||= []
       loop do
         assign_random_name(record, prng)
-        break if @used_names[record.gender].index("#{record.first}-#{record.last}").nil?
+        break #if @used_names[record.gender].index("#{record.first}-#{record.last}").nil?
       end
       @used_names[record.gender] << "#{record.first}-#{record.last}"
     end
