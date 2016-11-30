@@ -34,34 +34,36 @@
     <% if !@task && !@product_test %>
       <div class="col-md-7 col-sm-6">
         <h1>Annual Update Bundle</h1>
-        <div class="col-md-8">
+        <div class="col-md-12">
           <% if Bundle.count == 1 %>
-          <div class="radio" style="padding: 6px 12px;">
+          <div class="radio" style="padding: 6px 12px; display: inline-block">
             <!-- label --> <%= @bundle.title %>
+          </div>
+          <div class="radio" style="padding: 6px 12px; display: inline-block">
+            <span class="sr-only">Download <%= @bundle.title %></span>
+            <%= button_to download_mpl_records_path(@bundle), :method => :get, :class => "btn btn-xs btn-default" do %>
+              Download <span class="sr-only"><%= @bundle.title %></span>
+            <% end %>
           </div>
           <% else %>
             <!-- loop through bundles & use radio buttons -->
             <%= bootstrap_form_tag do |f| %>
               <%= f.form_group :bundle_id do %>
                 <% Bundle.all.each do |bundle| %>
+                <div style="display: inline-block">
                   <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
                                      checked: bundle == @bundle %>
+                </div>
+                <div class="radio" style="padding: 6px 12px; display: inline-block">
+                  <span class="sr-only">Download <%= bundle.title %></span>
+                  <%= button_to download_mpl_records_path(bundle), :method => :get, :class => "btn btn-xs btn-default" do %>
+                    Download <span class="sr-only"><%= bundle.title %></span>
+                  <% end %>
+                </div>
                 <% end # bundle loop %>
               <% end # form_group %>
             <% end # form tag %>
           <% end # bundles.count %>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <% Bundle.all.each do |bundle| %>
-              <div class="radio" style="padding: 6px 12px;">
-                <span class="sr-only">Download <%= bundle.title %></span>
-                <%= button_to download_mpl_records_path(bundle), :method => :get, :class => "btn btn-xs btn-default" do %>
-                  Download <span class="sr-only"><%= bundle.title %></span>
-                <% end %>
-              </div>
-            <% end # bundle loop %>
-          </div>
         </div>
       </div>
     <% end %>
