@@ -37,7 +37,6 @@ module Cypress
       provider = @test.provider if @test.class == MeasureTest
 
       allow_dups = @test.product.allow_duplicate_names
-      #byebug
 
       patients.each { |patient| clone_and_save_record(patient, provider, prng, allow_dups) }
     end
@@ -55,7 +54,6 @@ module Cypress
 
     def randomize_ids(patients, prng)
       how_many = prng.rand(5) + 1
-      #byebug
       randomization_ids = options['randomization_ids'].shuffle(random:prng)[0..how_many]
       random_records = @test.bundle.records.where(test_id: nil).in(medical_record_number: randomization_ids).to_a
 

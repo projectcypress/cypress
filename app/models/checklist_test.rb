@@ -54,7 +54,6 @@ class ChecklistTest < ProductTest
   def create_checked_criteria
     checked_criterias = []
     checklist_measures = []
-	  #byebug
     prng = Random.new(self.rand_seed.to_i)
 
     # For each measure selected iterate on finding interesting data criteria
@@ -93,7 +92,6 @@ class ChecklistTest < ProductTest
 
   # edits the order of the top 8 (4 + 4) measures
   def shuffle_top_measures(measure_ranks, include_all_measures = false, prng)
-  #byebug
     max_num_checklist_measures = product.measure_ids.count
     unless include_all_measures
       max_num_checklist_measures = CAT1_CONFIG['number_of_checklist_measures']

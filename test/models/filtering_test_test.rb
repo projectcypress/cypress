@@ -95,8 +95,6 @@ class FilteringTestTest < ActiveJob::TestCase
   def test_repeatability_with_random_seed
     #create new tests with same seed
     seed = Random.new_seed
-    puts 'seed: '
-    puts seed
     options = { 'filters' => {} }
     test_1 = @product.product_tests.build({ name: 'test_for_measure_1a',
                                         measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],

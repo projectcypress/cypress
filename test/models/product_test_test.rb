@@ -96,9 +96,7 @@ class ProductTestTest < ActiveJob::TestCase
 
 
       #compare records
-      #byebug
       test_1.records.each_index do |x|
-        #byebug
         patient_1 = test_1.records.fetch(x)
         patient_2 = test_2.records.fetch(x)
 

@@ -87,7 +87,6 @@ class Product
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
       
-      #byebug
       product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id}, MeasureTest) if c2_test
     end
     # remove measure and checklist tests if their measure ids have been removed
