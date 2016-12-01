@@ -9,6 +9,12 @@ Given(/^the user is on the sign in page$/) do
   visit '/'
 end
 
+And(/^there are no bundles installed$/) do
+  Bundle.destroy_all
+  Rails.cache.clear
+  assert Bundle.count == 0
+end
+
 When(/^I click Sign up$/) do
   page.click_link_or_button 'Sign up'
   sleep(1) # Gross, but otherwise this randomly fails @SS

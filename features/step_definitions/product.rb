@@ -52,9 +52,10 @@ When(/^a user creates a product with (.*) certifications and visits that product
   page.all('#measure_tabs .ui-tabs-nav a')[1].click # should tab for "Behavioral Health Adult"
   page.all('input.measure-checkbox')[1].click # should get measure for "Depression Remission at Twelve Months"
   page.click_button 'Add Product'
-  product = Product.find_by(name: product_name)
-  visit vendor_product_path(product.vendor, product)
-  @product = product
+  page.click_link product_name
+  # By running find_by after we have already clicked a link to the same product we are trying to find,
+  # we are able to avoid a race condition where the product is not yet created when we run the find_by.
+  @product = Product.find_by(name: product_name)
 end
 
 When(/^the user creates a product using appropriate information$/) do
@@ -157,6 +158,27 @@ And(/^the user selects a group of measures but deselects one$/) do
   page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.all('input.measure-checkbox')[0].click
+end
+
+And(/^the user chooses the custom measure option$/) do
+  # Click the custom measure option radio button
+  page.find('#product_measure_selection_custom').click
+end
+
+And(/^the user manually selects all measures$/) do
+  # Clear the measure filter field
+  page.fill_in 'Type to filter by measure', with: ''
+  # We are selecting the first checkbox in every tab. This works because
+  # every measure either has a "select all" button at the top or only has
+  # 1 measure, so this will always select all measures.
+  page.all('#measure_tabs .ui-tabs-nav a').each do |tab|
+    tab.click
+    page.all('#measure_tabs fieldset .checkbox input').first.set(true)
+  end
+end
+
+And(/^the user types "([^"]*)" into the measure filter box$/) do |filter_text|
+  page.fill_in 'Type to filter by measure', with: filter_text
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^
@@ -393,6 +415,14 @@ end
 
 Then(/^the group of measures should no longer be selected$/) do
   page.has_unchecked_field?('input.measure-group-all')
+end
+
+Then(/^all measures should still be selected$/) do
+  assert page.all('#measure_tabs fieldset .checkbox input').all?(&:checked?)
+end
+
+Then(/^"([^"]*)" is active on the screen$/) do |measure|
+  page.find('#measure_tabs').assert_text measure
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^

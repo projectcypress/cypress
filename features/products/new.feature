@@ -53,6 +53,20 @@ Scenario: Measure Group Unchecked After Deselecting Measure In Group
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
+Scenario: Filtering does not clear selected measures
+  When the user navigates to the create product page
+  And the user chooses the custom measure option
+  And the user manually selects all measures
+  And the user types "A Fake Measure" into the measure filter box
+  And the user types "" into the measure filter box
+  Then all measures should still be selected
+
+Scenario: Filtering properly hides irrelevant measures and tabs
+  When the user navigates to the create product page
+  And the user chooses the custom measure option
+  And the user types "A fake measure" into the measure filter box
+  Then "A fake measure" is active on the screen
+
 Scenario: Successful Cancel Create Product
   When the user cancels creating a product
   Then the user should not see the product

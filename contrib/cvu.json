@@ -20,7 +20,7 @@
       "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "ami_name": "cvu_3.0.1",
+      "ami_name": "cvu_3.0.3",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 20,
@@ -34,7 +34,7 @@
     },
     {
       "name": "cvu.vmware",
-      "vm_name": "cvuv301",
+      "vm_name": "cvuv303",
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
@@ -115,7 +115,7 @@
     "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::install_cvu]" ],
     "json": {
       "cypress": {
-          "cvu_git_revision": "v3.0.1",
+          "cvu_git_revision": "v3.0.3",
           "generate_secrets_on_restart": true
       }
     }

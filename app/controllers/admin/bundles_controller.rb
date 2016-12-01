@@ -38,6 +38,7 @@ module Admin
         BundleUploadJob.perform_later(file_path, bundle_file.original_filename)
         redirect_to admin_path(anchor: 'bundles')
       else
+        flash[:alert] = 'No bundle file provided.'
         redirect_to new_admin_bundle_path
       end
     end
