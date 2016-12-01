@@ -31,11 +31,11 @@ module Cypress
     end
 
     def self.create_total_test_zip(product, format = 'qrda')
-      measure_tests = MeasureTest.where(product_id: product.id)
+      product_tests = ProductTest.where(product_id: product.id)
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
-        measure_tests.each do |m|
-          add_file_to_zip(z, "#{m.cms_id}_#{m.id}.#{format}.zip".tr(' ', '_'), m.patient_archive.read)
+        product_tests.each do |pt|
+          add_file_to_zip(z, "#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
         end
       end
       file
