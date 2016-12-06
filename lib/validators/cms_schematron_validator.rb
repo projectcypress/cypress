@@ -15,6 +15,7 @@ module Validators
       ApplicationController.helpers.config_for_version(bundle_version).schematron
     end
 
+    # rubocop:disable Metrics/MethodLength
     def validate(file, options = {})
       @options = options
       doc = get_document(file)
