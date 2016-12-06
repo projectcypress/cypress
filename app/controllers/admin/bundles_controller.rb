@@ -16,13 +16,13 @@ module Admin
     end
 
     def set_default
-      unless @bundle.version == Settings[:default_bundle]
+      unless @bundle.version == APP_CONFIG['default_bundle']
         Bundle.where(active: true).update_all(active: false)
         @bundle.active = true
         @bundle.save!
         Bundle.find_by(id: @bundle.id).active = true
-        Settings[:default_bundle] = @bundle.version
-        sub_yml_setting('default_bundle', Settings[:default_bundle])
+        APP_CONFIG['default_bundle'] = @bundle.version
+        sub_yml_setting('default_bundle', APP_CONFIG['default_bundle'])
       end
       redirect_to admin_path(anchor: 'bundles')
     end

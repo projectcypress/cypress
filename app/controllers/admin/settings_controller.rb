@@ -9,8 +9,8 @@ module Admin
     def edit
       add_breadcrumb 'Edit Settings', :edit_settings_path
       render locals: {
-        banner_message: Settings.banner_message,
-        banner: Settings.banner,
+        banner_message: APP_CONFIG['banner_message'],
+        banner: APP_CONFIG['banner'],
         smtp_settings: Rails.application.config.action_mailer.smtp_settings,
         mode: application_mode,
         mode_settings: application_mode_settings,
@@ -35,8 +35,8 @@ module Admin
     def write_banner_message(settings)
       sub_yml_setting('banner_message', settings['banner_message'])
       sub_yml_setting('banner', settings['banner'] == '1')
-      Settings[:banner_message] = settings['banner_message']
-      Settings[:banner] = settings['banner'] == '1'
+      APP_CONFIG['banner_message'] = settings['banner_message']
+      APP_CONFIG['banner'] = settings['banner'] == '1'
     end
 
     def write_mailer_settings(settings)
@@ -51,10 +51,10 @@ module Admin
     end
 
     def write_mode_settings
-      sub_yml_setting('auto_approve', Settings[:auto_approve])
-      sub_yml_setting('ignore_roles', Settings[:ignore_roles])
-      sub_yml_setting('default_role', Settings[:default_role])
-      sub_yml_setting('enable_debug_features', Settings[:enable_debug_features])
+      sub_yml_setting('auto_approve', APP_CONFIG['auto_approve'])
+      sub_yml_setting('ignore_roles', APP_CONFIG['ignore_roles'])
+      sub_yml_setting('default_role', APP_CONFIG['default_role'])
+      sub_yml_setting('enable_debug_features', APP_CONFIG['enable_debug_features'])
     end
 
     def update_application_mode(mode_name, options = {})
