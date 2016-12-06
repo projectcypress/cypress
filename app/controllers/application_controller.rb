@@ -28,15 +28,15 @@ class ApplicationController < ActionController::Base
   end
 
   def mode_internal?
-    Settings[:auto_approve] && Settings[:ignore_roles] && Settings[:enable_debug_features] && Settings[:default_role].nil?
+    APP_CONFIG['auto_approve'] && APP_CONFIG['ignore_roles'] && APP_CONFIG['enable_debug_features'] && APP_CONFIG['default_role'].nil?
   end
 
   def mode_demo?
-    Settings[:auto_approve] && !Settings[:ignore_roles] && Settings[:enable_debug_features] && Settings[:default_role] == :user
+    APP_CONFIG['auto_approve'] && !APP_CONFIG['ignore_roles'] && APP_CONFIG['enable_debug_features'] && APP_CONFIG['default_role'] == :user
   end
 
   def mode_atl?
-    !Settings[:auto_approve] && !Settings[:ignore_roles] && !Settings[:enable_debug_features] && Settings[:default_role].nil?
+    !APP_CONFIG['auto_approve'] && !APP_CONFIG['ignore_roles'] && !APP_CONFIG['enable_debug_features'] && APP_CONFIG['default_role'].nil?
   end
 
   def application_mode

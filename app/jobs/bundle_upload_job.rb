@@ -25,8 +25,8 @@ class BundleUploadJob < ActiveJob::Base
       @bundle.active = false
       @bundle.save!
     else
-      Settings[:default_bundle] = @bundle.version
-      sub_yml_setting('default_bundle', Settings[:default_bundle])
+      APP_CONFIG['default_bundle'] = @bundle.version
+      sub_yml_setting('default_bundle', APP_CONFIG['default_bundle'])
     end
   end
 end

@@ -38,12 +38,12 @@ Rails.application.configure do
 
   # Note that these will not be used because delivery_method is :test. These are here so tests don't break.
   config.action_mailer.smtp_settings = {
-    address: Settings[:mailer_address],
-    port: Settings[:mailer_port],
-    domain: Settings[:mailer_domain],
-    user_name: Settings[:mailer_user_name],
-    password: Settings[:mailer_password],
-    authentication: Settings[:mailer_authentication]
+    address: APP_CONFIG['mailer_address'],
+    port: APP_CONFIG['mailer_port'],
+    domain: APP_CONFIG['mailer_domain'],
+    user_name: APP_CONFIG['mailer_user_name'],
+    password: APP_CONFIG['mailer_password'],
+    authentication: APP_CONFIG['mailer_authentication']
   }
 
   # Randomize the order test cases are executed.

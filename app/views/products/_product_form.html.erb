@@ -32,7 +32,7 @@
         </div>
 
         <div class="col-md-6">
-          <% if Settings[:enable_debug_features]%>
+          <% if APP_CONFIG['enable_debug_features']%>
             <fieldset>
               <legend class="control-label">Records Options</legend>
               <%= f.form_group help: "Recommended for most robust testing." do %>

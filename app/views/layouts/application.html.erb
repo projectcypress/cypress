@@ -18,8 +18,8 @@
 <body <%= yield(:body_attributes) %>>
   <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
 
-  <% if Settings.banner %>
-    <div class="demo"><%= Settings.banner_message %></div>
+  <% if APP_CONFIG['banner'] %>
+    <div class="demo"><%= APP_CONFIG['banner_message'] %></div>
   <% end %>
 
   <header role="banner">

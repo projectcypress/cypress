@@ -30,12 +30,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_assign_default_role
-    Settings[:default_role] = :user
+    APP_CONFIG['default_role'] = :user
     u = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     assert u.user_role? :user
     assert u.user_role? 'user'
 
-    Settings[:default_role] = nil
+    APP_CONFIG['default_role'] = nil
     u = User.create(email: 'vendor2@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     assert_empty u.roles, 'user should not have any roles assigned '
   end
