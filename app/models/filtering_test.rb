@@ -42,7 +42,7 @@ class FilteringTest < ProductTest
   def pick_filter_criteria
     return unless options && options['filters']
     # select a random patient
-    prng = Random.new(self.rand_seed.to_i)
+    prng = Random.new(rand_seed.to_i)
     rand_record = records.sample(random: prng)
     # iterate over the filters and assign random codes
     params = { measures: measures, records: records, incl_addr: incl_addr, effective_date: created_at, prng: prng }

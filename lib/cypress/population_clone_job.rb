@@ -38,7 +38,7 @@ module Cypress
 
       allow_dups = @test.product.allow_duplicate_names
 
-      patients.each { |patient| clone_and_save_record(patient, provider, prng, allow_dups) }
+      patients.each { |patient| clone_and_save_record(patient, prng, provider, allow_dups) }
     end
 
     def find_patients_to_clone
@@ -54,7 +54,7 @@ module Cypress
 
     def randomize_ids(patients, prng)
       how_many = prng.rand(5) + 1
-      randomization_ids = options['randomization_ids'].shuffle(random:prng)[0..how_many]
+      randomization_ids = options['randomization_ids'].shuffle(random: prng)[0..how_many]
       random_records = @test.bundle.records.where(test_id: nil).in(medical_record_number: randomization_ids).to_a
 
       random_records.each do |patient|
@@ -67,7 +67,7 @@ module Cypress
     end
 
     # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
-    def clone_and_save_record(record, provider = nil, prng, allow_dups)
+    def clone_and_save_record(record, prng, provider = nil, allow_dups = false)
       cloned_patient = record.clone
       unnumerify cloned_patient if record.first =~ /\d/ || record.last =~ /\d/
       cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number

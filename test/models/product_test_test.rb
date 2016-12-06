@@ -46,8 +46,7 @@ class ProductTestTest < ActiveJob::TestCase
   end
 
   def test_repeatability_with_random_seed
-
-    #setup product
+    # setup product
     @product.c1_test = true
     @product.c2_test = true
     @product.c3_test = true
@@ -58,87 +57,89 @@ class ProductTestTest < ActiveJob::TestCase
     @product.measure_ids = ['8A4D92B2-397A-48D2-0139-C648B33D5582']
     @product.save!
 
-    #create tests with same seed
+    # create tests with same seed
     seed = Random.new_seed
     test_1 = @product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
-                                       bundle_id: '4fdb62e01d41c820f6000001', rand_seed:seed}, MeasureTest)
+                                            bundle_id: '4fdb62e01d41c820f6000001', rand_seed: seed }, MeasureTest)
     test_2 = @product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
-                                       bundle_id: '4fdb62e01d41c820f6000001', rand_seed:seed}, MeasureTest)
+                                            bundle_id: '4fdb62e01d41c820f6000001', rand_seed: seed }, MeasureTest)
 
     assert_equal test_1.rand_seed, test_2.rand_seed, 'random repeatability error: random seeds don\'t match'
 
-
-    #create tasks (c1,c2,c3,c4)
+    # create tasks (c1,c2,c3,c4)
     test_1.create_tasks
     test_2.create_tasks
+  end
 
+  # # # # # # # # # # # # # # # # # # # #
+  #   H E L P E R   F U N C T I O N S   #
+  # # # # # # # # # # # # # # # # # # # #
 
-    #compare relevant details
+  def compare_product_tests(test_1, test_2)
+    # compare relevant details
     perform_enqueued_jobs do
-
       test_1.save
       test_2.save
       assert_performed_jobs 2
 
       test_1.reload
       test_2.reload
-      
-      #compare expected results
-      test_1.expected_results.each do |k,v|
-        assert_equal test_1.expected_results[k]['IPP'], test_2.expected_results[k]['IPP'], 'random repeatability error: IPP results different'
-        assert_equal test_1.expected_results[k]['DENOM'], test_2.expected_results[k]['DENOM'], 'random repeatability error: DENOM results different'
-        assert_equal test_1.expected_results[k]['NUMER'], test_2.expected_results[k]['NUMER'], 'random repeatability error: NUMER results different'
-        assert_equal test_1.expected_results[k]['DENEX'], test_2.expected_results[k]['DENEX'], 'random repeatability error: DENEX results different'
-        assert_equal test_1.expected_results[k]['DENEXCEP'], test_2.expected_results[k]['DENEXCEP'], 'random repeatability error: DENEXCEP results different'
-        assert_equal test_1.expected_results[k]['MSRPOPL'], test_2.expected_results[k]['MSRPOPL'], 'random repeatability error: MSRPOPL results different'
-        assert_equal test_1.expected_results[k]['MSRPOPLEX'], test_2.expected_results[k]['MSRPOPLEX'], 'random repeatability error: MSRPOPLEX results different'
-      end
 
+      compare_results(test_1, test_2)
 
-      #compare records
+      # compare records
       test_1.records.each_index do |x|
         patient_1 = test_1.records.fetch(x)
         patient_2 = test_2.records.fetch(x)
-
-        #compare names
-        assert_equal patient_1.first, patient_2.first, 'random repeatability error: first names different'
-        assert_equal patient_1.last, patient_2.last, 'random repeatability error: last names different'
-
-        #compare dates
-        assert_equal patient_1.birthdate, patient_2.birthdate, 'random repeatability error: birthdates different'
-        assert_equal patient_1.deathdate, patient_2.deathdate, 'random repeatability error: deathdates different'
-        patient_1.provider_performances.each_index do |y|
-          provider_perform_1 = patient_1.provider_performances.fetch(y)
-          provider_perform_2 = patient_2.provider_performances.fetch(y)
-          assert_equal provider_perform_1.start_date , provider_perform_2.start_date , 'random repeatability error: provider performance start dates different'
-          assert_equal provider_perform_1.end_date , provider_perform_2.end_date , 'random repeatability error: provider performance end dates different'
-        end
-
-        #assert patient_1.compare_sections(patient_2), 'random repeatability error: sections different'
-        #compare patient sections
-        sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment, 
-                :medications, :procedures, :results, :communications, :family_history, :social_history, :vital_signs, :support, :advance_directives,
-                :functional_statuses] #skip insurance provider section
-        sections.each do |sec|
-          assert_equal (patient_1.send sec), (patient_2.send sec), 'error'
-        end
-
-        #compare race, ethnicity, address, insurance
-        assert_equal patient_1.race, patient_2.race, 'random repeatability error: races different'
-        assert_equal patient_1.ethnicity, patient_2.ethnicity, 'random repeatability error: ethnicities different'
-        #assert_equal patient_1.addresses, patient_2.addresses, 'random repeatability error: addresses different' 
-        #assert_equal patient_1.insurance_providers, patient_2.insurance_providers, 'random repeatability error: insurance providers different'
-        #-> cannot create equality for address and insurance with Faker lib?
+        compare_records(patient_1, patient_2)
       end
-
     end
-
   end
 
+  def compare_results(test_1, test_2)
+    # compare expected results
+    test_1.expected_results.each do |k, _v|
+      assert_equal test_1.expected_results[k]['IPP'], test_2.expected_results[k]['IPP'], 'random repeatability error: IPP results different'
+      assert_equal test_1.expected_results[k]['DENOM'], test_2.expected_results[k]['DENOM'], 'random repeatability error: DENOM results different'
+      assert_equal test_1.expected_results[k]['NUMER'], test_2.expected_results[k]['NUMER'], 'random repeatability error: NUMER results different'
+      assert_equal test_1.expected_results[k]['DENEX'], test_2.expected_results[k]['DENEX'], 'random repeatability error: DENEX results different'
+      assert_equal test_1.expected_results[k]['DENEXCEP'], test_2.expected_results[k]['DENEXCEP'], 'random repeatability error: DENEXCEP results different'
+      assert_equal test_1.expected_results[k]['MSRPOPL'], test_2.expected_results[k]['MSRPOPL'], 'random repeatability error: MSRPOPL results different'
+      assert_equal test_1.expected_results[k]['MSRPOPLEX'], test_2.expected_results[k]['MSRPOPLEX'], 'random repeatability error: MSRPOPLEX results different'
+    end
+  end
 
-  # # # # # # # # # # # # # # # # # # # #
-  #   H E L P E R   F U N C T I O N S   #
-  # # # # # # # # # # # # # # # # # # # #
+  def compare_records(patient_1, patient_2)
+    # compare names
+    assert_equal patient_1.first, patient_2.first, 'random repeatability error: first names different'
+    assert_equal patient_1.last, patient_2.last, 'random repeatability error: last names different'
+
+    # compare dates
+    assert_equal patient_1.birthdate, patient_2.birthdate, 'random repeatability error: birthdates different'
+    assert_equal patient_1.deathdate, patient_2.deathdate, 'random repeatability error: deathdates different'
+    patient_1.provider_performances.each_index do |y|
+      provider_perform_1 = patient_1.provider_performances.fetch(y)
+      provider_perform_2 = patient_2.provider_performances.fetch(y)
+      assert_equal provider_perform_1.start_date, provider_perform_2.start_date, 'random repeatability error: provider performance start dates different'
+      assert_equal provider_perform_1.end_date, provider_perform_2.end_date, 'random repeatability error: provider performance end dates different'
+    end
+
+    # assert patient_1.compare_sections(patient_2), 'random repeatability error: sections different'
+    # compare patient sections
+    sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
+                :medications, :procedures, :results, :communications, :family_history, :social_history, :vital_signs, :support, :advance_directives,
+                :functional_statuses] # skip insurance provider section
+    sections.each do |sec|
+      assert_equal (patient_1.send sec), (patient_2.send sec), 'error'
+    end
+
+    # compare race, ethnicity, address, insurance
+    assert_equal patient_1.race, patient_2.race, 'random repeatability error: races different'
+    assert_equal patient_1.ethnicity, patient_2.ethnicity, 'random repeatability error: ethnicities different'
+    # assert_equal patient_1.addresses, patient_2.addresses, 'random repeatability error: addresses different'
+    # assert_equal patient_1.insurance_providers, patient_2.insurance_providers, 'random repeatability error: insurance providers different'
+    #-> cannot create equality for address and insurance with Faker lib?
+  end
 
   def create_test_executions_with_state(product_test, state)
     product_test.tasks.each do |task|

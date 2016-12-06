@@ -4,7 +4,7 @@ module Cypress
   # can randomize name, race, ethnicity, address, and insurance provider.  To randomize all
   # demographics, call Cypress::DemographicsRandomizer.randomize(record)
   class DemographicsRandomizer
-    def self.randomize(record, prng, allow_dups)
+    def self.randomize(record, prng, allow_dups = false)
       randomize_name(record, prng, allow_dups)
       randomize_race(record, prng)
       randomize_ethnicity(record, prng)
@@ -12,27 +12,27 @@ module Cypress
       randomize_insurance_provider(record)
     end
 
-    def self.randomize_name(record, prng, allow_dups)
+    def self.randomize_name(record, prng, allow_dups = false)
       @used_names ||= {}
       @used_names[record.gender] ||= []
       loop do
         assign_random_name(record, prng)
-        break if (allow_dups || @used_names[record.gender].index("#{record.first}-#{record.last}").nil?)
+        break if allow_dups || @used_names[record.gender].index("#{record.first}-#{record.last}").nil?
       end
       @used_names[record.gender] << "#{record.first}-#{record.last}"
     end
 
     def self.assign_random_name(record, prng)
-      record.first = APP_CONFIG['randomization']['names']['first'][record.gender].sample(random:prng)
-      record.last = APP_CONFIG['randomization']['names']['last'].sample(random:prng)
+      record.first = APP_CONFIG['randomization']['names']['first'][record.gender].sample(random: prng)
+      record.last = APP_CONFIG['randomization']['names']['last'].sample(random: prng)
     end
 
     def self.randomize_race(record, prng)
-      record.race = APP_CONFIG['randomization']['races'].sample(random:prng)
+      record.race = APP_CONFIG['randomization']['races'].sample(random: prng)
     end
 
     def self.randomize_ethnicity(record, prng)
-      record.ethnicity = APP_CONFIG['randomization']['ethnicities'].sample(random:prng)
+      record.ethnicity = APP_CONFIG['randomization']['ethnicities'].sample(random: prng)
     end
 
     def self.randomize_address(record)

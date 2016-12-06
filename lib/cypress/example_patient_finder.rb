@@ -8,7 +8,7 @@ module Cypress
       !example_patient.nil? ? example_patient : example_patient_by_pop((Measure.find_by name: measure.name, sub_id: 'a'), populations, 'IPP')
     end
 
-    def self.example_patient_by_pop(measure, populations, pop)
+    def self.example_patient_by_pop(measure, _populations, pop)
       simplest = 100
       example_patient = nil
       Bundle.find(measure.bundle_id).records.each do |record|

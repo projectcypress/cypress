@@ -68,7 +68,7 @@ class ChecklistSourceDataCriteria
 
   def printable_name
     measure = Measure.find_by(_id: measure_id)
-    sdc = measure.hqmf_document[:data_criteria].select { |key, value| key == source_data_criteria }.values.first
+    sdc = measure.hqmf_document[:data_criteria].select { |key, _value| key == source_data_criteria }.values.first
     sdc['status'] ? "#{measure.cms_id} - #{sdc['definition']}, #{sdc['status']}" : "#{measure.cms_id} - #{sdc['definition']}"
   end
 

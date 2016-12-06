@@ -29,7 +29,7 @@ module Cypress
 
       return { max: max_age } if min_age <= 1
 
-      [{ min: min_age }, { max: max_age }].sample(random:prng)
+      [{ min: min_age }, { max: max_age }].sample(random: prng)
     end
 
     def self.providers(record, options = {})
