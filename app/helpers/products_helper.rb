@@ -143,9 +143,9 @@ module ProductsHelper
       next unless should_show_product_tests_tab?(product, test_type)
       if test_type == 'MeasureTest'
         title, description, html_id = title_description_and_html_id_for(product, test_type, true)
-        yield(test_type, title, description, html_id) if product.c1_test
+        yield(test_type, title, description, html_id) if product.c1_test || product.c3_test
         title, description, html_id = title_description_and_html_id_for(product, test_type, false)
-        yield(test_type, title, description, html_id) if product.c2_test
+        yield(test_type, title, description, html_id) if product.c2_test || product.c3_test
       else
         title, description, html_id = title_description_and_html_id_for(product, test_type)
         yield(test_type, title, description, html_id)
@@ -171,13 +171,27 @@ module ProductsHelper
     when 'ChecklistTest'
       product.c3_test ? 'C1 + C3 Manual' : 'C1 Manual'
     when 'MeasureTest'
-      if is_c1_measure_test
-        product.c3_test ? 'C1 + C3 (QRDA-I)' : 'C1 (QRDA-I)'
-      else
-        product.c3_test ? 'C2 + C3 (QRDA-III)' : 'C2 (QRDA-III)'
-      end
+      measure_test_title(product, is_c1_measure_test)
     when 'FilteringTest'
       'C4 (QRDA-I and QRDA-III)'
+    end
+  end
+
+  def measure_test_title(product, is_c1_measure_test = true)
+    if is_c1_measure_test
+      if product.c1_test && product.c3_test
+        'C1 + C3 (QRDA-I)'
+      elsif product.c1_test
+        'C1 (QRDA-I)'
+      else
+        'C3 (QRDA-I)'
+      end
+    elsif product.c2_test && product.c3_test
+      'C2 + C3 (QRDA-III)'
+    elsif product.c2_test
+      'C2 (QRDA-III)'
+    else
+      'C3 (QRDA-III)'
     end
   end
 
@@ -209,5 +223,15 @@ module ProductsHelper
 
   def measure_tests_table_row_wrapper_id(task)
     "measure-tests-table-row-wrapper-#{task.id}"
+  end
+
+  # Should a C1 or C2 status column be displayed, or only the C3
+  def include_first_task(product, task_type)
+    case task_type
+    when 'C1Task'
+      product.c1_test ? true : false
+    when 'C2Task'
+      product.c2_test ? true : false
+    end
   end
 end

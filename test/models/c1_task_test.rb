@@ -47,6 +47,7 @@ class C1TaskTest < ActiveSupport::TestCase
 
   def test_should_be_able_to_tell_when_wrong_names_are_provided_in_documents
     task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_wrong_names.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip)
@@ -86,6 +87,7 @@ class C1TaskTest < ActiveSupport::TestCase
 
   def test_should_be_able_to_tell_when_calculation_errors_exist
     task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_bad_calculation.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip)
@@ -97,6 +99,7 @@ class C1TaskTest < ActiveSupport::TestCase
 
   def test_task_should_error_when_extra_record_included
     task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_extra_file.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip)

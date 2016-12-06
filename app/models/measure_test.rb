@@ -17,11 +17,11 @@ class MeasureTest < ProductTest
   # as of now, should only create one task per task type
   def create_tasks
     product_c1_and_c2_if_only_c3(product)
-    if product.c1_test
+    if product.c1_test || product.c3_test
       C1Task.new(product_test: self).save!
       C3Cat1Task.new(product_test: self).save! if product.c3_test
     end
-    if product.c2_test
+    if product.c2_test || product.c3_test
       C2Task.new(product_test: self).save!
       C3Cat3Task.new(product_test: self).save! if product.c3_test
     end

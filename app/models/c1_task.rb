@@ -12,8 +12,13 @@ class C1Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    @validators = [CalculatingSmokingGunValidator.new(product_test.measures, product_test.records, product_test.id),
-                   QrdaCat1Validator.new(product_test.bundle, false, product_test.product.c3_test, product_test.measures)]
+    if product_test.product.c1_test
+      @validators = [CalculatingSmokingGunValidator.new(product_test.measures, product_test.records, product_test.id),
+                     QrdaCat1Validator.new(product_test.bundle, false, product_test.product.c3_test, product_test.measures)]
+    else
+      # A C1 task is created whenever C3 is selected.  If C1 isn't also selected, this task doesn't perform and validations
+      @validators = []
+    end
     @validators
   end
 

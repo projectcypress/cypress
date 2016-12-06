@@ -19,7 +19,9 @@
   <thead>
     <th scope = 'col' class = 'col-sm-1 no-wrap pointer-on-hover'>CMS ID</th>
     <th scope = 'col' class = 'col-sm-4 pointer-on-hover'>Measure Name</th>
-    <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'><%= first_results_col_label %></th>
+    <% if include_first_task(product, tasks.first._type) %>
+      <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'><%= first_results_col_label %></th>
+    <% end %>
     <% if include_c3 %>
       <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'>C3 Results</th>
     <% end %>
@@ -29,7 +31,7 @@
   <tbody>
     <% tasks.each do |task| %>
       <tr id = '<%= measure_tests_table_row_wrapper_id(task) %>'>
-        <%= render partial: 'measure_tests_table_row', locals: { task: task, parent_reloading: true } %>
+        <%= render partial: 'measure_tests_table_row', locals: { task: task, parent_reloading: true} %>
       </tr>
     <% end %>
   </tbody>

@@ -337,8 +337,9 @@ class ProductsHelperTest < ActiveJob::TestCase
   def test_each_tab_c2_c3
     make_product_certify(@product, false, true, true, false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
-    assert_equal 1, test_types.count, 'should only have c2 measure tab'
-    assert_equal 'C2 + C3 (QRDA-III)', titles[0]
+    assert_equal 2, test_types.count, 'should only have c2 measure tab'
+    assert_equal 'C3 (QRDA-I)', titles[0]
+    assert_equal 'C2 + C3 (QRDA-III)', titles[1]
   end
 
   def test_each_tab_c2_c4
@@ -352,9 +353,10 @@ class ProductsHelperTest < ActiveJob::TestCase
   def test_each_tab_c2_c3_c4
     make_product_certify(@product, false, true, true, true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
-    assert_equal 2, test_types.count, 'should have c2 measure and c4 filtering tabs'
-    assert_equal 'C2 + C3 (QRDA-III)', titles[0]
-    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
+    assert_equal 3, test_types.count, 'should have c2 measure and c4 filtering tabs'
+    assert_equal 'C3 (QRDA-I)', titles[0]
+    assert_equal 'C2 + C3 (QRDA-III)', titles[1]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[2]
   end
 
   def get_test_types_titles_and_descriptions(product)

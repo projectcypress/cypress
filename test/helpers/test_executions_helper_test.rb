@@ -20,8 +20,8 @@ class TestExecutionHelper < ActiveSupport::TestCase
   def setup_product_tests(c1, c2, c3, c4, filters)
     product = @vendor.products.create!(name: 'test_product_name', c1_test: c1, c2_test: c2, c3_test: c3, c4_test: c4,
                                        measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'], bundle_id: '4fdb62e01d41c820f6000001')
-    @m_test = product.product_tests.create!({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
-                                              measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'] }, MeasureTest)
+    @product_test = product.product_tests.create!({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
+                                                    measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'] }, MeasureTest)
     @f_test = product.product_tests.create!({ name: 'test_filtering_test_name', cms_id: 'TEST_CMSID',
                                               measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'], options: { filters: filters } }, FilteringTest)
   end
@@ -33,31 +33,30 @@ class TestExecutionHelper < ActiveSupport::TestCase
   def test_displaying_cat1
     setup_product_tests(true, true, false, true, filt1: 'val1')
 
-    assert displaying_cat1?(@m_test.tasks.find_by(_type: 'C1Task'))
+    assert displaying_cat1?(@product_test.tasks.find_by(_type: 'C1Task'))
     assert displaying_cat1?(@f_test.tasks.find_by(_type: 'Cat1FilterTask'))
 
-    assert_equal false, displaying_cat1?(@m_test.tasks.find_by(_type: 'C2Task'))
+    assert_equal false, displaying_cat1?(@product_test.tasks.find_by(_type: 'C2Task'))
     assert_equal false, displaying_cat1?(@f_test.tasks.find_by(_type: 'Cat3FilterTask'))
   end
 
   def test_get_title_message_cat1_singlular
     setup_product_tests(true, false, false, true, filt1: 'val1')
 
-    assert_equal get_title_message(@m_test, @m_test.tasks.find_by(_type: 'C1Task')), 'C1 certification for TEST_CMSID test_measure_test_name'
+    assert_equal get_title_message(@product_test, @product_test.tasks.find_by(_type: 'C1Task')), 'C1 certification for TEST_CMSID test_measure_test_name'
     assert_equal get_title_message(@f_test, @f_test.tasks.find_by(_type: 'Cat1FilterTask')), 'CQM Filter Filt1 for TEST_CMSID test_filtering_test_name'
   end
 
   def test_get_title_message_cat1_plural
     setup_product_tests(true, false, true, true, filt1: 'val1', filt2: 'val2')
-
-    assert_equal get_title_message(@m_test, @m_test.tasks.find_by(_type: 'C1Task')), 'C1 and C3 certifications for TEST_CMSID test_measure_test_name'
+    assert_equal get_title_message(@product_test, @product_test.tasks.find_by(_type: 'C1Task')), 'C1 and C3 certifications for TEST_CMSID test_measure_test_name'
     assert_equal get_title_message(@f_test, @f_test.tasks.find_by(_type: 'Cat1FilterTask')), 'CQM Filters Filt1/Filt2 for TEST_CMSID test_filtering_test_name'
   end
 
   def test_get_title_message_cat3
     setup_product_tests(false, true, false, true, filt1: 'val1')
 
-    assert_equal get_title_message(@m_test, @m_test.tasks.find_by(_type: 'C2Task')), 'C2 certification for TEST_CMSID test_measure_test_name'
+    assert_equal get_title_message(@product_test, @product_test.tasks.find_by(_type: 'C2Task')), 'C2 certification for TEST_CMSID test_measure_test_name'
     assert_equal get_title_message(@f_test, @f_test.tasks.find_by(_type: 'Cat1FilterTask')), 'CQM Filter Filt1 for TEST_CMSID test_filtering_test_name'
   end
 
@@ -68,7 +67,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def test_get_error_counts_no_execution
     setup_product_tests(true, false, true, true, filt1: 'val1')
-    errors_hash = get_error_counts(false, @m_test.tasks.find_by(_type: 'C1Task'))
+    errors_hash = get_error_counts(false, @product_test.tasks.find_by(_type: 'C1Task'))
 
     assert_equal '--', errors_hash['QRDA Errors']
     assert_equal '--', errors_hash['Reporting Errors']
@@ -77,7 +76,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def test_get_error_counts
     setup_product_tests(true, true, false, true, filt1: 'val1')
-    c1_task = @m_test.tasks.find_by(_type: 'C1Task')
+    c1_task = @product_test.tasks.find_by(_type: 'C1Task')
 
     execution = c1_task.test_executions.create
     execution.execution_errors.create(:message => 'qrda error 1', :msg_type => :error, :validator_type => :xml_validation)
@@ -94,7 +93,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def test_get_select_history_message
     setup_product_tests(true, true, false, true, filt1: 'val1')
-    execution = @m_test.tasks.find_by(_type: 'C1Task').test_executions.create
+    execution = @product_test.tasks.find_by(_type: 'C1Task').test_executions.create
 
     execution.execution_errors.create(:message => 'qrda error 1', :msg_type => :error, :validator_type => :xml_validation)
     execution.execution_errors.create(:message => 'result error 1', :msg_type => :error, :validator_type => :result_validation)

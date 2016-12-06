@@ -6,6 +6,8 @@
 <% product_status_values = get_product_status_values(product) %>
 
 <% not_certifying = '' %>
+<!-- not_certifying << 'hide-c1 ' unless product.c1_test || product.c3_test %-->
+<!--% not_certifying << 'hide-c2 ' unless product.c2_test || product.c3_test %-->
 <% not_certifying << 'hide-c1 ' unless product.c1_test %>
 <% not_certifying << 'hide-c2 ' unless product.c2_test %>
 <% not_certifying << 'hide-c3 ' unless product.c3_test %>
@@ -27,11 +29,11 @@
       <th scope="col" colspan="2" class="c4-heading">C4</th>
     </tr>
     <tr>
-      <th scope="col" class="c1-heading">Manual</th>
+      <th scope="col" class="c1-heading <%= 'hide-test' unless product.c1_test %>">Manual</th>
       <th scope="col" class="c1-heading <%= 'hide-test' unless product.c2_test %>">QRDA-I</th>
       <th scope="col" class="c2-heading">QRDA-III</th>
       <th scope="col" class="c3-heading <%= 'hide-test' unless product.c1_test %>">Manual</th>
-      <th scope="col" class="c3-heading <%= 'hide-test' unless product.c1_test and product.c2_test %>">QRDA-I</th>
+      <th scope="col" class="c3-heading <%= 'hide-test' unless (product.c1_test and product.c2_test) or product.c3_test %>">QRDA-I</th>
       <th scope="col" class="c3-heading <%= 'hide-test' unless product.c2_test %>">QRDA-III</th>
       <th scope="col" class="c4-heading">QRDA-I</th>
       <th scope="col" class="c4-heading">QRDA-III</th>

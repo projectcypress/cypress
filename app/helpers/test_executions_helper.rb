@@ -8,8 +8,18 @@ module TestExecutionsHelper
 
   def task_type_to_title(task_type, c3)
     case task_type
-    when 'C1Task' then c3 ? 'C1 and C3' : 'C1'
-    when 'C2Task' then c3 ? 'C2 and C3' : 'C2'
+    when 'C1Task'
+      if @product_test.product.c1_test
+        c3 ? 'C1 and C3' : 'C1'
+      else
+        'C3 (QRDA-I)'
+      end
+    when 'C2Task'
+      if @product_test.product.c2_test
+        c3 ? 'C2 and C3' : 'C2'
+      else
+        'C3 (QRDA-III)'
+      end
     when 'Cat1FilterTask' then 'QRDA Category I'
     when 'Cat3FilterTask' then 'QRDA Category III'
     end

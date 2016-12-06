@@ -64,7 +64,7 @@ class ChecklistTest < ProductTest
 
     # create checked criteria
     measure_ranks.reverse_each do |value|
-      next if checklist_measures.include? value[0].hqmf_id                                      # skip submeasures
+      next if checklist_measures.include? value[0].hqmf_id # skip submeasures
       next if checklist_measures.size > max_num_checklist_measures - 1 # skip if four checklist measures already exist
       checklist_measures << value[0].hqmf_id
       measure_criteria_map[value[0]].each do |criteria_key|
