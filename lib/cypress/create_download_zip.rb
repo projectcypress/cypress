@@ -30,12 +30,54 @@ module Cypress
       file
     end
 
-    def self.create_total_test_zip(product, format = 'qrda')
+    def self.create_total_test_zip(product, format = 'qrda', criteria_list)
       product_tests = ProductTest.where(product_id: product.id)
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
+        added_filter_test = false
         product_tests.each do |pt|
-          add_file_to_zip(z, "#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
+          if pt.class == MeasureTest
+            add_file_to_zip(z, "#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
+          elsif pt.class == FilteringTest
+            add_file_to_zip(z, "filteringtest_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read) if !added_filter_test
+            added_filter_test = true
+          elsif pt.class == ChecklistTest
+            @product = pt.product
+            #controller = ChecklistTestsController.new#('product'=>@product)
+            #ActionView::LookupContext.new(context)
+            #'app/views/checklist_tests' 
+            # view = ActionView::Base.new(["app/views/checklist_tests", "app/views/layouts"], {product:@product})
+            # view.class_eval do
+            #   include ApplicationHelper
+            #   include Rails.application.routes.url_helpers # brings ActionDispatch::Routing::UrlFor
+            #   include ActionView::Helpers::TagHelper
+            #   require 'breadcrumbs_on_rails/action_controller'
+            #   include BreadcrumbsOnRails::ActionController::HelperMethods
+            #   include ChecklistTestsHelper
+            #   # any other custom helpers can be included here
+            # end
+            #view.render(file: 'template.html.erb')
+
+            #controller = ActionController::Base.new
+            #view = ActionView::Base.new('app/views', {}, controller)
+            #view.render(file: 'index')
+
+            #product_checklist_test_path(product, pt)
+            #products/58403cbb88d3ea0a368d361a/checklist_tests/58403cc688d3ea0a368d3de0#CMS50v5
+            #"products/#{product.id}/checklist_tests/#{pt.id}"
+            # criteria_list = view.render(file: 'print_criteria.html.erb', layout:'report')
+
+            #URL helpers:
+            #include Rails.application.routes.url_helpers # brings ActionDispatch::Routing::UrlFor
+            #include ActionView::Helpers::TagHelper
+            #replace
+            #criteria_list = render_to_string layout: 'report'
+
+            zip = Cypress::CreateDownloadZip.create_c1_criteria_zip(@product.product_tests.checklist_tests.first, criteria_list).read
+            add_file_to_zip(z, "checklisttest_#{@product.name}_#{@product.id}_c1_manual_criteria.zip".tr(' ', '_'),zip)
+          else
+            raise "Unknown product test type in download: " >> pt._type
+          end
         end
       end
       file

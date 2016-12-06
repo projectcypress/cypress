@@ -4,12 +4,6 @@
 
 <h1>Criteria List for C1 Manual Entry Test</h1>
 
-<% add_breadcrumb 'Dashboard', vendors_path %>
-<% add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor_id) %>
-<% add_breadcrumb 'Product: ' + @product.name, product_path(@product) %>
-<% add_breadcrumb 'Manual Entry Test: ', product_checklist_test_path(@product, checklist_test) %>
-<% add_breadcrumb 'Criteria List' %>
-
 <% if checklist_test.measures %>
   <%= bootstrap_nested_form_for([@product, checklist_test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
     <% checklist_test.measures.each do |measure| %>
@@ -51,7 +45,7 @@
                           </span></td>
                         <% end %>
                         <td style="vertical-align:top"><%= checklist_test_criteria_attribute(measure, criteria) %></td>
-                        <td style="vertical-align:top"><%= render partial: 'field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
+                        <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
                       </tr>
                     <% end %>
                   <% end %>
