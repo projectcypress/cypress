@@ -26,6 +26,7 @@ class ProductTest
   field :cms_id, type: String
   field :description, type: String
   field :state, :type => Symbol, :default => :pending
+  field :rand_seed, type: String
 
   field :status_message, type: String
   validates :name, presence: true
@@ -36,6 +37,8 @@ class ProductTest
 
   delegate :effective_date, :to => :product
   delegate :bundle, :to => :product
+
+  before_create :generate_random_seed
 
   def self.inherited(child)
     child.instance_eval do
@@ -161,5 +164,10 @@ class ProductTest
       return ipp_ids + denom_ids + msrpopl_ids
     end
     mpl_ids
+  end
+
+  def generate_random_seed
+    # create and store a new random seed for debugging repeatability
+    self.rand_seed = Random.new_seed.to_s unless rand_seed
   end
 end

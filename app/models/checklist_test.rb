@@ -35,8 +35,8 @@ class ChecklistTest < ProductTest
     # measure list is changed once checklist is created, measures are based on checklist criteria
     if !checked_criteria.empty?
       m_ids = []
-      checked_criteria.each do |critiera|
-        m_ids << critiera.measure_id unless m_ids.include? critiera.measure_id
+      checked_criteria.each do |criteria|
+        m_ids << criteria.measure_id unless m_ids.include? criteria.measure_id
       end
       Measure.where(:_id.in => m_ids)
     else
@@ -54,15 +54,16 @@ class ChecklistTest < ProductTest
   def create_checked_criteria
     checked_criterias = []
     checklist_measures = []
+    prng = Random.new(rand_seed.to_i)
 
     # For each measure selected iterate on finding interesting data criteria
-    measure_criteria_map, measure_ranks = criteria_map_and_measure_ranks
+    measure_criteria_map, measure_ranks = criteria_map_and_measure_ranks(prng)
 
     # include all measures in checklist measures if c2 was not selected (and there are no measure tests)
     include_all_measures = product.product_tests.measure_tests.count == 0
 
     # shuffle the top 8 (4 + 4) measures if all measures are not being included
-    measure_ranks, max_num_checklist_measures = shuffle_top_measures(measure_ranks, include_all_measures)
+    measure_ranks, max_num_checklist_measures = shuffle_top_measures(measure_ranks, prng, include_all_measures)
 
     # create checked criteria
     measure_ranks.reverse_each do |value|
@@ -79,22 +80,22 @@ class ChecklistTest < ProductTest
     save!
   end
 
-  def criteria_map_and_measure_ranks
+  def criteria_map_and_measure_ranks(prng)
     measure_criteria_map = {}
     measure_rank_map = {}
     measures.each do |measure|
-      measure_criteria_map[measure], measure_rank_map[measure] = data_criteria_selector(measure)
+      measure_criteria_map[measure], measure_rank_map[measure] = data_criteria_selector(measure, prng)
     end
     measure_ranks = measure_rank_map.sort_by { |_key, value| value }
     [measure_criteria_map, measure_ranks]
   end
 
   # edits the order of the top 8 (4 + 4) measures
-  def shuffle_top_measures(measure_ranks, include_all_measures = false)
+  def shuffle_top_measures(measure_ranks, prng, include_all_measures = false)
     max_num_checklist_measures = product.measure_ids.count
     unless include_all_measures
       max_num_checklist_measures = CAT1_CONFIG['number_of_checklist_measures']
-      top = measure_ranks.pop(max_num_checklist_measures + 4).shuffle
+      top = measure_ranks.pop(max_num_checklist_measures + 4).shuffle(random: prng)
       measure_ranks += top
     end
     [measure_ranks, max_num_checklist_measures]

@@ -18,7 +18,7 @@ module Validators
     end
 
     # Validates a QRDA Cat I file.  This routine will validate the file against the checklist criteria
-    def validate(file, options = {})
+    def validate(file, _options = {})
       @file = file
       @criteria_list.each do |criteria|
         next if criteria.passed_qrda

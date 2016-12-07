@@ -20,6 +20,7 @@ class Product
   field :c4_test, type: Boolean
   field :randomize_records, type: Boolean, default: true
   field :duplicate_records, type: Boolean, default: true
+  field :allow_duplicate_names, type: Boolean, default: false
   field :measure_selection, type: String
   field :measure_ids, type: Array
 
@@ -85,6 +86,7 @@ class Product
     update_attributes(product_params)
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
+
       product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest) if c2_test
     end
     # remove measure and checklist tests if their measure ids have been removed

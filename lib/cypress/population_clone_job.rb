@@ -27,14 +27,18 @@ module Cypress
       # Clone AMA records from Mongo
       patients = find_patients_to_clone
 
+      prng = Random.new(@test.rand_seed.to_i)
+
       # grab a random number of records and then randomize the dates between +- 10 days
-      randomize_ids patients if options['randomization_ids']
+      randomize_ids(patients, prng) if options['randomization_ids']
 
       # get single provider if @test is a measure test. measure tests have a single provider for each record while filtering tests can have different
       # providers for each record
       provider = @test.provider if @test.class == MeasureTest
 
-      patients.each { |patient| clone_and_save_record(patient, provider) }
+      allow_dups = @test.product.allow_duplicate_names
+
+      patients.each { |patient| clone_and_save_record(patient, prng, provider, allow_dups) }
     end
 
     def find_patients_to_clone
@@ -48,27 +52,27 @@ module Cypress
                  end
     end
 
-    def randomize_ids(patients)
-      how_many = rand(5) + 1
-      randomization_ids = options['randomization_ids'].shuffle[0..how_many]
+    def randomize_ids(patients, prng)
+      how_many = prng.rand(5) + 1
+      randomization_ids = options['randomization_ids'].shuffle(random: prng)[0..how_many]
       random_records = @test.bundle.records.where(test_id: nil).in(medical_record_number: randomization_ids).to_a
 
       random_records.each do |patient|
         seconds = 1_944_000 # 60 secs per min * 60 min per hour * 24 hours in day * 10 days
-        plus_minus = rand(2) == 0 ? 1 : -1 # use this to make move dates forward or backwards
-        date_shift = rand(seconds) * plus_minus
+        plus_minus = prng.rand(2) == 0 ? 1 : -1 # use this to make move dates forward or backwards
+        date_shift = prng.rand(seconds) * plus_minus
         patient.shift_dates(date_shift)
         patients << patient
       end
     end
 
     # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
-    def clone_and_save_record(record, provider = nil)
+    def clone_and_save_record(record, prng, provider = nil, allow_dups = false)
       cloned_patient = record.clone
       unnumerify cloned_patient if record.first =~ /\d/ || record.last =~ /\d/
       cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
-      DemographicsRandomizer.randomize(cloned_patient) if options['randomize_demographics']
+      DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
       cloned_patient.test_id = options['test_id']
       patch_insurance_provider(record)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']

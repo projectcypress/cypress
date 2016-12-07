@@ -193,7 +193,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     provider = Provider.generate_provider(measure_type: test.measures.first.type)
 
     pcj = Cypress::PopulationCloneJob.new({ 'test_id' => test.id }.stringify_keys!)
-    pcj.clone_and_save_record(record, provider)
+    prng = Random.new(test.rand_seed.to_i)
+    pcj.clone_and_save_record(record, prng, provider)
     cloned_record = Record.find_by(test_id: test.id)
 
     cloned_record.provider_performances.each do |provider_performance|

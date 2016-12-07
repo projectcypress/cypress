@@ -1,13 +1,13 @@
 module Cypress
   module DataCriteriaSelector
-    def data_criteria_selector(measure)
+    def data_criteria_selector(measure, prng)
       # Criterias to be used in C1 checklist
       criterias = []
       # Possible data criterias that don't have attributes or negations
       data_criteria_without_att = {}
       # Criteria types in C1 checklist
       criteria_types = []
-      all_data_criteria = measure.all_data_criteria.shuffle
+      all_data_criteria = measure.all_data_criteria.shuffle(random: prng)
       dcs_with_attribute = all_data_criteria.clone.keep_if(&:field_values)
       # Loads prioritized list of value sets for the measure in question
       CAT1_CONFIG[measure.hqmf_id].each do |data_criteria_filter|
@@ -20,7 +20,7 @@ module Cypress
       # number of data criteria with attributes or negations
       interesting_criteria = criterias.size
       # selects data criteria without attributes or negations (from criteria types not already used)
-      data_criteria_without_att.values.sample(3).each { |value| criterias << value }
+      data_criteria_without_att.values.sample(3, random: prng).each { |value| criterias << value }
       [criterias, interesting_criteria]
     end
 

@@ -33,10 +33,11 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       addresses: [@address],
       insurance_providers: [@insurance_provider]
     )
+    @prng = Random.new(Random.new_seed)
   end
 
   def test_randomize_name
-    Cypress::DemographicsRandomizer.randomize_name(@record)
+    Cypress::DemographicsRandomizer.randomize_name(@record, @prng)
     assert_not_equal @first, @record.first
     assert_not_equal @last, @record.last
     assert_equal @race, @record.race
@@ -46,7 +47,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
   end
 
   def test_randomize_race
-    Cypress::DemographicsRandomizer.randomize_race(@record)
+    Cypress::DemographicsRandomizer.randomize_race(@record, @prng)
     assert_not_equal @race, @record.race
     assert_equal @first, @record.first
     assert_equal @last, @record.last
@@ -56,7 +57,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
   end
 
   def test_randomize_ethnicity
-    Cypress::DemographicsRandomizer.randomize_ethnicity(@record)
+    Cypress::DemographicsRandomizer.randomize_ethnicity(@record, @prng)
     assert_not_equal @ethnicity, @record.ethnicity
     assert_equal @first, @record.first
     assert_equal @last, @record.last
@@ -123,7 +124,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
   end
 
   def test_randomize_all
-    Cypress::DemographicsRandomizer.randomize(@record)
+    Cypress::DemographicsRandomizer.randomize(@record, @prng)
     assert_not_equal @first, @record.first
     assert_not_equal @last, @record.last
     assert_not_equal @race, @record.race

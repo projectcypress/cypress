@@ -4,35 +4,35 @@ module Cypress
   # can randomize name, race, ethnicity, address, and insurance provider.  To randomize all
   # demographics, call Cypress::DemographicsRandomizer.randomize(record)
   class DemographicsRandomizer
-    def self.randomize(record)
-      randomize_name(record)
-      randomize_race(record)
-      randomize_ethnicity(record)
+    def self.randomize(record, prng, allow_dups = false)
+      randomize_name(record, prng, allow_dups)
+      randomize_race(record, prng)
+      randomize_ethnicity(record, prng)
       randomize_address(record)
       randomize_insurance_provider(record)
     end
 
-    def self.randomize_name(record)
+    def self.randomize_name(record, prng, allow_dups = false)
       @used_names ||= {}
       @used_names[record.gender] ||= []
       loop do
-        assign_random_name(record)
-        break if @used_names[record.gender].index("#{record.first}-#{record.last}").nil?
+        assign_random_name(record, prng)
+        break if allow_dups || @used_names[record.gender].index("#{record.first}-#{record.last}").nil?
       end
       @used_names[record.gender] << "#{record.first}-#{record.last}"
     end
 
-    def self.assign_random_name(record)
-      record.first = APP_CONFIG['randomization']['names']['first'][record.gender].sample
-      record.last = APP_CONFIG['randomization']['names']['last'].sample
+    def self.assign_random_name(record, prng)
+      record.first = APP_CONFIG['randomization']['names']['first'][record.gender].sample(random: prng)
+      record.last = APP_CONFIG['randomization']['names']['last'].sample(random: prng)
     end
 
-    def self.randomize_race(record)
-      record.race = APP_CONFIG['randomization']['races'].sample
+    def self.randomize_race(record, prng)
+      record.race = APP_CONFIG['randomization']['races'].sample(random: prng)
     end
 
-    def self.randomize_ethnicity(record)
-      record.ethnicity = APP_CONFIG['randomization']['ethnicities'].sample
+    def self.randomize_ethnicity(record, prng)
+      record.ethnicity = APP_CONFIG['randomization']['ethnicities'].sample(random: prng)
     end
 
     def self.randomize_address(record)
