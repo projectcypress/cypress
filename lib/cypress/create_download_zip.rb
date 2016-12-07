@@ -30,25 +30,14 @@ module Cypress
       file
     end
 
-    def self.create_total_test_zip(product, format = 'qrda', criteria_list)
+    def self.create_total_test_zip(product, criteria_list, format = 'qrda')
       product_tests = ProductTest.where(product_id: product.id)
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
-        added_filter_test = false
-        product_tests.each do |pt|
-          if pt.class == MeasureTest
-            add_file_to_zip(z, "#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
-          elsif pt.class == FilteringTest
-            add_file_to_zip(z, "filteringtest_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read) if !added_filter_test
-            added_filter_test = true
-          elsif pt.class == ChecklistTest
-            @product = pt.product
-            zip = Cypress::CreateDownloadZip.create_c1_criteria_zip(@product.product_tests.checklist_tests.first, criteria_list).read
-            add_file_to_zip(z, "checklisttest_#{@product.name}_#{@product.id}_c1_manual_criteria.zip".tr(' ', '_'),zip)
-          else
-            raise "Unknown product test type in download: " >> pt._type
-          end
-        end
+        add_measure_zips(z, product.product_tests.measure_tests, format)
+        add_checklist_zips(z, product.product_tests.checklist_tests, criteria_list)
+        add_filtering_zips(z, product.product_tests.filtering_tests, format)
+        #add_product_test_zips(z, products_tests)
       end
       file
     end
@@ -117,6 +106,52 @@ module Cypress
         formatter = Cypress::QRDAExporter.new(mes, sd, ed)
       end
       formatter
+    end
+
+    # def add_product_test_zips(z, products_tests)
+    #   added_filter_test = false
+    #   filename = ''
+    #   file = nil
+    #   product_tests.each do |pt|
+    #     case pt.class
+    #     when MeasureTest
+    #       filename = "#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_')
+    #       file = pt.patient_archive.read
+    #     when FilteringTest
+    #       next if added_filter_test
+    #       filename = "filteringtest_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_')
+    #       file = pt.patient_archive.read
+    #       added_filter_test = true
+    #     when ChecklistTest
+    #       p = pt.product
+    #       filename = "checklisttest_#{p.name}_#{p.id}_c1_manual_criteria.zip".tr(' ', '_')
+    #       file = Cypress::CreateDownloadZip.create_c1_criteria_zip(p.product_tests.checklist_tests.first, criteria_list).read
+    #     else
+    #       raise 'Unknown product test type in download: ' + pt._type
+    #       next
+    #     end
+    #     add_file_to_zip(z, filename, file)
+    #   end
+    # end
+
+    def self.add_measure_zips(z, measure_tests, format)
+      measure_tests.each do |pt|
+        add_file_to_zip(z, "#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
+      end
+    end
+
+    def self.add_checklist_zips(z, checklist_tests, criteria_list)
+      checklist_tests.each do |pt|
+        p = pt.product
+        file = Cypress::CreateDownloadZip.create_c1_criteria_zip(p.product_tests.checklist_tests.first, criteria_list).read
+        add_file_to_zip(z, "checklisttest_#{p.name}_#{p.id}_c1_manual_criteria.zip".tr(' ', '_'), file)
+      end
+    end
+
+    def self.add_filtering_zips(z, filtering_tests, format)
+      return if filtering_tests.empty?
+      pt = filtering_tests.first
+      add_file_to_zip(z, "filteringtest_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
     end
   end
 end
