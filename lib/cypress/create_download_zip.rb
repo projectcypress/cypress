@@ -31,13 +31,11 @@ module Cypress
     end
 
     def self.create_total_test_zip(product, criteria_list, format = 'qrda')
-      product_tests = ProductTest.where(product_id: product.id)
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
         add_measure_zips(z, product.product_tests.measure_tests, format)
         add_checklist_zips(z, product.product_tests.checklist_tests, criteria_list)
-        add_filtering_zips(z, product.product_tests.filtering_tests, format)
-        #add_product_test_zips(z, products_tests)
+        add_filtering_zips(z, product.product_tests.filtering_tests, format) unless product.product_tests.filtering_tests.empty?
       end
       file
     end
@@ -108,32 +106,6 @@ module Cypress
       formatter
     end
 
-    # def add_product_test_zips(z, products_tests)
-    #   added_filter_test = false
-    #   filename = ''
-    #   file = nil
-    #   product_tests.each do |pt|
-    #     case pt.class
-    #     when MeasureTest
-    #       filename = "#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_')
-    #       file = pt.patient_archive.read
-    #     when FilteringTest
-    #       next if added_filter_test
-    #       filename = "filteringtest_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_')
-    #       file = pt.patient_archive.read
-    #       added_filter_test = true
-    #     when ChecklistTest
-    #       p = pt.product
-    #       filename = "checklisttest_#{p.name}_#{p.id}_c1_manual_criteria.zip".tr(' ', '_')
-    #       file = Cypress::CreateDownloadZip.create_c1_criteria_zip(p.product_tests.checklist_tests.first, criteria_list).read
-    #     else
-    #       raise 'Unknown product test type in download: ' + pt._type
-    #       next
-    #     end
-    #     add_file_to_zip(z, filename, file)
-    #   end
-    # end
-
     def self.add_measure_zips(z, measure_tests, format)
       measure_tests.each do |pt|
         add_file_to_zip(z, "#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
@@ -149,7 +121,6 @@ module Cypress
     end
 
     def self.add_filtering_zips(z, filtering_tests, format)
-      return if filtering_tests.empty?
       pt = filtering_tests.first
       add_file_to_zip(z, "filteringtest_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
     end
