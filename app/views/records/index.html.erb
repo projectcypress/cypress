@@ -59,7 +59,7 @@
 
 <% end %>
 
-<% cache @records do %>
+<% cache [@records, @measure] do %>
   <div class="row">
     <div id="records_list" class="col-sm-12">
       <%= render partial: 'records_list', locals: { records: @records } %>
