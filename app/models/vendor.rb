@@ -50,7 +50,7 @@ class Vendor
 
   def status
     Rails.cache.fetch("#{cache_key}/status") do
-      total = products.count
+      total = products.size
       if products_failing_count > 0
         'failing'
       elsif products_passing_count == total && total > 0
@@ -64,16 +64,12 @@ class Vendor
   end
 
   %w(passing failing errored incomplete).each do |product_state|
-    define_method "products_#{product_state}" do
-      Rails.cache.fetch("#{cache_key}/products_#{product_state}") do
-        products.select { |product| product.status == product_state }
-      end
-    end
-
     define_method "products_#{product_state}_count" do
-      Rails.cache.fetch("#{cache_key}/products_#{product_state}_count") do
-        products.count { |product| product.status == product_state }
+      product_counts = Rails.cache.fetch("#{cache_key}/product_counts") do
+        products.includes(:product_tests).group_by(&:status)
       end
+
+      product_counts.key?(product_state) ? product_counts[product_state].count : 0
     end
   end
 end

@@ -34,22 +34,17 @@ class Product
 
   def status
     Rails.cache.fetch("#{cache_key}/status") do
-      total = product_tests.count
-      if product_tests_for_status('failing').count > 0
+      grouped_products = product_tests.includes(:tasks).group_by(&:status)
+      total = product_tests.size
+      if grouped_products.key?('failing') && grouped_products['failing'].count > 0
         'failing'
-      elsif product_tests_for_status('passing').count == total && total > 0
+      elsif grouped_products.key?('passing') && grouped_products['passing'].count == total
         c1_test && product_tests.checklist_tests.empty? ? 'incomplete' : 'passing'
-      elsif product_tests_for_status('errored').count > 0
+      elsif grouped_products.key?('errored') && grouped_products['errored'].count > 0
         'errored'
       else
         'incomplete'
       end
-    end
-  end
-
-  def product_tests_for_status(status)
-    Rails.cache.fetch("#{cache_key}/product_tests_#{status}") do
-      product_tests.select { |product_test| product_test.status == status }
     end
   end
 

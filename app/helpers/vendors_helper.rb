@@ -52,7 +52,7 @@ module VendorsHelper
     h['failing'] = vendor.products_failing_count
     h['errored'] = vendor.products_errored_count
     h['incomplete'] = vendor.products_incomplete_count
-    h['total'] = vendor.products.count
+    h['total'] = h['passing'] + h['failing'] + h['errored'] + h['incomplete']
     h
   end
 end
