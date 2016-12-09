@@ -1,0 +1,7 @@
+$('.infinite-scroll').append("<%=j render(partial:'product_status_table', collection: @products, as: :product, locals: { show_product_link: true }) %>");
+
+<% if @products.current_page == @products.total_pages %>
+  $('#view-more').remove();
+<% else %>
+  $('#view-more a').attr('href', '<%= url_for(page: @products.current_page + 1) %>');
+<% end %>

@@ -25,6 +25,9 @@ gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'modernizr-rails', '~> 2.7.1'
 gem 'font-awesome-sass'
 
+# Add pagination support
+gem 'kaminari-mongoid'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Bake the best breadcrumbs
