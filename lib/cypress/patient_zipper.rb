@@ -22,7 +22,8 @@ module Cypress
   end
 
   class QRDAExporter
-    EXPORTER = HealthDataStandards::Export::Cat1.new
+    C3EXPORTER = HealthDataStandards::Export::Cat1.new('r3')
+    C3_1EXPORTER = HealthDataStandards::Export::Cat1.new('r3_1')
     attr_accessor :measures
     attr_accessor :start_time
     attr_accessor :end_time
@@ -36,7 +37,12 @@ module Cypress
     def export(patient)
       cms_compatible = true if patient.product_test && patient.product_test.product.c3_test
       # qrda version is hard coded right now!!!
-      EXPORTER.export(patient, measures, start_time, end_time, nil, patient.bundle.qrda_version, cms_compatible)
+      case patient.bundle.qrda_version
+        when 'r3'
+          C3EXPORTER.export(patient, measures, start_time, end_time, nil, 'r3', cms_compatible)
+        when 'r3_1'
+          C3_1EXPORTER.export(patient, measures, start_time, end_time, nil, 'r3_1', cms_compatible)
+        end
     end
   end
 
