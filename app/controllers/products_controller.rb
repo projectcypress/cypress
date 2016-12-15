@@ -84,7 +84,9 @@ class ProductsController < ApplicationController
 
   # always responds with a zip file of (.qrda.zip files of (qrda category I documents))
   def patients
-    file = Cypress::CreateDownloadZip.create_total_test_zip(@product, 'qrda')
+    crit_exists = !@product.product_tests.checklist_tests.empty?
+    criteria_list = crit_exists ? render_to_string(file: 'checklist_tests/print_criteria.html.erb', layout: 'report') : nil
+    file = Cypress::CreateDownloadZip.create_total_test_zip(@product, criteria_list, 'qrda')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
   end
 
