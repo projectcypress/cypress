@@ -2,7 +2,7 @@
 
 class Record
   include Mongoid::Document
-  field :bundle_id
+  # field :bundle_id
   field :measures, type: Hash
   index test_id: 1
   index bundle_id: 1
