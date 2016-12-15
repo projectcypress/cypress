@@ -18,6 +18,6 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).push(:terms_and_conditions)
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:terms_and_conditions])
   end
 end
