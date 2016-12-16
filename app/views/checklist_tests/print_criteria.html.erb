@@ -28,7 +28,7 @@
                 <tbody>
                   <%= f.fields_for :checked_criteria, checklist_test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
                     <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
-                    <% if criteria.has_key?('description') %>
+                    <% if criteria.key?('description') %>
                       <tr>
                         <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
                         <% if valuessets.empty? %>

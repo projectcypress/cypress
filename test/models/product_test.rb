@@ -278,22 +278,10 @@ end
 class ProductCachingTest < CachingTest
   def test_product_status_and_product_test_groups_are_not_cached_on_start
     assert !Rails.cache.exist?("#{@product.cache_key}/status"), 'cache key for product status should not exist'
-    assert !Rails.cache.exist?("#{@product.cache_key}/product_tests_passing"), "cache key for product's passing product tests should not exist"
-    assert !Rails.cache.exist?("#{@product.cache_key}/product_tests_failing"), "cache key for product's failing product tests should not exist"
-    assert !Rails.cache.exist?("#{@product.cache_key}/product_tests_incomplete"), "cache key for product's incomplete product tests should not exist"
   end
 
   def test_product_status_is_cached_after_checking_status
     @product.status
     assert Rails.cache.exist?("#{@product.cache_key}/status"), 'cache key for product status should exist'
-  end
-
-  def test_product_test_groups_are_cached_after_checking_each
-    @product.product_tests_for_status('passing')
-    @product.product_tests_for_status('failing')
-    @product.product_tests_for_status('incomplete')
-    assert Rails.cache.exist?("#{@product.cache_key}/product_tests_passing"), "cache key for product's passing products tests should exist"
-    assert Rails.cache.exist?("#{@product.cache_key}/product_tests_failing"), "cache key for product's failing products tests should exist"
-    assert Rails.cache.exist?("#{@product.cache_key}/product_tests_incomplete"), "cache key for product's incomplete products tests should exist"
   end
 end

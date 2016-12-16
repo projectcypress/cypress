@@ -9,6 +9,8 @@ class VendorsController < ApplicationController
   add_breadcrumb 'Dashboard', :vendors_path
   add_breadcrumb 'Add Vendor', :new_vendor_path, only: [:new, :create]
 
+  respond_to :js, only: [:show]
+
   def index
     # get all of the vendors that the user can see
     @vendors = Vendor.accessible_by(current_user).order(:updated_at => :desc) # Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
@@ -17,7 +19,7 @@ class VendorsController < ApplicationController
 
   def show
     add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
-    @products = Product.where(vendor_id: @vendor.id).order_by(state: 'desc')
+    @products = Product.where(vendor_id: @vendor.id).order_by(state: 'desc').page(params[:page]).per(5)
     respond_with(@vendor)
   end
 

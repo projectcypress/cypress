@@ -22,6 +22,16 @@
   border: 1px solid darken($state-info-bg, 20%);
 }
 
+.scroll-link-wrapper {
+  // Provide reasonable clearance to bottom of page
+  height: 30px;
+  padding-bottom: 40px;
+
+  .default-hidden {
+    display: none;
+  }
+}
+
 .vendor-details {
   margin-left: 1.5em;
   display: flex;

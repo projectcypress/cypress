@@ -143,9 +143,7 @@ end
 class VendorCachingTest < CachingTest
   def test_vendor_status_and_product_groups_are_not_cached_on_start
     assert !Rails.cache.exist?("#{@vendor.cache_key}/status"), 'cache key for vendor status should not exist'
-    assert !Rails.cache.exist?("#{@vendor.cache_key}/products_passing"), "cache key for vendor's passing products should not exist"
-    assert !Rails.cache.exist?("#{@vendor.cache_key}/products_failing"), "cache key for vendor's failing products should not exist"
-    assert !Rails.cache.exist?("#{@vendor.cache_key}/products_incomplete"), "cache key for vendor's incomplete products should not exist"
+    assert !Rails.cache.exist?("#{@vendor.cache_key}/product_counts"), 'cache key for vendor products count should not exist'
   end
 
   def test_vendor_status_is_cached_after_checking_status
@@ -153,13 +151,9 @@ class VendorCachingTest < CachingTest
     assert Rails.cache.exist?("#{@vendor.cache_key}/status"), 'cache key for vendor status should exist'
   end
 
-  def test_product_groups_are_cached_after_checking_each
-    @vendor.products_passing
-    @vendor.products_failing
-    @vendor.products_incomplete
-    assert Rails.cache.exist?("#{@vendor.cache_key}/products_passing"), "cache key for vendor's passing products should exist"
-    assert Rails.cache.exist?("#{@vendor.cache_key}/products_failing"), "cache key for vendor's failing products should exist"
-    assert Rails.cache.exist?("#{@vendor.cache_key}/products_incomplete"), "cache key for vendor's incomplete products should exist"
+  def test_product_groups_counts_are_cached_after_checking_any
+    @vendor.products_passing_count
+    assert Rails.cache.exist?("#{@vendor.cache_key}/product_counts"), 'cache key for vendor products count should exist'
   end
 
   def test_adding_test_execution_updates_vendor_cache_key

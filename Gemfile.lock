@@ -224,6 +224,11 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+    kaminari-mongoid (0.1.2)
+      kaminari
     kgio (2.10.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -469,6 +474,7 @@ DEPENDENCIES
   jquery-datatables-rails (~> 3.3.0)
   jquery-rails (~> 4.0.4)
   jquery-ui-rails (~> 5.0.5)
+  kaminari-mongoid
   launchy
   local_time
   minitest
