@@ -14,17 +14,17 @@ class Admin::SettingsControllerTest < ActionController::TestCase
                        mailer_user_name: 'testuser', mailer_password: 'password123', mode: 'custom',
                        custom_options: { auto_approve: 'disable', ignore_roles: 'disable', default_role: 'admin', debug_features: 'disable' }
       end
-      assert_equal 'banner test', APP_CONFIG['banner_message']
+      assert_equal 'banner test', Cypress::AppConfig['banner_message']
       assert_equal 'smtp.example.com', Rails.application.config.action_mailer.smtp_settings.address
       assert_equal 3000, Rails.application.config.action_mailer.smtp_settings.port
       assert_equal 'example.com', Rails.application.config.action_mailer.smtp_settings.domain
       assert_equal 'testuser', Rails.application.config.action_mailer.smtp_settings.user_name
       assert_equal 'password123', Rails.application.config.action_mailer.smtp_settings.password
       assert_equal 'Custom', @controller.application_mode
-      assert_equal false, APP_CONFIG['auto_approve']
-      assert_equal false, APP_CONFIG['ignore_roles']
-      assert_equal :admin, APP_CONFIG['default_role']
-      assert_equal false, APP_CONFIG['enable_debug_features']
+      assert_equal false, Cypress::AppConfig['auto_approve']
+      assert_equal false, Cypress::AppConfig['ignore_roles']
+      assert_equal :admin, Cypress::AppConfig['default_role']
+      assert_equal false, Cypress::AppConfig['enable_debug_features']
     ensure
       File.open("#{Rails.root}/config/cypress.yml", 'w') { |file| file.puts orig_yml }
     end

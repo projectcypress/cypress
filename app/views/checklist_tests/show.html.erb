@@ -14,7 +14,7 @@
     <div class="panel-heading">
       <h1 class="panel-title test-step">1<i class="fa fa-fw fa-bolt" aria-hidden="true"></i>Manual Entry Instructions</h1>
     </div>
-    <%= render partial: 'checklist_instructions', locals: { instructions: APP_CONFIG['tests']['ChecklistTest']['instructions'] } %>
+    <%= render partial: 'checklist_instructions', locals: { instructions: Cypress::AppConfig['tests']['ChecklistTest']['instructions'] } %>
   </div>
 </div>
 <div class = 'test-steps'>

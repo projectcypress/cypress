@@ -5,7 +5,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   def setup
     collection_fixtures 'users', 'roles', 'vendors'
     @user = User.find('4def93dd4f85cf8968000001')
-    APP_CONFIG['ignore_roles'] = false
+    Cypress::AppConfig['ignore_roles'] = false
   end
 
   test 'Admin can view index ' do
@@ -39,7 +39,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test 'Admin can update user' do
     v = Vendor.find('4f57a8791d41c851eb000002')
-    APP_CONFIG['default_role'] = nil
+    Cypress::AppConfig['default_role'] = nil
     u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 
     for_each_logged_in_user([ADMIN]) do

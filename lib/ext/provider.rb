@@ -4,7 +4,7 @@ class Provider
   def self.default_provider(options = {})
     prov = where(default: true, specialty: default_specialty(options[:measure_type])).first
     if prov.nil?
-      prov = Provider.new(APP_CONFIG['default_provider'])
+      prov = Provider.new(Cypress::AppConfig['default_provider'])
       prov[:default] = true
       prov.specialty = default_specialty(options[:measure_type])
       prov.save
@@ -15,8 +15,8 @@ class Provider
   def self.generate_provider(options = {})
     prov = Provider.new
     Cypress::DemographicsRandomizer.randomize_address(prov)
-    prov.given_name = APP_CONFIG['randomization']['names']['first'][%w(M F).sample].sample
-    prov.family_name = APP_CONFIG['randomization']['names']['last'].sample
+    prov.given_name = Cypress::AppConfig['randomization']['names']['first'][%w(M F).sample].sample
+    prov.family_name = Cypress::AppConfig['randomization']['names']['last'].sample
     prov.npi = NpiGenerator.generate
     prov.tin = rand.to_s[2..10]
     prov.specialty = default_specialty(options[:measure_type])

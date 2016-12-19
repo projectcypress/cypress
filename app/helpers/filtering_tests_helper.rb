@@ -9,7 +9,7 @@ module FilteringTestsHelper
     vals.each do |val|
       case filter_name
       when 'races', 'ethnicities'
-        key_name = APP_CONFIG.randomization[filter_name].find { |x| x.code == val }.name
+        key_name = Cypress::AppConfig['randomization'][filter_name].find { |x| x.code == val }.name
         arr << "#{key_name} (code: #{val})"
       when 'genders', 'payers'
         arr << val

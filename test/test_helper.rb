@@ -25,7 +25,7 @@ Mongoid.logger.level = Logger::INFO
 
 class ActiveSupport::TestCase
   def setup
-    APP_CONFIG['ignore_roles'] = false
+    Cypress::AppConfig['ignore_roles'] = false
   end
 
   def teardown

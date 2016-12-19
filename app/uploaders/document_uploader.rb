@@ -5,7 +5,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   process :set_content_type
 
   def store_dir
-    "#{APP_CONFIG.file_upload_root}/test_executions/#{model.id}"
+    "#{Cypress::AppConfig['file_upload_root']}/test_executions/#{model.id}"
   end
 
   def extension_white_list

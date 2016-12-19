@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
 require 'delayed/command'
-ARGV << "--pid-dir=#{APP_CONFIG.pid_dir}"
+ARGV << "--pid-dir=#{Cypress::AppConfig['pid_dir']}"
 Delayed::Command.new(ARGV).daemonize

@@ -8,7 +8,7 @@ Faker::Config.locale = 'en-US'
 Rails.application.configure do
   config.after_initialize do
     Bundle.each do |bundle|
-      bundle.active = bundle.version == APP_CONFIG['default_bundle']
+      bundle.active = bundle.version == Cypress::AppConfig['default_bundle']
       bundle.save!
     end
   end

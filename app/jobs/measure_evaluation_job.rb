@@ -31,7 +31,7 @@ class MeasureEvaluationJob < ActiveJob::Base
                                                                                  'effective_date' => product_test.effective_date,
                                                                                  'test_id' => product_test.id,
                                                                                  :filters => options['filters'],
-                                                                                 'enable_logging' => APP_CONFIG.enable_logging,
+                                                                                 'enable_logging' => Cypress::AppConfig['enable_logging'],
                                                                                  'enable_rationale' => true)
 
       qr.calculate({ 'bundle_id' => product_test.bundle.id,

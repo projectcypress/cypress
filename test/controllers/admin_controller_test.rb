@@ -7,12 +7,12 @@ class AdminControllerTest < ActionController::TestCase
 
   test 'should get show' do
     Rails.application.config.action_mailer.smtp_settings = {
-      address: APP_CONFIG['mailer_address'],
-      port: APP_CONFIG['mailer_port'],
-      domain: APP_CONFIG['mailer_domain'],
-      user_name: APP_CONFIG['mailer_user_name'],
-      password: APP_CONFIG['mailer_password'],
-      authentication: APP_CONFIG['mailer_authentication']
+      address: Cypress::AppConfig['mailer_address'],
+      port: Cypress::AppConfig['mailer_port'],
+      domain: Cypress::AppConfig['mailer_domain'],
+      user_name: Cypress::AppConfig['mailer_user_name'],
+      password: Cypress::AppConfig['mailer_password'],
+      authentication: Cypress::AppConfig['mailer_authentication']
     }
     for_each_logged_in_user([ADMIN]) do
       get :show
