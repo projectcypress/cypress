@@ -39,12 +39,7 @@
           <div class="radio" style="padding: 6px 12px; display: inline-block">
             <!-- label --> <%= @bundle.title %>
           </div>
-          <div class="radio" style="padding: 6px 12px; display: inline-block">
-            <span class="sr-only">Download <%= @bundle.title %></span>
-            <%= button_to download_mpl_records_path(@bundle), :method => :get, :class => "btn btn-xs btn-default" do %>
-              Download <span class="sr-only"><%= @bundle.title %></span>
-            <% end %>
-          </div>
+          <%= render partial: "mpl_download", locals: { bundle: @bundle } %>
           <% else %>
             <!-- loop through bundles & use radio buttons -->
             <%= bootstrap_form_tag do |f| %>
@@ -54,12 +49,7 @@
                   <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
                                      checked: bundle == @bundle %>
                 </div>
-                <div class="radio" style="padding: 6px 12px; display: inline-block">
-                  <span class="sr-only">Download <%= bundle.title %></span>
-                  <%= button_to download_mpl_records_path(bundle), :method => :get, :class => "btn btn-xs btn-default" do %>
-                    Download <span class="sr-only"><%= bundle.title %></span>
-                  <% end %>
-                </div>
+                <%= render partial: "mpl_download", locals: { bundle: bundle } %>
                 <% end # bundle loop %>
               <% end # form_group %>
             <% end # form tag %>
