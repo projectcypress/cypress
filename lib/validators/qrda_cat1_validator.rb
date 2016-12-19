@@ -17,6 +17,7 @@ module Validators
                       format_validators
                     end
       @validators + format_validators if is_c3_validation_task && !test_has_c1
+      @validators << HealthDataStandards::Validate::QrdaQdmTemplateValidator.new(bundle.qrda_version)
     end
 
     # Validates a QRDA Cat I file.  This routine will validate the file against the CDA schema as well as the
@@ -36,7 +37,7 @@ module Validators
       validation_errors.each do |error|
         # errors for data criteria outside the measure definition are now warnings
         type = (error.message.include? 'data criteria outside') ? :warning : :error
-        if error.validator && error.validator.upcase.include?('QRDA') && !@test_has_c3
+        if (error.validator && error.validator.upcase.include?('QRDA') || error.validator == 'QRDA QDM Template Validator') && !@test_has_c3
           type = :warning
         end
         add_issue error.message, type, :message => error.message,
