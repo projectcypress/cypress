@@ -1,0 +1,6 @@
+<div class="radio download-btn" style="">
+  <span class="sr-only">Download <%= bundle.title %></span>
+  <%= link_to download_mpl_records_path(bundle), :method => :get, :class => "btn btn-xs btn-default" do %>
+    Download <span class="sr-only"><%= bundle.title %></span>
+  <% end %>
+</div>

@@ -11,6 +11,7 @@ class Bundle
   def destroy
     results.destroy
     Product.where(bundle_id: id).destroy_all
+    FileUtils.rm(mpl_path) if File.exist?(mpl_path)
     delete
   end
 
@@ -28,6 +29,14 @@ class Bundle
 
   def modified_population_labels
     ApplicationController.helpers.config_for_version(version).modified_population_labels
+  end
+
+  def mpl_path
+    File.join(Rails.root, 'tmp', 'cache', "bundle_#{id}_mpl.zip")
+  end
+
+  def major_version
+    version.split('.')[0]
   end
 
   def self.default

@@ -12,22 +12,19 @@ module Cypress
       file
     end
 
-    def self.all_patients
-      file = Tempfile.new("all-patients-#{Time.now.to_i}")
-      Zip::ZipOutputStream.open(file.path) do |z|
-        Bundle.each do |bundle|
-          records = bundle.records
-          %w(html qrda).each do |format|
-            extensions = { html: 'html', qrda: 'xml' }
-            formatter = formatter_for_patients(records, format)
-            records.each do |r|
-              filename = "#{bundle.title}/#{format}_records/#{r.first}_#{r.last}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
-              add_file_to_zip(z, filename, formatter.export(r))
-            end
+    def self.bundle_directory(bundle, path)
+      records = bundle.records
+      %w(html qrda).each do |format|
+        extensions = { html: 'html', qrda: 'xml' }
+        formatter = formatter_for_patients(records, format)
+        FileUtils.mkdir_p(File.join(path, "#{format}_records/"))
+        records.each do |r|
+          filename = "#{format}_records/#{r.first}_#{r.last}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
+          File.open(File.join(path, filename), 'w') do |f|
+            f.write(formatter.export(r))
           end
         end
       end
-      file
     end
 
     def self.create_total_test_zip(product, criteria_list, format = 'qrda')

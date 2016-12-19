@@ -28,5 +28,6 @@ class BundleUploadJob < ActiveJob::Base
       APP_CONFIG['default_bundle'] = @bundle.version
       sub_yml_setting('default_bundle', APP_CONFIG['default_bundle'])
     end
+    MplDownloadCreateJob.perform_later(@bundle.id.to_s)
   end
 end

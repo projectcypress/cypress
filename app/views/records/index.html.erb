@@ -21,38 +21,40 @@
 
 <% else %>
   <h1>Master Patient List</h1>
-  <div class="pull-right button-row">
-    <%= button_to download_mpl_records_path(@bundle), :method => :get, :class => "btn btn-default" do %>
-      <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download Master Patient List
-    <% end %>
-  </div>
 
   <div class="row">
-    <div class="col-md-7 col-sm-8">
+    <div class="col-md-5 col-sm-6">
       <h1>Filter Patients</h1>
-      <div class="form-group col-md-8 col-sm-10">
+      <div class="form-group">
         <label for="search_measures">Type to search by measure</label>
         <input id="search_measures" type="search" class="form-control" placeholder="Type the name or CMS ID of a measure"/>
       </div>
     </div>
 
     <% if !@task && !@product_test %>
-      <div class="col-md-5 col-sm-4">
+      <div class="col-md-7 col-sm-6">
         <h1>Annual Update Bundle</h1>
-        <% if Bundle.count == 1 %>
-          <!-- label --> <%= @bundle.title %>
-        <% else %>
-          <!-- loop through bundles & use radio buttons -->
-          <%= bootstrap_form_tag do |f| %>
-          <%= f.form_group :bundle_id do %>
-            <% Bundle.all.each do |bundle| %>
-              <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
-                                 checked: bundle == @bundle %>
-
-            <% end # bundle loop %>
-          <% end # form_group %>
-          <% end # form tag %>
-        <% end # bundles.count %>
+        <div class="col-md-12">
+          <% if Bundle.count == 1 %>
+          <div class="radio" style="padding: 6px 12px; display: inline-block">
+            <!-- label --> <%= @bundle.title %>
+          </div>
+          <%= render partial: "mpl_download", locals: { bundle: @bundle } %>
+          <% else %>
+            <!-- loop through bundles & use radio buttons -->
+            <%= bootstrap_form_tag do |f| %>
+              <%= f.form_group :bundle_id do %>
+                <% Bundle.all.each do |bundle| %>
+                <div style="display: inline-block">
+                  <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
+                                     checked: bundle == @bundle %>
+                </div>
+                <%= render partial: "mpl_download", locals: { bundle: bundle } %>
+                <% end # bundle loop %>
+              <% end # form_group %>
+            <% end # form tag %>
+          <% end # bundles.count %>
+        </div>
       </div>
     <% end %>
   </div>
