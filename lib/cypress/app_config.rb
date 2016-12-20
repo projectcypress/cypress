@@ -1,3 +1,4 @@
+# When this module is called from a test, make sure it is wrapped in Faker. Otherwise you will have problems with travis.
 module Cypress
   class AppConfig
     def self.[](key)

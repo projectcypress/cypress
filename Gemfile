@@ -109,6 +109,7 @@ end
 
 group :test do
   gem 'mocha', require: false
+  gem 'fakefs', require: 'fakefs/safe'
   gem 'factory_girl_rails'
   gem 'minitest'
   gem 'minitest-rails'
