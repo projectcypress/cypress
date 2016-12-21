@@ -10,7 +10,7 @@ module MeasuresHelper
   # 3) Measures with Diagnosis Criteria
   # 4) Random Measure
   def pick_measure_id_for_filtering_test(available_measures, bundle)
-    cpc_msrs = available_measures & APP_CONFIG['CPC_measures'].values.flatten
+    cpc_msrs = available_measures & Cypress::AppConfig['CPC_measures'].values.flatten
 
     # this seems slow but there doesn't seem to be any way to do it purely with mongo
     with_diag = bundle.measures.in(hqmf_id: available_measures).select { |m| measure_has_diagnosis_criteria?(m) }.collect!(&:hqmf_id)

@@ -44,7 +44,7 @@ module Cypress
 
     def generate_test(args = nil)
       opts = args ? @options.merge(args) : @options
-      bundle_ver = opts[:version] ? opts[:version] : APP_CONFIG['default_bundle']
+      bundle_ver = opts[:version] ? opts[:version] : Cypress::AppConfig['default_bundle']
       bundle = Bundle.where(version: bundle_ver).first
 
       @logger.info "Generating test for #{opts[:measure].cms_id}"

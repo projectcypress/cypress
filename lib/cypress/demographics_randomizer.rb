@@ -23,16 +23,16 @@ module Cypress
     end
 
     def self.assign_random_name(record, prng)
-      record.first = APP_CONFIG['randomization']['names']['first'][record.gender].sample(random: prng)
-      record.last = APP_CONFIG['randomization']['names']['last'].sample(random: prng)
+      record.first = Cypress::AppConfig['randomization']['names']['first'][record.gender].sample(random: prng)
+      record.last = Cypress::AppConfig['randomization']['names']['last'].sample(random: prng)
     end
 
     def self.randomize_race(record, prng)
-      record.race = APP_CONFIG['randomization']['races'].sample(random: prng)
+      record.race = Cypress::AppConfig['randomization']['races'].sample(random: prng)
     end
 
     def self.randomize_ethnicity(record, prng)
-      record.ethnicity = APP_CONFIG['randomization']['ethnicities'].sample(random: prng)
+      record.ethnicity = Cypress::AppConfig['randomization']['ethnicities'].sample(random: prng)
     end
 
     def self.randomize_address(record)
@@ -57,10 +57,11 @@ module Cypress
     end
 
     def self.randomize_payer(insurance_provider, birthdate)
-      payer = APP_CONFIG['randomization']['payers'].sample
+      payer = Cypress::AppConfig['randomization']['payers'].sample
       # if the payer is Medicare and the patient is < 65 years old at the beginning of the measurement period, try again
-      while payer['name'] == 'Medicare' && Time.at(birthdate).in_time_zone > Time.new(APP_CONFIG['effective_date']['year']).in_time_zone.years_ago(65)
-        payer = APP_CONFIG['randomization']['payers'].sample
+      while payer['name'] == 'Medicare' &&
+            Time.at(birthdate).in_time_zone > Time.new(Cypress::AppConfig['effective_date']['year']).in_time_zone.years_ago(65)
+        payer = Cypress::AppConfig['randomization']['payers'].sample
       end
       insurance_provider.codes = {}
       insurance_provider.codes[payer['codeSystem']] = []

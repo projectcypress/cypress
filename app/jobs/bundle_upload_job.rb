@@ -1,6 +1,5 @@
 class BundleUploadJob < ActiveJob::Base
   include Job::Status
-  include CypressYaml
   DEFAULT_OPTIONS = { delete_existing: false, update_measures: false, exclude_results: false }.freeze
   after_enqueue do |job|
     tracker = job.tracker
@@ -25,8 +24,7 @@ class BundleUploadJob < ActiveJob::Base
       @bundle.active = false
       @bundle.save!
     else
-      APP_CONFIG['default_bundle'] = @bundle.version
-      sub_yml_setting('default_bundle', APP_CONFIG['default_bundle'])
+      Cypress::AppConfig['default_bundle'] = @bundle.version
     end
     MplDownloadCreateJob.perform_later(@bundle.id.to_s)
   end

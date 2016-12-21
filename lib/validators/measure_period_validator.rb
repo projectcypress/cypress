@@ -19,7 +19,7 @@ module Validators
     end
 
     def validate_start
-      measure_start = APP_CONFIG.effective_date.year.to_s + '0101'
+      measure_start = Cypress::AppConfig['effective_date']['year'].to_s + '0101'
       doc_start_time = @document.at_xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
         cda:entry/cda:act[./cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8']]/
         cda:effectiveTime/cda:low/@value")
@@ -35,7 +35,7 @@ module Validators
     end
 
     def validate_end
-      measure_end = APP_CONFIG.effective_date.year.to_s + '1231'
+      measure_end = Cypress::AppConfig['effective_date']['year'].to_s + '1231'
       doc_end_time = @document.at_xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
         cda:entry/cda:act[./cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8']]/
         cda:effectiveTime/cda:high/@value")

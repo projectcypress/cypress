@@ -6,7 +6,6 @@ require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
 require_relative '../lib/hash'
 
-APP_CONFIG = YAML.load(ERB.new(File.read(File.expand_path('../cypress.yml', __FILE__))).result)
 CAT1_CONFIG = YAML.load(File.read(File.expand_path('../cat1checklist.yml', __FILE__)))
 
 # Require the gems listed in Gemfile, including any gems

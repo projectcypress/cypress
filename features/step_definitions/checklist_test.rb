@@ -125,7 +125,7 @@ end
 # # # # # # # #
 
 Then(/^the user should see the checklist test$/) do
-  assert_text(APP_CONFIG['tests']['ChecklistTest']['description'])
+  assert_text(Cypress::AppConfig['tests']['ChecklistTest']['description'])
 end
 
 Then(/^the user should see a button to revisit the checklist test$/) do

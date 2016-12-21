@@ -18,8 +18,8 @@
 <body <%= yield(:body_attributes) %>>
   <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
 
-  <% if APP_CONFIG['banner'] %>
-    <div class="demo"><%= APP_CONFIG['banner_message'] %></div>
+  <% if Cypress::AppConfig['banner'] %>
+    <div class="demo"><%= Cypress::AppConfig['banner_message'] %></div>
   <% end %>
 
   <header role="banner">

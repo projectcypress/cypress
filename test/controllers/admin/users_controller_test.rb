@@ -5,7 +5,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
   def setup
     collection_fixtures 'users', 'roles', 'vendors'
     @user = User.find('4def93dd4f85cf8968000001')
-    APP_CONFIG['ignore_roles'] = false
   end
 
   test 'Admin can view index ' do
@@ -38,18 +37,20 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test 'Admin can update user' do
-    v = Vendor.find('4f57a8791d41c851eb000002')
-    APP_CONFIG['default_role'] = nil
-    u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    FakeFS do
+      v = Vendor.find('4f57a8791d41c851eb000002')
+      Cypress::AppConfig['default_role'] = nil
+      u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 
-    for_each_logged_in_user([ADMIN]) do
-      assert !u.user_role?(:user)
-      assert !u.user_role?(:owner, v)
-      patch :update, :id => u.id, :role => :user, :assignments => { '0' => { :role => :owner, :vendor_id => v.id } }
-      assert_response 302
-      u.reload
-      assert u.user_role?(:user)
-      assert u.user_role?(:owner, v)
+      for_each_logged_in_user([ADMIN]) do
+        assert !u.user_role?(:user)
+        assert !u.user_role?(:owner, v)
+        patch :update, :id => u.id, :role => :user, :assignments => { '0' => { :role => :owner, :vendor_id => v.id } }
+        assert_response 302
+        u.reload
+        assert u.user_role?(:user)
+        assert u.user_role?(:owner, v)
+      end
     end
   end
 

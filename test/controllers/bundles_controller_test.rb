@@ -4,7 +4,7 @@ class BundlesControllerTest < ActionController::TestCase
   include ActiveJob::TestHelper
   setup do
     collection_fixtures('bundles', 'measures', 'records', 'users', 'roles')
-    FileUtils.rm_rf(APP_CONFIG.bundle_file_path)
+    FileUtils.rm_rf(Cypress::AppConfig['bundle_file_path'])
   end
 
   # # # # # # #

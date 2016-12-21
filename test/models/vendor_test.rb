@@ -42,64 +42,74 @@ class VendorTest < ActiveSupport::TestCase
   end
 
   def test_vendor_poc_can_be_associated_with_user
-    APP_CONFIG['auto_associate_pocs'] = true
-    v = Vendor.new(name: 'test_vendor_name')
-    p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
-    p.vendor = v
-    assert v.save!
-    assert (p.user.user_role? :vendor, v), 'Point of contact should have been associated with user'
+    FakeFS do
+      Cypress::AppConfig['auto_associate_pocs'] = true
+      v = Vendor.new(name: 'test_vendor_name')
+      p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
+      p.vendor = v
+      assert v.save!
+      assert (p.user.user_role? :vendor, v), 'Point of contact should have been associated with user'
+    end
   end
 
   def test_updated_vendor_poc_can_be_associated_with_user
-    APP_CONFIG['auto_associate_pocs'] = true
-    v = Vendor.new(name: 'test_vendor_name')
-    p = PointOfContact.new(name: 'test_poc_name')
-    p.vendor = v
-    assert v.save!
-    assert p.user.nil?, 'User for POC should be nil'
-    p.email = 'vendor@test.com'
-    p.save
-    assert (p.user.user_role? :vendor, v), 'Point of contact should have been associated with user'
+    FakeFS do
+      Cypress::AppConfig['auto_associate_pocs'] = true
+      v = Vendor.new(name: 'test_vendor_name')
+      p = PointOfContact.new(name: 'test_poc_name')
+      p.vendor = v
+      assert v.save!
+      assert p.user.nil?, 'User for POC should be nil'
+      p.email = 'vendor@test.com'
+      p.save
+      assert (p.user.user_role? :vendor, v), 'Point of contact should have been associated with user'
+    end
   end
 
   def test_vendor_poc_cannot_be_associated_with_user_if_turned_off
-    APP_CONFIG['auto_associate_pocs'] = false
-    v = Vendor.new(name: 'test_vendor_name')
-    p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
-    p.vendor = v
-    assert v.save!
-    assert !p.user.user_role?(:vendor, v), 'Point of contact users should not have vendor role '
+    FakeFS do
+      Cypress::AppConfig['auto_associate_pocs'] = false
+      v = Vendor.new(name: 'test_vendor_name')
+      p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
+      p.vendor = v
+      assert v.save!
+      assert !p.user.user_role?(:vendor, v), 'Point of contact users should not have vendor role'
+    end
   end
 
   def test_updated_vendor_poc_cannot_be_associated_with_user_if_turned_off
-    APP_CONFIG['auto_associate_pocs'] = false
-    v = Vendor.new(name: 'test_vendor_name')
-    p = PointOfContact.new(name: 'test_poc_name')
-    p.vendor = v
-    assert v.save!
-    assert p.user.nil?, 'User for POC should be nil'
-    p.email = 'vendor@test.com'
-    p.save
-    assert !p.user.user_role?(:vendor, v), 'Point of contact users should not have vendor role '
+    FakeFS do
+      Cypress::AppConfig['auto_associate_pocs'] = false
+      v = Vendor.new(name: 'test_vendor_name')
+      p = PointOfContact.new(name: 'test_poc_name')
+      p.vendor = v
+      assert v.save!
+      assert p.user.nil?, 'User for POC should be nil'
+      p.email = 'vendor@test.com'
+      p.save
+      assert !p.user.user_role?(:vendor, v), 'Point of contact users should not have vendor role'
+    end
   end
 
   def test_changing_poc_email_updates_user_roles
-    APP_CONFIG['auto_associate_pocs'] = true
-    v = Vendor.new(name: 'test_vendor_name')
-    p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
-    vu = User.find(VENDOR)
-    vo = User.find(OTHER_VENDOR)
-    p.vendor = v
-    assert v.save!
-    assert (p.user.user_role? :vendor, v), 'Point of contact should have been associated with user'
-    assert (p.user == vu), 'POC user should be same as vendor '
-    p.email = 'other@test.com'
-    p.save
+    FakeFS do
+      Cypress::AppConfig['auto_associate_pocs'] = true
+      v = Vendor.new(name: 'test_vendor_name')
+      p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
+      vu = User.find(VENDOR)
+      vo = User.find(OTHER_VENDOR)
+      p.vendor = v
+      assert v.save!
+      assert (p.user.user_role? :vendor, v), 'Point of contact should have been associated with user'
+      assert (p.user == vu), 'POC user should be same as vendor '
+      p.email = 'other@test.com'
+      p.save
 
-    vu.reload
-    assert (p.user.user_role? :vendor, v), 'Point of contact should have been associated with user'
-    assert (p.user == vo), 'POC user should be same as other vendor '
-    assert !vu.user_role?(:vendor, v), 'Vendor role should have been removed from vendor user'
+      vu.reload
+      assert (p.user.user_role? :vendor, v), 'Point of contact should have been associated with user'
+      assert (p.user == vo), 'POC user should be same as other vendor '
+      assert !vu.user_role?(:vendor, v), 'Vendor role should have been removed from vendor user'
+    end
   end
 
   def test_vendor_with_multiple_pocs_can_be_saved

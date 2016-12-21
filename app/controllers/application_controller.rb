@@ -28,15 +28,18 @@ class ApplicationController < ActionController::Base
   end
 
   def mode_internal?
-    APP_CONFIG['auto_approve'] && APP_CONFIG['ignore_roles'] && APP_CONFIG['enable_debug_features'] && APP_CONFIG['default_role'].nil?
+    Cypress::AppConfig['auto_approve'] && Cypress::AppConfig['ignore_roles'] && Cypress::AppConfig['enable_debug_features'] &&
+      Cypress::AppConfig['default_role'].nil?
   end
 
   def mode_demo?
-    APP_CONFIG['auto_approve'] && !APP_CONFIG['ignore_roles'] && APP_CONFIG['enable_debug_features'] && APP_CONFIG['default_role'] == :user
+    Cypress::AppConfig['auto_approve'] && !Cypress::AppConfig['ignore_roles'] && Cypress::AppConfig['enable_debug_features'] &&
+      Cypress::AppConfig['default_role'] == :user
   end
 
   def mode_atl?
-    !APP_CONFIG['auto_approve'] && !APP_CONFIG['ignore_roles'] && !APP_CONFIG['enable_debug_features'] && APP_CONFIG['default_role'].nil?
+    !Cypress::AppConfig['auto_approve'] && !Cypress::AppConfig['ignore_roles'] && !Cypress::AppConfig['enable_debug_features'] &&
+      Cypress::AppConfig['default_role'].nil?
   end
 
   def application_mode
@@ -71,7 +74,7 @@ class ApplicationController < ActionController::Base
   def check_backend_jobs
     running = false
     begin
-      running = !Dir.new(APP_CONFIG.pid_dir).entries.empty?
+      running = !Dir.new(Cypress::AppConfig['pid_dir']).entries.empty?
     rescue
     end
 
@@ -84,8 +87,7 @@ class ApplicationController < ActionController::Base
 
   def check_bundle_installed
     unless any_bundle
-      bundle_references = APP_CONFIG['references']['bundles']
-      install_instr = APP_CONFIG['references']['install_guide']
+      install_instr = Cypress::AppConfig['references']['install_guide']
 
       install_instr_link = view_context.link_to install_instr['title'], install_instr['url']
 
@@ -131,9 +133,7 @@ class ApplicationController < ActionController::Base
 
   def required_ability(auth_map)
     ability = nil
-    auth_map.each_pair do |k, actions|
-      ability = k if actions.is_a?(Array) && actions.include?(params[:action])
-    end
+    auth_map.each_pair { |k, actions| ability = k if actions.is_a?(Array) && actions.include?(params[:action]) }
     ability
   end
 

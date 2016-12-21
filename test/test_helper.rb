@@ -6,6 +6,7 @@ SimpleCov.start 'rails'
 SimpleCov.minimum_coverage 77
 Mongo::Logger.logger.level = Logger::WARN
 ENV['RAILS_ENV'] ||= 'test'
+ENV['IGNORE_ROLES'] ||= 'false'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
@@ -25,7 +26,9 @@ Mongoid.logger.level = Logger::INFO
 
 class ActiveSupport::TestCase
   def setup
-    APP_CONFIG['ignore_roles'] = false
+    # Clone the cypress config yaml path whenever we use FakeFS in order to avoid
+    # File not Found errors when calling Cypress::AppConfig
+    FakeFS::FileSystem.clone(File.expand_path("#{Rails.root}/config/cypress.yml"))
   end
 
   def teardown

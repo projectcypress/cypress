@@ -27,7 +27,7 @@ class TasksController < ApplicationController
   end
 
   def good_results
-    redirect_to(:back) && return unless APP_CONFIG['enable_debug_features']
+    redirect_to(:back) && return unless Cypress::AppConfig['enable_debug_features']
     task_type = @task._type
     redirect_to(:back) && return if %w(C3Cat1Task C3Cat3Task).include? task_type
 

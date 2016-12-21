@@ -37,7 +37,7 @@ class PointOfContact
   private
 
   def associate_vendors
-    add_vendor_role if APP_CONFIG.auto_associate_pocs
+    add_vendor_role if Cypress::AppConfig['auto_associate_pocs']
   end
 
   def check_for_email_changes

@@ -1,6 +1,5 @@
 class MplDownloadCreateJob < ActiveJob::Base
   include Job::Status
-  include CypressYaml
   after_enqueue do |job|
     tracker = job.tracker
     tracker.options['original_filename'] = job.arguments[1]

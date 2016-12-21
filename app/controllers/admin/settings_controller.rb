@@ -1,7 +1,5 @@
 module Admin
   class SettingsController < AdminController
-    include CypressYaml
-
     def show
       redirect_to admin_path(anchor: 'application_settings')
     end
@@ -9,8 +7,8 @@ module Admin
     def edit
       add_breadcrumb 'Edit Settings', :edit_settings_path
       render locals: {
-        banner_message: APP_CONFIG['banner_message'],
-        banner: APP_CONFIG['banner'],
+        banner_message: Cypress::AppConfig['banner_message'],
+        banner: Cypress::AppConfig['banner'],
         smtp_settings: Rails.application.config.action_mailer.smtp_settings,
         mode: application_mode,
         mode_settings: application_mode_settings,
@@ -20,41 +18,26 @@ module Admin
 
     def update
       update_application_mode params[:mode], params[:custom_options]
-      write_settings_to_yml(params)
+      update_banner params
+      update_mailer_settings params
       redirect_to admin_path(anchor: 'application_settings')
     end
 
     private
 
-    def write_settings_to_yml(settings)
-      write_banner_message(settings)
-      write_mailer_settings(settings)
-      write_mode_settings
+    def update_banner(settings)
+      Cypress::AppConfig['banner_message'] = settings['banner_message']
+      Cypress::AppConfig['banner'] = settings['banner'] == '1'
     end
 
-    def write_banner_message(settings)
-      sub_yml_setting('banner_message', settings['banner_message'])
-      sub_yml_setting('banner', settings['banner'] == '1')
-      APP_CONFIG['banner_message'] = settings['banner_message']
-      APP_CONFIG['banner'] = settings['banner'] == '1'
-    end
-
-    def write_mailer_settings(settings)
+    def update_mailer_settings(settings)
       settings.each_pair do |key, val|
         key_str = key.to_s
         next unless key_str.include? 'mailer_'
         val = val == '' ? nil : val.to_i if key_str == 'mailer_port'
-        sub_yml_setting(key_str, val)
         env_config_key = key_str.sub('mailer_', '').to_sym
         Rails.application.config.action_mailer.smtp_settings[env_config_key] = val
       end
-    end
-
-    def write_mode_settings
-      sub_yml_setting('auto_approve', APP_CONFIG['auto_approve'])
-      sub_yml_setting('ignore_roles', APP_CONFIG['ignore_roles'])
-      sub_yml_setting('default_role', APP_CONFIG['default_role'])
-      sub_yml_setting('enable_debug_features', APP_CONFIG['enable_debug_features'])
     end
 
     def update_application_mode(mode_name, options = {})
