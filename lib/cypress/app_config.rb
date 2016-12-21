@@ -36,8 +36,7 @@ module Cypress
 
       # Allow setting app config during app init, before Rails.cache exists
       if Rails.cache.nil?
-        @init_app_config = YAML.load(ERB.new(File.read("#{Rails.root}/config/cypress.yml")).result) if @init_app_config.nil?
-        @init_app_config[key] = val
+        @init_app_config = YAML.load(ERB.new(File.read("#{Rails.root}/config/cypress.yml")).result)
       else
         Rails.cache.delete('config_values')
       end
