@@ -36,7 +36,6 @@ module Cypress
 
     def export(patient)
       cms_compatible = true if patient.product_test && patient.product_test.product.c3_test
-      # qrda version is hard coded right now!!!
       case patient.bundle.qrda_version
       when 'r3'
         C3EXPORTER.export(patient, measures, start_time, end_time, nil, 'r3', cms_compatible)
