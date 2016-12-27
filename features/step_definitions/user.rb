@@ -1,7 +1,6 @@
 Given(/^the user is signed in$/) do
   steps %( Given a user has an account )
   login_as @user, :scope => :user
-  Cypress::AppConfig['ignore_roles'] = false
   steps %( Given the user is on the sign in page )
 end
 

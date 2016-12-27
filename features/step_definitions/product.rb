@@ -17,7 +17,6 @@ Given(/^the user is signed in as a non admin$/) do
   @user = FactoryGirl.create(:user)
   @user.approved = true
   login_as @user, :scope => :user
-  Cypress::AppConfig['ignore_roles'] = false
   steps %( Given the user is on the sign in page )
 end
 
