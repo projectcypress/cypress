@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 <div class="panel-heading"><h1>Import Bundle</h1></div>
 
-<%= bootstrap_form_tag url: admin_bundles_url, html: {id: "add_bundle_form"} do |f| %>
+<%= bootstrap_form_tag url: admin_bundles_path, html: {id: "add_bundle_form"} do |f| %>
   <div class="panel-body">
     <%= f.file_field :file, label: 'Bundle', accept: 'application/zip' %>
   </div>
