@@ -1,11 +1,10 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   def test_user_can_be_associated_with_poc
     FakeFS do
+      setup_fakefs
+
       Cypress::AppConfig['auto_associate_pocs'] = true
       Vendor.destroy_all
       v = Vendor.new(name: 'test_vendor_name')
@@ -21,6 +20,8 @@ class UserTest < ActiveSupport::TestCase
 
   def test_user_cannot_be_associated_with_poc_if_turned_off
     FakeFS do
+      setup_fakefs
+
       Cypress::AppConfig['auto_associate_pocs'] = false
       Vendor.destroy_all
       v = Vendor.new(name: 'test_vendor_name')
@@ -35,6 +36,8 @@ class UserTest < ActiveSupport::TestCase
 
   def test_assign_default_role
     FakeFS do
+      setup_fakefs
+
       Cypress::AppConfig['default_role'] = :user
       u = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
       assert u.user_role? :user
