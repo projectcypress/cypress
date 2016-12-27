@@ -43,6 +43,8 @@ class VendorTest < ActiveSupport::TestCase
 
   def test_vendor_poc_can_be_associated_with_user
     FakeFS do
+      setup_fakefs
+
       Cypress::AppConfig['auto_associate_pocs'] = true
       v = Vendor.new(name: 'test_vendor_name')
       p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
@@ -54,6 +56,8 @@ class VendorTest < ActiveSupport::TestCase
 
   def test_updated_vendor_poc_can_be_associated_with_user
     FakeFS do
+      setup_fakefs
+
       Cypress::AppConfig['auto_associate_pocs'] = true
       v = Vendor.new(name: 'test_vendor_name')
       p = PointOfContact.new(name: 'test_poc_name')
@@ -68,6 +72,8 @@ class VendorTest < ActiveSupport::TestCase
 
   def test_vendor_poc_cannot_be_associated_with_user_if_turned_off
     FakeFS do
+      setup_fakefs
+
       Cypress::AppConfig['auto_associate_pocs'] = false
       v = Vendor.new(name: 'test_vendor_name')
       p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
@@ -79,6 +85,8 @@ class VendorTest < ActiveSupport::TestCase
 
   def test_updated_vendor_poc_cannot_be_associated_with_user_if_turned_off
     FakeFS do
+      setup_fakefs
+
       Cypress::AppConfig['auto_associate_pocs'] = false
       v = Vendor.new(name: 'test_vendor_name')
       p = PointOfContact.new(name: 'test_poc_name')
@@ -93,6 +101,8 @@ class VendorTest < ActiveSupport::TestCase
 
   def test_changing_poc_email_updates_user_roles
     FakeFS do
+      setup_fakefs
+
       Cypress::AppConfig['auto_associate_pocs'] = true
       v = Vendor.new(name: 'test_vendor_name')
       p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')

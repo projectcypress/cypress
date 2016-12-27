@@ -38,6 +38,9 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test 'Admin can update user' do
     FakeFS do
+      # Defined in test_helper
+      setup_fakefs
+
       v = Vendor.find('4f57a8791d41c851eb000002')
       Cypress::AppConfig['default_role'] = nil
       u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
