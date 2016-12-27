@@ -19,6 +19,8 @@ fi
 
 # Function takes 1 parameter which is the name of the tag to pull, in $1
 function pull_git_tag() {
+  # Backup the users config before we start the upgrade and preserve file permissions
+  cp --preserve config/cypress.yml config/cypress.yml.old
   # Try to run the commands as the cypress user, if we get a nonzero return value then try again
   # as root.
   sudo -u cypress git -c user.name=tmp -c user.email=tmp@tmp.com stash
@@ -32,13 +34,13 @@ function pull_git_tag() {
     sudo -u cypress git stash pop
     rc=$?
     if [[ $rc != 0 ]]; then
-      sudo -u cypress cp config/cypress.yml config/cypress.yml.old
-      echo "WARNING: Unable to merge cypress config cleanly, you will need to manually reset your settings in `pwd`/config/cypress.yml manually or through the admin control panel."
-      echo "The old version of your config file can be found at `pwd`/config/cypress.yml.old"
-      # Since the file is in an unclean state, we reset it back to how it looked in upstream.
+      echo "Unable to merge cypress config cleanly."
       sudo -u cypress git reset HEAD config/cypress.yml
       sudo -u cypress git checkout config/cypress.yml
       sudo -u cypress git stash drop
+      sudo -u cypress mv config/cypress.yml config/cypress.yml.new
+      sudo -u cypress mv config/cypress.yml.old config/cypress.yml
+      ucf config/cypress.yml.new config/cypress.yml
     fi
   else
     echo "Handling previous error..."
@@ -52,12 +54,13 @@ function pull_git_tag() {
     rc=$?
     if [[ $rc != 0 ]]; then
       cp config/cypress.yml config/cypress.yml.old
-      echo "WARNING: Unable to merge cypress config cleanly, you will need to manually reset your settings in `pwd`/config/cypress.yml manually or through the admin control panel."
-      echo "The old version of your config file can be found at `pwd`/config/cypress.yml.old"
-      # First time marks conflict as resolved, second unstages changes
+      echo "Unable to merge cypress config cleanly."
       git reset HEAD config/cypress.yml
-      git reset HEAD config/cypress.yml
+      git checkout config/cypress.yml
       git stash drop
+      mv config/cypress.yml config/cypress.yml.new
+      mv config/cypress.yml.old config/cypress.yml
+      ucf config/cypress.yml.new config/cypress.yml
     fi
   fi
 }
