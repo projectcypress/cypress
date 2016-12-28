@@ -81,8 +81,7 @@ class Product
     update_attributes(product_params)
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
-
-      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest) if c2_test
+      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
     end
     # remove measure and checklist tests if their measure ids have been removed
     product_tests.in(measure_ids: (old_ids - new_ids)).destroy

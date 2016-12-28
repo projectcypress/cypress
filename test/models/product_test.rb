@@ -121,15 +121,6 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal 0, product.product_tests.checklist_tests.count
   end
 
-  def test_update_with_measure_tests_creates_no_measure_tests_if_c2_not_selected
-    measure_ids = ['40280381-4BE2-53B3-014C-0F589C1A1C39']
-    product = @vendor.products.new
-    params = { name: "my product #{rand}", c1_test: true, 'measure_ids' => measure_ids, bundle_id: '4fdb62e01d41c820f6000001' }
-    product.update_with_measure_tests(params)
-    assert_equal 0, product.product_tests.measure_tests.count
-    assert_equal 1, product.product_tests.checklist_tests.count
-  end
-
   def test_add_filtering_tests
     pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'],
                      bundle_id: '4fdb62e01d41c820f6000001')
@@ -213,11 +204,6 @@ class ProducTest < ActiveSupport::TestCase
     # remove all measure tests so creating checked criteria will use all measures
     # also remove all checklist tests
     product.product_tests.each(&:destroy)
-
-    # should create checked criteria for all measures
-    product.add_checklist_test
-    assert_equal 1, product.product_tests.checklist_tests.count
-    assert_equal product.measure_ids.count, product.product_tests.checklist_tests.first.measures.count
   end
 
   # # # # # # # # # # # # # # # #
