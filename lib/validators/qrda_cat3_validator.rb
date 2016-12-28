@@ -29,6 +29,8 @@ module Validators
           add_errors Cat3.instance.validate(@doc, file_name: @options[:file_name])
         elsif @bundle.qrda3_version == 'r1_1'
           add_errors Cat3R11.instance.validate(@doc, file_name: @options[:file_name])
+        elsif @bundle.qrda3_version == 'r2'
+          add_errors Cat3R2.instance.validate(@doc, file_name: @options[:file_name])
         end
         add_errors CDA.instance.validate(@doc, file_name: @options[:file_name])
       end
