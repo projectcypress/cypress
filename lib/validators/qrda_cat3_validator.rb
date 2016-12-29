@@ -25,14 +25,18 @@ module Validators
       # Add if it isn't C3 or if it is and there isn't a C2
       if !@is_c3_validation_task || (@is_c3_validation_task && !@test_has_c2)
         add_errors Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])
-        if @bundle.qrda3_version == 'r1'
-          add_errors Cat3.instance.validate(@doc, file_name: @options[:file_name])
-        elsif @bundle.qrda3_version == 'r1_1'
-          add_errors Cat3R11.instance.validate(@doc, file_name: @options[:file_name])
-        elsif @bundle.qrda3_version == 'r2'
-          add_errors Cat3R2.instance.validate(@doc, file_name: @options[:file_name])
-        end
+        validate_qrda
         add_errors CDA.instance.validate(@doc, file_name: @options[:file_name])
+      end
+    end
+
+    def validate_qrda
+      if @bundle.qrda3_version == 'r1'
+        add_errors Cat3.instance.validate(@doc, file_name: @options[:file_name])
+      elsif @bundle.qrda3_version == 'r1_1'
+        add_errors Cat3R11.instance.validate(@doc, file_name: @options[:file_name])
+      elsif @bundle.qrda3_version == 'r2'
+        add_errors Cat3R2.instance.validate(@doc, file_name: @options[:file_name])
       end
     end
 

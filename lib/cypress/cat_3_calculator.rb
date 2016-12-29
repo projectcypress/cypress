@@ -94,9 +94,13 @@ module Cypress
                             @bundle.qrda3_version,
                             nil,
                             @correlation_id)
+      clean_up
+      xml
+    end
+
+    def clean_up
       QME::PatientCache.where(test_id: @correlation_id).destroy_all
       HealthDataStandards::CQM::QueryCache.where(test_id: @correlation_id).destroy_all
-      xml
     end
   end
 end
