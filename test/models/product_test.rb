@@ -67,14 +67,14 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal false, saved, 'Should not be able to save without at least one certification type'
   end
 
-  def test_must_certify_to_c1_or_c2_or_c4
-    pt = Product.new(vendor: @vendor, name: 'test_product', c3_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'], bundle_id: '4fdb62e01d41c820f6000001')
+  def test_must_certify_to_c1_or_c2_or_c3_or_c4
+    pt = Product.new(vendor: @vendor, name: 'test_product', measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'], bundle_id: '4fdb62e01d41c820f6000001')
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
     assert_equal false, pt.valid?, 'record should not be valid'
     saved = pt.save
-    assert_equal false, saved, 'Should not be able to save without C1, C2, or C4'
+    assert_equal false, saved, 'Should not be able to save without C1, C2, C3, or C4'
   end
 
   def test_can_have_multiple_certification_test_types
