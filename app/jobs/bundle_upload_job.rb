@@ -6,13 +6,9 @@ class BundleUploadJob < ActiveJob::Base
     tracker.options['original_filename'] = job.arguments[1]
     tracker.save
   end
-  def perform(file, _original_file_name, options = {})
+  def perform(file, original_file_name, options = {})
     tracker.log('Importing')
-    unless File.extname(file) == '.zip'
-      # tracker.fail 'Bundle must be a Zip file'
-      # tracker.log("file name #{file}")
-      return
-    end
+    raise('Bundle must have extension .zip') unless File.extname(original_file_name) == '.zip'
     bundle_file = File.new(file)
     options = DEFAULT_OPTIONS.merge(options)
     already_have_default = Bundle.where(active: true).exists?
