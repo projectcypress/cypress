@@ -7,14 +7,16 @@ module Validators
 
     self.validator = :qrda_cat1
 
-    def initialize(bundle, is_c3_validation_task, test_has_c3, measures = [])
+    def initialize(bundle, is_c3_validation_task, test_has_c3, test_has_c1, measures = [])
       @test_has_c3 = test_has_c3
       @measures = measures
+      format_validators = bundle.qrda_version == 'r3' ? [CDA.instance, Cat1.instance] : [CDA.instance, Cat1R31.instance]
       @validators = if is_c3_validation_task
                       [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
                     else
-                      bundle.qrda_version == 'r3' ? [CDA.instance, Cat1.instance] : [CDA.instance, Cat1R31.instance]
+                      format_validators
                     end
+      @validators + format_validators if is_c3_validation_task && !test_has_c1
     end
 
     # Validates a QRDA Cat I file.  This routine will validate the file against the CDA schema as well as the

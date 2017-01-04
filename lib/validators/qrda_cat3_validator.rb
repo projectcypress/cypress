@@ -6,9 +6,11 @@ module Validators
 
     self.validator = :qrda_cat3
 
-    def initialize(expected_results, test_has_c3, bundle)
+    def initialize(expected_results, is_c3_validation_task, test_has_c3, test_has_c2, bundle)
       @bundle = bundle
+      @is_c3_validation_task = is_c3_validation_task
       @test_has_c3 = test_has_c3
+      @test_has_c2 = test_has_c2
       @expected_results = expected_results
     end
 
@@ -17,9 +19,11 @@ module Validators
       @options = options
 
       # I don't like this right now but do it this way just to get things moving
-      if options[:validate_reporting]
+      if @is_c3_validation_task
         add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name])
-      else
+      end
+      # Add if it isn't C3 or if it is and there isn't a C2
+      if !@is_c3_validation_task || (@is_c3_validation_task && !@test_has_c2)
         add_errors Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])
         if @bundle.qrda3_version == 'r1'
           add_errors Cat3.instance.validate(@doc, file_name: @options[:file_name])

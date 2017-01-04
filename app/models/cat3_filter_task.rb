@@ -1,6 +1,10 @@
 class Cat3FilterTask < Task
   def validators
-    @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results, product_test.product.c3_test, product_test.bundle),
+    @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results,
+                                                       false,
+                                                       product_test.product.c3_test,
+                                                       product_test.product.c2_test,
+                                                       product_test.bundle),
                    ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
   end
 

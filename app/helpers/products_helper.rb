@@ -226,11 +226,15 @@ module ProductsHelper
   end
 
   # Should a C1 or C2 status column be displayed, or only the C3
-  def include_first_task(product, task_type)
-    case task_type
+  def include_first_task(product, first_task_type)
+    case first_task_type
     when 'C1Task'
+      # True - Display "C1 column" when the first task type being displayed is a C1Task and the product has a C1 test
+      # False - Don't display "C1 column" when the product does not have a C1 test
       product.c1_test ? true : false
     when 'C2Task'
+      # True - Display "C2 column" when the first task type being displayed is a C2Task and the product has a C2 test
+      # False - Don't display "C2 column" when the product does not have a C2 test
       product.c2_test ? true : false
     end
   end

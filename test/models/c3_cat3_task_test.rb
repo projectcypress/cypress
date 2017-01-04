@@ -9,6 +9,7 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
                         'health_data_standards_svs_value_sets')
     @test = ProductTest.find('51703a883054cf84390000d3')
     @test.product.c3_test = true
+    @test.product.c2_test = true
     @task = @test.tasks.create({}, C3Cat3Task)
   end
 

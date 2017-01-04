@@ -6,8 +6,6 @@
 <% product_status_values = get_product_status_values(product) %>
 
 <% not_certifying = '' %>
-<!-- not_certifying << 'hide-c1 ' unless product.c1_test || product.c3_test %-->
-<!--% not_certifying << 'hide-c2 ' unless product.c2_test || product.c3_test %-->
 <% not_certifying << 'hide-c1 ' unless product.c1_test %>
 <% not_certifying << 'hide-c2 ' unless product.c2_test %>
 <% not_certifying << 'hide-c3 ' unless product.c3_test %>

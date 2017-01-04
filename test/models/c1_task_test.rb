@@ -36,6 +36,7 @@ class C1TaskTest < ActiveSupport::TestCase
 
   def test_should_be_able_to_tell_when_wrong_number_of_documents_are_supplied_in_archive
     task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_many_files.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip)
