@@ -44,7 +44,7 @@
       <% # Measure Test Tabs (both C1 or C2 tabs) %>
       <% if test_type == 'MeasureTest' %>
         <div id="display_measure_tests_table">
-          <%= render partial: 'measure_tests_table', locals: { product: @product, get_c1_tasks: title.include?('C1'),
+          <%= render partial: 'measure_tests_table', locals: { product: @product, get_c1_tasks: (title.include?('C1') || title.include?('C3') && !title.include?('QRDA-III')),
             html_id: html_id } %>
         </div>
       <% end %>

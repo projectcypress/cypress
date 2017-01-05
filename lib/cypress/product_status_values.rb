@@ -26,8 +26,8 @@ module Cypress
         default_number = CAT1_CONFIG['number_of_checklist_measures']
         h['Manual']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
       end
-      cat1_status_values = product.c1_test ? product_test_statuses(product.product_tests.measure_tests, 'C3Cat1Task') : [0, 0, 0, 0, 0]
-      cat3_status_values = product.c2_test ? product_test_statuses(product.product_tests.measure_tests, 'C3Cat3Task') : [0, 0, 0, 0, 0]
+      cat1_status_values = product_test_statuses(product.product_tests.measure_tests, 'C3Cat1Task')
+      cat3_status_values = product_test_statuses(product.product_tests.measure_tests, 'C3Cat3Task')
       h['QRDA Category I'] = Hash[%w(passing failing errored not_started total).zip(cat1_status_values)]
       h['QRDA Category III'] = Hash[%w(passing failing errored not_started total).zip(cat3_status_values)]
       h

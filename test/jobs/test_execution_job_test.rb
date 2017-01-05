@@ -25,6 +25,7 @@ class TestExecutionJobTest < ActiveJob::TestCase
     assert_enqueued_jobs 0
 
     ptest = ProductTest.find('51703a6a3054cf8439000044')
+    ptest.product.c2_test = true
     task = ptest.tasks.create({}, C2Task)
     te = task.test_executions.create({})
 

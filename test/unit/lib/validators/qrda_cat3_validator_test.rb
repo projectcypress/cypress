@@ -8,8 +8,8 @@ class QrdaCat3ValidatorTest < ActiveSupport::TestCase
                         'health_data_standards_svs_value_sets')
     @product_test = ProductTest.find('51703a6a3054cf8439000044')
 
-    @validator_with_c3 = QrdaCat3Validator.new(@product_test.expected_results, true, @product_test.bundle)
-    @validator_without_c3 = QrdaCat3Validator.new(@product_test.expected_results, false, @product_test.bundle)
+    @validator_with_c3 = QrdaCat3Validator.new(@product_test.expected_results, true, true, true, @product_test.bundle)
+    @validator_without_c3 = QrdaCat3Validator.new(@product_test.expected_results, false, false, true, @product_test.bundle)
   end
 
   def test_validate_good_file

@@ -48,7 +48,7 @@ class TestExecution
   end
 
   def conditionally_add_task_specific_errors(file_count)
-    if task.is_a?(C1Task) && file_count != task.records.count
+    if (task.is_a?(C1Task) && task.product_test.product.c1_test) && file_count != task.records.count
       execution_errors.build(:message => "#{task.records.count} files expected but was #{file_count}",
                              :msg_type => :error, :validator_type => :result_validation, :validator => :smoking_gun)
     end

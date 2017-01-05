@@ -27,8 +27,8 @@
         <th scope="col">Submeasures</th>
         <%= @product.c1_test ? "<th scope='col' class = 'text-center'>C1 QRDA Category I</th>".html_safe : "<td></td>".html_safe %>
         <%= @product.c2_test ? "<th scope='col' class = 'text-center'>C2 QRDA Category III</th>".html_safe : "<td></td>".html_safe %>
-        <%= @product.c1_test && @product.c3_test ? "<th scope='col' class = 'text-center'>C3 QRDA Category I</th>".html_safe : "<td></td>".html_safe %>
-        <%= @product.c2_test && @product.c3_test ? "<th scope='col' class = 'text-center'>C3 QRDA Category III</th>".html_safe : "<td></td>".html_safe %>
+        <%= @product.c3_test ? "<th scope='col' class = 'text-center'>C3 QRDA Category I</th>".html_safe : "<td></td>".html_safe %>
+        <%= @product.c3_test ? "<th scope='col' class = 'text-center'>C3 QRDA Category III</th>".html_safe : "<td></td>".html_safe %>
       </tr>
     </thead>
     <tbody>
@@ -48,8 +48,8 @@
           </td>
           <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c1_task.passing? } if @product.c1_test %></td>
           <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c2_task.passing? } if @product.c2_test %></td>
-          <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c3_cat1_task.passing? } if @product.c1_test && @product.c3_test %></td>
-          <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c3_cat3_task.passing? } if @product.c2_test && @product.c3_test %></td>
+          <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c3_cat1_task.passing? } if @product.c3_test %></td>
+          <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c3_cat3_task.passing? } if @product.c3_test %></td>
         </tr>
       <% end %>
     </tbody>
@@ -92,38 +92,40 @@
 </section>
 
 <% # C1 - Capture and Export %>
-<% if @product.c1_test %>
+<% if @product.c1_test || @product.c3_test %>
 <section>
   <h1>C1 - Capture and Export</h1>
 
+  <% if @product.c1_test %>
   <h2>C1 Manual Entry</h2>
-  <% unless @product.product_tests.checklist_tests.count == 0 %>
-    <% check_test = @product.product_tests.checklist_tests.first %>
-    <% check_test.measures.top_level.each do |measure| %>
-      <strong><%= "#{measure.cms_id} #{measure.name}" %></strong>
-      <table class = 'table table-condensed'>
-        <thead>
-          <tr>
-            <td></td>
-            <th scope="col">Description</th>
-            <th scope="col">Attribute</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% # check_crit is an individual checked criteria %>
-          <% check_test.checked_criteria.all(measure_id: measure.id).each do |check_crit| %>
-            <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == check_crit.source_data_criteria }.values.first %>
+    <% unless @product.product_tests.checklist_tests.count == 0 %>
+      <% check_test = @product.product_tests.checklist_tests.first %>
+      <% check_test.measures.top_level.each do |measure| %>
+        <strong><%= "#{measure.cms_id} #{measure.name}" %></strong>
+        <table class = 'table table-condensed'>
+          <thead>
             <tr>
-              <td><%= render partial: 'products/report/status_icon', locals: { passing: check_crit.complete? } %></td>
-              <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
-              <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
+              <td></td>
+              <th scope="col">Description</th>
+              <th scope="col">Attribute</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% # check_crit is an individual checked criteria %>
+            <% check_test.checked_criteria.all(measure_id: measure.id).each do |check_crit| %>
+              <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == check_crit.source_data_criteria }.values.first %>
+              <tr>
+                <td><%= render partial: 'products/report/status_icon', locals: { passing: check_crit.complete? } %></td>
+                <td><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    <% else %>
+      <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Manual Entry Test has not been started.</p>
     <% end %>
-  <% else %>
-    <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Manual Entry Test has not been started.</p>
   <% end %>
 
   <% # C1 Not Started Measure Tests %>
@@ -137,7 +139,7 @@
 <% end %>
 
 <% # C2 - Import and Calculate %>
-<% if @product.c2_test %>
+<% if @product.c2_test || @product.c3_test %>
 <section>
   <h1>C2 - Import and Calculate</h1>
 
@@ -155,8 +157,6 @@
 <% if @product.c3_test %>
 <section>
   <h1>C3 - Submission</h1>
-
-  <% if @product.c1_test %>
     <% # C3 Cat 1 Not Started Measure Tests %>
     <% c3_cat1_not_started_tasks = @product.product_tests.measure_tests.collect { |test| test.tasks.c1_task if test.tasks.c3_cat1_task.status == 'incomplete' }.compact %>
     <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C3 QRDA Category I Not Started Measure Tests', tasks: c3_cat1_not_started_tasks, c3: true } %>
@@ -164,9 +164,7 @@
     <% # C3 Cat 1 Failing Measure Tests %>
     <% c3_cat1_failing_tasks = @product.product_tests.measure_tests.collect { |test| test.tasks.c1_task if test.tasks.c3_cat1_task.status == 'failing' }.compact %>
     <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C3 QRDA Category I Failing Measure Tests', tasks: c3_cat1_failing_tasks, c3: true } %>
-  <% end %>
 
-  <% if @product.c2_test %>
     <% # C3 Cat 3 Not Started Measure Tests %>
     <% c3_cat3_not_started_tasks = @product.product_tests.measure_tests.collect { |test| test.tasks.c2_task if test.tasks.c3_cat3_task.status == 'incomplete' }.compact %>
     <%= render partial: 'products/report/measure_tests_list', locals: { title: 'C3 QRDA Category III Not Started Measure Tests', tasks: c3_cat3_not_started_tasks, c3: true } %>
@@ -174,7 +172,6 @@
     <% # C3 Cat 3 Failing Measure Tests %>
     <% c3_cat3_failing_tasks = @product.product_tests.measure_tests.collect { |test| test.tasks.c2_task if test.tasks.c3_cat3_task.status == 'failing' }.compact %>
     <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C3 QRDA Category III Failing Measure Tests', tasks: c3_cat3_failing_tasks, c3: true } %>
-  <% end %>
 </section>
 <% end %>
 

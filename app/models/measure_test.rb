@@ -16,12 +16,11 @@ class MeasureTest < ProductTest
   # only creates c1, c2, and c3 tasks with no attributes as of now ~ JaeBird
   # as of now, should only create one task per task type
   def create_tasks
-    product_c1_and_c2_if_only_c3(product)
-    if product.c1_test
+    if product.c1_test || product.c3_test
       C1Task.new(product_test: self).save!
       C3Cat1Task.new(product_test: self).save! if product.c3_test
     end
-    if product.c2_test
+    if product.c2_test || product.c3_test
       C2Task.new(product_test: self).save!
       C3Cat3Task.new(product_test: self).save! if product.c3_test
     end
@@ -30,13 +29,6 @@ class MeasureTest < ProductTest
   def generate_provider
     self.provider = Provider.generate_provider(measure_type: measures.first.type)
     save!
-  end
-
-  def product_c1_and_c2_if_only_c3(product)
-    if product.c3_test && !product.c1_test && !product.c2_test
-      product.c1_test = true
-      product.c2_test = true
-    end
   end
 
   # passing only if both c1 and c3_cat1 tasks pass

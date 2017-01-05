@@ -46,6 +46,7 @@ class C2TaskTest < ActiveSupport::TestCase
 
   def test_should_cause_error_when_stratifications_are_missing
     task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    @product_test.product.c2_test = true
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
@@ -58,6 +59,7 @@ class C2TaskTest < ActiveSupport::TestCase
 
   def test_should_cause_error_when_supplemental_data_is_missing
     task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    @product_test.product.c2_test = true
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
@@ -73,6 +75,7 @@ class C2TaskTest < ActiveSupport::TestCase
 
   def test_should_cause_error_when_the_schema_structure_is_bad
     task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    @product_test.product.c2_test = true
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_bad_schematron.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
@@ -87,6 +90,7 @@ class C2TaskTest < ActiveSupport::TestCase
 
   def test_should_cause_error_when_measure_is_not_included_in_report
     task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    @product_test.product.c2_test = true
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)
@@ -101,6 +105,7 @@ class C2TaskTest < ActiveSupport::TestCase
 
   def test_should_cause_error_when_extra_supplemental_data_is_provided
     task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    @product_test.product.c2_test = true
     xml = create_rack_test_file('test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml)

@@ -12,7 +12,7 @@ class C1ManualTask < Task
   # do that validation here
   def validators
     @validators = [ChecklistCriteriaValidator.new(product_test),
-                   ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.product.c3_test, product_test.measures)]
+                   ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.product.c3_test, true, product_test.measures)]
     @validators
   end
 
