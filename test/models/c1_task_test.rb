@@ -71,8 +71,8 @@ class C1TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_return_warning_when_incorrect_templates_in_c1_without_c3
-    ptest = ProductTest.find('51703a883054cf84390000d3')
-    task = ptest.tasks.create({}, C1Task)
+    task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip)
