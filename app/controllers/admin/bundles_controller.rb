@@ -28,6 +28,12 @@ module Admin
     def create
       # save file to a temporary location
       if params['file']
+        unless File.extname(params['file'].original_filename) == '.zip'
+          flash[:alert] = 'Bundle file must have extension .zip'
+          redirect_to new_admin_bundle_path
+          return
+        end
+
         bundle_file = params['file']
         FileUtils.mkdir_p(Cypress::AppConfig['bundle_file_path'])
         file_name = generate_file_path
