@@ -231,11 +231,11 @@ module ProductsHelper
     when 'C1Task'
       # True - Display "C1 column" when the first task type being displayed is a C1Task and the product has a C1 test
       # False - Don't display "C1 column" when the product does not have a C1 test
-      product.c1_test ? true : false
+      product.c1_test
     when 'C2Task'
       # True - Display "C2 column" when the first task type being displayed is a C2Task and the product has a C2 test
       # False - Don't display "C2 column" when the product does not have a C2 test
-      product.c2_test ? true : false
+      product.c2_test
     end
   end
 end
