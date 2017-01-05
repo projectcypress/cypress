@@ -1,4 +1,4 @@
-var approachingBottomOfPage, loadNextPageAt, nextPage, nextPageFnRunning, viewMore, ready;
+var approachingBottomOfPage, loadNextPageAt, nextPage, nextPageFnRunning, viewMore, ready, checkAndLoad;
 
 nextPageFnRunning = false;
 loadNextPageAt = 3000;
