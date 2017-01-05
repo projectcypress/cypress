@@ -59,7 +59,7 @@ class ChecklistTestsController < ProductTestsController
     add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor_id)
     add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
-    add_breadcrumb 'Manual Entry Test', product_checklist_test_path(@product, @product_test)
+    add_breadcrumb 'Record Sample', product_checklist_test_path(@product, @product_test)
   end
 
   def set_measures

@@ -486,12 +486,12 @@ Then(/^the user should not see the filtering tests tab$/) do
 end
 
 Then(/^the user should see the checklist tests tab$/) do
-  page.assert_text 'Manual Entry Test'
+  page.assert_text 'Record Sample'
   find('#ChecklistTest').assert_text 'Validate the EHR system for C1 certification by manually entering specified patient data for the following'
 end
 
 Then(/^the user should not see the checklist tests tab$/) do
-  page.assert_no_text 'Manual Entry Test'
+  page.assert_no_text 'Record Sample'
 end
 
 # ^ ^ ^ product tests tabs ^ ^ ^ #

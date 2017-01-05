@@ -193,5 +193,5 @@ Then(/^the user should see the individual measure checklist page for measure (.*
   measure = nth_measure(measure_number)
   page.assert_text(measure.cms_id)
   page.assert_text(measure.name)
-  page.assert_text 'Return to Manual Entry Test'
+  page.assert_text 'Return to Record Sample'
 end

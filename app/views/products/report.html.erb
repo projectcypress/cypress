@@ -55,13 +55,13 @@
     </tbody>
   </table>
 
-  <% # Manual Entry Summary %>
+  <% # Record Sample Summary %>
   <% if @product.c1_test %>
-    <h2>C1 Manual Entry</h2>
+    <h2>C1 Record Sample</h2>
     <% unless @product.product_tests.checklist_tests.count == 0 %>
       <%= render partial: 'checklist_status_display', locals: { product: @product } %>
     <% else %>
-      <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Manual Entry Test has not been started.</p>
+      <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Record Sample has not been started.</p>
     <% end %>
   <% end %>
 
@@ -123,7 +123,7 @@
       </table>
     <% end %>
   <% else %>
-    <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Manual Entry Test has not been started.</p>
+    <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Record Sample has not been started.</p>
   <% end %>
 
   <% # C1 Not Started Measure Tests %>
