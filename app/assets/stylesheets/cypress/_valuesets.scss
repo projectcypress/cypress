@@ -1,0 +1,42 @@
+
+
+
+.value-set-group {
+	@extend .btn; 
+	background-color: red;
+	padding: 4px;
+	text-align: left;
+	color: black;
+	border: 0px;
+	width: 100%
+		
+}
+.set-menu {
+	@extend .btn;
+	background-color: transparent;
+	border-bottom-color: black; 
+	box-shadow: 0; 	
+	&:hover {
+		color: black;
+		background-color: gray;
+		border: 0px;
+	} 
+}
+.value-set-list {
+	@extend .list-group;
+	margin-bottom: 8px;
+	background-color: transparent;
+}
+.value-set-item-header {
+	@extend .list-group-item;
+	font-weight: bold;
+	padding: 2px 8px;
+	background-color: #F0F0F0;
+
+}
+.value-set-item-oid {
+	@extend .list-group-item;
+	padding: 2px 8px;
+	background-color: white;
+
+}

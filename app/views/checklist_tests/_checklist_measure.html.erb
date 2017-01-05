@@ -56,13 +56,16 @@
                       <tr>
                       <td> <strong>Valuesets</strong> </td>
                       <td/>
-                      <td><span>
-                        <ul class='list-unstyled'>
+                      <td>
+                      <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="#lookupModal">
+                        <ul class="value-set-list">
                         <% valuessets.each do |vs| %>
-                        <li class="valueset-listitem"><%= "#{lookup_valueset_name(vs)}" %></li>
+                        <li class="value-set-item-header"><%= "#{lookup_valueset_name(vs)}" %></li>
+                        <li class="value-set-item-oid"><%="#{lookup_valueset_oid(vs)}" %></li>
                         <% end %>
                         </ul>
-                      </span></td>
+                        </div>
+                       </td>
                       <td>
                         <% if criteria_field.object.complete?.nil? %>
                           <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
@@ -72,13 +75,38 @@
                           <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
                         <% end %>
                         <%= criteria_field.text_field :code, hide_label: false %>
+                          <div id="lookupModal" class="modal fade" role="dialog">
+                            <div class = "modal-dialog" id ="lookupModal-dialog">
+                              <div class="modal-content" id="lookupModal-content">
+                                <div class= "modal-header" id= "lookupModal-header">
+                                  <button type="button" class="close" id="lookupModal-close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" id="lookupModal-title"> List of codes</h4>
+                                 </div>
+                                    <div class="modal-body" id="lookupModal-body">
+                                      <input type="text" id="lookupFilter" onkeyup="lookupFunction()" placeholder="Filter codes">
+                                      <ul class='list-unstyled' id="lookup_codes">
+                                      <% valuessets.each do |vs| %>
+                                        <% lookup_codevalues(vs, product_test.bundle).each do |pair_string| %>
+                                          <li class="valueset-listitem" href="#"><a><%= pair_string %></a></li>
+                                        <% end %>
+                                     <% end %>
+                                     </ul>
+                                  </div>
+                                 <div class="modal-footer" id="lookupModal-footer">
+                                <button type="button" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                     <% end %>
                     <tr>
                       <td> <strong> Attributes </strong> </td>
                     <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
-                    <td><%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
+                    <td>
+                    <%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value'], product_test: product_test } if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %>
+                    </td>
                     <% if coded_attribute?(criteria) %>
                       <td>
                         <% if criteria_field.object.complete?.nil? %>
