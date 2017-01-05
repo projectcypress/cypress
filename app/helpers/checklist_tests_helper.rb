@@ -59,6 +59,19 @@ module ChecklistTestsHelper
   def lookup_valueset_name(oid)
     vs = HealthDataStandards::SVS::ValueSet.where(oid: oid)
     return oid unless vs && vs.first
-    "#{vs.first.display_name}: #{oid}"
+    "#{vs.first.display_name}"
+  end
+
+
+  def lookup_valueset_oid(oid)
+    vs = HealthDataStandards::SVS::ValueSet.where(oid: oid)
+    return oid unless vs && vs.first
+    "#{oid}"
+  end
+
+  def lookup_codevalues(oid, bundle)
+    vs = HealthDataStandards::SVS::ValueSet.where(oid: oid)
+    return [] unless vs && vs.first
+    vs.first.concepts.map {|con| "#{con.display_name}: #{con.code}"}
   end
 end

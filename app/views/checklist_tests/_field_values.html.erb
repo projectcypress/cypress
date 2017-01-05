@@ -3,21 +3,102 @@
 # local variables
 #
 #   field_values   (Hash)
+#   product_test (ChecklistTest)
 
 %>
 <% if negation %>
-  <%= "#{lookup_valueset_name(negation)}" %>
+ <div type="button" class="value-set-group set-menu" data-toggle="modal" data-target="#lookupModal-negation">          
+  <ul class="value-set-list">
+   <li class="value-set-item-header"><%= "#{lookup_valueset_name(negation)}" %></li>
+   <li class="value-set-item-oid"><%= "#{lookup_valueset_oid(negation)}" %> </li>
+  </ul>
+  </div>
+    <div id="lookupModal-negation" class="modal fade" role="dialog">
+    <div class = "modal-dialog" id ="lookupModal-dialog">
+      <div class="modal-content" id="lookupModal-content">
+        <div class= "modal-header" id= "lookupModal-header">
+          <button type="button" class="close" id="lookupModal-close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="lookupModal-title"> List of codes</h4>
+         </div>
+            <div class="modal-body" id="lookupModal-body">
+              <input type="text" id="lookupFilter" onkeyup="lookupFunction()" placeholder="Filter codes">
+              <ul class='list-unstyled' id="lookup_codes">
+                <% lookup_codevalues(negation, product_test.bundle).each do |pair_string| %>
+                  <li class="valueset-listitem" href="#"><a><%= pair_string %></a></li>
+                <% end %>
+             </ul>
+          </div>
+         <div class="modal-footer" id="lookupModal-footer">
+        <button type="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <% elsif result %>
   <% if result.type == 'CD' && result['code_list_id'] %>
-    <%= "#{lookup_valueset_name(result.code_list_id)}" %>
+   <div type="button" class="value-set-group set-menu" data-toggle="modal" data-target="#lookupModal-result">          
+    <ul class="value-set-list">
+     <li class="value-set-item-header"><%= "#{lookup_valueset_name(result.code_list_id)}" %></li>
+     <li class="value-set-item-oid"><%= "#{lookup_valueset_oid(result.code_list_id)}" %></li>
+    </ul>
+   </div>
+       <div id="lookupModal-result" class="modal fade" role="dialog">
+    <div class = "modal-dialog" id ="lookupModal-dialog">
+      <div class="modal-content" id="lookupModal-content">
+        <div class= "modal-header" id= "lookupModal-header">
+          <button type="button" class="close" id="lookupModal-close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="lookupModal-title"> List of codes</h4>
+         </div>
+            <div class="modal-body" id="lookupModal-body">
+              <input type="text" id="lookupFilter" onkeyup="lookupFunction()" placeholder="Filter codes">
+              <ul class='list-unstyled' id="lookup_codes">
+                <% lookup_codevalues(result, product_test.bundle).each do |pair_string| %>
+                  <li class="valueset-listitem" href="#"><a><%= pair_string %></a></li>
+                <% end %>
+             </ul>
+          </div>
+         <div class="modal-footer" id="lookupModal-footer">
+        <button type="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
   <% end %>
 <% else %>
   <% field_values.each do |fv_key, fv_val| %>
     <% case fv_val['type'] %>
     <% when 'CD' %>
-      <%= "#{fv_val['title']}: #{fv_val['code_list_id']}" %>
+      <div type="button" class="value-set-group set-menu" data-toggle="modal" data-target="#lookupModal-fieldvalues">          
+       <ul class="value-set-list">
+        <li class="value-set-item-header"><%= "#{fv_val['title']}" %></li>
+        <li class="value-set-item-oid"><%= "#{fv_val['code_list_id']}" %></li>
+       </ul>
+      </div>
+          <div id="lookupModal-fieldvalues" class="modal fade" role="dialog">
+    <div class = "modal-dialog" id ="lookupModal-dialog">
+      <div class="modal-content" id="lookupModal-content">
+        <div class= "modal-header" id= "lookupModal-header">
+          <button type="button" class="close" id="lookupModal-close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="lookupModal-title"> List of codes</h4>
+         </div>
+            <div class="modal-body" id="lookupModal-body">
+              <input type="text" id="lookupFilter" onkeyup="lookupFunction()" placeholder="Filter codes">
+              <ul class='list-unstyled' id="lookup_codes">
+                <% lookup_codevalues(fv_val['code_list_id'], product_test.bundle).each do |pair_string| %>
+                  <li class="valueset-listitem" href="#"><a><%= pair_string %></a></li>
+                <% end %>
+             </ul>
+          </div>
+         <div class="modal-footer" id="lookupModal-footer">
+        <button type="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
     <% when 'IVL_PQ' %>
-      <%= raw length_of_stay_string(fv_val) %>
+     <ul class="value-set-list">
+      <li class="value-set"><%= raw length_of_stay_string(fv_val) %></li>
+     </ul>
     <% end %>
   <%end%>
 <% end %>
