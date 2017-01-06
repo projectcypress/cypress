@@ -22,11 +22,9 @@
             <div class="modal-body" id="lookupModal-body">
               <input type="text" id="lookupFilter" onkeyup="lookupFunction()" placeholder="Filter codes">
               <ul class='list-unstyled' id="lookup_codes">
-              <% negation.each do |ng| %>
-                <% lookup_codevalues(ng, product_test.bundle).each do |pair_string| %>
+                <% lookup_codevalues(negation, product_test.bundle).each do |pair_string| %>
                   <li class="valueset-listitem" href="#"><a><%= pair_string %></a></li>
                 <% end %>
-             <% end %>
              </ul>
           </div>
          <div class="modal-footer" id="lookupModal-footer">
@@ -53,11 +51,9 @@
             <div class="modal-body" id="lookupModal-body">
               <input type="text" id="lookupFilter" onkeyup="lookupFunction()" placeholder="Filter codes">
               <ul class='list-unstyled' id="lookup_codes">
-              <% result.each do |rs| %>
-                <% lookup_codevalues(rs, product_test.bundle).each do |pair_string| %>
+                <% lookup_codevalues(result, product_test.bundle).each do |pair_string| %>
                   <li class="valueset-listitem" href="#"><a><%= pair_string %></a></li>
                 <% end %>
-             <% end %>
              </ul>
           </div>
          <div class="modal-footer" id="lookupModal-footer">
