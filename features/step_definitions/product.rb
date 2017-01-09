@@ -487,7 +487,7 @@ end
 
 Then(/^the user should see the checklist tests tab$/) do
   page.assert_text 'Record Sample'
-  find('#ChecklistTest').assert_text 'Validate the EHR system for C1 certification by manually entering specified patient data for the following'
+  find('#ChecklistTest').assert_text 'Validate the EHR system for C1 certification by entering specified patient data for the following'
 end
 
 Then(/^the user should not see the checklist tests tab$/) do

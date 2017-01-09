@@ -199,7 +199,7 @@ module ProductsHelper
     case test_type
     when 'ChecklistTest'
       certifications = product.c3_test ? 'C1 and C3 certifications' : 'C1 certification'
-      "Validate the EHR system for #{certifications} by manually entering specified patient data for the following measures."
+      "Validate the EHR system for #{certifications} by entering specified patient data for the following measures."
     when 'MeasureTest'
       if is_c1_measure_test
         what_certifications_test_for = product.c3_test ? 'record and export (C1) and submit (C3)' : 'record and export (C1)'
