@@ -6,8 +6,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-CYPRESS_VERSION='v3.0.3'
-CVU_VERSION='v3.0.3'
+CYPRESS_VERSION='v3.1.0'
+CVU_VERSION='v3.1.0'
 
 if [[ ! -z "$1" ]]; then
     CYPRESS_VERSION="$1"
@@ -28,7 +28,7 @@ function pull_git_tag() {
   if [[ $rc == 0 ]]; then
     echo "We have permission to pull cypress as the user cypress, using cypress to run git commands."
     sudo -u cypress git fetch --all
-    sudo -u cypress git checkout $1
+    sudo -u cypress git checkout "$1"
     # pull in case we're on a branch
     sudo -u cypress git pull
     sudo -u cypress git stash pop
@@ -47,7 +47,7 @@ function pull_git_tag() {
     echo "We do NOT have permission to pull cypress as the user cypress, using root to run git commands."
     git -c user.name=tmp -c user.name=tmp -c user.email=tmp@tmp.com stash
     git fetch --all
-    git checkout $VERSION
+    git checkout "$VERSION"
     # pull in case we're on a branch
     git pull
     git stash pop
@@ -76,7 +76,7 @@ function check_and_upgrade_ruby() {
       # Move the existing build to a new location
       mv "/opt/ruby_build/builds${PWD}" "/opt/ruby_build/builds${PWD}-old"
       # Download the new ruby version
-      /opt/ruby_build/install/master/bin/ruby-build $desired_ruby_version "/opt/ruby_build/builds${PWD}"
+      /opt/ruby_build/install/master/bin/ruby-build "$desired_ruby_version" "/opt/ruby_build/builds${PWD}"
       rc=$?
       if [[ $rc == 0 ]]; then
         echo "Successfully upgraded ruby version."
@@ -108,21 +108,21 @@ function cypress_cvu_shared_upgrade_commands() {
   # Try to run the commands as the cypress user, if we get a nonzero return value then try again
   # as root.
   echo "Running bundle install, this can take a while!"
-  sudo -E -u cypress env PATH=$PATH bundle install
+  sudo -E -u cypress env PATH="$PATH" bundle install
   rc=$?
   if [[ $rc != 0 ]]; then
     echo "Handling previous error..."
     echo "We do NOT have permission to run bundle as the user cypress, using root to run bundle install."
     bundle install
   fi
-  sudo -E -u cypress env PATH=$PATH bundle exec rake tmp:clear
-  sudo -E -u cypress env PATH=$PATH bundle exec rake assets:clobber
-  sudo -E -u cypress env PATH=$PATH bundle exec rake assets:precompile
+  sudo -E -u cypress env PATH="$PATH" bundle exec rake tmp:clear
+  sudo -E -u cypress env PATH="$PATH" bundle exec rake assets:clobber
+  sudo -E -u cypress env PATH="$PATH" bundle exec rake assets:precompile
   # If there is a unicorn config file available and we are using unicorn then update the unicorn
   # startup script to use it.
   if [ -f config/unicorn.rb ]; then
     echo "Adding unicorn config to service config"
-    sed -E -i '/(--config-file|-c)/!s/unicorn --port ([0-9]{1,5})/unicorn --port \1 --config-file config\/unicorn.rb/' /etc/systemd/system/`basename "$PWD"`.service
+    sed -E -i '/(--config-file|-c)/!s/unicorn --port ([0-9]{1,5})/unicorn --port \1 --config-file config\/unicorn.rb/' "/etc/systemd/system/$(basename "$PWD").service"
   fi
 }
 
@@ -139,14 +139,14 @@ function upgrade_cvu() {
 # If we find an /opt/cypress directory with a git repo in it then assume that cypress was installed via the chef recipe
 if [ -d "/opt/cypress/.git" ]; then
   export PATH=/opt/ruby_build/builds/opt/cypress/bin:$PATH
-  cd /opt/cypress
+  cd /opt/cypress || exit
   export CYPRESS_FOUND=true
 elif [ -d "/home/cypress/cypress/.git" ]; then
   export PATH=/home/cypress/.rbenv/bin:/home/cypress/.rbenv/shims:$PATH
   # This is not the correct secret key, however we don't actually need the correct secret key, as none of the commands in
   # cypress_cvu_shared_upgrade_commands actually require the real secret key.
   export SECRET_KEY_BASE="xxxxxxxxxxxxx"
-  cd /home/cypress/cypress
+  cd /home/cypress/cypress || exit
   export CYPRESS_FOUND=true
 else
   echo "Could not find Cypress. This warning can be safely ignored unless you had Cypress installed."
@@ -158,7 +158,7 @@ if [ "$CYPRESS_FOUND" = "true" ]; then
   echo "Found Cypress directory"
 
   echo "Fetching Cypress - Latest"
-  pull_git_tag $CYPRESS_VERSION
+  pull_git_tag "$CYPRESS_VERSION"
   echo "Running upgrade commands"
   upgrade_cypress
 
@@ -173,11 +173,11 @@ fi
 if [ -d "/opt/cypress-validation-utility/.git" ]; then
   echo "Found cypress validation utility install directory."
   export PATH=/opt/ruby_build/builds/opt/cypress-validation-utility/bin:$PATH
-  cd /opt/cypress-validation-utility
+  cd /opt/cypress-validation-utility || exit
   export CVU_FOUND=true
 elif [ -d "/home/cypress/cypress-validation-utility/.git" ]; then
   echo "Found cypress validation utility install directory."
-  cd /home/cypress/cypress-validation-utility
+  cd /home/cypress/cypress-validation-utility || exit
   export CVU_FOUND=true
 else
   echo "Could not find the Cypress Validation Utility. This warning can be safely ignored unless you had the Cypress Validation Utility installed."
@@ -187,7 +187,7 @@ fi
 if [ "$CVU_FOUND" = "true" ]; then
   # We have established the location of the cypress validation utility and should be in its directory, now we can upgrade it
   echo "Fetching Cypress Validation Utility - Latest"
-  pull_git_tag $CVU_VERSION
+  pull_git_tag "$CVU_VERSION"
   echo "Running upgrade commands..."
   upgrade_cvu
 
