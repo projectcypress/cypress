@@ -169,7 +169,7 @@ module ProductsHelper
   def title_for(product, test_type, is_c1_measure_test = true)
     case test_type
     when 'ChecklistTest'
-      product.c3_test ? 'C1 + C3 Manual' : 'C1 Manual'
+      product.c3_test ? 'C1 + C3 Sample' : 'C1 Sample'
     when 'MeasureTest'
       if is_c1_measure_test
         product.c3_test ? 'C1 + C3 (QRDA-I)' : 'C1 (QRDA-I)'
