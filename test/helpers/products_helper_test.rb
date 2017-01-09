@@ -257,16 +257,16 @@ class ProductsHelperTest < ActiveJob::TestCase
     make_product_certify(@product, true, false, false, false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
-    assert_equal 1, test_types.count, 'should only have a manual entry tab'
-    assert_equal 'C1 Manual', titles[0]
+    assert_equal 1, test_types.count, 'should only have a record sample tab'
+    assert_equal 'C1 Sample', titles[0]
   end
 
   def test_each_tab_c1_c2
     make_product_certify(@product, true, true, false, false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
-    assert_equal 3, test_types.count, 'should have manual entry, c1 measure, and c2 measure tabs'
-    assert_equal 'C1 Manual', titles[0]
+    assert_equal 3, test_types.count, 'should have record sample, c1 measure, and c2 measure tabs'
+    assert_equal 'C1 Sample', titles[0]
     assert_equal 'C1 (QRDA-I)', titles[1]
     assert_equal 'C2 (QRDA-III)', titles[2]
   end
@@ -275,16 +275,16 @@ class ProductsHelperTest < ActiveJob::TestCase
     make_product_certify(@product, true, false, true, false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
-    assert_equal 1, test_types.count, 'should only have manual entry tab'
-    assert_equal 'C1 + C3 Manual', titles[0]
+    assert_equal 1, test_types.count, 'should only have record sample tab'
+    assert_equal 'C1 + C3 Sample', titles[0]
   end
 
   def test_each_tab_c1_c4
     make_product_certify(@product, true, false, false, true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
-    assert_equal 2, test_types.count, 'should have manual entry tab and filtering test tab'
-    assert_equal 'C1 Manual', titles[0]
+    assert_equal 2, test_types.count, 'should have record sample tab and filtering test tab'
+    assert_equal 'C1 Sample', titles[0]
     assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
   end
 
@@ -292,16 +292,16 @@ class ProductsHelperTest < ActiveJob::TestCase
     make_product_certify(@product, true, false, true, true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
-    assert_equal 2, test_types.count, 'should have manual entry tab and filtering test tab'
-    assert_equal 'C1 + C3 Manual', titles[0]
+    assert_equal 2, test_types.count, 'should have record sample tab and filtering test tab'
+    assert_equal 'C1 + C3 Sample', titles[0]
     assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
   end
 
   def test_each_tab_c1_c2_c3
     make_product_certify(@product, true, true, true, false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
-    assert_equal 3, test_types.count, 'should have manual entry, c1 measure, and c2 measure tabs'
-    assert_equal 'C1 + C3 Manual', titles[0]
+    assert_equal 3, test_types.count, 'should have record sample, c1 measure, and c2 measure tabs'
+    assert_equal 'C1 + C3 Sample', titles[0]
     assert_equal 'C1 + C3 (QRDA-I)', titles[1]
     assert_equal 'C2 + C3 (QRDA-III)', titles[2]
   end
@@ -309,8 +309,8 @@ class ProductsHelperTest < ActiveJob::TestCase
   def test_each_tab_c1_c2_c4
     make_product_certify(@product, true, true, false, true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
-    assert_equal 4, test_types.count, 'should have manual entry, c1 measure, c2 measure, and c4 filtering tabs'
-    assert_equal 'C1 Manual', titles[0]
+    assert_equal 4, test_types.count, 'should have record sample, c1 measure, c2 measure, and c4 filtering tabs'
+    assert_equal 'C1 Sample', titles[0]
     assert_equal 'C1 (QRDA-I)', titles[1]
     assert_equal 'C2 (QRDA-III)', titles[2]
     assert_equal 'C4 (QRDA-I and QRDA-III)', titles[3]
@@ -319,8 +319,8 @@ class ProductsHelperTest < ActiveJob::TestCase
   def test_each_tab_c1_c2_c3_c4
     make_product_certify(@product, true, true, true, true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
-    assert_equal 4, test_types.count, 'should have manual entry, c1 measure, c2 measure, and c4 filtering tabs'
-    assert_equal 'C1 + C3 Manual', titles[0]
+    assert_equal 4, test_types.count, 'should have record sample, c1 measure, c2 measure, and c4 filtering tabs'
+    assert_equal 'C1 + C3 Sample', titles[0]
     assert_equal 'C1 + C3 (QRDA-I)', titles[1]
     assert_equal 'C2 + C3 (QRDA-III)', titles[2]
     assert_equal 'C4 (QRDA-I and QRDA-III)', titles[3]
@@ -383,8 +383,8 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_title_for
-    assert_equal 'C1 Manual', title_for(Product.new(c1: true), 'ChecklistTest')
-    assert_equal 'C1 + C3 Manual', title_for(Product.new(c1_test: true, c3_test: true), 'ChecklistTest')
+    assert_equal 'C1 Sample', title_for(Product.new(c1: true), 'ChecklistTest')
+    assert_equal 'C1 + C3 Sample', title_for(Product.new(c1_test: true, c3_test: true), 'ChecklistTest')
 
     assert_equal 'C1 (QRDA-I)', title_for(Product.new(c1_test: true), 'MeasureTest', true)
     assert_equal 'C1 + C3 (QRDA-I)', title_for(Product.new(c1_test: true, c3_test: true), 'MeasureTest', true)

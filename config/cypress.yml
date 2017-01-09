@@ -189,8 +189,8 @@ tests:
     certifications:
       - 'C4'
   ChecklistTest:
-    title: 'Manual Entry Test'
-    description: 'Validate the EHR system for C1 certification by manually entering specified patient data for the following measures.'
+    title: 'Record Sample'
+    description: 'Validate the EHR system for C1 certification by entering specified patient data for the following measures.'
     instructions:
       - instruction: 'Fill in the Data Criteria fields below.'
         subinstructions:
@@ -198,8 +198,10 @@ tests:
           - 'If an Attribute has a value set, an appropriate code needs to be entered into the "Recorded Attribute Code" text box.'
           - 'Codes are validated upon saving.'
           - 'Result, Date Times, Cumulative Medication Durations, Fulfills, and Length of Stay are to be recorded as free text.  ATLs will record the values they have observed being entered into the system under test.'
-      - instruction: 'Create (at least) one patient for each measure below.'
+      - instruction: 'Create (at least) one patient for each measure below.   Patients may be created using a user interface, or may be created as a structured document to be imported into the system under test.'
         subinstructions:
+        - 'There are no requirements on what format the structured data artifact must be.  Could be CCDA, QRDA, or other formats.'
+        - 'This structured data artifact needs to be created at the time of certification'
         - 'The created patients must contain all required Data Criteria, for the selected measures, to pass certification.'
         - 'Export the created patients as QRDA Category I, and create a zip file.'
       - instruction: 'Upload zip file with created test patients.'

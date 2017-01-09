@@ -129,7 +129,7 @@ Then(/^the user should see the checklist test$/) do
 end
 
 Then(/^the user should see a button to revisit the checklist test$/) do
-  assert page.find('#c1_manual').has_link? 'CMS159v4 Depression Remission at Twelve Months'
+  assert page.find('#c1_sample').has_link? 'CMS159v4 Depression Remission at Twelve Months'
   # assert page.has_selector?("input[type = submit][value = 'View Test']")
 end
 
@@ -193,5 +193,5 @@ Then(/^the user should see the individual measure checklist page for measure (.*
   measure = nth_measure(measure_number)
   page.assert_text(measure.cms_id)
   page.assert_text(measure.name)
-  page.assert_text 'Return to Manual Entry Test'
+  page.assert_text 'Return to Record Sample'
 end
