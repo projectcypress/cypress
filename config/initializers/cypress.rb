@@ -6,7 +6,7 @@ Faker::Config.locale = 'en-US'
 
 Rails.application.configure do
   config.after_initialize do
-    Cypress::AppConfig.refresh
+    Cypress::AppConfig.clear
 
     # sync default bundle with cypress.yml
     Bundle.each do |bundle|

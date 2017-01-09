@@ -42,10 +42,8 @@ module Cypress
       end
     end
 
-    def self.refresh
-      Rails.cache.fetch('config_values', force: true) do
-        YAML.load(ERB.new(File.read("#{Rails.root}/config/cypress.yml")).result)
-      end
+    def self.clear
+      Rails.cache.delete('config_values')
     end
   end
 end
