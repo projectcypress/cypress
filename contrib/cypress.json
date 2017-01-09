@@ -4,6 +4,9 @@
     "aws_secret_key": "",
     "default_user": "ubuntu",
     "default_pwd": "CypressPwd",
+    "cypress_version": "v3.1.0",
+    "cvu_version": "v3.1.0",
+    "chef_version": "12.17",
     "vpc_id": "",
     "subnet_id": ""
   },
@@ -20,7 +23,55 @@
       "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "ami_name": "cypress_3.0.3",
+      "ami_name": "cypress_{{ user `cypress_version` }}",
+      "ami_block_device_mappings": [ {
+        "device_name": "/dev/sda1",
+        "volume_size": 20,
+        "delete_on_termination": "true"
+      }],
+      "launch_block_device_mappings": [ {
+        "device_name": "/dev/sda1",
+        "volume_size": 20,
+        "delete_on_termination": "true"
+      }]
+    },
+    {
+      "name": "cypress.cvu.amazonaws",
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "us-east-1",
+      "source_ami": "ami-f652979b",
+      "instance_type": "t2.small",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "ami_virtualization_type": "hvm",
+      "ssh_username": "ubuntu",
+      "ami_name": "cypress_cvu_{{ user `cypress_version` }}",
+      "ami_block_device_mappings": [ {
+        "device_name": "/dev/sda1",
+        "volume_size": 20,
+        "delete_on_termination": "true"
+      }],
+      "launch_block_device_mappings": [ {
+        "device_name": "/dev/sda1",
+        "volume_size": 20,
+        "delete_on_termination": "true"
+      }]
+    },
+    {
+      "name": "cvu.amazonaws",
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "us-east-1",
+      "source_ami": "ami-f652979b",
+      "instance_type": "t2.small",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "ami_virtualization_type": "hvm",
+      "ssh_username": "ubuntu",
+      "ami_name": "cvu_{{ user `cvu_version` }}",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 20,
@@ -34,7 +85,123 @@
     },
     {
       "name": "cypress.vmware",
-      "vm_name": "cypressv303",
+      "vm_name": "Cypress.{{ user `cypress_version` }}_Public_VM",
+      "type": "vmware-iso",
+      "guest_os_type": "ubuntu-64",
+      "iso_urls": [
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso"
+      ],
+      "iso_checksum": "23e97cd5d4145d4105fbf29878534049",
+      "iso_checksum_type": "md5",
+      "ssh_username": "{{user `default_user`}}",
+      "ssh_password": "{{user `default_pwd`}}",
+      "http_directory": "./install_files",
+      "headless": true,
+      "boot_wait": "10s",
+      "format": "vmx",
+      "ssh_timeout": "20m",
+      "boot_command": [
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "/install/vmlinuz<wait>",
+        " auto<wait>",
+        " console-setup/ask_detect=false<wait>",
+        " console-setup/layoutcode=us<wait>",
+        " console-setup/modelcode=pc105<wait>",
+        " debconf/frontend=noninteractive<wait>",
+        " debian-installer=en_US<wait>",
+        " fb=false<wait>",
+        " initrd=/install/initrd.gz<wait>",
+        " kbd-chooser/method=us<wait>",
+        " keyboard-configuration/layout=USA<wait>",
+        " keyboard-configuration/variant=USA<wait>",
+        " locale=en_US<wait>",
+        " netcfg/get_domain=vm<wait>",
+        " netcfg/get_hostname=vagrant<wait>",
+        " grub-installer/bootdev=/dev/sda<wait>",
+        " noapic<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " -- <wait>",
+        "<enter><wait>"
+      ],
+      "shutdown_command": "echo '{{user `default_pwd`}}' | sudo -S -E shutdown -P now",
+      "vmdk_name": "disk",
+      "disk_type_id": "0",
+      "vmx_data": {
+        "MemTrimRate": "0",
+        "sched.mem.pshare.enable": "FALSE",
+        "mainMem.useNamedFile": "FALSE",
+        "prefvmx.minVmMemPct": "100",
+        "memsize": "4096",
+        "numvcpus": "4",
+        "cpuid.coresPerSocket": "1"
+      },
+      "disk_size": "20000"
+    },
+    {
+      "name": "cypress.cvu.vmware",
+      "vm_name": "Cypress_CVU.{{ user `cypress_version` }}_Public_VM",
+      "type": "vmware-iso",
+      "guest_os_type": "ubuntu-64",
+      "iso_urls": [
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso"
+      ],
+      "iso_checksum": "23e97cd5d4145d4105fbf29878534049",
+      "iso_checksum_type": "md5",
+      "ssh_username": "{{user `default_user`}}",
+      "ssh_password": "{{user `default_pwd`}}",
+      "http_directory": "./install_files",
+      "headless": true,
+      "boot_wait": "10s",
+      "format": "vmx",
+      "ssh_timeout": "20m",
+      "boot_command": [
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "/install/vmlinuz<wait>",
+        " auto<wait>",
+        " console-setup/ask_detect=false<wait>",
+        " console-setup/layoutcode=us<wait>",
+        " console-setup/modelcode=pc105<wait>",
+        " debconf/frontend=noninteractive<wait>",
+        " debian-installer=en_US<wait>",
+        " fb=false<wait>",
+        " initrd=/install/initrd.gz<wait>",
+        " kbd-chooser/method=us<wait>",
+        " keyboard-configuration/layout=USA<wait>",
+        " keyboard-configuration/variant=USA<wait>",
+        " locale=en_US<wait>",
+        " netcfg/get_domain=vm<wait>",
+        " netcfg/get_hostname=vagrant<wait>",
+        " grub-installer/bootdev=/dev/sda<wait>",
+        " noapic<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " -- <wait>",
+        "<enter><wait>"
+      ],
+      "shutdown_command": "echo '{{user `default_pwd`}}' | sudo -S -E shutdown -P now",
+      "vmdk_name": "disk",
+      "disk_type_id": "0",
+      "vmx_data": {
+        "MemTrimRate": "0",
+        "sched.mem.pshare.enable": "FALSE",
+        "mainMem.useNamedFile": "FALSE",
+        "prefvmx.minVmMemPct": "100",
+        "memsize": "4096",
+        "numvcpus": "4",
+        "cpuid.coresPerSocket": "1"
+      },
+      "disk_size": "20000"
+    },
+    {
+      "name": "cvu.vmware",
+      "vm_name": "CVU.{{ user `cvu_version` }}_Public_VM",
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
@@ -94,49 +261,87 @@
 
   "provisioners": [{
     "type": "shell",
+    "inline": [ "sleep 10" ]
+  },
+  {
+    "type": "shell",
     "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
     "inline": [
-      "sleep 30",
       "apt-get update",
-      "apt-get -y upgrade",
-      "shutdown -r now",
-      "sleep 60"
+      "apt-get -y upgrade"
     ]
   },
   {
     "type": "shell",
     "inline": ["echo '{{user `default_pwd`}}' | sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+ALL/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers"],
-    "only": ["cypress.vmware"]
+    "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
+  },
+  {
+    "type": "shell",
+    "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+    "inline": [ "shutdown -r now" ]
+  },
+  {
+    "type": "shell",
+    "inline": [ "sleep 10" ]
   },
   {
     "type": "chef-solo",
     "cookbook_paths": ["cookbooks"],
-    "install_command": "curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v 12.13",
+    "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
     "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::install_cypress]" ],
     "json": {
       "cypress": {
-          "cypress_git_revision": "v3.0.3",
+          "cypress_git_revision": "{{ user `cypress_version` }}",
           "generate_secrets_on_restart": true
       }
-    }
+    },
+    "only": ["cypress.vmware", "cypress.amazonaws"]
+  },
+  {
+    "type": "chef-solo",
+    "cookbook_paths": ["cookbooks"],
+    "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
+    "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::install_cvu]" ],
+    "json": {
+      "cypress": {
+          "cvu_git_revision": "{{ user `cvu_version` }}",
+          "generate_secrets_on_restart": true
+      }
+    },
+    "only": ["cvu.vmware", "cvu.amazonaws"]
+  },
+  {
+    "type": "chef-solo",
+    "cookbook_paths": ["cookbooks"],
+    "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
+    "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::default]" ],
+    "json": {
+      "cypress": {
+          "cypress_git_revision": "{{ user `cypress_version` }}",
+          "cvu_git_revision": "{{ user `cvu_version` }}",
+          "generate_secrets_on_restart": true
+      }
+    },
+    "only": ["cypress.cvu.vmware", "cypress.cvu.amazonaws"]
   },
   {
     "type": "shell",
     "inline": ["sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+NOPASSWD:ALL/%sudo ALL=(ALL:ALL) ALL/' /etc/sudoers"],
-    "only": ["cypress.vmware"]
+    "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
   },
   {
     "type": "shell",
     "execute_command": "echo '{{user `default_pwd`}}' | sudo -S -E bash '{{.Path}}'",
     "script": "scripts/cleanup.sh",
-    "only": ["cypress.vmware"]
+    "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
   }],
 
   "post-processors": [
     {
       "type": "shell-local",
       "script": "scripts/vmx_to_ova.sh",
-      "only": ["cypress.vmware"]
+      "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
     }
   ]
 }
