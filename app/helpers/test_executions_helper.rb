@@ -99,7 +99,7 @@ module TestExecutionsHelper
     case product_test
     when MeasureTest then 'Measure Test Information'
     when FilteringTest then 'Filtering Test Information'
-    when ChecklistTest then 'Manual Entry Test Information'
+    when ChecklistTest then 'Record Sample Test Information'
     else 'Test Information'
     end
   end
