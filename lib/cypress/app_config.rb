@@ -1,18 +1,21 @@
 # When this module is called from a test, make sure it is wrapped in Faker. Otherwise you will have problems with travis.
 module Cypress
   class AppConfig
+    def self.clear
+      Rails.cache.delete('config_values') unless Rails.cache.nil?
+    end
+
     def self.[](key)
       # Allow accessing app config during app init, before Rails.cache exists
-      if Rails.cache.nil?
-        if @init_app_config.nil?
-          @init_app_config = YAML.load(ERB.new(File.read("#{Rails.root}/config/cypress.yml")).result)
-        end
-        return @init_app_config[key]
+      # Also check if we are running in non-server mode. If we are then we must not pollute
+      # the cache with potentially bad values for app_config
+      if Rails.cache.nil? || !ENV['IS_SERVER']
+        YAML.load(ERB.new(File.read("#{Rails.root}/config/cypress.yml")).result)[key]
+      else
+        Rails.cache.fetch('config_values') do
+          YAML.load(ERB.new(File.read("#{Rails.root}/config/cypress.yml")).result)
+        end[key]
       end
-
-      Rails.cache.fetch('config_values') do
-        YAML.load(ERB.new(File.read("#{Rails.root}/config/cypress.yml")).result)
-      end[key]
     end
 
     # This method writes a new value to a setting in cypress.yml
@@ -35,17 +38,7 @@ module Cypress
       File.open("#{Rails.root}/config/cypress.yml", 'w') { |file| file.puts yml_text }
 
       # Allow setting app config during app init, before Rails.cache exists
-      if Rails.cache.nil?
-        @init_app_config = YAML.load(ERB.new(File.read("#{Rails.root}/config/cypress.yml")).result)
-      else
-        Rails.cache.delete('config_values')
-      end
-    end
-
-    def self.refresh
-      Rails.cache.fetch('config_values', force: true) do
-        YAML.load(ERB.new(File.read("#{Rails.root}/config/cypress.yml")).result)
-      end
+      clear
     end
   end
 end
