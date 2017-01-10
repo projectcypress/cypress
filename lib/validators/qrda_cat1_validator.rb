@@ -16,7 +16,7 @@ module Validators
                     else
                       format_validators
                     end
-      @validators + format_validators if is_c3_validation_task && !test_has_c1
+      @validators += format_validators if is_c3_validation_task && !test_has_c1
       @validators << HealthDataStandards::Validate::QrdaQdmTemplateValidator.new(bundle.qrda_version)
     end
 
