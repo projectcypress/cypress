@@ -70,7 +70,11 @@ module Cypress
 
     def tasks_values(tasks)
       status_values = []
-      %w(passing failing errored incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
+      begin
+        %w(passing failing errored incomplete).each { |status| status_values << tasks.count { |task| task.first.status == status } }
+      rescue
+        status_values = [0, 0, 0, tasks.count] # if this breaks, they are all "incomplete"
+      end
       status_values << tasks.count # total number of product tests
     end
   end
