@@ -196,6 +196,9 @@ if [ "$CVU_FOUND" = "true" ]; then
   systemctl restart cypress-validation-utility
 fi
 
+echo "Installing NTP service..."
+apt-get -y install ntp
+
 echo "Restarting NGINX service..."
 systemctl restart nginx
 
