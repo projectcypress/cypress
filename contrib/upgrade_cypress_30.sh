@@ -197,7 +197,7 @@ if [ "$CVU_FOUND" = "true" ]; then
 fi
 
 echo "Installing NTP service..."
-apt-get -y install ntp
+apt-get -y --fix-missing install ntp
 
 echo "Restarting NGINX service..."
 systemctl restart nginx
