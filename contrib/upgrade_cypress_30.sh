@@ -6,7 +6,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-CYPRESS_VERSION='v3.1.0'
+CYPRESS_VERSION='v3.1.0.1'
 CVU_VERSION='v3.1.0'
 
 if [[ ! -z "$1" ]]; then
