@@ -310,7 +310,7 @@ class ProductsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should create manual checklist on product create when c1 is selected' do
+  test 'should create checklist test on product create when c1 is selected' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       product_name = "my product name #{rand}"
       post :create, :format => :json, :vendor_id => '4f57a8791d41c851eb000002', :product => { name: product_name, c1_test: true,

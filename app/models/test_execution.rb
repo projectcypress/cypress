@@ -52,7 +52,7 @@ class TestExecution
       execution_errors.build(:message => "#{task.records.count} files expected but was #{file_count}",
                              :msg_type => :error, :validator_type => :result_validation, :validator => :smoking_gun)
     end
-    task.product_test.build_execution_errors_for_incomplete_checked_criteria(self) if task.is_a?(C1ManualTask)
+    task.product_test.build_execution_errors_for_incomplete_checked_criteria(self) if task.is_a?(C1ChecklistTask)
   end
 
   # Get the expected result for a particular measure

@@ -1,6 +1,6 @@
 require 'validators/checklist_criteria_validator'
 
-class C1ManualTask < Task
+class C1ChecklistTask < Task
   include Mongoid::Attributes::Dynamic
   include ::Validators
 
@@ -20,7 +20,7 @@ class C1ManualTask < Task
     te = test_executions.new(artifact: Artifact.new(file: file))
     te.save!
     TestExecutionJob.perform_later(te, self)
-    te.sibling_execution_id = product_test.tasks.c3_manual_task.execute(file, te.id).id if product_test.product.c3_test
+    te.sibling_execution_id = product_test.tasks.c3_checklist_task.execute(file, te.id).id if product_test.product.c3_test
     te.save
     te
   end

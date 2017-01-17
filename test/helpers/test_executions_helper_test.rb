@@ -149,7 +149,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
     assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', true)
 
     # checklist tests
-    assert_equal [true, false, false, false], current_certifications('C1ManualTask', false)
-    assert_equal [true, false, true, false], current_certifications('C1ManualTask', true)
+    assert_equal [true, false, false, false], current_certifications('C1ChecklistTask', false)
+    assert_equal [true, false, true, false], current_certifications('C1ChecklistTask', true)
   end
 end

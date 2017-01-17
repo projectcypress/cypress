@@ -25,7 +25,7 @@
       </h1>
     </div>
     <div class="panel-body">
-      <%= render partial: 'test_executions/execution_upload', locals: { disable: disable_qrda_submission?, product_test: @product_test, task: @product_test.tasks.c1_manual_task } %>
+      <%= render partial: 'test_executions/execution_upload', locals: { disable: disable_qrda_submission?, product_test: @product_test, task: @product_test.tasks.c1_checklist_task } %>
     </div>
   </div>
 </div>
@@ -38,7 +38,7 @@
     </div>
     <div class = 'panel-body'>
       <div id = 'display_checklist_execution_results'>
-        <%= render partial: 'checklist_execution_results', locals: { task: @product_test.tasks.c1_manual_task } %>
+        <%= render partial: 'checklist_execution_results', locals: { task: @product_test.tasks.c1_checklist_task } %>
       </div>
       <div id = 'display_checklist_status' >
         <%= render partial: 'checklist_status_display', locals: { product: product, has_many_measures: has_many_measures } %>

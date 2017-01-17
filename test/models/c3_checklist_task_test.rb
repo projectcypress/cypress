@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class C3ManualTaskTest < ActiveSupport::TestCase
+class C3ChecklistTaskTest < ActiveSupport::TestCase
   include ::Validators
   include ActiveJob::TestHelper
 
@@ -16,7 +16,7 @@ class C3ManualTaskTest < ActiveSupport::TestCase
     checklist_test.save!
     checklist_test.create_checked_criteria
     simplify_criteria(checklist_test)
-    @task = checklist_test.tasks.create!({}, C3ManualTask)
+    @task = checklist_test.tasks.create!({}, C3ChecklistTask)
   end
 
   def test_validators_exist

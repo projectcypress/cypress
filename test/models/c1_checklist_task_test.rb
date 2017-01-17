@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class C1ManualTaskTest < ActiveSupport::TestCase
+class C1ChecklistTaskTest < ActiveSupport::TestCase
   include ::Validators
   include ActiveJob::TestHelper
 
@@ -18,16 +18,16 @@ class C1ManualTaskTest < ActiveSupport::TestCase
     @checklist_test.save!
     @checklist_test.create_checked_criteria
     simplify_criteria
-    C1ManualTask.new(product_test: @checklist_test).save!
+    C1ChecklistTask.new(product_test: @checklist_test).save!
   end
 
   def test_create
-    assert @checklist_test.tasks.create({}, C1ManualTask)
+    assert @checklist_test.tasks.create({}, C1ChecklistTask)
   end
 
   def test_task_good_results_should_pass
     task = @checklist_test.tasks[0]
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_correct_codes.zip'))
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip)
       te.reload
@@ -39,7 +39,7 @@ class C1ManualTaskTest < ActiveSupport::TestCase
 
   def test_task_bad_results_should_fail
     task = @checklist_test.tasks[0]
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_incorrect_codes.zip'))
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip)
       te.reload
@@ -48,10 +48,10 @@ class C1ManualTaskTest < ActiveSupport::TestCase
     end
   end
 
-  def test_execute_should_not_execute_a_sibling_execution_on_c3_manual_task_if_c3_not_selected
+  def test_execute_should_not_execute_a_sibling_execution_on_c3_checklist_task_if_c3_not_selected
     Task.destroy_all
-    task = @checklist_test.tasks.create!({}, C1ManualTask)
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_correct_codes.zip'))
+    task = @checklist_test.tasks.create!({}, C1ChecklistTask)
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
       execution = task.execute(zip)
       assert execution
@@ -61,7 +61,7 @@ class C1ManualTaskTest < ActiveSupport::TestCase
     end
   end
 
-  def test_execute_should_execute_a_sibling_execution_on_c3_manual_task_if_c3_selected
+  def test_execute_should_execute_a_sibling_execution_on_c3_checklist_task_if_c3_selected
     Task.destroy_all
 
     # select c3 on product
@@ -69,9 +69,9 @@ class C1ManualTaskTest < ActiveSupport::TestCase
     product.c3_test = true
     product.save!
 
-    task = @checklist_test.tasks.create!({}, C1ManualTask)
-    @checklist_test.tasks.create!({}, C3ManualTask)
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_correct_codes.zip'))
+    task = @checklist_test.tasks.create!({}, C1ChecklistTask)
+    @checklist_test.tasks.create!({}, C3ChecklistTask)
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
       execution = task.execute(zip)
       assert execution

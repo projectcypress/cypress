@@ -10,7 +10,7 @@
   <% cat3_task = @task.product_test.tasks.cat3_filter_task %>
 <% end %>
 <%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.product.c3_test) } %>
-<% unless @task.is_a?(C1ManualTask) || @task.is_a?(C3ManualTask) %>
+<% unless @task.is_a?(C1ChecklistTask) || @task.is_a?(C3ChecklistTask) %>
   <div class="panel clearfix">
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
       <i class="fa fa-fw fa-step-backward" aria-hidden="true"></i> Previous Test: <%= iterate_task(@task, 'prev').product_test.cms_id %>

@@ -47,12 +47,12 @@ module ApplicationHelper
   end
 
   def c1_status_row(hash, status, row_values)
-    row_values[0] = hash['C1']['Manual'][status] if hash['C1'].key?('Manual')
+    row_values[0] = hash['C1']['Checklist'][status] if hash['C1'].key?('Checklist')
     row_values[1] = hash['C1']['QRDA Category I'][status]
   end
 
   def c3_status_row(hash, status, row_values)
-    row_values[3] = hash['C3']['Manual'][status] if hash.key?('C1') && hash['C1'].key?('Manual') # C3 only has manual tests if C1
+    row_values[3] = hash['C3']['Checklist'][status] if hash.key?('C1') && hash['C1'].key?('Checklist') # C3 only has checklist tests if C1
     row_values[4] = hash['C3']['QRDA Category I'][status]
     row_values[5] = hash['C3']['QRDA Category III'][status]
   end

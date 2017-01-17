@@ -113,7 +113,7 @@ module Cypress
       checklist_tests.each do |pt|
         p = pt.product
         file = Cypress::CreateDownloadZip.create_c1_criteria_zip(p.product_tests.checklist_tests.first, criteria_list).read
-        add_file_to_zip(z, "checklisttest_#{p.name}_#{p.id}_c1_manual_criteria.zip".tr(' ', '_'), file)
+        add_file_to_zip(z, "checklisttest_#{p.name}_#{p.id}_c1_checklist_criteria.zip".tr(' ', '_'), file)
       end
     end
 

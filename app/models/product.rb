@@ -92,8 +92,8 @@ class Product
     if product_tests.checklist_tests.empty? && c1_test
       checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
       checklist_test.create_checked_criteria
-      checklist_test.tasks.create!({}, C1ManualTask)
-      checklist_test.tasks.create!({}, C3ManualTask) if c3_test
+      checklist_test.tasks.create!({}, C1ChecklistTask)
+      checklist_test.tasks.create!({}, C3ChecklistTask) if c3_test
     end
   end
 

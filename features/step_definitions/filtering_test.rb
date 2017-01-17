@@ -32,7 +32,7 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
   @f_test_2.pick_filter_criteria
 
   checklist_test = @product.product_tests.create!({ name: 'my checklist test', measure_ids: measure_ids }, ChecklistTest)
-  checklist_test.tasks.create!({}, C1ManualTask)
+  checklist_test.tasks.create!({}, C1ChecklistTask)
 end
 
 And(/^the user visits the product show page with the filter test tab selected$/) do
