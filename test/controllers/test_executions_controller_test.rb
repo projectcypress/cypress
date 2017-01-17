@@ -191,7 +191,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   # file_result
 
   test 'should be able to get file_result if valid execution id and file name' do
-    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
+    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ChecklistTask).each do |task_type|
       execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
         get :file_result, id: execution.id, file_name: route_file_name(file_name)
@@ -201,7 +201,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'other vendors should not be able to get file_result' do
-    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
+    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ChecklistTask).each do |task_type|
       execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([OTHER_VENDOR]) do
         get :file_result, id: execution.id, file_name: route_file_name(file_name)
@@ -211,7 +211,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should not be able to get file_result if invalid execution id' do
-    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
+    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ChecklistTask).each do |task_type|
       _execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
         bad_execution_id = "bad id #{rand}"
@@ -223,7 +223,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should not be able to get file_result if invalid file_name' do
-    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ManualTask).each do |task_type|
+    %w(C1Task C2Task Cat1FilterTask Cat3FilterTask C1ChecklistTask).each do |task_type|
       execution, _file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
         bad_file_name = "bad file name #{rand}"
@@ -243,8 +243,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     task = create_task_from_task_type(test, task_type)
     execution = task.test_executions.create!
     case task_type
-    when 'C1Task', 'Cat1FilterTask', 'C1ManualTask'
-      file_name = 'c1_manual_incorrect_codes.zip'
+    when 'C1Task', 'Cat1FilterTask', 'C1ChecklistTask'
+      file_name = 'c1_checklist_incorrect_codes.zip'
     when 'C2Task', 'Cat3FilterTask'
       file_name = 'cms111v3_catiii.xml'
     end
@@ -258,7 +258,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   # returns [c1, c2, c4]
   def c1_c2_c4_from_task_type(task_type)
     case task_type
-    when 'C1Task', 'C1ManualTask'
+    when 'C1Task', 'C1ChecklistTask'
       [true, false, false]
     when 'C2Task'
       [false, true, false]
@@ -277,8 +277,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
       test.tasks.create!({}, Cat1FilterTask)
     when 'Cat3FilterTask'
       test.tasks.create!({}, Cat3FilterTask)
-    when 'C1ManualTask'
-      test.tasks.create!({}, C1ManualTask)
+    when 'C1ChecklistTask'
+      test.tasks.create!({}, C1ChecklistTask)
     end
   end
 

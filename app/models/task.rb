@@ -15,7 +15,7 @@ class Task
   delegate :bundle, :to => :product_test
 
   %w(
-    C1Task C1ManualTask C3ManualTask C2Task C3Cat1Task
+    C1Task C1ChecklistTask C3ChecklistTask C2Task C3Cat1Task
     C3Cat3Task Cat1FilterTask Cat3FilterTask
   ).each do |task_type|
     # Define methods for fetching specific types of tasks,

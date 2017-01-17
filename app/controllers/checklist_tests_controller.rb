@@ -9,7 +9,7 @@ class ChecklistTestsController < ProductTestsController
     @product_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: @product.measure_ids }, ChecklistTest)
     @product_test.save!
     @product_test.create_checked_criteria
-    C1ManualTask.new(product_test: @product_test).save!
+    C1ChecklistTask.new(product_test: @product_test).save!
     redirect_to vendor_product_path(@product.vendor_id, @product, anchor: 'ChecklistTest')
   end
 
@@ -50,7 +50,8 @@ class ChecklistTestsController < ProductTestsController
   def print_criteria
     criteria_list = render_to_string layout: 'report'
     zip = Cypress::CreateDownloadZip.create_c1_criteria_zip(@product.product_tests.checklist_tests.first, criteria_list).read
-    send_data zip, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}_c1_manual_criteria.zip".tr(' ', '_')
+    filename = "#{@product.name}_#{@product.id}_c1_checklist_criteria.zip".tr(' ', '_')
+    send_data zip, type: 'application/zip', disposition: 'attachment', filename: filename
   end
 
   private

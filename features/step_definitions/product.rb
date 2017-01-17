@@ -311,7 +311,7 @@ def give_all_test_executions_state(product_test, execution_state)
   end
 end
 
-When(/^the user switches to the manual entry tab$/) do
+When(/^the user switches to the record sample tab$/) do
   page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'ChecklistTest')}\"]").click
 end
 

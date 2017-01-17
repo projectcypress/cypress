@@ -11,16 +11,16 @@ And(/^the user has created a vendor with a product selecting C1 testing with one
   @vendor = FactoryGirl.create(:vendor)
   @product = Product.new(vendor: @vendor, name: 'Product 1', c1_test: true, measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001')
   @product.product_tests.build({ name: 'test_for_measure_1a', measure_ids: measure_ids }, MeasureTest)
-  checklist_test = @product.product_tests.build({ name: 'manual entry test', measure_ids: measure_ids }, ChecklistTest)
+  checklist_test = @product.product_tests.build({ name: 'record sample test', measure_ids: measure_ids }, ChecklistTest)
   @product.save!
-  checklist_test.tasks.create!({}, C1ManualTask)
+  checklist_test.tasks.create!({}, C1ChecklistTask)
 end
 
 And(/^the user views that product$/) do
   visit vendor_product_path(@vendor, @product)
 end
 
-And(/^the user views the manual entry tab$/) do
+And(/^the user views the record sample tab$/) do
   html_id = html_id_for_tab(@product, 'ChecklistTest')
   page.find("[href='##{html_id}']").click
 end
@@ -30,7 +30,7 @@ end
 # # # # # # # #
 
 # certification types should be a comma separated list either: 'c1' or 'c1, c3'
-When(/^the user creates a product that certifies (.*) and visits the manual entry page$/) do |certification_types|
+When(/^the user creates a product that certifies (.*) and visits the record sample page$/) do |certification_types|
   measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
   certification_types = certification_types.split(', ')
   @product = @vendor.products.build(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001')
@@ -39,8 +39,8 @@ When(/^the user creates a product that certifies (.*) and visits the manual entr
   @product.save!
   test = @product.product_tests.create!({ name: "my checklist test #{rand}", measure_ids: measure_ids }, ChecklistTest)
   test.create_checked_criteria
-  test.tasks.create!({}, C1ManualTask) if @product.c1_test
-  test.tasks.create!({}, C3ManualTask) if @product.c3_test
+  test.tasks.create!({}, C1ChecklistTask) if @product.c1_test
+  test.tasks.create!({}, C3ChecklistTask) if @product.c3_test
   visit product_checklist_test_path(@product, test)
 end
 
@@ -56,7 +56,7 @@ And(/^the user deletes the checklist test$/) do
   page.click_button 'Remove'
 end
 
-When(/^the user fills out the manual entry with bad data$/) do
+When(/^the user fills out the record sample with bad data$/) do
   @product.product_tests.checklist_tests.first.checked_criteria.each_with_index do |_, i|
     page.fill_in "product_test[checked_criteria_attributes][#{i}][code]", with: "not correct code #{i} #{rand}"
   end
@@ -64,7 +64,7 @@ When(/^the user fills out the manual entry with bad data$/) do
 end
 
 # reduce number of checklist criteria and fill out those two criterias with valid information
-When(/^the user fills out the manual entry with good data$/) do
+When(/^the user fills out the record sample with good data$/) do
   @test = @product.product_tests.checklist_tests.first
   @test.state = :ready
   simplify_source_data_criteria(@test)
@@ -86,22 +86,22 @@ end
 
 # should create a test that includes codes for all checked criteria and produces no test execution errors
 When(/^the user uploads a Cat I file and waits for results$/) do
-  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/test_manual_entry_upload_mr_testy.zip'))
+  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/test_record_sample_upload_mr_testy.zip'))
   wait_for_all_delayed_jobs_to_run
 end
 
 # should create a test that does not include codes for all checked criteria and produces test execution errors
 When(/^the user uploads a bad Cat I file and waits for results$/) do
-  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_incorrect_codes.zip'))
+  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
   wait_for_all_delayed_jobs_to_run
 end
 
 # should create a test that includes codes for all checked criteria but produces test execution errors
 # input should be either 'c1' or 'c3'
 When(/^the user uploads a Cat I file that produces a qrda error on (.*) task's execution and waits for results$/) do |certification_type|
-  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/test_manual_entry_upload_mr_testy.zip'))
-  execution = @test.tasks.c1_manual_task.most_recent_execution if certification_type == 'c1'
-  execution = @test.tasks.c3_manual_task.most_recent_execution if certification_type == 'c3'
+  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/test_record_sample_upload_mr_testy.zip'))
+  execution = @test.tasks.c1_checklist_task.most_recent_execution if certification_type == 'c1'
+  execution = @test.tasks.c3_checklist_task.most_recent_execution if certification_type == 'c3'
   execution.execution_errors.create!(message: "my execution error #{rand}", msg_type: 'error')
   wait_for_all_delayed_jobs_to_run
 end
@@ -134,12 +134,12 @@ Then(/^the user should see a button to revisit the checklist test$/) do
 end
 
 Then(/^the user should be able to generate another checklist test$/) do
-  steps %( And the user views the manual entry tab )
+  steps %( And the user views the record sample tab )
   assert_equal false, page.has_selector?("input[type = submit][value = 'View Test']")
   assert page.has_selector?("input[type = submit][value = 'Start Test']")
 end
 
-Then(/^the user should see they are (.*) the manual entry test$/) do |status|
+Then(/^the user should see they are (.*) the checklist test$/) do |status|
   assert page.find('#display_checklist_status').assert_text status.capitalize
 end
 

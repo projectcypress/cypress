@@ -53,11 +53,11 @@ class ChecklistTestTest < ActiveJob::TestCase
     checklist_test.checked_criteria.each { |checked_criteria| complete_checked_criteria(checked_criteria) }
     assert_equal 'passing', checklist_test.status
 
-    # add a c1 manual task with test execution
+    # add a c1 checklist task with test execution
     product.c3_test = true
     product.save!
     assert_equal 'incomplete', checklist_test.status
-    task = checklist_test.tasks.create!({}, C1ManualTask)
+    task = checklist_test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', checklist_test.status
     task.test_executions.create!(:state => :pending)
     assert_equal 'incomplete', checklist_test.status
@@ -147,7 +147,7 @@ class ChecklistTestTest < ActiveJob::TestCase
 
   def test_build_execution_errors_for_incomplete_checked_criteria
     @test.create_checked_criteria
-    task = @test.tasks.create({}, C1ManualTask)
+    task = @test.tasks.create({}, C1ChecklistTask)
 
     execution = task.test_executions.build
     assert_equal 0, execution.execution_errors.count

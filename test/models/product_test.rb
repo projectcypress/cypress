@@ -164,26 +164,26 @@ class ProducTest < ActiveSupport::TestCase
     product.add_checklist_test
     assert_equal 0, product.product_tests.checklist_tests.count
 
-    # should create only a c1_manual_task if only c1 and not c3 is selected
+    # should create only a c1_checklist_task if only c1 and not c3 is selected
     product.c1_test = true
     product.save!
     product.add_checklist_test
     assert_equal 1, product.product_tests.checklist_tests.count
     assert_equal 1, product.product_tests.checklist_tests.first.tasks.count
-    assert_equal C1ManualTask, product.product_tests.checklist_tests.first.tasks.first.class
+    assert_equal C1ChecklistTask, product.product_tests.checklist_tests.first.tasks.first.class
 
     product.product_tests.checklist_tests.each(&:destroy)
     assert_equal 0, product.product_tests.checklist_tests.count
 
-    # should create c1_manual_task and c3_manual_task if both c1 and c3 are selected
+    # should create c1_checklist_task and c3_checklist_task if both c1 and c3 are selected
     product.c3_test = true
     product.save!
     product.add_checklist_test
     assert_equal 1, product.product_tests.checklist_tests.count
     assert_equal 2, product.product_tests.checklist_tests.first.tasks.count
 
-    manual_tasks = product.product_tests.checklist_tests.first.tasks
-    assert arrays_equivalent(manual_tasks.collect(&:class), [C1ManualTask, C3ManualTask])
+    checklist_tasks = product.product_tests.checklist_tests.first.tasks
+    assert arrays_equivalent(checklist_tasks.collect(&:class), [C1ChecklistTask, C3ChecklistTask])
   end
 
   def test_add_checklist_test_adds_correct_number_of_measures_for_checked_criteria
@@ -216,7 +216,7 @@ class ProducTest < ActiveSupport::TestCase
     product_test = product.product_tests.build({ name: 'my product test 1', measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'] }, MeasureTest)
     product_test.save!
 
-    # status should be incomplete if all product tests passing but no manual checklist test exists
+    # status should be incomplete if all product tests passing but no checklist test exists
     product_test.tasks.first.test_executions.create!(:state => :passed)
     assert_equal 'incomplete', product.status
 

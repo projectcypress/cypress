@@ -1,4 +1,4 @@
-class C3ManualTask < Task
+class C3ChecklistTask < Task
   # include Mongoid::Attributes::Dynamic
   include ::Validators
 

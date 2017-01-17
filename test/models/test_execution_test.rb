@@ -59,10 +59,10 @@ class TestExecutionTest < ActiveSupport::TestCase
     product = vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001', c1_test: true)
     test = product.product_tests.create!({ name: "my checklist test #{rand}", measure_ids: measure_ids }, ChecklistTest)
     test.create_checked_criteria
-    task = test.tasks.create!({}, C1ManualTask)
+    task = test.tasks.create!({}, C1ChecklistTask)
     execution = task.test_executions.build
 
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_manual_incorrect_codes.zip'))
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
     execution.artifact = Artifact.new(file: zip)
 
     execution.validate_artifact(task.validators, execution.artifact, task: task)

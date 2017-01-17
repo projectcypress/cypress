@@ -2,10 +2,11 @@ module Cypress
   module ProductStatusValues
     def c1_status_values(product)
       h = {}
-      h['Manual'] = Hash[%w(passing failing errored not_started total).zip(manual_status_vals(product.product_tests.checklist_tests.first, 'C1'))]
-      if h['Manual']['total'] == 0
+      statuses = %w(passing failing errored not_started total)
+      h['Checklist'] = Hash[statuses.zip(checklist_status_vals(product.product_tests.checklist_tests.first, 'C1'))]
+      if h['Checklist']['total'] == 0
         default_number = CAT1_CONFIG['number_of_checklist_measures']
-        h['Manual']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
+        h['Checklist']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
       end
       h['QRDA Category I'] = Hash[%w(passing failing errored not_started total).zip(product_test_statuses(product.product_tests.measure_tests,
                                                                                                           'C1Task'))]
@@ -21,10 +22,11 @@ module Cypress
 
     def c3_status_values(product)
       h = {}
-      h['Manual'] = Hash[%w(passing failing errored not_started total).zip(manual_status_vals(product.product_tests.checklist_tests.first, 'C3'))]
-      if h['Manual']['total'] == 0
+      statuses = %w(passing failing errored not_started total)
+      h['Checklist'] = Hash[statuses.zip(checklist_status_vals(product.product_tests.checklist_tests.first, 'C3'))]
+      if h['Checklist']['total'] == 0
         default_number = CAT1_CONFIG['number_of_checklist_measures']
-        h['Manual']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
+        h['Checklist']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
       end
       cat1_status_values = product_test_statuses(product.product_tests.measure_tests, 'C3Cat1Task')
       cat3_status_values = product_test_statuses(product.product_tests.measure_tests, 'C3Cat3Task')
@@ -41,18 +43,18 @@ module Cypress
     end
 
     # returns zero for all values if test is false
-    def manual_status_vals(test, cert_type)
+    def checklist_status_vals(test, cert_type)
       return [0, 0, 0, 0, 0] unless test
       passing = test.num_measures_complete
       total = test.measures.count
       not_started = test.num_measures_not_started
       failing = total - not_started - passing
-      [passing, failing, 0, not_started, total].zip(manual_status_vals_for_execution(test, cert_type)).map { |x, y| x + y } # sums elements of arrays
+      [passing, failing, 0, not_started, total].zip(checklist_status_vals_for_execution(test, cert_type)).map { |x, y| x + y } # sums elems of arrays
     end
 
     # returns the number of tasks with most recent test executions [passing, failing, errored, not_started, total]
-    def manual_status_vals_for_execution(test, cert_type)
-      task = (cert_type == 'C3') ? test.tasks.c3_manual_task : test.tasks.c1_manual_task
+    def checklist_status_vals_for_execution(test, cert_type)
+      task = (cert_type == 'C3') ? test.tasks.c3_checklist_task : test.tasks.c1_checklist_task
       return [0, 0, 0, 0, 0] unless task && task.most_recent_execution
       case task.most_recent_execution.status_with_sibling
       when 'passing' then [1, 0, 0, 0, 1]

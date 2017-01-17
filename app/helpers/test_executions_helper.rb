@@ -3,7 +3,7 @@ module TestExecutionsHelper
   include Cypress::ErrorCollector
 
   def displaying_cat1?(task)
-    task.is_a?(C1Task) || task.is_a?(Cat1FilterTask) || task.is_a?(C1ManualTask)
+    task.is_a?(C1Task) || task.is_a?(Cat1FilterTask) || task.is_a?(C1ChecklistTask)
   end
 
   def task_type_to_title(task_type, c3)
@@ -29,7 +29,7 @@ module TestExecutionsHelper
   # returns an array of booleans [c1, c2, c3, c4]. true if page is testing these certification types
   def current_certifications(task_type, c3_task)
     return [false, false, false, true] if task_type == 'Cat1FilterTask' || task_type == 'Cat3FilterTask'
-    [task_type == 'C1Task' || task_type == 'C1ManualTask', task_type == 'C2Task', c3_task, false]
+    [task_type == 'C1Task' || task_type == 'C1ChecklistTask', task_type == 'C2Task', c3_task, false]
   end
 
   # returns the number of each type of error
