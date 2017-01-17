@@ -5,6 +5,18 @@ GIT
     database_cleaner (1.5.3)
 
 GIT
+  remote: https://github.com/adacosta/mongoid_rails_migrations.git
+  revision: 0074dbf81bcd5eb35ad35ba14a36dc3a7bf7a34d
+  branch: master
+  specs:
+    mongoid_rails_migrations (1.1.0)
+      activesupport (>= 4.2.0)
+      bundler (>= 1.0.0)
+      mongoid (>= 4.0.0)
+      rails (>= 4.2.0)
+      railties (>= 4.2.0)
+
+GIT
   remote: https://github.com/bootstrap-ruby/rails-bootstrap-forms.git
   revision: e83b7d9a6588a83da241f12851ef126d49bf0d62
   branch: master
@@ -485,6 +497,7 @@ DEPENDENCIES
   mocha
   modernizr-rails (~> 2.7.1)
   mongoid (~> 5.0.0)
+  mongoid_rails_migrations!
   nested_form
   newrelic_rpm
   overcommit
@@ -511,4 +524,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.2
+   1.13.6
