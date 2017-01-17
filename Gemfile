@@ -77,6 +77,8 @@ gem 'rolify'
 gem 'devise_invitable'
 gem 'daemons'
 
+gem 'mongoid_rails_migrations', git: 'https://github.com/adacosta/mongoid_rails_migrations.git', branch: 'master'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
