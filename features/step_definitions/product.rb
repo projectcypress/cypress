@@ -75,12 +75,17 @@ end
 When(/^the user navigates to the create product page$/) do
   visit('/')
   page.click_link @vendor.name
+  # Wait until we are on the vendor show page before trying to click on Add Product.
+  # This fixes a race condition where the Add Product button click below would never fire, presumably due
+  # to the fact that it was trying to still click the Add Product button on the vendor index.
+  page.has_text?('Start EHR Certification with')
   page.click_button 'Add Product'
 end
 
 When(/^the user navigates to the create product page for vendor (.*)$/) do |vendor_name|
   visit('/')
   page.click_link vendor_name
+  page.has_text?('Start EHR Certification with')
   page.click_button 'Add Product'
 end
 
