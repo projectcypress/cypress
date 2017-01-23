@@ -91,7 +91,7 @@ group :development, :test do
   gem 'byebug'
   gem 'overcommit'
   gem 'cucumber-rails', require: false
-  gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
+  gem 'database_cleaner'
   gem 'poltergeist'
   gem 'scss_lint', require: false
   gem 'capybara'

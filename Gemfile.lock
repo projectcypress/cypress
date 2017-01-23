@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/DatabaseCleaner/database_cleaner.git
-  revision: f052d64d3be9351a98a99e932a59be528ccc561c
-  specs:
-    database_cleaner (1.5.3)
-
-GIT
   remote: https://github.com/adacosta/mongoid_rails_migrations.git
   revision: 0074dbf81bcd5eb35ad35ba14a36dc3a7bf7a34d
   branch: master
@@ -93,7 +87,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.4.0)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     ansi (1.5.0)
     arel (6.0.3)
     ast (2.3.0)
@@ -122,7 +117,7 @@ GEM
       thor (~> 0.18)
     byebug (9.0.5)
     cancancan (1.15.0)
-    capybara (2.7.1)
+    capybara (2.12.0)
       addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -173,6 +168,7 @@ GEM
       railties (>= 3, < 5)
     cucumber-wire (0.0.1)
     daemons (1.2.3)
+    database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     delayed_job (4.1.2)
       activesupport (>= 3.0, < 5.1)
@@ -304,10 +300,9 @@ GEM
       parallel
     parser (2.3.1.2)
       ast (~> 2.2)
-    poltergeist (1.9.0)
+    poltergeist (1.13.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
-      multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     protected_attributes (1.0.9)
@@ -318,7 +313,8 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
-    rack (1.6.4)
+    public_suffix (2.0.5)
+    rack (1.6.5)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7.1)
@@ -448,7 +444,7 @@ GEM
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     websocket (1.2.3)
-    websocket-driver (0.6.4)
+    websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     xpath (2.0.0)
@@ -475,7 +471,7 @@ DEPENDENCIES
   carrierwave-mongoid
   cucumber-rails
   daemons
-  database_cleaner!
+  database_cleaner
   devise (= 4.1.1)
   devise_invitable
   factory_girl_rails
@@ -524,4 +520,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
