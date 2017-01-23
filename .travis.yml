@@ -41,4 +41,4 @@ script:
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
   - travis_retry bundle exec rake test
-  - travis_retry bundle exec rake cucumber
+  - travis_retry bundle exec cucumber
