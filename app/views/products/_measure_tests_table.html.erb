@@ -11,15 +11,14 @@
 <% tasks = measure_test_tasks(@product, get_c1_tasks) %>
 <% return unless tasks.any? %>
 
-<% product = tasks.first.product_test.product %>
 <% first_results_col_label = tasks.first.is_a?(C1Task) ? 'C1 Results' : 'C2 Results' %>
-<% include_c3 = product.c3_test %>
+<% include_c3 = @product.c3_test %>
 
 <table class = 'table table-hover measure_tests_table'>
   <thead>
     <th scope = 'col' class = 'col-sm-1 no-wrap pointer-on-hover'>CMS ID</th>
     <th scope = 'col' class = 'col-sm-4 pointer-on-hover'>Measure Name</th>
-    <% if include_first_task(product, tasks.first._type) %>
+    <% if include_first_task(@product, tasks.first._type) %>
       <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'><%= first_results_col_label %></th>
     <% end %>
     <% if include_c3 %>
