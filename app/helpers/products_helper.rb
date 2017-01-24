@@ -214,10 +214,14 @@ module ProductsHelper
 
   # returns array of tasks (either all C1Tasks or all C2Tasks)
   def measure_test_tasks(product, get_c1_tasks = true)
+    # This function was previously sometimes returning results with a false value in front of them,
+    # and it would look something like [false, <Task...>], which was then causing problems because
+    # we call .first on the returned data. This was causing intermittent test failures, by rejecting
+    # blank values we avoid this problem.
     if get_c1_tasks
-      product.product_tests.measure_tests.collect { |test| test.tasks.c1_task }
+      product.product_tests.measure_tests.collect { |test| test.tasks.c1_task }.reject(&:blank?)
     else
-      product.product_tests.measure_tests.collect { |test| test.tasks.c2_task }
+      product.product_tests.measure_tests.collect { |test| test.tasks.c2_task }.reject(&:blank?)
     end
   end
 
